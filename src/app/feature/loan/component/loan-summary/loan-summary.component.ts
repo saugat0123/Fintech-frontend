@@ -248,19 +248,21 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.activatedRoute.queryParams.subscribe((res) => {
            this.customerLoanService.detail(res.customerId).subscribe(response => {
             const details = JSON.parse(response.detail.data);
-               if (!ObjectUtil.isEmpty(details.documents)) {
-                   details.documents.forEach(resData => {
-                       this.obtainableDocuments.push(resData);
-                   });
+               if (!ObjectUtil.isEmpty(details)) {
+                   if (!ObjectUtil.isEmpty(details.documents)) {
+                       details.documents.forEach(resData => {
+                           this.obtainableDocuments.push(resData);
+                       });
+                   }
+                   if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
+                       details.OtherDocuments.split(',').forEach(splitData => {
+                           if (splitData !== '') {
+                               this.otherObtainableDocuments.push(splitData);
+                           }
+                           console.log(this.otherObtainableDocuments);
+                       });
+                   }
                }
-               if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
-                details.OtherDocuments.split(',').forEach(splitData => {
-                    if (splitData !== '') {
-                        this.otherObtainableDocuments.push(splitData);
-                    }
-                    console.log(this.otherObtainableDocuments);
-                });
-            }
            });
 
         });
