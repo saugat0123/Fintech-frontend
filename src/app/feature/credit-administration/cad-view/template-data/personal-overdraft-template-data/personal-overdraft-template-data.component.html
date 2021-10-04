@@ -32,7 +32,8 @@
             </tr>
             <tr>
                 <td>Reference Number</td>
-                <td><input type="text" class="form-control" formControlName="referenceNumber"></td>
+                <td><input type="text" class="form-control" formControlName="referenceNumber"
+                           (input)="translateNumber('referenceNumber', 'referenceNumberTransVal')"></td>
                 <td class="abc">{{translatedValues?.referenceNumber}}</td>
                 <td>
                     <input type="text" class="form-control"
@@ -198,7 +199,8 @@
 
             <tr>
                 <td> Loan Commitment Fee (in Percentage)</td>
-                <td><input type="text" class="form-control" formControlName="loanCommitmentFee"></td>
+                <td><input type="text" class="form-control" formControlName="loanCommitmentFee"
+                           (input)="translateNumber('loanCommitmentFee', 'loanCommitmentFeeTransVal')"></td>
                 <td class="abc">{{translatedValues?.loanCommitmentFee}}</td>
                 <td>
                     <input type="text" class="form-control"
@@ -273,7 +275,8 @@
 
             <tr>
                 <td>Property Plot Number</td>
-                <td><input type="text" class="form-control" formControlName="propertyPlotNumber"></td>
+                <td><input type="text" class="form-control" formControlName="propertyPlotNumber"
+                           (input)="translateNumber('propertyPlotNumber', 'propertyPlotNumberTransVal')"></td>
                 <td class="abc">{{translatedValues?.propertyPlotNumber}}</td>
                 <td>
                     <input type="text" class="form-control"
@@ -288,7 +291,8 @@
 
             <tr>
                 <td>Sheet Number</td>
-                <td><input type="text" class="form-control" formControlName="sheetNumber"></td>
+                <td><input type="text" class="form-control" formControlName="sheetNumber"
+                           (input)="translateNumber('sheetNumber', 'sheetNumberTransVal')"></td>
                 <td class="abc">{{translatedValues?.sheetNumber}}</td>
                 <td>
                     <input type="text" class="form-control"
@@ -303,7 +307,8 @@
 
             <tr>
                 <td>Property Area</td>
-                <td><input type="text" class="form-control" formControlName="propertyArea"></td>
+                <td><input type="text" class="form-control" formControlName="propertyArea"
+                           (input)="translateNumber('propertyArea', 'propertyAreaTransVal')"></td>
                 <td class="abc">{{translatedValues?.propertyArea}}</td>
                 <td>
                         <input type="text" class="form-control"
@@ -363,7 +368,8 @@
 
             <tr *ngIf="selectedSecurityVal === 'LAND_AND_BUILDING'">
                 <td>Insurance Amount in Figure</td>
-                <td><input type="text" class="form-control" formControlName="insuranceAmountinFigure"></td>
+                <td><input type="text" class="form-control" formControlName="insuranceAmountinFigure"
+                           (input)="translateNumber('insuranceAmountinFigure', 'insuranceAmountinFigureTransVal')"></td>
                 <td class="abc">{{translatedValues?.insuranceAmountinFigure}}</td>
                 <td>
                     <input type="text" class="form-control"

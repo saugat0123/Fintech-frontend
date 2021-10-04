@@ -2,9 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from "../../../model/customerApprovedLoanCadDocumentation";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
-import {Province} from "../../../../admin/modal/province";
-import {District} from "../../../../admin/modal/district";
-import {MunicipalityVdc} from "../../../../admin/modal/municipality_VDC";
 import {CadDocStatus} from "../../../model/CadDocStatus";
 import {NbDialogRef, NbDialogService} from "@nebular/theme";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -19,6 +16,7 @@ import {Attributes} from "../../../../../@core/model/attributes";
 import {Alert, AlertType} from "../../../../../@theme/model/Alert";
 import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
 import {PersonalLoanComponent} from "../../../mega-offer-letter-template/mega-offer-letter/personal-loan/personal-loan.component";
+import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
 
 @Component({
   selector: 'app-personal-loan-template-data',
@@ -62,7 +60,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       private translateService: SbTranslateService,
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
-      private addressService: AddressService,
+      private engToNepaliNumberPipe: EngToNepaliNumberPipe,
   ) { }
 
   ngOnInit() {
@@ -219,17 +217,17 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.btnDisable = false;
   }
   private setTemplatedCTData(): void {
-    this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
+    // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
     this.form.get('loanPurposeTransVal').patchValue(this.translatedData.loanPurpose);
     this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
     this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
     this.form.get('yearlyFloatingInterestRateTransVal').patchValue(this.translatedData.yearlyFloatingInterestRate);
-    this.form.get('loanAdminFeeTransVal').patchValue(this.translatedData.loanAdminFee);
+    // this.form.get('loanAdminFeeTransVal').patchValue(this.translatedData.loanAdminFee);
     this.form.get('emiAmountTransVal').patchValue(this.translatedData.emiAmount);
     this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
-    this.form.get('accountNumberTransVal').patchValue(this.translatedData.accountNumber);
+    // this.form.get('accountNumberTransVal').patchValue(this.translatedData.accountNumber);
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
     this.form.get('managerNameTransVal').patchValue(this.translatedData.managerName);
     this.form.get('companyNameTransVal').patchValue(this.translatedData.companyName);
@@ -242,9 +240,15 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
   }
 
   getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value.toString());
+    this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.form.get(numLabel).value.toString()));
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
+    this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
+  }
+  translateNumber(source, target) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
+    this.form.get(target).patchValue(wordLabelVar);
   }
 
   checkboxVal(event, formControlName) {
@@ -292,6 +296,9 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.form.get('yearlyFloatingInterestRate').patchValue(sum);
+    this.translateNumber('baseRate', 'baseRateTransVal');
+    this.translateNumber('premiumRate', 'premiumRateTransVal');
+    this.translateNumber('yearlyFloatingInterestRate', 'yearlyFloatingInterestRateTransVal');
   }
 
 }

@@ -15,6 +15,7 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
 
 @Component({
   selector: 'app-personal-overdraft-template-data',
@@ -60,7 +61,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private translateService: SbTranslateService,
               private administrationService: CreditAdministrationService,
-              private toastService: ToastService,) { }
+              private toastService: ToastService,
+              private engToNepaliNumberPipe: EngToNepaliNumberPipe,) { }
 
   ngOnInit() {
     this.buildForm();
@@ -99,29 +101,29 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       renewalCheckedTransVal: [undefined],
-      referenceNumberTransVal: [undefined],
+      referenceNumberTransVal: [undefined, Validators.required],
       dateofApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
-      loanPurposeTransVal: [undefined],
-      baseRateTransVal: [undefined],
-      premiumRateTransVal: [undefined],
+      loanPurposeTransVal: [undefined, Validators.required],
+      baseRateTransVal: [undefined, Validators.required],
+      premiumRateTransVal: [undefined, Validators.required],
       yearlyInterestRateTransVal: [undefined],
-      loanadminFeeTransVal: [undefined],
+      loanadminFeeTransVal: [undefined, Validators.required],
       loanadminFeeWordsTransVal: [undefined],
-      loanCommitmentFeeTransVal: [undefined],
+      loanCommitmentFeeTransVal: [undefined, Validators.required],
       dateofExpiryTransVal: [undefined],
-      ownerNameTransVal: [undefined],
-      ownersAddressTransVal: [undefined],
-      propertyPlotNumberTransVal: [undefined],
-      sheetNumberTransVal: [undefined],
-      propertyAreaTransVal: [undefined],
+      ownerNameTransVal: [undefined, Validators.required],
+      ownersAddressTransVal: [undefined, Validators.required],
+      propertyPlotNumberTransVal: [undefined, Validators.required],
+      sheetNumberTransVal: [undefined, Validators.required],
+      propertyAreaTransVal: [undefined, Validators.required],
       // nameofGuarantorsTransVal: [undefined],
       /*guaranteedamountinFigureTransVal: [undefined],
       guaranteedamountinWordsTransVal: [undefined],*/
-      insuranceAmountinFigureTransVal: [undefined],
-      relationshipofficerNameTransVal: [undefined],
-      nameofBranchManagerTransVal: [undefined],
-      staffNameTransVal: [undefined],
+      insuranceAmountinFigureTransVal: [undefined, Validators.required],
+      relationshipofficerNameTransVal: [undefined, Validators.required],
+      nameofBranchManagerTransVal: [undefined, Validators.required],
+      staffNameTransVal: [undefined, Validators.required],
 
     });
   }submit() {
@@ -231,7 +233,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   }
   private setTemplatedCTData(data): void {
     console.log('Data Value:',data);
-    this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
+    // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('dateofApprovalTransVal').patchValue(this.translatedData.dateofApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
     this.form.get('loanPurposeTransVal').patchValue(this.translatedData.loanPurpose);
@@ -240,17 +242,17 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
     this.form.get('loanadminFeeTransVal').patchValue(this.translatedData.loanadminFee);
     this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
-    this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
+    // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
     this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
     this.form.get('ownerNameTransVal').patchValue(this.translatedData.ownerName);
     this.form.get('ownersAddressTransVal').patchValue(this.translatedData.ownersAddress);
-    this.form.get('propertyPlotNumberTransVal').patchValue(this.translatedData.propertyPlotNumber);
-    this.form.get('propertyAreaTransVal').patchValue(this.translatedData.propertyArea);
-    this.form.get('sheetNumberTransVal').patchValue(this.translatedData.sheetNumber);
+    // this.form.get('propertyPlotNumberTransVal').patchValue(this.translatedData.propertyPlotNumber);
+    // this.form.get('propertyAreaTransVal').patchValue(this.translatedData.propertyArea);
+    // this.form.get('sheetNumberTransVal').patchValue(this.translatedData.sheetNumber);
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
     this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
-    this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
+    // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
     this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
@@ -264,9 +266,16 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   }
 
   getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value.toString());
+    this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.form.get(numLabel).value.toString()));
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
+    this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
+  }
+  translateNumber(source, target) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
+    console.log(wordLabelVar);
+    this.form.get(target).patchValue(wordLabelVar);
   }
 
   checkboxVal(event, formControlName) {
@@ -331,6 +340,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.form.get('yearlyInterestRate').patchValue(sum);
+    this.translateNumber('baseRate', 'baseRateTransVal');
+    this.translateNumber('premiumRate', 'premiumRateTransVal');
+    this.translateNumber('yearlyInterestRate', 'yearlyInterestRateTransVal');
   }
   // deleteCTAndTransContorls from form controls
   deleteCTAndTransContorls(data) {
