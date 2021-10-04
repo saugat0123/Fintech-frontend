@@ -50,6 +50,7 @@ import {saveAs as importedSaveAs} from 'file-saver';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProposalService} from '../../../loan-update/service/proposal.service';
+import {MinimumAmountValidator} from '../../../../@core/validator/minimum-amount-validator';
 
 @Component({
     selector: 'app-loan-summary',
@@ -305,6 +306,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.isGeneral = this.loanConfig.loanTag === 'GENERAL';
         this.isShare = this.loanConfig.loanTag === 'SHARE_SECURITY';
         this.isVehicle = this.loanConfig.loanTag === 'VEHICLE';
+        this.minimumAmountLimit = this.loanConfig.minimumProposedAmount;
         if (!ObjectUtil.isEmpty(this.loanConfig.loanNature)) {
             this.loanNatureSelected = true;
             this.isRevolving = this.loanConfig.loanNature === 0;
@@ -527,7 +529,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         // getting fiscal years
         this.getFiscalYears();
-        this.disableUpdateProposal = !(this.loanDataHolder.currentStage.toUser.role.signApprovalSheet &&
+        // Disable Update proposal button
+        this.disableUpdateProposal = !(LocalStorageUtil.getStorage().roleType === 'APPROVAL' &&
             (this.loanDataHolder.currentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId));
     }
 

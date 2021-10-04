@@ -1440,7 +1440,7 @@
                     <!-- Proposed Limit -->
                     <div class="form-group">
                         <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>
-                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"
+                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors}"
                                class="form-control"
                                [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'"
                                id="proposedLimit" name="proposedLimit" placeholder="Proposed limit"
