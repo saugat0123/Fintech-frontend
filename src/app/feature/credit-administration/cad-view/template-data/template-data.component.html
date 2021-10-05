@@ -31,7 +31,7 @@
         <app-personal-overdraft-template-data [customerApprovedDoc]="cadData"></app-personal-overdraft-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT">
-        <app-personal-loan-and-personal-overdraft-template-data [cadData]="cadData"></app-personal-loan-and-personal-overdraft-template-data>
+        <app-personal-loan-and-personal-overdraft-template-data [cadData]="cadData" [customerApprovedDoc]="cadData"></app-personal-loan-and-personal-overdraft-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.AUTO_LOAN" [nbSpinner]="spinner">
         <app-sme-template-data></app-sme-template-data>
