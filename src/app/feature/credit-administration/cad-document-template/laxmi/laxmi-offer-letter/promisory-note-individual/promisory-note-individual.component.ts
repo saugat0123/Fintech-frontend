@@ -107,7 +107,6 @@ export class PromisoryNoteIndividualComponent implements OnInit {
       this.dialogRef.close();
       this.spinner = false;
     });
-    console.log(this.form.value);
   }
 
   addSakshi() {

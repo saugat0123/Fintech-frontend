@@ -33,9 +33,6 @@ export class LoanDeedIndividualComponent implements OnInit {
   form: FormGroup;
   cadCheckListEnum = CadCheckListTemplateEnum;
   ngOnInit() {
-    console.log('cad data', this.cadData);
-    console.log('cad data', this.documentId);
-    console.log('cad data', this.customerLoanId);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {

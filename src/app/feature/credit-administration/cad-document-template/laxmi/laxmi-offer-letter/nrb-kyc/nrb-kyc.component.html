@@ -1,0 +1,112 @@
+<div [nbSpinner]="spinner" class="row">
+    <div class="col-md-12 viewFull">
+        <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
+
+            <p class="text-center"><b>अनुसूची २.६</b></p>
+            बैंक तथा वित्तीय संस्थामा ऋणको लागि निवेदन दिंदा खुलाउनुपर्ने बिबरणको ढाँचा
+            <br>
+            मितिः ....................
+            <div>
+                <table class="table-responsive-md table table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th>ऋण लिएको अन्य बैंक/वित्तीय संस्थाको नाम
+                        </th>
+                        <th>
+                            बक्यौता रकम (मिति)
+                        </th>
+                        <th>म्याद नाघेको छ/छैन</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            १. बैंक/वित्तीय संस्था चालु
+                            <br>
+                            <div>
+                                <nb-radio-group name="first" formControlName="institutionChaluOne">
+                                    <nb-radio type="radio" id="ch"value="चालु पुँजी कर्जा" name="rfn' k'FhL shf{">चालु पुँजी कर्जा</nb-radio>
+                                    <br>
+                                    <nb-radio type ="radio" id="rb"  value="cfjlws shf{"name="आवधिक कर्जा">आवधिक कर्जा</nb-radio>
+                                    <br>
+                                    <nb-radio type="radio" id="rb1" value="cGo shf"name="अन्य कर्जा">अन्य कर्जा</nb-radio>
+                                    <br>
+                                    <nb-radio type="radio" id="rb2"  value="u}/sf]ifdf cfwfl/t ;'ljwf" name="गैरकोषमा आधारित सुविधा">गैरकोषमा आधारित सुविधा</nb-radio>
+                                </nb-radio-group>
+                            </div>
+                              </td>
+                        <td><input class="form-field nepaliFont form-control-sm" formControlName="amount"
+                                   type="text"></td>
+                        <td><input class="form-field nepaliFont form-control-sm" formControlName="yesNo"
+                                   type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            २. बैंक/वित्तीय संस्था चालु
+                            <br>
+                            <nb-radio-group name="second" formControlName="institutionChaluTwo">
+                                <nb-radio type="radio" value="चालु पुँजी कर्जा" name="rfn' k'FhL shf{">चालु पुँजी कर्जा</nb-radio>
+                                <br>
+                                <nb-radio type ="radio"   value="cfjlws shf{"name="आवधिक कर्जा">आवधिक कर्जा</nb-radio>
+                                <br>
+                                <nb-radio type="radio"  value="cGo shf"name="अन्य कर्जा">अन्य कर्जा</nb-radio>
+                                <br>
+                                <nb-radio type="radio"   value="u}/sf]ifdf cfwfl/t ;'ljwf" name="गैरकोषमा आधारित सुविधा">गैरकोषमा आधारित सुविधा</nb-radio>
+                            </nb-radio-group>
+                        </td>
+                        <td><input class="form-field nepaliFont form-control-sm" formControlName="amountTwo"
+                                   type="text"></td>
+                        <td><input class="form-field nepaliFont form-control-sm" formControlName="yesNoTwo"
+                                   type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            जम्मा
+                        </td>
+                        <td>
+                            <input class="form-field nepaliFont form-control-sm" formControlName="total"
+                                   type="text">
+                        </td>
+                        <td>
+                            <input class="form-field nepaliFont form-control-sm" formControlName="yesNoTotal"
+                                   type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            कुल जम्मा
+                        </td>
+                        <td>
+                            <input class="form-field nepaliFont form-control-sm" formControlName="finalTotal"
+                                   type="text">
+                        </td>
+                        <td>
+                            <input class="form-field nepaliFont form-control-sm" formControlName="yesNoFinalTotal"
+                                   type="text">
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                उपरोक्त बमोजिम म/हामीले घोषणा गरेको विवरण ठीक छ झुट्ठा ठहरे कानुन बमोजिम कारवाही भएमा मञ्जुरी छ भनी सही गर्नेः
+<br>
+                अधिकार प्राप्त अधिकारीको दस्तखतः ____________________________
+                <br>
+                व्यक्तिको नाम/फर्म, कम्पनी र संस्थाको नाम र छापः ________________________________
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{cadCheckListEnum.NRB_KYC}}"
+                ngxPrint>print
+        </button>
+    </div>
+</div>
+<app-nrb-kyc-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                hidden></app-nrb-kyc-print>
