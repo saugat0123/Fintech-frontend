@@ -55,6 +55,10 @@ spinner = false;
       institutionChaluTwo: [undefined],
       amountTwo: [undefined],
       yesNoTwo: [undefined],
+      total: [undefined],
+      finalTotal: [undefined],
+      yesNoTotal: [undefined],
+      yesNoFinalTotal: [undefined],
     });
   }
 submit() {
