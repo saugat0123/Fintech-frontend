@@ -1260,13 +1260,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       });
     } else {
       this.addressSameAsAbove = false;
-      this.userConfigForm.patchValue({
-        temporaryProvince: undefined,
-        temporaryDistrict: undefined,
-        temporaryMunicipality: undefined,
-        temporaryWard: undefined,
-        tempMunicipalitiesOrVdc: undefined
-      });
+      // this.userConfigForm.patchValue({
+      //   temporaryProvince: undefined,
+      //   temporaryDistrict: undefined,
+      //   temporaryMunicipality: undefined,
+      //   temporaryWard: undefined,
+      //   tempMunicipalitiesOrVdc: undefined
+      // });
     }
   }
 
@@ -1571,6 +1571,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
 
+      const issuedPlace = {
+        id: undefined,
+        name: undefined,
+        nepaliName: this.nepData.citizenshipIssueDistrict.ct
+      };
+
       this.userConfigForm.patchValue({
         branch: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.branch,
         gender: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.gender,
@@ -1588,12 +1594,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         temporaryMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities,
         permanentWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.wardNumber,
         temporaryWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber,
-        citizenshipIssueDistrict : ObjectUtil.isEmpty(this.nepData) ? undefined : this.nepData.citizenshipIssueDistrict.ct,
+        citizenshipIssueDistrict : ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipIssuedPlace,
 
       });
-      console.log('from user config:::',this.userConfigForm.value);
-      console.log('from api::::',this.oneFormCustomer.municipalities);
-      this.isEdited = true;
+
+      if (this.addressSameAsAbove) {
+        this.userConfigForm.patchValue({
+          temporaryProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.province,
+          temporaryDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.district,
+          temporaryMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalities,
+          temporaryMunicipalityOrVdc: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined :
+              JSON.parse(this.oneFormCustomer.individualJsonData).municipalityOrVdc
+        });
+      }
+
+      console.log(this.userConfigForm.value);
+
     }
   }
 
