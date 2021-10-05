@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {NabilDocumentChecklist} from '../../../../admin/modal/nabil-document-checklist.enum';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
@@ -14,6 +14,18 @@ import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {CustomerType} from '../../../../customer/model/customerType';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {District} from '../../../../admin/modal/district';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {EngNepDatePipe} from 'nepali-patro';
+import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {ProposalCalculationUtils} from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {AgeCalculation} from '../../../../../@core/age-calculation';
+import {DatePipe} from '@angular/common';
+import {CustomerSubType} from '../../../../customer/model/customerSubType';
+import {CustomerService} from '../../../../customer/service/customer.service';
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 
 @Component({
   selector: 'app-letter-of-set-off',
@@ -21,27 +33,43 @@ import {District} from '../../../../admin/modal/district';
   styleUrls: ['./letter-of-set-off.component.scss']
 })
 export class LetterOfSetOffComponent implements OnInit {
-  letterOfSetOff: FormGroup;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
   @Input() preview;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  nepData;
+  @Input() nepaliAmount: NepaliNumberAndWords;
   individualData;
   initialInfoPrint;
   offerLetterConst = NabilDocumentChecklist;
+  offerDocumentChecklist = NabilOfferLetterConst;
+  letterOfSetOff: FormGroup;
+  nepData;
+  clientType;
   customerType = CustomerType;
+  customerSubType = CustomerSubType;
+  jointInfoData;
+  selectiveArr = [];
+  offerLetterDocument;
+  educationalTemplateData;
+
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private routerUtilsService: RouterUtilsService) { }
+              private routerUtilsService: RouterUtilsService,
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private engToNepNumberPipe: EngToNepaliNumberPipe,
+              private currencyFormatPipe: CurrencyFormatterPipe,
+              private nepToEngNumberPipe: NepaliToEngNumberPipe,
+              public datePipe: DatePipe,
+              public engToNepaliDate: EngNepDatePipe,
+              private customerService: CustomerService) { }
 
-
-  ngOnInit() {
+  async ngOnInit() {
     this.buildForm();
     console.log('This is cad Approved doc ', this.cadData);
+    this.checkOfferLetterData();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
@@ -53,10 +81,29 @@ export class LetterOfSetOffComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.clientType = this.cadData.loanHolder['customerSubType'];
     }
-    console.log('INDIVIDUAL DATA =', this.individualData);
+    await this.getJointInfoData();
     this.fillform();
   }
+
+  // ngOnInit() {
+  //   this.buildForm();
+  //   if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+  //     this.cadData.cadFileList.forEach(individualCadFile => {
+  //       if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
+  //         const initialInfo = JSON.parse(individualCadFile.initialInformation);
+  //         this.initialInfoPrint = initialInfo;
+  //         this.letterOfSetOff.patchValue(initialInfo);
+  //       }
+  //     });
+  //   }
+  //   if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+  //     this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
+  //   }
+  //   console.log('INDIVIDUAL DATA =', this.individualData);
+  //   this.fillform();
+  // }
 
   buildForm() {
     this.letterOfSetOff = this.formBuilder.group({
@@ -93,11 +140,51 @@ export class LetterOfSetOffComponent implements OnInit {
       fixedDeposit: [undefined],
       purposeOfLoan: [undefined],
       numberOfPerson: [undefined],
+      sakshiDistrict: [undefined],
+      sakshiVdc: [undefined],
+      sakshiWardNo: [undefined],
+      sakshiAge: [undefined],
       nameOfWitness: [undefined],
       nameOfWitnessFromBank: [undefined],
     });
   }
-  fillform() {
+
+  fillform() { let totalLoan = 0;
+    this.cadData.assignedLoan.forEach(val => {
+      const proposedAmount = val.proposal.proposedLimit;
+      totalLoan = totalLoan + proposedAmount;
+    });
+    const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
+    const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
+    let citizenshipIssuedDate;
+    if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate.en.nDate)) {
+      citizenshipIssuedDate = this.individualData.citizenshipIssueDate.en.nDate;
+    } else {
+      const convertedDate = this.datePipe.transform(this.individualData.citizenshipIssueDate.en);
+      citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
+    }
+    let age;
+    if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
+      const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
+      // age = this.engToNepNumberPipe.transform(String(calAge));
+      age = this.ageCalculation(this.individualData.dob.en.eDate);
+    } else {
+      // const calAge = AgeCalculation.calculateAge(this.individualData.dob.en);
+      // age = this.engToNepNumberPipe.transform(String(calAge));
+      age = this.ageCalculation(this.individualData.dob.en);
+    }
+    let length = 1;
+    if (!ObjectUtil.isEmpty(this.jointInfoData)) {
+      length = this.jointInfoData.length;
+      this.jointInfoData.forEach(value => {
+        if (!ObjectUtil.isEmpty(value.nepData)) {
+          const nep = JSON.parse(value.nepData);
+          this.selectiveArr.push(nep);
+        }
+      });
+      this.setJointDetailsArr(this.selectiveArr);
+    }
+    this.checkOfferLetterData();
     this.letterOfSetOff.patchValue(
         {
           nameOfBranch: this.individualData.branch.ct ?
@@ -108,8 +195,7 @@ export class LetterOfSetOffComponent implements OnInit {
               this.individualData.fatherName.ct : '',
           identifyIssuedDistrictName: this.individualData.citizenshipIssueDistrict.ct ?
               this.individualData.citizenshipIssueDistrict.ct : '',
-          dateOfIssue: this.individualData.citizenshipIssueDate.np ?
-              this.individualData.citizenshipIssueDate.np : '',
+          dateOfIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
           citizenshipNo: this.individualData.citizenshipNo.ct ?
               this.individualData.citizenshipNo.ct : '',
           wardNo: this.individualData.permanentWard.ct ?
@@ -120,9 +206,31 @@ export class LetterOfSetOffComponent implements OnInit {
               this.individualData.permanentDistrict.ct : '',
           nameOfCustomer: this.individualData.name.ct ?
               this.individualData.name.ct : '',
+          age: age ? age : '',
+          numberOfPerson: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
+          loanAmountFigure: finalAmount,
+          loanAmountWord: loanAmountWord,
+          purposeOfLoan: this.educationalTemplateData.purposeOfLoan.ct ?
+              this.educationalTemplateData.purposeOfLoan.ct : this.educationalTemplateData.purposeOfLoan.np,
+          // sanctionLetterIssuedDate: this.educationalTemplateData.sanctionLetterIssuedDate.ct ?
+          //     this.educationalTemplateData.sanctionLetterIssuedDate.ct : this.educationalTemplateData.sanctionLetterIssuedDate.np,
+          // nameOfTd: this.educationalTemplateData.nameOfTd.ct ?
+          //     this.educationalTemplateData.nameOfTd.ct : this.educationalTemplateData.nameOfTd.np,
+          // fixedDeposit: this.educationalTemplateData.fixedDeposit.ct ?
+          //     this.educationalTemplateData.fixedDeposit.ct : this.educationalTemplateData.fixedDeposit.np
+
         }
     );
-    console.log('value', this.individualData.grandFatherName);
+  }
+
+  ageCalculation(startDate) {
+    startDate = this.datePipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
+    const stDate = new Date(startDate);
+    const endDate = new Date();
+    let diff = (endDate.getTime() - stDate.getTime()) / 1000;
+    diff = diff / (60 * 60 * 24);
+    const yr = Math.abs(Math.round(diff / 365.25));
+    return this.engToNepNumberPipe.transform(yr.toString());
   }
 
   submit() {
@@ -166,5 +274,87 @@ export class LetterOfSetOffComponent implements OnInit {
     });
     console.log(this.letterOfSetOff.value);
   }
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.letterOfSetOff.get(numLabel).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.letterOfSetOff.get(wordLabel).patchValue(returnVal);
+  }
 
+  buildJointDetailsArr() {
+    return this.formBuilder.group({
+      nameofGrandFatherJoint : [undefined],
+      nameofFatherJoint : [undefined],
+      districtJoint : [undefined],
+      vdcJoint : [undefined],
+      wardNoJoint : [undefined],
+      ageJoint : [undefined],
+      nameofPersonJoint : [undefined],
+      citizenshipNoJoint : [undefined],
+      dateofIssueJoint : [undefined],
+      nameofIssuedDistrictJoint : [undefined],
+    });
+  }
+
+  setJointDetailsArr(data) {
+    const formArray = (this.letterOfSetOff.get('jointDetailsArr') as FormArray);
+    if (ObjectUtil.isEmpty(data)) {
+      return;
+    }
+    data.forEach(value => {
+      // if (!ObjectUtil.isEmpty(value.nepData)) {
+      //
+      // }
+      const nepData = value;
+      let age;
+      if (!ObjectUtil.isEmpty(nepData.dob) && !ObjectUtil.isEmpty(nepData.dob.en.eDate)) {
+        const calAge = AgeCalculation.calculateAge(nepData.dob.en.eDate);
+        age = this.ageCalculation(nepData.dob.en.eDate);
+      } else {
+        age = this.ageCalculation(nepData.dob.en);
+      }
+      let citizenshipIssuedDate;
+      if (!ObjectUtil.isEmpty(nepData.citizenshipIssueDate.en.nDate)) {
+        citizenshipIssuedDate = nepData.citizenshipIssueDate.en.nDate;
+      } else {
+        const convertedDate = this.datePipe.transform(nepData.citizenshipIssueDate.en);
+        citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
+      }
+      formArray.push(this.formBuilder.group({
+        nameofGrandFatherJoint : [nepData.grandFatherName.ct || nepData.grandFatherName.np],
+        nameofFatherJoint : [nepData.fatherName.np || nepData.fatherName.ct],
+        districtJoint : [nepData.permanentDistrict.ct],
+        vdcJoint : [nepData.permanentMunicipality.ct],
+        wardNoJoint : [nepData.permanentWard.np || nepData.permanentWard.ct],
+        ageJoint : [age ? age : ''],
+        nameofPersonJoint : [nepData.name.np || nepData.name.ct],
+        citizenshipNoJoint : [nepData.citizenNumber.np || nepData.citizenNumber.ct],
+        dateofIssueJoint : [citizenshipIssuedDate ? citizenshipIssuedDate : ''],
+        nameofIssuedDistrictJoint : [nepData.citizenshipIssueDistrict.en.nepaliName],
+      }));
+    });
+  }
+
+  checkOfferLetterData() {
+    if (this.cadData.offerDocumentList.length > 0) {
+      this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
+          === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
+      if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+        this.educationalTemplateData = educationalOfferData;
+      }
+    }
+  }
+
+  async getJointInfoData() {
+    if (this.cadData.loanHolder.customerType === this.customerType.INDIVIDUAL
+        && this.clientType === this.customerSubType.JOINT.toUpperCase()) {
+      const associateId = this.cadData.loanHolder.associateId;
+      console.log(associateId);
+      await this.customerService.getJointInfoDetails(associateId).toPromise().then((res: any) => {
+        this.jointInfoData = JSON.parse(res.detail.jointInfo);
+      }, error => {
+        console.log(error);
+      });
+    }
+  }
 }
