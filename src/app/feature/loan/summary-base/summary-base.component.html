@@ -5,25 +5,23 @@
                     nbSpinnerSize="large"
                     nbSpinnerStatus="primary">
         <app-loan-action
-                *ngIf="loanDataHolder && loanSummaryActive"
-                [actionsList]="actionsList"
+                *ngIf="loanDataHolder"
                 [branchId]="loanDataHolder?.branch?.id"
                 [catalogueStatus]="catalogueStatus"
                 [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
-                [customerLoanHolder]="loanDataHolder"
                 [customerType]="loanDataHolder?.loanCategory"
-                [hasDeferredDocs]="hasMissingDeferredDocs"
                 [id]="customerId"
                 [loanCategory]="loanCategory"
                 [loanConfigId]="loanConfigId"
+                [isDetailedView]="false"
                 [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"
         ></app-loan-action>
 
-        <button *ngIf="loanDataHolder && approvalSheetActive"
-                [useExistingCss]="true" class="btn-sm btn-warning float-right"
-                ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
-            PRINT<i class="col-md-1 fa fa-print"></i>
-        </button>
+<!--        <button *ngIf="loanDataHolder && approvalSheetActive"-->
+<!--                [useExistingCss]="true" class="btn-sm btn-warning float-right"-->
+<!--                ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">-->
+<!--            PRINT<i class="col-md-1 fa fa-print"></i>-->
+<!--        </button>-->
 
     </nb-card-header>
     <nb-card-body>

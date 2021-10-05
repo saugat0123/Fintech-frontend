@@ -60,7 +60,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     summaryTypeName = SummaryType;
     loanType = LoanType;
     loaded = false;
-
+    docAction = DocAction;
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
