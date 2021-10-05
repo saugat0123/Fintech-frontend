@@ -56,39 +56,64 @@ export class IncomeFromAccountComponent implements OnInit {
   setIncomeFromAccount(currentData) {
     const controls = this.incomeFormGroup.get('incomeFromAccount') as FormArray;
     currentData.forEach(singleData => {
-      controls.push(
-          this.formBuilder.group({
-            interestDuringReview: [singleData.interestDuringReview, [Validators.required]],
-            interestAfterNextReview: [singleData.interestAfterNextReview, [Validators.required]],
-            commissionDuringReview: [singleData.commissionDuringReview],
-            commissionAfterNextReview: [singleData.commissionAfterNextReview],
-            otherChargesDuringReview: [singleData.otherChargesDuringReview],
-            otherChargesAfterNextReview: [singleData.otherChargesAfterNextReview],
-            incomeFromTheAccount: [singleData.incomeFromTheAccount, [Validators.required]],
-            totalIncomeAfterNextReview: [singleData.totalIncomeAfterNextReview, [Validators.required]],
-            totalIncomeDuringReview: [singleData.totalIncomeDuringReview, [Validators.required]],
-            accountNo: [singleData.accountNo],
-            newCustomerChecked: [singleData.newCustomerChecked],
-            loanProcessingDuringReview: singleData.loanProcessingDuringReview,
-            loanProcessingAfterNextReview: singleData.loanProcessingAfterNextReview,
-            lcCommissionDuringReview: singleData.lcCommissionDuringReview,
-            lcCommissionAfterNextReview: singleData.lcCommissionAfterNextReview,
-            guaranteeCommissionDuringReview: singleData.guaranteeCommissionDuringReview,
-              guaranteeCommissionAfterNextReview: singleData.guaranteeCommissionAfterNextReview,
-              accountTransactionForm: this.formBuilder.group({
-                  creditTransactionNumber: [singleData.accountTransactionForm.creditTransactionNumber,
-                      [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
-                  creditTransactionValue: [singleData.accountTransactionForm.creditTransactionValue ,
-                      [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
-                  debitTransactionNumber: [singleData.accountTransactionForm.debitTransactionNumber ,
-                      [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
-                  debitTransactionValue: [singleData.accountTransactionForm.debitTransactionValue ,
-                      [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
-                  repaymentTrackWithCurrentBank: [singleData.accountTransactionForm.repaymentTrackWithCurrentBank,
-                      !this.disabledLambda && !this.disabledAlpha ? Validators.required : undefined]
-              })
-          })
-      );
+        if ( singleData.accountTransactionForm === undefined) {
+            controls.push(
+                this.formBuilder.group({
+                    interestDuringReview: [singleData.interestDuringReview, [Validators.required]],
+                    interestAfterNextReview: [singleData.interestAfterNextReview, [Validators.required]],
+                    commissionDuringReview: [singleData.commissionDuringReview],
+                    commissionAfterNextReview: [singleData.commissionAfterNextReview],
+                    otherChargesDuringReview: [singleData.otherChargesDuringReview],
+                    otherChargesAfterNextReview: [singleData.otherChargesAfterNextReview],
+                    incomeFromTheAccount: [singleData.incomeFromTheAccount, [Validators.required]],
+                    totalIncomeAfterNextReview: [singleData.totalIncomeAfterNextReview, [Validators.required]],
+                    totalIncomeDuringReview: [singleData.totalIncomeDuringReview, [Validators.required]],
+                    accountNo: [singleData.accountNo],
+                    newCustomerChecked: [singleData.newCustomerChecked],
+                    loanProcessingDuringReview: singleData.loanProcessingDuringReview,
+                    loanProcessingAfterNextReview: singleData.loanProcessingAfterNextReview,
+                    lcCommissionDuringReview: singleData.lcCommissionDuringReview,
+                    lcCommissionAfterNextReview: singleData.lcCommissionAfterNextReview,
+                    guaranteeCommissionDuringReview: singleData.guaranteeCommissionDuringReview,
+                    guaranteeCommissionAfterNextReview: singleData.guaranteeCommissionAfterNextReview,
+                    accountTransactionForm: this.buildAccountTransactionForm()
+                })
+            );
+        } else {
+            controls.push(
+                this.formBuilder.group({
+                    interestDuringReview: [singleData.interestDuringReview, [Validators.required]],
+                    interestAfterNextReview: [singleData.interestAfterNextReview, [Validators.required]],
+                    commissionDuringReview: [singleData.commissionDuringReview],
+                    commissionAfterNextReview: [singleData.commissionAfterNextReview],
+                    otherChargesDuringReview: [singleData.otherChargesDuringReview],
+                    otherChargesAfterNextReview: [singleData.otherChargesAfterNextReview],
+                    incomeFromTheAccount: [singleData.incomeFromTheAccount, [Validators.required]],
+                    totalIncomeAfterNextReview: [singleData.totalIncomeAfterNextReview, [Validators.required]],
+                    totalIncomeDuringReview: [singleData.totalIncomeDuringReview, [Validators.required]],
+                    accountNo: [singleData.accountNo],
+                    newCustomerChecked: [singleData.newCustomerChecked],
+                    loanProcessingDuringReview: singleData.loanProcessingDuringReview,
+                    loanProcessingAfterNextReview: singleData.loanProcessingAfterNextReview,
+                    lcCommissionDuringReview: singleData.lcCommissionDuringReview,
+                    lcCommissionAfterNextReview: singleData.lcCommissionAfterNextReview,
+                    guaranteeCommissionDuringReview: singleData.guaranteeCommissionDuringReview,
+                    guaranteeCommissionAfterNextReview: singleData.guaranteeCommissionAfterNextReview,
+                    accountTransactionForm: this.formBuilder.group({
+                        creditTransactionNumber: [singleData.accountTransactionForm.creditTransactionNumber,
+                            [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                        creditTransactionValue: [singleData.accountTransactionForm.creditTransactionValue,
+                            [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                        debitTransactionNumber: [singleData.accountTransactionForm.debitTransactionNumber,
+                            [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                        debitTransactionValue: [singleData.accountTransactionForm.debitTransactionValue,
+                            [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                        repaymentTrackWithCurrentBank: [singleData.accountTransactionForm.repaymentTrackWithCurrentBank,
+                            !this.disabledLambda && !this.disabledAlpha ? Validators.required : undefined]
+                    })
+                })
+            );
+        }
     });
   }
 
