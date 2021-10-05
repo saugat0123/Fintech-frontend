@@ -235,7 +235,7 @@
                                      [customerInfo]="customerInfo" *ngIf="customerInfo"
             ></app-customer-group-loan>
           </nb-card-body>
-          <nb-card-footer>
+          <nb-card-footer *ngIf="false">
               <div class="row">
                 <div class="col" *ngIf=" !isRemarkEdited ">
                   <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
@@ -254,7 +254,7 @@
           </nb-card-footer>
         </nb-card>
 
-        <nb-card accent="primary" *ngIf="sbsGroupEnabled">
+        <nb-card accent="primary" *ngIf="sbsGroupEnabled && false">
           <nb-card-header>
             Customer Groups
             <!--<div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
@@ -287,7 +287,7 @@
           </nb-card-body>
 
         </nb-card>
-        <nb-card accent="primary" *ngIf="megaGroupEnabled">
+        <nb-card accent="primary" *ngIf="megaGroupEnabled && false">
           <nb-card-header>
             Customer Groups
           </nb-card-header>

@@ -39,6 +39,7 @@ export class PersonalLoanComponent implements OnInit {
   loanHolderInfo;
   tempData;
   afterSave = false;
+  offerLetterData;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -80,9 +81,8 @@ export class PersonalLoanComponent implements OnInit {
       companyName: [undefined],
       branchName: [undefined],
       accountNumber: [undefined],
-      freeText: [undefined],
+      additionalGuarantorDetails: [undefined],
       relationshipOfficer: [undefined],
-      unitName : [undefined],
       managerName: [undefined],
       signatureDate : [undefined],
       sakshiDistrict: [undefined],
@@ -107,6 +107,10 @@ export class PersonalLoanComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
+          this.offerLetterData = this.offerLetterDocument;
+          this.personalLoan.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
+        }
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
@@ -134,7 +138,7 @@ export class PersonalLoanComponent implements OnInit {
       loanAmount: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
-      branchName: this.tempData.branch.ct ? this.tempData.branch.ct : '',
+      branchName: this.tempData.branch ? this.tempData.branch : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
       refNumber: this.tempData.refNumber.ct ? this.tempData.refNumber.ct : '',
@@ -147,13 +151,12 @@ export class PersonalLoanComponent implements OnInit {
       accountNumber: this.tempData.accountNumber.ct ? this.tempData.accountNumber.ct : '',
       // freeText: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
       relationshipOfficer: this.tempData.relationshipOfficer.ct ? this.tempData.relationshipOfficer.ct : '',
-      unitName : this.tempData.branchName.ct ? this.tempData.branchName.ct : '',
       managerName: this.tempData.managerName.ct ? this.tempData.managerName.ct : '',
-      // signatureDate : this.tempData.signatureDate.ct ? this.tempData.signatureDate.ct : '',
-      sakshiDistrict: this.tempData.sakshiDistrict.ct ? this.tempData.sakshiDistrict.ct : '',
+      signatureDate : this.tempData.signatureDate.ct ? this.tempData.signatureDate.ct : '',
+      /*sakshiDistrict: this.tempData.sakshiDistrict.ct ? this.tempData.sakshiDistrict.ct : '',
       sakshiMunicipality: this.tempData.sakshiMunicipality.ct ? this.tempData.sakshiMunicipality.ct : '',
       sakshiWardNum: this.tempData.sakshiWardNum.ct ? this.tempData.sakshiWardNum.ct : '',
-      sakshiName: this.tempData.sakshiName.ct ? this.tempData.sakshiName.ct : '',
+      sakshiName: this.tempData.sakshiName.ct ? this.tempData.sakshiName.ct : '',*/
       employeeName : this.tempData.employeeName.ct ? this.tempData.employeeName.ct : '',
     });
     // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
@@ -187,19 +190,20 @@ export class PersonalLoanComponent implements OnInit {
   }
   submit(): void {
     this.spinner = true;
-    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+    this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN)
             .toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.personalLoan.value);
+          offerLetterPath.supportedInformation = this.personalLoan.get('additionalGuarantorDetails').value;
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN);
       offerDocument.initialInformation = JSON.stringify(this.personalLoan.value);
+      offerDocument.supportedInformation = this.personalLoan.get('additionalGuarantorDetails').value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 

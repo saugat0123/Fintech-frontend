@@ -1,4 +1,4 @@
-<div class="container nep text-justify" id="">
+<div class="container nep text-justify" id="{{offerLetterConst.LOAN_DEED_PARTNERSHIP}}Print">
     <form [formGroup]="form" class="nep" id="loandeedCompany">
         <div class="container nep text-justify">
             <div class="row">
@@ -343,13 +343,19 @@
 
                         </div>
                         <br/>
+<!--                        <div class="row mt-5 ml-0">-->
+<!--                            <div class="col-md-12 text-right">-->
+<!--                                <button [useExistingCss]="true" class="d-print-none" printSectionId="{{offerLetterConst.LOAN_DEED_PARTNERSHIP}}"-->
+<!--                                        nbButton size="small" status="info" outline ngxPrint>Print &nbsp;&nbsp;-->
+<!--                                    <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>-->
+<!--                                </button>-->
                         <div class="col-md-12 text-right">
                             <button nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint"
                                     [useExistingCss]="true"
-                                    ngxPrint printSectionId="{{offerLetterConst.LOAN_DEED_COMPANY}}Print">
+                                    ngxPrint printSectionId="{{offerLetterConst.LOAN_DEED_PARTNERSHIP}}Print">
+                                <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>
                                 Print
                             </button>
-                            <button nbButton status="success" (click)="submit()">Save</button>
                         </div>
 
                     </div>
@@ -359,8 +365,8 @@
 
     </form>
 </div>
-<app-loan-deed-company-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint"
-                             hidden></app-loan-deed-company-print>
+<app-loan-deed-partnership-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint"
+                             hidden></app-loan-deed-partnership-print>
 
 
 

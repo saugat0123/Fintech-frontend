@@ -1,7 +1,7 @@
 <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
 <div class="row">
     <div class="col-md-12">
-        <nb-card>
+        <nb-card *ngIf="false">
             <nb-card-header>Initial, Pending, Closed</nb-card-header>
             <nb-card-body>
                 <table *ngIf="!spinner"
@@ -15,9 +15,9 @@
                         <th>Type</th>
                         <th>Status</th>
                         <th>Created On</th>
-                        <th>Collateral Req %</th>
-                        <th>Required Collateral</th>
-                        <th>Action</th>
+                        <th *ngIf="false">Collateral Req %</th>
+                        <th *ngIf="false">Required Collateral</th>
+                        <th *ngIf="false">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -70,7 +70,6 @@
                                       class="fa fa-trash"></em></a>&nbsp;
                                   <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(single?.id)"  *ngIf="single?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
                                       class="fa fa-trash"></em></a>&nbsp;
-
                                 </td>
                             </tr>
                         </ng-container>
@@ -100,8 +99,8 @@
                         <th>Approved Limit</th>
                         <th>Type</th>
                         <th>Created On</th>
-                        <th>Collateral Req%</th>
-                        <th>Required Collateral</th>
+                        <th *ngIf="false">Collateral Req%</th>
+                        <th *ngIf="false">Required Collateral</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -118,8 +117,8 @@
                             || 0}}</td>
                             <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                             <td>{{model?.createdAt | date}}</td>
-                            <td>{{model?.collateralRequirement}}</td>
-                            <td class="text-right pr-1">
+                            <td *ngIf="false">{{model?.collateralRequirement}}</td>
+                            <td *ngIf="false" class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                         </tr>
                         <ng-container>
@@ -133,8 +132,8 @@
                                 <td>{{loanType[single?.loanType]}}</td>
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
-                                <td>{{single?.collateralRequirement}}</td>
-                                <td class="text-right pr-1">
+                                <td *ngIf="false">{{single?.collateralRequirement}}</td>
+                                <td *ngIf="false" class="text-right pr-1">
                                     Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                             </tr>
                         </ng-container>
@@ -152,8 +151,8 @@
                             || 0}}</td>
                             <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                             <td>{{model?.createdAt | date}}</td>
-                            <td>{{model?.collateralRequirement}}</td>
-                            <td class="text-right pr-1">
+                            <td *ngIf="false">{{model?.collateralRequirement}}</td>
+                            <td *ngIf="false" class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                         </tr>
                         <ng-container>
@@ -167,8 +166,8 @@
                                 <td>{{loanType[single?.loanType]}}</td>
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
-                                <td>{{single?.collateralRequirement}}</td>
-                                <td class="text-right pr-1">
+                                <td *ngIf="false">{{single?.collateralRequirement}}</td>
+                                <td *ngIf="false" class="text-right pr-1">
                                     Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                             </tr>
                         </ng-container>
@@ -178,14 +177,14 @@
                         <td>Total</td>
                         <td class="text-right pr-2">
                             Rs. {{collateralDtoData?.totalApprovedLimit |currencyFormatter}}</td>
-                        <td colspan="3"></td>
-                        <td class="text-right pr-1">
+                        <td colspan="2"></td>
+                        <td *ngIf="false" class="text-right pr-1">
                             Rs. {{collateralDtoData?.totalApprovedRequiredCollateral |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
             </nb-card-body>
-            <nb-card-footer>
+            <nb-card-footer *ngIf="false">
                 <div>
                     <mark class="alert-warning">Total Required Collateral:</mark>
                     <strong>Rs.{{collateralDtoData.totalRequiredCollateral| currencyFormatter}}</strong>

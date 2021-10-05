@@ -13,6 +13,7 @@ import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {CustomerType} from '../../../../customer/model/customerType';
 import {CadDocStatus} from '../../../model/CadDocStatus';
+import {District} from '../../../../admin/modal/district';
 
 @Component({
   selector: 'app-letter-of-set-off',
@@ -41,7 +42,6 @@ export class LetterOfSetOffComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     console.log('This is cad Approved doc ', this.cadData);
-    console.log('This is cad Approved doc ', this.customerType.INDIVIDUAL);
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
@@ -54,55 +54,91 @@ export class LetterOfSetOffComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    console.log('INDIVIDUAL DATA =', this.individualData);
+    this.fillform();
   }
 
   buildForm() {
     this.letterOfSetOff = this.formBuilder.group({
-      Date: [undefined],
-      GrandFatherName: [undefined],
-      FatherName: [undefined],
-      District: [undefined],
-      VDC: [undefined],
-      WardNo: [undefined],
       date: [undefined],
-      loanamountinFigure: [undefined],
-      loanamountinWords: [undefined],
-      nameofGrandFather: [undefined],
-      nameofFather: [undefined],
-      Age: [undefined],
-      NameofPerson: [undefined],
-      CitizenshipNo: [undefined],
-      dateofIssue: [undefined],
-      issueDate: [undefined],
-      nameofIssuedDistrict: [undefined],
-      Number: [undefined],
-      Interest: [undefined],
-      nameofBranchLocated: [undefined],
-      signature: [undefined],
-      nameofWitness: [undefined],
-      witnessDistrict1: [undefined],
-      witnessMunicipalityOrVdc1: [undefined],
-      witnessWardNo1: [undefined],
-      witnessAge1: [undefined],
-      witnessName1: [undefined],
-      CustomerName: [undefined],
-      NameofWitness: [undefined],
+      grandFatherName: [undefined],
+      fatherName: [undefined],
+      district: [undefined],
+      vdc: [undefined],
+      wardNo: [undefined],
+      age: [undefined],
+      daughterName: [undefined],
+      nameOfCustomer: [undefined],
+      citizenshipNo: [undefined],
+      dateOfIssue: [undefined],
+      identifyIssuedDistrictName: [undefined],
+      actDetails: [undefined],
+      actYearFigure: [undefined],
+      nameOfDepartment: [undefined],
+      dateOfRegistration: [undefined],
+      registrationNo: [undefined],
+      nameOfUnit:  [undefined],
+      grandDaughterName: [undefined],
+      nameOfWife: [undefined],
+      grandSonName: [undefined],
+      sonName: [undefined],
+      nameOfSon: [undefined],
+      nameOfBorrower: [undefined],
+      nameOfBranch: [undefined],
+      sanctionLetterIssuedDate: [undefined],
+      loanAmountFigure: [undefined],
+      loanAmountWord: [undefined],
+      accountNo: [undefined],
+      nameOfTd: [undefined],
+      fixedDeposit: [undefined],
+      purposeOfLoan: [undefined],
+      numberOfPerson: [undefined],
+      nameOfWitness: [undefined],
+      nameOfWitnessFromBank: [undefined],
     });
+  }
+  fillform() {
+    this.letterOfSetOff.patchValue(
+        {
+          nameOfBranch: this.individualData.branch.ct ?
+              this.individualData.branch.ct : '',
+          grandFatherName: this.individualData.grandFatherName.ct ?
+              this.individualData.grandFatherName.ct : '',
+          fatherName: this.individualData.fatherName.ct ?
+              this.individualData.fatherName.ct : '',
+          identifyIssuedDistrictName: this.individualData.citizenshipIssueDistrict.ct ?
+              this.individualData.citizenshipIssueDistrict.ct : '',
+          dateOfIssue: this.individualData.citizenshipIssueDate.np ?
+              this.individualData.citizenshipIssueDate.np : '',
+          citizenshipNo: this.individualData.citizenshipNo.ct ?
+              this.individualData.citizenshipNo.ct : '',
+          wardNo: this.individualData.permanentWard.ct ?
+              this.individualData.permanentWard.ct : '',
+          vdc: this.individualData.permanentMunicipality.ct ?
+              this.individualData.permanentMunicipality.ct : '',
+          district: this.individualData.permanentDistrict.ct ?
+              this.individualData.permanentDistrict.ct : '',
+          nameOfCustomer: this.individualData.name.ct ?
+              this.individualData.name.ct : '',
+        }
+    );
+    console.log('value', this.individualData.grandFatherName);
   }
 
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+      this.cadData.cadFileList.forEach(individualCadFile => {
+        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+          individualCadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
         cadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+        this.initialInfoPrint = cadFile.initialInformation;
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -112,6 +148,7 @@ export class LetterOfSetOffComponent implements OnInit {
       const cadFile = new CadFile();
       const document = new Document();
       cadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+      this.initialInfoPrint = cadFile.initialInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -119,12 +156,12 @@ export class LetterOfSetOffComponent implements OnInit {
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
     console.log(this.letterOfSetOff.value);

@@ -1,0 +1,429 @@
+<div class="container nep text-justify">
+  <form [formGroup]="loanDeedIndividual" id="print-section">
+    <div class="row"
+      *ngFor="let loandeed of loanDeedIndividual.get('loanDeedIndividuals')['controls'];
+        let i = index" formArrayName="loanDeedIndividuals">
+      <div class="col-md-12" [formGroupName]="i">
+        <p class="text-center" style="font-size: 16pt">
+          <b>विषयः ऋण तमसुक </b>
+        </p>
+        <p>
+          लिखितम धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका कमलादि स्थित
+          नविल हाउसमा मुख्य कार्यालय रहिएको
+          <input
+            class="form-field form-control-sm d-print-none"
+            formControlName="branchName"
+            placeholder=""
+            type="text"
+          />
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'branchName']).value}}</strong></span>
+          शाखा कार्यालयमा रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त धनी बैंक
+          भनिएको छ) लिखत गरी दिने ऋणीको नाम
+          <input
+            class="form-field form-control-sm d-print-none"
+            formControlName="grandFatherName"
+            placeholder=""
+            type="text"
+          />
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'grandFatherName']).value}}</strong></span>
+          को नाति/नातिनी/बुहारी
+          <input class="form-field form-control-sm d-print-none"
+            name="father_husbandName"
+            formControlName="father_husbandName" placeholder="" type="text"/>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'father_husbandName']).value}}</strong></span>
+          को छोरा/छोरी/श्रीमती
+          <input
+            class="form-field form-control-sm d-print-none"
+            formControlName="district"
+            placeholder=""
+            type="text"
+          />
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'district']).value}}</strong></span>
+          जिल्ला
+          <input
+            class="form-field form-control-sm d-print-none"
+            formControlName="municipality"
+            placeholder=""
+            type="text"
+          />
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'municipality']).value}}</strong></span>
+          न.पा./गा.वि.स. वडा नंं.
+          <input
+            class="form-field form-control-sm d-print-none"
+            formControlName="wardNo"
+            placeholder=""
+            type="text"
+          /><span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'wardNo']).value}}</strong></span>
+          बस्ने बर्ष
+          <input
+            class="form-field form-control-sm d-print-none"
+            formControlName="age"
+            placeholder=""
+            type="text"
+          />
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'age']).value}}</strong></span>
+          को
+          <input
+            class="form-field form-control-sm d-print-none"
+            formControlName="borrowerName"
+            placeholder=""
+            type="text"
+          />
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'borrowerName']).value}}</strong></span>
+          (जसलाई यसपछि ऋणी भनिएको छ) आगे म ऋणीले यस अघि देखि नै तपाईं धनी
+          बैंकसंग ऋणकर्जा सुविधा प्राप्त गरी उपभोग गर्दै आएको ठीक साञचो हो । हाल
+          म ऋणीलाई उक्त ऋणकर्जा सुविधा को अलावा थप ऋणकर्जा सुविधा आवश्यक भई सोको
+          लागि तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाई धनी बैंकले म ऋणीको नाउंमा
+          जारी गरेको मिति
+          <input
+            class="form-field form-control-sm d-print-none"
+            formControlName="issueDate"
+            placeholder=""
+            type="text"
+          />
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'issueDate']).value}}</strong></span>
+          को समेतको ऋण स्वीकृति पत्रानुसार स्वीकृत निम्नानुसारका ऋणकर्जा तथा
+          बैंकिग सुविधाहरु सोही ऋण स्वीकृति पत्रमा उल्लेखित तरिका बमोजिम प्राप्त
+          गर्ने गरी यो ऋणकर्जाको तमसुक गरिदिएको ठिक सांचो हो। तपाई धनी बैंकबाट
+          प्राप्त ऋणकर्जा तथा बैंकिग सुविधाहरुमा लाग्ने ब्याज, कमिशन, शुल्क आदि
+          स्वीकृत ऋणकर्जा तथा बैंकिग सुविधाहरु तल उल्लेखित खण्डखण्डमा उल्लेख
+          भएको दर अनुसार तिरी बुझाई सोही खण्डमा लेखिएको मिति भित्रमा वा स्वीकृत
+          ऋणकर्जा तथा बैंकिग सुविधा नविकरण भएमा नविकरण भएको बखत तपाई धनी बैंकले
+          म ऋणीका नाममा जारी गर्ने ऋण स्वीकृति पत्रमा तोकिएको मिति भित्रमा म ऋणी
+          आफै तपाई धनी बैंकमा उपस्थित भै सोधखोज गरी धनी बैंकलाई तिर्नु बुझाउनु
+          पर्ने ऋणकर्जाको सम्पूर्ण ब्याज चुक्ता भूक्तान गर्नेछु। म ऋणीको नाममा
+          स्वीकृत बैंकिग सुविधा (एल.सी., ग्यारेण्टी, बण्ड आदि) उपभोग गर्दा तपाई
+          धनी बैंक उपर कुनै थप दायित्व तपाई धनी बैंकले माग गर्नासाथ तिर्ने
+          बुझाउने छु। स्वीकृत ऋणकर्जा तथा बैंकिग सुविधा तथा भविष्यमा तपाई धनी
+          बैंकले उपलब्ध गराउने थप ऋणकर्जा तथा सुविधाहरु समेतको सुरक्षण वापत म
+          ऋणीको निजी श्रोतबाट खरिद गरेको, श्रृजना भएको र तपाई धनी बैंकबाट
+          प्राप्त ऋणकर्जाबाट खरिद वा आयात गरेको, श्रृजना गरेको लगायत म ऋणीको
+          नाममा रहे भएको सम्पूर्ण चल अचल श्रीसम्पत्तिहरु तथा भविष्यमा म ऋणीको
+          नाममा कायम हुने श्रीसम्पत्ति तथा म ऋणीले भुक्तानी प्राप्त गर्न बांकि
+          रकमहरु (Account Receivables) समेत यसै लिखतबाट तपाई धनी बैंकको नाममा
+          धितोबन्धक लेखिदिएकोछु। सोको अलावा तपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति
+          समेत छुटृै लिखतबाट तपाई धनी बैंकको नाममा धितोबन्धकको लिखत लेखिदिई
+          सकेको छु। प्राप्त ऋणकर्जाको तपाई धनी बैंकलाई तिर्नु पर्ने सांवा,
+          व्याज, कमिशन, शुल्क आदि यसै लिखत तथा उल्लेखित ऋण स्वीकृति पत्रानुसार
+          तोकिएको तरिका बमोजिम नतिरे नबुझाएमा वा तिर्नु बुझाउन आलटाल गरेमा वा
+          किस्ता खिलाफी गरेमा वा ऋण स्वीकृति पत्र तथा यसै लिखतको कुनै शर्त
+          उल्लंघन गरेमा समेत म ऋणीको नाममा तपाई धनी बैंकमा खोलेको निक्षेप खातामा
+          जम्मा रहेको रकमबाट कटृा गरी तथा धितो लेखिदिएको सम्पत्ति बैंक तथा
+          वित्तिय संस्था सम्बन्धी ऐन २०७३ बमोजिम तथा तपाई धनी बैंकको नियमानुशार
+          लिलाम विक्री तथा अन्य व्यवस्था गरी तपाई धनी बैंकको सम्पूर्ण लेना असुल
+          उपर गरिदिनु होला। कथमकदाचित धितो लेखिएको श्रीसम्पत्ति कच्चा नकरा ठहरी
+          लिलाम बिक्री हुन नसकेमा वा लिलाम विक्री हुंदा समेत तपाई धनी बैंकको
+          सम्पूर्ण लेना रकम असुल उपर नभएमा मेरो घरघरानाको श्रीसम्पत्तिबाट असुल
+          उपर गरी लिनु होला भनी किनाराको साक्षीहरुको रोहवरमा तपाई धनी बैंकको
+          कार्यालयमा बसी यो लिखतमा सहिछाप गरी तपाई धनी बैंकलाई दिएं र यसको दोहरी
+          समेत बुझिलिएं।
+        </p>
+
+        <p class="text-center"><b>स्विकृत ऋणकर्जाको विवरण</b></p>
+        <table border="1" width="100%">
+          <thead>
+            <tr>
+              <th class="px-2">ऋणकर्जा वा बैंकिङ्ग सुविधा</th>
+              <th class="px-2">रकम</th>
+              <th class="px-2">ब्याज र कमिसन</th>
+              <th class="px-2">अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let loan of cadData?.assignedLoan">
+              <td class="px-2">
+                <p>{{ loan?.loan?.nepaliName || loan?.loan?.name }}</p>
+              </td>
+              <td class="px-2">
+                <p>{{ convertNepaliNumberAmount(loan?.proposal?.proposedLimit) }}</p>
+              </td>
+              <td class="px-2">
+                <p *ngIf="loan?.loan?.name === 'EDUCATION LOAN'">{{ convertNepaliNumber(educationInterestRate) }}</p>
+                <p *ngIf="loan?.loan?.name !== 'EDUCATION LOAN'">{{'__________'}}</p>
+              </td>
+              <td class="px-2">
+                <input
+                  class="
+                    form-field form-control-sm
+                    d-print-none
+                    disable-print
+                    col-9
+                  "
+                  formControlName="expiryDate"
+                  placeholder=""
+                  type="text"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+
+        <div>
+          <p>
+            कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु.
+            <input
+              class="form-field form-control-sm d-print-none disable-print"
+              formControlName="totalLoanAmount"
+              placeholder=""
+              type="text"
+            />
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmount']).value}}</strong></span>
+            । (अक्षरेपी
+            <input
+              class="form-field form-control-sm d-print-none disable-print"
+              formControlName="totalLoanAmountWord"
+              placeholder=""
+              type="text"
+            />
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmountWord']).value}}</strong></span>
+            )
+          </p>
+        </div>
+
+        <div class="mt-5" *ngIf="offerDocumentDetails.selectedSecurity === 'LAND_AND_BUILDING' || offerDocumentDetails.selectedSecurity === 'LAND'">
+          <p class="text-center"><b>तपसिल</b></p>
+          <br />
+          <p>
+            उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको
+            घरजग्गा तपाई धनी बैंकको नाममा धितोबन्धक लेखिदिई सम्बन्धित मालपोत
+            कार्यालयमा रजिष्ट्रेशन समेत पारित गरिदिएको छु।
+          </p>
+          <br />
+          <table border="1" width="100%">
+            <thead>
+              <tr>
+                <th>घरजग्गा धनी</th>
+                <th>जिल्ला</th>
+                <th>नगर</th>
+                <th>वडा नं.</th>
+                <th>कित्ता नं.</th>
+                <th>क्षेत्रफल</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="propertyOwnerName1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="district1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="municipality1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="wardNo1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="plotNo1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="area1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="propertyOwnerName2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="district2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="municipality2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="wardNo2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="plotNo2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="area2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="free-txt mt-5" *ngIf="offerDocumentDetails.selectedSecurity !== 'LAND_AND_BUILDING' || offerDocumentDetails.selectedSecurity !== 'LAND'">
+          <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 nepaliFont form-control d-print-none"></textarea>
+          <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>
+        </div>
+        <br />
+        <br />
+
+        <div>
+          <p class="text-center">
+            ईति सम्वत् <input
+              class="form-field form-control-sm d-print-none"
+              formControlName="year"
+              placeholder=""
+              type="text"
+            />
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'year']).value}}</strong></span>
+            साल &nbsp;&nbsp;
+            <input
+              class="form-field form-control-sm d-print-none"
+              formControlName="month"
+              placeholder=""
+              type="text"
+            />
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'month']).value}}</strong></span>
+            महिना &nbsp;&nbsp;
+            <input
+              class="form-field form-control-sm d-print-none"
+              formControlName="day"
+              placeholder=""
+              type="text"
+            />
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'day']).value}}</strong></span>
+            गते रोज &nbsp;&nbsp;
+            <input
+              class="form-field form-control-sm d-print-none"
+              formControlName="time"
+              placeholder=""
+              type="text"
+            />
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'time']).value}}</strong></span>
+            शुभम् ।
+          </p>
+        </div>
+        <div class="pageBreak"></div>
+      </div>
+      <hr class ="d-print-none mt-2 mb-2 w-100 "/>
+    </div>
+    <div *ngIf="loanDeedIndividual.get('loanDeedIndividuals')['length'] == 0" class="row">
+      <div class="col-md-12">
+          <p>Could not find any loan deed details.</p>
+      </div>
+    </div>
+  </form>
+  <div class="row mt-5 ml-0">
+    <div class="col-md-12 text-right">
+        <button [useExistingCss]="true" class="d-print-none" printSectionId="print-section"
+            nbButton size="small" status="info" outline ngxPrint>Print &nbsp;&nbsp;
+            <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>
+        </button>
+    </div>
+  </div>
+</div>

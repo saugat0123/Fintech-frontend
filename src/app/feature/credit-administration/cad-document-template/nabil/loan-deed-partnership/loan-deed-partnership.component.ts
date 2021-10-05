@@ -16,21 +16,25 @@ import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-num
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
+import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
+import {Editor} from '../../../../../@core/utils/constants/editor';
 
 @Component({
-  selector: 'app-loan-deed-partnership-firm',
-  templateUrl: './loan-deed-partnership-firm.component.html',
-  styleUrls: ['./loan-deed-partnership-firm.component.scss']
+  selector: 'app-loan-deed-partnership',
+  templateUrl: './loan-deed-partnership.component.html',
+  styleUrls: ['./loan-deed-partnership.component.scss']
 })
-export class LoanDeedPartnershipFirmComponent implements OnInit {
+export class LoanDeedPartnershipComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  @Input() nepaliAmount: NepaliNumberAndWords;
   individualData;
   initialInfoPrint;
   offerLetterConst = NabilDocumentChecklist;
   form: FormGroup;
   nepData;
+  ckEditorConfig = Editor.CK_CONFIG;
 
 
   constructor(private formBuilder: FormBuilder,

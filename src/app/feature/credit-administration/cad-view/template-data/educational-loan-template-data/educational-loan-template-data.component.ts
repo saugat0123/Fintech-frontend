@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +19,7 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
 import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -62,12 +63,14 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private modelService: NgbModal,
       private ngDialogRef: NbDialogRef<EducationalLoanTemplateDataComponent>,
       private nepToEngNumberPipe: NepaliToEngNumberPipe,
+      private engToNepaliNumberPipe: EngToNepaliNumberPipe,
       private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
       private translateService: SbTranslateService,
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
       private addressService: AddressService,
-  ) { }
+  ) {
+  }
 
   get Form() {
     return this.form.controls;
@@ -95,13 +98,13 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   }
 
   public getMunicipalityByDistrict(district): void {
-   this.addressService.getMunicipalityVDCByDistrict(district).subscribe((response: any) => {
-     this.municipalityList = response.detail;
-     this.municipalityList.sort((a, b) => a.name.localeCompare(b.name));
-     if (event !== null) {
-       this.form.get('municipality').patchValue(null);
-     }
-   });
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe((response: any) => {
+      this.municipalityList = response.detail;
+      this.municipalityList.sort((a, b) => a.name.localeCompare(b.name));
+      if (event !== null) {
+        this.form.get('municipality').patchValue(null);
+      }
+    });
   }
 
   buildForm() {
@@ -227,9 +230,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       return;
     }
     this.form.get('loanLimitChecked').patchValue(this.loanLimit);
-      this.spinner = true;
-      this.btnDisable = true;
-      this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+    this.spinner = true;
+    this.btnDisable = true;
+    this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
     if (this.customerApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
@@ -239,46 +242,46 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       }
     }
 
-      if (this.existingOfferLetter) {
-          this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-              if (offerLetterPath.docName.toString() ===
-                  this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL).toString()) {
-                  this.mappedData();
-                  offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
-                  this.translatedData = {};
-              }
-          });
-      } else {
-          const offerDocument = new OfferDocument();
-          offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
-          Object.keys(this.form.controls).forEach(key => {
-            if ( key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
-              return;
-            }
-            this.attributes = new Attributes();
-            this.attributes.en = this.form.get(key).value;
-            this.attributes.np = this.tdValues[key];
-            this.attributes.ct = this.form.get(key + 'TransVal').value;
-            this.tdValues[key] = this.attributes;
-          });
+    if (this.existingOfferLetter) {
+      this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+        if (offerLetterPath.docName.toString() ===
+            this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL).toString()) {
+          this.mappedData();
+          offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
           this.translatedData = {};
-          this.deleteCTAndTransContorls(this.tdValues);
-          offerDocument.initialInformation = JSON.stringify(this.tdValues);
-          this.customerApprovedDoc.offerDocumentList.push(offerDocument);
-      }
-
-      this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
-          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
-          this.customerApprovedDoc = res.detail;
-          this.spinner = false;
-          this.previewBtn = false;
-          this.btnDisable = true;
-      }, error => {
-          console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
-          this.spinner = false;
-          this.btnDisable = true;
+        }
       });
+    } else {
+      const offerDocument = new OfferDocument();
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
+      Object.keys(this.form.controls).forEach(key => {
+        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
+          return;
+        }
+        this.attributes = new Attributes();
+        this.attributes.en = this.form.get(key).value;
+        this.attributes.np = this.tdValues[key];
+        this.attributes.ct = this.form.get(key + 'TransVal').value;
+        this.tdValues[key] = this.attributes;
+      });
+      this.translatedData = {};
+      this.deleteCTAndTransContorls(this.tdValues);
+      offerDocument.initialInformation = JSON.stringify(this.tdValues);
+      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
+    }
+
+    this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.customerApprovedDoc = res.detail;
+      this.spinner = false;
+      this.previewBtn = false;
+      this.btnDisable = true;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.spinner = false;
+      this.btnDisable = true;
+    });
   }
 
   transferValue() {
@@ -329,36 +332,124 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.btnDisable = false;
   }
 
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value.toString());
+    this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.form.get(numLabel).value.toString()));
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.form.get(wordLabel).patchValue(returnVal);
+    this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
+  }
+
+  translateNumber(source, target) {
+    console.log(this.form.get(source).value);
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
+    console.log(wordLabelVar);
+    this.form.get(target).patchValue(wordLabelVar);
+  }
+
+  checkboxVal(event, formControlName) {
+    // if (!ObjectUtil.isEmpty(this.tdValues[formControlName])) {
+    //   const val = this.tdValues[formControlName];
+    //   this.form.get(formControlName + 'TransVal').patchValue(val);
+    // }
+    const checkVal = event.target.checked;
+    this[formControlName + 'Check'] = checkVal;
+    if (!checkVal) {
+      this.clearForm(formControlName + 'TransVal');
+    }
+  }
+
+  clearForm(controlName) {
+    this.form.get(controlName).setValue(null);
+  }
+
+  mappedData() {
+    Object.keys(this.form.controls).forEach(key => {
+      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
+        return;
+      }
+      this.attributes = new Attributes();
+      this.attributes.en = this.form.get(key).value;
+      this.attributes.np = this.tdValues[key];
+      this.attributes.ct = this.form.get(key + 'TransVal').value;
+      this.tdValues[key] = this.attributes;
+    });
+  }
+
+  loanChecked(data) {
+    this.loanLimit = data;
+  }
+
+  setDateTypeBS() {
+    this.dateTypeBS = true;
+    this.dateTypeAD = false;
+  }
+
+  setDateTypeAD() {
+    this.dateTypeBS = false;
+    this.dateTypeAD = true;
+  }
+
+  setDateTypeBS1() {
+    this.dateTypeBS1 = true;
+    this.dateTypeAD1 = false;
+  }
+
+  setDateTypeAD1() {
+    this.dateTypeBS1 = false;
+    this.dateTypeAD1 = true;
+  }
+
+  calInterestRate() {
+    const baseRate = this.form.get('baseRate').value;
+    const premiumRate = this.form.get('premiumRate').value;
+    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+    this.form.get('interestRate').patchValue(sum);
+    this.translateNumber('baseRate', 'baseRateTransVal');
+    this.translateNumber('premiumRate', 'premiumRateTransVal');
+    this.translateNumber('interestRate', 'interestRateTransVal');
+  }
+
+  // deleteCTAndTransContorls from form controls
+  deleteCTAndTransContorls(data) {
+    const individualData = data as FormGroup;
+    Object.keys(data).forEach(key => {
+      if (key.indexOf('CT') > -1 || key.indexOf('TransVal') > -1) {
+        delete individualData[key];
+      }
+    });
+  }
+
   private setTemplatedCTData(data): void {
-    this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
+    // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
-    this.form.get('distressValueTransVal').patchValue(this.translatedData.distressValue);
-    this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
-    this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
-    this.form.get('interestRateTransVal').patchValue(this.translatedData.interestRate);
-    this.form.get('loanAdminFeeFigureTransVal').patchValue(this.translatedData.loanAdminFeeFigure);
-    this.form.get('loanAdminFeeWordsTransVal').patchValue(this.translatedData.loanAdminFeeWords);
-    this.form.get('emiAmountFigureTransVal').patchValue(this.translatedData.emiAmountFigure);
-    this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
-    this.form.get('loanPeriodInMonthsTransVal').patchValue(this.translatedData.loanPeriodInMonths);
-    this.form.get('moratoriumPeriodInMonthsTransVal').patchValue(this.translatedData.moratoriumPeriodInMonths);
-    this.form.get('loanCommitmentFeeInPercentageTransVal').patchValue(this.translatedData.loanCommitmentFeeInPercentage);
+    // this.form.get('distressValueTransVal').patchValue(this.translatedData.distressValue);
+    // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
+    // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
+    // this.form.get('interestRateTransVal').patchValue(this.translatedData.interestRate);
+    // this.form.get('loanAdminFeeFigureTransVal').patchValue(this.translatedData.loanAdminFeeFigure);
+    // this.form.get('loanAdminFeeWordsTransVal').patchValue(this.translatedData.loanAdminFeeWords);
+    // this.form.get('emiAmountFigureTransVal').patchValue(this.translatedData.emiAmountFigure);
+    // this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
+    // this.form.get('loanPeriodInMonthsTransVal').patchValue(this.translatedData.loanPeriodInMonths);
+    // this.form.get('moratoriumPeriodInMonthsTransVal').patchValue(this.translatedData.moratoriumPeriodInMonths);
+    // this.form.get('loanCommitmentFeeInPercentageTransVal').patchValue(this.translatedData.loanCommitmentFeeInPercentage);
     this.form.get('fixedDepositHolderNameTransVal').patchValue(this.translatedData.fixedDepositHolderName);
-    this.form.get('fixedDepositAmountFigureTransVal').patchValue(this.translatedData.fixedDepositAmountFigure);
-    this.form.get('fixedDepositReceiptAmountWordsTransVal').patchValue(this.translatedData.fixedDepositReceiptAmountWords);
-    this.form.get('tenureFixedDepositTransVal').patchValue(this.translatedData.tenureFixedDeposit);
-    this.form.get('tenureDepositReceiptNumberTransVal').patchValue(this.translatedData.tenureDepositReceiptNumber);
+    // this.form.get('fixedDepositAmountFigureTransVal').patchValue(this.translatedData.fixedDepositAmountFigure);
+    // this.form.get('fixedDepositReceiptAmountWordsTransVal').patchValue(this.translatedData.fixedDepositReceiptAmountWords);
+    // this.form.get('tenureFixedDepositTransVal').patchValue(this.translatedData.tenureFixedDeposit);
+    // this.form.get('tenureDepositReceiptNumberTransVal').patchValue(this.translatedData.tenureDepositReceiptNumber);
     // this.form.get('guaranteedAmountFigureTransVal').patchValue(this.translatedData.guaranteedAmountFigure);
     // this.form.get('guaranteedAmountWordsTransVal').patchValue(this.translatedData.guaranteedAmountWords);
-    this.form.get('pledgeAmountFigureTransVal').patchValue(this.translatedData.pledgeAmountFigure);
-    this.form.get('insuranceAmountFigureTransVal').patchValue(this.translatedData.insuranceAmountFigure);
+    // this.form.get('pledgeAmountFigureTransVal').patchValue(this.translatedData.pledgeAmountFigure);
+    // this.form.get('insuranceAmountFigureTransVal').patchValue(this.translatedData.insuranceAmountFigure);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedData.relationshipOfficerName);
     this.form.get('branchManagerTransVal').patchValue(this.translatedData.branchManager);
     this.form.get('approvalStaffNameTransVal').patchValue(this.translatedData.approvalStaffName);
     this.form.get('ownersNameTransVal').patchValue(this.translatedData.ownersName);
-    this.form.get('wardNoTransVal').patchValue(this.translatedData.wardNo);
-    this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
-    this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
+    // this.form.get('wardNoTransVal').patchValue(this.translatedData.wardNo);
+    // this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
+    // this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
     this.form.get('landAreaTransVal').patchValue(this.translatedData.landArea);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     if (!ObjectUtil.isEmpty(data.embassyName)) {
@@ -385,86 +476,13 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('tenureDepositReceiptNumberTransVal').updateValueAndValidity();
   }
 
-  getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.form.get(wordLabel).patchValue(returnVal);
-  }
 
-  checkboxVal(event, formControlName) {
-    // if (!ObjectUtil.isEmpty(this.tdValues[formControlName])) {
-    //   const val = this.tdValues[formControlName];
-    //   this.form.get(formControlName + 'TransVal').patchValue(val);
-    // }
-    const checkVal = event.target.checked;
-    this[formControlName + 'Check'] = checkVal;
-    if (!checkVal) {
-      this.clearForm(formControlName + 'TransVal');
-    }
-  }
-
-  clearForm(controlName) {
-    this.form.get(controlName).setValue(null);
-  }
-
-  mappedData() {
-    Object.keys(this.form.controls).forEach(key => {
-      if ( key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
-        return;
-      }
-      this.attributes = new Attributes();
-      this.attributes.en = this.form.get(key).value;
-      this.attributes.np = this.tdValues[key];
-      this.attributes.ct = this.form.get(key + 'TransVal').value;
-      this.tdValues[key] = this.attributes;
-    });
-  }
-
-    loanChecked(data) {
-        this.loanLimit = data;
-    }
-  setDateTypeBS() {
-    this.dateTypeBS = true;
-    this.dateTypeAD = false;
-  }
-
-  setDateTypeAD() {
-    this.dateTypeBS = false;
-    this.dateTypeAD = true;
-  }
-  setDateTypeBS1() {
-    this.dateTypeBS1 = true;
-    this.dateTypeAD1 = false;
-  }
-
-  setDateTypeAD1() {
-    this.dateTypeBS1 = false;
-    this.dateTypeAD1 = true;
-  }
-
-  calInterestRate() {
-    const baseRate = this.form.get('baseRate').value;
-    const premiumRate = this.form.get('premiumRate').value;
-    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.form.get('interestRate').patchValue(sum);
-  }
-
-  // deleteCTAndTransContorls from form controls
-  deleteCTAndTransContorls(data) {
-    const individualData = data as FormGroup;
-    Object.keys(data).forEach(key => {
-      if (key.indexOf('CT') > -1 || key.indexOf('TransVal') > -1) {
-        delete individualData[key];
-      }
-    });
-  }
-
-    // changeDocumentName(securityType) {
-    //     if (securityType === 'FIXED_DEPOSIT') {
-    //       this.docSecurityName = 'Class A';
-    //     } else {
-    //       this.docSecurityName = 'Class E';
-    //     }
-    // }
+  // changeDocumentName(securityType) {
+  //     if (securityType === 'FIXED_DEPOSIT') {
+  //       this.docSecurityName = 'Class A';
+  //     } else {
+  //       this.docSecurityName = 'Class E';
+  //     }
+  // }
 }
 

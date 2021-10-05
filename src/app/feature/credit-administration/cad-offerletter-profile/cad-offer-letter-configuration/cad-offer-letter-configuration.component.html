@@ -10,7 +10,8 @@
   <nb-card-body>
     <form [formGroup]="userConfigForm">
       <nb-tabset (changeTab)="onChangeTab($event)">
-        <nb-tab tabId="0" [active]="activeCustomerTab" tabTitle="Client Details"
+        <nb-tab *ngIf="!hideCustomer" tabId="0" [active]="activeCustomerTab"
+                tabTitle="Client Details"
                 [disabled]="!activeCustomerTab"
                 [nbSpinner]="spinner"
                 #personal>
@@ -39,21 +40,25 @@
                 <label class="title">Branch</label>
               </td>
               <td>
-                <ng-select bindLabel="name" [placeholder]="loanHolder.branch == null ? 'Select branch' : ''" formControlName="branch">
-<!--                  <option [value]="null" hidden>Select Branch</option>-->
-<!--                  <option  *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}-->
-<!--                  </option>-->
-                  <ng-option *ngFor="let branch of branchList" [value]="branch">{{branch?.name}}</ng-option>
+                <ng-select bindLabel="name"
+                           [placeholder]="loanHolder.branch == null ? 'Select branch' : ''"
+                           formControlName="branch">
+                  <!--                  <option [value]="null" hidden>Select Branch</option>-->
+                  <!--                  <option  *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}-->
+                  <!--                  </option>-->
+                  <ng-option *ngFor="let branch of branchList"
+                             [value]="branch">{{branch?.name}}
+                    || {{branch?.nepaliName}} </ng-option>
                 </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="branchTrans" type="text"
-                    ></td>
+              ></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{ 'is-invalid':submitted && configForm.branchCT.errors }"
                        [value]="loanHolder !== null && loanHolder.branch !== undefined ?
-                        nepData?.branch?.ct: translatedValues?.branch"
+                        nepData?.branch?.ct: ''"
                        formControlName="branchCT" type="text"/>
                 <div *ngIf="submitted && configForm.branchCT.errors"
                      class="invalid-feedback">
@@ -87,8 +92,9 @@
               <td>
                 <input class="form-control "
                        formControlName="customerCode"
+                       (input)="translateNumber('customerCode')"
                        name="customerCode" placeholder="Customer Code"
-                       type="text"
+                       type="number"
                        [readOnly]="loanHolder?.customerCode"/>
               </td>
               <td><input disabled readonly class="form-control"
@@ -96,9 +102,7 @@
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.customerCodeCT.errors}"
-                       [value]="loanHolder !== null && loanHolder.customerCode !== undefined ?
-                       nepData?.customerCode?.ct : translatedValues?.customerCode"
-                       formControlName="customerCodeCT" type="text"/>
+                       formControlName="customerCodeCT" type="text" readonly/>
                 <div *ngIf="submitted && configForm.customerCodeCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.customerCodeCT.errors.required">Customer code is required
@@ -179,18 +183,16 @@
               <td><label class="title">Contact No</label></td>
               <td><input class="form-control "
                          formControlName="contactNo"
-
+                         (input)="translateNumber('contactNo')"
                          name="contactNo" placeholder="Contact No"
-                         type="text"/>
+                         type="number"/>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="contactNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.contactNoCT.errors}"
-                       [value]="loanHolder !== null && loanHolder.contactNo !== undefined ?
-                        nepData?.contactNo?.ct :translatedValues?.contactNo"
-                       formControlName="contactNoCT" type="text" />
+                       formControlName="contactNoCT" type="text" readonly/>
                 <div *ngIf="submitted && configForm.contactNoCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.contactNoCT.errors.required">Contact no is required</div>
@@ -479,12 +481,14 @@
               </td>
               <td>
                 <ng-select
-                        [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrict.errors}"
-                        formControlName="citizenshipIssueDistrict"
-                        id="citizenshipIssueDistrict"
-                        [placeholder]="oneFormCustomer.citizenshipIssuedPlace == null ? 'Select district' : ''">
-                    <ng-option *ngFor="let issuedDistrict of allDistrictList" [value]="issuedDistrict.name">{{issuedDistrict.name}}</ng-option>
+                    [compareWith]="compareFn"
+                    [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrict.errors}"
+                    formControlName="citizenshipIssueDistrict"
+                    id="citizenshipIssueDistrict"
+                    [placeholder]="oneFormCustomer.citizenshipIssuedPlace == null ? 'Select district' : ''">
+                  <ng-option *ngFor="let issuedDistrict of allDistrictList"
+                             [value]="issuedDistrict.nepaliName">{{issuedDistrict.name}}
+                    || {{issuedDistrict.nepaliName}} </ng-option>
                 </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
@@ -493,7 +497,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrictCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                       nepData?.citizenshipIssueDistrict?.ct :objectValueTranslater?.citizenshipIssueDistrict"
+                       nepData?.citizenshipIssueDistrict?.ct :''"
                        formControlName="citizenshipIssueDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.citizenshipIssueDistrictCT.errors"
                      class="invalid-feedback">
@@ -543,16 +547,15 @@
               <td>
                 <input class="form-control "
                        formControlName="panNo"
-                       name="panNo" placeholder="PAN No" type="text"/>
+                       (change)="translateNumber('panNo')"
+                       name="panNo" placeholder="PAN No" type="number"/>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="panNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.panNoCT.errors}"
-                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                        nepData?.panNo?.ct :translatedValues?.panNo"
-                       formControlName="panNoCT" type="text"/>
+                       formControlName="panNoCT" type="text" readonly/>
                 <div *ngIf="submitted && configForm.panNoCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.panNoCT.errors.required">Pan no is required</div>
@@ -610,7 +613,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.permanentProvinceCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                        nepData?.permanentProvince?.ct :objectValueTranslater?.permanentProvince"
+                        nepData?.permanentProvince?.ct :''"
                        formControlName="permanentProvinceCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentProvinceCT.errors"
                      class="invalid-feedback">
@@ -640,7 +643,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.permanentDistrictCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                        nepData?.permanentDistrict?.ct :objectValueTranslater?.permanentDistrict"
+                        nepData?.permanentDistrict?.ct :''"
                        formControlName="permanentDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentDistrictCT.errors"
                      class="invalid-feedback">
@@ -663,15 +666,15 @@
                 </nb-radio-group>
                 <ng-select
 
-                        bindLabel="name"
-                        [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
-                        formControlName="permanentMunicipality"
-                        id="permanentMunicipality"
+                    bindLabel="name"
+                    [compareWith]="compareFn"
+                    [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
+                    formControlName="permanentMunicipality"
+                    id="permanentMunicipality"
                     [placeholder]="oneFormCustomer.municipalities == null ? 'Municipality or VDC' : ''">
-                  <ng-option  *ngFor="let municipalityVal of municipalities"
-                          [value]="municipalityVal">
-                          {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                  <ng-option *ngFor="let municipalityVal of municipalities"
+                             [value]="municipalityVal">
+                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </ng-option>
                 </ng-select>
               </td>
@@ -681,7 +684,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.permanentMunicipalityCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                       nepData?.permanentMunicipality?.ct :objectValueTranslater?.permanentMunicipality"
+                       nepData?.permanentMunicipality?.ct :''"
                        formControlName="permanentMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentMunicipalityCT.errors"
                      class="invalid-feedback">
@@ -698,7 +701,7 @@
               <td>
                 <input class="form-control "
                        formControlName="permanentWard"
-
+                       (change)="translateNumber('permanentWard')"
                        name="permanentMunicipality" placeholder="Ward No"
                        type="number"/>
               </td>
@@ -707,8 +710,6 @@
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.permanentWardCT.errors}"
-                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                       nepData?.permanentWard?.ct :translatedValues?.permanentWard"
                        formControlName="permanentWardCT" type="text"
                 />
                 <div *ngIf="submitted && configForm.permanentWardCT.errors"
@@ -756,7 +757,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryProvinceCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                       nepData?.temporaryProvince?.ct :objectValueTranslater?.temporaryProvince"
+                       nepData?.temporaryProvince?.ct :''"
                        formControlName="temporaryProvinceCT" type="text"
                 />
                 <div *ngIf="submitted && configForm.temporaryProvinceCT.errors"
@@ -788,7 +789,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryDistrictCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                       nepData?.temporaryDistrict?.ct :objectValueTranslater?.temporaryDistrict"
+                       nepData?.temporaryDistrict?.ct :''"
                        formControlName="temporaryDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryDistrictCT.errors"
                      class="invalid-feedback">
@@ -823,6 +824,8 @@
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipalityCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                       nepData?.temporaryMunicipality?.ct :''"
                        formControlName="temporaryMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryMunicipalityCT.errors"
                      class="invalid-feedback">
@@ -838,7 +841,7 @@
               <td>
                 <input class="form-control "
                        formControlName="temporaryWard"
-
+                       (change)="translateNumber('temporaryWard')"
                        name="temporaryWard" placeholder="Ward No"
                        type="number"/>
               </td>
@@ -980,7 +983,8 @@
                 />
                 <div *ngIf="submitted && configForm.registeredMunicipalityTrans.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.registeredMunicipalityTrans.errors.required">Municipality is
+                  <div *ngIf="configForm.registeredMunicipalityTrans.errors.required">Municipality
+                    is
                     required
                   </div>
                 </div>
@@ -993,7 +997,7 @@
               <td>
                 <input class="form-control "
                        formControlName="permanentWard"
-
+                       (change)="translateNumber('permanentWard')"
                        name="registeredMunicipality" placeholder="Ward No"
                        type="number"/>
               </td>
@@ -1176,9 +1180,9 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <button class="float-right" nbButton size="small" status="info" (click)="translate()">
+              <a class="float-right" nbButton size="small" status="info" (click)="translate()">
                 Translate Customer Data
-              </button>
+              </a>
             </div>
           </div>
 
@@ -1325,7 +1329,7 @@
                                formControlName="contactNo"
 
                                name="contactNo" placeholder="Contact No"
-                               type="text"/>
+                               type="number"/>
                     </td>
                     <td><input class="form-control" type="text"
                                formControlName="contactNoTrans" readonly/></td>
@@ -1726,12 +1730,11 @@
                     <td>
                       <input class="form-control" formControlName="permanentWardTrans"
                              [readOnly]="!this['permanentWardTransCheck']"
-                             type="text"
-                             [value]="jointCustomerAddressTranslatedValue?.permanentWard"/>
+                             type="text"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="permanentWardCT" type="text"
-                             [value]="jointCustomerAddressTranslatedValue?.permanentWard"/>
+                             />
                     </td>
 
                   </tr>
@@ -1847,7 +1850,7 @@
                     <td>
                       <input class="form-control "
                              formControlName="temporaryWard"
-
+                             (input)="translateNumberInFA('temporaryWard', i)"
                              name="temporaryWard" placeholder="Ward No"
                              type="number"/>
                     </td>
@@ -1865,19 +1868,19 @@
                   </tbody>
                 </table>
                 <div class="clearfix">
-                  <button nbButton (click)="translateJointCustomerData(i)" class="float-right">
+                  <a nbButton (click)="translateJointCustomerData(i)" class="float-right">
                     Translate
                     Joint Customer
-                  </button>
+                  </a>
                 </div>
 
               </div>
             </div>
           </div>
           <h4>Guarantors
-            <button nbButton status="primary" size="tiny" (click)="addGuarantor()">Add
+            <a nbButton status="primary" size="tiny" (click)="addGuarantor()">Add
               Guarantor
-            </button>
+            </a>
           </h4>
           <div
               *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
@@ -1993,7 +1996,7 @@
                 <td></td>
                 <td>
                   <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
-                                formControlName="citizenIssuedDate" [responseType]="0"
+                                formControlName="citizenIssuedDate" [responseType]="2"
                                 [displayNepali]="true">
                   </nepali-patro>
                   <input [nbDatepicker]="citizenshipDate"
@@ -2015,10 +2018,10 @@
                 <td>
                   <input class="form-control "
                          formControlName="gurantedAmount"
-
+                         (input)="translateNumberInFA('gurantedAmount', i)"
                          autocomplete="off"
                          name="gurantedAmount" placeholder="Guranted Amount"
-                         type="text"/>
+                         type="number"/>
                 </td>
                 <td>
                   <input class="form-control" type="text"
@@ -2054,9 +2057,9 @@
                 <td><label class="title">Gender</label></td>
                 <td><select class="form-control" formControlName="gender">
                   <option [value]="null" hidden>Select Gender</option>
-                  <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
-                  <option [selected]="loanHolder.gender === 'FEMALE'" value="FEMALE">Female</option>
-                  <option [selected]="loanHolder.gender === 'OTHERS'" value="OTHERS">Others</option>
+                  <option value="MALE">Male</option>
+                  <option value="FEMALE">Female</option>
+                  <option value="OTHERS">Others</option>
                 </select>
                 </td>
                 <td>
@@ -2181,7 +2184,7 @@
                           class="custom-select"
                           formControlName="permanentProvince">
                     <option [ngValue]="null" hidden>Province</option>
-                    <option *ngFor="let provinceVal of provinceList"
+                    <option *ngFor="let provinceVal of guarantorProvienceList"
                             [ngValue]="provinceVal">
                       {{provinceVal.name}} || {{provinceVal.nepaliName}}
                     </option>
@@ -2204,7 +2207,7 @@
                     class="custom-select"
                     formControlName="permanentDistrict">
                   <option [ngValue]="null" hidden>District</option>
-                  <option *ngFor="let districtVal of districts"
+                  <option *ngFor="let districtVal of guarantorDistrict"
                           [ngValue]="districtVal">
                     {{districtVal.name}} || {{districtVal.nepaliName}}
                   </option>
@@ -2236,7 +2239,7 @@
                   <select [compareWith]="compareFn"
                           class="custom-select"
                           formControlName="permanentMunicipality">
-                    <option *ngFor="let municipalityVal of municipalities"
+                    <option *ngFor="let municipalityVal of guarantorMunicipalities"
                             [ngValue]="municipalityVal">
                       {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                     </option>
@@ -2259,6 +2262,7 @@
                 <td>
                   <input class="form-control "
                          formControlName="permanentWard"
+                         (input)="translateNumberInFA('permanentWard', i)"
                          name="permanentWard" placeholder="Ward No"
                          type="number"/>
                 </td>
@@ -2376,6 +2380,7 @@
                 </td>
                 <td>
                   <input class="form-control "
+                         (change)="translateNumberInFA('temporaryWard', i)"
                          formControlName="temporaryWard"
                          name="temporaryWard" placeholder="Ward No"
                          type="number"/>
@@ -2398,31 +2403,32 @@
               <tr>
                 <td *ngIf="userConfigForm.get('guarantorDetails')['length'] > 1" colspan="2"
                     class="text-left">
-                  <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
+                  <a nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
                           style="position: static">
                     <em class="fa fa-trash" style="color: white;"></em>
-                  </button>
+                  </a>
                 </td>
                 <td [attr.colspan]="userConfigForm.get('guarantorDetails')['length'] > 1 ? '3' : '5'"
                     class="text-right">
-                  <button nbButton status="info" size="tiny" (click)="translateGuarantorData(i)">
+                  <a nbButton status="info" size="tiny" (click)="translateGuarantorData(i)">
                     Translate Guarantor Data
-                  </button>
+                  </a>
                 </td>
               </tr>
             </table>
           </div>
-          <button class="float-right" nbButton (click)="saveCustomer()">
-            Save & Next
-          </button>
+          <a class="float-right" nbButton (click)="saveCustomer()">
+            {{hideLoan === true ? 'Save' : 'Save & Next'}}
+          </a>
         </nb-tab>
-        <nb-tab tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
+        <nb-tab *ngIf="!hideLoan" tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
                 [disabled]="!activeLoanTab">
           <app-loan-create [data]="responseData" *ngIf="responseData"
                            (cadApprovedData)="getCadApprovedData($event)"
                            [customerType]="customerType"></app-loan-create>
         </nb-tab>
-        <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा" [active]="activeTemplateDataTab"
+        <nb-tab *ngIf="!hideLoan" tabId="3" tabTitle="टेम्प्लेट डाटा"
+                [active]="activeTemplateDataTab"
                 [disabled]="!activeTemplateDataTab">
           <app-template-data [cadData]="cadData"></app-template-data>
         </nb-tab>
@@ -2432,8 +2438,8 @@
   <nb-card-footer>
     <div *ngIf="!hideSaveBtn">
       <div class="col-md-12">
-        <!--<button class="float-right" nbButton (click)="save()">save</button>-->
-        <!--        <button class="float-right" nbButton status="info" (click)="translate()">Translate</button>-->
+        <!--<a class="float-right" nbButton (click)="save()">save</a>-->
+        <!--        <a class="float-right" nbButton status="info" (click)="translate()">Translate</a>-->
       </div>
     </div>
   </nb-card-footer>

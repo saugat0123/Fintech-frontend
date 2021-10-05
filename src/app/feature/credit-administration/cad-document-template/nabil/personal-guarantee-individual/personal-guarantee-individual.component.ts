@@ -67,7 +67,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         });
       });
       if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-        this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+        this.offerDocumentDetails = this.cadData.offerDocumentList ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
       }
     }
     this.taggedGuarantorsDetailsInLoan = Array.from(
@@ -101,7 +101,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         });
       });
       if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-        this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+        this.offerDocumentDetails = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
       }
     }
     this.taggedGuarantorsDetailsInLoan = Array.from(
@@ -177,6 +177,10 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
   }
 
   taggedGuarantorsDetailsForm() {
+    let todayDate: any = this.englishNepaliDatePipe.transform(new Date(), true);
+    todayDate = todayDate.replace(',', '').split(' ');
+    const daysInNumber = new Date().getDay();
+
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
       this.taggedGuarantorsDetailsInLoan.forEach((val) => {
         const individualGuarantorNepData = val.nepData
@@ -185,69 +189,79 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
           return;
         }
+        console.log('individualGuarantorNepData: ', individualGuarantorNepData);
+        let approvedDate: any;
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
+          approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
+        }
+
+        let citznIssuedDate: any;
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate)) {
+            approvedDate = individualGuarantorNepData.citizenIssuedDate && individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en ? individualGuarantorNepData.citizenIssuedDate.en : '';
+        }
         (
           this.guarantorindividualGroup.get("individualGuarantors") as FormArray
         ).push(
           this.formBuilder.group({
-            branchName: [this.loanHolderNepData.branch.ct || ""],
-            grandFatherName: [this.loanHolderNepData.grandFatherName.ct || ""],
-            father_husbandName: [this.loanHolderNepData.fatherName.ct || ""],
-            district: [this.loanHolderNepData.permanentDistrict.ct || ""],
+            branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
+            grandFatherName: [this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct : ''],
+            father_husbandName: [this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct : ''],
+            district: [this.loanHolderNepData.permanentDistrict ? this.loanHolderNepData.permanentDistrict.ct : ''],
             VDCMunicipality: [
-              this.loanHolderNepData.permanentMunicipality.ct || "",
+              this.loanHolderNepData.permanentMunicipality ? this.loanHolderNepData.permanentMunicipality.ct : '',
             ],
-            ward: [this.loanHolderNepData.permanentWard.ct || ""],
+            ward: [this.loanHolderNepData.permanentWard ? this.loanHolderNepData.permanentWard.ct : ''],
             temporarydistrict: [undefined],
             temporaryVDCMunicipality: [undefined],
             temporaryward: [undefined],
-            borrowerName: [this.loanHolderNepData.name.ct || ""],
-            loanPurpose: [this.offerDocumentDetails.purposeOfLoan.ct || ""],
-            dateOfApproval: [this.englishNepaliDatePipe.transform(this.offerDocumentDetails.dateOfApproval.en, true) || "",],
+            borrowerName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
+            loanPurpose: [this.offerDocumentDetails.purposeOfLoan && this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : ''],
+            dateOfApproval: [this.englishNepaliDatePipe.transform(approvedDate || '', true)  || ''],
             loanAmount: [undefined],
             loanAmountWords: [undefined],
             guaranteAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
-            guarantorName: [individualGuarantorNepData.guarantorName.ct || ""],
+            guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
             guarantorFatherOrHusbandName: [
-              individualGuarantorNepData.fatherName.ct || "",
+              individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : ''
             ],
             guarantorGrandFatherName: [
-              individualGuarantorNepData.grandFatherName.ct || "",
+              individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : ''
             ],
 
             guarantorPermanentDistrict: [
-              individualGuarantorNepData.permanentDistrict.ct || "",
+              individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : '',
             ],
             guarantorPermanentMunicipality: [
-              individualGuarantorNepData.permanentMunicipality.ct || "",
+              individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : '',
             ],
             guarantorPermanentWard: [
-              individualGuarantorNepData.permanentWard.ct || "",
+              individualGuarantorNepData.permanentWard ? individualGuarantorNepData.permanentWard.ct : '',
             ],
 
             guarantorTemporaryDistrict: [
-              individualGuarantorNepData.temporaryDistrict.ct || "",
+              individualGuarantorNepData.temporaryDistrict ? individualGuarantorNepData.temporaryDistrict.ct : '',
             ],
             guarantorTemporaryMunicipality: [
-              individualGuarantorNepData.temporaryMunicipality.ct || "",
+              individualGuarantorNepData.temporaryMunicipality ? individualGuarantorNepData.temporaryMunicipality.ct : '',
             ],
             guarantorTemporaryWard: [
-              individualGuarantorNepData.temporaryWard.ct || "",
+              individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : '',
             ],
 
             guarantorCitizenNumber: [
-              individualGuarantorNepData.citizenNumber.ct || "",
+              individualGuarantorNepData.citizenNumber ? individualGuarantorNepData.citizenNumber.ct : '',
             ],
             guarantorCitzenIssuedPlace: [
-              individualGuarantorNepData.issuedPlace.ct || "",
+              individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : '',
             ],
             guarantorCitzenIssuedDate: [
-              this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en, true) || "",
+              this.englishNepaliDatePipe.transform(citznIssuedDate || '', true)  || ''
             ],
-            gurantedAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
-            year: [undefined],
-            month: [undefined],
-            day: [undefined],
-            date: [undefined],
+            gurantedAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount ? individualGuarantorNepData.gurantedAmount.en : ''))],
+            year: [todayDate[2]],
+            month: [todayDate[1]],
+            day: [todayDate[0]],
+            date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
             freeText: [undefined],
           })
         );
