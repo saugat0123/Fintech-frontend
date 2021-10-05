@@ -56,7 +56,7 @@ export class LetterOfDisbursementComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          this.setGuarantorDetails(initialInfo.guarantorDetails);
+          this.setWitnessDetails(initialInfo.witnessDetails);
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -148,7 +148,7 @@ export class LetterOfDisbursementComponent implements OnInit {
       itiSambatDate: [undefined],
       itiSambatTime: [undefined],
       itiSambatRojSumbham: [undefined],
-      guarantorDetails: this.formBuilder.array([]),
+      witnessDetails: this.formBuilder.array([]),
       clientName: [undefined],
       BranchName: [undefined],
       udhyogBibhag: [undefined],
@@ -193,14 +193,12 @@ export class LetterOfDisbursementComponent implements OnInit {
       jagaName: [undefined],
       jillaName1: [undefined],
       jagaName1: [undefined],
-      SakGuarantorName1: [undefined],
       SakNaPraNaName1: [undefined],
       SakMitiName1: [undefined],
       SakJiPrakaName1: [undefined],
       SakIssuedPlace1: [undefined],
       SakJillaName1: [undefined],
       SakJagaName1: [undefined],
-      SakGuarantorName2: [undefined],
       SakNaPraNaName2: [undefined],
       SakMitiName2: [undefined],
       SakJiPrakaName2: [undefined],
@@ -218,7 +216,7 @@ export class LetterOfDisbursementComponent implements OnInit {
     });
   }
 
-  guarantorFormgroup(): FormGroup {
+  witnessFormgroup(): FormGroup {
     return this.formBuilder.group({
       witnessName: [undefined],
       witnessCitizenshipNo: [undefined],
@@ -227,24 +225,31 @@ export class LetterOfDisbursementComponent implements OnInit {
       witnessDistrict: [undefined],
       witnessVdcMun: [undefined],
       witnessWardNo: [undefined],
+      witnessName2: [undefined],
+      witnessCitizenshipNo2: [undefined],
+      witnessCitizenshipIssueDate2: [undefined],
+      witnessCitizenshipIssueOffice2: [undefined],
+      witnessDistrict2: [undefined],
+      witnessVdcMun2: [undefined],
+      witnessWardNo2: [undefined],
     });
   }
 
-  addGuarantor(): void {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
-    formArray.push(this.guarantorFormgroup());
+  addWitness(): void {
+    const formArray = this.form.get('witnessDetails') as FormArray;
+    formArray.push(this.witnessFormgroup());
   }
 
-  removeGuarantor(index: number): void {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
+  removeWitness(index: number): void {
+    const formArray = this.form.get('witnessDetails') as FormArray;
     formArray.removeAt(index);
   }
 
 
-  setGuarantorDetails(data) {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
+  setWitnessDetails(data) {
+    const formArray = this.form.get('witnessDetails') as FormArray;
     if (data.length === 0) {
-      this.addGuarantor();
+      this.addWitness();
       return;
     }
     data.forEach((value) => {
@@ -257,6 +262,13 @@ export class LetterOfDisbursementComponent implements OnInit {
             witnessDistrict: [value.witnessDistrict],
             witnessVdcMun: [value.witnessVdcMun],
             witnessWardNo: [value.witnessWardNo],
+            witnessName2: [value.name],
+            witnessCitizenshipNo2: [value.witnessCitizenshipNo],
+            witnessCitizenshipIssueDate2: [value.witnessCitizenshipIssueDate],
+            witnessCitizenshipIssueOffice2: [value.witnessCitizenshipIssueOffice],
+            witnessDistrict2: [value.witnessDistrict],
+            witnessVdcMun2: [value.witnessVdcMun],
+            witnessWardNo2: [value.witnessWardNo],
           })
       );
     });
