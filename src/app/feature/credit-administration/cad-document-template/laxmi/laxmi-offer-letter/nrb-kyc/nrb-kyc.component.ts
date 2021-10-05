@@ -8,13 +8,13 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
   styleUrls: ['./nrb-kyc.component.scss']
 })
 export class NrbKycComponent implements OnInit {
-@Input() cadData;
-@Input() customerLoanId;
-@Input() documentId;
-  initialInfoPrint;
   constructor(
       private formBuilder: FormBuilder
   ) { }
+  @Input() cadData;
+  @Input() customerLoanId;
+  @Input() documentId;
+  initialInfoPrint;
 spinner = false;
   form: FormGroup;
   ngOnInit() {

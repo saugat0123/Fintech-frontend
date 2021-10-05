@@ -31,12 +31,12 @@ import { NrbKycPrintComponent } from './laxmi-offer-letter/nrb-kyc/nrb-kyc-print
         NbSpinnerModule,
         NgxPrintModule,
         CoreModule,
-        NbCheckboxModule
     ],
     exports: [
         LoanDeedIndividualComponent,
         PromisoryNoteIndividualComponent,
-        SelfDeclarationComponent
+        SelfDeclarationComponent,
+        NrbKycComponent
     ],
     entryComponents: [
         LaxmiOfferLetterComponent

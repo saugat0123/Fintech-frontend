@@ -22,13 +22,14 @@
                     <tr>
                         <td>
                             १. बैंक/वित्तीय संस्था चालु
-                            <nb-checkbox (change)="changes($event)">चालु पुँजी कर्जा</nb-checkbox>
                             <br>
-                            <nb-checkbox (change)="changes($event)">आवधिक कर्जा</nb-checkbox>
+                            <input type="checkbox" (change)="changes($event)" value="चालु पुँजी कर्जा" name="चालु पुँजी कर्जा">
                             <br>
-                            <nb-checkbox (change)="changes($event)">अन्य कर्जा</nb-checkbox>
+                            <input type ="checkbox" (change)="changes($event)" value="आवधिक कर्जा "name="आवधिक कर्जा ">
                             <br>
-                            <nb-checkbox (change)="changes($event)">  गैरकोषमा आधारित सुविधा</nb-checkbox>
+                            <input type="checkbox" (change)="changes($event)" value="अन्य कर्जा"name="अन्य कर्जा">
+                            <br>
+                            <input type="checkbox" (change)="changes($event)" value="गैरकोषमा आधारित सुविधा" name="गैरकोषमा आधारित सुविधा">
                         </td>
                         <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedAmount"
                                    type="text"></td>
@@ -38,13 +39,7 @@
                     <tr>
                         <td>
                             १. बैंक/वित्तीय संस्था चालु
-                            <nb-checkbox (change)="changes($event)">चालु पुँजी कर्जा</nb-checkbox>
-                            <br>
-                            <nb-checkbox (change)="changes($event)">आवधिक कर्जा</nb-checkbox>
-                            <br>
-                            <nb-checkbox (change)="changes($event)">अन्य कर्जा</nb-checkbox>
-                            <br>
-                            <nb-checkbox (change)="changes($event)">  गैरकोषमा आधारित सुविधा</nb-checkbox>
+
                         </td>
                         <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedAmount"
                                    type="text"></td>

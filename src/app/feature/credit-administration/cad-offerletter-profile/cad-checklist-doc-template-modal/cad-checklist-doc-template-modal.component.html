@@ -141,12 +141,20 @@
 <!--        <app-loan-deed-single *ngSwitchCase="cadTemplate.LOAN_DEED_SINGLE" [cadData]="cadData"-->
 <!--                              [documentId]="documentId"-->
 <!--                              [customerLoanId]="customerLoanId"></app-loan-deed-single>-->
-        <app-loan-deed-individual *ngSwitchCase="cadTemplate.LOAN_DEED_SINGLE"
-                                  [cadData]="cadData"
-                                  [documentId]="documentId"
-                                  [customerLoanId]="customerLoanId">
+<!--        <app-loan-deed-individual *ngSwitchCase="cadTemplate.LOAN_DEED_SINGLE"-->
+<!--                                  [cadData]="cadData"-->
+<!--                                  [documentId]="documentId"-->
+<!--                                  [customerLoanId]="customerLoanId">-->
 
-        </app-loan-deed-individual>
+<!--        </app-loan-deed-individual>-->
+<!--        <app-nrb-kyc *ngSwitchCase="cadTemplate.LOAN_DEED_SINGLE"-->
+<!--                     [cadData]="cadData"-->
+<!--                     [documentId]="documentId"-->
+<!--                     [customerLoanId]="customerLoanId"></app-nrb-kyc>-->
+        <app-nrb-kyc *ngSwitchCase="cadTemplate.LOAN_DEED_SINGLE"
+                     [cadData]="cadData"
+                     [documentId]="documentId"
+                     [customerLoanId]="customerLoanId"></app-nrb-kyc>
         <app-promisory-note-individual
                 *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_SINGLE_BORROWER" [cadData]="cadData"
                                         [documentId]="documentId" [customerLoanId]="customerLoanId">
