@@ -68,7 +68,6 @@ export class LetterOfSetOffComponent implements OnInit {
 
   async ngOnInit() {
     this.buildForm();
-    console.log('This is cad Approved doc ', this.cadData);
     this.checkOfferLetterData();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
@@ -87,23 +86,6 @@ export class LetterOfSetOffComponent implements OnInit {
     this.fillform();
   }
 
-  // ngOnInit() {
-  //   this.buildForm();
-  //   if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-  //     this.cadData.cadFileList.forEach(individualCadFile => {
-  //       if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
-  //         const initialInfo = JSON.parse(individualCadFile.initialInformation);
-  //         this.initialInfoPrint = initialInfo;
-  //         this.letterOfSetOff.patchValue(initialInfo);
-  //       }
-  //     });
-  //   }
-  //   if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-  //     this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
-  //   }
-  //   console.log('INDIVIDUAL DATA =', this.individualData);
-  //   this.fillform();
-  // }
 
   buildForm() {
     this.letterOfSetOff = this.formBuilder.group({
@@ -272,7 +254,6 @@ export class LetterOfSetOffComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
-    console.log(this.letterOfSetOff.value);
   }
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.letterOfSetOff.get(numLabel).value);
@@ -349,11 +330,10 @@ export class LetterOfSetOffComponent implements OnInit {
     if (this.cadData.loanHolder.customerType === this.customerType.INDIVIDUAL
         && this.clientType === this.customerSubType.JOINT.toUpperCase()) {
       const associateId = this.cadData.loanHolder.associateId;
-      console.log(associateId);
       await this.customerService.getJointInfoDetails(associateId).toPromise().then((res: any) => {
         this.jointInfoData = JSON.parse(res.detail.jointInfo);
       }, error => {
-        console.log(error);
+        console.error(error);
       });
     }
   }
