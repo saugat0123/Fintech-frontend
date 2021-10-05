@@ -157,7 +157,7 @@ export class OfferLetterListComponent implements OnInit {
     this.service.getRoleInCad().subscribe((res: any) => {
       const roleListInCAD = res.detail;
       const role: ApprovalRoleHierarchy = roleListInCAD.filter(c => c.role.roleName === 'CAD')[0];
-      this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_PENDING', toRole: role.role.id});
+      this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_AND_LEGAL_PENDING', toRole: role.role.id});
       OfferLetterListComponent.loadData(this);
       this.spinner = false;
 
@@ -187,25 +187,32 @@ export class OfferLetterListComponent implements OnInit {
 
   }
 
-  public editOfferLetter(id: any): void {
-    this.service.detail(id).subscribe((res) => {
-      this.cadOfferLetterApprovedDoc = res.detail;
-      this.offerDocumentList = this.cadOfferLetterApprovedDoc.offerDocumentList;
-      this.offerDocumentList.forEach(offerLetter => {
-        this.docName = offerLetter.docName;
-        if (this.docName === 'Educational Loan') {
-          this.dialogService.open(EducationalLoanTemplateEditComponent, {
-            context: {
-              offerLetterId: offerLetter.id,
-              customerApprovedDoc: this.cadOfferLetterApprovedDoc,
-              offerDocumentList: this.offerDocumentList,
-              initialInformation: JSON.parse(offerLetter.initialInformation)
-            }
-          });
-        } else {
-          this.toastService.show(new Alert(AlertType.ERROR, 'No Offer Letter Found'));
-        }
-      });
-    });
-  }
+    public editOfferLetter(id: any): void {
+        this.spinner = true;
+        this.service.detail(id).subscribe((res) => {
+            this.cadOfferLetterApprovedDoc = res.detail;
+            this.spinner = false;
+            this.offerDocumentList = this.cadOfferLetterApprovedDoc.offerDocumentList;
+            this.offerDocumentList.forEach(offerLetter => {
+                this.docName = offerLetter.docName;
+                if (this.docName === 'Educational Loan') {
+                    this.dialogService.open(EducationalLoanTemplateEditComponent, {
+                        context: {
+                            offerLetterId: offerLetter.id,
+                            customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                            offerDocumentList: this.offerDocumentList,
+                            initialInformation: JSON.parse(offerLetter.initialInformation)
+                        },
+                        hasBackdrop: false,
+                        dialogClass: 'model-full',
+                    });
+                } else {
+                    this.toastService.show(new Alert(AlertType.ERROR, 'No Offer Letter Found'));
+                }
+            });
+        }, error => {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, 'OOPS something went wrong please try again!!'));
+        });
+    }
 }

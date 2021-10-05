@@ -1,6 +1,6 @@
-<nb-card [nbSpinner]="spinner">
+<nb-card [nbSpinner]="spinner" >
     <nb-card-header>
-        <div class="row d-flex justify-content-end">
+        <div class="row d-flex justify-content-end px-2 cursor text-danger">
             <a (click)="close()">X</a>
         </div>
     </nb-card-header>
@@ -557,17 +557,21 @@
             </table>
         </div>
     </form>
-    <button [disabled]="previewBtn"
-            class="float-right" nbButton
-            (click)="openModel()"
-            status="primary">
-        Preview
-    </button>
-    <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right"
-            [disabled]="btnDisable">Save
-    </button>
-    <button nbButton size="medium" class="float-right" (click)="translate()" [disabled]="!fieldFlag">
-        Translate
-    </button>
+
 </nb-card-body>
+    <nb-card-footer>
+        <button [disabled]="previewBtn"
+                class="float-right" nbButton
+                (click)="openModel()"
+                size="tiny"
+                status="primary">
+            Preview
+        </button>
+        <button nbButton status="info" (click)="submit()" size="tiny" type="submit" class="float-right"
+                [disabled]="btnDisable">Save
+        </button>
+        <button nbButton size="tiny" class="float-right" (click)="translate()" [disabled]="!fieldFlag">
+            Translate
+        </button>
+    </nb-card-footer>
 </nb-card>
