@@ -15,6 +15,7 @@ export class CadDataComponent implements OnInit {
     legal = true;
     disbursement = true;
     offer = true;
+    doc = true;
     productUtils = LocalStorageUtil.getStorage();
 
     constructor() {
@@ -25,6 +26,8 @@ export class CadDataComponent implements OnInit {
         if (local.roleType === RoleType.CAD_LEGAL) {
             this.disbursement = false;
             this.offer = false;
+        } else if (local.roleType === RoleType.MAKER) {
+            this.legal = false;
         }
     }
 

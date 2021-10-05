@@ -121,7 +121,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   guarantorProvienceList: Array<Province> = new Array<Province>();
   guarantorDistrict: Array<District> = new Array<District>();
   guarantorMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
-  isEdited= false;
+
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private branchService: BranchService,
@@ -1074,10 +1074,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['jointCustomerDetails', index, 'fatherNameCT']).patchValue(jointCustomerDetails.fatherName ? jointCustomerDetails.fatherName : '');
       // this.userConfigForm.get(['jointCustomerDetails', index, 'gurantedAmountTrans']).patchValue(jointCustomerDetails.gurantedAmount ? jointCustomerDetails.gurantedAmount : '');
       // this.userConfigForm.get(['jointCustomerDetails', index, 'gurantedAmountTrans']).setCT(jointCustomerDetails.gurantedAmount ? jointCustomerDetails.gurantedAmount : '');
-      this.userConfigForm.get(['jointCustomerDetails', index, 'permanentWardTrans']).patchValue(jointCustomerDetails.permanentWard ? jointCustomerDetails.permanentWard : '');
-      this.userConfigForm.get(['jointCustomerDetails', index, 'permanentWardCT']).patchValue(jointCustomerDetails.permanentWard ? jointCustomerDetails.permanentWard : '');
-      this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryWardTrans']).patchValue(jointCustomerDetails.temporaryWard ? jointCustomerDetails.temporaryWard : '');
-      this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryWardCT']).patchValue(jointCustomerDetails.temporaryWard ? jointCustomerDetails.temporaryWard : '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'permanentWardTrans']).patchValue(jointCustomerDetails.permanentWard ? jointCustomerDetails.permanentWard : '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'permanentWardCT']).patchValue(jointCustomerDetails.permanentWard ? jointCustomerDetails.permanentWard : '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryWardTrans']).patchValue(jointCustomerDetails.temporaryWard ? jointCustomerDetails.temporaryWard : '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryWardCT']).patchValue(jointCustomerDetails.temporaryWard ? jointCustomerDetails.temporaryWard : '');
 
       this.addressFromGroup = this.formBuilder.group({
         permanentProvince: this.userConfigForm.get(['jointCustomerDetails', index, 'permanentProvince']).value ? this.userConfigForm.get(['jointCustomerDetails', index, 'permanentProvince']).value.name : '',
@@ -1465,14 +1465,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
-  compareFnObject(c1: any, c2: any): boolean {
-    console.log('-------------------')
-    console.log(c1)
-    console.log(c2)
-    console.log('-------------------')
-    return c1 && c2 ? c1 === c2 : c1 === c2;
-  }
-
   getMunicipalitiesById(districtId: number, event) {
     const district = new District();
     district.id = districtId;
@@ -1571,12 +1563,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
 
-      const issuedPlace = {
-        id: undefined,
-        name: undefined,
-        nepaliName: this.nepData.citizenshipIssueDistrict.ct
-      };
-
       this.userConfigForm.patchValue({
         branch: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.branch,
         gender: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.gender,
@@ -1594,7 +1580,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         temporaryMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities,
         permanentWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.wardNumber,
         temporaryWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber,
-        citizenshipIssueDistrict : ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipIssuedPlace,
+        citizenshipIssueDistrict : ObjectUtil.isEmpty(this.nepData) ? undefined : this.nepData.citizenshipIssueDistrict.ct,
 
       });
 
@@ -1798,8 +1784,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('temporaryProvinceTrans').patchValue(this.translatedValues.temporaryProvince);
     this.userConfigForm.get('temporaryDistrictTrans').patchValue(this.translatedValues.temporaryDistrict);
     this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(this.translatedValues.temporaryMunicipality);
-    this.userConfigForm.get('permanentWardTrans').patchValue(this.translatedValues.permanentWard);
-    this.userConfigForm.get('temporaryWardTrans').patchValue(this.translatedValues.temporaryWard);
+    // this.userConfigForm.get('permanentWardTrans').patchValue(this.translatedValues.permanentWard);
+    // this.userConfigForm.get('temporaryWardTrans').patchValue(this.translatedValues.temporaryWard);
     this.userConfigForm.get('temporaryMunTypeTrans').patchValue(this.translatedValues.temporaryMunType);
     this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(this.translatedValues.citizenshipIssueDistrict);
     this.userConfigForm.get('citizenshipIssueDateTrans').patchValue(this.translatedValues.citizenshipIssueDate);
@@ -1822,8 +1808,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('citizenshipNoCT').patchValue(this.translatedValues.citizenshipNo);
     // this.userConfigForm.get('citizenshipIssueDistrictCT').patchValue(this.objectValueTranslater.citizenshipIssueDistrict);
     // this.userConfigForm.get('panNoCT').patchValue(this.translatedValues.panNo);
-     this.userConfigForm.get('permanentWardCT').patchValue(this.translatedValues.permanentWard);
-    this.userConfigForm.get('temporaryWardCT').patchValue(this.translatedValues.temporaryWard);
+    //  this.userConfigForm.get('permanentWardCT').patchValue(this.translatedValues.permanentWard);
+    // this.userConfigForm.get('temporaryWardCT').patchValue(this.translatedValues.temporaryWard);
   }
 
   private clearValidationForTemporaryAddress(): void {

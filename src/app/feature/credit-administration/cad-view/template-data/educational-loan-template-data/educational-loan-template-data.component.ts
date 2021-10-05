@@ -448,8 +448,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('approvalStaffNameTransVal').patchValue(this.translatedData.approvalStaffName);
     this.form.get('ownersNameTransVal').patchValue(this.translatedData.ownersName);
     // this.form.get('wardNoTransVal').patchValue(this.translatedData.wardNo);
-    this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
-    this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
+    // this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
+    // this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
     this.form.get('landAreaTransVal').patchValue(this.translatedData.landArea);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     if (!ObjectUtil.isEmpty(data.embassyName)) {
