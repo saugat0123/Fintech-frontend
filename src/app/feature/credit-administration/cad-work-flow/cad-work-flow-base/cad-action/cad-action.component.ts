@@ -69,6 +69,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     clientList = Clients;
     isOpened = false;
     forApproveMaker = [];
+    currentUserRole: string;
 
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
@@ -90,6 +91,9 @@ export class CadActionComponent implements OnInit, OnChanges {
     selectedTemplate;
     commentVar;
     hasRequierdDocument = false;
+    toUser;
+    toRole;
+    breakException: any;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -113,6 +117,27 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.checkCadDocument();
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
+        this.currentUserRole = LocalStorageUtil.getStorage().roleType;
+        try {
+            this.cadOfferLetterApprovedDoc.previousList.forEach((data) => {
+                console.log(data, this.currentUserId, this.roleId);
+                if (!ObjectUtil.isEmpty(data.toUser)) {
+                    if (data.toUser.id.toString() === this.currentUserId && data.fromRole.roleType !== 'CAD_ADMIN') {
+                        this.toUser = data.fromUser;
+                        this.toRole = data.fromRole;
+                        throw this.breakException;
+                    }
+                } else if (data.toRole.id.toString() === this.roleId && data.fromRole.roleType !== 'CAD_ADMIN') {
+                    this.toUser = data.fromUser;
+                    this.toRole = data.fromRole;
+                    throw this.breakException;
+                }
+            });
+        } catch (e) {
+
+        }
+        console.log('this is toUser', this.toUser);
+        console.log('this is toRole', this.toRole);
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
             this.isMaker = true;
         } else {
@@ -336,14 +361,19 @@ export class CadActionComponent implements OnInit, OnChanges {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [this.forwardBackwardDocStatusChange()],
+                    documentStatus: [this.backwardDocStatus()],
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined]
                 }
             );
-
+            if (!ObjectUtil.isEmpty(this.toUser) && !ObjectUtil.isEmpty(this.toRole)) {
+                this.formAction.patchValue({
+                    toUser: this.toUser,
+                    toRole: this.toRole
+                });
+            }
         }
         // this.modalService.open(template,{backdrop: false, scrollable: true});
         this.dialogRef = this.nbDialogService.open(template,
@@ -380,6 +410,21 @@ export class CadActionComponent implements OnInit, OnChanges {
         if (this.currentStatus === 'OFFER_APPROVED') {
             return 'LEGAL_PENDING';
         } else if (this.currentStatus === 'LEGAL_APPROVED') {
+            return 'DISBURSEMENT_PENDING';
+        } else {
+            return this.currentStatus;
+        }
+
+    }   public backwardDocStatus() {
+        if (this.currentStatus === 'OFFER_APPROVED') {
+            return 'OFFER_PENDING';
+        } else if (this.currentStatus === 'LEGAL_PENDING') {
+            return 'OFFER_APPROVED';
+        } else if (this.currentStatus === 'LEGAL_APPROVED') {
+            return 'LEGAL_PENDING';
+        } else if (this.currentStatus === 'DISBURSEMENT_PENDING' && this.currentUserRole === this.roleType.CRC) {
+            return 'LEGAL_PENDING';
+        } else if (this.currentStatus === 'DISBURSEMENT_PENDING' && this.currentUserRole === this.roleType.COPS) {
             return 'DISBURSEMENT_PENDING';
         } else {
             return this.currentStatus;
