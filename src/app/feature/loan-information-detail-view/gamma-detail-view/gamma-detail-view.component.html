@@ -115,7 +115,7 @@
 <!-- Start Security Details-->
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
-                   [securityId]="securityId"></app-security-view>
+                   [securityId]="securityId" [collateralData]="loanDataHolder?.collateralSiteVisits" [docStatus]="loanDataHolder?.documentStatus"></app-security-view>
 <app-collateral-summary
         *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
         [customerAllLoanList]="customerAllLoanList"

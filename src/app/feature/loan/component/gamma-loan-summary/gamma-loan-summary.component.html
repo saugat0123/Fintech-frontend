@@ -618,11 +618,9 @@
             <app-security-summary *ngIf="securitySummary"
                                   [count]="11"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
-                                  [collateralSiteVisitDetail]="collateralSiteVisitDetail"
                                   [securityId]="securityId"
-                                  [siteVisitDocuments]="siteVisitDocuments"
-                                  [isCollateralSiteVisit]="isCollateralSiteVisit"></app-security-summary>
-
+                                  [collateralData]="loanDataHolder?.collateralSiteVisits"
+                                  [docStatus]="loanDataHolder?.documentStatus"></app-security-summary>
             <app-collateral-summary
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                     [customerAllLoanList]="customerAllLoanList"
