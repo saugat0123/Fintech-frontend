@@ -322,8 +322,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.tdValues = this.translatedData;
     if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
       this.objectForm = this.formBuilder.group({
-        district: this.form.get('district').value.name,
-        municipality: this.form.get('municipality').value.name,
+        district: this.form.get('district').value ? this.form.get('district').value.name : '',
+        municipality: this.form.get('municipality').value ? this.form.get('municipality').value.name : '',
       });
       this.objectTranslate = await this.translateService.translateForm(this.objectForm);
     }
