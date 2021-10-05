@@ -63,6 +63,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="cashMarginOrFac"><strong>Select</strong></label>
+                                        <select
+                                                class="form-control" formControlName="cashMarginOrFac"
+                                                id="cashMarginOrFac" name="cashMarginOrFac">
+                                            <option value="FAC"> FAC</option>
+                                            <option value="CASHMARGIN">Cash Margin</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div *ngIf="!isFundable && fundableNonFundableSelcted && loanType !== 'NEW_LOAN'" class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="existCashMargin"><strong> Existing Cash Margin</strong>
