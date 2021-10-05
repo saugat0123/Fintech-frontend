@@ -145,66 +145,115 @@
                 </div>
                 <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; let i=index"
                      formArrayName="guarantorDetails">
+
                     <div [formGroupName]="i">
+                        {{i + 1 | nepaliWord: 'unicode'}}
+                        <table class="table table-responsive-md table-bordered text-left" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <th class="text-left" colspan="2"><b> दस्तखत : </b></th>
 
-                        <div>
-                            <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
+                                <th class="text-left" colspan="2"><b> दस्तखत : </b></th>
+                            </tr>
+                            <tr>
+                                <th class="align-top" style="border-bottom: none">
+                                    १.नाम
+                                </th>
+                                <th style="border-bottom: none">
+                                    <input class="form-field form-control-sm nepaliFont"
+                                           formControlName="SakGuarantorName1"
+                                           placeholder="" type="text"/>
+                                    (ना.प्र.नं  <input
+                                        class="form-field form-control-sm nepaliFont"
+                                        formControlName="SakNaPraNaName1"
+                                        placeholder=""
+                                        type="text"/>
+                                    मिति <input class="form-field form-control-sm nepaliFont"
+                                                formControlName="SakMitiName1"
+                                                placeholder=""
+                                                type="text"/>
+                                    जि.प्र.का <input class="form-field form-control-sm nepaliFont"
+                                                     formControlName="SakJiPrakaName1"
+                                                     placeholder=""
+                                                     type="text"/>)
+                                </th>
 
+                                <th class="align-top" style="border-bottom: none">
+                                    २.नाम
+                                </th>
+                                <th style="border-bottom: none">
+                                    <input class="form-field form-control-sm nepaliFont "
+                                           formControlName="SakGuarantorName2"
+                                           placeholder="" type="text"/>
+                                    (ना.प्र.नं  <input
+                                        class="form-field form-control-sm nepaliFont"
+                                        formControlName="SakNaPraNaName2"
+                                        placeholder=""
+                                        type="text"/>
+                                    मिति <input class="form-field form-control-sm nepaliFont"
+                                                formControlName="SakMitiName2"
+                                                placeholder=""
+                                                type="text"/>
+                                    जि.प्र.का <input class="form-field form-control-sm nepaliFont"
+                                                     formControlName="SakJiPrakaName2"
+                                                     placeholder=""
+                                                     type="text"/>)
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="align-top" style="border-top: none">
+                                    ठेगाना
+                                </th>
+                                <th style="border-top: none">
+                                    <input class="form-field form-control-sm nepaliFont "
+                                           formControlName="SakIssuedPlace1"
+                                           placeholder="" type="text"/>
 
-                            <table class="table-bordered table text-center ">
-                                <thead>
-                                <tr>
-                                    <th width="10%">नाम</th>
-                                    <th width="10%">ना.प्र.नं.</th>
-                                    <th width="15%">मिति</th>
-                                    <th width="15%">जिल्ला</th>
-                                    <th width="15%">जि.प्र.का.</th>
-                                    <th width="25%">गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.</th>
-                                    <th width="10%">वडा नं.</th>
+                                    जिल्ला<input class="form-field form-control-sm nepaliFont"
+                                                 formControlName="SakJillaName1"
+                                                 placeholder=""
+                                                 type="text"/>
+                                    गा.पा./न.पा. वडा नं <input class="form-field form-control-sm nepaliFont"
+                                                               formControlName="SakJagaName1"
+                                                               placeholder=""
+                                                               type="text"/>
+                                </th>
 
-                                </tr>
+                                <th class="align-top" style="border-top: none">
+                                    ठेगाना
+                                </th>
+                                <th style="border-top: none">
+                                    <input class="form-field form-control-sm nepaliFont "
+                                           formControlName="SakIssuedPlace2"
+                                           placeholder="" type="text"/>
 
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><input class="form-field nepaliFont form-control" formControlName="name"
-                                               type="text"></td>
-                                    <td><input class="form-field nepaliFont form-control"
-                                               formControlName="citizenNumber"
-                                               type="text"></td>
-                                    <td><input class="form-field nepaliFont form-control" formControlName="issuedYear"
-                                               type="text"></td>
-                                    <td><input class="form-field nepaliFont form-control"
-                                               formControlName="guarantorCDOoffice"
-                                               type="text"></td>
-                                    <td><input class="form-field  nepaliFont form-control"
-                                               formControlName="guarantorDistrict"
-                                               type="text"></td>
-                                    <td><input class="form-field nepaliFont form-control"
-                                               formControlName="guarantorMunicipality"
-                                               type="text"></td>
-                                    <td><input class="form-field nepaliFont form-control"
-                                               formControlName="guarantorWadNo"
-                                               type="text"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div *ngIf="form.get('guarantorDetails')['length']>1" class="col-md-3 float-right">
-                                <button (click)="removeGuarantor(i)"
-                                        class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
-                                        value="Delete">
-                                    <em class="fas fa-trash" style="color: white;">
-                                        Delete Guarantor
-                                    </em>
+                                    जिल्ला<input class="form-field form-control-sm nepaliFont"
+                                                 formControlName="SakJillaName2"
+                                                 placeholder=""
+                                                 type="text"/>
+                                    गा.पा./न.पा. वडा नं <input class="form-field form-control-sm nepaliFont"
+                                                               formControlName="SakJagaName2"
+                                                               placeholder=""
+                                                               type="text"/>
+                                </th>
+                            </tr>
 
-                                </button>
-                            </div>
+                            </thead>
+                        </table>
+                        <div *ngIf="form.get('guarantorDetails')['length']>1" class="col-md-3 float-right">
+                            <button (click)="removeGuarantor(i)"
+                                    class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                                    value="Delete">
+                                <em class="fas fa-trash" style="color: white;">
+                                    Delete Guarantor
+                                </em>
+
+                            </button>
                         </div>
                     </div>
+
                 </div>
                 <br>
-
-
             </div>
             <br>
             <div>
