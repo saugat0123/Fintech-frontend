@@ -106,18 +106,13 @@ export class OfferLetterPersonalComponent implements OnInit {
                 temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
                 shreeName1: allGuarantors ? allGuarantors : '',
             });
+
             this.setGuarantors(this.nepaliData.guarantorDetails);
             this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
+
         }
         this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
         this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmountTemplate.nepaliWords);
-        this.form.patchValue({
-            dhitoLekhi: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
-            shreeAmount: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
-            shreeAmountInWord: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : '',
-            amount2: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
-            amountInWords2: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : ''
-        });
 
     }
 
@@ -133,16 +128,18 @@ export class OfferLetterPersonalComponent implements OnInit {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
-            // this.setEmptyGuarantors(initialInfo.guarantorDetails);
-            // this.setGuarantors(initialInfo.guarantors);
+            this.setEmptyGuarantors(initialInfo.guarantorDetails);
+            this.setGuarantors(initialInfo.guarantors);
             this.setSecurityDetails(initialInfo.securityDetails);
             this.setLoanFacility(initialInfo.loanFacilityTable);
             this.form.patchValue(initialInfo);
+            this.setEmptyWitnesses(initialInfo.witnessDetails);
             this.fillForm();
         }
     }
 
     onSubmit(): void {
+        console.log('submit', this.form);
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
@@ -233,6 +230,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     setEmptyGuarantors(data) {
+        console.log('guarantor', data);
         const formArray = this.form.get('guarantorDetails') as FormArray;
         if (data.length === 0) {
             this.addEmptyGuarantor();
@@ -246,6 +244,34 @@ export class OfferLetterPersonalComponent implements OnInit {
                 guarantorCitizenIssuedOffice: [value.issuedPlace],
                 guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
                 name: [value.name],
+                officeType: [value.officeType],
+                branchName: [value.branchName],
+                secondLetterDate: [value.secondLetterDate],
+                secondPatraNo: [value.secondLetterDate],
+                loanHolderName: [value.loanHolderName],
+                guarantorDistrict: [value.guarantorDistrict],
+                municipalityName: [value.municipalityName],
+                guarantorWardNo: [value.guarantorWardNo],
+                guarantorRelation: [value.guarantorRelation],
+                fatherInLawName: [value.fatherInLawName],
+                spouseOrFatherName: [value.spouseOrFatherName],
+                customerMobile: [value.customerMobile],
+                guarantorEmail: [value.guarantorEmail]
+            }));
+        });
+    }
+
+    setEmptyWitnesses(data) {
+        console.log('data', data);
+        const formArray = this.form.get('witnessDetails') as FormArray;
+        if (data.length === 0) {
+            this.addEmptyWitness();
+            return;
+        }
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                witnessName: [value.witnessName],
+                witnessAddress: [value.witnessAddress],
             }));
         });
     }
@@ -257,7 +283,27 @@ export class OfferLetterPersonalComponent implements OnInit {
             guarantorIssuedDate: [undefined],
             guarantorCitizenIssuedOffice: [undefined],
             name: [undefined],
-            guarantorLegalDocumentAddress: [undefined]
+            guarantorLegalDocumentAddress: [undefined],
+            officeType: [undefined],
+            branchName: [undefined],
+            secondLetterDate: [undefined],
+            secondPatraNo: [undefined],
+            loanHolderName: [undefined],
+            guarantorDistrict: [undefined],
+            municipalityName: [undefined],
+            guarantorWardNo: [undefined],
+            guarantorRelation: [undefined],
+            fatherInLawName: [undefined],
+            spouseOrFatherName: [undefined],
+            customerMobile: [undefined],
+            guarantorEmail: [undefined]
+        });
+    }
+
+    buildWitnessDetails() {
+        return this.formBuilder.group({
+            witnessName: [undefined],
+            witnessAddress: [undefined]
         });
     }
 
@@ -265,8 +311,16 @@ export class OfferLetterPersonalComponent implements OnInit {
         (this.form.get('guarantors') as FormArray).push(this.buildGuarantorDetails());
     }
 
+    addEmptyWitness() {
+        (this.form.get('witnessDetails') as FormArray).push(this.buildWitnessDetails());
+    }
+
     removeGuarantor(index) {
         (this.form.get('guarantors') as FormArray).removeAt(index);
+    }
+
+    removeWitness(index) {
+        (this.form.get('witnessDetails') as FormArray).removeAt(index);
     }
 
     buildForm() {
@@ -363,6 +417,7 @@ export class OfferLetterPersonalComponent implements OnInit {
 
             guarantors: this.formBuilder.array([]),
             guarantorDetails: this.formBuilder.array([]),
+            witnessDetails: this.formBuilder.array([]),
 
             sahichhapEmployee: [undefined],
             docYear: [undefined],
@@ -492,4 +547,3 @@ export class OfferLetterPersonalComponent implements OnInit {
         this.form.get([formArrayName, i, 'loanLimitAmount']).patchValue(asd);
     }
 }
-
