@@ -223,6 +223,9 @@
                         <app-obtained-document #obtainedDocument>
                         </app-obtained-document>
                     </ng-template>
+                        <ng-template ngbTabContent *ngIf="allList.name == 'Outstanding Update'">
+                            <app-outstanding-update></app-outstanding-update>
+                        </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">
                         <!--            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">-->
