@@ -273,7 +273,7 @@
         </tr>
         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
           <td>Emi Amount Figure</td>
-          <td><input type="text" class="form-control"
+          <td><input type="number" class="form-control"
                      formControlName="emiAmountFigure"
                      (input)="getNumAmountWord('emiAmountFigure', 'emiAmountWords')"/></td>
           <td class="abc">{{translatedData?.emiAmountFigure}}</td>
@@ -491,7 +491,7 @@
 
         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
           <td>Pledge Amount Figure</td>
-          <td><input type="text" class="form-control" formControlName="pledgeAmountFigure"
+          <td><input type="number" class="form-control" formControlName="pledgeAmountFigure"
                      (input)="translateNumber('pledgeAmountFigure', 'pledgeAmountFigureTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.pledgeAmountFigure}}</td>
@@ -502,7 +502,7 @@
 
         <tr *ngIf="selectedSecurityVal === 'LAND_AND_BUILDING'">
           <td>Insurance Amount Figure</td>
-          <td><input type="text" class="form-control" formControlName="insuranceAmountFigure"
+          <td><input type="number" class="form-control" formControlName="insuranceAmountFigure"
                      (input)="translateNumber('insuranceAmountFigure', 'insuranceAmountFigureTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.insuranceAmountFigure}}</td>
@@ -624,7 +624,7 @@
           <td>District (जिल्ला)</td>
           <td>
             <select formControlName="district" class="custom-select" id="district"
-                    (input)="getMunicipalityByDistrict(form.get('district').value)">
+                    (change)="getMunicipalityByDistrict(form.get('district').value)">
               <option [ngValue]="null" hidden>District</option>
               <option *ngFor="let district of allDistrictList"
                       [ngValue]="district">{{district.name}}</option>

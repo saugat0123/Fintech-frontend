@@ -1,11 +1,22 @@
+input{
+  font-size: 16px !important;
+}
 .longInput{
   width: 250px;
 }
-
+.customFont {
+  font-size: 22px;
+}
 .shortInput{
   width: 50px;
 }
-
+.nepaliList {
+  list-style-type: devanagari;
+}
+table{
+  text-align: justify !important;
+  line-height: 1.9;
+}
 .nep {
   font-size: 16px;
   line-height: 1.9;
@@ -38,7 +49,7 @@ input::-webkit-input-placeholder {
 }
 
 input[type="text"] {
-  font-size:20px;
+  font-size:16px;
 }
 .disclist > li{
   list-style-type: disc;

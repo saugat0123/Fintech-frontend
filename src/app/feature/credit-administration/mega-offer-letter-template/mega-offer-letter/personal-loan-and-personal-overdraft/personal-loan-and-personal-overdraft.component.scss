@@ -1,6 +1,12 @@
 .longInput{
   width: 250px;
 }
+table{
+  line-height: 1.9;
+}
+p{
+  line-height: 1.9;
+}
 
 .shortInput{
   width: 50px;
@@ -38,7 +44,7 @@ input::-webkit-input-placeholder {
 }
 
 input[type="text"] {
-  font-size:20px;
+  font-size:16px;
 }
 .hello{
   width: 95%;
@@ -50,4 +56,13 @@ input[type="text"] {
 .hello > tr > td{
   border: 1px solid black !important;
 }
-
+.customFont {
+  font-size: 22px;
+}
+.nepaliList {
+  list-style-type: devanagari;
+}
+.disclist > li{
+  list-style-type: disc;
+  line-height:1.9;
+}
