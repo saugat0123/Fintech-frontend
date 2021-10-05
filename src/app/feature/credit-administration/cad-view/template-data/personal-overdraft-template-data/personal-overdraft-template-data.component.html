@@ -168,7 +168,7 @@
 
             <tr>
                 <td>Loan admin Fee</td>
-                <td><input (input)="getNumAmountWord('loanadminFee', 'loanadminFeeWords')"
+                <td><input (input)="getNumAmountWord('loanadminFee', 'loanadminFeeWords');translateNumber('loanadminFee', 'loanadminFeeTransVal')"
                            type="text" class="form-control" formControlName="loanadminFee"></td>
                 <td class="abc">{{translatedValues?.loanadminFee}}</td>
                 <td>

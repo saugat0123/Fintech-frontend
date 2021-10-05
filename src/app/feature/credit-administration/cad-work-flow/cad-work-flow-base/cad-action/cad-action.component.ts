@@ -261,18 +261,15 @@ export class CadActionComponent implements OnInit, OnChanges {
     if (LocalStorageUtil.getStorage().roleType === RoleType.CAS_CHECKER && this.popUpTitle === 'APPROVED') {
       this.cadService.checkByCadChecker(this.formAction.value).subscribe(res => {
         this.onClose();
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-            this.formAction.get('docAction').value));
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Action has been completed successfully'));
       }, error => {
         console.error(error);
-        this.toastService.show(new Alert(AlertType.DANGER, 'Error while approving document ' +
-            this.formAction.get('docAction').value));
+        this.toastService.show(new Alert(AlertType.DANGER, 'Error while taking action. Please try again.'));
       });
     } else {
       this.cadService.saveAction(this.formAction.value).subscribe((response: any) => {
         this.onClose();
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-            this.formAction.get('docAction').value));
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Action has been completed successfully'));
         this.routerUtilsService.routeSummaryAndEncryptPathID(this.cadId);
       }, error => {
         this.forApproveMaker = [];

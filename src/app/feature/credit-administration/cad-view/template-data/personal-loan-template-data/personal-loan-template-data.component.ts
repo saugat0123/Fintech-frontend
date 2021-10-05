@@ -221,11 +221,11 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
     this.form.get('loanPurposeTransVal').patchValue(this.translatedData.loanPurpose);
-    this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
-    this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
-    this.form.get('yearlyFloatingInterestRateTransVal').patchValue(this.translatedData.yearlyFloatingInterestRate);
+    // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
+    // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
+    // this.form.get('yearlyFloatingInterestRateTransVal').patchValue(this.translatedData.yearlyFloatingInterestRate);
     // this.form.get('loanAdminFeeTransVal').patchValue(this.translatedData.loanAdminFee);
-    this.form.get('emiAmountTransVal').patchValue(this.translatedData.emiAmount);
+    // this.form.get('emiAmountTransVal').patchValue(this.translatedData.emiAmount);
     this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
     // this.form.get('accountNumberTransVal').patchValue(this.translatedData.accountNumber);
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
