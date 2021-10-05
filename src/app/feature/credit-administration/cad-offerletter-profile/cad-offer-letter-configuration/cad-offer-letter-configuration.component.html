@@ -664,8 +664,8 @@
                   <nb-radio *ngFor="let option of vdcOption"
                             [value]="option.value">{{option.label}}</nb-radio>
                 </nb-radio-group>
-                <ng-select
 
+                <ng-select
                     bindLabel="name"
                     [compareWith]="compareFn"
                     [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
@@ -810,16 +810,17 @@
                   <nb-radio *ngFor="let option of vdcOption"
                             [value]="option.value">{{option.label}}</nb-radio>
                 </nb-radio-group>
-                <select [compareWith]="compareFn"
-                        class="custom-select"
-                        formControlName="temporaryMunicipality"
 
+                <ng-select
+                        bindLabel="name"
+                        [compareWith]="compareFn"
+                        formControlName="temporaryMunicipality"
                         name="municipality">
-                  <option *ngFor="let municipalityVal of tempMunicipalities"
-                          [ngValue]="municipalityVal">
+                  <ng-option *ngFor="let municipalityVal of tempMunicipalities"
+                          [value]="municipalityVal">
                     {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                  </option>
-                </select>
+                  </ng-option>
+                </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="temporaryMunicipalityTrans" type="text"></td>
