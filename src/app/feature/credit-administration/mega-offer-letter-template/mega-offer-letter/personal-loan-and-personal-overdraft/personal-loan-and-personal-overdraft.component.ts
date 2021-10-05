@@ -46,6 +46,8 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
   offerLetterData;
   tempData;
   loanHolderInfo;
+  guarantorData;
+  afterSave = false;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -67,8 +69,9 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
             console.log('data', this.tempData);
-
+            console.log('Loan Holder Info',this.loanHolderInfo);
         }
+        this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         this.checkOfferLetterData();
     }
 
@@ -87,25 +90,21 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             yearlyInterestRate: [undefined],
             loanAdminFeeinFigure: [undefined],
             loanAdminFeeinWords: [undefined],
-            loanadminFee: [undefined],
             emiInFigure: [undefined],
             emiInWords: [undefined],
             loanExpiryDate: [undefined],
-            nameofGuarantors: [undefined],
-            guaranteedAmountInFigure: [undefined],
-            guaranteedAmountInWords: [undefined],
+            guarantorName: [undefined],
+            guaranteedamountinFigure: [undefined],
+            guaranteedamountinWords: [undefined],
             nameofBranch: [undefined],
             accountNumberOfCustomer: [undefined],
             nameofCompanyCustomerWorking: [undefined],
-            NameofCustomer: [undefined],
             accountofCustomer: [undefined],
             relationshipofficerName: [undefined],
+            managerName: [undefined],
             branchName: [undefined],
-            date: [undefined],
-            district: [undefined],
-            wardNum: [undefined],
-            freeText: [undefined],
-            witnessName: [undefined],
+            signatureDate: [undefined],
+            additionalGuarantorDetails: [undefined],
             staffName: [undefined],
         });
     }
@@ -136,11 +135,9 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
                 === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT).toString())[0];
             if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-                console.log('if');
                 this.offerLetterDocument = new OfferDocument();
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT);
             } else {
-                console.log('else');
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
                 if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
                     this.offerLetterData = this.offerLetterDocument;
@@ -168,34 +165,29 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             const val = value.proposal.proposedLimit;
             totalLoanAmount = totalLoanAmount + val;
         });
-        console.log(this.loanHolderInfo.name.ct, 'loanHolder');
         this.form.patchValue({
             customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
             customerAddress: customerAddress ? customerAddress : '',
-            // loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-            // loanAmountinWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+            loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+            loanAmountinWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
             referenceNumber: this.tempData.referenceNumber.ct ? this.tempData.referenceNumber.ct : '',
-            dateofApproval: this.tempData.dateofApproval.ct ? this.tempData.dateofApproval.ct : '',
-            // dateofApplication: this.tempData.dateofApplication.ct ? this.tempData.dateofApplication.ct : '',
-            // purposeofLoan: this.tempData.purposeofLoan.ct ? this.tempData.purposeofLoan.ct : '',
-            // loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
-            // emiInFigure: this.tempData.emiInFigure.ct ? this.tempData.emiInFigure.ct : '',
-            // emiInWords: this.tempData.emiInWords.ct ? this.tempData.emiInWords.ct : '',
-            // loanExpiryDate: this.tempData.loanExpiryDate.ct ? this.tempData.loanExpiryDate.ct : '',
-            // nameofGuarantors: this.tempData.nameofGuarantors.ct ? this.tempData.nameofGuarantors.ct : '',
-            // guaranteedAmountInFigure: this.tempData.guaranteedAmountInFigure.ct ? this.tempData.guaranteedAmountInFigure.ct : '',
-            // guaranteedAmountInWords: this.tempData.guaranteedAmountInWords.ct ? this.tempData.guaranteedAmountInWords.ct : '',
-            // nameofBranch: this.tempData.nameofBranch.ct ? this.tempData.nameofBranch.ct : '',
-            // accountNumberOfCustomer: this.tempData.accountNumberOfCustomer.ct ? this.tempData.accountNumberOfCustomer.ct : '',
-            // relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
-            // branchName: this.tempData.branchName.ct ? this.tempData.branchName.ct : '',
-            // date: this.tempData.date.ct ? this.tempData.date.ct : '',
-            // district: this.tempData.district.ct ? this.tempData.district.ct : '',
-            // wardNum: this.tempData.wardNum.ct ? this.tempData.wardNum.ct : '',
-            // witnessName: this.tempData.witnessName.ct ? this.tempData.witnessName.ct : '',
-            // staffName: this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
+            purposeofLoan: this.tempData.purposeofLoan.ct ? this.tempData.purposeofLoan.ct : '',
+            baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
+            premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
+            yearlyInterestRate: this.tempData.yearlyInterestRate.ct ? this.tempData.yearlyInterestRate.ct : '',
+            loanAdminFeeinFigure: this.tempData.loanAdminFeeinFigure.ct ? this.tempData.loanAdminFeeinFigure.ct : '',
+            loanAdminFeeinWords: this.tempData.loanAdminFeeinWords.ct ? this.tempData.loanAdminFeeinWords.ct : '',
+            emiInFigure: this.tempData.emiInFigure.ct ? this.tempData.emiInFigure.ct : '',
+            emiInWords: this.tempData.emiInWords.ct ? this.tempData.emiInWords.ct : '',
+            nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+            accountNumberOfCustomer: this.tempData.accountNumber.ct ? this.tempData.accountNumber.ct : '',
+            nameofCompanyCustomerWorking: this.tempData.nameofCompanyCustomerWorking.ct ? this.tempData.nameofCompanyCustomerWorking.ct : '',
+            accountofCustomer: this.tempData.accountNumber.ct ? this.tempData.accountNumber.ct : '',
+            relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
+            managerName: this.tempData.branchManager.ct ? this.tempData.branchManager.ct : '',
+            branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+            staffName: this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
         });
-        // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
 
   submit(): void {
@@ -205,13 +197,14 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.form.value);
+          offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
+      offerDocument.supportedInformation = this.form.get('additionalGuarantorDetails').value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
@@ -219,12 +212,14 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
+      this.afterSave = true;
       this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
+      this.afterSave = false;
       this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
 
@@ -244,4 +239,16 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
   close() {
     this.ref.close();
   }
+    guarantorParse(nepData, key, trans?) {
+        const data = JSON.parse(nepData);
+        try {
+            if (ObjectUtil.isEmpty(trans)) {
+                return data[key].ct;
+            } else {
+                return data[key].en;
+            }
+        } catch (exp) {
+            console.log(exp);
+        }
+    }
 }

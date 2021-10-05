@@ -11,45 +11,60 @@
 
         <nb-card-body>
             <form [formGroup]="form">
-                <h6 class="text-center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h6>
+                <<h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
                 <p class="text-left"></p>
-                <input class="form-field form-control-sm nepaliFont col-3"
+                <input class="form-field form-control-sm col-3"
                        formControlName="referenceNumber"
                        name="referenceNumber"
                        placeholder=" सन्दर्भ नम्बर "
                        type="text"/>
-                <p class="text-left"> मिति:
-                    <input class="form-field form-control-sm nepaliFont col-3"
-                           formControlName="dateofApproval"
-                           name="dateofApproval"
-                           placeholder="मिति"
-                           type="text"/>
+                <p *ngIf="initialInfoPrint.dateofApproval.en.nDate === undefined; else dateofApprovalNepali" class="text-left">
+                    मितिः <input class="form-field form-control-sm"
+                                 formControlName="dateofApproval"
+                                 [value]="initialInfoPrint.dateofApproval.en === undefined ? '' : ((initialInfoPrint.dateofApproval.en | date) | engNepDate: true)"
+                                 type="text"/>
                 </p>
+                <ng-template #dateofApprovalNepali>
+                    <p>
+                        मितिः <input class="form-field form-control-sm"
+                                     formControlName="dateofApproval"
+                                     [value]="initialInfoPrint.dateofApproval.en.nDate === undefined ? '' : initialInfoPrint.dateofApproval.en.nDate"
+                                     type="text"/>
+                    </p>
+                </ng-template>
                 <div class="mb-2"> श्रीमान्/श्रीमती
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm"
                            formControlName="customerName"
                            name="customerName"
                            placeholder="{{loanHolderInfo?.name}}"
                            type="text"/>
                     <div class="mb-1"> ठेगाना:
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field form-control-sm"
                                formControlName="customerAddress"
                                name="customerAddress"
                                placeholder="ठेगाना"
                                type="text"/>
                     </div>
-                    <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
-
-
-                    <br>
+                    <p style="text-align: center"><strong><u>बिषयः ऋणकर्जा सुविधा बारे ।</u></strong></p>
                     <br>
                     <div class="mb-1">
                         <p> महोदय, <br>
-                            तपाईंले मिति <input class="form-field form-control-sm nepaliFont"
-                                                formControlName="dateofApplication"
-                                                name="dateofApplication"
-                                                placeholder="मिति"
-                                                type="text"/>मा व्यक्तिगत कर्जा र व्यक्तिगत अधिविकर्ष सुविधाका
+                            तपाईंले
+                            <span *ngIf="initialInfoPrint.dateofApplication.en.nDate === undefined; else dateofApplicationNepali" class="text-left">
+                            मितिः <input class="form-field form-control-sm"
+                                         formControlName="dateofApplication"
+                                         [value]="initialInfoPrint.dateofApplication.en === undefined ? '' : ((initialInfoPrint.dateofApplication.en | date) | engNepDate: true)"
+                                         type="text"/>
+                        </span>
+                            <ng-template #dateofApplicationNepali>
+                            <span>
+                                मितिः <input class="form-field form-control-sm"
+                                             formControlName="dateofApplication"
+                                             [value]="initialInfoPrint.dateofApplication.en.nDate === undefined ? '' : initialInfoPrint.dateofApplication.en.nDate"
+                                             type="text"/>
+                            </span>
+                            </ng-template>
+                            मा व्यक्तिगत कर्जा र व्यक्तिगत अधिविकर्ष सुविधाका
                             लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका
                             शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
 
@@ -62,7 +77,9 @@
                         <tr>
                             <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
                             <td>
-                                <strong> व्यक्तिगत कर्जा: <input class="form-field form-control-sm nepaliFont"
+                                <strong>
+                                    व्यक्तिगत कर्जा:
+                                    <input class="form-field form-control-sm"
                                                                  formControlName="purposeofLoan"
                                                                  name="purposeofLoan"
                                                                  placeholder="ऋण को उद्देश्य"
@@ -75,7 +92,7 @@
                             <td><strong> रकम </strong></td>
                             <td>
                                 रु.<input (input)="getNumAmountWord('loanAmountinFigure', 'loanAmountinWords')"
-                                          class="form-field form-control-sm nepaliFont"
+                                          class="form-field form-control-sm"
                                           formControlName="loanAmountinFigure"
                                           name="loanAmountinFigure"
                                           placeholder="ऋण रकम"
@@ -91,19 +108,19 @@
                             <td><strong> ब्याज </strong></td>
                             <td>प्रकाशित आधार दर (Base Rate)
                                 <input (change)="calcYearlyRate()"
-                                       class="form-field form-control-sm nepaliFont"
+                                       class="form-field form-control-sm"
                                        formControlName="baseRate"
                                        name="baseRate"
                                        placeholder="आधार दर"
                                        type="text"/> +
                                 <input (change)="calcYearlyRate()"
-                                       class="form-field form-control-sm nepaliFont"
+                                       class="form-field form-control-sm"
                                        formControlName="premiumRate"
                                        name="प्रिमियम दर"
                                        placeholder="प्रिमियम दर"
                                        type="text"/> प्रतिशत ब्याज दर प्रिमियम( interest rate premium)
                                 हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
-                                <input class="form-field form-control-sm nepaliFont"
+                                <input class="form-field form-control-sm"
                                        formControlName="yearlyInterestRate"
                                        name="yearlyInterestRate"
                                        placeholder="बार्षिक दर"
@@ -113,9 +130,9 @@
                         </tr>
                         <tr>
                             <td><strong>सेवा शुल्कः </strong></td>
-                            <td>कुल ऋणकर्जा रकमको <input class="form-field form-control-sm nepaliFont"
-                                                         formControlName="loanadminFee"
-                                                         name="loanadminFee"
+                            <td>कुल ऋणकर्जा रकमको <input class="form-field form-control-sm"
+                                                         formControlName="loanAdminFeeinFigure"
+                                                         name="loanAdminFeeinFigure"
                                                          placeholder=" "
                                                          type="text"/> प्रतिशतका दरले अग्रिम रुपमा तिर्नुबुझाउनु पर्नेछ ।
                             </td>
@@ -125,12 +142,12 @@
                             <td>
                                 साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक
                                 रु <input (input)="getNumAmountWord('emiInFigure', 'emiInWords')"
-                                          class="form-field form-control-sm nepaliFont"
+                                          class="form-field form-control-sm"
                                           formControlName="emiInFigure"
                                           name="emiInFigure"
                                           placeholder=" "
                                           type="text"/>
-                                (अक्षरेपि रु <input class="form-field form-control-sm nepaliFont"
+                                (अक्षरेपि रु <input class="form-field form-control-sm"
                                                     formControlName="emiInWords"
                                                     name="emiInWords"
                                                     placeholder=" "
@@ -177,7 +194,7 @@
                             </td>
                         <tr>
                             <td><strong>कर्जा प्रकार/ प्रयोजनः </strong></td>
-                            <td>व्यक्तिगत अधिविकर्षः <input class="form-field form-control-sm nepaliFont"
+                            <td>व्यक्तिगत अधिविकर्षः <input class="form-field form-control-sm"
                                                             formControlName="purposeofLoan"
                                                             name="purposeofLoan"
                                                             placeholder=" ऋण को उद्देश्य"
@@ -188,12 +205,12 @@
                         <tr>
                             <td><strong>रकमः </strong></td>
                             <td>रु <input (input)="getNumAmountWord('loanAmountinFigure', 'loanAmountinWords')"
-                                          class="form-field form-control-sm nepaliFont"
+                                          class="form-field form-control-sm"
                                           formControlName="loanAmountinFigure"
                                           name="LoanAmountInFigure"
                                           placeholder=" रकम "
                                           type="text"/> ।
-                                (अक्षरेपि रु <input class="form-field form-control-sm nepaliFont"
+                                (अक्षरेपि रु <input class="form-field form-control-sm"
                                                     formControlName="loanAmountinWords"
                                                     name="loanAmountinWords"
                                                     placeholder=" रकम "
@@ -203,19 +220,19 @@
                         <tr>
                             <td><strong>ब्याज दरः</strong></td>
                             <td>प्रकाशित आधार दर (Base Rate)
-                                <input (change)="calcYearlyRate()" class="form-field form-control-sm nepaliFont"
+                                <input (change)="calcYearlyRate()" class="form-field form-control-sm"
                                        formControlName="baseRate"
                                        name="baseRate"
                                        placeholder=" आधार दर "
                                        type="text"/>
                                 प्रतिशत ब्याज दर ( interest rate premium)
-                                <input (change)="calcYearlyRate()" class="form-field form-control-sm nepaliFont"
+                                <input (change)="calcYearlyRate()" class="form-field form-control-sm"
                                        formControlName="premiumRate"
                                        name="premiumRate"
                                        placeholder=" प्रिमियम दर "
                                        type="text"/>
                                 हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
-                                <input class="form-field form-control-sm nepaliFont"
+                                <input class="form-field form-control-sm"
                                        formControlName="yearlyInterestRate"
                                        name="yearlyInterestRate"
                                        placeholder=" बार्षिक दर "
@@ -230,12 +247,12 @@
                                 <ul class="disclist">
                                     <li>ऋण प्रशासनिक शुल्क बापत रु
                                         <input (input)="getNumAmountWord('loanAdminFeeinFigure', 'loanAdminFeeinWords')"
-                                                class="form-field form-control-sm nepaliFont"
+                                                class="form-field form-control-sm"
                                                formControlName="loanAdminFeeinFigure"
                                                name="loanAdminFeeinFigure"
                                                placeholder=" रकम "
                                                type="text"/> ।
-                                        (अक्षरेपी रु <input class="form-field form-control-sm nepaliFont"
+                                        (अक्षरेपी रु <input class="form-field form-control-sm"
                                                             formControlName="loanAdminFeeinWords"
                                                             name="loanAdminFeeinWords"
                                                             placeholder=" रकम "
@@ -304,36 +321,47 @@
                         </tr>
                         <tr>
                             <td><strong>कर्जा अवधि समाप्ती/पूनरावलोकन मितिः</strong></td>
-                            <td>मिति<input class="form-field form-control-sm nepaliFont"
-                                           formControlName="loanExpiryDate"
-                                           name="loanExpiryDate"
-                                           placeholder="ऋण समाप्ति मिति "
-                                           type="text"/>मा हुनेछ ।
-                            </td>
+                            <td *ngIf="initialInfoPrint.loanExpiryDate.en.nDate === undefined; else loanExpiryDateNepali" class="text-left">
+                                मितिः
+                                <input class="form-field form-control-sm"
+                                       formControlName="loanExpiryDate"
+                                       [value]="initialInfoPrint.loanExpiryDate.en === undefined ? '' : ((initialInfoPrint.loanExpiryDate.en | date) | engNepDate: true)"
+                                       type="text"/>
+                                मा हुनेछ ।</td>
+                            <ng-template #loanExpiryDateNepali>
+                                <td>
+                                    मितिः <input class="form-field form-control-sm"
+                                                 formControlName="loanExpiryDate"
+                                                 [value]="initialInfoPrint.loanExpiryDate.en.nDate === undefined ? '' : initialInfoPrint.loanExpiryDate.en.nDate"
+                                                 type="text"/>
+                                    मा हुनेछ ।</td>
+                            </ng-template>
                         </tr>
                     </table>
-                    <table class="table table-borderless">
+                    <table class="table table-borderless col-md-12">
                         <tr>
                             <th colspan="2"><strong>कर्जाका लागि सुरक्षण विवरणः</strong></th>
                         </tr>
                         <tr>
-                            <td>क.</td>
-                            <td>श्री <input class="form-field form-control-sm nepaliFont"
-                                            formControlName="nameofGuarantors"
-                                            name="nameofGuarantors"
-                                            placeholder=" नाम "
-                                            type="text"/>
-                                ले बैंकको पक्षमा रु <input (input)="getNumAmountWord('guaranteedAmountInFigure', 'guaranteedAmountInWords')"
-                                                           class="form-field form-control-sm nepaliFont"
-                                                           formControlName="guaranteedAmountInFigure"
-                                                           name="guaranteedAmountInFigure"
-                                                           placeholder=" रकम "
-                                                           type="text"/>
-                                (अक्षरेपी <input class="form-field form-control-sm nepaliFont"
-                                                 formControlName="guaranteedAmountInWords"
-                                                 name="guaranteedAmountInWords"
-                                                 placeholder=" रकम "
-                                                 type="text"/> मात्र) बराबरको व्यक्तिगत जमानत पत्र दिनुपर्नेछ ।
+                            <td colspan="2"><p *ngFor="let data of guarantorData; let i = index;">
+                                {{i + 1 | nepaliWord}}. श्री
+                                <input class="form-field form-control-sm col-3"
+                                       formControlName="guarantorName"
+                                       [value]="guarantorParse(data.nepData, 'guarantorName')"
+                                       type="text"/>
+                                ले बैंकको पक्षमा
+                                रु
+                                <input class="form-field form-control-sm"
+                                       formControlName="guaranteedamountinFigure"
+                                       [value]="guarantorParse(data.nepData, 'gurantedAmount')"
+                                       type="text"/>
+                                /-(अक्षरेपि
+                                रु. <input class="form-field form-control-sm longInput uniSize"
+                                           formControlName="guaranteedamountinWords"
+                                           [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))"
+                                           type="text"/>
+                                मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                            </p>
                             </td>
                         </tr>
                         <tr>
@@ -446,18 +474,18 @@
                             <td> आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यकता
                                 र
                                 निवेदन बमोजिम तपाईंले यस नबिल बैंक लिमिटेडको,
-                                <input class="form-field form-control-sm nepaliFont"
+                                <input class="form-field form-control-sm"
                                        formControlName="nameofBranch"
                                        name="nameofBranch"
                                        placeholder=" शाखा को नाम "
                                        type="text"/> मा खोल्नु भएको चल्ती
                                 खातामा रु <input (input)="getNumAmountWord('loanAmountinFigure', 'loanAmountinWords')"
-                                                 class="form-field form-control-sm nepaliFont"
+                                                 class="form-field form-control-sm"
                                                  formControlName="loanAmountinFigure"
                                                  name="loanAmountinFigure"
                                                  placeholder="ऋण रकम"
                                                  type="text"/>।
-                                (अक्षरेपि रु<input class="form-field form-control-sm nepaliFont"
+                                (अक्षरेपि रु<input class="form-field form-control-sm"
                                                    formControlName="loanAmountinWords"
                                                    name="loanAmountinWords"
                                                    placeholder=" ऋण रकम "
@@ -470,12 +498,12 @@
                             <td>कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा
                                 गरिदिए पश्चात तपाईंको
                                 यस नबिल बैंक लिमिटेडमा रहेको खाता नं. <input
-                                        class="form-field form-control-sm nepaliFont"
+                                        class="form-field form-control-sm"
                                         formControlName="accountNumberOfCustomer"
                                         name="accountNumberOfCustomer"
                                         placeholder=" ग्राहक खाता नम्बर "
                                         type="text"/>
-                                मा रु. <input class="form-field form-control-sm nepaliFont"
+                                मा रु. <input class="form-field form-control-sm"
                                               formControlName="loanAmountinFigure"
                                               name="loanAmountinFigure"
                                               placeholder=" ऋण रकम "
@@ -485,12 +513,12 @@
                         <tr>
                             <td>१२.</td>
                             <td>यो ऋण कर्जा सुविधा तथा ऋणकर्जासंग सम्वन्धित शर्त बन्देजनामाहरु तपाई
-                                <input class="form-field form-control-sm nepaliFont"
+                                <input class="form-field form-control-sm"
                                        formControlName="nameofCompanyCustomerWorking"
                                        name="nameofCompanyCustomerWorking"
                                        placeholder=" कम्पनीको नाम "
                                        type="text"/> मा कर्मचारीको हैसियतमा आवद्ध रहुन्जेल सम्मका लागि मात्र कायम रहनेछ ।
-                                <input class="form-field form-control-sm nepaliFont"
+                                <input class="form-field form-control-sm"
                                        formControlName="nameofCompanyCustomerWorking"
                                        name="nameofCompanyCustomerWorking"
                                        placeholder=" कम्पनीको नाम "
@@ -502,7 +530,7 @@
                         </tr>
                         <tr>
                             <td>१३.</td>
-                            <td> कथंकदाचित <input class="form-field form-control-sm nepaliFont"
+                            <td> कथंकदाचित <input class="form-field form-control-sm"
                                                   formControlName="nameofCompanyCustomerWorking"
                                                   name="nameofCompanyCustomerWorking"
                                                   placeholder=" कम्पनीको नाम "
@@ -543,11 +571,11 @@
                             <td>१६.</td>
                             <td>साँवा र ब्याज रकम निर्धारित भुक्तानी मिति वा कर्जा समाप्ति मितिमा भुक्तानी नभएमा देहाय
                                 बमोजिमका दरले थप हर्जाना ब्याज लाग्नेछ ।<br>
-                                क.<strong>साँवाको भाखा नाघेको अवस्थामाः</strong>
+                                <strong>क. <u>साँवाको भाखा नाघेको अवस्थामाः</u></strong>
                                 ऋण कर्जाहरुको साँवा निर्धारित समयमा भुक्तानी नभई भाखा नाघेको अवस्थामा विलम्बित अवधिका
                                 लगि भुक्तानी मिति नाघेको साँवा/किस्ता
                                 रकममा वार्षिक २ प्रतिशत वा बैंकले समय समयमा तोकेको दरले थप हर्जाना ब्याज लाग्नेछ ।<br>
-                                ख.<strong> व्याजको भाखा नाघेको अवस्थामाः</strong>
+                                <strong>ख. <u>व्याजको भाखा नाघेको अवस्थामाः</u></strong>
                                 ब्याज रकम निर्धारीत समय आषाढ, आश्विन, पौष, चैत्र मसान्त भित्रमा वा ऋण स्विकृत पत्रमा
                                 उल्लेख भए अनुसार भुक्तानी गर्नु पर्नेछ ।
                                 यदि निर्धारित मितिमा कुनै ऋणकर्जा शिर्षकमा व्याज भुक्तानी नभई विलम्ब हुन गएमा विलम्ब
@@ -559,11 +587,11 @@
                                 बैंकले निर्धारण गरेको ब्याजदर प्रिमियम (Interest Rate Premium) र आधार दर (Base Rate)
                                 बैंकको आधिकारिक वेब साईट (Website) समय समयमा
                                 बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ ।<br>
-                                ग. <strong>बिलम्ब भुक्तानी शुल्कः </strong>
+                                <strong>ग. <u>बिलम्ब भुक्तानी शुल्कः </u></strong>
                                 माथि उल्लिखित साँवा/किस्ता तथा व्याज विलम्बमा लाग्ने हर्जाना ब्याजका अतिरिक्त प्रत्येक
                                 साँवा/किस्ता तथा व्याज
                                 विलम्बमा रु.५००।( का दरले थप विलम्ब शुल्क लाग्नेछ ।<br>
-                                घ. <strong>थप/अतिरिक्त शुल्कः</strong>
+                                <strong>घ. <u>थप/अतिरिक्त शुल्कः</u></strong>
                                 स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम विभिन्न बर्गमा
                                 वर्गिकरण भएमा बैंक नियमानुसार देहाय बमोजिम थप जोखिम दर (Additional Risk Premium) समेत
                                 लाग्नेछ ।<br>
@@ -704,7 +732,7 @@
                         </tr>
                         <tr>
                             <td>२९.</td>
-                            <td>बैंकको लिखित सहमति बेगर ऋणी फर्म÷कम्पनीको स्वामित्व, शेयर संरचनामा विक्रि, परिवर्तन वा
+                            <td>बैंकको लिखित सहमति बेगर ऋणी फर्म/कम्पनीको स्वामित्व, शेयर संरचनामा विक्रि, परिवर्तन वा
                                 नामसारी गर्न पाईने छैन र
                                 बैंकको सहमति बेगर स्वामित्व संरचनामा परिवर्तन वा नामसारी गरेमा यस ऋण सुविधा पत्रको
                                 उल्लंघन भएको मानिनेछ ।
@@ -716,7 +744,7 @@
                             <td>तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन
                                 गर्नु पर्नेछ।
                                 <p style="margin-left:100px">
-                                    क. रु <input class="form-field form-control-sm nepaliFont"
+                                    क. रु <input class="form-field form-control-sm"
                                                  formControlName="loanAmountinFigure"
                                                  name="loanAmountinFigure"
                                                  placeholder=" ऋण रकम "
@@ -724,19 +752,19 @@
                                     <br>
                                     ख. निरन्तरताको लिखत ।
                                     <br>
-                                    ग. रु <input class="form-field form-control-sm nepaliFont"
+                                    ग. रु <input class="form-field form-control-sm"
                                                  formControlName="loanAmountinFigure"
                                                  name="loanAmountinFigure"
                                                  placeholder=" ऋण रकम "
                                                  type="text"/> को ऋणकर्जा तमसुक ।
                                     <br>
                                     घ. ब्याज, किस्ता तथा अन्य
-                                    शुल्कहरु असुल गर्न श्री <input class="form-field form-control-sm nepaliFont"
-                                                                   formControlName="NameofCustomer"
-                                                                   name="NameofCustomer"
+                                    शुल्कहरु असुल गर्न श्री <input class="form-field form-control-sm"
+                                                                   formControlName="customerName"
+                                                                   name="customerName"
                                                                    placeholder="नाम"
                                                                    type="text"/>
-                                    को खाता नं <input class="form-field form-control-sm nepaliFont"
+                                    को खाता नं <input class="form-field form-control-sm"
                                                       formControlName="accountofCustomer"
                                                       name="accountofCustomer"
                                                       placeholder="ग्राहकको खाता"
@@ -749,13 +777,17 @@
                                     ज. बहूबैंकिङ्ग घोषणा पत्र ।
                                     <br>
                                     झ. ऋणीबाट (undertaking letter ) ।
-                                    <br><br>
-                                    <input class="form-field form-control-sm nepaliFont"
-                                           formControlName="freeText"
-                                           name="freeText"
-                                           placeholder=" "
-                                           type="text"/>
-                                </p>
+                                    <br>
+                                    <div class="row col-md-12">
+                                        <textarea
+                                                id="additionalGuarantorDetails"
+                                                class="form-control customFont nepaliFont"
+                                                rows="5"
+                                                style="width:inherit;margin-left:5%"
+                                                name="additionalGuarantorDetails"
+                                                formControlName="additionalGuarantorDetails">
+                                        </textarea>
+                                    </div>
                             </td>
                         </tr>
                     </table>
@@ -788,25 +820,25 @@
                     <div class="row mt-3">
                         <div class="col-md d-flex justify-content-between">
                             <div class="left-content">
-                                <input class="form-field form-control-sm nepaliFont ios"
+                                <input class="form-field form-control-sm ios"
                                        formControlName="relationshipofficerName"
                                        name="relationshipofficerName"
                                        placeholder="सम्बन्ध अधिकारी को नाम"
                                        type="text"/><br><br>
 
-                                <input class="form-field form-control-sm nepaliFont ios"
+                                <input class="form-field form-control-sm ios"
                                        formControlName="branchName"
                                        name="branchName"
                                        placeholder="शाखाको नाम"
                                        type="text"/>
                             </div>
                             <div class="right-content">
-                                <input class="form-field form-control-sm nepaliFont ios"
-                                       formControlName="relationshipofficerName"
-                                       name="relationshipofficerName"
-                                       placeholder="सम्बन्ध अधिकारी को नाम"
+                                <input class="form-field form-control-sm ios"
+                                       formControlName="managerName"
+                                       name="managerName"
+                                       placeholder="शाखा अधिकारी को नाम"
                                        type="text"/><br><br>
-                                <input class="form-field form-control-sm nepaliFont ios"
+                                <input class="form-field form-control-sm ios"
                                        formControlName="branchName"
                                        name="branchName"
                                        placeholder="शाखाको नाम"
@@ -814,106 +846,110 @@
                             </div>
                         </div>
                     </div>
+                    <table class="table table-borderless">
+                        <tr>
+                            <td>१.</td>
+                            <td>यदि म/हामीले माग गर्नासाथ र बैंकले दिएको समयमा भुक्तानी नगरेको अवस्थामा नेपाल राष्ट्र
+                                बैंक,
+                                कर्जा सूचना केन्द्र
+                                लिमिटेडको कालोसूची व्यवस्था बमोजिम म/हामीलाई कालोसूची व्यवस्था र सोको प्रभाव सम्बन्धि
+                                पूर्ण
+                                जानकारी सहित
+                                बैंकले कालोसूचीमा राख्ने निर्णय गरेमा स्वीकार्छु/छौं । बैंकको उक्त निर्णय विरुद्ध
+                                म/हामीले
+                                कहिं कतै उजुर वाजुर गर्ने छैन ।
+                                यदि बैंकको निर्णय बिरुद्ध उजुर वाजुर गरेमा उक्त उजुरीबाट उत्पन्न हुने दायित्व र परिणाम
+                                म/हामीले नै उठाउने जिम्मेवारी लिन्छु/छौं ।
+                                यदि मेरो/हाम्रो मृत्यु भएमा वा बहुलाएमा बैंकको सम्पूर्ण लेना सहितको दायित्व मेरो/हाम्रो
+                                हकवालाहरुलाई उत्तरदायी हुन शिक्षित गरि
+                                बहन गर्न म/हामी जिम्मेवारी लिन्छु/छौं ।
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>२.</td>
+                            <td> म/हामी माथि उल्लेखित शर्तबन्देजहरु पूर्ण स्वीकार गर्दछु/छौं ।</td>
+                        </tr>
+                        <tr>
+                            <td>३.</td>
+                            <td>म/हामीलाई पूर्व जानकारी सहित वा जानकारी बेगर कुनै वा सम्पूर्ण ऋणकर्जा सिमा जुनसुकै समयमा
+                                रद्ध गर्न त्यस बैंकको अधिकार
+                                रहने कुरामा मेरो/हाम्रो स्वीकृति छ । बैंकले माग गर्नासाथ सम्पूर्ण बाँकी रकम, उपार्जित
+                                ब्याज
+                                र शुल्कहरु समेत भुक्तानी गर्न
+                                म/हामी जिम्मेवारी लिन्छु/छौं ।
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>४.</td>
+                            <td>म/हामी विरुद्ध दामासाही सम्बन्धि कुनै कारवाही भएको छैन र म/हामी हालसम्म दामासाहिमा परेको
+                                घोषणा भएको छैन भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं ।
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>५.</td>
+                            <td>म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि नभएको बिनाशर्त
+                                उद्घोष
+                                गर्दछु ।
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>६.</td>
+                            <td>यस नबिल बैंक लिमिटेडका संस्थापक, सञचालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो भन्दा
+                                माथिल्लो
+                                स्तरका कर्मचारीहरु,
+                                चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक
+                                सञग
+                                मेरो/हाम्रो, कम्पनीको हकमा
+                                संस्थापक शेयरधनीहरु र सञचालकहरुको समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको एकाघरको
+                                पारिवारिक
+                                सम्बन्ध नभएको र
+                                निजहरु सञग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं ।
+                            </td>
+                        </tr>
+                    </table>
                     <br>
-                    <tr>
-                        <td>१.</td>
-                        <td>यदि म/हामीले माग गर्नासाथ र बैंकले दिएको समयमा भुक्तानी नगरेको अवस्थामा नेपाल राष्ट्र बैंक,
-                            कर्जा सूचना केन्द्र
-                            लिमिटेडको कालोसूची व्यवस्था बमोजिम म/हामीलाई कालोसूची व्यवस्था र सोको प्रभाव सम्बन्धि पूर्ण
-                            जानकारी सहित
-                            बैंकले कालोसूचीमा राख्ने निर्णय गरेमा स्वीकार्छु/छौं । बैंकको उक्त निर्णय विरुद्ध म/हामीले
-                            कहिं कतै उजुर वाजुर गर्ने छैन ।
-                            यदि बैंकको निर्णय बिरुद्ध उजुर वाजुर गरेमा उक्त उजुरीबाट उत्पन्न हुने दायित्व र परिणाम
-                            म/हामीले नै उठाउने जिम्मेवारी लिन्छु/छौं ।
-                            यदि मेरो/हाम्रो मृत्यु भएमा वा बहुलाएमा बैंकको सम्पूर्ण लेना सहितको दायित्व मेरो/हाम्रो
-                            हकवालाहरुलाई उत्तरदायी हुन शिक्षित गरि
-                            बहन गर्न म÷हामी जिम्मेवारी लिन्छु/छौं ।
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td>२.</td>
-                        <td> म/हामी माथि उल्लेखित शर्तबन्देजहरु पूर्ण स्वीकार गर्दछु/छौं ।</td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td>३.</td>
-                        <td>म/हामीलाई पूर्व जानकारी सहित वा जानकारी बेगर कुनै वा सम्पूर्ण ऋणकर्जा सिमा जुनसुकै समयमा
-                            रद्ध गर्न त्यस बैंकको अधिकार
-                            रहने कुरामा मेरो/हाम्रो स्वीकृति छ । बैंकले माग गर्नासाथ सम्पूर्ण बाँकी रकम, उपार्जित ब्याज
-                            र शुल्कहरु समेत भुक्तानी गर्न
-                            म/हामी जिम्मेवारी लिन्छु/छौं ।
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td>४.</td>
-                        <td>म/हामी विरुद्ध दामासाही सम्बन्धि कुनै कारवाही भएको छैन र म/हामी हालसम्म दामासाहिमा परेको
-                            घोषणा भएको छैन भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं ।
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td>५.</td>
-                        <td>म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि नभएको बिनाशर्त उद्घोष
-                            गर्दछु ।
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td>६.</td>
-                        <td>यस नबिल बैंक लिमिटेडका संस्थापक, सञचालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो भन्दा माथिल्लो
-                            स्तरका कर्मचारीहरु,
-                            चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सञग
-                            मेरो/हाम्रो, कम्पनीको हकमा
-                            संस्थापक शेयरधनीहरु र सञचालकहरुको समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको एकाघरको पारिवारिक
-                            सम्बन्ध नभएको र
-                            निजहरु सञग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं ।
-                        </td>
-                    </tr>
-                    <br>
-                    <div style="float: right">
+                    <div class="row col-md-12">
+                        <div style="margin-left: 80%">
 
-                        .........................................
-                        <p>
-                            आधिकारिक हस्ताक्षर (ग्राहक)
-                            <input class="form-field form-control-sm nepaliFont"
-                                   name="date"
-                                   formControlName="date"
-                                   placeholder="मिति"
-                                   type="text"/>
-                        </p>
+                            .........................................
+                            <p>
+                                आधिकारिक हस्ताक्षर (ग्राहक)
+                            </p>
+                            <p *ngIf="initialInfoPrint.signatureDate.en.nDate === undefined; else signatureDateNepali">
+                                मितिः <input class="form-field form-control-sm"
+                                             formControlName="signatureDate"
+                                             [value]="initialInfoPrint.signatureDate.en === undefined ? '' : ((initialInfoPrint.signatureDate.en | date) | engNepDate: true)"
+                                             type="text"/>
+                            </p>
+                            <ng-template #signatureDateNepali>
+                                <p>
+                                    मितिः <input class="form-field form-control-sm"
+                                                 formControlName="signatureDate"
+                                                 [value]="initialInfoPrint.signatureDate.en.nDate === undefined ? '' : initialInfoPrint.signatureDate.en.nDate"
+                                                 type="text"/>
+                                </p>
+                            </ng-template>
+                        </div>
                     </div>
                     <br>
-                    <br>
-                    <br>
-                    <p>साक्षीः </p>
-                    <p> १. जिल्ला <input class="form-field form-control-sm nepaliFont"
-                                         name="district"
-                                         formControlName="district"
-                                         placeholder=""
-                                         type="text"/> । गा.वि.स/न.पा,
-                        वडा नं <input class="form-field form-control-sm nepaliFont"
-                                      name="wardNum"
-                                      formControlName="wardNum"
-                                      placeholder=""
-                                      type="text"/>
-                        बस्ने श्री <input class="form-field form-control-sm nepaliFont"
-                                          name="witnessName"
-                                          formControlName="witnessName"
-                                          placeholder=""
-                                          type="text"/></p><br>
-                    <p> २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो
-                        भनी सनाखत गर्ने नबिल बैंक लि.
-                        का कर्मचारी श्री <input class="form-field form-control-sm nepaliFont"
-                                                name="staffName"
-                                                formControlName="staffName"
-                                                placeholder=""
-                                                type="text"/>। </p>
-
+                    <div class="col-md-12">
+                        <p>
+                            साक्षीः
+                        </p>
+                        <ul class="nepaliList">
+                            <li>
+                                ____________________ जिल्ला
+                                ______________________ गा.वि.स/न.पा,
+                                वडा नंं. _________
+                                बस्ने श्री ____________________________
+                            </li>
+                            <li>
+                                कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+                                <input class="form-field form-control-sm" name="staffName" formControlName="staffName" placeholder="कर्मचारीको नाम" type="text"/>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-
-
                 <div class="row">
                     <div class="col-md-12 text-right">
                         <button nbButton status="success" (click)="submit()">Save</button>
@@ -937,5 +973,6 @@
 <app-personal-loan-and-personal-overdraft-print *ngIf="initialInfoPrint"
                               [letter]="initialInfoPrint"
                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                              hidden></app-personal-loan-and-personal-overdraft-print>
+                                                [offerData] = "offerLetterData"
+                                                hidden></app-personal-loan-and-personal-overdraft-print>
 

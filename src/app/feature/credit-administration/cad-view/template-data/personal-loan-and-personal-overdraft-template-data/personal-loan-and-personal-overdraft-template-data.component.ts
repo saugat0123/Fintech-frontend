@@ -16,6 +16,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {PersonalLoanAndPersonalOverdraftComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft.component';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
 
 
 @Component({
@@ -43,6 +44,10 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     dateTypeAD = false;
     dateTypeBS1 = false;
     dateTypeAD1 = false;
+    dateTypeBS2 = false;
+    dateTypeAD2 = false;
+    dateTypeBS3 = false;
+    dateTypeAD3 = false;
     previewBtn = true;
     submitted = false;
 
@@ -55,6 +60,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         private translateService: SbTranslateService,
         private administrationService: CreditAdministrationService,
         private toastService: ToastService,
+        private engToNepaliNumberPipe: EngToNepaliNumberPipe
     ) {
     }
 
@@ -73,47 +79,38 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             yearlyInterestRate: [undefined],
             loanAdminFeeinFigure: [undefined],
             loanAdminFeeinWords: [undefined],
-            loanadminFee: [undefined],
             emiInFigure: [undefined],
             emiInWords: [undefined],
             loanExpiryDate: [undefined],
-            nameofBranch: [undefined],
+            accountNumber: [undefined],
             nameofCompanyCustomerWorking: [undefined],
             relationshipofficerName: [undefined],
-            branchName: [undefined],
-            date: [undefined],
-            district: [undefined],
-            wardNum: [undefined],
-            witnessName: [undefined],
+            branchManager: [undefined],
+            signatureDate: [undefined],
             staffName: [undefined],
             // translated value
-            referenceNumberTransVal: [undefined],
+            referenceNumberTransVal: [undefined, Validators.required],
             dateofApprovalTransVal: [undefined],
             dateofApplicationTransVal: [undefined],
             purposeofLoanTransVal: [undefined],
-            premiumRateTransVal: [undefined],
+            baseRateTransVal: [undefined, Validators.required],
+            premiumRateTransVal: [undefined, Validators.required],
             yearlyInterestRateTransVal: [undefined],
-            loanAdminFeeinFigureTransVal: [undefined],
+            loanAdminFeeinFigureTransVal: [undefined, Validators.required],
             loanAdminFeeinWordsTransVal: [undefined],
-            loanadminFeeTransVal: [undefined],
-            emiInFigureTransVal: [undefined],
+            emiInFigureTransVal: [undefined, Validators.required],
             emiInWordsTransVal: [undefined],
             loanExpiryDateTransVal: [undefined],
-            nameofBranchTransVal: [undefined],
-            nameofCompanyCustomerWorkingTransVal: [undefined],
-            relationshipofficerNameTransVal: [undefined],
-            dateTransVal: [undefined],
-            districtTransVal: [undefined],
-            wardNumTransVal: [undefined],
-            witnessNameTransVal: [undefined],
-            staffNameTransVal: [undefined],
-            baseRateTransVal: [undefined],
-            branchNameTransVal: [undefined],
+            accountNumberTransVal: [undefined, Validators.required],
+            nameofCompanyCustomerWorkingTransVal: [undefined, Validators.required],
+            relationshipofficerNameTransVal: [undefined, Validators.required],
+            signatureDateTransVal: [undefined],
+            branchManagerTransVal: [undefined, Validators.required],
+            staffNameTransVal: [undefined, Validators.required],
         });
     }
 
     async translate() {
-        console.log('dasd');
         this.spinner = true;
         this.podtranslatedData = await this.translateService.translateForm(this.form);
         this.tdValues = this.podtranslatedData;
@@ -122,34 +119,45 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         this.btnDisable = false;
     }
     private setTemplatedCTData(): void {
-        this.form.get('referenceNumberTransVal').patchValue(this.podtranslatedData.referenceNumber);
+        // this.form.get('referenceNumberTransVal').patchValue(this.podtranslatedData.referenceNumber);
         this.form.get('dateofApprovalTransVal').patchValue(this.podtranslatedData.dateofApproval);
         this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
         this.form.get('purposeofLoanTransVal').patchValue(this.podtranslatedData.purposeofLoan);
-        this.form.get('premiumRateTransVal').patchValue(this.podtranslatedData.premiumRate);
-        this.form.get('yearlyInterestRateTransVal').patchValue(this.podtranslatedData.yearlyInterestRate);
-        this.form.get('loanAdminFeeinFigureTransVal').patchValue(this.podtranslatedData.loanAdminFeeinFigure);
+        // this.form.get('baseRateTransVal').patchValue(this.podtranslatedData.baseRate);
+        // this.form.get('premiumRateTransVal').patchValue(this.podtranslatedData.premiumRate);
+        // this.form.get('yearlyInterestRateTransVal').patchValue(this.podtranslatedData.yearlyInterestRate);
+        // this.form.get('loanAdminFeeinFigureTransVal').patchValue(this.podtranslatedData.loanAdminFeeinFigure);
         this.form.get('loanAdminFeeinWordsTransVal').patchValue(this.podtranslatedData.loanAdminFeeinWords);
-        this.form.get('loanadminFeeTransVal').patchValue(this.podtranslatedData.loanadminFee);
-        this.form.get('emiInFigureTransVal').patchValue(this.podtranslatedData.emiInFigure);
+        // this.form.get('emiInFigureTransVal').patchValue(this.podtranslatedData.emiInFigure);
         this.form.get('emiInWordsTransVal').patchValue(this.podtranslatedData.emiInWords);
         this.form.get('loanExpiryDateTransVal').patchValue(this.podtranslatedData.loanExpiryDate);
-        this.form.get('nameofBranchTransVal').patchValue(this.podtranslatedData.nameofBranch);
+        // this.form.get('accountNumberTransVal').patchValue(this.podtranslatedData.accountNumber);
         this.form.get('nameofCompanyCustomerWorkingTransVal').patchValue(this.podtranslatedData.nameofCompanyCustomerWorking);
         this.form.get('relationshipofficerNameTransVal').patchValue(this.podtranslatedData.relationshipofficerName);
-        this.form.get('dateTransVal').patchValue(this.podtranslatedData.date);
-        this.form.get('districtTransVal').patchValue(this.podtranslatedData.district);
-        this.form.get('wardNumTransVal').patchValue(this.podtranslatedData.wardNum);
-        this.form.get('witnessNameTransVal').patchValue(this.podtranslatedData.witnessName);
+        this.form.get('branchManagerTransVal').patchValue(this.podtranslatedData.branchManager);
+        this.form.get('signatureDateTransVal').patchValue(this.podtranslatedData.signatureDate);
         this.form.get('staffNameTransVal').patchValue(this.podtranslatedData.staffName);
-        this.form.get('baseRateTransVal').patchValue(this.podtranslatedData.baseRate);
-        this.form.get('branchNameTransVal').patchValue(this.podtranslatedData.branchName);
     }
 
     getNumAmountWord(numLabel, wordLabel) {
-        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value.toString());
+        this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.form.get(numLabel).value.toString()));
         const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
         this.form.get(wordLabel).patchValue(returnVal);
+        this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
+    }
+    translateNumber(source, target) {
+        const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
+        this.form.get(target).patchValue(wordLabelVar);
+    }
+    calInterestRate() {
+        const baseRate = this.form.get('baseRate').value;
+        const premiumRate = this.form.get('premiumRate').value;
+        const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+        this.form.get('yearlyInterestRate').patchValue(sum);
+        this.translateNumber('baseRate', 'baseRateTransVal');
+        this.translateNumber('premiumRate', 'premiumRateTransVal');
+        this.translateNumber('yearlyInterestRate', 'yearlyInterestRateTransVal');
     }
 
     mappedData() {
@@ -207,6 +215,24 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     setDateTypeAD1() {
         this.dateTypeBS1 = false;
         this.dateTypeAD1 = true;
+    }
+    setDateTypeBS2() {
+        this.dateTypeBS2 = true;
+        this.dateTypeAD2 = false;
+    }
+
+    setDateTypeAD2() {
+        this.dateTypeBS2 = false;
+        this.dateTypeAD2 = true;
+    }
+    setDateTypeBS3() {
+        this.dateTypeBS3 = true;
+        this.dateTypeAD3 = false;
+    }
+
+    setDateTypeAD3() {
+        this.dateTypeBS3 = false;
+        this.dateTypeAD3 = true;
     }
 
     openModel() {
@@ -266,7 +292,6 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             offerDocument.initialInformation = JSON.stringify(this.tdValues);
             this.customerApprovedDoc.offerDocumentList.push(offerDocument);
         }
-console.log('requested Data',this.customerApprovedDoc);
         this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.customerApprovedDoc = res.detail;

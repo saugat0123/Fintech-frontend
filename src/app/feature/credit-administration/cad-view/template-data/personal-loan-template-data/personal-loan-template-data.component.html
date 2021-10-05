@@ -161,7 +161,7 @@
                     <td>Emi Amount Figure</td>
                     <td><input type="text" class="form-control"
                                formControlName="emiAmount"
-                               (input)="getNumAmountWord('emiAmount', 'emiAmountWords')"/></td>
+                               (input)="getNumAmountWord('emiAmount', 'emiAmountWords');translateNumber('emiAmount', 'emiAmountTransVal')"/></td>
                     <td class="abc">{{translatedData?.emiAmount}}</td>
                     <td>
                         <input type="text" class="form-control"
