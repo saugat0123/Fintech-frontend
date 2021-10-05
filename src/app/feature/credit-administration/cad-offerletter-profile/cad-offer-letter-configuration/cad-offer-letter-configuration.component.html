@@ -710,8 +710,6 @@
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.permanentWardCT.errors}"
-                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                       nepData?.permanentWard?.ct :translatedValues?.permanentWard"
                        formControlName="permanentWardCT" type="text"
                 />
                 <div *ngIf="submitted && configForm.permanentWardCT.errors"
@@ -1732,12 +1730,11 @@
                     <td>
                       <input class="form-control" formControlName="permanentWardTrans"
                              [readOnly]="!this['permanentWardTransCheck']"
-                             type="text"
-                             [value]="jointCustomerAddressTranslatedValue?.permanentWard"/>
+                             type="text"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="permanentWardCT" type="text"
-                             [value]="jointCustomerAddressTranslatedValue?.permanentWard"/>
+                             />
                     </td>
 
                   </tr>
