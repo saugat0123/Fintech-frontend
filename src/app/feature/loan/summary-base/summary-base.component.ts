@@ -32,7 +32,6 @@ import {SummaryType} from '../component/SummaryType';
 export class SummaryBaseComponent implements OnInit, OnDestroy {
 
     navigationSubscription;
-    actionsList: ActionModel = new ActionModel();
     allId;
     customerId;
     loanConfigId;
@@ -70,6 +69,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.loadSummary();
+                this.spinner = false;
             }
         });
     }
@@ -103,97 +103,20 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.loanConfig = response.detail;
             }
         );
-        this.userService.getLoggedInUser().subscribe(
-            (response: any) => {
-                this.user = response.detail;
-                this.actionsList.roleTypeMaker = this.user.role.roleType === 'MAKER';
-            }
-        );
         this.getLoanDataHolder();
     }
 
 
     getLoanDataHolder() {
-        this.actionsList.approved = false;
-        this.actionsList.sendForward = false;
-        this.actionsList.edit = false;
-        this.actionsList.sendBackward = false;
-        this.actionsList.rejected = false;
-        this.actionsList.closed = false;
         this.spinner=true;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
             this.spinner=false;
             this.loanCategory = this.loanDataHolder.loanCategory;
             this.currentIndex = this.loanDataHolder.previousList.length;
-
-            this.actionsList.approved = true;
-            this.actionsList.sendForward = true;
-            this.actionsList.edit = true;
-            this.actionsList.sendBackward = true;
-            this.actionsList.rejected = true;
-            this.actionsList.closed = true;
-            if ((this.loanDataHolder.createdBy.toString() === LocalStorageUtil.getStorage().userId) ||
-                (this.loanDataHolder.currentStage.toRole.roleType.toString() === 'MAKER')) {
-                this.actionsList.sendBackward = false;
-                this.actionsList.edit = true;
-                this.actionsList.approved = false;
-                this.actionsList.closed = false;
-            } else {
-                this.actionsList.edit = false;
-            }
-
-            if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
-                this.actionsList.approved = false;
-            } else {
-                this.actionsList.closed = false;
-            }
-            this.actionsList.loanApproveStatus = this.loanDataHolder.documentStatus.toString() === 'APPROVED';
-
-            if (this.user.role.roleName !== 'admin') {
-                this.spinner=true;
-                await this.loanActionService.getSendForwardList().subscribe((res: any) => {
-                    const forward = res.detail;
-                    this.spinner=false;
-                    if (forward.length === 0) {
-                        this.actionsList.sendForward = false;
-                    }
-                });
-            }
-            if (this.loanDataHolder.currentStage.docAction.toString() === 'APPROVED' ||
-                this.loanDataHolder.currentStage.docAction.toString() === 'REJECT' ||
-                this.loanDataHolder.currentStage.docAction.toString() === 'CLOSED') {
-                this.actionsList.approved = false;
-                this.actionsList.sendForward = false;
-                this.actionsList.edit = false;
-                this.actionsList.sendBackward = false;
-                this.actionsList.rejected = false;
-                this.actionsList.closed = false;
-            }
-            this.spinner=true;
-            await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
-                .subscribe((res: any) => {
-                    this.spinner=false;
-                    if (res.detail === undefined) {
-                        this.actionsList.approved = false;
-                    } else {
-                        if (this.loanDataHolder.proposal !== null
-                            && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
-                            this.actionsList.approved = false;
-                            this.spinner=false;
-                        }
-                    }
-                });
-            if (this.loanDataHolder.isSol) {
-                if (this.loanDataHolder.solUser.id !== this.user.id) {
-                    this.actionsList.approved = false;
-                }
-            }
-
             this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
                 this.nepaliDate = nepDate.detail;
             });
-
             // check deferred docs
             let deferredDocs: Document[];
             switch (this.loanDataHolder.loanType) {
