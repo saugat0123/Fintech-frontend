@@ -82,7 +82,7 @@
                 <td></td>
                 <td></td>
                 <td colspan="3"></td>
-                <td class="text-right pr-1">Rs. {{nonFundedCollateralTotal | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{nonFundedCollateralTotalView | currencyFormatter}}</td>
 
             </tr>
             </ng-container>
@@ -130,7 +130,7 @@
                 <td> Rs {{existingLimitTotal | currencyFormatter}}</td>
                 <td> Rs {{outstandingLimitTotal | currencyFormatter}}</td>
                 <td colspan="3"></td>
-                <td class="text-right pr-1">Rs. {{totalCollateral | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{totalCollateralView| currencyFormatter}}</td>
             </tr>
             </tbody>
         </table>
@@ -138,7 +138,7 @@
     <ng-container *ngIf="securityExposure">
         <div class="col-md-2 sb-small">
             <mark class="alert-warning text">Total Required Collateral:</mark>
-            <strong>Rs.{{totalRequiredCollateral| currencyFormatter}}</strong>
+            <strong>Rs.{{totalCollateral | currencyFormatter}}</strong>
         </div>
         <div class="col-md-2 sb-small">
             <mark class="alert-warning">Total FMV/Considered Value:</mark>
@@ -150,7 +150,7 @@
         </div>
         <div class="col-md-2 sb-small">
             <mark class="alert-warning">Surplus/(Deficit):</mark>
-            <strong> Rs. {{security?.totalSecurityAmount - totalRequiredCollateral |currencyFormatter}}</strong>
+            <strong> Rs. {{security?.totalSecurityAmount - totalCollateral |currencyFormatter}}</strong>
         </div>
         <div  class="col-md-2 sb-small">
             <mark class="alert-warning">Coverage%:</mark>

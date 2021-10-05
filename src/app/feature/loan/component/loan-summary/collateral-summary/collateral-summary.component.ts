@@ -54,6 +54,8 @@ export class CollateralSummaryComponent implements OnInit {
   NonFundedProposedTotal;
   fundedCollateralTotal;
   nonFundedCollateralTotal;
+  nonFundedCollateralTotalView;
+  totalCollateralView;
   totalCollateral;
   facSelectedLoans;
   nonFundedFacSelected;
@@ -226,11 +228,24 @@ export class CollateralSummaryComponent implements OnInit {
           // Total Non-Fundable Collateral
           let nonFundedCollateralTotal = 0;
           this.allNonFundedList.forEach(value => {
-            if(value.proposal){
+            if(value.proposal &&  value.proposal.cashMarginOrFac === 'FAC'){
               nonFundedCollateralTotal += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
             }
           });
           this.nonFundedCollateralTotal = nonFundedCollateralTotal;
+
+
+            // Total Non-Fundable Collateral view
+            let nonFundedCollateralTotalView = 0;
+            this.allNonFundedList.forEach(value => {
+                if(value.proposal ){
+                    nonFundedCollateralTotalView += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+                }
+            });
+            this.nonFundedCollateralTotalView = nonFundedCollateralTotalView;
+
+            this.totalCollateralView = this.fundedCollateralTotal + this.nonFundedCollateralTotalView
+
 
 
           let nonFundedSelectedFac = 0;
@@ -248,7 +263,7 @@ export class CollateralSummaryComponent implements OnInit {
             this.totalProposedAmount=this.fundedProposedTotal;
           }
 
-            // Total Calculator
+            // Total Collateral
           this.totalCollateral = (this.fundedCollateralTotal + this.nonFundedCollateralTotal );
 
           // Loan Exposure FMV
