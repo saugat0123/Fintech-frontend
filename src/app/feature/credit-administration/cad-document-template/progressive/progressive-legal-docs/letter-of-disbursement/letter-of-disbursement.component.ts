@@ -74,7 +74,7 @@ export class LetterOfDisbursementComponent implements OnInit {
         naPraNaName: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
         mitiName: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
         jiPrakaName: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-        sincerlyPermanentAddress:  this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        sincerlyPermanentAddress: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
         jillaName: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
         jagaName: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
         sincerlytempAddress: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
