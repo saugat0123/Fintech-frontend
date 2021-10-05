@@ -161,7 +161,7 @@
                     <td>Emi Amount Figure</td>
                     <td><input type="text" class="form-control"
                                formControlName="emiAmount"
-                               (input)="getNumAmountWord('emiAmount', 'emiAmountWords')"/></td>
+                               (input)="getNumAmountWord('emiAmount', 'emiAmountWords');translateNumber('emiAmount', 'emiAmountTransVal')"/></td>
                     <td class="abc">{{translatedData?.emiAmount}}</td>
                     <td>
                         <input type="text" class="form-control"
@@ -321,11 +321,7 @@
             </table>
         </div>
     </form>
-    <button [disabled]="previewBtn"
-            class="float-right" nbButton
-            (click)="openModel()"
-            status="primary">
-        Preview
+    <button [disabled]="previewBtn" class="float-right" nbButton (click)="openModel()" status="primary">Preview
     </button>
     <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right" [disabled]="btnDisable">Save</button>
     <button nbButton size="medium" class="float-right" (click)="translate()">

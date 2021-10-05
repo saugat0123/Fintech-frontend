@@ -35,6 +35,7 @@ import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {OneFormGuarantors} from '../../model/oneFormGuarantors';
+import {CadDocStatus} from '../../model/CadDocStatus';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -1948,5 +1949,4 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           undefined : this.userConfigForm.get('citizenshipIssueDistrict').value
     });
   }
-
 }
