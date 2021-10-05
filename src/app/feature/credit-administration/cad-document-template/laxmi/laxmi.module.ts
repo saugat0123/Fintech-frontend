@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LaxmiOfferLetterComponent} from './laxmi-offer-letter/laxmi-offer-letter.component';
-import {NbCardModule, NbCheckboxModule, NbSpinnerModule} from '@nebular/theme';
+import {NbCardModule, NbRadioModule, NbSpinnerModule} from '@nebular/theme';
 import { LetterOfCommitmentComponent } from './laxmi-offer-letter/letter-of-commitment/letter-of-commitment.component';
 import { PersonalGuaranteeComponent } from './laxmi-offer-letter/personal-guarantee/personal-guarantee.component';
 import { OfferLetterComponent } from './laxmi-offer-letter/offer-letter/offer-letter.component';
@@ -31,6 +31,7 @@ import { NrbKycPrintComponent } from './laxmi-offer-letter/nrb-kyc/nrb-kyc-print
         NbSpinnerModule,
         NgxPrintModule,
         CoreModule,
+        NbRadioModule,
     ],
     exports: [
         LoanDeedIndividualComponent,

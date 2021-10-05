@@ -23,36 +23,49 @@
                         <td>
                             १. बैंक/वित्तीय संस्था चालु
                             <br>
-                            <input type="checkbox" (change)="changes($event)" value="चालु पुँजी कर्जा" name="चालु पुँजी कर्जा">
-                            <br>
-                            <input type ="checkbox" (change)="changes($event)" value="आवधिक कर्जा "name="आवधिक कर्जा ">
-                            <br>
-                            <input type="checkbox" (change)="changes($event)" value="अन्य कर्जा"name="अन्य कर्जा">
-                            <br>
-                            <input type="checkbox" (change)="changes($event)" value="गैरकोषमा आधारित सुविधा" name="गैरकोषमा आधारित सुविधा">
-                        </td>
-                        <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedAmount"
+                            <div>
+                                <nb-radio-group name="first" formControlName="institutionChaluOne">
+                                    <nb-radio type="radio" id="ch"value="चालु पुँजी कर्जा" name="rfn' k'FhL shf{">चालु पुँजी कर्जा</nb-radio>
+                                    <br>
+                                    <nb-radio type ="radio" id="rb"  value="cfjlws shf{"name="आवधिक कर्जा">आवधिक कर्जा</nb-radio>
+                                    <br>
+                                    <nb-radio type="radio" id="rb1" value="cGo shf"name="अन्य कर्जा">अन्य कर्जा</nb-radio>
+                                    <br>
+                                    <nb-radio type="radio" id="rb2"  value="u}/sf]ifdf cfwfl/t ;'ljwf" name="गैरकोषमा आधारित सुविधा">गैरकोषमा आधारित सुविधा</nb-radio>
+                                </nb-radio-group>
+                            </div>
+                              </td>
+                        <td><input class="form-field nepaliFont form-control-sm" formControlName="amount"
                                    type="text"></td>
-                        <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedCommision"
+                        <td><input class="form-field nepaliFont form-control-sm" formControlName="yesNo"
                                    type="text"></td>
                     </tr>
                     <tr>
                         <td>
-                            १. बैंक/वित्तीय संस्था चालु
-
+                            २. बैंक/वित्तीय संस्था चालु
+                            <br>
+                            <nb-radio-group name="second" formControlName="institutionChaluTwo">
+                                <nb-radio type="radio" value="चालु पुँजी कर्जा" name="rfn' k'FhL shf{">चालु पुँजी कर्जा</nb-radio>
+                                <br>
+                                <nb-radio type ="radio"   value="cfjlws shf{"name="आवधिक कर्जा">आवधिक कर्जा</nb-radio>
+                                <br>
+                                <nb-radio type="radio"  value="cGo shf"name="अन्य कर्जा">अन्य कर्जा</nb-radio>
+                                <br>
+                                <nb-radio type="radio"   value="u}/sf]ifdf cfwfl/t ;'ljwf" name="गैरकोषमा आधारित सुविधा">गैरकोषमा आधारित सुविधा</nb-radio>
+                            </nb-radio-group>
                         </td>
-                        <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedAmount"
+                        <td><input class="form-field nepaliFont form-control-sm" formControlName="amountTwo"
                                    type="text"></td>
-                        <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedCommision"
+                        <td><input class="form-field nepaliFont form-control-sm" formControlName="yesNoTwo"
                                    type="text"></td>
                     </tr>
                     </tbody>
                 </table>
                 उपरोक्त बमोजिम म/हामीले घोषणा गरेको विवरण ठीक छ झुट्ठा ठहरे कानुन बमोजिम कारवाही भएमा मञ्जुरी छ भनी सही गर्नेः
 <br>
-                अधिकार प्राप्त अधिकारीको दस्तखतः
+                अधिकार प्राप्त अधिकारीको दस्तखतः ____________________________
                 <br>
-                व्यक्तिको नाम/फर्म, कम्पनी र संस्थाको नाम र छापः
+                व्यक्तिको नाम/फर्म, कम्पनी र संस्थाको नाम र छापः ________________________________
             </div>
             <div>
                 <button type="submit" class="btn btn-primary float-right" nbButton status="success">
@@ -60,12 +73,12 @@
                 </button>
             </div>
         </form>
-<!--        <button class="btn btn-primary d-print-none"-->
-<!--                [useExistingCss]="true"-->
-<!--                [disabled]="!initialInfoPrint"-->
-<!--                printSectionId="print-section-{{cadCheckListEnum.LOAN_DEED_SINGLE}}"-->
-<!--                ngxPrint>print-->
-<!--        </button>-->
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{cadCheckListEnum.NRB_KYC}}"
+                ngxPrint>print
+        </button>
     </div>
 </div>
 <app-nrb-kyc-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"

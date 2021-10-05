@@ -1,1 +1,68 @@
-<p>nrb-kyc-print works!</p>
+<div class="row" id="print-section-{{cadCheckListEnum.NRB_KYC}}">
+    <div class="col-md-12 viewFull text-justify">
+        <div class="row">
+            <div  class="row">
+                <div class="col-md-12 viewFull">
+                    <div class="text-justify nepali">
+
+                        <p class="text-center"><b>अनुसूची २.६</b></p>
+                        बैंक तथा वित्तीय संस्थामा ऋणको लागि निवेदन दिंदा खुलाउनुपर्ने बिबरणको ढाँचा
+                        <br>
+                        मितिः ....................
+                        <div>
+                            <table class="table-responsive-md table table-bordered text-center">
+                                <thead>
+                                <tr>
+                                    <th>ऋण लिएको अन्य बैंक/वित्तीय संस्थाको नाम
+                                    </th>
+                                    <th>
+                                        बक्यौता रकम (मिति)
+                                    </th>
+                                    <th>म्याद नाघेको छ/छैन</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        १. बैंक/वित्तीय संस्था चालु
+                                        <br>
+
+                                        <span class="nepaliFont">{{printDocForm.institutionChaluOne}}</span>
+                                    </td>
+                                    <td> <span class="nepaliFont">{{printDocForm.amount}}</span>
+                                    </td>
+                                    <td><span class="nepaliFont">{{printDocForm.yesNo}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        २. बैंक/वित्तीय संस्था चालु
+                                        <br>
+                                        <span class="nepaliFont">{{printDocForm.institutionChaluTwo}}</span>
+
+                                    </td>
+                                    <td> <span class="nepaliFont">{{printDocForm.amountTwo}}</span>
+                                    </td>
+                                    <td><span class="nepaliFont">{{printDocForm.yesNoTwo}}</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            उपरोक्त बमोजिम म/हामीले घोषणा गरेको विवरण ठीक छ झुट्ठा ठहरे कानुन बमोजिम कारवाही भएमा मञ्जुरी छ भनी सही गर्नेः
+                            <br>
+                            अधिकार प्राप्त अधिकारीको दस्तखतः _____________________
+                            <br>
+                            व्यक्तिको नाम/फर्म, कम्पनी र संस्थाको नाम र छापः _____________________
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+</div>
+</div>
