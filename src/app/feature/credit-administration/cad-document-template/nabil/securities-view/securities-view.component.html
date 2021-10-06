@@ -1,0 +1,30 @@
+<div class="row" *ngFor="let security of securityDetails">
+    <div class="col-sm-12">
+        <p>Security Type : {{security?.securityType}}</p>
+    </div>
+    <br>
+    <div class="col-sm-12">
+        <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+                <tr class="sb-bg-dark text-white">
+                    <th>घरजग्गा धनी</th>
+                    <th>जिल्ला</th>
+                    <th>नगर</th>
+                    <th>वडा नं.</th>
+                    <th>कित्ता नं.</th>
+                    <th>क्षेत्रफल</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of security?.securities">
+                    <td>{{data?.securityOwnersNameCT}}</td>
+                    <td>{{data?.securityOwnersDistrictCT}}</td>
+                    <td>{{data?.securityOwnersMunicipalityCT}}</td>
+                    <td>{{data?.securityOwnersWardNoCT}}</td>
+                    <td>{{data?.securityOwnersKittaNoCT}}</td>
+                    <td>{{data?.securityOwnersLandAreaCT}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

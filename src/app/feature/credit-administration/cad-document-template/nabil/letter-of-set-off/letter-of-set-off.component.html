@@ -46,7 +46,7 @@
                                            placeholder=""
                                            type="text"/>
                                     (ना.प्र.नं
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm "
                                            formControlName="citizenshipNo"
                                            placeholder=""
                                            type="text"/>
@@ -504,14 +504,17 @@
                                    formControlName="sanctionLetterIssuedDate"
                                    placeholder=""
                                    type="text"/> को ऋण स्वीकृती पत्रानुसार स्वीकृत गरेको रु.
-                            <input class="form-field form-control-sm nepaliFont"
+                            <input (input)="getNumAmountWord('loanAmountFigure','loanAmountWords')"
+                                   class="form-field disable-print form-control-sm nepaliFont"
                                    formControlName="loanAmountFigure"
                                    placeholder=""
                                    type="text"/>
-                            (अक्षरेपी <input class="form-field form-control-sm nepaliFont"
+                            <span class="print-only font-weight-bold">{{letterOfSetOff.get('loanAmountFigure').value ? letterOfSetOff.get('loanAmountFigure').value : "_____________________"}}</span>
+                            (अक्षरेपी <input class="form-field disable-print form-control-sm nepaliFont"
                                              formControlName="loanAmountWord"
                                              placeholder=""
                                              type="text"/>
+                            <span class="print-only font-weight-bold">{{letterOfSetOff.get('loanAmountWord').value ? letterOfSetOff.get('loanAmountWord').value : "_____________________"}}</span>
                              मात्र ।)
                             सम्मको विभिन्न ऋणकर्जा तथा बैकिङ सुविधाहरु उपलब्ध गराउनु भए वापत सो ऋणकर्जा तथा बैकिङ सुविधाको चुक्ता भुक्तानी प्रत्याभूति स्वरुप म/हाम्रो नाममा त्यस बैंकको
                             जुन सुकै शाखा कार्यालयमा रहेको हरेक प्रकारको <strong>खाताहरु नं.</strong> <input class="form-field form-control-sm nepaliFont"
@@ -582,19 +585,19 @@
                                 <h5 class="text-center"> साक्षीः </h5>
                                 <p>
                                     १. <input class="form-field form-control-sm nepaliFont"
-                                              formControlName="district"
+                                              formControlName="sakshiDistrict"
                                               placeholder=""
                                               type="text"/>
                                     जिल्ला <input class="form-field form-control-sm nepaliFont"
-                                                  formControlName="vdc"
+                                                  formControlName="sakshiVdc"
                                                   placeholder=""
                                                   type="text"/> न.पा.गा.वि.स. वडा नं
                                     <input class="form-field form-control-sm nepaliFont"
-                                           formControlName="wardNo"
+                                           formControlName="sakshiWardNo"
                                            placeholder=""
                                            type="text"/>।
                                     बस्ने बर्ष <input class="form-field form-control-sm nepaliFont"
-                                                      formControlName="age"
+                                                      formControlName="sakshiAge"
                                                       placeholder=""
                                                       type="text"/>को/की <input
                                         class="form-field form-control-sm nepaliFont"
