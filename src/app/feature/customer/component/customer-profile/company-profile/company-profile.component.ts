@@ -194,7 +194,11 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         modalRef.componentInstance.associateId = this.paramProp.companyInfoId;
         modalRef.componentInstance.customerInfo = this.customerInfo;
         modalRef.componentInstance.singleOrCombine = 'Combine';
-
+        modalRef.result.then(close => {
+            if (close) {
+                this.refreshCustomerInfo();
+            }
+        });
     }
 
     ngAfterContentInit(): void {

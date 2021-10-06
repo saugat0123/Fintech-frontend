@@ -27,7 +27,7 @@
 <!-- ============================================================= Business Site Visit ==============================================================-->
 <div *ngIf="isBusinessLoanType">
     <p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold">Business Site Visit</p>
-    <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
+    <table *ngIf="formData['businessSiteVisitFormChecked'] === true && formData['businessDetails'] === undefined"
            class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small">
         <tr class="text-white sb-bg-dark">
             <th>Person Contacted</th>
@@ -57,12 +57,57 @@
         <tr>
             <td colspan="2" class="text-left pl-1">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
             <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['staffRepresentativeName']}}</td>
-            <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>
+            <td colspan="3" class="text-left pl-1">{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>
         </tr>
         <tr class="text-white sb-bg-dark">
             <th>Conclusion</th>
             <td colspan="6" class="text-left pl-1">{{formData['businessSiteVisitDetails']['conclusion']}}</td>
         </tr>
+    </table>
 
+    <table *ngIf="formData['businessSiteVisitFormChecked'] === true && formData['businessDetails'] !== null"
+           class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small">
+        <tr class="text-white sb-bg-dark">
+            <th>SN</th>
+            <th>Person Contacted</th>
+            <th>Date of Visit(AD/BS)</th>
+            <th>Office Address</th>
+            <th>Ward</th>
+            <th>Address Line 1</th>
+            <th>Address Line 2</th>
+        </tr>
+        <tr *ngFor="let data of formData['businessDetails']; let i = index">
+            <td>{{i+1}}</td>
+            <td class="text-left pl-1">{{data.nameOfThePersonContacted}}</td>
+            <td class="text-left pl-1">{{data.dateOfVisit? (data.dateOfVisit | date) : 'NA'}} ({{data.dateOfVisit? (data.dateOfVisit | engNepDate: false) : 'NA'}})</td>
+            <td class="text-left pl-1">
+                {{data?.officeAddress?.province?.name}},
+                {{data?.officeAddress?.district?.name}},
+                {{data?.officeAddress?.municipalityVdc?.name}},
+            </td>
+            <td class="text-right pr-1"> {{data?.officeAddress?.ward}}</td>
+            <td class="text-left pl-1"> {{data?.officeAddress?.address1}}</td>
+            <td class="text-left pl-1"> {{data?.officeAddress?.address2}}</td>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+            <th>SN</th>
+            <th colspan="2">Objective of Visit</th>
+            <th colspan="2">Staff Represenatative Name</th>
+            <th colspan="2">Comments and Finding</th>
+        </tr>
+        <tr *ngFor="let data of formData['businessDetails']; let i = index">
+            <td>{{i+1}}</td>
+            <td colspan="2" class="text-left pl-1">{{data?.objectiveOfVisit}}</td>
+            <td colspan="2" class="text-left pl-1">{{data?.staffRepresentativeName}}</td>
+            <td colspan="2" class="text-left pl-1">{{data?.findingsAndComments}}</td>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+            <th class="sn">SN</th>
+            <th colspan="6">Conclusion</th>
+        </tr>
+        <tr *ngFor="let data of formData['businessDetails']; let i = index">
+            <td>{{i+1}}</td>
+            <td colspan="6" class="text-left pl-1">{{data?.conclusion || 'NA'}}</td>
+        </tr>
     </table>
 </div>

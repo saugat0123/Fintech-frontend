@@ -10,6 +10,7 @@
             </button>
         </div>
         <div class="float-right">
+
             <button [useExistingCss]="true" class="btn-sm btn-warning float-right"
                     ngxPrint printSectionId="print-detail" styleSheetFile="assets/css/printStyles.scss">
                 PRINT
@@ -22,7 +23,24 @@
 <!--                <i class="col-md-1 fa fa-file"></i>-->
             </button>
         </div>
-    </div></nb-card-header>
+    </div>
+        <div>
+            <div class="align-content-center">
+                <app-loan-action
+                        *ngIf="loanDataHolder && loaded && this.loanDataHolder.currentStage.docAction.toString()!== docAction.value(docAction.APPROVED)"
+                        [isDetailedView]="true"
+                        [branchId]="loanDataHolder?.branch?.id"
+                        [catalogueStatus]="false"
+                        [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                        [customerType]="loanDataHolder?.loanCategory"
+                        [id]="customerId"
+                        [loanCategory]="loanCategory"
+                        [loanConfigId]="loanConfigId"
+                        [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"
+                ></app-loan-action>
+            </div>
+        </div>
+    </nb-card-header>
     <nb-card-body>
         <div id="print-detail">
             <div class="row text-center ">

@@ -65,6 +65,10 @@ export class GammaDetailViewComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
       this.individualJsonData = JSON.parse(this.loanDataHolder.customerInfo.individualJsonData);
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+        this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+        this.isJointCustomer = true;
+      }
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
       this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
@@ -77,10 +81,6 @@ export class GammaDetailViewComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
-    }
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
-      this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo)
-      this.isJointCustomer = true;
     }
   }
 
