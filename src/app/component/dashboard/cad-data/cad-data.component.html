@@ -100,5 +100,19 @@
                 </div>
             </nb-card>
         </div>
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-success" *ngIf="pool">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_CAD_PULL">
+                        <label class="card-header bg-dark text-white cursor">
+                            Pool </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.inPool}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
     </nb-card-body>
 </nb-card>
