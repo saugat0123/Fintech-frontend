@@ -8,6 +8,7 @@ import {PromissoryNoteCompanyComponent} from './promissory-note-company/promisso
 import {NbButtonModule} from '@nebular/theme';
 import {LetterOfSetOffComponent} from './letter-of-set-off/letter-of-set-off.component';
 import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
+import {LoanDeedPartnershipComponent} from './loan-deed-partnership/loan-deed-partnership.component';
 import {PersonalGuaranteeIndividualPrintComponent} from './personal-guarantee-individual/personal-guarantee-individual-print/personal-guarantee-individual-print.component';
 import {PersonalGuaranteeIndividualComponent} from './personal-guarantee-individual/personal-guarantee-individual.component';
 import {PersonalGuaranteeCompanyComponent} from './personal-guarantee-company/personal-guarantee-company.component';
@@ -20,14 +21,21 @@ import {PromissoryNotePartnershipPrintComponent} from './promissory-note-partner
 import {SecuritiesComponent} from './securities-view/securities-view.component';
 import {PromissoryNoteProprietorshipComponent} from './promissory-note-proprietorship/promissory-note-proprietorship.component';
 import {PromissoryNoteProprietorshipPrintComponent} from './promissory-note-proprietorship/promissory-note-propertiership-print/promissory-note-proprietorship-print.component';
+import {LoanDeedPartnershipPrintComponent} from './loan-deed-partnership/loan-deed-partnership-print/loan-deed-partnership-print.component';
+
 
 @NgModule({
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
-        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromissoryNoteProprietorshipComponent, PromissoryNoteProprietorshipPrintComponent,
-        PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, SecuritiesComponent],
+        LoanDeedIndividualPrintComponent, PromissoryNoteProprietorshipComponent, PromissoryNoteProprietorshipPrintComponent,
+        PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, SecuritiesComponent,
+        PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
+        LetterOfSetOffPrintComponent,
+        LoanDeedPartnershipComponent,
+        PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
+        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -44,8 +52,9 @@ import {PromissoryNoteProprietorshipPrintComponent} from './promissory-note-prop
         PromissoryNoteProprietorshipComponent,
         PromissoryNotePartnershipPrintComponent,
         PromissoryNotePartnershipComponent,
-        SecuritiesComponent
-
+        SecuritiesComponent,
+        LoanDeedPartnershipComponent,
+        LoanDeedPartnershipPrintComponent
     ],
     imports: [
         CommonModule,
