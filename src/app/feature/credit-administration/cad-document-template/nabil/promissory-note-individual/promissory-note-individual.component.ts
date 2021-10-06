@@ -235,7 +235,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       districtJoint : [undefined],
       vdcJoint : [undefined],
       wardNoJoint : [undefined],
-      ageJointageJoint : [undefined],
+      ageJoint : [undefined],
       nameofPersonJoint : [undefined],
       citizenshipNoJoint : [undefined],
       dateofIssueJoint : [undefined],
