@@ -154,7 +154,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         // if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
         //   this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
         // }
-        this.getUserList(this.sendForwardBackwardList[0].role);
+        // this.getUserList(this.sendForwardBackwardList[0].role);
       }
     });
   }
@@ -170,7 +170,7 @@ export class CadActionComponent implements OnInit, OnChanges {
 
   checkForwardValidMessage() {
     const storage = LocalStorageUtil.getStorage();
-    if (storage.roleType === 'MAKER') {
+    if (storage.roleType === RoleType[this.roleType.CAS_MAKER]) {
       this.missingSignDoc = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value =>
           value.draftPath === undefined || value.pathSigned === null).length > 0;
     }
@@ -261,18 +261,15 @@ export class CadActionComponent implements OnInit, OnChanges {
     if (LocalStorageUtil.getStorage().roleType === RoleType.CAS_CHECKER && this.popUpTitle === 'APPROVED') {
       this.cadService.checkByCadChecker(this.formAction.value).subscribe(res => {
         this.onClose();
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-            this.formAction.get('docAction').value));
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Action has been completed successfully'));
       }, error => {
         console.error(error);
-        this.toastService.show(new Alert(AlertType.DANGER, 'Error while approving document ' +
-            this.formAction.get('docAction').value));
+        this.toastService.show(new Alert(AlertType.DANGER, 'Error while taking action. Please try again.'));
       });
     } else {
       this.cadService.saveAction(this.formAction.value).subscribe((response: any) => {
         this.onClose();
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-            this.formAction.get('docAction').value));
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Action has been completed successfully'));
         this.routerUtilsService.routeSummaryAndEncryptPathID(this.cadId);
       }, error => {
         this.forApproveMaker = [];
