@@ -24,11 +24,11 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-promissory-note-propertiership',
-  templateUrl: './promissory-note-propertiership.component.html',
-  styleUrls: ['./promissory-note-propertiership.component.scss']
+  selector: 'app-promissory-note-proprietorship',
+  templateUrl: './promissory-note-proprietorship.component.html',
+  styleUrls: ['./promissory-note-proprietorship.component.scss']
 })
-export class PromissoryNotePropertiershipComponent implements OnInit {
+export class PromissoryNoteProprietorshipComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
