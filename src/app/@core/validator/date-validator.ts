@@ -4,7 +4,7 @@ export class DateValidator {
     static isValidAfter(control: AbstractControl): { [key: string]: boolean } | null {
         const valueString = control.value;
         const value = new Date(valueString);
-        if (value < new Date()) {
+        if (value < new Date(new Date().toDateString())) {
             return {afterToday: valueString};
         }
         return null;
