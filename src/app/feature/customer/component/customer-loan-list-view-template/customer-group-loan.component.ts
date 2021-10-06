@@ -101,6 +101,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     this.customerLoanService.getLoansByLoanHolderId(this.customerInfo.id).subscribe((data: any) => {
       this.loan = data.detail;
       this.isLoaded = true;
+      this.loan = this.loan.filter((l) => l.documentStatus !== DocStatus.value(DocStatus.APPROVED));
     });
   }
 
