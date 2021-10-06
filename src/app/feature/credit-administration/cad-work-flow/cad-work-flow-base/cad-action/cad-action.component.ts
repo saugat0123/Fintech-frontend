@@ -170,7 +170,7 @@ export class CadActionComponent implements OnInit, OnChanges {
 
   checkForwardValidMessage() {
     const storage = LocalStorageUtil.getStorage();
-    if (storage.roleType === 'MAKER') {
+    if (storage.roleType === RoleType[this.roleType.CAS_MAKER]) {
       this.missingSignDoc = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value =>
           value.draftPath === undefined || value.pathSigned === null).length > 0;
     }
