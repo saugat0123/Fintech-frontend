@@ -249,7 +249,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe((res) => {
            this.customerLoanService.detail(res.customerId).subscribe(response => {
-               console.log(' response', response);
                this.companyInfoId =  response.detail.loanHolder.id;
             const details = JSON.parse(response.detail.data);
                if (!ObjectUtil.isEmpty(details)) {
