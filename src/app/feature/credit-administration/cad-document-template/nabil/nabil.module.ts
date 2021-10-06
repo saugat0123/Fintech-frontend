@@ -17,14 +17,16 @@ import { LoanDeedIndividualComponent } from './loan-deed-individual/loan-deed-in
 import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
 import { PromissoryNotePropertiershipComponent } from './promissory-note-propertiership/promissory-note-propertiership.component';
 import { PromissoryNotePropertiershipPrintComponent } from './promissory-note-propertiership/promissory-note-propertiership-print/promissory-note-propertiership-print.component';
-
+import {PromissoryNotePartnershipComponent} from './promissory-note-partnership/promissory-note-partnership.component';
+import{PromissoryNotePartnershipPrintComponent} from './promissory-note-partnership/promissory-note-partnership-print/promissory-note-partnership-print.component';
 
 @NgModule({
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
-        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromissoryNotePropertiershipComponent, PromissoryNotePropertiershipPrintComponent],
+        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromissoryNotePropertiershipComponent, PromissoryNotePropertiershipPrintComponent,
+        PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -38,7 +40,10 @@ import { PromissoryNotePropertiershipPrintComponent } from './promissory-note-pr
         LoanDeedIndividualPrintComponent,
         NabilLoanDeedCompanyComponent,
         PromissoryNotePropertiershipComponent,
-        PromissoryNotePropertiershipPrintComponent
+        PromissoryNotePropertiershipPrintComponent,
+        PromissoryNotePartnershipPrintComponent,
+        PromissoryNotePartnershipComponent,
+
     ],
     imports: [
         CommonModule,
