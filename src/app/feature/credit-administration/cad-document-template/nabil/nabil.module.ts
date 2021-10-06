@@ -15,15 +15,16 @@ import { NabilLoanDeedCompanyComponent } from './nabil-loan-deed-company/nabil-l
 import {CKEditorModule} from 'ng2-ckeditor';
 import { LoanDeedIndividualComponent } from './loan-deed-individual/loan-deed-individual.component';
 import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
-import { SecuritiesComponent } from './securities-view/securities-view.component';
-
+import { PromissoryNotePartnershipComponent } from './promissory-note-partnership/promissory-note-partnership.component';
+import { PromissoryNotePartnershipPrintComponent } from './promissory-note-partnership/promissory-note-partnership-print/promissory-note-partnership-print.component';
+import {SecuritiesComponent} from './securities-view/securities-view.component';
 
 @NgModule({
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
-        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, SecuritiesComponent],
+        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent, SecuritiesComponent,
+        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -35,7 +36,9 @@ import { SecuritiesComponent } from './securities-view/securities-view.component
         PromissoryNoteCompanyComponent,
         LoanDeedIndividualComponent,
         LoanDeedIndividualPrintComponent,
-        NabilLoanDeedCompanyComponent
+        NabilLoanDeedCompanyComponent,
+        PromissoryNotePartnershipComponent,
+        PromissoryNotePartnershipPrintComponent
     ],
     imports: [
         CommonModule,
