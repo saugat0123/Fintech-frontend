@@ -202,11 +202,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
     });
     console.log(this.customerInfo);
-    if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
-      const data = JSON.parse(this.customerInfo.nepData);
-      this.userConfigForm.patchValue(data);
-      this.setGuarantors(data.guarantorDetails);
-    }
+
 
     if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
       this.nepData = (JSON.parse(this.loanHolder.nepData));
@@ -218,7 +214,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.patchNepData();
     this.patchIndividualData();
     this.editedTransData();
-
+    if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
+      const data = JSON.parse(this.customerInfo.nepData);
+      this.userConfigForm.patchValue(data);
+      this.setGuarantors(data.guarantorDetails);
+    }
   }
 
   buildForm() {
@@ -813,9 +813,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       radioCitizenIssuedDate: [undefined],
       radioCitizenIssuedDateTrans: [undefined],
       radioCitizenIssuedDateCT: [undefined],
-      citizenIssuedDate: [undefined],
-      citizenIssuedDateTrans: [undefined],
-      citizenIssuedDateCT: [undefined],
+
       gurantedAmount: [undefined],
       gurantedAmountCT: [undefined],
       gurantedAmountTrans: [undefined],
@@ -848,8 +846,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       isSameTemporaryAndPermanent: [false],
       isSameTemporaryAndPermanentCT: [undefined],
       isSameTemporaryAndPermanentTrans: [undefined],
+      citizenIssuedDate: [undefined],
+      citizenIssuedDateTrans: [undefined],
+      citizenIssuedDateCT: [undefined],
+      nepData: [undefined],
 
-      nepData: [undefined]
     });
   }
 
@@ -872,8 +873,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     //   }
     // }
     console.log(guarantorDetails, 'listtttt');
-    guarantorDetails.forEach(value => {
+    guarantorDetails.forEach((value, i) => {
+      this.getGuarantorDistrictsById(value.province.id, null, i);
+      this.getGuarantorMunicipalitiesById(value.district.id, null, i);
+      this.getGuarantorTempDistrictsById(value.provinceTemporary.id, null, i);
+      this.getGuarantorTempMunicipalitiesById(value.districtTemporary.id, null , i);
       const nepaData = JSON.parse(value.nepData);
+
+
       formArray.push(this.formBuilder.group({
         guarantorName: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.en],
         guarantorNameTrans: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.np],
@@ -912,10 +919,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         gurantedAmountCT: [ObjectUtil.isEmpty(nepaData.gurantedAmount) ? undefined : nepaData.gurantedAmount.ct],
         gurantedAmountTrans: [ObjectUtil.isEmpty(nepaData.gurantedAmount) ? undefined : nepaData.gurantedAmount.ct],
 
-        permanentProvince: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.en],
+        permanentProvince: [ObjectUtil.isEmpty(value.province) ? undefined : value.province],
         permanentProvinceCT: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.en.nepaliName],
         permanentProvinceTrans: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.en.nepaliName],
-        permanentDistrict: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentDistrict.en],
+        permanentDistrict: [ObjectUtil.isEmpty(value.district) ? undefined : value.district],
         permanentDistrictCT: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.en.nepaliName],
         permanentDistrictTrans: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.en.nepaliName],
         permanentMunicipality: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.en],
@@ -925,31 +932,38 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         permanentWardCT: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.ct],
         permanentWardTrans: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.np],
 
-        temporaryProvince: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.en],
+        temporaryProvince: [ObjectUtil.isEmpty(value.provinceTemporary) ? undefined : value.provinceTemporary],
         temporaryProvinceCT: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.en.nepaliName],
         temporaryProvinceTrans: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.en.nepaliName],
-        temporaryDistrict: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.en],
+        temporaryDistrict: [ObjectUtil.isEmpty(value.districtTemporary) ? undefined : value.districtTemporary],
         temporaryDistrictCT: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.en.nepaliName],
         temporaryDistrictTrans: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.en.nepaliName],
-        temporaryMunicipality: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.en],
+        temporaryMunicipality: [ObjectUtil.isEmpty(value.municipalitiesTemporary) ? undefined : value.municipalitiesTemporary],
         temporaryMunicipalityCT: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.en.nepaliName],
         temporaryMunicipalityTrans: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.en.nepaliName],
         temporaryWard: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.en],
         temporaryWardCT: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.ct],
         temporaryWardTrans: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.np],
-        isSameTemporaryAndPermanent: [value.isSameTemporaryAndPermanent],
+        isSameTemporaryAndPermanent: [ObjectUtil.isEmpty(value.isSameTemporaryAndPermanent) ? undefined : value.isSameTemporaryAndPermanent],
         isSameTemporaryAndPermanentCT: [undefined],
         isSameTemporaryAndPermanentTrans: [undefined],
+        guarantorPermanentMunicipalityOrVdc: [ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) ?
+            undefined : nepaData.guarantorPermanentMunicipalityOrVdc.en],
         nepData: [value.nepData],
+        guarantorTemporaryMunicipalityOrVdc: [ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) ?
+            undefined : nepaData.guarantorTemporaryMunicipalityOrVdc.en],
         radioCitizenIssuedDate: [ObjectUtil.isEmpty(nepaData.radioCitizenIssuedDate) ? undefined : nepaData.radioCitizenIssuedDate.en],
-        citizenIssuedDate: [ObjectUtil.isEmpty(nepaData.radioCitizenIssuedDate) ? undefined :
-            nepaData.radioCitizenIssuedDate.en === 'AD' ?
-                nepaData.citizenIssuedDate.en : nepaData.citizenIssuedDate.np],
+        citizenIssuedDate: [nepaData.radioCitizenIssuedDate.en === 'AD' ? value.issuedYear :
+            nepaData.citizenIssuedDate.en.nDate],
         id: [value.id],
 
       }));
     });
+
+    console.log(this.userConfigForm.get('guarantorDetails').value);
   }
+
+
 
   refreshPage() {
     window.location.reload();
@@ -1197,8 +1211,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
         if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
-            || key.indexOf('id') > -1 || key.indexOf('nepData') > -1 || key.indexOf('radioCitizenIssuedDate') > -1
-            || key.indexOf('citizenIssuedDate') > -1) {
+            || key.indexOf('id') > -1 || key.indexOf('nepData') > -1) {
           return;
         }
         // console.log(key, 'keys');
@@ -1326,16 +1339,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   // get district/municipalities for guarantors
-  getGuarantorDistrictsById(provinceId: number, event, index) {
+  getGuarantorDistrictsById(provinceId: number, event?, index?) {
     const province = new Province();
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.guarantorDistrict = response.detail;
           this.guarantorDistrict.sort((a, b) => a.name.localeCompare(b.name));
-          if (event !== null) {
-            this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
-          }
+          // if (event !== null) {
+          //   this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
+          // }
         }
     );
   }
@@ -1347,9 +1360,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         (response: any) => {
           this.guarantorMunicipalities = response.detail;
           this.guarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
-          if (event !== null) {
-            this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).patchValue(null);
-          }
+          // if (event !== null) {
+          //   this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).patchValue(null);
+          // }
         }
     );
   }
@@ -1362,9 +1375,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         (response: any) => {
           this.tempGuarantorDistricts = response.detail;
           this.tempGuarantorDistricts.sort((a, b) => a.name.localeCompare(b.name));
-          if (event !== null) {
-            this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).patchValue(null);
-          }
+          // if (event !== null) {
+          //   this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).patchValue(null);
+          // }
         }
     );
   }
@@ -1376,9 +1389,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         (response: any) => {
           this.tempGuarantorMunicipalities = response.detail;
           this.tempGuarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
-          if (event !== null) {
-            this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).patchValue(null);
-          }
+          // if (event !== null) {
+          //   this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).patchValue(null);
+          // }
         }
     );
   }
