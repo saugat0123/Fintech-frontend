@@ -10,7 +10,7 @@
 </ng-template>
 <div class="d-flex {{catalogueStatus === true ? 'float-right' : 'justify-content-center'}}">
 
-  <button (click)="loanAction('approve')" *ngIf="!catalogueStatus && documentStatus !== 'PENDING'"
+  <button (click)="loanAction('approve')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.approved"
           [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
@@ -18,7 +18,7 @@
 <!--    <i class="col-md-1 fa fa-check"></i>-->
   </button>
 
-  <button (click)="loanAction('forward')" *ngIf="!catalogueStatus && documentStatus !== 'PENDING'"
+  <button (click)="loanAction('forward')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.sendForward"
           [ngStyle]="{ 'filter' : (actionsList.sendForward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info">
@@ -26,7 +26,7 @@
 <!--    <i class="col-md-1 fa fa-arrow-circle-up"></i>-->
   </button>
 
-  <button (click)="loanAction('backward')" *ngIf="!catalogueStatus && documentStatus !== 'PENDING'"
+  <button (click)="loanAction('backward')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.sendBackward"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm"
@@ -35,7 +35,7 @@
 <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
   </button>
 
-  <button (click)="loanAction('backwardCommittee')" *ngIf="committeeRole && !catalogueStatus && documentStatus !== 'PENDING'"
+  <button (click)="loanAction('backwardCommittee')" *ngIf="committeeRole && !catalogueStatus"
           [disabled]="!actionsList.sendBackward"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info"
@@ -51,7 +51,7 @@
 <!--    <i class="col-md-1 fa fa-edit"></i>-->
   </button>
 
-  <button (click)="loanAction('close')" *ngIf="!catalogueStatus && documentStatus !== 'PENDING'"
+  <button (click)="loanAction('close')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.closed"
           [ngStyle]="{ 'filter' : (actionsList.closed === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info"
@@ -60,7 +60,7 @@
 <!--    <i class="col-md-1 fa-close"></i>-->
   </button>
 
-  <button (click)="loanAction('reject')" *ngIf="!catalogueStatus && documentStatus !== 'PENDING'"
+  <button (click)="loanAction('reject')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.rejected || actionsList.roleTypeMaker"
           [ngStyle]="{ 'filter' : (!actionsList.rejected || actionsList.roleTypeMaker)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-danger"
@@ -75,7 +75,7 @@
 <!--    <i class="col-md-1 fa fa-print"></i>-->
   </button>
 
-  <button (click)="openConfirmationModal()" *ngIf="isMaker && !catalogueStatus && documentStatus !== 'PENDING'"
+  <button (click)="openConfirmationModal()" *ngIf="isMaker && !catalogueStatus"
           class="btn-sm btn-danger d-flex justify-content-end">
     Delete
 <!--    <i class="col-md-1 fa fa-ban"></i>-->
