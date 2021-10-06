@@ -124,7 +124,8 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.currentUserRole = LocalStorageUtil.getStorage().roleType;
         if (this.cadOfferLetterApprovedDoc.docStatus === CadDocStatus.DISBURSEMENT_APPROVED) {
             this.approvedLoan = true;
-        } else if (this.currentCADStage.toUser.id === this.currentUserId) {
+        }
+        if (this.currentCADStage.toUser.id.toString() === this.currentUserId) {
             this.inMyBucket = true;
         }
         try {
