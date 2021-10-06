@@ -912,11 +912,13 @@ export class LoanFormComponent implements OnInit {
     }
 
     filterTemplateList(templateList) {
-        templateList[0].name = 'Loan Document';
-        templateList[1].name = 'Obtainable Documents';
-        this.templateList=[];
-        for (let i = 0 ; i < 2 ; i++) {
-            this.templateList[i] = templateList[i];
-        }
+        this.templateList = [];
+        let index = 0;
+        templateList.forEach(item => {
+            if (item.name === 'Loan Document' || item.name === 'Obtainable Documents') {
+                this.templateList[index] = item;
+                index++;
+            }
+        });
     }
 }
