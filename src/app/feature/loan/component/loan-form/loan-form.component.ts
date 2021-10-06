@@ -523,14 +523,15 @@ export class LoanFormComponent implements OnInit {
                name: 'Obtainable Documents',
                templateUrl: null
            });
-
-            if (this.approvedLoans.length !== 0) {
-                this.templateList.push({
-                        active: false,
-                        name: 'Outstanding Update',
-                        templateUrl: null
-                    }
-                )
+            if (this.showDocStatusDropDown === true) {
+                if (this.approvedLoans.length !== 0) {
+                    this.templateList.push({
+                            active: false,
+                            name: 'Outstanding Update',
+                            templateUrl: null
+                        }
+                    )
+                }
             }
 
 
