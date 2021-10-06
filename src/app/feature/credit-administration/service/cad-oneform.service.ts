@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
+import {Proposal} from '../../admin/modal/proposal';
 
 @Injectable({
     providedIn: 'root'
@@ -134,6 +135,12 @@ export class CadOneformService extends BaseService<any> {
     public getUserStatForCadAdmin(): Observable<any> {
         const req = ApiUtils.getRequest(`${this.getApi()}/stat`);
         return this.http.get(req.url, {headers: req.header});
+    }
+
+    public updateProposalById(id: any, proposal: Proposal): Observable<any> {
+        const api = `${this.getApi()}/proposal/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, proposal, {headers: req.header});
     }
 
 }
