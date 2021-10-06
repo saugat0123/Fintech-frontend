@@ -154,7 +154,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         // if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
         //   this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
         // }
-        this.getUserList(this.sendForwardBackwardList[0].role);
+        // this.getUserList(this.sendForwardBackwardList[0].role);
       }
     });
   }
