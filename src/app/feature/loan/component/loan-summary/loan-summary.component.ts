@@ -213,6 +213,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     premiumRateOnBaseRate: Number;
     fundableNonFundableSelcted = false;
     loanNatureSelected = false;
+    companyInfoId: any;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -248,6 +249,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe((res) => {
            this.customerLoanService.detail(res.customerId).subscribe(response => {
+               console.log(' response', response);
+               this.companyInfoId =  response.detail.loanHolder.id;
             const details = JSON.parse(response.detail.data);
                if (!ObjectUtil.isEmpty(details)) {
                    if (!ObjectUtil.isEmpty(details.documents)) {
@@ -629,6 +632,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                             loanConfigId: loanId,
                             customerId: id,
                             catalogue: true,
+                            customerInfoId: this.companyInfoId
+
                         }
                     });
             }
@@ -714,6 +719,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                             queryParams: {
                                 loanConfigId: this.loanConfigId,
                                 customerId: this.customerId,
+                                customerInfoId : this.companyInfoId
                             }
                         });
                 }
@@ -824,7 +830,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.router.navigate(['/home/loan/summary'], {
                 queryParams: {
                     loanConfigId: this.loanDataHolder.loan.id,
-                    customerId: this.loanDataHolder.id
+                    customerId: this.loanDataHolder.id,
+                    customerInfoId: this.companyInfoId
                 }
             });
             this.getLoanDataHolder();
