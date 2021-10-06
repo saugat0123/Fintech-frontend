@@ -184,7 +184,7 @@ export class SecurityViewComponent implements OnInit {
       this.collateralSiteVisits = this.collateralData;
       const doc = [];
       this.collateralSiteVisits.forEach(f => {
-        if (f.siteVisitDocuments.length > 0) {
+        if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
           doc.push(f.siteVisitDocuments);
         }
       });

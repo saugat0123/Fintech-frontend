@@ -190,9 +190,10 @@ export class SecuritySummaryComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.collateralData) && this.docStatus.toString() === 'APPROVED') {
             this.collateralSiteVisits = this.collateralData;
+            console.log('if collateralSiteVisits', this.collateralSiteVisits);
             const arr = [];
             this.collateralSiteVisits.forEach(f => {
-                if (f.siteVisitDocuments.length > 0) {
+                if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
                     arr.push(f.siteVisitDocuments);
                 }
             });
@@ -212,6 +213,7 @@ export class SecuritySummaryComponent implements OnInit {
                 this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
                     .subscribe((response: any) => {
                         this.collateralSiteVisits = response.detail;
+                        console.log('else collateralSiteVisits', this.collateralSiteVisits);
                         const arr = [];
                         this.collateralSiteVisits.forEach(f => {
                             if (f.siteVisitDocuments.length > 0) {
