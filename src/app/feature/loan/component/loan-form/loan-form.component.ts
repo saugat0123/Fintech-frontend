@@ -229,7 +229,6 @@ export class LoanFormComponent implements OnInit {
     };
     nbSpinner = false;
     companyInfoId: any;
-    documentStatus;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -303,7 +302,6 @@ export class LoanFormComponent implements OnInit {
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
                             this.loanHolder = this.loanDocument.loanHolder;
-                            this.documentStatus = this.loanDocument.documentStatus;
                             this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
                             this.loanType = this.loanDocument.loanType;
                             if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
@@ -343,16 +341,14 @@ export class LoanFormComponent implements OnInit {
 
     getApprovedLoans(id) {
         this.nbSpinner=true;
-        if (this.documentStatus === 'APPROVED') {
-            this.loanFormService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
-                this.nbSpinner=false;
-                this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
-                this.approvedLoans = this.approvedTerminatingLoan.filter((l) => l.loan.loanNature === 'Terminating')
+        this.loanFormService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
+            this.nbSpinner=false;
+            this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+            this.approvedLoans = this.approvedTerminatingLoan.filter((l) =>l.loan.loanNature === 'Terminating')
             }, err => {
-                this.nbSpinner=false;
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'An Error has Occuredddddd'));
-            });
-        }
+            this.nbSpinner=false;
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'An Error has Occured'));
+        });
     }
 
 
