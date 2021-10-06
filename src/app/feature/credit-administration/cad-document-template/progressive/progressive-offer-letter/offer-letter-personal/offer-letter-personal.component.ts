@@ -106,9 +106,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
                 shreeName1: allGuarantors ? allGuarantors : '',
             });
-
-            this.setGuarantors(this.nepaliData.guarantorDetails);
-            this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
+            this.setEmptyGuarantors(this.nepaliData.guarantorDetails)
 
         }
         this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
@@ -124,22 +122,20 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER_PERSONAL);
             this.fillForm();
             this.addEmptySecurityDetail();
+            this.addEmptyWitness();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
             this.setEmptyGuarantors(initialInfo.guarantorDetails);
-            this.setGuarantors(initialInfo.guarantors);
             this.setSecurityDetails(initialInfo.securityDetails);
             this.setLoanFacility(initialInfo.loanFacilityTable);
             this.form.patchValue(initialInfo);
             this.setEmptyWitnesses(initialInfo.witnessDetails);
-            this.fillForm();
         }
     }
 
     onSubmit(): void {
-        console.log('submit', this.form);
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
@@ -230,13 +226,12 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     setEmptyGuarantors(data) {
-        console.log('guarantor', data);
         const formArray = this.form.get('guarantorDetails') as FormArray;
         if (data.length === 0) {
             this.addEmptyGuarantor();
             return;
         }
-        data.forEach(value => {
+        data.forEach((value) => {
             formArray.push(this.formBuilder.group({
                 jamaniKartaName: [value.name],
                 guarantorCitizenshipNo: [value.citizenNumber],
@@ -262,12 +257,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     setEmptyWitnesses(data) {
-        console.log('data', data);
         const formArray = this.form.get('witnessDetails') as FormArray;
-        if (data.length === 0) {
-            this.addEmptyWitness();
-            return;
-        }
         data.forEach(value => {
             formArray.push(this.formBuilder.group({
                 witnessName: [value.witnessName],
