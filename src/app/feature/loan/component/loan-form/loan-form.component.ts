@@ -385,6 +385,9 @@ export class LoanFormComponent implements OnInit {
             this.nbSpinner=false;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
+            if (this.showDocStatusDropDown === false) {
+                this.filterTemplateList(this.templateList);
+            }
             // Splicing customer loan for Personal Type Loan--
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
                 this.templateList.forEach((value, index) => {
@@ -436,6 +439,9 @@ export class LoanFormComponent implements OnInit {
 
             // Remove Customer Info Template for Business Loan Type
             if (CustomerType[this.allId.loanCategory] === CustomerType.INSTITUTION) {
+                if (this.showDocStatusDropDown === false) {
+                    this.filterTemplateList(this.templateList);
+                }
                 this.templateList.forEach((value, i) => {
                     if (value.name === 'Customer Info') {
                         this.templateList.splice(i, 1);
@@ -879,6 +885,7 @@ export class LoanFormComponent implements OnInit {
                 this.nbSpinner=false;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
+                this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully saved`));
                 this.router.navigate(['/home/loan/summary'], {queryParams: {
                         loanConfigId: this.id,
                         customerId: this.customerLoanId,
@@ -903,4 +910,16 @@ export class LoanFormComponent implements OnInit {
         const loanHolder = this.loanDocument.loanHolder;
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
     }
+
+    filterTemplateList(templateList) {
+            const list = templateList;
+            this.templateList = [];
+            let index = 0;
+            list.forEach(item => {
+                if (item.name === 'Loan Document' || item.name === 'Obtainable Documents') {
+                    this.templateList[index] = item;
+                    index++;
+                }
+            });
+        }
 }
