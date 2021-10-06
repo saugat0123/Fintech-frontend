@@ -100,7 +100,7 @@ export class SignatureSectionComponent implements OnInit {
           signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
         } else {
           signatureList.push(loanStage);
-          addedStages.set(loanStage.fromUser.id, count);
+          addedStages.set(loanStage.fromUser.id, count--);
         }
       }
     });
