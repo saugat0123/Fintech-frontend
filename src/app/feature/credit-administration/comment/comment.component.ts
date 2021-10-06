@@ -19,8 +19,6 @@ export class CommentComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.previousList)) {
             this.currentIndex = this.cadData.previousList.length;
         }
-        console.log('cadndasdasdasd', this.cadData.previousList);
-
     }
 
 }

@@ -84,5 +84,19 @@
                 </div>
             </nb-card>
         </div>
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-primary">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_LEGAL_APPROVED">
+                        <label class="card-header bg-dark text-white cursor">
+                            Legal Approved </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.legalApproved}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
     </nb-card-body>
 </nb-card>

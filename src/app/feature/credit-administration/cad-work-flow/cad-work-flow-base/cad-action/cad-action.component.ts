@@ -25,6 +25,7 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {LaxmiOfferLetterConst} from '../../../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
+import {CadDocStatus} from '../../../model/CadDocStatus';
 
 @Component({
     selector: 'app-cad-action',
@@ -70,7 +71,10 @@ export class CadActionComponent implements OnInit, OnChanges {
     isOpened = false;
     forApproveMaker = [];
     currentUserRole: string;
-
+    returnToRm = false;
+    spinner = false;
+    approvedLoan = false;
+    inMyBucket = false;
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -118,9 +122,13 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
         this.currentUserRole = LocalStorageUtil.getStorage().roleType;
+        if (this.cadOfferLetterApprovedDoc.docStatus === CadDocStatus.DISBURSEMENT_APPROVED) {
+            this.approvedLoan = true;
+        } else if (this.currentCADStage.toUser.id === this.currentUserId) {
+            this.inMyBucket = true;
+        }
         try {
             this.cadOfferLetterApprovedDoc.previousList.forEach((data) => {
-                console.log(data, this.currentUserId, this.roleId);
                 if (!ObjectUtil.isEmpty(data.toUser)) {
                     if (data.toUser.id.toString() === this.currentUserId && data.fromRole.roleType !== 'CAD_ADMIN') {
                         this.toUser = data.fromUser;
@@ -136,8 +144,6 @@ export class CadActionComponent implements OnInit, OnChanges {
         } catch (e) {
 
         }
-        console.log('this is toUser', this.toUser);
-        console.log('this is toRole', this.toRole);
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
             this.isMaker = true;
         } else {
@@ -211,7 +217,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     onLogin(dataValue) {
-
+        this.spinner = true;
         const data: { email: string, password: string } = dataValue.value;
         data.email = LocalStorageUtil.getStorage().username;
         const requestBody = 'grant_type=password&username=' + data.email + '&password=' + data.password;
@@ -222,6 +228,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     this.postAction();
                 },
                 error => {
+                    this.spinner = false;
                     this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
                     this.falseCredential = true;
                 }
@@ -236,6 +243,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.onClose();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
+            this.spinner = false;
             this.routerUtilsService.routeSummaryAndEncryptPathID(this.cadId);
         }, error => {
             this.forApproveMaker = [];
@@ -259,11 +267,16 @@ export class CadActionComponent implements OnInit, OnChanges {
 
                             });
                         }
-                    }, error1 => this.toastService.show(new Alert(AlertType.ERROR, error1.error.message)));
+                        this.spinner = false;
+
+                    }, error1 => {
+                        this.toastService.show(new Alert(AlertType.ERROR, error1.error.message));
+                        this.spinner = false;
+                    });
                     break;
             }
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-
+            this.spinner = false;
         });
 
     }
@@ -304,6 +317,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         //     this.toastService.show(new Alert(AlertType.WARNING, 'Please Generate Document Before Proceeding to next Stage'));
         //     return;
         // }
+        this.returnToRm = returnToMaker;
         this.selectedTemplate = template;
         this.popUpTitle = val;
         this.userList = [];
@@ -421,12 +435,23 @@ export class CadActionComponent implements OnInit, OnChanges {
         } else if (this.currentStatus === 'LEGAL_PENDING') {
             return 'OFFER_APPROVED';
         } else if (this.currentStatus === 'LEGAL_APPROVED') {
+            if (this.toRole.roleType === RoleType.APPROVAL) {
+                return 'OFFER_PENDING';
+            }
             return 'LEGAL_PENDING';
         } else if (this.currentStatus === 'DISBURSEMENT_PENDING' && this.currentUserRole === this.roleType.CRC) {
-            return 'LEGAL_PENDING';
+         if (this.returnToRm) {
+                    return 'LEGAL_APPROVED';
+            } else {
+             return 'LEGAL_PENDING';
+         }
         } else if (this.currentStatus === 'DISBURSEMENT_PENDING' && this.currentUserRole === this.roleType.COPS) {
-            return 'DISBURSEMENT_PENDING';
-        } else {
+            if (this.returnToRm) {
+                return 'LEGAL_APPROVED';
+            } else {
+                return 'DISBURSEMENT_PENDING';
+            }
+        }  else {
             return this.currentStatus;
         }
 
@@ -434,7 +459,13 @@ export class CadActionComponent implements OnInit, OnChanges {
 
 
     public backwardTooltipMessageAndShowHideBackward() {
-        const user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';
+        let user;
+
+        if (this.toUser !== null) {
+            user = this.toUser.name + ' (' + this.toUser.role.roleName + ')';
+        } else {
+            user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';
+        }
         // tslint:disable-next-line:max-line-length
         if ((this.currentCADStage.fromRole.roleType === this.roleType.CAD_ADMIN) || (this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)) {
             this.isBackwardDisabled = true;
