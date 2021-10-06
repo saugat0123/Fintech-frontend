@@ -798,24 +798,26 @@ export class LoanFormComponent implements OnInit {
             .subscribe((infoResponse) => {
                 this.nbSpinner = false;
                 this.loanHolder = infoResponse.detail;
-                this.loanDocument.loanHolder = this.loanHolder;
-                this.loanDocument.siteVisit = this.loanHolder.siteVisit;
-                this.loanDocument.financial = this.loanHolder.financial;
-                if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
-                    this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
-                        this.loanDocument.companyInfo = res.detail;
-                    }, error => {
-                        this.nbSpinner=false;
-                        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
-                    });
+                if (this.loanDocument !== undefined) {
+                    this.loanDocument.loanHolder = this.loanHolder;
+                    this.loanDocument.siteVisit = this.loanHolder.siteVisit;
+                    this.loanDocument.financial = this.loanHolder.financial;
+                    if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
+                        this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
+                            this.loanDocument.companyInfo = res.detail;
+                        }, error => {
+                            this.nbSpinner = false;
+                            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
+                        });
+                    }
+                    this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
+                    this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
+                    this.loanDocument.crgGamma = this.loanHolder.crgGamma;
+                    this.loanDocument.security = this.loanHolder.security;
+                    this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
+                    this.loanDocument.insurance = this.loanHolder.insurance;
+                    this.loanDataReady = true;
                 }
-                this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
-                this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
-                this.loanDocument.crgGamma = this.loanHolder.crgGamma;
-                this.loanDocument.security = this.loanHolder.security;
-                this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
-                this.loanDocument.insurance = this.loanHolder.insurance;
-                this.loanDataReady = true;
             }, error => {
                 console.error(error);
                 this.nbSpinner = false;
