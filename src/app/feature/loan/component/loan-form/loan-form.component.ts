@@ -229,6 +229,7 @@ export class LoanFormComponent implements OnInit {
     };
     nbSpinner = false;
     companyInfoId: any;
+    documentStatus;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -302,6 +303,7 @@ export class LoanFormComponent implements OnInit {
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
                             this.loanHolder = this.loanDocument.loanHolder;
+                            this.documentStatus = this.loanDocument.documentStatus;
                             this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
                             this.loanType = this.loanDocument.loanType;
                             if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
@@ -341,14 +343,16 @@ export class LoanFormComponent implements OnInit {
 
     getApprovedLoans(id) {
         this.nbSpinner=true;
-        this.loanFormService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
-            this.nbSpinner=false;
-            this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
-            this.approvedLoans = this.approvedTerminatingLoan.filter((l) =>l.loan.loanNature === 'Terminating')
+        if (this.documentStatus === 'APPROVED') {
+            this.loanFormService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
+                this.nbSpinner=false;
+                this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+                this.approvedLoans = this.approvedTerminatingLoan.filter((l) => l.loan.loanNature === 'Terminating')
             }, err => {
-            this.nbSpinner=false;
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'An Error has Occured'));
-        });
+                this.nbSpinner=false;
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'An Error has Occuredddddd'));
+            });
+        }
     }
 
 
@@ -912,14 +916,11 @@ export class LoanFormComponent implements OnInit {
     }
 
     filterTemplateList(templateList) {
-            const list = templateList;
-            this.templateList = [];
-            let index = 0;
-            list.forEach(item => {
-                if (item.name === 'Loan Document' || item.name === 'Obtainable Documents') {
-                    this.templateList[index] = item;
-                    index++;
-                }
-            });
+        templateList[0].name = 'Loan Document';
+        templateList[1].name = 'Obtainable Documents';
+        this.templateList=[];
+        for (let i = 0 ; i < 2 ; i++) {
+            this.templateList[i] = templateList[i];
         }
+    }
 }
