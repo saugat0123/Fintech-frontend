@@ -32,6 +32,7 @@ export class PromisoryNoteIndividualComponent implements OnInit {
   spinner = false;
   initialInfoPrint;
   cadCheckListEnum = CadCheckListTemplateEnum;
+  nepaliData;
   ngOnInit() {
   this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -43,9 +44,15 @@ export class PromisoryNoteIndividualComponent implements OnInit {
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.form = JSON.parse(this.cadData.loanHolder.nepData);
+      this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-   this.setSakshis(JSON.parse(this.initialInfoPrint).sakshi);
+    console.log('this is nepali data of loan holder', JSON.parse(this.cadData.loanHolder.nepData));
+    // if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+    //   this.form = JSON.parse(this.cadData.loanHolder.nepData);
+    // }
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
+      this.setSakshis(JSON.parse(this.initialInfoPrint).sakshi);
+    }
   }
   buildForm() {
     this.form = this.formBuilder.group({
@@ -66,6 +73,18 @@ export class PromisoryNoteIndividualComponent implements OnInit {
       roj: [undefined],
       sakshi: this.formBuilder.array([]),
     });
+  }
+
+  fillNepaliData() {
+    if (!ObjectUtil.isEmpty(this.nepaliData)) {
+      this.form.patchValue({
+        grandFatherName: this.nepaliData.grandFatherName,
+        fatherName: this.nepaliData.fatherName,
+        name: this.nepaliData.name,
+        husbandName: this.nepaliData.husbandName,
+        address: `${this.nepaliData.permanentDistrict} , ${this.nepaliData.permanentMunicipality}, ${this.nepaliData.permanentWard} `
+      });
+    }
   }
   submit() {
     this.spinner = true;

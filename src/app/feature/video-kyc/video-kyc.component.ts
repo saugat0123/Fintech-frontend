@@ -71,7 +71,7 @@ export class VideoKycComponent implements OnInit {
   buildBenfFrom() {
     this.beneficiaryForm = this.form.group({
       meetingLink: [undefined, Validators.required],
-      date: [undefined, [Validators.required, DateValidator.isValidAfter]],
+      date: [undefined, [DateValidator.isValidAfter]],
       time: [undefined],
       beneficiaryId: [undefined],
       status: ['ACTIVE'],
@@ -83,7 +83,7 @@ export class VideoKycComponent implements OnInit {
   buildSenderForm() {
     this.senderForm = this.form.group({
       meetingLink: [undefined, Validators.required],
-      date: [undefined, [Validators.required, DateValidator.isValidAfter]],
+      date: [undefined, [DateValidator.isValidAfter]],
       time: [undefined],
       beneficiaryId: [undefined],
       status: ['ACTIVE'],
