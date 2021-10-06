@@ -16,6 +16,7 @@ export class CadDataComponent implements OnInit {
     disbursement = true;
     offer = true;
     doc = true;
+    pool = true;
     productUtils = LocalStorageUtil.getStorage();
 
     constructor() {

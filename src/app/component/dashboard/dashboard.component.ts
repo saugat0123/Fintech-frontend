@@ -55,6 +55,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         docCheckApproved: undefined,
         disbursementPending: undefined,
         disbursementApproved: undefined,
+        inPool: undefined,
         showCustomerApprove: false
     };
 
