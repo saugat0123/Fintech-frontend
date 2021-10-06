@@ -13,14 +13,16 @@
                                           name="nameofBranchlocated"
                                           formControlName="nameofBranchlocated"
                                           placeholder=" "
-                                          type="text"/> शाखा कार्यालय रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त धनी
+                                          type="text"/>
+                                शाखा कार्यालय रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त धनी
                                 बैंक भनिएको छ)
                                 लिखत गरी दिने ऋणीका नाम साझेदारी ऐन
                                 <input class="form-field form-control-sm nepaliFont"
-                                       name="actyearinFigure"
-                                       formControlName="actyearinFigure"
+                                       name="yearInFigure"
+                                       formControlName="yearInFigure"
                                        placeholder=" "
-                                       type="text"/> बमोजिम नेपाल सरकार
+                                       type="text"/>
+                                बमोजिम नेपाल सरकार
                                 <input class="form-field form-control-sm nepaliFont"
                                        name="nameofDepartment"
                                        formControlName="nameofDepartment"
@@ -37,8 +39,8 @@
                                                placeholder=" "
                                                type="text"/>
                                 भएको श्री <input class="form-field form-control-sm nepaliFont"
-                                                 name="firmName "
-                                                 formControlName="firmName "
+                                                 name="firmName"
+                                                 formControlName="firmName"
                                                  placeholder=" "
                                                  type="text"/>
                                 (जसलाई यसपछि ऋणी फर्म भनिएको छ)
@@ -63,8 +65,8 @@
                                               placeholder=" "
                                               type="text"/>न.पा/गा.वि.स.गाँउपालिका वडा नं <input
                                         class="form-field form-control-sm nepaliFont"
-                                        name="proprietorWardNumber"
-                                        formControlName="proprietorWardNumber"
+                                        name="wardNoofProprietor"
+                                        formControlName="wardNoofProprietor"
                                         placeholder=" "
                                         type="text"/>
                                 बस्ने बर्ष <input class="form-field form-control-sm nepaliFont"
@@ -88,8 +90,8 @@
                                         placeholder=" "
                                         type="text"/>
                                 को छोरा/छोरी/श्रीमती <input class="form-field form-control-sm nepaliFont"
-                                                            name="DistrictofProprietor "
-                                                            formControlName="DistrictofProprietor"
+                                                            name="districtofProprietor "
+                                                            formControlName="districtofProprietor"
                                                             placeholder=" "
                                                             type="text"/>
                                 जिल्ला <input class="form-field form-control-sm nepaliFont"
@@ -117,11 +119,11 @@
                                          formControlName="grandfatherNameofProprietor"
                                          placeholder=" "
                                          type="text"/>
-                                को नाती÷नातिनी÷बुहारी <input class="form-field form-control-sm nepaliFont"
+                                को नाती/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont"
                                                              name="fatherNameofProprietor"
                                                              formControlName="fatherNameofProprietor"
                                                              placeholder=" "
-                                                             type="text"/> को छोरा÷छोरी÷श्रीमती
+                                                             type="text"/> को छोरा/छोरी/श्रीमती
                                 <input class="form-field form-control-sm nepaliFont"
                                        name="districtofProprietor"
                                        formControlName="districtofProprietor"
@@ -132,7 +134,7 @@
                                               formControlName="vdcofProprietor"
                                               placeholder=" "
                                               type="text"/>
-                                न.पा÷गा.वि.स.÷गाँउपालिका वडा नं <input class="form-field form-control-sm nepaliFont"
+                                न.पा/गा.वि.स.गाँउपालिका वडा नं <input class="form-field form-control-sm nepaliFont"
                                                                        name="wardNoofProprietor "
                                                                        formControlName="wardNoofProprietor"
                                                                        placeholder=" "
@@ -142,7 +144,7 @@
                                                   formControlName="ageofProprietor"
                                                   placeholder=" "
                                                   type="text"/>
-                                को श्री÷श्रीमती÷सुश्री <input class="form-field form-control-sm nepaliFont"
+                                को श्री/श्रीमती/सुश्री <input class="form-field form-control-sm nepaliFont"
                                                               name="nameofProprietor"
                                                               formControlName="nameofProprietor"
                                                               placeholder=" "
@@ -195,176 +197,139 @@
                                 साक्षीहरुको रोहवरमा तपाई धनी बैंकको कार्यालयमा बसी यो
                                 लिखतमा सहिछाप गरी तपाई धनी बैंकलाई दियौं र यसको दोहरी समेत बुझिलियौं ।
 
-                            <p class="text-center"><b> पस्विकृत ऋणकर्जाको विवरणो </b><br>
-                            <table border="1" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>ऋणकर्जा वा बैंकिङ्ग सुविधा</th>
-                                    <th>रकम</th>
-                                    <th>ब्याज र कमिसन</th>
-                                    <th>अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><input class="form-field form-control-sm nepaliFont disable-print col-6"
-                                               name="facilityName"
-                                               formControlName="facilityName"
-                                               placeholder=""
-                                               type="text"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
-                                               name="loanAmount"
-                                               formControlName="loanAmount"
-                                               placeholder=""
-                                               type="text"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
-                                               name="interest"
-                                               formControlName="interest"
-                                               placeholder=""
-                                               type="text"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
-                                               name="expiryDate"
-                                               formControlName="expiryDate"
-                                               placeholder=""
-                                               type="text"/>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <br>
+                            <div class="container-fluid">
+                                <div class="col-md-12">
+                                    <b class="text-center" style="font-size: 12pt">स्विकृत ऋणकर्जाको विवरण</b>
+                                    <table class="table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>ऋणकर्जा वा बैंकिङ्ग सुविधा<br>
+                                                Name of Facility</th>
+                                            <th>रकम <br>
+                                                Loan Amount</th>
+                                            <th>ब्याज र कमिसन <br>
+                                                Interest/Commission as per Approved CFR</th>
+                                            <th>अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति <br>
+                                                Expiry/Renewal Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>Personal Loan</td>
+                                            <td>1520000 /-</td>
+                                            <td>8%</td>
+                                            <td>2021/09/30</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Personal Loan</td>
+                                            <td>1520000 /-</td>
+                                            <td>8%</td>
+                                            <td>2021/09/30</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                             <P>कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु.<input
                                     class="form-field form-control-sm outside disable-print col-2"
                                     (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
                                     name="loanamountinFigure"
                                     formControlName="loanamountinFigure"
                                     placeholder="ऋण रकम"
-                                    type="text"/>। <br>
+                                    type="text"/>।
                                 (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                                                  name="loanamountinWords"
                                                  formControlName="loanamountinWords"
                                                  placeholder="रकम"
                                                  type="text"/>)</P>
-                            <p class="text-center"><b> तपसिल </b><br>
-                            <p>उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई धनी बैंकको
-                                नाममा
-                                धितोबन्धक लेखिदिई सम्बन्धित मालपोत कार्यालयमा रजिष्ट्रेशन समेत पारित गरिदिएको छु ।</p>
-                            <table border="1" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>घरजग्गा धनीा</th>
-                                    <th>जिल्ला</th>
-                                    <th>नगर</th>
-                                    <th>वडा नं.</th>
-                                    <th>कित्ता नं.</th>
-                                    <th>क्षेत्रफल</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><input class="form-field form-control-sm nepaliFont disable-print col-6"
-                                               name="propertyOwnerName"
-                                               formControlName="propertyOwnerName"
-                                               placeholder=""
-                                               type="text"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
-                                               name="district"
-                                               formControlName="district"
-                                               placeholder=""
-                                               type="text"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
-                                               name="vdc"
-                                               formControlName="vdc"
-                                               placeholder=""
-                                               type="text"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                               name="wardNo"
-                                               formControlName="wardNo"
-                                               placeholder=""
-                                               type="text"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
-                                               name="plotNo"
-                                               formControlName="plotNo"
-                                               placeholder=""
-                                               type="text"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
-                                               name="area"
-                                               formControlName="area"
-                                               placeholder=""
-                                               type="text"/>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                    <div class="container-fluid">
+                                        <div class="col-md-12 mt-lg-5">
+                                            <b class="text-center" style="font-size: 12pt">तपसिल</b> <br>
+                                            उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई धनी बैंकको नाममा<br>
+                                            धितोबन्धक लेखिदिई सम्बन्धित मालपोत कार्यालयमा रजिष्ट्रेशन समेत पारित गरिदिएको छु ।
+                                            <table class="table-bordered mt-2">
+                                                <thead>
+                                                <tr>
+                                                    <th>घरजग्गा धनी<br>
+                                                        Property Owner Name</th>
+                                                    <th>जिल्ला<br>
+                                                        District</th>
+                                                    <th>नगर<br>
+                                                        MNC/VDC</th>
+                                                    <th>वडा नं.<br>
+                                                        Ward No.</th>
+                                                    <th>कित्ता नं.<br>
+                                                        Plot No:</th>
+                                                    <th>क्षेत्रफल<br>
+                                                        Area</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Dhan Maya Shrestha</td>
+                                                    <td>Sarlahi</td>
+                                                    <td>Hariwan</td>
+                                                    <td>7</td>
+                                                    <td>123</td>
+                                                    <td>1245</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ganga Shrestha</td>
+                                                    <td>Sarlahi</td>
+                                                    <td>Hariwan</td>
+                                                    <td>7</td>
+                                                    <td>123</td>
+                                                    <td>1245</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <div class="col-md-12 mt-3">
+                                            <ckeditor class="nepaliFont" formControlName="freeText"
+                                                      [config]="ckEditorConfig"></ckeditor>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid mt-lg-5">
+                                        <div class="col-md-12">
+                                            <p>
+                                                ईति सम्वत्
+                                                <input class="form-field form-control-sm nepaliFont"
+                                                       name="yearInFigure"
+                                                       formControlName="yearInFigure"
+                                                       placeholder="ईति सम्वत्" type="text">साल
+                                                <input class="form-field form-control-sm nepaliFont"
+                                                       name="month"
+                                                       formControlName="month"
+                                                       placeholder="महिना" type="text">महिना
+                                                <input class="form-field form-control-sm nepaliFont"
+                                                       name="date"
+                                                       formControlName="date"
+                                                       placeholder="गते"
+                                                       type="text">
+                                                गते रोज<input class="form-field form-control-sm nepaliFont"
+                                                              name="days"
+                                                       formControlName="days"
+                                                       placeholder="गते" type="text"> शुभम्
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <label> </label>
-                            <textarea id="freetext" name="freetext"
-                                      rows="5" cols="33">
-                                    For Example Vechicle detail/Excess Amount Clause
-                            </textarea><br>
-
-                            <p class="text-center"><b> ईति सम्वत्
-                                <input class="form-field form-control-sm outside disable-print col-2"
-                                       name="yearinFigure "
-                                       formControlName="yearinFigure"
-                                       placeholder=""
-                                       type="text"/>
-                                साल <input class="form-field form-control-sm outside disable-print col-2"
-                                           name="month "
-                                           formControlName="month"
-                                           placeholder=""
-                                           type="text"/><br>
-                                महिना <input class="form-field form-control-sm outside disable-print col-2"
-                                             name="date"
-                                             formControlName="date"
-                                             placeholder=""
-                                             type="text"/><br>
-                                गते रोज <input class="form-field form-control-sm outside disable-print col-2"
-                                               name="days"
-                                               formControlName="days"
-                                               placeholder=""
-                                               type="text"/> शुभम् </b></p>
-
-
-                        </div>
-                        <br/>
-<!--                        <div class="row mt-5 ml-0">-->
-<!--                            <div class="col-md-12 text-right">-->
-<!--                                <button [useExistingCss]="true" class="d-print-none" printSectionId="{{offerLetterConst.LOAN_DEED_PARTNERSHIP}}"-->
-<!--                                        nbButton size="small" status="info" outline ngxPrint>Print &nbsp;&nbsp;-->
-<!--                                    <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>-->
-<!--                                </button>-->
-                        <div class="col-md-12 text-right">
-                            <button nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint"
-                                    [useExistingCss]="true"
-                                    ngxPrint printSectionId="{{offerLetterConst.LOAN_DEED_PARTNERSHIP}}Print">
-                                <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>
-                                Print
+</div>
+<div class="col-md-12 text-right disable-print">
+                            <button  nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
+                                     ngxPrint printSectionId="{{offerLetterConst.LOAN_DEED_PARTNERSHIP}}Print">Print
                             </button>
+                            <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
+            </div>
     </form>
 </div>
+
 <app-loan-deed-partnership-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint"
                              hidden></app-loan-deed-partnership-print>
 
