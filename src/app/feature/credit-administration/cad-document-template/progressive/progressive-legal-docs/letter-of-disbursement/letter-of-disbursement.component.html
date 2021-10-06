@@ -181,102 +181,52 @@
                     <button (click)="addWitness()" class="btn btn-primary btn-sm float-right " size="tiny"
                             type="button">साक्षी थप्नुहोस्<i class="fas fa-plus"></i></button>
                 </div>
-                <div *ngFor="let witness of form.get('witnessDetails')['controls']; let i=index" class="container"
+                <div *ngFor="let witness of form.get('witnessDetails')['controls']; let i=index"
+                     class="container"
                      formArrayName="witnessDetails"
                      id="witness">
                     <div [formGroupName]="i">
                         {{i + 1 | nepaliWord: 'unicode'}}
-                        <table class="table table-responsive-md table-borderless text-left" style="width: 100%">
+                        <table class="table table-responsive-md table-borderless">
                             <thead>
-                                <tr>
-                                    <td class="text-left" colspan="2">दस्तखत :</td>
-
-                                    <td class="text-left" colspan="2">दस्तखत :</td>
-                                </tr>
-                                <tr>
-                                    <td class="align-top" style="border-bottom: none">
-                                        १.नाम
-                                    </td>
-                                    <td style="border-bottom: none">
-                                        <input class="form-field form-control-sm nepaliFont"
-                                               formControlName="witnessName"
-                                               placeholder="" type="text"/>
-                                        (ना.प्र.नं  <input
-                                            class="form-field form-control-sm nepaliFont"
-                                            formControlName="witnessCitizenshipNo"
-                                            placeholder=""
-                                            type="text"/>
-                                        मिति <input class="form-field form-control-sm nepaliFont"
-                                                    formControlName="witnessCitizenshipIssueDate"
-                                                    placeholder=""
-                                                    type="text"/>
-                                        जि.प्र.का <input class="form-field form-control-sm nepaliFont"
-                                                         formControlName="witnessCitizenshipIssueOffice"
-                                                         placeholder=""
-                                                         type="text"/>)
-                                    </td>
-
-                                    <td class="align-top" style="border-bottom: none">
-                                        २.नाम
-                                    </td>
-                                    <td style="border-bottom: none">
-                                        <input class="form-field form-control-sm nepaliFont "
-                                               formControlName="witnessName2"
-                                               placeholder="" type="text"/>
-                                        (ना.प्र.नं  <input
-                                            class="form-field form-control-sm nepaliFont"
-                                            formControlName="witnessCitizenshipNo2"
-                                            placeholder=""
-                                            type="text"/>
-                                        मिति <input class="form-field form-control-sm nepaliFont"
-                                                    formControlName="witnessCitizenshipIssueDate2"
-                                                    placeholder=""
-                                                    type="text"/>
-                                        जि.प्र.का <input class="form-field form-control-sm nepaliFont"
-                                                         formControlName="witnessCitizenshipIssueOffice2"
-                                                         placeholder=""
-                                                         type="text"/>)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-top" style="border-top: none">
-                                        ठेगाना
-                                    </td>
-                                    <td style="border-top: none">
-                                        <input class="form-field form-control-sm nepaliFont "
-                                               formControlName="witnessDistrict"
-                                               placeholder="" type="text"/>
-
-                                        जिल्ला<input class="form-field form-control-sm nepaliFont"
-                                                     formControlName="witnessVdcMun"
-                                                     placeholder=""
-                                                     type="text"/>
-                                        गा.पा./न.पा. वडा नं <input class="form-field form-control-sm nepaliFont"
-                                                           formControlName="witnessWardNo"
-                                                           placeholder=""
-                                                           type="text"/>
-                                    </td>
-
-                                    <td class="align-top" style="border-top: none">
-                                        ठेगाना
-                                    </td>
-                                    <td style="border-top: none">
-                                        <input class="form-field form-control-sm nepaliFont "
-                                               formControlName="witnessDistrict2"
-                                               placeholder="" type="text"/>
-
-                                        जिल्ला<input class="form-field form-control-sm nepaliFont"
-                                                     formControlName="witnessVdcMun2"
-                                                     placeholder=""
-                                                     type="text"/>
-                                        गा.पा./न.पा. वडा नं <input class="form-field form-control-sm nepaliFont"
-                                                                   formControlName="witnessWardNo2"
-                                                                   placeholder=""
-                                                                   type="text"/>
-                                    </td>
-                                </tr>
-
+                            <tr>
+                                <td>दस्तखत:</td>
+                                <td>.............................</td>
+                            </tr>
                             </thead>
+                            <tbody>
+                            <tr>
+                                <td>नाम:</td>
+                                <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                                             formControlName="witnessName"
+                                                             placeholder="" type="text"/>
+                                    (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+                                                     formControlName="witnessCitizenshipNo"
+                                                     placeholder=""
+                                                     type="text"/>
+                                    मिति <input class="form-field form-control-sm nepaliFont"
+                                                formControlName="witnessCitizenshipIssueDate"
+                                                placeholder=""
+                                                type="text"/> जि.प्र.का. <input class="form-field form-control-sm nepaliFont"
+                                                                                formControlName="witnessCitizenshipIssueOffice"
+                                                                                placeholder=""
+                                                                                type="text"/>)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ठेगाना:</td>
+                                <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                                             formControlName="witnessDistrict"
+                                                             placeholder="" type="text"/>जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                                                                                       formControlName="witnessVdcMun"
+                                                                                                       placeholder=""
+                                                                                                       type="text"/>
+                                    गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                                                             formControlName="witnessWardNo"
+                                                             placeholder=""
+                                                             type="text"/></td>
+                            </tr>
+                            </tbody>
                         </table>
                         <div *ngIf="form.get('witnessDetails')['length']>1" class="col-md-3 float-right">
                             <button (click)="removeWitness(i)"

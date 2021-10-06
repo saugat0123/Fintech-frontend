@@ -225,13 +225,6 @@ export class LetterOfDisbursementComponent implements OnInit {
       witnessDistrict: [undefined],
       witnessVdcMun: [undefined],
       witnessWardNo: [undefined],
-      witnessName2: [undefined],
-      witnessCitizenshipNo2: [undefined],
-      witnessCitizenshipIssueDate2: [undefined],
-      witnessCitizenshipIssueOffice2: [undefined],
-      witnessDistrict2: [undefined],
-      witnessVdcMun2: [undefined],
-      witnessWardNo2: [undefined],
     });
   }
 
@@ -262,13 +255,6 @@ export class LetterOfDisbursementComponent implements OnInit {
             witnessDistrict: [value.witnessDistrict],
             witnessVdcMun: [value.witnessVdcMun],
             witnessWardNo: [value.witnessWardNo],
-            witnessName2: [value.name],
-            witnessCitizenshipNo2: [value.witnessCitizenshipNo],
-            witnessCitizenshipIssueDate2: [value.witnessCitizenshipIssueDate],
-            witnessCitizenshipIssueOffice2: [value.witnessCitizenshipIssueOffice],
-            witnessDistrict2: [value.witnessDistrict],
-            witnessVdcMun2: [value.witnessVdcMun],
-            witnessWardNo2: [value.witnessWardNo],
           })
       );
     });
