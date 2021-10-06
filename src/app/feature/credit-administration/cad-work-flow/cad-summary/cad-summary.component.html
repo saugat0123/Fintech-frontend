@@ -5,7 +5,7 @@
          nbSpinnerStatus="primary"
          [nbSpinner]="spinner">
     <nb-card-header>
-        <strong>{{cadOfferLetterApprovedDoc?.docStatus | replace:'_':' '}}</strong>
+        <strong>{{(cadOfferLetterApprovedDoc?.docStatus | replace:'_':' ') | disbursementToLimit }}</strong>
 
     </nb-card-header>
     <nb-card-body>
