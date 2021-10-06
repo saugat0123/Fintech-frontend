@@ -22,6 +22,7 @@ export class EditLoanDetailComponent implements OnInit {
   loanTag: string;
   proposal: Proposal;
   loan: LoanConfig;
+  proposedLimit: any;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -40,6 +41,7 @@ export class EditLoanDetailComponent implements OnInit {
       this.loan = assignedLoan.loan;
       this.proposal = assignedLoan.proposal;
       this.form.get('proposedLimit').patchValue(this.proposal.proposedLimit);
+      this.showProposedLimitInNep();
     }
   }
 
@@ -66,5 +68,12 @@ export class EditLoanDetailComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan loan!!'));
       this.spinner = false;
     });
+  }
+
+  public showProposedLimitInNep(): void {
+    const proposedLimit  = this.form.get('proposedLimit').value;
+    if (!ObjectUtil.isEmpty(proposedLimit)) {
+      this.proposedLimit = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(proposedLimit.toString()));
+    }
   }
 }

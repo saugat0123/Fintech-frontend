@@ -223,8 +223,7 @@ export class OfferLetterListComponent implements OnInit {
       this.dialogService.open(EditLoanDetailComponent, {
         context: {
           data: response.detail,
-        },
-        hasBackdrop: false,
+        }
       });
       this.spinner = false;
     }, error => {
