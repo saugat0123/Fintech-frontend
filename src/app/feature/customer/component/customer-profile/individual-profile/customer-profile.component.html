@@ -12,10 +12,9 @@
                     {{customerInfo?.obligor || ' No group has been assigned.'}}
                 </span>
                 </ng-container>
-                <div class="py-2">
-                    <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'"> Customer
-                        Activity
-
+                <div *ngIf="false" class="py-2">
+                    <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'">
+                        Customer Activity
                         <nb-icon icon="arrow-right-outline"></nb-icon>
                     </button>
                 </div>
@@ -101,7 +100,7 @@
                         <span> <strong>Email :</strong> {{customer.email }}</span></div>
                     <div class="row">
                         <span> <strong>Mobile Number :</strong> {{customer.contactNumber }}</span></div>
-                    <div class="row">
+                    <div *ngIf="false" class="row">
                         <span> <strong>Introduction :</strong> <span [innerHTML]="customer.introduction | safeHtml"></span></span></div>
                 </div>
                 <div *ngIf="isJointInfo">
@@ -178,7 +177,7 @@
                         <span> <strong>Mobile Number :</strong>   <input formControlName="contactNumber"
                                                                          placeholder="name"
                                                                          type="text"></span></div>
-                        <div class="row">
+                        <div *ngIf="false" class="row">
                         <span> <strong>Introduction :</strong>   <input formControlName="introduction"
                                                                         placeholder="Introduction"
                                                                         type="text"></span></div>
