@@ -37,7 +37,7 @@ export const NB_CORE_PROVIDERS = [
     LoanStatusPipe,
     EngToNepaliNumberPipe,
     EnumConverterPipe,
-    NepaliCurrencyWordPipe
+    NepaliCurrencyWordPipe,
 ];
 
 const UTILITY_MODULES = [
@@ -89,7 +89,7 @@ const UTILITY_MODULES = [
         LoginPopUp,
         NepaliNumberPipe,
 DisbursementConvertPipe
-    ], entryComponents: [LoginPopUp]
+    ], entryComponents: [LoginPopUp], providers: [NepaliNumberPipe]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

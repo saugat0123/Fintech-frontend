@@ -10,6 +10,11 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
 
 @Component({
   selector: 'app-promisory-note-individual',
@@ -23,7 +28,12 @@ export class PromisoryNoteIndividualComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
       private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-      private routerUtilsService: RouterUtilsService
+      private routerUtilsService: RouterUtilsService,
+      private currencyFormatPipe: CurrencyFormatterPipe,
+      private engToNepNumberPipe: EngToNepaliNumberPipe,
+      private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+      private nepaliToEnglishPipe: NepaliToEngNumberPipe,
+      private nepaliNumber: NepaliNumberPipe
   ) { }
   @Input() cadData;
   @Input() documentId;
@@ -33,26 +43,42 @@ export class PromisoryNoteIndividualComponent implements OnInit {
   initialInfoPrint;
   cadCheckListEnum = CadCheckListTemplateEnum;
   nepaliData;
+  amount;
   ngOnInit() {
   this.buildForm();
+    this.amount = this.cadData.assignedLoan[0].proposal.proposedLimit;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.initialInfoPrint = singleCadFile.initialInformation;
-          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+          if (JSON.parse(singleCadFile.initialInformation).rupees !== this.amount) {
+            // tslint:disable-next-line:radix
+            this.amount = JSON.parse(singleCadFile.initialInformation).rupees;
+          }
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    console.log('this is nepali data of loan holder', JSON.parse(this.cadData.loanHolder.nepData));
-    // if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-    //   this.form = JSON.parse(this.cadData.loanHolder.nepData);
-    // }
     if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
+      this.form.patchValue(JSON.parse(this.initialInfoPrint));
       this.setSakshis(JSON.parse(this.initialInfoPrint).sakshi);
+      this.form.patchValue({
+        amount: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount))
+      });
+    } else {
+      this.fillNepaliData();
+      this.addSakshi();
+      this.form.patchValue({
+        amount: this.nepaliCurrencyWordPipe.transform(this.amount)
+      });
     }
+  }
+  con(e) {
+    this.form.patchValue({
+      amount: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(e.target.value))
+    });
   }
   buildForm() {
     this.form = this.formBuilder.group({
@@ -82,11 +108,15 @@ export class PromisoryNoteIndividualComponent implements OnInit {
         fatherName: this.nepaliData.fatherName,
         name: this.nepaliData.name,
         husbandName: this.nepaliData.husbandName,
-        address: `${this.nepaliData.permanentDistrict} , ${this.nepaliData.permanentMunicipality}, ${this.nepaliData.permanentWard} `
+        address: `${this.nepaliData.permanentDistrict} ,${this.nepaliData.permanentMunicipality}, ${this.nepaliData.permanentWard}`,
+        personalDetails: `${this.nepaliData.citizenshipNo} ,${this.nepaliData.citizenshipIssueDate}, ${this.nepaliData.citizenshipIssueDistrict}`,
+        rupees: this.nepaliNumber.transform(this.amount, 'preeti'),
+        amount: this.nepaliCurrencyWordPipe.transform(this.amount)
       });
     }
   }
   submit() {
+    console.log('this is form value', this.form.value);
     this.spinner = true;
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
