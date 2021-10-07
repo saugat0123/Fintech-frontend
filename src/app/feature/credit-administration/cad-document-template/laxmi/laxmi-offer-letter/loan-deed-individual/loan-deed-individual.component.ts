@@ -42,9 +42,6 @@ export class LoanDeedIndividualComponent implements OnInit {
         }
       });
     }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.form = JSON.parse(this.cadData.loanHolder.nepData);
-    }
   }
 
   buildForm() {

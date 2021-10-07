@@ -53,11 +53,13 @@ export class ProposalSummaryComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.proposalAllData = JSON.parse(this.proposalData.data);
-        this.checkedData = JSON.parse(this.proposalData.checkedData);
-        this.calculateInterestRate();
-        this.getLoanConfig();
-        this.checkInstallmentAmount();
+        if (!ObjectUtil.isEmpty(this.proposalData.data)) {
+            this.proposalAllData = JSON.parse(this.proposalData.data);
+            this.checkedData = JSON.parse(this.proposalData.checkedData);
+            this.calculateInterestRate();
+            this.getLoanConfig();
+            this.checkInstallmentAmount();
+        }
     }
 
     public getTotal(key: string): number {

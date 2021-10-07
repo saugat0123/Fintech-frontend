@@ -10,6 +10,7 @@ import {CompanyInfoService} from '../../../../../admin/service/company-info.serv
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../../../customer/model/customerType';
 import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
+import {RoleType} from '../../../../../admin/modal/roleType';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -26,6 +27,9 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID;
   sccRefNumber;
   securityCode;
+  userType = LocalStorageUtil.getStorage().roleType;
+  isMaker = false;
+  spinner = false;
 
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
@@ -42,7 +46,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     this.getCompanyPan();
     this.setSccRefNumber();
     this.getSecurityCode();
-
+    console.log(this.userType);
+    if (this.userType === RoleType.MAKER) {
+      this.isMaker = true;
+    }
   }
 
   getCompanyPan() {
@@ -54,9 +61,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   setSccRefNumber() {
-    const exposureHistoryData = JSON.parse(this.cadFile.exposure.historyData);
-    this.sccRefNumber = String().concat(this.affiliatedId.toString()).concat('-cad-').concat(this.cadFile.id.toString()).
-    concat('-dis-').concat( exposureHistoryData ? exposureHistoryData.length : 0);
+    if (!ObjectUtil.isEmpty(this.cadFile.exposure)) {
+      const exposureHistoryData = JSON.parse(this.cadFile.exposure.historyData);
+      this.sccRefNumber = String().concat(this.affiliatedId.toString()).concat('-cad-').concat(this.cadFile.id.toString()).concat('-dis-').concat(exposureHistoryData ? exposureHistoryData.length : 0);
+    }
   }
 
 
@@ -73,30 +81,40 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   save() {
+    this.spinner = true;
     const formData: FormData = new FormData();
     formData.append('file', this.uploadFile);
     formData.append('customerInfoId', this.cadFile.loanHolder.id.toString());
     formData.append('cadId', this.cadFile.id.toString());
     formData.append('docName', new Date().toString());
     formData.append('branchId', this.cadFile.loanHolder.branch.id.toString());
+    if (ObjectUtil.isEmpty(this.cadFile.exposure)) {
+      this.spinner= false;
+      this.modelClose();
+      this.toastService.show(new Alert(AlertType.WARNING, 'Exposure details are missing'));
+      return;
+    }
     this.creditAdministrationService.getSccDocPath(formData).subscribe((res: any) => {
       const mergeData = {
-        disbursementDetails: JSON.parse(this.cadFile.exposure.data).disbursementDetails,
+        disbursementDetails: this.cadFile.exposure ? JSON.parse(this.cadFile.exposure.data).disbursementDetails : {},
         sccPath: res.detail
       };
       this.cadFile.exposure.data = JSON.stringify(mergeData);
       this.creditAdministrationService.saveCadDocumentBulk(this.cadFile).subscribe((response: any) => {
         this.modelClose();
         this.onClose();
+        this.spinner= false;
         this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadFile.id, 0);
         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully upload SCC File'));
       }, error => {
         this.modelClose();
+        this.spinner= false;
         console.log(error);
         this.toastService.show(new Alert(AlertType.ERROR, error));
       });
     }, error => {
       console.log(error);
+      this.spinner= false;
       this.toastService.show(new Alert(AlertType.ERROR, error));
     });
   }

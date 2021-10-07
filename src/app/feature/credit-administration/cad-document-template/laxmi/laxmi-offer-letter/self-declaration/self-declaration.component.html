@@ -1,11 +1,7 @@
 <div [nbSpinner]="spinner" class="row" id="promissory-note-individual">
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
-            <p class="float-right">
-                मिति: <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="year" >
-                /<input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="month" >
-                /<input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="day" >
-            </p>
+            <p class="">मिति:<input type = "text" class="nepaliFont form-field form-control-sm font-size-normal"  formControlName="year" ><input type = "text"  class="nepaliFont form-field form-control-sm font-size-normal" formControlName="month" ><input type = "text"  class="nepaliFont form-field form-control-sm font-size-normal" formControlName="day" ></p>
             <p>
                 श्री लक्ष्मी बैंक लि.
                 <br>
@@ -20,8 +16,8 @@
            <br> ठेगानाः <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="address" >
             <br>दस्तखतः
             <div class="clearfix mb-5">
-                <div class="signature-area float-right text-center">वाँया</div>
-                <div class="signature-area float-right text-center">दाँया</div>
+                <div class="signature-area float-right text-center"></div>
+                <div class="signature-area float-right text-center"></div>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary float-right" nbButton status="success">

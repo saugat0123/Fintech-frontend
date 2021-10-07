@@ -125,7 +125,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         if (this.cadOfferLetterApprovedDoc.docStatus === CadDocStatus.DISBURSEMENT_APPROVED) {
             this.approvedLoan = true;
         }
-        if (this.currentCADStage.toUser.id.toString() === this.currentUserId) {
+        if (this.currentCADStage.toRole.id.toString() === this.roleId) {
             this.inMyBucket = true;
         }
         try {
@@ -462,7 +462,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     public backwardTooltipMessageAndShowHideBackward() {
         let user;
 
-        if (this.toUser !== null) {
+        if (!ObjectUtil.isEmpty(this.toUser)) {
             user = this.toUser.name + ' (' + this.toUser.role.roleName + ')';
         } else {
             user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';
