@@ -52,12 +52,14 @@
           लिखितम लिखत गराई लिने धनिकानाम का.जि.का.म.न.पा.वडा नं. ३२,
           न्यूरोडस्थित रजिष्टर्ड कार्यालय भएको <strong> प्रोग्रेशिभ फाइनान्स लिमिटेडको</strong>
           <input class="form-control-sm form-field nepaliFont"
-                 formControlName="cityName"
-                 type="text"> जिल्ला <input class="form-control-sm form-field nepaliFont"
-                              formControlName="jillaName"
-                              type="text"> न.पा./गा.पा.वडा नं <input class="form-control-sm form-field nepaliFont"
-                                                                     formControlName="wodaNum"
-                                                                     type="text">,
+                  formControlName="jillaName"
+                  type="text"> जिल्ला
+          <input class="form-control-sm form-field nepaliFont"
+                  formControlName="nagaName"
+                  type="text"> न.पा./गा.पा.वडा नं
+          <input class="form-control-sm form-field nepaliFont"
+                  formControlName="wodaNum"
+                  type="text">,
           स्थित <input class="form-control-sm form-field nepaliFont"
                        formControlName="jillaName2"
                        type="text"> शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा “धनीवित्तीय संस्था” भनिएको), लिखत गरि धितो सुरक्षण लेखिदिनेको नाम
@@ -71,23 +73,23 @@
           (जसलाई यस उप्रान्त यस लिखतमा “ऋणी” भनिएको) को नाममा जम्मा स्वीकृत भएको/स्वीकृत भई उपभोग
           गर्ने
           रु. <input (change)="getNumAmountWord('upabhogRu','upabhogRuWord')"
-                     class="form-control-sm form-field nepaliFont"
+                     class="form-control-sm form-field nepaliFont sizefont"
                      formControlName="upabhogRu"
                      type="text">।
-          (अक्षेरेपी <input class="form-control-sm form-field nepaliFont"
+          (अक्षेरेपी <input class="form-control-sm form-field nepaliFont sizefont"
                             formControlName="upabhogRuWord"
                             readonly type="text">मात्र)
           सम्मको कर्जा सीमा मध्ये प्रस्तुत जायजेथा रु <input
             (change)="getNumAmountWord('jyayeJethaRu','jyayeJethaRuWord')"
-            class="form-control-sm form-field nepaliFont"
+            class="form-control-sm form-field nepaliFont sizefont"
             formControlName="jyayeJethaRu"
             type="text">।–
-          (अक्षेरेपी <input class="form-control-sm form-field nepaliFont"
+          (अक्षेरेपी <input class="form-control-sm form-field nepaliFont sizefont"
                             formControlName="jyayeJethaRuWord"
                             readonly type="text">मात्र)
           सम्म वा धितोको मुल्यले खामे सम्मको चालुपूंजि (Working Capital), डिमाण्डलोन (Demand Loan)
           वा अन्यकर्जा लगायतका कुनै पनि शीर्षकका अल्प आबधिक कर्जा
-          (Short Term Loan) वा दिर्घकालीन कर्जा (Term Loan),बैंक ग्यारेन्टी (Bank Guarantee), बिल्स पर्चेज (दBill Purchase), ब्रिजग्यापकर्जा (Bridge Gap Loan)
+          (Short Term Loan) वा दिर्घकालीन कर्जा (Term Loan),बैंक ग्यारेन्टी (Bank Guarantee), बिल्स पर्चेज (Bill Purchase), ब्रिज ग्याप कर्जा (Bridge Gap Loan)
           वा वित्तीय संस्थाले प्रदान गर्ने अन्य विभिन्न किसीमका ऋण कर्जा तथा बैकिङ्ग सुविधाहरु एकै पटक वा पटकपटक गरी वा नविकरण गर्नु परेमा सो समेत गर्न सक्ने गरि मैले/हामीले/ऋणीले
           उपभोग गर्ने सम्पूर्ण ऋणकर्जा तथा बैकिङ्ग सुविधाहरुको धितो बन्धक सुरक्षण वापत अचल सम्पत्ति घरजग्गा धितोबन्धक लेखि दिन मञ्जुर छ, छैन भनी धनी वित्तीय संस्थाबाट सोधनी हुँदा
           सो मा मेरो/हाम्रो पूुर्ण मञ्जुरी भएको र मलाई/हामीलाई/ऋणीलाई उपरोक्तानूसार कुनै पनि उद्देश्यका लागि एकै पटक वा पटकपटक गरी भविष्यमा समेत तपांई धनि वित्तीय संस्थाले उपलव्ध
@@ -131,6 +133,7 @@
                   <tr>
                     <th>ऋणीको नाम थर (देवनागरीमा) :-<input class="form-control-sm form-field nepaliFont"
                                                            formControlName="creditorNameNepali2"
+
                                                            type="text"></th>
                     <th>नाम थर (अंग्रेजीमा) :- <input class="form-control-sm form-field "
                                                       formControlName="creditorNameEnglish2"
@@ -610,7 +613,7 @@
         </p>
         <br><br>
         <div class="col-md-12">
-          <table class="table  table-bordered text-center">
+          <table class="table  table-bordered text-left">
             <tbody>
             <tr>
               <td><b>लेखिएको वमोजिम श्रेस्ताकायम छ/छैन:-</b><br>

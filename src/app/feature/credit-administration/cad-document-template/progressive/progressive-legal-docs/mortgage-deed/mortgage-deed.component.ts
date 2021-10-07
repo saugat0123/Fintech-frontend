@@ -65,6 +65,22 @@ export class MortgageDeedComponent implements OnInit {
           this.form.patchValue(this.initialInfoPrint);
         }
       });
+
+      if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+        const loanAmount = JSON.parse(this.cadData.nepData);
+        this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+
+        this.form.patchValue({
+          creditorName: this.nepaliData.name? this.nepaliData.name: '',
+          upabhogRu: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+          upabhogRuWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+          jyayeJethaRu: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+          jyayeJethaRuWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+          creditorNameNepali2: this.nepaliData.name? this.nepaliData.name: '',
+
+        });
+
+      }
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
@@ -271,7 +287,7 @@ export class MortgageDeedComponent implements OnInit {
       guarantorDetails: this.formBuilder.array([]),
       rinBibaran:this.formBuilder.array([]),
       jillaName: [undefined],
-      cityName: [undefined],
+      nagaName: [undefined],
       wodaNum: [undefined],
       jillaName2: [undefined]
 
