@@ -9,7 +9,7 @@
       <h5 class="text-center print-only mb-3">Security Compliance Certificate </h5>
       <h5 class="text-center disable-print">Security Compliance Certificate </h5>
 
-      <i class="fa fa-upload disable-print float-right m-3" (click)="openDocUploadModal(uploadModal)">Upload</i>
+      <i *ngIf="isMaker" class="fa fa-upload disable-print float-right m-3" (click)="openDocUploadModal(uploadModal)">Upload</i>
     </ng-container>
 
   </nb-card-header>
@@ -98,7 +98,7 @@
 </nb-card>
 
 <ng-template #uploadModal style="min-width: 35rem;">
-  <nb-card accent="primary">
+  <nb-card [nbSpinner]="spinner" nbSpinnerMessage="Uploading" nbSpinnerSize="giant" accent="primary">
     <nb-card-header>
       <a (click)="modelClose()" aria-label="Close" class="close cursor"
          data-dismiss="modal">

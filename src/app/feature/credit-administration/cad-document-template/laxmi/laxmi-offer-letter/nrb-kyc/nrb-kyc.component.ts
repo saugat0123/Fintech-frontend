@@ -43,9 +43,6 @@ spinner = false;
         }
       });
     }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.form = JSON.parse(this.cadData.loanHolder.nepData);
-    }
   }
   buildForm() {
     this.form = this.formBuilder.group({

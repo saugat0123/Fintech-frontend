@@ -32,20 +32,24 @@ export class SelfDeclarationComponent implements OnInit {
   @Input() documentId;
   @Input() customerLoanId;
   spinner = false;
+  nepaliData;
   ngOnInit() {
   this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.initialInfoPrint = singleCadFile.initialInformation;
-          console.log('this is data', this.initialInfoPrint);
-
           this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.form = JSON.parse(this.cadData.loanHolder.nepData);
+      this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
+      this.form.patchValue(JSON.parse(this.initialInfoPrint));
+    } else {
+      this.fillNepaliData();
     }
   }
   buildForm() {
@@ -56,6 +60,14 @@ export class SelfDeclarationComponent implements OnInit {
       name: [undefined],
       address: [undefined],
     });
+  }
+  fillNepaliData() {
+    if (!ObjectUtil.isEmpty(this.nepaliData)) {
+      this.form.patchValue({
+        name: this.nepaliData.name,
+        address: `${this.nepaliData.permanentDistrict} ,${this.nepaliData.permanentMunicipality}, ${this.nepaliData.permanentWard}`,
+      });
+    }
   }
   submit() {
     this.spinner = true;
