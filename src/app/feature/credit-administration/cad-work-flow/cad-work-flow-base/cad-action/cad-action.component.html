@@ -119,7 +119,7 @@
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button nbButton (click)="onSubmit(verify)" size="small" status="primary"><i
+          <button nbButton (click)="onSubmit(verify)" size="small" status="primary" [disabled]="formAction.invalid"><i
               class="fa fa-save"></i>
           </button>
         </div>

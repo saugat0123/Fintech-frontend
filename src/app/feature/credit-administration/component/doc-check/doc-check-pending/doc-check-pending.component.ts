@@ -56,9 +56,6 @@ export class DocCheckPendingComponent implements OnInit {
     // await other.userService.getDefaultCommunityUser().then(res => {
     //   this.defaultCommunityUser = res.detail.id;
     // });
-    other.searchObj = {
-      docStatus: 'DOC_CHECK_PENDING',
-    };
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.spinner = false;
       console.log(res.detail);

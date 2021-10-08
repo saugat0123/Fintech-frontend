@@ -1,4 +1,4 @@
-import { Securities } from "./securities.model";
+import { Securities } from './securities.model';
 
 /**
  * @author Paribartan Kalathoki
