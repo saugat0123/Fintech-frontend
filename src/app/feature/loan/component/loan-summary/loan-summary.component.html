@@ -1487,6 +1487,30 @@
                                type="number" readonly>
                     </div>
 
+                    <!-- Service Charge -->
+                    <div class="form-group"
+                         *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                        <label class="title" for="serviceCharge"><strong>Service Charge </strong>
+                            <input
+                                    formControlName="serviceChargeMethod"
+                                    name="serviceChargeMethod" type="radio"
+                                    value="PERCENT"><strong>% </strong>
+                            <input formControlName="serviceChargeMethod" name="serviceChargeMethod"
+                                   type="radio" value="FLAT"><strong> Flat</strong>
+                        </label>
+                        <input
+                                class="form-control" formControlName="serviceCharge"
+                                id="serviceCharge"
+                                name="serviceCharge" placeholder="Service charge"
+                                type="number" appDecimalNumber>
+                        <!--                    <div *ngIf="(submitted) && formControls.serviceCharge.invalid"-->
+                        <!--                         class="invalid-feedback">-->
+                        <!--                      <span *ngIf="formControls.serviceCharge.errors.required">Service Charge is required</span>-->
+
+                        <!--                      <span *ngIf="formControls.serviceCharge.errors.min">Service Charge must be positive numerical value.</span>-->
+                        <!--                    </div>-->
+                    </div>
+
                     <!-- Save Button -->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" style="cursor: pointer"><i class="fa fa-save"></i></button>
