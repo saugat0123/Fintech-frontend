@@ -15,6 +15,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {Occupation} from '../../admin/modal/occupation';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-guarantor',
@@ -57,6 +58,7 @@ export class GuarantorComponent implements OnInit {
         private addressServices: AddressService,
         private toastService: ToastService,
         private blackListService: BlacklistService,
+        private overlay: NgxSpinnerService
     ) {
     }
 
@@ -263,7 +265,9 @@ export class GuarantorComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
+        this.overlay.show();
         if (this.form.invalid) {
+            this.overlay.hide();
             return;
         }
         if (!ObjectUtil.isEmpty(this.guarantorDetailValue)) {

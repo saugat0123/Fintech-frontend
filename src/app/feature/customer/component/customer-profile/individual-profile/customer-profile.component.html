@@ -327,8 +327,7 @@
                     </nb-card-header>
 
                     <nb-card-body *ngIf="!isJointInfo">
-                        <div (click)="checkKycLoan(customerRelative)"
-                             *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
+                        <div *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
                             <div class="row">
                                 <div class="col-md-5">
                                     <span> <strong>Name</strong></span></div>

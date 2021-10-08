@@ -1,0 +1,210 @@
+<div class="row" id="print-section-{{offerLetterConst.CONSENT_LETTER_INDIVIDUAL}}">
+
+    <form class="nepali">
+        <p>श्री प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
+            <span [ngClass]="{'nepaliFont':printDocForm?.branch!==null && printDocForm?.branch!==''}">
+          {{printDocForm.branch === null || printDocForm.branch === '' ? '_______________' : printDocForm?.branch}}
+        </span>
+            शाखा कार्यालय। </p>
+        <br>
+        <h6 class="text-center">विषय :- सहमती वारे ।</h6>
+
+        <p>
+
+            महोदय,<br>
+
+            त्यस फाइनान्सवाट
+            <span [ngClass]="{'nepaliFont':printDocForm?.name!==null && printDocForm?.name!==''}">
+          {{printDocForm.name === null || printDocForm.name === '' ? '_______________' : printDocForm?.name}}
+        </span>
+            उपभोग गरिरहेको तथा गर्ने विभिन्न शिर्षकका कर्जा,
+            सुविधाहरुका लागि सूरक्षण वापत धितो स्वरुप मेरो/हाम्रो एकाघर परिवारका
+            पति/पत्नी/छोरा/छोरी/धर्मपुत्र/धर्मपुत्री/
+            बुवा/आमा/सौतेनीआमा/दाजु/भाई/दिदि/बहिनी/सासु/ससुसा/भाउजु/बुहारी तथा कम्पनी
+            हेयरदाता श्री <span
+                [ngClass]="{'nepaliFont':printDocForm?.fname!==null && printDocForm?.fname!==''}">
+          {{printDocForm.fname === null || printDocForm.fname === '' ? '_______________' : printDocForm?.fname}}
+        </span>को नाउंमा जग्गा धनि प्रमाण पूर्जा भै
+            हकभोगमा रहेको तपसिलमा उल्लेख भए बमोजिमको जायजेथा सूरक्षण वापत फाइनान्सलाई धितो लेखि दिएमा
+            मेरो/हाम्रो पूर्ण रुपमा सहमति छ।
+            उपरोक्त फर्म/कम्पनी/संस्था/व्यक्तीले त्यस बैक संग लिएका र लिने विभिन्न शिर्षकका कर्जा, सुविधाहरु
+            साथै भविष्यमा उपभोग गर्ने थप कर्जा,
+            सुविधाहरु तथा त्यसमा लाग्ने व्याज, जरिवाना तथा अन्य शुल्क समेत नतिरे नवूझाएमा बैंक तथा वित्तीय
+            संस्था सम्बन्धी ऐन २०७३,
+            प्रचलित एने कानून तथा फाइनान्सको नियम अनूसार तपसिलमा उल्लेखित जायजेथाबाट असुल उपर गरेमा मेरो/हाम्रो
+            पूर्ण मन्जूरी छ।
+            पछि उक्त जायजेथामा मेरो/हाम्रो पनि हक लाग्ने हो निजले मात्र धितो लेखिदिदैमा मेरो/हाम्रो हक जाने होइन
+            भनि कहि कतै उजूर वाजूर गर्ने छैन गरे यसै सहमति
+            पत्रलाई आधार मानि मेरो/हाम्रो दावी खारेज होस् भनि यो सहमति पत्रको कागजमा सहिछाप गरी प्रोग्रेशिभ
+            फाइनान्स लि.लाई दियाँ।
+        </p>
+        <br>
+        <br>
+        <div>
+            <b><p class="text-center">तपशिल <br>
+                रोक्का राख्ने जायजेथाको विवरण </p></b>
+            <table class="table-bordered table text-center ">
+                <thead>
+                <tr>
+                    <th width="25%">घर जग्गाधनिको नाम र तिनपूस्ते</th>
+                    <th width="15%">जिल्ला.</th>
+                    <th width="15%">जग्गाको न.पा.र गा.वि.स.,वडानं.</th>
+                    <th width="10%">कि.नं.</th>
+                    <th width="15%"> क्षेत्रफल बर्ग मि.</th>
+                    <th width="20%">सिट न.</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <p> जग्गाधनिको नाम:-<br></p>
+                        <span class="nepaliFont">{{printDocForm.gharName}}</span>
+                    </td>
+                    <td>
+                        <span class="nepaliFont">{{printDocForm.district}}</span>
+                    </td>
+                    <td>
+                        <span class="nepaliFont">{{printDocForm.wadNo}}</span>
+                    </td>
+                    <td>
+                        <span class="nepaliFont">{{printDocForm.kiNo}}</span>
+                    </td>
+                    <td>
+                        <span class="nepaliFont">{{printDocForm.bargaMeter}}</span>
+                    </td>
+                    <td>
+                        <span class="nepaliFont">{{printDocForm.sitNo}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <div>
+            <div *ngFor="let guarantor of printDocForm?.sahamati; let i=index">
+                <div style="overflow-x: auto" style="margin-top:15px;">
+                    <table border="1" width="100%" class="table-bordered table text-center">
+                        <thead>
+                        <tr>
+                            <th width="30%">सहमति दिनेहरुको विवरण</th>
+                            <th width="15%">धितोधनि संगको नाता.</th>
+                            <th width="15%">दस्तखत</th>
+                            <th width="30%">औंठाछाप</th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="nepaliFont">{{guarantor?.sahamatiName}}</span></td>
+                            <td><span class="nepaliFont">{{guarantor?.relationship}}</span></td>
+                            <td><span class="nepaliFont">{{guarantor?.signature}}</span></td>
+                            <td>
+                                <table style="width: 80%;" class="table  table-bordered text-center">
+
+                                    <thead>
+                                    <tr>
+                                        <th style="border: none;">दाँ.</th>
+                                        <th style="border: none;">बाँ.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr style="height: 130px;">
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+<br>
+        <br>
+
+        <br>
+
+        <div>
+        <b class="text-left">साक्षी :</b>
+        <div>
+            <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
+                <div style="overflow-x: auto">
+                    <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
+
+
+                    <table border="1" width="100%" class="table-bordered table text-center">
+                        <thead>
+                        <tr>
+                            <th>नाम</th>
+                            <th>ना.प्र.नं.</th>
+                            <th>मिति</th>
+                            <th>जि.प्र.का.</th>
+                            <th>जिल्ला</th>
+                            <th>गा.पा./न.पा.</th>
+                            <th>वडा नं.</th>
+
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="nepaliFont">{{guarantor?.name}}</span></td>
+                            <td><span class="nepaliFont">{{guarantor?.citizenNumber}}</span></td>
+                            <td><span class="nepaliFont">{{guarantor?.issuedYear}}</span></td>
+                            <td><span class="nepaliFont">{{guarantor?.guarantorCDOoffice}}</span></td>
+                            <td><span class="nepaliFont">{{guarantor?.guarantorDistrict}}</span></td>
+                            <td><span class="nepaliFont">{{guarantor?.guarantorMunicipality}}</span></td>
+                            <td><span class="nepaliFont">{{guarantor?.guarantorWadNo}}</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p>
+                ईति सम्बत <span
+                    [ngClass]="{'nepaliFont':printDocForm.itisambatYear!==null && printDocForm.itisambatYear!==''}">
+
+                       {{printDocForm.itisambatYear === null || printDocForm.itisambatYear === '' ? '_______________' : printDocForm.itisambatYear}}
+
+                   </span>
+                साल <span
+                    [ngClass]="{'nepaliFont':printDocForm.itisambatMonth!==null && printDocForm.itisambatMonth!==''}">
+
+                       {{printDocForm.itisambatMonth === null || printDocForm.itisambatMonth === '' ? '_______________' : printDocForm.itisambatMonth}}
+
+                   </span>
+                महिना <span
+                    [ngClass]="{'nepaliFont':printDocForm.itisambatDay!==null && printDocForm.itisambatDay!==''}">
+
+                       {{printDocForm.itisambatDay === null || printDocForm.itisambatDay === '' ? '_______________' : printDocForm.itisambatDay}}
+
+                   </span>
+                गते <span
+                    [ngClass]="{'nepaliFont':printDocForm.itisambatTime!==null && printDocForm.itisambatTime!==''}">
+
+                       {{printDocForm.itisambatTime === null || printDocForm.itisambatTime === '' ? '_______________' : printDocForm.itisambatTime}}
+
+                   </span>
+                रोज शुभम् <span
+                    [ngClass]="{'nepaliFont':printDocForm.itisambatRojSubham!==null && printDocForm.itisambatRojSubham!==''}">
+
+                       {{printDocForm.itisambatRojSubham === null || printDocForm.itisambatRojSubham === '' ? '_______________' : printDocForm.itisambatRojSubham}}
+                   </span>।</p>
+
+
+        </div>
+        </div>
+    </form>
+</div>

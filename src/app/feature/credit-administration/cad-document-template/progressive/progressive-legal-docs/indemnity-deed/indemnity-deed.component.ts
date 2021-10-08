@@ -63,10 +63,26 @@ export class IndemnityDeedComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
+        sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        sincerlyCdOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        sincerlyPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        sincerlyPermanentWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        sinserlyTempDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+        sinserlyTempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+        sinserlyTempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.husbandName : '',
+        husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
       });
     }
   }
@@ -143,8 +159,21 @@ export class IndemnityDeedComponent implements OnInit {
       itiSambatRojSubham: [undefined],
       sincerlyCitizenshipNo: [undefined],
       sincerlyCdOoffice: [undefined],
-
-      guarantorDetails: this.formBuilder.array([])
+      guarantorDetails: this.formBuilder.array([]),
+      SakGuarantorName1: [undefined],
+      SakNaPraNaName1: [undefined],
+      SakMitiName1: [undefined],
+      SakJiPrakaName1: [undefined],
+      SakIssuedPlace1: [undefined],
+      SakJillaName1: [undefined],
+      SakJagaName1: [undefined],
+      SakGuarantorName2: [undefined],
+      SakNaPraNaName2: [undefined],
+      SakMitiName2: [undefined],
+      SakJiPrakaName2: [undefined],
+      SakIssuedPlace2: [undefined],
+      SakJillaName2: [undefined],
+      SakJagaName2: [undefined],
     });
   }
 
@@ -186,7 +215,21 @@ export class IndemnityDeedComponent implements OnInit {
         guarantorCDOoffice: [value.guarantorCDOoffice],
         guarantorDistrict: [value.guarantorDistrict],
         guarantorMunicipality: [value.guarantorMunicipality],
-        guarantorWadNo: [value.guarantorWadNo]
+        guarantorWadNo: [value.guarantorWadNo],
+        SakGuarantorName1: [value.name],
+        SakIssuedPlace1: [value.issuedPlace],
+        SakNaPraNaName1: [value.naPraNaName],
+        SakMitiName1: [value.mitiName],
+        SakJiPrakaName1: [value.citizenNumber],
+        SakJillaName1: [value.districtName],
+        SakJagaName1: [value.wadNo],
+        SakGuarantorName2: [value.name],
+        SakIssuedPlace2: [value.issuedPlace],
+        SakNaPraNaName2: [value.naPraNaName],
+        SakMitiName2: [value.mitiName],
+        SakJiPrakaName2: [value.citizenNumber],
+        SakJillaName2: [value.districtName],
+        SakJagaName2: [value.wadNo],
       }));
     });
   }

@@ -13,6 +13,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NbDialogRef} from '@nebular/theme';
 
 @Component({
     selector: 'app-nep-proposed-amount-form',
@@ -33,10 +34,12 @@ export class NepProposedAmountFormComponent implements OnInit {
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private service: CreditAdministrationService,
-                private router: RouterUtilsService) {
+                private router: RouterUtilsService,
+                private dialogRef: NbDialogRef<NepProposedAmountFormComponent>) {
     }
 
     ngOnInit() {
+        console.log('cadData', this.cadData);
         if (ObjectUtil.isEmpty(this.cadData.nepData)) {
             const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
             this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
@@ -78,17 +81,25 @@ export class NepProposedAmountFormComponent implements OnInit {
             return;
         }
         this.spinner = true;
+        this.nepaliNumber.initDate = this.nepForm.get('initDate').value;
+        console.log('nepaliNumber', this.nepaliNumber);
         this.cadData.nepData = JSON.stringify(this.nepaliNumber);
-        console.log(this.cadData.nepData);
+        console.log('NepData', this.cadData.nepData);
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.spinner = false;
+            this.dialogRef.close();
             this.router.reloadCadProfileRoute(this.cadData.id);
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Updated SUCCESSFULLY!!!'));
         }, error => {
             this.spinner = false;
+            this.dialogRef.close();
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
 
         });
+    }
+
+    closeModal() {
+        this.dialogRef.close();
     }
 
 

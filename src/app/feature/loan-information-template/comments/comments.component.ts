@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-comments',
@@ -21,7 +22,8 @@ export class CommentsComponent implements OnInit {
   submitted = false;
   comments;
   auditor;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private overlay: NgxSpinnerService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -47,6 +49,7 @@ export class CommentsComponent implements OnInit {
   }
 
   submitForm() {
+    this.overlay.show();
     this.submitted = true;
     if (!ObjectUtil.isEmpty(this.commentsDataResponse)) {
       this.commentsDataObject = this.commentsDataResponse;

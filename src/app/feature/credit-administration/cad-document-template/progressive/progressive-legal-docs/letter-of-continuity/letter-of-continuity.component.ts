@@ -16,247 +16,210 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
-  selector: 'app-letter-of-continuity',
-  templateUrl: './letter-of-continuity.component.html',
-  styleUrls: ['./letter-of-continuity.component.scss']
+    selector: 'app-letter-of-continuity',
+    templateUrl: './letter-of-continuity.component.html',
+    styleUrls: ['./letter-of-continuity.component.scss']
 })
 export class LetterOfContinuityComponent implements OnInit {
-  @Input() cadData: CustomerApprovedLoanCadDocumentation;
-  @Input() documentId: number;
-  @Input() customerLoanId: number;
+    @Input() cadData: CustomerApprovedLoanCadDocumentation;
+    @Input() documentId: number;
+    @Input() customerLoanId: number;
 
-  spinner;
-  form: FormGroup;
-  offerLetterConst = ProgressiveLegalDocConst;
-  customerOfferLetter: CustomerOfferLetter;
-  initialInfoPrint;
-  existingOfferLetter = false;
-  offerLetterDocument: OfferDocument;
-  nepaliData;
+    spinner;
+    form: FormGroup;
+    offerLetterConst = ProgressiveLegalDocConst;
+    customerOfferLetter: CustomerOfferLetter;
+    initialInfoPrint;
+    existingOfferLetter = false;
+    offerLetterDocument: OfferDocument;
+    nepaliData;
+    loanAmountTemplate;
 
-  constructor(private dialogRef: NbDialogRef<LetterOfContinuityComponent>,
-              private formBuilder: FormBuilder,
-              private nepToEngNumberPipe: NepaliToEngNumberPipe,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-              private administrationService: CreditAdministrationService,
-              private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
-  }
+    constructor(private dialogRef: NbDialogRef<LetterOfContinuityComponent>,
+                private formBuilder: FormBuilder,
+                private nepToEngNumberPipe: NepaliToEngNumberPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private administrationService: CreditAdministrationService,
+                private toastService: ToastService,
+                private routerUtilsService: RouterUtilsService,
+                private customerOfferLetterService: CustomerOfferLetterService) {
+    }
 
-  ngOnInit() {
-    this.buildForm();
-    this.fillForm();
-  }
+    ngOnInit() {
+        this.buildForm();
+        this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
+        this.fillForm();
+    }
 
-  fillForm() {
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(singleCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.setGuarantors(initialInfo.guarantorDetails);
-          this.setsecGuarantors(initialInfo.secguarantorDetails);
-          this.form.patchValue(this.initialInfoPrint);
+    fillForm() {
+        if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+            this.cadData.cadFileList.forEach(singleCadFile => {
+                if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+                    const initialInfo = JSON.parse(singleCadFile.initialInformation);
+                    this.initialInfoPrint = initialInfo;
+                    this.setGuarantors(initialInfo.guarantorDetails);
+                    this.form.patchValue(this.initialInfoPrint);
+                }
+            });
         }
-      });
-    }
 
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
-      this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
-      });
-    }
-  }
-
-
-  onSubmit(): void {
-    let flag = true;
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.form.value);
-          this.initialInfoPrint = singleCadFile.initialInformation;
+        this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+        if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+            this.form.patchValue({
+                borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
+                borrowerPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+                borrowerPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+                borrowerPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+                borrowerCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+                borrowerCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+                borrowerCdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+                borrowerParentsName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+                borrowerGrandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+                borrowerHusbandWifeName : this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+                borrowerTempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+                borrowerTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+                borrowerTempDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+            });
         }
-      });
-      if (flag) {
-        const cadFile = new CadFile();
-        const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
-        document.id = this.documentId;
-        cadFile.cadDocument = document;
-        cadFile.customerLoanId = this.customerLoanId;
-        this.cadData.cadFileList.push(cadFile);
-      }
-    } else {
-      const cadFile = new CadFile();
-      const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.form.value);
-
-      document.id = this.documentId;
-      cadFile.cadDocument = document;
-      cadFile.customerLoanId = this.customerLoanId;
-      this.cadData.cadFileList.push(cadFile);
+        this.form.get('amount').patchValue(this.loanAmountTemplate.numberNepali);
+        this.form.get('amountInWord').patchValue(this.loanAmountTemplate.nepaliWords);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
-      this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
-      this.dialogRef.close();
-    });
-  }
 
-  buildForm() {
-    this.form = this.formBuilder.group({
-      amount: [undefined],
-      amountInWord: [undefined],
-      sincerlyName: [undefined],
-      sincerlyPermanentAddress: [undefined],
-      sincerlyTempAdress: [undefined],
-      ParentsName: [undefined],
-      grandParentsName: [undefined],
-      husbanWifeName: [undefined],
-      IdentifiedGuarantorName: [undefined],
-      IdentifiedHintNo: [undefined],
-      ItisambatYear: [undefined],
-      ItisambatMonth: [undefined],
-      ItisambatDay: [undefined],
-      ItisambatTime: [undefined],
-      ItisambatRojSubham: [undefined],
-      branchName: [undefined],
-      udhyogBibhag: [undefined],
-      praliNo: [undefined],
-      underDate: [undefined],
-      sewaKendra: [undefined],
-      certificateNo: [undefined],
-      regDate: [undefined],
-      registeredName: [undefined],
-      debtorName: [undefined],
-      pratiNidhi: [undefined],
-      belowAmount: [undefined],
-      belowAmountInWord: [undefined],
-      signaturePersonName: [undefined],
-      signaturePersonCitizenshipNo: [undefined],
-      signaturePersonCitizenshipIssueDate: [undefined],
-      signaturePersonCDOoffice: [undefined],
-      signaturePersonPermanentDistrict: [undefined],
-      signaturePersonPermanentMuniciplity: [undefined],
-      signaturePersonPermanentWadNo: [undefined],
-      sabikVDC: [undefined],
-      sabikWadNo: [undefined],
-      signaturePersonTempDistrict: [undefined],
-      signaturePersonTempMunicipality: [undefined],
-      signaturePersonTempWadNo: [undefined],
-      sanakhatPersonName: [undefined],
-      sanakhatPersonSymNo: [undefined],
-      itisambatYear: [undefined],
-      itisambatMonth: [undefined],
-      itisambatDate: [undefined],
-      itisambatTime: [undefined],
-      itisambatSubham: [undefined],
-      buttonParentName: [undefined],
-      buttonGrandParentName: [undefined],
-      buttonHusbandWifeName: [undefined],
-      guarantorDetails: this.formBuilder.array([]),
-      secguarantorDetails: this.formBuilder.array([])
-    });
-  }
+    onSubmit(): void {
+        let flag = true;
+        if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+            this.cadData.cadFileList.forEach(singleCadFile => {
+                if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+                    flag = false;
+                    singleCadFile.initialInformation = JSON.stringify(this.form.value);
+                    this.initialInfoPrint = singleCadFile.initialInformation;
+                }
+            });
+            if (flag) {
+                const cadFile = new CadFile();
+                const document = new Document();
+                cadFile.initialInformation = JSON.stringify(this.form.value);
+                document.id = this.documentId;
+                cadFile.cadDocument = document;
+                cadFile.customerLoanId = this.customerLoanId;
+                this.cadData.cadFileList.push(cadFile);
+            }
+        } else {
+            const cadFile = new CadFile();
+            const document = new Document();
+            cadFile.initialInformation = JSON.stringify(this.form.value);
 
+            document.id = this.documentId;
+            cadFile.cadDocument = document;
+            cadFile.customerLoanId = this.customerLoanId;
+            this.cadData.cadFileList.push(cadFile);
+        }
 
-  guarantorFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      guarantorName: [undefined],
-      issuedPlace: [undefined]
-
-    });
-  }
-
-  secguarantorFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      guarantorName: [undefined],
-      citizenNumber: [undefined],
-      issuedYear: [undefined],
-      guarantorCDOoffice: [undefined],
-      guarantorDistrict: [undefined],
-      guarantorMunicipality: [undefined],
-      guarantorWadNo: [undefined]
-
-    });
-  }
-
-  addGuarantor(): void {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
-    formArray.push(this.guarantorFormGroup());
-  }
-
-  removeGuarantor(index: number): void {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
-    formArray.removeAt(index);
-  }
-
-  setGuarantors(data) {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
-    if (data.length === 0) {
-      this.addGuarantor();
-      return;
+        this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
+            this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
+            this.dialogRef.close();
+        });
     }
 
-    data.forEach((value) => {
-      formArray.push(this.formBuilder.group({
-        guarantorName: [value.name],
-        issuedPlace: [value.issuedPlace]
-      }));
-    });
+    buildForm() {
+        this.form = this.formBuilder.group({
+            amount: [undefined],
+            amountInWord: [undefined],
+            borrowerName: [undefined],
+            borrowerPermanentMunicipality: [undefined],
+            borrowerPermanentWardNo: [undefined],
+            borrowerParentsName: [undefined],
+            borrowerGrandParentsName: [undefined],
+            borrowerHusbandWifeName: [undefined],
+            borrowerCitizenshipNo: [undefined],
+            borrowerTempMunicipality: [undefined],
+            borrowerTempWardNo: [undefined],
+            borrowerCitizenshipIssueDate: [undefined],
+            borrowerCdoOffice: [undefined],
+            borrowerPermanentDistrict: [undefined],
+            borrowerSabikVDC: [undefined],
+            borrowerSabikWardNo: [undefined],
+            borrowerTempDistrict: [undefined],
 
-
-  }
-
-  setsecGuarantors(data) {
-    const formArray = this.form.get('secguarantorDetails') as FormArray;
-    if (data.length === 0) {
-      this.addGuarantor();
-      return;
+            IdentifiedGuarantorName: [undefined],
+            IdentifiedHintNo: [undefined],
+            ItisambatYear: [undefined],
+            ItisambatMonth: [undefined],
+            ItisambatDay: [undefined],
+            ItisambatTime: [undefined],
+            ItisambatRojSubham: [undefined],
+            branchName: [undefined],
+            guarantorDetails: this.formBuilder.array([]),
+        });
     }
 
-    data.forEach((value) => {
-      formArray.push(this.formBuilder.group({
-        guarantorName: [value.name],
-        citizenNumber: [value.citizenNumber],
-        issuedYear: [value.issuedYear],
-        guarantorCDOoffice: [value.guarantorCDOoffice],
-        guarantorDistrict: [value.guarantorDistrict],
-        guarantorMunicipality: [value.guarantorMunicipality],
-        guarantorWadNo: [value.guarantorWadNo]
-      }));
-    });
+
+    guarantorFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            guarantorName: [undefined],
+            guarantorCitizenshipNo: [undefined],
+            guarantorCitizenshipIssueDate: [undefined],
+            guarantorCDOoffice: [undefined],
+            guarantorPermanentMunicipality: [undefined],
+            guarantorPermanentWardNo: [undefined],
+            issuedPlace: [undefined]
+
+        });
+    }
 
 
-  }
+    addGuarantor(): void {
+        const formArray = this.form.get('guarantorDetails') as FormArray;
+        formArray.push(this.guarantorFormGroup());
+    }
 
-  addsecGuarantor(): void {
-    const formArray = this.form.get('secguarantorDetails') as FormArray;
-    formArray.push(this.secguarantorFormGroup());
-  }
+    removeGuarantor(index: number): void {
+        const formArray = this.form.get('guarantorDetails') as FormArray;
+        formArray.removeAt(index);
+    }
 
-  removesecGuarantor(index: number): void {
-    const formArray = this.form.get('secguarantorDetails') as FormArray;
-    formArray.removeAt(index);
-  }
+    setGuarantors(data) {
+        const formArray = this.form.get('guarantorDetails') as FormArray;
+        if (data.length === 0) {
+            this.addGuarantor();
+            return;
+        }
 
-  getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.form.get(wordLabel).patchValue(returnVal);
-  }
+        data.forEach((value) => {
+            formArray.push(this.formBuilder.group({
+                guarantorName: [undefined],
+                guarantorCitizenshipNo: [undefined],
+                guarantorCitizenshipIssueDate: [undefined],
+                guarantorCDOoffice: [undefined],
+                guarantorPermanentMunicipality: [undefined],
+                guarantorPermanentWardNo: [undefined],
+                issuedPlace: [undefined]
+            }));
+        });
+
+
+    }
+
+
+    getNumAmountWord(numLabel, wordLabel) {
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.form.get(wordLabel).patchValue(returnVal);
+    }
 
 
 }
