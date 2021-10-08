@@ -173,12 +173,13 @@ export class LetterOfSetOffComponent implements OnInit {
               this.individualData.branch.ct : '',
           grandFatherName: this.individualData.grandFatherName.ct ?
               this.individualData.grandFatherName.ct : '',
-          fatherName: this.individualData.fatherName.ct ?
-              this.individualData.fatherName.ct : '',
+          fatherName: !ObjectUtil.isEmpty(this.individualData.fatherName) && this.individualData.fatherName.ct ?
+              this.individualData.fatherName.ct : this.individualData.fatherInLawName ?
+                  this.individualData.fatherInLawName.ct : '',
           identifyIssuedDistrictName: this.individualData.citizenshipIssueDistrict.ct ?
               this.individualData.citizenshipIssueDistrict.ct : '',
           dateOfIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
-          citizenshipNo: this.individualData.citizenshipNo.ct ?
+          citizenshipNo: this.individualData.citizenshipNo ?
               this.individualData.citizenshipNo.ct : '',
           wardNo: this.individualData.permanentWard.ct ?
               this.individualData.permanentWard.ct : '',
