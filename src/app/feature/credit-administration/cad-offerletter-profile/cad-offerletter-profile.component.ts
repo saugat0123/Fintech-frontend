@@ -86,7 +86,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             offerLetterType = this.offerLetterConst.keysEnum(offerLetterType);
         }
         this.nbDialogService.open(this.component, {
-            context: {offerLetterType, cadOfferLetterApprovedDoc}
+            context: {offerLetterType, cadOfferLetterApprovedDoc},
+            dialogClass: 'model-full',
         });
     }
 
