@@ -214,6 +214,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     fundableNonFundableSelcted = false;
     loanNatureSelected = false;
     companyInfoId: any;
+    currentUserId = LocalStorageUtil.getStorage().userId;
+    currentUserRoleType = LocalStorageUtil.getStorage().roleType;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -826,13 +828,27 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.crgGammaSummary = false;
             this.creditRiskAlphaSummary = false;
             this.creditRiskLambdaSummary = false;
-            this.router.navigate(['/home/loan/summary'], {
-                queryParams: {
-                    loanConfigId: this.loanDataHolder.loan.id,
-                    customerId: this.loanDataHolder.id,
-                    customerInfoId: this.companyInfoId
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.currentStage)) {
+                if ((this.loanDataHolder.currentStage.toUser.id.toString() === this.currentUserId) &&
+                    (this.currentUserRoleType === 'MAKER')) {
+                    this.router.navigate(['/home/loan/summary'], {
+                        queryParams: {
+                            loanConfigId: this.loanDataHolder.loan.id,
+                            customerId: this.loanDataHolder.id,
+                            customerInfoId: this.companyInfoId
+                        }
+                    });
+                } else {
+                    this.router.navigate(['/home/loan/summary'], {
+                        queryParams: {
+                            loanConfigId: this.loanDataHolder.loan.id,
+                            customerId: this.loanDataHolder.id,
+                            catalogue: true,
+                            customerInfoId: this.companyInfoId
+                        }
+                    });
                 }
-            });
+            }
             this.getLoanDataHolder();
             this.reloadForm();
             this.spinner = false;

@@ -39,6 +39,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     @Input() customerType;
     @Input() branchId;
     @Input() customerLoanHolder: LoanDataHolder;
+    @Input() documentStatus;
     public isMaker = false;
     public committeeRole = false;
     private dialogRef: NbDialogRef<any>;
@@ -203,14 +204,26 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     public onEdit() {
-        this.router.navigate(['/home/loan/loanForm'], {
-            queryParams: {
-                loanId: this.loanConfigId,
-                customerId: this.id,
-                loanCategory: this.loanCategory,
-                customerInfoId: this.companyInfoId
-            }
-        });
+        if (this.catalogueStatus === true) {
+            this.router.navigate(['/home/loan/loanForm'], {
+                queryParams: {
+                    loanId: this.loanConfigId,
+                    customerId: this.id,
+                    catalogue : this.catalogueStatus,
+                    loanCategory: this.loanCategory,
+                    customerInfoId: this.companyInfoId
+                }
+            });
+        } else {
+            this.router.navigate(['/home/loan/loanForm'], {
+                queryParams: {
+                    loanId: this.loanConfigId,
+                    customerId: this.id,
+                    loanCategory: this.loanCategory,
+                    customerInfoId: this.companyInfoId
+                }
+            });
+        }
     }
 
     public deleteCustomerLoan() {
