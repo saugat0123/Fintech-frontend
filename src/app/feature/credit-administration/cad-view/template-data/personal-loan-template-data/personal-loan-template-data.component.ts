@@ -78,11 +78,11 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       loanAdminFee: [undefined],
       emiAmount: [undefined],
       emiAmountWords: [undefined],
+      loanPeriodInMonth: [undefined],
       companyName: [undefined],
       accountNumber: [undefined],
       relationshipOfficer: [undefined],
       managerName: [undefined],
-      signatureDate : [undefined],
       // sakshiDistrict: [undefined],
       // sakshiMunicipality: [undefined],
       // sakshiWardNum: [undefined],
@@ -100,11 +100,11 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       loanAdminFeeTransVal: [undefined, Validators.required],
       emiAmountTransVal: [undefined, Validators.required],
       emiAmountWordsTransVal: [undefined],
+      loanPeriodInMonthTransVal: [undefined],
       companyNameTransVal: [undefined, Validators.required],
       accountNumberTransVal: [undefined, Validators.required],
       relationshipOfficerTransVal: [undefined, Validators.required],
       managerNameTransVal: [undefined, Validators.required],
-      signatureDateTransVal: [undefined],
       // sakshiDistrictTransVal: [undefined,Validators.required],
       // sakshiMunicipalityTransVal: [undefined,Validators.required],
       // sakshiWardNumTransVal: [undefined,Validators.required],
@@ -196,6 +196,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       closeOnBackdropClick: false,
       closeOnEsc: false,
       hasBackdrop: false,
+      dialogClass: 'model-full',
       context: {
         cadOfferLetterApprovedDoc: this.customerApprovedDoc,
         preview: true,
@@ -230,7 +231,6 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
     this.form.get('managerNameTransVal').patchValue(this.translatedData.managerName);
     this.form.get('companyNameTransVal').patchValue(this.translatedData.companyName);
-    this.form.get('signatureDateTransVal').patchValue(this.translatedData.signatureDate);
     /*this.form.get('sakshiDistrictTransVal').patchValue(this.translatedData.sakshiDistrict);
     this.form.get('sakshiMunicipalityTransVal').patchValue(this.translatedData.sakshiMunicipality);
     this.form.get('sakshiWardNumTransVal').patchValue(this.translatedData.sakshiWardNum);
@@ -298,6 +298,10 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.translateNumber('baseRate', 'baseRateTransVal');
     this.translateNumber('premiumRate', 'premiumRateTransVal');
     this.translateNumber('yearlyFloatingInterestRate', 'yearlyFloatingInterestRateTransVal');
+  }
+
+  loanChecked(data) {
+    this.loanLimit = data;
   }
 
 }
