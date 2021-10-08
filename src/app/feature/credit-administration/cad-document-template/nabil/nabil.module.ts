@@ -15,6 +15,8 @@ import { NabilLoanDeedCompanyComponent } from './nabil-loan-deed-company/nabil-l
 import {CKEditorModule} from 'ng2-ckeditor';
 import { LoanDeedIndividualComponent } from './loan-deed-individual/loan-deed-individual.component';
 import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
+import { LetterVehicleIndividualComponent } from './letter-vehicle-individual/letter-vehicle-individual.component';
+import { LetterVehicleIndividualPrintComponent } from './letter-vehicle-individual/letter-vehicle-individual-print/letter-vehicle-individual-print.component';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-de
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
-        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent],
+        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent,
+        LetterVehicleIndividualComponent, LetterVehicleIndividualPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -34,7 +37,10 @@ import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-de
         PromissoryNoteCompanyComponent,
         LoanDeedIndividualComponent,
         LoanDeedIndividualPrintComponent,
-        NabilLoanDeedCompanyComponent
+        NabilLoanDeedCompanyComponent,
+        LetterVehicleIndividualComponent,
+        LetterVehicleIndividualPrintComponent,
+
     ],
     imports: [
         CommonModule,

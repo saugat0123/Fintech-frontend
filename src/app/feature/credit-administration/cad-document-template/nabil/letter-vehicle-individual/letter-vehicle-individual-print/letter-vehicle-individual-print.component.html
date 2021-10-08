@@ -1,0 +1,81 @@
+<div class="container nep text-justify" id="{{offerLetterConst.LETTER_VEHICLE_INDIVIDUAL}}Print">
+    <div class="row">
+        <div class="col-md-12 viewFull" style="overflow-y: auto; height: auto;">
+            <div class="nep">
+                <div>
+                <p class="text-right"> मितिः
+                    <span [ngClass]="{'nepaliFont outside' : letterData?.date !== null && letterData?.date !== ''}">
+                            {{letterData?.date === null || letterData?.date === '' ? '___________' : letterData?.date}}</span>
+                </p>
+                <p>
+                    श्री नबिल बैंक लिमिटेड
+                    <span [ngClass]="{'nepaliFont outside' : letterData?.nameOfBranchLocated !== null && letterData?.nameOfBranchLocated !== ''}">
+                            {{letterData?.nameOfBranchLocated === null || letterData?.nameOfBranchLocated === '' ? '___________' : letterData?.nameOfBranchLocated}}</span>
+                    शाखा <br>
+                    <br>नेपाल । <br>
+                    <b>विषयः सवारी साधनको नामसारी गर्ने अख्तियारी र मन्जुरी दिएको बारेमा । </b><br>
+                <div>
+                    <p>
+                        महोदय,<br>
+                        <br><span
+                            [ngClass]="{'nepaliFont outside' : letterData?.nameOfGrandFather !== null && letterData?.nameOfGrandFather !== ''}">
+                            {{letterData?.nameOfGrandFather === null || letterData?.nameOfGrandFather === '' ? '___________' : letterData?.nameOfGrandFather}}</span>
+                        को नाति/नातिनी/बुहारी <span
+                            [ngClass]="{'nepaliFont outside' : letterData?.name !== null && letterData?.name !== ''}">
+                            {{letterData?.name === null || letterData?.name === '' ? '___________' : letterData?.name}}</span>
+                        को छोरा/छोरी÷श्रीमती<span
+                            [ngClass]="{'nepaliFont outside' : letterData?.district !== null && letterData?.district !== ''}">
+                            {{letterData?.district === null || letterData?.district === '' ? '___________' : letterData?.district}}</span>
+                        जिल्ला <span
+                            [ngClass]="{'nepaliFont outside' : letterData?.vdcMuncipality !== null && letterData?.vdcMuncipality !== ''}">
+                            {{letterData?.vdcMuncipality === null || letterData?.vdcMuncipality === '' ? '___________' : letterData?.vdcMuncipality}}</span>
+                        गा.वि.स./नगर वडा
+                        नं<span
+                            [ngClass]="{'nepaliFont outside' : letterData?.wardNo !== null && letterData?.wardNo !== ''}">
+                            {{letterData?.wardNo === null || letterData?.wardNo === '' ? '___________' : letterData?.wardNo}}</span>>
+                        बस्ने श्री <span
+                            [ngClass]="{'nepaliFont outside' : letterData?.nameOfBorrower !== null && letterData?.nameOfBorrower !== ''}">
+                            {{letterData?.nameOfBorrower === null || letterData?.nameOfBorrower === '' ? '___________' : letterData?.nameOfBorrower}}</span>
+                        ले त्यस बैंकबाट मिति<span
+                            [ngClass]="{'nepaliFont outside' : letterData?.sanctionLetterIssuedDate !== null && letterData?.sanctionLetterIssuedDate !== ''}">
+                            {{letterData?.sanctionLetterIssuedDate === null || letterData?.sanctionLetterIssuedDate === '' ? '___________' : letterData?.sanctionLetterIssuedDate}}</span>
+                        मा जारी ऋण स्विकृती पत्रानुसार सवारी साधन ऋणकर्जा लिई तपसिलमा उल्लिखित सवारी साधन खरिद गरी उपयोग गरेकोमा पछि भविष्यमा
+                        त्यस बैंकले सो ऋणकर्जा असुली प्रक्रिया अन्तर्गत जमानतकर्ता लगायत अन्य कुनै पनि तेस्रो पक्षको नाममा उक्त सवारी साधन नामसारी गरी दिनु पर्ने अवस्थामा सम्बन्धित यातायात व्यवस्था कार्यालयमा मेरो र हाम्रो तर्फबाट पुरा गर्नुपर्ने कुनै पनि प्रक्रिया
+                        पुरा गर्नको लागि सम्पुर्ण अख्तियारी तपाईं श्री नबिल बैंक वा नबिल बैंकले तोकेको जुनसुकै कर्मचारीरव्यक्तिलाई प्रदान गरी यो मन्जुरीनामा लेखी दिएको छु र छौं  । यस अख्तियारनामाको प्रयोग गरी उक्त सवारी साधन नामसारी भई गएको खण्डमा
+                        पछि कुनै किसिमको उजुर बाजुर गर्ने छैन । यदी उजुर गरेकोमा यहि कागजलाई आधार मानी उक्त दावी खारेज गरी दिएको खण्डमा मलाई र हामीलाई पुर्ण मन्जुरी हुनेछ ।
+                        <br></p>
+                    <p class="text-right"><br>भवदीय,<br>
+                        <br>(................................)
+                    </p>
+
+                    <p>
+                        <b>सवारी साधनको विवरणः</b><br>
+                        <br>
+                        १. सवारी साधनको किसिमः<span
+                            [ngClass]="{'nepaliFont outside' : letterData?.modelTypeOfVehicle !== null && letterData?.modelTypeOfVehicle !== ''}">
+                            {{letterData?.modelTypeOfVehicle === null || letterData?.modelTypeOfVehicle === '' ? '___________' : letterData?.modelTypeOfVehicle}}</span>
+                        <br>
+                        २. रजिष्टे«शन नम्बरः <span
+                            [ngClass]="{'nepaliFont outside' : letterData?.vehicleRegistrationNumber !== null && letterData?.vehicleRegistrationNumber !== ''}">
+                            {{letterData?.vehicleRegistrationNumber === null || letterData?.vehicleRegistrationNumber === '' ? '___________' : letterData?.vehicleRegistrationNumber}}</span>
+                        <br>
+                        ३. इन्जीन नम्बरः <span
+                            [ngClass]="{'nepaliFont outside' : letterData?.engineNumber !== null && letterData?.engineNumber !== ''}">
+                            {{letterData?.engineNumber === null || letterData?.engineNumber === '' ? '___________' : letterData?.engineNumber}}</span>
+                        <br>
+                        ४. च्यासीस नम्बरः <span
+                            [ngClass]="{'nepaliFont outside' : letterData?.chasisNumber !== null && letterData?.chasisNumber !== ''}">
+                            {{letterData?.chasisNumber === null || letterData?.chasisNumber === '' ? '___________' : letterData?.chasisNumber}}</span>
+                        <br>
+                        <br>
+                        <b>बोधार्थस् <br>
+                            श्री सम्बन्धित यातायात व्यवस्था कार्यालय</b> स् मेरो र हाम्रो उपर्युक्त अख्तियारनामा अनुसार गरी दिनुहनु अनुरोध गर्दछु र छौं ।
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

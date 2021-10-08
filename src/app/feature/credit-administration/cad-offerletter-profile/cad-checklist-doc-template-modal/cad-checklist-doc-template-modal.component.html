@@ -26,6 +26,9 @@
                                    [cadData]="cadData" [documentId]="documentId"
                                    [customerLoanId]="customerLoanId"
                                    [nepaliAmount]="nepaliNumber"></app-personal-guarantee-individual>
+        <app-letter-vehicle-individual *ngSwitchCase="nabilCadTemplate.LETTER_VEHICLE_INDIVIDUAL"
+                                           [cadData]="cadData" [documentId]="documentId"
+                                           [customerLoanId]="customerLoanId"></app-letter-vehicle-individual>
         
         <app-personal-guarantee-company *ngSwitchCase="nabilCadTemplate.PERSONAL_GUARANTEE_COMPANY"
         [cadData]="cadData" [documentId]="documentId"
