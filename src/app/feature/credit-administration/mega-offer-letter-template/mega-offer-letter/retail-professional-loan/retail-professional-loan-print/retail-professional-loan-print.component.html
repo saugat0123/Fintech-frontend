@@ -319,64 +319,7 @@
                         बमोजिमको घर/जग्गा
                         धितोेबन्धक पारित गरी दिनु पर्नेछ ।
                     </p>
-                    <table class="table table-bordered text-center upperTable">
-                        <thead>
-                        <tr>
-                            <th rowspan="2">
-                                घर/जग्गा
-                                धनीको नाम थर
-                            </th>
-                            <th colspan="3">
-                                घर/जग्गाको अवस्थिति
-                            </th>
-                            <th rowspan="2">
-                                सिट नं.
-                            </th>
-                            <th rowspan="2">
-                                कित्ता नं.
-                            </th>
-                            <th rowspan="2">
-                                क्षेत्रफल
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                जिल्ला
-                            </th>
-                            <th>
-                                नगर/गा.वि.स.
-                            </th>
-                            <th>
-                                वडा नं.
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <span class=" font-weight-bold">{{letter?.ownersName.ct}}</span>
-                            </td>
-                            <td>
-                                <span class=" font-weight-bold">{{letter?.district.en.nepaliName}}</span>
-                            </td>
-                            <td>
-                                <span class=" font-weight-bold">{{letter?.municipality.en.nepaliName}}</span>
-                            </td>
-                            <td>
-                                <span class=" font-weight-bold">{{letter?.wardNo.ct}}</span>
-                            </td>
-                            <td>
-                                <span class=" font-weight-bold">{{letter?.seatNo.ct}}</span>
-                            </td>
-                            <td>
-                                <span class=" font-weight-bold">{{letter?.kittaNo.ct}}</span>
-                            </td>
-                            <td>
-                                <span class=" font-weight-bold">{{letter?.landArea.ct}}</span>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
                 </ng-template>
                 <p *ngFor="let data of guarantorData; let i = index;">
                     {{i + 2 | nepaliWord}}. श्री

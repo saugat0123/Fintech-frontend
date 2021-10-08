@@ -71,5 +71,6 @@ export class OneFormCustomerDto {
   jointInfo: string;
   isJointCustomer: Boolean;
   customerSubType: CustomerSubType;
+  contactNum: string;
 
 }

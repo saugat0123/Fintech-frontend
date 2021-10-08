@@ -3,6 +3,7 @@
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
+  margin: 10px 30px;
 }
 .form-field {
   background: yellow;
@@ -10,6 +11,7 @@
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
+  font-size: 16px;
   &:focus {
     outline: none;
   }
@@ -18,11 +20,14 @@
   }
   .container-name div {
     display: inline-block;
-    width: 500px;
+    width: 100vh;
     min-height: 50px;
     background-color: #eee;
     height: auto;
   }
+}
+p {
+  line-height: 1.9;
 }
 @media screen {
   .print-only {
@@ -40,7 +45,7 @@
     display: inline;
   }
   div.align {
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.9;
     text-align: justify;
     text-justify: inter-word;

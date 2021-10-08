@@ -26,12 +26,30 @@
             type="text"
           />
           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'grandFatherName']).value}}</strong></span>
-          को नाति/नातिनी/बुहारी
+          को
+          <span *ngIf="loanHolderNepData.gender.en === 'MALE' else relation">नाति </span>
+          <ng-template #relation>
+            <span *ngIf="loanHolderNepData.relationMedium !== undefined && loanHolderNepData.relationMedium.en === '1'">
+              नातिनी
+            </span>
+            <span *ngIf="loanHolderNepData.relationMedium !== undefined && loanHolderNepData.relationMedium.en === '0'">
+              बुहारी
+            </span>
+          </ng-template>
           <input class="form-field form-control-sm d-print-none"
             name="father_husbandName"
             formControlName="father_husbandName" placeholder="" type="text"/>
             <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'father_husbandName']).value}}</strong></span>
-          को छोरा/छोरी/श्रीमती
+          को
+          <span  *ngIf="loanHolderNepData.gender.en === 'MALE' else fatherRelation"> छोरा </span>
+          <ng-template #fatherRelation>
+            <span *ngIf="loanHolderNepData.relationMedium !== undefined && loanHolderNepData.relationMedium.en === '1'">
+              छोरी
+            </span>
+            <span *ngIf="loanHolderNepData.relationMedium !== undefined && loanHolderNepData.relationMedium.en === '0'">
+              श्रीमती
+            </span>
+          </ng-template>
           <input
             class="form-field form-control-sm d-print-none"
             formControlName="district"
@@ -47,7 +65,11 @@
             type="text"
           />
           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'municipality']).value}}</strong></span>
-          न.पा./गा.वि.स. वडा नंं.
+          <span *ngIf="loanHolderNepData.municipalityOrVdc.en === vdcOption[0].value">
+            न.पा.
+          </span>
+          <span *ngIf="loanHolderNepData.municipalityOrVdc.en === vdcOption[1].value"> गा.वि.स. </span>
+          वडा नंं.
           <input
             class="form-field form-control-sm d-print-none"
             formControlName="wardNo"
@@ -120,9 +142,9 @@
         </p>
 
         <p class="text-center"><b>स्विकृत ऋणकर्जाको विवरण</b></p>
-        <table border="1" width="100%">
+        <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
           <thead>
-            <tr>
+            <tr class="sb-bg-dark text-white">
               <th class="px-2">ऋणकर्जा वा बैंकिङ्ग सुविधा</th>
               <th class="px-2">रकम</th>
               <th class="px-2">ब्याज र कमिसन</th>
@@ -181,7 +203,7 @@
           </p>
         </div>
 
-        <div class="mt-5" *ngIf="offerDocumentDetails.selectedSecurity === 'LAND_AND_BUILDING' || offerDocumentDetails.selectedSecurity === 'LAND'">
+        <div class="mt-5" *ngIf="offerDocumentDetails.selectedSecurity.en === 'LAND_AND_BUILDING' || offerDocumentDetails.selectedSecurity.en === 'LAND'">
           <p class="text-center"><b>तपसिल</b></p>
           <br />
           <p>
@@ -190,182 +212,9 @@
             कार्यालयमा रजिष्ट्रेशन समेत पारित गरिदिएको छु।
           </p>
           <br />
-          <table border="1" width="100%">
-            <thead>
-              <tr>
-                <th>घरजग्गा धनी</th>
-                <th>जिल्ला</th>
-                <th>नगर</th>
-                <th>वडा नं.</th>
-                <th>कित्ता नं.</th>
-                <th>क्षेत्रफल</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="propertyOwnerName1"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="district1"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="municipality1"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="wardNo1"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="plotNo1"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="area1"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="propertyOwnerName2"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="district2"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="municipality2"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="wardNo2"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="plotNo2"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="
-                      form-field form-control-sm
-                      d-print-none
-                      disable-print
-                      col-9
-                    "
-                    formControlName="area2"
-                    placeholder=""
-                    type="text"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
         </div>
-        <div class="free-txt mt-5" *ngIf="offerDocumentDetails.selectedSecurity !== 'LAND_AND_BUILDING' || offerDocumentDetails.selectedSecurity !== 'LAND'">
+        <div class="free-txt mt-5" *ngIf="offerDocumentDetails.selectedSecurity.en === 'FIXED_DEPOSIT'">
           <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 nepaliFont form-control d-print-none"></textarea>
           <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>
         </div>

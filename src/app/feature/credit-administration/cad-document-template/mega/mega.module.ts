@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoanDeedCompanyComponent } from './loan-deed-company/loan-deed-company.component';
 import { PersonalGuaranteeJointBorrowerComponent } from './personal-guarantee-joint-borrower/personal-guarantee-joint-borrower.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { PersonalGuaranteePersonToPersonComponent } from './personal-guarantee-person-to-person/personal-guarantee-person-to-person.component';
@@ -20,7 +19,7 @@ import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-pr
 
 
 @NgModule({
-  declarations: [LoanDeedCompanyComponent,
+  declarations: [
     PersonalGuaranteeJointBorrowerComponent,
     PersonalGuaranteePersonToPersonComponent,
     ManjurinamaForCompanyComponent,
@@ -46,7 +45,6 @@ import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-pr
     AssignmentOfReceivableComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
-    LoanDeedCompanyComponent,
     ManjurinamaForCompanyComponent,
     PersonalGuaranteeJointBorrowerComponent,
     PersonalGuaranteePersonToPersonComponent,

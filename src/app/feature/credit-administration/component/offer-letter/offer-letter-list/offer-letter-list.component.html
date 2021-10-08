@@ -25,6 +25,7 @@
 <!--                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Loan Approved Date</th>-->
 <!--                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>-->
                 <th>Preview</th>
+                <th>Action</th>
 <!--                <th>Action</th>-->
 
 
@@ -50,7 +51,12 @@
                            nbTooltip="click to view detail ">
                             <em class="fas fa-info-circle text-info"></em>
                         </a>
+                    </td>
+                    <td>
                         <a nbTooltip="Click to edit offer letter" class="pointer-event text-info" (click)="editOfferLetter(model?.id)"><i class="fa fa-edit"></i></a>
+                        <a nbTooltip="Click to edit loan detail" class="pointer-event text-info p-2" (click)="editLoanDetail(model?.id)">
+                            <i class="fab fa-bitcoin"></i>
+                        </a>
                     </td>
 <!--                    <td>-->
 <!--                        <div>-->

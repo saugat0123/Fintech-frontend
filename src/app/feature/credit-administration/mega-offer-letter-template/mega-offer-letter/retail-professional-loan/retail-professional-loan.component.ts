@@ -20,6 +20,8 @@ import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatte
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
+import {ProposalCalculationUtils} from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
 
 @Component({
     selector: 'app-retail-professional-loan',
@@ -49,6 +51,8 @@ export class RetailProfessionalLoanComponent implements OnInit {
     docSecurityName;
     guarantorData;
     offerLetterData;
+    offerDocumentDetails;
+    nepaliNumber = new NepaliNumberAndWords();
     constructor(private formBuilder: FormBuilder,
                 private customerOfferLetterService: CustomerOfferLetterService,
                 private toastService: ToastService,
@@ -73,6 +77,11 @@ export class RetailProfessionalLoanComponent implements OnInit {
         }
         console.log('Loan holder info', this.loanHolderInfo);
         this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
+            // tslint:disable-next-line:max-line-length
+            this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+        }
+        this.calulation();
         this.checkOfferLetterData();
     }
 
@@ -216,7 +225,7 @@ submit(): void {
             totalLoanAmount = totalLoanAmount + val;
         });
         this.retailProfessionalLoan.patchValue({
-            nameOfCustomer: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.cy : '',
+            nameOfCustomer: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
             addressOfCustomer: customerAddress ? customerAddress : '',
             loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
             // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
@@ -262,6 +271,15 @@ submit(): void {
             this.docSecurityName = ' Class A';
         } else {
             this.docSecurityName = ' Class E';
+        }
+    }
+
+    calulation() {
+        if (ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
+            const number = ProposalCalculationUtils.calculateTotalFromProposalListKey(this.cadOfferLetterApprovedDoc.assignedLoan);
+            this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+            this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+            this.nepaliNumber.engNumber = number;
         }
     }
 
