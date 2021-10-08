@@ -1211,13 +1211,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // for (let i = 0; i < a.length; i++) {
       const individualData = a[index] as FormGroup;
       Object.keys(individualData.controls).forEach(key => {
-
+        console.log(key, 'keys');
 
         if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
-            || key.indexOf('id') > -1 || key.indexOf('nepData') > -1 || key.indexOf('citizenIssuedDate') > -1) {
+            || key.indexOf('id') > -1 || key.indexOf('nepData') > -1 ) {
           return;
         }
-        // console.log(key, 'keys');
+
+        if(this.actionType === 'Edit'){
+         if( key.indexOf('citizenIssuedDate') > -1
+         || key.indexOf('guarantorPermanentMunicipalityOrVdc') > -1 || key.indexOf('guarantorTemporaryMunicipalityOrVdc') > -1
+         || key.indexOf('radioCitizenIssuedDate') > -1){
+           return;
+          }
+        }
+
         this.attributes = new Attributes();
         this.attributes.en = individualData.get(key).value;
         this.attributes.np = guarantorsDetails[key];
