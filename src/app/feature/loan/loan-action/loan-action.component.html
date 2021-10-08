@@ -85,7 +85,7 @@
 <!--    <em class="col-md-1 fa fa-eye"></em>-->
   </button>
   <button (click)="onUploadDocument()"
-          *ngIf="showCadDocumentRoute && actionsList.loanApproveStatus && productUtils.CAD_LITE_VERSION && documentStatus !== 'PENDING'"
+          *ngIf="showCadDocumentRoute && actionsList.loanApproveStatus && productUtils.CAD_LITE_VERSION"
           [ngStyle]="{ 'filter' : (actionsList.approved=== false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
     Documents
