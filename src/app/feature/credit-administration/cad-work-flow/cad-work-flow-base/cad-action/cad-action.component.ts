@@ -433,7 +433,7 @@ export class CadActionComponent implements OnInit, OnChanges {
 
   public showHideCadActionButtons() {
     // send to branch -> cas maker / cad
-    if (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_MAKER) {
+    if (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_MAKER && this.hasBranchMaker) {
       this.isSendToBranchDisabled = false;
     }
 

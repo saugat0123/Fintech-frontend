@@ -305,8 +305,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     const securityDetails = [{
       securityType: this.form.get('selectedSecurity').value,
       securities: this.form.get('securities').value,
-    }]
-    console.log('form submission details: ', securityDetails);
+    }];
     if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
       this.clearConditionalValidation();
     }
