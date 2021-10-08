@@ -30,7 +30,11 @@
                                    [cadData]="cadData" [documentId]="documentId"
                                    [customerLoanId]="customerLoanId"
                                    [nepaliAmount]="nepaliNumber"></app-promissory-note-partnership>
-        
+        <app-personal-guarantee-partnership *ngSwitchCase="nabilCadTemplate.PERSONAL_GUARANTEE_PARTNERSHIP"
+                                         [cadData]="cadData" [documentId]="documentId"
+                                         [customerLoanId]="customerLoanId"
+                                         [nepaliAmount]="nepaliNumber"></app-personal-guarantee-partnership>
+
         <app-personal-guarantee-company *ngSwitchCase="nabilCadTemplate.PERSONAL_GUARANTEE_COMPANY"
         [cadData]="cadData" [documentId]="documentId"
         [customerLoanId]="customerLoanId"

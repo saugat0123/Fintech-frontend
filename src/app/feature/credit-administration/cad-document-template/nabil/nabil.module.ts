@@ -18,13 +18,14 @@ import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-de
 import { PromissoryNotePartnershipComponent } from './promissory-note-partnership/promissory-note-partnership.component';
 import { PromissoryNotePartnershipPrintComponent } from './promissory-note-partnership/promissory-note-partnership-print/promissory-note-partnership-print.component';
 import {SecuritiesComponent} from './securities-view/securities-view.component';
+import { PersonalGuaranteePartnershipComponent } from './personal-guarantee-partnership/personal-guarantee-partnership.component';
 
 @NgModule({
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent, SecuritiesComponent,
-        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent],
+        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, PersonalGuaranteePartnershipComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -38,7 +39,8 @@ import {SecuritiesComponent} from './securities-view/securities-view.component';
         LoanDeedIndividualPrintComponent,
         NabilLoanDeedCompanyComponent,
         PromissoryNotePartnershipComponent,
-        PromissoryNotePartnershipPrintComponent
+        PromissoryNotePartnershipPrintComponent,
+        PersonalGuaranteePartnershipComponent
     ],
     imports: [
         CommonModule,
