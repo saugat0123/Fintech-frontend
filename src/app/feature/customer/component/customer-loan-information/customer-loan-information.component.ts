@@ -360,7 +360,7 @@ export class CustomerLoanInformationComponent implements OnInit {
             }, error => {
                 console.error(error);
                 this.overlay.hide();
-                this.toastService.show(new Alert(AlertType.ERROR, 'Can not delete the guarantor because it is being referenced by a loan file.'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
             });
     }
 
