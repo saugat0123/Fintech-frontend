@@ -62,6 +62,7 @@ export class CollateralSummaryComponent implements OnInit {
   nonFundedSelectedFac;
   nonFundedApprovedTerminatingTotal;
   nonFundedApprovedRevolvingTotal;
+  spinner=false;
   constructor(
       private customerLoanService: LoanFormService,
       private loanFormService: LoanFormService,
@@ -73,7 +74,9 @@ export class CollateralSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.displaySecurityExposure();
+    this.spinner=true;
     this.activatedRoute.queryParams.subscribe((data)=> {
+        this.spinner=false;
       this.companyInfoId = data.customerInfoId;
       this.filterLoan();
       this.getApprovedLoans(this.companyInfoId);
@@ -82,7 +85,9 @@ export class CollateralSummaryComponent implements OnInit {
   }
 
   filterLoan() {
+      this.spinner = true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+        this.spinner=false;
     this.approvedLoans =response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
     this.nonFundedApprovedLoans = this.approvedLoans.filter((l) => !l.loan.isFundable);
     this.fundedApprovedLoans =  this.approvedLoans.filter((l)=> l.loan.isFundable);
@@ -124,15 +129,20 @@ export class CollateralSummaryComponent implements OnInit {
     }
   }
   getApprovedLoans(id) {
+      this.spinner=true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
+        this.spinner=false;
       this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
     }, err => {
       console.log(err);
+      this.spinner=false;
     });
   }
 
   calculation(){
+      this.spinner= true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+        this.spinner=false;
       this.approvedLoans =response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
 
       // calculation of Approved Terminating Loan Total
