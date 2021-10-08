@@ -1,4 +1,7 @@
-<div class="row mt-1 col-md-12 sb-small">
+<div class="row mt-1 col-md-12 sb-small" [nbSpinner]="spinner"
+     nbSpinnerSize="giant"
+     nbSpinnerMessage="Data Loading...."
+     nbSpinnerStatus="primary">
     <div *ngIf="approveSheet === 'approveSheet'; else notApproveSheet">
         <p><strong>{{loanCategory === 'INDIVIDUAL' ? '10. ' : '9. '}} Security Exposure Details</strong></p>
     </div>
