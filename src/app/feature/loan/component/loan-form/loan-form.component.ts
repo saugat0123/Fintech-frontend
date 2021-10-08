@@ -941,6 +941,5 @@ export class LoanFormComponent implements OnInit {
                 index++;
             }
         });
-        this.templateList.splice(2, 1);
     }
 }
