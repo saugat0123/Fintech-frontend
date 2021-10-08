@@ -12,6 +12,7 @@ export enum RelationshipNepali {
     SON = 'छोरा',
     DAUGHTER = 'छोरी',
     SPOUSE = 'श्रीमती',
+    HUSBAND = 'श्रीमान',
     DAUGHTERINLAW = 'बुहारी',
     SONINLAW = 'ज्वाई',
     FATHERINLAW = 'ससुरा',
