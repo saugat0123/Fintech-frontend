@@ -105,15 +105,14 @@
     </form>
 
     <div class="row" style="float: right">
-        <div class="col-md-12">
-            <button nbButton status="success"(click)="submit()">Save</button>
-
-            <button  nbButton status="info"  [disabled]="!initialInfoPrint" [useExistingCss]="true"
+        <div class="col-md-12 text-right disable-print">
+            <button  nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
                      ngxPrint printSectionId="{{offerLetterConst.LETTER_VEHICLE_INDIVIDUAL}}Print">Print
             </button>
+            <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
         </div>
     </div>
 
 </div>
 
-<app-letter-vehicle-individual-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" [cadData]="cadData" hidden></app-letter-vehicle-individual-print>
+<app-letter-vehicle-individual-print  *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden></app-letter-vehicle-individual-print>
