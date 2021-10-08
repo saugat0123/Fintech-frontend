@@ -37,8 +37,9 @@ export class PersonalLoanPrintComponent implements OnInit {
       });
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-      this.customerAddress = this.loanHolderInfo.permanentMunicipality.np + '-' + this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np + ' ,' + this.loanHolderInfo.permanentProvince.np;
-      this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.name;
+      this.customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
+          this.loanHolderInfo.permanentProvince.ct;
     }
   }
 }
