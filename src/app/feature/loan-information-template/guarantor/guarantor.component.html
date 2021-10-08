@@ -23,7 +23,7 @@
                                 </div>
                                 <div *ngIf="form.get('guarantorDetails')['length']>1"
                                 class="col-md-2 ">
-                                <button (click)="removeGuarantorDetails(i)"
+                                <button (click)="removeGuarantorDetails(i,guarantorDetails.get('id').value)"
                                         class="float-right btn tbn-sm btn-flat btn-danger"
                                         value="Delete">
                                     <em class="fa fa-trash" style="color: white;"></em>
