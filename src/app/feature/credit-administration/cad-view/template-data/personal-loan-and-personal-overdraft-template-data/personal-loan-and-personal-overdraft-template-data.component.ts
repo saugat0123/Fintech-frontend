@@ -38,7 +38,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     existingOfferLetter = false;
     attributes;
     tdValues: any = {};
-    podtranslatedData;
+    podtranslatedData: any ={};
     offerLetterDocument: OfferDocument;
     dateTypeBS = false;
     dateTypeAD = false;
