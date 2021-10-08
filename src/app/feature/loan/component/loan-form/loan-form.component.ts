@@ -230,6 +230,7 @@ export class LoanFormComponent implements OnInit {
     nbSpinner = false;
     companyInfoId: any;
     catalogue;
+    docAction;
     constructor(
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
@@ -306,6 +307,7 @@ export class LoanFormComponent implements OnInit {
                             this.loanHolder = this.loanDocument.loanHolder;
                             this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
                             this.loanType = this.loanDocument.loanType;
+                            this.docAction = this.loanDocument.currentStage.docAction;
                             if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
                                 this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION) ||
                                 this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION) ||
@@ -387,7 +389,7 @@ export class LoanFormComponent implements OnInit {
             this.nbSpinner=false;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
-            if (this.showDocStatusDropDown === false) {
+            if (this.showDocStatusDropDown === false && this.docAction !== 'BACKWARD') {
                 this.filterTemplateList(this.templateList);
             }
             // Splicing customer loan for Personal Type Loan--
@@ -441,7 +443,7 @@ export class LoanFormComponent implements OnInit {
 
             // Remove Customer Info Template for Business Loan Type
             if (CustomerType[this.allId.loanCategory] === CustomerType.INSTITUTION) {
-                if (this.showDocStatusDropDown === false) {
+                if (this.showDocStatusDropDown === false && this.docAction !== 'BACKWARD') {
                     this.filterTemplateList(this.templateList);
                 }
                 this.templateList.forEach((value, i) => {
