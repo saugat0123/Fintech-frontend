@@ -22,6 +22,7 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {OfferDocument} from '../../../model/OfferDocument';
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {EditLoanDetailComponent} from '../../../cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -65,9 +66,6 @@ export class OfferLetterListComponent implements OnInit {
     // await other.userService.getDefaultCommunityUser().then(res => {
     //   this.defaultCommunityUser = res.detail.id;
     // });
-    other.searchObj = {
-      docStatus: 'OFFER_AND_LEGAL_PENDING',
-    };
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.spinner = false;
       console.log(res.detail);
@@ -107,7 +105,7 @@ export class OfferLetterListComponent implements OnInit {
 
 
   setSearchValue(value) {
-    this.searchObj = Object.assign(value, {docStatus: 'OFFER_PENDING'});
+    this.searchObj = Object.assign(value, {docStatus: 'OFFER_AND_LEGAL_PENDING'});
     OfferLetterListComponent.loadData(this);
   }
 
@@ -214,5 +212,20 @@ export class OfferLetterListComponent implements OnInit {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'OOPS something went wrong please try again!!'));
         });
+    }
+
+    public editLoanDetail(id: any): void {
+    this.spinner = true;
+    this.service.detail(id).subscribe((response) => {
+      this.dialogService.open(EditLoanDetailComponent, {
+        context: {
+          data: response.detail,
+        }
+      });
+      this.spinner = false;
+    }, error => {
+      this.spinner = false;
+      this.toastService.show(new Alert(AlertType.ERROR, 'OOPS something went wrong please try again!!'));
+    });
     }
 }
