@@ -57,7 +57,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('depreciation')['controls']; let j = index"
                     formArrayName="depreciation" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_depreciation">
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_depreciation>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -70,7 +78,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('otherAmortizationAndNonCashExpenses')['controls']; let j = index"
                     formArrayName="otherAmortizationAndNonCashExpenses" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_otherAmortizationAndNonCashExpenses">
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_otherAmortizationAndNonCashExpenses>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -190,7 +206,7 @@
             <tbody>
             <tr>
                 <th scope="row">i</th>
-                <td>(Increase)/Decrease in Creditors</td>
+                <td>Increase/(Decrease) in Creditors</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInCreditors')['controls']; let j = index"
                     formArrayName="increaseDecreaseInCreditors" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -211,7 +227,7 @@
             <tbody>
             <tr>
                 <th scope="row">j</th>
-                <td>(Increase)/Decrease in Other Current Liabilities</td>
+                <td>Increase/(Decrease) in Other Current Liabilities</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInOtherCurrentLiabilities')['controls']; let j = index"
                     formArrayName="increaseDecreaseInOtherCurrentLiabilities" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -236,7 +252,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('adjustmentForNonOperatingIncome')['controls']; let j = index"
                     formArrayName="adjustmentForNonOperatingIncome" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_adjustmentForNonOperatingIncome">
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_adjustmentForNonOperatingIncome>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -249,7 +273,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('interestExpensesCFSa')['controls']; let j = index"
                     formArrayName="interestExpensesCFSa" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_interestExpensesCFSa">
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_interestExpensesCFSa>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -401,6 +433,27 @@
 
             <tbody>
             <tr>
+                <th scope="row">a</th>
+                <td>Additional Capital(if any)</td>
+                <td *ngFor="let amount of cashFlowStatementForm.get('additionalCapital')['controls']; let j = index"
+                    formArrayName="additionalCapital" scope="col">
+                    <div [formGroupName]="j" class="text-center">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_additionalCapital">
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_additionalCapital>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr>
                 <th scope="row">b</th>
                 <td>Short Term Loan</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('shortTermLoan')['controls']; let j = index"
@@ -448,7 +501,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('dividendDrawing')['controls']; let j = index"
                     formArrayName="dividendDrawing" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_dividendDrawing">
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_dividendDrawing>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -461,7 +522,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('interestExpensesCFSb')['controls']; let j = index"
                     formArrayName="interestExpensesCFSb" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_interestExpensesCFSb">
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_interestExpensesCFSb>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -474,7 +543,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('otherAdjustments')['controls']; let j = index"
                     formArrayName="otherAdjustments" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_otherAdjustments">
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_otherAdjustments>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>

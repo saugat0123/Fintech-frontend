@@ -140,6 +140,7 @@ export class FinancialComponent implements OnInit {
         'changeInOtherProvisions',
         'cashFromFinancingActivities',
         'paidUpCapitalEquity',
+        'additionalCapital',
         'shortTermLoan',
         'longTermLoanReceived',
         'dividendDrawing',
@@ -210,6 +211,7 @@ export class FinancialComponent implements OnInit {
             this.fiscalYear = this.currentFormData['fiscalYear'];
             this.auditorList = this.currentFormData['auditorList'];
             const initialFormData = this.currentFormData['initialForm'];
+            console.log('initialFormData', initialFormData);
 
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);

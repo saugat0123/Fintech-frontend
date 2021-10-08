@@ -248,18 +248,27 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         //
         // Cash Flow Statement Calculation--
         cashFlowStatement.netProfitForThePeriod[index].value = profitAfterTax.controls['value'].value;
-        cashFlowStatement.depreciation[index].value = this.financialService
-            .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'), 'Depreciation', index).toFixed(2);
-        cashFlowStatement.otherAmortizationAndNonCashExpenses[index].value = this.financialService
-            .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'),
-                'Amortization/Other Non-Cash Expenses', index).toFixed(2);
-        cashFlowStatement.adjustmentForNonOperatingIncome[index].value = -Math.abs(
-            Number(nonOperatingIncomeOrExpenses.controls['value'].value)).toFixed(2);
-        cashFlowStatement.interestExpensesCFSa[index].value = interestExpenses.controls['value'].value;
+        // cashFlowStatement.depreciation[index].value = this.financialService
+        //     .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'), 'Depreciation', index).toFixed(2);
+        // cashFlowStatement.otherAmortizationAndNonCashExpenses[index].value = this.financialService
+        //     .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'),
+        //         'Amortization/Other Non-Cash Expenses', index).toFixed(2);
+        // cashFlowStatement.adjustmentForNonOperatingIncome[index].value = -Math.abs(
+        //     Number(nonOperatingIncomeOrExpenses.controls['value'].value)).toFixed(2);
+        // cashFlowStatement.interestExpensesCFSa[index].value = interestExpenses.controls['value'].value;
 
         this.financialService.cashFromOperatingActivitiesTotal(cashFlowStatement, index);
 
         if (index > 0) {
+            cashFlowStatement.depreciation[index].value = this.financialService
+                .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'),
+                    'Depreciation', index).toFixed(2);
+            cashFlowStatement.otherAmortizationAndNonCashExpenses[index].value = this.financialService
+                .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'),
+                    'Amortization/Other Non-Cash Expenses', index).toFixed(2);
+            cashFlowStatement.adjustmentForNonOperatingIncome[index].value = -Math.abs(
+                Number(nonOperatingIncomeOrExpenses.controls['value'].value)).toFixed(2);
+            cashFlowStatement.interestExpensesCFSa[index].value = interestExpenses.controls['value'].value;
             cashFlowStatement.changedInFixedAsset[index].value = (Number(
                 this.financialService.fetchValuesForJsonSubCategories(balanceSheet.fixedAssetsCategory,
                     'Net Fixed Assets', (index - 1))) - Number(this.financialService
@@ -271,15 +280,18 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                     .fetchValuesForSubCategories(this.incomeStatementForm
                         .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index))).toFixed(2);
             cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value;
+            cashFlowStatement.dividendDrawing[index].value = (-Math.abs(Number(dividendOrDrawing.controls['value'].value))).toFixed(2);
+            cashFlowStatement.interestExpensesCFSb[index].value = (-Math.abs(Number(interestExpenses.controls['value'].value))).toFixed(2);
+            cashFlowStatement.otherAdjustments[index].value = (-Math.abs(Number(otherAdjustment.controls['value'].value))).toFixed(2);
         }
 
         cashFlowStatement.nonOperatingIncomeExpenses[index].value = nonOperatingIncomeOrExpenses.controls['value'].value;
 
         this.financialService.cashFromInvestingActivitiesTotal(cashFlowStatement, index);
 
-            cashFlowStatement.dividendDrawing[index].value = (-Math.abs(Number(dividendOrDrawing.controls['value'].value))).toFixed(2);
-            cashFlowStatement.interestExpensesCFSb[index].value = (-Math.abs(Number(interestExpenses.controls['value'].value))).toFixed(2);
-            cashFlowStatement.otherAdjustments[index].value = (-Math.abs(Number(otherAdjustment.controls['value'].value))).toFixed(2);
+            // cashFlowStatement.dividendDrawing[index].value = (-Math.abs(Number(dividendOrDrawing.controls['value'].value))).toFixed(2);
+            // cashFlowStatement.interestExpensesCFSb[index].value = (-Math.abs(Number(interestExpenses.controls['value'].value))).toFixed(2);
+            // cashFlowStatement.otherAdjustments[index].value = (-Math.abs(Number(otherAdjustment.controls['value'].value))).toFixed(2);
 
 
         this.financialService.cashFromFinancingActivitiesTotal(cashFlowStatement, index);

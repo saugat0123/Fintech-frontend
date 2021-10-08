@@ -4,8 +4,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
 import {Editor} from '../../../../@core/utils/constants/editor';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-cash-flow-statement',
@@ -60,6 +59,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.setDifferenceCFS(cashFlowStatementData.differenceCFS);
             this.cashFlowStatementForm.get('justificationCashFlowStatement')
                 .patchValue(cashFlowStatementData.justificationCashFlowStatement);
+            this.setAdditionalCapital(cashFlowStatementData.additionalCapital);
         }
     }
 
@@ -96,7 +96,8 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             closingCash: this.formBuilder.array([]),
             closingBalance: this.formBuilder.array([]),
             differenceCFS: this.formBuilder.array([]),
-            justificationCashFlowStatement: [undefined]
+            justificationCashFlowStatement: [undefined],
+            additionalCapital: this.formBuilder.array([]),
         });
     }
 
@@ -575,6 +576,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         const dividendDrawing = (this.cashFlowStatementForm.get('dividendDrawing') as FormArray).value[0].value;
         const interestExpensesCFSb = (this.cashFlowStatementForm.get('interestExpensesCFSb') as FormArray).value[0].value;
         const otherAdjustments = (this.cashFlowStatementForm.get('otherAdjustments') as FormArray).value[0].value;
+        const additionalCapital = (this.cashFlowStatementForm.get('additionalCapital') as FormArray).value[0].value;
 
         ((this.cashFlowStatementForm.get('cashFromFinancingActivities') as FormArray).controls[0] as FormGroup)
             .controls['value'].patchValue((Number(paidUpCapitalEquity)
@@ -582,6 +584,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             + Number(longTermLoanReceived)
             + Number(dividendDrawing)
             + Number(interestExpensesCFSb)
+            + Number(additionalCapital)
             + Number(otherAdjustments)).toFixed(2));
         const cashFromFinancingActivities = (this.cashFlowStatementForm.get('cashFromFinancingActivities') as FormArray).value[0].value;
 
@@ -629,6 +632,16 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         const increaseDecreaseInCreditors = this.cashFlowStatementForm.get('increaseDecreaseInCreditors') as FormArray;
         const increaseDecreaseInOtherCurrentLiabilities =
             this.cashFlowStatementForm.get('increaseDecreaseInOtherCurrentLiabilities') as FormArray;
+        const adjustmentForNonOperatingIncome = this.cashFlowStatementForm.get('adjustmentForNonOperatingIncome') as FormArray;
+        const interestExpensesCFSa = this.cashFlowStatementForm.get('interestExpensesCFSa') as FormArray;
+
+        const depreciation = this.cashFlowStatementForm.get('depreciation') as FormArray;
+        const otherAmortizationAndNonCashExpenses = this.cashFlowStatementForm.get('otherAmortizationAndNonCashExpenses') as FormArray;
+
+        const dividendDrawing = this.cashFlowStatementForm.get('dividendDrawing') as FormArray;
+        const interestExpensesCFSb = this.cashFlowStatementForm.get('interestExpensesCFSb') as FormArray;
+        const otherAdjustments = this.cashFlowStatementForm.get('otherAdjustments') as FormArray;
+        const additionalCapital = this.cashFlowStatementForm.get('additionalCapital') as FormArray;
 
         if (increaseDecreaseInInventory.controls.length > 0) {
             this.formData['cashFlowStatementData'].increaseDecreaseInInventory[0].value = increaseDecreaseInInventory.value[0].value;
@@ -643,6 +656,10 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].increaseDecreaseInCreditors[0].value = increaseDecreaseInCreditors.value[0].value;
             this.formData['cashFlowStatementData'].increaseDecreaseInOtherCurrentLiabilities[0].value =
                 increaseDecreaseInOtherCurrentLiabilities.value[0].value;
+            this.formData['cashFlowStatementData'].adjustmentForNonOperatingIncome[0].value =
+                adjustmentForNonOperatingIncome.value[0].value;
+            this.formData['cashFlowStatementData'].interestExpensesCFSa[0].value =
+                interestExpensesCFSa.value[0].value;
 
             this.formData['cashFlowStatementData'].cashFromInvestingActivities[0].value = cashFromInvestingActivities.value[0].value;
             this.formData['cashFlowStatementData'].changedInFixedAsset[0].value = changedInFixedAsset.value[0].value;
@@ -657,6 +674,15 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].netCashFlow[0].value = netCashFlow.value[0].value;
             this.formData['cashFlowStatementData'].closingCash[0].value = closingCash.value[0].value;
             this.formData['cashFlowStatementData'].differenceCFS[0].value = differenceCFS.value[0].value;
+
+            this.formData['cashFlowStatementData'].depreciation[0].value = depreciation.value[0].value;
+            this.formData['cashFlowStatementData'].otherAmortizationAndNonCashExpenses[0].value =
+                otherAmortizationAndNonCashExpenses.value[0].value;
+
+            this.formData['cashFlowStatementData'].dividendDrawing[0].value = dividendDrawing.value[0].value;
+            this.formData['cashFlowStatementData'].interestExpensesCFSb[0].value = interestExpensesCFSb.value[0].value;
+            this.formData['cashFlowStatementData'].otherAdjustments[0].value = otherAdjustments.value[0].value;
+            this.formData['cashFlowStatementData'].additionalCapital[0].value = additionalCapital.value[0].value;
         }
     }
 
@@ -686,6 +712,21 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].addOpeningBalance[0].value = firstYearOpeningBalanceFormData.value[0].value;
             this.formData['cashFlowStatementData'].closingCash[0].value = firstYearClosingCashFormData.value[0].value;
             this.formData['cashFlowStatementData'].differenceCFS[0].value = firstYearDifferenceCFSFormData.value[0].value;
+        }
+    }
+
+    // paidUpCapitalEquity
+    setAdditionalCapital(currentData) {
+        const controls = this.cashFlowStatementForm.get('additionalCapital') as FormArray;
+        if (!ObjectUtil.isEmpty(currentData)) {
+            currentData.forEach(singleData => {
+                controls.push(
+                    this.formBuilder.group({
+                        value: [singleData.value],
+                        year: [singleData.year]
+                    })
+                );
+            });
         }
     }
 }
