@@ -532,7 +532,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         // getting fiscal years
         this.getFiscalYears();
         // Disable Update proposal button
-        this.disableUpdateProposal = !(LocalStorageUtil.getStorage().roleType === 'APPROVAL' &&
+        this.disableUpdateProposal = !((LocalStorageUtil.getStorage().roleType === 'APPROVAL' || LocalStorageUtil.getStorage().roleType === 'COMMITTEE') &&
             (this.loanDataHolder.currentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId));
     }
 
@@ -855,6 +855,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.formDataForEdit['proposedLimit'] = (this.proposalForm.controls['proposedLimit'].value);
         this.formDataForEdit['interestRate'] = (this.proposalForm.controls['interestRate'].value);
         this.formDataForEdit['premiumRateOnBaseRate'] = (this.proposalForm.controls['premiumRateOnBaseRate'].value);
+        this.formDataForEdit['serviceChargeMethod'] = (this.proposalForm.controls['serviceChargeMethod'].value);
+        this.formDataForEdit['serviceCharge'] = (this.proposalForm.controls['serviceCharge'].value);
 
         this.proposalData.data = JSON.stringify(this.formDataForEdit);
         this.proposalData.proposedLimit = this.proposalForm.controls['proposedLimit'].value;
@@ -875,7 +877,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
             interestRate: [undefined],
             baseRate: [undefined],
-            premiumRateOnBaseRate: [undefined]
+            premiumRateOnBaseRate: [undefined],
+            serviceChargeMethod: [undefined],
+            serviceCharge: [undefined]
         });
 
         // Fill form values
@@ -886,7 +890,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     proposedLimit: this.formDataForEdit['proposedLimit'],
                     baseRate: this.formDataForEdit['baseRate'],
                     interestRate: this.formDataForEdit['interestRate'],
-                    premiumRateOnBaseRate: this.formDataForEdit['premiumRateOnBaseRate']
+                    premiumRateOnBaseRate: this.formDataForEdit['premiumRateOnBaseRate'],
+                    serviceChargeMethod: this.formDataForEdit['serviceChargeMethod'],
+                    serviceCharge: this.formDataForEdit['serviceCharge']
                 });
             }
         }
