@@ -3,13 +3,6 @@
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
             <h6 class="text-center"><u>प्रोग्रेशिभ फाइनान्स लिमिटेडबाट प्रोफेसनल कर्जा उपभोग गरे वापत ऋणीबाट भएको कबुलियतनामा पत्र</u></h6>
-            <b class="text-left">
-                प्रोग्रेशिभ फाईनान्स लिमिटेड, <br>
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="branchName"
-                       placeholder=""
-                       type="text"/> शाखा |
-            </b>
 
             <br>
             <br>
@@ -28,9 +21,8 @@
                                                                 placeholder="" type="text"/>
                     स्थित <input class="form-field form-control-sm nepaliFont"
                                  formControlName="financeBranch"
-                                 value="{{form.get('branchName').value}}"
                                  placeholder=""
-                                 readonly type="text"/>
+                                 type="text"/>
                     शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा <b>“धनी वित्तीय संस्था”</b> भनिएको)
                     लिखत गरी दिनेका नाम <input class="form-field form-control-sm nepaliFont"
                                                formControlName="name"
@@ -99,13 +91,13 @@
                                                                         formControlName="citizenshipIssueOffice"
                                                                         placeholder=""
                                                                         readonly type="text"/>)
-                    आगे म ऋणीको व्यक्तिगत कार्य प्रयोजन वा अन्य कार्य सञ्चालन गर्न <b>मिति <input class="form-field form-control-sm nepaliFont"
+                    आगे म ऋणीको व्यक्तिगत कार्य प्रयोजन वा अन्य कार्य सञ्चालन गर्न <b>मिति</b><input class="form-field form-control-sm nepaliFont"
                                                                                                formControlName="date"
                                                                                                placeholder="" type="text"/>
-                    मा</b> यस <b>प्रोग्रेशिभ फाईनान्स लिमिटेड</b>,
+                    <b>मा</b> यस <b>प्रोग्रेशिभ फाईनान्स लिमिटेड</b>,
                     <input class="form-field form-control-sm nepaliFont"
                            formControlName="financeBranch"
-                           value="{{form.get('branchName').value}}"
+                           value="{{form.get('financeBranch').value}}"
                            placeholder=""
                            readonly type="text"/>
                     शाखा कार्यालयबाट <b>प्रोफेसनल कर्जा</b> अन्तर्गत लिएको कूल कर्जा रकम रु. <input (change)="getNumAmountWord('amount','amountInWord')"

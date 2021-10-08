@@ -2,13 +2,7 @@
 
     <div class="col-md-12 viewFull">
         <form>
-            <h6 class="text-center"><u>प्रोग्रेशिभ फाइनान्स लिमिटेडबाट प्रोफेसनल कर्जा उपभोग गरे वापत ऋणीबाट भएको कबुलियतनामा पत्र</u></h6>
-            <b class="text-left">
-                प्रोग्रेशिभ फाईनान्स लिमिटेड, <br>
-                <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
-                                                {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '____________________' : printDocForm?.branchName}}
-                                            </span> शाखा |
-            </b>
+            <h6 class="text-center"><u><b>प्रोग्रेशिभ फाइनान्स लिमिटेडबाट प्रोफेसनल कर्जा उपभोग गरे वापत ऋणीबाट भएको कबुलियतनामा पत्र</b></u></h6>
 
             <br>
             <br>
@@ -24,8 +18,8 @@
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.financeWardNo !== null && printDocForm?.financeWardNo !== ''}">
                                                 {{printDocForm?.financeWardNo === null || printDocForm?.financeWardNo === '' ? '____________________' : printDocForm?.financeWardNo}}
                                             </span>
-                    स्थित <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
-                                                {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '____________________' : printDocForm?.branchName}}
+                    स्थित <span [ngClass]="{'nepaliFont' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
+                                                {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '____________________' : printDocForm?.financeBranch}}
                                             </span>
                     शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा <b>“धनी वित्तीय संस्था”</b> भनिएको)
                     लिखत गरी दिनेका नाम <span [ngClass]="{'nepaliFont' : printDocForm?.name !== null && printDocForm?.name !== ''}">
@@ -78,17 +72,17 @@
                                             </span>जि.प्र.का. <span [ngClass]="{'nepaliFont' : printDocForm?.citizenshipIssueOffice !== null && printDocForm?.citizenshipIssueOffice !== ''}">
                                                 {{printDocForm?.citizenshipIssueOffice === null || printDocForm?.citizenshipIssueOffice === '' ? '____________________' : printDocForm?.citizenshipIssueOffice}}
                                             </span>)
-                    आगे म ऋणीको व्यक्तिगत कार्य प्रयोजन वा अन्य कार्य सञ्चालन गर्न <b>मिति <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+                    आगे म ऋणीको व्यक्तिगत कार्य प्रयोजन वा अन्य कार्य सञ्चालन गर्न <b>मिति</b> <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
                                                 {{printDocForm?.date === null || printDocForm?.date === '' ? '____________________' : printDocForm?.date}}
                                             </span>
-                    मा</b> यस <b>प्रोग्रेशिभ फाईनान्स लिमिटेड</b>,
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
-                                                {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '____________________' : printDocForm?.branchName}}
+                    <b>मा</b> यस <b>प्रोग्रेशिभ फाईनान्स लिमिटेड</b>,
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
+                                                {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '____________________' : printDocForm?.financeBranch}}
                                             </span>
-                    शाखा कार्यालयबाट <b>प्रोफेसनल कर्जा</b>अन्तर्गत लिएको कूल कर्जा रकम रु. <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                    शाखा कार्यालयबाट <b>प्रोफेसनल कर्जा</b> अन्तर्गत लिएको कूल कर्जा रकम रु. <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
                                                 {{printDocForm?.amount === null || printDocForm?.amount === '' ? '____________________' : printDocForm?.amount}}
                                             </span>/–
-                    (अक्षेरेपि रु.<span [ngClass]="{'nepaliFont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
+                    (अक्षेरेपि रु.<span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
                                                 {{printDocForm?.amountInWord === null || printDocForm?.amountInWord === '' ? '____________________' : printDocForm?.amountInWord}}
                                             </span>)
                     र सो मा वित्तीय संस्थाको नियमानुसार लाग्ने ब्याज, हर्जना र अन्य दै दस्तुर समेत भुक्तानी माग गरेका वखत तपाई धनी वित्तीय संस्थालाई अथवा तपाईले निर्देशन दिएको वा अह्राएको
