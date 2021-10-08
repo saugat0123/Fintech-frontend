@@ -32,6 +32,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   guarantorName;
   branchName;
   guarantorData;
+  offerDocumentDetails;
 
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -58,6 +59,10 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
         this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
       }
       this.branchName = this.loanHolderInfo.branch.ct;
+    }
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
+      // tslint:disable-next-line:max-line-length
+      this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
   }
 

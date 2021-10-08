@@ -1,49 +1,42 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {NabilDocumentChecklist} from '../../../../admin/modal/nabil-document-checklist.enum';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CadFile} from '../../../model/CadFile';
-import {Document} from '../../../../admin/modal/document';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {CustomerType} from '../../../../customer/model/customerType';
+import {CustomerSubType} from '../../../../customer/model/customerSubType';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {CustomerType} from '../../../../customer/model/customerType';
-import {CadDocStatus} from '../../../model/CadDocStatus';
-import {District} from '../../../../admin/modal/district';
-import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
-import {EngNepDatePipe} from 'nepali-patro';
-import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {ProposalCalculationUtils} from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
-import {AgeCalculation} from '../../../../../@core/age-calculation';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {DatePipe} from '@angular/common';
-import {CustomerSubType} from '../../../../customer/model/customerSubType';
+import {EngNepDatePipe} from 'nepali-patro';
 import {CustomerService} from '../../../../customer/service/customer.service';
-import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {AgeCalculation} from '../../../../../@core/age-calculation';
+import {CadFile} from '../../../model/CadFile';
+import {Document} from '../../../../admin/modal/document';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-letter-of-set-off',
-  templateUrl: './letter-of-set-off.component.html',
-  styleUrls: ['./letter-of-set-off.component.scss']
+  selector: 'app-promissory-note-proprietorship',
+  templateUrl: './promissory-note-proprietorship.component.html',
+  styleUrls: ['./promissory-note-proprietorship.component.scss']
 })
-export class LetterOfSetOffComponent implements OnInit {
+export class PromissoryNoteProprietorshipComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  @Input() preview;
-  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  @Input() nepaliAmount: NepaliNumberAndWords;
   individualData;
   initialInfoPrint;
   offerLetterConst = NabilDocumentChecklist;
   offerDocumentChecklist = NabilOfferLetterConst;
-  letterOfSetOff: FormGroup;
+  form: FormGroup;
   nepData;
   clientType;
   customerType = CustomerType;
@@ -52,7 +45,6 @@ export class LetterOfSetOffComponent implements OnInit {
   selectiveArr = [];
   offerLetterDocument;
   educationalTemplateData;
-
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -68,13 +60,12 @@ export class LetterOfSetOffComponent implements OnInit {
 
   async ngOnInit() {
     this.buildForm();
-    this.checkOfferLetterData();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(individualCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          this.letterOfSetOff.patchValue(initialInfo);
+          this.form.patchValue(initialInfo);
         }
       });
     }
@@ -86,52 +77,48 @@ export class LetterOfSetOffComponent implements OnInit {
     this.fillform();
   }
 
-
   buildForm() {
-    this.letterOfSetOff = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       date: [undefined],
-      grandFatherName: [undefined],
-      fatherName: [undefined],
-      district: [undefined],
-      vdc: [undefined],
-      wardNo: [undefined],
-      age: [undefined],
-      daughterName: [undefined],
-      nameOfCustomer: [undefined],
-      citizenshipNo: [undefined],
-      dateOfIssue: [undefined],
-      identifyIssuedDistrictName: [undefined],
+      loanamountinFigure: [undefined],
+      loanamountinWords: [undefined],
       actDetails: [undefined],
-      actYearFigure: [undefined],
-      nameOfDepartment: [undefined],
-      dateOfRegistration: [undefined],
-      registrationNo: [undefined],
-      nameOfUnit:  [undefined],
-      grandDaughterName: [undefined],
-      nameOfWife: [undefined],
-      grandSonName: [undefined],
-      sonName: [undefined],
-      nameOfSon: [undefined],
-      nameOfBorrower: [undefined],
-      nameOfBranch: [undefined],
-      sanctionLetterIssuedDate: [undefined],
-      loanAmountFigure: [undefined],
-      loanAmountWord: [undefined],
-      accountNo: [undefined],
-      nameOfTd: [undefined],
-      fixedDeposit: [undefined],
-      purposeOfLoan: [undefined],
-      numberOfPerson: [undefined],
+      actYear: [undefined],
+      nameOfHead: [undefined],
+      dateOfReg: [undefined],
+      regNo: [undefined],
+      distictOfFirm: [undefined],
+      nameOfFirm: [undefined],
+      wardNo: [undefined],
+      addressOfFirm: [undefined],
+      firmName: [undefined],
+      grandNameOfPro: [undefined],
+      fatherNameOfPro: [undefined],
+      districtOfPro: [undefined],
+      vdcNameOfPro: [undefined],
+      wardNoOfPro: [undefined],
+      ageOfPro: [undefined],
+      nameOfPro: [undefined],
+      citizenshipNo: [undefined],
+      citizenshipIssueDate: [undefined],
+      citizenshipIssueDistrict: [undefined],
+      intRate: [undefined],
+      branchName: [undefined],
       sakshiDistrict: [undefined],
       sakshiVdc: [undefined],
       sakshiWardNo: [undefined],
       sakshiAge: [undefined],
-      nameOfWitness: [undefined],
-      nameOfWitnessFromBank: [undefined],
+      nameofWitness: [undefined],
+      sakshiDistrict1: [undefined],
+      sakshiVdc1: [undefined],
+      sakshiWardNo1: [undefined],
+      sakshiAge1: [undefined],
+      nameofWitness1: [undefined],
+      nameofBankWitness: [undefined],
     });
   }
-
-  fillform() { let totalLoan = 0;
+  fillform() {
+    let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;
       totalLoan = totalLoan + proposedAmount;
@@ -167,41 +154,23 @@ export class LetterOfSetOffComponent implements OnInit {
       this.setJointDetailsArr(this.selectiveArr);
     }
     this.checkOfferLetterData();
-    this.letterOfSetOff.patchValue(
+    this.form.patchValue(
         {
-          nameOfBranch: this.individualData.branch.ct ?
-              this.individualData.branch.ct : '',
-          grandFatherName: this.individualData.grandFatherName.ct ?
-              this.individualData.grandFatherName.ct : '',
-          fatherName: !ObjectUtil.isEmpty(this.individualData.fatherName) && this.individualData.fatherName.ct ?
-              this.individualData.fatherName.ct : this.individualData.fatherInLawName ?
-                  this.individualData.fatherInLawName.ct : '',
-          identifyIssuedDistrictName: this.individualData.citizenshipIssueDistrict.ct ?
-              this.individualData.citizenshipIssueDistrict.ct : '',
-          dateOfIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
-          citizenshipNo: this.individualData.citizenshipNo ?
-              this.individualData.citizenshipNo.ct : '',
-          wardNo: this.individualData.permanentWard.ct ?
-              this.individualData.permanentWard.ct : '',
-          vdc: this.individualData.permanentMunicipality.ct ?
-              this.individualData.permanentMunicipality.ct : '',
-          district: this.individualData.permanentDistrict.ct ?
-              this.individualData.permanentDistrict.ct : '',
-          nameOfCustomer: this.individualData.name.ct ?
-              this.individualData.name.ct : '',
+          nameofBranchLocated: this.individualData.branch.ct,
+          nameofGrandFather: this.individualData.grandFatherName.ct,
+          nameofFather: this.individualData.fatherName.ct,
+          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
+          dateofIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
+          citizenshipNo: this.individualData.citizenshipNo.ct,
+          nameofPerson: this.individualData.name.ct,
+          wardNo: this.individualData.permanentWard.ct,
+          vdc: this.individualData.permanentMunicipality.ct,
+          district: this.individualData.permanentDistrict.ct,
+          loanamountinFigure: finalAmount,
+          loanamountinWords: loanAmountWord,
           age: age ? age : '',
-          numberOfPerson: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
-          loanAmountFigure: finalAmount,
-          loanAmountWord: loanAmountWord,
-          purposeOfLoan: this.educationalTemplateData.purposeOfLoan.ct ?
-              this.educationalTemplateData.purposeOfLoan.ct : this.educationalTemplateData.purposeOfLoan.np,
-          // sanctionLetterIssuedDate: this.educationalTemplateData.sanctionLetterIssuedDate.ct ?
-          //     this.educationalTemplateData.sanctionLetterIssuedDate.ct : this.educationalTemplateData.sanctionLetterIssuedDate.np,
-          // nameOfTd: this.educationalTemplateData.nameOfTd.ct ?
-          //     this.educationalTemplateData.nameOfTd.ct : this.educationalTemplateData.nameOfTd.np,
-          // fixedDeposit: this.educationalTemplateData.fixedDeposit.ct ?
-          //     this.educationalTemplateData.fixedDeposit.ct : this.educationalTemplateData.fixedDeposit.np
-
+          totalPeople: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
+          interest: this.educationalTemplateData && this.educationalTemplateData.ct ? this.educationalTemplateData.ct : '',
         }
     );
   }
@@ -216,19 +185,20 @@ export class LetterOfSetOffComponent implements OnInit {
     return this.engToNepNumberPipe.transform(yr.toString());
   }
 
+
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          individualCadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+          individualCadFile.initialInformation = JSON.stringify(this.form.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+        cadFile.initialInformation = JSON.stringify(this.form.value);
         this.initialInfoPrint = cadFile.initialInformation;
         document.id = this.documentId;
         cadFile.cadDocument = document;
@@ -238,7 +208,7 @@ export class LetterOfSetOffComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+      cadFile.initialInformation = JSON.stringify(this.form.value);
       this.initialInfoPrint = cadFile.initialInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
@@ -257,9 +227,9 @@ export class LetterOfSetOffComponent implements OnInit {
     });
   }
   getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.letterOfSetOff.get(numLabel).value);
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.letterOfSetOff.get(wordLabel).patchValue(returnVal);
+    this.form.get(wordLabel).patchValue(returnVal);
   }
 
   buildJointDetailsArr() {
@@ -278,7 +248,7 @@ export class LetterOfSetOffComponent implements OnInit {
   }
 
   setJointDetailsArr(data) {
-    const formArray = (this.letterOfSetOff.get('jointDetailsArr') as FormArray);
+    const formArray = (this.form.get('jointDetailsArr') as FormArray);
     if (ObjectUtil.isEmpty(data)) {
       return;
     }
@@ -322,7 +292,7 @@ export class LetterOfSetOffComponent implements OnInit {
           === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
       if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
         const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-        this.educationalTemplateData = educationalOfferData;
+        this.educationalTemplateData = educationalOfferData.interestRate;
       }
     }
   }
@@ -334,8 +304,9 @@ export class LetterOfSetOffComponent implements OnInit {
       await this.customerService.getJointInfoDetails(associateId).toPromise().then((res: any) => {
         this.jointInfoData = JSON.parse(res.detail.jointInfo);
       }, error => {
-        console.error(error);
+        console.log(error);
       });
     }
   }
+
 }

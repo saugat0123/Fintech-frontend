@@ -627,7 +627,7 @@
                     (change)="getMunicipalityByDistrict(form.get('district').value)">
               <option [ngValue]="null" hidden>District</option>
               <option *ngFor="let district of allDistrictList"
-                      [ngValue]="district">{{district.name}}</option>
+                      [ngValue]="district">{{district.name || district.nepaliName}}</option>
             </select>
           </td>
           <td class="abc">{{objectTranslate?.district}}</td>
@@ -650,7 +650,7 @@
                     name="municipality">
               <option *ngFor="let municipalityVal of municipalityList"
                       [ngValue]="municipalityVal">
-                {{municipalityVal.name}}
+                {{municipalityVal.name || municipalityVal.nepaliName}}
               </option>
             </select>
           </td>
@@ -835,7 +835,7 @@
                         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                         <td colspan="2">Sheet No (सिट नं.)</td>
                         <td><input type="text" class="form-control" formControlName="securityOwnersSeatNo"
-                            (input)="translateSecuritiDetailsNumberFields('securities', 'securityOwnersSeatNo', i, 'securityOwnersSeatNoTransVal')"/></td>
+                            (change)="onChangeTranslateSecurity('securities', 'securityOwnersSeatNo', i, 'securityOwnersSeatNoTransVal')"/></td>
                         <td>
                             <input type="text" readonly class="form-control" formControlName="securityOwnersSeatNoTransVal" />
                         </td>
@@ -846,8 +846,8 @@
                 
                         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                         <td colspan="2">Kitta No (कित्ता नं.)</td>
-                        <td><input type="number" class="form-control" formControlName="securityOwnersKittaNo"
-                            (input)="translateSecuritiDetailsNumberFields('securities', 'securityOwnersKittaNo', i, 'securityOwnersKittaNoTransVal')"/></td>
+                        <td><input type="text" class="form-control" formControlName="securityOwnersKittaNo"
+                            (input)="onChangeTranslateSecurity('securities', 'securityOwnersKittaNo', i, 'securityOwnersKittaNoTransVal')"/></td>
                         <td>
                             <input type="text" readonly class="form-control" formControlName="securityOwnersKittaNoTransVal"/>
                         </td>
@@ -859,7 +859,7 @@
                         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                         <td colspan="2">Land Area (क्षेत्रफल)</td>
                         <td><input type="text" class="form-control" formControlName="securityOwnersLandArea"
-                            (input)="translateSecuritiDetailsNumberFields('securities', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTransVal')" /></td>
+                            (input)="onChangeTranslateSecurity('securities', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTransVal')" /></td>
                         <td>
                             <input type="text" readonly class="form-control" formControlName="securityOwnersLandAreaTransVal"/>
                         </td>
