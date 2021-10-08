@@ -24,6 +24,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {EditLoanDetailComponent} from '../../../cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
 import {PersonalLoanTemplateEditComponent} from '../../../cad-view/template-data/personal-loan-template-edit/personal-loan-template-edit.component';
+import {PersonalOverdraftTemplateDataEditComponent} from '../../../cad-view/template-data/personal-overdraft-template-data-edit/personal-overdraft-template-data-edit.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -219,7 +220,18 @@ export class OfferLetterListComponent implements OnInit {
                   hasBackdrop: false,
                   dialogClass: 'model-full',
                 });
-              } else {
+              } else if (this.docName === 'Personal Overdraft') {
+                  this.dialogService.open(PersonalOverdraftTemplateDataEditComponent, {
+                    context: {
+                      offerLetterId: offerLetter.id,
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else {
                   this.toastService.show(new Alert(AlertType.ERROR, `${ObjectUtil.isEmpty(this.docName) ? 'offer letter' : this.docName} not found`));
                 }
             });
