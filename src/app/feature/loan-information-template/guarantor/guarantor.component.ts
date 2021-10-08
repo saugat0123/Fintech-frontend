@@ -17,6 +17,7 @@ import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfInc
 import {Occupation} from '../../admin/modal/occupation';
 import {Editor} from "../../../@core/utils/constants/editor";
 import {NgxSpinnerService} from "ngx-spinner";
+import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
     selector: 'app-guarantor',
@@ -54,13 +55,16 @@ export class GuarantorComponent implements OnInit {
     occupation = Occupation.enumObject();
     sameAsCurrentChecked = false;
     ckEditorConfig = Editor.CK_CONFIG;
+    customerLoanList;
+    referencedLoanList = [];
 
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
         private toastService: ToastService,
         private blackListService: BlacklistService,
-        private overlay: NgxSpinnerService
+        private overlay: NgxSpinnerService,
+        private customerLoanService: LoanFormService
     ) {
     }
 
@@ -70,7 +74,9 @@ export class GuarantorComponent implements OnInit {
         this.getAllDistrict();
         this.relationList = this.relationshipList.relation;
         const formArray = this.form.get('guarantorDetails') as FormArray;
-
+        this.customerLoanService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
+            this.customerLoanList = res.detail;
+        });
     }
 
     buildForm() {
@@ -213,8 +219,23 @@ export class GuarantorComponent implements OnInit {
 
     }
 
-    removeGuarantorDetails(index: number) {
-        (this.form.get('guarantorDetails') as FormArray).removeAt(index);
+    removeGuarantorDetails(index: number, guarantorId) {
+        this.referencedLoanList = [];
+        let i = 0;
+        this.customerLoanList.forEach(item => {
+            item.taggedGuarantors.forEach(guarantor => {
+                if (guarantor.id === guarantorId) {
+                    this.referencedLoanList[i] = item.loan.name;
+                    i++;
+                }
+            });
+        });
+        if (this.referencedLoanList.length > 0) {
+            this.toastService.show(new Alert(AlertType.ERROR
+                , 'Unable to remove the guarantor. It is being referenced in the loan ' + this.referencedLoanList));
+        } else {
+            (this.form.get('guarantorDetails') as FormArray).removeAt(index);
+        }
     }
 
     getProvince() {
