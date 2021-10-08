@@ -274,7 +274,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           queryParams: {
             loanConfigId: loanConfigId,
             customerId: customerId,
-            catalogue: true
+            catalogue: true,
+            customerInfoId: this.companyInfoId
           }
         });
       }
@@ -283,7 +284,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         queryParams: {
           loanConfigId: loanConfigId,
           customerId: customerId,
-          catalogue: true
+          catalogue: true,
+          customerInfoId: this.companyInfoId
         }
       });
     }
