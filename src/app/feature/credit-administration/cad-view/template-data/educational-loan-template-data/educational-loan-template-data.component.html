@@ -44,7 +44,6 @@
           <i>Customer has total loan amount above One Crore</i></nb-checkbox>
       </div>
     </div>
-
     <div class="row mt-5">
       <table
           *ngIf="fieldFlag"
@@ -274,7 +273,7 @@
         </tr>
         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
           <td>Emi Amount Figure</td>
-          <td><input type="text" class="form-control"
+          <td><input type="number" class="form-control"
                      formControlName="emiAmountFigure"
                      (input)="getNumAmountWord('emiAmountFigure', 'emiAmountWords')"/></td>
           <td class="abc">{{translatedData?.emiAmountFigure}}</td>
@@ -492,7 +491,7 @@
 
         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
           <td>Pledge Amount Figure</td>
-          <td><input type="text" class="form-control" formControlName="pledgeAmountFigure"
+          <td><input type="number" class="form-control" formControlName="pledgeAmountFigure"
                      (input)="translateNumber('pledgeAmountFigure', 'pledgeAmountFigureTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.pledgeAmountFigure}}</td>
@@ -503,7 +502,7 @@
 
         <tr *ngIf="selectedSecurityVal === 'LAND_AND_BUILDING'">
           <td>Insurance Amount Figure</td>
-          <td><input type="text" class="form-control" formControlName="insuranceAmountFigure"
+          <td><input type="number" class="form-control" formControlName="insuranceAmountFigure"
                      (input)="translateNumber('insuranceAmountFigure', 'insuranceAmountFigureTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.insuranceAmountFigure}}</td>
@@ -612,7 +611,7 @@
           </td>
         </tr>
 
-        <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+        <!-- <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
           <td>Property Owners Name (धनीको नाम थर)</td>
           <td><input type="text" class="form-control" formControlName="ownersName"/></td>
           <td class="abc">{{translatedData?.ownersName}}</td>
@@ -625,7 +624,7 @@
           <td>District (जिल्ला)</td>
           <td>
             <select formControlName="district" class="custom-select" id="district"
-                    (input)="getMunicipalityByDistrict(form.get('district').value)">
+                    (change)="getMunicipalityByDistrict(form.get('district').value)">
               <option [ngValue]="null" hidden>District</option>
               <option *ngFor="let district of allDistrictList"
                       [ngValue]="district">{{district.name}}</option>
@@ -698,7 +697,7 @@
           <td>
             <input type="text" class="form-control" formControlName="landAreaTransVal"/>
           </td>
-        </tr>
+        </tr> -->
 
         <!--                <tr>-->
         <!--                    <td>Promissory Note Amount</td>-->
@@ -726,19 +725,185 @@
 
       </table>
     </div>
+    <div class="row pt-5 pl-2">
+        <div class="col-md-12">
+            <button nbButton size="small" status="info" outline class="float-right" (click)="translate()" [disabled]="!fieldFlag">
+                Translate Template Details
+              </button>
+        </div>
+    </div>
+    <hr />
+    <div class="securities-sections" *ngIf="form.get('selectedSecurity').value && form.get('selectedSecurity').value !== 'FIXED_DEPOSIT'">
+        <div class="row security pt-3 pl-2">
+            <div class="col-md-12">
+                <h6>Security Details</h6>
+            </div>
+        </div>
+        <div class="row pt-3 pl-2">
+            <div class="col-md-12">
+                <button nbButton status="primary" class="float-right" size="tiny" (click)="addDefaultSecurity()">Add
+                    Securities
+                </button>
+            </div>
+        </div>
+        <div class="row pt-3 pl-2">
+            <div class="col-sm-12">
+                <table class="table table-borderless text-center sb-small table-sm"
+                *ngFor="let security of form.get('securities')['controls']; let i = index" formArrayName="securities">
+                <tbody [formGroupName]="i">
+                    <tr>
+                        <td>
+                            <label class="title">
+                                <strong>
+                                    {{i + 1}}. Security Details
+                                </strong>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+                        <td colspan="2">Property Owners Name (धनीको नाम थर)</td>
+                        <td><input type="text" class="form-control" formControlName="securityOwnersName" (change)="onChangeSecurityOwnersName('securities', 'securityOwnersName', i, 'securityOwnersNameTransVal')" /></td>
+                        <td>
+                            <input type="text" readonly class="form-control" formControlName="securityOwnersNameTransVal"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" formControlName="securityOwnersNameCT"/>
+                        </td>
+                        </tr>
+                
+                        <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+                        <td colspan="2">District (जिल्ला)</td>
+                        <td>
+                            <select (change)="getMunicipalityByDistrict(form.get(['securities', i, 'securityOwnersDistrict'])?.value?.id, $event, i); setDefaultNepaliResponse('securities', 'securityOwnersDistrict', i, 'securityOwnersDistrictTransVal')" formControlName="securityOwnersDistrict" class="custom-select" id="securityOwnersDistrict{{i}}" name="securityOwnersDistrict{{i}}">
+                            <option [ngValue]="null" hidden>District</option>
+                            <option *ngFor="let district of allDistrictList"
+                                    [ngValue]="district">{{district.name}} || {{district.nepaliName}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" readonly class="form-control" formControlName="securityOwnersDistrictTransVal"/>
+                            </td>
+                        <td>
+                            <input type="text" class="form-control" formControlName="securityOwnersDistrictCT"/>
+                        </td>
+                        </tr>
+                        <br>
+                        <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+                            <td colspan="2"></td>
+                            <td>
+                                <nb-radio-group name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc"
+                                    class="d-inline-flex">
+                                    <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                                </nb-radio-group>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+                        <td colspan="2">Municipality (नगर/गा.वि.स.)</td>
+                        <td>
+                            <select class="custom-select" (change)="setDefaultNepaliResponse('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTransVal')"
+                                    formControlName="securityOwnersMunicipality"
+                                    id="securityOwnersMunicipality{{i}}"
+                                    name="securityOwnersMunicipality{{i}}">
+                                <option [ngValue]="null" hidden>Municipality</option>
+                            <option *ngFor="let municipalityVal of municipalityListForSecurities[i]"
+                                    [ngValue]="municipalityVal">
+                                {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                            </option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" readonly class="form-control" formControlName="securityOwnersMunicipalityTransVal" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" formControlName="securityOwnersMunicipalityCT"/>
+                        </td>
+                        </tr>
+                
+                        <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+                        <td colspan="2">Ward No (वडा नं.)</td>
+                        <td><input type="text" class="form-control" formControlName="securityOwnersWardNo"
+                                    (input)="translateSecuritiDetailsNumberFields('securities', 'securityOwnersWardNo', i, 'securityOwnersWardNoTransVal')"/></td>
+                        <td>
+                            <input type="text" readonly class="form-control" formControlName="securityOwnersWardNoTransVal" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" formControlName="securityOwnersWardNoCT"/>
+                        </td>
+                        </tr>
+                
+                        <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+                        <td colspan="2">Sheet No (सिट नं.)</td>
+                        <td><input type="text" class="form-control" formControlName="securityOwnersSeatNo"
+                            (input)="translateSecuritiDetailsNumberFields('securities', 'securityOwnersSeatNo', i, 'securityOwnersSeatNoTransVal')"/></td>
+                        <td>
+                            <input type="text" readonly class="form-control" formControlName="securityOwnersSeatNoTransVal" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" formControlName="securityOwnersSeatNoCT"/>
+                        </td>
+                        </tr>
+                
+                        <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+                        <td colspan="2">Kitta No (कित्ता नं.)</td>
+                        <td><input type="number" class="form-control" formControlName="securityOwnersKittaNo"
+                            (input)="translateSecuritiDetailsNumberFields('securities', 'securityOwnersKittaNo', i, 'securityOwnersKittaNoTransVal')"/></td>
+                        <td>
+                            <input type="text" readonly class="form-control" formControlName="securityOwnersKittaNoTransVal"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" formControlName="securityOwnersKittaNoCT"/>
+                        </td>
+                        </tr>
+                
+                        <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+                        <td colspan="2">Land Area (क्षेत्रफल)</td>
+                        <td><input type="text" class="form-control" formControlName="securityOwnersLandArea"
+                            (input)="translateSecuritiDetailsNumberFields('securities', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTransVal')" /></td>
+                        <td>
+                            <input type="text" readonly class="form-control" formControlName="securityOwnersLandAreaTransVal"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" formControlName="securityOwnersLandAreaCT"/>
+                        </td>
+                        </tr>
+                        <br>
+                        <tr>
+                            <td *ngIf="form.get('securities')['length'] > 1" colspan="2"
+                                class="text-left">
+                            <button nbButton status="danger" size="tiny" (click)="removeIndividualSecurities(i)"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                            </td>
+                            <!-- <td [attr.colspan]="form.get('securities')['length'] > 1 ? '3' : '5'"
+                                class="text-right">
+                            <button nbButton status="info" outline size="small" (click)="translateIndividulSecurities(i)">
+                                Translate Security Details
+                            </button>
+                            </td> -->
+                        </tr>
+                        <br>
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
   </form>
-  <button [disabled]="previewBtn"
-          class="float-right" nbButton
-          (click)="openModel()"
-          status="primary">
-    Preview
-  </button>
-  <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right"
-          [disabled]="btnDisable">Save
-  </button>
-  <button nbButton size="medium" class="float-right" (click)="translate()" [disabled]="!fieldFlag">
-    Translate
-  </button>
+  <div class="row pt-4">
+      <div class="col-md-12">
+        <button [disabled]="previewBtn"
+        class="float-right" nbButton
+        (click)="openModel()"
+        status="primary" size="small">
+        Preview
+        </button>
+        <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right"
+        >Save
+        <!-- [disabled]="btnDisable" -->
+        </button>
+      </div>
+  </div>
 
 </div>
 

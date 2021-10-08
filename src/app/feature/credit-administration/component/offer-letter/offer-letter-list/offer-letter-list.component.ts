@@ -17,7 +17,12 @@ import {NbDialogService} from '@nebular/theme';
 import {CadOfferLetterConfigurationComponent} from '../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {CadOneformService} from '../../../service/cad-oneform.service';
 import {CustomerType} from '../../../../customer/model/customerType';
-import {CadDocStatus} from '../../../model/CadDocStatus';
+import {EducationalLoanTemplateEditComponent} from '../../../cad-view/template-data/educational-loan-template-edit/educational-loan-template-edit.component';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {OfferDocument} from '../../../model/OfferDocument';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {EditLoanDetailComponent} from '../../../cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -25,7 +30,10 @@ import {CadDocStatus} from '../../../model/CadDocStatus';
   styleUrls: ['./offer-letter-list.component.scss']
 })
 export class OfferLetterListComponent implements OnInit {
-
+  cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  offerDocumentList: Array<OfferDocument>;
+  docName: string;
+  initialInformation: any;
   // todo dynamic search obj for approve , pending
   searchObj = {docStatus: 'OFFER_AND_LEGAL_PENDING'};
   page = 1;
@@ -46,7 +54,8 @@ export class OfferLetterListComponent implements OnInit {
               public routeService: RouterUtilsService,
               private spinnerService: NgxSpinnerService,
               private dialogService: NbDialogService,
-              private cadOneFormService: CadOneformService) {
+              private cadOneFormService: CadOneformService,
+              private toastService: ToastService) {
   }
 
   static async loadData(other: OfferLetterListComponent) {
@@ -57,9 +66,6 @@ export class OfferLetterListComponent implements OnInit {
     // await other.userService.getDefaultCommunityUser().then(res => {
     //   this.defaultCommunityUser = res.detail.id;
     // });
-    other.searchObj = {
-      docStatus: 'OFFER_AND_LEGAL_PENDING',
-    };
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.spinner = false;
       console.log(res.detail);
@@ -99,7 +105,7 @@ export class OfferLetterListComponent implements OnInit {
 
 
   setSearchValue(value) {
-    this.searchObj = Object.assign(value, {docStatus: 'OFFER_PENDING'});
+    this.searchObj = Object.assign(value, {docStatus: 'OFFER_AND_LEGAL_PENDING'});
     OfferLetterListComponent.loadData(this);
   }
 
@@ -149,7 +155,7 @@ export class OfferLetterListComponent implements OnInit {
     this.service.getRoleInCad().subscribe((res: any) => {
       const roleListInCAD = res.detail;
       const role: ApprovalRoleHierarchy = roleListInCAD.filter(c => c.role.roleName === 'CAD')[0];
-      this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_PENDING', toRole: role.role.id});
+      this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_AND_LEGAL_PENDING', toRole: role.role.id});
       OfferLetterListComponent.loadData(this);
       this.spinner = false;
 
@@ -178,4 +184,48 @@ export class OfferLetterListComponent implements OnInit {
     });
 
   }
+
+    public editOfferLetter(id: any): void {
+        this.spinner = true;
+        this.service.detail(id).subscribe((res) => {
+            this.cadOfferLetterApprovedDoc = res.detail;
+            this.spinner = false;
+            this.offerDocumentList = this.cadOfferLetterApprovedDoc.offerDocumentList;
+            this.offerDocumentList.forEach(offerLetter => {
+                this.docName = offerLetter.docName;
+                if (this.docName === 'Educational Loan') {
+                    this.dialogService.open(EducationalLoanTemplateEditComponent, {
+                        context: {
+                            offerLetterId: offerLetter.id,
+                            customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                            offerDocumentList: this.offerDocumentList,
+                            initialInformation: JSON.parse(offerLetter.initialInformation)
+                        },
+                        hasBackdrop: false,
+                        dialogClass: 'model-full',
+                    });
+                } else {
+                    this.toastService.show(new Alert(AlertType.ERROR, 'No Offer Letter Found'));
+                }
+            });
+        }, error => {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, 'OOPS something went wrong please try again!!'));
+        });
+    }
+
+    public editLoanDetail(id: any): void {
+    this.spinner = true;
+    this.service.detail(id).subscribe((response) => {
+      this.dialogService.open(EditLoanDetailComponent, {
+        context: {
+          data: response.detail,
+        }
+      });
+      this.spinner = false;
+    }, error => {
+      this.spinner = false;
+      this.toastService.show(new Alert(AlertType.ERROR, 'OOPS something went wrong please try again!!'));
+    });
+    }
 }

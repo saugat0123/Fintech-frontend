@@ -76,6 +76,9 @@ import {NabilModule} from './cad-document-template/nabil/nabil.module';
 import { PersonalLoanTemplateDataComponent } from './cad-view/template-data/personal-loan-template-data/personal-loan-template-data.component';
 import { DocCheckComponent } from './component/doc-check/doc-check.component';
 import { DocCheckPendingComponent } from './component/doc-check/doc-check-pending/doc-check-pending.component';
+import { EducationalLoanTemplateEditComponent } from './cad-view/template-data/educational-loan-template-edit/educational-loan-template-edit.component';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { EditLoanDetailComponent } from './cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
 import { HomeLoanTemplateDataComponent } from './cad-view/template-data/home-loan-template-data/home-loan-template-data.component';
 import { ConstructionLoanComponent } from './cad-view/template-data/home-loan-type/construction-loan/construction-loan.component';
 
@@ -142,6 +145,9 @@ import { ConstructionLoanComponent } from './cad-view/template-data/home-loan-ty
     PersonalLoanTemplateDataComponent,
     DocCheckComponent,
     DocCheckPendingComponent,
+    EducationalLoanTemplateEditComponent,
+    EditLoanDetailComponent,
+    DocCheckPendingComponent,
     PersonalLoanTemplateDataComponent,
     HomeLoanTemplateDataComponent,
     ConstructionLoanComponent],
@@ -175,9 +181,10 @@ import { ConstructionLoanComponent } from './cad-view/template-data/home-loan-ty
     AdditionalExposureComponent,
     CadOfferLetterConfigurationComponent,
     CadFileSetupComponent,
-    ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent],
+    ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent,
+    EducationalLoanTemplateEditComponent, EditLoanDetailComponent],
   exports: [CadFileSetupComponent, FilterComponent],
-  providers: [RouterUtilsService]
+  providers: [RouterUtilsService, NgbActiveModal]
 })
 export class CreditAdministrationModule {
 }
