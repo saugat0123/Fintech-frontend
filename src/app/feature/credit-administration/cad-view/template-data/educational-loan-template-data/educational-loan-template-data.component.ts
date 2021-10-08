@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +20,7 @@ import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import { key } from 'ionicons/icons';
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -31,6 +32,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   tdValues: any = {};
   form: FormGroup;
   objectForm: FormGroup;
+  oneForm: FormGroup;
   fieldFlag = false;
   selectedSecurityVal;
   selectedCountryVal;
@@ -56,7 +58,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   cadDocStatus = CadDocStatus.key();
   offerLetterDocument: OfferDocument;
   submitted = false;
-
+  municipalityListForSecurities = [];
   constructor(
       private formBuilder: FormBuilder,
       private dialogService: NbDialogService,
@@ -97,14 +99,18 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     });
   }
 
-  public getMunicipalityByDistrict(district): void {
-    this.addressService.getMunicipalityVDCByDistrict(district).subscribe((response: any) => {
-      this.municipalityList = response.detail;
-      this.municipalityList.sort((a, b) => a.name.localeCompare(b.name));
-      if (event !== null) {
-        this.form.get('municipality').patchValue(null);
+  public getMunicipalityByDistrict(data, event, index): void {
+    const district = new District();
+    district.id = data;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+      (response: any) => {
+        this.municipalityListForSecurities[index] = response.detail;
+        this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+        if (event !== null) {
+          this.form.get(['securities', index, 'securityOwnersMunicipalityOrVdc']).patchValue(null);
+        }
       }
-    });
+    );
   }
 
   buildForm() {
@@ -216,11 +222,82 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanDeedAmountTransVal: [undefined],
       municipalityOrVdc: [undefined],
       municipalityOrVdcTransVal: [undefined],
+      securities: this.formBuilder.array([])
     });
+    this.addDefaultSecurity();
+  }
+
+  addDefaultSecurity() {
+    (this.form.get('securities') as FormArray).push(
+      this.initSecuritiesForm()
+    );
+  }
+
+  initSecuritiesForm() {
+    return this.formBuilder.group({
+      securityOwnersName: [undefined],
+      securityOwnersNameTransVal: [{value: undefined, disabled: true}],
+      securityOwnersNameCT: [undefined],
+      
+      securityOwnersDistrict: [undefined],
+      securityOwnersDistrictTransVal: [{value: undefined, disabled: true}],
+      securityOwnersDistrictCT: [undefined],
+
+      securityOwnersMunicipalityOrVdc: [undefined],
+
+      securityOwnersMunicipality: [undefined],
+      securityOwnersMunicipalityTransVal: [{value: undefined, disabled: true}],
+      securityOwnersMunicipalityCT: [undefined],
+
+      securityOwnersWardNo: [undefined],
+      securityOwnersWardNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersWardNoCT: [undefined],
+
+      securityOwnersSeatNo: [undefined],
+      securityOwnersSeatNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersSeatNoCT: [undefined],
+
+      securityOwnersKittaNo: [undefined],
+      securityOwnersKittaNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersKittaNoCT: [undefined],
+
+      securityOwnersLandArea: [undefined],
+      securityOwnersLandAreaTransVal: [{value: undefined, disabled: true}],
+      securityOwnersLandAreaCT: [undefined],
+    });
+  }
+
+  removeIndividualSecurities(i) {
+    (this.form.get('securities') as FormArray).removeAt(i);
+  }
+
+  translateSecuritiDetailsNumberFields(arrName, source, index, target) {
+    const translatedNepaliNum = this.engToNepaliNumberPipe.transform(String(this.form.get([String(arrName), index, String(source)]).value));
+    this.form.get([String(arrName), index, String(target)]).patchValue(translatedNepaliNum);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(translatedNepaliNum);
+  }
+
+  setDefaultNepaliResponse(arrName, source, index, target) {
+    this.form.get([String(arrName), index, String(target)]).patchValue(this.form.get([String(arrName), index, String(source)]).value.nepaliName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(this.form.get([String(arrName), index, String(source)]).value.nepaliName);
+  }
+
+  async onChangeSecurityOwnersName(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
   }
 
   submit() {
     this.submitted = true;
+    const securityDetails = [{
+      securityType: this.form.get('selectedSecurity').value,
+      securities: this.form.get('securities').value,
+    }]
+    console.log('form submission details: ', securityDetails);
     if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
       this.clearConditionalValidation();
     }
@@ -255,7 +332,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
       Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
+        console.log('key: ', key);
+        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
           return;
         }
         this.attributes = new Attributes();
@@ -264,11 +342,13 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
+      this.tdValues['securityDetails'] = securityDetails;
       this.translatedData = {};
       this.deleteCTAndTransContorls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
+    console.log('this.customerApprovedDoc: ', this.customerApprovedDoc);
 
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
@@ -365,7 +445,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   mappedData() {
     Object.keys(this.form.controls).forEach(key => {
-      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
+      console.log('key: ', key);
+      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
         return;
       }
       this.attributes = new Attributes();
