@@ -19,6 +19,7 @@ export class CommonAddressComponent implements OnInit {
   addressForm: FormGroup;
   submitData;
   submitted = false;
+
   constructor(private addressService: AddressService,
               private formBuilder: FormBuilder) { }
 
@@ -49,7 +50,6 @@ export class CommonAddressComponent implements OnInit {
   }
 
   getDistrictsById(provinceId: number, event) {
-    console.log(provinceId);
     const province = new Province();
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
@@ -84,7 +84,6 @@ export class CommonAddressComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.addressForm);
     this.submitData = this.addressForm.value;
   }
 

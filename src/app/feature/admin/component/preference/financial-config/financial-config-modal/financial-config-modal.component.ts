@@ -40,14 +40,30 @@ export class FinancialConfigModalComponent implements OnInit {
       year: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.year, Validators.required],
       isCurrentYear: [ObjectUtil.isEmpty(this.fiscalYear) ? false : this.fiscalYear.isCurrentYear, Validators.required],
       status: [ObjectUtil.isEmpty(this.fiscalYear) ? Status.ACTIVE : this.fiscalYear.status],
-      qOneStartDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.qOneStartDate, Validators.required],
-      qOneEndDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.qOneEndDate, Validators.required],
-      qTwoStartDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.qThreeStartDate, Validators.required],
-      qTwoEndDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.qTwoEndDate, Validators.required],
-      qThreeStartDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.qThreeStartDate, Validators.required],
-      qThreeEndDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.qTwoEndDate, Validators.required],
-      qFourStartDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.qFourStartDate, Validators.required],
-      qFourEndDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.qFourEndDate, Validators.required],
+      qOneStartDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined :
+          ObjectUtil.isEmpty(this.fiscalYear.qOneStartDate) ? undefined :
+              new Date(this.fiscalYear.qOneStartDate), Validators.required],
+      qOneEndDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined :
+          ObjectUtil.isEmpty(this.fiscalYear.qOneEndDate) ? undefined :
+              new Date(this.fiscalYear.qOneEndDate), Validators.required],
+      qTwoStartDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined :
+          ObjectUtil.isEmpty(this.fiscalYear.qTwoStartDate) ? undefined :
+              new Date(this.fiscalYear.qTwoStartDate), Validators.required],
+      qTwoEndDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined :
+          ObjectUtil.isEmpty(this.fiscalYear.qTwoEndDate) ? undefined :
+              new Date(this.fiscalYear.qTwoEndDate), Validators.required],
+      qThreeStartDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined :
+          ObjectUtil.isEmpty(this.fiscalYear.qThreeStartDate) ? undefined :
+              new Date(this.fiscalYear.qThreeStartDate), Validators.required],
+      qThreeEndDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined :
+          ObjectUtil.isEmpty(this.fiscalYear.qThreeEndDate) ? undefined :
+              new Date(this.fiscalYear.qThreeEndDate), Validators.required],
+      qFourStartDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined :
+          ObjectUtil.isEmpty(this.fiscalYear.qFourStartDate) ? undefined :
+              new Date(this.fiscalYear.qFourStartDate), Validators.required],
+      qFourEndDate: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined :
+          ObjectUtil.isEmpty(this.fiscalYear.qFourEndDate) ? undefined :
+              new Date(this.fiscalYear.qFourEndDate), Validators.required],
       id: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.id],
       version: [ObjectUtil.isEmpty(this.fiscalYear) ? undefined : this.fiscalYear.version],
     });
