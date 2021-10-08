@@ -12,7 +12,7 @@
                 <td><input type="text" class="form-control" formControlName="referenceNumber"
                            (input)="translateNumber('referenceNumber', 'referenceNumberTransVal')">
                 </td>
-                <td class="abc">{{translatedValues?.referenceNumber}}</td>
+                <td class="abc">{{podtranslatedData?.referenceNumber}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"
@@ -85,7 +85,7 @@
             <tr>
                 <td>Purpose of Loan</td>
                 <td><input type="text" class="form-control" formControlName="purposeofLoan"></td>
-                <td class="abc">{{translatedValues?.purposeofLoan}}</td>
+                <td class="abc">{{podtranslatedData?.purposeofLoan}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.purposeofLoanTransVal.errors }"
@@ -101,7 +101,7 @@
                 <td><input type="text" class="form-control" formControlName="baseRate"
                            (input)="calInterestRate()">
                 </td>
-                <td class="abc">{{translatedValues?.baseRate}}</td>
+                <td class="abc">{{podtranslatedData?.baseRate}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.baseRateTransVal.errors }"
@@ -117,7 +117,7 @@
                 <td><input type="text" class="form-control"
                            formControlName="premiumRate"
                            (input)="calInterestRate()"></td>
-                <td class="abc">{{translatedValues?.premiumRate}}</td>
+                <td class="abc">{{podtranslatedData?.premiumRate}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.premiumRateTransVal.errors }"
@@ -131,7 +131,7 @@
             <tr>
                 <td>Yearly Interest Rate</td>
                 <td><input type="text" class="form-control" formControlName="yearlyInterestRate"></td>
-                <td class="abc">{{translatedValues?.yearlyInterestRateTransVal}}</td>
+                <td class="abc">{{podtranslatedData?.yearlyInterestRateTransVal}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.yearlyInterestRateTransVal.errors }"
@@ -146,7 +146,7 @@
                 <td>Loan Admin Fee in Figure</td>
                 <td><input type="text" class="form-control" formControlName="loanAdminFeeinFigure"
                            (input)="getNumAmountWord('loanAdminFeeinFigure', 'loanAdminFeeinWords');translateNumber('loanAdminFeeinFigure', 'loanAdminFeeinFigureTransVal')"></td>
-                <td class="abc">{{translatedValues?.loanAdminFeeinFigure}}</td>
+                <td class="abc">{{podtranslatedData?.loanAdminFeeinFigure}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinFigureTransVal.errors }"
@@ -160,7 +160,7 @@
             <tr>
                 <td>Loan Admin Fee in Words</td>
                 <td><input type="text" class="form-control" formControlName="loanAdminFeeinWords"></td>
-                <td class="abc">{{translatedValues?.loanAdminFeeinWords}}</td>
+                <td class="abc">{{podtranslatedData?.loanAdminFeeinWords}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinWordsTransVal.errors }"
@@ -175,7 +175,7 @@
                 <td>Emi In Figure</td>
                 <td><input type="text" class="form-control" formControlName="emiInFigure"
                            (input)="getNumAmountWord('emiInFigure', 'emiInWords');translateNumber('emiInFigure', 'emiInFigureTransVal')"></td>
-                <td class="abc">{{translatedValues?.emiInFigure}}</td>
+                <td class="abc">{{podtranslatedData?.emiInFigure}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.emiInFigureTransVal.errors }"
@@ -189,7 +189,7 @@
             <tr>
                 <td>Emi In Words</td>
                 <td><input type="text" class="form-control" formControlName="emiInWords"></td>
-                <td class="abc">{{translatedValues?.emiInWords}}</td>
+                <td class="abc">{{podtranslatedData?.emiInWords}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.emiInWordsTransVal.errors }"
@@ -235,7 +235,7 @@
                            formControlName="accountNumber"
                            (input)="translateNumber('accountNumber', 'accountNumberTransVal')">
                 </td>
-                <td class="abc">{{translatedValues?.accountNumber}}</td>
+                <td class="abc">{{podtranslatedData?.accountNumber}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.accountNumberTransVal.errors }"
@@ -249,7 +249,7 @@
             <tr>
                 <td>Name of Company Customer Working</td>
                 <td><input type="text" class="form-control" formControlName="nameofCompanyCustomerWorking"></td>
-                <td class="abc">{{translatedValues?.nameofCompanyCustomerWorking}}</td>
+                <td class="abc">{{podtranslatedData?.nameofCompanyCustomerWorking}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.nameofCompanyCustomerWorkingTransVal.errors }"
@@ -263,7 +263,7 @@
             <tr>
                 <td>Relationship officer Name</td>
                 <td><input type="text" class="form-control" formControlName="relationshipofficerName"></td>
-                <td class="abc">{{translatedValues?.relationshipofficerName}}</td>
+                <td class="abc">{{podtranslatedData?.relationshipofficerName}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.relationshipofficerNameTransVal.errors }"
@@ -277,7 +277,7 @@
             <tr>
                 <td>Branch Manager</td>
                 <td><input type="text" class="form-control" formControlName="branchManager"></td>
-                <td class="abc">{{translatedValues?.branchManager}}</td>
+                <td class="abc">{{podtranslatedData?.branchManager}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.branchManagerTransVal.errors }"
@@ -306,7 +306,7 @@
                     <nepali-patro *ngIf="dateTypeBS3" formControlName="signatureDate" [responseType]="2"
                                   [displayNepali]="true">
                     </nepali-patro>
-                    <input [nbDatepicker]="doe"
+                    <input [nbDatepicker]="dos"
                            *ngIf="dateTypeAD3"
                            class="form-control form-control-sm-error rounded"
                            formControlName="signatureDate"
@@ -314,13 +314,13 @@
                            name="signatureDate"
                            placeholder="Signature Date"
                            type="text">
-                    <nb-datepicker #doe></nb-datepicker>
+                    <nb-datepicker #dos></nb-datepicker>
                 </td>
             </tr>
             <tr>
                 <td>Staff Name</td>
                 <td><input type="text" class="form-control" formControlName="staffName"></td>
-                <td class="abc">{{translatedValues?.staffName}}</td>
+                <td class="abc">{{podtranslatedData?.staffName}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.staffNameTransVal.errors }"

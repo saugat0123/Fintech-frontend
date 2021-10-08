@@ -94,7 +94,7 @@
                             <span [ngClass]="{'font-weight-bold' : letter?.premiumRate.ct !== null && letter?.premiumRate.ct !== ''}">
                                 {{letter?.premiumRate.ct === null || letter?.premiumRate.ct === '' ? '___________' : letter?.premiumRate.ct}}
                             </span>
-                            प्रतिशत ब्याज दर प्रिमियम( interest rate premium)
+                            % प्रतिशत ब्याज दर प्रिमियम( interest rate premium)
                             हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
                             <span [ngClass]="{'font-weight-bold' : letter?.yearlyInterestRate.ct !== null && letter?.yearlyInterestRate.ct !== ''}">
                                 {{letter?.yearlyInterestRate.ct === null || letter?.yearlyInterestRate.ct === '' ? '___________' : letter?.yearlyInterestRate.ct}}
@@ -629,18 +629,23 @@
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
                                 को धितो बन्धक तमसुक ।<br>
-                                छ. मूल्यांकन प्रतिवेदन ।<br>
-                                ज. श्री
-                                <span class=" font-weight-bold">{{guarantorName}}</span>
-                                को बैकको पक्षमा रु
-                                <span class=" font-weight-bold">
-                                        {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
-                                    </span>
-                                /-(अक्षरेपी रु
-                                <span class=" font-weight-bold">
-                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}
+                                छ. मूल्यांकन प्रतिवेदन ।
+                                <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px">
+                                    {{i+9 | nepaliWord}}
+                                    श्री
+                                    <span class=" font-weight-bold">
+                                    {{guarantorParse(data.nepData, 'guarantorName')}}
                                 </span>
-                                मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।<br>
+                                    को बैकको पक्षमा रु
+                                    <span class=" font-weight-bold">
+                                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                                </span>
+                                    /-(अक्षरेपी रु
+                                    <span class=" font-weight-bold">
+                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))}}
+                                </span>
+                                    मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                               <br>
                                 <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12">
                                     <p>
                                         <span class="nepaliFont"

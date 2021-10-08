@@ -584,26 +584,28 @@
                                                         name="loanAmountinFigure"
                                                         placeholder=" रकम "
                                                         type="text"/> को धितो बन्धक तमसुक ।<br>
-                                        छ.	मूल्यांकन प्रतिवेदन ।<br>
-                                        ज.	श्री <input class="form-field form-control-sm"
-                                                          formControlName="guarantorName"
-                                                          name="guarantorName"
-                                                          placeholder=" नाम "
-                                                          [value]="guarantorParse(guarantorData[0].nepData, 'guarantorName')"
-                                                          type="text"/>को बैकको
-                                        पक्षमा रु <input class="form-field form-control-sm"
-                                                         (input)="getNumAmountWord('guaranteedamountinFigure', 'guaranteedamountinWords')"
-                                                         formControlName="guaranteedamountinFigure"
-                                                         name="guaranteedamountinFigure"
-                                                         placeholder=" रकम "
-                                                         [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
-                                                         type="text"/>
-                                        (अक्षरेपी रु <input class="form-field form-control-sm"
-                                                            formControlName="guaranteedamountinWords"
-                                                            name="guaranteedamountinWords"
-                                                            placeholder=" रकम "
-                                                            [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
-                                                            type="text"/> मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।<br>
+                                        छ.	मूल्यांकन प्रतिवेदन ।
+                                        <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px">
+                                            {{i + 8 | nepaliWord}}
+                                            श्री
+                                            <input class="form-field form-control-sm col-3"
+                                                   formControlName="guarantorName"
+                                                   [value]="guarantorParse(data.nepData, 'guarantorName')"
+                                                   type="text"/>
+                                            को बैकको पक्षमा रु
+                                            <input class="form-field form-control-sm"
+                                                   formControlName="guaranteedAmountInFigure"
+                                                   [value]="guarantorParse(data.nepData, 'gurantedAmount')"
+                                                   type="text"/>
+                                            (अक्षरेपी रु <input class="form-field form-control-sm"
+                                                                formControlName="guaranteedamountinWords"
+                                                                name="guaranteedamountinWords"
+                                                                placeholder=" रकम "
+                                                                [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))"
+                                                                type="text"/>
+                                            मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                        </p>
+                                        <br>
                                         <div class="row col-md-12">
                                             <textarea
                                                     id="additionalGuarantorDetails"
