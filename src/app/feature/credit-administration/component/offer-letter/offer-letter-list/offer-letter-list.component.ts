@@ -66,9 +66,6 @@ export class OfferLetterListComponent implements OnInit {
     // await other.userService.getDefaultCommunityUser().then(res => {
     //   this.defaultCommunityUser = res.detail.id;
     // });
-    other.searchObj = {
-      docStatus: 'OFFER_AND_LEGAL_PENDING',
-    };
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.spinner = false;
       console.log(res.detail);
@@ -108,7 +105,7 @@ export class OfferLetterListComponent implements OnInit {
 
 
   setSearchValue(value) {
-    this.searchObj = Object.assign(value, {docStatus: 'OFFER_PENDING'});
+    this.searchObj = Object.assign(value, {docStatus: 'OFFER_AND_LEGAL_PENDING'});
     OfferLetterListComponent.loadData(this);
   }
 
