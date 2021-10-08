@@ -882,10 +882,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     // }
     console.log(guarantorDetails, 'listtttt');
     guarantorDetails.forEach((value, i) => {
-      this.getGuarantorDistrictsById(value.province.id, null, i);
-      this.getGuarantorMunicipalitiesById(value.district.id, null, i);
-      this.getGuarantorTempDistrictsById(value.provinceTemporary.id, null, i);
-      this.getGuarantorTempMunicipalitiesById(value.districtTemporary.id, null , i);
+      this.getGuarantorDistrictsById(ObjectUtil.isEmpty(value.province) ? null : value.province.id, null, i);
+      this.getGuarantorMunicipalitiesById(ObjectUtil.isEmpty(value.district) ? null : value.district.id, null, i);
+      this.getGuarantorTempDistrictsById(ObjectUtil.isEmpty(value.provinceTemporary) ? null : value.provinceTemporary.id, null, i);
+      this.getGuarantorTempMunicipalitiesById(ObjectUtil.isEmpty(value.districtTemporary) ? null : value.districtTemporary.id, null , i);
       const nepaData = JSON.parse(value.nepData);
 
 
