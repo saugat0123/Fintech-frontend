@@ -208,6 +208,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
             queryParams: {
                 loanId: this.loanConfigId,
                 customerId: this.id,
+                catalogue : this.catalogueStatus,
                 loanCategory: this.loanCategory,
                 customerInfoId: this.companyInfoId
             }

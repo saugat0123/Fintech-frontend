@@ -229,7 +229,7 @@ export class LoanFormComponent implements OnInit {
     };
     nbSpinner = false;
     companyInfoId: any;
-
+    catalogue;
     constructor(
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
@@ -268,6 +268,7 @@ export class LoanFormComponent implements OnInit {
                 this.allId = {
                     loanId: null,
                     customerId: null,
+                    catalogue : null,
                     loanCategory: null,
                     customerProfileId: null,  // CustomerInfo->associateId
                     customerType: null,
@@ -279,6 +280,7 @@ export class LoanFormComponent implements OnInit {
                 this.id = this.allId.loanId;
                 this.loan.id = this.id;
                 this.customerId = this.allId.customerId;
+                this.catalogue = this.allId.catalogue;
                 this.loanHolder.id = this.allId.customerInfoId;
                 this.loanType = this.allId.loanType;
 
@@ -892,6 +894,7 @@ export class LoanFormComponent implements OnInit {
                 this.router.navigate(['/home/loan/summary'], {queryParams: {
                         loanConfigId: this.id,
                         customerId: this.customerLoanId,
+                        catalogue : this.catalogue,
                         customerInfoId: this.companyInfoId
                 }})
                     .then(() => {
