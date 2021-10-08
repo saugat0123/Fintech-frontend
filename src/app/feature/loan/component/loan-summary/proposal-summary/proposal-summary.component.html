@@ -68,12 +68,9 @@
                         Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
-                <td class="text-right pr-1" >
-                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit">
-                        Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}
-                    </span>
-                    <span *ngIf="!(loan?.proposal?.data | jsonParse)?.outStandingLimit">-</span>
-                </td>
+                <td class="text-right pr-1">
+                    <span>{{loan?.proposal?.outStandingLimit |currency:'Rs '}}</span>
+                 </td>
                 <td class="text-right pr-1" >
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount">
                         Rs. {{(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount | currencyFormatter}}

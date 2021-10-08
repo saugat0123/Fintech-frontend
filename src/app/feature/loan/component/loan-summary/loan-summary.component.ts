@@ -29,7 +29,7 @@ import {CombinedLoanService} from '../../../service/combined-loan.service';
 import {CombinedLoan} from '../../model/combined-loan';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {ToastService} from '../../../../@core/utils';
+import {ModalResponse, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
@@ -48,6 +48,9 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ProposalService} from '../../../loan-update/service/proposal.service';
+import {MinimumAmountValidator} from '../../../../@core/validator/minimum-amount-validator';
 
 @Component({
     selector: 'app-loan-summary',
@@ -57,6 +60,8 @@ import {ObtainableDoc} from '../../../loan-information-template/obtained-documen
 export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     @Output() changeToApprovalSheetActive = new EventEmitter<string>();
+
+    @Output() refreshLoanSummary = new EventEmitter<boolean>();
 
     @Input() loanData;
     loanDataHolder: LoanDataHolder;
@@ -190,6 +195,25 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     otherObtainableDocuments = Array<string>();
     spinner = false;
     spinnerMsg = 'Please Wait!!';
+    disableUpdateProposal = true;
+    submitted = false;
+    minimumAmountLimit = 0;
+    isGeneral = false;
+    isShare = false;
+    isFundable = false;
+    isTerminating = false;
+    isRevolving = false;
+    isFixedDeposit = false;
+    isVehicle = false;
+    interestLimit: number;
+    proposalForm: FormGroup;
+    formDataForEdit: Object;
+    baseRate: Number;
+    interestRate: Number;
+    premiumRateOnBaseRate: Number;
+    fundableNonFundableSelcted = false;
+    loanNatureSelected = false;
+    companyInfoId: any;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -210,6 +234,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private fiscalYearService: FiscalYearService,
         private collateralSiteVisitService: CollateralSiteVisitService,
         private nbDialogService: NbDialogService,
+        private formBuilder: FormBuilder,
+        private proposalService: ProposalService
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -223,20 +249,23 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe((res) => {
            this.customerLoanService.detail(res.customerId).subscribe(response => {
+               this.companyInfoId =  response.detail.loanHolder.id;
             const details = JSON.parse(response.detail.data);
-               if (!ObjectUtil.isEmpty(details.documents)) {
-                   details.documents.forEach(resData => {
-                       this.obtainableDocuments.push(resData);
-                   });
+               if (!ObjectUtil.isEmpty(details)) {
+                   if (!ObjectUtil.isEmpty(details.documents)) {
+                       details.documents.forEach(resData => {
+                           this.obtainableDocuments.push(resData);
+                       });
+                   }
+                   if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
+                       details.OtherDocuments.split(',').forEach(splitData => {
+                           if (splitData !== '') {
+                               this.otherObtainableDocuments.push(splitData);
+                           }
+                           console.log(this.otherObtainableDocuments);
+                       });
+                   }
                }
-               if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
-                details.OtherDocuments.split(',').forEach(splitData => {
-                    if (splitData !== '') {
-                        this.otherObtainableDocuments.push(splitData);
-                    }
-                    console.log(this.otherObtainableDocuments);
-                });
-            }
            });
 
         });
@@ -272,6 +301,28 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         if (!ObjectUtil.isEmpty(this.combinedLoanId)) {
             this.id = this.combinedLoanId;
+        }
+        this.isFundable = this.loanConfig.isFundable;
+        this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(this.loanConfig.isFundable);
+        this.isFixedDeposit = this.loanConfig.loanTag === 'FIXED_DEPOSIT';
+        this.isGeneral = this.loanConfig.loanTag === 'GENERAL';
+        this.isShare = this.loanConfig.loanTag === 'SHARE_SECURITY';
+        this.isVehicle = this.loanConfig.loanTag === 'VEHICLE';
+        this.minimumAmountLimit = this.loanConfig.minimumProposedAmount;
+        if (!ObjectUtil.isEmpty(this.loanConfig.loanNature)) {
+            this.loanNatureSelected = true;
+            this.isRevolving = this.loanConfig.loanNature === 0;
+            this.isTerminating = this.loanConfig.loanNature === 1;
+            if (this.isRevolving) {
+                this.isGeneral = false;
+            }
+        }
+        if (!this.isFundable) {
+            this.isGeneral = false;
+        }
+        if (this.isFixedDeposit) {
+            this.loanNatureSelected = false;
+            this.fundableNonFundableSelcted = false;
         }
     }
 
@@ -480,6 +531,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         // getting fiscal years
         this.getFiscalYears();
+        // Disable Update proposal button
+        this.disableUpdateProposal = !(LocalStorageUtil.getStorage().roleType === 'APPROVAL' &&
+            (this.loanDataHolder.currentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId));
     }
 
     getAllLoans(customerInfoId: number): void {
@@ -577,6 +631,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                             loanConfigId: loanId,
                             customerId: id,
                             catalogue: true,
+                            customerInfoId: this.companyInfoId
+
                         }
                     });
             }
@@ -662,6 +718,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                             queryParams: {
                                 loanConfigId: this.loanConfigId,
                                 customerId: this.customerId,
+                                customerInfoId : this.companyInfoId
                             }
                         });
                 }
@@ -772,14 +829,105 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.router.navigate(['/home/loan/summary'], {
                 queryParams: {
                     loanConfigId: this.loanDataHolder.loan.id,
-                    customerId: this.loanDataHolder.id
+                    customerId: this.loanDataHolder.id,
+                    customerInfoId: this.companyInfoId
                 }
             });
             this.getLoanDataHolder();
+            this.reloadForm();
             this.spinner = false;
         }, error =>  {
             this.spinner = false;
         });
+    }
+
+    openModel(model) {
+        this.buildForm();
+        this.modalService.open(model);
+    }
+
+    get formControls() {
+        return this.proposalForm.controls;
+    }
+
+    onSubmit () {
+        this.formDataForEdit['baseRate'] = (this.proposalForm.controls['baseRate'].value);
+        this.formDataForEdit['proposedLimit'] = (this.proposalForm.controls['proposedLimit'].value);
+        this.formDataForEdit['interestRate'] = (this.proposalForm.controls['interestRate'].value);
+        this.formDataForEdit['premiumRateOnBaseRate'] = (this.proposalForm.controls['premiumRateOnBaseRate'].value);
+
+        this.proposalData.data = JSON.stringify(this.formDataForEdit);
+        this.proposalData.proposedLimit = this.proposalForm.controls['proposedLimit'].value;
+
+        this.proposalService.saveProposal(this.proposalData.id, this.proposalData).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Proposal!'));
+            this.modalService.dismissAll();
+            this.refresh();
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Proposal!'));
+        });
+    }
+
+    buildForm() {
+        // Build proposal form
+        this.proposalForm = this.formBuilder.group({
+            proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
+            interestRate: [undefined],
+            baseRate: [undefined],
+            premiumRateOnBaseRate: [undefined]
+        });
+
+        // Fill form values
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+            this.formDataForEdit = JSON.parse(this.loanDataHolder.proposal.data);
+            if (this.formDataForEdit !== null && this.formDataForEdit !== undefined && !ObjectUtil.isEmpty(this.formDataForEdit)) {
+                this.proposalForm.setValue({
+                    proposedLimit: this.formDataForEdit['proposedLimit'],
+                    baseRate: this.formDataForEdit['baseRate'],
+                    interestRate: this.formDataForEdit['interestRate'],
+                    premiumRateOnBaseRate: this.formDataForEdit['premiumRateOnBaseRate']
+                });
+            }
+        }
+    }
+
+    updateRate() {
+        this.baseRate = this.proposalForm.controls['baseRate'].value;
+        this.interestRate = this.proposalForm.controls['interestRate'].value;
+        // @ts-ignore
+        this.premiumRateOnBaseRate = (this.interestRate - this.baseRate).toPrecision(2);
+        this.proposalForm.controls['premiumRateOnBaseRate'].patchValue(this.premiumRateOnBaseRate);
+    }
+
+    refresh() {
+        this.refreshLoanSummary.emit(true);
+    }
+
+    reloadForm() {
+        this.isFundable = this.loanDataHolder.loan.isFundable;
+        this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(this.loanDataHolder.loan.isFundable);
+        this.isFixedDeposit = this.loanDataHolder.loan.loanTag === 'FIXED_DEPOSIT';
+        this.isGeneral = this.loanDataHolder.loan.loanTag === 'GENERAL';
+        this.isShare = this.loanDataHolder.loan.loanTag === 'SHARE_SECURITY';
+        this.isVehicle = this.loanDataHolder.loan.loanTag === 'VEHICLE';
+        this.minimumAmountLimit = this.loanDataHolder.loan.minimumProposedAmount;
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loan.loanNature)) {
+            this.loanNatureSelected = true;
+            this.isRevolving = this.loanDataHolder.loan.loanNature === 0;
+            this.isTerminating = this.loanDataHolder.loan.loanNature === 1;
+            if (this.isRevolving) {
+                this.isGeneral = false;
+            }
+        }
+        if (!this.isFundable) {
+            this.isGeneral = false;
+        }
+        if (this.isFixedDeposit) {
+            this.loanNatureSelected = false;
+            this.fundableNonFundableSelcted = false;
+        }
+        this.proposalForm.reset();
     }
 }
 
