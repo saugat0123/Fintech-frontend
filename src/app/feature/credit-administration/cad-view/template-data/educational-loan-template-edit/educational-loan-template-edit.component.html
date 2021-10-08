@@ -475,6 +475,13 @@
                 </div>
             </div>
             <div class="row pt-3 pl-2">
+                <div class="col-md-12">
+                    <button nbButton status="primary" class="float-right" size="tiny" (click)="addDefaultSecurity()">Add
+                        Securities
+                    </button>
+                </div>
+            </div>
+            <div class="row pt-3 pl-2">
                 <div class="col-sm-12">
                     <table class="table table-borderless text-center sb-small table-sm"
                            *ngFor="let security of form.get('securities')['controls']; let i = index" formArrayName="securities">
