@@ -891,15 +891,28 @@ export class LoanFormComponent implements OnInit {
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
                 this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully saved`));
-                this.router.navigate(['/home/loan/summary'], {queryParams: {
-                        loanConfigId: this.id,
-                        customerId: this.customerLoanId,
-                        catalogue : this.catalogue,
-                        customerInfoId: this.companyInfoId
-                }})
+                if (this.catalogue === 'true') {
+                    this.router.navigate(['/home/loan/summary'], {
+                        queryParams: {
+                            loanConfigId: this.id,
+                            customerId: this.customerLoanId,
+                            catalogue : this.catalogue,
+                            customerInfoId: this.companyInfoId
+                        }
+                    })
                     .then(() => {
                         this.spinner.hide();
                     });
+                } else {
+                    this.router.navigate(['/home/loan/summary'], {queryParams: {
+                            loanConfigId: this.id,
+                            customerId: this.customerLoanId,
+                            customerInfoId: this.companyInfoId
+                        }})
+                    .then(() => {
+                        this.spinner.hide();
+                    });
+                }
             }, error => {
                 this.nbSpinner=false;
                 console.error(error);
