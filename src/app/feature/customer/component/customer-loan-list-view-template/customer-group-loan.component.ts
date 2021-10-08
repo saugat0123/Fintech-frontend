@@ -48,7 +48,17 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   customerInfo: CustomerInfoData;
   @Input()
   fetchType: FetchLoan;
-
+  approvedLoans=[];
+  nonFundedApprovedLoans;
+  fundedApprovedLoans;
+  allFundedList;
+  fundedList;
+  allNonFundedList;
+  nonFundedList;
+  facSelectedLoans;
+  fundedCollateralTotal;
+  nonFundedCollateralTotalView;
+  totalCollateralView;
   @Output() messageToEmit: EventEmitter<LoanAmountType> = new EventEmitter();
 
   fetchLoan = FetchLoan;
@@ -91,6 +101,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.calculation();
+    this.filterLoan();
     this.initial();
     this.activatedRoute.queryParams.subscribe((data)=> {
       this.companyInfoId = data.customerInfoId;
@@ -371,6 +383,43 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       }
     });
   }
+  filterLoan() {
+    this.customerLoanService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+      this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+      this.nonFundedApprovedLoans = this.approvedLoans.filter((l) => !l.loan.isFundable);
+      this.fundedApprovedLoans = this.approvedLoans.filter((l) => l.loan.isFundable);
+
+      this.allFundedList = response.detail.filter((l) => l.loan.isFundable);
+      this.fundedList = this.allFundedList.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]);
+      this.allNonFundedList = response.detail.filter((l) => !l.loan.isFundable)
+      this.nonFundedList = this.allNonFundedList.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]);
+      this.facSelectedLoans = this.nonFundedList.filter((l) => l.proposal.cashMarginOrFac === 'FAC');
+    });
+  }
+
+  calculation() {
+    this.customerLoanService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+      let fundedCollateralTotal =0;
+      this.allFundedList.forEach(value => {
+        if(value.proposal){
+          fundedCollateralTotal += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+        }
+      });
+      this.fundedCollateralTotal =fundedCollateralTotal;
+
+      let nonFundedCollateralTotalView = 0;
+      this.allNonFundedList.forEach(value => {
+        if(value.proposal ){
+          nonFundedCollateralTotalView += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+        }
+      });
+      this.nonFundedCollateralTotalView = nonFundedCollateralTotalView;
+
+      this.totalCollateralView = this.fundedCollateralTotal + this.nonFundedCollateralTotalView
+      console.log('collateral total', this.totalCollateralView);
+
+    })
+  }
 
   displaySecurityDetails() {
     if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
@@ -389,4 +438,5 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       this.displaySecurity = false;
     }
   }
+
 }
