@@ -134,7 +134,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       // nameofGuarantorsTransVal: [undefined],
       /*guaranteedamountinFigureTransVal: [undefined],
       guaranteedamountinWordsTransVal: [undefined],*/
-      insuranceAmountinFigureTransVal: [undefined, Validators.required],
+      insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined, Validators.required],
       nameofBranchManagerTransVal: [undefined, Validators.required],
       staffNameTransVal: [undefined, Validators.required],
