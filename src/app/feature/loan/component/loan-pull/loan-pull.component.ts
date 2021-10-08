@@ -77,9 +77,6 @@ export class LoanPullComponent implements OnInit {
     // await other.userService.getDefaultCommunityUser().then(res => {
     //     this.defaultCommunityUser = res.detail.id;
     // });
-    other.searchObj = {
-      isPULL: 'true'
-    };
     other.cadService.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.spinner = false;
       other.loanList = res.detail.content;
