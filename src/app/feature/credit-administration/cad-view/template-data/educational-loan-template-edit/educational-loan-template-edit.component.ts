@@ -371,7 +371,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
-
+    console.log(this.customerApprovedDoc);
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.customerApprovedDoc = res.detail;
