@@ -26,12 +26,30 @@
             type="text"
           />
           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'grandFatherName']).value}}</strong></span>
-          को नाति/नातिनी/बुहारी
+          को
+          <span *ngIf="loanHolderNepData.gender.en === 'MALE' else relation">नाति </span>
+          <ng-template #relation>
+            <span *ngIf="loanHolderNepData.relationMedium !== undefined && loanHolderNepData.relationMedium.en === '1'">
+              नातिनी
+            </span>
+            <span *ngIf="loanHolderNepData.relationMedium !== undefined && loanHolderNepData.relationMedium.en === '0'">
+              बुहारी
+            </span>
+          </ng-template>
           <input class="form-field form-control-sm d-print-none"
             name="father_husbandName"
             formControlName="father_husbandName" placeholder="" type="text"/>
             <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'father_husbandName']).value}}</strong></span>
-          को छोरा/छोरी/श्रीमती
+          को
+          <span  *ngIf="loanHolderNepData.gender.en === 'MALE' else fatherRelation"> छोरा </span>
+          <ng-template #fatherRelation>
+            <span *ngIf="loanHolderNepData.relationMedium !== undefined && loanHolderNepData.relationMedium.en === '1'">
+              छोरी
+            </span>
+            <span *ngIf="loanHolderNepData.relationMedium !== undefined && loanHolderNepData.relationMedium.en === '0'">
+              श्रीमती
+            </span>
+          </ng-template>
           <input
             class="form-field form-control-sm d-print-none"
             formControlName="district"
@@ -47,7 +65,11 @@
             type="text"
           />
           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'municipality']).value}}</strong></span>
-          न.पा./गा.वि.स. वडा नंं.
+          <span *ngIf="loanHolderNepData.municipalityOrVdc.en === vdcOption[0].value">
+            न.पा.
+          </span>
+          <span *ngIf="loanHolderNepData.municipalityOrVdc.en === vdcOption[1].value"> गा.वि.स. </span>
+          वडा नंं.
           <input
             class="form-field form-control-sm d-print-none"
             formControlName="wardNo"
