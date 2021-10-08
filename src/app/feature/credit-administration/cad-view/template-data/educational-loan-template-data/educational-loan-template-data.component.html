@@ -628,7 +628,7 @@
                     (change)="getMunicipalityByDistrict(form.get('district').value)">
               <option [ngValue]="null" hidden>District</option>
               <option *ngFor="let district of allDistrictList"
-                      [ngValue]="district">{{district.name}}</option>
+                      [ngValue]="district">{{district.name || district.nepaliName}}</option>
             </select>
           </td>
           <td class="abc">{{objectTranslate?.district}}</td>
@@ -651,7 +651,7 @@
                     name="municipality">
               <option *ngFor="let municipalityVal of municipalityList"
                       [ngValue]="municipalityVal">
-                {{municipalityVal.name}}
+                {{municipalityVal.name || municipalityVal.nepaliName}}
               </option>
             </select>
           </td>

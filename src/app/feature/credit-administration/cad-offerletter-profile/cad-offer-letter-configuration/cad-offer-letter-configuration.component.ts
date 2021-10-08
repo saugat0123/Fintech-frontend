@@ -499,7 +499,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     });
 
     // this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
-
+    if (this.customerType === CustomerType.INDIVIDUAL && this.customerSubType === CustomerSubType.JOINT) {
+      this.userConfigForm.get('jointCustomerDetails').value.forEach((value, index) => {
+        this.deleteJointCustomerCTAndTransControls(index);
+      });
+    }
     const jointInfoArr = this.userConfigForm.get('jointCustomerDetails').value;
     jointInfoArr.push(this.oneFormCustomer);
     const data = {
@@ -1122,7 +1126,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         newArr[key] = this.attributes;
       });
       this.translatedJointCustomerDetails[index] = newArr;
-      this.deleteJointCustomerCTAndTransControls(index);
+
       this.userConfigForm.get(['jointCustomerDetails', index, 'nepData']).patchValue(JSON.stringify(newArr));
 
     }
