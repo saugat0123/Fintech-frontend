@@ -1,5 +1,10 @@
 <div [nbSpinner]="spinner">
-    <form [formGroup]="form">
+    <form [formGroup]="form"><div class="row pt-3 pl-2">
+        <div class="col-md-12 pt-3 pl-2">
+            <nb-checkbox #limitCheck (input)="loanChecked(limitCheck.checked)" [checked]="loanLimit">
+                <i>Customer has total loan amount above One Crore</i></nb-checkbox>
+        </div>
+    </div>
         <div class="row mt-5">
             <table class="table table-borderless text-center sb-small table-sm">
                 <tr>
@@ -182,6 +187,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Loan Period in Month</td>
+                    <td><input type="text" class="form-control" formControlName="loanPeriodInMonth"/></td>
+                    <td class="abc">{{translatedData?.loanPeriodInMonth}}</td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="loanPeriodInMonthTransVal"/>
+                    </td>
+                </tr>
+                <tr>
                     <td>Name of Company</td>
                     <td><input type="text" class="form-control" formControlName="companyName"/></td>
                     <td class="abc">{{translatedData?.companyName}}</td>
@@ -239,35 +252,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>Signature Date</td>
-                    <td>
-                        <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                            <nb-radio-group name="signatureDate">
-                                <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span></nb-radio>
-                                <nb-radio (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
-                            </nb-radio-group>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <nepali-patro *ngIf="dateTypeBS2" formControlName="signatureDate" [responseType]="2"
-                                      [displayNepali]="true">
-                        </nepali-patro>
-                        <input [nbDatepicker]="dos"
-                               *ngIf="dateTypeAD2"
-                               class="form-control form-control-sm-error rounded"
-                               formControlName="signatureDate"
-                               id="signatureDate"
-                               name="signatureDate"
-                               placeholder="Date of Signature"
-                               type="text">
-                        <nb-datepicker #dos></nb-datepicker>
-                    </td>
-                </tr>
+
                 <!--<tr>
                     <td>Witness District</td>
                     <td><input type="text" class="form-control" formControlName="sakshiDistrict"/></td>

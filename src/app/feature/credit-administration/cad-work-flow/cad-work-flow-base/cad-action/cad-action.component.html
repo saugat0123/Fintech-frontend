@@ -3,11 +3,11 @@
     <div class="clearfix" *ngIf="!isOpened">
       <div class="float-left">
         <button nbButton size="small" status="primary" [nbTooltip]="backwardToolTip"
-                [disabled]="isBackwardDisabled"
+                *ngIf="!isBackwardDisabled"
                 (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
         </button>
         <button nbButton size="small" status="primary" [nbTooltip]="backwardToToolTip"
-                [disabled]="isBackwardToDisabled"
+                *ngIf="!isBackwardToDisabled"
                 (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD TO',false)">RETURN TO
         </button>
       </div>
@@ -18,16 +18,16 @@
         </button>
         <button nbButton size="small" status="primary" nbTooltip="choose user to forward"
                 (click)="approvedForwardBackward(sendForwardBackward,'FORWARD',false)"
-                [disabled]="isForwardDisabled">FORWARD
+                *ngIf="!isForwardDisabled">FORWARD
         </button>
         <button nbButton size="small" status="primary"
                 [nbTooltip]="hasBranchMaker ? 'choose user to forward' : 'No maker in the branch'"
                 (click)="approvedForwardBackward(sendForwardBackward,'SEND TO BRANCH',false)"
-                [disabled]="isSendToBranchDisabled">SEND TO BRANCH
+                *ngIf="!isSendToBranchDisabled">SEND TO BRANCH
         </button>
         <button nbButton size="small" status="primary" [nbTooltip]="approvedLabel"
                 (click)="approvedForwardBackward(sendForwardBackward,'APPROVED',false)"
-                [disabled]="isApprovedDisabled">
+                *ngIf="!isApprovedDisabled">
           APPROVE
         </button>
       </div>
@@ -106,7 +106,8 @@
           </div>
         </div>
 
-        <div class="form-group col-md-12 py-3" *ngIf="popUpTitle !== 'BACKWARD' && popUpTitle !== 'BACKWARD TO'">
+        <div class="form-group col-md-12 py-3"
+             *ngIf="popUpTitle !== 'BACKWARD' && popUpTitle !== 'BACKWARD TO'">
           <em *ngIf="missingSignDoc" class="text-danger font-weight-bold sb-small">You have not
             uploaded signed
             offer letter . Are you sure you want to proceed?</em>
@@ -119,7 +120,8 @@
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button nbButton (click)="onSubmit(verify)" size="small" status="primary"><i
+          <button nbButton (click)="onSubmit(verify)" size="small" status="primary"
+                  [disabled]="formAction.invalid"><i
               class="fa fa-save"></i>
           </button>
         </div>

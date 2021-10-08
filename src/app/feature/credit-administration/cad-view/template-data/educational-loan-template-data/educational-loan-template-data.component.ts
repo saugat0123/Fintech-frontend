@@ -291,13 +291,21 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
   }
 
+  async onChangeTranslateSecurity(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
   submit() {
     this.submitted = true;
     const securityDetails = [{
       securityType: this.form.get('selectedSecurity').value,
       securities: this.form.get('securities').value,
-    }]
-    console.log('form submission details: ', securityDetails);
+    }];
     if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
       this.clearConditionalValidation();
     }
