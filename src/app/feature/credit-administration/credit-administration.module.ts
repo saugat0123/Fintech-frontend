@@ -76,6 +76,10 @@ import {NabilModule} from './cad-document-template/nabil/nabil.module';
 import { PersonalLoanTemplateDataComponent } from './cad-view/template-data/personal-loan-template-data/personal-loan-template-data.component';
 import { DocCheckComponent } from './component/doc-check/doc-check.component';
 import { DocCheckPendingComponent } from './component/doc-check/doc-check-pending/doc-check-pending.component';
+import { EducationalLoanTemplateEditComponent } from './cad-view/template-data/educational-loan-template-edit/educational-loan-template-edit.component';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { EditLoanDetailComponent } from './cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
+import { PersonalLoanTemplateEditComponent } from './cad-view/template-data/personal-loan-template-edit/personal-loan-template-edit.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -139,7 +143,10 @@ import { DocCheckPendingComponent } from './component/doc-check/doc-check-pendin
     PersonalLoanAndPersonalOverdraftTemplateDataComponent,
     PersonalLoanTemplateDataComponent,
     DocCheckComponent,
-    DocCheckPendingComponent],
+    DocCheckPendingComponent,
+    EducationalLoanTemplateEditComponent,
+    EditLoanDetailComponent,
+    PersonalLoanTemplateEditComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -170,9 +177,10 @@ import { DocCheckPendingComponent } from './component/doc-check/doc-check-pendin
     AdditionalExposureComponent,
     CadOfferLetterConfigurationComponent,
     CadFileSetupComponent,
-    ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent],
+    ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent,
+    EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent],
   exports: [CadFileSetupComponent, FilterComponent],
-  providers: [RouterUtilsService]
+  providers: [RouterUtilsService, NgbActiveModal]
 })
 export class CreditAdministrationModule {
 }

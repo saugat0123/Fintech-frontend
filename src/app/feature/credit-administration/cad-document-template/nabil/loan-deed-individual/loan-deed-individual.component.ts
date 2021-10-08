@@ -1,28 +1,28 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
-import { CustomerApprovedLoanCadDocumentation } from "../../../model/customerApprovedLoanCadDocumentation";
-import { CreditAdministrationService } from "../../../service/credit-administration.service";
-import { ToastService } from "../../../../../@core/utils";
-import { NbDialogRef } from "@nebular/theme";
-import { CadOfferLetterModalComponent } from "../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component";
-import { RouterUtilsService } from "../../../utils/router-utils.service";
-import { ObjectUtil } from "../../../../../@core/utils/ObjectUtil";
-import { CadFile } from "../../../model/CadFile";
-import { Document } from "../../../../admin/modal/document";
-import { Alert, AlertType } from "../../../../../@theme/model/Alert";
-import { NabilDocumentChecklist } from "../../../../admin/modal/nabil-document-checklist.enum";
-import { AgeCalculation } from "../../../../../@core/age-calculation";
-import { EngToNepaliNumberPipe } from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import { EngNepDatePipe } from "nepali-patro";
-import { NepaliCurrencyWordPipe } from "../../../../../@core/pipe/nepali-currency-word.pipe";
-import { ProposalCalculationUtils } from "../../../../loan/component/loan-summary/ProposalCalculationUtils";
-import { CurrencyFormatterPipe } from "../../../../../@core/pipe/currency-formatter.pipe";
-import { NepaliNumberAndWords } from "../../../model/nepaliNumberAndWords";
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CustomerApprovedLoanCadDocumentation } from '../../../model/customerApprovedLoanCadDocumentation';
+import { CreditAdministrationService } from '../../../service/credit-administration.service';
+import { ToastService } from '../../../../../@core/utils';
+import { NbDialogRef } from '@nebular/theme';
+import { CadOfferLetterModalComponent } from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import { RouterUtilsService } from '../../../utils/router-utils.service';
+import { ObjectUtil } from '../../../../../@core/utils/ObjectUtil';
+import { CadFile } from '../../../model/CadFile';
+import { Document } from '../../../../admin/modal/document';
+import { Alert, AlertType } from '../../../../../@theme/model/Alert';
+import { NabilDocumentChecklist } from '../../../../admin/modal/nabil-document-checklist.enum';
+import { AgeCalculation } from '../../../../../@core/age-calculation';
+import { EngToNepaliNumberPipe } from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import { EngNepDatePipe } from 'nepali-patro';
+import { NepaliCurrencyWordPipe } from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import { ProposalCalculationUtils } from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import { CurrencyFormatterPipe } from '../../../../../@core/pipe/currency-formatter.pipe';
+import { NepaliNumberAndWords } from '../../../model/nepaliNumberAndWords';
 
 @Component({
-  selector: "app-loan-deed-individual",
-  templateUrl: "./loan-deed-individual.component.html",
-  styleUrls: ["./loan-deed-individual.component.scss"],
+  selector: 'app-loan-deed-individual',
+  templateUrl: './loan-deed-individual.component.html',
+  styleUrls: ['./loan-deed-individual.component.scss'],
 })
 export class LoanDeedIndividualComponent implements OnInit {
   loanDeedIndividual: FormGroup;
@@ -35,6 +35,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   offerDocumentDetails: any;
   nepaliNumber = new NepaliNumberAndWords();
   educationInterestRate: any;
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   constructor(
     private formBuilder: FormBuilder,
     private administrationService: CreditAdministrationService,
@@ -48,7 +49,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log("This is cad Approved doc ", this.cadData);
+    console.log('This is cad Approved doc ', this.cadData);
     if (
       !ObjectUtil.isEmpty(this.cadData) &&
       !ObjectUtil.isEmpty(this.cadData.cadFileList)
@@ -67,10 +68,11 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.loanHolderNepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    console.log("individual data: ", this.loanHolderNepData);
+    console.log('individual data: ', this.loanHolderNepData);
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
         this.offerDocumentDetails = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
     }
+    console.log('offer document details: ', this.offerDocumentDetails);
     this.calulation();
     this.buildForm();
   }
@@ -103,6 +105,7 @@ export class LoanDeedIndividualComponent implements OnInit {
     }
     let approvedDate: any;
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval)) {
+      // tslint:disable-next-line:max-line-length
         approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
     }
 
@@ -111,18 +114,20 @@ export class LoanDeedIndividualComponent implements OnInit {
     }
     return this.formBuilder.group({
       branchName: [
-        this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : "",
+        this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : '',
       ],
       grandFatherName: [
+        // tslint:disable-next-line:max-line-length
         this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct : this.loanHolderNepData.fatherInLawName ? this.loanHolderNepData.fatherInLawName.ct : ''
       ],
       father_husbandName: [
+        // tslint:disable-next-line:max-line-length
           this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct : this.loanHolderNepData.husbandName ? this.loanHolderNepData.husbandName.ct : ''
       ],
       district: [
         this.loanHolderNepData.permanentDistrict
           ? this.loanHolderNepData.permanentDistrict.ct
-          : "",
+          : '',
       ],
       municipality: [
           this.loanHolderNepData.permanentMunicipality ? this.loanHolderNepData.permanentMunicipality.ct : '',
@@ -167,16 +172,16 @@ export class LoanDeedIndividualComponent implements OnInit {
   }
 
   addIndividualLoandeedForm() {
-    (this.loanDeedIndividual.get("loanDeedIndividuals") as FormArray).push(
+    (this.loanDeedIndividual.get('loanDeedIndividuals') as FormArray).push(
       this.initIndividualLoandeed()
     );
   }
 
-  convertNepaliNumberAmount(value){
+  convertNepaliNumberAmount(value) {
     return this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(value));
   }
 
-  convertNepaliNumber(value){
+  convertNepaliNumber(value) {
     return this.engToNepNumberPipe.transform(String(value));
   }
 
@@ -225,14 +230,14 @@ export class LoanDeedIndividualComponent implements OnInit {
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(
       () => {
         this.toastService.show(
-          new Alert(AlertType.SUCCESS, "Successfully saved ")
+          new Alert(AlertType.SUCCESS, 'Successfully saved ')
         );
         this.dialogRef.close();
         this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
       },
       (error) => {
         console.error(error);
-        this.toastService.show(new Alert(AlertType.ERROR, "Failed to save "));
+        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
         this.dialogRef.close();
       }
     );
