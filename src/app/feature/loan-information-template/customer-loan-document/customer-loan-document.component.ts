@@ -62,7 +62,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 if (customerId === undefined) {
                     customerId = '';
                 }
-                this.actualLoanId = customerId;
+                this.actualLoanId = Number(customerId);
                 if (ObjectUtil.isEmpty(this.paramProperties.loanId) || (!ObjectUtil.isEmpty(this.loanDataHolder.loan))) {
                     loanId = this.loanDataHolder.loan.id;
                     this.loanConfigId = loanId;

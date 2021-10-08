@@ -170,6 +170,7 @@ export class MicroProposalComponent implements OnInit {
       cashMargin: [undefined],
       commissionPercentage: [undefined],
       commissionFrequency: [undefined],
+      cashMarginOrFac: [undefined],
       couponRate: [undefined],
       premiumOnCouponRate: [undefined],
       tenorOfEachDeal: [undefined],
@@ -297,6 +298,7 @@ export class MicroProposalComponent implements OnInit {
     this.proposalData.cashMargin = this.microProposalForm.get('cashMargin').value;
     this.proposalData.commissionPercentage = this.microProposalForm.get('commissionPercentage').value;
     this.proposalData.commissionFrequency = this.microProposalForm.get('commissionFrequency').value;
+    this.proposalData.cashMarginOrFac = this.microProposalForm.get('cashMarginOrFac').value;
     this.proposalData.couponRate = this.microProposalForm.get('couponRate').value;
     this.proposalData.premiumOnCouponRate = this.microProposalForm.get('premiumOnCouponRate').value;
     this.proposalData.tenorOfEachDeal = this.microProposalForm.get('tenorOfEachDeal').value;

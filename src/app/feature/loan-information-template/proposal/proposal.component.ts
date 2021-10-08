@@ -207,6 +207,7 @@ export class ProposalComponent implements OnInit {
       cashMargin: [undefined],
       commissionPercentage: [undefined],
       commissionFrequency: [undefined],
+      cashMarginOrFac: [undefined],
       couponRate: [undefined],
       premiumOnCouponRate: [undefined],
       tenorOfEachDeal: [undefined],
@@ -313,6 +314,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.cashMargin = this.proposalForm.get('cashMargin').value;
     this.proposalData.commissionPercentage = this.proposalForm.get('commissionPercentage').value;
     this.proposalData.commissionFrequency = this.proposalForm.get('commissionFrequency').value;
+    this.proposalData.cashMarginOrFac = this.proposalForm.get('cashMarginOrFac').value;
     this.proposalData.couponRate = this.proposalForm.get('couponRate').value;
     this.proposalData.premiumOnCouponRate = this.proposalForm.get('premiumOnCouponRate').value;
     this.proposalData.tenorOfEachDeal = this.proposalForm.get('tenorOfEachDeal').value;

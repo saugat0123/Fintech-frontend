@@ -1,0 +1,37 @@
+<form [formGroup]="proposalForm" [nbSpinner]="spinner"
+      nbSpinnerStatus="primary"
+      nbSpinnerSize="large"
+      nbSpinnerMessage="Loading Data ...">
+    <p style="text-align:left; font-weight: bold"><mark> *Customer had following terminating loan. Please update outstanding limit of each of them.</mark></p>
+    <h5 style="text-align: center; font-size: 15px">Outstanding Limit Update</h5>
+    <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
+        <tr>
+            <th>S.No</th>
+            <th>Loan Name</th>
+            <th>Loan Approval Date</th>
+            <th>Existing Limit</th>
+            <th>Outstanding Limit</th>
+            <th>Update</th>
+        </tr>
+        <tr *ngFor="let data of approvedLoans; let i = index; let loan of customerAllLoanList">
+            <td>{{i + 1}}</td>
+            <td>{{data?.loan?.name}}</td>
+            <td>{{data?.lastModifiedAt | date}}</td>
+            <td>{{data?.proposal?.existingLimit |currency:'Rs '}}</td>
+            <td>
+                <span>
+                <input type="number" class="form-control" #fieldValue
+                       formControlName="outstandingLimit" [value]="data?.proposal?.outStandingLimit"
+                       placeholder="outstanding limit"/>
+            </span>
+            </td>
+            <td>
+                <div class="align-content-center">
+                    <button (click)="updateOutstandingLimit(data,fieldValue.value)"
+                            class="btn btn-sm btn-flat btn-primary">Update
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

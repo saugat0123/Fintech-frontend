@@ -51,6 +51,7 @@ export class ProposalViewComponent implements OnInit {
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
   @Input() loanCategory;
+  approvedLoans = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
