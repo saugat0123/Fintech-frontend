@@ -1,1 +1,140 @@
-<p>promissory-note-company-print works!</p>
+<div class="container nep text-justify" id="{{promissoryConst.PROMISSORY_NOTE_COMPANY}}Print">
+    <div class="text-justify">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="nep">
+                    <div>
+                        <p class="text-center pt-3" style="font-size:24pt;"><b>प्रतिज्ञा पत्र </b></p>
+                        <p class="text-center" style="font-size:24pt;"><b>(PROMISSORY NOTE)</b></p>
+                        <p class="text-right"> मितिः २०७
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.year !== null && letterData?.year !== ''}">
+                                    {{letterData?.year === null || letterData?.year === '' ? '___________' : letterData?.year}}</span>.
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.month !== null && letterData?.month !== ''}">
+                                    {{letterData?.month === null || letterData?.month === '' ? '___________' : letterData?.month}}</span>.
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.day !== null && letterData?.day !== ''}">
+                                    {{letterData?.day === null || letterData?.day === '' ? '___________' : letterData?.day}}</span>
+                        </p>
+                        <p>रु <span [ngClass]="{'nepaliFont outside' : letterData?.amountInFigure!== null && letterData?.amountInFigure!== ''}">
+                                {{letterData?.amountInFigure === null || letterData?.amountInFigure === '' ? '___________' : letterData?.amountInFigure}}</span>
+                            <br>
+
+                            (अक्षरेपी <span [ngClass]="{'nepaliFont outside' : letterData?.amountInWords!== null && letterData?.amountInWords!== ''}">
+                                {{letterData?.amountInWords === null || letterData?.amountInWords === '' ? '___________' : letterData?.amountInWords}}</span>
+                            )</p>
+                        <p>
+                            लिखितम् <span [ngClass]="{'nepaliFont outside' : letterData?.actDetails!== null && letterData?.actDetails!== ''}">
+                                {{letterData?.actDetails === null || letterData?.actDetails === '' ? '___________' : letterData?.actDetails}}</span>
+                            ऐन <span [ngClass]="{'nepaliFont outside' : letterData?.actDate!== null && letterData?.actDate!== ''}">
+                                {{letterData?.actDate === null || letterData?.actDate === '' ? '___________' : letterData?.actDate}}</span>
+                            बमोजिम नेपाल सरकार <span [ngClass]="{'nepaliFont outside' : letterData?.headName!== null && letterData?.headName!== ''}">
+                                {{letterData?.headName === null || letterData?.headName === '' ? '___________' : letterData?.headName}}</span>
+                            मा मिति <span [ngClass]="{'nepaliFont outside' : letterData?.registrationDate!== null && letterData?.registrationDate!== ''}">
+                                {{letterData?.registrationDate === null || letterData?.registrationDate === '' ? '___________' : letterData?.registrationDate}}</span>
+                            मा दर्ता नं. <span [ngClass]="{'nepaliFont outside' : letterData?.registrationNumber!== null && letterData?.registrationNumber!== ''}">
+                                {{letterData?.registrationNumber === null || letterData?.registrationNumber === '' ? '___________' : letterData?.registrationNumber}}</span>
+                            अन्तर्गत दर्ता भइ <span [ngClass]="{'nepaliFont outside' : letterData?.firmDistrict!== null && letterData?.firmDistrict!== ''}">
+                                {{letterData?.firmDistrict === null || letterData?.firmDistrict === '' ? '___________' : letterData?.firmDistrict}}</span>
+                            जिल्ला, <span [ngClass]="{'nepaliFont outside' : letterData?.firmName!== null && letterData?.firmName!== ''}">
+                                {{letterData?.firmName === null || letterData?.firmName === '' ? '___________' : letterData?.firmName}}</span>
+                            न.पा/गा.वि.स./गाँउपालिका वडा नं
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.firmWardNumber!== null && letterData?.firmWardNumber!== ''}">
+                                {{letterData?.firmWardNumber === null || letterData?.firmWardNumber === '' ? '___________' : letterData?.firmWardNumber}}</span>
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.firmAddress!== null && letterData?.firmAddress!== ''}">
+                                {{letterData?.firmAddress === null || letterData?.firmAddress === '' ? '___________' : letterData?.firmAddress}}</span>
+                            रजिष्टर्ड कार्यालय रहेकोे श्री
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.companyName!== null && letterData?.companyName!== ''}">
+                                {{letterData?.companyName === null || letterData?.companyName === '' ? '___________' : letterData?.companyName}}</span>
+                            को हकमा र तर्फबाट अख्तियारप्राप्त संचालक
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.grandFatherName!== null && letterData?.grandFatherName!== ''}">
+                                {{letterData?.grandFatherName === null || letterData?.grandFatherName === '' ? '___________' : letterData?.grandFatherName}}</span>
+                            को नाती /नातिनी /बुहारी
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.fatherName!== null && letterData?.fatherName!== ''}">
+                                {{letterData?.fatherName === null || letterData?.fatherName === '' ? '___________' : letterData?.fatherName}}</span>
+                            को छोरा / छोरी / श्रीमती
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.district!== null && letterData?.district!== ''}">
+                                {{letterData?.district === null || letterData?.district === '' ? '___________' : letterData?.district}}</span>
+                            जिल्ला
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.municipality!== null && letterData?.municipality!== ''}">
+                                {{letterData?.municipality === null || letterData?.municipality === '' ? '___________' : letterData?.municipality}}</span>
+                            न.पा/गा.वि.स. वडा नं.
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.wardNumber!== null && letterData?.wardNumber!== ''}">
+                                {{letterData?.wardNumber === null || letterData?.wardNumber === '' ? '___________' : letterData?.wardNumber}}</span>
+                            बस्ने बर्ष
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.age!== null && letterData?.age!== ''}">
+                                {{letterData?.age === null || letterData?.age === '' ? '___________' : letterData?.age}}</span>
+                            को/की श्री/श्रीमती/सुश्री
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.directorName!== null && letterData?.directorName!== ''}">
+                                {{letterData?.directorName === null || letterData?.directorName === '' ? '___________' : letterData?.directorName}}</span>
+                            (ना.प्र.नं.
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.directorCitizenshipNumber!== null && letterData?.directorCitizenshipNumber!== ''}">
+                                {{letterData?.directorCitizenshipNumber === null || letterData?.directorCitizenshipNumber === '' ? '___________' : letterData?.directorCitizenshipNumber}}</span>
+                            , जारी मिति
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.directorCitizenshipIssueDate!== null && letterData?.directorCitizenshipIssueDate!== ''}">
+                                {{letterData?.directorCitizenshipIssueDate === null || letterData?.directorCitizenshipIssueDate === '' ? '___________' : letterData?.directorCitizenshipIssueDate}}</span>
+                            , जारी गर्ने कार्यालय
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.directorCitizenshipIssueDistrict!== null && letterData?.directorCitizenshipIssueDistrict!== ''}">
+                                {{letterData?.directorCitizenshipIssueDistrict === null || letterData?.directorCitizenshipIssueDistrict === '' ? '___________' : letterData?.directorCitizenshipIssueDistrict}}</span>
+                            )–१ आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग गरेका बखत तपाईलाई वा तपाईले निर्देशन
+                            दिएको वा अह्राएको ब्यक्ति/संस्थालाई रु.
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.amountInFigure!== null && letterData?.amountInFigure!== ''}">
+                                {{letterData?.amountInFigure === null || letterData?.amountInFigure === '' ? '___________' : letterData?.amountInFigure}}</span>
+                            । (अक्षरेपी
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.amountInWords!== null && letterData?.amountInWords!== ''}">
+                                {{letterData?.amountInWords === null || letterData?.amountInWords === '' ? '___________' : letterData?.amountInWords}}</span>
+                            ) र भुक्तानी हुने दिन सम्मको बार्षिक
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.interest!== null && letterData?.interest!== ''}">
+                                {{letterData?.interest === null || letterData?.interest === '' ? '___________' : letterData?.interest}}</span>
+                            प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन प्रतिज्ञा/कवुल गरी यो
+                            प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड, शाखा कार्यालय
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.branchName!== null && letterData?.branchName!== ''}">
+                                {{letterData?.branchName === null || letterData?.branchName === '' ? '___________' : letterData?.branchName}}</span>
+                            लाई दिएँ/दियौं ।
+                        </p>
+                        <div class="clearfix">
+                            <p class="sign col-md-3 float-right">
+                                <b><u>प्रतिज्ञा गर्ने व्यक्तिको </u></b><br><br>
+                                हस्ताक्षरः <br><br>
+                                छापः
+                            </p>
+                        </div>
+                        <p class="text-center">
+                            <b><u>साक्षी</u></b>
+                        </p>
+                        <div>
+                            <p>१.<span [ngClass]="{'nepaliFont outside' : letterData?.witnessDistrict!== null && letterData?.witnessDistrict!== ''}">
+                                {{letterData?.witnessDistrict === null || letterData?.witnessDistrict === '' ? '___________' : letterData?.witnessDistrict}}</span>
+                                जिल्ला <span [ngClass]="{'nepaliFont outside' : letterData?.witnessMunicipality!== null && letterData?.witnessMunicipality!== ''}">
+                                {{letterData?.witnessMunicipality === null || letterData?.witnessMunicipality === '' ? '___________' : letterData?.witnessMunicipality}}</span>
+                                न.पा/गा.वि.स. वडा नं.
+                                <span [ngClass]="{'nepaliFont outside' : letterData?.witnessWardNo!== null && letterData?.witnessWardNo!== ''}">
+                                {{letterData?.witnessWardNo === null || letterData?.witnessWardNo === '' ? '___________' : letterData?.witnessWardNo}}</span>
+                                बस्ने बर्ष <span [ngClass]="{'nepaliFont outside' : letterData?.witnessAge!== null && letterData?.witnessAge!== ''}">
+                                {{letterData?.witnessAge === null || letterData?.witnessAge === '' ? '___________' : letterData?.witnessAge}}</span>
+                                को/की <span [ngClass]="{'nepaliFont outside' : letterData?.witnessName!== null && letterData?.witnessName!== ''}">
+                                {{letterData?.witnessName === null || letterData?.witnessName === '' ? '___________' : letterData?.witnessName}}</span>
+                            </p>
+                            <p>२.<span [ngClass]="{'nepaliFont outside' : letterData?.witnessDistrict!== null && letterData?.witnessDistrict!== ''}">
+                                {{letterData?.witnessDistrict === null || letterData?.witnessDistrict === '' ? '___________' : letterData?.witnessDistrict}}</span>
+                                जिल्ला <span [ngClass]="{'nepaliFont outside' : letterData?.witnessMunicipality!== null && letterData?.witnessMunicipality!== ''}">
+                                {{letterData?.witnessMunicipality === null || letterData?.witnessMunicipality === '' ? '___________' : letterData?.witnessMunicipality}}</span>
+                                न.पा/गा.वि.स. वडा नं.
+                                <span [ngClass]="{'nepaliFont outside' : letterData?.witnessWardNo!== null && letterData?.witnessWardNo!== ''}">
+                                {{letterData?.witnessWardNo === null || letterData?.witnessWardNo === '' ? '___________' : letterData?.witnessWardNo}}</span>
+                                बस्ने बर्ष <span [ngClass]="{'nepaliFont outside' : letterData?.witnessAge!== null && letterData?.witnessAge!== ''}">
+                                {{letterData?.witnessAge === null || letterData?.witnessAge === '' ? '___________' : letterData?.witnessAge}}</span>
+                                को/की <span [ngClass]="{'nepaliFont outside' : letterData?.witnessName!== null && letterData?.witnessName!== ''}">
+                                {{letterData?.witnessName === null || letterData?.witnessName === '' ? '___________' : letterData?.witnessName}}</span>
+                            </p>
+                            <p>३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
+                                लिमिटेडका कर्मचारी
+                                <span [ngClass]="{'nepaliFont outside' : letterData?.bankWitness!== null && letterData?.bankWitness!== ''}">
+                                {{letterData?.bankWitness === null || letterData?.bankWitness === '' ? '___________' : letterData?.bankWitness}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

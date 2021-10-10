@@ -20,12 +20,12 @@ import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-num
   styleUrls: ['./promissory-note-company.component.scss']
 })
 export class PromissoryNoteCompanyComponent implements OnInit {
-
-  promissoryNoteCompany: FormGroup;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  @Input() nepaliAmount: number;
   initialInfoPrint;
+  form: FormGroup;
   promissoryConst = NabilDocumentChecklist;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -40,14 +40,14 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.promissoryNoteCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
   }
 
   buildForm() {
-    this.promissoryNoteCompany = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       year: [undefined],
       month: [undefined],
       day: [undefined],
@@ -90,13 +90,13 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+          singleCadFile.initialInformation = JSON.stringify(this.form.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+        cadFile.initialInformation = JSON.stringify(this.form.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -105,7 +105,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+      cadFile.initialInformation = JSON.stringify(this.form.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -124,8 +124,8 @@ export class PromissoryNoteCompanyComponent implements OnInit {
   }
 
   getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.promissoryNoteCompany.get(numLabel).value);
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.promissoryNoteCompany.get(wordLabel).patchValue(returnVal);
+    this.form.get(wordLabel).patchValue(returnVal);
   }
 }
