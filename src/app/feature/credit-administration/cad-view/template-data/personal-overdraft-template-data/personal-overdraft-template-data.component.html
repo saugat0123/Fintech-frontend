@@ -289,6 +289,14 @@
                 </td>
             </tr>
         </table>
+
+        <div class="row pt-5 pl-2">
+            <div class="col-md-12">
+                <button nbButton size="small" status="info" outline class="float-right" (click)="translate()" [disabled]="!fieldFlag">
+                    Translate Template Details
+                </button>
+            </div>
+        </div>
         <hr>
         <div class="securities-sections" *ngIf="form.get('selectedSecurity').value && form.get('selectedSecurity').value !== 'FIXED_DEPOSIT'">
             <div class="row security pt-3 pl-2">
@@ -441,13 +449,10 @@
             </div>
         </div>
     </form>
-    <button [disabled]="previewBtn" class="float-right" nbButton (click)="openModel()" size="tiny" status="primary">
+    <button [disabled]="previewBtn" class="float-right" nbButton (click)="openModel()" size="small" status="primary">
         Preview
     </button>
-    <button nbButton status="info" (click)="submit()" size="tiny" type="submit" class="float-right" [disabled]="btnDisable">Save</button>
-    <button nbButton size="tiny" class="float-right" (click)="translate()">
-        Translate
-    </button>
+    <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right">Save</button>
 </div>
 
 
