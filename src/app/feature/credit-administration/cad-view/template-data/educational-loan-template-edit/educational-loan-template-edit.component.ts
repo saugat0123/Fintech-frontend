@@ -103,6 +103,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
         this.securityDetails.forEach((security) => {
           this.securities = security.securities;
         });
+      } else {
+        this.addDefaultSecurity();
       }
     }
     this.setEducationLoanTemplateData();
@@ -371,7 +373,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
-
+    console.log(this.customerApprovedDoc);
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.customerApprovedDoc = res.detail;
@@ -517,6 +519,12 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
         delete individualData[key];
       }
     });
+  }
+
+  public addDefaultSecurity(): void {
+    (this.form.get('securities') as FormArray).push(
+        this.initSecuritiesForm()
+    );
   }
 
   private setTemplatedCTData(data): void {

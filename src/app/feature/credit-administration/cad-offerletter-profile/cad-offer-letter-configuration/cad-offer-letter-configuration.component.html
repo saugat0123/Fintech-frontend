@@ -132,7 +132,7 @@
                 </div>
               </td>
             </tr>
-            <tr>
+            <tr >
               <td>DOB</td>
               <td>
                 <div class="row">
@@ -975,11 +975,11 @@
                 </select>
               </td>
               <td><input disabled readonly class="form-control"
-                         formControlName="temporaryWardTrans" type="text"></td>
+                         formControlName="registeredMunicipalityTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{ 'is-invalid':submitted && configForm.registeredMunicipalityTrans.errors }"
-                       formControlName="registeredMunicipalityTrans"
+                       formControlName="registeredMunicipalityCT"
                        type="text"
                 />
                 <div *ngIf="submitted && configForm.registeredMunicipalityTrans.errors"
@@ -1003,7 +1003,7 @@
                        type="number"/>
               </td>
               <td><input disabled readonly class="form-control"
-                         formControlName="registeredWardTrans" type="text"></td>
+                         formControlName="permanentWardCT" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{ 'is-invalid':submitted && configForm.permanentWardCT.errors }"
@@ -1135,8 +1135,8 @@
                 </select>
               </td>
               <td>
-                {{translatedValues?.currentMunicipality}}
-              </td>
+                <input disabled readonly class="form-control"
+                       formControlName="currentMunicipalityTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{ 'is-invalid':submitted && configForm.currentMunicipalityCT.errors }"
@@ -1965,7 +1965,7 @@
                           formControlName="issuedPlace">
                     <option [ngValue]="null" hidden>District</option>
                     <option *ngFor="let district of allDistrictList"
-                            [ngValue]="district.name">
+                            [ngValue]="district.nepaliName">
                       {{district.name}} || {{district.nepaliName}}
                     </option>
                   </select>

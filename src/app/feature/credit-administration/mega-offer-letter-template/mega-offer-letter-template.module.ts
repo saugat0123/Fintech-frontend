@@ -31,6 +31,7 @@ import {NepaliPatroModule} from 'nepali-patro';
 import { PersonalLoanAndPersonalOverdraftPrintComponent } from './mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft-print/personal-loan-and-personal-overdraft-print.component';
 import { PersonalLoanComponent } from './mega-offer-letter/personal-loan/personal-loan.component';
 import { PersonalLoanPrintComponent } from './mega-offer-letter/personal-loan/personal-loan-print/personal-loan-print.component';
+import {NabilModule} from '../cad-document-template/nabil/nabil.module';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -71,19 +72,21 @@ const COMPONENTS = [
         PersonalLoanAndPersonalOverdraftComponent,
         PersonalLoanComponent
     ],
-  imports: [
-    ThemeModule,
-    CommonModule,
-    NgxPrintModule,
-    CoreModule,
-    NbAccordionModule,
-    NepaliPatroModule,
-  ],
+    imports: [
+        ThemeModule,
+        CommonModule,
+        NgxPrintModule,
+        CoreModule,
+        NbAccordionModule,
+        NepaliPatroModule,
+        NabilModule,
+    ],
     entryComponents: [
         RetailProfessionalLoanComponent,
         PersonalOverdraftComponent,
         PersonalLoanAndPersonalOverdraftComponent,
-        PersonalLoanComponent
+        PersonalLoanComponent,
+        SmeComponent
     ]
 })
 export class MegaOfferLetterTemplateModule {

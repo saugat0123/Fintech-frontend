@@ -41,7 +41,7 @@ export class CadChecklistDocTemplateModalComponent implements OnInit {
 
     calulation() {
         if (ObjectUtil.isEmpty(this.cadData.nepData)) {
-            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
+            const number = ProposalCalculationUtils.calculateTotalFromProposalListKey(this.cadData.assignedLoan);
             this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
             this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
             this.nepaliNumber.engNumber = number;

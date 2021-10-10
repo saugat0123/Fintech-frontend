@@ -94,7 +94,7 @@
                             <span [ngClass]="{'font-weight-bold' : letter?.premiumRate.ct !== null && letter?.premiumRate.ct !== ''}">
                                 {{letter?.premiumRate.ct === null || letter?.premiumRate.ct === '' ? '___________' : letter?.premiumRate.ct}}
                             </span>
-                            प्रतिशत ब्याज दर प्रिमियम( interest rate premium)
+                            % प्रतिशत ब्याज दर प्रिमियम( interest rate premium)
                             हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
                             <span [ngClass]="{'font-weight-bold' : letter?.yearlyInterestRate.ct !== null && letter?.yearlyInterestRate.ct !== ''}">
                                 {{letter?.yearlyInterestRate.ct === null || letter?.yearlyInterestRate.ct === '' ? '___________' : letter?.yearlyInterestRate.ct}}
@@ -204,33 +204,8 @@
                         <td>
                             <p><strong>क. </strong> स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको
                                 पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ । </p>
-                            <p><strong>Collateral details </strong></p>
-                            <p> धनी
-                                <span [ngClass]="{'font-weight-bold' : letter?.ownerName.ct !== null && letter?.ownerName.ct !== ''}">
-                                    {{letter?.ownerName.ct === null || letter?.ownerName.ct === '' ? '___________' : letter?.ownerName.ct}}
-                                </span>
-                            </p>
-                            <p> स्थान
-                                <span [ngClass]="{'font-weight-bold' : letter?.ownersAddress.ct !== null && letter?.ownersAddress.ct !== ''}">
-                                    {{letter?.ownersAddress.ct === null || letter?.ownersAddress.ct === '' ? '___________' : letter?.ownersAddress.ct}}
-                                </span>
-                            </p>
-                            <p> कित्ता नं.
-                                <span [ngClass]="{'font-weight-bold' : letter?.propertyPlotNumber.ct !== null && letter?.propertyPlotNumber.ct !== ''}">
-                                    {{letter?.propertyPlotNumber.ct === null || letter?.propertyPlotNumber.ct === '' ? '___________' : letter?.propertyPlotNumber.ct}}
-                                </span>
-                            </p>
-                            <p>
-                                सिट नं.
-                                <span [ngClass]="{'font-weight-bold' : letter?.sheetNumber.ct !== null && letter?.sheetNumber.ct !== ''}">
-                                    {{letter?.sheetNumber.ct === null || letter?.sheetNumber.ct === '' ? '___________' : letter?.sheetNumber.ct}}
-                                </span>
-                            </p>
-                            <p> क्षेत्रफल
-                                <span [ngClass]="{'font-weight-bold' : letter?.propertyArea.ct !== null && letter?.propertyArea.ct !== ''}">
-                                    {{letter?.propertyArea.ct === null || letter?.propertyArea.ct === '' ? '___________' : letter?.propertyArea.ct}}
-                                </span>
-                            </p>
+                            <p style="text-align: center"><strong>Collateral details </strong></p>
+                            <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
                             <p *ngFor="let data of guarantorData; let i = index;">
                                 {{i + 2 | nepaliWord}}. श्री
                                 <span class=" font-weight-bold">
@@ -611,6 +586,7 @@
                             पर्नेछ।<br>
                             <div *ngIf="selectedSecurity === 'LAND' && !renewalVal" class="col-md-12"
                                  style="line-height: 1.9">
+                                <p style="line-height: 1.9;">
                                 क. रु.
                                 <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
@@ -629,20 +605,26 @@
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
                                 को धितो बन्धक तमसुक ।<br>
-                                छ. मूल्यांकन प्रतिवेदन ।<br>
-                                ज. श्री
-                                <span class=" font-weight-bold">{{guarantorName}}</span>
-                                को बैकको पक्षमा रु
-                                <span class=" font-weight-bold">
-                                        {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
-                                    </span>
-                                /-(अक्षरेपी रु
-                                <span class=" font-weight-bold">
-                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}
+                                छ. मूल्यांकन प्रतिवेदन ।
+                                </p>
+                                <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px;line-height: 1.9">
+                                    {{i+9 | nepaliWord}}
+                                    श्री
+                                    <span class=" font-weight-bold">
+                                    {{guarantorParse(data.nepData, 'guarantorName')}}
                                 </span>
-                                मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।<br>
+                                    को बैकको पक्षमा रु
+                                    <span class=" font-weight-bold">
+                                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                                </span>
+                                    /-(अक्षरेपी रु
+                                    <span class=" font-weight-bold">
+                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))}}
+                                </span>
+                                    मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                               <br>
                                 <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12">
-                                    <p>
+                                    <p style="line-height: 1.9;">
                                         <span class="nepaliFont"
                                               style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
                                     </p>
@@ -650,9 +632,8 @@
                             </div>
 
                             <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING' && !renewalVal"
-                                 class="col-md-12"
-                                 style="line-height: 1.9">
-                                <p>क. रु.
+                                 class="col-md-12">
+                                <p style="line-height: 1.9;">क. रु.
                                     <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
@@ -846,9 +827,7 @@
                             <td>
                                 कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का
                                 कर्मचारी श्री
-                                <span [ngClass]="{'font-weight-bold' : letter?.staffName.ct !== null && letter?.staffName.ct !== ''}">
-                                {{letter?.staffName.ct === null || letter?.staffName.ct === '' ? '___________' : letter?.staffName.ct}}
-                            </span>
+                                ____________________________
                             </td>
                         </tr>
                     </table>

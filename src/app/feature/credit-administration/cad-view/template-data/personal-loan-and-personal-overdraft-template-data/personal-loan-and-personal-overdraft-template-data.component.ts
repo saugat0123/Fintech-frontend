@@ -13,10 +13,9 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {PersonalLoanAndPersonalOverdraftComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft.component';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 
 
 @Component({
@@ -38,7 +37,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     existingOfferLetter = false;
     attributes;
     tdValues: any = {};
-    podtranslatedData;
+    podtranslatedData: any ={};
     offerLetterDocument: OfferDocument;
     dateTypeBS = false;
     dateTypeAD = false;

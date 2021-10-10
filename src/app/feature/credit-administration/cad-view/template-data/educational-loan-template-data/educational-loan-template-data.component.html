@@ -594,22 +594,7 @@
         <!--                    </td>-->
         <!--                </tr>-->
 
-        <tr>
-          <td>Approval Staff Name</td>
-          <td><input type="text" class="form-control" formControlName="approvalStaffName"/></td>
-          <td class="abc">{{translatedData?.approvalStaffName}}</td>
-          <td>
-            <input type="text" class="form-control"
-                   [ngClass]="{ 'is-invalid':submitted && Form.approvalStaffNameTransVal.errors }"
-                   formControlName="approvalStaffNameTransVal"/>
-            <div *ngIf="submitted && Form.approvalStaffNameTransVal.errors"
-                 class="invalid-feedback">
-              <div *ngIf="Form.approvalStaffNameTransVal.errors.required">Approval staff name is
-                required
-              </div>
-            </div>
-          </td>
-        </tr>
+
 
         <!-- <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
           <td>Property Owners Name (धनीको नाम थर)</td>
@@ -627,7 +612,7 @@
                     (change)="getMunicipalityByDistrict(form.get('district').value)">
               <option [ngValue]="null" hidden>District</option>
               <option *ngFor="let district of allDistrictList"
-                      [ngValue]="district">{{district.name}}</option>
+                      [ngValue]="district">{{district.name || district.nepaliName}}</option>
             </select>
           </td>
           <td class="abc">{{objectTranslate?.district}}</td>
@@ -650,7 +635,7 @@
                     name="municipality">
               <option *ngFor="let municipalityVal of municipalityList"
                       [ngValue]="municipalityVal">
-                {{municipalityVal.name}}
+                {{municipalityVal.name || municipalityVal.nepaliName}}
               </option>
             </select>
           </td>
