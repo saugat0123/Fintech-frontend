@@ -289,20 +289,7 @@
                                formControlName="sakshiNameTransVal"/>
                     </td>
                 </tr>-->
-                <tr>
-                    <td>Approval Staff Name</td>
-                    <td><input type="text" class="form-control" formControlName="employeeName"/></td>
-                    <td class="abc">{{translatedData?.employeeName}}</td>
-                    <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.employeeNameTransVal.errors }"
-                               formControlName="employeeNameTransVal"/>
-                        <div *ngIf="submitted && Form.employeeNameTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.employeeNameTransVal.errors.required">Approval Staff name is required</div>
-                        </div>
-                    </td>
-                </tr>
+
             </table>
         </div>
     </form>
