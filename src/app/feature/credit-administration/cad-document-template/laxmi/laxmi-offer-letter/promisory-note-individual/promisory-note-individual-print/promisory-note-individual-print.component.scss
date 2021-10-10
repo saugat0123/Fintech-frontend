@@ -1,1 +1,14 @@
 @import '../../laxmi-offer-letter.component';
+#body{
+  margin-left: 95px;
+  margin-right: 15px;
+  height: 100%;
+}
+#witness {
+  transform: translate(30px, 20px) rotate(90deg);
+  left: -43% !important;
+  margin: 0;
+  text-align: left;
+  position: absolute;
+  top: 50%;
+}

@@ -35,8 +35,6 @@ export class ExposureViewComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.exposure)) {
             this.sccPath = JSON.parse(this.cadOfferLetterApprovedDoc.exposure.data).sccPath;
         }
-        console.log(this.disbursementDetails);
-        console.log(this.cadOfferLetterApprovedDoc.exposure);
     }
 
     totalSum(list, key) {

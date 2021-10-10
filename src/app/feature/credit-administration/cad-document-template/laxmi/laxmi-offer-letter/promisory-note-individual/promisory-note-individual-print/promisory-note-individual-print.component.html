@@ -1,6 +1,6 @@
 <div  class="row" id="print-section-{{cadCheckListEnum.PROMISSORY_NOTE_SINGLE_BORROWER}}">
     <div class="col-md-12 viewFull text-justify">
-        <div class="nepali">
+        <div class="text-justify nepali">
             <p>
                 श्री लक्ष्मी बैंक लि.,
                 <br>
@@ -8,66 +8,53 @@
                 <span class="nepaliFont">{{printDocForm.branch}}</span>
                 ।
             </p>
-            <p class="text-center"><b> विषय:— प्रतिज्ञा पत्र <br>
-                <u>(PROMISSORY NOTE)</u></b></p>
+            <div id="body">
+                <p class="text-center"><b> विषय:— प्रतिज्ञा पत्र <br>
+                    <u>(PROMISSORY NOTE)</u></b></p>
 
-            लिखितम् म/हामी तपसिलका मानिसहरु आगे तपाई लक्ष्मी बैंक लिमिटेडले भुक्तानी माग गरेका वखत तपाईलाई
-            अथवा तपाईले निर्देशन दिएको वा अह्राएको व्यक्ति/संस्थालाई <b>रु                 <span class="nepaliFont">{{printDocForm.rupees}}</span>
-            /-
-            (अक्षरेपी रुपैयाँ                <span class="nepaliFont">{{printDocForm.amount}}</span>
-            मात्र)
-        </b>
-            र भुक्तानी माग गरेको मिति सम्मको सोमा बैंक नियमानुसार लाग्ने व्याज समेतको रकम कलम तिर्न वुझाउन प्रतिज्ञा र कबुल गरी यो प्रतिज्ञापत्र को लिखत गरी तपाई लक्ष्मी बैंक लिमिटेडलाई दिए ।
+                लिखितम् म/हामी तपसिलका मानिसहरु आगे तपाई लक्ष्मी बैंक लिमिटेडले भुक्तानी माग गरेका वखत तपाईलाई
+                अथवा तपाईले निर्देशन दिएको वा अह्राएको व्यक्ति/संस्थालाई <b>रु<span class="nepaliFont">{{printDocForm.rupees}}</span>/- (अक्षरेपी रुपैयाँ<span class="nepali">{{printDocForm.amount}}</span>मात्र)
+            </b>
+                र भुक्तानी माग गरेको मिति सम्मको सोमा बैंक नियमानुसार लाग्ने व्याज समेतको रकम कलम तिर्न वुझाउन प्रतिज्ञा र कबुल गरी यो प्रतिज्ञापत्र को लिखत गरी तपाई लक्ष्मी बैंक लिमिटेडलाई दिए ।
 
-            <p class="text-center"><b>तपसिल</b></p>
-            ऋणीको नामः                <span class="nepaliFont">{{printDocForm.name}}</span>
-            <br>
-            ऋणीको बाजे/ससुराको नामः                <span class="nepaliFont">{{printDocForm.grandFatherName}}</span>
-            <br>
-            ऋणीको बाबुको नामः                <span class="nepaliFont">{{printDocForm.fatherName}}</span>
-            <br>
-            ऋणीको पतिको नामः                <span class="nepaliFont">{{printDocForm.husbandName}}</span>
-            <br>
-            ऋणीको ठेगानाः                <span class="nepaliFont">{{printDocForm.address}}</span>
-            <br>
-            नागरिकता नं., मिति र कार्यालयः                <span class="nepaliFont">{{printDocForm.personalDetails}}</span>
-            <br>
-            ऋणीको दस्तखतः
-            <div class="clearfix mb-5">
-                <div class="signature-area float-right text-center"></div>
-                <div class="signature-area float-right text-center"></div>
-            </div>
-            <div class="col-md-12 viewFull">
-                <b>साक्षी</b>
-                <div *ngFor="let sakshi of printDocForm.sakshi; index as i">
-                    <div >
-                        {{ i + 1 | nepaliNumber}}.
-                        <span [ngClass]="sakshi.districtOffice?'nepaliFont':''" >{{(sakshi.districtOffice?sakshi.districtOffice:'______________')}}</span>
-
-                        जिल्ला,
-                        <span [ngClass]="sakshi.municipality?'nepaliFont':''" >{{(sakshi.municipality?sakshi.municipality:'______________')}}</span>
-
-                        गा.पा./न.पा. वडा नं
-                        <span [ngClass]="sakshi.wardNum?'nepaliFont':''" >{{(sakshi.wardNum?sakshi.wardNum:'______________')}}</span>
-
-                        बस्ने बर्ष
-                        <span [ngClass]="sakshi.age?'nepaliFont':''" >{{(sakshi.age?sakshi.age:'______________')}}</span>
-
-                        को
-                        <span [ngClass]="sakshi.name?'nepaliFont':''" >{{(sakshi.name?sakshi.name:'______________')}}</span>
-
-                    </div>
+                <p class="text-center"><b>तपसिल</b></p>
+                ऋणीको नामः <span class="nepaliFont">{{printDocForm.name}}</span>
+                <br>
+                ऋणीको बाजे/ससुराको नामः <span class="nepaliFont">{{printDocForm.grandFatherName}}</span>
+                <br>
+                ऋणीको बाबुको नामः <span class="nepaliFont">{{printDocForm.fatherName}}</span>
+                <br>
+                ऋणीको पतिको नामः <span class="nepaliFont">{{printDocForm.husbandName}}</span>
+                <br>
+                ऋणीको ठेगानाः <span class="nepaliFont">{{printDocForm.address}}</span>
+                <br>
+                नागरिकता नं., मिति र कार्यालयः <span class="nepaliFont">{{printDocForm.personalDetails}}</span>
+                <br>
+                ऋणीको दस्तखतः
+                <div class="clearfix mb-5">
+                    <div class="signature-area float-right text-center">वाँया</div>
+                    <div class="signature-area float-right text-center">दाँया</div>
+                </div>
+                <br>
+                <br>
+                इति सम्बत <span [ngClass]="printDocForm.itiSambatYear?'nepaliFont':''">{{printDocForm.itiSambatYear?printDocForm.itiSambatYear:'_________________'}}</span>
+                साल
+                <span [ngClass]="printDocForm.itiSambatMonth?'nepaliFont':''">{{printDocForm.itiSambatMonth?printDocForm.itiSambatMonth:'_________________'}}</span>
+                महिना
+                <span [ngClass]="printDocForm.itiSambatDay?'nepaliFont':''">{{printDocForm.itiSambatDay?printDocForm.itiSambatDay:'_________________'}}</span>
+                गते रोज
+                <span [ngClass]="printDocForm.roj?'nepaliFont':''">{{printDocForm.roj?printDocForm.roj:'_________________'}}</span>शुभम्.––––––––––––।
+                <div class="col-md-12 viewFull text-center"  id="witness">
+                    साक्षी
+                    <br>
+                    १.<span [ngClass]="printDocForm.district?'nepaliFont':''" >{{(printDocForm.district?printDocForm.district:'__________')}}</span>जिल्ला,<span [ngClass]="printDocForm.municipality?'nepaliFont':''" >{{(printDocForm.municipality?printDocForm.municipality:'______________')}}</span>गा.पा./न.पा. वडा नं<span [ngClass]="printDocForm.wardNum?'nepaliFont':''" >{{(printDocForm.wardNum?printDocForm.wardNum:'______________')}}</span>बस्ने बर्ष<span [ngClass]="printDocForm.age?'nepaliFont':''" >{{(printDocForm.age?printDocForm.age:'______________')}}</span>को<span [ngClass]="printDocForm.sakshiName?'nepaliFont':''" >{{(printDocForm.sakshiName?printDocForm.sakshiName:'______________')}}</span>
+                    <br>
+                    २.<span [ngClass]="printDocForm.districtTwo?'nepaliFont':''" >{{(printDocForm.districtTwo?printDocForm.districtTwo:'__________')}}</span>जिल्ला,<span [ngClass]="printDocForm.municipalityTwo?'nepaliFont':''" >{{(printDocForm.municipalityTwo?printDocForm.municipalityTwo:'______________')}}</span>गा.पा./न.पा. वडा नं<span [ngClass]="printDocForm.wardNumTwo?'nepaliFont':''" >{{(printDocForm.wardNumTwo?printDocForm.wardNumTwo:'______________')}}</span>बस्ने बर्ष<span [ngClass]="printDocForm.ageTwo?'nepaliFont':''" >{{(printDocForm.ageTwo?printDocForm.ageTwo:'______________')}}</span>को<span [ngClass]="printDocForm.sakshiNameTwo?'nepaliFont':''" >{{(printDocForm.sakshiNameTwo?printDocForm.sakshiNameTwo:'______________')}}</span>
+                    <br>
+                    <b>सनाखत साक्षी</b>ः उपरोक्त कारणीले मेरो सामुन्नेमा सहि छाप गरेको ठिक हो भनी सहि गर्ने धनी बैंकको<span  [ngClass]="printDocForm.role?'nepaliFont':''">{{printDocForm.role?printDocForm.role:'________________'}}</span>
+                    पदमा कार्यरत<span [ngClass]="printDocForm.roleName?'nepaliFont':''">{{printDocForm.roleName?printDocForm.roleName:'__________________'}}</span>।
                 </div>
             </div>
-
-            <b>सनाखत साक्षी</b>ः उपरोक्त कारणीले मेरो सामुन्नेमा सहि छाप गरेको ठिक हो भनी सहि गर्ने धनी बैंकको
-            <span class="nepaliFont">{{printDocForm.role}}</span>
-            पदमा कार्यरत
-            <span class="nepaliFont">{{printDocForm.roleName}}</span>
-            ।
-            <br>
-            ईति संवत्            <span class="nepaliFont">{{printDocForm.itiSambatYear}}</span>
-            साल <span class="nepaliFont">{{printDocForm.itiSambatMonth}}</span> महिना <span class="nepaliFont">{{printDocForm.itiSambatDay}}</span>गते रोज <span class="nepaliFont">{{printDocForm.roj}}</span> शुभम् ––––––––––––––––––––––––––––––––––
         </div>
 
     </div>

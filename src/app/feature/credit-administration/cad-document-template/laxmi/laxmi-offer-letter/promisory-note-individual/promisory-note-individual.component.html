@@ -40,12 +40,7 @@
             </div>
             <div class="col-md-12 viewFull">
                 <b>साक्षी</b>
-                <span (click)="addSakshi()" nbButton size="small" status="info" type="button"
-                      class="d-print-none btn btn-sm btn-primary ml-3">+साक्षी थप्नुहोस्</span>
-                <div *ngFor="let sakshi of form.get('sakshi')['controls']; index as i"
-                     formArrayName="sakshi">
-                    <div [formGroupName]="i">
-                        {{ i + 1 | nepaliNumber}}.
+                <div>
                         <input type="text" class="form-control-sm form-field nepaliFont"
                                formControlName="district">
                         जिल्ला,
@@ -59,11 +54,24 @@
                                formControlName="age">
                         को
                         <input type="text" class="form-control-sm form-field nepaliFont"
-                               formControlName="name">
-
-                        <i (click)="removeSakshi(i)" size="small" class="float-right fa fa-trash"
-                           *ngIf="form.get('sakshi')['length']>1"></i>
-                    </div>
+                               formControlName="sakshiName">
+                </div>
+                <br>
+                <div>
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="districtTwo">
+                        जिल्ला,
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="municipalityTwo">
+                        गा.पा./न.पा. वडा नं
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="wardNumTwo">
+                        बस्ने बर्ष
+                        <input type="text" class="form-control-xsm form-field nepaliFont"
+                               formControlName="ageTwo">
+                        को
+                        <input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="sakshiNameTwo">
                 </div>
             </div>
 
