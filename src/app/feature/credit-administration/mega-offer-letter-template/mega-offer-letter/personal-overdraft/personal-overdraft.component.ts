@@ -110,7 +110,6 @@ buildPersonal() {
     district: [undefined],
     wardNum: [undefined],
     witnessName: [undefined],
-    staffName: [undefined],
     selectedSecurity: [undefined],
     loanLimitChecked: [undefined],
     renewalChecked: [undefined],
@@ -194,11 +193,10 @@ buildPersonal() {
       propertyPlotNumber: this.tempData.propertyPlotNumber.ct ? this.tempData.propertyPlotNumber.ct : '',
       propertyArea: this.tempData.propertyArea.ct ? this.tempData.propertyArea.ct : '',
       sheetNumber: this.tempData.sheetNumber.ct ? this.tempData.sheetNumber.ct : '',
-      nameofBranch: this.tempData.branch ? this.tempData.branch : '',
+      nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
       nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
-      branchName : this.tempData.branch ? this.tempData.branch : '',
-      staffName : this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
+      branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
     });
   }
