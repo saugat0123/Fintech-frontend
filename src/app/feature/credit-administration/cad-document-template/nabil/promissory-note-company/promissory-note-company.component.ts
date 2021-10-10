@@ -10,6 +10,9 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {NabilDocumentChecklist} from '../../../../admin/modal/nabil-document-checklist.enum';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 
 @Component({
   selector: 'app-promissory-note-company',
@@ -22,9 +25,13 @@ export class PromissoryNoteCompanyComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  initialInfoPrint;
+  promissoryConst = NabilDocumentChecklist;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService) { }
 
@@ -44,24 +51,36 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      branch: [undefined],
-      ministry: [undefined],
-      actName: [undefined],
-      actDate: [undefined],
-      department: [undefined],
-      office: [undefined],
-      registrationNo: [undefined],
-      registrationDate: [undefined],
-      name: [undefined],
-      proprietorName: [undefined],
-      annualRate: [undefined],
-      amount: [undefined],
+      amountInFigure: [undefined],
       amountInWords: [undefined],
-      nameOfAuthorizedPerson: [undefined],
-      nameOfWitness: [undefined],
-      addressOfWitness: [undefined],
-      nameOfWitness2: [undefined],
-      addressOfWitness2: [undefined]
+      actDetails: [undefined],
+      actDate: [undefined],
+      headName: [undefined],
+      registrationDate: [undefined],
+      registrationNumber: [undefined],
+      firmDistrict: [undefined],
+      firmName: [undefined],
+      firmWardNumber: [undefined],
+      firmAddress: [undefined],
+      companyName: [undefined],
+      grandfatherName: [undefined],
+      fatherName: [undefined],
+      district: [undefined],
+      municipality: [undefined],
+      wardNumber: [undefined],
+      age: [undefined],
+      directorName: [undefined],
+      directorCitizenshipNumber: [undefined],
+      directorCitizenshipIssueDate: [undefined],
+      directorCitizenshipIssueDistrict: [undefined],
+      interest: [undefined],
+      branchName: [undefined],
+      witnessDistrict: [undefined],
+      witnessMunicipality: [undefined],
+      WitnessWardNumber: [undefined],
+      witnessAge: [undefined],
+      witnessName: [undefined],
+      bankWitness: [undefined]
     });
   }
 
@@ -102,5 +121,11 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+  }
+
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.promissoryNoteCompany.get(numLabel).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.promissoryNoteCompany.get(wordLabel).patchValue(returnVal);
   }
 }
