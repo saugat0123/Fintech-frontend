@@ -80,6 +80,7 @@ import { EducationalLoanTemplateEditComponent } from './cad-view/template-data/e
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { EditLoanDetailComponent } from './cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
 import { PersonalLoanTemplateEditComponent } from './cad-view/template-data/personal-loan-template-edit/personal-loan-template-edit.component';
+import { PersonalOverdraftTemplateDataEditComponent } from './cad-view/template-data/personal-overdraft-template-data-edit/personal-overdraft-template-data-edit.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -146,7 +147,8 @@ import { PersonalLoanTemplateEditComponent } from './cad-view/template-data/pers
     DocCheckPendingComponent,
     EducationalLoanTemplateEditComponent,
     EditLoanDetailComponent,
-    PersonalLoanTemplateEditComponent],
+    PersonalLoanTemplateEditComponent,
+    PersonalOverdraftTemplateDataEditComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -178,7 +180,7 @@ import { PersonalLoanTemplateEditComponent } from './cad-view/template-data/pers
     CadOfferLetterConfigurationComponent,
     CadFileSetupComponent,
     ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent,
-    EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent],
+    EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent, PersonalOverdraftTemplateDataEditComponent],
   exports: [CadFileSetupComponent, FilterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })

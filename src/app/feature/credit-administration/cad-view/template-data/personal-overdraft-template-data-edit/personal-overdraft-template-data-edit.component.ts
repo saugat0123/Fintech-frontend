@@ -1,32 +1,36 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {District} from '../../../../admin/modal/district';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {OfferDocument} from '../../../model/OfferDocument';
+import {CadDocStatus} from '../../../model/CadDocStatus';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {PersonalOverdraftComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-overdraft/personal-overdraft.component';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
-import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
-import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {PersonalOverdraftComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-overdraft/personal-overdraft.component';
-import {CadDocStatus} from '../../../model/CadDocStatus';
-import {OfferDocument} from '../../../model/OfferDocument';
-import {Attributes} from '../../../../../@core/model/attributes';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ToastService} from '../../../../../@core/utils';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
-import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../../../../../@core/utils';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {District} from '../../../../admin/modal/district';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Attributes} from '../../../../../@core/model/attributes';
+import {SecurityDetails} from '../../../cad-document-template/nabil/securities-view/model/securities-details.model';
+import {Securities} from '../../../cad-document-template/nabil/securities-view/model/securities.model';
 
 @Component({
-  selector: 'app-personal-overdraft-template-data',
-  templateUrl: './personal-overdraft-template-data.component.html',
-  styleUrls: ['./personal-overdraft-template-data.component.scss']
+  selector: 'app-personal-overdraft-template-data-edit',
+  templateUrl: './personal-overdraft-template-data-edit.component.html',
+  styleUrls: ['./personal-overdraft-template-data-edit.component.scss']
 })
-export class PersonalOverdraftTemplateDataComponent implements OnInit {
-  @Input() cadData: CustomerApprovedLoanCadDocumentation;
+export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() initialInformation: any;
+  @Input() offerLetterId: number;
   municipalityListForSecurities = [];
   allDistrictList: Array<District> = new Array<District>();
   oneForm: FormGroup;
@@ -58,11 +62,13 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   selectedSecurityVal;
   objectTranslate;
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
+  securityDetails: SecurityDetails[];
+  securities: Securities[];
 
   constructor(private formBuilder: FormBuilder,
               private dialogService: NbDialogService,
               private modelService: NgbModal,
-              private ngDialogRef: NbDialogRef<PersonalOverdraftComponent>,
+              public ngDialogRef: NbDialogRef<PersonalOverdraftTemplateDataEditComponent>,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private translateService: SbTranslateService,
@@ -74,6 +80,23 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.getAllDistrict();
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.selectedSecurityVal = this.initialInformation.selectedSecurity.en;
+      this.fieldFlag = true;
+      this.dateTypeAD = true;
+      this.dateTypeAD1 = true;
+      this.dateTypeAD2 = true;
+      this.securityDetails = this.initialInformation.securityDetails;
+      if (!ObjectUtil.isEmpty(this.initialInformation.securityDetails)) {
+        this.securityDetails.forEach((security) => {
+          this.securities = security.securities;
+        });
+      } else {
+        this.addDefaultSecurity();
+      }
+      this.setPersonalOverdraftData();
+      this.setSecurityData();
+    }
   }
 
   public getAllDistrict(): void {
@@ -134,13 +157,12 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       // nameofGuarantorsTransVal: [undefined],
       /*guaranteedamountinFigureTransVal: [undefined],
       guaranteedamountinWordsTransVal: [undefined],*/
-      insuranceAmountinFigureTransVal: [undefined],
+      insuranceAmountinFigureTransVal: [undefined, Validators.required],
       relationshipofficerNameTransVal: [undefined, Validators.required],
       nameofBranchManagerTransVal: [undefined, Validators.required],
       staffNameTransVal: [undefined, Validators.required],
       securities: this.formBuilder.array([])
     });
-    this.addDefaultSecurity();
   }
 
   submit() {
@@ -174,7 +196,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     if (this.existingOfferLetter) {
       this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString()) {
+          this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString()) {
+          this.tdValues['securityDetails'] = securityDetails;
           this.mappedData();
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
           this.translatedData = {};
@@ -221,7 +244,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   mappedData() {
     Object.keys(this.form.controls).forEach(key => {
       Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1) {
+        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
           return;
         }
         this.attributes = new Attributes();
@@ -261,7 +284,6 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.btnDisable = false;
   }
   private setTemplatedCTData(data): void {
-    console.log('Data Value:', data);
     // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('dateofApprovalTransVal').patchValue(this.translatedData.dateofApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
@@ -303,7 +325,6 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   }
   translateNumber(source, target) {
     const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
-    console.log(wordLabelVar);
     this.form.get(target).patchValue(wordLabelVar);
   }
 
@@ -470,6 +491,99 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     const sourceResponse = await this.translateService.translateForm(this.oneForm);
     this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
     this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
+  public loanMunicipalityByDistrictIdForEdit(data,  index?): void {
+    const district = new District();
+    district.id = data;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalityListForSecurities[index] = response.detail;
+          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+
+        }
+    );
+  }
+
+  private setPersonalOverdraftData(): void {
+    // set en value
+    this.form.get('selectedSecurity').patchValue(this.initialInformation.selectedSecurity.en);
+    this.form.get('referenceNumber').patchValue(this.initialInformation.referenceNumber.en);
+    this.form.get('dateofApproval').patchValue(this.initialInformation.dateofApproval.en);
+    this.form.get('dateofApplication').patchValue(this.initialInformation.dateofApplication.en);
+    this.form.get('loanPurpose').patchValue(this.initialInformation.loanPurpose.en);
+    this.form.get('baseRate').patchValue(this.initialInformation.baseRate.en);
+    this.form.get('premiumRate').patchValue(this.initialInformation.premiumRate.en);
+    this.form.get('yearlyInterestRate').patchValue(this.initialInformation.yearlyInterestRate.en);
+    this.form.get('loanadminFee').patchValue(this.initialInformation.loanadminFee.en);
+    this.form.get('loanadminFeeWords').patchValue(this.initialInformation.loanadminFeeWords.en);
+    this.form.get('loanCommitmentFee').patchValue(this.initialInformation.loanCommitmentFee.en);
+    this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
+    this.form.get('ownerName').patchValue(this.initialInformation.ownerName.en);
+    this.form.get('ownersAddress').patchValue(this.initialInformation.ownersAddress.en);
+    this.form.get('propertyPlotNumber').patchValue(this.initialInformation.propertyPlotNumber.en);
+    this.form.get('sheetNumber').patchValue(this.initialInformation.sheetNumber.en);
+    this.form.get('propertyArea').patchValue(this.initialInformation.propertyArea.en);
+    this.form.get('relationshipofficerName').patchValue(this.initialInformation.relationshipofficerName.en);
+    this.form.get('nameofBranchManager').patchValue(this.initialInformation.nameofBranchManager.en);
+    this.form.get('staffName').patchValue(this.initialInformation.staffName.en);
+    this.form.get('insuranceAmountinFigure').patchValue(this.initialInformation.insuranceAmountinFigure.en);
+
+    // set ct value
+    this.form.get('referenceNumberTransVal').patchValue(this.initialInformation.referenceNumber.ct);
+    this.form.get('loanPurposeTransVal').patchValue(this.initialInformation.loanPurpose.ct);
+    this.form.get('baseRateTransVal').patchValue(this.initialInformation.baseRate.ct);
+    this.form.get('premiumRateTransVal').patchValue(this.initialInformation.premiumRate.ct);
+    this.form.get('yearlyInterestRateTransVal').patchValue(this.initialInformation.yearlyInterestRate.ct);
+    this.form.get('loanadminFeeTransVal').patchValue(this.initialInformation.loanadminFee.ct);
+    this.form.get('loanadminFeeWordsTransVal').patchValue(this.initialInformation.loanadminFeeWords.ct);
+    this.form.get('loanCommitmentFeeTransVal').patchValue(this.initialInformation.loanCommitmentFee.ct);
+    this.form.get('ownerNameTransVal').patchValue(this.initialInformation.ownerName.ct);
+    this.form.get('ownersAddressTransVal').patchValue(this.initialInformation.ownersAddress.ct);
+    this.form.get('propertyPlotNumberTransVal').patchValue(this.initialInformation.propertyPlotNumber.ct);
+    this.form.get('sheetNumberTransVal').patchValue(this.initialInformation.sheetNumber.ct);
+    this.form.get('propertyAreaTransVal').patchValue(this.initialInformation.propertyArea.ct);
+    this.form.get('relationshipofficerNameTransVal').patchValue(this.initialInformation.relationshipofficerName.ct);
+    this.form.get('nameofBranchManagerTransVal').patchValue(this.initialInformation.nameofBranchManager.ct);
+    this.form.get('staffNameTransVal').patchValue(this.initialInformation.staffName.ct);
+    this.form.get('insuranceAmountinFigureTransVal').patchValue(this.initialInformation.insuranceAmountinFigure.ct);
+  }
+
+  public setSecurityData(): void {
+    const securitiesControl = this.form.get('securities') as FormArray;
+    this.securities.forEach((data: Securities, index) => {
+      this.loanMunicipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
+      securitiesControl.push(
+          this.formBuilder.group({
+            securityOwnersName: [data.securityOwnersName],
+            securityOwnersNameTransVal: [data.securityOwnersNameCT],
+            securityOwnersNameCT: [data.securityOwnersNameCT],
+            securityOwnersDistrict: [data.securityOwnersDistrict],
+            securityOwnersDistrictTransVal: [data.securityOwnersDistrictCT],
+            securityOwnersDistrictCT: [data.securityOwnersDistrictCT],
+            securityOwnersMunicipalityOrVdc: [data.securityOwnersMunicipalityOrVdc],
+            securityOwnersMunicipality: [data.securityOwnersMunicipality],
+            securityOwnersMunicipalityTransVal: [data.securityOwnersMunicipalityCT],
+            securityOwnersMunicipalityCT: [data.securityOwnersMunicipalityCT],
+            securityOwnersWardNo: [data.securityOwnersWardNo],
+            securityOwnersWardNoTransVal: [data.securityOwnersWardNoCT],
+            securityOwnersWardNoCT: [data.securityOwnersWardNoCT],
+            securityOwnersSeatNo: [data.securityOwnersSeatNo],
+            securityOwnersSeatNoTransVal: [data.securityOwnersSeatNoCT],
+            securityOwnersSeatNoCT: [data.securityOwnersSeatNoCT],
+            securityOwnersKittaNo: [data.securityOwnersKittaNo],
+            securityOwnersKittaNoTransVal: [data.securityOwnersKittaNoCT],
+            securityOwnersKittaNoCT: [data.securityOwnersKittaNoCT],
+            securityOwnersLandArea: [data.securityOwnersLandArea],
+            securityOwnersLandAreaTransVal: [data.securityOwnersLandAreaCT],
+            securityOwnersLandAreaCT: [data.securityOwnersLandAreaCT],
+          })
+      );
+    });
+  }
+
+  compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
 }
