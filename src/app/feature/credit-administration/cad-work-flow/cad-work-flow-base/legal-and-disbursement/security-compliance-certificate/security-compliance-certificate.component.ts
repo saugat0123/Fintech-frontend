@@ -47,6 +47,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     this.setSccRefNumber();
     this.getSecurityCode();
     console.log(this.userType);
+    console.log(this.cadFile);
     if (this.userType === RoleType.MAKER) {
       this.isMaker = true;
     }

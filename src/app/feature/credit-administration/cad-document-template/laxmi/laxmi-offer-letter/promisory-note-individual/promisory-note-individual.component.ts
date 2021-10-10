@@ -51,7 +51,9 @@ export class PromisoryNoteIndividualComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.initialInfoPrint = singleCadFile.initialInformation;
+          if (!ObjectUtil.isEmpty( JSON.parse(singleCadFile.initialInformation).rupees)){
             this.amount = JSON.parse(singleCadFile.initialInformation).rupees;
+          }
         }
       });
     }
