@@ -51,6 +51,13 @@
 <!--    <i class="col-md-1 fa fa-edit"></i>-->
   </button>
 
+  <button (click)="onEdit()" *ngIf="edit == 'true'" [disabled]="!actionsList.roleTypeMaker"
+          [ngStyle]="{ 'filter' : (actionsList.roleTypeMaker === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+          class="btn-sm btn-primary">
+   Document update
+<!--    <i class="col-md-1 fa fa-edit"></i>-->
+  </button>
+
   <button (click)="loanAction('close')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.closed"
           [ngStyle]="{ 'filter' : (actionsList.closed === false)? 'grayscale(100%)': 'grayscale(0%)'}"

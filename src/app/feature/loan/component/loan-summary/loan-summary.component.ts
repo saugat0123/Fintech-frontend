@@ -214,6 +214,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     fundableNonFundableSelcted = false;
     loanNatureSelected = false;
     companyInfoId: any;
+    currentUserId = LocalStorageUtil.getStorage().userId;
+    currentUserRoleType = LocalStorageUtil.getStorage().roleType;
+    edit;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -826,13 +829,56 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.crgGammaSummary = false;
             this.creditRiskAlphaSummary = false;
             this.creditRiskLambdaSummary = false;
-            this.router.navigate(['/home/loan/summary'], {
-                queryParams: {
-                    loanConfigId: this.loanDataHolder.loan.id,
-                    customerId: this.loanDataHolder.id,
-                    customerInfoId: this.companyInfoId
+            const editable = localStorage.getItem('editable');
+            if (editable !== 'false') {
+                if ((this.loanDataHolder.currentStage.toUser.id.toString() !== this.currentUserId) &&
+                    (this.currentUserRoleType === 'MAKER') && (this.loanDataHolder.documentStatus.toString() === 'PENDING')) {
+                    this.edit = true;
+                    localStorage.setItem('editable', this.edit);
+                } else {
+                    localStorage.removeItem('editable');
                 }
-            });
+
+                if (!ObjectUtil.isEmpty(this.loanDataHolder.currentStage)) {
+                    if ((this.loanDataHolder.currentStage.toUser.id.toString() === this.currentUserId)
+                        && (this.currentUserRoleType === 'MAKER' || this.currentUserRoleType === 'APPROVAL')) {
+                        this.router.navigate(['/home/loan/summary'], {
+                            queryParams: {
+                                loanConfigId: this.loanDataHolder.loan.id,
+                                customerId: this.loanDataHolder.id,
+                                customerInfoId: this.companyInfoId
+                            }
+                        });
+                    } else {
+                        this.router.navigate(['/home/loan/summary'], {
+                            queryParams: {
+                                loanConfigId: this.loanDataHolder.loan.id,
+                                customerId: this.loanDataHolder.id,
+                                catalogue: true,
+                                customerInfoId: this.companyInfoId
+                            }
+                        });
+                    }
+                } else {
+                    this.router.navigate(['/home/loan/summary'], {
+                        queryParams: {
+                            loanConfigId: this.loanDataHolder.loan.id,
+                            customerId: this.loanDataHolder.id,
+                            catalogue: true,
+                            customerInfoId: this.companyInfoId
+                        }
+                    });
+                }
+            } else  if (editable === 'false') {
+                this.router.navigate(['/home/loan/summary'], {
+                    queryParams: {
+                        loanConfigId: this.loanDataHolder.loan.id,
+                        customerId: this.loanDataHolder.id,
+                        catalogue: true,
+                        customerInfoId: this.companyInfoId
+                    }
+                });
+            }
             this.getLoanDataHolder();
             this.reloadForm();
             this.spinner = false;
