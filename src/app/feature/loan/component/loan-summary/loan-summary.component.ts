@@ -841,7 +841,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
                 if (!ObjectUtil.isEmpty(this.loanDataHolder.currentStage)) {
                     if ((this.loanDataHolder.currentStage.toUser.id.toString() === this.currentUserId)
-                        && (this.currentUserRoleType === 'MAKER')) {
+                        && (this.currentUserRoleType === 'MAKER' || this.currentUserRoleType === 'APPROVAL')) {
                         this.router.navigate(['/home/loan/summary'], {
                             queryParams: {
                                 loanConfigId: this.loanDataHolder.loan.id,
