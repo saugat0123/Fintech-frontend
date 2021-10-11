@@ -2,40 +2,78 @@
 
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form" class="nepali">
-      <h6 class="text-center">कप्रतिज्ञा पत्र<br>
+      <h6 class="text-center">प्रतिज्ञा पत्र<br>
         (PROMISSORY NOTE)</h6>
       <br>
 
       <div class="row col-md-12">
-        <p>लिखितम् <input class="form-field form-control-sm nepaliFont "
-                          formControlName="address"
-                          placeholder=""
-                          type="text"/>
-          स्थित <input class="form-field form-control-sm nepaliFont "
-                       formControlName="customerName"
-                       placeholder=""
-                       type="text"/> ले त्यस प्रोग्रेशिभ
-          फाइनान्स लिमिटेड <input class="form-field form-control-sm nepaliFont "
-                                  formControlName="branchName"
-                                  placeholder=""
-                                  type="text"/>शाखा कार्यालयबाट लिएको कर्जा
-          रकम रु.<input (change)="getNumAmountWord('amount','amountInWord')"
-                        class="form-field form-control-sm nepaliFont "
-                        formControlName="amount"
-                        placeholder="" type="text"/>
-          (अक्षेरुपी रु.
-          <input class="form-field  form-control-sm nepaliFont " formControlName="amountInWord"
+        <p>लिखितम <input class="form-field form-control-sm nepaliFont "
+                         formControlName="grandParentsName"
+                         placeholder=""
+                         type="text"/> को नाति/नातिनि <input class="form-field form-control-sm nepaliFont "
+                                                             formControlName="parentsName"
+                                                             placeholder=""
+                                                             type="text"/>
+          को छोरा/छोरी
+          <input class="form-field form-control-sm nepaliFont "
+                 formControlName="husbandWifeName"
                  placeholder=""
-                 readonly
-                 type="text"/>
-          ) र सो रकममा बैंक नियमानुसार लाग्ने ब्याज समेत बैंकले
-          भुक्तानीे माग गरेका बखत तुरुन्त तिर्न बुझाउन प्रतिज्ञा र कबुल गर्दछु/छौं ।</p>
+                 type="text"/> को पति/पत्नी <input class="form-field form-control-sm nepaliFont "
+                                                  formControlName="permanentDistrict"
+                                                  placeholder=""
+                                                  type="text"/> जिल्ला <input class="form-field form-control-sm nepaliFont "
+                                                                              formControlName="permanentVdcMun"
+                                                                              placeholder=""
+                                                                              type="text"/>
+          गा.पा./न.पा./म.न.पा. वडा नं. <input class="form-field form-control-sm nepaliFont "
+                                             formControlName="permanentWardNo"
+                                             placeholder=""
+                                             type="text"/>, स्थायी ठेगाना भई हाल <input class="form-field form-control-sm nepaliFont "
+                                                                                       formControlName="temporaryDistrict"
+                                                                                       placeholder=""
+                                                                                       type="text"/> जिल्ला <input class="form-field form-control-sm nepaliFont "
+                                                                                                                   formControlName="temporaryVdcMun"
+                                                                                                                   placeholder=""
+                                                                                                                   type="text"/>
+          गा.पा./न.पा./म.न.पा. वडा न.<input class="form-field form-control-sm nepaliFont "
+                                            formControlName="temporaryWardNo"
+                                            placeholder=""
+                                            type="text"/>,बस्ने बर्ष <input class="form-field form-control-sm nepaliFont "
+                                                                            formControlName="age"
+                                                                            placeholder=""
+                                                                            type="text"/> को <input class="form-field form-control-sm nepaliFont "
+                                                                                                   formControlName="relationship"
+                                                                                                   placeholder=""
+                                                                                                   type="text"/> (ना.प्र.नं.<input class="form-field form-control-sm nepaliFont "
+                                                                                                                                   formControlName="citizenshipNo"
+                                                                                                                                   placeholder=""
+                                                                                                                                   type="text"/>
+          मिति <input class="form-field form-control-sm nepaliFont "
+                      formControlName="citizenshipIssueDate"
+                      placeholder=""
+                      type="text"/> जि.प्र.का. <input class="form-field form-control-sm nepaliFont "
+                                                      formControlName="citizenshipIssuePlace"
+                                                      placeholder=""
+                                                      type="text"/>) ले यस प्रोग्रेशिभ फाईनान्स लिमिटेड,<input class="form-field form-control-sm nepaliFont "
+                                                                                                               formControlName="financeBranch"
+                                                                                                               placeholder=""
+                                                                                                               type="text"/>
+          शाखा कार्यालयबाट लिएको कूल ऋण कर्जा रकम रु.<input (change)="getNumAmountWord('amount','amountInWords')"
+                                                            class="form-field form-control-sm nepaliFont "
+                                                            formControlName="amount"
+                                                            placeholder="" type="text"/>/– (अक्षेरुपी <input class="form-field  form-control-sm nepaliFont " formControlName="amountInWords"
+                                                                                                             placeholder=""
+                                                                                                             readonly
+                                                                                                             type="text"/>)
+          र सोमा वित्तीय संस्थाको नियमानुसार लाग्ने ब्याज समेत भुक्तानी माग गरेका वखत तपाई धनी वित्तीय संस्थालाई अथवा तपाईले निर्देशन दिएको वा अह्राएको व्यक्ति/संस्थालाई
+          तुरुन्त तिर्न बुझाउन प्रतिज्ञा र कबुल गर्दछु/छौं ।</p>
+
       </div>
       <div class="row col-md-12" id="detail">
         <p>दस्तखत :- <input class="form-field form-control-sm nepaliFont "
                             formControlName="signature"
                             placeholder=""
-                            type="text"/> संस्थाको हकमा छाप समेत <br>
+                            type="text"/>  <br>
           दस्तखत गर्नेको नाम :-<input class="form-field form-control-sm nepaliFont "
                                       formControlName="signaturePersonName"
                                       placeholder=""
