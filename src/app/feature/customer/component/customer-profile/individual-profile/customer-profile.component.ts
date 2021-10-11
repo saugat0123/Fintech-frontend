@@ -197,6 +197,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
 
     openSingleSelectLoanTemplate() {
+        localStorage.removeItem('editable');
         const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
         modalRef.componentInstance.customerType = this.filterLoanCat;
         modalRef.componentInstance.paramProp = this.paramProp;
@@ -211,6 +212,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     openCombineSelectLoanTemplate() {
+        localStorage.removeItem('editable');
         const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
         modalRef.componentInstance.customerType = this.filterLoanCat;
         modalRef.componentInstance.paramProp = this.paramProp;
