@@ -20,6 +20,7 @@ import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summa
 import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 
 @Component({
     selector: 'app-letter-of-continuity',
@@ -39,7 +40,7 @@ export class LetterOfContinuityComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
-    loanAmountTemplate;
+    loanAmountTemplate = new NepaliNumberAndWords();
 
     constructor(private dialogRef: NbDialogRef<LetterOfContinuityComponent>,
                 private formBuilder: FormBuilder,
@@ -55,7 +56,14 @@ export class LetterOfContinuityComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
+        if (ObjectUtil.isEmpty(this.cadData.nepData)) {
+            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
+            this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+            this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+            this.loanAmountTemplate.engNumber = number;
+        } else {
+            this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
+        }
         this.fillForm();
     }
 
