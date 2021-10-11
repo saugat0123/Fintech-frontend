@@ -15,6 +15,7 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 
 @Component({
   selector: 'app-letter-of-disbursement',
@@ -33,7 +34,7 @@ export class LetterOfDisbursementComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  loanAmount;
+  loanAmount = new NepaliNumberAndWords();
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -48,8 +49,8 @@ export class LetterOfDisbursementComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.loanAmount = JSON.parse(this.cadData.nepData);
+    console.log('loan Amount', this.loanAmount);
     this.fillForm();
-
   }
 
   fillForm() {
@@ -65,7 +66,7 @@ export class LetterOfDisbursementComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-
+      //const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
