@@ -16,6 +16,8 @@ import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-n
 import {NgxPrintModule} from 'ngx-print';
 import { HomeLoanComponent } from './home-loan/home-loan.component';
 import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-print.component';
+import { AutoLoanCommercialComponent } from './auto-loan-commercial/auto-loan-commercial.component';
+import { AutoLoanCommercialPrintComponent } from './auto-loan-commercial/auto-loan-commercial-print/auto-loan-commercial-print.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-pr
     LoanDeedSingleComponent,
     PromissoryNoteJointComponent,
     HomeLoanComponent,
-    HomeLoanPrintComponent
+    HomeLoanPrintComponent,
+    AutoLoanCommercialComponent,
+    AutoLoanCommercialPrintComponent
 ],
   imports: [
     CommonModule,
@@ -53,7 +57,8 @@ import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-pr
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteJointComponent,
-    HomeLoanComponent
+    HomeLoanComponent,
+    AutoLoanCommercialComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]

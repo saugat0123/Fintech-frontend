@@ -1,3 +1,4 @@
+import {AutoLoanCommercialComponent} from './cad-document-template/mega/auto-loan-commercial/auto-loan-commercial.component';
 
 export enum NabilOfferLetterConst {
     // HOUSING_TAKEOVER_CASE,
@@ -9,7 +10,8 @@ export enum NabilOfferLetterConst {
     PERSONAL_OVERDRAFT,
     PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT,
     PERSONAL_LOAN,
-    HOME_LOAN
+    HOME_LOAN,
+    AUTO_LOAN_COMMERCIAL = 6
 }
 
 export namespace NabilOfferLetterConst {
@@ -37,6 +39,8 @@ export namespace NabilOfferLetterConst {
                 return 'Home Loan';
             case NabilOfferLetterConst.PERSONAL_LOAN:
                 return 'Personal Loan';
+            case NabilOfferLetterConst.AUTO_LOAN_COMMERCIAL:
+                return 'AUTO LOAN COMMERCIAL ';
         }
     }
 
