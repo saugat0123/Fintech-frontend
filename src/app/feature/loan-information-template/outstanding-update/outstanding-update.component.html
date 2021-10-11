@@ -2,7 +2,7 @@
       nbSpinnerStatus="primary"
       nbSpinnerSize="large"
       nbSpinnerMessage="Loading Data ...">
-    <p style="text-align:left; font-weight: bold"><mark> *Customer had following terminating loan. Please update outstanding limit of each of them.</mark></p>
+    <p style="text-align:left; font-weight: bold"><mark> *Customer had following Approved loans </mark></p>
     <h5 style="text-align: center; font-size: 15px">Outstanding Limit Update</h5>
     <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
         <tr>
@@ -15,9 +15,10 @@
         </tr>
         <tr *ngFor="let data of approvedLoans; let i = index; let loan of customerAllLoanList">
             <td>{{i + 1}}</td>
-            <td>{{data?.loan?.name}}</td>
+            <td>{{data?.loan?.name}}<b *ngIf="data.loan.loanNature==='Terminating'">(T)</b><b *ngIf="data.loan.loanNature === 'Revolving'">(R)</b>
+                <b *ngIf="data.proposal.cashMarginOrFac==='FAC'"> =>F</b><b *ngIf="data.proposal.cashMarginOrFac === 'CASHMARGIN'">=>CM</b></td>
             <td>{{data?.lastModifiedAt | date}}</td>
-            <td>{{data?.proposal?.existingLimit |currency:'Rs '}}</td>
+            <td>{{data?.proposal?.proposedLimit |currency:'Rs '}}</td>
             <td>
                 <span>
                 <input type="number" class="form-control" #fieldValue
