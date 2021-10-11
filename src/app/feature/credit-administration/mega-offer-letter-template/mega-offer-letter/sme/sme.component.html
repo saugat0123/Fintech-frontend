@@ -274,32 +274,7 @@
                                         नाममा दर्ता गर्नु पर्नेछ ।
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        ख.
-                                    </td>
-                                    <td>
-                                        श्री
-                                        <input class="form-field form-control-sm col-3"
-                                               formControlName="guarantorName"
-                                               [value]="allguarantorNames"
-                                               type="text"
-                                               style="width:auto"/>
-                                        ले बैंकको पक्षमा
-                                        रु
-                                        <input class="form-field form-control-sm"
-                                               formControlName="guaranteedAmountInFigure"
-                                               [value]="guarantorAmountNepali"
-                                               type="text"/>
-                                        /-(अक्षरेपि रु
-                                        <input class="form-field form-control-sm longInput uniSize"
-                                               formControlName="guaranteedAmountInWord"
-                                               [value]="nepaliCurrencyWordPipe.transform(guarantorAmount)"
-                                               type="text"/>
-                                        मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
-                                    </td>
-                                </tr>
-                                <!--<tr *ngFor="let data of guarantorData; let i = index;">
+                                <tr *ngFor="let data of guarantorData; let i = index;">
                                     <td>{{i + 2 | nepaliWord}}.</td>
                                     <td>
                                         श्री
@@ -320,7 +295,7 @@
                                                    type="text"/>
                                         मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                                     </td>
-                                </tr>-->
+                                </tr>
                             </table>
                             <table class="table table-borderless col-md-12">
                                 <tr *ngIf="selectedInterest === 'FLOATING_INTEREST_RATE'">
@@ -893,22 +868,9 @@
                                             छ. तेश्रो पक्ष स्वामित्व हस्तान्तरण (यदि चुक्ताभुक्तानी नभएको अवस्थामा) का
                                             लागि ऋणीको मञ्जुरीनामा ।
                                             <br>
-                                            ज. रु
-                                            <input class="form-field form-control-sm"
-                                                   formControlName="guaranteedAmountInFigure"
-                                                   [value]="guarantorAmountNepali"
-                                                   type="text"/>
-                                            को श्री
-                                            <input class="form-field form-control-sm col-3"
-                                                   formControlName="guarantorName"
-                                                   [value]="allguarantorNames"
-                                                   type="text"
-                                                    style="width: auto"/>
-                                            को व्यक्तिगत जमानतपत्र र सम्पत्ती विवरण ।
-                                            <br>
-                                            झ. बहुबैंकिङ घोषणा पत्र ।
+                                            ज.  बहुबैंकिङ घोषणा पत्र ।
                                         </p>
-                                        <!--<p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px">
+                                        <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px">
                                             {{i + 9 | nepaliWord}}
                                             . रु
                                             <input class="form-field form-control-sm"
@@ -921,7 +883,7 @@
                                                    [value]="guarantorParse(data.nepData, 'guarantorName')"
                                                    type="text"/>
                                             व्यक्तिगत जमानतपत्र र सम्पत्ती विवरण ।
-                                        </p>-->
+                                        </p>
                                             <br>
                                         <div class="row col-md-12">
                                         <textarea
