@@ -28,6 +28,10 @@ export class SmePrintComponent implements OnInit {
   tempData;
   selectedInterest;
   loanLimitVal;
+  guarantorNames: Array<String> = [];
+  allguarantorNames;
+  guarantorAmount: number = 0;
+  guarantorAmountNepali;
   offerLetterConst =  NabilOfferLetterConst;
 
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -54,6 +58,7 @@ export class SmePrintComponent implements OnInit {
         this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
       }
       this.branchName = this.loanHolderInfo.branch.ct;
+      this.guarantorDetails();
     }
   }
   guarantorParse(nepData, key, trans?) {
@@ -63,5 +68,14 @@ export class SmePrintComponent implements OnInit {
     } else {
       return data[key].en;
     }
+  }
+  guarantorDetails(){
+    for (let i = 0; i < this.guarantorData.length; i++){
+      let temp = JSON.parse(this.guarantorData[i].nepData);
+      this.guarantorNames.push(temp.guarantorName.ct);
+      this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+    }
+    this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+    this.allguarantorNames = this.guarantorNames.join(",");
   }
 }
