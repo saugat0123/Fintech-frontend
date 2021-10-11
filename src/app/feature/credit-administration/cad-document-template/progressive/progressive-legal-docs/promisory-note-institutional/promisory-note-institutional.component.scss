@@ -1,0 +1,28 @@
+@import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-legal-docs/progressive-legal-docs.component";
+
+.fingerXap {
+  width: 500px;
+  margin: auto;
+  text-align: center;
+}
+.fingerXap .signature-area{
+  width:100%;
+  border-style: none
+}
+
+.guaranter {
+  display: flex;
+  flex-wrap: initial;
+  flex-direction: row;
+}
+
+.guaranter1 {
+  width: 50%;
+}
+
+.guaranter2 {
+  width: 50%;
+  margin-left: 100px;
+}
+
+

@@ -1,3 +1,5 @@
+@import '../../progressive-legal-docs.component';
+
 #fingerXap {
   width: 500px;
   margin-left: 10px;
@@ -11,7 +13,7 @@
 }
 
 #officeDetail {
-  margin-left: 100px;
+  margin-left: 50px;
 }
 
 table {
@@ -22,4 +24,8 @@ table {
 .viewFull {
   max-height: 85vh;
   text-align: justify;
+}
+
+.sizefont {
+  font-size: 17px;
 }

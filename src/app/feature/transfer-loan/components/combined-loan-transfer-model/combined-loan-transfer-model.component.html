@@ -1,4 +1,4 @@
-<div [ngResizable]="true">
+<div [ngResizable]="true" [nbSpinner]="spinner">
     <nb-card>
         <nb-card-header>
             <strong>{{popUpTitle}}</strong>
@@ -274,7 +274,7 @@
         <nb-card-footer>
             <button
                     (click)="onSubmit()"
-                    [disabled]="!stageType || (stageType === 'individually' ? individualType?.form?.invalid : combinedType?.form?.invalid) || !showHideSoleForm"
+                    [disabled]="!stageType || (stageType === 'individually' ? individualType?.form?.invalid : combinedType?.form?.invalid) || !showHideSoleForm ||spinner"
                     nbButton type="button">
                 <em class="fa fa-save"></em>
             </button>
