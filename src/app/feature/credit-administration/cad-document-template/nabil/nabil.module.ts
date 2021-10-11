@@ -24,6 +24,9 @@ import {PromissoryNoteProprietorshipPrintComponent} from './promissory-note-prop
 import {LoanDeedPartnershipPrintComponent} from './loan-deed-partnership/loan-deed-partnership-print/loan-deed-partnership-print.component';
 import {LetterVehicleThirdpartyCompanyComponent} from './letter-vehicle-thirdparty-company/letter-vehicle-thirdparty-company.component';
 import {LetterVehicleThirdpartyCompanyPrintComponent} from './letter-vehicle-thirdparty-company/letter-vehicle-thirdparty-company-print/letter-vehicle-thirdparty-company-print.component';
+import { LetterVehicleIndividualComponent } from './letter-vehicle-individual/letter-vehicle-individual.component';
+import { LetterVehicleIndividualPrintComponent } from './letter-vehicle-individual/letter-vehicle-individual-print/letter-vehicle-individual-print.component';
+import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/promissory-note-company-print/promissory-note-company-print.component';
 
 
 @NgModule({
@@ -31,12 +34,16 @@ import {LetterVehicleThirdpartyCompanyPrintComponent} from './letter-vehicle-thi
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
+        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent,
+        LetterVehicleIndividualComponent, LetterVehicleIndividualPrintComponent,
         LoanDeedIndividualPrintComponent, PromissoryNoteProprietorshipComponent, PromissoryNoteProprietorshipPrintComponent,
         PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, SecuritiesComponent,
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent,
         LoanDeedPartnershipComponent,
-        PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent, LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent],
+        PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent, LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
+        PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
+        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PromissoryNoteCompanyPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -48,6 +55,9 @@ import {LetterVehicleThirdpartyCompanyPrintComponent} from './letter-vehicle-thi
         PromissoryNoteCompanyComponent,
         LoanDeedIndividualComponent,
         LoanDeedIndividualPrintComponent,
+        NabilLoanDeedCompanyComponent,
+        LetterVehicleIndividualComponent,
+        LetterVehicleIndividualPrintComponent,
         NabilLoanDeedCompanyComponent,
         PromissoryNoteProprietorshipPrintComponent,
         PromissoryNoteProprietorshipComponent,
