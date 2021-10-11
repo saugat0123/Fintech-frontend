@@ -2212,7 +2212,7 @@
 
                   <option [ngValue]="null" hidden></option>
                   <option
-                          *ngFor="let districtVal of guarantorDistrict"
+                          *ngFor="let districtVal of guarantorDistrict[i]"
                           [ngValue]="districtVal">
                     {{districtVal.name}} || {{districtVal.nepaliName}}
                   </option>
@@ -2243,8 +2243,9 @@
                   </nb-radio-group>
                   <select [compareWith]="compareFn"
                           class="custom-select"
-                          formControlName="permanentMunicipality">
-                    <option *ngFor="let municipalityVal of guarantorMunicipalities"
+                          formControlName="permanentMunicipality"
+                          id="permanentMunicipality{{i}}">
+                    <option *ngFor="let municipalityVal of guarantorMunicipalities[i]"
                             [ngValue]="municipalityVal">
                       {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                     </option>
@@ -2329,7 +2330,7 @@
                     class="custom-select"
                     formControlName="temporaryDistrict">
                   <option [ngValue]="null" hidden>District</option>
-                  <option *ngFor="let districtVal of tempGuarantorDistricts"
+                  <option *ngFor="let districtVal of tempGuarantorDistricts[i]"
                           [ngValue]="districtVal">
                     {{districtVal.name}} || {{districtVal.nepaliName}}
                   </option>
@@ -2362,7 +2363,7 @@
                           class="custom-select"
                           formControlName="temporaryMunicipality"
                           name="municipality">
-                    <option *ngFor="let municipalityVal of tempGuarantorMunicipalities"
+                    <option *ngFor="let municipalityVal of tempGuarantorMunicipalities[i]"
                             [ngValue]="municipalityVal">
                       {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                     </option>
