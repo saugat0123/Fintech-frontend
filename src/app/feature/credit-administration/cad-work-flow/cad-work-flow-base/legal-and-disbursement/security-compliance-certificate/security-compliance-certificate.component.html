@@ -40,8 +40,10 @@
         <td>{{cadFile?.loanHolder?.subSectorDetailCode}}</td>
       </tr>
       <tr>
-        <th>Security Code</th>
+        <th>Security Type</th>
         <td>{{securityCode}}</td>
+        <th>Security Code</th>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.securityCode}}</td>
         <th>Operative Account</th>
         <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>
       </tr>
