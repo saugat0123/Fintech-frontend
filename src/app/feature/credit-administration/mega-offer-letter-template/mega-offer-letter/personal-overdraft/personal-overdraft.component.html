@@ -246,7 +246,9 @@
                                     <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
                                 </div>
                                 <p *ngFor="let data of guarantorData; let i = index;">
-                                    {{i + 2 | nepaliWord}}. श्री
+                                    <strong>
+                                        {{i + 2 | nepaliWord}}.
+                                    </strong> श्री
                                     <input class="form-field form-control-sm col-3"
                                            formControlName="guarantorName"
                                            [value]="guarantorParse(data.nepData, 'guarantorName')"
@@ -563,7 +565,7 @@
                                                    type="text"/>
                                             को बैकको पक्षमा रु
                                             <input class="form-field form-control-sm"
-                                                   formControlName="guaranteedAmountInFigure"
+                                                   formControlName="guaranteedamountinFigure"
                                                    [value]="guarantorParse(data.nepData, 'gurantedAmount')"
                                                    type="text"/>
                                             (अक्षरेपी रु <input class="form-field form-control-sm"
@@ -587,8 +589,8 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING' && !renewal" class="col-md-12" style="line-height: 1.9">
-                                        <p>क. रु.<input class="form-field form-control-sm"
+                                    <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING' && !renewal" class="col-md-12">
+                                        <p style="line-height: 1.9;margin-left:100px">क. रु.<input class="form-field form-control-sm"
                                                         formControlName="loanAmountinFigure"
                                                         name="loanAmountinFigure"
                                                         placeholder=" रकम "
@@ -607,31 +609,35 @@
                                                         placeholder=" रकम "
                                                         type="text"/> को धितो बन्धक तमसुक ।<br>
                                         छ.  मूल्यांकन प्रतिवेदन ।<br>
-                                        ज.  श्री <input class="form-field form-control-sm"
-                                                          formControlName="guarantorName"
-                                                          name="guarantorName"
-                                                          placeholder=" नाम "
-                                                        [value]="guarantorParse(guarantorData[0].nepData, 'guarantorName')"
-                                                        type="text"/> को
-                                        बैकको पक्षमा रु <input class="form-field form-control-sm"
-                                                               (input)="getNumAmountWord('guaranteedamountinFigure', 'guaranteedamountinWords')"
-                                                               formControlName="guaranteedamountinFigure"
-                                                               name="guaranteedamountinFigure"
-                                                               [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
-                                                               placeholder=" रकम "
-                                                               type="text"/>
-                                        (अक्षरेपी रु <input class="form-field form-control-sm"
-                                                            formControlName="guaranteedamountinWords"
-                                                            name="guaranteedamountinWords"
-                                                            placeholder=" रकम "
-                                                            [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
-                                                            type="text"/> मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।<br>
-                                        झ.  बैकर्श शर्त सहितको कम्तीमा रु <input class="form-field form-control-sm"
+                                        ज.  बैकर्श शर्त सहितको कम्तीमा रु <input class="form-field form-control-sm"
                                                                                  formControlName="insuranceAmountinFigure"
                                                                                  name="insuranceAmountinFigure"
                                                                                  placeholder=" रकम "
-                                                                                 type="text"/>  बराबरको भवनको  विमालेख ।<br>
-                                        ञ.  भवन निर्माण सम्पन्नताको प्रमाण पत्र ।</p>
+                                                                                 type="text"/>  बराबरको भवनको  विमालेख ।
+                                            <br>
+                                            झ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
+                                        </p>
+                                        <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px;line-height: 1.9;">
+                                            {{i + 10 | nepaliWord}}
+                                            श्री
+                                            <input class="form-field form-control-sm col-3"
+                                                   formControlName="guarantorName"
+                                                   [value]="guarantorParse(data.nepData, 'guarantorName')"
+                                                   type="text"/>
+                                            को बैकको पक्षमा रु
+                                            <input class="form-field form-control-sm"
+                                                   formControlName="guaranteedamountinFigure"
+                                                   [value]="guarantorParse(data.nepData, 'gurantedAmount')"
+                                                   type="text"/>
+                                            (अक्षरेपी रु <input class="form-field form-control-sm"
+                                                                formControlName="guaranteedamountinWords"
+                                                                name="guaranteedamountinWords"
+                                                                placeholder=" रकम "
+                                                                [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))"
+                                                                type="text"/>
+                                            मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                        </p>
+                                        <br>
                                         <div class="row col-md-12">
                                             <textarea
                                                     class="form-control customFont nepaliFont"
@@ -643,8 +649,8 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div *ngIf="renewal" class="col-md-12" style="line-height: 1.9">
-                                        <p style="line-height: 1.9"> क.	व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।<br>
+                                    <div *ngIf="renewal" class="col-md-12">
+                                        <p style="line-height: 1.9;margin-left:100px"> क.	व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।<br>
                                             ख. 	निरन्तरताको लिखत ।<br>
                                             ग. 	बहुबैंकिङ्ग घोषणा पत्र ।<br>
                                             घ.  ग्राहक स्वघोषणा फारम ।

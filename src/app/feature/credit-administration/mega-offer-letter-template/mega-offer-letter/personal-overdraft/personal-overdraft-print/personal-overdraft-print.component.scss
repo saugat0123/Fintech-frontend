@@ -1,3 +1,25 @@
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
+}
+table { page-break-inside:auto }
+tr    { page-break-inside:avoid;
+        page-break-after:auto;}
+thead { display:table-header-group }
+tfoot { display:table-footer-group }
+@media print{
+  div.divFooter{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+  tr, td {
+    break-after: auto;
+    break-inside: avoid;
+    line-height: 1.9;
+  }
+}
 input{
   font-size: 16px !important;
 }
