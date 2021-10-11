@@ -1210,9 +1210,9 @@
         <th>Ward Number</th>
       </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-          <td>{{i+1}}</td>
+        <tbody>
+        <tr *ngFor="let siteVisit of uniqueSiteVisitJson; let k = index">
+          <td>{{k+1}}</td>
           <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
           <td class="text-left pl-1">{{siteVisit?.date | date}} ({{siteVisit?.date | engNepDate: false}})</td>
           <td class="text-left pl-1">{{siteVisit?.personContacted}}</td>
@@ -1241,9 +1241,8 @@
         <th>Road Access From</th>
       </tr>
       </thead>
-      <tbody>
-      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-        <td>{{i+1}}</td>
+      <tr *ngFor="let siteVisit of uniqueSiteVisitJson; let k = index">
+        <td>{{k+1}}</td>
         <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
         <td class="text-right pr-1">{{siteVisit?.roadApproach}}</td>
         <td class="text-right pr-1">{{siteVisit?.roadWidth}}</td>
@@ -1251,7 +1250,6 @@
         <td class="text-right pr-1">{{siteVisit?.approachDistance}}</td>
         <td class="text-left pl-1">{{siteVisit?.roadAccessFrom}}</td>
       </tr>
-      </tbody>
     </table>
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
@@ -1273,9 +1271,8 @@
         <th>Any High-tension setbacks?</th>
       </tr>
       </thead>
-      <tbody>
-      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-        <td>{{i+1}}</td>
+      <tr *ngFor="let siteVisit of uniqueSiteVisitJson; let k = index">
+        <td>{{k+1}}</td>
         <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
         <td class="text-left pl-1">{{siteVisit?.waterSupply === true ? 'YES' : 'NO'}}</td>
         <td class="text-left pl-1">{{siteVisit?.electricity === true ? 'YES' : 'NO'}}</td>
@@ -1288,7 +1285,6 @@
         <td class="text-left pl-1">{{siteVisit?.riverOrCanalSetbacks}}</td>
         <td class="text-left pl-1">{{siteVisit?.highTensionSetbacks}}</td>
       </tr>
-      </tbody>
     </table>
 
     <table class="table table-sm table-bordered text-center table-sm sb-small">
@@ -1316,9 +1312,8 @@
         <th>Construction Appears to be as per the Approved Naksa Pass</th>
       </tr>
       </thead>
-      <tbody>
-      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-        <td>{{i+1}}</td>
+      <tr *ngFor="let siteVisit of uniqueSiteVisitJson; let k = index">
+        <td>{{k+1}}</td>
         <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
         <td class="text-left pl-1">{{siteVisit?.buildingArea === null ? 'NA' : siteVisit?.buildingArea}}</td>
         <td class="text-left pl-1">{{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | date}}
@@ -1337,7 +1332,6 @@
         <td class="text-left pl-1">{{siteVisit?.buildingCompCertificate === true ? 'YES' : 'NO'}}</td>
         <td class="text-left pl-1">{{siteVisit?.constructionAsPerNaksa === true ? 'YES' : 'NO'}}</td>
       </tr>
-      </tbody>
     </table>
 
     <table class="table table-sm table-bordered text-center table-sm sb-small">
@@ -1349,14 +1343,12 @@
           <th colspan="3">Comments about FAC</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-          <td colspan="1">{{i+1}}</td>
+      <tr *ngFor="let siteVisit of uniqueSiteVisitJson; let k = index">
+          <td colspan="1">{{k+1}}</td>
           <td class="text-left pl-1" colspan="2">{{siteVisit?.securityName.slice(0, -2)}}</td>
           <td class="text-left pl-1" colspan="4">{{siteVisit?.remarksForOtherFacility || 'NA'}}</td>
           <td class="text-left pl-1" colspan="3">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
         </tr>
-      </tbody>
     </table>
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
@@ -1371,15 +1363,13 @@
         <th>Hospital/Nursing Home</th>
       </tr>
       </thead>
-      <tbody>
-      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-        <td>{{i+1}}</td>
+      <tr *ngFor="let siteVisit of uniqueSiteVisitJson; let k = index">
+        <td>{{k+1}}</td>
         <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
         <td class="text-left pl-1">{{siteVisit?.majorMarketPlaces || 'NA'}}</td>
         <td class="text-left pl-1">{{siteVisit?.schoolOrCollege || 'NA'}}</td>
         <td class="text-left pl-1">{{siteVisit?.hospitalOrNursingHome || 'NA'}}</td>
       </tr>
-      </tbody>
     </table>
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
@@ -1397,10 +1387,9 @@
         <th>Staff Representative Designation Name 2</th>
       </tr>
       </thead>
-      <tbody>
-      <ng-container *ngFor="let siteVisit of siteVisitJson; let i = index">
+      <ng-container *ngFor="let siteVisit of uniqueSiteVisitJson; let k = index">
       <tr *ngFor="let staff of siteVisit.staffs;">
-        <td>{{i+1}}</td>
+        <td>{{k+1}}</td>
         <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
         <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation || 'NA'}}</td>
         <td class="text-left pl-1">{{staff.staffRepresentativeName || 'NA'}}</td>
@@ -1408,7 +1397,6 @@
         <td class="text-left pl-1">{{staff.staffRepresentativeName2 || 'NA'}}</td>
       </tr>
       </ng-container>
-      </tbody>
     </table>
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
@@ -1422,21 +1410,17 @@
         <th>Latitude</th>
       </tr>
       </thead>
-      <tbody>
-      <ng-container *ngFor="let siteVisit of siteVisitJson; let i = index">
-        <tr>
-          <td>{{i+1}}</td>
+      <tr *ngFor="let siteVisit of uniqueSiteVisitJson; let k = index">
+        <td>{{k+1}}</td>
           <td class="text-right pr-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
           <td class="text-right pr-1">{{siteVisit?.fixedAssetsLongitude || 'NA'}}</td>
           <td class="text-right pr-1">{{siteVisit.fixedAssetsLatitude || 'NA'}}</td>
         </tr>
-      </ng-container>
-      </tbody>
     </table>
-    <strong *ngIf="siteVisitDocuments.length>0" class="ml-3">Collateral Site Visit Documents</strong>
-    <div *ngIf="siteVisitDocuments.length>0" class="container mt-2">
+    <strong *ngIf="tmpSiteVisitDocuments.length>0" class="ml-3">Collateral Site Visit Documents</strong>
+    <div class="container mt-2">
       <div class="row">
-      <div class="col-md-4" *ngFor="let doc of siteVisitDocuments;">
+      <div class="col-md-4" *ngFor="let doc of tmpSiteVisitDocuments; let i = index">
         <img [src]="url + separator + doc?.docPath + doc?.docName.concat(fileType)+'?='+random"
              class="figure-img img-fluid rounded img-medium"
              alt="{{doc?.docName}}" style="cursor: pointer" (click)="viewDocument(doc?.docPath,doc?.docName)"

@@ -52,6 +52,9 @@ export class SecurityViewComponent implements OnInit {
   fileType = '.jpg';
   isPrintable = 'YES';
   random;
+  arraySecurityName: Array<CollateralSiteVisit> = [];
+  uniqueSiteVisitJson = [];
+  tmpSiteVisitDocuments: Array<SiteVisitDocument> =  new Array<SiteVisitDocument>();
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
@@ -177,7 +180,18 @@ export class SecurityViewComponent implements OnInit {
 
               this.collateralSiteVisits.filter(item => {
                 this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+          });
+            this.collateralSiteVisits.reverse();
+            this.arraySecurityName = this.collateralSiteVisits
+                .filter(
+                    (thing, i, arrCollateral) => arrCollateral.findIndex(t => t.securityName === thing.securityName) === i);
+            this.arraySecurityName.forEach(item => {
+              this.uniqueSiteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+              item.siteVisitDocuments.forEach( siteVisitDoc => {
+                this.tmpSiteVisitDocuments.push(siteVisitDoc);
               });
+            });
+            this.tmpSiteVisitDocuments = this.tmpSiteVisitDocuments.filter(f => f.isPrintable === this.isPrintable);
               if (response.detail.length > 0) {
                 this.isCollateralSiteVisit = true;
               }

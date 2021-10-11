@@ -45,9 +45,11 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() nepaliDate;
     @Input() siteVisitDocuments: Array<SiteVisitDocument>;
     isCollateralSiteVisitPresent = false;
+    tmpSiteVisitDocuments: Array<SiteVisitDocument> =  new Array<SiteVisitDocument>();
     collateralSiteVisits: Array<CollateralSiteVisit> = [];
     siteVisitJson = [];
-
+    arraySecurityName: Array<CollateralSiteVisit> = [];
+    uniqueSiteVisitJson = [];
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
 
@@ -171,6 +173,17 @@ export class SecuritySummaryComponent implements OnInit {
                     this.collateralSiteVisits = response.detail;
                     this.collateralSiteVisits.filter(item => {
                         this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                    });
+                    this.collateralSiteVisits.reverse();
+                    this.arraySecurityName = this.collateralSiteVisits
+                        .filter(
+                            (thing, i, arrCollateral) => arrCollateral.findIndex(t => t.securityName === thing.securityName) === i);
+                    this.siteVisitDocuments = [];
+                    this.arraySecurityName.forEach(item => {
+                        this.uniqueSiteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                        item.siteVisitDocuments.forEach( siteVisitDoc => {
+                            this.tmpSiteVisitDocuments.push(siteVisitDoc);
+                        });
                     });
                     if (response.detail.length > 0) {
                         this.isCollateralSiteVisitPresent = true;
