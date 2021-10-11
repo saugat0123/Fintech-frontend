@@ -48,10 +48,6 @@ export class SmeComponent implements OnInit {
   selectedAutoLoan;
   selectedInterest;
   loanLimit;
-  guarantorNames: Array<String> = [];
-  allguarantorNames;
-  guarantorAmount: number = 0;
-  guarantorAmountNepali;
   constructor( private formBuilder: FormBuilder,
                private router: Router,
                private toastService: ToastService,
@@ -75,7 +71,6 @@ export class SmeComponent implements OnInit {
     console.log('Selected Data:',this.cadOfferLetterApprovedDoc);
     console.log('All Data:',this.tempData);
     console.log('Loan Holder initial data:',this.smeLoanHolderInfo);
-    this.guarantorDetails();
     this.checkOfferLetterData();
   }
   buildForm() {
@@ -139,15 +134,6 @@ export class SmeComponent implements OnInit {
     } else {
       this.fillForm();
     }
-  }
-  guarantorDetails(){
-    for (let i = 0; i < this.guarantorData.length; i++){
-      let temp = JSON.parse(this.guarantorData[i].nepData);
-      this.guarantorNames.push(temp.guarantorName.ct);
-      this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
-    }
-    this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-    this.allguarantorNames = this.guarantorNames.join(",");
   }
 
   fillForm() {

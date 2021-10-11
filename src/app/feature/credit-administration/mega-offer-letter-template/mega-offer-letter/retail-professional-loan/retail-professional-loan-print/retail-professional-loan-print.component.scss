@@ -1,9 +1,13 @@
 .nep {
   font-size: 16px;
-  line-height: 1.9;
+  line-height: 1.9 !important;
   text-align: justify;
   text-justify: inter-word;
   margin: 10px 22px;
+  p{
+    line-height: inherit;
+  }
+
 }
 .print-space{
   margin-top: 0;
@@ -58,7 +62,7 @@ input::-webkit-input-placeholder {
   tr, td {
     break-after: auto;
     break-inside: auto;
-    line-height: 1;
+    line-height: 1.9 !important;
   }
 }
 
