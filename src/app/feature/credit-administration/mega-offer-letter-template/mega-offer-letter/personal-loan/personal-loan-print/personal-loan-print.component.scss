@@ -37,10 +37,6 @@ footer {
   text-align: center;
   margin-top: 20px;
 }
-@page {
-  size: A4;
-  margin: 17mm 17mm 17mm 17mm;
-}
 
 .hello{
   width: 95%;
@@ -48,6 +44,11 @@ footer {
 }
 
 @media print {
+  @page {
+    size: A4;
+    margin: 17mm 17mm 17mm 17mm;
+  }
+
   footer{
     position: fixed;
     bottom: 0;
