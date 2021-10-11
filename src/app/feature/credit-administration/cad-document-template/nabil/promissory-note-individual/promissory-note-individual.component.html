@@ -37,18 +37,40 @@
                                               type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('nameofGrandFather').value ? form.get('nameofGrandFather').value : "___________________"}}</span>
 
-                                को नाती/नातिनी/बुहारी <input class="form-field disable-print form-control-sm"
-                                                             name="nameofFather"
-                                                             formControlName="nameofFather"
-                                                             placeholder="बुबाको नाम"
-                                                             type="text"/>
+                                को
+                                <span *ngIf="individualData.gender.en === 'MALE' else individualGrandFather">
+                                    नाती
+                                </span>
+                                <ng-template #individualGrandFather>
+                                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '1'">
+                                        नातिनी
+                                    </span>
+                                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '0'">
+                                        बुहारी
+                                    </span>
+                                </ng-template>
+                                <input class="form-field disable-print form-control-sm"
+                                       name="nameofFather"
+                                       formControlName="nameofFather"
+                                       placeholder="बुबाको नाम"
+                                       type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('nameofFather').value ? form.get('nameofFather').value : "_____________________"}}</span>
 
-                                को छोरा/छोरी/श्रीमती <input class="form-field disable-print form-control-sm nepaliFont"
-                                                            name="district"
-                                                            formControlName="district"
-                                                            placeholder="जिल्ला"
-                                                            type="text"/>
+                                को
+                                <span *ngIf="individualData.gender.en === 'MALE' else fatherRelation"> छोरा </span>
+                                <ng-template #fatherRelation>
+                                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '1'">
+                                      छोरी
+                                    </span>
+                                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '0'">
+                                      श्रीमती
+                                    </span>
+                                </ng-template>
+                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                       name="district"
+                                       formControlName="district"
+                                       placeholder="जिल्ला"
+                                       type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('district').value ? form.get('district').value : "_____________________"}}</span>
 
                                 जिल्ला <input class="form-field disable-print form-control-sm nepaliFont"
@@ -58,7 +80,11 @@
                                               type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('vdc').value ? form.get('vdc').value : "_____________________"}}</span>
 
-                                न.पा/गा.वि.स. वडा नं <input class="form-field disable-print form-control-sm"
+                                <span *ngIf="individualData.municipalityOrVdc.en === vdcOption[0].value">
+                                    न.पा.
+                                </span>
+                                <span *ngIf="individualData.municipalityOrVdc.en === vdcOption[1].value"> गा.वि.स. </span>
+                                वडा नं <input class="form-field disable-print form-control-sm"
                                                             name="wardNo"
                                                             formControlName="wardNo"
                                                             placeholder="वार्ड नं"
@@ -72,11 +98,23 @@
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('age').value ? form.get('age').value : "_____________________"}}</span>
 
-                                को श्री/श्रीमती/सुश्री <input class="form-field disable-print form-control-sm"
-                                                              name="nameofPerson "
-                                                              formControlName="nameofPerson"
-                                                              placeholder="व्यक्तिको नाम"
-                                                              type="text"/>
+                                को
+                                <span *ngIf="individualData.gender.en === 'MALE' else nameCondition">
+                                    श्री
+                                </span>
+                                <ng-template #nameCondition>
+                                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '1'">
+                                        सुश्री
+                                    </span>
+                                    <span *ngIf="individualData.relationMedium !== undefined && individualData.relationMedium.en === '0'">
+                                       श्रीमती
+                                    </span>
+                                </ng-template>
+                                <input class="form-field disable-print form-control-sm"
+                                          name="nameofPerson "
+                                          formControlName="nameofPerson"
+                                          placeholder="व्यक्तिको नाम"
+                                          type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('nameofPerson').value ? form.get('nameofPerson').value : "_______________"}}</span>
 
                                 (ना.प्र.नं. <input class="form-field disable-print form-control-sm"
