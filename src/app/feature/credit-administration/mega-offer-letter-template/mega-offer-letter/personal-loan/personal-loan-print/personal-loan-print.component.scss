@@ -21,7 +21,7 @@ table {
 }
 .nep {
   font-size: 20px;
-  line-height: 1.9;
+  line-height: 1.9 !important;
   text-align: justify;
   text-justify: inter-word;
   margin: 10px 70px;
@@ -54,4 +54,6 @@ footer {
     bottom: 0;
     width: 100%;
   }
+
+
 }
