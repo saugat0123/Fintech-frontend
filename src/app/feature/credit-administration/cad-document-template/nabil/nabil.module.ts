@@ -22,6 +22,8 @@ import {SecuritiesComponent} from './securities-view/securities-view.component';
 import {PromissoryNoteProprietorshipComponent} from './promissory-note-proprietorship/promissory-note-proprietorship.component';
 import {PromissoryNoteProprietorshipPrintComponent} from './promissory-note-proprietorship/promissory-note-propertiership-print/promissory-note-proprietorship-print.component';
 import {LoanDeedPartnershipPrintComponent} from './loan-deed-partnership/loan-deed-partnership-print/loan-deed-partnership-print.component';
+import {LetterVehicleThirdpartyCompanyComponent} from './letter-vehicle-thirdparty-company/letter-vehicle-thirdparty-company.component';
+import {LetterVehicleThirdpartyCompanyPrintComponent} from './letter-vehicle-thirdparty-company/letter-vehicle-thirdparty-company-print/letter-vehicle-thirdparty-company-print.component';
 
 
 @NgModule({
@@ -34,8 +36,7 @@ import {LoanDeedPartnershipPrintComponent} from './loan-deed-partnership/loan-de
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent,
         LoanDeedPartnershipComponent,
-        PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent],
+        PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent, LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -54,7 +55,9 @@ import {LoanDeedPartnershipPrintComponent} from './loan-deed-partnership/loan-de
         PromissoryNotePartnershipComponent,
         SecuritiesComponent,
         LoanDeedPartnershipComponent,
-        LoanDeedPartnershipPrintComponent
+        LoanDeedPartnershipPrintComponent,
+        LetterVehicleThirdpartyCompanyComponent,
+        LetterVehicleThirdpartyCompanyPrintComponent
     ],
     imports: [
         CommonModule,
