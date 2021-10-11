@@ -144,6 +144,8 @@ export class LoanFormComponent implements OnInit {
 
     showDocStatusDropDown = true;
     isBlackListed = false;
+    edit;
+    catalogue;
 
     @ViewChild('priorityFormNav', {static: false})
     priorityFormNav: ElementRef;
@@ -254,6 +256,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.edit = localStorage.getItem('editable');
         this.nbSpinner = true;
         this.docStatusForMaker();
         this.buildPriorityForm();
@@ -272,7 +275,8 @@ export class LoanFormComponent implements OnInit {
                     customerProfileId: null,  // CustomerInfo->associateId
                     customerType: null,
                     customerInfoId: null,   // CustomerInfo->id
-                    loanType: null
+                    loanType: null,
+                    catalogue: null
                 };
 
                 this.allId = paramsValue;
@@ -281,6 +285,7 @@ export class LoanFormComponent implements OnInit {
                 this.customerId = this.allId.customerId;
                 this.loanHolder.id = this.allId.customerInfoId;
                 this.loanType = this.allId.loanType;
+                this.catalogue = this.allId.catalogue;
 
                 if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
                     if (CustomerType[this.allId.customerType] === CustomerType.INDIVIDUAL) {
@@ -385,6 +390,9 @@ export class LoanFormComponent implements OnInit {
             this.nbSpinner=false;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
+            if (this.edit) {
+                this.filterTemplateList(this.templateList);
+            }
             // Splicing customer loan for Personal Type Loan--
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
                 this.templateList.forEach((value, index) => {
@@ -403,6 +411,9 @@ export class LoanFormComponent implements OnInit {
                 });
             } else {
                 this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
+                if (this.edit) {
+                    this.filterTemplateList(this.templateList);
+                }
                 this.templateList.forEach((value, index) => {
                     if (value.name === 'Credit Risk Grading - Lambda') {
                         this.templateList.splice(index, 1);
@@ -518,13 +529,15 @@ export class LoanFormComponent implements OnInit {
                templateUrl: null
            });
 
-            if (this.approvedLoans.length !== 0) {
-                this.templateList.push({
-                        active: false,
-                        name: 'Outstanding Update',
-                        templateUrl: null
-                    }
-                )
+            if (!this.edit) {
+                if (this.approvedLoans.length !== 0) {
+                    this.templateList.push({
+                            active: false,
+                            name: 'Outstanding Update',
+                            templateUrl: null
+                        }
+                    )
+                }
             }
 
 
@@ -790,26 +803,28 @@ export class LoanFormComponent implements OnInit {
         this.nbSpinner = true;
         this.customerInfoService.detail(id)
             .subscribe((infoResponse) => {
-                this.nbSpinner = false;
-                this.loanHolder = infoResponse.detail;
-                this.loanDocument.loanHolder = this.loanHolder;
-                this.loanDocument.siteVisit = this.loanHolder.siteVisit;
-                this.loanDocument.financial = this.loanHolder.financial;
-                if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
-                    this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
-                        this.loanDocument.companyInfo = res.detail;
-                    }, error => {
-                        this.nbSpinner=false;
-                        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
-                    });
+                this.nbSpinner = false
+                if (this.loanDocument !== undefined) {
+                    this.loanHolder = infoResponse.detail;
+                    this.loanDocument.loanHolder = this.loanHolder;
+                    this.loanDocument.siteVisit = this.loanHolder.siteVisit;
+                    this.loanDocument.financial = this.loanHolder.financial;
+                    if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
+                        this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
+                            this.loanDocument.companyInfo = res.detail;
+                        }, error => {
+                            this.nbSpinner=false;
+                            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
+                        });
+                    }
+                    this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
+                    this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
+                    this.loanDocument.crgGamma = this.loanHolder.crgGamma;
+                    this.loanDocument.security = this.loanHolder.security;
+                    this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
+                    this.loanDocument.insurance = this.loanHolder.insurance;
+                    this.loanDataReady = true;
                 }
-                this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
-                this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
-                this.loanDocument.crgGamma = this.loanHolder.crgGamma;
-                this.loanDocument.security = this.loanHolder.security;
-                this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
-                this.loanDocument.insurance = this.loanHolder.insurance;
-                this.loanDataReady = true;
             }, error => {
                 console.error(error);
                 this.nbSpinner = false;
@@ -879,6 +894,7 @@ export class LoanFormComponent implements OnInit {
                 this.nbSpinner=false;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
+                if (!this.catalogue) {
                 this.router.navigate(['/home/loan/summary'], {queryParams: {
                         loanConfigId: this.id,
                         customerId: this.customerLoanId,
@@ -887,6 +903,14 @@ export class LoanFormComponent implements OnInit {
                     .then(() => {
                         this.spinner.hide();
                     });
+            } else {
+                    this.router.navigate(['/home/loan/summary'], {queryParams: {
+                            loanConfigId: this.id,
+                            customerId: this.customerLoanId,
+                            catalogue : this.catalogue,
+                            customerInfoId: this.companyInfoId
+                        }});
+                }
             }, error => {
                 this.nbSpinner=false;
                 console.error(error);
@@ -902,5 +926,15 @@ export class LoanFormComponent implements OnInit {
     goToCustomer() {
         const loanHolder = this.loanDocument.loanHolder;
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+    }
+    filterTemplateList(templateList) {
+        this.templateList = [];
+        let index = 0;
+        templateList.forEach(item => {
+            if (item.name === 'Loan Document') {
+                this.templateList[index] = item;
+                index++;
+            }
+        });
     }
 }

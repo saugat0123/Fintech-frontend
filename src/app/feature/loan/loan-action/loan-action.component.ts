@@ -48,6 +48,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     private loan: any;
 
     companyInfoId: any;
+    edit;
     constructor(
         private alertService: AlertService,
         private toastService: ToastService,
@@ -62,6 +63,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
         this.activatedRoute.queryParams.subscribe((data)=> {
             this.companyInfoId = data.customerInfoId;
         })
+        if (this.companyInfoId) {
+            this.edit = localStorage.getItem('editable');
+        }
         const roleName: string = LocalStorageUtil.getStorage().roleName;
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
@@ -203,14 +207,26 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     public onEdit() {
-        this.router.navigate(['/home/loan/loanForm'], {
-            queryParams: {
-                loanId: this.loanConfigId,
-                customerId: this.id,
-                loanCategory: this.loanCategory,
-                customerInfoId: this.companyInfoId
-            }
-        });
+        if (this.catalogueStatus === true) {
+            this.router.navigate(['/home/loan/loanForm'], {
+                queryParams: {
+                    loanId: this.loanConfigId,
+                    customerId: this.id,
+                    loanCategory: this.loanCategory,
+                    customerInfoId: this.companyInfoId,
+                    catalogue: this.catalogueStatus
+                }
+            });
+        } else {
+            this.router.navigate(['/home/loan/loanForm'], {
+                queryParams: {
+                    loanId: this.loanConfigId,
+                    customerId: this.id,
+                    loanCategory: this.loanCategory,
+                    customerInfoId: this.companyInfoId
+                }
+            });
+        }
     }
 
     public deleteCustomerLoan() {

@@ -84,6 +84,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   loanAction: any;
   loanActionList = [];
   displaySecurity = false;
+  edit;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -257,9 +258,16 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     });
   }
 
-  onClick(loanConfigId: number, customerId: number, currentStage: LoanStage) {
+  onClick(loanConfigId: number, customerId: number, currentStage: LoanStage, docStatus) {
     this.modalService.dismissAll();
     this.spinnerService.show();
+    if ((currentStage.toUser.id.toString() !== this.currentUserId) &&
+        (this.currentUserRoleType === 'MAKER') && (docStatus === 'PENDING')) {
+      this.edit = true;
+      localStorage.setItem('editable', this.edit);
+    } else {
+      localStorage.removeItem('editable');
+    }
     if (!ObjectUtil.isEmpty(currentStage)) {
       if ((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER')) {
         this.router.navigate(['/home/loan/summary'], {
