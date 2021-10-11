@@ -33,6 +33,7 @@ export class LetterOfDisbursementComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  loanAmount;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -46,6 +47,7 @@ export class LetterOfDisbursementComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.loanAmount = JSON.parse(this.cadData.nepData);
     this.fillForm();
 
   }
@@ -63,13 +65,13 @@ export class LetterOfDisbursementComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      const loanAmount = JSON.parse(this.cadData.nepData);
+
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
         clientName: this.nepaliData.name ? this.nepaliData.name : '',
-        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-        amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        //amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        //amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
         sincerlyname: this.nepaliData.name ? this.nepaliData.name : '',
         naPraNaName: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
         mitiName: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
@@ -85,6 +87,8 @@ export class LetterOfDisbursementComponent implements OnInit {
         husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
       });
     }
+    this.form.get('amount').patchValue(this.loanAmount.numberNepali);
+    this.form.get('amountInWord').patchValue(this.loanAmount.nepaliWords);
   }
 
 
@@ -184,7 +188,6 @@ export class LetterOfDisbursementComponent implements OnInit {
       buttonParentName: [undefined],
       buttonGrandParentName: [undefined],
       buttonHusbandWifeName: [undefined],
-      secguarantorDetails: this.formBuilder.array([]),
       shakhaName: [undefined],
       naPraNaName: [undefined],
       mitiName: [undefined],
