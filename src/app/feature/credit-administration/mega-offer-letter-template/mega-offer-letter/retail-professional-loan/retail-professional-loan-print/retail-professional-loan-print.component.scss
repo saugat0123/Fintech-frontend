@@ -54,6 +54,12 @@ input::-webkit-input-placeholder {
     bottom: 0;
     width: 100%;
   }
+
+  tr, td {
+    break-after: auto;
+    break-inside: auto;
+    line-height: 1;
+  }
 }
 
 .page-break {
