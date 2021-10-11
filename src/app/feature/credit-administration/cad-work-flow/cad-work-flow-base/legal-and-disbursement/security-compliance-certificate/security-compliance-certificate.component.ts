@@ -11,6 +11,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../../../customer/model/customerType';
 import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
 import {RoleType} from '../../../../../admin/modal/roleType';
+import {CadDocStatus} from '../../../../model/CadDocStatus';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -30,6 +31,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   userType = LocalStorageUtil.getStorage().roleType;
   isMaker = false;
   spinner = false;
+  docStatus = CadDocStatus;
+
 
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
@@ -46,7 +49,6 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     this.getCompanyPan();
     this.setSccRefNumber();
     this.getSecurityCode();
-    console.log(this.userType);
     if (this.userType === RoleType.MAKER) {
       this.isMaker = true;
     }

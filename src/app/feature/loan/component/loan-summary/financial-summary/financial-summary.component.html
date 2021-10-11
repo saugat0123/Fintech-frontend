@@ -89,6 +89,12 @@
                 <strong>{{financialData?.initialForm?.emiNetMonthly | currencyFormatter}}</strong>
               </td>
             </tr>
+            <tr>
+              <td class="text-left pl-1" colspan="3"><strong>Debt Burden Ratio</strong></td>
+              <td colspan="2" class="text-right pr-1">
+                <strong>{{(financialData?.initialForm?.emiNetMonthly * 100) }}%</strong>
+              </td>
+            </tr>
 
             <tr class="text-white sb-bg-dark">
               <th colspan="4">Note</th>

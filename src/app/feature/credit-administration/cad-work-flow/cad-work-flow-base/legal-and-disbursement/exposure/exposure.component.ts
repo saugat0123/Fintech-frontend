@@ -87,7 +87,7 @@ export class ExposureComponent implements OnInit, OnChanges {
                 loanName: [value.loan.name],
                 loanLimit: [value.proposal.proposedLimit, Validators.required],
                 disbursement: [undefined, Validators.required],
-                initialRate: [undefined, Validators.required],
+                initialRate: [value.loan.interestRate, Validators.required],
                 maturity: [undefined, Validators.required],
                 frequency: [undefined, Validators.required],
                 isFunded: [value.loan.isFundable],

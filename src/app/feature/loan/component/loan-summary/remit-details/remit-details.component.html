@@ -204,10 +204,10 @@
 
             </tr>
             </thead>
-            <tbody>
-            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_state) ? (beneficiaryDetails.beneficiaryAddress.benef_permanent_state) : 'N/A'}}</td>
-            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_district) ? (beneficiaryDetails.beneficiaryAddress.benef_permanent_district) : 'N/A'}}</td>
-            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_municipality) ? (beneficiaryDetails.beneficiaryAddress.benef_permanent_municipality) : 'N/A'}}</td>
+            <tbody *ngIf="isLoaded">
+            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_state) ? province ?(province.name):'N/A' : 'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_district) ? district? (district.name):'N/A' : 'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_municipality) ?municipality? (municipality.name):'N/A' : 'N/A'}}</td>
             <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_ward_no) ? (beneficiaryDetails.beneficiaryAddress.benef_permanent_ward_no) : 'N/A'}}</td>
             <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_address) ? (beneficiaryDetails.beneficiaryAddress.benef_permanent_address) : 'N/A'}}</td>
 
