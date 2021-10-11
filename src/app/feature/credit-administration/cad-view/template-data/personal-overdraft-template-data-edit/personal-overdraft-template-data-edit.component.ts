@@ -121,18 +121,12 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       loanadminFeeWords: [undefined],
       loanCommitmentFee: [undefined],
       dateofExpiry: [undefined],
-      ownerName: [undefined],
-      ownersAddress: [undefined],
-      propertyPlotNumber: [undefined],
-      sheetNumber: [undefined],
-      propertyArea: [undefined],
       // nameofGuarantors: [undefined],
       /*guaranteedamountinFigure: [undefined],
       guaranteedamountinWords: [undefined],*/
       insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
-      staffName: [undefined],
 
       // fortranslatedvalue
       selectedSecurityTransVal: [undefined],
@@ -149,18 +143,12 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       loanadminFeeWordsTransVal: [undefined],
       loanCommitmentFeeTransVal: [undefined, Validators.required],
       dateofExpiryTransVal: [undefined],
-      ownerNameTransVal: [undefined, Validators.required],
-      ownersAddressTransVal: [undefined, Validators.required],
-      propertyPlotNumberTransVal: [undefined, Validators.required],
-      sheetNumberTransVal: [undefined, Validators.required],
-      propertyAreaTransVal: [undefined, Validators.required],
       // nameofGuarantorsTransVal: [undefined],
       /*guaranteedamountinFigureTransVal: [undefined],
       guaranteedamountinWordsTransVal: [undefined],*/
       insuranceAmountinFigureTransVal: [undefined, Validators.required],
       relationshipofficerNameTransVal: [undefined, Validators.required],
       nameofBranchManagerTransVal: [undefined, Validators.required],
-      staffNameTransVal: [undefined, Validators.required],
       securities: this.formBuilder.array([])
     });
   }
@@ -293,16 +281,13 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
     // this.form.get('loanadminFeeTransVal').patchValue(this.translatedData.loanadminFee);
     this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
-    // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
+    // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmfentFee);
     this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
-    this.form.get('ownerNameTransVal').patchValue(this.translatedData.ownerName);
-    this.form.get('ownersAddressTransVal').patchValue(this.translatedData.ownersAddress);
     // this.form.get('propertyPlotNumberTransVal').patchValue(this.translatedData.propertyPlotNumber);
     // this.form.get('propertyAreaTransVal').patchValue(this.translatedData.propertyArea);
     // this.form.get('sheetNumberTransVal').patchValue(this.translatedData.sheetNumber);
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
-    this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
     // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
@@ -519,14 +504,8 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     this.form.get('loanadminFeeWords').patchValue(this.initialInformation.loanadminFeeWords.en);
     this.form.get('loanCommitmentFee').patchValue(this.initialInformation.loanCommitmentFee.en);
     this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
-    this.form.get('ownerName').patchValue(this.initialInformation.ownerName.en);
-    this.form.get('ownersAddress').patchValue(this.initialInformation.ownersAddress.en);
-    this.form.get('propertyPlotNumber').patchValue(this.initialInformation.propertyPlotNumber.en);
-    this.form.get('sheetNumber').patchValue(this.initialInformation.sheetNumber.en);
-    this.form.get('propertyArea').patchValue(this.initialInformation.propertyArea.en);
     this.form.get('relationshipofficerName').patchValue(this.initialInformation.relationshipofficerName.en);
     this.form.get('nameofBranchManager').patchValue(this.initialInformation.nameofBranchManager.en);
-    this.form.get('staffName').patchValue(this.initialInformation.staffName.en);
     this.form.get('insuranceAmountinFigure').patchValue(this.initialInformation.insuranceAmountinFigure.en);
 
     // set ct value
@@ -538,14 +517,8 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     this.form.get('loanadminFeeTransVal').patchValue(this.initialInformation.loanadminFee.ct);
     this.form.get('loanadminFeeWordsTransVal').patchValue(this.initialInformation.loanadminFeeWords.ct);
     this.form.get('loanCommitmentFeeTransVal').patchValue(this.initialInformation.loanCommitmentFee.ct);
-    this.form.get('ownerNameTransVal').patchValue(this.initialInformation.ownerName.ct);
-    this.form.get('ownersAddressTransVal').patchValue(this.initialInformation.ownersAddress.ct);
-    this.form.get('propertyPlotNumberTransVal').patchValue(this.initialInformation.propertyPlotNumber.ct);
-    this.form.get('sheetNumberTransVal').patchValue(this.initialInformation.sheetNumber.ct);
-    this.form.get('propertyAreaTransVal').patchValue(this.initialInformation.propertyArea.ct);
     this.form.get('relationshipofficerNameTransVal').patchValue(this.initialInformation.relationshipofficerName.ct);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.initialInformation.nameofBranchManager.ct);
-    this.form.get('staffNameTransVal').patchValue(this.initialInformation.staffName.ct);
     this.form.get('insuranceAmountinFigureTransVal').patchValue(this.initialInformation.insuranceAmountinFigure.ct);
   }
 
