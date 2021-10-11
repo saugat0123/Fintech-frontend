@@ -269,7 +269,6 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
           })
         );
       });
-        console.log('New GUARANTORS DATA:::', this.guarantorsNepData);
     }
   }
 
