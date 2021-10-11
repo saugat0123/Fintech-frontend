@@ -16,6 +16,10 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerAp
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-letter-of-disbursement',
@@ -38,6 +42,8 @@ export class LetterOfDisbursementComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
+              private engToNepNumberPipe: EngToNepaliNumberPipe,
+              private currencyFormatPipe: CurrencyFormatterPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -48,8 +54,14 @@ export class LetterOfDisbursementComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.loanAmount = JSON.parse(this.cadData.nepData);
-    console.log('loan Amount', this.loanAmount);
+    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
+      const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
+      this.loanAmount.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+      this.loanAmount.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+      this.loanAmount.engNumber = number;
+    } else {
+      this.loanAmount = JSON.parse(this.cadData.nepData);
+    }
     this.fillForm();
   }
 
@@ -66,13 +78,13 @@ export class LetterOfDisbursementComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      //const loanAmount = JSON.parse(this.cadData.nepData);
+      // const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
         clientName: this.nepaliData.name ? this.nepaliData.name : '',
-        //amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-        //amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        // amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        // amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
         sincerlyname: this.nepaliData.name ? this.nepaliData.name : '',
         naPraNaName: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
         mitiName: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
@@ -270,5 +282,4 @@ export class LetterOfDisbursementComponent implements OnInit {
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
   }
-
 }
