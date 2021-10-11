@@ -383,24 +383,24 @@
                         <nb-datepicker #dos></nb-datepicker>
                     </td>
                 </tr>
-                <tr>
-                    <td>Approval Staff Name</td>
-                    <td>
-                        <input type="text" class="form-control" formControlName="staffName">
-                    </td>
-                    <td class="abc">
-                        {{podtranslatedData?.staffName}}
-                    </td>
-                    <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.staffNameTransVal.errors }"
-                               formControlName="staffNameTransVal"/>
-                        <div *ngIf="submitted && Form.staffNameTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.staffNameTransVal.errors.required">Staff Name is required</div>
-                        </div>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td>Approval Staff Name</td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control" formControlName="staffName">-->
+<!--                    </td>-->
+<!--                    <td class="abc">-->
+<!--                        {{podtranslatedData?.staffName}}-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control"-->
+<!--                               [ngClass]="{ 'is-invalid':submitted && Form.staffNameTransVal.errors }"-->
+<!--                               formControlName="staffNameTransVal"/>-->
+<!--                        <div *ngIf="submitted && Form.staffNameTransVal.errors"-->
+<!--                             class="invalid-feedback">-->
+<!--                            <div *ngIf="Form.staffNameTransVal.errors.required">Staff Name is required</div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
             </table>
         <button [disabled]="previewBtn" class="float-right" nbButton (click)="openModel()" status="primary">Preview
         </button>

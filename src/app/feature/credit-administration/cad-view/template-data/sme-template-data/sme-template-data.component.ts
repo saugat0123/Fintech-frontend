@@ -106,7 +106,7 @@ export class SmeTemplateDataComponent implements OnInit {
       relationshipOfficerName: [undefined],
       branchManager: [undefined],
       signatureDate: [undefined],
-      staffName: [undefined],
+      // staffName: [undefined],
 
       //For translated data
       selectedAutoLoanTransVal: [undefined],
@@ -130,7 +130,7 @@ export class SmeTemplateDataComponent implements OnInit {
       relationshipOfficerNameTransVal: [undefined, Validators.required],
       branchManagerTransVal: [undefined, Validators.required],
       signatureDateTransVal: [undefined],
-      staffNameTransVal: [undefined, Validators.required],
+      // staffNameTransVal: [undefined, Validators.required],
     });
   }
   async translate() {
@@ -156,7 +156,7 @@ export class SmeTemplateDataComponent implements OnInit {
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.podtranslatedData.relationshipOfficerName);
     this.form.get('branchManagerTransVal').patchValue(this.podtranslatedData.branchManager);
     this.form.get('signatureDateTransVal').patchValue(this.podtranslatedData.signatureDate);
-    this.form.get('staffNameTransVal').patchValue(this.podtranslatedData.staffName);
+    // this.form.get('staffNameTransVal').patchValue(this.podtranslatedData.staffName);
     this.form.get('selectedInterestTransVal').patchValue(data.selectedInterest.en);
     this.form.get('selectedAutoLoanTransVal').patchValue(data.selectedAutoLoan.en);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
