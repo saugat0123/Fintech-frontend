@@ -49,7 +49,6 @@ export class LoanDeedIndividualComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        console.log(this.cadData);
         this.amount = this.cadData.assignedLoan[0].proposal.proposedLimit;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
