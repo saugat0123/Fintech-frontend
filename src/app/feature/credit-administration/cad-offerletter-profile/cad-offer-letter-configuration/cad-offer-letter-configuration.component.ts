@@ -1387,7 +1387,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
-          this.guarantorDistrict = response.detail;
+          this.guarantorDistrict[index] = response.detail;
           this.guarantorDistrict.sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
@@ -1401,7 +1401,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     district.id = districtId;
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
-          this.guarantorMunicipalities = response.detail;
+          this.guarantorMunicipalities[index] = response.detail;
           this.guarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).patchValue(null);
@@ -1416,7 +1416,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
-          this.tempGuarantorDistricts = response.detail;
+          this.tempGuarantorDistricts[index] = response.detail;
           this.tempGuarantorDistricts.sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).patchValue(null);
@@ -1430,7 +1430,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     district.id = districtId;
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
-          this.tempGuarantorMunicipalities = response.detail;
+          this.tempGuarantorMunicipalities[index] = response.detail;
           this.tempGuarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).patchValue(null);
