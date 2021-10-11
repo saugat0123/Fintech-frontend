@@ -27,12 +27,34 @@
                                     name="grandFatherName"
                                     formControlName="grandFatherName" placeholder="हजुरबुबा वा ससुराको नाम" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'grandFatherName']).value}}</strong></span>
-                                को नाति/नातिनी/बुहारी
+                                को
+                                <span *ngIf="guarantorsNepData[i].gender.en === 'MALE'; else grandFatherRelation">
+                                    नाति
+                                </span>
+                                <ng-template #grandFatherRelation>
+                                    <span *ngIf="guarantorsNepData[i].relationMedium && guarantorsNepData[i].relationMedium.en === '1'">
+                                        नातिनी
+                                    </span>
+                                    <span *ngIf="guarantorsNepData[i].relationMedium && guarantorsNepData[i].relationMedium.en === '0'">
+                                        बुहारी
+                                    </span>
+                                </ng-template>
                                 <input class="form-field form-control-sm d-print-none"
                                     name="father_husbandName"
                                     formControlName="father_husbandName" placeholder="बुबा वा पतिको नाम" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'father_husbandName']).value}}</strong></span>
-                                को छोरा/छोरी/श्रीमती
+                                को
+                                <span *ngIf="guarantorsNepData[i].gender.en === 'MALE'; else husbandRelation">
+                                    छोरा
+                                </span>
+                                <ng-template #husbandRelation>
+                                    <span *ngIf="guarantorsNepData[i].relationMedium && guarantorsNepData[i].relationMedium.en === '1'">
+                                        छोरी
+                                    </span>
+                                    <span *ngIf="guarantorsNepData[i].relationMedium && guarantorsNepData[i].relationMedium.en === '0'">
+                                        श्रीमती
+                                    </span>
+                                </ng-template>
                                 <input class="form-field form-control-sm d-print-none"
                                     name="district"
                                     formControlName="district" placeholder="जिल्ला" type="text"/>
@@ -42,7 +64,13 @@
                                     name="VDCMunicipality"
                                     formControlName="VDCMunicipality" placeholder="गाउँ विकास वा नगरपालिका" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'VDCMunicipality']).value}}</strong></span>
-                                गा.वि.स./नगर वडा नं.
+                                <span *ngIf="guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc && guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc.en === vdcOption[0].value; else vdcMunicipality">
+                                    नगर
+                                </span>
+                                <ng-template #vdcMunicipality>
+                                    गा.वि.स.
+                                </ng-template>
+                                वडा नं.
                                 <input class="form-field form-control-sm d-print-none"
                                     name="ward"
                                     formControlName="ward" placeholder="वार्ड" type="text"/>
