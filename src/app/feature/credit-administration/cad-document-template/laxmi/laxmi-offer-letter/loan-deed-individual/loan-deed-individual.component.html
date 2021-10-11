@@ -21,31 +21,31 @@
                        formControlName="grandParentName">
                 को नाती/नातिनी,
                 <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="permanentMunicipality">
+                       formControlName="fatherName">
                 को छोरा/छोरी
                 <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="fatherName">
+                       formControlName="husbandWifeName">
                 को पति/पत्नी,
                 <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="husbandWifeName">
+                       formControlName="permanentDistrict">
                 जिल्ला,
                 <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="permanentDistrict">
-                न.पा./गा.पा.वडानं.
+                       formControlName="permanentMunicipality">
+                न.पा./गा.पा. वडा नं.
                 <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="temporaryWardNum">
+                       formControlName="permanentWardNum">
                 भई हाल
                 <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="temporaryAddress">
+                       formControlName="temporaryDistrict">
                 जिल्ला,
                 <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="temporaryDistrict">
+                       formControlName="temporaryMunicipality">
                 न.पा./गा.पा. वडा नंं.
                 <input type="text" class="form-control-sm form-field nepaliFont"
                        formControlName="tempWardNum">
                 बस्ने बर्ष
                 <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="livingYear">
+                       formControlName="age">
                 को
                 <input type="text" class="form-control-sm form-field nepaliFont"
                        formControlName="name">
@@ -64,7 +64,7 @@
                        formControlName="customerName">
                 को कर्जा स्वीकृतीपत्र/प्रस्तावपत्रमा उल्लेखित शर्त कबुलियत बमोजिम तोकिएको उद्देश्यमा उपयोग गर्ने गरी जम्मा कर्जा/कर्जा सुविधा
               <b>  रु<input type="text" class="form-control-sm form-field nepaliFont"
-                            formControlName="rupees">/–</b> (<b>अक्षरेपी रुपैयाँ <input type="text" class="form-control-sm form-field nepaliFont" formControlName="amount"/> लाख मात्र</b>)
+                           (change)="con($event)" formControlName="rupees">/–</b> (<b>अक्षरेपी रुपैयाँ <input type="text" class="form-control-sm form-field nepaliFont" formControlName="amount"/> लाख मात्र</b>)
                 कर्जा लिए खाएको ठिक साँचो हो । उक्त कर्जा एकै पटक वा पटक पटक प्राप्त गरेको एवं भविश्यमा ऋण कर्जा तथा सुविधा पुनरावलोकन वा नविकरण गरी जारी हुने स्वीकृतिपत्र (अफर लेटर)
                 मा उल्लेख भएका शर्त कबुलियत अनुसारको थप ऋण कर्जा तथा बैंकिङ्ग सुविधा र/वा भविष्यमा ऋणीले प्राप्त गर्ने ऋण तथा विभिन्न सुविधाहरु र यो ऋण प्राप्त गर्नु अगाडि अन्य कुनै बैंकिङ्ग
                 सुविधा प्राप्त गरेको भए सो समेत र ऋणीले अन्य कुनै व्यक्ति, फर्म वा कम्पनीलाई जमानत दिई उत्पन्न दायित्व र ऋणी आफै संलग्न भएको कुनै पनि फर्म, कम्पनी, उद्योग समेतले लिएको कर्जा समेत
@@ -113,6 +113,7 @@
                 <br>
                 <div class="row">
                     सनाखत साक्षी ः धनी बैंकमा  <input class="form-control-sm form-field nepaliFont" formControlName="role"/> पदमा कार्यरत
+                    <input class="form-control-sm form-field nepaliFont" formControlName="roleName"/>
                 </div>
             </div>
             <div>

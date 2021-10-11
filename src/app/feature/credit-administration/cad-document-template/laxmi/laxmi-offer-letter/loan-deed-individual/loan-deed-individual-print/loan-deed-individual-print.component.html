@@ -16,23 +16,23 @@
                 (यसपछि धनी बैंक भनिएको छ) आगे तमसुक लेखिदिने ऋणीको नाम
                 <span class="nepaliFont">{{printDocForm.grandParentName}}</span>
                 को नाती/नातिनी,
-                <span class="nepaliFont">{{printDocForm.permanentMunicipality}}</span>
-                को छोरा/छोरी
                 <span class="nepaliFont">{{printDocForm.fatherName}}</span>
-                को पति/पत्नी,
+                को छोरा/छोरी
                 <span class="nepaliFont">{{printDocForm.husbandWifeName}}</span>
-                जिल्ला,
+                को पति/पत्नी,
                 <span class="nepaliFont">{{printDocForm.permanentDistrict}}</span>
-                न.पा./गा.पा.वडानं.
-                <span class="nepaliFont">{{printDocForm.temporaryWardNum}}</span>
-                भई हाल
-                <span class="nepaliFont">{{printDocForm.temporaryAddress}}</span>
                 जिल्ला,
+                <span class="nepaliFont">{{printDocForm.permanentMunicipality}}</span>
+                न.पा./गा.पा.वडानं.
+                <span class="nepaliFont">{{printDocForm.permanentWardNum}}</span>
+                भई हाल
                 <span class="nepaliFont">{{printDocForm.temporaryDistrict}}</span>
+                जिल्ला,
+                <span class="nepaliFont">{{printDocForm.temporaryMunicipality}}</span>
                 न.पा./गा.पा. वडा नंं.
                 <span class="nepaliFont">{{printDocForm.tempWardNum}}</span>
                 बस्ने बर्ष
-                <span class="nepaliFont">{{printDocForm.livingYear}}</span>
+                <span class="nepaliFont">{{printDocForm.age}}</span>
                 को
                 <span class="nepaliFont">{{printDocForm.name}}</span>
                 (ना.प्र.नं.<span class="nepaliFont">{{printDocForm.naPraNa}}</span>, जि.प्र.का.,<span class="nepaliFont">{{printDocForm.districtOffice}}</span>
@@ -46,7 +46,7 @@
                 मिति
                 <span class="nepaliFont">{{printDocForm.customerName}}</span>
                 को कर्जा स्वीकृतीपत्र/प्रस्तावपत्रमा उल्लेखित शर्त कबुलियत बमोजिम तोकिएको उद्देश्यमा उपयोग गर्ने गरी जम्मा कर्जा/कर्जा सुविधा
-                <b>  रु<span class="nepaliFont">{{printDocForm.rupees}}</span>/–</b> (<b>अक्षरेपी रुपैयाँ <span class="nepaliFont">{{printDocForm.amount}}</span> लाख मात्र</b>)
+                <b>  रु<span class="nepaliFont">{{printDocForm.rupees}}</span>/–</b> (<b>अक्षरेपी रुपैयाँ <span class="nepali">{{printDocForm.amount}}</span>  मात्र</b>)
                 कर्जा लिए खाएको ठिक साँचो हो । उक्त कर्जा एकै पटक वा पटक पटक प्राप्त गरेको एवं भविश्यमा ऋण कर्जा तथा सुविधा पुनरावलोकन वा नविकरण गरी जारी हुने स्वीकृतिपत्र (अफर लेटर)
                 मा उल्लेख भएका शर्त कबुलियत अनुसारको थप ऋण कर्जा तथा बैंकिङ्ग सुविधा र/वा भविष्यमा ऋणीले प्राप्त गर्ने ऋण तथा विभिन्न सुविधाहरु र यो ऋण प्राप्त गर्नु अगाडि अन्य कुनै बैंकिङ्ग
                 सुविधा प्राप्त गरेको भए सो समेत र ऋणीले अन्य कुनै व्यक्ति, फर्म वा कम्पनीलाई जमानत दिई उत्पन्न दायित्व र ऋणी आफै संलग्न भएको कुनै पनि फर्म, कम्पनी, उद्योग समेतले लिएको कर्जा समेत
@@ -69,13 +69,15 @@
                 सूचि सम्वन्धी व्यवस्था वा/र भविष्यमा जारी तथा संसोधन हुने व्यवस्थाको अवस्था परी ऋणी, जमानतकर्ता लगायतका कर्जा संग सम्बन्धीत सम्बद्ध व्यक्ति तथा संस्थाहरुको नाम कर्जा सूचना केन्द्रको कालो सूचिमा समावेश गरेमा समेत
                 ऋणीको पूर्ण मन्जुरी रहेको छ । साथै संस्थापक शेयरको धितोमा कर्जा उपभोग गरेको अवस्थामा नेपाल राष्ट्र बैंकको निर्देशन अनुसार तोकिएको भुक्तानी अवधी भित्र कर्जा चुक्ता नगरेमा कालो सूचीमा समावेश गर्नुपर्ने कारण सहित ३५
                 दिनको सूचना दिई तत्पश्चात ७ दिन भित्र अनिवार्य रुपमा म/हामीलाई कालोसूचीमा राखेमा समेत मेरो/हाम्रो मन्जुरी रहेको छ भनी ऋणीको मनोमान राजिखुसीले धनी बैंकको कार्यालयमा वसी साक्षीहरुको रोहवरमा यो तमसुकमा सही
-                छाप गरी धनी बैंकलाई दिए/दियौ र यसको एक प्रति दोहरी बुझिलियौ । इति सम्बत <span class="nepaliFont">{{printDocForm.itisambatYear}}</span>
+                छाप गरी धनी बैंकलाई दिए/दियौ र यसको एक प्रति दोहरी बुझिलियौ ।
+                <br>
+                इति सम्बत <span [ngClass]="printDocForm.itisambatYear?'nepaliFont':''">{{printDocForm.itisambatYear?printDocForm.itisambatYear:'_________________'}}</span>
                 साल
-                <span class="nepaliFont">{{printDocForm.itisambatMonth}}</span>
+                <span [ngClass]="printDocForm.itisambatMonth?'nepaliFont':''">{{printDocForm.itisambatMonth?printDocForm.itisambatMonth:'_________________'}}</span>
                 महिना
-                <span class="nepaliFont">{{printDocForm.itisambatDay}}</span>
+                <span [ngClass]="printDocForm.itisambatDay?'nepaliFont':''">{{printDocForm.itisambatDay?printDocForm.itisambatDay:'_________________'}}</span>
                 गते रोज
-                <span class="nepaliFont">{{printDocForm.roj}}</span> शुभम्.––––––––––––।
+                <span [ngClass]="printDocForm.roj?'nepaliFont':''">{{printDocForm.roj?printDocForm.roj:'_________________'}}</span>शुभम्.––––––––––––।
                 <div class="col-md-12 viewFull text-center" id="witness">
                     साक्षी
                     <br>
@@ -88,6 +90,7 @@
                         वडा नं <span [ngClass]="printDocForm.witnessWadNoTwo ?'nepaliFont' :''"  >{{(printDocForm.witnessWadNoTwo?printDocForm.witnessWadNoTwo:'_______________')}}</span>
                     <br>
                         सनाखत साक्षी ः धनी बैंकमा  <span [ngClass]="printDocForm.role ?'nepaliFont' :''" >{{(printDocForm.role?printDocForm.role:'_______________')}}</span>पदमा कार्यरत
+                    <span [ngClass]="printDocForm.roleName?'nepaliFont':''" >{{printDocForm.roleName?printDocForm.roleName:'____________'}}</span>
                 </div>
             </div>
 

@@ -51,23 +51,44 @@ export class PromisoryNoteIndividualComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.initialInfoPrint = singleCadFile.initialInformation;
+          if (!ObjectUtil.isEmpty(JSON.parse(singleCadFile.initialInformation).rupees)){
             this.amount = JSON.parse(singleCadFile.initialInformation).rupees;
+          }
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    this.checkInitialData();
+  }
+  checkInitialData() {
     if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
       this.form.patchValue(JSON.parse(this.initialInfoPrint));
-      this.setSakshis(JSON.parse(this.initialInfoPrint).sakshi);
+      // this.setSakshis(JSON.parse(this.initialInfoPrint).sakshi);
+      if (JSON.parse(this.initialInfoPrint).sakshi >= 2) {
+        const data = JSON.parse(this.initialInfoPrint).sakshi[0];
+        const datas = JSON.parse(this.initialInfoPrint).sakshi[1];
+        this.form.patchValue({
+          sakshiName: data.name,
+          age: data.age,
+          wardNum: data.wardNum,
+          district: data.district,
+          municipality: data.municipality,
+          sakshiNameTwo: datas.name,
+          ageTwo: datas.age,
+          wardNumTwo: datas.wardNum,
+          districtTwo: datas.district,
+          municipalityTwo: datas.municipality
+        });
+      }
       this.form.patchValue({
         amount: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount))
       });
     } else {
       this.fillNepaliData();
-      this.addSakshi();
       this.form.patchValue({
+        rupees: this.nepaliNumber.transform(this.amount, 'preeti'),
         amount: this.nepaliCurrencyWordPipe.transform(this.amount)
       });
     }
@@ -94,7 +115,16 @@ export class PromisoryNoteIndividualComponent implements OnInit {
       itiSambatMonth: [undefined],
       itiSambatDay: [undefined],
       roj: [undefined],
-      sakshi: this.formBuilder.array([]),
+      district: [undefined],
+      municipality: [undefined],
+      wardNum: [undefined],
+      age: [undefined],
+      sakshiName: [undefined],
+      districtTwo: [undefined],
+      municipalityTwo: [undefined],
+      wardNumTwo: [undefined],
+      ageTwo: [undefined],
+      sakshiNameTwo: [undefined],
     });
   }
 
@@ -113,7 +143,6 @@ export class PromisoryNoteIndividualComponent implements OnInit {
     }
   }
   submit() {
-    console.log('this is form value', this.form.value);
     this.spinner = true;
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {

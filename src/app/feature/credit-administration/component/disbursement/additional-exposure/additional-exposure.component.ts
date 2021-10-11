@@ -63,6 +63,7 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        console.log(this.additionalDocument);
         this.creditAdministrationService.getRoleInCad().subscribe(value => {
             this.cadRoleList = value.detail;
             this.cadRoleList = this.cadRoleList.filter(value1 => value1.role.roleType !== RoleType.MAKER);

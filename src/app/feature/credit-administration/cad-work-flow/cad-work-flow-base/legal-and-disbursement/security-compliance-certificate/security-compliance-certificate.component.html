@@ -9,7 +9,7 @@
       <h5 class="text-center print-only mb-3">Security Compliance Certificate </h5>
       <h5 class="text-center disable-print">Security Compliance Certificate </h5>
 
-      <i *ngIf="isMaker" class="fa fa-upload disable-print float-right m-3" (click)="openDocUploadModal(uploadModal)">Upload</i>
+      <i *ngIf="isMaker && this.cadFile.docStatus !== docStatus.DISBURSEMENT_APPROVED" class="fa fa-upload disable-print float-right m-3" (click)="openDocUploadModal(uploadModal)">Upload</i>
     </ng-container>
 
   </nb-card-header>
