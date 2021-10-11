@@ -63,9 +63,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
         this.activatedRoute.queryParams.subscribe((data)=> {
             this.companyInfoId = data.customerInfoId;
         })
-        if (this.companyInfoId) {
-            this.edit = localStorage.getItem('editable');
-        }
+        this.edit = localStorage.getItem('editable');
         const roleName: string = LocalStorageUtil.getStorage().roleName;
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {

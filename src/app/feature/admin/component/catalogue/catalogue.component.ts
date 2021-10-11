@@ -151,6 +151,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     ngOnInit() {
+        localStorage.removeItem('editable');
         this.sortFn();
         this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
