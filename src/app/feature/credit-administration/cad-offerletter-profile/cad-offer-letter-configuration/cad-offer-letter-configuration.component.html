@@ -2235,13 +2235,14 @@
                   </label>
                 </td>
                 <td>
-                  <nb-radio-group name="guarantorPermanentMunicipalityOrVdc"
-                                  formControlName="guarantorPermanentMunicipalityOrVdc"
-                                  class="d-inline-flex">
-                    <nb-radio *ngFor="let option of vdcOption"
-                              [value]="option.value">{{option.label}}</nb-radio>
-                  </nb-radio-group>
-                  <select [compareWith]="compareFn"
+                  <select required="true" class="form-control" formControlName="guarantorPermanentMunicipalityOrVdc"
+
+                          [ngClass]="{'is-invalid': submitted && configForm.registeredMunType.errors}">
+                    <option value="0">Municipality</option>
+                    <option value="1">VDC</option>
+                    <option value="2">Rural</option>
+                  </select>
+                  <select *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentMunicipalityOrVdc']).value"  [compareWith]="compareFn"
                           class="custom-select"
                           formControlName="permanentMunicipality"
                           id="permanentMunicipality{{i}}">
@@ -2353,13 +2354,14 @@
                   </label>
                 </td>
                 <td>
-                  <nb-radio-group name="guarantorTemporaryMunicipalityOrVdc"
-                                  formControlName="guarantorTemporaryMunicipalityOrVdc"
-                                  class="d-inline-flex">
-                    <nb-radio *ngFor="let option of vdcOption"
-                              [value]="option.value">{{option.label}}</nb-radio>
-                  </nb-radio-group>
-                  <select [compareWith]="compareFn"
+                  <select required="true" class="form-control" formControlName="guarantorTemporaryMunicipalityOrVdc"
+
+                          [ngClass]="{'is-invalid': submitted && configForm.registeredMunType.errors}">
+                    <option value="0">Municipality</option>
+                    <option value="1">VDC</option>
+                    <option value="2">Rural</option>
+                  </select>
+                  <select *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdc']).value" [compareWith]="compareFn"
                           class="custom-select"
                           formControlName="temporaryMunicipality"
                           name="municipality">
