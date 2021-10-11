@@ -29,34 +29,6 @@
             </nb-card>
         </div>
         <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="legal">
-                <div >
-                    <a [routerLink]="offerRouteConst.ROUTER_LEGAL_PENDING">
-                        <label class="card-header bg-dark text-white cursor">
-                            Legal Pending </label>
-                    </a>
-
-                    <div  style="display: inline">
-                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.legalPending}}</strong>
-                    </div>
-                </div>
-            </nb-card>
-        </div>
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="disbursement">
-                <div >
-                    <a [routerLink]="offerRouteConst.ROUTE_DISBURSEMENT_PENDING">
-                        <label class="card-header bg-dark text-white cursor">
-                            Limit Pending </label>
-                    </a>
-
-                    <div  style="display: inline">
-                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.disbursementPending}}</strong>
-                    </div>
-                </div>
-            </nb-card>
-        </div>
-        <div class="col-md-3 cursor">
             <nb-card class="card bg-success" *ngIf="offer">
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_OFFER_APPROVED">
@@ -71,15 +43,15 @@
             </nb-card>
         </div>
         <div class="col-md-3 cursor">
-            <nb-card class="card bg-success" *ngIf="disbursement">
+            <nb-card class="card bg-primary" *ngIf="legal">
                 <div >
-                    <a [routerLink]="offerRouteConst.ROUTE_DISBURSEMENT_APPROVED">
+                    <a [routerLink]="offerRouteConst.ROUTER_LEGAL_PENDING">
                         <label class="card-header bg-dark text-white cursor">
-                            Disbursement Approved </label>
+                            Legal Pending </label>
                     </a>
 
                     <div  style="display: inline">
-                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.disbursementApproved}}</strong>
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.legalPending}}</strong>
                     </div>
                 </div>
             </nb-card>
@@ -98,5 +70,35 @@
                 </div>
             </nb-card>
         </div>
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-primary" *ngIf="disbursement">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_DISBURSEMENT_PENDING">
+                        <label class="card-header bg-dark text-white cursor">
+                            Limit Pending </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.disbursementPending}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-success" *ngIf="disbursement">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_DISBURSEMENT_APPROVED">
+                        <label class="card-header bg-dark text-white cursor">
+                            Disbursement Approved </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.disbursementApproved}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+
     </nb-card-body>
 </nb-card>
