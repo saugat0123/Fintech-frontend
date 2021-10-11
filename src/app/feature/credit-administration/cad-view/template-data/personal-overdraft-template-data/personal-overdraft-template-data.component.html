@@ -153,7 +153,8 @@
 
             <tr>
                 <td>Yearly Interest Rate</td>
-                <td><input type="text" class="form-control" formControlName="yearlyInterestRate"></td>
+                <td><input type="text" class="form-control" formControlName="yearlyInterestRate"
+                           (input) ="translateNumber('yearlyInterestRate', 'yearlyInterestRateTransVal')"></td>
                 <td class="abc">{{translatedData?.yearlyInterestRate}}</td>
                 <td>
                     <input type="text" class="form-control"
