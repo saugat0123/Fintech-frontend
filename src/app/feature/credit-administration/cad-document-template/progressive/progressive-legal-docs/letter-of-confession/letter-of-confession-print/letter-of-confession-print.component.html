@@ -1,4 +1,4 @@
-<div class="row" id="print-section-{{ offerLetterConst?.LETTER_OF_CONFESSION }}">
+<div class="row nepali" id="print-section-{{ offerLetterConst?.LETTER_OF_CONFESSION }}">
 
     <div class="col-md-12 viewFull">
         <form>
@@ -7,7 +7,7 @@
             <br>
             <br>
             <div class="row col-md-12">
-                <p class="justify">
+                <p class="justify" style="line-height: 40px">
                     लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन, बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका
                     वडा नं. २२ स्थित रजिष्टर्ड कार्यालय रहेको <b>प्रोग्रेशिभ फाईनान्स लिमिटेड</b>को <span [ngClass]="{'nepaliFont' : printDocForm?.financeDistrict !== null && printDocForm?.financeDistrict !== ''}">
                                                 {{printDocForm?.financeDistrict === null || printDocForm?.financeDistrict === '' ? '____________________' : printDocForm?.financeDistrict}}
