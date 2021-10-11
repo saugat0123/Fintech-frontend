@@ -241,43 +241,10 @@
                             <td>
 
                                 <p><strong>क. </strong>  स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ । </p>
-                                <p> <strong>Collateral details </strong></p>
-                                <p> धनी
-                                    <input class="form-field form-control-sm"
-                                                  formControlName="ownerName"
-                                                  name="ownerName"
-                                                  placeholder="धनी "
-                                                  type="text"/>
-                                </p>
-                                <p> स्थान
-                                    <input class="form-field form-control-sm"
-                                                  formControlName="ownersAddress"
-                                                  name="ownersAddress"
-                                                  placeholder="स्थान "
-                                                  type="text"/>
-                                </p>
-                                <p> कित्ता नं.
-                                    <input class="form-field form-control-sm"
-                                                       formControlName="propertyPlotNumber"
-                                                       name="propertyPlotNumber"
-                                                       placeholder="कित्ता नं "
-                                                       type="text"/>
-                                </p>
-                                <p>
-                                    सिट नं.
-                                    <input class="form-field form-control-sm"
-                                           formControlName="sheetNumber"
-                                           name="sheetNumber"
-                                           placeholder="कित्ता नं "
-                                           type="text"/>
-                                </p>
-                                <p> क्षेत्रफल
-                                    <input class="form-field form-control-sm"
-                                                      formControlName="propertyArea"
-                                                      name="propertyArea"
-                                                      placeholder="क्षेत्रफल "
-                                                      type="text"/>
-                                </p>
+                                <p style="text-align: center"> <strong>Collateral details </strong></p>
+                                <div class="pb-4">
+                                    <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
+                                </div>
                                 <p *ngFor="let data of guarantorData; let i = index;">
                                     {{i + 2 | nepaliWord}}. श्री
                                     <input class="form-field form-control-sm col-3"
@@ -565,7 +532,8 @@
                             <tr>
                                 <td>३०. </td>
                                 <td>तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ।<br>
-                                    <div *ngIf="selectedSecurity === 'LAND' && !renewal" class="col-md-12" style="line-height: 1.9">
+                                    <div *ngIf="selectedSecurity === 'LAND' && !renewal" class="col-md-12">
+                                        <p style="margin-left:100px;line-height: 1.9;">
                                         क.  रु. <input class="form-field form-control-sm"
                                                        formControlName="loanAmountinFigure"
                                                        name="loanAmountinFigure"
@@ -584,26 +552,29 @@
                                                         name="loanAmountinFigure"
                                                         placeholder=" रकम "
                                                         type="text"/> को धितो बन्धक तमसुक ।<br>
-                                        छ.	मूल्यांकन प्रतिवेदन ।<br>
-                                        ज.	श्री <input class="form-field form-control-sm"
-                                                          formControlName="guarantorName"
-                                                          name="guarantorName"
-                                                          placeholder=" नाम "
-                                                          [value]="guarantorParse(guarantorData[0].nepData, 'guarantorName')"
-                                                          type="text"/>को बैकको
-                                        पक्षमा रु <input class="form-field form-control-sm"
-                                                         (input)="getNumAmountWord('guaranteedamountinFigure', 'guaranteedamountinWords')"
-                                                         formControlName="guaranteedamountinFigure"
-                                                         name="guaranteedamountinFigure"
-                                                         placeholder=" रकम "
-                                                         [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
-                                                         type="text"/>
-                                        (अक्षरेपी रु <input class="form-field form-control-sm"
-                                                            formControlName="guaranteedamountinWords"
-                                                            name="guaranteedamountinWords"
-                                                            placeholder=" रकम "
-                                                            [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
-                                                            type="text"/> मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।<br>
+                                        छ.	मूल्यांकन प्रतिवेदन ।
+                                        </p>
+                                        <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px;line-height: 1.9;">
+                                            {{i + 8 | nepaliWord}}
+                                            श्री
+                                            <input class="form-field form-control-sm col-3"
+                                                   formControlName="guarantorName"
+                                                   [value]="guarantorParse(data.nepData, 'guarantorName')"
+                                                   type="text"/>
+                                            को बैकको पक्षमा रु
+                                            <input class="form-field form-control-sm"
+                                                   formControlName="guaranteedAmountInFigure"
+                                                   [value]="guarantorParse(data.nepData, 'gurantedAmount')"
+                                                   type="text"/>
+                                            (अक्षरेपी रु <input class="form-field form-control-sm"
+                                                                formControlName="guaranteedamountinWords"
+                                                                name="guaranteedamountinWords"
+                                                                placeholder=" रकम "
+                                                                [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))"
+                                                                type="text"/>
+                                            मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                        </p>
+                                        <br>
                                         <div class="row col-md-12">
                                             <textarea
                                                     id="additionalGuarantorDetails"
@@ -782,7 +753,7 @@
                                     </td>
                                     <td>
                                         कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                                        <input class="form-field form-control-sm nepaliFont" name="staffName" formControlName="staffName" placeholder="कर्मचारीको नाम" type="text"/>
+                                        ____________________________
                                     </td>
                                 </tr>
                             </table>

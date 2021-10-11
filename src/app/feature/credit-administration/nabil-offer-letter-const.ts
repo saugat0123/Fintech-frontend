@@ -17,8 +17,8 @@ export namespace NabilOfferLetterConst {
         switch (offerLetterConst) {
             // case NabilOfferLetterConst.HOUSING_TAKEOVER_CASE:
             //     return 'Housing TakeOver Case';
-            // case NabilOfferLetterConst.AUTO_LOAN:
-            //     return 'Auto Loan';
+            case NabilOfferLetterConst.AUTO_LOAN:
+                return 'Auto Loan';
             // case NabilOfferLetterConst.HOUSING_CONSTRUCTION_CASE_1:
             //     return 'Housing Construction Case-1';
             // case NabilOfferLetterConst. COMMERCIAL_AUTO:

@@ -125,7 +125,6 @@ export class RetailProfessionalLoanComponent implements OnInit {
             sakhshiMunicipality: [undefined],
             sakhshiWardNo: [undefined],
             sakhshiName: [undefined],
-            approvalStaffName: [undefined],
             ownersName: [undefined],
             district: [undefined],
             municipality: [undefined],
