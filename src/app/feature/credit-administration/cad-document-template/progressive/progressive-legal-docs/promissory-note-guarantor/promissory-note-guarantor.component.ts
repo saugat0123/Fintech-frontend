@@ -55,8 +55,8 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          if (initialInfo.guarantorDetails) {
-            this.setGuarantorDetails(initialInfo.guarantorDetails);
+          if (initialInfo.witnessDetails) {
+            this.setWitnessDetails(initialInfo.witnessDetails);
           }
           this.form.patchValue(this.initialInfoPrint);
         }
@@ -115,61 +115,104 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      address: [undefined],
-      customerName: [undefined],
-      branchName: [undefined],
       amount: [undefined],
-      amountInWord: [undefined],
-      signature: [undefined],
-      signaturePersonName: [undefined],
-      karyalayaName: [undefined],
-      district: [undefined],
-      VDC: [undefined],
-      WadNo: [undefined],
-      tolName: [undefined],
-      fatherName: [undefined],
-      grandFatherName: [undefined],
-      sanakhatGuarantorName: [undefined],
+      amountInWords: [undefined],
+      name: [undefined],
+      permanentVdcMun: [undefined],
+      permanentWardNo: [undefined],
+      parentsName: [undefined],
+      grandParentsName: [undefined],
+      husbandWifeName: [undefined],
+      citizenshipNo: [undefined],
+      temporaryVdcMun: [undefined],
+      temporaryWardNo: [undefined],
+      citizenshipIssueDate: [undefined],
+      citizenshipIssueOffice: [undefined],
+      permanentDistrict: [undefined],
+      SabikVdcMun: [undefined],
+      sabikWardNo: [undefined],
+      temporaryDistrict: [undefined],
+      financeDistrict: [undefined],
+      financeVdcMun: [undefined],
+      financeWardNo: [undefined],
+      financeBranch: [undefined],
+      sabikVdcMun: [undefined],
+      age: [undefined],
+      relationship: [undefined],
+      date: [undefined],
+      borrowerName: [undefined],
+      borrowerPermanentMunicipality: [undefined],
+      borrowerPermanentWardNo: [undefined],
+      borrowerParentsName: [undefined],
+      borrowerGrandParentsName: [undefined],
+      borrowerHusbandWifeName: [undefined],
+      borrowerCitizenshipNo: [undefined],
+      borrowerTempMunicipality: [undefined],
+      borrowerTempWardNo: [undefined],
+      borrowerCitizenshipIssueDate: [undefined],
+      borrowerCdoOffice: [undefined],
+      borrowerPermanentDistrict: [undefined],
+      borrowerSabikVDC: [undefined],
+      borrowerSabikWardNo: [undefined],
+      borrowerTempDistrict: [undefined],
+      IdentifiedGuarantorName: [undefined],
+      IdentifiedHintNo: [undefined],
+      ItisambatYear: [undefined],
+      ItisambatMonth: [undefined],
+      ItisambatDay: [undefined],
+      ItisambatTime: [undefined],
+      ItisambatRojSubham: [undefined],
+      branchName: [undefined],
       itiSambatYear: [undefined],
       itiSambatMoth: [undefined],
       itiSambatDate: [undefined],
       itiSambatTime: [undefined],
       itiSambatSubham: [undefined],
-      guarantorDetails: this.formBuilder.array([])
+      witnessDetails: this.formBuilder.array([])
 
 
     });
   }
 
-  guarantorFormGroup(): FormGroup {
+  witnessFormGroup(): FormGroup {
     return this.formBuilder.group({
-      guarantorName: [undefined],
-      issuedPlace: [undefined]
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessDistrict: [undefined],
+      witnessPermanentMunicipality: [undefined],
+      witnessPermanentWardNo: [undefined]
 
     });
   }
 
-  addGuarantor(): void {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
-    formArray.push(this.guarantorFormGroup());
+  addWitness(): void {
+    const formArray = this.form.get('witnessDetails') as FormArray;
+    formArray.push(this.witnessFormGroup());
   }
 
-  removeGuarantor(index: number): void {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
+  removeWitness(index: number): void {
+    const formArray = this.form.get('witnessDetails') as FormArray;
     formArray.removeAt(index);
   }
 
-  setGuarantorDetails(data) {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
+  setWitnessDetails(data) {
+    const formArray = this.form.get('witnessDetails') as FormArray;
     if (data.length === 0) {
-      this.addGuarantor();
+      this.addWitness();
       return;
     }
 
     data.forEach((value) => {
       formArray.push(this.formBuilder.group({
-        guarantorName: [value.name],
-        issuedPlace: [value.issuedPlace]
+        witnessName: [value.name],
+        witnessCitizenshipNo: [value.witnessCitizenshipNo],
+        witnessCitizenshipIssueDate: [value.witnessCitizenshipIssueDate],
+        witnessDistrict: [value.witnessDistrict],
+        witnessCDOoffice: [value.witnessCDOoffice],
+        witnessPermanentMunicipality: [value.witnessPermanentMunicipality],
+        witnessPermanentWardNo: [value.witnessPermanentWardNo]
       }));
     });
 
