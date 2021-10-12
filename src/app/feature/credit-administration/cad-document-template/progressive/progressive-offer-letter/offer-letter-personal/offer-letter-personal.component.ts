@@ -106,7 +106,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
                 shreeName1: allGuarantors ? allGuarantors : '',
             });
-            this.setEmptyGuarantors(this.nepaliData.guarantorDetails)
+            this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
 
         }
         this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
