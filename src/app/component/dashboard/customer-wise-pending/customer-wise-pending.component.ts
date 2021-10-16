@@ -356,13 +356,14 @@ export class CustomerWisePendingComponent implements OnInit {
         });
     }
 
-    onClickLoan(loanConfigId: number, customerLoan: number) {
+    onClickLoan(loanConfigId: number, customerLoan: number, l?) {
         this.spinner = true;
         this.modalService.dismissAll();
         this.router.navigate(['/home/loan/summary'], {
             queryParams: {
                 loanConfigId: loanConfigId,
-                customerId: customerLoan
+                customerId: customerLoan,
+                customerInfoId: l.customerInfo.id
             }
         });
     }
