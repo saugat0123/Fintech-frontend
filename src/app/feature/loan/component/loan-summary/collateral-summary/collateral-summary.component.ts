@@ -158,7 +158,7 @@ export class CollateralSummaryComponent implements OnInit {
       let approvedRevolvingLoanTotal =[];
       this.fundedApprovedLoans.map(val => {
         if (val.loan.loanNature === 'Revolving'){
-          approvedRevolvingLoanTotal.push(val.proposal.existingLimit);
+          approvedRevolvingLoanTotal.push(val.proposal.proposedLimit);
         }
       });
       this.approvedRevolvingLoanTotal =approvedRevolvingLoanTotal.reduce((a, b) => Number(a) + Number(b),0);
@@ -174,7 +174,7 @@ export class CollateralSummaryComponent implements OnInit {
             let nonFundedApprovedRevolvingTotal =[];
             this.nonFundedApprovedLoans.map(val => {
                 if(val.loan.loanNature === 'Revolving' && val.proposal.cashMarginOrFac === 'FAC'){
-                    nonFundedApprovedRevolvingTotal.push(val.proposal.existingLimit);
+                    nonFundedApprovedRevolvingTotal.push(val.proposal.proposedLimit);
                 }
             });
             this.nonFundedApprovedRevolvingTotal = nonFundedApprovedRevolvingTotal.reduce((a,b) => Number(a) + Number(b),0);
@@ -183,7 +183,7 @@ export class CollateralSummaryComponent implements OnInit {
     // calculation of Total Existing Limit
       let existingLimitTotal = [];
       this.approvedLoans.map(val => {
-        existingLimitTotal.push(val.proposal.existingLimit);
+        existingLimitTotal.push(val.proposal.proposedLimit);
       });
       this.existingLimitTotal = existingLimitTotal.reduce((a,b) => Number(a) + Number(b),0);
 
