@@ -52,8 +52,8 @@
 
                         <td><strong> रकम </strong></td>
                         <td>
-                            रु.<span [ngClass]="{'nepaliFont num' : letter?.loanAmountinFigure!== null && letter?.loanAmountinFigure!== ''}">
-            {{letter?.loanAmountinFigure === null || letter?.loanAmountinFigure === '' ? '___________' : letter?.loanAmountinFigure}}</span>
+                            रु.<span [ngClass]="{'nepaliFont num' : letter?.loanAmountInFigure!== null && letter?.loanAmountInFigure!== ''}">
+            {{letter?.loanAmountInFigure === null || letter?.loanAmountInFigure === '' ? '___________' : letter?.loanAmountInFigure}}</span>
                             ( अक्षेरुपी <span [ngClass]="{'nepaliFont num' : letter?.loanAmountInWords!== null && letter?.loanAmountInWords!== ''}">
             {{letter?.loanAmountInWords === null || letter?.loanAmountInWords === '' ? '___________' : letter?.loanAmountInWords}}</span>मात्र )
                         </td>
@@ -190,6 +190,8 @@
             {{letter?.propertyPlotNumber === null || letter?.propertyPlotNumber === '' ? '___________' : letter?.propertyPlotNumber}}</span></p>
                         <p> क्षेत्रफल  <span [ngClass]="{'nepaliFont num' : letter?.propertyArea!== null && letter?.propertyArea!== ''}">
             {{letter?.propertyArea === null || letter?.propertyArea === '' ? '___________' : letter?.propertyArea}}</span> </p>
+                        <p>सीट नं.<span [ngClass]="{'nepaliFont num' : letter?.seatNumber!== null && letter?.seatNumber!== ''}">
+            {{letter?.seatNumber === null || letter?.seatNumber === '' ? '___________' : letter?.seatNumber}}</span> </p>
 
 
 
@@ -290,10 +292,10 @@
                         शाखामा खोल्नु भएको चल्ती खातामा ऋणकर्जा प्रवाह
                         गरिनेछ र तपाईंले निर्देश गरे बमोजिम आधिकारीक विक्रेता <span [ngClass]="{'nepaliFont num' : letter?.vendorName!== null && letter?.vendorName!== ''}">
             {{letter?.vendorName === null || letter?.vendorName === '' ? '___________' : letter?.vendorName}}</span> अथवा यसको प्रतिनिधिलाई
-                        रु.<span [ngClass]="{'nepaliFont num' : letter?.loanAmountinFigure!== null && letter?.loanAmountinFigure!== ''}">
-            {{letter?.loanAmountinFigure === null || letter?.loanAmountinFigure === '' ? '___________' : letter?.loanAmountinFigure}}</span>
-                        (अक्षरेपि रु.<span [ngClass]="{'nepaliFont num' : letter?.loanAmountinWords!== null && letter?.loanAmountinWords!== ''}">
-            {{letter?.loanAmountinWords === null || letter?.loanAmountinWords === '' ? '___________' : letter?.loanAmountinWords}}</span>
+                        रु.<span [ngClass]="{'nepaliFont num' : letter?.loanAmountInFigure!== null && letter?.loanAmountInFigure!== ''}">
+            {{letter?.loanAmountInFigure === null || letter?.loanAmountInFigure === '' ? '___________' : letter?.loanAmountInFigure}}</span>
+                        (अक्षरेपि रु.<span [ngClass]="{'nepaliFont num' : letter?.loanAmountInWords!== null && letter?.loanAmountInWords!== ''}">
+            {{letter?.loanAmountInWords === null || letter?.loanAmountInWords === '' ? '___________' : letter?.loanAmountInWords}}</span>
                     मात्र ।) बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                     </td>
                 </tr>
@@ -517,7 +519,15 @@
                 </tr>
             </table>
 
-            <!--  TEXT FIELD REQUIRED  -->
+            <div class="row col-md-12">
+                    <textarea id="additionalGuarantorDetails"
+                              class="form-control customFont nepaliFont"
+                              rows="5"
+                              style="width:inherit;margin-left:5%"
+                              name="additionalGuarantorDetails"
+                              formControlName="additionalGuarantorDetails">
+                    </textarea>
+            </div><br>
 
             <p> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको प्रतिलिपीमा तपाईंको मञ्जुरी
                 सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ। अन्यथा यो प्रस्ताव स्वतः रद्द हुनेछ। साथै, तपाईले यो ऋण स्वीकृति पत्रमा मञ्जुरी जनाएको

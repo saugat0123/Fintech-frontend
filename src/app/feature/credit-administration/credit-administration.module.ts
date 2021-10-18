@@ -79,6 +79,7 @@ import { DocCheckPendingComponent } from './component/doc-check/doc-check-pendin
 import { EducationalLoanTemplateEditComponent } from './cad-view/template-data/educational-loan-template-edit/educational-loan-template-edit.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { EditLoanDetailComponent } from './cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
+import { AutoLoanCommercialTemplateDataComponent } from './cad-view/template-data/auto-loan-commercial-template-data/auto-loan-commercial-template-data.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -144,7 +145,8 @@ import { EditLoanDetailComponent } from './cad-view/template-data/edit-loan-deta
     DocCheckComponent,
     DocCheckPendingComponent,
     EducationalLoanTemplateEditComponent,
-    EditLoanDetailComponent],
+    EditLoanDetailComponent,
+    AutoLoanCommercialTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,

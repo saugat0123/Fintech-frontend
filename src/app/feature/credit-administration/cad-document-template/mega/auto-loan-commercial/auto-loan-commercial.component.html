@@ -74,10 +74,10 @@
 
                             <td><strong> रकम </strong></td>
                             <td>
-                                रु.<input (input)="getNumAmountWord('loanAmountinFigure', 'loanAmountInWords')"
+                                रु.<input (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
                                           class="form-field form-control-sm nepaliFont"
-                                          formControlName="loanAmountinFigure"
-                                          name="loanAmountinFigure"
+                                          formControlName="loanAmountInFigure"
+                                          name="loanAmountInFigure"
                                           placeholder=""
                                           type="text"/>
                                 ( अक्षेरुपी <input class="form-field form-control-sm nepaliFont"
@@ -272,6 +272,11 @@
                                                   name="propertyArea"
                                                   placeholder=" "
                                                   type="text"/> </p>
+                            <p>सीट नं. <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="seatNumber"
+                                              name="seatNumber"
+                                              placeholder=" "
+                                              type="text"/> </p>
 
 
 
@@ -338,10 +343,10 @@
 
                     <tr>
                         <td>८.</td>
-                        <td>क) तपाईंको कर्जा वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट कट्टा गरिनेछ।
-                            ख) भुक्तानी मितिको दिन साँवा र/वा ब्याज भुक्तानीका लागि तपाईंको खातामा पर्याप्त रकम हुनुपर्नेछ र सोही खातामा खर्च जनाई साँवा, ब्याज वा सोको किस्ता असुल गरिनेछ।
-                            ग) साँवा, ब्याज वा किस्ता भुक्तानी मितिको दिनमा यदि तपाईंको खातामा पर्याप्त रकम नभएमा सो मितिमा उक्त खातामा जे जति रकम छ सो बराबर खर्च जनाईनेछ।
-                            सो रकम सर्वप्रथम ब्याजमा समायोजन गरिनेछ र बाँकी  साँवामा समायोजन गरिनेछ। अपुग रकम यदी कुनै भए तपाईंबाट असुल उपर गरिनेछ।
+                        <td>क) तपाईंको कर्जा वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट कट्टा गरिनेछ।<br>
+                            ख) भुक्तानी मितिको दिन साँवा र/वा ब्याज भुक्तानीका लागि तपाईंको खातामा पर्याप्त रकम हुनुपर्नेछ र सोही खातामा खर्च जनाई साँवा, ब्याज वा सोको किस्ता असुल गरिनेछ।<br>
+                            ग) साँवा, ब्याज वा किस्ता भुक्तानी मितिको दिनमा यदि तपाईंको खातामा पर्याप्त रकम नभएमा सो मितिमा उक्त खातामा जे जति रकम छ सो बराबर खर्च जनाईनेछ।<br>
+                            सो रकम सर्वप्रथम ब्याजमा समायोजन गरिनेछ र बाँकी  साँवामा समायोजन गरिनेछ। अपुग रकम यदी कुनै भए तपाईंबाट असुल उपर गरिनेछ।<br>
                         </td>
                     </tr>
 
@@ -378,21 +383,21 @@
                                                                                          placeholder=" "
                                                                                          type="text"/> अथवा यसको प्रतिनिधिलाई
                             रु.<input class="form-field form-control-sm nepaliFont"
-                                      formControlName="loanAmountinFigure"
-                                      name="loanAmountinFigure"
+                                      formControlName="loanAmountInFigure"
+                                      name="loanAmountInFigure"
                                       placeholder=" "
                                       type="text"/>(अक्षरेपि रु.<input class="form-field form-control-sm nepaliFont"
-                                                                       formControlName="loanAmountinWords"
-                                                                       name="loanAmountinWords"
+                                                                       formControlName="loanAmountInWords"
+                                                                       name="loanAmountInWords"
                                                                        placeholder=" "
                                                                        type="text"/>मात्र ।) बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                         </td>
                     </tr>
                     <tr>
                         <td>१३. </td>
-                        <td>क) सवारी साधन तपाईंले आफ्नो खर्चमा अद्यावधिक अवस्थामा राख्नुपर्नेछ ।
-                            ख) तपाईंले कर्जाको सम्पूर्ण साँवा र सोको ब्याज चुक्ताभुक्तान गरे पश्चात मात्र सवारी साधनको स्वामित्व तपाईंको नाममा नामसारी गरिनेछ ।
-                            ग) सवारी साधनमा कुनै मुख्य खरावी वा दुर्घटनाका बारे तपाईंले छत्तिस घण्टा भित्र बैंकलाई जानकारी गराउनुपर्नेछ ।
+                        <td>क) सवारी साधन तपाईंले आफ्नो खर्चमा अद्यावधिक अवस्थामा राख्नुपर्नेछ ।<br>
+                            ख) तपाईंले कर्जाको सम्पूर्ण साँवा र सोको ब्याज चुक्ताभुक्तान गरे पश्चात मात्र सवारी साधनको स्वामित्व तपाईंको नाममा नामसारी गरिनेछ ।<br>
+                            ग) सवारी साधनमा कुनै मुख्य खरावी वा दुर्घटनाका बारे तपाईंले छत्तिस घण्टा भित्र बैंकलाई जानकारी गराउनुपर्नेछ ।<br>
                         </td>
                     </tr>
 
@@ -431,9 +436,9 @@
                             (का दरले थप विलम्ब शुल्क लाग्नेछ)<br>
                             <strong> घ. <u>थप/अतिरिक्त शुल्कः </u></strong>
                             स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार देहाय बमोजिम
-                            थप जोखिम दर (Additional Risk Premium)  समेत लाग्नेछ।
+                            थप जोखिम दर (Additional Risk Premium)  समेत लाग्नेछ।<br>
 
-                            <table class="table table-hover table-bordered hello" style="width: 100%">
+                            <table class="table table-hover table-bordered hello">
                                 <tr>
                                     <td> विवरण  </td>
                                     <td> थप जोखिम दर (Additional Risk Premium) </td>
@@ -620,7 +625,15 @@
                     </tr>
                 </table>
 
-                <!--  TEXT FIELD REQUIRED  -->
+                <div class="row col-md-12">
+                    <textarea id="additionalGuarantorDetails"
+                            class="form-control customFont nepaliFont"
+                            rows="5"
+                            style="width:inherit;margin-left:5%"
+                            name="additionalGuarantorDetails"
+                            formControlName="additionalGuarantorDetails">
+                    </textarea>
+                </div><br>
 
                 <p> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको प्रतिलिपीमा तपाईंको मञ्जुरी
                     सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ। अन्यथा यो प्रस्ताव स्वतः रद्द हुनेछ। साथै, तपाईले यो ऋण स्वीकृति पत्रमा मञ्जुरी जनाएको
