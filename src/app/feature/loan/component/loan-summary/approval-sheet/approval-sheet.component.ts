@@ -557,7 +557,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
                 if (!ObjectUtil.isEmpty(detail.OtherDocuments)) {
                     detail.OtherDocuments.split(',').forEach(resData => {
                         if (resData !== '') {
-                            this.obtainableDocuments.push(resData);
+                            this.otherObtainableDocuments.push(resData);
                         }
                     });
                 }
