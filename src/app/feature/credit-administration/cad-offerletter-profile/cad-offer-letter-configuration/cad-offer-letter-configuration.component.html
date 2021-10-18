@@ -843,6 +843,7 @@
                         [compareWith]="compareFn"
                         formControlName="temporaryMunicipality"
                         id="temporaryMunicipality"
+                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
                 >
                   <option *ngFor="let municipalityVal of tempMunicipalities"
                           [ngValue]="municipalityVal">
