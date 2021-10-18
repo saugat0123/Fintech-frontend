@@ -5,7 +5,7 @@
                 <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="'DISBURSEMENT_PENDING'"></app-filter>
             </div>
         </div>
-        <h6 class="text-center">Limit Pending</h6>
+        <h6 class="text-center">Disbursement Pending</h6>
     </nb-card-header>
     <nb-card-body>
         <table class="table table-bordered table-hover table-sm sb-small text-center ">
@@ -94,7 +94,7 @@
                             </div>
                         </td>
 
-                        <td>{{(previousList?.docAction | replace:'_':' ') | disbursementToLimit}}</td>
+                        <td>{{(previousList?.docAction | replace:'_':' ')}}</td>
                         <td class="text-left px-2" colspan="3">
                             {{ previousList?.comment}}
                         </td>
@@ -128,7 +128,7 @@
                             </div>
                         </td>
 
-                        <td>{{(model?.cadCurrentStage?.docAction | replace:'_':' ') | disbursementToLimit}}</td>
+                        <td>{{(model?.cadCurrentStage?.docAction | replace:'_':' ')}}</td>
                         <td class="text-left px-2" colspan="3">
 
                             {{model?.cadCurrentStage?.comment}}
