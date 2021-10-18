@@ -10,6 +10,9 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {NabilDocumentChecklist} from '../../../../admin/modal/nabil-document-checklist.enum';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 
 @Component({
   selector: 'app-promissory-note-company',
@@ -17,14 +20,18 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
   styleUrls: ['./promissory-note-company.component.scss']
 })
 export class PromissoryNoteCompanyComponent implements OnInit {
-
-  promissoryNoteCompany: FormGroup;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  @Input() nepaliAmount: number;
+  initialInfoPrint;
+  form: FormGroup;
+  promissoryConst = NabilDocumentChecklist;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService) { }
 
@@ -33,35 +40,47 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.promissoryNoteCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
   }
 
   buildForm() {
-    this.promissoryNoteCompany = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      branch: [undefined],
-      ministry: [undefined],
-      actName: [undefined],
-      actDate: [undefined],
-      department: [undefined],
-      office: [undefined],
-      registrationNo: [undefined],
-      registrationDate: [undefined],
-      name: [undefined],
-      proprietorName: [undefined],
-      annualRate: [undefined],
-      amount: [undefined],
+      amountInFigure: [undefined],
       amountInWords: [undefined],
-      nameOfAuthorizedPerson: [undefined],
-      nameOfWitness: [undefined],
-      addressOfWitness: [undefined],
-      nameOfWitness2: [undefined],
-      addressOfWitness2: [undefined]
+      actDetails: [undefined],
+      actDate: [undefined],
+      headName: [undefined],
+      registrationDate: [undefined],
+      registrationNumber: [undefined],
+      firmDistrict: [undefined],
+      firmName: [undefined],
+      firmWardNumber: [undefined],
+      firmAddress: [undefined],
+      companyName: [undefined],
+      grandfatherName: [undefined],
+      fatherName: [undefined],
+      district: [undefined],
+      municipality: [undefined],
+      wardNumber: [undefined],
+      age: [undefined],
+      directorName: [undefined],
+      directorCitizenshipNumber: [undefined],
+      directorCitizenshipIssueDate: [undefined],
+      directorCitizenshipIssueDistrict: [undefined],
+      interest: [undefined],
+      branchName: [undefined],
+      witnessDistrict: [undefined],
+      witnessMunicipality: [undefined],
+      WitnessWardNumber: [undefined],
+      witnessAge: [undefined],
+      witnessName: [undefined],
+      bankWitness: [undefined]
     });
   }
 
@@ -71,13 +90,13 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+          singleCadFile.initialInformation = JSON.stringify(this.form.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+        cadFile.initialInformation = JSON.stringify(this.form.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -86,7 +105,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+      cadFile.initialInformation = JSON.stringify(this.form.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -102,5 +121,11 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+  }
+
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.form.get(wordLabel).patchValue(returnVal);
   }
 }

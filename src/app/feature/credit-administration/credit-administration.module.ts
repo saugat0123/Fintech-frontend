@@ -80,6 +80,10 @@ import { EducationalLoanTemplateEditComponent } from './cad-view/template-data/e
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { EditLoanDetailComponent } from './cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
 import { AutoLoanCommercialTemplateDataComponent } from './cad-view/template-data/auto-loan-commercial-template-data/auto-loan-commercial-template-data.component';
+import { PersonalLoanTemplateEditComponent } from './cad-view/template-data/personal-loan-template-edit/personal-loan-template-edit.component';
+import { PersonalOverdraftTemplateDataEditComponent } from './cad-view/template-data/personal-overdraft-template-data-edit/personal-overdraft-template-data-edit.component';
+import { HomeLoanTemplateDataComponent } from './cad-view/template-data/home-loan-template-data/home-loan-template-data.component';
+import { ConstructionLoanComponent } from './cad-view/template-data/home-loan-type/construction-loan/construction-loan.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -146,7 +150,14 @@ import { AutoLoanCommercialTemplateDataComponent } from './cad-view/template-dat
     DocCheckPendingComponent,
     EducationalLoanTemplateEditComponent,
     EditLoanDetailComponent,
-    AutoLoanCommercialTemplateDataComponent],
+    AutoLoanCommercialTemplateDataComponent,
+    EditLoanDetailComponent,
+    PersonalLoanTemplateEditComponent,
+    PersonalOverdraftTemplateDataEditComponent,
+    DocCheckPendingComponent,
+    PersonalLoanTemplateDataComponent,
+    HomeLoanTemplateDataComponent,
+    ConstructionLoanComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -178,7 +189,7 @@ import { AutoLoanCommercialTemplateDataComponent } from './cad-view/template-dat
     CadOfferLetterConfigurationComponent,
     CadFileSetupComponent,
     ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent,
-    EducationalLoanTemplateEditComponent, EditLoanDetailComponent],
+    EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent, PersonalOverdraftTemplateDataEditComponent],
   exports: [CadFileSetupComponent, FilterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })

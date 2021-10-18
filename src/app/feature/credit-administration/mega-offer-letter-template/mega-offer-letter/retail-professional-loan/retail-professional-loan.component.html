@@ -446,89 +446,8 @@
                                         बमोजिमको घर/जग्गा
                                         धितोेबन्धक पारित गरी दिनु पर्नेछ ।
                                     </p>
-                                    <div class="table table-responsive">
-                                        <table class="table table-bordered text-center upperTable">
-                                            <thead>
-                                            <tr>
-                                                <th rowspan="2">
-                                                    घर/जग्गा
-                                                    धनीको नाम थर
-                                                </th>
-                                                <th colspan="3">
-                                                    घर/जग्गाको अवस्थिति
-                                                </th>
-                                                <th rowspan="2">
-                                                    सिट नं.
-                                                </th>
-                                                <th rowspan="2">
-                                                    कित्ता नं.
-                                                </th>
-                                                <th rowspan="2">
-                                                    क्षेत्रफल
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th>
-                                                    जिल्ला
-                                                </th>
-                                                <th>
-                                                    नगर/गा.वि.स.
-                                                </th>
-                                                <th>
-                                                    वडा नं.
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-field form-control-sm table-input"
-                                                           formControlName="ownersName"
-                                                           [value]="initialInfoPrint.ownersName.ct === undefined ? '' : initialInfoPrint.ownersName.ct "
-                                                           type="text"/>
-                                                </td>
-                                                <td>
-                                                    <input class="form-field form-control-sm table-input"
-                                                           formControlName="district"
-                                                           [value]="initialInfoPrint.district.en.nepaliName === undefined ? '' : initialInfoPrint.district.en.nepaliName"
-                                                           type="text"/>
-                                                </td>
-                                                <td>
-                                                    <input class="form-field form-control-sm table-input"
-                                                           formControlName="municipality"
-                                                           [value]="initialInfoPrint.municipality.en.nepaliName === undefined ? '' : initialInfoPrint.municipality.en.nepaliName"
-                                                           type="text"/>
-                                                </td>
-                                                <td>
-                                                    <input class="form-field form-control-sm table-input"
-                                                           size="5"
-                                                           formControlName="wardNo"
-                                                           [value]="initialInfoPrint.wardNo.ct === undefined ? '' : initialInfoPrint.wardNo.ct "
-                                                           type="text"/>
-                                                </td>
-                                                <td>
-                                                    <input class="form-field form-control-sm smallInput table-input"
-                                                           size="5"
-                                                           formControlName="seatNo"
-                                                           [value]="initialInfoPrint.seatNo.ct === undefined ? '' : initialInfoPrint.seatNo.ct "
-                                                           type="text"/>
-                                                </td>
-                                                <td>
-                                                    <input class="form-field form-control-sm table-input"
-                                                           size="5"
-                                                           formControlName="kittaNo"
-                                                           [value]="initialInfoPrint.kittaNo.ct === undefined ? '' : initialInfoPrint.kittaNo.ct "
-                                                           type="text"/>
-                                                </td>
-                                                <td>
-                                                    <input class="form-field form-control-sm table-input"
-                                                           formControlName="landArea"
-                                                           [value]="initialInfoPrint.landArea.ct === undefined ? '' : initialInfoPrint.landArea.ct "
-                                                           type="text"/>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="pb-4">
+                                        <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
                                     </div>
                                 </ng-template>
                                 <p *ngFor="let data of guarantorData; let i = index;">
@@ -1305,10 +1224,7 @@
                                 </li>
                                 <li>
                                     कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                                    <input class="form-field form-control-sm"
-                                           formControlName="approvalStaffName"
-                                           [value]="initialInfoPrint.approvalStaffName.ct === undefined ? '' : initialInfoPrint.approvalStaffName.ct "
-                                           type="text"/>
+                                    ____________________________
                                 </li>
                             </ul>
                         </div>

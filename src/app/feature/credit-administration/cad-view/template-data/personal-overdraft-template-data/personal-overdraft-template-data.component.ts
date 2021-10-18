@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
@@ -13,9 +13,11 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
-import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {District} from '../../../../admin/modal/district';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 
 @Component({
   selector: 'app-personal-overdraft-template-data',
@@ -25,6 +27,9 @@ import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-num
 export class PersonalOverdraftTemplateDataComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  municipalityListForSecurities = [];
+  allDistrictList: Array<District> = new Array<District>();
+  oneForm: FormGroup;
   offerLetterTypes = [];
   offerLetterConst = NabilOfferLetterConst;
   offerLetterSelect;
@@ -52,6 +57,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   fieldFlag = false;
   selectedSecurityVal;
   objectTranslate;
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
 
   constructor(private formBuilder: FormBuilder,
               private dialogService: NbDialogService,
@@ -62,10 +68,18 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
               private translateService: SbTranslateService,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private engToNepaliNumberPipe: EngToNepaliNumberPipe,) { }
+              private engToNepaliNumberPipe: EngToNepaliNumberPipe,
+              private addressService: AddressService, ) { }
 
   ngOnInit() {
     this.buildForm();
+    this.getAllDistrict();
+  }
+
+  public getAllDistrict(): void {
+    this.addressService.getAllDistrict().subscribe((response: any) => {
+      this.allDistrictList = response.detail;
+    });
   }
 
   buildForm() {
@@ -84,18 +98,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       loanadminFeeWords: [undefined],
       loanCommitmentFee: [undefined],
       dateofExpiry: [undefined],
-      ownerName: [undefined],
-      ownersAddress: [undefined],
-      propertyPlotNumber: [undefined],
-      sheetNumber: [undefined],
-      propertyArea: [undefined],
-      // nameofGuarantors: [undefined],
-      /*guaranteedamountinFigure: [undefined],
-      guaranteedamountinWords: [undefined],*/
       insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
-      staffName: [undefined],
 
       // fortranslatedvalue
       selectedSecurityTransVal: [undefined],
@@ -105,29 +110,30 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       dateofApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       loanPurposeTransVal: [undefined, Validators.required],
-      baseRateTransVal: [undefined, Validators.required],
-      premiumRateTransVal: [undefined, Validators.required],
+      baseRateTransVal: [undefined],
+      premiumRateTransVal: [undefined],
       yearlyInterestRateTransVal: [undefined],
       loanadminFeeTransVal: [undefined, Validators.required],
       loanadminFeeWordsTransVal: [undefined],
       loanCommitmentFeeTransVal: [undefined, Validators.required],
       dateofExpiryTransVal: [undefined],
-      ownerNameTransVal: [undefined, Validators.required],
-      ownersAddressTransVal: [undefined, Validators.required],
-      propertyPlotNumberTransVal: [undefined, Validators.required],
-      sheetNumberTransVal: [undefined, Validators.required],
-      propertyAreaTransVal: [undefined, Validators.required],
-      // nameofGuarantorsTransVal: [undefined],
-      /*guaranteedamountinFigureTransVal: [undefined],
-      guaranteedamountinWordsTransVal: [undefined],*/
-      insuranceAmountinFigureTransVal: [undefined, Validators.required],
+      insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined, Validators.required],
       nameofBranchManagerTransVal: [undefined, Validators.required],
-      staffNameTransVal: [undefined, Validators.required],
-
+      securities: this.formBuilder.array([])
     });
-  }submit() {
+    this.addDefaultSecurity();
+  }
+
+  submit() {
     this.submitted = true;
+    const securityDetails = [{
+      securityType: this.form.get('selectedSecurity').value,
+      securities: this.form.get('securities').value,
+    }];
+    if (this.selectedSecurityVal === 'LAND') {
+      this.clearConditionalValidation();
+    }
     if (this.form.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
       this.spinner = false;
@@ -160,7 +166,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
       Object.keys(this.form.controls).forEach(key => {
-        if ( key.indexOf('TransVal') > -1) {
+        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
           return;
         }
         this.attributes = new Attributes();
@@ -169,12 +175,12 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
+      this.tdValues['securityDetails'] = securityDetails;
       this.translatedData = {};
       this.deleteCTAndTransContorls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
-
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.customerApprovedDoc = res.detail;
@@ -187,6 +193,11 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       this.spinner = false;
       this.btnDisable = true;
     });
+  }
+
+  private clearConditionalValidation(): void {
+    this.form.get('insuranceAmountinFigureTransVal').clearValidators();
+    this.form.get('insuranceAmountinFigureTransVal').updateValueAndValidity();
   }
 
   mappedData() {
@@ -232,37 +243,25 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.btnDisable = false;
   }
   private setTemplatedCTData(data): void {
-    console.log('Data Value:',data);
+    console.log('Data Value:', data);
     // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('dateofApprovalTransVal').patchValue(this.translatedData.dateofApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
     this.form.get('loanPurposeTransVal').patchValue(this.translatedData.loanPurpose);
-    this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
-    this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
-    this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
+    // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
+    // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
+    // this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
     // this.form.get('loanadminFeeTransVal').patchValue(this.translatedData.loanadminFee);
     this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
     // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
     this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
-    this.form.get('ownerNameTransVal').patchValue(this.translatedData.ownerName);
-    this.form.get('ownersAddressTransVal').patchValue(this.translatedData.ownersAddress);
-    // this.form.get('propertyPlotNumberTransVal').patchValue(this.translatedData.propertyPlotNumber);
-    // this.form.get('propertyAreaTransVal').patchValue(this.translatedData.propertyArea);
-    // this.form.get('sheetNumberTransVal').patchValue(this.translatedData.sheetNumber);
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
-    this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
+    // this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
     // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
     this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
-
-    // this.form.get('renewalCheckedTransval').patchValue(this.renewal);
-    // this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
-    /*this.form.get('sakshiDistrictTransVal').patchValue(this.translatedData.sakshiDistrict);
-    this.form.get('sakshiMunicipalityTransVal').patchValue(this.translatedData.sakshiMunicipality);
-    this.form.get('sakshiWardNumTransVal').patchValue(this.translatedData.sakshiWardNum);
-    this.form.get('sakshiNameTransVal').patchValue(this.translatedData.sakshiName);*/
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -290,13 +289,12 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.loanLimit = data;
   }
 
-  renewalChecked(data){
+  renewalChecked(data) {
     this.renewal = data;
   }
 
   transferValue() {
     const security = this.form.get('selectedSecurity').value;
-
     if (!ObjectUtil.isEmpty(security)) {
       this.fieldFlag = true;
       this.selectedSecurityVal = security;
@@ -335,7 +333,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.dateTypeAD2 = true;
   }
 
-  calInterestRate() {
+  public calInterestRate(): void {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
@@ -353,4 +351,95 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       }
     });
   }
+
+  private initSecuritiesForm(): FormGroup {
+    return this.formBuilder.group({
+      securityOwnersName: [undefined],
+      securityOwnersNameTransVal: [{value: undefined, disabled: true}],
+      securityOwnersNameCT: [undefined],
+
+      securityOwnersDistrict: [undefined],
+      securityOwnersDistrictTransVal: [{value: undefined, disabled: true}],
+      securityOwnersDistrictCT: [undefined],
+
+      securityOwnersMunicipalityOrVdc: [undefined],
+
+      securityOwnersMunicipality: [undefined],
+      securityOwnersMunicipalityTransVal: [{value: undefined, disabled: true}],
+      securityOwnersMunicipalityCT: [undefined],
+
+      securityOwnersWardNo: [undefined],
+      securityOwnersWardNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersWardNoCT: [undefined],
+
+      securityOwnersSeatNo: [undefined],
+      securityOwnersSeatNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersSeatNoCT: [undefined],
+
+      securityOwnersKittaNo: [undefined],
+      securityOwnersKittaNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersKittaNoCT: [undefined],
+
+      securityOwnersLandArea: [undefined],
+      securityOwnersLandAreaTransVal: [{value: undefined, disabled: true}],
+      securityOwnersLandAreaCT: [undefined],
+    });
+  }
+
+  public addDefaultSecurity(): void {
+    (this.form.get('securities') as FormArray).push(
+        this.initSecuritiesForm()
+    );
+  }
+
+  public removeIndividualSecurities(i): void {
+    (this.form.get('securities') as FormArray).removeAt(i);
+  }
+
+  async onChangeSecurityOwnersName(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
+  public getMunicipalityByDistrict(data, event, index): void {
+    const district = new District();
+    district.id = data;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalityListForSecurities[index] = response.detail;
+          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.form.get(['securities', index, 'securityOwnersMunicipalityOrVdc']).patchValue(null);
+          }
+        }
+    );
+  }
+
+  public setDefaultNepaliResponse(arrName, source, index, target): void {
+    this.form.get([String(arrName), index, String(target)])
+        .patchValue(this.form.get([String(arrName), index, String(source)]).value.nepaliName);
+    this.form.get([String(arrName), index, String(source + 'CT')])
+        .patchValue(this.form.get([String(arrName), index, String(source)]).value.nepaliName);
+  }
+
+  public translateSecuritiDetailsNumberFields(arrName, source, index, target): void {
+    const translatedNepaliNum = this.engToNepaliNumberPipe
+        .transform(String(this.form.get([String(arrName), index, String(source)]).value));
+    this.form.get([String(arrName), index, String(target)]).patchValue(translatedNepaliNum);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(translatedNepaliNum);
+  }
+
+  async onChangeTranslateSecurity(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
 }
