@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
 import {DatePipe} from '@angular/common';
@@ -6,6 +6,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {OutputEmitter} from '@angular/compiler/src/output/abstract_emitter';
 
 @Component({
   selector: 'app-construction-loan',
@@ -13,7 +14,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
   styleUrls: ['./construction-loan.component.scss']
 })
 export class ConstructionLoanComponent implements OnInit {
-
+  @Output() eventEmitter = new EventEmitter();
   constructionLoanForm: FormGroup;
   translateFormGroup: FormGroup;
   dateType = [{key: 'AD', value: 'AD'}, {key: 'BS', value: 'BS'}];
@@ -353,6 +354,8 @@ export class ConstructionLoanComponent implements OnInit {
     this.constructionLoanForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
     this.constructionLoanForm.get('approvalStaffNameTrans').patchValue(this.translatedValue.approvalStaffName);
     this.constructionLoanForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
+
+    this.eventEmitter.emit(true);
   }
 
   public getNumAmountWord(numLabel, wordLabel): void {

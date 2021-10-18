@@ -14,11 +14,11 @@
 </nb-card-header>
 <nb-card-body>
     <div *ngIf="isConstructionLoan">
-        <app-construction-loan #constructionLoan></app-construction-loan>
+        <app-construction-loan #constructionLoan (eventEmitter)="emitValue($event)"></app-construction-loan>
     </div>
 </nb-card-body>
 <nb-card-footer>
     <div class="row d-flex justify-content-end">
-        <button nbButton status="primary" (click)="onSubmit()">Submit</button>
+        <button nbButton status="primary" size="tiny" (click)="onSubmit()" [disabled]="!btnDisable">Submit</button>
     </div>
 </nb-card-footer>

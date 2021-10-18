@@ -2433,7 +2433,7 @@
                            (cadApprovedData)="getCadApprovedData($event)"
                            [customerType]="customerType"></app-loan-create>
         </nb-tab>
-        <nb-tab *ngIf="!hideLoan" tabId="3" tabTitle="टेम्प्लेट डाटा">
+        <nb-tab *ngIf="!hideLoan" tabId="3" tabTitle="टेम्प्लेट डाटा" [active]="activeTemplateDataTab" [disabled]="!activeTemplateDataTab">
           <app-template-data [cadData]="cadData"></app-template-data>
         </nb-tab>
       </nb-tabset>
