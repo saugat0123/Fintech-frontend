@@ -10,6 +10,7 @@
                     <div class="col-md-12">
                         <p>
                             <span style="float: left">
+                                सन्दर्भ नम्बर
                                 <span [ngClass]="{'font-weight-bold' : letter?.refNumber.ct !== null && letter?.refNumber.ct !== ''}">
                                     {{letter?.refNumber.ct === null || letter?.refNumber.ct === '' ? '___________' : letter?.refNumber.ct}}
                                 </span>
@@ -30,8 +31,8 @@
                         <p>
                             श्री
                             <span [ngClass]="{'font-weight-bold' : letter?.name !== null && letter?.name !== ''}">
-                                {{letter?.name === null || letter?.name === '' ? '___________' : letter?.name}}
-                            </span>
+                                {{loanHolderInfo?.name?.ct ?  loanHolderInfo?.name?.ct : '___________'}}
+                            </span> ज्यू,
                         </p>
                         <p>
                             <span [ngClass]="{'font-weight-bold' : customerAddress !== null && customerAddress !== ''}">
@@ -61,7 +62,7 @@
                     <thead><tr><th colspan="3" class="text-center">स्वीकृत ऋणकर्जा सुविधाहरुको बिबरण</th></tr></thead>
                     <tbody>
                     <tr>
-                        <td rowspan="8"><strong>१.</strong></td>
+                        <td rowspan="5"><strong>१.</strong></td>
                         <td><strong>कर्जा प्रकार/ प्रयोजनः</strong></td>
                         <td>व्यक्तिगत कर्जाः
                             <span [ngClass]="{'font-weight-bold' : letter?.loanPurpose.ct !== null && letter?.loanPurpose.ct !== ''}">
@@ -138,7 +139,9 @@
                             <span [ngClass]="{'font-weight-bold' : letter?.emiAmountWords.ct !== null && letter?.emiAmountWords.ct !== ''}">
                                 {{letter?.emiAmountWords.ct === null || letter?.emiAmountWords.ct === '' ? '___________' : letter?.emiAmountWords.ct}}
                             </span>
-                            मात्र) का दरले ६० मासिक किस्ताहरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
+                            मात्र) का दरले
+                            {{letter?.loanPeriodInMonth ? letter?.loanPeriodInMonth.ct : '______________'}}
+                            मासिक किस्ताहरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                             <p>
                                 <strong>द्रष्टब्यः</strong>
                                 कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अञग्रेजी पात्रोको प्रत्येक २० तारिखका दिन
@@ -146,7 +149,11 @@
                             </p>
                         </td>
                     </tr>
+                    </tbody></table>
+                <div class="page-break"></div>
+                <table class="table table-bordered"><tbody>
                     <tr>
+                        <td rowspan="3"></td>
                         <td>
                             <strong>
                                 अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः
@@ -321,7 +328,7 @@
                             आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यकत्ता र निवेदन बमोजिम
                             ब्यक्तिगत कर्जा तपाईंले यस नबिल बैंक लिमिटेडको,
                             <span [ngClass]="{'font-weight-bold' : letter?.branch !== null && letter?.branch !== ''}">
-                                {{letter?.branch === null || letter?.branch === '' ? '___________' : letter?.branch}}
+                                {{cadOfferLetterApprovedDoc?.loanHolder?.branch?.nepaliName}}
                             </span>
                             मा खोल्नु भएको चल्ती खातामा
                             ऋणकर्जा प्रवाह गरिनेछ ।
@@ -726,11 +733,7 @@
                                 आधिकारिक हस्ताक्षर (ग्राहक)
                             </p>
                             <p>
-                                मितिः <span *ngIf="letter.signatureDate.en.nDate; else signatureDatePrint"
-                                            class="font-weight-bold">{{letter?.signatureDate.en.nDate}}</span>
-                            <ng-template #signatureDatePrint>
-                                <span class=" font-weight-bold">{{(letter?.signatureDate.en | date) | engNepDate: true}}</span>
-                            </ng-template>
+                                मितिः <span class="font-weight-bold">................................</span>
                             </p>
                         </div>
                     </div>
@@ -746,11 +749,9 @@
                             वडा नंं. _________
                             बस्ने श्री ____________________________
                         </li>
-                        <li>
+                        <li class="mt-2">
                             कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                            <span [ngClass]="{'font-weight-bold' : letter?.employeeName.ct !== null && letter?.employeeName.ct !== ''}">
-                                {{letter?.employeeName.ct === null || letter?.employeeName.ct === '' ? '___________' : letter?.employeeName.ct}}
-                            </span>
+                            ____________________________
                         </li>
                     </ul>
                 </div>

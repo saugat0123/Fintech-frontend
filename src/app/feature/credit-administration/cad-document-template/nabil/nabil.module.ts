@@ -22,6 +22,9 @@ import {SecuritiesComponent} from './securities-view/securities-view.component';
 import {PromissoryNoteProprietorshipComponent} from './promissory-note-proprietorship/promissory-note-proprietorship.component';
 import {PromissoryNoteProprietorshipPrintComponent} from './promissory-note-proprietorship/promissory-note-propertiership-print/promissory-note-proprietorship-print.component';
 import {LoanDeedPartnershipPrintComponent} from './loan-deed-partnership/loan-deed-partnership-print/loan-deed-partnership-print.component';
+import { LetterVehicleIndividualComponent } from './letter-vehicle-individual/letter-vehicle-individual.component';
+import { LetterVehicleIndividualPrintComponent } from './letter-vehicle-individual/letter-vehicle-individual-print/letter-vehicle-individual-print.component';
+import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/promissory-note-company-print/promissory-note-company-print.component';
 
 
 @NgModule({
@@ -29,13 +32,15 @@ import {LoanDeedPartnershipPrintComponent} from './loan-deed-partnership/loan-de
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
+        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent,
+        LetterVehicleIndividualComponent, LetterVehicleIndividualPrintComponent,
         LoanDeedIndividualPrintComponent, PromissoryNoteProprietorshipComponent, PromissoryNoteProprietorshipPrintComponent,
         PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, SecuritiesComponent,
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent,
         LoanDeedPartnershipComponent,
         PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent],
+        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PromissoryNoteCompanyPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -47,6 +52,10 @@ import {LoanDeedPartnershipPrintComponent} from './loan-deed-partnership/loan-de
         PromissoryNoteCompanyComponent,
         LoanDeedIndividualComponent,
         LoanDeedIndividualPrintComponent,
+        NabilLoanDeedCompanyComponent,
+        LetterVehicleIndividualComponent,
+        LetterVehicleIndividualPrintComponent,
+
         NabilLoanDeedCompanyComponent,
         PromissoryNoteProprietorshipPrintComponent,
         PromissoryNoteProprietorshipComponent,

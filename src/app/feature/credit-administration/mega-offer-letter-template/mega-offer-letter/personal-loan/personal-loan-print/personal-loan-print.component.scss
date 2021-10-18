@@ -21,7 +21,7 @@ table {
 }
 .nep {
   font-size: 20px;
-  line-height: 1.9;
+  line-height: 1.9 !important;
   text-align: justify;
   text-justify: inter-word;
   margin: 10px 70px;
@@ -37,10 +37,6 @@ footer {
   text-align: center;
   margin-top: 20px;
 }
-@page {
-  size: A4;
-  margin: 17mm 17mm 17mm 17mm;
-}
 
 .hello{
   width: 95%;
@@ -48,9 +44,16 @@ footer {
 }
 
 @media print {
+  @page {
+    size: A4;
+    margin: 17mm 17mm 17mm 17mm;
+  }
+
   footer{
     position: fixed;
     bottom: 0;
     width: 100%;
   }
+
+
 }

@@ -157,7 +157,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       sakhshiMunicipality: [undefined],
       sakhshiWardNo: [undefined],
       sakhshiName: [undefined],
-      approvalStaffName: [undefined],
       ownersName: [undefined],
       district: [undefined],
       municipality: [undefined],
@@ -210,7 +209,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       sakhshiMunicipalityTransVal: [undefined],
       sakhshiWardNoTransVal: [undefined],
       sakhshiNameTransVal: [undefined],
-      approvalStaffNameTransVal: [undefined, Validators.required],
       ownersNameTransVal: [undefined],
       districtTransVal: [undefined],
       municipalityTransVal: [undefined],
@@ -291,13 +289,21 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
   }
 
+  async onChangeTranslateSecurity(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
   submit() {
     this.submitted = true;
     const securityDetails = [{
       securityType: this.form.get('selectedSecurity').value,
       securities: this.form.get('securities').value,
-    }]
-    console.log('form submission details: ', securityDetails);
+    }];
     if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
       this.clearConditionalValidation();
     }
@@ -526,7 +532,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     // this.form.get('insuranceAmountFigureTransVal').patchValue(this.translatedData.insuranceAmountFigure);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedData.relationshipOfficerName);
     this.form.get('branchManagerTransVal').patchValue(this.translatedData.branchManager);
-    this.form.get('approvalStaffNameTransVal').patchValue(this.translatedData.approvalStaffName);
     this.form.get('ownersNameTransVal').patchValue(this.translatedData.ownersName);
     // this.form.get('wardNoTransVal').patchValue(this.translatedData.wardNo);
     // this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
