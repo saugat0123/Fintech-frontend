@@ -223,8 +223,15 @@
                         <app-obtained-document #obtainedDocument>
                         </app-obtained-document>
                     </ng-template>
+
                         <ng-template ngbTabContent *ngIf="allList.name == 'Outstanding Update'">
+                            <div *ngIf="approvedLoans.length !== 0 ">
                             <app-outstanding-update></app-outstanding-update>
+                            </div>
+                            <div *ngIf="approvedLoans.length == 0">
+                                <strong><mark style="color: red; margin-left: 300px; font-size: 15px">*Sorry there are no approved loans</mark></strong>
+                                <angular-emojis [name]="'pensive'" size="25"> </angular-emojis>
+                            </div>
                         </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">

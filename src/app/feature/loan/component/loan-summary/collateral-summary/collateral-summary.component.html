@@ -1,4 +1,7 @@
-<div class="row mt-1 col-md-12 sb-small">
+<div class="row mt-1 col-md-12 sb-small" [nbSpinner]="spinner"
+     nbSpinnerSize="giant"
+     nbSpinnerMessage="Data Loading...."
+     nbSpinnerStatus="primary">
     <div *ngIf="approveSheet === 'approveSheet'; else notApproveSheet">
         <p><strong>{{loanCategory === 'INDIVIDUAL' ? '10. ' : '9. '}} Security Exposure Details</strong></p>
     </div>
@@ -39,14 +42,16 @@
                     <td class="text-left pl-1">{{model?.loan?.name}}</td>
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
                     || 0}}</td>
-                    <td class="text-right pr-1" >
-                    <span *ngIf="(model?.proposal?.data | jsonParse)?.existingLimit">
-                        Rs. {{(model?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
-                    </span>
-                        <span *ngIf="!(model?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
-                    <td class="text-right pr-1">
-                        <span>{{model?.proposal?.outStandingLimit |currency:'Rs '}}</span>
-                    </td>
+<!--                    <td class="text-right pr-1" >-->
+<!--                    <span *ngIf="(model?.proposal?.data | jsonParse)?.proposedLimit">-->
+<!--                        Rs. {{(model?.proposal?.data | jsonParse)?.proposedLimit | currencyFormatter}}-->
+<!--                    </span>-->
+<!--                        <span *ngIf="!(model?.proposal?.data | jsonParse)?.proposedLimit">-</span></td>-->
+                    <td></td>
+                    <td></td>
+<!--                    <td class="text-right pr-1">-->
+<!--                        <span>{{model?.proposal?.outStandingLimit |currency:'Rs '}}</span>-->
+<!--                    </td>-->
                     <td class="text-left pl-1">{{loanType[model?.loanType] || model?.loanType}}</td>
                     <td class="text-left pl-1">{{model?.createdAt | date}} ({{model?.createdAt | engNepDate: false}})</td>
                     <td class="text-right pr-1">{{model?.proposal?.collateralRequirement}}</td>
@@ -60,10 +65,10 @@
                     <td class="text-left pl-1">{{data?.loan?.name}}<b *ngIf="data.loan.loanNature==='Terminating'">(T)</b><b *ngIf="data.loan.loanNature === 'Revolving'">(R)</b></td>
                   <td></td>
                     <td class="text-right pr-1" >
-                    <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
-                        Rs. {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                    <span *ngIf="(data?.proposal?.data | jsonParse)?.proposedLimit">
+                        Rs. {{(data?.proposal?.data | jsonParse)?.proposedLimit | currencyFormatter}}
                     </span>
-                        <span *ngIf="!(data?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
+                        <span *ngIf="!(data?.proposal?.data | jsonParse)?.proposedLimit">-</span></td>
                     <td class="text-right pr-1">
                         <span>Rs {{data?.proposal?.outStandingLimit |currencyFormatter}}</span>
                     </td>
@@ -109,10 +114,10 @@
                     <b *ngIf="data.proposal.cashMarginOrFac==='FAC'">=>F</b><b *ngIf="data.proposal.cashMarginOrFac === 'CASHMARGIN'">=>CM</b></td>
                 <td></td>
                 <td class="text-right pr-1" >
-                    <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
-                        Rs. {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                    <span *ngIf="(data?.proposal?.data | jsonParse)?.proposedLimit">
+                        Rs. {{(data?.proposal?.data | jsonParse)?.proposedLimit | currencyFormatter}}
                     </span>
-                    <span *ngIf="!(data?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
+                    <span *ngIf="!(data?.proposal?.data | jsonParse)?.proposedLimit">-</span></td>
                 <td class="text-right pr-1">
                     <span>Rs {{data?.proposal?.outStandingLimit |currencyFormatter}}</span>
                 </td>
