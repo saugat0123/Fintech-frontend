@@ -25,7 +25,7 @@ export class AutoLoanCommercialTemplateDataComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
   tdValues: any = {};
   offerLetterTypes = [];
-  offerLetterConst: NabilOfferLetterConst;
+  offerLetterConst = NabilOfferLetterConst;
   offerLetterSelect;
   form: FormGroup;
   translatedValues: any = {};
@@ -221,8 +221,7 @@ export class AutoLoanCommercialTemplateDataComponent implements OnInit {
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
-  }
-  submit() {
+  }submit() {
     this.submitted = true;
     if (this.form.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
@@ -266,7 +265,6 @@ export class AutoLoanCommercialTemplateDataComponent implements OnInit {
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
-
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.customerApprovedDoc = res.detail;
@@ -280,5 +278,4 @@ export class AutoLoanCommercialTemplateDataComponent implements OnInit {
       this.btnDisable = true;
     });
   }
-
   }

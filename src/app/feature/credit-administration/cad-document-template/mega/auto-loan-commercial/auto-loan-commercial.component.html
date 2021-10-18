@@ -53,14 +53,14 @@
 
                 <div class="row form-group">
 
-                    <p>१.</p>
+
                     <table class="table table-bordered">
 
                         <tr>
                             <td colspan="2" style="text-align: center"><strong> स्वीकृत ऋणकर्जा सुविधाहरुको बिबरण </strong></td>
                         </tr>
                         <tr>
-                            <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
+                            <td style="width: 15%"><strong>१. कर्जा प्रकार/प्रयोजनः</strong></td>
                             <td>
                                 <strong> सवारी साधन कर्जाः </strong> <input class="form-field form-control-sm nepaliFont"
                                                                               formControlName="nameoftheVehicle"
@@ -160,6 +160,7 @@
                             <td>
                                 साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                 <input class="form-field form-control-sm nepaliFont"
+                                       (input)="getNumAmountWord('EMIAmount', 'EMIAmountInWord')"
                                        formControlName="EMIAmount"
                                        name="EMIAmount"
                                        placeholder=""

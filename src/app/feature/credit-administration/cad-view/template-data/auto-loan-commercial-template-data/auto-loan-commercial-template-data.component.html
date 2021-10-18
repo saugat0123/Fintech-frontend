@@ -98,35 +98,6 @@
             </tr>
 
             <tr>
-                <td>Loan Amount In Figure</td>
-                <td><input type="text" class="form-control" formControlName="loanAmountInFigure"
-                           (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords');translateNumber('loanAmountInFigure', 'loanAmountInWordsTransVal')"></td>
-                <td class="abc">{{translatedValues?.loanAmountInFigure}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.loanAmountInFigureTransVal.errors }"
-                           formControlName="loanAmountInFigureTransVal"/>
-                    <div *ngIf="submitted && Form.loanAmountInFigureTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.loanAmountInFigureTransVal.errors.required">Loan Amount In Figure</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Loan Amount In Words</td>
-                <td><input type="text" class="form-control" formControlName="loanAmountInWords"></td>
-                <td class="abc">{{translatedValues?.loanAmountInWords}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.loanAmountInWordsTransVal.errors }"
-                           formControlName="loanAmountInWordsTransVal"/>
-                    <div *ngIf="submitted && Form.loanAmountInWordsTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.loanAmountInWordsTransVal.errors.required">Loan Amount In Words</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
                 <td>Distress Situation Percentage</td>
                 <td><input type="text" class="form-control" formControlName="distressSituationPercentage"></td>
                 <td class="abc">{{translatedValues?.distressSituationPercentage}}</td>
@@ -208,7 +179,7 @@
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.loanadminFeeWordsTransVal.errors }"
-                           formControlName="loanAdminFeeinWordsTransVal"/>
+                           formControlName="loanadminFeeWordsTransVal"/>
                     <div *ngIf="submitted && Form.loanadminFeeWordsTransVal.errors"
                          class="invalid-feedback">
                         <div *ngIf="Form.loanadminFeeWordsTransVal.errors.required">Loan Admin Fee in words is required</div>
@@ -237,7 +208,7 @@
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.EMIAmountInWordTransVal.errors }"
-                           formControlName="emiInWordsTransVal"/>
+                           formControlName="EMIAmountInWordTransVal"/>
                     <div *ngIf="submitted && Form.EMIAmountInWordTransVal.errors"
                          class="invalid-feedback">
                         <div *ngIf="Form.EMIAmountInWordTransVal.errors.required">Emi In Words is required</div>
@@ -272,35 +243,6 @@
                     <div *ngIf="submitted && Form.loanCommitmentFeeTransVal.errors"
                          class="invalid-feedback">
                         <div *ngIf="Form.loanCommitmentFeeTransVal.errors.required">Loan Commitment Fee</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Guaranteed Amount In Figure</td>
-                <td><input type="text" class="form-control" formControlName="guaranteedamountinFigure"
-                           (input)="getNumAmountWord('guaranteedamountinFigure', 'guaranteedamountinWords');translateNumber('guaranteedamountinFigure', 'guaranteedamountinWordsTransVal')"></td>
-                <td class="abc">{{translatedValues?.guaranteedamountinFigure}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.guaranteedamountinFigureTransVal.errors }"
-                           formControlName="guaranteedamountinFigureTransVal"/>
-                    <div *ngIf="submitted && Form.guaranteedamountinFigureTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.guaranteedamountinFigureTransVal.errors.required">Guaranteed Amount In Figure</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Guaranteed Amount In Words</td>
-                <td><input type="text" class="form-control" formControlName="guaranteedamountinWords"></td>
-                <td class="abc">{{translatedValues?.guaranteedamountinWords}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.guaranteedamountinWordsTransVal.errors }"
-                           formControlName="guaranteedamountinWordsTransVal"/>
-                    <div *ngIf="submitted && Form.guaranteedamountinWordsTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.guaranteedamountinWordsTransVal.errors.required">Guaranteed Amount In Words</div>
                     </div>
                 </td>
             </tr>
@@ -389,20 +331,7 @@
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td>Guarantor Amount</td>
-                <td><input type="text" class="form-control" formControlName="guarantorAmount"></td>
-                <td class="abc">{{translatedValues?.guarantorAmount}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.guarantorAmountTransVal.errors }"
-                           formControlName="guarantorAmountTransVal"/>
-                    <div *ngIf="submitted && Form.guarantorAmountTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.guarantorAmountTransVal.errors.required"> Guarantor Amount is required</div>
-                    </div>
-                </td>
-            </tr>
+
             <tr>
                 <td>Insurance Amount</td>
                 <td><input type="text" class="form-control" formControlName="insuranceAmount"></td>
@@ -414,20 +343,6 @@
                     <div *ngIf="submitted && Form.insuranceAmountTransVal.errors"
                          class="invalid-feedback">
                         <div *ngIf="Form.insuranceAmountTransVal.errors.required"> Insurance Amount is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Additional Guarantor Details</td>
-                <td><input type="text" class="form-control" formControlName="additionalGuarantorDetails"></td>
-                <td class="abc">{{translatedValues?.additionalGuarantorDetails}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.additionalGuarantorDetailsTransVal.errors }"
-                           formControlName="additionalGuarantorDetailsTransVal"/>
-                    <div *ngIf="submitted && Form.additionalGuarantorDetailsTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.additionalGuarantorDetailsTransVal.errors.required">Additional Guarantor Details is required</div>
                     </div>
                 </td>
             </tr>
