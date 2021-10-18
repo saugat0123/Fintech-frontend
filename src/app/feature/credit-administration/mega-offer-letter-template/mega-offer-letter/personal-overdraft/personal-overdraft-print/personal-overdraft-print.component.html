@@ -232,7 +232,7 @@
                                 </span>
                             </p>
                             <p *ngFor="let data of guarantorData; let i = index;">
-                                {{i + 2 | nepaliWord}}. श्री
+                               <strong>{{i + 2 | nepaliWord}}.</strong>  श्री
                                 <span class=" font-weight-bold">
                                     {{guarantorParse(data.nepData, 'guarantorName')}}
                                 </span>
@@ -263,7 +263,7 @@
                             गरिनेछ ।
                         </td>
                     </tr>
-
+                    <p style="page-break-before: always;">&nbsp;</p>
                     <tr>
                         <td>३.</td>
                         <td> बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा
@@ -420,7 +420,6 @@
                             स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम विभिन्न बर्गमा
                             वर्गिकरण भएमा बैंक नियमानुसार देहाय बमोजिम
                             थप जोखिम दर (Additional Risk Premium) समेत लाग्नेछ ।
-
                             <table class="table table-hover table-bordered hello">
                                 <tr>
                                     <td> विवरण</td>
@@ -445,7 +444,6 @@
                                     </td>
                                     <td> वार्षिक ३.०० %</td>
                                 </tr>
-
                             </table>
                         </td>
                     </tr>
@@ -527,7 +525,6 @@
                             व्यहोराले तेश्रो पक्षको हक श्रृजना गरी दिन पाईने छैन ।
                         </td>
                     </tr>
-
                     <tr>
                         <td>२२.</td>
                         <td>बैंकको धितोबन्धक र/वा दृष्टिबन्धकमा रहेको सम्पत्तिहरु/सुरक्षणहरुको बिमालेखमा बैंकर्स शर्त
@@ -609,8 +606,8 @@
                         <td>३०.</td>
                         <td>तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु
                             पर्नेछ।<br>
-                            <div *ngIf="selectedSecurity === 'LAND' && !renewalVal" class="col-md-12"
-                                 style="line-height: 1.9">
+                            <div *ngIf="selectedSecurity === 'LAND' && !renewalVal" class="col-md-12">
+                                <p style="line-height: 1.9;margin-left:100px;">
                                 क. रु.
                                 <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
@@ -631,7 +628,7 @@
                                 को धितो बन्धक तमसुक ।<br>
                                 छ. मूल्यांकन प्रतिवेदन ।
                                 <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px">
-                                    {{i+9 | nepaliWord}}
+                                    {{i+8 | nepaliWord}}
                                     श्री
                                     <span class=" font-weight-bold">
                                     {{guarantorParse(data.nepData, 'guarantorName')}}
@@ -655,9 +652,8 @@
                             </div>
 
                             <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING' && !renewalVal"
-                                 class="col-md-12"
-                                 style="line-height: 1.9">
-                                <p>क. रु.
+                                 class="col-md-12">
+                                <p style="line-height: 1.9;margin-left:100px">क. रु.
                                     <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
@@ -677,24 +673,30 @@
                                     </span>
                                     को धितो बन्धक तमसुक ।<br>
                                     छ. मूल्यांकन प्रतिवेदन ।<br>
-                                    ज. श्री
-                                    <span class=" font-weight-bold">{{guarantorName}}</span>
-                                    को बैकको पक्षमा रु
-                                    <span class=" font-weight-bold">
-                                        {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
-                                    </span>
-                                    (अक्षरेपी रु
-                                    <span class=" font-weight-bold">
-                                        {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}
-                                    </span>
-                                    मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
-                                    <br>
-                                    झ. बैकर्श शर्त सहितको कम्तीमा रु
+                                    ज. बैकर्श शर्त सहितको कम्तीमा रु
                                     <span [ngClass]="{'font-weight-bold' : letter?.insuranceAmountinFigure.ct !== null && letter?.insuranceAmountinFigure.ct !== ''}">
                                         {{letter?.insuranceAmountinFigure.ct === null || letter?.insuranceAmountinFigure.ct === '' ? '___________' : letter?.insuranceAmountinFigure.ct}}
                                     </span>
                                     बराबरको भवनको विमालेख ।<br>
-                                    ञ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।</p>
+                                    झ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
+                                </p>
+                                <p *ngFor="let data of guarantorData; let i = index;"
+                                   style="margin-left:100px;margin-top: -20px">
+                                    {{i + 10 | nepaliWord}}.
+                                    श्री
+                                    <span class=" font-weight-bold">
+                                            {{guarantorParse(data.nepData, 'guarantorName')}}
+                                        </span>
+                                    को बैकको पक्षमा रु
+                                    <span class=" font-weight-bold">
+                                            {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                                        </span> /-
+                                    (अक्षरेपी रु
+                                    <span class=" font-weight-bold">
+                                            {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))}}
+                                        </span>
+                                    मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                </p>
                                 <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12"
                                      style="margin-left:5%">
                                         <span class="nepaliFont" style="font-size: 28px;">
@@ -704,7 +706,7 @@
                             </div>
                             <br>
                             <div *ngIf="renewalVal" class="col-md-12" style="line-height: 1.9">
-                                <p style="line-height: 1.9"> क. व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।<br>
+                                <p style="line-height: 1.9;margin-left:100px"> क. व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।<br>
                                     ख. निरन्तरताको लिखत ।<br>
                                     ग. बहुबैंकिङ्ग घोषणा पत्र ।<br>
                                     घ. ग्राहक स्वघोषणा फारम ।
@@ -820,7 +822,7 @@
                     </tr>
                 </table>
                 <br>
-                <div style="margin-left:80%; margin-top:2em">
+                <div style="margin-left:75%; margin-top:2em">
 
                     .........................................
                     <p>

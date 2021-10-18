@@ -119,8 +119,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       dateofApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       loanPurposeTransVal: [undefined, Validators.required],
-      baseRateTransVal: [undefined, Validators.required],
-      premiumRateTransVal: [undefined, Validators.required],
+      baseRateTransVal: [undefined],
+      premiumRateTransVal: [undefined],
       yearlyInterestRateTransVal: [undefined],
       loanadminFeeTransVal: [undefined, Validators.required],
       loanadminFeeWordsTransVal: [undefined],
@@ -266,9 +266,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.form.get('dateofApprovalTransVal').patchValue(this.translatedData.dateofApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
     this.form.get('loanPurposeTransVal').patchValue(this.translatedData.loanPurpose);
-    this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
-    this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
-    this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
+    // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
+    // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
+    // this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
     // this.form.get('loanadminFeeTransVal').patchValue(this.translatedData.loanadminFee);
     this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
     // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
