@@ -423,7 +423,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.panNumber = this.userConfigForm.get('panNo').value;
     this.oneFormCustomer.email = this.userConfigForm.get('email').value;
     this.oneFormCustomer.registrationNumber = this.userConfigForm.get('registrationNo').value;
-    this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
     this.oneFormCustomer.contactNumber = this.userConfigForm.get('contactNo').value;
     this.oneFormCustomer.gender = this.userConfigForm.get('gender').value;
     const customer = {
@@ -492,12 +491,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
       if (issueDateType === 'AD') {
         this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
-        // this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
-        //     this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate);
       } else if (issueDateType === 'BS') {
         const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate;
         this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = new Date(issueDate);
-        // this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(new Date(issueDate.nDate));
       }
       this.deleteCTAndTransContorls(index);
     });
@@ -518,6 +514,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
       translatedData: this.translatedData
     };
+    data.guarantorDetails.forEach((value, index) => {
+      const issueDateType = value.radioCitizenIssuedDate;
+      if (issueDateType === 'BS') {
+        const issueDate = value.citizenIssuedDate.eDate;
+        data.guarantorDetails[index].citizenIssuedDate = new Date(issueDate);
+      }
+    });
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
       if (this.hideLoan === true) {
