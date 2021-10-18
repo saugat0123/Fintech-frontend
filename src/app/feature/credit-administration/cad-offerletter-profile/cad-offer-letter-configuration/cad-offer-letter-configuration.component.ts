@@ -1322,7 +1322,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         temporaryDistrict: this.userConfigForm.get('permanentDistrict').value,
         temporaryMunicipality: this.userConfigForm.get('permanentMunicipality').value,
         temporaryWard: this.userConfigForm.get('permanentWard').value,
-        tempMunicipalitiesOrVdc: this.userConfigForm.get('municipalityOrVdc').value
+        temporaryMunicipalityOrVdc: this.userConfigForm.get('municipalityOrVdc').value
       });
     } else {
       this.addressSameAsAbove = false;

@@ -829,6 +829,7 @@
 <!--                </ng-select>-->
 
                 <select required="true" class="form-control" formControlName="temporaryMunicipalityOrVdc"
+                        name="temporaryMunicipalityOrVdc"
                 >
                   <option value="null" hidden>Municipality or VDC</option>
                   <option value="Municipality">Municipality</option>
@@ -840,15 +841,15 @@
                         *ngIf="configForm.temporaryMunicipalityOrVdc.value"
                         class="custom-select"
                         [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
                         formControlName="temporaryMunicipality"
-                        id="temporaryMunicipalityOrVdc"
+                        id="temporaryMunicipality"
                 >
                   <option *ngFor="let municipalityVal of tempMunicipalities"
                           [ngValue]="municipalityVal">
                     {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </option>
                 </select>
+
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="temporaryMunicipalityTrans" type="text"></td>
