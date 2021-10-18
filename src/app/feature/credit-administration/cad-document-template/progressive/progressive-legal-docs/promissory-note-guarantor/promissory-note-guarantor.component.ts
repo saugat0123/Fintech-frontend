@@ -67,7 +67,19 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
+        borrowerPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        borrowerPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        borrowerPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        borrowerCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        borrowerCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        borrowerCdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        borrowerParentsName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        borrowerGrandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        borrowerHusbandWifeName : this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+        borrowerTempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+        borrowerTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        borrowerTempDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
       });
     }
   }
@@ -141,36 +153,30 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       relationship: [undefined],
       date: [undefined],
       borrowerName: [undefined],
+      borrowerPermanentDistrict: [undefined],
       borrowerPermanentMunicipality: [undefined],
       borrowerPermanentWardNo: [undefined],
       borrowerParentsName: [undefined],
       borrowerGrandParentsName: [undefined],
       borrowerHusbandWifeName: [undefined],
       borrowerCitizenshipNo: [undefined],
+      borrowerTempDistrict: [undefined],
       borrowerTempMunicipality: [undefined],
       borrowerTempWardNo: [undefined],
       borrowerCitizenshipIssueDate: [undefined],
       borrowerCdoOffice: [undefined],
-      borrowerPermanentDistrict: [undefined],
       borrowerSabikVDC: [undefined],
       borrowerSabikWardNo: [undefined],
-      borrowerTempDistrict: [undefined],
+
       IdentifiedGuarantorName: [undefined],
       IdentifiedHintNo: [undefined],
-      ItisambatYear: [undefined],
-      ItisambatMonth: [undefined],
-      ItisambatDay: [undefined],
-      ItisambatTime: [undefined],
-      ItisambatRojSubham: [undefined],
       branchName: [undefined],
       itiSambatYear: [undefined],
-      itiSambatMoth: [undefined],
-      itiSambatDate: [undefined],
+      itiSambatMonth: [undefined],
+      itiSambatDay: [undefined],
       itiSambatTime: [undefined],
-      itiSambatSubham: [undefined],
+      itiSambatRojSubham: [undefined],
       witnessDetails: this.formBuilder.array([])
-
-
     });
   }
 
@@ -183,7 +189,6 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       witnessDistrict: [undefined],
       witnessPermanentMunicipality: [undefined],
       witnessPermanentWardNo: [undefined]
-
     });
   }
 
@@ -215,16 +220,11 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
         witnessPermanentWardNo: [value.witnessPermanentWardNo]
       }));
     });
-
-
   }
-
 
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
   }
-
-
 }
