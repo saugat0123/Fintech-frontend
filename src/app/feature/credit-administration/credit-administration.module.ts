@@ -81,6 +81,8 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { EditLoanDetailComponent } from './cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
 import { PersonalLoanTemplateEditComponent } from './cad-view/template-data/personal-loan-template-edit/personal-loan-template-edit.component';
 import { PersonalOverdraftTemplateDataEditComponent } from './cad-view/template-data/personal-overdraft-template-data-edit/personal-overdraft-template-data-edit.component';
+import { HomeLoanTemplateDataComponent } from './cad-view/template-data/home-loan-template-data/home-loan-template-data.component';
+import { ConstructionLoanComponent } from './cad-view/template-data/home-loan-type/construction-loan/construction-loan.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -148,7 +150,12 @@ import { PersonalOverdraftTemplateDataEditComponent } from './cad-view/template-
     EducationalLoanTemplateEditComponent,
     EditLoanDetailComponent,
     PersonalLoanTemplateEditComponent,
-    PersonalOverdraftTemplateDataEditComponent],
+    PersonalOverdraftTemplateDataEditComponent,
+    EditLoanDetailComponent,
+    DocCheckPendingComponent,
+    PersonalLoanTemplateDataComponent,
+    HomeLoanTemplateDataComponent,
+    ConstructionLoanComponent],
   imports: [
     ThemeModule,
     CommonModule,
