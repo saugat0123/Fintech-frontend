@@ -659,24 +659,32 @@
                 </label>
               </td>
               <td>
-                <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc"
-                                class="d-inline-flex">
-                  <nb-radio *ngFor="let option of vdcOption"
-                            [value]="option.value">{{option.label}}</nb-radio>
-                </nb-radio-group>
+<!--                <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc"-->
+<!--                                class="d-inline-flex">-->
+<!--                  <nb-radio *ngFor="let option of vdcOption"-->
+<!--                            [value]="option.value">{{option.label}}</nb-radio>-->
+<!--                </nb-radio-group>-->
+                <select required="true" class="form-control" formControlName="municipalityOrVdc"
+                >
+                  <option value="null" hidden>Municipality or VDC</option>
+                  <option value="Municipality">Municipality</option>
+                  <option value="VDC">VDC</option>
+                  <option value="Rural">Rural</option>
+                </select>
 
-                <ng-select
-                    bindLabel="name"
+                <select
+                        *ngIf="configForm.municipalityOrVdc.value"
+                        class="custom-select"
                     [compareWith]="compareFn"
                     [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
                     formControlName="permanentMunicipality"
                     id="permanentMunicipality"
-                    [placeholder]="oneFormCustomer.municipalities == null ? 'Municipality or VDC' : ''">
-                  <ng-option *ngFor="let municipalityVal of municipalities"
-                             [value]="municipalityVal">
+                    >
+                  <option *ngFor="let municipalityVal of municipalities"
+                             [ngValue]="municipalityVal">
                     {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                  </ng-option>
-                </ng-select>
+                  </option>
+                </select>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="permanentMunicipalityTrans" type="text"></td>
@@ -803,22 +811,44 @@
               >Municipality or VDC</label>
               </td>
               <td>
-                <nb-radio-group name="temporaryMunicipalityOrVdc"
-                                formControlName="temporaryMunicipalityOrVdc" class="d-inline-flex">
-                  <nb-radio *ngFor="let option of vdcOption"
-                            [value]="option.value">{{option.label}}</nb-radio>
-                </nb-radio-group>
+<!--                <nb-radio-group name="temporaryMunicipalityOrVdc"-->
+<!--                                formControlName="temporaryMunicipalityOrVdc" class="d-inline-flex">-->
+<!--                  <nb-radio *ngFor="let option of vdcOption"-->
+<!--                            [value]="option.value">{{option.label}}</nb-radio>-->
+<!--                </nb-radio-group>-->
 
-                <ng-select
-                        bindLabel="name"
+<!--                <ng-select-->
+<!--                        bindLabel="name"-->
+<!--                        [compareWith]="compareFn"-->
+<!--                        formControlName="temporaryMunicipality"-->
+<!--                        name="municipality">-->
+<!--                  <ng-option *ngFor="let municipalityVal of tempMunicipalities"-->
+<!--                          [value]="municipalityVal">-->
+<!--                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}-->
+<!--                  </ng-option>-->
+<!--                </ng-select>-->
+
+                <select required="true" class="form-control" formControlName="temporaryMunicipalityOrVdc"
+                >
+                  <option value="null" hidden>Municipality or VDC</option>
+                  <option value="Municipality">Municipality</option>
+                  <option value="VDC">VDC</option>
+                  <option value="Rural">Rural</option>
+                </select>
+
+                <select
+                        *ngIf="configForm.temporaryMunicipalityOrVdc.value"
+                        class="custom-select"
                         [compareWith]="compareFn"
+                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
                         formControlName="temporaryMunicipality"
-                        name="municipality">
-                  <ng-option *ngFor="let municipalityVal of tempMunicipalities"
-                          [value]="municipalityVal">
+                        id="temporaryMunicipalityOrVdc"
+                >
+                  <option *ngFor="let municipalityVal of tempMunicipalities"
+                          [ngValue]="municipalityVal">
                     {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                  </ng-option>
-                </ng-select>
+                  </option>
+                </select>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="temporaryMunicipalityTrans" type="text"></td>
@@ -1984,34 +2014,57 @@
                 </td>
                 <td>
                   <div class="row">
-                    <nb-radio-group name="citizenshipIssuedDate"
-                                    formControlName="radioCitizenIssuedDate"
-                                    #citizenshipIssueDateVal class="d-inline-flex">
-                      <nb-radio *ngFor="let option of dateOption"
-                                [value]="option.value">{{option.label}}</nb-radio>
-                    </nb-radio-group>
+                   <div class="col-md-4">
+<!--                     <nb-radio-group name="citizenshipIssuedDate"-->
+<!--                                     formControlName="radioCitizenIssuedDate"-->
+<!--                                     #citizenshipIssueDateVal class="d-inline-flex">-->
+<!--                       <nb-radio *ngFor="let option of dateOption"-->
+<!--                                 [value]="option.value">{{option.label}}</nb-radio>-->
+<!--                     </nb-radio-group>-->
+                     <select required="true" class="form-control"
+                             #citizenshipIssueDateVal
+                             formControlName="radioCitizenIssuedDate">
+                       <option selected value="AD">AD</option>
+                       <option value="BS">BS</option>
+                     </select>
+                   </div>
+                    <div class="col-md-8">
+                      <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
+                                    formControlName="citizenIssuedDate" [responseType]="2"
+                                    [displayNepali]="true">
+                      </nepali-patro>
+                      <input [nbDatepicker]="citizenshipDate"
+                             *ngIf="citizenshipIssueDateVal.value ==='AD'"
+                             class="form-control form-control-sm-error rounded"
+                             formControlName="citizenIssuedDate"
+
+                             name="citizenIssuedDate"
+                             placeholder="Citizenship Issue Date"
+                             type="text">
+                      <nb-datepicker #citizenshipDate></nb-datepicker>
+                    </div>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td></td>
-                <td>
-                  <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
-                                formControlName="citizenIssuedDate" [responseType]="2"
-                                [displayNepali]="true">
-                  </nepali-patro>
-                  <input [nbDatepicker]="citizenshipDate"
-                         *ngIf="citizenshipIssueDateVal.value ==='AD'"
-                         class="form-control form-control-sm-error rounded"
-                         formControlName="citizenIssuedDate"
+<!--              <tr>-->
+<!--                <td></td>-->
+<!--                <td>-->
+<!--                  <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"-->
+<!--                                formControlName="citizenIssuedDate" [responseType]="2"-->
+<!--                                [displayNepali]="true">-->
+<!--                  </nepali-patro>-->
+<!--                  <input [nbDatepicker]="citizenshipDate"-->
+<!--                         *ngIf="citizenshipIssueDateVal.value ==='AD'"-->
+<!--                         class="form-control form-control-sm-error rounded"-->
+<!--                         formControlName="citizenIssuedDate"-->
 
-                         name="citizenIssuedDate"
-                         placeholder="Citizenship Issue Date"
-                         type="text">
-                  <nb-datepicker #citizenshipDate></nb-datepicker>
-                </td>
-                <td></td>
-              </tr>
+<!--                         name="citizenIssuedDate"-->
+<!--                         placeholder="Citizenship Issue Date"-->
+<!--                         type="text">-->
+<!--                  <nb-datepicker #citizenshipDate></nb-datepicker>-->
+<!--                </td>-->
+<!--                <td></td>-->
+<!--              </tr>-->
               <tr>
                 <td>
                   <label class="title">Guaranteed Amount</label>
