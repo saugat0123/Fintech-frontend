@@ -42,6 +42,8 @@
       <tr>
         <th>Security Code</th>
         <td>{{securityCode}}</td>
+        <th>MIS Code</th>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.securityCode}}</td>
         <th>Operative Account</th>
         <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>
       </tr>

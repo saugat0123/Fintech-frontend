@@ -85,10 +85,7 @@ export class LoanDeedIndividualComponent implements OnInit {
     fillForm() {
         if (!ObjectUtil.isEmpty(this.nepaliData)) {
             this.form.patchValue({
-                district: this.cadData.assignedLoan[0].branch.district.name,
-                municipality: this.cadData.assignedLoan[0].branch.municipalityVdc.name,
                 wadNo: this.nepaliNumber.transform(this.cadData.assignedLoan[0].branch.wardNumber, 'preeti'),
-                branch: this.cadData.assignedLoan[0].branch.name,
                 grandParentName: this.nepaliData.grandFatherName,
                 fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : this.nepaliData.fatherInLawName,
                 husbandWifeName: this.nepaliData.husbandName,

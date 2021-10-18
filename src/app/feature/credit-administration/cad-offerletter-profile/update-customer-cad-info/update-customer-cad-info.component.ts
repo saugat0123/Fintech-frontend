@@ -20,7 +20,9 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
     cadData: CustomerApprovedLoanCadDocumentation;
     updateForm: FormGroup;
     spinner = false;
-    data = {accountNo: null, accountName: null, issuanceOfMc: null, operativeAc: null, againstPurchaseOf: null, securityType: undefined};
+    data = {accountNo: null, accountName: null, issuanceOfMc: null, operativeAc: null, againstPurchaseOf: null, securityType: undefined,
+        securityCode: null
+    };
     securityType =  SecurityTypeEnum.pair();
 
     constructor(private formBuilder: FormBuilder,
@@ -48,7 +50,8 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
             againstPurchaseOf: [ObjectUtil.isEmpty(this.data.againstPurchaseOf) ? undefined : this.data.againstPurchaseOf, [Validators.required]],
             issuanceOfMc: [ObjectUtil.isEmpty(this.data.issuanceOfMc) ? undefined : this.data.issuanceOfMc, [Validators.required]],
             operativeAc: [ObjectUtil.isEmpty(this.data.operativeAc) ? undefined : this.data.operativeAc, [Validators.required]],
-            securityType: [ObjectUtil.isEmpty(this.data.securityType) ? undefined : this.data.securityType,[Validators.required]]
+            securityType: [ObjectUtil.isEmpty(this.data.securityType) ? undefined : this.data.securityType, [Validators.required]],
+            securityCode: [ObjectUtil.isEmpty(this.data.securityCode) ? undefined : this.data.securityCode, [Validators.required]]
         });
     }
 
