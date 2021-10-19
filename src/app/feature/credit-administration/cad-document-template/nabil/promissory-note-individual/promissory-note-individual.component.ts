@@ -65,7 +65,6 @@ export class PromissoryNoteIndividualComponent implements OnInit {
               private customerService: CustomerService) { }
 
   async ngOnInit() {
-    console.log('Transferred Value :::: ', this.cadData);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
