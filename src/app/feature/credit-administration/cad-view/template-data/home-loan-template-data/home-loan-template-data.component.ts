@@ -38,6 +38,14 @@ export class HomeLoanTemplateDataComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.getHomeLoanType();
+    if (this.isConstructionLoan) {
+      this.landAndBuilding.landBuildingForm.clearValidators();
+      this.landAndBuilding.landBuildingForm.updateValueAndValidity();
+    }
+    if (this.isPurchaseLoan || this.isTakeOverLoan) {
+      this.constructionLoan.constructionLoanForm.clearValidators();
+      this.constructionLoan.constructionLoanForm.updateValueAndValidity();
+    }
   }
 
   private getHomeLoanType(): void {
