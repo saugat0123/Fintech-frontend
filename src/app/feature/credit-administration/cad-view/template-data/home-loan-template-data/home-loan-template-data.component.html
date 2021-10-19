@@ -14,10 +14,10 @@
 </nb-card-header>
 <nb-card-body>
     <div *ngIf="isConstructionLoan">
-        <app-construction-loan #constructionLoan (eventEmitter)="emitValue($event)"></app-construction-loan>
+        <app-construction-loan #constructionLoan (eventEmitter)="emitValue($event)" [submitted]="submitted"></app-construction-loan>
     </div>
     <div *ngIf="isPurchaseLoan || isTakeOverLoan">
-        <app-home-land-and-building #landAndBuilding (eventEmitter)="emitValue($event)"></app-home-land-and-building>
+        <app-home-land-and-building #landAndBuilding (eventEmitter)="emitValue($event)" [submitted]="submitted" [spinner]="spinner"></app-home-land-and-building>
     </div>
 </nb-card-body>
 <nb-card-footer>
