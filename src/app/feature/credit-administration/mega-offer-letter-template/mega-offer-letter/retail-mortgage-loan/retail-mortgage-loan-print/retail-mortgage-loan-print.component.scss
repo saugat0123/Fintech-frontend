@@ -1,56 +1,49 @@
+.nepaliFont{
+  font-size: 16px;
+}
+table {
+  text-align: justify !important;
+  line-height: 1.9;
+}
+p{
+  line-height: 1.9;
+}
+.nepaliList {
+  list-style-type: devanagari;
+  line-height: 1.9;
+}
+.nepaliList > li {
+  list-style-type: devanagari;
+  line-height: 1.9;
+}
 .nep {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
   margin: 10px 70px;
 }
-
-li {
-  list-style-type: none;
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
 }
-
-//.logo-container {
-//  display: flex;
-//  width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
-//  margin: 10px 70px;
-//}
-//@media screen {
-//
-//  div.divFooter {
-//    display: none;
-//  }
-//}
-//@media print {
-//  div.divFooter {
-//    position: fixed;
-//    bottom: 0;
-//    width: 100%;
-//  }
-//}
-//.nepaliFont {
-//  font-family: Preeti;
-// font-size: 22px;
-//}
-
-@media print{
-  .divFooter{
-    //position: fixed;
-    //bottom: 0;
-    //width: 100%;
-    //page-break-before: auto;
-    //page-break-inside: avoid;
-    //color: black !important;
-    padding-top: 50px;
-    padding-bottom: 50px;
+.hello{
+  width: 95%;
+  float: right;
+}
+.hello >tr{
+  border: 1px solid black !important;
+}
+.hello > tr > td{
+  border: 1px solid black !important;
+}
+@media print {
+  footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
-  //footer {page-break-after: always;
 }
-.nepaliFont {
-  font-size: 22px;
-  font-family: Preeti;
+.disclist > li{
+  list-style-type: disc;
 }
-.inside{
-  font-size: 16px !important;
-}
-
