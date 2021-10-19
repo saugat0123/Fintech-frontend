@@ -23,6 +23,7 @@ import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
 import {EnumConverterPipe} from "./pipe/enum-converter.pipe";
 import {DisbursementConvertPipe} from './pipe/disbursement-convert.pipe';
+import {RemitCountryConvertPipe} from './pipe/remit-country-convert.pipe';
 
 
 const DATA_SERVICES = [];
@@ -69,7 +70,8 @@ const UTILITY_MODULES = [
         ...UTILITY_MODULES,
         LoginPopUp,
         NepaliNumberPipe,
-        DisbursementConvertPipe
+        DisbursementConvertPipe,
+        RemitCountryConvertPipe
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -88,8 +90,9 @@ const UTILITY_MODULES = [
         NepaliCurrencyWordPipe,
         LoginPopUp,
         NepaliNumberPipe,
-DisbursementConvertPipe
-    ], entryComponents: [LoginPopUp], providers: [NepaliNumberPipe]
+DisbursementConvertPipe,
+        RemitCountryConvertPipe
+    ], entryComponents: [LoginPopUp], providers: [NepaliNumberPipe, RemitCountryConvertPipe]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

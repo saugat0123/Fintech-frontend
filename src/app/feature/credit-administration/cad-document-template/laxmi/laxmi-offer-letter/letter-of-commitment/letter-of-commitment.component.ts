@@ -16,6 +16,8 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
+import {LoanTag} from '../../../../../loan/model/loanTag';
+import {RemitCountryConvertPipe} from '../../../../../../@core/pipe/remit-country-convert.pipe';
 
 @Component({
     selector: 'app-letter-of-commitment',
@@ -33,6 +35,7 @@ export class LetterOfCommitmentComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
+    remitCountry;
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -45,7 +48,8 @@ export class LetterOfCommitmentComponent implements OnInit {
                 private toastService: ToastService,
                 private routerUtilsService: RouterUtilsService,
                 private customerOfferLetterService: CustomerOfferLetterService,
-                private dialogRef: NbDialogRef<LetterOfCommitmentComponent>) {
+                private dialogRef: NbDialogRef<LetterOfCommitmentComponent>,
+                private remitCountryPipe: RemitCountryConvertPipe) {
     }
 
     ngOnInit() {
@@ -54,11 +58,9 @@ export class LetterOfCommitmentComponent implements OnInit {
     }
 
     fillForm() {
-        console.log();
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
-            branch: this.cadOfferLetterApprovedDoc.loanHolder.branch.name ? this.cadOfferLetterApprovedDoc.loanHolder.branch.name : '',
         });
     }
 
@@ -69,10 +71,18 @@ export class LetterOfCommitmentComponent implements OnInit {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_COMMITMENT);
             this.fillForm();
+            if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+                this.remitCountry = this.remitCountryPipe.transform(JSON.parse(
+                    this.cadOfferLetterApprovedDoc.assignedLoan[0].remitCustomer.senderData).senderAddress.temp_country);
+                this.form.patchValue({
+                    countryName: this.remitCountry
+                });
+            }
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
+            console.log(this.initialInfoPrint);
             this.form.patchValue(this.initialInfoPrint);
         }
     }
@@ -80,7 +90,6 @@ export class LetterOfCommitmentComponent implements OnInit {
     onSubmit(): void {
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
-
         if (this.existingOfferLetter) {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
                 if (offerLetterPath.docName.toString() ===

@@ -16,6 +16,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
+import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
 
 @Component({
     selector: 'app-offer-letter',
@@ -33,12 +34,14 @@ export class OfferLetterComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
+    amount;
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-                private engToNepaliNumberPipe: EngToNepaliNumberPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
+                private nepaliToEnglishPipe: NepaliToEngNumberPipe,
+                private nepaliNumber: NepaliNumberPipe,
                 private currencyFormatPipe: CurrencyFormatterPipe,
                 private nepPercentWordPipe: NepaliPercentWordPipe,
                 private administrationService: CreditAdministrationService,
@@ -54,10 +57,12 @@ export class OfferLetterComponent implements OnInit {
     }
 
     fillForm() {
+        this.amount = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal.proposedLimit;
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        console.log(this.nepaliData);
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
+            loanAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
+            loanAmountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
         });
     }
 
@@ -146,7 +151,7 @@ export class OfferLetterComponent implements OnInit {
         const baseRate = this.nepToEngNumberPipe.transform(this.form.get(base).value);
         const premiumRate = this.nepToEngNumberPipe.transform(this.form.get(premium).value);
         const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
-        const finalValue = this.engToNepaliNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+        const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
         this.form.get(target).patchValue(finalValue);
     }
 }
