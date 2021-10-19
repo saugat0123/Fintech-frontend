@@ -90,6 +90,7 @@ import { GammaLoanSummaryComponent } from './component/gamma-loan-summary/gamma-
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 import {ApprovalSheetComponent} from './component/loan-summary/approval-sheet/approval-sheet.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
+import {AngularEmojisModule} from 'angular-emojis';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -220,7 +221,8 @@ const modules = {
         MicroLoanModule,
         NepaliPatroModule,
         CbsGroupModule,
-        TransferLoanModule
+        TransferLoanModule,
+        AngularEmojisModule
     ],
 
     providers: [

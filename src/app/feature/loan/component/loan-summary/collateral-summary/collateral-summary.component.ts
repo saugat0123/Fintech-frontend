@@ -62,6 +62,7 @@ export class CollateralSummaryComponent implements OnInit {
   nonFundedSelectedFac;
   nonFundedApprovedTerminatingTotal;
   nonFundedApprovedRevolvingTotal;
+  spinner=false;
   constructor(
       private customerLoanService: LoanFormService,
       private loanFormService: LoanFormService,
@@ -73,7 +74,9 @@ export class CollateralSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.displaySecurityExposure();
+    this.spinner=true;
     this.activatedRoute.queryParams.subscribe((data)=> {
+        this.spinner=false;
       this.companyInfoId = data.customerInfoId;
       this.filterLoan();
       this.getApprovedLoans(this.companyInfoId);
@@ -82,7 +85,9 @@ export class CollateralSummaryComponent implements OnInit {
   }
 
   filterLoan() {
+      this.spinner = true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+        this.spinner=false;
     this.approvedLoans =response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
     this.nonFundedApprovedLoans = this.approvedLoans.filter((l) => !l.loan.isFundable);
     this.fundedApprovedLoans =  this.approvedLoans.filter((l)=> l.loan.isFundable);
@@ -124,15 +129,20 @@ export class CollateralSummaryComponent implements OnInit {
     }
   }
   getApprovedLoans(id) {
+      this.spinner=true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
+        this.spinner=false;
       this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
     }, err => {
       console.log(err);
+      this.spinner=false;
     });
   }
 
   calculation(){
+      this.spinner= true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+        this.spinner=false;
       this.approvedLoans =response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
 
       // calculation of Approved Terminating Loan Total
@@ -148,7 +158,7 @@ export class CollateralSummaryComponent implements OnInit {
       let approvedRevolvingLoanTotal =[];
       this.fundedApprovedLoans.map(val => {
         if (val.loan.loanNature === 'Revolving'){
-          approvedRevolvingLoanTotal.push(val.proposal.existingLimit);
+          approvedRevolvingLoanTotal.push(val.proposal.proposedLimit);
         }
       });
       this.approvedRevolvingLoanTotal =approvedRevolvingLoanTotal.reduce((a, b) => Number(a) + Number(b),0);
@@ -164,7 +174,7 @@ export class CollateralSummaryComponent implements OnInit {
             let nonFundedApprovedRevolvingTotal =[];
             this.nonFundedApprovedLoans.map(val => {
                 if(val.loan.loanNature === 'Revolving' && val.proposal.cashMarginOrFac === 'FAC'){
-                    nonFundedApprovedRevolvingTotal.push(val.proposal.existingLimit);
+                    nonFundedApprovedRevolvingTotal.push(val.proposal.proposedLimit);
                 }
             });
             this.nonFundedApprovedRevolvingTotal = nonFundedApprovedRevolvingTotal.reduce((a,b) => Number(a) + Number(b),0);
@@ -173,7 +183,7 @@ export class CollateralSummaryComponent implements OnInit {
     // calculation of Total Existing Limit
       let existingLimitTotal = [];
       this.approvedLoans.map(val => {
-        existingLimitTotal.push(val.proposal.existingLimit);
+        existingLimitTotal.push(val.proposal.proposedLimit);
       });
       this.existingLimitTotal = existingLimitTotal.reduce((a,b) => Number(a) + Number(b),0);
 

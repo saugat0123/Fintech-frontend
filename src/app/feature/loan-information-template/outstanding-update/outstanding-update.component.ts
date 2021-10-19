@@ -50,8 +50,8 @@ export class OutstandingUpdateComponent implements OnInit {
     this.spinner=true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
       this.spinner=false;
-      this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
-      this.approvedLoans = this.approvedTerminatingLoan.filter((l) =>l.loan.loanNature === 'Terminating')
+      this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+      // this.approvedLoans = this.approvedTerminatingLoan.filter((l) =>l.loan.loanNature === 'Terminating')
     }, err => {
       this.spinner=false;
     });

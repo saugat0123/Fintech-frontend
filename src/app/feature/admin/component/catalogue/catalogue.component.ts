@@ -351,13 +351,15 @@ export class CatalogueComponent implements OnInit {
         }
     }
 
-    onClick(loanConfigId: number, customerId: number) {
+    onClick(loanConfigId: number, customerId: number, customerInfoId: number) {
         this.spinner = true;
         this.router.navigate(['/home/loan/summary'], {
             queryParams: {
                 loanConfigId: loanConfigId,
                 customerId: customerId,
-                catalogue: true
+                catalogue: true,
+                customerInfoId: customerInfoId,
+
             }
         });
     }

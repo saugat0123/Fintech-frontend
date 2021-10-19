@@ -260,7 +260,10 @@ export class LoanFormComponent implements OnInit {
         this.buildDocStatusForm();
         this.activatedRoute.queryParams.subscribe((data)=> {
             this.companyInfoId = data.customerInfoId;
-            this.getApprovedLoans(this.companyInfoId);
+        })
+        this.loanFormService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+            this.nbSpinner = false;
+            this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
         })
 
         this.activatedRoute.queryParams.subscribe(
@@ -337,18 +340,6 @@ export class LoanFormComponent implements OnInit {
             this.currentNepDate = response.detail;
         });
         this.loading = false;
-    }
-
-    getApprovedLoans(id) {
-        this.nbSpinner=true;
-        this.loanFormService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
-            this.nbSpinner=false;
-            this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
-            this.approvedLoans = this.approvedTerminatingLoan.filter((l) =>l.loan.loanNature === 'Terminating')
-            }, err => {
-            this.nbSpinner=false;
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'An Error has Occured'));
-        });
     }
 
 
@@ -506,28 +497,18 @@ export class LoanFormComponent implements OnInit {
     }
 
     pushProposalTemplateToLast() {
-        this.nbSpinner=true;
-        this.loanFormService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
-            this.nbSpinner = false;
-            this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
-            this.approvedLoans = this.approvedTerminatingLoan.filter((l) => l.loan.loanNature === 'Terminating')
-
-           this.templateList.push({
-               active: false,
-               name: 'Obtainable Documents',
-               templateUrl: null
-           });
-
-            if (this.approvedLoans.length !== 0) {
-                this.templateList.push({
-                        active: false,
-                        name: 'Outstanding Update',
-                        templateUrl: null
-                    }
-                )
-            }
-
-
+        this.templateList.push({
+            active: false,
+            name: 'Obtainable Documents',
+            templateUrl: null
+        });
+if(this.companyInfoId > 0) {
+    this.templateList.push({
+        active: false,
+        name: 'Outstanding Update',
+        templateUrl: null
+    });
+}
         this.templateList.some((value, index) => {
             if (value.name === 'Proposal') {
                 this.templateList.push(this.templateList.splice(index, 1)[0]);
@@ -536,11 +517,8 @@ export class LoanFormComponent implements OnInit {
             return false;
         });
         this.totalTabCount = this.templateList.length;
-    },error => {
-            this.nbSpinner=false;
-            console.log(error);
-        }
-    )}
+
+    }
 
     removeCrgGammaFromTemplateList() {
         this.templateList.forEach((value, index) => {
