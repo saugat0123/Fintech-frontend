@@ -1,6 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {utcDay} from 'd3';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
@@ -15,6 +14,8 @@ import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.se
 })
 export class HomeLandAndBuildingComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter();
+  @Input() submitted;
+  @Input() spinner;
   landBuildingForm: FormGroup;
   translateFormGroup: FormGroup;
   isLand = false;
@@ -32,7 +33,11 @@ export class HomeLandAndBuildingComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private datePipe: DatePipe,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
-              private translateService: SbTranslateService,) { }
+              private translateService: SbTranslateService, ) { }
+
+  get form() {
+    return this.landBuildingForm.controls;
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -104,33 +109,33 @@ export class HomeLandAndBuildingComponent implements OnInit {
       approvalStaffNameTrans: [undefined],
 
       // CT
-      referenceNumberCT: [undefined],
-      dateOfApprovalCT: [undefined],
-      dateOfApplicationCT: [undefined],
-      purposeOfLoanCT: [undefined],
-      drawingPowerCT: [undefined],
-      loanAmountInFigureCT: [undefined],
-      loanAmountInWordCT: [undefined],
-      baseRateCT: [undefined],
-      premiumRateCT: [undefined],
-      interestRateCT: [undefined],
-      loanAdminFeeInFigureCT: [undefined],
-      loanAdminFeeInWordCT: [undefined],
-      emiInFigureCT: [undefined],
-      emiInWordCT: [undefined],
-      loanPeriodInMonthsCT: [undefined],
-      loanCommitmentFeeCT: [undefined],
-      nameOfLandOwnerCT: [undefined],
-      landLocationCT: [undefined],
-      kittaNumberCT: [undefined],
-      areasCT: [undefined],
-      seatNumberCT: [undefined],
-      freeTextRequiredCT: [undefined],
-      insuranceAmountInFigureCT: [undefined],
-      insuranceAmountInWordCT: [undefined],
-      nameOfRelationshipOfficerCT: [undefined],
-      nameOfBranchManagerCT: [undefined],
-      approvalStaffNameCT: [undefined]
+      referenceNumberCT: [undefined, Validators.required],
+      dateOfApprovalCT: [undefined, Validators.required],
+      dateOfApplicationCT: [undefined, Validators.required],
+      purposeOfLoanCT: [undefined, Validators.required],
+      drawingPowerCT: [undefined, Validators.required],
+      loanAmountInFigureCT: [undefined, Validators.required],
+      loanAmountInWordCT: [undefined, Validators.required],
+      baseRateCT: [undefined, Validators.required],
+      premiumRateCT: [undefined, Validators.required],
+      interestRateCT: [undefined, Validators.required],
+      loanAdminFeeInFigureCT: [undefined, Validators.required],
+      loanAdminFeeInWordCT: [undefined, Validators.required],
+      emiInFigureCT: [undefined, Validators.required],
+      emiInWordCT: [undefined, Validators.required],
+      loanPeriodInMonthsCT: [undefined, Validators.required],
+      loanCommitmentFeeCT: [undefined, Validators.required],
+      nameOfLandOwnerCT: [undefined, Validators.required],
+      landLocationCT: [undefined, Validators.required],
+      kittaNumberCT: [undefined, Validators.required],
+      areasCT: [undefined, Validators.required],
+      seatNumberCT: [undefined, Validators.required],
+      freeTextRequiredCT: [undefined, Validators.required],
+      insuranceAmountInFigureCT: [undefined, Validators.required],
+      insuranceAmountInWordCT: [undefined, Validators.required],
+      nameOfRelationshipOfficerCT: [undefined, Validators.required],
+      nameOfBranchManagerCT: [undefined, Validators.required],
+      approvalStaffNameCT: [undefined, Validators.required]
     });
   }
 
@@ -303,5 +308,9 @@ export class HomeLandAndBuildingComponent implements OnInit {
     this.landBuildingForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
 
     this.eventEmitter.emit(true);
+  }
+
+  getInvalidControls(referenceNumberIsRequired: string) {
+    console.log(referenceNumberIsRequired);
   }
 }

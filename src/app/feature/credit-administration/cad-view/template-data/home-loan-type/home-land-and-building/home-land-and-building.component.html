@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" [nbSpinner]="spinner">
     <div [formGroup]="landBuildingForm" class="row">
         <div class="col-md-12">
             <label for="type" class="font-weight-bold">Chose Type</label>
@@ -287,111 +287,216 @@
             <b>Correct Translation</b>
             <div class="form-group mt-4">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumberCT" type="text" id="referenceNumberCT">
+                       formControlName="referenceNumberCT" type="text" id="referenceNumberCT"/>
+                <span class="text-danger" *ngIf="submitted && form.referenceNumberCT.invalid">
+                    Reference number is required
+                </span>
             </div>
             <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="dateOfApprovalCT" type="text" id="dateOfApprovalCT">
+                       formControlName="dateOfApprovalCT" type="text" id="dateOfApprovalCT"/>
+                <span *ngIf="submitted && form.dateOfApprovalCT.invalid" class="text-danger">
+                        Date of approval is required
+                </span>
             </div>
             <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="dateOfApplicationCT" type="text" id="dateOfApplicationCT">
+                <span *ngIf="submitted && form.dateOfApplicationCT.invalid" class="text-danger">
+                        Date of application is required
+                </span>
             </div>
             <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="purposeOfLoanTrans" type="text" id="purposeOfLoanCT">
+                <span *ngIf="submitted && form.purposeOfLoanTrans.invalid"
+                     class="text-danger">
+                        Purpose of loan is required
+                </span>
             </div>
             <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="drawingPowerCT" type="text" id="drawingPowerCT">
+                <span *ngIf="submitted && form.drawingPowerCT.invalid"
+                     class="text-danger">
+                        Drawing power is required
+                </span>
             </div>
             <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="loanAmountInFigureCT" type="text" id="loanAmountInFigureCT">
+                <span *ngIf="submitted && form.loanAmountInFigureCT.invalid"
+                     class="text-danger">
+                        Loan amount in figure is required
+                </span>
             </div>
             <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="loanAmountInWordCT" type="text" id="loanAmountInWordCT">
+                <span *ngIf="submitted && form.loanAmountInWordCT.invalid"
+                     class="text-danger">
+                        Loan amount in word is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="baseRateCT" type="text" id="baseRateCT">
+                <span *ngIf="submitted && form.baseRateCT.invalid"
+                     class="text-danger">
+                        Base rate is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="premiumRateCT" type="text" id="premiumRateCT">
+                <span *ngIf="submitted && form.premiumRateCT.invalid"
+                     class="text-danger">
+                        Premium rate is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="interestRateCT" type="text" id="interestRateCT">
+                <span *ngIf="submitted && form.interestRateCT.invalid"
+                     class="text-danger">
+                        Interest rate is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="loanAdminFeeInFigureCT" type="text" id="loanAdminFeeInFigureCT">
+                <span *ngIf="submitted && form.loanAdminFeeInFigureCT.invalid"
+                     class="text-danger">
+                        Loan admin fee in figure is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="loanAdminFeeInWordCT" type="text" id="loanAdminFeeInWordCT">
+                <span *ngIf="submitted && form.loanAdminFeeInWordCT.invalid"
+                     class="text-danger">
+                        Loan admin fee in word is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="emiInFigureCT" type="text" id="emiInFigureCT">
+                <span *ngIf="submitted && form.emiInFigureCT.invalid"
+                     class="text-danger">
+                        Emi in figure is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="emiInWordCT" type="text" id="emiInWordCT">
+                <span *ngIf="submitted && form.emiInWordCT.invalid"
+                     class="text-danger">
+                        Emi in word is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="loanPeriodInMonthsCT" type="text" id="loanPeriodInMonthsCT">
+                <span *ngIf="submitted && form.loanPeriodInMonthsCT.invalid"
+                     class="text-danger">
+                        Loan period is required
+                </span>
             </div>
             <div class="form-group" style="margin-top: 46px;">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="loanCommitmentFeeCT" type="text" id="loanCommitmentFeeCT">
+                <span *ngIf="submitted && form.loanCommitmentFeeCT.invalid"
+                     class="text-danger">
+                        Loan commitment fee is required
+                </span>
             </div>
             <div class="form-group" style="margin-top: 46px;">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="nameOfLandOwnerCT" type="text" id="nameOfLandOwnerCT">
+                <span *ngIf="submitted && form.nameOfLandOwnerCT.invalid"
+                     class="text-danger">
+                        Name of land owner is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="landLocationCT" type="text" id="landLocationCT">
+                <span *ngIf="submitted && form.landLocationCT.invalid"
+                     class="text-danger">
+                        Land location is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="kittaNumberCT" type="text" id="kittaNumberCT">
+                <span *ngIf="submitted && form.kittaNumberCT.invalid"
+                     class="text-danger">
+                        Kitta number is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="areasTrans" type="text" id="areasCT">
+                <span *ngIf="submitted && form.areasTrans.invalid"
+                     class="text-danger">
+                        Area is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="seatNumberCT" type="text" id="seatNumberCT">
+                <span *ngIf="submitted && form.seatNumberCT.invalid"
+                     class="text-danger">
+                        Seat number is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="freeTextRequiredCT" type="text" id="freeTextRequiredCT">
+                <span *ngIf="submitted && form.freeTextRequiredCT.invalid"
+                     class="text-danger">
+                        Free text is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="insuranceAmountInFigureCT" type="text" id="insuranceAmountInFigureCT">
+                <span *ngIf="submitted && form.insuranceAmountInFigureCT.invalid"
+                     class="text-danger">
+                        Insurance amount in figure is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="insuranceAmountInWordCT" type="text" id="insuranceAmountInWordCT">
+                <span *ngIf="submitted && form.insuranceAmountInWordCT.invalid"
+                     class="text-danger">
+                        Insurance amount in word is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="nameOfRelationshipOfficerCT" type="text" id="nameOfRelationshipOfficerCT">
+                <span *ngIf="submitted && form.nameOfRelationshipOfficerCT.invalid"
+                     class="text-danger">
+                        Name of relationship officer is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="nameOfBranchManagerCT" type="text" id="nameOfBranchMangerCT">
+                <span *ngIf="submitted && form.nameOfBranchManagerCT.invalid"
+                     class="text-danger">
+                        Branch manager is required
+                </span>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="approvalStaffNameCT" type="text" id="approvalStaffNameCT">
+                <span *ngIf="submitted && form.approvalStaffNameCT.invalid"
+                      class="text-danger">
+                        Approval staff name is required
+                </span>
             </div>
         </div>
     </div>
