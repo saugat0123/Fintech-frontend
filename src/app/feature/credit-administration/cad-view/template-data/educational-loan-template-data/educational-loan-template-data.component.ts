@@ -508,7 +508,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   }
 
   private setTemplatedCTData(data): void {
-    // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
+    this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     // this.form.get('distressValueTransVal').patchValue(this.translatedData.distressValue);
     // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
