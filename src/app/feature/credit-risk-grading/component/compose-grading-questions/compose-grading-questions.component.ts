@@ -64,14 +64,8 @@ export class ComposeGradingQuestionsComponent implements OnInit {
             this.riskGroupArray.forEach( (value: CrgGroup) => {
                 this.groupMap.set(value.id, value.label);
             });
-            const arr = this.riskGroupArray;
-            let index = 0;
-            arr.forEach(item => {
-                if (item.status === 'ACTIVE') {
-                    this.riskActiveGroupArray[index] = item;
-                    index++;
-                }
-            });
+            this.riskActiveGroupArray = this.riskGroupArray;
+            this.riskActiveGroupArray = this.riskActiveGroupArray.filter(item => item.status === 'ACTIVE');
         });
     }
 
