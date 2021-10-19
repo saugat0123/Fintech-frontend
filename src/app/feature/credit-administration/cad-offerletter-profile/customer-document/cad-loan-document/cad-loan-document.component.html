@@ -16,7 +16,7 @@
             </tr>
             <ng-container>
                 <div *ngIf="customerLoan.loan.loanTag === loanTag.getKeyByValue(loanTag.REMIT_LOAN); else otherLoan">
-                    <tr *ngIf="(customerLoan?.remitCustomer?.remitFilePathData | jsonParse).length < 1">
+                    <tr *ngIf="(customerLoan?.remitCustomer?.remitFilePathData | jsonParse)!==null">
                         NO DOCUMENT available in this loan
                     </tr>
                     <tr *ngIf="customerLoan.loan.loanTag === loanTag.getKeyByValue(loanTag.REMIT_LOAN); else otherLoan">
