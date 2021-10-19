@@ -92,9 +92,8 @@
               <td>
                 <input class="form-control "
                        formControlName="customerCode"
-                       (input)="translateNumber('customerCode')"
                        name="customerCode" placeholder="Customer Code"
-                       type="number"
+                       type="text"
                        [readOnly]="loanHolder?.customerCode"/>
               </td>
               <td><input disabled readonly class="form-control"
