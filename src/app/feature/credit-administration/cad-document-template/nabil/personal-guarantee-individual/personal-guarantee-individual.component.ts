@@ -40,6 +40,8 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
   loanHolderNepData: any;
   offerDocumentDetails: any;
   nepaliNumber = new NepaliNumberAndWords();
+  guarantorsNepData = [];
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -95,6 +97,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
       this.loanHolderNepData = this.cadData.loanHolder.nepData
         ? JSON.parse(this.cadData.loanHolder.nepData)
         : this.cadData.loanHolder.nepData;
+      this.individualData = this.cadData.loanHolder;
       this.cadData.assignedLoan.map((value) => {
         value.taggedGuarantors.forEach((val) => {
           this.taggedGuarantorsDetailsInLoan.push(val);
@@ -186,6 +189,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         const individualGuarantorNepData = val.nepData
           ? JSON.parse(val.nepData)
           : val.nepData;
+        this.guarantorsNepData.push(individualGuarantorNepData);
         if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
           return;
         }
@@ -194,7 +198,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
           approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
         }
-
+          console.log('Loan Holder Nep Data:::::', this.loanHolderNepData);
         let citznIssuedDate: any;
         if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate)) {
             approvedDate = individualGuarantorNepData.citizenIssuedDate && individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en ? individualGuarantorNepData.citizenIssuedDate.en : '';
