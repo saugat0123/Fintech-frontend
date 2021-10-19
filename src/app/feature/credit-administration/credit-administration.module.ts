@@ -55,9 +55,10 @@ import {NepProposedAmountFormComponent} from './cad-offerletter-profile/cad-offe
 import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/excel-offer-letter-template.module';
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
-import {CadLegalDocActionModalComponent} from "./cad-legal-doc-action-modal/cad-legal-doc-action-modal.component";
+import {CadLegalDocActionModalComponent} from './cad-legal-doc-action-modal/cad-legal-doc-action-modal.component';
 import {LaxmiModule} from './cad-document-template/laxmi/laxmi.module';
-import {LimitPendingComponent} from "./component/limit-pending/limit-pending.component";
+import {LimitPendingComponent} from './component/limit-pending/limit-pending.component';
+import { LimitApprovedComponent } from './component/limit-approved/limit-approved.component';
 
 
 @NgModule({
@@ -82,6 +83,7 @@ import {LimitPendingComponent} from "./component/limit-pending/limit-pending.com
         DisbursementApprovedComponent,
         DisbursementPendingComponent,
         LimitPendingComponent,
+        LimitApprovedComponent,
         CadDocumentListComponent,
         FilterComponent,
         CadDocumentListComponent,
@@ -104,7 +106,8 @@ import {LimitPendingComponent} from "./component/limit-pending/limit-pending.com
         AdditionalExposureComponent,
         CadOfferLetterConfigurationComponent,
         NepProposedAmountFormComponent,
-        CadFileSetupComponent],
+        CadFileSetupComponent,
+        LimitApprovedComponent],
     imports: [
         ThemeModule,
         CommonModule,
