@@ -244,8 +244,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       contactNoCT: [undefined, Validators.required],
       contactNoTrans: [undefined, Validators.required],
       panNo: [undefined],
-      panNoCT: [undefined, Validators.required],
-      panNoTrans: [undefined, Validators.required],
+      panNoCT: [undefined],
+      panNoTrans: [undefined],
       registrationNo: [undefined],
       registrationNoCT: [undefined, Validators.required],
       registrationNoTrans: [undefined],
@@ -1065,8 +1065,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // this.userConfigForm.get(['jointCustomerDetails', index, 'contactNoCT']).patchValue(jointCustomerDetails.contactNo ? jointCustomerDetails.contactNo : '');
       // this.userConfigForm.get(['jointCustomerDetails', index, 'panNoTrans']).patchValue(jointCustomerDetails.panNo ? jointCustomerDetails.panNo : '');
       // this.userConfigForm.get(['jointCustomerDetails', index, 'panNoCT']).patchValue(jointCustomerDetails.panNo ? jointCustomerDetails.panNo : '');
-      // this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeTrans']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
-      // this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeCT']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeTrans']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeCT']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'genderTrans']).patchValue(jointCustomerDetails.gender ? jointCustomerDetails.gender : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'genderCT']).patchValue(jointCustomerDetails.gender ? jointCustomerDetails.gender : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'fatherNameTrans']).patchValue(jointCustomerDetails.fatherName ? jointCustomerDetails.fatherName : '');
@@ -1934,7 +1934,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('currentWardTrans').patchValue(this.translatedValues.currentWard);
     this.userConfigForm.get('currentDistrictTrans').patchValue(this.translatedValues.currentDistrict);
     this.userConfigForm.get('currentMunicipalityTrans').patchValue(this.translatedValues.currentMunicipality);
-    // this.userConfigForm.get('customerCodeTrans').patchValue(this.translatedValues.customerCode);
+    this.userConfigForm.get('customerCodeTrans').patchValue(this.translatedValues.customerCode);
     this.userConfigForm.get('genderTrans').patchValue(this.translatedValues.gender);
     this.userConfigForm.get('fatherNameTrans').patchValue(this.translatedValues.fatherName);
     this.userConfigForm.get('grandFatherNameTrans').patchValue(this.translatedValues.grandFatherName);
@@ -1962,7 +1962,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   private setCustomerCTData(): void {
-    // this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
+    this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
     this.userConfigForm.get('nameCT').patchValue(this.translatedValues.name);
     // this.userConfigForm.get('contactNoCT').patchValue(this.translatedValues.contactNo);
     this.userConfigForm.get('genderCT').patchValue(this.translatedValues.gender);
