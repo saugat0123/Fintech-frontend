@@ -21,6 +21,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
     schemeList: Array<LoanConfig> = new Array<LoanConfig>();
     loanConfigId: number;
     riskGroupArray = [];
+    riskActiveGroupArray = [];
     collapsedIndex = null;
     totalObtainablePoints: number;
     existingQuestionList: boolean;
@@ -62,6 +63,12 @@ export class ComposeGradingQuestionsComponent implements OnInit {
             this.riskGroupArray = res.detail;
             this.riskGroupArray.forEach( (value: CrgGroup) => {
                 this.groupMap.set(value.id, value.label);
+            });
+            this.riskActiveGroupArray = this.riskGroupArray;
+            this.riskActiveGroupArray.forEach((item, index) => {
+                if (item.status === 'INACTIVE') {
+                    this.riskActiveGroupArray.splice(index, 1);
+                }
             });
         });
     }
