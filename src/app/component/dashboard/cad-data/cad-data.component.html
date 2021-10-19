@@ -87,6 +87,21 @@
             </nb-card>
         </div>
 
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-primary" *ngIf="disbursement">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_LIMIT_APPROVE">
+                        <label class="card-header bg-dark text-white cursor">
+                            Limit Approve </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.limitApproved}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+
 
         <div class="col-md-3 cursor">
             <nb-card class="card bg-primary" *ngIf="disbursement">
