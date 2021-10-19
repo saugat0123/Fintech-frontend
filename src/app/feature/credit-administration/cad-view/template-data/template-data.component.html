@@ -39,4 +39,7 @@
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_LOAN" [nbSpinner]="spinner">
         <app-personal-loan-template-data [customerApprovedDoc]="cadData"></app-personal-loan-template-data>
     </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HOME_LOAN" [nbSpinner]="spinner">
+        <app-home-loan-template-data [customerApprovedDoc]="cadData"></app-home-loan-template-data>
+    </nb-card-body>
 </nb-card>
