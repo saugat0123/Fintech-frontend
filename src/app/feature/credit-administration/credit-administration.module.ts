@@ -57,6 +57,7 @@ import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/exce
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
 import {CadLegalDocActionModalComponent} from "./cad-legal-doc-action-modal/cad-legal-doc-action-modal.component";
 import {LaxmiModule} from './cad-document-template/laxmi/laxmi.module';
+import {LimitPendingComponent} from "./component/limit-pending/limit-pending.component";
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import {LaxmiModule} from './cad-document-template/laxmi/laxmi.module';
         LegalReviewApprovedComponent,
         DisbursementApprovedComponent,
         DisbursementPendingComponent,
+        LimitPendingComponent,
         CadDocumentListComponent,
         FilterComponent,
         CadDocumentListComponent,

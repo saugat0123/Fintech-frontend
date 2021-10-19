@@ -6,6 +6,7 @@ export class RouteConst {
     static ROUTE_OFFER_APPROVED = '/home/credit/offer-approved';
     static ROUTER_LEGAL_PENDING = '/home/credit/legal-pending';
     static ROUTE_LEGAL_APPROVED = '/home/credit/legal-approved';
+    static ROUTE_LIMIT_PENDING = '/home/credit/limit-pending';
     static ROUTE_DISBURSEMENT_PENDING = '/home/credit/disbursement-pending';
     static ROUTE_DISBURSEMENT_APPROVED = '/home/credit/disbursement-approved';
     static ROUTE_CAD_LIST_BY_PERMISSIONS = '/home/credit/cad-documents';

@@ -184,6 +184,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             }
         }
     }
+
     onSubmit(templateLogin) {
         console.log(this.formAction);
         this.errorMsgStatus = false;
@@ -218,6 +219,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     onLogin(dataValue) {
+        console.log('data value', dataValue);
         this.spinner = true;
         const data: { email: string, password: string } = dataValue.value;
         data.email = LocalStorageUtil.getStorage().username;
@@ -239,6 +241,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     postAction() {
+        console.log('form action', this.formAction.value);
         this.isForApproveMaker = false;
         this.cadService.saveAction(this.formAction.value).subscribe((response: any) => {
             this.onClose();
@@ -314,6 +317,9 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     approvedForwardBackward(template, val, returnToMaker) {
+        console.log('template', template);
+        console.log('val', val);
+        console.log(returnToMaker, returnToMaker);
         // if (!this.hasRequierdDocument) {
         //     this.toastService.show(new Alert(AlertType.WARNING, 'Please Generate Document Before Proceeding to next Stage'));
         //     return;
@@ -322,6 +328,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.selectedTemplate = template;
         this.popUpTitle = val;
         this.userList = [];
+        console.log('pop up title', this.popUpTitle);
         if (this.popUpTitle === 'FORWARD') {
             this.formAction = this.formBuilder.group(
                 {
@@ -409,6 +416,9 @@ export class CadActionComponent implements OnInit, OnChanges {
         } else if (this.currentStatus === 'LEGAL_PENDING') {
             this.approvedLabel = 'APPROVE LEGAL AND FORWARD';
             return 'LEGAL_APPROVED';
+        }else if(this.currentStatus === 'LIMIT_PENDING'){
+            this.approvedLabel = 'APPROVE LIMIT AND FORWARD';
+            return 'LIMIT_APPROVED';
         } else if (this.currentStatus === 'OFFER_APPROVED') {
             return '0';
         } else if (this.currentStatus === 'LEGAL_APPROVED') {
@@ -422,15 +432,20 @@ export class CadActionComponent implements OnInit, OnChanges {
 
 
     public forwardBackwardDocStatusChange() {
+        console.log('current status', this.currentStatus);
         if (this.currentStatus === 'OFFER_APPROVED') {
             return 'LEGAL_PENDING';
         } else if (this.currentStatus === 'LEGAL_APPROVED') {
+            return 'LIMIT_PENDING';
+        } else if (this.currentStatus === 'LIMIT_APPROVED') {
             return 'DISBURSEMENT_PENDING';
         } else {
             return this.currentStatus;
         }
 
-    }   public backwardDocStatus() {
+    }
+
+    public backwardDocStatus() {
         if (this.currentStatus === 'OFFER_APPROVED') {
             return 'OFFER_PENDING';
         } else if (this.currentStatus === 'LEGAL_PENDING') {
@@ -441,18 +456,18 @@ export class CadActionComponent implements OnInit, OnChanges {
             }
             return 'LEGAL_PENDING';
         } else if (this.currentStatus === 'DISBURSEMENT_PENDING' && this.currentUserRole === this.roleType.CRC) {
-         if (this.returnToRm) {
-                    return 'LEGAL_APPROVED';
+            if (this.returnToRm) {
+                return 'LEGAL_APPROVED';
             } else {
-             return 'LEGAL_PENDING';
-         }
+                return 'LEGAL_PENDING';
+            }
         } else if (this.currentStatus === 'DISBURSEMENT_PENDING' && this.currentUserRole === this.roleType.COPS) {
             if (this.returnToRm) {
                 return 'LEGAL_APPROVED';
             } else {
                 return 'DISBURSEMENT_PENDING';
             }
-        }  else {
+        } else {
             return this.currentStatus;
         }
 
