@@ -201,9 +201,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   }
 
   mappedData() {
-    Object.keys(this.form.controls).forEach(key => {
       Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1) {
+        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
           return;
         }
         this.attributes = new Attributes();
@@ -212,7 +211,6 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
-    });
   }
   get Form() {
     return this.form.controls;
