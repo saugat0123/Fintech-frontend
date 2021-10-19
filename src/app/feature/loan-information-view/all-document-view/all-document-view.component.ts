@@ -101,21 +101,25 @@ export class AllDocumentViewComponent implements OnInit {
   // method to get all the paths which is require to zipping all files
   public getDocPath(): void {
     const docPaths = [];
-    const loanDocument = this.loanDataHolder.customerDocument;
-    for (const doc of loanDocument) {
-      docPaths.push(doc.documentPath);
-    }
-    const generalDocument = this.loanDataHolder.loanHolder.customerGeneralDocuments;
-    for (const doc of generalDocument) {
-      docPaths.push(doc.docPath);
-    }
-    const guarantorDocument = this.taggedGuarantorWithDoc;
-    for (const doc of guarantorDocument) {
-      docPaths.push(doc.docPath);
-    }
-    const insuranceDocument = this.insuranceWithDoc;
-    for (const doc of insuranceDocument) {
-      docPaths.push(doc.policyDocumentPath);
+    if (this.loanDataHolder.zipPath === null || this.loanDataHolder.zipPath === '') {
+      const loanDocument = this.loanDataHolder.customerDocument;
+      for (const doc of loanDocument) {
+        docPaths.push(doc.documentPath);
+      }
+      const generalDocument = this.loanDataHolder.loanHolder.customerGeneralDocuments;
+      for (const doc of generalDocument) {
+        docPaths.push(doc.docPath);
+      }
+      const guarantorDocument = this.taggedGuarantorWithDoc;
+      for (const doc of guarantorDocument) {
+        docPaths.push(doc.docPath);
+      }
+      const insuranceDocument = this.insuranceWithDoc;
+      for (const doc of insuranceDocument) {
+        docPaths.push(doc.policyDocumentPath);
+      }
+    } else {
+      docPaths.push(this.loanDataHolder.zipPath);
     }
     this.downloadAll(docPaths);
   }
