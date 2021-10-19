@@ -255,7 +255,7 @@
     </div>
 </div>
 
-<div class="row" *ngIf="client === clientName?.ICFC">
+<div class="row">
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead>
@@ -269,8 +269,7 @@
             </tr>
             </thead>
             <tr>
-                <td class="text-right pr-1" *ngIf="checkedData?.subsidizedLoanChecked">{{calculateInterestRate()}}%
-                </td>
+                <td class="text-right pr-1" *ngIf="checkedData?.subsidizedLoanChecked">{{calculateInterestRate()}}%</td>
                 <td class="text-left pl-1"
                     *ngIf="checkedData?.subsidizedLoanChecked">{{proposalAllData?.subsidyLoanType}}</td>
                 <td class="text-left pl-1"
@@ -280,12 +279,12 @@
     </div>
 </div>
 
-<div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
+<div class="row" *ngIf="isRevolving && loanNatureSelected">
     <div class="col md-12">
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th *ngIf="isRevolving">Interest and Principal Repayment Frequency</th>
+                <th>Interest and Principal Repayment Frequency</th>
             </tr>
             </thead>
             <tbody>
@@ -298,8 +297,8 @@
 </div>
 
 <div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
-    <div *ngIf="approveSheet === 'approveSheet'" class="col-md-12">
-        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+    <div class="col-md-12">
+        <table *ngIf="approveSheet === 'approveSheet'"  class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th>
@@ -319,8 +318,8 @@
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1"><span
-                        [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span></td>
+                <td class="text-left pl-1">
+                    <span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span></td>
             </tr>
             </tbody>
         </table>
