@@ -325,6 +325,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         //     return;
         // }
         this.returnToRm = returnToMaker;
+        console.log('return to rm', this.returnToRm);
         this.selectedTemplate = template;
         this.popUpTitle = val;
         this.userList = [];
@@ -463,7 +464,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             }
         } else if (this.currentStatus === 'DISBURSEMENT_PENDING' && this.currentUserRole === this.roleType.COPS) {
             if (this.returnToRm) {
-                return 'LEGAL_APPROVED';
+                return 'LIMIT_APPROVED';
             } else {
                 return 'LIMIT_PENDING';
             }

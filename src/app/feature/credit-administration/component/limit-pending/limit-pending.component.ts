@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {PaginationUtils} from "../../../../@core/utils/PaginationUtils";
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
-import {CreditAdministrationService} from "../../service/credit-administration.service";
-import {LoanType} from "../../../loan/model/loanType";
-import {Pageable} from "../../../../@core/service/baseservice/common-pageable";
-import {RouterUtilsService} from "../../utils/router-utils.service";
-import {UserService} from "../../../../@core/service/user.service";
-import {User} from "../../../admin/modal/user";
-import {RoleType} from "../../../admin/modal/roleType";
-import {CustomerApprovedLoanCadDocumentation} from "../../model/customerApprovedLoanCadDocumentation";
-import {AssignPopUpComponent} from "../assign-pop-up/assign-pop-up.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ObjectUtil} from "../../../../@core/utils/ObjectUtil";
+import {CreditAdministrationService} from '../../service/credit-administration.service';
+import {LoanType} from '../../../loan/model/loanType';
+import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
+import {RouterUtilsService} from '../../utils/router-utils.service';
+import {UserService} from '../../../../@core/service/user.service';
+import {User} from '../../../admin/modal/user';
+import {RoleType} from '../../../admin/modal/roleType';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {AssignPopUpComponent} from '../assign-pop-up/assign-pop-up.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-limit-pending',
