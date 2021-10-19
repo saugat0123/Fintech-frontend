@@ -257,11 +257,13 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     });
   }
 
-  onClick(loanConfigId: number, customerId: number, currentStage: LoanStage) {
+  onClick(loanConfigId: number, customerId: number, currentStage: LoanStage, docStatus) {
     this.modalService.dismissAll();
     this.spinnerService.show();
     if (!ObjectUtil.isEmpty(currentStage)) {
-      if ((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER')) {
+      if ((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER') ||
+          (currentStage.toUser.id.toString() !== this.currentUserId) &&
+          (this.currentUserRoleType === 'MAKER') && (docStatus === 'PENDING')) {
         this.router.navigate(['/home/loan/summary'], {
           queryParams: {
             loanConfigId: loanConfigId,

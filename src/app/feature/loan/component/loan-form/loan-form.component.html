@@ -13,7 +13,7 @@
         <h3 class="d-flex justify-content-center">{{loanDocument?.loanHolder?.name}}</h3>
         <hr>
 
-        <div #container class="row">
+        <div #container class="row" *ngIf="showDocStatusDropDown">
 
             <div class="col-md-3">
                 <form #priorityFormNav id="priorityFormNav" [formGroup]="priorityForm">
@@ -34,7 +34,7 @@
             </div>
 
 
-            <div *ngIf="showDocStatusDropDown" class="col-md-3">
+            <div class="col-md-3">
                 <form [formGroup]="docStatusForm">
                     <label><strong>
                         <mark class="ql-color-yellow"> Phase - Loan Build Cycle</mark>
