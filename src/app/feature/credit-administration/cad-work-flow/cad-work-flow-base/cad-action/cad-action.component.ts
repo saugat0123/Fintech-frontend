@@ -416,7 +416,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         } else if (this.currentStatus === 'LEGAL_PENDING') {
             this.approvedLabel = 'APPROVE LEGAL AND FORWARD';
             return 'LEGAL_APPROVED';
-        }else if(this.currentStatus === 'LIMIT_PENDING'){
+        } else if (this.currentStatus === 'LIMIT_PENDING') {
             this.approvedLabel = 'APPROVE LIMIT AND FORWARD';
             return 'LIMIT_APPROVED';
         } else if (this.currentStatus === 'OFFER_APPROVED') {
@@ -455,7 +455,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                 return 'OFFER_PENDING';
             }
             return 'LEGAL_PENDING';
-        } else if (this.currentStatus === 'DISBURSEMENT_PENDING' && this.currentUserRole === this.roleType.CRC) {
+        } else if (this.currentStatus === 'LIMIT_PENDING' && this.currentUserRole === this.roleType.CRC) {
             if (this.returnToRm) {
                 return 'LEGAL_APPROVED';
             } else {
@@ -465,7 +465,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             if (this.returnToRm) {
                 return 'LEGAL_APPROVED';
             } else {
-                return 'DISBURSEMENT_PENDING';
+                return 'LIMIT_PENDING';
             }
         } else {
             return this.currentStatus;
