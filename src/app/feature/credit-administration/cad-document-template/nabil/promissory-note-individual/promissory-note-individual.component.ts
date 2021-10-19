@@ -47,6 +47,9 @@ export class PromissoryNoteIndividualComponent implements OnInit {
   selectiveArr = [];
   offerLetterDocument;
   educationalTemplateData;
+  jointNepData;
+  spinner = false;
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -62,6 +65,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
               private customerService: CustomerService) { }
 
   async ngOnInit() {
+    console.log('Transferred Value :::: ', this.cadData);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
