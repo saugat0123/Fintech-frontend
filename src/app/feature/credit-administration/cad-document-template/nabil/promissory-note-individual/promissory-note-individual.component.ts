@@ -306,10 +306,13 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     if (this.cadData.loanHolder.customerType === this.customerType.INDIVIDUAL
         && this.clientType === this.customerSubType.JOINT.toUpperCase()) {
       const associateId = this.cadData.loanHolder.associateId;
+      this.spinner = true;
       await this.customerService.getJointInfoDetails(associateId).toPromise().then((res: any) => {
         this.jointInfoData = JSON.parse(res.detail.jointInfo);
+        this.spinner = false;
       }, error => {
         console.log(error);
+        this.spinner = false;
       });
     }
   }
