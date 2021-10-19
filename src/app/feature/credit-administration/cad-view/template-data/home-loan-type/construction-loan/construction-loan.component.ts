@@ -16,6 +16,7 @@ import {OutputEmitter} from '@angular/compiler/src/output/abstract_emitter';
 export class ConstructionLoanComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter();
   @Input() submitted;
+  @Input() spinner;
   constructionLoanForm: FormGroup;
   translateFormGroup: FormGroup;
   dateType = [{key: 'AD', value: 'AD'}, {key: 'BS', value: 'BS'}];
@@ -23,7 +24,6 @@ export class ConstructionLoanComponent implements OnInit {
   ADApplication = false;
   BSApproval = false;
   BSApplication = false;
-  spinner = false;
   translatedValue: any;
 
   constructor(private formBuilder: FormBuilder,
