@@ -390,9 +390,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     return false;
   }
 
-  saveCustomer() {
+ async saveCustomer() {
+
     this.submitted = true;
     this.spinner = true;
+   this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+   this.setNepaliData();
+   this.setCustomerCTData();
     if (this.addressSameAsAbove) {
       this.clearValidationForTemporaryAddress();
     }
@@ -473,7 +477,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
     this.oneFormCustomer.customerSubType = this.customerType === CustomerType.INDIVIDUAL ? this.customerSubType : this.institutionSubType;
     Object.keys(this.userConfigForm.controls).forEach(key => {
-      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !this.userConfigForm.get(key).value) {
+      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 ||  !this.userConfigForm.get(key).value) {
         return;
       }
 
@@ -2053,6 +2057,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   private editedTransData(): void {
+    this.userConfigForm.get('citizenshipNoCT').patchValue(
+        ObjectUtil.isEmpty( this.nepData.citizenshipNo) ? undefined :  this.nepData.citizenshipNo.ct);
+    this.userConfigForm.get('citizenshipIssueDistrictCT').patchValue(
+        ObjectUtil.isEmpty(this.nepData.citizenshipIssueDistrict) ? undefined : this.nepData.citizenshipIssueDistrict.ct
+    );
+    this.userConfigForm.get('permanentMunicipalityCT').patchValue(
+        ObjectUtil.isEmpty(this.nepData.temporaryMunicipality) ? undefined : this.nepData.temporaryMunicipality.en.nepaliName
+    );
     this.userConfigForm.get('branchTrans').patchValue(ObjectUtil.isEmpty(this.nepData.branch) ? undefined : this.nepData.branch.en.nepaliName);
     this.userConfigForm.get('nameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.name) ? undefined : this.nepData.name.np);
     this.userConfigForm.get('emailTrans').patchValue(ObjectUtil.isEmpty(this.nepData.email) ? undefined : this.nepData.email.np);
@@ -2071,7 +2083,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('permanentMunicipalityTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentMunicipality) ? undefined : this.nepData.permanentMunicipality.en.nepaliName);
     this.userConfigForm.get('temporaryProvinceTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryProvince) ? undefined : this.nepData.temporaryProvince.en.nepaliName);
     this.userConfigForm.get('temporaryDistrictTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryDistrict) ? undefined : this.nepData.temporaryDistrict.en.nepaliName);
-    this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryMunicipality) ? undefined : this.nepData.temporaryMunicipality.en.nepaliName);
+    this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(
+        ObjectUtil.isEmpty(this.nepData.temporaryMunicipality) ? undefined : this.nepData.temporaryMunicipality.en.nepaliName);
     this.userConfigForm.get('permanentWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentWard) ? undefined : this.nepData.permanentWard.np);
     this.userConfigForm.get('temporaryWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryWard) ? undefined : this.nepData.temporaryWard.np);
     this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(ObjectUtil.isEmpty(this.nepData.citizenshipIssueDistrict) ? undefined : this.nepData.citizenshipIssueDistrict.ct);
