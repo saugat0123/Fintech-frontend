@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {PromissoryNoteIndividualPrintComponent} from './promissory-note-individual/promissory-note-individual-print/promissory-note-individual-print.component';
 import {NgxPrintModule} from 'ngx-print';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
-import {NbButtonModule} from '@nebular/theme';
+import {NbButtonModule, NbSpinnerModule} from '@nebular/theme';
 import {LetterOfSetOffComponent} from './letter-of-set-off/letter-of-set-off.component';
 import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
 import {LoanDeedPartnershipComponent} from './loan-deed-partnership/loan-deed-partnership.component';
@@ -74,7 +74,8 @@ import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/p
         ReactiveFormsModule,
         NgxPrintModule,
         NbButtonModule,
-        CKEditorModule
+        CKEditorModule,
+        NbSpinnerModule
     ]
 })
 export class NabilModule {

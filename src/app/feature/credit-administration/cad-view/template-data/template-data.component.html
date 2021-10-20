@@ -21,9 +21,9 @@
 <!--    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HOUSING_TAKEOVER_CASE" [nbSpinner]="spinner">-->
 <!--        <app-retail-loan-against-insurance-template-data></app-retail-loan-against-insurance-template-data>-->
 <!--    </nb-card-body>-->
-<!--    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HOUSING_CONSTRUCTION_CASE_1" [nbSpinner]="spinner">-->
-<!--        <app-retail-mortgage-loan-template-data></app-retail-mortgage-loan-template-data>-->
-<!--    </nb-card-body>-->
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.MORTAGE_LOAN" [nbSpinner]="spinner">
+        <app-retail-mortgage-loan-template-data [customerApprovedDoc]="cadData"></app-retail-mortgage-loan-template-data>
+    </nb-card-body>
 <!--    <nb-card-body *ngIf="offerLetterSelect === 'AUTO_LOAN_COMMERCIAL'">-->
 <!--        <app-retail-housing-loan-template-data></app-retail-housing-loan-template-data>-->
 <!--    </nb-card-body>-->
@@ -38,5 +38,8 @@
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_LOAN" [nbSpinner]="spinner">
         <app-personal-loan-template-data [customerApprovedDoc]="cadData"></app-personal-loan-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HOME_LOAN" [nbSpinner]="spinner">
+        <app-home-loan-template-data [customerApprovedDoc]="cadData"></app-home-loan-template-data>
     </nb-card-body>
 </nb-card>

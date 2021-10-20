@@ -316,7 +316,7 @@
           <u class="font-weight-bold">
             सुरक्षण विवरणः
           </u>
-          <p>
+          <p *ngIf="selectedSecurity === 'FIXED_DEPOSIT'">
             ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमका मुद्धति
             रसिद
             ग्रहणाधिकार
@@ -348,15 +348,16 @@
             <app-securities-view
                 [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
           </ng-template>
-          <p *ngFor="let data of guarantorData; let i = index;">
-            {{i + 2 | nepaliWord}}. श्री
-            <span class=" font-weight-bold">{{guarantorParse(data.nepData, 'guarantorName')}}</span>
+          <p>
+            ख . श्री
+            <span class=" font-weight-bold">{{this.finalName}}</span>
             ले बैंकको पक्षमा
             रु
-            <span class=" font-weight-bold">{{guarantorParse(data.nepData,
-                'gurantedAmount')}}</span> /-(अक्षरेपि
-            रु.<span class=" font-weight-bold uniSize">{{nepaliCurrencyWordPipe.transform(
-              guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}</span> मात्र) को व्यक्तिगत
+            <span class=" font-weight-bold">
+              {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+            </span> /-(अक्षरेपि
+            रु.<span class=" font-weight-bold uniSize">
+            {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}</span> मात्र) को व्यक्तिगत
             जमानत पत्र दिनु पर्नेछ ।
           </p>
         </div>
@@ -932,7 +933,7 @@
                 </p>
                 <p>
                   घ. श्री
-                  <span class=" font-weight-bold">{{guarantorName}}</span>
+                  <span class=" font-weight-bold">{{this.finalName}}</span>
                   को बैकको पक्षमा रु
                   <span class=" font-weight-bold">{{guarantorParse(guarantorData[0].nepData,
                       'gurantedAmount')}}</span> /-
@@ -974,7 +975,7 @@
                   ह्. रु
                   <span class=" font-weight-bold">{{guarantorParse(guarantorData[0].nepData,
                       'gurantedAmount')}}</span> बराबरकोे श्री
-                  <span class=" font-weight-bold">{{guarantorName}}</span>
+                  <span class=" font-weight-bold">{{this.finalName}}</span>
                   को व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                 </p>
                 <p>
@@ -1010,7 +1011,7 @@
                 <p>
                   ह्. रु <span class=" font-weight-bold">{{guarantorParse(guarantorData[0].nepData,
                     'gurantedAmount')}}</span> बराबरकोे
-                  श्री <span class=" font-weight-bold">{{guarantorName}}</span> को व्यक्तिगत जमानत
+                  श्री <span class=" font-weight-bold">{{this.finalName}}</span> को व्यक्तिगत जमानत
                   पत्र र सम्पत्ती विवरण ।
                 </p>
                 <p>
@@ -1068,6 +1069,7 @@
         <span class=" font-weight-bold">{{letter?.branchManager.ct}}</span>
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-12">
         <ul class="nepaliList">
@@ -1124,11 +1126,25 @@
         </ul>
       </div>
     </div>
+    <p class="text-right">
+      ________________________________ <br>
+      आधिकारिक हस्ताक्षर (ग्राहक)
+    </p>
     <div class="col-md-12">
       <p>
         साक्षीः
       </p>
       <ul class="nepaliList">
+        <li>
+          <span class=" font-weight-bold">_______________________________</span>
+          जिल्ला
+          <span class=" font-weight-bold">______________________________</span>
+          गा.वि.स/न.पा,
+          वडा नंं.
+          <span class=" font-weight-bold">______________</span>
+          बस्ने श्री
+          <span class=" font-weight-bold">______________________________</span>
+        </li>
         <li>
           <span class=" font-weight-bold">_______________________________</span>
           जिल्ला

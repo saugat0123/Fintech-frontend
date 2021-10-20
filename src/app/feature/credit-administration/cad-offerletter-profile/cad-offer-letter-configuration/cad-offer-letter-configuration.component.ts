@@ -244,8 +244,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       contactNoCT: [undefined, Validators.required],
       contactNoTrans: [undefined, Validators.required],
       panNo: [undefined],
-      panNoCT: [undefined, Validators.required],
-      panNoTrans: [undefined, Validators.required],
+      panNoCT: [undefined],
+      panNoTrans: [undefined],
       registrationNo: [undefined],
       registrationNoCT: [undefined, Validators.required],
       registrationNoTrans: [undefined],
@@ -963,8 +963,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         nepData: [value.nepData],
         guarantorTemporaryMunicipalityOrVdc: [ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) ?
             undefined : nepaData.guarantorTemporaryMunicipalityOrVdc.en],
-        radioCitizenIssuedDate: [ObjectUtil.isEmpty(nepaData.radioCitizenIssuedDate) ? undefined : 'AD'],
+        radioCitizenIssuedDate: ['AD'],
         citizenIssuedDate: [ObjectUtil.isEmpty(value.issuedYear) ? undefined : value.issuedYear],
+        guarantorPermanentMunicipalityOrVdcCT: [ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) ?
+            undefined : nepaData.guarantorPermanentMunicipalityOrVdc.np],
+        guarantorTemporaryMunicipalityOrVdcCT: [ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) ?
+            undefined : nepaData.guarantorTemporaryMunicipalityOrVdc.np],
+        radioCitizenIssuedDateCT: [undefined],
+        citizenIssuedDateCT: [undefined],
         id: [value.id],
 
       }));
@@ -1055,8 +1061,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // this.userConfigForm.get(['jointCustomerDetails', index, 'contactNoCT']).patchValue(jointCustomerDetails.contactNo ? jointCustomerDetails.contactNo : '');
       // this.userConfigForm.get(['jointCustomerDetails', index, 'panNoTrans']).patchValue(jointCustomerDetails.panNo ? jointCustomerDetails.panNo : '');
       // this.userConfigForm.get(['jointCustomerDetails', index, 'panNoCT']).patchValue(jointCustomerDetails.panNo ? jointCustomerDetails.panNo : '');
-      // this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeTrans']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
-      // this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeCT']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeTrans']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeCT']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'genderTrans']).patchValue(jointCustomerDetails.gender ? jointCustomerDetails.gender : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'genderCT']).patchValue(jointCustomerDetails.gender ? jointCustomerDetails.gender : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'fatherNameTrans']).patchValue(jointCustomerDetails.fatherName ? jointCustomerDetails.fatherName : '');
@@ -1158,7 +1164,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     if (alluarantors.length > 0) {
       let guarantorsDetails: any = [];
       guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
-      this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
+       this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
       this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
       this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).patchValue(guarantorsDetails.citizenNumber ? guarantorsDetails.citizenNumber : '');
       this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberCT']).patchValue(guarantorsDetails.citizenNumber ? guarantorsDetails.citizenNumber : '');
@@ -1249,17 +1255,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         console.log(key, 'keys');
 
         if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
-            || key.indexOf('id') > -1 || key.indexOf('nepData') > -1 ) {
+            || key.indexOf('id') > -1 || key.indexOf('nepData') > -1) {
           return;
         }
 
-        if(this.actionType === 'Edit'){
-         if( key.indexOf('citizenIssuedDate') > -1
-         || key.indexOf('guarantorPermanentMunicipalityOrVdc') > -1 || key.indexOf('guarantorTemporaryMunicipalityOrVdc') > -1
-         || key.indexOf('radioCitizenIssuedDate') > -1){
-           return;
-          }
-        }
+        // if(this.actionType === 'Edit'){
+        //  if( key.indexOf('citizenIssuedDate') > -1
+        //  || key.indexOf('guarantorPermanentMunicipalityOrVdc') > -1 || key.indexOf('guarantorTemporaryMunicipalityOrVdc') > -1
+        //  || key.indexOf('radioCitizenIssuedDate') > -1){
+        //    return;
+        //   }
+        // }
 
         this.attributes = new Attributes();
         this.attributes.en = individualData.get(key).value;
@@ -1316,7 +1322,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         temporaryDistrict: this.userConfigForm.get('permanentDistrict').value,
         temporaryMunicipality: this.userConfigForm.get('permanentMunicipality').value,
         temporaryWard: this.userConfigForm.get('permanentWard').value,
-        tempMunicipalitiesOrVdc: this.userConfigForm.get('municipalityOrVdc').value
+        temporaryMunicipalityOrVdc: this.userConfigForm.get('municipalityOrVdc').value
       });
     } else {
       this.addressSameAsAbove = false;
@@ -1449,12 +1455,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipality']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentMunicipality']).value);
       this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdc']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentMunicipalityOrVdc']).value);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryWard']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentWard']).value);
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryWardCT']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentWardCT']).value);
+
     } else {
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(null);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict']).patchValue(null);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipality']).patchValue(null);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryWard']).patchValue(null);
       this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdc']).patchValue(null);
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryWardCT']).patchValue(null);
     }
   }
 
@@ -1921,7 +1930,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('currentWardTrans').patchValue(this.translatedValues.currentWard);
     this.userConfigForm.get('currentDistrictTrans').patchValue(this.translatedValues.currentDistrict);
     this.userConfigForm.get('currentMunicipalityTrans').patchValue(this.translatedValues.currentMunicipality);
-    // this.userConfigForm.get('customerCodeTrans').patchValue(this.translatedValues.customerCode);
+    this.userConfigForm.get('customerCodeTrans').patchValue(this.translatedValues.customerCode);
     this.userConfigForm.get('genderTrans').patchValue(this.translatedValues.gender);
     this.userConfigForm.get('fatherNameTrans').patchValue(this.translatedValues.fatherName);
     this.userConfigForm.get('grandFatherNameTrans').patchValue(this.translatedValues.grandFatherName);
@@ -1949,7 +1958,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   private setCustomerCTData(): void {
-    // this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
+    this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
     this.userConfigForm.get('nameCT').patchValue(this.translatedValues.name);
     // this.userConfigForm.get('contactNoCT').patchValue(this.translatedValues.contactNo);
     this.userConfigForm.get('genderCT').patchValue(this.translatedValues.gender);
