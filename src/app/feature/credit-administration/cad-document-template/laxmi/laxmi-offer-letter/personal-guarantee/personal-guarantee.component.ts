@@ -16,6 +16,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
+import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
 
 @Component({
     selector: 'app-personal-guarantee',
@@ -33,7 +34,7 @@ export class PersonalGuaranteeComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
-
+    amount;
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -45,6 +46,7 @@ export class PersonalGuaranteeComponent implements OnInit {
                 private toastService: ToastService,
                 private routerUtilsService: RouterUtilsService,
                 private customerOfferLetterService: CustomerOfferLetterService,
+                private nepaliNumber: NepaliNumberPipe,
                 private dialogRef: NbDialogRef<PersonalGuaranteeComponent>) {
     }
 
@@ -54,6 +56,7 @@ export class PersonalGuaranteeComponent implements OnInit {
     }
 
     fillForm() {
+        this.amount = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal.proposedLimit;
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
@@ -75,6 +78,8 @@ export class PersonalGuaranteeComponent implements OnInit {
             guarantorCitizenshipNum: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].citizenNumber) : '' ? this.nepaliData.guarantorDetails[0].citizenNumber : ''  ,
             guarantorCitizenshipIssuePlace: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].issuedPlace) : '' ? this.nepaliData.guarantorDetails[0].issuedPlace : '',
             guarantorCitizenshipIssueDate: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].issuedDate) : '' ? this.nepaliData.guarantorDetails[0].issuedDate : '',
+            loanAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
+            loanAmountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
         });
     }
 
