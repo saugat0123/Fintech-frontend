@@ -38,10 +38,10 @@ export class HomeLoanComponent implements OnInit {
   ckeConfig = NepaliEditor.CK_CONFIG;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() preview;
-
   nepData;
   external = [];
   loanHolderInfo;
+  tempData;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -56,9 +56,11 @@ export class HomeLoanComponent implements OnInit {
               private ref: NbDialogRef<HomeLoanComponent>) { }
 
   ngOnInit() {
+    console.log('Offer Letter Details for Home Loan',this.cadOfferLetterApprovedDoc);
     this.buildPersonal();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
     this.checkOfferLetterData(); }
 

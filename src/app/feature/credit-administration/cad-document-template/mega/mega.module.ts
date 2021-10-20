@@ -55,7 +55,8 @@ import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-pr
     PromissoryNoteJointComponent,
     HomeLoanComponent
   ],
-  entryComponents: [DeedHypoOfMachineryComponent
+  entryComponents: [DeedHypoOfMachineryComponent,
+      HomeLoanComponent
   ]
 
 })
