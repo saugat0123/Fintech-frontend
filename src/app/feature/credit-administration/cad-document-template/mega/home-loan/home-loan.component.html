@@ -1,11 +1,13 @@
 <div class="text-justify nep" id="{{offerLetterConst.home_loan}}">
-
+    <nb-card [nbSpinner]="spinner"
+             nbSpinnerStatus="primary"
+             nbSpinnerSize="large"
+             nbSpinnerMessage="Saving Mortage Loan offer letter.....">
         <nb-card-header *ngIf="preview">
             <a (click)="close()" aria-label="Close" class="close cursor pull-right"
                data-dismiss="modal">
                 <span aria-hidden="true">×</span></a>
         </nb-card-header>
-
         <nb-card-body>
             <form [formGroup]="form">
                 <h6 class="text-center">ऋणकर्जा सुविधा स्वीकृति पत्र</h6>
@@ -63,12 +65,13 @@
                             <tr>
                                 <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
                                 <td>
-                                    <strong> व्यक्तिगत अधिविकर्षः</strong> <input class="form-field form-control-sm nepaliFont"
+                                    <strong>आवास कर्जाः</strong> <input class="form-field form-control-sm nepaliFont"
                                                                          formControlName="nameoftheVehicle"
                                                                          name="nameoftheVehicle"
                                                                          placeholder=""
                                                                          style="width: 200px"
-                                                                         type="text"/> गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
+                                                                         type="text"/> भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
+
                                 </td>
                             </tr>
                             <tr>
@@ -189,14 +192,12 @@
                             <tr>
                                 <td><strong> ऋण प्रतिबद्धता शुल्क </strong></td>
                                 <td>
-                                    अल्पकालिन तथा चालु पुँजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा सुविधाका हकमा स्वीकृत
-                                    कर्जा सिमाको औसत ६० प्रतिशत भन्दा कम उपयोग भएमा कम उपयोग भएको
-                                    औसत कर्जा रकमको <input class="form-field form-control-sm nepaliFont"
+                                    स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सिमामा
+                                    <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="loanCommitmentFee"
                                                            name="loanCommitmentFee "
                                                            placeholder=" "
-                                                           type="text"/> प्रतिशतका
-                                    दरले प्रतिबद्धता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा वा बैंकले मागेको समयमा तिर्नु बुझाउनु पर्ने छ।
+                                                           type="text"/> प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                                 </td>
                             </tr>
                             <tr>
@@ -258,6 +259,11 @@
                                 <p> क्षेत्रफल  <input class="form-field form-control-sm nepaliFont"
                                                       formControlName="propertyArea"
                                                       name="propertyArea"
+                                                      placeholder=" "
+                                                      type="text"/> </p>
+                                <p> सिट नं. <input class="form-field form-control-sm nepaliFont"
+                                                      formControlName="seatNumber"
+                                                      name="seatNumber"
                                                       placeholder=" "
                                                       type="text"/> </p>
 
@@ -342,10 +348,10 @@
 
                         <tr>
                             <td>८.</td>
-                            <td>क) तपाईंको कर्जा वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट कट्टा गरिनेछ।
-                                ख) भुक्तानी मितिको दिन साँवा र/वा ब्याज भुक्तानीका लागि तपाईंको खातामा पर्याप्त रकम हुनुपर्नेछ र सोही खातामा खर्च जनाई साँवा, ब्याज वा सोको किस्ता असुल गरिनेछ।
-                                ग) साँवा, ब्याज वा किस्ता भुक्तानी मितिको दिनमा यदि तपाईंको खातामा पर्याप्त रकम नभएमा सो मितिमा उक्त खातामा जे जति रकम छ सो बराबर खर्च जनाईनेछ।
-                                    सो रकम सर्वप्रथम ब्याजमा समायोजन गरिनेछ र बाँकी  साँवामा समायोजन गरिनेछ। अपुग रकम यदी कुनै भए तपाईंबाट असुल उपर गरिनेछ।
+                            <td>क) तपाईंको कर्जा वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट कट्टा गरिनेछ।<br>
+                                ख) भुक्तानी मितिको दिन साँवा र/वा ब्याज भुक्तानीका लागि तपाईंको खातामा पर्याप्त रकम हुनुपर्नेछ र सोही खातामा खर्च जनाई साँवा, ब्याज वा सोको किस्ता असुल गरिनेछ।<br>
+                                ग) साँवा, ब्याज वा किस्ता भुक्तानी मितिको दिनमा यदि तपाईंको खातामा पर्याप्त रकम नभएमा सो मितिमा उक्त खातामा जे जति रकम छ सो बराबर खर्च जनाईनेछ।<br>
+                                    सो रकम सर्वप्रथम ब्याजमा समायोजन गरिनेछ र बाँकी  साँवामा समायोजन गरिनेछ। अपुग रकम यदी कुनै भए तपाईंबाट असुल उपर गरिनेछ।<br>
                             </td>
                         </tr>
 
@@ -417,9 +423,50 @@
                                            type="text"/>)
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
                                 </p>
+                                <div class="row col-md-12">
+                    <textarea id="additionalDetail"
+                              class="form-control customFont nepaliFont"
+                              rows="5"
+                              style="width:inherit;margin-left:5%"
+                              name="additionalDetail"
+                              formControlName="additionalDetail">
+                    </textarea>
+                                </div>
+
                         </tr>
+<!--                        <tr>-->
+<!--                            <td>९. </td>-->
+<!--                            <td>-->
+<!--                                धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात-->
+<!--                                तपाईंको यस नबिल बैंक लिमिटेडको, <input class="form-field form-control-sm nepaliFont"-->
+<!--                                                                       formControlName="branchName"-->
+<!--                                                                       name="branchName"-->
+<!--                                                                       placeholder=" "-->
+<!--                                                                       type="text"/> शाखामा रहेको चल्ती-->
+<!--                                खातामा रु <input class="form-field form-control-sm nepaliFont"-->
+<!--                                                 formControlName="loanAmount"-->
+<!--                                                 name="loanAmount"-->
+<!--                                                 placeholder=" "-->
+<!--                                                 type="text"/>-->
+<!--                                ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री <input class="form-field form-control-sm nepaliFont"-->
+<!--                                                                             formControlName="beneficiaryName"-->
+<!--                                                                             name="beneficiaryName"-->
+<!--                                                                             placeholder=" "-->
+<!--                                                                             type="text"/>   लाई ब्रऋ एबथभभ ऋजभत्रगभ रःऋरम्चबात-->
+<!--                                मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।-->
+<!--                                <div class="row col-md-12">-->
+<!--                    <textarea id="additionalDetail"-->
+<!--                              class="form-control customFont nepaliFont"-->
+<!--                              rows="5"-->
+<!--                              style="width:inherit;margin-left:5%"-->
+<!--                              name="additionalDetail"-->
+<!--                              formControlName="additionalDetail">-->
+<!--                    </textarea>-->
+<!--                                </div>-->
 
 
+<!--                            </td>-->
+<!--                        -->
                         <tr>
                             <td>१०.</td>
                             <td>कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साञचो छन र अन्यथा भएमा तपाईं जिम्मेवार हुनुहुनेछ।</td>
@@ -674,7 +721,15 @@
                         </tr>
                     </table>
 
-                            <!--  TEXT FIELD REQUIRED  -->
+                    <div class="row col-md-12">
+                    <textarea id="additionalGuarantorDetails"
+                              class="form-control customFont nepaliFont"
+                              rows="5"
+                              style="width:inherit;margin-left:5%"
+                              name="additionalGuarantorDetails"
+                              formControlName="additionalGuarantorDetails">
+                    </textarea>
+                    </div><br>
 
                     <p> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको प्रतिलिपीमा तपाईंको मञ्जुरी
                         सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ। अन्यथा यो प्रस्ताव स्वतः रद्द हुनेछ। साथै, तपाईले यो ऋण स्वीकृति पत्रमा मञ्जुरी जनाएको
@@ -783,53 +838,48 @@
                     <br>
                     <br>
                     <br>
-                    <p>साक्षीः </p>
-                    <p> १.<input class="form-field form-control-sm nepaliFont"
-                                         name="district"
-                                         formControlName="district"
-                                         placeholder=""
-                                         type="text"/>  जिल्ला
-                        <input class="form-field form-control-sm nepaliFont"
-                                      name="wardNum"
-                                      formControlName="municipalityVDC"
-                                      placeholder=""
-                                      type="text"/>  गा.वि.स/न.पा, वडा नं.
-                        <input class="form-field form-control-sm nepaliFont"
-                                  name="wardNum"
-                                  formControlName="wardNum"
-                                  placeholder=""
-                                  type="text"/> बस्ने श्री
-                        <input class="form-field form-control-sm nepaliFont"
-                               name="witnessName"
-                               formControlName="witnessName"
-                               placeholder=""
-                               type="text"/>।
-                    </p>
-                    <p> २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो
-                        भनी सनाखत गर्ने नबिल बैंक लि.
-                        का कर्मचारी श्री <input class="form-field form-control-sm nepaliFont"
-                                                name="staffName"
-                                                formControlName="staffName"
-                                                placeholder=""
-                                                type="text"/>। </p>
-                </div>
-
-                <div class="row disable-print">
-                    <div class="col-md-12 text-right" style="margin: 14px">
-                        <button nbButton status="success" (click)="submit()">Save</button>
-
-                        <button nbButton
-                                [disabled]="!initialInfoPrint"
-                                status="info"
-                                [useExistingCss]="true"
-                                ngxPrint printSectionId="{{offerLetterConst.home_loan}}Print">Print
-                        </button>
+                    <div class="col-md-12">
+                        <p>
+                            साक्षीः
+                        </p>
+                        <ul class="nepaliList">
+                            <li>
+                                ____________________ जिल्ला
+                                ______________________ गा.वि.स/न.पा,
+                                वडा नंं. _________
+                                बस्ने श्री ____________________________
+                            </li>
+                            <li>
+                                ____________________ जिल्ला
+                                ______________________ गा.वि.स/न.पा,
+                                वडा नंं. _________
+                                बस्ने श्री ____________________________
+                            </li>
+                            <li>
+                                कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+                                ____________________________
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button nbButton status="success" (click)="submit()">Save</button>
+                        </div>
                     </div>
                 </div>
             </form>
         </nb-card-body>
+        <nb-card-footer class="mb-3">
+            <button nbButton
+                    [disabled]="!initialInfoPrint"
+                    status="info"
+                    class="mb-4 float-right"
+                    [useExistingCss]="true"
+                    ngxPrint printSectionId="{{offerLetterConst.home_loan}}Print">Print
+            </button>
+        </nb-card-footer>
+    </nb-card>
 </div>
-
 <app-home-loan-print *ngIf="initialInfoPrint"
                       [letter]="initialInfoPrint"
                       [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"

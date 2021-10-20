@@ -9,7 +9,7 @@ import { PromissoryNoteSingleBorrowerComponent } from './promissory-note-single-
 import { AssignmentOfReceivableComponent } from './assignment-of-receivable/assignment-of-receivable.component';
 import { DeedHypoOfMachineryComponent } from './deed-hypo-of-machinery/deed-hypo-of-machinery.component';
 import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
-import {NbButtonModule, NbCardModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
 import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
 import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
@@ -43,7 +43,8 @@ import { AutoLoanCommercialPrintComponent } from './auto-loan-commercial/auto-lo
     ReactiveFormsModule,
     NbCardModule,
     NbButtonModule,
-    NgxPrintModule
+    NgxPrintModule,
+    NbSpinnerModule
   ],
   exports: [
     AssignmentOfReceivableComponent,
@@ -61,7 +62,7 @@ import { AutoLoanCommercialPrintComponent } from './auto-loan-commercial/auto-lo
     AutoLoanCommercialComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent,
-    AutoLoanCommercialComponent,
+    HomeLoanComponent,
   ]
 
 })
