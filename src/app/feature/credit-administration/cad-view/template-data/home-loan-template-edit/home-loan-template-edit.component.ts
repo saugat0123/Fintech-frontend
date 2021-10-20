@@ -49,6 +49,14 @@ export class HomeLoanTemplateEditComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (this.isConstructionLoan) {
+      this.landAndBuilding.landBuildingForm.clearValidators();
+      this.landAndBuilding.landBuildingForm.updateValueAndValidity();
+    }
+    if (this.isPurchaseLoan || this.isTakeOverLoan) {
+      this.constructionLoan.constructionLoanForm.clearValidators();
+      this.constructionLoan.constructionLoanForm.updateValueAndValidity();
+    }
     if (!ObjectUtil.isEmpty(this.initialInformation)) {
       this.getHomeLoanType();
       this.setLoanType();
