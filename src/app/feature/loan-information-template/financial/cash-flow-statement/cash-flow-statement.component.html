@@ -433,27 +433,6 @@
 
             <tbody>
             <tr>
-                <th scope="row">a</th>
-                <td>Additional Capital(if any)</td>
-                <td *ngFor="let amount of cashFlowStatementForm.get('additionalCapital')['controls']; let j = index"
-                    formArrayName="additionalCapital" scope="col">
-                    <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_additionalCapital">
-                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
-                                   style="border: none; outline: none; " value="0">
-                        </ng-template>
-
-                        <ng-template #subsequentYears_additionalCapital>
-                            <input formControlName="value" class="text-center" type="number"
-                                   style="border: none; outline: none; " value="0" readonly>
-                        </ng-template>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-
-            <tbody>
-            <tr>
                 <th scope="row">b</th>
                 <td>Short Term Loan</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('shortTermLoan')['controls']; let j = index"
@@ -549,6 +528,27 @@
                         </ng-template>
 
                         <ng-template #subsequentYears_otherAdjustments>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr *ngIf="formData['cashFlowStatementData'].additionalCapital !== undefined">
+                <th scope="row">g</th>
+                <td>Additional Capital(if any)</td>
+                <td *ngFor="let amount of cashFlowStatementForm.get('additionalCapital')['controls']; let j = index"
+                    formArrayName="additionalCapital" scope="col">
+                    <div [formGroupName]="j" class="text-center">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_additionalCapital">
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_additionalCapital>
                             <input formControlName="value" class="text-center" type="number"
                                    style="border: none; outline: none; " value="0" readonly>
                         </ng-template>

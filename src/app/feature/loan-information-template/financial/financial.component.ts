@@ -26,7 +26,7 @@ import {
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-financial',
