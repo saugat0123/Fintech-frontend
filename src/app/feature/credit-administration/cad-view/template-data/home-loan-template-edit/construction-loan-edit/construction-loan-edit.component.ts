@@ -2,21 +2,21 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
 import {DatePipe} from '@angular/common';
-import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
-import {OutputEmitter} from '@angular/compiler/src/output/abstract_emitter';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
-  selector: 'app-construction-loan',
-  templateUrl: './construction-loan.component.html',
-  styleUrls: ['./construction-loan.component.scss']
+  selector: 'app-construction-loan-edit',
+  templateUrl: './construction-loan-edit.component.html',
+  styleUrls: ['./construction-loan-edit.component.scss']
 })
-export class ConstructionLoanComponent implements OnInit {
+export class ConstructionLoanEditComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter();
   @Input() submitted;
   @Input() spinner;
+  @Input() formValue: any;
   constructionLoanForm: FormGroup;
   translateFormGroup: FormGroup;
   dateType = [{key: 'AD', value: 'AD'}, {key: 'BS', value: 'BS'}];
@@ -38,7 +38,13 @@ export class ConstructionLoanComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('formValue', this.formValue);
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.formValue)) {
+      this.setConstructionFormValue();
+      this.setDateOfApplication();
+      this.setDateOfApproval();
+    }
   }
 
   private buildForm(): FormGroup {
@@ -165,6 +171,16 @@ export class ConstructionLoanComponent implements OnInit {
   public dateOfApplication(value) {
     this.ADApplication = value === 'AD';
     this.BSApplication = value === 'BS';
+  }
+
+  private setDateOfApproval() {
+    this.ADApproval = this.formValue.dateType === 'AD';
+    this.BSApproval = this.formValue.dateType === 'BS';
+  }
+
+  private setDateOfApplication() {
+    this.ADApplication = this.formValue.applicationDateType === 'AD';
+    this.BSApplication = this.formValue.applicationDateType === 'BS';
   }
 
   public async setTranslatedValue() {
@@ -368,6 +384,10 @@ export class ConstructionLoanComponent implements OnInit {
   public getNumAmountWord(numLabel, wordLabel): void {
     const transformValue = this.nepaliCurrencyWordPipe.transform(this.constructionLoanForm.get(numLabel).value);
     this.constructionLoanForm.get(wordLabel).patchValue(transformValue);
+  }
+
+  private setConstructionFormValue(): void {
+    this.constructionLoanForm.patchValue(this.formValue);
   }
 
 }
