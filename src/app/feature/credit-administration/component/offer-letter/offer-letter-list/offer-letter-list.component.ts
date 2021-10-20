@@ -25,6 +25,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {EditLoanDetailComponent} from '../../../cad-view/template-data/edit-loan-detail/edit-loan-detail.component';
 import {PersonalLoanTemplateEditComponent} from '../../../cad-view/template-data/personal-loan-template-edit/personal-loan-template-edit.component';
 import {PersonalOverdraftTemplateDataEditComponent} from '../../../cad-view/template-data/personal-overdraft-template-data-edit/personal-overdraft-template-data-edit.component';
+import {HomeLoanTemplateEditComponent} from '../../../cad-view/template-data/home-loan-template-edit/home-loan-template-edit.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -222,6 +223,17 @@ export class OfferLetterListComponent implements OnInit {
                 });
               } else if (this.docName === 'Personal Overdraft') {
                   this.dialogService.open(PersonalOverdraftTemplateDataEditComponent, {
+                    context: {
+                      offerLetterId: offerLetter.id,
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === 'Home Loan') {
+                  this.dialogService.open(HomeLoanTemplateEditComponent, {
                     context: {
                       offerLetterId: offerLetter.id,
                       customerApprovedDoc: this.cadOfferLetterApprovedDoc,
