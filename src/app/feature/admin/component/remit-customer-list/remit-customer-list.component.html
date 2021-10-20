@@ -110,7 +110,7 @@
                 <td>{{model?.senderCountry || 'NA'}}</td>
                 <td>{{model?.agentName}}</td>
                 <td>{{model?.proposedAmount || 'NA'}}</td>
-                <td>{{model?.preferredBranch || 'NA'}}</td>
+                <td>{{ (model.beneficiaryData | jsonParse).beneficiaryOtherDetail.benef_bank_branch || 'NA'}}</td>
                 <td *ngIf="!transferDoc">{{model?.branch?.name || 'NA'}}</td>
                 <td *ngIf="transferDoc">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
                 <td>
