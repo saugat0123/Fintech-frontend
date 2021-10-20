@@ -61,11 +61,12 @@
                         <td><strong> रकम </strong></td>
                         <td>
                             रु.
-                            <span class=" font-weight-bold">
-                                    {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.loanAmountPl.ct !== null && letter?.loanAmountPl.ct !== ''}">
+                                {{letter?.loanAmountPl.ct === null || letter?.loanAmountPl.ct === '' ? '___________' : letter?.loanAmountPl.ct}}
                             </span>
                             ( अक्षेरुपी रु.
-                            <span class=" font-weight-bold uniSize">{{nepaliCurrencyWordPipe.transform(proposedAmount)}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.loanAmountPlInWords.ct !== null && letter?.loanAmountPlInWords.ct !== ''}">
+                                {{letter?.loanAmountPlInWords.ct === null || letter?.loanAmountPlInWords.ct === '' ? '___________' : letter?.loanAmountPlInWords.ct}}
                             </span>
                             मात्र )
                         </td>
@@ -153,8 +154,8 @@
                     <tr>
                         <td><strong>कर्जा प्रकार/ प्रयोजनः </strong></td>
                         <td>व्यक्तिगत अधिविकर्षः
-                            <span [ngClass]="{'font-weight-bold' : letter?.purposeofLoan.ct !== null && letter?.purposeofLoan.ct !== ''}">
-                                {{letter?.purposeofLoan.ct === null || letter?.purposeofLoan.ct === '' ? '___________' : letter?.purposeofLoan.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.purposeofLoanOd.ct !== null && letter?.purposeofLoanOd.ct !== ''}">
+                                {{letter?.purposeofLoanOd.ct === null || letter?.purposeofLoanOd.ct === '' ? '___________' : letter?.purposeofLoanOd.ct}}
                             </span>
                             प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न
                             सकिनेछ ।
@@ -163,11 +164,12 @@
                     <tr>
                         <td><strong>रकमः </strong></td>
                         <td>रु.
-                            <span class=" font-weight-bold">
-                                    {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.loanAmountOd.ct !== null && letter?.loanAmountOd.ct !== ''}">
+                                {{letter?.loanAmountOd.ct === null || letter?.loanAmountOd.ct === '' ? '___________' : letter?.loanAmountOd.ct}}
                             </span>
                             ( अक्षेरुपी रु.
-                            <span class=" font-weight-bold uniSize">{{nepaliCurrencyWordPipe.transform(proposedAmount)}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.loanAmountOdInWords.ct !== null && letter?.loanAmountOdInWords.ct !== ''}">
+                                {{letter?.loanAmountOdInWords.ct === null || letter?.loanAmountOdInWords.ct === '' ? '___________' : letter?.loanAmountOdInWords.ct}}
                             </span>
                             मात्र )
                         </td>
@@ -175,16 +177,16 @@
                     <tr>
                         <td><strong>ब्याज दरः</strong></td>
                         <td>प्रकाशित आधार दर (Base Rate)
-                            <span [ngClass]="{'font-weight-bold' : letter?.baseRate.ct !== null && letter?.baseRate.ct !== ''}">
-                                {{letter?.baseRate.ct === null || letter?.baseRate.ct === '' ? '___________' : letter?.baseRate.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.baseRateOd.ct !== null && letter?.baseRateOd.ct !== ''}">
+                                {{letter?.baseRateOd.ct === null || letter?.baseRateOd.ct === '' ? '___________' : letter?.baseRateOd.ct}}
                             </span>
                             +
-                            <span [ngClass]="{'font-weight-bold' : letter?.premiumRate.ct !== null && letter?.premiumRate.ct !== ''}">
-                                {{letter?.premiumRate.ct === null || letter?.premiumRate.ct === '' ? '___________' : letter?.premiumRate.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.premiumRateOd.ct !== null && letter?.premiumRateOd.ct !== ''}">
+                                {{letter?.premiumRateOd.ct === null || letter?.premiumRateOd.ct === '' ? '___________' : letter?.premiumRateOd.ct}}
                             </span>
                             हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
-                            <span [ngClass]="{'font-weight-bold' : letter?.yearlyInterestRate.ct !== null && letter?.yearlyInterestRate.ct !== ''}">
-                                {{letter?.yearlyInterestRate.ct === null || letter?.yearlyInterestRate.ct === '' ? '___________' : letter?.yearlyInterestRate.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.yearlyInterestRateOd.ct !== null && letter?.yearlyInterestRateOd.ct !== ''}">
+                                {{letter?.yearlyInterestRateOd.ct === null || letter?.yearlyInterestRateOd.ct === '' ? '___________' : letter?.yearlyInterestRateOd.ct}}
                             </span>
                             % का दर निर्धारण
                             गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक महिनाको मसान्तमा र ऋणकर्जा चुक्ता
@@ -196,12 +198,12 @@
                         <td>
                             <ul class="disclist">
                                 <li>ऋण प्रशासनिक शुल्क बापत रु
-                                    <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinFigure.ct !== null && letter?.loanAdminFeeinFigure.ct !== ''}">
-                                        {{letter?.loanAdminFeeinFigure.ct === null || letter?.loanAdminFeeinFigure.ct === '' ? '___________' : letter?.loanAdminFeeinFigure.ct}}
+                                    <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinFigureOd.ct !== null && letter?.loanAdminFeeinFigureOd.ct !== ''}">
+                                        {{letter?.loanAdminFeeinFigureOd.ct === null || letter?.loanAdminFeeinFigureOd.ct === '' ? '___________' : letter?.loanAdminFeeinFigureOd.ct}}
                                     </span>
                                     अक्षरेपी रु
-                                    <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinWords.ct !== null && letter?.loanAdminFeeinWords.ct !== ''}">
-                                        {{letter?.loanAdminFeeinWords.ct === null || letter?.loanAdminFeeinWords.ct === '' ? '___________' : letter?.loanAdminFeeinWords.ct}}
+                                    <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinWordsOd.ct !== null && letter?.loanAdminFeeinWordsOd.ct !== ''}">
+                                        {{letter?.loanAdminFeeinWordsOd.ct === null || letter?.loanAdminFeeinWordsOd.ct === '' ? '___________' : letter?.loanAdminFeeinWordsOd.ct}}
                                     </span>
                                     मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                     कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट
@@ -275,6 +277,7 @@
                             <ng-template #loanExpiryDatePrint>
                                 <span class=" font-weight-bold">{{(letter?.loanExpiryDate.en | date) | engNepDate: true}}</span>
                             </ng-template>
+                            मा हुनेछ ।
                         </td>
                     </tr>
                 </table>
@@ -284,23 +287,18 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <p *ngFor="let data of guarantorData; let i = index;">
-                            {{i + 1 | nepaliWord}}. श्री
-                                <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'guarantorName')}}
-                                </span>
+                            क. श्री
+                            <span class=" font-weight-bold">{{this.finalName}}</span>
                             ले बैंकको पक्षमा
                             रु
-                                <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
-                                </span>
-                            /-(अक्षरेपि
+                            <span class=" font-weight-bold">
+                                {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+                            </span> /-(अक्षरेपि
                             रु.
-                                <span class=" font-weight-bold uniSize">
-                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
-                                </span>
-                            मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
-                        </p>
+                            <span class=" font-weight-bold uniSize">
+                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}</span>
+                            मात्र) को व्यक्तिगत
+                            जमानत पत्र दिनु पर्नेछ ।
                         </td>
                     </tr>
                     <tr>
@@ -323,7 +321,7 @@
                             आधार दर (Base Rate) जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु
                             अर्थात श्रावण,
                             कार्तिक, माघ र बैशाखको पहिलो दिनबाट ब्याज दरसमायोजन तथा संसोधन गरीनेछ ।
-                            बंैकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated
+                            बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated
                             Monthly Installment )
                             भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा किस्ता भुक्तानी
                             तालिकामा परीवर्तन गरिने छैन ।
@@ -705,9 +703,25 @@
                                 <br>
                                 झ. ऋणीबाट (undertaking letter ) ।
                                 <br>
+                                ञ. श्री
+                                <span class="font-weight-bold">
+                                    {{this.finalName}}
+                                </span>
+                                को बैकको पक्षमा रु
+                                <span class="font-weight-bold">
+                                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+                                </span>
+                               /- (अक्षरेपी रु
+                                <span class="font-weight-bold">
+                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}
+                                </span>
+                                मात्र) बराबरको
+                                व्यक्तिगत जमानत पत्र ।
+                                <br>
                             <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12"
-                                 style="margin-left:5%">
-                                        <span class="nepaliFont" style="font-size: 28px;">
+                                 style=" margin-left: 10%;margin-top: -2%;">
+                                ट.
+                                        <span class="nepaliFont" style=" margin-left: 8px;margin-top: -11px;font-size: 26px;">
                                             {{offerData?.supportedInformation}}
                                         </span>
                             </div>
