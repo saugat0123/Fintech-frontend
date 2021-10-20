@@ -11,7 +11,7 @@
 
         <nb-card-body>
             <form [formGroup]="form">
-                <<h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
+                <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
                 <p class="text-left"></p>
                 <input class="form-field form-control-sm col-3"
                        formControlName="referenceNumber"
@@ -937,15 +937,10 @@
                             साक्षीः
                         </p>
                         <ul class="nepaliList">
-                            <li>
-                                ____________________ जिल्ला
-                                ______________________ गा.वि.स/न.पा,
-                                वडा नंं. _________
-                                बस्ने श्री ____________________________
-                            </li>
+                            <app-sakhshi-common></app-sakhshi-common>
                             <li>
                                 कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                                <input class="form-field form-control-sm" name="staffName" formControlName="staffName" placeholder="कर्मचारीको नाम" type="text"/>
+                                ____________________________
                             </li>
                         </ul>
                     </div>

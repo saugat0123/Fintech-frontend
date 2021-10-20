@@ -16,6 +16,7 @@ import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-n
 import {NgxPrintModule} from 'ngx-print';
 import { HomeLoanComponent } from './home-loan/home-loan.component';
 import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-print.component';
+import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 import { AutoLoanCommercialComponent } from './auto-loan-commercial/auto-loan-commercial.component';
 import { AutoLoanCommercialPrintComponent } from './auto-loan-commercial/auto-loan-commercial-print/auto-loan-commercial-print.component';
 
@@ -38,14 +39,15 @@ import { AutoLoanCommercialPrintComponent } from './auto-loan-commercial/auto-lo
     AutoLoanCommercialComponent,
     AutoLoanCommercialPrintComponent
 ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NbCardModule,
-    NbButtonModule,
-    NgxPrintModule,
-    NbSpinnerModule
-  ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        NbCardModule,
+        NbButtonModule,
+        NgxPrintModule,
+        MegaOfferLetterTemplateModule,
+      NbSpinnerModule
+    ],
   exports: [
     AssignmentOfReceivableComponent,
     DeedHypoOfMachineryComponent,

@@ -684,46 +684,30 @@
             </tr><br><br>
             <div style="float: right">
 
-                .........................................
-                <p>
-                    आधिकारिक हस्ताक्षर (ग्राहक)
-                </p> <br>
-                <p class="text-left"> मिति:
-                    <span [ngClass]="{'nepaliFont num' : letter?.dateofSignature!== null && letter?.dateofSignature!== ''}">
-            {{letter?.dateofSignature === null || letter?.dateofSignature === '' ? '___________' : letter?.dateofSignature}}</span>
-
-                </p>
+                    .........................................
+                    <p>
+                        आधिकारिक हस्ताक्षर (ग्राहक)
+                    </p> <br>
+                    <p class="text-left"> मिति:
+                        <span [ngClass]="{'nepaliFont num' : letter?.dateofSignature!== null && letter?.dateofSignature!== ''}">
+                        {{letter?.dateofSignature === null || letter?.dateofSignature === '' ? '___________' : letter?.dateofSignature}}</span>
+                    </p>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-md-12">
+                    <p>
+                        साक्षीः
+                    </p>
+                    <ul class="nepaliList">
+                        <app-sakhshi-common></app-sakhshi-common>
+                        <li>
+                            कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+                            ____________________________
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <br>
-            <br>
-            <br>
-            <div class="col-md-12">
-                <p>
-                    साक्षीः
-                </p>
-                <ul class="nepaliList">
-                    <li>
-                        ____________________ जिल्ला
-                        ______________________ गा.वि.स/न.पा,
-                        वडा नंं. _________
-                        बस्ने श्री ____________________________
-                    </li>
-                    <li>
-                        ____________________ जिल्ला
-                        ______________________ गा.वि.स/न.पा,
-                        वडा नंं. _________
-                        बस्ने श्री ____________________________
-                    </li>
-                    <li>
-                        कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                        ____________________________
-                    </li>
-                </ul>
-            </div>
-            <p> २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो
-                भनी सनाखत गर्ने नबिल बैंक लि.
-                का कर्मचारी श्री    <span [ngClass]="{'nepaliFont num' : letter?.staffName!== null && letter?.staffName!== ''}">
-            {{letter?.staffName === null || letter?.staffName === '' ? '___________' : letter?.staffName}}</span>। </p>
-        </div>
     </div>
 </div>

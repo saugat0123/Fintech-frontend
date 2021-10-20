@@ -1,4 +1,4 @@
-<div class="text-justify nep" id="{{offerLetterConst.home_loan}}">
+<div class="text-justify nep" id="{{offerLetterConst.HOME_LOAN}}">
     <nb-card [nbSpinner]="spinner"
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
@@ -875,11 +875,37 @@
                     status="info"
                     class="mb-4 float-right"
                     [useExistingCss]="true"
-                    ngxPrint printSectionId="{{offerLetterConst.home_loan}}Print">Print
+                    ngxPrint printSectionId="{{offerLetterConst.HOME_LOAN}}Print">Print
             </button>
         </nb-card-footer>
     </nb-card>
-</div>
+                    <div class="col-md-12">
+                        <p>
+                            साक्षीः
+                        </p>
+                        <ul class="nepaliList">
+                            <app-sakhshi-common></app-sakhshi-common>
+                            <li>
+                                कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+                                ____________________________
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row disable-print">
+                    <div class="col-md-12 text-right" style="margin: 14px">
+                        <button nbButton status="success" (click)="submit()">Save</button>
+
+                        <button nbButton
+                                [disabled]="!initialInfoPrint"
+                                status="info"
+                                [useExistingCss]="true"
+                                ngxPrint printSectionId="{{offerLetterConst.HOME_LOAN}}Print">Print
+                        </button>
+                    </div>
+                </div>
+
 <app-home-loan-print *ngIf="initialInfoPrint"
                       [letter]="initialInfoPrint"
                       [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"

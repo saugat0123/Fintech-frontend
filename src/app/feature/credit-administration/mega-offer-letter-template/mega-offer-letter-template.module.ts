@@ -32,6 +32,7 @@ import { PersonalLoanAndPersonalOverdraftPrintComponent } from './mega-offer-let
 import { PersonalLoanComponent } from './mega-offer-letter/personal-loan/personal-loan.component';
 import { PersonalLoanPrintComponent } from './mega-offer-letter/personal-loan/personal-loan-print/personal-loan-print.component';
 import {NabilModule} from '../cad-document-template/nabil/nabil.module';
+import {SakhshiCommonComponent} from '../component/sakhshi-common/sakhshi-common.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -54,11 +55,10 @@ const COMPONENTS = [
     SmeComponent,
     SmePrintComponent,
 
-
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent, PersonalLoanAndPersonalOverdraftComponent, PersonalLoanAndPersonalOverdraftPrintComponent, PersonalLoanComponent, PersonalLoanPrintComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent, PersonalLoanAndPersonalOverdraftComponent, PersonalLoanAndPersonalOverdraftPrintComponent, PersonalLoanComponent, PersonalLoanPrintComponent, SakhshiCommonComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
@@ -72,6 +72,7 @@ const COMPONENTS = [
         PersonalOverdraftComponent,
         PersonalLoanAndPersonalOverdraftComponent,
         PersonalLoanComponent,
+        SakhshiCommonComponent
     ],
     imports: [
         ThemeModule,

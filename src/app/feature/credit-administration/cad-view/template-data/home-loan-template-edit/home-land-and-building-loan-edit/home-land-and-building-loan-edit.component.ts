@@ -2,20 +2,21 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
-import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {DatePipe} from '@angular/common';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
-  selector: 'app-home-land-and-building',
-  templateUrl: './home-land-and-building.component.html',
-  styleUrls: ['./home-land-and-building.component.scss']
+  selector: 'app-home-land-and-building-loan-edit',
+  templateUrl: './home-land-and-building-loan-edit.component.html',
+  styleUrls: ['./home-land-and-building-loan-edit.component.scss']
 })
-export class HomeLandAndBuildingComponent implements OnInit {
+export class HomeLandAndBuildingLoanEditComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter();
   @Input() submitted;
   @Input() spinner;
+  @Input() formValue: any;
   landBuildingForm: FormGroup;
   translateFormGroup: FormGroup;
   isLand = false;
@@ -41,8 +42,33 @@ export class HomeLandAndBuildingComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.formValue)) {
+      this.setType();
+      this.setDateOfApplication();
+      this.setDateOfApproval();
+      this.setLandBuildingForm();
+    }
   }
 
+  private setType(): void {
+    this.landBuildingForm.get('landBuildingType').patchValue(this.formValue.landBuildingType);
+    this.isLand = this.formValue.landBuildingType === 'LAND';
+    this.isBuilding = this.formValue.landBuildingType === 'LAND & BUILDING';
+  }
+
+  private setLandBuildingForm(): void {
+    this.landBuildingForm.patchValue(this.formValue);
+  }
+
+  private setDateOfApproval() {
+    this.ADApproval = this.formValue.dateType === 'AD';
+    this.BSApproval = this.formValue.dateType === 'BS';
+  }
+
+  private setDateOfApplication() {
+    this.ADApplication = this.formValue.applicationDateType === 'AD';
+    this.BSApplication = this.formValue.applicationDateType === 'BS';
+  }
 
   private buildForm(): FormGroup {
     return this.landBuildingForm = this.formBuilder.group({
@@ -160,7 +186,6 @@ export class HomeLandAndBuildingComponent implements OnInit {
   }
 
   public async setTranslatedValue() {
-    this.spinner = true;
     const dateType = this.landBuildingForm.get('dateType').value;
     let approvalDate;
     if (dateType === 'AD') {
@@ -309,7 +334,6 @@ export class HomeLandAndBuildingComponent implements OnInit {
     this.landBuildingForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
 
     this.eventEmitter.emit(true);
-    this.spinner = false;
   }
 
   getInvalidControls(referenceNumberIsRequired: string) {
