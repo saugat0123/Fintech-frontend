@@ -168,6 +168,7 @@ export class ConstructionLoanComponent implements OnInit {
   }
 
   public async setTranslatedValue() {
+    this.spinner = true;
     const dateType = this.constructionLoanForm.get('dateType').value;
     let approvalDate;
     if (dateType === 'AD') {
@@ -361,6 +362,7 @@ export class ConstructionLoanComponent implements OnInit {
     this.constructionLoanForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
 
     this.eventEmitter.emit(true);
+    this.spinner = false;
   }
 
   public getNumAmountWord(numLabel, wordLabel): void {
