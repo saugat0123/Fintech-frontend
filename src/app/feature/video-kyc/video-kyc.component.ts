@@ -190,11 +190,9 @@ close() {
       this.toast.warning('Generate Meeting Link');
       return;
     }
-    console.log('form', form.get('isBenf').value);
     this.videoSpinner = true;
     let str = form.get('meetingLink').value;
     const strData = str.split('/');
-    console.log(strData);
     str = strData[strData.length - 1];
     form.patchValue({
       beneficiaryId: this.remitCustomer.beneficiaryId,
