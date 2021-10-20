@@ -71,6 +71,7 @@ export class HomeLoanTemplateDataComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinner = true;
     this.submitted = true;
     let homeLoan;
     if (this.isConstructionLoan) {
