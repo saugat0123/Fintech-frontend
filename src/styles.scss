@@ -200,3 +200,11 @@ button {
       color: transparent;
   }
 }
+
+.nepaliList {
+  list-style-type: devanagari !important;
+  li {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
