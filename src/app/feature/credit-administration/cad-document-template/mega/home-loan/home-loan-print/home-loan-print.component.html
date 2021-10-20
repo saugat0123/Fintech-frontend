@@ -643,26 +643,18 @@
                 <br>
                 <br>
                 <br>
-                <p>साक्षीः </p>
-                <p> १.
-                    <span [ngClass]="{'nepaliFont num' : letter?.district!== null && letter?.district!== ''}">
-                    {{letter?.district === null || letter?.district === '' ? '___________' : letter?.district}}</span>
-                    जिल्ला
-                    <span [ngClass]="{'nepaliFont num' : letter?.municipalityVDC!== null && letter?.municipalityVDC!== ''}">
-                    {{letter?.municipalityVDC === null || letter?.municipalityVDC === '' ? '___________' : letter?.municipalityVDC}}</span>
-                    गा.वि.स/न.पा, वडा नं.
-                    <span [ngClass]="{'nepaliFont num' : letter?.wardNum!== null && letter?.wardNum!== ''}">
-                    {{letter?.wardNum === null || letter?.wardNum === '' ? '___________' : letter?.wardNum}}</span>
-                    बस्ने श्री
-                    <span [ngClass]="{'nepaliFont num' : letter?.witnessName!== null && letter?.witnessName!== ''}">
-                    {{letter?.witnessName === null || letter?.witnessName === '' ? '___________' : letter?.witnessName}}</span>।
-                </p>
-                <p> २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो
-                    भनी सनाखत गर्ने नबिल बैंक लि.
-                    का कर्मचारी श्री
-                    <span [ngClass]="{'nepaliFont num' : letter?.staffName!== null && letter?.staffName!== ''}">
-                    {{letter?.staffName === null || letter?.staffName === '' ? '___________' : letter?.staffName}}</span>।
-                </p>
+                <div class="col-md-12">
+                    <p>
+                        साक्षीः
+                    </p>
+                    <ul class="nepaliList">
+                        <app-sakhshi-common></app-sakhshi-common>
+                        <li>
+                            कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+                            ____________________________
+                        </li>
+                    </ul>
+                </div>
             </div>
     </div>
 </div>
