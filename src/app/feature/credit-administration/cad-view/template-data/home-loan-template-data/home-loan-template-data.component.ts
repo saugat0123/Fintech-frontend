@@ -9,6 +9,9 @@ import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {HomeLandAndBuildingComponent} from '../home-loan-type/home-land-and-building/home-land-and-building.component';
+import {RetailMortgageLoanComponent} from "../../../mega-offer-letter-template/mega-offer-letter/retail-mortgage-loan/retail-mortgage-loan.component";
+import {HomeLoanComponent} from "../../../cad-document-template/mega/home-loan/home-loan.component";
+import {NbDialogService} from "@nebular/theme";
 
 @Component({
   selector: 'app-home-loan-template-data',
@@ -27,13 +30,16 @@ export class HomeLoanTemplateDataComponent implements OnInit {
   spinner = false;
   btnDisable = false;
   existingOfferLetter = false;
+  previewBtn = true;
 
   @ViewChild('constructionLoan', {static: false}) constructionLoan: ConstructionLoanComponent;
   @ViewChild('landAndBuilding', {static: false}) landAndBuilding: HomeLandAndBuildingComponent;
 
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService,
-              private administrationService: CreditAdministrationService, ) { }
+              private administrationService: CreditAdministrationService,
+              private dialogService: NbDialogService,
+  ) { }
 
   ngOnInit() {
     this.buildForm();
@@ -70,6 +76,18 @@ export class HomeLoanTemplateDataComponent implements OnInit {
     this.btnDisable = event;
   }
 
+  openModel() {
+    this.dialogService.open(HomeLoanComponent, {
+      closeOnBackdropClick: false,
+      closeOnEsc: false,
+      hasBackdrop: false,
+      context: {
+        cadOfferLetterApprovedDoc: this.customerApprovedDoc,
+        preview: true,
+      }
+    });
+  }
+
   onSubmit() {
     this.submitted = true;
     let homeLoan;
@@ -95,11 +113,13 @@ export class HomeLoanTemplateDataComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
+      this.previewBtn = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.btnDisable = true;
+      this.previewBtn = false;
     });
   }
 
