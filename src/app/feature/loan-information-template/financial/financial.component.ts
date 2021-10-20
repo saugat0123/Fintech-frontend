@@ -140,6 +140,39 @@ export class FinancialComponent implements OnInit {
         'changeInOtherProvisions',
         'cashFromFinancingActivities',
         'paidUpCapitalEquity',
+        'shortTermLoan',
+        'longTermLoanReceived',
+        'dividendDrawing',
+        'interestExpensesCFSb',
+        'otherAdjustments',
+        'netCashFlow',
+        'addOpeningBalance',
+        'closingCash',
+        'closingBalance',
+        'differenceCFS'
+    ];
+    newCashFlowStatementArray = [
+        'cashFromOperatingActivities',
+        'netProfitForThePeriod',
+        'depreciation',
+        'otherAmortizationAndNonCashExpenses',
+        'increaseDecreaseInInventory',
+        'increaseDecreaseInAccountsReceivable',
+        'increaseDecreaseInShortTermInvestment',
+        'increaseDecreaseInAdvanceAndDeposit',
+        'increaseDecreaseInOtherCurrentAssets',
+        'increaseDecreaseInCreditors',
+        'increaseDecreaseInOtherCurrentLiabilities',
+        'adjustmentForNonOperatingIncome',
+        'interestExpensesCFSa',
+        'cashFromInvestingActivities',
+        'changedInFixedAsset',
+        'nonOperatingIncomeExpenses',
+        'changeInOtherAssets',
+        'changeInOtherLongTermLiabilities',
+        'changeInOtherProvisions',
+        'cashFromFinancingActivities',
+        'paidUpCapitalEquity',
         'additionalCapital',
         'shortTermLoan',
         'longTermLoanReceived',
@@ -211,8 +244,6 @@ export class FinancialComponent implements OnInit {
             this.fiscalYear = this.currentFormData['fiscalYear'];
             this.auditorList = this.currentFormData['auditorList'];
             const initialFormData = this.currentFormData['initialForm'];
-            console.log('initialFormData', initialFormData);
-
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
             this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
@@ -436,9 +467,16 @@ export class FinancialComponent implements OnInit {
 
     addingFiscalYearForCashFlowStatement(yearValue) {
         const cashFlowStatementData = this.currentFormData['cashFlowStatementData'];
-        this.cashFlowStatementArray.forEach(headingValue => {
-            this.financialService.addFiscalYearForJson(cashFlowStatementData[headingValue], yearValue);
-        });
+        // check additional Capital Json Value
+        if (cashFlowStatementData.additionalCapital === undefined) {
+            this.cashFlowStatementArray.forEach(headingValue => {
+                this.financialService.addFiscalYearForJson(cashFlowStatementData[headingValue], yearValue);
+            });
+        } else {
+            this.newCashFlowStatementArray.forEach(headingValue => {
+                this.financialService.addFiscalYearForJson(cashFlowStatementData[headingValue], yearValue);
+            });
+        }
     }
 
     addingFiscalYearForKeyIndicators(yearValue) {

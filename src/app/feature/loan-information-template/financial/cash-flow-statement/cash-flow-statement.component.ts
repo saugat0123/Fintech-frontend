@@ -59,7 +59,9 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.setDifferenceCFS(cashFlowStatementData.differenceCFS);
             this.cashFlowStatementForm.get('justificationCashFlowStatement')
                 .patchValue(cashFlowStatementData.justificationCashFlowStatement);
-            this.setAdditionalCapital(cashFlowStatementData.additionalCapital);
+            if (!ObjectUtil.isEmpty(cashFlowStatementData.additionalCapital)) {
+                this.setAdditionalCapital(cashFlowStatementData.additionalCapital);
+            }
         }
     }
 
@@ -682,7 +684,9 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].dividendDrawing[0].value = dividendDrawing.value[0].value;
             this.formData['cashFlowStatementData'].interestExpensesCFSb[0].value = interestExpensesCFSb.value[0].value;
             this.formData['cashFlowStatementData'].otherAdjustments[0].value = otherAdjustments.value[0].value;
-            this.formData['cashFlowStatementData'].additionalCapital[0].value = additionalCapital.value[0].value;
+            if (this.formData['cashFlowStatementData'].additionalCapital !== undefined) {
+                this.formData['cashFlowStatementData'].additionalCapital[0].value = additionalCapital.value[0].value;
+            }
         }
     }
 

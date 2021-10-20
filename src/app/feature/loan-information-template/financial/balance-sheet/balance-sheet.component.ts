@@ -344,6 +344,14 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 - Number(((this.balanceSheetForm.get('longTermLoan') as FormArray).controls[index - 1] as FormGroup)
                         .controls['value'].value)).toFixed(2);
             cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value;
+
+            if (cashFlowStatement.additionalCapital !== undefined) {
+                cashFlowStatement.additionalCapital[index].value = (Number(netWorth.controls['value'].value) -
+                    (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'),
+                        'Paid up Capital/Equity', index)) +
+                        Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'),
+                            'Retained Earning', index)))).toFixed(2);
+            }
         }
 
         cashFlowStatement.closingBalance[index].value =
@@ -358,7 +366,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             this.financialService.differenceCFSTotal(cashFlowStatement, index);
         }
 
-        //
         // Key Indicators Calculation--
         keyIndicators.returnOnEquity[index].value = Number(this.financialService
             .fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'), 'Paid up Capital/Equity', index)) === 0
@@ -953,6 +960,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
     }
 
     setNetWorthCategory(currentData) {
+        // console.log('setNetWorthCategory', currentData);
         const control = this.balanceSheetForm.get('netWorthCategory') as FormArray;
         control.controls.length = 0;
         currentData.forEach(singleData => {
