@@ -92,6 +92,11 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
     }
 
     taggedPersonalGuarantorsDetailsForm() {
+        // get today's date
+        let todayDate: any = this.englishNepaliDatePipe.transform(new Date(), true);
+        todayDate = todayDate.replace(',', '').split(' ');
+        const daysInNumber = new Date().getDay();
+
         if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
             this.taggedGuarantorsDetailsInLoan.forEach((val) => {
                 const individualGuarantorNepData = val.nepData
@@ -101,6 +106,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                     return;
                 }
                 console.log('individualGuarantorNepData: ', individualGuarantorNepData);
+                console.log('offerDocumentDetails: ', this.offerDocumentDetails);
                 (this.personalGuaranteeProprietorship.get('guaranteeCompanies') as FormArray).push(
                     this.formBuilder.group({
                         branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
@@ -111,7 +117,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                         registrationNo: [undefined],
                         location: [undefined],
                         loaneeName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
-                        loanPurpose: [this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : ''],
+                        loanPurpose: [this.offerDocumentDetails && this.offerDocumentDetails.purposeOfLoan ? this.offerDocumentDetails.purposeOfLoan.ct : ''],
                         letterIssuedDate: [undefined],
                         loanAmount: [this.nepaliNumber.numberNepali],
                         loanAmountInWord: [this.nepaliNumber.nepaliWords],
@@ -132,6 +138,12 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                         issuedDate: [
                             this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en, true) || ''
                         ],
+
+                        year: [todayDate[2]],
+                        month: [todayDate[1]],
+                        day: [todayDate[0]],
+                        date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
+
                     })
                 );
             });

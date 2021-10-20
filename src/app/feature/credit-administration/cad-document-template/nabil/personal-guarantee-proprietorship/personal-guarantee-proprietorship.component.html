@@ -1,7 +1,6 @@
 <div class="container text-justify">
     <form [formGroup]="personalGuaranteeProprietorship" id="print-section">
-        <div class="row"
-             *ngFor="let guaranteeCompany of personalGuaranteeProprietorship.get('guaranteeCompanies')['controls']; let i = index"
+        <div class="row" *ngFor="let guaranteeCompany of personalGuaranteeProprietorship.get('guaranteeCompanies')['controls']; let i = index"
              formArrayName="guaranteeCompanies">
             <div class="col-md-12" [formGroupName]="i">
                 <div class="form-group align">
@@ -14,77 +13,78 @@
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="branchName"
                                        formControlName="branchName" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "branchName"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "branchName"]).value || '_____________________'}}</span>
                             </span>
                                 मा शाखा कार्यालय रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त “धनी
                                 बैंक” भनिएको छ ) को पक्षमा व्यक्तिगत जमानतको लिखत गरी दिने तपसिल
                                 खण्ड “ख” मा उल्लिखित व्यक्ति/हरु जसलाई यस उप्रान्त “जमानतदिने”
                                 भनिएको छ आगे.
+                                <br>
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="actDetails"
                                        formControlName="actDetails" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "actDetails"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "actDetails"]).value || '_____________________'}}</span>
                             </span>
-                                ऐन
+                                ऐन २०
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="actYearInFigure"
                                        formControlName="actYearInFigure" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "actYearInFigure"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "actYearInFigure"]).value || '_____________________'}}</span>
                             </span>
                                 बमोजिम नेपाल सरकार
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="headDepartment"
                                        formControlName="headDepartment" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "headDepartment"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "headDepartment"]).value || '_____________________'}}</span>
                             </span>
                                 विभाग/कार्यालयमा मिति
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="registrationDate"
                                        formControlName="registrationDate" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "registrationDate"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "registrationDate"]).value || '_____________________'}}</span>
                             </span>
                                 मा नं.
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="registrationNo"
                                        formControlName="registrationNo" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "registrationNo"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "registrationNo"]).value || '_____________________'}}</span>
                             </span>
                                 अन्तर्गत दर्ता भई
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="location"
                                        formControlName="location" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "location"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "location"]).value || '_____________________'}}</span>
                             </span>
                                 मा कार्यालय रहेको श्री
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="loaneeName"
                                        formControlName="loaneeName" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "loaneeName"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "loaneeName"]).value || '_____________________'}}</span>
                             </span>
                                 (जसलाई यस उप्रान्त “ऋणी” भनिएको छ) लाई
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="loanPurpose"
                                        formControlName="loanPurpose" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "loanPurpose"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "loanPurpose"]).value || '_____________________'}}</span>
                             </span>
                                 गर्न ऋणकर्जा सुविधाहरु आवश्यकत्ता भई सोको लागि ऋणीले तपाई धनी बैंकसंग अनुरोध गरेकोमा
                                 तपाई धनी बैंकबाट निज ऋणीको नाममा जारी भएको मिति
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="letterIssuedDate"
                                        formControlName="letterIssuedDate" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "letterIssuedDate"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "letterIssuedDate"]).value || '_____________________'}}</span>
                             </span>
                                 को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु जम्मा
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="loanAmount"
                                        formControlName="loanAmount" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "loanAmount"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "loanAmount"]).value || '_____________________'}}</span>
                             </span>
                                 (अक्षरेपी
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="loanAmountInWord"
                                        formControlName="loanAmountInWord" placeholder="" type="text"/>
-                                <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "loanAmountInWord"]).value}}</strong>
+                                <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "loanAmountInWord"]).value || '_____________________'}}</span>
                             </span> )
                                 तथा भविष्यमा उल्लिखित ऋणसिमा समय समयमा नविकरण गरी थप प्राप्त गरेमा सो समेतको सुरक्षण
                                 वापत तपाई धनी बैंकबाट माथवर/हैसियतवाल व्यक्तिको व्यक्तिगत जमानत समेत माग भएको हुदा
@@ -126,13 +126,13 @@
                                         <span>
                                         <input class="form-field form-control-sm d-print-none" name="approvedLoanAmount"
                                                formControlName="approvedLoanAmount" placeholder="" type="text"/>
-                                        <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "approvedLoanAmount"]).value}}</strong>
+                                        <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "approvedLoanAmount"]).value || '_____________________'}}</span>
                                     </span>
                                         (अक्षरेपी <span>
                                         <input class="form-field form-control-sm d-print-none"
                                                name="approvedLoanAmountInWord"
                                                formControlName="approvedLoanAmountInWord" placeholder="" type="text"/>
-                                        <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "approvedLoanAmountInWord"]).value}}</strong>
+                                        <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "approvedLoanAmountInWord"]).value || '_____________________'}}</span>
                                     </span> ) र सो मा नियमानुसार लाग्ने ब्याज, कमिसन, फी, शुल्क आदिमा सिमित हुनेछ ।
                                     </li>
                                     <li>
@@ -277,7 +277,7 @@
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="guarantorName"
                                                    formControlName="guarantorName" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "guarantorName"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "guarantorName"]).value || '_____________________'}}</span>
                                         </span>
                                         </p>
                                         <p class="lh-30">
@@ -285,7 +285,7 @@
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="guarantorFatherOrHusbandName"
                                                    formControlName="guarantorFatherOrHusbandName" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "guarantorFatherOrHusbandName"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "guarantorFatherOrHusbandName"]).value || '_____________________'}}</span>
                                         </span>
                                         </p>
                                         <p class="lh-30">
@@ -293,7 +293,7 @@
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="grandFatherOrFatherInLaw"
                                                    formControlName="grandFatherOrFatherInLaw" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "grandFatherOrFatherInLaw"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "grandFatherOrFatherInLaw"]).value || '_____________________'}}</span>
                                         </span>
                                         </p>
                                         <p class="lh-30">
@@ -301,19 +301,19 @@
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="permanentDistrict"
                                                    formControlName="permanentDistrict" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "permanentDistrict"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "permanentDistrict"]).value || '_____________________'}}</span>
                                         </span>
                                             , जिल्ला :
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="permanentMunicipalities"
                                                    formControlName="permanentMunicipalities" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "permanentMunicipalities"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "permanentMunicipalities"]).value || '_____________________'}}</span>
                                         </span>
                                             , गा.वि.स./नगर  वडा नं. :
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="permanentWard"
                                                    formControlName="permanentWard" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "permanentWard"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "permanentWard"]).value || '_____________________'}}</span>
                                         </span>
                                         </p>
                                         <p class="lh-30">
@@ -321,19 +321,19 @@
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="temporaryDistrict"
                                                    formControlName="temporaryDistrict" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "temporaryDistrict"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "temporaryDistrict"]).value || '_____________________'}}</span>
                                         </span>
                                             , जिल्ला :
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="temporaryMunicipalities"
                                                    formControlName="temporaryMunicipalities" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "temporaryMunicipalities"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "temporaryMunicipalities"]).value || '_____________________'}}</span>
                                         </span>
                                             , गा.वि.स./नगर  वडा नं. :
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="temporaryWard"
                                                    formControlName="temporaryWard" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "temporaryWard"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "temporaryWard"]).value || '_____________________'}}</span>
                                         </span>
                                         </p>
                                         <p class="lh-30">
@@ -341,25 +341,53 @@
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="citizenshipNo"
                                                    formControlName="citizenshipNo" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "citizenshipNo"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "citizenshipNo"]).value || '_____________________'}}</span>
                                         </span>
                                             , जारी गर्ने कार्यालय :
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="issuedBy"
                                                    formControlName="issuedBy" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "issuedBy"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "issuedBy"]).value || '_____________________'}}</span>
                                         </span>
                                             , जारी मिति :
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="issuedDate"
                                                    formControlName="issuedDate" placeholder="" type="text"/>
-                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "issuedDate"]).value}}</strong>
+                                            <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeCompanies", i, "issuedDate"]).value || '_____________________'}}</span>
                                         </span>
                                         </p>
+                                        <br>
+                                        <br>
+
+                                        <div>
+                                            <p style="text-align:center">
+                                                ईति सम्वत् &nbsp;&nbsp;
+                                                <input class="form-field form-control-sm d-print-none"
+                                                       name="year"
+                                                       formControlName="year" placeholder="साल" type="text"/>
+                                                <span class="print-only"><strong>{{personalGuaranteeProprietorship.get(['guaranteeCompanies', i, 'year']).value}}</strong></span>
+                                                साल &nbsp;&nbsp;
+                                                <input class="form-field form-control-sm d-print-none"
+                                                       name="month"
+                                                       formControlName="month" placeholder="महिना" type="text"/>
+                                                <span class="print-only"><strong>{{personalGuaranteeProprietorship.get(['guaranteeCompanies', i, 'month']).value}}</strong></span>
+                                                महिना &nbsp;&nbsp;
+                                                <input class="form-field form-control-sm d-print-none"
+                                                       name="day"
+                                                       formControlName="day" placeholder="गते" type="text"/>
+                                                <span class="print-only"><strong>{{personalGuaranteeProprietorship.get(['guaranteeCompanies', i, 'day']).value}}</strong></span>
+                                                गते रोज &nbsp;&nbsp;
+                                                <input class="form-field form-control-sm d-print-none"
+                                                       name="date"
+                                                       formControlName="date" placeholder="दिन" type="text"/>
+                                                <span class="print-only"><strong>{{personalGuaranteeProprietorship.get(['guaranteeCompanies', i, 'date']).value}}</strong></span>
+                                                शुभम् ।
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="pageBreak" hidden></div>
+                            <div class="pageBreak"></div>
                         </div>
                     </div>
                     <hr class="d-print-none mt-2 mb-2 w-100"/>
@@ -373,21 +401,15 @@
         </div>
     </form>
     <div class="row mt-5 ml-0">
+        <!-- <div class="col-md-6 text-left">
+            <button nbButton status="primary" (click)="refreshGuarantors()" outline title="Refresh Data" size="small">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div> -->
         <div class="col-md-12 text-right">
-            <button
-                    [useExistingCss]="true"
-                    styleSheetFile="assets/css/printStyles.scss"
-                    printSectionId="personalGuaranteeProprietorshipPrint"
-                    class="d-print-none"
-                    printSectionId="print-section"
-                    nbButton
-                    size="small"
-                    status="info"
-                    outline
-                    ngxPrint
-            >
-                Print &nbsp;&nbsp;
-                <em class="fa fa-print" style="color:blue"></em>
+            <button [useExistingCss]="true" class="d-print-none" printSectionId="print-section"
+                    nbButton size="small" status="info" outline ngxPrint>Print &nbsp;&nbsp;
+                <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>
             </button>
         </div>
     </div>

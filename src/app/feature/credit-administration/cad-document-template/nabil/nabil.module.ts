@@ -24,6 +24,7 @@ import {PromissoryNoteProprietorshipPrintComponent} from './promissory-note-prop
 import {LoanDeedPartnershipPrintComponent} from './loan-deed-partnership/loan-deed-partnership-print/loan-deed-partnership-print.component';
 import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-proprietorship/personal-gaurantee-proprietorship.component';
 import {PromissoryNoteCompanyPrintComponent} from './promissory-note-company/promissory-note-company-print/promissory-note-company-print.component';
+import { PersonalGuaranteeProprietorshipPrintComponent } from './personal-guarantee-proprietorship/personal-guarantee-proprietorship-print/personal-guarantee-proprietorship-print.component';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import {PromissoryNoteCompanyPrintComponent} from './promissory-note-company/pro
         LoanDeedPartnershipComponent,
         PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
         PromissoryNoteCompanyPrintComponent,
-        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PersonalGuaranteeProprietorshipComponent],
+        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PersonalGuaranteeProprietorshipComponent, PersonalGuaranteeProprietorshipPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -58,7 +59,8 @@ import {PromissoryNoteCompanyPrintComponent} from './promissory-note-company/pro
         SecuritiesComponent,
         LoanDeedPartnershipComponent,
         LoanDeedPartnershipPrintComponent,
-        PersonalGuaranteeProprietorshipComponent
+        PersonalGuaranteeProprietorshipComponent,
+        PersonalGuaranteeProprietorshipPrintComponent
     ],
     imports: [
         CommonModule,

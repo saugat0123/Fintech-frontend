@@ -124,10 +124,11 @@ export class DocumentChecklistLiteComponent implements OnInit {
 
     populateCadTemplate(documentId, loanId) {
         this.nbDialogService.open(CadChecklistDocTemplateModalComponent, {
+            dialogClass: 'model-full',
             context: {
                 documentId: documentId,
                 cadData: this.cadData,
-                customerLoanId: loanId
+                customerLoanId: loanId,
             }
         });
     }
