@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
-import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 import {OfferDocument} from '../../../model/OfferDocument';
 import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
@@ -17,7 +16,6 @@ import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatte
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 
@@ -34,7 +32,6 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
   initialInfoPrint;
   nepaliNumber = new NepaliNumberAndWords();
   nepaliAmount = [];
-  finalNepaliWord = [];
   offerLetterConst = NabilOfferLetterConst;
   offerLetterDocument: OfferDocument;
   selectedArray = [];
@@ -58,7 +55,7 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
               private administrationService: CreditAdministrationService,
               private routerUtilsService: RouterUtilsService,
               protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
