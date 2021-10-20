@@ -25,9 +25,12 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
   styleUrls: ['./auto-loan-commercial.component.scss']
 })
 export class AutoLoanCommercialComponent implements OnInit {
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() preview;
   form: FormGroup;
   existingOfferLetter = false;
   initialInfoPrint;
+  spinner = false;
   nepaliNumber = new NepaliNumberAndWords();
   nepaliAmount = [];
   finalNepaliWord = [];
@@ -35,8 +38,13 @@ export class AutoLoanCommercialComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   selectedArray = [];
   ckeConfig = NepaliEditor.CK_CONFIG;
-  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  @Input() preview;
+  tempData;
+  guarantorData;
+  offerDocumentDetails;
+  selectedSecurity;
+  offerLetterData;
+  loanLimit;
+  afterSave = false;
 
   nepData;
   external = [];
@@ -59,9 +67,17 @@ export class AutoLoanCommercialComponent implements OnInit {
     this.buildAuto();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
-    this.checkOfferLetterData();
-  }
+    this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
+      // tslint:disable-next-line:max-line-length
+      this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+    }
+    console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
+    console.log('All Data:', this.tempData);
+    console.log('Loan Holder initial data:', this.loanHolderInfo);
+    this.checkOfferLetterData();    }
   buildAuto() {
     this.form = this.formBuilder.group({
       referenceNumber: [undefined],
@@ -134,10 +150,16 @@ export class AutoLoanCommercialComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.Auto_Loan_Commercial);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
+          this.offerLetterData = this.offerLetterDocument;
+          this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
+        }
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
-        this.form.patchValue(initialInfo, {emitEvent: false});
         this.initialInfoPrint = initialInfo;
+        this.selectedSecurity = initialInfo.selectedSecurity.en;
+        this.loanLimit = this.tempData.loanLimitChecked.en;
+        this.fillForm();
       }
     } else {
       if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
@@ -149,31 +171,77 @@ export class AutoLoanCommercialComponent implements OnInit {
 
 
   submit(): void {
+    this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
+    this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.Auto_Loan_Commercial).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.form.value);
+        if (offerLetterPath.docName.toString() ===
+            this.offerLetterConst.value(this.offerLetterConst.Auto_Loan_Commercial).toString()) {
+          offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+          offerLetterPath.pointInformation = this.form.get('additionalDetails').value;
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.Auto_Loan_Commercial);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
+      offerDocument.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+      offerDocument.pointInformation = this.form.get('additionalDetails').value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.spinner = false;
       this.dialogRef.close();
+      this.afterSave = true;
       this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.spinner = false;
       this.dialogRef.close();
+      this.afterSave = false;
+      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
+  }
+  fillForm() {
+    const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
+    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+        this.loanHolderInfo.permanentWard.ct + ', ' +
+        this.loanHolderInfo.permanentDistrict.ct + ' ,' + this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+    const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
+    let totalLoanAmount = 0;
+    this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
+      const val = value.proposal.proposedLimit;
+      totalLoanAmount = totalLoanAmount + val;
+    });
+    this.form.patchValue({
+      referenceNumber: this.tempData.referenceNumber.ct ? this.tempData.referenceNumber.ct : '',
+      customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
+      customerAddress: customerAddress ? customerAddress : '',
+      loanPurpose: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
+      loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+      drawingPowerRate: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
+      baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
+      premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
+      yearlyLoanRate: this.tempData.interestRate.ct ? this.tempData.interestRate.ct : '',
+      emiAmountInFigure: this.tempData.emiInFigure.ct ? this.tempData.emiInFigure.ct : '',
+      emiAmountInWords: this.tempData.emiInWords.ct ? this.tempData.emiInWords.ct : '',
+      loanPeriod: this.tempData.loanPeriod.ct ? this.tempData.loanPeriod.ct : '',
+      loanAdminFeeInFigure: this.tempData.loanAdminFeeInFigure.ct ? this.tempData.loanAdminFeeInFigure.ct : '',
+      loanAdminFeeInWords: this.tempData.loanAdminFeeInWords.ct ? this.tempData.loanAdminFeeInWords.ct : '',
+      loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
+      branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+      insuranceAmount: this.tempData.insuranceAmount.ct ? this.tempData.insuranceAmount.ct : '',
+      relationshipOfficerName: this.tempData.relationshipOfficerName.ct ? this.tempData.relationshipOfficerName.ct : '',
+      branchManager: this.tempData.branchManagerName.ct ? this.tempData.branchManagerName.ct : '',
 
+    });
   }
 
   calcYearlyRate() {

@@ -60,7 +60,8 @@ import { AutoLoanCommercialPrintComponent } from './auto-loan-commercial/auto-lo
     HomeLoanComponent,
     AutoLoanCommercialComponent
   ],
-  entryComponents: [DeedHypoOfMachineryComponent
+  entryComponents: [DeedHypoOfMachineryComponent,
+    AutoLoanCommercialComponent,
   ]
 
 })

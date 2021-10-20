@@ -14,6 +14,7 @@ import {Attributes} from '../../../../../@core/model/attributes';
 import {ToastService} from '../../../../../@core/utils';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {AutoLoanCommercialComponent} from '../../../cad-document-template/mega/auto-loan-commercial/auto-loan-commercial.component';
 
 @Component({
   selector: 'app-auto-loan-commercial-template-data',
@@ -200,7 +201,7 @@ export class AutoLoanCommercialTemplateDataComponent implements OnInit {
   }
   openModel() {
     // this.modelService.open(modalName, {size: 'xl', centered: true});
-    this.dialogService.open(PersonalLoanAndPersonalOverdraftComponent, {
+    this.dialogService.open(AutoLoanCommercialComponent, {
       closeOnBackdropClick: false,
       closeOnEsc: false,
       hasBackdrop: false,
