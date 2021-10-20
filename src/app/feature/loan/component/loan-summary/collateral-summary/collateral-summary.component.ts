@@ -22,6 +22,7 @@ export class CollateralSummaryComponent implements OnInit {
   @Input() security: Security;
   @Input() loanCategory;
   @Input() approveSheet;
+  @Input() loan;
 
   client = environment.client;
   clientName = Clients;
@@ -62,8 +63,9 @@ export class CollateralSummaryComponent implements OnInit {
   nonFundedSelectedFac;
   nonFundedApprovedTerminatingTotal;
   nonFundedApprovedRevolvingTotal;
+  loanTag;
   spinner=false;
-  constructor(
+    constructor(
       private customerLoanService: LoanFormService,
       private loanFormService: LoanFormService,
       private toastService: ToastService,
@@ -81,6 +83,7 @@ export class CollateralSummaryComponent implements OnInit {
       this.filterLoan();
       this.getApprovedLoans(this.companyInfoId);
       this.calculation();
+      this.loanTag = this.loan.loanTag === 'GENERAL';
     })
   }
 
