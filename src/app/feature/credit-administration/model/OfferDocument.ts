@@ -8,4 +8,5 @@ export class OfferDocument extends BaseEntity{
     pathSigned: string;
     draftPath: string;
     offerDocType: OfferDocType;
+    pointInformation: string;
 }

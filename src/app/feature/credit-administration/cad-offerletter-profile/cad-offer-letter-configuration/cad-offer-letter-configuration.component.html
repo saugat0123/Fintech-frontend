@@ -92,9 +92,8 @@
               <td>
                 <input class="form-control "
                        formControlName="customerCode"
-                       (input)="translateNumber('customerCode')"
                        name="customerCode" placeholder="Customer Code"
-                       type="number"
+                       type="text"
                        [readOnly]="loanHolder?.customerCode"/>
               </td>
               <td><input disabled readonly class="form-control"
@@ -659,24 +658,32 @@
                 </label>
               </td>
               <td>
-                <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc"
-                                class="d-inline-flex">
-                  <nb-radio *ngFor="let option of vdcOption"
-                            [value]="option.value">{{option.label}}</nb-radio>
-                </nb-radio-group>
+<!--                <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc"-->
+<!--                                class="d-inline-flex">-->
+<!--                  <nb-radio *ngFor="let option of vdcOption"-->
+<!--                            [value]="option.value">{{option.label}}</nb-radio>-->
+<!--                </nb-radio-group>-->
+                <select required="true" class="form-control" formControlName="municipalityOrVdc"
+                >
+                  <option value="null" hidden>Municipality or VDC</option>
+                  <option value="Municipality">Municipality</option>
+                  <option value="VDC">VDC</option>
+                  <option value="Rural">Rural</option>
+                </select>
 
-                <ng-select
-                    bindLabel="name"
+                <select
+                        *ngIf="configForm.municipalityOrVdc.value"
+                        class="custom-select"
                     [compareWith]="compareFn"
                     [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
                     formControlName="permanentMunicipality"
                     id="permanentMunicipality"
-                    [placeholder]="oneFormCustomer.municipalities == null ? 'Municipality or VDC' : ''">
-                  <ng-option *ngFor="let municipalityVal of municipalities"
-                             [value]="municipalityVal">
+                    >
+                  <option *ngFor="let municipalityVal of municipalities"
+                             [ngValue]="municipalityVal">
                     {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                  </ng-option>
-                </ng-select>
+                  </option>
+                </select>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="permanentMunicipalityTrans" type="text"></td>
@@ -803,22 +810,46 @@
               >Municipality or VDC</label>
               </td>
               <td>
-                <nb-radio-group name="temporaryMunicipalityOrVdc"
-                                formControlName="temporaryMunicipalityOrVdc" class="d-inline-flex">
-                  <nb-radio *ngFor="let option of vdcOption"
-                            [value]="option.value">{{option.label}}</nb-radio>
-                </nb-radio-group>
+<!--                <nb-radio-group name="temporaryMunicipalityOrVdc"-->
+<!--                                formControlName="temporaryMunicipalityOrVdc" class="d-inline-flex">-->
+<!--                  <nb-radio *ngFor="let option of vdcOption"-->
+<!--                            [value]="option.value">{{option.label}}</nb-radio>-->
+<!--                </nb-radio-group>-->
 
-                <ng-select
-                        bindLabel="name"
+<!--                <ng-select-->
+<!--                        bindLabel="name"-->
+<!--                        [compareWith]="compareFn"-->
+<!--                        formControlName="temporaryMunicipality"-->
+<!--                        name="municipality">-->
+<!--                  <ng-option *ngFor="let municipalityVal of tempMunicipalities"-->
+<!--                          [value]="municipalityVal">-->
+<!--                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}-->
+<!--                  </ng-option>-->
+<!--                </ng-select>-->
+
+                <select required="true" class="form-control" formControlName="temporaryMunicipalityOrVdc"
+                        name="temporaryMunicipalityOrVdc"
+                >
+                  <option value="null" hidden>Municipality or VDC</option>
+                  <option value="Municipality">Municipality</option>
+                  <option value="VDC">VDC</option>
+                  <option value="Rural">Rural</option>
+                </select>
+
+                <select
+                        *ngIf="configForm.temporaryMunicipalityOrVdc.value"
+                        class="custom-select"
                         [compareWith]="compareFn"
                         formControlName="temporaryMunicipality"
-                        name="municipality">
-                  <ng-option *ngFor="let municipalityVal of tempMunicipalities"
-                          [value]="municipalityVal">
+                        id="temporaryMunicipality"
+                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
+                >
+                  <option *ngFor="let municipalityVal of tempMunicipalities"
+                          [ngValue]="municipalityVal">
                     {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                  </ng-option>
-                </ng-select>
+                  </option>
+                </select>
+
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="temporaryMunicipalityTrans" type="text"></td>
@@ -1965,7 +1996,7 @@
                           formControlName="issuedPlace">
                     <option [ngValue]="null" hidden>District</option>
                     <option *ngFor="let district of allDistrictList"
-                            [ngValue]="district.name">
+                            [ngValue]="district.nepaliName">
                       {{district.name}} || {{district.nepaliName}}
                     </option>
                   </select>
@@ -1984,34 +2015,57 @@
                 </td>
                 <td>
                   <div class="row">
-                    <nb-radio-group name="citizenshipIssuedDate"
-                                    formControlName="radioCitizenIssuedDate"
-                                    #citizenshipIssueDateVal class="d-inline-flex">
-                      <nb-radio *ngFor="let option of dateOption"
-                                [value]="option.value">{{option.label}}</nb-radio>
-                    </nb-radio-group>
+                   <div class="col-md-4">
+<!--                     <nb-radio-group name="citizenshipIssuedDate"-->
+<!--                                     formControlName="radioCitizenIssuedDate"-->
+<!--                                     #citizenshipIssueDateVal class="d-inline-flex">-->
+<!--                       <nb-radio *ngFor="let option of dateOption"-->
+<!--                                 [value]="option.value">{{option.label}}</nb-radio>-->
+<!--                     </nb-radio-group>-->
+                     <select required="true" class="form-control"
+                             #citizenshipIssueDateVal
+                             formControlName="radioCitizenIssuedDate">
+                       <option selected value="AD">AD</option>
+                       <option value="BS">BS</option>
+                     </select>
+                   </div>
+                    <div class="col-md-8">
+                      <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
+                                    formControlName="citizenIssuedDate" [responseType]="2"
+                                    [displayNepali]="true">
+                      </nepali-patro>
+                      <input [nbDatepicker]="citizenshipDate"
+                             *ngIf="citizenshipIssueDateVal.value ==='AD'"
+                             class="form-control form-control-sm-error rounded"
+                             formControlName="citizenIssuedDate"
+
+                             name="citizenIssuedDate"
+                             placeholder="Citizenship Issue Date"
+                             type="text">
+                      <nb-datepicker #citizenshipDate></nb-datepicker>
+                    </div>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td></td>
-                <td>
-                  <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
-                                formControlName="citizenIssuedDate" [responseType]="2"
-                                [displayNepali]="true">
-                  </nepali-patro>
-                  <input [nbDatepicker]="citizenshipDate"
-                         *ngIf="citizenshipIssueDateVal.value ==='AD'"
-                         class="form-control form-control-sm-error rounded"
-                         formControlName="citizenIssuedDate"
+<!--              <tr>-->
+<!--                <td></td>-->
+<!--                <td>-->
+<!--                  <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"-->
+<!--                                formControlName="citizenIssuedDate" [responseType]="2"-->
+<!--                                [displayNepali]="true">-->
+<!--                  </nepali-patro>-->
+<!--                  <input [nbDatepicker]="citizenshipDate"-->
+<!--                         *ngIf="citizenshipIssueDateVal.value ==='AD'"-->
+<!--                         class="form-control form-control-sm-error rounded"-->
+<!--                         formControlName="citizenIssuedDate"-->
 
-                         name="citizenIssuedDate"
-                         placeholder="Citizenship Issue Date"
-                         type="text">
-                  <nb-datepicker #citizenshipDate></nb-datepicker>
-                </td>
-                <td></td>
-              </tr>
+<!--                         name="citizenIssuedDate"-->
+<!--                         placeholder="Citizenship Issue Date"-->
+<!--                         type="text">-->
+<!--                  <nb-datepicker #citizenshipDate></nb-datepicker>-->
+<!--                </td>-->
+<!--                <td></td>-->
+<!--              </tr>-->
               <tr>
                 <td>
                   <label class="title">Guaranteed Amount</label>
@@ -2212,7 +2266,7 @@
 
                   <option [ngValue]="null" hidden></option>
                   <option
-                          *ngFor="let districtVal of guarantorDistrict"
+                          *ngFor="let districtVal of guarantorDistrict[i]"
                           [ngValue]="districtVal">
                     {{districtVal.name}} || {{districtVal.nepaliName}}
                   </option>
@@ -2235,16 +2289,18 @@
                   </label>
                 </td>
                 <td>
-                  <nb-radio-group name="guarantorPermanentMunicipalityOrVdc"
-                                  formControlName="guarantorPermanentMunicipalityOrVdc"
-                                  class="d-inline-flex">
-                    <nb-radio *ngFor="let option of vdcOption"
-                              [value]="option.value">{{option.label}}</nb-radio>
-                  </nb-radio-group>
-                  <select [compareWith]="compareFn"
+                  <select required="true" class="form-control" formControlName="guarantorPermanentMunicipalityOrVdc"
+
+                          [ngClass]="{'is-invalid': submitted && configForm.registeredMunType.errors}">
+                    <option value="0">Municipality</option>
+                    <option value="1">VDC</option>
+                    <option value="2">Rural</option>
+                  </select>
+                  <select *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentMunicipalityOrVdc']).value"  [compareWith]="compareFn"
                           class="custom-select"
-                          formControlName="permanentMunicipality">
-                    <option *ngFor="let municipalityVal of guarantorMunicipalities"
+                          formControlName="permanentMunicipality"
+                          id="permanentMunicipality{{i}}">
+                    <option *ngFor="let municipalityVal of guarantorMunicipalities[i]"
                             [ngValue]="municipalityVal">
                       {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                     </option>
@@ -2329,7 +2385,7 @@
                     class="custom-select"
                     formControlName="temporaryDistrict">
                   <option [ngValue]="null" hidden>District</option>
-                  <option *ngFor="let districtVal of tempGuarantorDistricts"
+                  <option *ngFor="let districtVal of tempGuarantorDistricts[i]"
                           [ngValue]="districtVal">
                     {{districtVal.name}} || {{districtVal.nepaliName}}
                   </option>
@@ -2352,17 +2408,18 @@
                   </label>
                 </td>
                 <td>
-                  <nb-radio-group name="guarantorTemporaryMunicipalityOrVdc"
-                                  formControlName="guarantorTemporaryMunicipalityOrVdc"
-                                  class="d-inline-flex">
-                    <nb-radio *ngFor="let option of vdcOption"
-                              [value]="option.value">{{option.label}}</nb-radio>
-                  </nb-radio-group>
-                  <select [compareWith]="compareFn"
+                  <select required="true" class="form-control" formControlName="guarantorTemporaryMunicipalityOrVdc"
+
+                          [ngClass]="{'is-invalid': submitted && configForm.registeredMunType.errors}">
+                    <option value="0">Municipality</option>
+                    <option value="1">VDC</option>
+                    <option value="2">Rural</option>
+                  </select>
+                  <select *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdc']).value" [compareWith]="compareFn"
                           class="custom-select"
                           formControlName="temporaryMunicipality"
                           name="municipality">
-                    <option *ngFor="let municipalityVal of tempGuarantorMunicipalities"
+                    <option *ngFor="let municipalityVal of tempGuarantorMunicipalities[i]"
                             [ngValue]="municipalityVal">
                       {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                     </option>
@@ -2432,9 +2489,7 @@
                            (cadApprovedData)="getCadApprovedData($event)"
                            [customerType]="customerType"></app-loan-create>
         </nb-tab>
-        <nb-tab *ngIf="!hideLoan" tabId="3" tabTitle="टेम्प्लेट डाटा"
-                [active]="activeTemplateDataTab"
-                [disabled]="!activeTemplateDataTab">
+        <nb-tab *ngIf="!hideLoan" tabId="3" tabTitle="Template Data" [active]="activeTemplateDataTab" [disabled]="!activeTemplateDataTab">
           <app-template-data [cadData]="cadData"></app-template-data>
         </nb-tab>
       </nb-tabset>

@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <td>Reference Number</td>
-                    <td><input type="text" class="form-control" formControlName="refNumber"
+                    <td><input type="number" class="form-control" formControlName="refNumber"
                                (input)="translateNumber('refNumber', 'refNumberTransVal')"/></td>
                     <td class="abc">{{translatedData?.refNumber}}</td>
                     <td>
@@ -104,7 +104,7 @@
                 </tr>
                 <tr>
                     <td>Base Rate</td>
-                    <td><input type="text" class="form-control" formControlName="baseRate" (input)="calInterestRate()"/></td>
+                    <td><input type="number" class="form-control" formControlName="baseRate" (input)="calInterestRate()"/></td>
                     <td class="abc">{{translatedData?.baseRate}}</td>
                     <td>
                         <input type="text" class="form-control"
@@ -118,7 +118,7 @@
                 </tr>
                 <tr>
                     <td>Premium Rate</td>
-                    <td><input type="text" class="form-control" formControlName="premiumRate" (input)="calInterestRate()"/></td>
+                    <td><input type="number" class="form-control" formControlName="premiumRate" (input)="calInterestRate()"/></td>
                     <td class="abc">{{translatedData?.premiumRate}}</td>
                     <td>
                         <input type="text" class="form-control"
@@ -132,7 +132,7 @@
                 </tr>
                 <tr>
                     <td>Interest Rate</td>
-                    <td><input type="text" class="form-control" formControlName="yearlyFloatingInterestRate"/></td>
+                    <td><input type="number" class="form-control" formControlName="yearlyFloatingInterestRate"/></td>
                     <td class="abc">{{translatedData?.yearlyFloatingInterestRate}}</td>
                     <td>
                         <input type="text" class="form-control"
@@ -147,7 +147,7 @@
                 <tr>
                     <td>Loan Admin Fee</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input type="number" class="form-control"
                                formControlName="loanAdminFee"
                                (input)="translateNumber('loanAdminFee', 'loanAdminFeeTransVal')"/>
                     </td>
@@ -164,7 +164,7 @@
                 </tr>
                 <tr>
                     <td>Emi Amount Figure</td>
-                    <td><input type="text" class="form-control"
+                    <td><input type="number" class="form-control"
                                formControlName="emiAmount"
                                (input)="getNumAmountWord('emiAmount', 'emiAmountWords');translateNumber('emiAmount', 'emiAmountTransVal')"/></td>
                     <td class="abc">{{translatedData?.emiAmount}}</td>
@@ -188,7 +188,7 @@
                 </tr>
                 <tr>
                     <td>Loan Period in Month</td>
-                    <td><input type="text" class="form-control" formControlName="loanPeriodInMonth"/></td>
+                    <td><input type="number" class="form-control" formControlName="loanPeriodInMonth" (input)="translateNumber('loanPeriodInMonth', 'loanPeriodInMonthTransVal')"/></td>
                     <td class="abc">{{translatedData?.loanPeriodInMonth}}</td>
                     <td>
                         <input type="text" class="form-control" formControlName="loanPeriodInMonthTransVal"/>
@@ -211,7 +211,7 @@
 
                 <tr>
                     <td>Account Number</td>
-                    <td><input type="text" class="form-control" formControlName="accountNumber"
+                    <td><input type="number" class="form-control" formControlName="accountNumber"
                                (input)="translateNumber('accountNumber', 'accountNumberTransVal')"/></td>
                     <td class="abc">{{translatedData?.accountNumber}}</td>
                     <td>
@@ -289,20 +289,7 @@
                                formControlName="sakshiNameTransVal"/>
                     </td>
                 </tr>-->
-                <tr>
-                    <td>Approval Staff Name</td>
-                    <td><input type="text" class="form-control" formControlName="employeeName"/></td>
-                    <td class="abc">{{translatedData?.employeeName}}</td>
-                    <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.employeeNameTransVal.errors }"
-                               formControlName="employeeNameTransVal"/>
-                        <div *ngIf="submitted && Form.employeeNameTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.employeeNameTransVal.errors.required">Approval Staff name is required</div>
-                        </div>
-                    </td>
-                </tr>
+
             </table>
         </div>
     </form>

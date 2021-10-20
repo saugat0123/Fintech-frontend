@@ -1,10 +1,28 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {Alert, AlertType} from "../../../../../@theme/model/Alert";
+import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
+import {OfferDocument} from "../../../model/OfferDocument";
+import {Attributes} from "../../../../../@core/model/attributes";
+import {ToastService} from "../../../../../@core/utils";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NbDialogService} from "@nebular/theme";
+import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
+import {CreditAdministrationService} from "../../../service/credit-administration.service";
+import {SmeComponent} from "../../../mega-offer-letter-template/mega-offer-letter/sme/sme.component";
+import {RetailMortgageLoanComponent} from "../../../mega-offer-letter-template/mega-offer-letter/retail-mortgage-loan/retail-mortgage-loan.component";
+import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
+import {District} from "../../../../admin/modal/district";
+import {Province} from "../../../../admin/modal/province";
+import {MunicipalityVdc} from "../../../../admin/modal/municipality_VDC";
+import {CadDocStatus} from "../../../model/CadDocStatus";
+import {AddressService} from "../../../../../@core/service/baseservice/address.service";
+
 
 @Component({
   selector: 'app-retail-mortgage-loan-template-data',
@@ -12,147 +30,252 @@ import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-
   styleUrls: ['./retail-mortgage-loan-template-data.component.scss']
 })
 export class RetailMortgageLoanTemplateDataComponent implements OnInit {
-  @Input() cadData: CustomerApprovedLoanCadDocumentation;
+  @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
   offerLetterTypes = [];
-  offerLetterConst;
+  offerLetterConst = NabilOfferLetterConst;
   offerLetterSelect;
   form: FormGroup;
+  oneform: FormGroup;
   translatedValues: any = {};
   spinner = false;
+  dateTypeBS;
+  dateTypeAD;
+  dateTypeBS1;
+  dateTypeAD1;
+  dateTypeBS2;
+  dateTypeAD2;
+  submitted = false;
+  fieldFlag = false;
+  offerLetterDocument: OfferDocument;
+  previewBtn = true;
+  btnDisable = true;
+  loanLimit = false;
+  existingOfferLetter = false;
+  attributes;
+  selectedSecurityVal;
+  tdValues: any = {};
+  provinceList: Array<Province> = new Array<Province>();
+  districtList: Array<District> = new Array<District>();
+  municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
+  allDistrictList: Array<District> = new Array<District>();
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
+  cadDocStatus = CadDocStatus.key();
+  municipalityListForSecurities = [];
 
   constructor(
       private formBuilder: FormBuilder,
       private nepToEngNumberPipe: NepaliToEngNumberPipe,
       private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
       private translateService: SbTranslateService,
+      private toastService: ToastService,
+      private modelService: NgbModal,
+      private dialogService: NbDialogService,
+      private engToNepaliNumberPipe: EngToNepaliNumberPipe,
+      private administrationService: CreditAdministrationService,
+      private addressService: AddressService,
   ) { }
+
+  get Form() {
+    return this.form.controls;
+  }
 
   ngOnInit() {
     this.buildmortgage();
+    this.getAllProvince();
+    this.getAllDistrict();
   }
-  buildmortgage() {
-    this.form = this.formBuilder.group({
-      dateOfGeneration: [undefined],
-      customerName: [undefined],
-      customerAddress: [undefined],
-      applicationDateInAD: [undefined],
-      loanAmount: [undefined],
-      loanNameInWord: [undefined],
-      drawingPowerRate: [undefined],
-      signatureDate: [undefined],
-      district: [undefined],
-      witnessName: [undefined],
-      wardNum: [undefined],
-      baseRate: [undefined],
-      premiumRate: [undefined],
-      staffName: [undefined],
-      floatingRate: [undefined],
-      serviceCharge: [undefined],
-      serviceChargeWords: [undefined],
-      communicationFees: [undefined],
-      emiAmount: [undefined],
-      emiAmountInWords: [undefined],
-      numberOfEMI: [undefined],
-      firstEMIMonth: [undefined],
-      loanCommitmentFee: [undefined],
-      yearlyLoanRate: [undefined],
-      ownerName: [undefined],
-      ownersAddress: [undefined],
-      loanAmountWords: [undefined],
-      branchName: [undefined],
-      propertyPlotNumber: [undefined],
-      secondDisbursementAmountWords: [undefined],
-      firstConstructionCompletionAmount: [undefined],
-      firstDisbursementAmountWords: [undefined],
-      secondDisbursementAmount: [undefined],
-      firstDisbursementAmount: [undefined],
-      secondConstructionCompletionAmount: [undefined],
-      thirdConstructionCompletionAmount: [undefined],
-      thirdDisbursementAmount: [undefined],
-      thirdDisbursementAmountWords: [undefined],
-      changeFeeBelow1Cr: [undefined],
-      lateFee: [undefined],
-      changeFeeAbove1Cr: [undefined],
-      collateralReleaseFee: [undefined],
-      pledgeAmount: [undefined],
-      documentAccessFee: [undefined],
-      promissoryNoteAmount: [undefined],
-      sheetNumber: [undefined],
-      propertyArea: [undefined],
-      loanDeedAmount: [undefined],
-      insuranceAmount: [undefined],
-      insuranceAmountWords: [undefined],
-      guarantorName1: [undefined],
-      guarantorAmount1: [undefined],
-      guarantorAmountWords1: [undefined],
 
-      //For Translated Value
-      dateOfGenerationTransVal: [undefined],
-      customerNameTransVal: [undefined],
-      customerAddressTransVal: [undefined],
-      applicationDateInADTransVal: [undefined],
-      loanAmountTransVal: [undefined],
-      loanNameInWordTransVal: [undefined],
-      drawingPowerRateTransVal: [undefined],
-      signatureDateTransVal: [undefined],
-      districtTransVal: [undefined],
-      witnessNameTransVal: [undefined],
-      wardNumTransVal: [undefined],
-      baseRateTransVal: [undefined],
-      premiumRateTransVal: [undefined],
-      staffNameTransVal: [undefined],
-      floatingRateTransVal: [undefined],
-      serviceChargeTransVal: [undefined],
-      serviceChargeWordsTransVal: [undefined],
-      communicationFeesTransVal: [undefined],
-      emiAmountTransVal: [undefined],
-      emiAmountInWordsTransVal: [undefined],
-      numberOfEMITransVal: [undefined],
-      firstEMIMonthTransVal: [undefined],
-      loanCommitmentFeeTransVal: [undefined],
-      yearlyLoanRateTransVal: [undefined],
-      ownerNameTransVal: [undefined],
-      ownersAddressTransVal: [undefined],
-      loanAmountWordsTransVal: [undefined],
-      branchNameTransVal: [undefined],
-      propertyPlotNumberTransVal: [undefined],
-      secondDisbursementAmountWordsTransVal: [undefined],
-      firstConstructionCompletionAmountTransVal: [undefined],
-      firstDisbursementAmountWordsTransVal: [undefined],
-      secondDisbursementAmountTransVal: [undefined],
-      firstDisbursementAmountTransVal: [undefined],
-      secondConstructionCompletionAmountTransVal: [undefined],
-      thirdConstructionCompletionAmountTransVal: [undefined],
-      thirdDisbursementAmountTransVal: [undefined],
-      thirdDisbursementAmountWordsTransVal: [undefined],
-      changeFeeBelow1CrTransVal: [undefined],
-      lateFeeTransVal: [undefined],
-      changeFeeAbove1CrTransVal: [undefined],
-      collateralReleaseFeeTransVal: [undefined],
-      pledgeAmountTransVal: [undefined],
-      documentAccessFeeTransVal: [undefined],
-      promissoryNoteAmountTransVal: [undefined],
-      sheetNumberTransVal: [undefined],
-      propertyAreaTransVal: [undefined],
-      loanDeedAmountTransVal: [undefined],
-      insuranceAmountTransVal: [undefined],
-      insuranceAmountWordsTransVal: [undefined],
-      guarantorName1TransVal: [undefined],
-      guarantorAmount1TransVal: [undefined],
-      guarantorAmountWords1TransVal: [undefined],
-
+  public getAllProvince(): void {
+    this.addressService.getProvince().subscribe((response: any) => {
+      this.provinceList = response.detail;
     });
   }
+
+  public getAllDistrict(): void {
+    this.addressService.getAllDistrict().subscribe((response: any) => {
+      this.allDistrictList = response.detail;
+    });
+  }
+
+  public getMunicipalityByDistrict(data, event, index): void {
+    const district = new District();
+    district.id = data;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalityListForSecurities[index] = response.detail;
+          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.form.get(['securities', index, 'securityOwnersMunicipalityOrVdc']).patchValue(null);
+          }
+        }
+    );
+  }
+
+  buildmortgage() {
+    this.form = this.formBuilder.group({
+      selectedSecurity: [undefined],
+      loanLimitChecked: [undefined],
+      referenceNumber: [undefined],
+      dateofApproval: [undefined],
+      dateofApplication: [undefined],
+      loanPurpose: [undefined],
+      drawingPower: [undefined],
+      baseRate: [undefined],
+      premiumRate: [undefined],
+      interestRate: [undefined],
+      loanAdminFeeInFigure: [undefined],
+      loanAdminFeeInWords: [undefined],
+      emiInFigure: [undefined],
+      emiInWords: [undefined],
+      loanPeriod: [undefined],
+      loanCommitmentFee: [undefined],
+      insuranceAmount: [undefined],
+      relationshipOfficerName: [undefined],
+      branchManagerName: [undefined],
+      signatureDate: [undefined],
+
+      //For Translated Value
+      selectedSecurityTransVal: [undefined],
+      loanLimitCheckedTransVal: [undefined],
+      referenceNumberTransVal: [undefined, Validators.required],
+      dateofApprovalTransVal: [undefined],
+      dateofApplicationTransVal: [undefined],
+      loanPurposeTransVal: [undefined, Validators.required],
+      drawingPowerTransVal: [undefined, Validators.required],
+      baseRateTransVal: [undefined],
+      premiumRateTransVal: [undefined],
+      interestRateTransVal: [undefined],
+      loanAdminFeeInFigureTransVal: [undefined, Validators.required],
+      loanAdminFeeInWordsTransVal: [undefined],
+      emiInFigureTransVal: [undefined, Validators.required],
+      emiInWordsTransVal: [undefined],
+      loanPeriodTransVal: [undefined, Validators.required],
+      loanCommitmentFeeTransVal: [undefined, Validators.required],
+      insuranceAmountTransVal: [undefined],
+      relationshipOfficerNameTransVal: [undefined, Validators.required],
+      branchManagerNameTransVal: [undefined, Validators.required],
+      signatureDateTransVal: [undefined],
+      securities: this.formBuilder.array([]),
+    });
+    this.addDefaultSecurity();
+  }
+
+  initSecuritiesForm() {
+    return this.formBuilder.group({
+      securityOwnersName: [undefined],
+      securityOwnersNameTransVal: [{value: undefined, disabled: true}],
+      securityOwnersNameCT: [undefined],
+
+      securityOwnersDistrict: [undefined],
+      securityOwnersDistrictTransVal: [{value: undefined, disabled: true}],
+      securityOwnersDistrictCT: [undefined],
+
+      securityOwnersMunicipalityOrVdc: [undefined],
+
+      securityOwnersMunicipality: [undefined],
+      securityOwnersMunicipalityTransVal: [{value: undefined, disabled: true}],
+      securityOwnersMunicipalityCT: [undefined],
+
+      securityOwnersWardNo: [undefined],
+      securityOwnersWardNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersWardNoCT: [undefined],
+
+      securityOwnersSeatNo: [undefined],
+      securityOwnersSeatNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersSeatNoCT: [undefined],
+
+      securityOwnersKittaNo: [undefined],
+      securityOwnersKittaNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersKittaNoCT: [undefined],
+
+      securityOwnersLandArea: [undefined],
+      securityOwnersLandAreaTransVal: [{value: undefined, disabled: true}],
+      securityOwnersLandAreaCT: [undefined],
+    });
+  }
+
+  addDefaultSecurity() {
+    (this.form.get('securities') as FormArray).push(
+        this.initSecuritiesForm()
+    );
+  }
+
+  removeIndividualSecurities(i) {
+    (this.form.get('securities') as FormArray).removeAt(i);
+  }
+
+  translateSecuritiDetailsNumberFields(arrName, source, index, target) {
+    const translatedNepaliNum = this.engToNepaliNumberPipe.transform(String(this.form.get([String(arrName), index, String(source)]).value));
+    this.form.get([String(arrName), index, String(target)]).patchValue(translatedNepaliNum);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(translatedNepaliNum);
+  }
+
+  async onChangeSecurityOwnersName(arrName, source, index, target) {
+    this.oneform = this.formBuilder.group({
+      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneform);
+    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
+  async onChangeTranslateSecurity(arrName, source, index, target) {
+    this.oneform = this.formBuilder.group({
+      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneform);
+    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
+  setDefaultNepaliResponse(arrName, source, index, target) {
+    this.form.get([String(arrName), index, String(target)]).patchValue(this.form.get([String(arrName), index, String(source)]).value.nepaliName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(this.form.get([String(arrName), index, String(source)]).value.nepaliName);
+  }
+
   async translate() {
     this.spinner = true;
     this.translatedValues = await this.translateService.translateForm(this.form);
+    this.tdValues = this.translatedValues;
+    this.setTemplatedCTData(this.translatedValues);
     this.spinner = false;
+    this.btnDisable = false;
+  }
+
+  private setTemplatedCTData(data): void {
+    this.form.get('dateofApprovalTransVal').patchValue(this.translatedValues.dateofApproval);
+    this.form.get('dateofApplicationTransVal').patchValue(this.translatedValues.dateofApplication);
+    this.form.get('loanPurposeTransVal').patchValue(this.translatedValues.loanPurpose);
+    this.form.get('loanAdminFeeInWordsTransVal').patchValue(this.translatedValues.loanAdminFeeInWords);
+    this.form.get('emiInWordsTransVal').patchValue(this.translatedValues.emiInWords);
+    this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedValues.relationshipOfficerName);
+    this.form.get('branchManagerNameTransVal').patchValue(this.translatedValues.branchManagerName);
+    this.form.get('signatureDateTransVal').patchValue(this.translatedValues.signatureDate);
+    this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
+    this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
   }
 
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.form.get(numLabel).value.toString()));
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
+    this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
+  }
+
+  translateNumber(source, target) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
+    this.form.get(target).patchValue(wordLabelVar);
+  }
+
+  calInterestRate() {
+    const baseRate = this.form.get('baseRate').value;
+    const premiumRate = this.form.get('premiumRate').value;
+    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+    this.form.get('interestRate').patchValue(sum);
+    this.translateNumber('baseRate', 'baseRateTransVal');
+    this.translateNumber('premiumRate', 'premiumRateTransVal');
+    this.translateNumber('interestRate', 'interestRateTransVal');
   }
 
   checkboxVal(event, formControlName) {
@@ -167,11 +290,152 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       this.clearForm(formControlName + 'TransVal');
     }
   }
+
+  mappedData() {
+    Object.keys(this.form.controls).forEach(key => {
+      console.log('key: ', key);
+      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+        return;
+      }
+      this.attributes = new Attributes();
+      this.attributes.en = this.form.get(key).value;
+      this.attributes.np = this.tdValues[key];
+      this.attributes.ct = this.form.get(key + 'TransVal').value;
+      this.tdValues[key] = this.attributes;
+    });
+  }
+
+  loanChecked(data) {
+    this.loanLimit = data;
+    console.log('Loan Limit Checked?', this.loanLimit);
+  }
+
   clearForm(controlName) {
     this.form.get(controlName).setValue(null);
   }
-  submit() {
 
+  setDateTypeBS() {
+    this.dateTypeBS = true;
+    this.dateTypeAD = false;
   }
 
+  setDateTypeAD() {
+    this.dateTypeBS = false;
+    this.dateTypeAD = true;
+  }
+
+  setDateTypeBS1() {
+    this.dateTypeBS1 = true;
+    this.dateTypeAD1 = false;
+  }
+
+  setDateTypeAD1() {
+    this.dateTypeBS1 = false;
+    this.dateTypeAD1 = true;
+  }
+  setDateTypeBS2() {
+    this.dateTypeBS2 = true;
+    this.dateTypeAD2 = false;
+  }
+
+  setDateTypeAD2() {
+    this.dateTypeBS2 = false;
+    this.dateTypeAD2 = true;
+  }
+
+  transferValue() {
+    const security = this.form.get('selectedSecurity').value;
+    if (!ObjectUtil.isEmpty(security)) {
+      this.fieldFlag = true;
+      this.selectedSecurityVal = security;
+    }
+  }
+
+  deleteCTAndTransControls(data) {
+    const individualData = data as FormGroup;
+    Object.keys(data).forEach(key => {
+      if (key.indexOf('CT') > -1 || key.indexOf('TransVal') > -1) {
+        delete individualData[key];
+      }
+    });
+  }
+
+  openModel() {
+    this.dialogService.open(RetailMortgageLoanComponent, {
+      closeOnBackdropClick: false,
+      closeOnEsc: false,
+      hasBackdrop: false,
+      context: {
+        cadOfferLetterApprovedDoc: this.customerApprovedDoc,
+        preview: true,
+      }
+    });
+  }
+
+  submit() {
+    this.submitted = true;
+    const securityDetails = [{
+      securityType: this.form.get('selectedSecurity').value,
+      securities: this.form.get('securities').value,
+    }];
+    if (this.form.invalid) {
+      this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
+      this.spinner = false;
+      return;
+    }
+    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
+    this.spinner = true;
+    this.btnDisable = true;
+    this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+
+    if (this.customerApprovedDoc.offerDocumentList.length > 0) {
+      this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+          === this.offerLetterConst.value(this.offerLetterConst.MORTAGE_LOAN).toString())[0];
+      if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        this.existingOfferLetter = true;
+      }
+    }
+
+    if (this.existingOfferLetter) {
+      this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+        if (offerLetterPath.docName.toString() ===
+            this.offerLetterConst.value(this.offerLetterConst.MORTAGE_LOAN).toString()) {
+          this.mappedData();
+          offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+        }
+      });
+    } else {
+      const offerDocument = new OfferDocument();
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.MORTAGE_LOAN);
+      Object.keys(this.form.controls).forEach(key => {
+        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+          return;
+        }
+        this.attributes = new Attributes();
+        this.attributes.en = this.form.get(key).value;
+        this.attributes.np = this.tdValues[key];
+        this.attributes.ct = this.form.get(key + 'TransVal').value;
+        this.tdValues[key] = this.attributes;
+      });
+      this.tdValues['securityDetails'] = securityDetails;
+      this.deleteCTAndTransControls(this.tdValues);
+      offerDocument.initialInformation = JSON.stringify(this.tdValues);
+      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
+    }
+    this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.customerApprovedDoc = res.detail;
+      this.spinner = false;
+      this.previewBtn = false;
+      this.btnDisable = true;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.spinner = false;
+      this.btnDisable = true;
+    });
+  }
+  onClose() {
+    this.modelService.dismissAll();
+  }
 }

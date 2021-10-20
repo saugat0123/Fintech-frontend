@@ -32,6 +32,12 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   guarantorName;
   branchName;
   guarantorData;
+  offerDocumentDetails;
+  guarantorNames: Array<String> = [];
+  allguarantorNames;
+  guarantorAmount: number = 0;
+  guarantorAmountNepali;
+  finalName;
 
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -59,6 +65,40 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
       }
       this.branchName = this.loanHolderInfo.branch.ct;
     }
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
+      // tslint:disable-next-line:max-line-length
+      this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+    }
+    this.guarantorDetails();
+  }
+
+  guarantorDetails(){
+    if (this.guarantorData.length == 1){
+      let temp = JSON.parse(this.guarantorData[0].nepData);
+      this.finalName =  temp.guarantorName.ct;
+    }
+    else if(this.guarantorData.length == 2){
+      for (let i = 0; i < this.guarantorData.length; i++){
+        let temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+      }
+      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+      this.allguarantorNames = this.guarantorNames.join(" र ");
+      this.finalName = this.allguarantorNames;
+    }
+    else{
+      for (let i = 0; i < this.guarantorData.length-1; i++){
+        let temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+      }
+      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+      this.allguarantorNames = this.guarantorNames.join(" , ");
+      let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length-1].nepData);
+      this.finalName =  this.allguarantorNames + " र " + temp1.guarantorName.ct;
+    }
+    console.log('Guarantor Name:', this.finalName);
   }
 
   guarantorParse(nepData, key, trans?) {
