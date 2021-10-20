@@ -62,6 +62,10 @@ input[type="text"] {
 .nepaliList {
   list-style-type: devanagari;
 }
+.nepaliList > li {
+  list-style-type: devanagari;
+  line-height: 1.9;
+}
 .disclist > li{
   list-style-type: disc;
   line-height:1.9;
