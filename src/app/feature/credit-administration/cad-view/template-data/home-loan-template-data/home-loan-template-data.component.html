@@ -1,4 +1,4 @@
-<nb-card-header class="container-fluid">
+<nb-card-header class="container-fluid" [nbSpinner]="spinner">
     <div class="row">
         <div class="col-md-12" style="height: 125px;">
             <form [formGroup]="homeLoanForm">
@@ -14,7 +14,10 @@
 </nb-card-header>
 <nb-card-body>
     <div *ngIf="isConstructionLoan">
-        <app-construction-loan #constructionLoan (eventEmitter)="emitValue($event)"></app-construction-loan>
+        <app-construction-loan #constructionLoan (eventEmitter)="emitValue($event)" [submitted]="submitted" [spinner]="spinner"></app-construction-loan>
+    </div>
+    <div *ngIf="isPurchaseLoan || isTakeOverLoan">
+        <app-home-land-and-building #landAndBuilding (eventEmitter)="emitValue($event)" [submitted]="submitted" [spinner]="spinner"></app-home-land-and-building>
     </div>
 </nb-card-body>
 <nb-card-footer>

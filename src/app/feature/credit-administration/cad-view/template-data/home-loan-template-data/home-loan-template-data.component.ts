@@ -8,6 +8,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
+import {HomeLandAndBuildingComponent} from '../home-loan-type/home-land-and-building/home-land-and-building.component';
 
 @Component({
   selector: 'app-home-loan-template-data',
@@ -28,6 +29,7 @@ export class HomeLoanTemplateDataComponent implements OnInit {
   existingOfferLetter = false;
 
   @ViewChild('constructionLoan', {static: false}) constructionLoan: ConstructionLoanComponent;
+  @ViewChild('landAndBuilding', {static: false}) landAndBuilding: HomeLandAndBuildingComponent;
 
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService,
@@ -36,6 +38,14 @@ export class HomeLoanTemplateDataComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.getHomeLoanType();
+    if (this.isConstructionLoan) {
+      this.landAndBuilding.landBuildingForm.clearValidators();
+      this.landAndBuilding.landBuildingForm.updateValueAndValidity();
+    }
+    if (this.isPurchaseLoan || this.isTakeOverLoan) {
+      this.constructionLoan.constructionLoanForm.clearValidators();
+      this.constructionLoan.constructionLoanForm.updateValueAndValidity();
+    }
   }
 
   private getHomeLoanType(): void {
@@ -52,6 +62,8 @@ export class HomeLoanTemplateDataComponent implements OnInit {
 
   public typeOfHomeLoan(value): void {
     this.isConstructionLoan = value === HomeLoanType.CONSTRUCTION.valueOf();
+    this.isPurchaseLoan = value === HomeLoanType.PURCHASE.valueOf();
+    this.isTakeOverLoan = value === HomeLoanType.TAKE_OVER.valueOf();
   }
 
   public emitValue(event) {
@@ -63,6 +75,9 @@ export class HomeLoanTemplateDataComponent implements OnInit {
     let homeLoan;
     if (this.isConstructionLoan) {
       homeLoan = this.constructionLoan.constructionLoanForm;
+    }
+    if (this.isPurchaseLoan || this.isTakeOverLoan) {
+      homeLoan = this.landAndBuilding.landBuildingForm;
     }
     if (homeLoan.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));

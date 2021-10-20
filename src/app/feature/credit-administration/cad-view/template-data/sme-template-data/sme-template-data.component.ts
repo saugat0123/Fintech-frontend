@@ -184,8 +184,6 @@ export class SmeTemplateDataComponent implements OnInit {
   }
 
   mappedData() {
-    Object.keys(this.form.controls).forEach(key => {
-      // tslint:disable-next-line:no-shadowed-variable
       Object.keys(this.form.controls).forEach(key => {
         if (key.indexOf('TransVal') > -1) {
           return;
@@ -196,7 +194,6 @@ export class SmeTemplateDataComponent implements OnInit {
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
-    });
   }
 
   get Form() {
