@@ -47,6 +47,9 @@ export class PromissoryNoteIndividualComponent implements OnInit {
   selectiveArr = [];
   offerLetterDocument;
   educationalTemplateData;
+  jointNepData;
+  spinner = false;
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -153,9 +156,14 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     this.form.patchValue(
         {
           nameofBranchLocated: this.individualData.branch.ct,
-          nameofGrandFather: this.individualData.grandFatherName.ct,
-          nameofFather: this.individualData.fatherName.ct,
-          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
+          nameofGrandFather: this.individualData.grandFatherName ?
+              this.individualData.grandFatherName.ct :
+              this.individualData.fatherInLawName ?
+                  this.individualData.fatherInLawName.ct : '',
+          nameofFather: this.individualData.fatherName ?
+              this.individualData.fatherName.ct :
+              this.individualData.husbandName ? this.individualData.husbandName.ct : '',
+          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict ? this.individualData.citizenshipIssueDistrict.ct : '',
           dateofIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
           citizenshipNo: this.individualData.citizenshipNo.ct,
           nameofPerson: this.individualData.name.ct,
@@ -268,8 +276,12 @@ export class PromissoryNoteIndividualComponent implements OnInit {
         citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
       }
       formArray.push(this.formBuilder.group({
-        nameofGrandFatherJoint : [nepData.grandFatherName.ct || nepData.grandFatherName.np],
-        nameofFatherJoint : [nepData.fatherName.np || nepData.fatherName.ct],
+        nameofGrandFatherJoint : [nepData.grandFatherName ?
+            nepData.grandFatherName.ct :
+            nepData.fatherInLawName ? nepData.fatherInLawName.ct : ''],
+        nameofFatherJoint : [ nepData.fatherName ?
+            nepData.fatherName.ct :
+            nepData.husbandName ? nepData.husbandName.ct : ''],
         districtJoint : [nepData.permanentDistrict.ct],
         vdcJoint : [nepData.permanentMunicipality.ct],
         wardNoJoint : [nepData.permanentWard.np || nepData.permanentWard.ct],
@@ -297,10 +309,13 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     if (this.cadData.loanHolder.customerType === this.customerType.INDIVIDUAL
         && this.clientType === this.customerSubType.JOINT.toUpperCase()) {
       const associateId = this.cadData.loanHolder.associateId;
+      this.spinner = true;
       await this.customerService.getJointInfoDetails(associateId).toPromise().then((res: any) => {
         this.jointInfoData = JSON.parse(res.detail.jointInfo);
+        this.spinner = false;
       }, error => {
         console.log(error);
+        this.spinner = false;
       });
     }
   }

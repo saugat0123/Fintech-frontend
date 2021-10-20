@@ -34,10 +34,9 @@
                                          [cadData]="cadData" [documentId]="documentId"
                                          [customerLoanId]="customerLoanId"></app-promissory-note-proprietorship>
 
-        <app-loan-deed-partnership *ngSwitchCase="nabilCadTemplate.LOAN_DEED_PARTNERSHIP"
+        <app-letter-vehicle-thirdparty-company *ngSwitchCase="nabilCadTemplate.LETTER_VEHICLE_THIRDPARTY_COMPANY"
                                          [cadData]="cadData" [documentId]="documentId"
-                                         [customerLoanId]="customerLoanId"
-                                         [nepaliAmount]="nepaliNumber"></app-loan-deed-partnership>
+                                         [customerLoanId]="customerLoanId"></app-letter-vehicle-thirdparty-company>
 
         <app-letter-vehicle-individual *ngSwitchCase="nabilCadTemplate.LETTER_VEHICLE_INDIVIDUAL"
                                            [cadData]="cadData" [documentId]="documentId"

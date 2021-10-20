@@ -1,52 +1,29 @@
-.nepaliFont {
-  font-size: 20px !important;
-
-  &.font-size-normal {
-    font-size: 15px !important;
-  }
-
-  &.font-size-normal1 {
-    font-size: 23.5px !important;
-  }
-}
-
 .nep {
   font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 30px;
 }
-
 .form-field {
   background: yellow;
-  margin: 0 5px;
+  margin: 0px 5px;
   border: 0;
   border-bottom: 1px solid black;
-  border-radius: 0;
-  font-size: 16px;
-
+  border-radius: 0px;
   &:focus {
     outline: none;
   }
-
-  .table-row {
-    width: 32px;
+  .table-row{
+    width:32px;
   }
-
   .container-name div {
     display: inline-block;
-    width: 00vh;
+    width: 500px;
     min-height: 50px;
     background-color: #eee;
     height: auto;
   }
 }
-
-p {
-  line-height: 1.9;
-}
-
 @media screen {
   .print-only {
     display: none;
@@ -63,11 +40,14 @@ p {
     display: inline;
   }
   div.align {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.9;
     text-align: justify;
     text-justify: inter-word;
     margin: 10px 70px;
   }
 
+}
+.outside {
+  font-size: 19px !important;
 }
