@@ -135,6 +135,10 @@
                 <div class="col-md-12 sb-small">
                     <div class="clearfix">
                         <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
+                        <br>
+                        <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch.branchCode}}</span></div>
+                        <br>
+                        <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan.name + " "+ loanDataHolder.loan.shortNames}}</span></div>
                         <div class="float-right" *ngIf="loanDataHolder?.isSol">
                             <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
 
@@ -627,6 +631,14 @@
                 </div>
             </div>
             <div class="col-md-12">
+                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <tr  class="text-white sb-bg-dark">
+                        <th>Banking Relationship</th>
+                    </tr>
+                    <tr>
+                        <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship) : 'N/A' }}</td>
+                    </tr>
+                </table>
                 <nb-accordion *ngIf="isRemitLoan">
                     <nb-accordion-item>
                         <nb-accordion-item-header class="disable-print sb-small sb-bg-secondary text-white"><h6>Video KYC</h6></nb-accordion-item-header>

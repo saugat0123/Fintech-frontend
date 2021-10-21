@@ -33,7 +33,7 @@ export class PromisoryNoteIndividualComponent implements OnInit {
       private engToNepNumberPipe: EngToNepaliNumberPipe,
       private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
       private nepaliToEnglishPipe: NepaliToEngNumberPipe,
-      private nepaliNumber: NepaliNumberPipe
+      private nepaliNumber: NepaliNumberPipe,
   ) { }
   @Input() cadData;
   @Input() documentId;
@@ -44,9 +44,11 @@ export class PromisoryNoteIndividualComponent implements OnInit {
   cadCheckListEnum = CadCheckListTemplateEnum;
   nepaliData;
   amount;
+  customerInfo;
   ngOnInit() {
   this.buildForm();
     this.amount = this.cadData.assignedLoan[0].proposal.proposedLimit;
+    this.customerInfo = this.cadData.assignedLoan[0].customerInfo;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -136,7 +138,7 @@ export class PromisoryNoteIndividualComponent implements OnInit {
         name: this.nepaliData.name,
         husbandName: this.nepaliData.husbandName,
         address: `${this.nepaliData.permanentDistrict} ,${this.nepaliData.permanentMunicipality}, ${this.nepaliData.permanentWard}`,
-        personalDetails: `${this.nepaliData.citizenshipNo} ,${this.nepaliData.citizenshipIssueDate}, ${this.nepaliData.citizenshipIssueDistrict}`,
+        personalDetails: `${this.nepaliNumber.transform(this.customerInfo.citizenshipNumber, 'preeti')} ,${this.nepaliData.citizenshipIssueDate}, ${this.nepaliData.citizenshipIssueDistrict}`,
         rupees: this.nepaliNumber.transform(this.amount, 'preeti'),
         amount: this.nepaliCurrencyWordPipe.transform(this.amount)
       });

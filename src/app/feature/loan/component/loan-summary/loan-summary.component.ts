@@ -219,6 +219,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        console.log('this is customer info', this.loanData);
         this.isRemitLoan = this.loanConfig.loanTag === 'REMIT_LOAN';
         this.loanDataHolder = this.loanData;
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
