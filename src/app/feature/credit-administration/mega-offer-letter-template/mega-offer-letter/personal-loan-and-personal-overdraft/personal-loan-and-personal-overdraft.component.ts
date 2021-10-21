@@ -115,7 +115,6 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             relationshipofficerName: [undefined],
             managerName: [undefined],
             branchName: [undefined],
-            signatureDate: [undefined],
             additionalGuarantorDetails: [undefined],
             staffName: [undefined],
         });
