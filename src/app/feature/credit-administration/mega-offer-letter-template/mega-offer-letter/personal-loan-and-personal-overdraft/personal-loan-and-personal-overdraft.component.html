@@ -11,7 +11,7 @@
 
         <nb-card-body>
             <form [formGroup]="form">
-                <<h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
+                <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
                 <p class="text-left"></p>
                 <input class="form-field form-control-sm col-3"
                        formControlName="referenceNumber"
@@ -75,6 +75,9 @@
                         <tr style="text-align:center">
                         </tr>
                         <tr>
+                            <td rowspan="6">
+                                <strong>१.</strong>
+                            </td>
                             <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
                             <td>
                                 <strong>
@@ -91,15 +94,15 @@
                         <tr>
                             <td><strong> रकम </strong></td>
                             <td>
-                                रु.<input (input)="getNumAmountWord('loanAmountinFigure', 'loanAmountinWords')"
+                                रु.<input (input)="getNumAmountWord('loanAmountPl', 'loanAmountPlInWords')"
                                           class="form-field form-control-sm"
-                                          formControlName="loanAmountinFigure"
-                                          name="loanAmountinFigure"
+                                          formControlName="loanAmountPl"
+                                          name="loanAmountPl"
                                           placeholder="ऋण रकम"
                                           type="text"/>
                                 ( अक्षेरुपी <input class="form-field form-control-sm"
-                                                   formControlName="loanAmountinWords"
-                                                   name="loanAmountInWords"
+                                                   formControlName="loanAmountPlInWords"
+                                                   name="loanAmountPlInWords"
                                                    placeholder="अक्षेरुपी "
                                                    type="text"/> मात्र )
                             </td>
@@ -193,10 +196,13 @@
                                 </table>
                             </td>
                         <tr>
+                        <td rowspan="7">
+                            <strong>२.</strong>
+                        </td>
                             <td><strong>कर्जा प्रकार/ प्रयोजनः </strong></td>
                             <td>व्यक्तिगत अधिविकर्षः <input class="form-field form-control-sm"
-                                                            formControlName="purposeofLoan"
-                                                            name="purposeofLoan"
+                                                            formControlName="purposeofLoanOd"
+                                                            name="purposeofLoanOd"
                                                             placeholder=" ऋण को उद्देश्य"
                                                             type="text"/> प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न
                                 सकिनेछ ।
@@ -204,15 +210,15 @@
                         </tr>
                         <tr>
                             <td><strong>रकमः </strong></td>
-                            <td>रु <input (input)="getNumAmountWord('loanAmountinFigure', 'loanAmountinWords')"
+                            <td>रु <input (input)="getNumAmountWord('loanAmountOd', 'loanAmountOdInWords')"
                                           class="form-field form-control-sm"
-                                          formControlName="loanAmountinFigure"
-                                          name="LoanAmountInFigure"
+                                          formControlName="loanAmountOd"
+                                          name="loanAmountOd"
                                           placeholder=" रकम "
                                           type="text"/> ।
                                 (अक्षरेपि रु <input class="form-field form-control-sm"
-                                                    formControlName="loanAmountinWords"
-                                                    name="loanAmountinWords"
+                                                    formControlName="loanAmountOdInWords"
+                                                    name="loanAmountOdInWords"
                                                     placeholder=" रकम "
                                                     type="text"/> मात्र)
                             </td>
@@ -221,20 +227,20 @@
                             <td><strong>ब्याज दरः</strong></td>
                             <td>प्रकाशित आधार दर (Base Rate)
                                 <input (change)="calcYearlyRate()" class="form-field form-control-sm"
-                                       formControlName="baseRate"
-                                       name="baseRate"
+                                       formControlName="baseRateOd"
+                                       name="baseRateOd"
                                        placeholder=" आधार दर "
                                        type="text"/>
                                 प्रतिशत ब्याज दर ( interest rate premium)
                                 <input (change)="calcYearlyRate()" class="form-field form-control-sm"
-                                       formControlName="premiumRate"
-                                       name="premiumRate"
+                                       formControlName="premiumRateOd"
+                                       name="premiumRateOd"
                                        placeholder=" प्रिमियम दर "
                                        type="text"/>
                                 हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
                                 <input class="form-field form-control-sm"
-                                       formControlName="yearlyInterestRate"
-                                       name="yearlyInterestRate"
+                                       formControlName="yearlyInterestRateOd"
+                                       name="yearlyInterestRateOd"
                                        placeholder=" बार्षिक दर "
                                        type="text"/> का दर निर्धारण
                                 गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक महिनाको मसान्तमा र ऋणकर्जा चुक्ता
@@ -246,15 +252,15 @@
                             <td>
                                 <ul class="disclist">
                                     <li>ऋण प्रशासनिक शुल्क बापत रु
-                                        <input (input)="getNumAmountWord('loanAdminFeeinFigure', 'loanAdminFeeinWords')"
+                                        <input (input)="getNumAmountWord('loanAdminFeeinFigureOd', 'loanAdminFeeinWordsOd')"
                                                 class="form-field form-control-sm"
-                                               formControlName="loanAdminFeeinFigure"
-                                               name="loanAdminFeeinFigure"
+                                               formControlName="loanAdminFeeinFigureOd"
+                                               name="loanAdminFeeinFigureOd"
                                                placeholder=" रकम "
                                                type="text"/> ।
                                         (अक्षरेपी रु <input class="form-field form-control-sm"
-                                                            formControlName="loanAdminFeeinWords"
-                                                            name="loanAdminFeeinWords"
+                                                            formControlName="loanAdminFeeinWordsOd"
+                                                            name="loanAdminFeeinWordsOd"
                                                             placeholder=" रकम "
                                                             type="text"/>मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                         कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट
@@ -342,26 +348,23 @@
                         <tr>
                             <th colspan="2"><strong>कर्जाका लागि सुरक्षण विवरणः</strong></th>
                         </tr>
-                        <tr *ngFor="let data of guarantorData; let i = index;">
-                            <td>{{i + 1 | nepaliWord}}.</td>
-                            <td>
-                                श्री
+                        <tr>
+                            <td colspan="2">
+                                क. श्री
                                 <input class="form-field form-control-sm col-3"
                                        formControlName="guarantorName"
-                                       [value]="guarantorParse(data.nepData, 'guarantorName')"
-                                       type="text"/>
-                                ले बैंकको पक्षमा
+                                       [value]="this.finalName"
+                                       type="text"/> ले बैंकको पक्षमा
                                 रु
                                 <input class="form-field form-control-sm"
-                                       formControlName="guaranteedamountinFigure"
-                                       [value]="guarantorParse(data.nepData, 'gurantedAmount')"
-                                       type="text"/>
-                                /-(अक्षरेपि
+                                       formControlName="guaranteedAmountFigure"
+                                       [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                       type="text"/> /-(अक्षरेपि
                                 रु. <input class="form-field form-control-sm longInput uniSize"
-                                           formControlName="guaranteedamountinWords"
-                                           [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))"
-                                           type="text"/>
-                                मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                                           formControlName="guaranteedAmountWords"
+                                           [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
+                                           type="text"/> मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+
                             </td>
                         </tr>
                         <tr>
@@ -384,7 +387,7 @@
                                 आधार दर (Base Rate) जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु
                                 अर्थात श्रावण,
                                 कार्तिक, माघ र बैशाखको पहिलो दिनबाट ब्याज दरसमायोजन तथा संसोधन गरीनेछ ।
-                                बंैकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated
+                                बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated
                                 Monthly Installment )
                                 भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा किस्ता भुक्तानी
                                 तालिकामा परीवर्तन गरिने छैन ।
@@ -778,12 +781,29 @@
                                     <br>
                                     झ. ऋणीबाट (undertaking letter ) ।
                                     <br>
-                                    <div class="row col-md-12">
+                                    ञ. श्री
+                                    <input class="form-field form-control-sm"
+                                           formControlName="guarantorName"
+                                           [value]="this.finalName"
+                                           type="text"/>
+                                    को बैकको पक्षमा रु
+                                    <input class="form-field form-control-sm"
+                                           formControlName="guaranteedAmountFigure"
+                                           [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                           type="text"/> /- (अक्षरेपी रु
+                                    <input class="form-field form-control-sm"
+                                           formControlName="guaranteedAmountWords"
+                                           [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
+                                           type="text"/> मात्र) बराबरको
+                                    व्यक्तिगत जमानत पत्र ।
+                                <br>
+                                    ट.
+                                <div class="row col-md-12">
                                         <textarea
                                                 id="additionalGuarantorDetails"
                                                 class="form-control customFont nepaliFont"
                                                 rows="5"
-                                                style="width:inherit;margin-left:5%"
+                                                style="margin-top:-4%;width: inherit;margin-left: 11%;"
                                                 name="additionalGuarantorDetails"
                                                 formControlName="additionalGuarantorDetails">
                                         </textarea>
@@ -937,15 +957,10 @@
                             साक्षीः
                         </p>
                         <ul class="nepaliList">
-                            <li>
-                                ____________________ जिल्ला
-                                ______________________ गा.वि.स/न.पा,
-                                वडा नंं. _________
-                                बस्ने श्री ____________________________
-                            </li>
+                            <app-sakhshi-common></app-sakhshi-common>
                             <li>
                                 कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                                <input class="form-field form-control-sm" name="staffName" formControlName="staffName" placeholder="कर्मचारीको नाम" type="text"/>
+                                ____________________________
                             </li>
                         </ul>
                     </div>
