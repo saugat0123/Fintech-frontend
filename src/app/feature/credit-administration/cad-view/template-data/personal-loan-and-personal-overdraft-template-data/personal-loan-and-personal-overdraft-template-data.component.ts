@@ -95,7 +95,6 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             nameofCompanyCustomerWorking: [undefined],
             relationshipofficerName: [undefined],
             branchManager: [undefined],
-            signatureDate: [undefined],
             // translated value
             referenceNumberTransVal: [undefined, Validators.required],
             dateofApprovalTransVal: [undefined],
@@ -122,7 +121,6 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             accountNumberTransVal: [undefined, Validators.required],
             nameofCompanyCustomerWorkingTransVal: [undefined, Validators.required],
             relationshipofficerNameTransVal: [undefined, Validators.required],
-            signatureDateTransVal: [undefined],
             branchManagerTransVal: [undefined, Validators.required],
         });
     }
@@ -148,7 +146,6 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         this.form.get('nameofCompanyCustomerWorkingTransVal').patchValue(this.podtranslatedData.nameofCompanyCustomerWorking);
         this.form.get('relationshipofficerNameTransVal').patchValue(this.podtranslatedData.relationshipofficerName);
         this.form.get('branchManagerTransVal').patchValue(this.podtranslatedData.branchManager);
-        this.form.get('signatureDateTransVal').patchValue(this.podtranslatedData.signatureDate);
     }
 
     getNumAmountWord(numLabel, wordLabel) {
