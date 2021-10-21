@@ -13,7 +13,7 @@
             <form [formGroup]="form">
                 <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
                 <p class="text-left"></p>
-                <input class="form-field form-control-sm col-3"
+                ऋणकर्जा संख्याः <input class="form-field form-control-sm col-3"
                        formControlName="referenceNumber"
                        name="referenceNumber"
                        placeholder=" सन्दर्भ नम्बर "
@@ -803,7 +803,7 @@
                                                 id="additionalGuarantorDetails"
                                                 class="form-control customFont nepaliFont"
                                                 rows="5"
-                                                style="margin-top:-4%;width: inherit;margin-left: 11%;"
+                                                style="width: inherit;margin-left:4%;"
                                                 name="additionalGuarantorDetails"
                                                 formControlName="additionalGuarantorDetails">
                                         </textarea>
@@ -935,20 +935,9 @@
                             <p>
                                 आधिकारिक हस्ताक्षर (ग्राहक)
                             </p>
-                            <p *ngIf="initialInfoPrint.signatureDate.en.nDate === undefined; else signatureDateNepali">
-                                मितिः <input class="form-field form-control-sm"
-                                             formControlName="signatureDate"
-                                             [value]="initialInfoPrint.signatureDate.en === undefined ? '' : ((initialInfoPrint.signatureDate.en | date) | engNepDate: true)"
-                                             type="text"/>
+                            <p>
+                                मितिः .....................................
                             </p>
-                            <ng-template #signatureDateNepali>
-                                <p>
-                                    मितिः <input class="form-field form-control-sm"
-                                                 formControlName="signatureDate"
-                                                 [value]="initialInfoPrint.signatureDate.en.nDate === undefined ? '' : initialInfoPrint.signatureDate.en.nDate"
-                                                 type="text"/>
-                                </p>
-                            </ng-template>
                         </div>
                     </div>
                     <br>
