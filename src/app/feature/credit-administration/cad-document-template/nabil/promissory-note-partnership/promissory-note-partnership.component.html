@@ -1,4 +1,4 @@
-<div class="nep text-justify" id="{{offerLetterConst.PROMISSORY_NOTE_PARTNERSHIP}}Print">
+<div class="container nep text-justify" id="{{offerLetterConst.PROMISSORY_NOTE_PARTNERSHIP}}Print">
     <form [formGroup]="form" id="promissoryNoteIndividual">
         <div class="text-justify">
             <div class="row">
@@ -182,19 +182,75 @@
                                 छापः
                                 </p>
                             </div>
-                            <div class="col-md-12">
-                                <p>
-                                    साक्षीः
-                                </p>
-                                <ul class="nepaliList">
-                                    <app-sakhshi-common></app-sakhshi-common>
-                                    <li>
-                                        कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                                        ____________________________
-                                    </li>
-                                </ul>
-                            </div>
-
+                            <p class = "text-center">
+                                <b><u>साक्षी</u></b>
+                            </p>
+                            १. <input class="form-field disable-print form-control-sm nepaliFont"
+                                      name="witnessDistrict1"
+                                      formControlName="witnessDistrict1"
+                                      placeholder=" "
+                                      type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessDistrict1').value ? form.get('witnessDistrict1').value : "======================="}}</span>
+                            जिल्ला :<input class="form-field disable-print form-control-sm nepaliFont"
+                                           name="witnessVDC1"
+                                           formControlName="witnessVDC1"
+                                           placeholder=" "
+                                           type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessVDC1').value ? form.get('witnessVDC1').value : "======================="}}</span>
+                            न.पा/गा.वि.स. वडा नं. <input class="form-field disable-print form-control-sm nepaliFont"
+                                                         name="witnessWardNumber1"
+                                                         formControlName="witnessWardNumber1"
+                                                         placeholder=" "
+                                                         type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessWardNumber1').value ? form.get('witnessWardNumber1').value : "======================="}}</span>
+                            बस्ने बर्ष <input class="form-field disable-print form-control-sm nepaliFont"
+                                              name="witnessAge1"
+                                              formControlName="witnessAge1"
+                                              placeholder=" "
+                                              type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessAge1').value ? form.get('witnessAge1').value : "======================="}}</span>
+                            को/की <input class="form-field disable-print form-control-sm nepaliFont"
+                                         name="witnessName1"
+                                         formControlName="witnessName1"
+                                         placeholder=" "
+                                         type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessName1').value ? form.get('witnessName1').value : "======================="}}</span><br>
+                            २. <input class="form-field disable-print form-control-sm nepaliFont"
+                                      name="witnessDistrict2"
+                                      formControlName="witnessDistrict2"
+                                      placeholder=""
+                                      type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessDistrict2').value ? form.get('witnessDistrict2').value : "======================="}}</span>
+                            जिल्ला :<input class="form-field disable-print form-control-sm nepaliFont"
+                                           name="witnessVDC2"
+                                           formControlName="witnessVDC2"
+                                           placeholder=" "
+                                           type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessVDC2').value ? form.get('witnessVDC2').value : "======================="}}</span>
+                            न.पा/गा.वि.स. वडा नं. <input class="form-field disable-print form-control-sm nepaliFont"
+                                                         name="witnessWardNumber2"
+                                                         formControlName="witnessWardNumber2"
+                                                         placeholder=" "
+                                                         type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessWardNumber2').value ? form.get('witnessWardNumber2').value : "======================="}}</span>
+                            बस्ने बर्ष  <input class="form-field disable-print form-control-sm nepaliFont"
+                                               name="witnessAge2"
+                                               formControlName="witnessAge2"
+                                               placeholder=" "
+                                               type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessAge2').value ? form.get('witnessAge2').value : "======================="}}</span>
+                            को/की <input class="form-field disable-print form-control-sm nepaliFont"
+                                         name="witnessName2"
+                                         formControlName="witnessName2"
+                                         placeholder=" "
+                                         type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessName2').value ? form.get('witnessName2').value : "======================="}}</span><br>
+                            ३.कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका कर्मचारी . <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                                                                name="witnessBankName"
+                                                                                                                formControlName="witnessBankName"
+                                                                                                                placeholder=" "
+                                                                                                                type="text"/>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('witnessBankName').value ? form.get('witnessBankName').value : "======================="}}</span><br>
                             <br>
                             <div class="col-md-12 text-right disable-print">
                                 <button  nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"

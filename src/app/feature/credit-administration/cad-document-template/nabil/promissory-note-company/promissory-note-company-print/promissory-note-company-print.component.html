@@ -1,4 +1,4 @@
-<div class="nep text-justify" id="{{promissoryConst.PROMISSORY_NOTE_COMPANY}}Print">
+<div class="container nep text-justify" id="{{promissoryConst.PROMISSORY_NOTE_COMPANY}}Print">
     <div class="text-justify">
         <div class="row">
             <div class="col-md-12">
@@ -97,17 +97,39 @@
                                 छापः
                             </p>
                         </div>
-                        <div class="col-md-12">
-                            <p>
-                                साक्षीः
+                        <p class="text-center">
+                            <b><u>साक्षी</u></b>
+                        </p>
+                        <div>
+                            <p>१.<span [ngClass]="{'nepaliFont outside' : letterData?.witnessDistrict!== null && letterData?.witnessDistrict!== ''}">
+                                {{letterData?.witnessDistrict === null || letterData?.witnessDistrict === '' ? '___________' : letterData?.witnessDistrict}}</span>
+                                जिल्ला <span [ngClass]="{'nepaliFont outside' : letterData?.witnessMunicipality!== null && letterData?.witnessMunicipality!== ''}">
+                                {{letterData?.witnessMunicipality === null || letterData?.witnessMunicipality === '' ? '___________' : letterData?.witnessMunicipality}}</span>
+                                न.पा/गा.वि.स. वडा नं.
+                                <span [ngClass]="{'nepaliFont outside' : letterData?.witnessWardNo!== null && letterData?.witnessWardNo!== ''}">
+                                {{letterData?.witnessWardNo === null || letterData?.witnessWardNo === '' ? '___________' : letterData?.witnessWardNo}}</span>
+                                बस्ने बर्ष <span [ngClass]="{'nepaliFont outside' : letterData?.witnessAge!== null && letterData?.witnessAge!== ''}">
+                                {{letterData?.witnessAge === null || letterData?.witnessAge === '' ? '___________' : letterData?.witnessAge}}</span>
+                                को/की <span [ngClass]="{'nepaliFont outside' : letterData?.witnessName!== null && letterData?.witnessName!== ''}">
+                                {{letterData?.witnessName === null || letterData?.witnessName === '' ? '___________' : letterData?.witnessName}}</span>
                             </p>
-                            <ul class="nepaliList">
-                                <app-sakhshi-common></app-sakhshi-common>
-                                <li>
-                                    कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                                    ____________________________
-                                </li>
-                            </ul>
+                            <p>२.<span [ngClass]="{'nepaliFont outside' : letterData?.witnessDistrict!== null && letterData?.witnessDistrict!== ''}">
+                                {{letterData?.witnessDistrict === null || letterData?.witnessDistrict === '' ? '___________' : letterData?.witnessDistrict}}</span>
+                                जिल्ला <span [ngClass]="{'nepaliFont outside' : letterData?.witnessMunicipality!== null && letterData?.witnessMunicipality!== ''}">
+                                {{letterData?.witnessMunicipality === null || letterData?.witnessMunicipality === '' ? '___________' : letterData?.witnessMunicipality}}</span>
+                                न.पा/गा.वि.स. वडा नं.
+                                <span [ngClass]="{'nepaliFont outside' : letterData?.witnessWardNo!== null && letterData?.witnessWardNo!== ''}">
+                                {{letterData?.witnessWardNo === null || letterData?.witnessWardNo === '' ? '___________' : letterData?.witnessWardNo}}</span>
+                                बस्ने बर्ष <span [ngClass]="{'nepaliFont outside' : letterData?.witnessAge!== null && letterData?.witnessAge!== ''}">
+                                {{letterData?.witnessAge === null || letterData?.witnessAge === '' ? '___________' : letterData?.witnessAge}}</span>
+                                को/की <span [ngClass]="{'nepaliFont outside' : letterData?.witnessName!== null && letterData?.witnessName!== ''}">
+                                {{letterData?.witnessName === null || letterData?.witnessName === '' ? '___________' : letterData?.witnessName}}</span>
+                            </p>
+                            <p>३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
+                                लिमिटेडका कर्मचारी
+                                <span [ngClass]="{'nepaliFont outside' : letterData?.bankWitness!== null && letterData?.bankWitness!== ''}">
+                                {{letterData?.bankWitness === null || letterData?.bankWitness === '' ? '___________' : letterData?.bankWitness}}</span>
+                            </p>
                         </div>
                     </div>
                 </div>
