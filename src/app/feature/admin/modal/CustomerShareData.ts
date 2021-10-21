@@ -10,4 +10,6 @@ export class CustomerShareData {
     amountPerUnit: number;
     total: number;
     consideredValue: number;
+    closingPriceAverage: number;
+    closingPrice: number;
 }

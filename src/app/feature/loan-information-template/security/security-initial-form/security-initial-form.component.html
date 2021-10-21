@@ -2717,6 +2717,22 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="closingPriceAverage"><b>Closing Price Average</b></label>
+                                <input formControlName="closingPriceAverage"
+                                       class="form-control"
+                                       [readOnly]="true"
+                                       id="closingPriceAverage">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="closingPrice"><b>Closing Price</b></label>
+                                <input formControlName="closingPrice"
+                                       class="form-control"
+                                       [readOnly]="true"
+                                       id="closingPrice">
+                            </div>
+                        </div>
                         <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
                              class="d-flex justify-content-sm-end">
                             <button (click)="removeShareList(shareFieldIndex)"

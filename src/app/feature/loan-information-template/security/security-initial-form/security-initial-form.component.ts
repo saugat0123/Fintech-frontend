@@ -1823,6 +1823,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 shareType: matchedNepse[0].shareType,
                 companyCode: matchedNepse[0].companyCode,
                 amountPerUnit: matchedNepse[0].amountPerUnit,
+                closingPriceAverage: matchedNepse[0].closingPriceAverage,
+                closingPrice: matchedNepse[0].closingPrice,
                 total: this.calculateTotalShareAmount(companyName, totalShareUnit),
                 consideredValue: this.calculateConsideredAmount(
                     this.shareField.at(index).get('totalShareUnit').value,
@@ -1903,6 +1905,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     priceBookValue: [share.priceBookValue],
                     dividendYeild: [share.dividendYeild],
                     dividendPayoutRatio: [share.dividendPayoutRatio],
+                    closingPriceAverage: [share.closingPriceAverage],
+                    closingPrice: [share.closingPrice],
                 })
             );
         });
