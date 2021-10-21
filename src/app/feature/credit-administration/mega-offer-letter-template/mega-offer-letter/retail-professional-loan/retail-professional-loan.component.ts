@@ -332,7 +332,7 @@ submit(): void {
 
     dateConversion(controlVal) {
         let dateTemp;
-        if (!ObjectUtil.isEmpty(controlVal)) {
+        if (!ObjectUtil.isEmpty(controlVal.en)) {
             if (!ObjectUtil.isEmpty(controlVal.en.nDate)) {
                 dateTemp = controlVal.en.nDate;
             } else {

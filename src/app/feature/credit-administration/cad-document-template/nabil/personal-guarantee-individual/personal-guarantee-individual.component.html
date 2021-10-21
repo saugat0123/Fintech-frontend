@@ -28,14 +28,14 @@
                                     formControlName="grandFatherName" placeholder="हजुरबुबा वा ससुराको नाम" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'grandFatherName']).value}}</strong></span>
                                 को
-                                <span *ngIf="individualData.gender === 'MALE'; else grandFatherRelation">
+                                <span *ngIf="individualData?.gender === 'MALE'; else grandFatherRelation">
                                     नाति
                                 </span>
                                 <ng-template #grandFatherRelation>
-                                    <span *ngIf="loanHolderNepData.relationMedium.en === '1' || loanHolderNepData.relationMedium.en === 1">
+                                    <span *ngIf="loanHolderNepData?.relationMedium?.en === '1' || loanHolderNepData?.relationMedium?.en === 1">
                                         नातिनी
                                     </span>
-                                    <span *ngIf="loanHolderNepData.relationMedium.en === '0' || loanHolderNepData.relationMedium.en === 0">
+                                    <span *ngIf="loanHolderNepData?.relationMedium?.en === '0' || loanHolderNepData?.relationMedium?.en === 0">
                                         बुहारी
                                     </span>
                                 </ng-template>
@@ -44,14 +44,14 @@
                                     formControlName="father_husbandName" placeholder="बुबा वा पतिको नाम" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'father_husbandName']).value}}</strong></span>
                                 को
-                                <span *ngIf="individualData.gender === 'MALE'; else husbandRelation">
+                                <span *ngIf="individualData?.gender === 'MALE'; else husbandRelation">
                                     छोरा
                                 </span>
                                 <ng-template #husbandRelation>
-                                    <span *ngIf="loanHolderNepData.relationMedium.en === '1' || loanHolderNepData.relationMedium.en === 1">
+                                    <span *ngIf="loanHolderNepData?.relationMedium?.en === '1' || loanHolderNepData?.relationMedium?.en === 1">
                                         छोरी
                                     </span>
-                                    <span *ngIf="loanHolderNepData.relationMedium.en === '0' || loanHolderNepData.relationMedium.en === 0">
+                                    <span *ngIf="loanHolderNepData?.relationMedium?.en === '0' || loanHolderNepData?.relationMedium?.en === 0">
                                         श्रीमती
                                     </span>
                                 </ng-template>
@@ -64,7 +64,7 @@
                                     name="VDCMunicipality"
                                     formControlName="VDCMunicipality" placeholder="गाउँ विकास वा नगरपालिका" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'VDCMunicipality']).value}}</strong></span>
-                                <span *ngIf="loanHolderNepData.municipalityOrVdc && loanHolderNepData.municipalityOrVdc.en === vdcOption[0].value; else vdcMunicipality">
+                                <span *ngIf="loanHolderNepData?.municipalityOrVdc && loanHolderNepData?.municipalityOrVdc?.en === vdcOption[0].value; else vdcMunicipality">
                                     नगरपालिका
                                 </span>
                                 <ng-template #vdcMunicipality>
@@ -380,14 +380,14 @@
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorName']).value}}</strong></span>
                                             </p>
                                             <p>
-                                                <span *ngIf="guarantorsNepData[i].gender.en === 'MALE'; else guarantorFatherRelation">
+                                                <span *ngIf="guarantorsNepData[i]?.gender?.en === 'MALE'; else guarantorFatherRelation">
                                                     बाबु :
                                                 </span>
                                                 <ng-template #guarantorFatherRelation>
-                                                    <span *ngIf="guarantorsNepData[i].relationMedium && guarantorsNepData[i].relationMedium.en === '1'">
+                                                    <span *ngIf="guarantorsNepData[i]?.relationMedium && guarantorsNepData[i]?.relationMedium?.en === '1'">
                                                         बाबु :
                                                     </span>
-                                                        <span *ngIf="guarantorsNepData[i].relationMedium && guarantorsNepData[i].relationMedium.en === '0'">
+                                                        <span *ngIf="guarantorsNepData[i]?.relationMedium && guarantorsNepData[i]?.relationMedium?.en === '0'">
                                                         श्रीमान :
                                                     </span>
                                                 </ng-template>
@@ -397,14 +397,14 @@
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorFatherOrHusbandName']).value}}</strong></span>
                                             </p>
                                             <p>
-                                                <span *ngIf="guarantorsNepData[i].gender.en === 'MALE'; else guarantorGrandFatherRelation">
+                                                <span *ngIf="guarantorsNepData[i]?.gender?.en === 'MALE'; else guarantorGrandFatherRelation">
                                                     बाजे :
                                                 </span>
                                                 <ng-template #guarantorGrandFatherRelation>
-                                                    <span *ngIf="guarantorsNepData[i].relationMedium && guarantorsNepData[i].relationMedium.en === '1'">
+                                                    <span *ngIf="guarantorsNepData[i]?.relationMedium && guarantorsNepData[i]?.relationMedium?.en === '1'">
                                                         बाजे :
                                                     </span>
-                                                    <span *ngIf="guarantorsNepData[i].relationMedium && guarantorsNepData[i].relationMedium.en === '0'">
+                                                    <span *ngIf="guarantorsNepData[i]?.relationMedium && guarantorsNepData[i]?.relationMedium?.en === '0'">
                                                         ससुरा :
                                                     </span>
                                                 </ng-template>
@@ -424,7 +424,7 @@
                                                     name="guarantorPermanentMunicipality"
                                                     formControlName="guarantorPermanentMunicipality" placeholder="गा.वि.स. वा नगर" type="text"/>
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorPermanentMunicipality']).value}}</strong></span>
-                                                <span *ngIf="guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc && guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc.en === vdcOption[0].value; else guarantorVdcMunicipality">
+                                                <span *ngIf="guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc && guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc?.en === vdcOption[0].value; else guarantorVdcMunicipality">
                                                     नगरपालिका,
                                                 </span>
                                                 <ng-template #guarantorVdcMunicipality>
