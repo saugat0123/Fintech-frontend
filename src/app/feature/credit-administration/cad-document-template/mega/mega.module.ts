@@ -9,7 +9,7 @@ import { PromissoryNoteSingleBorrowerComponent } from './promissory-note-single-
 import { AssignmentOfReceivableComponent } from './assignment-of-receivable/assignment-of-receivable.component';
 import { DeedHypoOfMachineryComponent } from './deed-hypo-of-machinery/deed-hypo-of-machinery.component';
 import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
-import {NbButtonModule, NbCardModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
 import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
 import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
@@ -17,6 +17,9 @@ import {NgxPrintModule} from 'ngx-print';
 import { HomeLoanComponent } from './home-loan/home-loan.component';
 import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-print.component';
 import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
+import { AutoLoanCommercialComponent } from './auto-loan-commercial/auto-loan-commercial.component';
+import { AutoLoanCommercialPrintComponent } from './auto-loan-commercial/auto-loan-commercial-print/auto-loan-commercial-print.component';
+import {CoreModule} from '../../../../@core/core.module';
 
 
 @NgModule({
@@ -33,7 +36,9 @@ import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/me
     LoanDeedSingleComponent,
     PromissoryNoteJointComponent,
     HomeLoanComponent,
-    HomeLoanPrintComponent
+    HomeLoanPrintComponent,
+    AutoLoanCommercialComponent,
+    AutoLoanCommercialPrintComponent
 ],
     imports: [
         CommonModule,
@@ -41,7 +46,9 @@ import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/me
         NbCardModule,
         NbButtonModule,
         NgxPrintModule,
-        MegaOfferLetterTemplateModule
+        MegaOfferLetterTemplateModule,
+        NbSpinnerModule,
+        CoreModule
     ],
   exports: [
     AssignmentOfReceivableComponent,
@@ -55,10 +62,11 @@ import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/me
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteJointComponent,
-    HomeLoanComponent
+    HomeLoanComponent,
+    AutoLoanCommercialComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent,
-      HomeLoanComponent
+    HomeLoanComponent,
   ]
 
 })

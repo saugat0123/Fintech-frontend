@@ -391,6 +391,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       closeOnBackdropClick: false,
       closeOnEsc: false,
       hasBackdrop: false,
+      hasScroll: true,
+      dialogClass: 'model-full',
       context: {
         cadOfferLetterApprovedDoc: this.customerApprovedDoc,
         preview: true,
