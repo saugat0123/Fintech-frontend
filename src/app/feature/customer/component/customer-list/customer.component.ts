@@ -197,6 +197,7 @@ export class CustomerComponent implements OnInit {
 
     onClose() {
         this.modalService.dismissAll();
+        this.nextDialogue.close();
     }
 
     clear() {
@@ -430,13 +431,14 @@ export class CustomerComponent implements OnInit {
                 });
                 this.customerInfoService.transferCustomerWithLoansToOtherBranch(this.formAction.value)
                     .subscribe((response: any) => {
+                        this.modalService.dismissAll();
+                        CustomerComponent.loadData(this);
                         this.toastService.show(new Alert(AlertType.SUCCESS, 'Customer has been successfully transferred.'));
                     }, error => {
                         this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
                         this.modalService.dismissAll();
                     });
-                this.modalService.dismissAll();
-                CustomerComponent.loadData(this);
+
                 this.transferSpinner = false;
             }
 
