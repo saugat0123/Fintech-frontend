@@ -135,32 +135,58 @@
               <td>DOB</td>
               <td>
                 <div class="row">
-                  <nb-radio-group name="dobDateType" #dobDateType class="d-inline-flex"
-                                  formControlName="dobDateType">
-                    <nb-radio *ngFor="let option of dateOption"
-                              [checked]="" [value]="option.value">{{option.label}}</nb-radio>
-                  </nb-radio-group>&nbsp;
+                  <div class="col-md-4">
+<!--                  <nb-radio-group name="dobDateType" #dobDateType class="d-inline-flex"-->
+<!--                                  formControlName="dobDateType">-->
+<!--                    <nb-radio *ngFor="let option of dateOption"-->
+<!--                              [checked]="" [value]="option.value">{{option.label}}</nb-radio>-->
+<!--                  </nb-radio-group>&nbsp;-->
+                  <select required="true" class="form-control"
+                          #DobDateVal
+                          formControlName="dobDateType">
+                    <option  value="null" hidden>AD/BS</option>
+                    <option  value="AD">AD</option>
+                    <option value="BS">BS</option>
+                  </select>
+
+                </div>
+                  <div class="col-md-8">
+                    <nepali-patro *ngIf="DobDateVal.value ==='BS'"
+                                  formControlName="dob" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                    <input [nbDatepicker]="DobDate"
+                           *ngIf="DobDateVal.value ==='AD'"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="dob"
+
+                           name="citizenIssuedDate"
+                           placeholder="Citizenship Issue Date"
+                           type="text">
+                    <nb-datepicker #DobDate></nb-datepicker>
+                  </div>
+
                 </div>
               </td>
             </tr>
             <tr>
               <td>
               </td>
-              <td>
-                <nepali-patro *ngIf="dobDateType.value ==='BS'" formControlName="dob"
-                              [responseType]="2"
-                              [displayNepali]="true">
-                </nepali-patro>
-                <input [nbDatepicker]="dob"
-                       *ngIf="dobDateType.value ==='AD'"
-                       class="form-control form-control-sm-error rounded"
-                       formControlName="dob"
+<!--              <td>-->
+<!--                <nepali-patro *ngIf="dobDateType.value ==='BS'" formControlName="dob"-->
+<!--                              [responseType]="2"-->
+<!--                              [displayNepali]="true">-->
+<!--                </nepali-patro>-->
+<!--                <input [nbDatepicker]="dob"-->
+<!--                       *ngIf="dobDateType.value ==='AD'"-->
+<!--                       class="form-control form-control-sm-error rounded"-->
+<!--                       formControlName="dob"-->
 
-                       name="dateOfBirth"
-                       placeholder="Date of Birth"
-                       type="text">
-                <nb-datepicker #dob></nb-datepicker>
-              </td>
+<!--                       name="dateOfBirth"-->
+<!--                       placeholder="Date of Birth"-->
+<!--                       type="text">-->
+<!--                <nb-datepicker #dob></nb-datepicker>-->
+<!--              </td>-->
               <td></td>
               <td></td>
             </tr>
@@ -512,31 +538,55 @@
               </td>
               <td>
                 <div class="row">
-                  <nb-radio-group name="issueDateType" formControlName="issuedDate"
-                                  #issueDateVal class="d-inline-flex">
-                    <nb-radio *ngFor="let option of dateOption"
-                              [value]="option.value">{{option.label}}</nb-radio>
-                  </nb-radio-group>
+<!--                  <nb-radio-group name="issueDateType" formControlName="issuedDate"-->
+<!--                                  #issueDateVal class="d-inline-flex">-->
+<!--                    <nb-radio *ngFor="let option of dateOption"-->
+<!--                              [value]="option.value">{{option.label}}</nb-radio>-->
+<!--                  </nb-radio-group>-->
+                  <div class="col-md-4">
+                    <select required="true" class="form-control"
+                            #citizenshipIssueDateVal
+                            formControlName="issuedDate">
+                      <option hidden  value="null">AD/BS</option>
+                      <option  value="AD">AD</option>
+                      <option value="BS">BS</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
+                                  formControlName="citizenshipIssueDate" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                    <input [nbDatepicker]="citizenshipIssueDate"
+                           *ngIf="citizenshipIssueDateVal.value ==='AD'"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="citizenshipIssueDate"
+
+                           name="citizenIssuedDate"
+                           placeholder="Citizenship Issue Date"
+                           type="text">
+                    <nb-datepicker #citizenshipIssueDate></nb-datepicker>
+                  </div>
                 </div>
               </td>
             </tr>
             <tr>
               <td></td>
-              <td>
-                <nepali-patro *ngIf="issueDateVal.value ==='BS'"
-                              formControlName="citizenshipIssueDate" [responseType]="2"
-                              [displayNepali]="true">
-                </nepali-patro>
-                <input [nbDatepicker]="issueDate"
-                       *ngIf="issueDateVal.value ==='AD'"
-                       class="form-control form-control-sm-error rounded"
-                       formControlName="citizenshipIssueDate"
+<!--              <td>-->
+<!--                <nepali-patro *ngIf="issueDateVal.value ==='BS'"-->
+<!--                              formControlName="citizenshipIssueDate" [responseType]="2"-->
+<!--                              [displayNepali]="true">-->
+<!--                </nepali-patro>-->
+<!--                <input [nbDatepicker]="issueDate"-->
+<!--                       *ngIf="issueDateVal.value ==='AD'"-->
+<!--                       class="form-control form-control-sm-error rounded"-->
+<!--                       formControlName="citizenshipIssueDate"-->
 
-                       name="issueDate"
-                       placeholder="Issue Date"
-                       type="text">
-                <nb-datepicker #issueDate></nb-datepicker>
-              </td>
+<!--                       name="issueDate"-->
+<!--                       placeholder="Issue Date"-->
+<!--                       type="text">-->
+<!--                <nb-datepicker #issueDate></nb-datepicker>-->
+<!--              </td>-->
               <td></td>
             </tr>
             <tr>
@@ -1994,8 +2044,10 @@
                 <td>
                   <select class="custom-select"
                           formControlName="issuedPlace">
-                    <option [ngValue]="null" hidden>District</option>
-                    <option *ngFor="let district of allDistrictList"
+                    <option [ngValue]="null" hidden>Select District</option>
+                    <option
+
+                            *ngFor="let district of allDistrictList"
                             [ngValue]="district.nepaliName">
                       {{district.name}} || {{district.nepaliName}}
                     </option>
@@ -2025,7 +2077,8 @@
                      <select required="true" class="form-control"
                              #citizenshipIssueDateVal
                              formControlName="radioCitizenIssuedDate">
-                       <option selected value="AD">AD</option>
+                       <option  value="null" hidden>AD/BS</option>
+                       <option  value="AD">AD</option>
                        <option value="BS">BS</option>
                      </select>
                    </div>
@@ -2097,6 +2150,7 @@
                 <td>
                   <select class="form-control" formControlName="relationship"
                   >
+                    <option hidden [value]="null">Select Relation</option>
                     <option *ngFor="let relationship of relationshipList"
                             [value]="relationship.value">{{relationship?.value}}</option>
                   </select>
@@ -2111,10 +2165,12 @@
 
                 <td><label class="title">Gender</label></td>
                 <td><select class="form-control" formControlName="gender">
-                  <option [value]="null" hidden>Select Gender</option>
-                  <option value="MALE">Male</option>
-                  <option value="FEMALE">Female</option>
-                  <option value="OTHERS">Others</option>
+                  <option value="null" hidden>Select Gender</option>
+                  <option [selected]="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE'" value="MALE">Male</option>
+                  <option [selected]="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE'"
+                          value="MALE" value="FEMALE">Female</option>
+                  <option [selected]="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS'"
+                          value="OTHERS">Others</option>
                 </select>
                 </td>
                 <td>
@@ -2264,7 +2320,7 @@
                     formControlName="permanentDistrict"
                 class="custom-select">
 
-                  <option [ngValue]="null" hidden></option>
+                  <option [ngValue]="null" hidden>District</option>
                   <option
                           *ngFor="let districtVal of guarantorDistrict[i]"
                           [ngValue]="districtVal">
@@ -2292,7 +2348,8 @@
                   <select required="true" class="form-control" formControlName="guarantorPermanentMunicipalityOrVdc"
 
                           [ngClass]="{'is-invalid': submitted && configForm.registeredMunType.errors}">
-                    <option value="0">Municipality</option>
+                    <option hidden value="null">Municipality or VDC</option>
+                    <option  value="0">Municipality</option>
                     <option value="1">VDC</option>
                     <option value="2">Rural</option>
                   </select>
@@ -2411,7 +2468,9 @@
                   <select required="true" class="form-control" formControlName="guarantorTemporaryMunicipalityOrVdc"
 
                           [ngClass]="{'is-invalid': submitted && configForm.registeredMunType.errors}">
-                    <option value="0">Municipality</option>
+
+                    <option  value="null" hidden>Municipality or VDC</option>
+                    <option  value="0">Municipality</option>
                     <option value="1">VDC</option>
                     <option value="2">Rural</option>
                   </select>
