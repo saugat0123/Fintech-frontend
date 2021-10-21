@@ -1,4 +1,4 @@
-<div class="container nep text-justify" id="{{offerLetterConst.LETTER_OF_SET_OFF}}Print">
+<div class="nep text-justify" id="{{offerLetterConst.LETTER_OF_SET_OFF}}Print">
     <div class="row">
         <div class="col-md-12 viewFull" style="overflow-y: auto; height: auto;">
             <div class="nep">
@@ -467,32 +467,29 @@
                         </table>
                     </div>
 
-                    <p style="page-break-before: always" class="text-center"><b>साक्षीो</b><br>
-                    <p>१. <span
-                            [ngClass]="{'nepaliFont outside' : letterData?.sakshiDistrict !== null && letterData?.sakshiDistrict !== ''}">
-                            {{letterData?.sakshiDistrict === null || letterData?.sakshiDistrict === '' ? '___________' : letterData?.sakshiDistrict}}</span>
-
-                        जिल्ला<span
-                                [ngClass]="{'nepaliFont outside' : letterData?.sakshiVdc !== null && letterData?.sakshiVdc !== ''}">
-                            {{letterData?.sakshiVdc === null || letterData?.sakshiVdc === '' ? '___________' : letterData?.sakshiVdc}}</span>
-                        न.पा.गा.वि.स. वडा नं <span
-                                [ngClass]="{'nepaliFont outside' : letterData?.sakshiWardNo !== null && letterData?.sakshiWardNo !== ''}">
-                            {{letterData?.sakshiWardNo === null || letterData?.sakshiWardNo === '' ? '___________' : letterData?.sakshiWardNo}}</span>
-                        ।
-                        बस्ने बर्ष <span
-                                [ngClass]="{'nepaliFont outside' : letterData?.sakshiAge !== null && letterData?.sakshiAge !== ''}">
-                            {{letterData?.sakshiAge === null || letterData?.sakshiAge === '' ? '___________' : letterData?.sakshiAge}}</span>
-                        को/की
-                        <span [ngClass]="{'nepaliFont outside' : letterData?.nameOfWitness !== null && letterData?.nameOfWitness !== ''}">
-                            {{letterData?.nameOfWitness === null || letterData?.nameOfWitness === '' ? '___________' : letterData?.nameOfWitness}}</span>
+                    <div class="col-md-12">
+                        <br><p>
+                        साक्षीः
                     </p>
-
-                    <p>
-                        २. कारणीले मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका कर्मचारी
-                        <span [ngClass]="{'nepaliFont outside' : letterData?.nameOfWitnessFromBank !== null && letterData?.nameOfWitnessFromBank !== ''}">
-                            {{letterData?.nameOfWitnessFromBank === null || letterData?.nameOfWitnessFromBank === '' ? '___________' : letterData?.nameOfWitnessFromBank}}
-                        </span>
-                    </p>
+                        <ul class="nepaliList">
+                            <li>
+                                ____________________ जिल्ला
+                                ______________________ गा.वि.स/न.पा,
+                                वडा नंं. _________
+                                बस्ने श्री ____________________________
+                            </li>
+                            <li>
+                                ____________________ जिल्ला
+                                ______________________ गा.वि.स/न.पा,
+                                वडा नंं. _________
+                                बस्ने श्री ____________________________
+                            </li>
+                            <li>
+                                कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+                                ____________________________
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

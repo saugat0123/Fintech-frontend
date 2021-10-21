@@ -1,4 +1,4 @@
-<div class="container text-justify">
+<div class="text-justify">
     <form [formGroup]="guarantorindividualGroup" id="print-section">
         <div class="row" *ngFor="let guarantors of guarantorindividualGroup.get('individualGuarantors')['controls']; let i = index"
         formArrayName="individualGuarantors">
