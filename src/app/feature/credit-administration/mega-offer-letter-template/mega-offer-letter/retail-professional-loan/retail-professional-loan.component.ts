@@ -22,6 +22,8 @@ import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {ProposalCalculationUtils} from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
 import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
     selector: 'app-retail-professional-loan',
@@ -71,17 +73,17 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 public currencyFormatPipe: CurrencyFormatterPipe,
                 public nepToEngNumberPipe: NepaliToEngNumberPipe,
                 private ref: NbDialogRef<RetailProfessionalLoanComponent>,
-                private translateService: SbTranslateService
+                private translateService: SbTranslateService,
+                private datePipe: DatePipe,
+                private engNepDatePipe: EngNepDatePipe
     ) {
     }
 
     ngOnInit() {
         this.buildForm();
-        console.log('Final Provided Value:::: ', this.cadOfferLetterApprovedDoc);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
-        console.log('Loan holder info', this.loanHolderInfo);
         this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
             // tslint:disable-next-line:max-line-length
@@ -259,13 +261,23 @@ submit(): void {
             const val = value.proposal.proposedLimit;
             totalLoanAmount = totalLoanAmount + val;
         });
+        let dateOfApprovalTemp;
+        if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApproval)) {
+            dateOfApprovalTemp = this.dateConversion(this.initialInfoPrint.dateOfApproval);
+        }
+        let tempDateOfApplication;
+        if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApplication)) {
+            tempDateOfApplication = this.dateConversion(this.initialInfoPrint.dateOfApplication);
+        }
         this.retailProfessionalLoan.patchValue({
             nameOfCustomer: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
             addressOfCustomer: customerAddress ? customerAddress : '',
-            loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+            loanAmountFigure: totalLoanAmount ? this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)) : '',
             // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
             nameOfBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
             amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+            dateOfApproval: dateOfApprovalTemp ? dateOfApprovalTemp : '',
+            dateOfApplication: tempDateOfApplication ? tempDateOfApplication : '',
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
@@ -316,6 +328,19 @@ submit(): void {
             this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
             this.nepaliNumber.engNumber = number;
         }
+    }
+
+    dateConversion(controlVal) {
+        let dateTemp;
+        if (!ObjectUtil.isEmpty(controlVal)) {
+            if (!ObjectUtil.isEmpty(controlVal.en.nDate)) {
+                dateTemp = controlVal.en.nDate;
+            } else {
+                const date = this.datePipe.transform(controlVal.en);
+                dateTemp = this.engNepDatePipe.transform(date, true);
+            }
+        }
+        return dateTemp;
     }
 
 }

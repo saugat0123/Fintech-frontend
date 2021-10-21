@@ -17,24 +17,15 @@
                                 <h4 class="text-center"> ऋणकर्जा सुविधा स्वीकृति पत्र</h4>
                             </div>
                             <div class="col-md-12 mt-4">
-                                <p *ngIf="initialInfoPrint.dateOfApproval.en.nDate === undefined; else dateOfApprovalNepali">
+                                <p>
                                     मितिः <input class="form-field form-control-sm"
                                                  formControlName="dateOfApproval"
-                                                 [value]="initialInfoPrint.dateOfApproval.en === undefined ? '' : ((initialInfoPrint.dateOfApproval.en | date) | engNepDate: true)"
                                                  type="text"/>
                                 </p>
-                                <ng-template #dateOfApprovalNepali>
-                                    <p>
-                                        मितिः <input class="form-field form-control-sm"
-                                                     formControlName="dateOfApproval"
-                                                     [value]="initialInfoPrint.dateOfApproval.en.nDate === undefined ? '' : initialInfoPrint.dateOfApproval.en.nDate"
-                                                     type="text"/>
-                                    </p>
-                                </ng-template>
                                 <p>
                                     कर्जा सख्याः <input class="form-field form-control-sm"
                                                         formControlName="referenceNumber"
-                                                        [value]="initialInfoPrint.referenceNumber.ct === undefined ? '' : initialInfoPrint.referenceNumber.ct "
+                                                        [value]="initialInfoPrint.referenceNumber === undefined ? '' : initialInfoPrint.referenceNumber.ct "
                                                         type="text"/>
                                 </p>
                             </div>
@@ -60,16 +51,9 @@
                                 </p>
                                 <p>
                                     तपाईंले मिति
-                                    <input *ngIf="initialInfoPrint.dateOfApplication.en.nDate === undefined; else dateOfApplicationNepali" class="form-field form-control-sm"
+                                    <input class="form-field form-control-sm"
                                            formControlName="dateOfApplication"
-                                           [value]="initialInfoPrint.dateOfApplication.en === undefined ? '' : (initialInfoPrint.dateOfApplication.en | date) | engNepDate: true"
                                            type="text"/>
-                                    <ng-template #dateOfApplicationNepali>
-                                        <input class="form-field form-control-sm"
-                                               formControlName="dateOfApplication"
-                                               [value]="initialInfoPrint.dateOfApplication.en.nDate === undefined ? '' : initialInfoPrint.dateOfApplication.en.nDate"
-                                               type="text"/>
-                                    </ng-template>
                                     मा शैक्षिक कर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा
                                     यस बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा
                                     रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -93,7 +77,7 @@
                                             शैक्षिक कर्जा
                                             <input class="form-field form-control-sm"
                                                    formControlName="purposeOfLoan"
-                                                   [value]="initialInfoPrint.purposeOfLoan.ct === undefined ? '' : initialInfoPrint.purposeOfLoan.ct "
+                                                   [value]="initialInfoPrint.purposeOfLoan === undefined ? '' : initialInfoPrint.purposeOfLoan.ct "
                                                    type="text"/>
                                             गर्ने प्रयोजनका निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
                                         </td>
@@ -124,18 +108,18 @@
                                             राखिदिने रु
                                             <input class="form-field form-control-sm"
                                                    formControlName="fixedDepositReceiptAmountFigure"
-                                                   [value]="initialInfoPrint.fixedDepositAmountFigure.ct === undefined ? '' : initialInfoPrint.fixedDepositAmountFigure.ct"
+                                                   [value]="initialInfoPrint.fixedDepositAmountFigure === undefined ? '' : initialInfoPrint.fixedDepositAmountFigure.ct"
                                                    (change)="getNumAmountWord('fixedDepositReceiptAmountFigure', 'fixedDepositReceiptAmountWords')"
                                                    type="text"/>/-
                                             (अक्षरेपि रु
                                             <input class="form-field form-control-sm longInput uniSize"
                                                    formControlName="fixedDepositReceiptAmountWords"
-                                                   [value]="initialInfoPrint.fixedDepositReceiptAmountWords.ct === undefined ? '' : initialInfoPrint.fixedDepositReceiptAmountWords.ct "
+                                                   [value]="initialInfoPrint.fixedDepositReceiptAmountWords === undefined ? '' : initialInfoPrint.fixedDepositReceiptAmountWords.ct "
                                                    type="text"/>
                                             मात्र ) बराबरको मुद्धति रसिद
                                             <input class="form-field form-control-sm"
                                                    formControlName="fixedDepositAmountNumber"
-                                                   [value]="initialInfoPrint.tenureDepositReceiptNumber.ct === undefined ? '' : initialInfoPrint.tenureDepositReceiptNumber.ct "
+                                                   [value]="initialInfoPrint.tenureDepositReceiptNumber === undefined ? '' : initialInfoPrint.tenureDepositReceiptNumber.ct "
                                                    type="text"/>
                                             को ९० प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
                                             गर्न सकिनेछ ।
@@ -153,7 +137,7 @@
                                                 द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value) कोे
                                                 <input class="form-field form-control-sm shortInput"
                                                        formControlName="distressValue"
-                                                       [value]="initialInfoPrint.distressValue.ct === undefined ? '' : initialInfoPrint.distressValue.ct "
+                                                       [value]="initialInfoPrint.distressValue === undefined ? '' : initialInfoPrint.distressValue.ct "
                                                        type="text"/>
                                                 प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम
                                                 हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ।
@@ -170,14 +154,14 @@
                                             <input class="form-field form-control-sm shortInput"
                                                    readonly
                                                    formControlName="baseRate"
-                                                   [value]="initialInfoPrint.baseRate.ct === undefined ? '' : initialInfoPrint.baseRate.ct "
+                                                   [value]="initialInfoPrint.baseRate === undefined ? '' : initialInfoPrint.baseRate.ct "
                                                    (input)="calculateData('baseRate', 'premiumRate')"
                                                    type="text"/>
                                             +
                                             <input class="form-field form-control-sm shortInput"
                                                    readonly
                                                    formControlName="premiumRate"
-                                                   [value]="initialInfoPrint.premiumRate.ct === undefined ? '' : initialInfoPrint.premiumRate.ct "
+                                                   [value]="initialInfoPrint.premiumRate === undefined ? '' : initialInfoPrint.premiumRate.ct "
                                                    (input)="calculateData('baseRate', 'premiumRate')"
                                                    type="text"/>
                                             प्रतिशत ब्याज दर प्रिमियम
@@ -186,7 +170,7 @@
                                             <input class="form-field form-control-sm shortInput uniSize"
                                                    readonly
                                                    formControlName="interestRate"
-                                                   [value]="initialInfoPrint.interestRate.ct === undefined ? '' : initialInfoPrint.interestRate.ct "
+                                                   [value]="initialInfoPrint.interestRate === undefined ? '' : initialInfoPrint.interestRate.ct "
                                                    type="text"/> % का दर निर्धारण गरीएकोछ र सो ब्याज रकम
                                             नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तमा वा
                                             ऋण स्विकृत पत्रमा उल्लेख
@@ -206,12 +190,12 @@
                                                        (input)="calculateData('baseRate', 'premiumRate')"
                                                        readonly
                                                        formControlName="baseRate"
-                                                       [value]="initialInfoPrint.baseRate.ct === undefined ? '' : initialInfoPrint.baseRate.ct "
+                                                       [value]="initialInfoPrint.baseRate === undefined ? '' : initialInfoPrint.baseRate.ct "
                                                        type="text"/> +
                                                 <input class="form-field form-control-sm shortInput"
                                                        formControlName="premiumRate"
                                                        readonly
-                                                       [value]="initialInfoPrint.premiumRate.ct === undefined ? '' : initialInfoPrint.premiumRate.ct "
+                                                       [value]="initialInfoPrint.premiumRate === undefined ? '' : initialInfoPrint.premiumRate.ct "
                                                        (input)="calculateData('baseRate', 'premiumRate')"
                                                        type="text"/> प्रतिशत व्याज दर प्रिमियम
                                                 (Interest Premium Rate)
@@ -220,7 +204,7 @@
                                                 <input class="form-field form-control-sm shortInput"
                                                        readonly
                                                        formControlName="interestRate"
-                                                       [value]="initialInfoPrint.interestRate.ct === undefined ? '' : initialInfoPrint.interestRate.ct "
+                                                       [value]="initialInfoPrint.interestRate === undefined ? '' : initialInfoPrint.interestRate.ct "
                                                        type="text"/> का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
                                             </td>
                                         </tr>
@@ -234,17 +218,17 @@
                                                 ऋण प्रशासनिक शुल्क बापत रु
                                                 <input class="form-field form-control-sm"
                                                        formControlName="loanAdminFeeFigure"
-                                                       [value]="initialInfoPrint.loanAdminFeeFigure.ct === undefined ? '' : initialInfoPrint.loanAdminFeeFigure.ct "
+                                                       [value]="initialInfoPrint.loanAdminFeeFigure === undefined ? '' : initialInfoPrint.loanAdminFeeFigure.ct "
                                                        (change)="getNumAmountWord('loanAdminFeeFigure', 'loanAdminFeeWords')"
                                                        type="text"/> /- (अक्षरेपी रु
                                                 <input class="form-field form-control-sm longInput uniSize"
                                                        formControlName="loanAdminFeeWords"
-                                                       [value]="initialInfoPrint.loanAdminFeeWords.ct === undefined ? '' : initialInfoPrint.loanAdminFeeWords.ct "
+                                                       [value]="initialInfoPrint.loanAdminFeeWords === undefined ? '' : initialInfoPrint.loanAdminFeeWords.ct "
                                                        type="text"/>
                                                 मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                                 कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट प्राप्त
                                                 गरिने साख सूचना, घर/जग्गाको मुल्याड्ढन, रजिष्ट्रेशन, ब्लु प्रिन्ट तथा टे«श नक्सा
-                                                लिञदा लाग्ने शुल्क, सुरक्षित कारोबार रजिष्टे«शन तथा अन्य आवश्यक सूचना प्राप्त गर्न र
+                                                लिञदा लाग्ने शुल्क, सुरक्षित कारोबार रजिष्ट्रेशन तथा अन्य आवश्यक सूचना प्राप्त गर्न र
                                                 आधिकारिक निकायमा रजिष्ट्रेशन गर्न लाग्ने शुल्क तथा कुनै पनि खर्च, आदि बास्तबिक रकम
                                                 ऋणी स्वयंले नै तिर्न बुझाउनु पर्नेछ । उक्त रकम तपाईको खातामा खर्च जनाई कटृा गरी
                                                 भुक्तानी गरिनेछ ।
@@ -259,12 +243,12 @@
                                                         ऋण प्रशासनिक शुल्क बापत
                                                         <input class="form-field form-control-sm"
                                                                formControlName="loanAdminFeeFigure"
-                                                               [value]="initialInfoPrint.loanAdminFeeFigure.ct === undefined ? '' : initialInfoPrint.loanAdminFeeFigure.ct "
+                                                               [value]="initialInfoPrint.loanAdminFeeFigure === undefined ? '' : initialInfoPrint.loanAdminFeeFigure.ct "
                                                                (change)="getNumAmountWord('loanAdminFeeFigure', 'loanAdminFeeWords')"
                                                                type="text"/> ।(अक्षरेपी रु
                                                         <input class="form-field form-control-sm longInput uniSize"
                                                                formControlName="loanAdminFeeWords"
-                                                               [value]="initialInfoPrint.loanAdminFeeWords.ct === undefined ? '' : initialInfoPrint.loanAdminFeeWords.ct "
+                                                               [value]="initialInfoPrint.loanAdminFeeWords === undefined ? '' : initialInfoPrint.loanAdminFeeWords.ct "
                                                                type="text"/> मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ । कर्जा
                                                         सूचना केन्द्र लिमिटेडबाट
                                                         सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट प्राप्त गरिने साख सूचना,
@@ -308,17 +292,17 @@
                                                 साञवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                                 <input class="form-field form-control-sm"
                                                        formControlName="emiAmountFigure"
-                                                       [value]="initialInfoPrint.emiAmountFigure.ct === undefined ? '' : initialInfoPrint.emiAmountFigure.ct "
+                                                       [value]="initialInfoPrint.emiAmountFigure === undefined ? '' : initialInfoPrint.emiAmountFigure.ct "
                                                        (change)="getNumAmountWord('emiAmountFigure', 'emiAmountWords')"
                                                        type="text"/>
                                                 (अक्षरेपि रु.
                                                 <input class="form-field form-control-sm longInput uniSize"
                                                        formControlName="emiAmountWords"
-                                                       [value]="initialInfoPrint.emiAmountWords.ct === undefined ? '' : initialInfoPrint.emiAmountWords.ct "
+                                                       [value]="initialInfoPrint.emiAmountWords === undefined ? '' : initialInfoPrint.emiAmountWords.ct "
                                                        type="text"/> मात्र) का दरले
                                                 <input class="form-field form-control-sm"
                                                        formControlName="loanPeriodInMonths"
-                                                       [value]="initialInfoPrint.loanPeriodInMonths.ct === undefined ? '' : initialInfoPrint.loanPeriodInMonths.ct "
+                                                       [value]="initialInfoPrint.loanPeriodInMonths === undefined ? '' : initialInfoPrint.loanPeriodInMonths.ct "
                                                        type="text"/>
                                                 मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता
                                                 भुक्तानी गर्नु पर्नेछ ।
@@ -327,7 +311,7 @@
                                                 </u>
                                                 <input class="form-field form-control-sm"
                                                        formControlName="moratoriumPeriodInMonths"
-                                                       [value]="initialInfoPrint.moratoriumPeriodInMonths.ct === undefined ? '' : initialInfoPrint.moratoriumPeriodInMonths.ct "
+                                                       [value]="initialInfoPrint.moratoriumPeriodInMonths === undefined ? '' : initialInfoPrint.moratoriumPeriodInMonths.ct "
                                                        type="text"/> महिनाको ऋण भुक्तानी स्थगन अवधि ( Moratorium Period ) पछिको
                                                 महिना देखि अञग्रेजी पात्रोको
                                                 प्रत्येक २० तारिखका दिन किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले
@@ -344,7 +328,7 @@
                                             सिमामा
                                             <input class="form-field form-control-sm smallInput"
                                                    formControlName="loanCommitmentFeeInPercentage"
-                                                   [value]="initialInfoPrint.loanCommitmentFeeInPercentage.ct === undefined ? '' : initialInfoPrint.loanCommitmentFeeInPercentage.ct "
+                                                   [value]="initialInfoPrint.loanCommitmentFeeInPercentage === undefined ? '' : initialInfoPrint.loanCommitmentFeeInPercentage.ct "
                                                    type="text"/> प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                                         </td>
                                     </tr>
@@ -419,21 +403,21 @@
                                     क. नबिल बैंक लिमिटेडद्धारा जारी गरिएको श्री
                                     <input class="form-field form-control-sm col-3"
                                            formControlName="fixedDepositHolderName"
-                                           [value]="initialInfoPrint.fixedDepositHolderName.ct === undefined ? '' : initialInfoPrint.fixedDepositHolderName.ct "
+                                           [value]="initialInfoPrint.fixedDepositHolderName === undefined ? '' : initialInfoPrint.fixedDepositHolderName.ct "
                                            type="text"/> को
                                     नाममा रहेको रु.
                                     <input class="form-field form-control-sm"
                                            formControlName="fixedDepositAmountFigure"
-                                           [value]="initialInfoPrint.fixedDepositAmountFigure.ct === undefined ? '' : initialInfoPrint.fixedDepositAmountFigure.ct "
+                                           [value]="initialInfoPrint.fixedDepositAmountFigure === undefined ? '' : initialInfoPrint.fixedDepositAmountFigure.ct "
                                            type="text"/>/– बराबरको
                                     <input class="form-field form-control-sm"
                                            formControlName="tenureFixedDeposit"
-                                           [value]="initialInfoPrint.tenureFixedDeposit.ct === undefined ? '' : initialInfoPrint.tenureFixedDeposit.ct "
+                                           [value]="initialInfoPrint.tenureFixedDeposit === undefined ? '' : initialInfoPrint.tenureFixedDeposit.ct "
                                            type="text"/> बर्षे मुद्धति
                                     रसिद नं.
                                     <input class="form-field form-control-sm"
                                            formControlName="tenureDepositReceiptNumber"
-                                           [value]="initialInfoPrint.tenureDepositReceiptNumber.ct === undefined ? '' : initialInfoPrint.tenureDepositReceiptNumber.ct "
+                                           [value]="initialInfoPrint.tenureDepositReceiptNumber === undefined ? '' : initialInfoPrint.tenureDepositReceiptNumber.ct "
                                            type="text"/> उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न
                                     सक्ने अधिकार सहितको मोजरापत्र (Letter of Set-off) बैंकको पक्षमा जारी गरी दिनु पर्नेछ ।
                                     मुद्धति निक्षेप कर्जा समाप्ति
@@ -1021,11 +1005,11 @@
                                                 <p class="highlited-Color">ह्. श्री
                                                     <input class="form-field form-control-sm"
                                                            formControlName="fixedDepositHolderName"
-                                                           [value]="initialInfoPrint.fixedDepositHolderName.ct === undefined ? '' : initialInfoPrint.fixedDepositHolderName.ct "
+                                                           [value]="initialInfoPrint.fixedDepositHolderName === undefined ? '' : initialInfoPrint.fixedDepositHolderName.ct "
                                                            type="text"/> /- को रु
                                                     <input class="form-field form-control-sm"
                                                            formControlName="fixedDepositAmountFigure"
-                                                           [value]="initialInfoPrint.fixedDepositAmountFigure.ct === undefined ? '' : initialInfoPrint.fixedDepositAmountFigure.ct "
+                                                           [value]="initialInfoPrint.fixedDepositAmountFigure === undefined ? '' : initialInfoPrint.fixedDepositAmountFigure.ct "
                                                            type="text"/>/ को सक्कल मुद्दती रसिद ।</p>
 
                                             </div>
@@ -1123,7 +1107,7 @@
                                                     ज.   बैकर्श शर्त सहितको कम्तीमा रु
                                                     <input class="form-field form-control-sm"
                                                            formControlName="insuranceAmountFigure"
-                                                           [value]="initialInfoPrint.insuranceAmountFigure.ct === undefined ? '' : initialInfoPrint.insuranceAmountFigure.ct "
+                                                           [value]="initialInfoPrint.insuranceAmountFigure === undefined ? '' : initialInfoPrint.insuranceAmountFigure.ct "
                                                            type="text"/> /-बराबरको भवनको विमालेख ।
                                                 </p>
                                                 <p class="highlited-Color">
@@ -1156,7 +1140,7 @@
                                 <br>
                                 <input class="form-field form-control-sm"
                                        formControlName="relationshipOfficerName"
-                                       [value]="initialInfoPrint.relationshipOfficerName.ct === undefined ? '' : initialInfoPrint.relationshipOfficerName.ct "
+                                       [value]="initialInfoPrint.relationshipOfficerName === undefined ? '' : initialInfoPrint.relationshipOfficerName.ct "
                                        type="text"/>
                             </div>
                             <div class="text-right">
@@ -1166,7 +1150,7 @@
                                 <br>
                                 <input class="form-field form-control-sm"
                                        formControlName="branchManager"
-                                       [value]="initialInfoPrint.branchManager.ct === undefined ? '' : initialInfoPrint.branchManager.ct "
+                                       [value]="initialInfoPrint.branchManager === undefined ? '' : initialInfoPrint.branchManager.ct "
                                        type="text"/>
                             </div>
                         </div>

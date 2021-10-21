@@ -6,6 +6,8 @@ import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-retail-professional-loan-print',
@@ -38,10 +40,14 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   guarantorAmount: number = 0;
   guarantorAmountNepali;
   finalName;
+  dateOfApproval;
+  dateOfApplication;
 
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
-               public currencyFormatPipe: CurrencyFormatterPipe) {
+               public currencyFormatPipe: CurrencyFormatterPipe,
+               private datePipe: DatePipe,
+               private engNepDatePipe: EngNepDatePipe) {
   }
 
   ngOnInit() {
@@ -64,6 +70,12 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
         this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
       }
       this.branchName = this.loanHolderInfo.branch.ct;
+      if (!ObjectUtil.isEmpty(this.letter.dateOfApproval)) {
+        this.dateOfApproval = this.dateConversion(this.letter.dateOfApproval);
+      }
+      if (!ObjectUtil.isEmpty(this.letter.dateOfApplication)) {
+        this.dateOfApplication = this.dateConversion(this.letter.dateOfApplication);
+      }
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       // tslint:disable-next-line:max-line-length
@@ -108,6 +120,19 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
     } else {
       return data[key].en;
     }
+  }
+
+  dateConversion(controlVal) {
+    let dateTemp;
+    if (!ObjectUtil.isEmpty(controlVal)) {
+      if (!ObjectUtil.isEmpty(controlVal.en.nDate)) {
+        dateTemp = controlVal.en.nDate;
+      } else {
+        const date = this.datePipe.transform(controlVal.en);
+        dateTemp = this.engNepDatePipe.transform(date, true);
+      }
+    }
+    return dateTemp;
   }
 
 }
