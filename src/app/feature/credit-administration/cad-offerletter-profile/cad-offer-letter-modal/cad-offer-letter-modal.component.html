@@ -28,6 +28,8 @@
                            [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-home-loan>
             <app-personal-loan *ngSwitchCase="offerLetterTypeConst.PERSONAL_LOAN"
                                [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-personal-loan>
+            <app-retail-mortgage-loan *ngSwitchCase="offerLetterTypeConst.MORTAGE_LOAN"
+                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-mortgage-loan>
         </div>
         <nb-card-footer>
             <div>

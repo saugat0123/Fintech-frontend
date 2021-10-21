@@ -25,12 +25,11 @@
   }
 }
 
+.nepaliList {
+  list-style-type: devanagari !important;
+}
 nb-card{
   max-height: 100vh !important;
-}
-
-li {
-  list-style-type: none;
 }
 
 input::-webkit-input-placeholder {

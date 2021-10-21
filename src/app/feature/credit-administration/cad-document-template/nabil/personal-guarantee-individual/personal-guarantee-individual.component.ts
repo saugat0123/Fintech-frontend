@@ -201,7 +201,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
           console.log('Loan Holder Nep Data:::::', this.loanHolderNepData);
         let citznIssuedDate: any;
         if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate)) {
-            approvedDate = individualGuarantorNepData.citizenIssuedDate && individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en ? individualGuarantorNepData.citizenIssuedDate.en : '';
+            citznIssuedDate = individualGuarantorNepData.citizenIssuedDate && individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en ? individualGuarantorNepData.citizenIssuedDate.en : '';
         }
         (
           this.guarantorindividualGroup.get("individualGuarantors") as FormArray

@@ -160,6 +160,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
   }
 
   public async setTranslatedValue() {
+    this.spinner = true;
     const dateType = this.landBuildingForm.get('dateType').value;
     let approvalDate;
     if (dateType === 'AD') {
@@ -308,6 +309,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
     this.landBuildingForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
 
     this.eventEmitter.emit(true);
+    this.spinner = false;
   }
 
   getInvalidControls(referenceNumberIsRequired: string) {
