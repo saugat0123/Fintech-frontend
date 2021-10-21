@@ -562,9 +562,9 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         const changedInFixedAsset = (this.cashFlowStatementForm.get('changedInFixedAsset') as FormArray).value[0].value;
         const nonOperatingIncomeExpenses = (this.cashFlowStatementForm.get('nonOperatingIncomeExpenses') as FormArray).value[0].value;
         const changeInOtherAssets = (this.cashFlowStatementForm.get('changeInOtherAssets') as FormArray).value[0].value;
-        const changeInOtherLongTermLiabilities = (this.cashFlowStatementForm.get('changeInOtherLongTermLiabilities') as FormArray).value ?
-            (this.cashFlowStatementForm.get('changeInOtherLongTermLiabilities') as FormArray).value[0].value : 0;
-        const changeInOtherProvisions = (this.cashFlowStatementForm.get('changeInOtherProvisions') as FormArray).value ?
+        const changeInOtherLongTermLiabilities = (this.cashFlowStatementForm.get('changeInOtherLongTermLiabilities') as FormArray).value[0]
+            ? (this.cashFlowStatementForm.get('changeInOtherLongTermLiabilities') as FormArray).value[0].value : 0;
+        const changeInOtherProvisions = (this.cashFlowStatementForm.get('changeInOtherProvisions') as FormArray).value[0] ?
             (this.cashFlowStatementForm.get('changeInOtherProvisions') as FormArray).value[0].value : 0;
 
         ((this.cashFlowStatementForm.get('cashFromInvestingActivities') as FormArray).controls[0] as FormGroup)
