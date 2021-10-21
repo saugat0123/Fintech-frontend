@@ -394,9 +394,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     this.submitted = true;
     this.spinner = true;
-   this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
-   this.setNepaliData();
-   this.setCustomerCTData();
+   // this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+   // this.setNepaliData();
+   // this.setCustomerCTData();
     if (this.addressSameAsAbove) {
       this.clearValidationForTemporaryAddress();
     }
@@ -484,11 +484,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       if (key === 'guarantorDetails' || key === 'jointCustomerDetails') {
         return;
       }
-      this.attributes = new Attributes();
-      this.attributes.en = this.userConfigForm.get(key).value;
-      this.attributes.np = this.translatedValues[key];
-      this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
-      this.translatedData[key] = this.attributes;
+        this.attributes = new Attributes();
+        this.attributes.en = this.userConfigForm.get(key).value;
+        this.attributes.np = this.translatedValues[key];
+        this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
+        this.translatedData[key] = this.attributes;
     });
 
     this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
