@@ -13,14 +13,19 @@
 .inside{
   font-size: 24px;
 }
+p{
+  line-height: 1.9;
+}
 table {
   text-align: justify !important;
+  line-height: 1.9;
 }
-.nepaliList {
+.nepaliList > li {
   list-style-type: devanagari;
+  line-height: 1.9;
 }
 .nep {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.9 !important;
   text-align: justify;
   text-justify: inter-word;
