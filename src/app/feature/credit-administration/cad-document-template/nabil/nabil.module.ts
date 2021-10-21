@@ -18,7 +18,6 @@ import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-indi
 import {LoanDeedIndividualPrintComponent} from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
 import {PromissoryNotePartnershipComponent} from './promissory-note-partnership/promissory-note-partnership.component';
 import {PromissoryNotePartnershipPrintComponent} from './promissory-note-partnership/promissory-note-partnership-print/promissory-note-partnership-print.component';
-import {SecuritiesComponent} from './securities-view/securities-view.component';
 import { PersonalGuaranteePartnershipComponent } from './personal-guarantee-partnership/personal-guarantee-partnership.component';
 import {PromissoryNoteProprietorshipComponent} from './promissory-note-proprietorship/promissory-note-proprietorship.component';
 import {PromissoryNoteProprietorshipPrintComponent} from './promissory-note-proprietorship/promissory-note-propertiership-print/promissory-note-proprietorship-print.component';
@@ -36,7 +35,7 @@ import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent, SecuritiesComponent,
+        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
         LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, PersonalGuaranteePartnershipComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
         LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent,
@@ -69,7 +68,6 @@ import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/
         PromissoryNotePartnershipComponent,
         PromissoryNotePartnershipPrintComponent,
         PersonalGuaranteePartnershipComponent,
-        SecuritiesComponent,
         LoanDeedPartnershipComponent,
         LoanDeedPartnershipPrintComponent,
         LetterVehicleThirdpartyCompanyComponent,
@@ -83,7 +81,7 @@ import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/
         NbButtonModule,
         CKEditorModule,
         NbSpinnerModule,
-        MegaOfferLetterTemplateModule
+        MegaOfferLetterTemplateModule,
     ]
 })
 export class NabilModule {
