@@ -59,14 +59,14 @@
 
                     <thead>
                     <tr class="text-white sb-bg-dark">
-                        <th>S.N</th>
-                        <th>Company</th>
-                        <th>Share Amount per Unit (Accepted Price)</th>
-                        <th>Company Code</th>
-                        <th>ShareType</th>
-                        <th>Status</th>
+                        <th>S.N.</th>
+                        <th>Stock Symbol</th>
+                        <th>Company Name</th>
                         <th>Closing Price Average</th>
                         <th>Closing Price</th>
+                        <th>Accepted Price</th>
+                        <th>Share Type</th>
+                        <th>Status</th>
                     </tr>
                     </thead>
 
@@ -76,13 +76,13 @@
                             <p>No Content Found</p>
                         </div>
                         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                        <td>{{allList.companyName}}</td>
-                        <td>{{allList.amountPerUnit}}</td>
                         <td>{{allList.companyCode}}</td>
-                        <td>{{allList.shareType}}</td>
-                        <td>{{allList.status}}</td>
+                        <td>{{allList.companyName}}</td>
                         <td>{{allList.closingPriceAverage}}</td>
                         <td>{{allList.closingPrice}}</td>
+                        <td>{{allList.amountPerUnit}}</td>
+                        <td>{{allList.shareType}}</td>
+                        <td>{{allList.status}}</td>
                     </tr>
                     </tbody>
                 </table>
