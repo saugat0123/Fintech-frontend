@@ -327,8 +327,16 @@
                 <td>Non-Operating income/(Expenses)</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('nonOperatingIncomeExpenses')['controls']; let j = index"
                     formArrayName="nonOperatingIncomeExpenses" scope="col">
-                    <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                    <div (change)="handleFirstYearInputChanges()" [formGroupName]="j" class="text-center">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_nonOperatingIncomeExpenses">
+                            <input formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_nonOperatingIncomeExpenses>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -356,7 +364,7 @@
             </tbody>
 
             <tbody>
-            <tr>
+            <tr *ngIf="formData['cashFlowStatementData']['changeInOtherLongTermLiabilities'].length > 0">
                 <th scope="row">d</th>
                 <td>Change in Other Long Term Liabilities</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherLongTermLiabilities')['controls']; let j = index"
@@ -377,7 +385,7 @@
             </tbody>
 
             <tbody>
-            <tr>
+            <tr *ngIf="formData['cashFlowStatementData']['changeInOtherProvisions'].length > 0">
                 <th scope="row">e</th>
                 <td>Change in Other Provisions</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherProvisions')['controls']; let j = index"
@@ -413,7 +421,7 @@
             <tbody>
             <tr>
                 <th scope="row">a</th>
-                <td>Paid up Capital/Equity</td>
+                <td>Issue of Share</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('paidUpCapitalEquity')['controls']; let j = index"
                     formArrayName="paidUpCapitalEquity" scope="col">
                     <div [formGroupName]="j" class="text-center">

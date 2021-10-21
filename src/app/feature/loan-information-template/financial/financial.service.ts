@@ -104,12 +104,15 @@ export class FinancialService {
     }
 
     cashFromInvestingActivitiesTotal(cashFlowStatementData, index) {
+        const changeInOtherLongTermLiabilities = cashFlowStatementData.changeInOtherLongTermLiabilities.length > 0 ?
+            cashFlowStatementData.changeInOtherLongTermLiabilities[index].value : 0;
+        const changeInOtherProvisions = cashFlowStatementData.changeInOtherProvisions.length > 0 ?
+            cashFlowStatementData.changeInOtherProvisions[index].value : 0;
         cashFlowStatementData.cashFromInvestingActivities[index].value =
             (Number(cashFlowStatementData.changedInFixedAsset[index].value)
             + Number(cashFlowStatementData.nonOperatingIncomeExpenses[index].value)
             + Number(cashFlowStatementData.changeInOtherAssets[index].value)
-            + Number(cashFlowStatementData.changeInOtherLongTermLiabilities[index].value)
-            + Number(cashFlowStatementData.changeInOtherProvisions[index].value)).toFixed(2);
+            + Number(changeInOtherLongTermLiabilities) + Number(changeInOtherProvisions)).toFixed(2);
     }
 
     cashFromFinancingActivitiesTotal(cashFlowStatementData, index) {

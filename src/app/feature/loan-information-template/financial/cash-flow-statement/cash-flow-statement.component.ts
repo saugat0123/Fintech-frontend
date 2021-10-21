@@ -43,8 +43,11 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.setChangedInFixedAsset(cashFlowStatementData.changedInFixedAsset);
             this.setNonOperatingIncomeExpenses(cashFlowStatementData.nonOperatingIncomeExpenses);
             this.setChangeInOtherAssets(cashFlowStatementData.changeInOtherAssets);
-            this.setChangeInOtherLongTermLiabilities(cashFlowStatementData.changeInOtherLongTermLiabilities);
-            this.setChangeInOtherProvisions(cashFlowStatementData.changeInOtherProvisions);
+            if (cashFlowStatementData.changeInOtherLongTermLiabilities.length > 0 &&
+                cashFlowStatementData.changeInOtherProvisions.length > 0) {
+                this.setChangeInOtherLongTermLiabilities(cashFlowStatementData.changeInOtherLongTermLiabilities);
+                this.setChangeInOtherProvisions(cashFlowStatementData.changeInOtherProvisions);
+            }
             this.setCashFromFinancingActivities(cashFlowStatementData.cashFromFinancingActivities);
             this.setPaidUpCapitalEquity(cashFlowStatementData.paidUpCapitalEquity);
             this.setShortTermLoan(cashFlowStatementData.shortTermLoan);
@@ -559,9 +562,10 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         const changedInFixedAsset = (this.cashFlowStatementForm.get('changedInFixedAsset') as FormArray).value[0].value;
         const nonOperatingIncomeExpenses = (this.cashFlowStatementForm.get('nonOperatingIncomeExpenses') as FormArray).value[0].value;
         const changeInOtherAssets = (this.cashFlowStatementForm.get('changeInOtherAssets') as FormArray).value[0].value;
-        const changeInOtherLongTermLiabilities = (this.cashFlowStatementForm
-            .get('changeInOtherLongTermLiabilities') as FormArray).value[0].value;
-        const changeInOtherProvisions = (this.cashFlowStatementForm.get('changeInOtherProvisions') as FormArray).value[0].value;
+        const changeInOtherLongTermLiabilities = (this.cashFlowStatementForm.get('changeInOtherLongTermLiabilities') as FormArray).value ?
+            (this.cashFlowStatementForm.get('changeInOtherLongTermLiabilities') as FormArray).value[0].value : 0;
+        const changeInOtherProvisions = (this.cashFlowStatementForm.get('changeInOtherProvisions') as FormArray).value ?
+            (this.cashFlowStatementForm.get('changeInOtherProvisions') as FormArray).value[0].value : 0;
 
         ((this.cashFlowStatementForm.get('cashFromInvestingActivities') as FormArray).controls[0] as FormGroup)
             .controls['value'].patchValue((Number(changedInFixedAsset)
@@ -578,7 +582,8 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         const dividendDrawing = (this.cashFlowStatementForm.get('dividendDrawing') as FormArray).value[0].value;
         const interestExpensesCFSb = (this.cashFlowStatementForm.get('interestExpensesCFSb') as FormArray).value[0].value;
         const otherAdjustments = (this.cashFlowStatementForm.get('otherAdjustments') as FormArray).value[0].value;
-        const additionalCapital = (this.cashFlowStatementForm.get('additionalCapital') as FormArray).value[0].value;
+        const additionalCapital = (this.cashFlowStatementForm.get('additionalCapital') as FormArray).value[0] ?
+            (this.cashFlowStatementForm.get('additionalCapital') as FormArray).value[0].value : 0;
 
         ((this.cashFlowStatementForm.get('cashFromFinancingActivities') as FormArray).controls[0] as FormGroup)
             .controls['value'].patchValue((Number(paidUpCapitalEquity)
@@ -644,6 +649,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         const interestExpensesCFSb = this.cashFlowStatementForm.get('interestExpensesCFSb') as FormArray;
         const otherAdjustments = this.cashFlowStatementForm.get('otherAdjustments') as FormArray;
         const additionalCapital = this.cashFlowStatementForm.get('additionalCapital') as FormArray;
+        const nonOperatingIncomeExpenses = this.cashFlowStatementForm.get('nonOperatingIncomeExpenses') as FormArray;
 
         if (increaseDecreaseInInventory.controls.length > 0) {
             this.formData['cashFlowStatementData'].increaseDecreaseInInventory[0].value = increaseDecreaseInInventory.value[0].value;
@@ -666,9 +672,12 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].cashFromInvestingActivities[0].value = cashFromInvestingActivities.value[0].value;
             this.formData['cashFlowStatementData'].changedInFixedAsset[0].value = changedInFixedAsset.value[0].value;
             this.formData['cashFlowStatementData'].changeInOtherAssets[0].value = changeInOtherAssets.value[0].value;
-            this.formData['cashFlowStatementData'].changeInOtherLongTermLiabilities[0].value =
-                changeInOtherLongTermLiabilities.value[0].value;
-            this.formData['cashFlowStatementData'].changeInOtherProvisions[0].value = changeInOtherProvisions.value[0].value;
+            if (this.formData['cashFlowStatementData'].changeInOtherLongTermLiabilities.length > 0 &&
+                this.formData['cashFlowStatementData'].changeInOtherProvisions.length > 0) {
+                this.formData['cashFlowStatementData'].changeInOtherLongTermLiabilities[0].value =
+                    changeInOtherLongTermLiabilities.value[0].value;
+                this.formData['cashFlowStatementData'].changeInOtherProvisions[0].value = changeInOtherProvisions.value[0].value;
+            }
             this.formData['cashFlowStatementData'].cashFromFinancingActivities[0].value = cashFromFinancingActivities.value[0].value;
             this.formData['cashFlowStatementData'].paidUpCapitalEquity[0].value = paidUpCapitalEquity.value[0].value;
             this.formData['cashFlowStatementData'].shortTermLoan[0].value = shortTermLoan.value[0].value;
@@ -684,6 +693,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].dividendDrawing[0].value = dividendDrawing.value[0].value;
             this.formData['cashFlowStatementData'].interestExpensesCFSb[0].value = interestExpensesCFSb.value[0].value;
             this.formData['cashFlowStatementData'].otherAdjustments[0].value = otherAdjustments.value[0].value;
+            this.formData['cashFlowStatementData'].nonOperatingIncomeExpenses[0].value = nonOperatingIncomeExpenses.value[0].value;
             if (this.formData['cashFlowStatementData'].additionalCapital !== undefined) {
                 this.formData['cashFlowStatementData'].additionalCapital[0].value = additionalCapital.value[0].value;
             }

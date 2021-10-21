@@ -169,8 +169,6 @@ export class FinancialComponent implements OnInit {
         'changedInFixedAsset',
         'nonOperatingIncomeExpenses',
         'changeInOtherAssets',
-        'changeInOtherLongTermLiabilities',
-        'changeInOtherProvisions',
         'cashFromFinancingActivities',
         'paidUpCapitalEquity',
         'additionalCapital',
@@ -513,9 +511,15 @@ export class FinancialComponent implements OnInit {
 
     removingFiscalYearForCashFlowStatement(index) {
         const cashFlowStatementData = this.currentFormData['cashFlowStatementData'];
-        this.cashFlowStatementArray.forEach(headingValue => {
-            this.financialService.removeFiscalYearForJson(cashFlowStatementData[headingValue], index);
-        });
+        if (cashFlowStatementData.additionalCapital === undefined) {
+            this.cashFlowStatementArray.forEach(headingValue => {
+                this.financialService.removeFiscalYearForJson(cashFlowStatementData[headingValue], index);
+            });
+        } else {
+            this.newCashFlowStatementArray.forEach(headingValue => {
+                this.financialService.removeFiscalYearForJson(cashFlowStatementData[headingValue], index);
+            });
+        }
     }
 
     removingFiscalYearForKeyIndicators(index) {
@@ -525,8 +529,6 @@ export class FinancialComponent implements OnInit {
         });
     }
 
-    //
-    //
     // Header Part--
     addIncomeOfBorrower() {
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;

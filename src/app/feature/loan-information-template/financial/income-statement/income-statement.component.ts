@@ -273,9 +273,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             cashFlowStatement.dividendDrawing[index].value = (-Math.abs(Number(dividendOrDrawing.controls['value'].value))).toFixed(2);
             cashFlowStatement.interestExpensesCFSb[index].value = (-Math.abs(Number(interestExpenses.controls['value'].value))).toFixed(2);
             cashFlowStatement.otherAdjustments[index].value = (-Math.abs(Number(otherAdjustment.controls['value'].value))).toFixed(2);
+            cashFlowStatement.nonOperatingIncomeExpenses[index].value = nonOperatingIncomeOrExpenses.controls['value'].value;
         }
-
-        cashFlowStatement.nonOperatingIncomeExpenses[index].value = nonOperatingIncomeOrExpenses.controls['value'].value;
 
         this.financialService.cashFromInvestingActivitiesTotal(cashFlowStatement, index);
         this.financialService.cashFromFinancingActivitiesTotal(cashFlowStatement, index);
