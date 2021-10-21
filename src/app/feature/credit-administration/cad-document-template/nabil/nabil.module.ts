@@ -29,6 +29,8 @@ import { LetterVehicleIndividualComponent } from './letter-vehicle-individual/le
 import { LetterVehicleIndividualPrintComponent } from './letter-vehicle-individual/letter-vehicle-individual-print/letter-vehicle-individual-print.component';
 import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/promissory-note-company-print/promissory-note-company-print.component';
 import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-proprietorship/personal-gaurantee-proprietorship.component';
+import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/mega-offer-letter-template.module';
+
 
 @NgModule({
     declarations: [
@@ -40,7 +42,7 @@ import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-pro
         LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent,
         LetterVehicleIndividualComponent, LetterVehicleIndividualPrintComponent,
         LoanDeedIndividualPrintComponent, PromissoryNoteProprietorshipComponent, PromissoryNoteProprietorshipPrintComponent,
-        PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, SecuritiesComponent,
+        PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent,
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent,
         LoanDeedPartnershipComponent,
@@ -64,7 +66,6 @@ import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-pro
         NabilLoanDeedCompanyComponent,
         PromissoryNoteProprietorshipPrintComponent,
         PromissoryNoteProprietorshipComponent,
-        PromissoryNotePartnershipPrintComponent,
         PromissoryNotePartnershipComponent,
         PromissoryNotePartnershipPrintComponent,
         PersonalGuaranteePartnershipComponent,
@@ -81,7 +82,8 @@ import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-pro
         NgxPrintModule,
         NbButtonModule,
         CKEditorModule,
-        NbSpinnerModule
+        NbSpinnerModule,
+        MegaOfferLetterTemplateModule
     ]
 })
 export class NabilModule {
