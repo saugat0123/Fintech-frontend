@@ -167,6 +167,16 @@ export class LetterOfSetOffComponent implements OnInit {
       this.setJointDetailsArr(this.selectiveArr);
     }
     this.checkOfferLetterData();
+    const tempApprDate = this.educationalTemplateData.dateOfApproval ? this.educationalTemplateData.dateOfApproval.en : '';
+    let dateOfApproval;
+    if (!ObjectUtil.isEmpty(tempApprDate)) {
+      if (!ObjectUtil.isEmpty(tempApprDate.nDate)) {
+        dateOfApproval = tempApprDate.nDate;
+      } else  {
+        const tempData = this.datePipe.transform(tempApprDate);
+        dateOfApproval = this.engToNepaliDate.transform(tempData, true);
+      }
+    }
     this.letterOfSetOff.patchValue(
         {
           nameOfBranch: this.individualData.branch.ct ?
@@ -195,6 +205,7 @@ export class LetterOfSetOffComponent implements OnInit {
           loanAmountWord: loanAmountWord,
           purposeOfLoan: this.educationalTemplateData.purposeOfLoan.ct ?
               this.educationalTemplateData.purposeOfLoan.ct : this.educationalTemplateData.purposeOfLoan.np,
+          sanctionLetterIssuedDate: dateOfApproval ? dateOfApproval : '',
           // sanctionLetterIssuedDate: this.educationalTemplateData.sanctionLetterIssuedDate.ct ?
           //     this.educationalTemplateData.sanctionLetterIssuedDate.ct : this.educationalTemplateData.sanctionLetterIssuedDate.np,
           // nameOfTd: this.educationalTemplateData.nameOfTd.ct ?
