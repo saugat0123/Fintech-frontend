@@ -26,7 +26,6 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         this.buildCashFlowStatement();
         if (this.formData['cashFlowStatementData'] !== undefined) {
             const cashFlowStatementData = this.formData['cashFlowStatementData'];
-            console.log('cashFlowStatementData', cashFlowStatementData);
             this.setCashFromOperatingActivities(cashFlowStatementData.cashFromOperatingActivities);
             this.setNetProfitForThePeriod(cashFlowStatementData.netProfitForThePeriod);
             this.setDepreciation(cashFlowStatementData.depreciation);
