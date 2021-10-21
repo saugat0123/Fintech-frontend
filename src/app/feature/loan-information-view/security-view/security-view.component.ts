@@ -22,6 +22,8 @@ import {OpeningBeneficiary} from '../../admin/modal/openingBeneficiary';
 export class SecurityViewComponent implements OnInit {
   @Input() security: Security;
   @Input() shareSecurityData;
+  closingPriceAverage = [];
+  closingPrice = [];
   securityData: Security;
   shareSecurity;
   vehicleSelected = false;
@@ -202,6 +204,8 @@ export class SecurityViewComponent implements OnInit {
               }
           });
     }
+    this.closingPriceAverage = this.shareSecurity.shareSecurityDetails.filter(item => item.closingPriceAverage);
+    this.closingPrice = this.shareSecurity.shareSecurityDetails.filter(item => item.closingPrice);
   }
 
   calculateShareTotals() {
