@@ -2719,6 +2719,20 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3 mb-3">
+                                <div class="form-group">
+                                    <label for="shareRate">Shareholder Name</label>
+                                    <input [ngClass]="{ 'is-invalid': (shareSelected) && (shareField.get('shareholderName').errors || shareField.get('shareholderName').invalid) }"
+                                           class="form-control" formControlName="shareholderName"
+                                           id="shareholderName" name="shareholderName"
+                                           type="text" placeholder="Shareholder Name">
+                                    <div *ngIf="(shareSelected) && (shareField.get('shareholderName').invalid)" class="invalid-feedback">
+                                        <div *ngIf="shareField.get('shareholderName').errors.required">
+                                            Shareholder Name is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
                                 <label for="closingPriceAverage"><b>Closing Price Average</b></label>
                                 <input formControlName="closingPriceAverage"
                                        class="form-control"

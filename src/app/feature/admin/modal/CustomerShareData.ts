@@ -12,4 +12,5 @@ export class CustomerShareData {
     consideredValue: number;
     closingPriceAverage: number;
     closingPrice: number;
+    shareholderName: string;
 }
