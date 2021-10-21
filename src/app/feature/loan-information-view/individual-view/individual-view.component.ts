@@ -39,7 +39,7 @@ export class IndividualViewComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log('this is cutstomer info from app-individual-view', this.customerInfo);
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
