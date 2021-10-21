@@ -630,6 +630,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         const increaseDecreaseInCreditors = this.cashFlowStatementForm.get('increaseDecreaseInCreditors') as FormArray;
         const increaseDecreaseInOtherCurrentLiabilities =
             this.cashFlowStatementForm.get('increaseDecreaseInOtherCurrentLiabilities') as FormArray;
+        const cashFromOperatingActivities = this.cashFlowStatementForm.get('cashFromOperatingActivities') as FormArray;
 
         if (increaseDecreaseInInventory.controls.length > 0) {
             this.formData['cashFlowStatementData'].increaseDecreaseInInventory[0].value = increaseDecreaseInInventory.value[0].value;
@@ -658,6 +659,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].netCashFlow[0].value = netCashFlow.value[0].value;
             this.formData['cashFlowStatementData'].closingCash[0].value = closingCash.value[0].value;
             this.formData['cashFlowStatementData'].differenceCFS[0].value = differenceCFS.value[0].value;
+            this.formData['cashFlowStatementData'].cashFromOperatingActivities[0].value = cashFromOperatingActivities.value[0].value;
         }
     }
 
