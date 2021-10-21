@@ -26,6 +26,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         this.buildCashFlowStatement();
         if (this.formData['cashFlowStatementData'] !== undefined) {
             const cashFlowStatementData = this.formData['cashFlowStatementData'];
+            console.log('cashFlowStatementData', cashFlowStatementData);
             this.setCashFromOperatingActivities(cashFlowStatementData.cashFromOperatingActivities);
             this.setNetProfitForThePeriod(cashFlowStatementData.netProfitForThePeriod);
             this.setDepreciation(cashFlowStatementData.depreciation);
@@ -556,6 +557,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             + Number(interestExpensesCFSa)).toFixed(2));
 
         const cashFromOperatingActivities = (this.cashFlowStatementForm.get('cashFromOperatingActivities') as FormArray).value[0].value;
+        console.log('cashFromOperatingActivities', cashFromOperatingActivities);
         const addOpeningBalance = (this.cashFlowStatementForm.get('addOpeningBalance') as FormArray).value[0].value;
 
         /** For cashFromInvestingActivities **/
@@ -621,6 +623,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         const changeInOtherAssets = this.cashFlowStatementForm.get('changeInOtherAssets') as FormArray;
         const changeInOtherLongTermLiabilities = this.cashFlowStatementForm.get('changeInOtherLongTermLiabilities') as FormArray;
         const changeInOtherProvisions = this.cashFlowStatementForm.get('changeInOtherProvisions') as FormArray;
+        const cashFromOperatingActivities = this.cashFlowStatementForm.get('cashFromOperatingActivities') as FormArray;
 
         const cashFromFinancingActivities = this.cashFlowStatementForm.get('cashFromFinancingActivities') as FormArray;
         const paidUpCapitalEquity = this.cashFlowStatementForm.get('paidUpCapitalEquity') as FormArray;
@@ -694,6 +697,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].interestExpensesCFSb[0].value = interestExpensesCFSb.value[0].value;
             this.formData['cashFlowStatementData'].otherAdjustments[0].value = otherAdjustments.value[0].value;
             this.formData['cashFlowStatementData'].nonOperatingIncomeExpenses[0].value = nonOperatingIncomeExpenses.value[0].value;
+            this.formData['cashFlowStatementData'].cashFromOperatingActivities[0].value = cashFromOperatingActivities.value[0].value;
             if (this.formData['cashFlowStatementData'].additionalCapital !== undefined) {
                 this.formData['cashFlowStatementData'].additionalCapital[0].value = additionalCapital.value[0].value;
             }

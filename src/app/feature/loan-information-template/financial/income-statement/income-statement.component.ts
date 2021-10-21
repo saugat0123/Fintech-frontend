@@ -247,15 +247,14 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
         // Cash Flow Statement Calculation--
         cashFlowStatement.netProfitForThePeriod[index].value = profitAfterTax.controls['value'].value;
-        this.financialService.cashFromOperatingActivitiesTotal(cashFlowStatement, index);
 
         if (index > 0) {
-            cashFlowStatement.depreciation[index].value = this.financialService
+            cashFlowStatement.depreciation[index].value = (Number(this.financialService
                 .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'),
-                    'Depreciation', index).toFixed(2);
-            cashFlowStatement.otherAmortizationAndNonCashExpenses[index].value = this.financialService
+                    'Depreciation', index))).toFixed(2);
+            cashFlowStatement.otherAmortizationAndNonCashExpenses[index].value = (Number(this.financialService
                 .fetchValuesForSubCategories(this.incomeStatementForm.get('operatingExpensesCategory'),
-                    'Amortization/Other Non-Cash Expenses', index).toFixed(2);
+                    'Amortization/Other Non-Cash Expenses', index))).toFixed(2);
             cashFlowStatement.adjustmentForNonOperatingIncome[index].value = -Math.abs(
                 Number(nonOperatingIncomeOrExpenses.controls['value'].value)).toFixed(2);
             cashFlowStatement.interestExpensesCFSa[index].value = interestExpenses.controls['value'].value;
@@ -276,13 +275,13 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             cashFlowStatement.nonOperatingIncomeExpenses[index].value = nonOperatingIncomeOrExpenses.controls['value'].value;
         }
 
+        this.financialService.cashFromOperatingActivitiesTotal(cashFlowStatement, index);
         this.financialService.cashFromInvestingActivitiesTotal(cashFlowStatement, index);
         this.financialService.cashFromFinancingActivitiesTotal(cashFlowStatement, index);
         this.financialService.netCashFlowTotal(cashFlowStatement, index);
         this.financialService.closingCashTotal(cashFlowStatement, index);
         this.financialService.differenceCFSTotal(cashFlowStatement, index);
 
-        //
         // Key Indicators Calculation--
         if (index > 0) {
             keyIndicators.sales[index].value = Number(totalSalesRevenue.controls['value'].value) === 0 ? 0 :
