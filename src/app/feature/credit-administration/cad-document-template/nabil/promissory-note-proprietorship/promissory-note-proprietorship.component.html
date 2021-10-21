@@ -1,4 +1,4 @@
-<div class="container nep text-justify" id="{{offerLetterConst.PROMISSORY_NOTE_PROPRIETORSHIP}}Print">
+<div class="nep text-justify" id="{{offerLetterConst.PROMISSORY_NOTE_PROPRIETORSHIP}}Print">
     <form [formGroup]="form" id="promissoryNotePropertiership">
         <div class="text-justify">
             <div class="row">
@@ -280,115 +280,18 @@
                                 </p>
                             </div>
 
-                            <p class="text-center"><b>साक्षी</b><br>
-                            <p>१. <input class="form-field disable-print form-control-sm nepaliFont"
-                                         name="sakshiDistrict"
-                                         formControlName="sakshiDistrict"
-                                         placeholder=""
-                                         type="text"
-                                         readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('sakshiDistrict').value ? form.get('sakshiDistrict').value : "============================"}}</span>
-
-
-                                जिल्ला <input class="form-field disable-print form-control-sm nepaliFont"
-                                              name="sakshiVdc"
-                                              formControlName="sakshiVdc"
-                                              placeholder=""
-                                              type="text"
-                                              readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('sakshiVdc').value ? form.get('sakshiVdc').value : "============================"}}</span>
-
-
-                                न.पा.गा.वि.स. वडा नं.
-                                <input class="form-field disable-print form-control-sm nepaliFont"
-                                       name="sakshiWardNo"
-                                       formControlName="sakshiWardNo"
-                                       placeholder=""
-                                       type="text"
-                                       readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('sakshiWardNo').value ? form.get('sakshiWardNo').value : "============================"}}</span>
-
-
-                                बस्ने बर्ष <input class="form-field disable-print form-control-sm nepaliFont"
-                                                  name="sakshiAge"
-                                                  formControlName="sakshiAge"
-                                                  placeholder=""
-                                                  type="text"
-                                                  readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('sakshiAge').value ? form.get('sakshiAge').value : "============================"}}</span>
-
-
-                                को/की <input
-                                        class="form-field disable-print form-control-sm nepaliFont"
-                                        name="nameofWitness"
-                                        formControlName="nameofWitness"
-                                        placeholder=""
-                                        type="text"
-                                        readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('nameofWitness').value ? form.get('nameofWitness').value : "============================"}}</span>
-
-
-                            </p>
-                            <p>२. <input class="form-field disable-print form-control-sm nepaliFont"
-                                         name="sakshiDistrict1"
-                                         formControlName="sakshiDistrict1"
-                                         placeholder=""
-                                         type="text"
-                                         readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('sakshiDistrict1').value ? form.get('sakshiDistrict1').value : "============================"}}</span>
-
-
-                                जिल्ला <input class="form-field disable-print form-control-sm nepaliFont"
-                                              name="sakshiVdc1"
-                                              formControlName="sakshiVdc1"
-                                              placeholder=""
-                                              type="text"
-                                              readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('sakshiVdc1').value ? form.get('sakshiVdc1').value : "============================"}}</span>
-
-
-                                न.पा.गा.वि.स. वडा नं.
-                                <input class="form-field disable-print form-control-sm nepaliFont"
-                                       name="sakshiWardNo1"
-                                       formControlName="sakshiWardNo1"
-                                       placeholder=""
-                                       type="text"
-                                       readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('sakshiWardNo1').value ? form.get('sakshiWardNo1').value : "============================"}}</span>
-
-
-                                बस्ने बर्ष <input class="form-field disable-print form-control-sm nepaliFont"
-                                                  name="sakshiAge1"
-                                                  formControlName="sakshiAge1"
-                                                  placeholder=""
-                                                  type="text"
-                                                  readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('sakshiAge1').value ? form.get('sakshiAge1').value : "============================"}}</span>
-
-
-                                को/की <input
-                                        class="form-field disable-print form-control-sm nepaliFont"
-                                        name="nameofWitness1"
-                                        formControlName="nameofWitness1"
-                                        placeholder=""
-                                        type="text"
-                                        readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('nameofWitness1').value ? form.get('nameofWitness1').value : "============================"}}</span>
-
-
-                            </p>
-                            <p>३. कारणीले मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका कर्मचारी
-                                <input class="form-field disable-print form-control-sm nepaliFont"
-                                       name="nameofBankWitness"
-                                       formControlName="nameofBankWitness"
-                                       placeholder=""
-                                       type="text"
-                                       readonly="readonly"/>
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('nameofBankWitness').value ? form.get('nameofBankWitness').value : "============================"}}</span>
-
-
-                            </p>
-
+                            <div class="col-md-12">
+                                <p>
+                                    साक्षीः
+                                </p>
+                                <ul class="nepaliList">
+                                    <app-sakhshi-common></app-sakhshi-common>
+                                    <li>
+                                        कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+                                        ____________________________
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                         <br/>
                         <div class="col-md-12 text-right disable-print">
