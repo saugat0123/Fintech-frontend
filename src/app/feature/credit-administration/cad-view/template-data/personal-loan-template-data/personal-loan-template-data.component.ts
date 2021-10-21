@@ -87,6 +87,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       // sakshiMunicipality: [undefined],
       // sakshiWardNum: [undefined],
       // sakshiName: [undefined],
+      employeeName : [undefined],
 
       // Translated Value
       refNumberTransVal: [undefined, Validators.required],
@@ -108,19 +109,18 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       // sakshiMunicipalityTransVal: [undefined,Validators.required],
       // sakshiWardNumTransVal: [undefined,Validators.required],
       // sakshiNameTransVal: [undefined,Validators.required],
+      employeeNameTransVal: [undefined, Validators.required]
 
     });
   }
 
   submit() {
     this.submitted = true;
-
     if (this.form.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
       this.spinner = false;
       return;
     }
-
     this.spinner = true;
     this.btnDisable = true;
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
@@ -235,6 +235,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.form.get('sakshiMunicipalityTransVal').patchValue(this.translatedData.sakshiMunicipality);
     this.form.get('sakshiWardNumTransVal').patchValue(this.translatedData.sakshiWardNum);
     this.form.get('sakshiNameTransVal').patchValue(this.translatedData.sakshiName);*/
+    this.form.get('employeeNameTransVal').patchValue(this.translatedData.employeeName);
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -245,7 +246,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
   }
   translateNumber(source, target) {
-    const wordLabelVar = this.engToNepaliNumberPipe.transform(String(this.form.get(source).value));
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
     this.form.get(target).patchValue(wordLabelVar);
   }
 

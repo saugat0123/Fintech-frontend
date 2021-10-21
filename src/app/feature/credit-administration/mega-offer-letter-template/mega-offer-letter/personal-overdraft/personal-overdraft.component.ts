@@ -51,7 +51,6 @@ export class PersonalOverdraftComponent implements OnInit {
   selectedSecurity;
   loanLimit;
   renewal;
-  offerDocumentDetails;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -72,9 +71,6 @@ export class PersonalOverdraftComponent implements OnInit {
     this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
   }
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
-    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
-      this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
-    }
     console.log('guarantor Data:',this.guarantorData);
     console.log('All Data:',this.tempData);
     console.log('Loan Holder initial data:',this.loanHolderInfo);
@@ -98,6 +94,11 @@ buildPersonal() {
     loanadminFee: [undefined],
     loanadminFeeWords: [undefined],
     dateofExpiry: [undefined],
+    ownerName: [undefined],
+    ownersAddress: [undefined],
+    propertyPlotNumber: [undefined],
+    propertyArea: [undefined],
+    sheetNumber: [undefined],
     nameofBranch: [undefined],
     nameofBranchManager: [undefined],
     guarantorName: [undefined],
@@ -109,6 +110,7 @@ buildPersonal() {
     district: [undefined],
     wardNum: [undefined],
     witnessName: [undefined],
+    staffName: [undefined],
     selectedSecurity: [undefined],
     loanLimitChecked: [undefined],
     renewalChecked: [undefined],
@@ -187,10 +189,16 @@ buildPersonal() {
       yearlyInterestRate: this.tempData.yearlyInterestRate.ct ? this.tempData.yearlyInterestRate.ct : '',
       loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
       loanadminFeeWords: this.tempData.loanadminFeeWords.ct ? this.tempData.loanadminFeeWords.ct : '',
-      nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+      ownerName: this.tempData.ownerName.ct ? this.tempData.ownerName.ct : '',
+      ownersAddress: this.tempData.ownersAddress.ct ? this.tempData.ownersAddress.ct : '',
+      propertyPlotNumber: this.tempData.propertyPlotNumber.ct ? this.tempData.propertyPlotNumber.ct : '',
+      propertyArea: this.tempData.propertyArea.ct ? this.tempData.propertyArea.ct : '',
+      sheetNumber: this.tempData.sheetNumber.ct ? this.tempData.sheetNumber.ct : '',
+      nameofBranch: this.tempData.branch ? this.tempData.branch : '',
       relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
       nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
-      branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+      branchName : this.tempData.branch ? this.tempData.branch : '',
+      staffName : this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
       insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
     });
   }

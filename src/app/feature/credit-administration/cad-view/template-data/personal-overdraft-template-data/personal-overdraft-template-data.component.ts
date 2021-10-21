@@ -98,9 +98,18 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       loanadminFeeWords: [undefined],
       loanCommitmentFee: [undefined],
       dateofExpiry: [undefined],
+      ownerName: [undefined],
+      ownersAddress: [undefined],
+      propertyPlotNumber: [undefined],
+      sheetNumber: [undefined],
+      propertyArea: [undefined],
+      // nameofGuarantors: [undefined],
+      /*guaranteedamountinFigure: [undefined],
+      guaranteedamountinWords: [undefined],*/
       insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
+      staffName: [undefined],
 
       // fortranslatedvalue
       selectedSecurityTransVal: [undefined],
@@ -117,9 +126,18 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       loanadminFeeWordsTransVal: [undefined],
       loanCommitmentFeeTransVal: [undefined, Validators.required],
       dateofExpiryTransVal: [undefined],
+      ownerNameTransVal: [undefined, Validators.required],
+      ownersAddressTransVal: [undefined, Validators.required],
+      propertyPlotNumberTransVal: [undefined, Validators.required],
+      sheetNumberTransVal: [undefined, Validators.required],
+      propertyAreaTransVal: [undefined, Validators.required],
+      // nameofGuarantorsTransVal: [undefined],
+      /*guaranteedamountinFigureTransVal: [undefined],
+      guaranteedamountinWordsTransVal: [undefined],*/
       insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined, Validators.required],
       nameofBranchManagerTransVal: [undefined, Validators.required],
+      staffNameTransVal: [undefined, Validators.required],
       securities: this.formBuilder.array([])
     });
     this.addDefaultSecurity();
@@ -253,13 +271,25 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
     // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
     this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
+    this.form.get('ownerNameTransVal').patchValue(this.translatedData.ownerName);
+    this.form.get('ownersAddressTransVal').patchValue(this.translatedData.ownersAddress);
+    // this.form.get('propertyPlotNumberTransVal').patchValue(this.translatedData.propertyPlotNumber);
+    // this.form.get('propertyAreaTransVal').patchValue(this.translatedData.propertyArea);
+    // this.form.get('sheetNumberTransVal').patchValue(this.translatedData.sheetNumber);
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
-    // this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
+    this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
     // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
     this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
+
+    // this.form.get('renewalCheckedTransval').patchValue(this.renewal);
+    // this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
+    /*this.form.get('sakshiDistrictTransVal').patchValue(this.translatedData.sakshiDistrict);
+    this.form.get('sakshiMunicipalityTransVal').patchValue(this.translatedData.sakshiMunicipality);
+    this.form.get('sakshiWardNumTransVal').patchValue(this.translatedData.sakshiWardNum);
+    this.form.get('sakshiNameTransVal').patchValue(this.translatedData.sakshiName);*/
   }
 
   getNumAmountWord(numLabel, wordLabel) {

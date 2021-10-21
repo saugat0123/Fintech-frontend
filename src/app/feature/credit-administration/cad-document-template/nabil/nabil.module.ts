@@ -22,11 +22,9 @@ import {SecuritiesComponent} from './securities-view/securities-view.component';
 import {PromissoryNoteProprietorshipComponent} from './promissory-note-proprietorship/promissory-note-proprietorship.component';
 import {PromissoryNoteProprietorshipPrintComponent} from './promissory-note-proprietorship/promissory-note-propertiership-print/promissory-note-proprietorship-print.component';
 import {LoanDeedPartnershipPrintComponent} from './loan-deed-partnership/loan-deed-partnership-print/loan-deed-partnership-print.component';
-import {LetterVehicleThirdpartyCompanyComponent} from './letter-vehicle-thirdparty-company/letter-vehicle-thirdparty-company.component';
-import {LetterVehicleThirdpartyCompanyPrintComponent} from './letter-vehicle-thirdparty-company/letter-vehicle-thirdparty-company-print/letter-vehicle-thirdparty-company-print.component';
-import { LetterVehicleIndividualComponent } from './letter-vehicle-individual/letter-vehicle-individual.component';
-import { LetterVehicleIndividualPrintComponent } from './letter-vehicle-individual/letter-vehicle-individual-print/letter-vehicle-individual-print.component';
-import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/promissory-note-company-print/promissory-note-company-print.component';
+import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-proprietorship/personal-gaurantee-proprietorship.component';
+import {PromissoryNoteCompanyPrintComponent} from './promissory-note-company/promissory-note-company-print/promissory-note-company-print.component';
+import { PersonalGuaranteeProprietorshipPrintComponent } from './personal-guarantee-proprietorship/personal-guarantee-proprietorship-print/personal-guarantee-proprietorship-print.component';
 
 
 @NgModule({
@@ -34,16 +32,14 @@ import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/p
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
-        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent,
-        LetterVehicleIndividualComponent, LetterVehicleIndividualPrintComponent,
         LoanDeedIndividualPrintComponent, PromissoryNoteProprietorshipComponent, PromissoryNoteProprietorshipPrintComponent,
         PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, SecuritiesComponent,
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent,
         LoanDeedPartnershipComponent,
-        PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent, LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PromissoryNoteCompanyPrintComponent],
+        PromissoryNoteCompanyPrintComponent,
+        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PersonalGuaranteeProprietorshipComponent, PersonalGuaranteeProprietorshipPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -56,9 +52,6 @@ import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/p
         LoanDeedIndividualComponent,
         LoanDeedIndividualPrintComponent,
         NabilLoanDeedCompanyComponent,
-        LetterVehicleIndividualComponent,
-        LetterVehicleIndividualPrintComponent,
-        NabilLoanDeedCompanyComponent,
         PromissoryNoteProprietorshipPrintComponent,
         PromissoryNoteProprietorshipComponent,
         PromissoryNotePartnershipPrintComponent,
@@ -66,8 +59,8 @@ import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/p
         SecuritiesComponent,
         LoanDeedPartnershipComponent,
         LoanDeedPartnershipPrintComponent,
-        LetterVehicleThirdpartyCompanyComponent,
-        LetterVehicleThirdpartyCompanyPrintComponent
+        PersonalGuaranteeProprietorshipComponent,
+        PersonalGuaranteeProprietorshipPrintComponent
     ],
     imports: [
         CommonModule,

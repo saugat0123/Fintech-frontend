@@ -105,7 +105,7 @@ export class SmeComponent implements OnInit {
       relationshipOfficerName: [undefined],
       branchManager: [undefined],
       signatureDate: [undefined],
-      // staffName: [undefined],
+      staffName: [undefined],
     });
   }
   checkOfferLetterData() {
@@ -169,7 +169,7 @@ export class SmeComponent implements OnInit {
       vendorName: this.tempData.vendorName.ct ? this.tempData.vendorName.ct : '',
       relationshipOfficerName: this.tempData.relationshipOfficerName.ct ? this.tempData.relationshipOfficerName.ct : '',
       branchManager: this.tempData.branchManager.ct ? this.tempData.branchManager.ct : '',
-      // staffName: this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
+      staffName: this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
     });
   }
 

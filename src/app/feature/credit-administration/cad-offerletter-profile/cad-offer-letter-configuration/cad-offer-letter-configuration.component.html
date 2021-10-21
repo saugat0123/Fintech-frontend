@@ -1996,7 +1996,7 @@
                           formControlName="issuedPlace">
                     <option [ngValue]="null" hidden>District</option>
                     <option *ngFor="let district of allDistrictList"
-                            [ngValue]="district.nepaliName">
+                            [ngValue]="district.name">
                       {{district.name}} || {{district.nepaliName}}
                     </option>
                   </select>

@@ -93,6 +93,7 @@ export class PersonalLoanComponent implements OnInit {
       sakshiMunicipality: [undefined],
       sakshiWardNum: [undefined],
       sakshiName: [undefined],
+      employeeName: [undefined]
     });
   }
 
@@ -162,6 +163,7 @@ export class PersonalLoanComponent implements OnInit {
       sakshiMunicipality: this.tempData.sakshiMunicipality.ct ? this.tempData.sakshiMunicipality.ct : '',
       sakshiWardNum: this.tempData.sakshiWardNum.ct ? this.tempData.sakshiWardNum.ct : '',
       sakshiName: this.tempData.sakshiName.ct ? this.tempData.sakshiName.ct : '',*/
+      employeeName: this.tempData.employeeName.ct ? this.tempData.employeeName.ct : '',
     });
     // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
   }
