@@ -1,0 +1,91 @@
+.nepaliFont {
+  font-size: 22px !important;
+
+  &.font-size-normal {
+    font-size: 28px !important;
+  }
+}
+.longInput{
+  width: 400px;
+}
+
+.shortInput{
+  width: 50px;
+}
+
+.nep {
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 50px;
+}
+
+.form-field {
+  background: yellow;
+  margin: 0px 5px 5px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  &:focus {
+    outline: none;
+  }
+}
+p {
+  line-height: 1.9;
+}
+li {
+  list-style-type: none;
+}
+
+input::-webkit-input-placeholder {
+  font-size: 16px;
+}
+
+.lh-30 {
+  line-height: 30px;
+  text-align: justify;
+}
+
+ol.conditions {
+  padding: 15px !important;
+}
+
+ol.conditions li {
+  list-style: devanagari;
+  line-height: 30px !important;
+}
+
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+@media print {
+  p {
+    line-height: 1.9;
+  }
+  .print-only {
+    display: inline;
+  }
+  .nepaliFont{
+    font-size: 22px;
+  }
+  .num {
+    font-size: 22px !important;
+  }
+  div.align {
+    font-size: 20px;
+    line-height: 1.9;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 10px 70px;
+  }
+
+}

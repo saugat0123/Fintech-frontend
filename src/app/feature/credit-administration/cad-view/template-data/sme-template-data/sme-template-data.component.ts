@@ -105,7 +105,6 @@ export class SmeTemplateDataComponent implements OnInit {
       vendorName: [undefined],
       relationshipOfficerName: [undefined],
       branchManager: [undefined],
-      signatureDate: [undefined],
       // staffName: [undefined],
 
       //For translated data
@@ -129,7 +128,6 @@ export class SmeTemplateDataComponent implements OnInit {
       vendorNameTransVal: [undefined, Validators.required],
       relationshipOfficerNameTransVal: [undefined, Validators.required],
       branchManagerTransVal: [undefined, Validators.required],
-      signatureDateTransVal: [undefined],
       // staffNameTransVal: [undefined, Validators.required],
     });
   }
@@ -155,7 +153,6 @@ export class SmeTemplateDataComponent implements OnInit {
     this.form.get('vendorNameTransVal').patchValue(this.podtranslatedData.vendorName);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.podtranslatedData.relationshipOfficerName);
     this.form.get('branchManagerTransVal').patchValue(this.podtranslatedData.branchManager);
-    this.form.get('signatureDateTransVal').patchValue(this.podtranslatedData.signatureDate);
     // this.form.get('staffNameTransVal').patchValue(this.podtranslatedData.staffName);
     this.form.get('selectedInterestTransVal').patchValue(data.selectedInterest.en);
     this.form.get('selectedAutoLoanTransVal').patchValue(data.selectedAutoLoan.en);

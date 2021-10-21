@@ -59,7 +59,7 @@ export class RetailMortgageLoanComponent implements OnInit {
                 private administrationService: CreditAdministrationService,
                 protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
                 private routerUtilsService: RouterUtilsService,
-                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private currencyFormatPipe: CurrencyFormatterPipe,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
