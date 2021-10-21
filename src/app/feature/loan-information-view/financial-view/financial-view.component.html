@@ -742,12 +742,12 @@
                         <td class="text-left pl-1">Change in Other Assets</td>
                         <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherAssets']" class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="financialData['cashFlowStatementData']['changeInOtherLongTermLiabilities'].length > 0">
                         <th scope="row">d</th>
                         <td class="text-left pl-1">Change in Other Long Term Liabilities</td>
                         <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherLongTermLiabilities']" class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="financialData['cashFlowStatementData']['changeInOtherProvisions'].length > 0">
                         <th scope="row">e</th>
                         <td class="text-left pl-1">Change in Other Provisions</td>
                         <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherProvisions']" class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
@@ -763,7 +763,7 @@
                     </tr>
                     <tr>
                         <th scope="row">a</th>
-                        <td class="text-left pl-1">Paid up Capital/Equity</td>
+                        <td class="text-left pl-1">Issue of Share</td>
                         <td *ngFor="let amount of financialData['cashFlowStatementData']['paidUpCapitalEquity']" class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
                     </tr>
                     <tr>
@@ -791,6 +791,12 @@
                         <th scope="row">f</th>
                         <td class="text-left pl-1">Other Adjustments</td>
                         <td *ngFor="let amount of financialData['cashFlowStatementData']['otherAdjustments']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                    </tr>
+
+                    <tr *ngIf="financialData['cashFlowStatementData']['additionalCapital'] !== undefined">
+                        <th scope="row">g</th>
+                        <td class="text-left pl-1">Additional Capital(if any)</td>
+                        <td *ngFor="let amount of financialData['cashFlowStatementData']['additionalCapital']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
                     </tr>
                     </tbody>
 
