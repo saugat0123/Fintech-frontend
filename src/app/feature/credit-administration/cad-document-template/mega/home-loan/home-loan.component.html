@@ -65,12 +65,7 @@
                             <tr>
                                 <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
                                 <td>
-                                    <strong>आवास कर्जाः</strong> <input class="form-field form-control-sm nepaliFont"
-                                                                         formControlName="nameoftheVehicle"
-                                                                         name="nameoftheVehicle"
-                                                                         placeholder=""
-                                                                         style="width: 200px"
-                                                                         type="text"/> भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
+                                    <strong>आवास कर्जाः</strong> भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
 
                                 </td>
                             </tr>
@@ -268,19 +263,22 @@
                                                       type="text"/> </p>
 
                                 <p> <strong>ख. </strong>श्री <input class="form-field form-control-sm nepaliFont"
-                                                                      formControlName="nameofGuarantors"
-                                                                      name="nameofGuarantors"
+                                                                      formControlName="guarantorName"
+                                                                    [value]="this.finalName"
+                                                                      name="guarantorName"
                                                                       placeholder=" "
                                                                       type="text"/> ले बैंकको पक्षमा
                                     रु <input class="form-field form-control-sm nepaliFont"
-                                              (input)="getNumAmountWord('guaranteedamountinFigure', 'guaranteedamountinWords')"
-                                              formControlName="guaranteedamountinFigure"
-                                              name="guaranteedamountinFigure"
+                                              (input)="getNumAmountWord('guarantorAmount', 'guarantorAmountinWord')"
+                                              formControlName="guarantorAmount"
+                                              [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                              name="guarantorAmount"
                                               placeholder=" "
                                               type="text"/>
                                     (अक्षरेपी रु <input class="form-field form-control-sm nepaliFont"
-                                                        formControlName="guaranteedamountinWords"
-                                                        name="guaranteedamountinWords"
+                                                        formControlName="guarantorAmountinWord"
+                                                        [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
+                                                        name="guarantorAmountinWord"
                                                         placeholder=" "
                                                         type="text"/>मात्र) बराबरको व्यक्तिगत जमानत पत्र दिनुपर्नेछ।
                                 </p>
@@ -359,14 +357,15 @@
                             <td>९. </td>
                             <td> धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
                                 <input class="form-field form-control-sm nepaliFont"
-                                       formControlName="nameofBranch"
-                                       name="nameofBranch"
+                                       formControlName="branchName"
+                                       name="branchName"
                                        placeholder=""
                                        type="text"/>  शाखामा रहेको खातामा निम्न तरीकाले कर्जा प्रवाह गरिनेछ। <br>
                                 <p>
                                     क.
                                     रु. <input class="form-field form-control-sm nepaliFont"
                                          formControlName="guaranteeAmount"
+                                               [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                          name="guaranteeAmount"
                                          placeholder=" "
                                          type="text"/>/
@@ -377,8 +376,8 @@
                                            placeholder=""
                                            type="text"/>/ (अक्षरेपि रु.
                                     <input class="form-field form-control-sm nepaliFont"
-                                           formControlName="loanAmountinWord"
-                                           name="loanAmountinWord"
+                                           formControlName="loanAmountInWords"
+                                           name="loanAmountInWords"
                                            placeholder=" "
                                            type="text"/>)
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
@@ -387,6 +386,7 @@
                                     ख.
                                     रु. <input class="form-field form-control-sm nepaliFont"
                                                        formControlName="guaranteeAmount"
+                                               [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                                        name="guaranteeAmount"
                                                        placeholder=" "
                                                        type="text"/>
@@ -397,8 +397,8 @@
                                                placeholder=""
                                                type="text"/>/ (अक्षरेपि रु.
                                         <input class="form-field form-control-sm nepaliFont"
-                                               formControlName="loanAmountinWord"
-                                               name="loanAmountinWord"
+                                               formControlName="loanAmountInWords"
+                                               name="loanAmountInWords"
                                                placeholder=" "
                                                type="text"/>)
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
@@ -407,6 +407,7 @@
                                     ग.
                                     रु. <input class="form-field form-control-sm nepaliFont"
                                                formControlName="guaranteeAmount"
+                                               [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                                name="guaranteeAmount"
                                                placeholder=" "
                                                type="text"/>
@@ -417,8 +418,8 @@
                                            placeholder=""
                                            type="text"/>/ (अक्षरेपि रु.
                                     <input class="form-field form-control-sm nepaliFont"
-                                           formControlName="loanAmountinWord"
-                                           name="loanAmountinWord"
+                                           formControlName="loanAmountInWords"
+                                           name="loanAmountInWords"
                                            placeholder=" "
                                            type="text"/>)
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
@@ -514,12 +515,7 @@
                                 (Interest Rate Premium) र आधार दर (Base Rate) बैंकको आधिकारिक वेब साईट  (Website) वा समय समयमा
                                 बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ।<br>
                                 <strong> ग. <u>बिलम्ब भुक्तानी शुल्कः </u></strong>
-                                माथि उल्लिखित साँवा/किस्ता तथा व्याज विलम्बमा लाग्ने हर्जाना ब्याजका अतिरिक्त प्रत्येक साँवा/किस्ता तथा व्याज विलम्बमा  रु.
-                                <input class="form-field form-control-sm nepaliFont"
-                                       formControlName="lateFee"
-                                       name="lateFee"
-                                       placeholder=" "
-                                       type="text"/>/
+                                माथि उल्लिखित साँवा/किस्ता तथा व्याज विलम्बमा लाग्ने हर्जाना ब्याजका अतिरिक्त प्रत्येक साँवा/किस्ता तथा व्याज विलम्बमा  रु.५००।
                                 (का दरले थप विलम्ब शुल्क लाग्नेछ)<br>
                                 <strong> घ. <u>थप/अतिरिक्त शुल्कः </u></strong>
                                 स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार देहाय बमोजिम
@@ -702,17 +698,20 @@
                                     ज.	श्री
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="guarantorName"
+                                           [value]="this.finalName"
                                            name="guarantorName"
                                            placeholder=" "
                                            type="text"/>
                                     को बैकको पक्षमा रु.
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="guarantorAmount"
+                                           [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                            name="guarantorAmount"
                                            placeholder=" "
                                            type="text"/>/-
                                     (अक्षेरेपी रु. <input class="form-field form-control-sm nepaliFont"
                                               formControlName="guarantorAmountinWord"
+                                                          [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
                                               name="guarantorAmountinWord"
                                               placeholder=" "
                                               type="text"/> मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण।
@@ -761,25 +760,25 @@
                                 <input class="form-field form-control-sm nepaliFont ios"
                                        formControlName="relationshipofficerName"
                                        name="relationshipofficerName"
-                                       placeholder=""
+                                       placeholder="सम्बन्ध अधिकारी को नाम"
                                        type="text"/><br><br>
 
                                 <input class="form-field form-control-sm nepaliFont ios"
                                        formControlName="branchName"
                                        name="branchName"
-                                       placeholder=""
+                                       placeholder="शाखाको नाम"
                                        type="text"/>
                             </div>
                             <div class="right-content">
                                 <input class="form-field form-control-sm nepaliFont ios"
-                                       formControlName="relationshipofficerName"
-                                       name="relationshipofficerName"
-                                       placeholder=""
+                                       formControlName="branchManager"
+                                       name="branchManager"
+                                       placeholder="शाखा प्रबन्धक"
                                        type="text"/><br><br>
                                 <input class="form-field form-control-sm nepaliFont ios"
                                        formControlName="branchName"
                                        name="branchName"
-                                       placeholder=""
+                                       placeholder="शाखाको नाम"
                                        type="text"/>
                             </div>
                         </div>
@@ -827,12 +826,8 @@
                         <p>
                             आधिकारिक हस्ताक्षर (ग्राहक)
                         </p> <br>
-                        <p class="text-left"> मिति:
-                            <input class="form-field form-control-sm nepaliFont col-7"
-                                   formControlName="dateofSignature"
-                                   name="dateofSignature"
-                                   placeholder=""
-                                   type="text"/>
+                        <p class="text-left"> मिति: .........................................
+
                         </p>
                     </div>
                     <br>
@@ -879,33 +874,7 @@
             </button>
         </nb-card-footer>
     </nb-card>
-                    <div class="col-md-12">
-                        <p>
-                            साक्षीः
-                        </p>
-                        <ul class="nepaliList">
-                            <app-sakhshi-common></app-sakhshi-common>
-                            <li>
-                                कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                                ____________________________
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="row disable-print">
-                    <div class="col-md-12 text-right" style="margin: 14px">
-                        <button nbButton status="success" (click)="submit()">Save</button>
-
-                        <button nbButton
-                                [disabled]="!initialInfoPrint"
-                                status="info"
-                                [useExistingCss]="true"
-                                ngxPrint printSectionId="{{offerLetterConst.HOME_LOAN}}Print">Print
-                        </button>
-                    </div>
-                </div>
-
+</div>
 <app-home-loan-print *ngIf="initialInfoPrint"
                       [letter]="initialInfoPrint"
                       [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"

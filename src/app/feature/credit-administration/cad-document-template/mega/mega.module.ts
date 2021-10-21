@@ -19,6 +19,7 @@ import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-pr
 import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 import { AutoLoanCommercialComponent } from './auto-loan-commercial/auto-loan-commercial.component';
 import { AutoLoanCommercialPrintComponent } from './auto-loan-commercial/auto-loan-commercial-print/auto-loan-commercial-print.component';
+import {CoreModule} from '../../../../@core/core.module';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { AutoLoanCommercialPrintComponent } from './auto-loan-commercial/auto-lo
         NbButtonModule,
         NgxPrintModule,
         MegaOfferLetterTemplateModule,
-      NbSpinnerModule
+        NbSpinnerModule,
+        CoreModule
     ],
   exports: [
     AssignmentOfReceivableComponent,
