@@ -33,6 +33,7 @@ import { PersonalLoanComponent } from './mega-offer-letter/personal-loan/persona
 import { PersonalLoanPrintComponent } from './mega-offer-letter/personal-loan/personal-loan-print/personal-loan-print.component';
 import {NabilModule} from '../cad-document-template/nabil/nabil.module';
 import {SakhshiCommonComponent} from '../component/sakhshi-common/sakhshi-common.component';
+import { SecuritiesComponent } from '../cad-document-template/nabil/securities-view/securities-view.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -53,12 +54,14 @@ const COMPONENTS = [
     RetailProfessionalLoanPrintComponent,
     RetailLoanAgainstInsuranceComponent,
     SmeComponent,
-    SmePrintComponent,
+    SmePrintComponent
 
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent, PersonalLoanAndPersonalOverdraftComponent, PersonalLoanAndPersonalOverdraftPrintComponent, PersonalLoanComponent, PersonalLoanPrintComponent, SakhshiCommonComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent, PersonalLoanAndPersonalOverdraftComponent, PersonalLoanAndPersonalOverdraftPrintComponent, PersonalLoanComponent, PersonalLoanPrintComponent,
+        SakhshiCommonComponent,
+        SecuritiesComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
@@ -72,7 +75,8 @@ const COMPONENTS = [
         PersonalOverdraftComponent,
         PersonalLoanAndPersonalOverdraftComponent,
         PersonalLoanComponent,
-        SakhshiCommonComponent
+        SakhshiCommonComponent,
+    SecuritiesComponent
     ],
     imports: [
         ThemeModule,
@@ -81,7 +85,6 @@ const COMPONENTS = [
         CoreModule,
         NbAccordionModule,
         NepaliPatroModule,
-        NabilModule,
     ],
     entryComponents: [
         RetailProfessionalLoanComponent,
@@ -90,6 +93,8 @@ const COMPONENTS = [
         PersonalLoanComponent,
         SmeComponent,
         RetailMortgageLoanComponent,
+        SakhshiCommonComponent,
+    SecuritiesComponent
     ]
 })
 export class MegaOfferLetterTemplateModule {
