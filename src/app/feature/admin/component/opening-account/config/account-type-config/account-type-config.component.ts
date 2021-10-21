@@ -53,7 +53,7 @@ export class AccountTypeConfigComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editPermission = LocalStorageUtil.getStorage().roleName === 'admin';
+    this.editPermission = LocalStorageUtil.getStorage().roleType === 'ADMIN';
     this.buildFilterForm();
     AccountTypeConfigComponent.loadData(this);
   }
