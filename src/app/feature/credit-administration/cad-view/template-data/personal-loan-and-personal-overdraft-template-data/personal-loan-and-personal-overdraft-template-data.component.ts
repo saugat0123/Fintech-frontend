@@ -37,7 +37,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     existingOfferLetter = false;
     attributes;
     tdValues: any = {};
-    podtranslatedData;
+    podtranslatedData: any ={};
     offerLetterDocument: OfferDocument;
     dateTypeBS = false;
     dateTypeAD = false;
@@ -72,12 +72,22 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             referenceNumber: [undefined],
             dateofApproval: [undefined],
             dateofApplication: [undefined],
+            loanAmountPl: [undefined],
+            loanAmountPlInWords: [undefined],
+            loanAmountOd: [undefined],
+            loanAmountOdInWords: [undefined],
             purposeofLoan: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
             yearlyInterestRate: [undefined],
             loanAdminFeeinFigure: [undefined],
             loanAdminFeeinWords: [undefined],
+            purposeofLoanOd: [undefined],
+            baseRateOd: [undefined],
+            premiumRateOd: [undefined],
+            yearlyInterestRateOd: [undefined],
+            loanAdminFeeinFigureOd: [undefined],
+            loanAdminFeeinWordsOd: [undefined],
             emiInFigure: [undefined],
             emiInWords: [undefined],
             loanExpiryDate: [undefined],
@@ -86,17 +96,26 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             relationshipofficerName: [undefined],
             branchManager: [undefined],
             signatureDate: [undefined],
-            staffName: [undefined],
             // translated value
             referenceNumberTransVal: [undefined, Validators.required],
             dateofApprovalTransVal: [undefined],
             dateofApplicationTransVal: [undefined],
-            purposeofLoanTransVal: [undefined],
-            baseRateTransVal: [undefined, Validators.required],
-            premiumRateTransVal: [undefined, Validators.required],
+            loanAmountPlTransVal: [undefined],
+            loanAmountPlInWordsTransVal: [undefined],
+            loanAmountOdTransVal: [undefined],
+            loanAmountOdInWordsTransVal: [undefined],
+            purposeofLoanTransVal: [undefined, Validators.required],
+            baseRateTransVal: [undefined],
+            premiumRateTransVal: [undefined],
             yearlyInterestRateTransVal: [undefined],
             loanAdminFeeinFigureTransVal: [undefined, Validators.required],
             loanAdminFeeinWordsTransVal: [undefined],
+            purposeofLoanOdTransVal: [undefined, Validators.required],
+            baseRateOdTransVal: [undefined],
+            premiumRateOdTransVal: [undefined],
+            yearlyInterestRateOdTransVal: [undefined],
+            loanAdminFeeinFigureOdTransVal: [undefined, Validators.required],
+            loanAdminFeeinWordsOdTransVal: [undefined],
             emiInFigureTransVal: [undefined, Validators.required],
             emiInWordsTransVal: [undefined],
             loanExpiryDateTransVal: [undefined],
@@ -105,7 +124,6 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             relationshipofficerNameTransVal: [undefined, Validators.required],
             signatureDateTransVal: [undefined],
             branchManagerTransVal: [undefined, Validators.required],
-            staffNameTransVal: [undefined, Validators.required],
         });
     }
 
@@ -122,20 +140,15 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         this.form.get('dateofApprovalTransVal').patchValue(this.podtranslatedData.dateofApproval);
         this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
         this.form.get('purposeofLoanTransVal').patchValue(this.podtranslatedData.purposeofLoan);
-        // this.form.get('baseRateTransVal').patchValue(this.podtranslatedData.baseRate);
-        // this.form.get('premiumRateTransVal').patchValue(this.podtranslatedData.premiumRate);
-        // this.form.get('yearlyInterestRateTransVal').patchValue(this.podtranslatedData.yearlyInterestRate);
-        // this.form.get('loanAdminFeeinFigureTransVal').patchValue(this.podtranslatedData.loanAdminFeeinFigure);
+        this.form.get('purposeofLoanOdTransVal').patchValue(this.podtranslatedData.purposeofLoanOd);
         this.form.get('loanAdminFeeinWordsTransVal').patchValue(this.podtranslatedData.loanAdminFeeinWords);
-        // this.form.get('emiInFigureTransVal').patchValue(this.podtranslatedData.emiInFigure);
+        this.form.get('loanAdminFeeinWordsOdTransVal').patchValue(this.podtranslatedData.loanAdminFeeinWordsOd);
         this.form.get('emiInWordsTransVal').patchValue(this.podtranslatedData.emiInWords);
         this.form.get('loanExpiryDateTransVal').patchValue(this.podtranslatedData.loanExpiryDate);
-        // this.form.get('accountNumberTransVal').patchValue(this.podtranslatedData.accountNumber);
         this.form.get('nameofCompanyCustomerWorkingTransVal').patchValue(this.podtranslatedData.nameofCompanyCustomerWorking);
         this.form.get('relationshipofficerNameTransVal').patchValue(this.podtranslatedData.relationshipofficerName);
         this.form.get('branchManagerTransVal').patchValue(this.podtranslatedData.branchManager);
         this.form.get('signatureDateTransVal').patchValue(this.podtranslatedData.signatureDate);
-        this.form.get('staffNameTransVal').patchValue(this.podtranslatedData.staffName);
     }
 
     getNumAmountWord(numLabel, wordLabel) {
@@ -157,6 +170,15 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         this.translateNumber('baseRate', 'baseRateTransVal');
         this.translateNumber('premiumRate', 'premiumRateTransVal');
         this.translateNumber('yearlyInterestRate', 'yearlyInterestRateTransVal');
+    }
+    calInterestRate1() {
+        const baseRate = this.form.get('baseRateOd').value;
+        const premiumRate = this.form.get('premiumRateOd').value;
+        const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+        this.form.get('yearlyInterestRateOd').patchValue(sum);
+        this.translateNumber('baseRateOd', 'baseRateOdTransVal');
+        this.translateNumber('premiumRateOd', 'premiumRateOdTransVal');
+        this.translateNumber('yearlyInterestRateOd', 'yearlyInterestRateOdTransVal');
     }
 
     mappedData() {
@@ -246,6 +268,14 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             }
         });
     }
+    deleteCTAndTransControls(data) {
+        const individualData = data as FormGroup;
+        Object.keys(data).forEach(key => {
+            if (key.indexOf('CT') > -1 || key.indexOf('TransVal') > -1) {
+                delete individualData[key];
+            }
+        });
+    }
 
     submit() {
         this.submitted = true;
@@ -256,7 +286,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         }
         this.spinner = true;
         this.btnDisable = true;
-        this.customerApprovedDoc.docStatus = CadDocStatus.OFFER_AND_LEGAL_PENDING;
+        this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
         if (this.customerApprovedDoc.offerDocumentList.length > 0) {
             this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
@@ -278,7 +308,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             const offerDocument = new OfferDocument();
             offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT);
             Object.keys(this.form.controls).forEach(key => {
-                if (key.indexOf('TransVal') > -1) {
+                if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
                     return;
                 }
                 this.attributes = new Attributes();
@@ -288,6 +318,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
                 this.tdValues[key] = this.attributes;
             });
             this.podtranslatedData = {};
+            this.deleteCTAndTransControls(this.tdValues);
             offerDocument.initialInformation = JSON.stringify(this.tdValues);
             this.customerApprovedDoc.offerDocumentList.push(offerDocument);
         }

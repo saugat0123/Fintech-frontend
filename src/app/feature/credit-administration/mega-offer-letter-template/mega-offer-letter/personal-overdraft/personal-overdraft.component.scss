@@ -10,8 +10,10 @@ input{
 .shortInput{
   width: 50px;
 }
+
+
 .nepaliList {
-  list-style-type: devanagari;
+  list-style-type: devanagari !important;
 }
 table{
   text-align: justify !important;
@@ -38,10 +40,6 @@ table{
 
 nb-card{
   max-height: 100vh !important;
-}
-
-li {
-  list-style-type: none;
 }
 
 input::-webkit-input-placeholder {

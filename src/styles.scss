@@ -180,6 +180,8 @@ button {
   @page {
     margin-top: 200px !important;
     margin-bottom: 100px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
   }
   .pageBreak {
     page-break-before: always !important;
@@ -196,5 +198,13 @@ button {
   }
   :-ms-input-placeholder { /* Internet Explorer 10+ */
       color: transparent;
+  }
+}
+
+.nepaliList {
+  list-style-type: devanagari !important;
+  li {
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 }

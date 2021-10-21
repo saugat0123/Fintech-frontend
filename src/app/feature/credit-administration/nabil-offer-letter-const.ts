@@ -9,7 +9,8 @@ export enum NabilOfferLetterConst {
     PERSONAL_OVERDRAFT,
     PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT,
     PERSONAL_LOAN,
-    HOME_LOAN
+    HOME_LOAN,
+    MORTAGE_LOAN
 }
 
 export namespace NabilOfferLetterConst {
@@ -17,8 +18,8 @@ export namespace NabilOfferLetterConst {
         switch (offerLetterConst) {
             // case NabilOfferLetterConst.HOUSING_TAKEOVER_CASE:
             //     return 'Housing TakeOver Case';
-            // case NabilOfferLetterConst.AUTO_LOAN:
-            //     return 'Auto Loan';
+            case NabilOfferLetterConst.AUTO_LOAN:
+                return 'Auto Loan';
             // case NabilOfferLetterConst.HOUSING_CONSTRUCTION_CASE_1:
             //     return 'Housing Construction Case-1';
             // case NabilOfferLetterConst. COMMERCIAL_AUTO:
@@ -31,12 +32,12 @@ export namespace NabilOfferLetterConst {
                 return 'Personal Overdraft';
             case NabilOfferLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT:
                 return 'Personal loan and personal overdraft';
-            case NabilOfferLetterConst.PERSONAL_OVERDRAFT:
-                return 'Personal Loan';
             case NabilOfferLetterConst.HOME_LOAN:
                 return 'Home Loan';
             case NabilOfferLetterConst.PERSONAL_LOAN:
                 return 'Personal Loan';
+            case NabilOfferLetterConst.MORTAGE_LOAN:
+                return 'Mortage Loan';
         }
     }
 

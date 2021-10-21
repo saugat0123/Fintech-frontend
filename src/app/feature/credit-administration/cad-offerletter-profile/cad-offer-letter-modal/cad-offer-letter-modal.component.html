@@ -16,8 +16,8 @@
             <app-retail-professional-loan *ngSwitchCase="offerLetterTypeConst.EDUCATIONAL"
                                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                                             [preview]="false"></app-retail-professional-loan>
-<!--            <app-sme *ngSwitchCase="offerLetterTypeConst.SME"-->
-<!--                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-sme>-->
+            <app-sme *ngSwitchCase="offerLetterTypeConst.AUTO_LOAN"
+                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-sme>
 <!--            <app-retail-loan-against-insurance *ngSwitchCase="offerLetterTypeConst.HOUSING_TAKEOVER_CASE"-->
 <!--                                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-loan-against-insurance>-->
             <app-personal-overdraft *ngSwitchCase="offerLetterTypeConst.PERSONAL_OVERDRAFT"
@@ -28,6 +28,8 @@
                            [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-home-loan>
             <app-personal-loan *ngSwitchCase="offerLetterTypeConst.PERSONAL_LOAN"
                                [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-personal-loan>
+            <app-retail-mortgage-loan *ngSwitchCase="offerLetterTypeConst.MORTAGE_LOAN"
+                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-mortgage-loan>
         </div>
         <nb-card-footer>
             <div>

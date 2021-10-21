@@ -1,0 +1,33 @@
+<nb-card-header class="container-fluid" [nbSpinner]="spinner">
+    <div class="row">
+        <div class="col-md-12" style="height: 125px;">
+            <form [formGroup]="homeLoanForm">
+                <ng-select (change)="typeOfHomeLoan($event)"
+                           [multiple]="false"
+                           formControlName="homeLoanType"
+                           placeholder="Select Home Loan Type">
+                    <ng-option *ngFor="let typeOfLoan of homeLoanType" [value]="typeOfLoan.value">{{typeOfLoan.value}}</ng-option>
+                </ng-select>
+            </form>
+        </div>
+    </div>
+</nb-card-header>
+<nb-card-body>
+    <div *ngIf="isConstructionLoan">
+        <app-construction-loan #constructionLoan (eventEmitter)="emitValue($event)" [submitted]="submitted" [spinner]="spinner"></app-construction-loan>
+    </div>
+    <div *ngIf="isPurchaseLoan || isTakeOverLoan">
+        <app-home-land-and-building #landAndBuilding (eventEmitter)="emitValue($event)" [submitted]="submitted" [spinner]="spinner"></app-home-land-and-building>
+    </div>
+</nb-card-body>
+<nb-card-footer>
+    <div class="row d-flex justify-content-end">
+        <button nbButton status="primary" size="tiny" (click)="onSubmit()" [disabled]="!btnDisable">Submit</button>
+        <button [disabled]="previewBtn"
+                class="float-right" nbButton
+                (click)="openModel()"
+                status="primary" size="small">
+            Preview
+        </button>
+    </div>
+</nb-card-footer>

@@ -1,21 +1,33 @@
+.nepaliFont {
+  font-size: 20px !important;
+
+  &.font-size-normal {
+    font-size: 15px !important;
+  }
+}
+
 .nep {
   font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
 }
+
 .form-field {
   background: yellow;
   margin: 0px 5px;
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
+
   &:focus {
     outline: none;
   }
-  .table-row{
-    width:32px;
+
+  .table-row {
+    width: 32px;
   }
+
   .container-name div {
     display: inline-block;
     width: 500px;
@@ -24,6 +36,7 @@
     height: auto;
   }
 }
+
 @media screen {
   .print-only {
     display: none;
@@ -48,6 +61,7 @@
   }
 
 }
+
 .outside {
-  font-size: 19px !important;
+  font-size: 25px !important;
 }

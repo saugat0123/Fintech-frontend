@@ -103,6 +103,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
         this.securityDetails.forEach((security) => {
           this.securities = security.securities;
         });
+      } else {
+        this.addDefaultSecurity();
       }
     }
     this.setEducationLoanTemplateData();
@@ -517,6 +519,12 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
         delete individualData[key];
       }
     });
+  }
+
+  public addDefaultSecurity(): void {
+    (this.form.get('securities') as FormArray).push(
+        this.initSecuritiesForm()
+    );
   }
 
   private setTemplatedCTData(data): void {

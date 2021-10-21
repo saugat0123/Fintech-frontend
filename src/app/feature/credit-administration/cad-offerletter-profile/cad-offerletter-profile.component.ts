@@ -34,6 +34,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
     // change this on basis of bank
     offerLetterConst;
+    nepData;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -71,6 +72,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     initial() {
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
+        this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         console.log(this.cadOfferLetterApprovedDoc.assignedLoan, 'sd');
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
     }
