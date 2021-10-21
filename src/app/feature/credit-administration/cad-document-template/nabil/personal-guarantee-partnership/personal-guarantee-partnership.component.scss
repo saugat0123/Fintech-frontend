@@ -1,3 +1,10 @@
+.nepaliFont {
+  font-size: 22px !important;
+
+  &.font-size-normal {
+    font-size: 28px !important;
+  }
+}
 .longInput{
   width: 400px;
 }
@@ -68,7 +75,7 @@ ol.conditions li {
     display: inline;
   }
   .nepaliFont{
-    font-size: 16px;
+    font-size: 22px;
   }
   .num {
     font-size: 22px !important;

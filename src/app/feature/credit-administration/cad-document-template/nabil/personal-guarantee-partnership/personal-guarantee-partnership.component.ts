@@ -159,7 +159,39 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     );
   }
   initIndividualGuarantors() {
-    return this.formBuilder.group({});
+    return this.formBuilder.group({
+      branchName: [undefined],
+      actDetails: [undefined],
+      actYearInFigure: [undefined],
+      headDepartment: [undefined],
+      registrationDate: [undefined],
+      registrationNo: [undefined],
+      location: [undefined],
+      loaneeName: [undefined],
+      loanPurpose: [undefined],
+      letterIssuedDate: [undefined],
+      loanAmount: [undefined],
+      loanAmountInWord: [undefined],
+      approvedLoanAmountInWord: [undefined],
+      approvedLoanAmount: [undefined],
+      guarantorName: [undefined],
+      guarantorFatherOrHusbandName: [undefined],
+      guarantorGrandFatherName: [undefined],
+      guarantorPermanentDistrict: [undefined],
+      guarantorPermanentMunicipality: [undefined],
+      guarantorPermanentWard: [undefined],
+      guarantorTemporaryDistrict: [undefined],
+      guarantorTemporaryMunicipality: [undefined],
+      guarantorTemporaryWard: [undefined],
+      guarantorCitizenNumber: [undefined],
+      guarantorCitzenIssuedPlace: [undefined],
+      guarantorCitzenIssuedDate: [undefined],
+      year: [undefined],
+      month: [undefined],
+      day: [undefined],
+      date: [undefined],
+      freeText: [undefined]
+    });
   }
   taggedPersonalGuarantorsDetailsForm() {
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
