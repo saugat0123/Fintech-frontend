@@ -390,7 +390,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     return false;
   }
 
- async saveCustomer() {
+  saveCustomer() {
 
     this.submitted = true;
     this.spinner = true;
