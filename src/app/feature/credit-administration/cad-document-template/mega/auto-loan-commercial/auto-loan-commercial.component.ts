@@ -17,16 +17,16 @@ import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatte
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 
 @Component({
-  selector: 'app-home-loan',
-  templateUrl: './home-loan.component.html',
-  styleUrls: ['./home-loan.component.scss']
+  selector: 'app-auto-loan-commercial',
+  templateUrl: './auto-loan-commercial.component.html',
+  styleUrls: ['./auto-loan-commercial.component.scss']
 })
-export class HomeLoanComponent implements OnInit {
+export class AutoLoanCommercialComponent implements OnInit {
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() preview;
   form: FormGroup;
   existingOfferLetter = false;
   initialInfoPrint;
@@ -34,25 +34,21 @@ export class HomeLoanComponent implements OnInit {
   nepaliNumber = new NepaliNumberAndWords();
   nepaliAmount = [];
   finalNepaliWord = [];
-  offerLetterConst = NabilOfferLetterConst;
+  offerLetterConst = MegaOfferLetterConst;
   offerLetterDocument: OfferDocument;
   selectedArray = [];
   ckeConfig = NepaliEditor.CK_CONFIG;
-  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  @Input() preview;
-  nepData;
-  external = [];
-  loanHolderInfo;
   tempData;
   guarantorData;
   offerDocumentDetails;
-  allguarantorNames;
-  guarantorNames: Array<String> = [];
-  offerLetterData;
   selectedSecurity;
-  finalName;
+  offerLetterData;
   loanLimit;
   afterSave = false;
+
+  nepData;
+  external = [];
+  loanHolderInfo;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -64,11 +60,11 @@ export class HomeLoanComponent implements OnInit {
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepPercentWordPipe: NepaliPercentWordPipe,
-              private ref: NbDialogRef<HomeLoanComponent>) { }
+              private ref: NbDialogRef<AutoLoanCommercialComponent>
+              ) { }
 
   ngOnInit() {
-    console.log('Offer Letter Details for Home Loan', this.cadOfferLetterApprovedDoc);
-    this.buildPersonal();
+    this.buildAuto();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -81,61 +77,48 @@ export class HomeLoanComponent implements OnInit {
     console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
     console.log('All Data:', this.tempData);
     console.log('Loan Holder initial data:', this.loanHolderInfo);
-    this.checkOfferLetterData();
-    this.guarantorDetails();
-  }
-
-  buildPersonal() {
+    this.checkOfferLetterData();    }
+  buildAuto() {
     this.form = this.formBuilder.group({
       referenceNumber: [undefined],
       dateofApproval: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
-        dateofApplication: [undefined],
-      loanCommitmentFee: [undefined],
+      dateofApplication: [undefined],
+      nameoftheVehicle: [undefined],
+      loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
+      distressSituationPercentage: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
       yearlyInterestRate: [undefined],
       loanadminFee: [undefined],
       loanadminFeeWords: [undefined],
-      dateofExpiry: [undefined],
-      ownerName: [undefined],
-      additionalDetail: [undefined],
-      ownersAddress: [undefined],
-      propertyPlotNumber: [undefined],
-      freeText: [undefined],
-      propertyArea: [undefined],
-      branchName: [undefined],
-      nameofCompanyCustomerWorking: [undefined],
-      nameofGuarantors: [undefined],
-      guaranteedamountinFigure: [undefined],
-      guaranteedamountinWords: [undefined],
-      insuranceAmountinFigure: [undefined],
-      relationshipofficerName: [undefined],
-      additionalGuarantorDetails: [undefined],
-      district: [undefined],
-      branchManager: [undefined],
-      wardNum: [undefined],
-      witnessName: [undefined],
-      staffName: [undefined],
-      distressSituationPercentage: [undefined],
       EMIAmount: [undefined],
       EMIAmountInWord: [undefined],
       equatedMonth: [undefined],
-      guaranteeAmount: [undefined],
-      loanAmountinFigure: [undefined],
-      loanAmountinWord: [undefined],
-      lateFee: [undefined],
-      loanAmount: [undefined],
-      insuranceAmount: [undefined],
-      insuranceAmountinWord: [undefined],
-      guarantorName: [undefined],
+      loanCommitmentFee: [undefined],
+      nameofGuarantors: [undefined],
+      guaranteedamountinFigure: [undefined],
+      guaranteedamountinWords: [undefined],
+      ownerName: [undefined],
+      ownersAddress: [undefined],
+      propertyPlotNumber: [undefined],
+      propertyArea: [undefined],
       seatNumber: [undefined],
+      branchName: [undefined],
+      vendorName: [undefined],
+      loanAmount: [undefined],
       guarantorAmount: [undefined],
-      guarantorAmountinWord: [undefined],
+      insuranceAmount: [undefined],
+      additionalGuarantorDetails: [undefined],
+      relationshipofficerName: [undefined],
       dateofSignature: [undefined],
+      district: [undefined],
       municipalityVDC: [undefined],
+      wardNum: [undefined],
+      witnessName: [undefined],
+      staffName: [undefined],
     });
   }
   setLoanConfigData(data: any) {
@@ -159,14 +142,12 @@ export class HomeLoanComponent implements OnInit {
     });
   }
   checkOfferLetterData() {
-    console.log('Check Offer Data works:');
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN).toString())[0];
+          === this.offerLetterConst.value(this.offerLetterConst.Auto_Loan_Commercial).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        console.log('If condition works:');
         this.offerLetterDocument = new OfferDocument();
-        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN);
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.Auto_Loan_Commercial);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
@@ -176,27 +157,36 @@ export class HomeLoanComponent implements OnInit {
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.initialInfoPrint = initialInfo;
+        this.selectedSecurity = initialInfo.selectedSecurity.en;
+        this.loanLimit = this.tempData.loanLimitChecked.en;
         this.fillForm();
       }
     } else {
-      this.fillForm();
+      if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+        this.setLoanConfigData(this.loanHolderInfo);
+      }
     }
+
   }
 
 
   submit(): void {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
+    this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
+
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN).toString()) {
+            this.offerLetterConst.value(this.offerLetterConst.Auto_Loan_Commercial).toString()) {
           offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+          offerLetterPath.pointInformation = this.form.get('additionalDetails').value;
         }
       });
     } else {
       const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN);
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.Auto_Loan_Commercial);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
       offerDocument.supportedInformation = this.form.get('additionalGuarantorDetails').value;
       offerDocument.pointInformation = this.form.get('additionalDetails').value;
@@ -219,7 +209,6 @@ export class HomeLoanComponent implements OnInit {
     });
   }
   fillForm() {
-    console.log('Fill form works:');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
     const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' +
@@ -231,38 +220,30 @@ export class HomeLoanComponent implements OnInit {
       totalLoanAmount = totalLoanAmount + val;
     });
     this.form.patchValue({
-      referenceNumber: this.tempData.loan.referenceNumberCT ? this.tempData.loan.referenceNumberCT : '',
-      dateofApproval: this.tempData.loan.dateOfApprovalCT ? this.tempData.loan.dateOfApprovalCT : '',
+      referenceNumber: this.tempData.referenceNumber.ct ? this.tempData.referenceNumber.ct : '',
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
-      dateofApplication: this.tempData.loan.dateOfApplicationCT ? this.tempData.loan.dateOfApplicationCT : '',
-      additionalGuarantorDetails: this.tempData.loan.freeTextRequiredCT ? this.tempData.loan.freeTextRequiredCT : '',
-      ownerName: this.tempData.loan.nameOfLandOwnerCT ? this.tempData.loan.nameOfLandOwnerCT : '',
-      ownersAddress: this.tempData.loan.landLocationCT ? this.tempData.loan.landLocationCT : '',
-      propertyPlotNumber: this.tempData.loan.kittaNumberCT ? this.tempData.loan.kittaNumberCT : '',
-      propertyArea: this.tempData.loan.areaCT ? this.tempData.loan.areaCT : '',
-      branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
-      loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-      loanAmount: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      loanPurpose: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
+      loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
-      distressSituationPercentage: this.tempData.loan.drawingPowerCT ? this.tempData.loan.drawingPowerCT : '',
-      baseRate: this.tempData.loan.baseRateCT ? this.tempData.loan.baseRateCT : '',
-      premiumRate: this.tempData.loan.premiumRateCT ? this.tempData.loan.premiumRateCT : '',
-      yearlyInterestRate: this.tempData.loan.interestRateCT ? this.tempData.loan.interestRateCT : '',
-      EMIAmount: this.tempData.loan.emiInFigureCT ? this.tempData.loan.emiInFigureCT : '',
-      EMIAmountInWord: this.tempData.loan.emiInWordCT ? this.tempData.loan.emiInWordCT : '',
-      equatedMonth: this.tempData.loan.loanPeriodInMonthsCT ? this.tempData.loan.loanPeriodInMonthsCT : '',
-      loanadminFee: this.tempData.loan.loanAdminFeeInFigureCT ? this.tempData.loan.loanAdminFeeInFigureCT : '',
-      loanadminFeeWords: this.tempData.loan.loanAdminFeeInWordCT ? this.tempData.loan.loanAdminFeeInWordCT : '',
-      loanCommitmentFee: this.tempData.loan.loanCommitmentFeeCT ? this.tempData.loan.loanCommitmentFeeCT : '',
-      insuranceAmount: this.tempData.loan.insuranceAmountInFigureCT ? this.tempData.loan.insuranceAmountInFigureCT : '',
-      insuranceAmountinWord: this.tempData.loan.insuranceAmountInWordCT ? this.tempData.loan.insuranceAmountInWordCT : '',
-      seatNumber: this.tempData.loan.seatNumberCT ? this.tempData.loan.seatNumberCT : '',
-      relationshipofficerName: this.tempData.loan.nameOfRelationshipOfficerCT ? this.tempData.loan.nameOfRelationshipOfficerCT : '',
-      branchManager: this.tempData.loan.nameOfBranchManagerCT ? this.tempData.loan.nameOfBranchManagerCT : '',
+      drawingPowerRate: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
+      baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
+      premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
+      yearlyLoanRate: this.tempData.interestRate.ct ? this.tempData.interestRate.ct : '',
+      emiAmountInFigure: this.tempData.emiInFigure.ct ? this.tempData.emiInFigure.ct : '',
+      emiAmountInWords: this.tempData.emiInWords.ct ? this.tempData.emiInWords.ct : '',
+      loanPeriod: this.tempData.loanPeriod.ct ? this.tempData.loanPeriod.ct : '',
+      loanAdminFeeInFigure: this.tempData.loanAdminFeeInFigure.ct ? this.tempData.loanAdminFeeInFigure.ct : '',
+      loanAdminFeeInWords: this.tempData.loanAdminFeeInWords.ct ? this.tempData.loanAdminFeeInWords.ct : '',
+      loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
+      branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+      insuranceAmount: this.tempData.insuranceAmount.ct ? this.tempData.insuranceAmount.ct : '',
+      relationshipOfficerName: this.tempData.relationshipOfficerName.ct ? this.tempData.relationshipOfficerName.ct : '',
+      branchManager: this.tempData.branchManagerName.ct ? this.tempData.branchManagerName.ct : '',
 
     });
   }
+
   calcYearlyRate() {
     const baseRate = this.nepToEngNumberPipe.transform(this.form.get('baseRate').value);
     const premiumRate = this.nepToEngNumberPipe.transform(this.form.get('premiumRate').value);
@@ -275,45 +256,8 @@ export class HomeLoanComponent implements OnInit {
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
   }
-  guarantorDetails() {
-    if (this.guarantorData.length === 1) {
-      let temp = JSON.parse(this.guarantorData[0].nepData);
-      this.finalName =  temp.guarantorName.ct;
-    } else if (this.guarantorData.length === 2) {
-      for (let i = 0; i < this.guarantorData.length; i++) {
-        let temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
-        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
-      }
-      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-      this.allguarantorNames = this.guarantorNames.join(' र ');
-      this.finalName = this.allguarantorNames;
-    } else {
-      for (let i = 0; i < this.guarantorData.length - 1 ; i++) {
-        let temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
-        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
-      }
-      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-      this.allguarantorNames = this.guarantorNames.join(' , ');
-      let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
-      this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
-    }
-    console.log('Guarantor Name:', this.finalName);
-  }
-  guarantorParse(nepData, key, trans?) {
-    const data = JSON.parse(nepData);
-    try {
-      if (ObjectUtil.isEmpty(trans)) {
-        return data[key].ct;
-      } else {
-        return data[key].en;
-      }
-    } catch (exp) {
-      console.log(exp);
-    }
-  }
   close() {
     this.ref.close();
   }
 }
+
