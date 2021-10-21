@@ -1927,6 +1927,8 @@ export class SecurityInitialFormComponent implements OnInit {
             priceBookValue: [undefined],
             dividendYeild: [undefined],
             dividendPayoutRatio: [undefined],
+            closingPriceAverage: [undefined],
+            closingPrice: [undefined]
         });
     }
 
