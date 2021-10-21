@@ -27,7 +27,7 @@ import {LetterVehicleThirdpartyCompanyPrintComponent} from './letter-vehicle-thi
 import { LetterVehicleIndividualComponent } from './letter-vehicle-individual/letter-vehicle-individual.component';
 import { LetterVehicleIndividualPrintComponent } from './letter-vehicle-individual/letter-vehicle-individual-print/letter-vehicle-individual-print.component';
 import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/promissory-note-company-print/promissory-note-company-print.component';
-
+import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-proprietorship/personal-gaurantee-proprietorship.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +43,7 @@ import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/p
         LoanDeedPartnershipComponent,
         PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent, LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PromissoryNoteCompanyPrintComponent],
+        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -67,7 +67,8 @@ import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/p
         LoanDeedPartnershipComponent,
         LoanDeedPartnershipPrintComponent,
         LetterVehicleThirdpartyCompanyComponent,
-        LetterVehicleThirdpartyCompanyPrintComponent
+        LetterVehicleThirdpartyCompanyPrintComponent,
+        PersonalGuaranteeProprietorshipComponent
     ],
     imports: [
         CommonModule,
