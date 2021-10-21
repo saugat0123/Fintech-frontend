@@ -4,7 +4,7 @@
         <form>
             <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
             <p class="text-left"></p>
-            <span [ngClass]="{'font-weight-bold' : letter?.referenceNumber.ct !== null && letter?.referenceNumber.ct !== ''}">
+            ऋणकर्जा संख्याः <span [ngClass]="{'font-weight-bold' : letter?.referenceNumber.ct !== null && letter?.referenceNumber.ct !== ''}">
                 {{letter?.referenceNumber.ct === null || letter?.referenceNumber.ct === '' ? '___________' : letter?.referenceNumber.ct}}
             </span>
             <br>
@@ -839,11 +839,7 @@
                             आधिकारिक हस्ताक्षर (ग्राहक)
                         </p>
                         <p>
-                            मितिः <span *ngIf="letter.signatureDate.en.nDate; else signatureDatePrint"
-                                        class="font-weight-bold">{{letter?.signatureDate.en.nDate}}</span>
-                            <ng-template #signatureDatePrint>
-                                <span class=" font-weight-bold">{{(letter?.signatureDate.en | date) | engNepDate: true}}</span>
-                            </ng-template>
+                            मितिः .....................................
                         </p>
                     </div>
                 </div>
