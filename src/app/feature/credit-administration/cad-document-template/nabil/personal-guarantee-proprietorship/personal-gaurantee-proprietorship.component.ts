@@ -17,6 +17,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {ProposalCalculationUtils} from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {NabilDocumentChecklist} from '../../../../admin/modal/nabil-document-checklist.enum';
 
 @Component({
     selector: 'app-personal-guarantee-proprietorship',
@@ -32,7 +33,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
     nepData;
     guarantorData;
     submitted = false;
-
+    offerLetterConst = NabilDocumentChecklist;
     taggedGuarantorsDetailsInLoan = [];
     loanHolderNepData: any;
     offerDocumentDetails: any;
