@@ -1,4 +1,6 @@
 import {DocStatus} from './docStatus';
+import {Proposal} from '../../admin/modal/proposal';
+import {LoanType} from './loanType';
 
 export class CustomerLoanDto {
     loanHolderId: string;
@@ -9,7 +11,8 @@ export class CustomerLoanDto {
     proposedLimit: string;
     documentStatus: DocStatus;
     customerLoanId: string;
-    interestRate: string;
-    premiumRateOnBaseRate: string;
-    baseRate: string;
+    proposal: Proposal;
+    loanType: LoanType;
+    createdAt?: Date;
+    isFundable: boolean;
 }

@@ -13,6 +13,8 @@ import {LoanConfigService} from '../../../../admin/component/loan-config/loan-co
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {SummaryType} from '../../SummaryType';
+import {Customer} from '../../../../admin/modal/customer';
+import {CustomerLoanDto} from '../../../model/CustomerLoanDto';
 
 @Component({
     selector: 'app-proposal-summary',
@@ -52,6 +54,7 @@ export class ProposalSummaryComponent implements OnInit {
     summaryType = environment.summaryType;
     summaryTypeName = SummaryType;
     @Input() loanCategory;
+    customerLoanDtoList: CustomerLoanDto[];
 
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
@@ -60,6 +63,9 @@ export class ProposalSummaryComponent implements OnInit {
     ngOnInit() {
         this.proposalAllData = JSON.parse(this.proposalData.data);
         this.checkedData = JSON.parse(this.proposalData.checkedData);
+        if (this.loanDataHolder.customerLoanDtoList !== null) {
+            this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
+        }
         this.calculateInterestRate();
         this.getLoanConfig();
         this.checkInstallmentAmount();
