@@ -838,9 +838,9 @@
                         <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
-                        <td class="text-left pl-1" *ngIf="singleShareData?.shareholderName">{{singleShareData?.shareholderName}}</td>
-                        <td class="text-right pr-1" *ngIf="singleShareData?.closingPriceAverage">Rs. {{singleShareData?.closingPriceAverage |currencyFormatter}}</td>
-                        <td class="text-right pr-1" *ngIf="singleShareData?.closingPrice">Rs. {{singleShareData?.closingPrice |currencyFormatter}}</td>
+                        <td class="text-left pl-1" *ngIf="shareholderName.length>0">{{singleShareData?.shareholderName}}</td>
+                        <td class="text-right pr-1" *ngIf="closingPriceAverage.length>0">Rs. {{singleShareData?.closingPriceAverage |currencyFormatter}}</td>
+                        <td class="text-right pr-1" *ngIf="closingPrice.length>0">Rs. {{singleShareData?.closingPrice |currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <th></th>

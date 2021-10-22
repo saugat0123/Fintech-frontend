@@ -1265,6 +1265,7 @@
           <th>Name of Company</th>
           <th>Share Type</th>
           <th>Share Unit</th>
+          <th *ngIf="shareholderName.length >0">Shareholder Name</th>
           <th>Rate</th>
           <th>Total Value</th>
           <th>Considered Value</th>
@@ -1282,11 +1283,12 @@
           <td class="text-left pl-1">{{singleShareData?.companyName}}</td>
           <td class="text-left pl-1">{{singleShareData?.shareType}}</td>
           <td class="text-right pr-1">{{singleShareData?.totalShareUnit}}</td>
+          <td class="text-left pl-1" *ngIf="shareholderName.length >0">{{singleShareData?.shareholderName}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
-          <td class="text-right pr-1" *ngIf="singleShareData?.closingPriceAverage">Rs. {{singleShareData?.closingPriceAverage |currencyFormatter}}</td>
-          <td class="text-right pr-1" *ngIf="singleShareData?.closingPrice">Rs. {{singleShareData?.closingPrice |currencyFormatter}}</td>
+          <td class="text-right pr-1" *ngIf="closingPriceAverage.length>0">Rs. {{singleShareData?.closingPriceAverage |currencyFormatter}}</td>
+          <td class="text-right pr-1" *ngIf="closingPrice.length>0">Rs. {{singleShareData?.closingPrice |currencyFormatter}}</td>
           <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceEarningRatio}}</td>
           <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceBookValue}}</td>
           <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendYield}}</td>
@@ -1296,10 +1298,6 @@
           <th class="text-left pl-1" colspan="5">Total</th>
           <th class="text-right pr-1">Rs. {{shareTotalValue |currencyFormatter}}</th>
           <th class="text-right pr-1">Rs. {{totalConsideredValue |currencyFormatter}}</th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
         </tr>
         <tr>
           <th></th>
@@ -1307,8 +1305,6 @@
           <td colspan="3" class="text-left pl-1">{{shareSecurity?.sharePriceDate | date}} ({{shareSecurity?.sharePriceDate |engNepDate: false}})</td>
           <th class="sb-bg-dark text-white">Average Day's for Share Price</th>
           <td colspan="3" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>
-          <th></th>
-          <th></th>
         </tr>
         <tr>
           <th class="text-white sb-bg-dark">Description</th>
