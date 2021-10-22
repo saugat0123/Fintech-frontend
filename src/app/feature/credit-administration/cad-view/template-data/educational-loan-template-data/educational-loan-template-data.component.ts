@@ -348,6 +348,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
+      console.log('Security Details!!!!!!!!!!!!:::', securityDetails);
       this.tdValues['securityDetails'] = securityDetails;
       this.translatedData = {};
       this.deleteCTAndTransContorls(this.tdValues);

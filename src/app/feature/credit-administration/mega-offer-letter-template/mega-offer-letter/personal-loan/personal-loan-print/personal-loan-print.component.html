@@ -65,8 +65,8 @@
                         <td rowspan="5"><strong>१.</strong></td>
                         <td><strong>कर्जा प्रकार/ प्रयोजनः</strong></td>
                         <td>व्यक्तिगत कर्जाः
-                            <span [ngClass]="{'font-weight-bold' : letter?.loanPurpose.ct !== null && letter?.loanPurpose.ct !== ''}">
-                                {{letter?.loanPurpose.ct === null || letter?.loanPurpose.ct === '' ? '___________' : letter?.loanPurpose.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
+                                {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct}}
                             </span>
                             प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
                         </td>
