@@ -828,6 +828,14 @@
                                                type="text"/>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="valuationMode">Valuation Mode</label>
+                                        <input class="form-control" formControlName="valuationMode"
+                                               id="valuationMode" name="valuationMode"
+                                               type="text" placeholder="Valuation Mode">
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <app-security-revaluation #revaluationComponentApartment
                                                               [valuators]="securityValuator?.buildingValuator[i]"
@@ -1691,6 +1699,14 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="valuationMode">Valuation Mode</label>
+                                    <input class="form-control" formControlName="valuationMode"
+                                           id="valuationMode" name="valuationMode"
+                                           type="text" placeholder="Valuation Mode">
+                                </div>
+                            </div>
                             <div class="col-md-4"
                                  *ngIf="securityForm.get(['landBuilding',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
                                 <div class="form-group">
@@ -2153,7 +2169,14 @@
                                        type="text"/>
                             </div>
                         </div>
-
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="valuationMode">Valuation Mode</label>
+                                <input class="form-control" formControlName="valuationMode"
+                                       id="valuationMode" name="valuationMode"
+                                       type="text" placeholder="Valuation Mode">
+                            </div>
+                        </div>
                         <div *ngIf="securityForm.get('plantDetails')['length'] > 1" class="col-md-1 pt-4">
                             <input (click)="removePlantDetails(i)"
                                    class="align-self-end btn btn-sm btn-danger btn-primary"
