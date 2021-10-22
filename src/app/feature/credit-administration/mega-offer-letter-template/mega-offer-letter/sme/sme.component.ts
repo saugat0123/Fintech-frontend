@@ -48,6 +48,10 @@ export class SmeComponent implements OnInit {
   selectedAutoLoan;
   selectedInterest;
   loanLimit;
+  finalName;
+  guarantorNames: Array<String> = [];
+  allguarantorNames;
+  guarantorAmount: number = 0;
   constructor( private formBuilder: FormBuilder,
                private router: Router,
                private toastService: ToastService,
@@ -72,6 +76,7 @@ export class SmeComponent implements OnInit {
     console.log('All Data:',this.tempData);
     console.log('Loan Holder initial data:',this.smeLoanHolderInfo);
     this.checkOfferLetterData();
+    this.guarantorDetails();
   }
   buildForm() {
     this.loanForm = this.formBuilder.group({
@@ -108,6 +113,36 @@ export class SmeComponent implements OnInit {
       // staffName: [undefined],
     });
   }
+
+  guarantorDetails(){
+    if (this.guarantorData.length == 1){
+      let temp = JSON.parse(this.guarantorData[0].nepData);
+      this.finalName =  temp.guarantorName.ct;
+    }
+    else if(this.guarantorData.length == 2){
+      for (let i = 0; i < this.guarantorData.length; i++){
+        let temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+      }
+      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+      this.allguarantorNames = this.guarantorNames.join(" र ");
+      this.finalName = this.allguarantorNames;
+    }
+    else{
+      for (let i = 0; i < this.guarantorData.length-1; i++){
+        let temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+      }
+      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+      this.allguarantorNames = this.guarantorNames.join(" , ");
+      let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length-1].nepData);
+      this.finalName =  this.allguarantorNames + " र " + temp1.guarantorName.ct;
+    }
+    console.log('Guarantor Name:', this.finalName);
+  }
+
   checkOfferLetterData() {
     console.log('Check Offer Data Works:');
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
