@@ -243,22 +243,22 @@
                             नाममा दर्ता गर्नु पर्नेछ ।
                         </td>
                     </tr>
-                    <tr *ngFor="let data of guarantorData; let i = index;">
-                        <td>{{i + 2 | nepaliWord}}.</td>
+                    <tr>
+                        <td>ख.</td>
                         <td>
                             श्री
                             <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'guarantorName')}}
+                                    {{this.finalName}}
                                 </span>
                             ले बैंकको पक्षमा
                             रु
                             <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                                 </span>
                             /-(अक्षरेपि
                             रु.
                             <span class=" font-weight-bold uniSize">
-                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
+                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                                 </span>
                             मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                         </td>
@@ -821,22 +821,23 @@
                                 छ. तेश्रो पक्ष स्वामित्व हस्तान्तरण (यदि चुक्ताभुक्तानी नभएको अवस्थामा) का
                                 लागि ऋणीको मञ्जुरीनामा ।
                                 <br>
-                                ज.  बहुबैंकिङ घोषणा पत्र ।
-                            </p>
-                                <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px">
-                                {{i+9 | nepaliWord}}. रु
+                                ज. रु
                                 <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                                 </span>
                             को श्री
                             <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'guarantorName')}}
+                                    {{this.finalName}}
                                 </span>
                             व्यक्तिगत जमानतपत्र र सम्पत्ती विवरण ।
+                                <br>
+                                झ.  बहुबैंकिङ घोषणा पत्र ।
+                                <br>
                                 </p>
                             <br>
-                            <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12">
+                            <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12" style="margin-top: -1.6em;margin-left: 5.6em;">
                                 <p>
+                                    ञ.
                                     <span class="nepaliFont"
                                           style="font-size: 24px;">{{offerData?.supportedInformation}}
                                     </span>
