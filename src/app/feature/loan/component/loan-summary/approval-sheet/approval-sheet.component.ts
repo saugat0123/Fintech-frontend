@@ -185,6 +185,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     }
 
     ngOnInit() {
+        localStorage.removeItem('FromDetailed-view');
         this.loanDataHolder = this.loanData;
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' && !ObjectUtil.isEmpty(
             this.loanDataHolder.customerInfo.jointInfo)) {
