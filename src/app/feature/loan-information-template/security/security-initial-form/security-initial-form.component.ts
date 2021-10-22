@@ -517,6 +517,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                     kycCheckForLand: [singleData.kycCheckForLand],
+                    valuationMode: [singleData.valuationMode]
                 })
             );
         });
@@ -1402,6 +1403,7 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
             kycCheckForLand: [false],
+            valuationMode: ['']
         });
     }
 
@@ -1895,7 +1897,6 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     private setShareSecurityDetails(details) {
-        console.log('share security', details);
         const shareDetails = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
         const shareFields = (JSON.parse(details.data))['shareSecurityDetails'];
         shareFields.forEach(share => {

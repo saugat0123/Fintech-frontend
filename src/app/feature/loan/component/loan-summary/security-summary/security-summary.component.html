@@ -113,6 +113,7 @@
                         <th>Staff Representative Name 1</th>
                         <th>Staff Representative Name 2</th>
                         <th>Revaluation Done ?</th>
+                        <th>Valuation Mode</th>
                     </tr>
 
                     <tr>
@@ -124,6 +125,7 @@
                         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName2}}</td>
                         <td class="text-left pl-1">{{landDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
+                        <td class="text-left pl-1" colspan="2">{{landDetails?.valuationMode}}</td>
                     </tr>
 
                     <ng-container>
