@@ -165,7 +165,7 @@
                     ? 'Authorized Company'
                     : 'Borrower'}}</strong></p>
             </div>
-            <app-remit-details *ngIf="isRemitLoan && isLoaded" [loanHolder]="loanHolder"></app-remit-details>
+            <!--            <app-remit-details *ngIf="isRemitLoan && isLoaded" [loanHolder]="loanHolder"></app-remit-details>-->
             <app-detail-view-base  *ngIf="loanHolder && loanHolder && !isMicro"
                                   [calendarType]="calendarType"
                                   [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"

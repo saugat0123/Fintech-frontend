@@ -1,6 +1,6 @@
 <div class="row mt-1">
   <div class="col-md-12 sb-small">
-    <p><strong>Proposal Details</strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates
+    <p><strong>Facility Schedule: </strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates
       current loan proposal</em></p>
     <ul>
       <li class="sb-medium"><i class="fas fa-check-circle"></i> = Approved
@@ -31,16 +31,17 @@
       <tr class="sb-bg-dark text-white">
         <th>Loan Facility(Created Date(AD/BS))</th>
         <th>Existing Limit</th>
-        <th>Outstanding</th>
-        <th>Enhance</th>
-        <th>Settlement</th>
+        <th *ngIf="!isRemit">Outstanding</th>
+        <th *ngIf="!isRemit">Enhance</th>
+        <th *ngIf="!isRemit">Settlement</th>
         <th>Proposed Limit</th>
+
         <!--        <th>Existing INT/COM/CM</th>-->
         <!--        for non funded commision and cash margin combination to be view-->
-        <th>Existing Proposed INT/COM/CM</th>
+        <th *ngIf="!isRemit">Existing Proposed INT/COM/CM</th>
         <th>Proposed INT/COM/CM</th>
 
-        <th>Service Charge</th>
+        <th>Loan Administration Fee </th>
         <th>Limit Expiry/Tenure(AD/BS)</th>
       </tr>
       </thead>
@@ -61,18 +62,18 @@
             Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
           </span>
           <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit">
             Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}</span>
           <span *ngIf="!(loan?.proposal?.data | jsonParse)?.outStandingLimit">-</span>
         </td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span *ngIf="(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount">
             Rs. {{(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount | currencyFormatter}}
           </span>
           <span *ngIf="!(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount">-</span>
         </td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span *ngIf="(loan?.proposal?.data | jsonParse)?.settlementAmount">
             Rs. {{(loan?.proposal?.data | jsonParse)?.settlementAmount | currencyFormatter}}
           </span>
@@ -81,7 +82,7 @@
         <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
         <!--                Existing INT/COM/CM-->
         <!--        <td>-</td>-->
-        <td>
+        <td *ngIf="!isRemit">
                     <span *ngIf="loan?.loan?.isFundable">
                         IR: {{(loan?.proposal?.data | jsonParse)?.existInterestRate}}%
                     </span>
@@ -137,10 +138,12 @@
           </span>
         </td>
         <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+        <ng-container *ngIf="!isRemit">
+          <td >-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </ng-container>
       </tr>
       <tr class="sb-bg-secondary text-white">
         <td class="text-left pl-1"><strong>Non-Funded</strong></td>
@@ -161,10 +164,12 @@
           </span>
         </td>
         <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+        <ng-container *ngIf="!isRemit">
+          <td >-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </ng-container>
       </tr>
       <tr class="sb-bg-secondary text-white">
         <td class="text-left pl-1"><strong>Total</strong></td>
@@ -186,10 +191,12 @@
           </span>
         </td>
         <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+        <ng-container *ngIf="!isRemit">
+          <td >-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </ng-container>
       </tr>
       </tbody>
     </table>

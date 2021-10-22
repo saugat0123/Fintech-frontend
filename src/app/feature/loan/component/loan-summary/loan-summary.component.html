@@ -434,8 +434,154 @@
                             [loanDataHolder]="loanDataHolder"></app-company-info-summary>
                 </div>
             </div>
+            <ng-container *ngIf="proposalData.data !== null">
+                <app-proposal-summary
+                        *ngIf="proposalSummary"
+                        [customerAllLoanList]="customerAllLoanList"
+                        [proposalData]="proposalData"
+                        [loanDataHolder]="loanDataHolder"></app-proposal-summary>
+            </ng-container>
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                <tr class="text-white sb-bg-dark">
+                    <th colspan="7">Permanent Address</th>
+                </tr>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Province</th>
+                    <th>District</th>
+                    <th>Municipalities</th>
+                    <th>Ward no.</th>
+                    <th>Address Line 1</th>
+                    <th>Address Line 2</th>
+                </tr>
+                <ng-container *ngFor="let jointCustomer of jointInfo">
+                    <tr *ngFor="let info of jointCustomer">
+                        <td class="text-left pl-1">{{info?.customerName}}</td>
+                        <td class="text-left pl-1">{{info?.province?.name}}</td>
+                        <td class="text-left pl-1">{{info?.district?.name}}</td>
+                        <td class="text-left pl-1">{{info?.municipalities?.name}}</td>
+                        <td class="text-right pr-1">{{info?.wardNumber || 'NA'}}</td>
+                        <td class="text-left pl-1">{{info?.permanentAddressLine1 || 'NA'}}</td>
+                        <td class="text-left pl-1">{{info?.permanentAddressLine2 || 'NA'}}</td>
+                    </tr>
+                </ng-container>
+                <tr class="text-white sb-bg-dark">
+                    <th colspan="7">Temporary Address</th>
+                </tr>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Province</th>
+                    <th>District</th>
+                    <th>Municipalities</th>
+                    <th>Ward no.</th>
+                    <th>Address Line 1</th>
+                    <th>Address Line 2</th>
+                </tr>
+                <ng-container *ngFor="let jointCustomer of jointInfo">
+                    <tr *ngFor="let info of jointCustomer">
+                        <td class="text-left pl-1">{{info?.customerName}}</td>
+                        <td class="text-left pl-1">{{info?.temporaryProvince?.name}}</td>
+                        <td class="text-left pl-1">{{info?.temporaryDistrict?.name}}</td>
+                        <td class="text-left pl-1">{{info?.temporaryMunicipalities?.name}}</td>
+                        <td class="text-right pr-1">{{info?.temporaryWardNumber || 'NA'}}</td>
+                        <td class="text-left pl-1">{{info?.temporaryAddressLine1 || 'NA'}}</td>
+                        <td class="text-left pl-1">{{info?.temporaryAddressLine2 || 'NA'}}</td>
+                    </tr>
+                </ng-container>
+            </table>
+            <app-remit-profile *ngIf="isRemitLoan" [loanHolder]="loanDataHolder" ></app-remit-profile>
 
-            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && !isJointInfo">
+            <ng-container *ngIf="loanCategory === 'INDIVIDUAL' && !isRemitLoan; else relations; ">
+                <p><strong>{{(isRemitLoan)?('Undivided Family Information Summary'):'Family Details'}}</strong></p>
+                <table
+                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Name</th>
+                        <th>Relation Name</th>
+                        <th>Citizenship no.</th>
+                        <th>Citizenship Issued Date (AD/BS)</th>
+                        <th>Age</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+                        <td class="text-left pl-1">
+                            {{relative.customerRelativeName}}
+                        </td>
+
+                        <td class="text-left pl-1">
+                            {{relative.customerRelation}}
+                        </td>
+                        <td class="text-right pr-1">
+                            {{relative.citizenshipNumber}}
+                        </td>
+                        <td class="text-left pl-1">
+                            {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}} ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}})
+                        </td>
+                        <td class="text-left pl-1">{{relative.age}} years</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+            <ng-template #relations>
+                <div class="col-md-12">
+                    <p><strong>{{(isRemitLoan)?('Undivided Family Information Summary'):'Family Details'}}</strong></p>
+                    <div>
+                        <table
+                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            <ng-container>
+                                <tr class="text-white sb-bg-dark">
+                                    <th>S.N</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Relationship</th>
+                                    <th>Profession</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-left pl-1">1</td>
+                                    <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_grandfather)?beneficiary?.beneficiaryIdentity.benef_grandfather : 'NA'}}</td>
+                                    <td class="text-right pr-1"></td>
+                                    <td class="text-left pl-1">Grand Father</td>
+                                    <td class="text-left pl-1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left pl-1">2</td>
+                                    <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_father_name)?beneficiary?.beneficiaryIdentity.benef_father_name : 'NA'}}</td>
+                                    <td class="text-right pr-1"></td>
+                                    <td class="text-left pl-1">Father</td>
+                                    <td class="text-left pl-1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left pl-1">3</td>
+                                    <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_mother_name)?beneficiary?.beneficiaryIdentity.benef_mother_name :'NA'}}</td>
+                                    <td class="text-right pr-1"></td>
+                                    <td class="text-left pl-1">Mother</td>
+                                    <td class="text-left pl-1"></td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-container *ngIf="isRemitLoan">
+                <div class="col-md-12">
+                    <p><b>Proposal</b></p>
+                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small sb-bg-dark">
+                        <tr>
+                            <th>Limit</th>
+                            <th>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderBanking.loan_purpose}}</th>
+                        </tr>
+                    </table>
+                </div>
+            </ng-container>
+
+            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && !isJointInfo && !isRemitLoan">
                 <div class="col-md-12">
                     <p><strong>Details of Borrower</strong></p>
                 </div>
@@ -510,125 +656,53 @@
                         <!--                        </table>-->
                     </div>
 
-                    <div *ngIf="loanCategory === 'INDIVIDUAL'">
-                        <p><strong>Family Details</strong></p>
-                        <table
-                                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                            <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Name</th>
-                                <th>Relation Name</th>
-                                <th>Citizenship no.</th>
-                                <th>Citizenship Issued Date (AD/BS)</th>
-                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
-
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
-                                <td class="text-left pl-1">
-                                    {{relative.customerRelativeName}}
-                                </td>
-
-                                <td class="text-left pl-1">
-                                    {{relative.customerRelation}}
-                                </td>
-                                <td class="text-right pr-1">
-                                    {{relative.citizenshipNumber}}
-                                </td>
-                                <td class="text-left pl-1">
-                                    {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}} ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}})
-                                </td>
-                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
-
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
 
                 </div>
+            </div>
+            <div class="col-md-12" *ngIf="isRemitLoan">
+                <p><b>DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
+                <table
+                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <thead class="sb-bg-dark">
+                    <tr>
+                        <td><b>Particular</b></td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Monthly Income From Remittance</td>
+                        <td>{{(loanData.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+                    </tr>
+                    <tr>
+                        <td>Other Income</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>Total Monthly Income</b></td>
+                        <td>{{(loanData.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Obligation on Proposed loan</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Total Monthly Obligation</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>DBR</td>
+                        <td>{{(dbr)?(dbr):'N/A'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && isJointInfo">
                 <div class="col-md-12">
                     <p><strong>Details of Borrower</strong></p>
                 </div>
-                <div class="col-md-12">
-                    <div>
-                        <table
-                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                            <thead>
-                            </thead>
-                            <tbody *ngFor="let jointCustomer of jointInfo">
-                            <ng-container *ngFor="let info of jointCustomer">
-                                <tr class="text-white sb-bg-dark">
-                                    <th>Name</th>
-                                    <th>Date Of Birth(AD/BS)</th>
-                                    <th>Age</th>
-                                    <th>Citizenship Number</th>
-                                    <th>Mobile Number</th>
-                                    <th>LandLine Number</th>
-                                    <th>Occupation</th>
-                                    <th>Income Source</th>
-                                </tr>
-                                <tr class="text-left">
-                                    <td class="pl-1">{{info?.customerName}}</td>
-                                    <td class="pl-1">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
-                                    <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber}}</td>
-                                    <td class="text-right pr-1">{{info?.contactNumber || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.landLineNumber || 'NA'}}</td>
-                                    <td class="pl-1">{{info?.occupation || 'NA'}}</td>
-                                    <td class="pl-1">{{info?.incomeSource || 'NA'}}</td>
-                                </tr>
-                                <tr><th colspan="5">Family Detail</th></tr>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Name</th>
-                                <th>Relation Name</th>
-                                <th>Citizenship no.</th>
-                                <th>Citizenship Issued District</th>
-                                <th>Citizenship Issued Date(AD/BS)</th>
-                            </tr>
-                                <tr *ngIf="info?.customerRelativeName1">
-                                    <td class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | engNepDate: false) : 'N/A'}})</td>
-                                </tr>
-                                <tr *ngIf="info?.customerRelativeName2">
-                                    <td class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | engNepDate: false) : 'N/A'}})</td>
-                                </tr>
-                                <tr *ngIf="info?.customerRelativeName3">
-                                    <td class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | engNepDate: false) : 'N/A'}})</td>
-                                </tr>
-                                <tr *ngIf="info?.customerRelativeName4">
-                                    <td class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | engNepDate: false) : 'N/A'}})</td>
-                                </tr>
-                                <tr *ngIf="info?.customerRelativeName5">
-                                    <td class="text-left pl-1">{{info?.customerRelativeName5 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.customerRelation5 || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace5 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | engNepDate: false) : 'N/A'}})</td>
-                                </tr>
-                            </ng-container>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+
             </div>
             <div class="col-md-12">
                 <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
@@ -647,8 +721,7 @@
                         </nb-accordion-item-body>
                     </nb-accordion-item>
                 </nb-accordion>
-                <app-remit-details *ngIf="isRemitLoan" [loanHolder]="loanDataHolder"></app-remit-details>
-
+<!--                <app-remit-details *ngIf="isRemitLoan" [loanHolder]="loanDataHolder"></app-remit-details>-->
             </div>
 
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
@@ -677,7 +750,7 @@
 
                         </tr>
                         <tr>
-                            <th>Service Charge</th>
+                            <th>Loan Administration Fee</th>
                             <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
                                 {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
                                 {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
@@ -772,15 +845,6 @@
                     </p>
                 </div>
             </div>
-
-            <ng-container *ngIf="proposalData.data !== null">
-                <app-proposal-summary
-                    *ngIf="proposalSummary"
-                    [customerAllLoanList]="customerAllLoanList"
-                    [proposalData]="proposalData"
-                    [loanDataHolder]="loanDataHolder"></app-proposal-summary>
-            </ng-container>
-
             <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">

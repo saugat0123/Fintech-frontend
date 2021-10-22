@@ -1,0 +1,113 @@
+<div class="col-md-12">
+    <p><strong>Personal Details</strong></p>
+    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+            <th>Particulars</th>
+            <th>Applicant/Beneficiary</th>
+            <th>Guarantor/Migrant Worker</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Name</td>
+            <td class="text-left pl-1">{{(remit.beneficiaryName) ? (remit.beneficiaryName) : 'N/A'}}</td>
+            <td>
+                {{(remit.senderName) ? (remit.senderName) : 'N/A'}}
+            </td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td class="text-left pl-1">{{(agentDetails.email) ? (agentDetails.email) : 'N/A'}}</td>
+            <td>
+                {{(agentDetails.branch) ? (agentDetails.branch) : 'N/A'}}
+            </td>
+        </tr>
+        <tr>
+            <td>Father's Name</td>
+            <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_father_name) ? (beneficiaryDetails.beneficiaryIdentity.benef_father_name) : 'N/A'}}</td>
+            <td>
+                {{(senderDetails.senderIdentity.father_name) ? (senderDetails.senderIdentity.father_name) : 'N/A'}}
+            </td>
+        </tr>
+        <tr>
+            <td>Grand Father's Name</td>
+            <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_grandfather) ? (beneficiaryDetails.beneficiaryIdentity.benef_grandfather) : 'N/A'}}</td>
+            <td>
+                {{(senderDetails.senderIdentity.grandfather_name) ? (senderDetails.senderIdentity.grandfather_name) : 'N/A'}}
+            </td>
+        </tr>
+        <tr>
+            <td>Marital Status</td>
+            <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_marital_status) ? (beneficiaryDetails.beneficiaryIdentity.benef_marital_status.toUpperCase()) : 'N/A'}}</td>
+            <td>
+                {{(senderDetails.senderIdentity.relationship_status) ? (senderDetails.senderIdentity.relationship_status.toUpperCase()) : 'N/A'}}
+            </td>
+        </tr>
+
+        <tr>
+            <td>Home/Telephone Number</td>
+
+            <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_mob_no) ? (beneficiaryDetails.beneficiaryIdentity.benef_mob_no) : 'N/A'}}</td>
+            <td>
+                {{(senderDetails.senderIdentity.alternative_phone_no) ? (senderDetails.senderIdentity.alternative_phone_no) : 'N/A'}}
+            </td>
+        </tr>
+        <tr>
+            <td>Estimated Net Worth</td>
+            <td class="text-left pl-1"></td>
+            <td>
+                {{(beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth) ? (beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth) : 'N/A'}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="text-justify col-md-12 border">
+        <p>Additional guarantee to be obtained if required for additional comfort.<br>
+            Please specify relationship between the above mentoined parties <b>( Applicant and PG holder/migrant worker must be immediate family members)</b> </p>
+    </div>
+</div>
+<div class = "col-md-12">
+    <p><b>Financial/ Repayment Ability: Primary Source of Income</b></p>
+    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+      <thead class="sb-bg-dark">
+             <tr>
+          <th>Particulars</th>
+          <th>Summary</th>
+      </tr>
+      </thead>
+<tbody>
+<tr>
+    <td><b>Name of Employee</b></td>
+    <td>{{remit.senderName}}</td>
+</tr>
+<tr>
+    <td>Company Name</td>
+    <td>{{senderDetails.senderEmployment.company_name}}</td>
+</tr>
+<tr>
+    <td>Address/Contact</td>
+    <td>{{senderDetails.senderAddress.temp_country +","+ senderDetails.senderAddress.temp_city}}</td>
+</tr>
+<tr>
+    <td>Post/Designation</td>
+    <td>{{senderDetails.senderEmployment.profession_or_position}}</td>
+</tr>
+<tr>
+    <td>Years Of Service</td>
+    <td>{{senderDetails.senderEmployment.employment_period}} months</td>
+</tr>
+<tr>
+    <td>Monthly Salary/ Remittance recieved monthly</td>
+    <td>{{senderDetails.senderEmployment.monthly_salary}}</td>
+</tr>
+<tr>
+    <td>Exchange Rate:<br>
+
+        <b>Date of exchange rate:</b></td>
+    <td>{{senderDetails.senderEmployment.currency}}</td>
+</tr>
+</tbody>
+
+    </table>
+</div>
