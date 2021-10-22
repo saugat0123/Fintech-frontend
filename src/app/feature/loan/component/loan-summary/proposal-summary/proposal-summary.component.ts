@@ -74,9 +74,14 @@ export class ProposalSummaryComponent implements OnInit {
     public getTotal(key: string): number {
         const tempList = this.customerAllLoanList
             .filter(l => JSON.parse(l.proposal.data)[key]);
-        const total = tempList
+        let total = tempList
             .map(l => JSON.parse(l.proposal.data)[key])
             .reduce((a, b) => a + b, 0);
+        if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+            this.customerLoanDtoList.forEach(cdl => {
+               total += JSON.parse(cdl.proposal.data)[key];
+            });
+        }
         return this.isNumber(total);
     }
 
@@ -89,12 +94,26 @@ export class ProposalSummaryComponent implements OnInit {
             numb = tempList
                 .map(l => JSON.parse(l.proposal.data)[key])
                 .reduce((a, b) => a + b, 0);
+            if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+                const tempCustomerLoanDtoList = this.customerLoanDtoList
+                    .filter(l => l.isFundable);
+                tempCustomerLoanDtoList.forEach(cdl => {
+                    numb = numb + JSON.parse(cdl.proposal.data)[key];
+                });
+            }
         } else {
             const tempList = this.customerNonFundedLoanList
                 .filter(l => JSON.parse(l.proposal.data)[key]);
             numb = tempList
                 .map(l => JSON.parse(l.proposal.data)[key])
                 .reduce((a, b) => a + b, 0);
+            if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+                const tempCustomerLoanDtoList = this.customerLoanDtoList
+                    .filter(l => !l.isFundable);
+                tempCustomerLoanDtoList.forEach(cdl => {
+                    numb = numb + JSON.parse(cdl.proposal.data)[key];
+                });
+            }
         }
 
         return this.isNumber(numb);
