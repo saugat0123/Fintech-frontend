@@ -204,8 +204,10 @@ export class SecurityViewComponent implements OnInit {
               }
           });
     }
-    this.closingPriceAverage = this.shareSecurity.shareSecurityDetails.filter(item => item.closingPriceAverage);
-    this.closingPrice = this.shareSecurity.shareSecurityDetails.filter(item => item.closingPrice);
+    if (this.shareSecurity) {
+      this.closingPriceAverage = this.shareSecurity.shareSecurityDetails.filter(item => item.closingPriceAverage);
+      this.closingPrice = this.shareSecurity.shareSecurityDetails.filter(item => item.closingPrice);
+    }
   }
 
   calculateShareTotals() {
