@@ -517,6 +517,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                     kycCheckForLand: [singleData.kycCheckForLand],
+                    valuationMode: [singleData.valuationMode]
                 })
             );
         });
@@ -665,6 +666,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentStaffRepresentativeDesignation2: [singleData.apartmentStaffRepresentativeDesignation2],
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
                     apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
+                    valuationMode: [singleData.valuationMode]
                 })
             );
         });
@@ -748,7 +750,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     progessCost: [singleData.progessCost],
                     landBuildingOtherBranchChecked: [singleData.landBuildingOtherBranchChecked],
-                    kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding]
+                    kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding],
+                    valuationMode: [singleData.valuationMode]
                 })
             );
         });
@@ -884,6 +887,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         [singleData.plantMachineryStaffRepresentativeDesignation2],
                     plantMachineryStaffRepresentativeName2: [singleData.plantMachineryStaffRepresentativeName2],
                     plantOtherBranchChecked: [singleData.plantOtherBranchChecked],
+                    valuationMode: [singleData.valuationMode]
                 })
             );
         });
@@ -1396,6 +1400,7 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
             kycCheckForLand: [false],
+            valuationMode: ['']
         });
     }
 
@@ -1430,6 +1435,7 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentStaffRepresentativeDesignation2: [undefined],
             apartmentStaffRepresentativeName2: [undefined],
             apartmentOtherBranchChecked: [undefined],
+            valuationMode: [undefined]
         });
     }
 
@@ -1490,7 +1496,8 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             progessCost: [undefined],
             landBuildingOtherBranchChecked: [undefined],
-            kycCheckForLandAndBuilding: [false]
+            kycCheckForLandAndBuilding: [false],
+            valuationMode: [undefined]
         });
     }
 
@@ -1526,6 +1533,7 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryStaffRepresentativeDesignation2: [undefined],
             plantMachineryStaffRepresentativeName2: [undefined],
             plantOtherBranchChecked: [undefined],
+            valuationMode: [undefined]
         });
     }
 
@@ -1823,6 +1831,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 shareType: matchedNepse[0].shareType,
                 companyCode: matchedNepse[0].companyCode,
                 amountPerUnit: matchedNepse[0].amountPerUnit,
+                closingPriceAverage: matchedNepse[0].closingPriceAverage,
+                closingPrice: matchedNepse[0].closingPrice,
                 total: this.calculateTotalShareAmount(companyName, totalShareUnit),
                 consideredValue: this.calculateConsideredAmount(
                     this.shareField.at(index).get('totalShareUnit').value,
@@ -1903,6 +1913,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     priceBookValue: [share.priceBookValue],
                     dividendYeild: [share.dividendYeild],
                     dividendPayoutRatio: [share.dividendPayoutRatio],
+                    closingPriceAverage: [share.closingPriceAverage],
+                    closingPrice: [share.closingPrice],
+                    shareholderName: [share.shareholderName],
                 })
             );
         });
@@ -1923,6 +1936,9 @@ export class SecurityInitialFormComponent implements OnInit {
             priceBookValue: [undefined],
             dividendYeild: [undefined],
             dividendPayoutRatio: [undefined],
+            closingPriceAverage: [undefined],
+            closingPrice: [undefined],
+            shareholderName: [undefined]
         });
     }
 

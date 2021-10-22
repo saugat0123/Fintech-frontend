@@ -316,6 +316,14 @@
                                        type="text"/>
                             </div>
                         </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="form-group">
+                                <label for="valuationMode">Valuation Mode</label>
+                                <input class="form-control" formControlName="valuationMode"
+                                       id="valuationMode" name="valuationMode"
+                                       type="text" placeholder="Valuation Mode">
+                            </div>
+                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title">{{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</label>
@@ -818,6 +826,14 @@
                                                name="apartmentStaffRepresentativeName2"
                                                placeholder="Staff Representative Name 2"
                                                type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="valuationMode">Valuation Mode</label>
+                                        <input class="form-control" formControlName="valuationMode"
+                                               id="valuationMode" name="valuationMode"
+                                               type="text" placeholder="Valuation Mode">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -1683,6 +1699,14 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="valuationMode">Valuation Mode</label>
+                                    <input class="form-control" formControlName="valuationMode"
+                                           id="valuationMode" name="valuationMode"
+                                           type="text" placeholder="Valuation Mode">
+                                </div>
+                            </div>
                             <div class="col-md-4"
                                  *ngIf="securityForm.get(['landBuilding',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
                                 <div class="form-group">
@@ -2145,7 +2169,14 @@
                                        type="text"/>
                             </div>
                         </div>
-
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="valuationMode">Valuation Mode</label>
+                                <input class="form-control" formControlName="valuationMode"
+                                       id="valuationMode" name="valuationMode"
+                                       type="text" placeholder="Valuation Mode">
+                            </div>
+                        </div>
                         <div *ngIf="securityForm.get('plantDetails')['length'] > 1" class="col-md-1 pt-4">
                             <input (click)="removePlantDetails(i)"
                                    class="align-self-end btn btn-sm btn-danger btn-primary"
@@ -2715,6 +2746,30 @@
                                     <input class="form-control" formControlName="consideredValue"
                                            id="consideredValue" name="total" placeholder="Considered Value" readonly>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="form-group">
+                                    <label for="shareRate">Shareholder Name</label>
+                                    <input class="form-control" formControlName="shareholderName"
+                                           id="shareholderName" name="shareholderName"
+                                           type="text" placeholder="Shareholder Name">
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="closingPriceAverage"><b>Closing Price Average</b></label>
+                                <input formControlName="closingPriceAverage"
+                                       class="form-control"
+                                       [readOnly]="true"
+                                       id="closingPriceAverage">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="closingPrice"><b>Closing Price</b></label>
+                                <input formControlName="closingPrice"
+                                       class="form-control"
+                                       [readOnly]="true"
+                                       id="closingPrice">
                             </div>
                         </div>
                         <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
