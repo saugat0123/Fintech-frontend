@@ -824,7 +824,7 @@
                         <th> Rate</th>
                         <th>Total Value</th>
                         <th>Considered Value</th>
-                        <th>Shareholder Name</th>
+                        <th *ngIf="shareholderName.length >0">Shareholder Name</th>
                         <th *ngIf="closingPriceAverage.length >0">Closing Price Average</th>
                         <th *ngIf="closingPriceAverage.length >0">Closing Price</th>
                     </tr>
@@ -838,7 +838,7 @@
                         <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
-                        <td class="text-left pl-1">{{singleShareData?.shareholderName}}</td>
+                        <td class="text-left pl-1" *ngIf="singleShareData?.shareholderName">{{singleShareData?.shareholderName}}</td>
                         <td class="text-right pr-1" *ngIf="singleShareData?.closingPriceAverage">Rs. {{singleShareData?.closingPriceAverage |currencyFormatter}}</td>
                         <td class="text-right pr-1" *ngIf="singleShareData?.closingPrice">Rs. {{singleShareData?.closingPrice |currencyFormatter}}</td>
                     </tr>

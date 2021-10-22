@@ -21,6 +21,7 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() shareSecurity;
     closingPriceAverage = [];
     closingPrice = [];
+    shareholderName = [];
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;
@@ -203,6 +204,7 @@ export class SecuritySummaryComponent implements OnInit {
         }
         this.closingPriceAverage = this.shareSecurity.shareSecurityDetails.filter(item => item.closingPriceAverage);
         this.closingPrice = this.shareSecurity.shareSecurityDetails.filter(item => item.closingPrice);
+        this.shareholderName = this.shareSecurity.shareSecurityDetails.filter(item => item.shareholderName);
     }
 
     calculateTotal() {
