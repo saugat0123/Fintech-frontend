@@ -101,8 +101,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         showOtherIncomeSource: false,
         hideIncomeSource: false
     };
-
-    bankingRelationshipList = ['CIB Report Obtained', 'Any existing Credit Relationship with other BFIs?', 'Any credit relationship with Laxmi Bank?(Including Group)'];
+bankingRelationshipList = BankingRelationship.enumObject();
+    // bankingRelationshipList = ['CIB Report Obtained', 'Any existing Credit Relationship with other BFIs?', 'Any credit relationship with Laxmi Bank?(Including Group)'];
     subSector = [];
     clientType = [];
     relationArray: RelationshipList = new RelationshipList();
