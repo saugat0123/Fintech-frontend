@@ -9,10 +9,10 @@
             <br>
             <p>
                 मितिः
-                <span *ngIf="letter.dateofApproval.en.nDate; else dateofApprovalPrint"
-                      class="font-weight-bold">{{letter?.dateofApproval.en.nDate}}</span>
-                <ng-template #dateofApprovalPrint>
-                    <span class=" font-weight-bold">{{(letter?.dateofApproval.en | date) | engNepDate: true}}</span>
+                <span *ngIf="letter.dateOfApproval.en.nDate; else dateOfApprovalPrint"
+                      class="font-weight-bold">{{letter?.dateOfApproval.en.nDate}}</span>
+                <ng-template #dateOfApprovalPrint>
+                    <span class=" font-weight-bold">{{(letter?.dateOfApproval.en | date) | engNepDate: true}}</span>
                 </ng-template>
             </p>
             <div class="mb-2"> श्रीमान्/श्रीमती
@@ -51,8 +51,8 @@
                         <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
                         <td>
                             <strong> व्यक्तिगत अधिविकर्षः
-                                <span [ngClass]="{'font-weight-bold' : letter?.loanPurpose.ct !== null && letter?.loanPurpose.ct !== ''}">
-                                    {{letter?.loanPurpose.ct === null || letter?.loanPurpose.ct === '' ? '___________' : letter?.loanPurpose.ct}}
+                                <span [ngClass]="{'font-weight-bold' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
+                                    {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct}}
                                 </span>
                             </strong> गर्ने प्रयोजनको निमित्त मात्र
                             कर्जा प्रयोग गर्न सकिनेछ ।

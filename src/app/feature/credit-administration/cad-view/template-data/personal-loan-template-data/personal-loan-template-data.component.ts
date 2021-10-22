@@ -71,7 +71,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       refNumber: [undefined],
       dateOfApproval: [undefined],
       dateofApplication: [undefined],
-      loanPurpose: [undefined],
+      purposeOfLoan: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
       yearlyFloatingInterestRate: [undefined],
@@ -92,7 +92,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       refNumberTransVal: [undefined, Validators.required],
       dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
-      loanPurposeTransVal: [undefined, Validators.required],
+      purposeOfLoanTransVal: [undefined, Validators.required],
       baseRateTransVal: [undefined, Validators.required],
       premiumRateTransVal: [undefined, Validators.required],
       yearlyFloatingInterestRateTransVal: [undefined, Validators.required],
@@ -220,7 +220,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
-    this.form.get('loanPurposeTransVal').patchValue(this.translatedData.loanPurpose);
+    this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
     // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
     // this.form.get('yearlyFloatingInterestRateTransVal').patchValue(this.translatedData.yearlyFloatingInterestRate);

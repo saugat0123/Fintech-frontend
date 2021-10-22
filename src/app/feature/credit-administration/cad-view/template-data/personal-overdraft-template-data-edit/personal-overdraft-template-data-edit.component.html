@@ -54,7 +54,7 @@
                     <td>Date of Approval</td>
                     <td>
                         <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                            <nb-radio-group name="dateofApproval">
+                            <nb-radio-group name="dateOfApproval">
                                 <nb-radio (click)="setDateTypeBS()"><span style="margin-left:-60px">BS</span></nb-radio>
                                 <nb-radio (click)="setDateTypeAD()" style="margin-left: 60px;margin-top: -35px;" [checked]="dateTypeAD">AD</nb-radio>
                             </nb-radio-group>
@@ -64,15 +64,15 @@
                     <td>
                     </td>
                     <td>
-                        <nepali-patro *ngIf="dateTypeBS" formControlName="dateofApproval" [responseType]="2"
+                        <nepali-patro *ngIf="dateTypeBS" formControlName="dateOfApproval" [responseType]="2"
                                       [displayNepali]="true">
                         </nepali-patro>
                         <input [nbDatepicker]="doa"
                                *ngIf="dateTypeAD"
                                class="form-control form-control-sm-error rounded"
-                               formControlName="dateofApproval"
-                               id="dateofApproval"
-                               name="dateofApproval"
+                               formControlName="dateOfApproval"
+                               id="dateOfApproval"
+                               name="dateOfApproval"
                                placeholder="Date of Approval"
                                type="text">
                         <nb-datepicker #doa></nb-datepicker>
@@ -113,15 +113,15 @@
 
                 <tr>
                     <td>Purpose of Loan</td>
-                    <td><input type="text" class="form-control" formControlName="loanPurpose"></td>
-                    <td class="abc">{{translatedValues ? translatedValues?.loanPurpose : initialInformation?.loanPurpose?.ct}}</td>
+                    <td><input type="text" class="form-control" formControlName="purposeOfLoan"></td>
+                    <td class="abc">{{translatedValues ? translatedValues?.purposeOfLoan : initialInformation?.purposeOfLoan?.ct}}</td>
                     <td>
                         <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.loanPurposeTransVal.errors }"
-                               formControlName="loanPurposeTransVal"/>
-                        <div *ngIf="submitted && Form.loanPurposeTransVal.errors"
+                               [ngClass]="{ 'is-invalid':submitted && Form.purposeOfLoanTransVal.errors }"
+                               formControlName="purposeOfLoanTransVal"/>
+                        <div *ngIf="submitted && Form.purposeOfLoanTransVal.errors"
                              class="invalid-feedback">
-                            <div *ngIf="Form.loanPurposeTransVal.errors.required">Purpose of loan is required</div>
+                            <div *ngIf="Form.purposeOfLoanTransVal.errors.required">Purpose of loan is required</div>
                         </div>
                     </td>
                 </tr>
