@@ -125,11 +125,12 @@
         <p [ngClass]="{'page-break': printDocForm.swikritiBibaran.length > 4}"></p>
 
         <p class="text-center"><b>स्वीकृत ऋणकर्जाको बिवरण</b></p>
-        <div *ngFor="let guarantor of printDocForm?.swikritiBibaran; let i=index">
+        <div>
             <div>
                 <table border="1" width="100%" class="table-bordered table text-center ">
                     <thead>
                     <tr>
+                        <th width="5%">सि.नं.</th>
                         <th>ऋणकर्जा वा बैंकिङ्ग
                             सूबिधा किसिम
                         </th>
@@ -143,8 +144,9 @@
                     </tr>
 
                     </thead>
-                    <tbody>
-                    <tr>
+                    <tbody >
+                    <tr *ngFor="let guarantor of printDocForm?.swikritiBibaran; let i=index">
+                        <td><span class="nepaliFont">{{i+1 | nepaliNumber : 'preeti'}}</span></td>
                         <td><span [ngClass]="{nepaliFont: guarantor.approvedSubidhakisim!==null && guarantor.approvedSubidhakisim!==''}">
                             {{guarantor?.approvedSubidhakisim===null || guarantor.approvedSubidhakisim===''?'      ':guarantor?.approvedSubidhakisim }}</span></td>
                         <td><span class="nepaliFont">{{guarantor?.approvedAmount}}</span></td>
@@ -159,7 +161,7 @@
       <br>
         <br>
       <p class="text-center"><b>धितो सुरक्षण बापत रहेको/रहने सम्पत्तीको विवरण</b></p>
-        <div *ngFor="let guarantor of printDocForm?.security; let i=index">
+        <div>
             <div>
                 <table class="table table-bordered text-center ">
                     <thead>
@@ -180,9 +182,9 @@
                         <th width="28%">धनीको नाम थर र वतन</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td><span class="nepaliFont">{{guarantor?.SecuritiesSN}}</span></td>
+                    <tbody >
+                    <tr *ngFor="let guarantor of printDocForm?.security; let i=index">
+                        <td><span class="nepaliFont">{{i+1 | nepaliNumber : 'preeti'}}</span></td>
                         <td><span class="nepaliFont">{{guarantor?.SecuritiesSNBibaran}}</span></td>
                         <td><span class="nepaliFont">{{guarantor?.SecuritiesDistrict}}</span></td>
                         <td><span class="nepaliFont">{{guarantor?.SecuritiesMunicipality}}</span></td>

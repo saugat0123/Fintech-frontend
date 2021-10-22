@@ -105,16 +105,15 @@
       <p class="text-center"><b>स्वीकृत ऋणकर्जाको बिवरण</b></p>
 
       <div class="col-md-12 float-right">
-        <button (click)="addSwikriti()" class="btn btn-primary btn-sm float-right " size="tiny"
-                type="button">स्वीकृत थप्नुहोस्<i class="fas fa-plus"></i></button>
+
       </div>
-      <div *ngFor="let guarantor of form.get('swikritiBibaran')['controls']; let i=index"
-           formArrayName="swikritiBibaran">
-        <div [formGroupName]="i">
+      <div calss="w-100">
+        <div >
           <div>
             <table class="table-bordered table text-center ">
               <thead>
               <tr>
+                <th width="5%">सि.नं.</th>
                 <th>ऋणकर्जा वा बैंकिङ्ग
                   सूबिधा किसिम
                 </th>
@@ -123,11 +122,16 @@
                 </th>
                 <th>व्याज/कमिशन</th>
                 <th>कर्जाको अबधि</th>
+                <th><button (click)="addSwikriti()" class="btn btn-primary btn-sm float-right " size="tiny"
+                            type="button">स्वीकृत थप्नुहोस्<i class="fas fa-plus"></i></button></th>
               </tr>
 
               </thead>
-              <tbody>
-              <tr>
+              <tbody *ngFor="let guarantor of form.get('swikritiBibaran')['controls']; let i=index"
+                     formArrayName="swikritiBibaran">
+              <tr [formGroupName]="i">
+                <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesSN" value="{{i+1 | nepaliNumber : 'preeti'}}"
+                           type="text"></td>
                 <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedSubidhakisim"
                            type="text"></td>
                 <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedAmount"
@@ -136,18 +140,19 @@
                            type="text"></td>
                 <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedLoanTime"
                            type="text"></td>
+                <td>
+                  <button (click)="removeSwikriti(i)"
+                          class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                          *ngIf="form.get('swikritiBibaran')['length']>1"
+                          value="Delete">
+                    <em class="fas fa-trash" style="color: white;">
+                      Delete Guarantor
+                    </em>
+                  </button>
+                </td>
               </tr>
               </tbody>
             </table>
-            <div *ngIf="form.get('swikritiBibaran')['length']>1" class="col-md-3 float-right">
-              <button (click)="removeSwikriti(i)"
-                      class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
-                      value="Delete">
-                <em class="fas fa-trash" style="color: white;">
-                  Delete Guarantor
-                </em>
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -155,13 +160,9 @@
       <br>
       <p class="text-center"><b>धितो सुरक्षण बापत रहेको/रहने सम्पत्तीको विवरण</b></p>
       <div>
-        <div class="col-md-12 float-right">
-          <button (click)="addSecurity()" class="btn btn-primary btn-sm float-right " size="tiny"
-                  type="button">स्वीकृत थप्नुहोस्<i class="fas fa-plus"></i></button>
-        </div>
-        <div *ngFor="let guarantor of form.get('security')['controls']; let i=index"
-             formArrayName="security">
-          <div [formGroupName]="i">
+
+        <div >
+          <div >
             <div>
               <table class="table table-bordered text-center table-responsive-md">
                 <thead>
@@ -180,11 +181,14 @@
                   <th width="10%">क्षेत्रफल</th>
                   <th width="10%">रजिष्टेशन नं.</th>
                   <th width="28%">धनीको नाम थर र वतन</th>
+                  <th><button (click)="addSecurity()" class="btn btn-primary btn-sm float-right " size="tiny"
+                              type="button">स्वीकृत थप्नुहोस्<i class="fas fa-plus"></i></button></th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesSN"
+                <tbody *ngFor="let guarantor of form.get('security')['controls']; let i=index"
+                       formArrayName="security">
+                <tr [formGroupName]="i">
+                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesSN" value="{{i+1 | nepaliNumber : 'preeti'}}"
                              type="text"></td>
                   <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesSNBibaran"
                              type="text"></td>
@@ -202,19 +206,18 @@
                              type="text"></td>
                   <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesOwnerName"
                              type="text"></td>
+                  <td><button (click)="removeSecurity(i)"
+                              class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                              *ngIf="form.get('security')['length']>1"
+                              value="Delete">
+                    <em class="fas fa-trash" style="color: white;">
+                      Delete Guarantor
+                    </em>
+                  </button></td>
                 </tr>
                 </tbody>
               </table>
 
-              <div *ngIf="form.get('security')['length']>1" class="col-md-3 float-right">
-                <button (click)="removeSecurity(i)"
-                        class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
-                        value="Delete">
-                  <em class="fas fa-trash" style="color: white;">
-                    Delete Guarantor
-                  </em>
-                </button>
-              </div>
             </div>
           </div>
         </div>
