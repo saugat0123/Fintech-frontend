@@ -14,7 +14,6 @@ import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 import {LoanStage} from '../../model/loanStage';
 import {environment} from '../../../../../environments/environment';
-import {environment as envSrdb} from '../../../../../environments/environment.srdb';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
@@ -186,6 +185,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     securityId: number;
     siteVisitDocuments: Array<SiteVisitDocument>;
     isRemitLoan : boolean = false;
+    beneficiary;
+    dbr;
 
 
     constructor(
@@ -248,6 +249,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                        this.isCollateralSiteVisit = true;
                    }
                });
+        }
+        if (this.isRemitLoan) {
+            this.beneficiary = JSON.parse(this.loanDataHolder.remitCustomer.beneficiaryData);
+            this.calculateEmiEqiAmount();
         }
     }
 
@@ -778,6 +783,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         } else {
             this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
         }
+    }
+    calculateEmiEqiAmount() {
+        const proposedAmount = this.loanDataHolder.proposal.proposedLimit;
+        const rate = Number(this.loanDataHolder.loan.interestRate) / (12 * 100);
+        const n = this.loanDataHolder.proposal.tenureDurationInMonths;
+            const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
+            this.dbr = emi / JSON.parse(this.loanDataHolder.remitCustomer.senderData).senderEmployment.monthly_salary;
+        console.log('this is s=dbr', this.dbr);
+
     }
 }
 

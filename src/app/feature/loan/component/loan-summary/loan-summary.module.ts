@@ -38,6 +38,7 @@ import {NepaliPatroModule} from 'nepali-patro';
 import { RemitDetailsComponent } from './remit-details/remit-details.component';
 import { VideoKycInformationComponent } from './video-kyc-information/video-kyc-information.component';
 import {VideoKycModule} from '../../../video-kyc/video-kyc.module';
+import { RemitProfileComponent } from './remit-profile/remit-profile.component';
 
 
 const COMPONENTS = [
@@ -66,7 +67,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, RemitProfileComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -103,6 +104,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         PreviousSecuritySummaryComponent,
         RoleHierarchyChainComponent,
         RemitDetailsComponent,
+        RemitProfileComponent,
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

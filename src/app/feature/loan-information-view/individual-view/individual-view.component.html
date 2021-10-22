@@ -114,6 +114,7 @@
         </table>
     </div>
 
+<ng-container *ngIf="!isRemit; else relation">
     <div class="col-md-12 text-center">
         <p><strong>Family Details</strong></p>
         <table
@@ -125,7 +126,7 @@
                 <th>Citizenship no.</th>
                 <th>Citizenship Issued Date(AD/BS)</th>
                 <th>Citizenship Issued District</th>
-                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
+                <th>Age</th>
 
 
             </tr>
@@ -146,12 +147,111 @@
                     {{relative.citizenshipIssuedDate | date}} ({{relative.citizenshipIssuedDate | engNepDate: false}})
                 </td>
                 <td class="text-left pl-1">{{relative.citizenshipIssuedPlace || 'N/A'}}</td>
-                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
+                <td class="text-left pl-1">{{relative.age}} years</td>
 
             </tr>
             </tbody>
         </table>
     </div>
+</ng-container>
+    <ng-template #relation>
+        <div class="col-md-12">
+            <p><strong>{{(isRemit)?('Undivided Family Information Summary'):'Family Details'}}</strong></p>
+            <div>
+                <table
+                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <ng-container>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Relationship</th>
+                            <th>Profession</th>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1">1</td>
+                            <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_grandfather)?beneficiary?.beneficiaryIdentity.benef_grandfather : 'NA'}}</td>
+                            <td class="text-right pr-1"></td>
+                            <td class="text-left pl-1">Grand Father</td>
+                            <td class="text-left pl-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1">2</td>
+                            <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_father_name)?beneficiary?.beneficiaryIdentity.benef_father_name : 'NA'}}</td>
+                            <td class="text-right pr-1"></td>
+                            <td class="text-left pl-1">Father</td>
+                            <td class="text-left pl-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1">3</td>
+                            <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_mother_name)?beneficiary?.beneficiaryIdentity.benef_mother_name :'NA'}}</td>
+                            <td class="text-right pr-1"></td>
+                            <td class="text-left pl-1">Mother</td>
+                            <td class="text-left pl-1"></td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-template>
+    <ng-container *ngIf="isRemit">
+        <div class="col-md-12">
+            <p><b>Proposal</b></p>
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                <tr>
+                    <th>Limit</th>
+                    <th>{{loanDataHolder.proposal.proposedLimit}}</th>
+                    <th>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderBanking.loan_purpose}}</th>
+                </tr>
+            </table>
+        </div>
+    </ng-container>
+    <div class="col-md-12" *ngIf="isRemit">
+        <p><b>DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="sb-bg-dark">
+            <tr>
+                <td><b>Particular</b></td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Monthly Income From Remittance</td>
+                <td>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+            </tr>
+            <tr>
+                <td>Other Income</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>Total Monthly Income</b></td>
+                <td>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+            </tr>
+            <tr>
+                <td>Monthly Obligation on Proposed loan</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Total Monthly Obligation</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>DBR</td>
+                <td>{{(financialData.data)?(financialData?.data |jsonParse).initialForm?.emiNetMonthly * 100:'N/A'}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="border">
+            <p>* Income from migration work is only accepted for DBR calculation in case of pre migration loan and Livelihood Improvement Loan. However, 50% of the income from proposed business can be considered on case of Women Empowerment Loan</p>
+        </div>
+    </div>
+
     <div class="col-md-12 text-center">
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
