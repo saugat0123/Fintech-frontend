@@ -53,6 +53,7 @@ export class HomeLoanComponent implements OnInit {
   finalName;
   loanLimit;
   afterSave = false;
+  landbuilding;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -77,6 +78,9 @@ export class HomeLoanComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+    }
+    if (this.tempData.loanType === 'PURCHASE' || this.tempData.loanType === 'TAKEOVER') {
+      this.landbuilding = this.tempData.loan.landBuildingType;
     }
     console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
     console.log('All Data:', this.tempData);
@@ -104,6 +108,7 @@ export class HomeLoanComponent implements OnInit {
       additionalDetail: [undefined],
       ownersAddress: [undefined],
       propertyPlotNumber: [undefined],
+      beneficiaryName: [undefined],
       freeText: [undefined],
       propertyArea: [undefined],
       branchName: [undefined],
@@ -254,6 +259,7 @@ export class HomeLoanComponent implements OnInit {
       equatedMonth: this.tempData.loan.loanPeriodInMonthsCT ? this.tempData.loan.loanPeriodInMonthsCT : '',
       loanadminFee: this.tempData.loan.loanAdminFeeInFigureCT ? this.tempData.loan.loanAdminFeeInFigureCT : '',
       loanadminFeeWords: this.tempData.loan.loanAdminFeeInWordCT ? this.tempData.loan.loanAdminFeeInWordCT : '',
+      beneficiaryName: this.tempData.loan.beneficiaryNameCT ? this.tempData.loan.beneficiaryNameCT : '',
       loanCommitmentFee: this.tempData.loan.loanCommitmentFeeCT ? this.tempData.loan.loanCommitmentFeeCT : '',
       insuranceAmount: this.tempData.loan.insuranceAmountInFigureCT ? this.tempData.loan.insuranceAmountInFigureCT : '',
       insuranceAmountinWord: this.tempData.loan.insuranceAmountInWordCT ? this.tempData.loan.insuranceAmountInWordCT : '',
