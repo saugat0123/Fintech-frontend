@@ -20,17 +20,17 @@
                        placeholder=" सन्दर्भ नम्बर "
                        type="text"/>
                 <br>
-                <p *ngIf="initialInfoPrint.dateofApproval.en.nDate === undefined; else dateofApprovalNepali" class="text-left">
+                <p *ngIf="initialInfoPrint.dateOfApproval.en.nDate === undefined; else dateOfApprovalNepali" class="text-left">
                     मितिः <input class="form-field form-control-sm"
-                                 formControlName="dateofApproval"
-                                 [value]="initialInfoPrint.dateofApproval.en === undefined ? '' : ((initialInfoPrint.dateofApproval.en | date) | engNepDate: true)"
+                                 formControlName="dateOfApproval"
+                                 [value]="initialInfoPrint.dateOfApproval.en === undefined ? '' : ((initialInfoPrint.dateOfApproval.en | date) | engNepDate: true)"
                                  type="text"/>
                 </p>
-                <ng-template #dateofApprovalNepali>
+                <ng-template #dateOfApprovalNepali>
                     <p>
                         मितिः <input class="form-field form-control-sm"
-                                     formControlName="dateofApproval"
-                                     [value]="initialInfoPrint.dateofApproval.en.nDate === undefined ? '' : initialInfoPrint.dateofApproval.en.nDate"
+                                     formControlName="dateOfApproval"
+                                     [value]="initialInfoPrint.dateOfApproval.en.nDate === undefined ? '' : initialInfoPrint.dateOfApproval.en.nDate"
                                      type="text"/>
                     </p>
                 </ng-template>
@@ -84,8 +84,8 @@
                                 <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
                                 <td>
                                     <strong> व्यक्तिगत अधिविकर्षः <input class="form-field form-control-sm"
-                                                                      formControlName="loanPurpose"
-                                                                      name="loanPurpose"
+                                                                      formControlName="purposeOfLoan"
+                                                                      name="purposeOfLoan"
                                                                       placeholder="नाम"
                                                                       style="width: 200px"
                                                                       type="text"/></strong> गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
