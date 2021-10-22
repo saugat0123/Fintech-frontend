@@ -1074,8 +1074,6 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').clearValidators();
                 f.get('totalShareUnit').updateValueAndValidity();
-                f.get('shareholderName').setValidators(Validators.required);
-                f.get('shareholderName').updateValueAndValidity();
             });
             const bondFormControls = this.securityForm.get('bondSecurity') as FormArray;
             bondFormControls.controls.forEach(f => {
@@ -1270,8 +1268,6 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').setValidators(Validators.required);
                 f.get('totalShareUnit').updateValueAndValidity();
-                f.get('shareholderName').setValidators(Validators.required);
-                f.get('shareholderName').updateValueAndValidity();
             });
         } else {
             const formControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
@@ -1280,8 +1276,6 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').clearValidators();
                 f.get('totalShareUnit').updateValueAndValidity();
-                f.get('shareholderName').clearValidators();
-                f.get('shareholderName').updateValueAndValidity();
             });
         }
         if (this.selectedSecurity === 'BondSecurity') {
@@ -1944,7 +1938,7 @@ export class SecurityInitialFormComponent implements OnInit {
             dividendPayoutRatio: [undefined],
             closingPriceAverage: [undefined],
             closingPrice: [undefined],
-            shareholderName: ['', Validators.required]
+            shareholderName: [undefined]
         });
     }
 
