@@ -88,9 +88,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       loanLimitChecked: [undefined],
       renewalChecked: [undefined],
       referenceNumber: [undefined],
-      dateofApproval: [undefined],
+      dateOfApproval: [undefined],
       dateofApplication: [undefined],
-      loanPurpose: [undefined],
+      purposeOfLoan: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
       yearlyInterestRate: [undefined],
@@ -107,9 +107,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       loanLimitCheckedTransVal: [undefined],
       renewalCheckedTransVal: [undefined],
       referenceNumberTransVal: [undefined, Validators.required],
-      dateofApprovalTransVal: [undefined],
+      dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
-      loanPurposeTransVal: [undefined, Validators.required],
+      purposeOfLoanTransVal: [undefined, Validators.required],
       baseRateTransVal: [undefined],
       premiumRateTransVal: [undefined],
       yearlyInterestRateTransVal: [undefined],
@@ -243,9 +243,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   private setTemplatedCTData(data): void {
     console.log('Data Value:', data);
     // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
-    this.form.get('dateofApprovalTransVal').patchValue(this.translatedData.dateofApproval);
+    this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
-    this.form.get('loanPurposeTransVal').patchValue(this.translatedData.loanPurpose);
+    this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
     // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
     // this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);

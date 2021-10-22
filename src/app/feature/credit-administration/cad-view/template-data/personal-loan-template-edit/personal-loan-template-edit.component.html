@@ -89,15 +89,15 @@
                     </tr>
                     <tr>
                         <td>Purpose Of Loan</td>
-                        <td><input type="text" class="form-control" formControlName="loanPurpose"/></td>
-                        <td class="abc">{{translatedData ? translatedData?.loanPurpose : initialInformation?.loanPurpose?.ct}}</td>
+                        <td><input type="text" class="form-control" formControlName="purposeOfLoan"/></td>
+                        <td class="abc">{{translatedData ? translatedData?.purposeOfLoan : initialInformation?.purposeOfLoan?.ct}}</td>
                         <td>
                             <input type="text" class="form-control"
-                                   [ngClass]="{ 'is-invalid':submitted && Form.loanPurposeTransVal.errors }"
-                                   formControlName="loanPurposeTransVal"/>
-                            <div *ngIf="submitted && Form.loanPurposeTransVal.errors"
+                                   [ngClass]="{ 'is-invalid':submitted && Form.purposeOfLoanTransVal.errors }"
+                                   formControlName="purposeOfLoanTransVal"/>
+                            <div *ngIf="submitted && Form.purposeOfLoanTransVal.errors"
                                  class="invalid-feedback">
-                                <div *ngIf="Form.loanPurposeTransVal.errors.required">Purpose of loan is required</div>
+                                <div *ngIf="Form.purposeOfLoanTransVal.errors.required">Purpose of loan is required</div>
                             </div>
                         </td>
                     </tr>
@@ -186,6 +186,21 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>Loan Period in Months</td>
+                        <td><input type="text" class="form-control"
+                                   formControlName="loanPeriodInMonth"/></td>
+                        <td class="abc">{{translatedData ? translatedData?.loanPeriodInMonth : initialInformation?.loanPeriodInMonth?.ct}}</td>
+                        <td>
+                            <input type="text" class="form-control"
+                                   [ngClass]="{ 'is-invalid':submitted && Form.loanPeriodInMonthTransVal.errors }"
+                                   formControlName="loanPeriodInMonthTransVal"/>
+                            <div *ngIf="submitted && Form.loanPeriodInMonthTransVal.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="Form.loanPeriodInMonthTransVal.errors.required">EMI amount is required</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Name of Company</td>
                         <td><input type="text" class="form-control" formControlName="companyName"/></td>
                         <td class="abc">{{translatedData ? translatedData?.companyName : initialInformation?.companyName?.ct}}</td>
@@ -240,49 +255,6 @@
                             <div *ngIf="submitted && Form.managerNameTransVal.errors"
                                  class="invalid-feedback">
                                 <div *ngIf="Form.managerNameTransVal.errors.required">Branch Manager name is required</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Signature Date</td>
-                        <td>
-                            <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                                <nb-radio-group name="signatureDate">
-                                    <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span></nb-radio>
-                                    <nb-radio (click)="setDateTypeAD2()" [checked]="dateTypeAD2" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
-                                </nb-radio-group>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                            <nepali-patro *ngIf="dateTypeBS2" formControlName="signatureDate" [responseType]="2"
-                                          [displayNepali]="true">
-                            </nepali-patro>
-                            <input [nbDatepicker]="dos"
-                                   *ngIf="dateTypeAD2"
-                                   class="form-control form-control-sm-error rounded"
-                                   formControlName="signatureDate"
-                                   id="signatureDate"
-                                   name="signatureDate"
-                                   placeholder="Date of Signature"
-                                   type="text">
-                            <nb-datepicker #dos></nb-datepicker>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Approval Staff Name</td>
-                        <td><input type="text" class="form-control" formControlName="employeeName"/></td>
-                        <td class="abc">{{translatedData ? translatedData?.employeeName : initialInformation?.employeeName?.ct}}</td>
-                        <td>
-                            <input type="text" class="form-control"
-                                   [ngClass]="{ 'is-invalid':submitted && Form.employeeNameTransVal.errors }"
-                                   formControlName="employeeNameTransVal"/>
-                            <div *ngIf="submitted && Form.employeeNameTransVal.errors"
-                                 class="invalid-feedback">
-                                <div *ngIf="Form.employeeNameTransVal.errors.required">Approval Staff name is required</div>
                             </div>
                         </td>
                     </tr>
