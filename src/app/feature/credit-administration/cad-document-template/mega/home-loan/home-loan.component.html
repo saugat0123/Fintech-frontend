@@ -86,7 +86,7 @@
                                                        type="text"/> मात्र )
                                 </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="landbuilding === 'LAND & BUILDING' || landbuilding === 'LAND'">
                                 <td> <strong>
                                     ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power)
                                 </strong>
@@ -100,6 +100,22 @@
                                            type="text"/>
                                     प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन
                                     कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ।
+                                </td>
+                            </tr>
+                            <tr *ngIf="tempData.loanType === 'CONSTRUCTION'">
+                                <td> <strong>
+                                    ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power)
+                                </strong>
+                                </td>
+                                <td>कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको
+                                    निर्माण लागतको
+                                    <input class="form-field form-control-sm"
+                                           formControlName="distressSituationPercentage"
+                                           name="distressSituationPercentage"
+                                           placeholder=" "
+                                           type="text"/>
+                                    प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा
+                                    उपयोग गर्न सकिनेछ ।
                                 </td>
                             </tr>
 
@@ -363,7 +379,7 @@
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr *ngIf="this.tempData.loanType === 'CONSTRUCTION'">
                             <td>९. </td>
                             <td> धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
                                 <input class="form-field form-control-sm nepaliFont"
@@ -435,7 +451,7 @@
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
                                 </p>
                                 <div class="row col-md-12">
-                    <textarea id="additionalDetail"
+                    <textarea
                               class="form-control customFont nepaliFont"
                               rows="5"
                               style="width:inherit;margin-left:5%"
@@ -445,39 +461,39 @@
                                 </div>
 
                         </tr>
-<!--                        <tr>-->
-<!--                            <td>९. </td>-->
-<!--                            <td>-->
-<!--                                धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात-->
-<!--                                तपाईंको यस नबिल बैंक लिमिटेडको, <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                                       formControlName="branchName"-->
-<!--                                                                       name="branchName"-->
-<!--                                                                       placeholder=" "-->
-<!--                                                                       type="text"/> शाखामा रहेको चल्ती-->
-<!--                                खातामा रु <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                 formControlName="loanAmount"-->
-<!--                                                 name="loanAmount"-->
-<!--                                                 placeholder=" "-->
-<!--                                                 type="text"/>-->
-<!--                                ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                                             formControlName="beneficiaryName"-->
-<!--                                                                             name="beneficiaryName"-->
-<!--                                                                             placeholder=" "-->
-<!--                                                                             type="text"/>   लाई ब्रऋ एबथभभ ऋजभत्रगभ रःऋरम्चबात-->
-<!--                                मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।-->
-<!--                                <div class="row col-md-12">-->
-<!--                    <textarea id="additionalDetail"-->
-<!--                              class="form-control customFont nepaliFont"-->
-<!--                              rows="5"-->
-<!--                              style="width:inherit;margin-left:5%"-->
-<!--                              name="additionalDetail"-->
-<!--                              formControlName="additionalDetail">-->
-<!--                    </textarea>-->
-<!--                                </div>-->
+                        <tr *ngIf="landbuilding === 'LAND & BUILDING' || landbuilding === 'LAND'">
+                            <td>९. </td>
+                            <td>
+                                धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
+                                तपाईंको यस नबिल बैंक लिमिटेडको, <input class="form-field form-control-sm nepaliFont"
+                                                                       formControlName="branchName"
+                                                                       name="branchName"
+                                                                       placeholder=" "
+                                                                       type="text"/> शाखामा रहेको चल्ती
+                                खातामा रु <input class="form-field form-control-sm nepaliFont"
+                                                 formControlName="loanAmount"
+                                                 name="loanAmount"
+                                                 placeholder=" "
+                                                 type="text"/>
+                                ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री <input class="form-field form-control-sm nepaliFont"
+                                                                             formControlName="beneficiaryName"
+                                                                             name="beneficiaryName"
+                                                                             placeholder=" "
+                                                                             type="text"/>   लाई ब्रऋ एबथभभ ऋजभत्रगभ रःऋरम्चबात
+                                मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
+                                <div class="row col-md-12">
+                    <textarea
+                              class="form-control customFont nepaliFont"
+                              rows="5"
+                              style="width:inherit;margin-left:5%"
+                              name="additionalDetail"
+                              formControlName="additionalDetail">
+                    </textarea>
+                                </div>
 
 
-<!--                            </td>-->
-<!--                        -->
+                            </td>
+
                         <tr>
                             <td>१०.</td>
                             <td>कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साञचो छन र अन्यथा भएमा तपाईं जिम्मेवार हुनुहुनेछ।</td>
@@ -843,10 +859,7 @@
 
                         </p>
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <div class="col-md-12">
+                    <div class="text-left" style="margin-top: 140px">
                         <p>
                             साक्षीः
                         </p>
