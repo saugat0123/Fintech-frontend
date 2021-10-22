@@ -26,7 +26,12 @@
 }
 
 .nepaliList {
-  list-style-type: devanagari !important;
+  list-style-type: devanagari;
+  line-height: 1.9;
+}
+.nepaliList > li {
+  list-style-type: devanagari;
+  line-height: 1.9;
 }
 nb-card{
   max-height: 100vh !important;
@@ -37,7 +42,7 @@ input::-webkit-input-placeholder {
 }
 
 input[type="text"] {
-  font-size:20px;
+  font-size: 16px;
 }
 .disclist > li{
   list-style-type: disc;
