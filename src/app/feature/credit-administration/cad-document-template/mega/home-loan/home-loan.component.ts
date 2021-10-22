@@ -60,7 +60,7 @@ export class HomeLoanComponent implements OnInit {
               private administrationService: CreditAdministrationService,
               private routerUtilsService: RouterUtilsService,
               protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,

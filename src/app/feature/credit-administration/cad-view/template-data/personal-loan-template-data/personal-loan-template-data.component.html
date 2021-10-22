@@ -90,15 +90,15 @@
                 </tr>
                 <tr>
                     <td>Purpose Of Loan</td>
-                    <td><input type="text" class="form-control" formControlName="loanPurpose"/></td>
-                    <td class="abc">{{translatedData?.loanPurpose}}</td>
+                    <td><input type="text" class="form-control" formControlName="purposeOfLoan"/></td>
+                    <td class="abc">{{translatedData?.purposeOfLoan}}</td>
                     <td>
                         <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.loanPurposeTransVal.errors }"
-                               formControlName="loanPurposeTransVal"/>
-                        <div *ngIf="submitted && Form.loanPurposeTransVal.errors"
+                               [ngClass]="{ 'is-invalid':submitted && Form.purposeOfLoanTransVal.errors }"
+                               formControlName="purposeOfLoanTransVal"/>
+                        <div *ngIf="submitted && Form.purposeOfLoanTransVal.errors"
                              class="invalid-feedback">
-                            <div *ngIf="Form.loanPurposeTransVal.errors.required">Purpose of loan is required</div>
+                            <div *ngIf="Form.purposeOfLoanTransVal.errors.required">Purpose of loan is required</div>
                         </div>
                     </td>
                 </tr>

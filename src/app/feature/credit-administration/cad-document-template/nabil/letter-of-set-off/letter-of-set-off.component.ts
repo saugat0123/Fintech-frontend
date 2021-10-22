@@ -26,6 +26,7 @@ import {DatePipe} from '@angular/common';
 import {CustomerSubType} from '../../../../customer/model/customerSubType';
 import {CustomerService} from '../../../../customer/service/customer.service';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {OfferDocument} from '../../../model/OfferDocument';
 
 @Component({
   selector: 'app-letter-of-set-off',
@@ -329,12 +330,36 @@ export class LetterOfSetOffComponent implements OnInit {
 
   checkOfferLetterData() {
     if (this.cadData.offerDocumentList.length > 0) {
-      this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
-      if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-        this.educationalTemplateData = educationalOfferData;
+      let documentName;
+      this.cadData.offerDocumentList.filter((document: OfferDocument) => {
+        documentName = document.docName;
+        this.offerLetterDocument = document;
+      });
+      if (documentName === 'Educational Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData;
+        }
       }
+      if (documentName === 'Personal Overdraft') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData;
+        }
+      }
+      if (documentName === 'Personal Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData;
+        }
+      }
+      // console.log('documentName', documentName);
+      // console.log('offer document list', this.cadData.offerDocumentList);
+      // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString() === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
+      // if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+      //   const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+      //   this.educationalTemplateData = educationalOfferData;
+      // }
     }
   }
 

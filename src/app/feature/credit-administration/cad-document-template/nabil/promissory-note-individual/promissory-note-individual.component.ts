@@ -296,12 +296,35 @@ export class PromissoryNoteIndividualComponent implements OnInit {
 
   checkOfferLetterData() {
     if (this.cadData.offerDocumentList.length > 0) {
-      this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
-      if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-        this.educationalTemplateData = educationalOfferData.interestRate;
+      let documentName;
+      this.cadData.offerDocumentList.filter((document: OfferDocument) => {
+        documentName = document.docName;
+        this.offerLetterDocument = document;
+      });
+      if (documentName === 'Educational Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate;
+        }
       }
+      if (documentName === 'Personal Overdraft') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyInterestRate;
+        }
+      }
+      if (documentName === 'Personal Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyFloatingInterestRate;
+        }
+      }
+      // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
+      //     === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
+      // if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+      //   const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+      //   this.educationalTemplateData = educationalOfferData.interestRate;
+      // }
     }
   }
 
