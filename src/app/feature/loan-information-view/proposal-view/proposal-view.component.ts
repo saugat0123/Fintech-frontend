@@ -11,6 +11,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {LoanTag} from '../../loan/model/loanTag';
 
 @Component({
   selector: 'app-proposal-view',
@@ -47,6 +48,7 @@ export class ProposalViewComponent implements OnInit {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   showInterestAmount = false;
   prepaymentCharge;
+  isRemit = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
@@ -58,6 +60,9 @@ export class ProposalViewComponent implements OnInit {
     this.calculateInterestRate();
     this.getLoanConfig();
     this.checkInstallmentAmount();
+    if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+      this.isRemit = true;
+    }
   }
 
   public getTotal(key: string): number {

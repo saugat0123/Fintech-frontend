@@ -134,6 +134,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         }
         this.customerService.detail(this.associateId).subscribe((res: any) => {
             this.customer = res.detail;
+            console.log('customer relation', this.customer.customerRelatives);
             if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
                 const jointCustomerInfo = JSON.parse(this.customer.jointInfo);
                 this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
@@ -148,7 +149,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
         this.utilService.getProductUtil().then(r =>
             this.productUtils = r);
-
     }
 
     ngAfterContentInit(): void {

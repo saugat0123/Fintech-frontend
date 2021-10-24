@@ -101,8 +101,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         showOtherIncomeSource: false,
         hideIncomeSource: false
     };
-
-    bankingRelationshipList = BankingRelationship.enumObject();
+bankingRelationshipList = BankingRelationship.enumObject();
+    // bankingRelationshipList = ['CIB Report Obtained', 'Any existing Credit Relationship with other BFIs?', 'Any credit relationship with Laxmi Bank?(Including Group)'];
     subSector = [];
     clientType = [];
     relationArray: RelationshipList = new RelationshipList();
@@ -115,6 +115,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     client = environment.client;
     clientName = Clients;
     ckeConfig = Editor.CK_CONFIG;
+    private relation = ['Grand Father', 'Father']
 
     ngOnInit() {
         this.getProvince();
@@ -465,8 +466,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     createRelativesArray() {
-        const relation = ['Grand Father', 'Father'];
-        relation.forEach((customerRelation) => {
+        this.relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
                 customerRelation: [{value: customerRelation, disabled: false}],
                 customerRelativeName: [undefined, Validators.required],
@@ -474,6 +474,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
                 age: [undefined, Validators.required],
+                profession: [undefined],
                 version: [undefined]
             }));
         });
@@ -494,7 +495,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                     citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
                         undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
-                    age: [singleRelatives.age, Validators.required]
+                    age: [singleRelatives.age, Validators.required],
+                    profession: [singleRelatives.profession, Validators.required]
                 }));
             });
 

@@ -1,18 +1,21 @@
-<app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
-                     [calendarType]="calendarType"
-                     [customerInfoData]="loanDataHolder?.loanHolder"
-                     [individual]="loanDataHolder?.customerInfo"
-                     [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
-<app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
-                       [calendarType]="calendarType"
-                       [formValue]="loanDataHolder?.companyInfo"
-                       [loanId]="loanId" [customerInfo]="loanHolder"></app-company-info-view>
 <div *ngIf="proposalData.data !==null ">
     <app-proposal-view *ngIf="loanDataHolder?.proposal"
                        [customerAllLoanList]="customerAllLoanList"
                        [proposalData]="proposalData"
                        [loanDataHolder]="loanDataHolder"></app-proposal-view>
 </div>
+<app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
+                     [calendarType]="calendarType"
+                     [loanDataHolder]="loanDataHolder"
+                     [customerInfoData]="loanDataHolder?.loanHolder"
+                     [individual]="loanDataHolder?.customerInfo"
+                     [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
+<app-remit-profile *ngIf="isRemit" [loanHolder]="loanHolder" ></app-remit-profile>
+
+<app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
+                       [calendarType]="calendarType"
+                       [formValue]="loanDataHolder?.companyInfo"
+                       [loanId]="loanId" [customerInfo]="loanHolder"></app-company-info-view>
 
 <div *ngIf="megaGroupEnabled">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>

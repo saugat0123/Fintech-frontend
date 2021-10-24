@@ -4,10 +4,12 @@ import {CustomerType} from '../../customer/model/customerType';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {IndividualJsonData} from '../../admin/modal/IndividualJsonData';
-import {environment as envSrdb} from '../../../../environments/environment.srdb';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {LoanDataHolder} from '../../loan/model/loanData';
+import {LoanTag} from '../../loan/model/loanTag';
+import {Financial} from '../../loan/model/financial';
 
 @Component({
   selector: 'app-individual-view',
@@ -20,9 +22,10 @@ export class IndividualViewComponent implements OnInit {
   customerType = CustomerType;
   individualJsonData: IndividualJsonData;
   @Input() customerInfoData: CustomerInfoData;
+  @Input() loanDataHolder: LoanDataHolder;
   clientType: string;
   subsectorDetail: string;
-
+  financialData: Financial = new Financial();
   crgLambdaDisabled = environment.disableCrgLambda;
   client = environment.client;
   clientName = Clients;
@@ -34,12 +37,13 @@ export class IndividualViewComponent implements OnInit {
   jointInfo = [];
   riskInfo: any;
   age: number;
+  isRemit = false;
+  beneficiary;
 
   constructor() {
   }
 
   ngOnInit() {
-    console.log('this is cutstomer info from app-individual-view', this.customerInfo);
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
@@ -53,7 +57,15 @@ export class IndividualViewComponent implements OnInit {
       this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
       this.isJointInfo = true;
     }
-
+    if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+      this.isRemit = true;
+      if (this.isRemit) {
+        this.beneficiary = JSON.parse(this.loanDataHolder.remitCustomer.beneficiaryData);
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
+      this.financialData = this.loanDataHolder.financial;
+    }
   }
 
   calculateAge(dob) {
