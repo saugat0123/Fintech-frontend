@@ -450,22 +450,6 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>Approval Staff Name</td>
-                    <td><input type="text" class="form-control" formControlName="approvalStaffName"/></td>
-                    <td class="abc">{{translatedData ? translatedData?.approvalStaffName : initialInformation?.approvalStaffName?.ct}}</td>
-                    <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.approvalStaffNameTransVal.errors }"
-                               formControlName="approvalStaffNameTransVal"/>
-                        <div *ngIf="submitted && Form.approvalStaffNameTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.approvalStaffNameTransVal.errors.required">Approval staff name is
-                                required
-                            </div>
-                        </div>
-                    </td>
-                </tr>
             </table>
         </div>
         <div class="securities-sections" *ngIf="form.get('selectedSecurity').value && form.get('selectedSecurity').value !== 'FIXED_DEPOSIT'">
