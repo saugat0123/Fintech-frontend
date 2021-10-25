@@ -246,7 +246,6 @@ export class OfferLetterListComponent implements OnInit {
                 } else {
                   this.toastService.show(new Alert(AlertType.ERROR, `${ObjectUtil.isEmpty(this.docName) ? 'offer letter' : this.docName} not found`));
                 }
-                console.log('doc name', this.docName);
             });
         }, error => {
             this.spinner = false;
