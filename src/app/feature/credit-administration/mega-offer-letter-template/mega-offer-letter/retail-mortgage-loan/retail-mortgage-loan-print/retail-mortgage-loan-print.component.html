@@ -5,8 +5,8 @@
         </div>
     </div>
     <div class="mb-2">
-        <span [ngClass]="{'font-weight-bold' : letter?.referenceNumber.ct !== null && letter?.referenceNumber.ct !== ''}">
-                     {{letter?.referenceNumber.ct === null || letter?.referenceNumber.ct === '' ? '___________' : letter?.referenceNumber.ct}}
+        <span class="font-weight-bold">
+                     {{autoRefNum ? autoRefNum : '_______________________'}}
                 </span>
         <p>
             मितिः
