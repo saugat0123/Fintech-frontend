@@ -41,20 +41,20 @@
                             <nb-datepicker #doa></nb-datepicker>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Reference Number</td>
-                        <td><input type="text" class="form-control" formControlName="refNumber"/></td>
-                        <td class="abc">{{translatedData ? translatedData?.refNumber : initialInformation?.refNumber?.ct}}</td>
-                        <td>
-                            <input type="text" class="form-control"
-                                   [ngClass]="{ 'is-invalid':submitted && Form.refNumberTransVal.errors }"
-                                   formControlName="refNumberTransVal"/>
-                            <div *ngIf="submitted && Form.refNumberTransVal.errors"
-                                 class="invalid-feedback">
-                                <div *ngIf="Form.refNumberTransVal.errors.required">Reference number is required</div>
-                            </div>
-                        </td>
-                    </tr>
+<!--                    <tr>-->
+<!--                        <td>Reference Number</td>-->
+<!--                        <td><input type="text" class="form-control" formControlName="refNumber"/></td>-->
+<!--                        <td class="abc">{{translatedData ? translatedData?.refNumber : initialInformation?.refNumber?.ct}}</td>-->
+<!--                        <td>-->
+<!--                            <input type="text" class="form-control"-->
+<!--                                   [ngClass]="{ 'is-invalid':submitted && Form.refNumberTransVal.errors }"-->
+<!--                                   formControlName="refNumberTransVal"/>-->
+<!--                            <div *ngIf="submitted && Form.refNumberTransVal.errors"-->
+<!--                                 class="invalid-feedback">-->
+<!--                                <div *ngIf="Form.refNumberTransVal.errors.required">Reference number is required</div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                    </tr>-->
                     <tr style="padding: 12px">
                         <td>Date Of Application</td>
                         <td>

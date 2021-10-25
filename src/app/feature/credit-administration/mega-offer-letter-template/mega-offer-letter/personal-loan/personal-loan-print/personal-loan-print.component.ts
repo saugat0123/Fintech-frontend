@@ -21,6 +21,7 @@ export class PersonalLoanPrintComponent implements OnInit {
   proposedAmount;
   guarantorName;
   branchName;
+  autoRefNumber;
 
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -40,6 +41,9 @@ export class PersonalLoanPrintComponent implements OnInit {
       this.customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
           this.loanHolderInfo.permanentProvince.ct;
+    }
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
   }
 }

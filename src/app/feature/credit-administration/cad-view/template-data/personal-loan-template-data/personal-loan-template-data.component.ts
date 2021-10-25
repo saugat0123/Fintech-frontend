@@ -68,7 +68,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      refNumber: [undefined],
+      // refNumber: [undefined],
       dateOfApproval: [undefined],
       dateofApplication: [undefined],
       purposeOfLoan: [undefined],
@@ -89,7 +89,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       // sakshiName: [undefined],
 
       // Translated Value
-      refNumberTransVal: [undefined, Validators.required],
+      // refNumberTransVal: [undefined, Validators.required],
       dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
@@ -217,7 +217,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.btnDisable = false;
   }
   private setTemplatedCTData(): void {
-    this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
+    // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
