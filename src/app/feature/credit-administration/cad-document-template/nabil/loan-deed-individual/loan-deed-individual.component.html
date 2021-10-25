@@ -162,8 +162,8 @@
                 <p>{{ convertNepaliNumberAmount(loan?.proposal?.proposedLimit) }}</p>
               </td>
               <td class="px-2">
-                <p *ngIf="loan?.loan?.name === 'EDUCATION LOAN'">{{ convertNepaliNumber(educationInterestRate) }}</p>
-                <p *ngIf="loan?.loan?.name !== 'EDUCATION LOAN'">{{'__________'}}</p>
+                <span>{{ educationInterestRate? convertNepaliNumber(educationInterestRate) : '____________' }}% </span>
+                <span>/ {{ offerLetterAdminFee ? convertNepaliNumber(offerLetterAdminFee) : '___________'}}</span>
               </td>
               <td class="px-2">
                 <input
