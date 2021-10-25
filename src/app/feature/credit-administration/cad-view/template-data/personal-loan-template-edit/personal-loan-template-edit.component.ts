@@ -215,6 +215,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
   private setTemplatedCTData(): void {
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
+    this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);

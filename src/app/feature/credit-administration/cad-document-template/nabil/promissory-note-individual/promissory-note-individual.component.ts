@@ -132,15 +132,23 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
     }
     let age;
-    if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
-      const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
-      // age = this.engToNepNumberPipe.transform(String(calAge));
-      age = this.ageCalculation(this.individualData.dob.en.eDate);
-    } else {
-      // const calAge = AgeCalculation.calculateAge(this.individualData.dob.en);
-      // age = this.engToNepNumberPipe.transform(String(calAge));
-      age = this.ageCalculation(this.individualData.dob.en);
+    if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData)) {
+      if (this.individualData.dob.en.eDate === undefined) {
+        age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en).toString());
+      } else {
+        age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en.eDate).toString());
+      }
+
     }
+    // if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
+    //   const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
+    //   // age = this.engToNepNumberPipe.transform(String(calAge));
+    //   age = this.ageCalculation(this.individualData.dob.en.eDate);
+    // } else {
+    //   // const calAge = AgeCalculation.calculateAge(this.individualData.dob.en);
+    //   // age = this.engToNepNumberPipe.transform(String(calAge));
+    //   age = this.ageCalculation(this.individualData.dob.en);
+    // }
     let length = 1;
     if (!ObjectUtil.isEmpty(this.jointInfoData)) {
       length = this.jointInfoData.length;
@@ -185,7 +193,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     const endDate = new Date();
     let diff = (endDate.getTime() - stDate.getTime()) / 1000;
     diff = diff / (60 * 60 * 24);
-    const yr = Math.abs(Math.round(diff / 365.25));
+    const yr = Math.abs(Math.round(diff / 365));
     return this.engToNepNumberPipe.transform(yr.toString());
   }
 
