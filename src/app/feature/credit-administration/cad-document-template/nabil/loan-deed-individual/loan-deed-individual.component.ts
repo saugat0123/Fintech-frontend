@@ -100,9 +100,15 @@ export class LoanDeedIndividualComponent implements OnInit {
     let age: any;
     let ageNepaliNumber: string;
     if (!ObjectUtil.isEmpty(this.loanHolderNepData) && !ObjectUtil.isEmpty(this.loanHolderNepData.dob)) {
+      if(this.loanHolderNepData.dob.en.eDate === undefined) {
+        age = AgeCalculation.calculateAge(this.loanHolderNepData.dob.en);
+      } else {
         age = AgeCalculation.calculateAge(this.loanHolderNepData.dob.en.eDate);
+      }
         ageNepaliNumber = this.engToNepNumberPipe.transform(String(age));
     }
+
+
     let approvedDate: any;
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval)) {
       // tslint:disable-next-line:max-line-length
