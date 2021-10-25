@@ -115,7 +115,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
     this.form = this.formBuilder.group({
       selectedSecurity: [undefined],
       loanLimitChecked: [undefined],
-      referenceNumber: [undefined],
+      // referenceNumber: [undefined],
       dateofApproval: [undefined],
       dateofApplication: [undefined],
       loanPurpose: [undefined],
@@ -137,7 +137,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       //For Translated Value
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
-      referenceNumberTransVal: [undefined, Validators.required],
+      // referenceNumberTransVal: [undefined, Validators.required],
       dateofApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       loanPurposeTransVal: [undefined, Validators.required],

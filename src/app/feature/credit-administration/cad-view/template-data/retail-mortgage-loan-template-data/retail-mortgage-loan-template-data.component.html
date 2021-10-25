@@ -29,22 +29,22 @@
                 <th>Nepali Translation</th>
                 <th>Correct Translation</th>
             </tr>
-            <tr>
-                <td>Reference Number</td>
-                <td><input type="text" class="form-control" formControlName="referenceNumber"
-                           (input)="translateNumber('referenceNumber', 'referenceNumberTransVal')">
-                </td>
-                <td class="abc">{{translatedValues?.referenceNumber}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"
-                           formControlName="referenceNumberTransVal"/>
-                    <div *ngIf="submitted && Form.referenceNumberTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.referenceNumberTransVal.errors.required">reference number is required</div>
-                    </div>
-                </td>
-            </tr>
+<!--            <tr>-->
+<!--                <td>Reference Number</td>-->
+<!--                <td><input type="text" class="form-control" formControlName="referenceNumber"-->
+<!--                           (input)="translateNumber('referenceNumber', 'referenceNumberTransVal')">-->
+<!--                </td>-->
+<!--                <td class="abc">{{translatedValues?.referenceNumber}}</td>-->
+<!--                <td>-->
+<!--                    <input type="text" class="form-control"-->
+<!--                           [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"-->
+<!--                           formControlName="referenceNumberTransVal"/>-->
+<!--                    <div *ngIf="submitted && Form.referenceNumberTransVal.errors"-->
+<!--                         class="invalid-feedback">-->
+<!--                        <div *ngIf="Form.referenceNumberTransVal.errors.required">reference number is required</div>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--            </tr>-->
             <tr>
                 <td> Date Of Approval</td>
                 <td>
