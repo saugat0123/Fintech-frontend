@@ -13,6 +13,7 @@ import {LoanType} from '../../loan/model/loanType';
 import {NumberUtils} from '../../../@core/utils/number-utils';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-proposal',
@@ -62,7 +63,7 @@ export class ProposalComponent implements OnInit {
   othersSubsidyLoan = false;
   existInterestLimit: number;
   showInterestAmount = true;
-
+  legalDocs;
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
     {value: 'Project Loan For Youth Returning From Foreign'},
@@ -78,13 +79,14 @@ export class ProposalComponent implements OnInit {
   ];
   groupExposureData;
   isAllExposureFieldNull = false;
-
+  files = [];
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private activatedRoute: ActivatedRoute,
               private toastService: ToastService,
               private baseInterestService: BaseInterestService,
-              private el: ElementRef) {
+              private el: ElementRef,
+              private nbService: NgbModal) {
   }
 
   ngOnInit() {
@@ -178,6 +180,15 @@ export class ProposalComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.formValue)) {
         this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       }
+    if (!ObjectUtil.isEmpty(this.formValue)) {
+      if (!ObjectUtil.isEmpty(this.formValue.data)) {
+        const data = JSON.parse(this.formValue.data);
+        if (!ObjectUtil.isEmpty(data.files)) {
+          this.files = JSON.parse(data.files);
+        }
+      }
+    }
+
   }
 
   buildForm() {
@@ -248,6 +259,7 @@ export class ProposalComponent implements OnInit {
       existCommissionPercentage: [undefined],
       settlementAmount: [undefined],
       groupExposure: this.formBuilder.array([]),
+      files: [undefined],
     });
   }
 
@@ -676,4 +688,15 @@ export class ProposalComponent implements OnInit {
     });
   }
 
+  openCadSetup(data) {
+    this.nbService.open(data, {size: 'xl', backdrop: true});
+  }
+
+  getData(data) {
+    this.files = data;
+    console.log(data);
+    this.proposalForm.patchValue({
+      files: JSON.stringify(data)
+    });
+  }
 }

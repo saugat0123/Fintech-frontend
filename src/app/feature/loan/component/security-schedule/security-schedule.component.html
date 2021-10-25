@@ -1,0 +1,18 @@
+<div class="col-md-12">
+    <p><b>Nature and Detail Of Security</b></p>
+    <table class="table table-bordered text-center table-sm sb-small" *ngIf="files!==null">
+        <thead class="sb-bg-dark">
+        <tr>
+            <td>S.N</td>
+            <th>Required Files</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of files; let index = index">
+            <td>{{index + 1}}</td>
+            <td>{{data.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

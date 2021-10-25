@@ -440,6 +440,7 @@
                         [customerAllLoanList]="customerAllLoanList"
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
+                <app-security-schedule [proposal]="proposalData"></app-security-schedule>
             </ng-container>
             <nb-accordion *ngIf="isRemitLoan">
                 <nb-accordion-item>
