@@ -262,10 +262,11 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
               this.englishNepaliDatePipe.transform(citznIssuedDate || '', true)  || ''
             ],
             gurantedAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount ? individualGuarantorNepData.gurantedAmount.en : ''))],
-            year: [todayDate[2]],
-            month: [todayDate[1]],
-            day: [todayDate[0]],
-            date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
+            year: [undefined],
+            month: [undefined],
+            day: [undefined],
+            //date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
+              date: [undefined],
             freeText: [undefined],
           })
         );
