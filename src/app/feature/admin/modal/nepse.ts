@@ -9,5 +9,6 @@ export class Nepse {
   priceToBookValue: string;
   dividendPayoutRatio: string;
   dividendYield: string;
-
+  closingPriceAverage: string;
+  closingPrice: string;
 }

@@ -292,7 +292,7 @@
                                 (addEditQuestionForm.controls.crgGroupId.dirty || addEditQuestionForm.controls.crgGroupId.touched)
                                 }">
                                         <option [value]="null" hidden>Select group</option>
-                                        <option *ngFor="let crg of riskGroupArray" [value]="crg?.id">{{crg?.label}}</option>
+                                        <option *ngFor="let crg of riskActiveGroupArray" [value]="crg?.id">{{crg?.label}}</option>
                                     </select>
                                 </div>
                             </div>

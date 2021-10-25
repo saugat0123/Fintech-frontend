@@ -22,6 +22,9 @@ export class SecurityViewComponent implements OnInit {
   @Input() shareSecurityData;
   @Input() collateralData;
   @Input() docStatus;
+  closingPriceAverage = [];
+  closingPrice = [];
+  shareholderName = [];
   securityData: Security;
   shareSecurity;
   vehicleSelected = false;
@@ -223,6 +226,11 @@ export class SecurityViewComponent implements OnInit {
               }
             });
       }
+    }
+    if (this.shareSecurity) {
+      this.closingPriceAverage = this.shareSecurity.shareSecurityDetails.filter(item => item.closingPriceAverage);
+      this.closingPrice = this.shareSecurity.shareSecurityDetails.filter(item => item.closingPrice);
+      this.shareholderName = this.shareSecurity.shareSecurityDetails.filter(item => item.shareholderName);
     }
   }
 
