@@ -93,6 +93,7 @@ import {CadRoleHierarchyComponent} from './component/role-hierarchy/cad-role-hie
 import {CbsGroupExecutorComponent} from './component/preference/cbs-group-executor/cbs-group-executor.component';
 import {RoleAddComponent} from './component/user/role-add/role-add.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
+import {NepaliPatroModule} from 'nepali-patro';
 
 @NgModule({
     declarations: [
@@ -172,26 +173,27 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
         RoleAddComponent,
         // SecurityComponent
     ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        NgbPaginationModule,
-        ReactiveFormsModule,
-        ReactiveFormsModule,
-        RouterModule.forChild(adminRoutes),
-        ThemeModule,
-        DragDropModule,
-        NgSelectModule,
-        NgxPrintModule,
-        NbDialogModule.forRoot(),
-        CoreModule,
-        AgmCoreModule,
-        TransferLoanModule,
-        AgmCoreModule.forRoot({
-            apiKey: environment.GOOGLE_MAP_API_KEY
-        }),
-        NepaliCalendarModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgbPaginationModule,
+    ReactiveFormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(adminRoutes),
+    ThemeModule,
+    DragDropModule,
+    NgSelectModule,
+    NgxPrintModule,
+    NbDialogModule.forRoot(),
+    CoreModule,
+    AgmCoreModule,
+    TransferLoanModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.GOOGLE_MAP_API_KEY
+    }),
+    NepaliCalendarModule,
+    NepaliPatroModule
+  ],
 
     entryComponents: [
         ApprovalLimitFormComponent,
