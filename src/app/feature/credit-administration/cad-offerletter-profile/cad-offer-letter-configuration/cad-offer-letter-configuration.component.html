@@ -2568,8 +2568,7 @@
             {{hideLoan === true ? 'Save' : 'Save & Next'}}
           </a>
         </nb-tab>
-        <nb-tab *ngIf="!hideLoan" tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
-                [disabled]="!activeLoanTab">
+        <nb-tab *ngIf="!hideLoan" tabId="2" tabTitle="Loan Details" [active]="activeLoanTab" [disabled]="!activeLoanTab">
           <app-loan-create [data]="responseData" *ngIf="responseData"
                            (cadApprovedData)="getCadApprovedData($event)"
                            [customerType]="customerType"></app-loan-create>
