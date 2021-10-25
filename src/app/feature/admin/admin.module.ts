@@ -173,27 +173,27 @@ import {NepaliPatroModule} from 'nepali-patro';
         RoleAddComponent,
         // SecurityComponent
     ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    NgbPaginationModule,
-    ReactiveFormsModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(adminRoutes),
-    ThemeModule,
-    DragDropModule,
-    NgSelectModule,
-    NgxPrintModule,
-    NbDialogModule.forRoot(),
-    CoreModule,
-    AgmCoreModule,
-    TransferLoanModule,
-    AgmCoreModule.forRoot({
-      apiKey: environment.GOOGLE_MAP_API_KEY
-    }),
-    NepaliCalendarModule,
-    NepaliPatroModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(adminRoutes),
+        ThemeModule,
+        DragDropModule,
+        NgSelectModule,
+        NgxPrintModule,
+        NbDialogModule.forRoot(),
+        CoreModule,
+        AgmCoreModule,
+        TransferLoanModule,
+        AgmCoreModule.forRoot({
+            apiKey: environment.GOOGLE_MAP_API_KEY
+        }),
+        NepaliCalendarModule,
+        NepaliPatroModule
+    ],
 
     entryComponents: [
         ApprovalLimitFormComponent,
