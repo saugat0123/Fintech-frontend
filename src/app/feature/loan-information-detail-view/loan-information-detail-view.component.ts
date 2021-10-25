@@ -215,4 +215,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
         }
         return val.replace(/(<([^>]+)>)/gi, '');
     }
+    goToApprovalSheet() {
+        localStorage.setItem('FromDetailed-view', 'true');
+        this.spinner = true;
+        window.history.back();
+    }
 }
