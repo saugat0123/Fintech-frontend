@@ -486,22 +486,22 @@
                                     <input class="form-field form-control-sm d-print-none"
                                         name="year"
                                         formControlName="year" placeholder="साल" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value}}</strong></span>
+                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value : '_________________'}}</strong></span>
                                     साल &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
                                         name="month"
                                         formControlName="month" placeholder="महिना" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value}}</strong></span>
+                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value : '___________'}}</strong></span>
                                     महिना &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
                                         name="day"
                                         formControlName="day" placeholder="गते" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value}}</strong></span>
+                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value : '________'}}</strong></span>
                                     गते रोज &nbsp;&nbsp;
                                     <input class="form-field form-control-sm d-print-none"
                                         name="date"
                                         formControlName="date" placeholder="दिन" type="text"/>
-                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value}}</strong></span>
+                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value ? guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value : '_________'}}</strong></span>
                                     शुभम् ।
                                 </p>
                             </div>

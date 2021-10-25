@@ -201,7 +201,6 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       sakhshiMunicipality: [undefined],
       sakhshiWardNo: [undefined],
       sakhshiName: [undefined],
-      approvalStaffName: [undefined],
       ownersName: [undefined],
       district: [undefined],
       municipality: [undefined],
@@ -252,7 +251,6 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       sakhshiMunicipalityTransVal: [undefined],
       sakhshiWardNoTransVal: [undefined],
       sakhshiNameTransVal: [undefined],
-      approvalStaffNameTransVal: [undefined, Validators.required],
       ownersNameTransVal: [undefined],
       districtTransVal: [undefined],
       municipalityTransVal: [undefined],
@@ -532,7 +530,6 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.form.get('fixedDepositHolderNameTransVal').patchValue(this.translatedData.fixedDepositHolderName);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedData.relationshipOfficerName);
     this.form.get('branchManagerTransVal').patchValue(this.translatedData.branchManager);
-    this.form.get('approvalStaffNameTransVal').patchValue(this.translatedData.approvalStaffName);
     this.form.get('ownersNameTransVal').patchValue(this.translatedData.ownersName);
     this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
     this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
@@ -579,7 +576,6 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.form.get('tenureDepositReceiptNumber').patchValue(this.initialInformation.tenureDepositReceiptNumber.en);
     this.form.get('relationshipOfficerName').patchValue(this.initialInformation.relationshipOfficerName.en);
     this.form.get('branchManager').patchValue(this.initialInformation.branchManager.en);
-    this.form.get('approvalStaffName').patchValue(this.initialInformation.approvalStaffName.en);
     this.form.get('embassyName').patchValue(this.initialInformation.embassyName.en);
     this.form.get('loanLimitChecked').patchValue(this.initialInformation.loanLimitChecked.en);
     this.form.get('amountInWords').patchValue(this.initialInformation.amountInWords.en);
@@ -620,7 +616,6 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.form.get('tenureDepositReceiptNumberTransVal').patchValue(this.initialInformation.tenureDepositReceiptNumber.ct);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.initialInformation.relationshipOfficerName.ct);
     this.form.get('branchManagerTransVal').patchValue(this.initialInformation.branchManager.ct);
-    this.form.get('approvalStaffNameTransVal').patchValue(this.initialInformation.approvalStaffName.ct);
     this.form.get('amountInWordsTransVal').patchValue(this.initialInformation.amountInWords.ct);
     this.form.get('fixedDepositReceiptAmountFigureTransVal').patchValue(this.initialInformation.fixedDepositReceiptAmountFigure.ct);
     this.form.get('fixedDepositAmountNumberTransVal').patchValue(this.initialInformation.fixedDepositAmountNumber.ct);
