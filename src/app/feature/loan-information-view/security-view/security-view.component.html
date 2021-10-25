@@ -65,6 +65,7 @@
         <th colspan="2">Valuator Name</th>
         <th>Valuated Date(AD/BS)</th>
         <th>Valuator Representative Name</th>
+        <th *ngIf="landDetails?.valuationMode">Valuation Mode</th>
         <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
@@ -76,6 +77,7 @@
         <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
         <td class="text-left pl-1">{{landDetails?.landValuatorDate | date}} ({{landDetails?.landValuatorDate | engNepDate: false}})</td>
         <td class="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
+        <td class="text-left pl-1" *ngIf="landDetails?.valuationMode">{{landDetails?.valuationMode}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeDesignation}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeDesignation2}}</td>
@@ -307,6 +309,7 @@
           <th>Valuator Name</th>
           <th>Valuator Representative Name</th>
           <th>Valuated Date(AD/BS)</th>
+          <th *ngIf="landBuilding?.valuationMode">Valuation Mode</th>
           <th>Staff Representative Designation 1</th>
           <th>Staff Representative Name 1</th>
           <th>Staff Representative Designation 2</th>
@@ -317,6 +320,7 @@
           <td class="text-left pl-1">{{landBuilding?.buildingValuator?.name}}</td>
           <td class="text-left pl-1">{{landBuilding?.buildingValuatorRepresentative}}</td>
           <td class="text-left pl-1">{{landBuilding?.buildingValuatorDate | date}} ({{landBuilding?.buildingValuatorDate | engNepDate: false}})</td>
+          <td class="text-left pl-1" *ngIf="landBuilding?.valuationMode">{{landBuilding?.valuationMode}}</td>
           <td class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeDesignation}}</td>
           <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
           <td class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeDesignation2}}</td>
@@ -735,6 +739,7 @@
         <th  *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Branch</th>
         <th>Valuator Name</th>
         <th>Valuated Date(AD/BS)</th>
+        <th *ngIf="buildingDetails?.valuationMode">Valuation Mode</th>
       </tr>
       </thead>
       <tbody>
@@ -745,6 +750,7 @@
         <td *ngIf="buildingDetails?.apartmentOtherBranchChecked === true" class="text-left pl-1">{{buildingDetails?.apartmentBranch?.name || 'N/A'}}</td>
         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuator?.name}}</td>
         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorDate | date}} ({{buildingDetails?.ApartmentValuatorDate | engNepDate: false}})</td>
+        <td class="text-left pl-1" *ngIf="buildingDetails?.valuationMode">{{buildingDetails?.valuationMode}}</td>
       </tr>
       </tbody>
       <tr class="text-white sb-bg-dark">
@@ -1087,6 +1093,7 @@
         <th>Valuator</th>
         <th>Valuated Date(AD/BS)</th>
         <th>Valuator Representative Name</th>
+        <th *ngIf="plantDetails?.valuationMode">Valuation Mode</th>
         <th>Staff Representative Designation 1</th>
       </tr>
       </thead>
@@ -1097,6 +1104,7 @@
         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name}}</td>
         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorDate | date}} ({{plantDetails?.plantMachineryValuatorDate | engNepDate: false}})</td>
         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
+        <td class="text-right-pr-1" *ngIf="plantDetails?.valuationMode">{{plantDetails?.valuationMode}}</td>
         <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeDesignation}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
@@ -1257,9 +1265,12 @@
           <th>Name of Company</th>
           <th>Share Type</th>
           <th>Share Unit</th>
+          <th *ngIf="shareholderName.length >0">Shareholder Name</th>
           <th>Rate</th>
           <th>Total Value</th>
           <th>Considered Value</th>
+          <th *ngIf="closingPriceAverage.length >0">Closing Price Average</th>
+          <th *ngIf="closingPrice.length >0">Closing Price</th>
           <th *ngIf="client === clientName?.ICFC">Price Earning Ratio</th>
           <th *ngIf="client === clientName?.ICFC">Price to Book Value</th>
           <th *ngIf="client === clientName?.ICFC">Dividend Yield</th>
@@ -1272,9 +1283,12 @@
           <td class="text-left pl-1">{{singleShareData?.companyName}}</td>
           <td class="text-left pl-1">{{singleShareData?.shareType}}</td>
           <td class="text-right pr-1">{{singleShareData?.totalShareUnit}}</td>
+          <td class="text-left pl-1" *ngIf="shareholderName.length >0">{{singleShareData?.shareholderName}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
+          <td class="text-right pr-1" *ngIf="closingPriceAverage.length>0">Rs. {{singleShareData?.closingPriceAverage |currencyFormatter}}</td>
+          <td class="text-right pr-1" *ngIf="closingPrice.length>0">Rs. {{singleShareData?.closingPrice |currencyFormatter}}</td>
           <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceEarningRatio}}</td>
           <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceBookValue}}</td>
           <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendYield}}</td>
@@ -1284,10 +1298,6 @@
           <th class="text-left pl-1" colspan="5">Total</th>
           <th class="text-right pr-1">Rs. {{shareTotalValue |currencyFormatter}}</th>
           <th class="text-right pr-1">Rs. {{totalConsideredValue |currencyFormatter}}</th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
         </tr>
         <tr>
           <th></th>
@@ -1295,8 +1305,6 @@
           <td colspan="3" class="text-left pl-1">{{shareSecurity?.sharePriceDate | date}} ({{shareSecurity?.sharePriceDate |engNepDate: false}})</td>
           <th class="sb-bg-dark text-white">Average Day's for Share Price</th>
           <td colspan="3" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>
-          <th></th>
-          <th></th>
         </tr>
         <tr>
           <th class="text-white sb-bg-dark">Description</th>
