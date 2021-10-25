@@ -35,6 +35,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   offerDocumentDetails: any;
   nepaliNumber = new NepaliNumberAndWords();
   educationInterestRate: any;
+  offerLetterAdminFee: any;
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   constructor(
     private formBuilder: FormBuilder,
@@ -116,7 +117,16 @@ export class LoanDeedIndividualComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Educational Loan') {
+        this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFeeFigure ? this.offerDocumentDetails.loanAdminFeeFigure.en : '';
         this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Personal Overdraft') {
+      this.offerLetterAdminFee = this.offerDocumentDetails.loanadminFee ? this.offerDocumentDetails.loanadminFee.en : '';
+      this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Personal Loan') {
+      this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
+      this.educationInterestRate = this.offerDocumentDetails.yearlyFloatingInterestRate ? this.offerDocumentDetails.yearlyFloatingInterestRate.en : '';
     }
     return this.formBuilder.group({
       branchName: [
@@ -157,10 +167,11 @@ export class LoanDeedIndividualComponent implements OnInit {
       propertyOwnerName: [undefined],
       plotNo: [undefined],
       area: [undefined],
-      year: [todayDate[2]],
-      month: [todayDate[1]],
-      day: [todayDate[0]],
-      time: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
+      year: [undefined],
+      month: [undefined],
+      day: [undefined],
+      // time: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
+      time: [undefined],
       propertyOwnerName1: [undefined],
       district1: [undefined],
       municipality1: [undefined],
