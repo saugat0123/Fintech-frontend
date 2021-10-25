@@ -184,8 +184,12 @@ export class RetailMortgageLoanComponent implements OnInit {
             const val = value.proposal.proposedLimit;
             totalLoanAmount = totalLoanAmount + val;
         });
+        let autoRefNumber;
+        if (this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo) {
+            autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+        }
         this.form.patchValue({
-            referenceNumber: this.tempData.referenceNumber.ct ? this.tempData.referenceNumber.ct : '',
+            referenceNumber: autoRefNumber ? autoRefNumber : '',
             customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
             customerAddress: customerAddress ? customerAddress : '',
             loanPurpose: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',

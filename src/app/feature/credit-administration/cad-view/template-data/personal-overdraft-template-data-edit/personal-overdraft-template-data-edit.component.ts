@@ -110,7 +110,7 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       selectedSecurity: [undefined],
       loanLimitChecked: [undefined],
       renewalChecked: [undefined],
-      referenceNumber: [undefined],
+      // referenceNumber: [undefined],
       dateOfApproval: [undefined],
       dateofApplication: [undefined],
       purposeOfLoan: [undefined],
@@ -132,7 +132,7 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       renewalCheckedTransVal: [undefined],
-      referenceNumberTransVal: [undefined, Validators.required],
+      // referenceNumberTransVal: [undefined, Validators.required],
       dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
@@ -493,7 +493,7 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
   private setPersonalOverdraftData(): void {
     // set en value
     this.form.get('selectedSecurity').patchValue(this.initialInformation.selectedSecurity.en);
-    this.form.get('referenceNumber').patchValue(this.initialInformation.referenceNumber.en);
+    // this.form.get('referenceNumber').patchValue(this.initialInformation.referenceNumber.en);
     this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
     this.form.get('dateofApplication').patchValue(this.initialInformation.dateofApplication.en);
     this.form.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
@@ -509,7 +509,7 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     this.form.get('insuranceAmountinFigure').patchValue(this.initialInformation.insuranceAmountinFigure.en);
 
     // set ct value
-    this.form.get('referenceNumberTransVal').patchValue(this.initialInformation.referenceNumber.ct);
+    // this.form.get('referenceNumberTransVal').patchValue(this.initialInformation.referenceNumber.ct);
     this.form.get('purposeOfLoanTransVal').patchValue(this.initialInformation.purposeOfLoan.ct);
     this.form.get('baseRateTransVal').patchValue(this.initialInformation.baseRate.ct);
     this.form.get('premiumRateTransVal').patchValue(this.initialInformation.premiumRate.ct);

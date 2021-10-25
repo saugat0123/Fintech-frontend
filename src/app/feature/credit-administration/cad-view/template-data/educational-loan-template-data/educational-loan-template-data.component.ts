@@ -121,7 +121,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanLimitChecked: [undefined],
 
       dateOfApproval: [undefined],
-      referenceNumber: [undefined],
+      //referenceNumber: [undefined],
       dateOfApplication: [undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
@@ -175,7 +175,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
-      referenceNumberTransVal: [undefined, Validators.required],
+      //referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
@@ -513,7 +513,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   }
 
   private setTemplatedCTData(data): void {
-    this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
+    //this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     // this.form.get('distressValueTransVal').patchValue(this.translatedData.distressValue);
     // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);

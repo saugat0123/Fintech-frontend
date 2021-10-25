@@ -92,23 +92,23 @@
                         <nb-datepicker #doa></nb-datepicker>
                     </td>
                 </tr>
-                <tr>
-                    <td>Reference Number</td>
-                    <td><input type="number" class="form-control" formControlName="referenceNumber"
-                               (input)="translateNumber('referenceNumber', 'referenceNumberTransVal')"/></td>
-                    <td class="abc">{{translatedData ? translatedData?.referenceNumber : initialInformation?.referenceNumber.ct}}</td>
-                    <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"
-                               formControlName="referenceNumberTransVal"/>
-                        <div *ngIf="submitted && Form.referenceNumberTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.referenceNumberTransVal.errors.required">Reference number is
-                                required
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td>Reference Number</td>-->
+<!--                    <td><input type="number" class="form-control" formControlName="referenceNumber"-->
+<!--                               (input)="translateNumber('referenceNumber', 'referenceNumberTransVal')"/></td>-->
+<!--                    <td class="abc">{{translatedData ? translatedData?.referenceNumber : initialInformation?.referenceNumber.ct}}</td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control"-->
+<!--                               [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"-->
+<!--                               formControlName="referenceNumberTransVal"/>-->
+<!--                        <div *ngIf="submitted && Form.referenceNumberTransVal.errors"-->
+<!--                             class="invalid-feedback">-->
+<!--                            <div *ngIf="Form.referenceNumberTransVal.errors.required">Reference number is-->
+<!--                                required-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
                 <tr style="padding: 12px">
                     <td>Date Of Application</td>
                     <td>

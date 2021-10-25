@@ -11,8 +11,8 @@
                         <p>
                             <span style="float: left">
                                  ऋण स्वीकृती पत्र सं. :
-                                <span [ngClass]="{'font-weight-bold' : letter?.refNumber.ct !== null && letter?.refNumber.ct !== ''}">
-                                    {{letter?.refNumber.ct === null || letter?.refNumber.ct === '' ? '___________' : letter?.refNumber.ct}}
+                                <span class="font-weight-bold">
+                                    {{ autoRefNumber ? autoRefNumber : '___________________'}}
                                 </span>
                             </span>
                         </p><br>
