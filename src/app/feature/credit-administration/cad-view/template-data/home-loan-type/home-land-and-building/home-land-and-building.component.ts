@@ -55,6 +55,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       nepaliDateOfApplication: [undefined],
       dateOfApplication: [undefined],
       purposeOfLoan: [undefined],
+      beneficiaryName: [undefined],
       drawingPower: [undefined],
       loanAmountInFigure: [undefined],
       loanAmountInWord: [undefined],
@@ -90,6 +91,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       baseRateTrans: [undefined],
       premiumRateTrans: [undefined],
       interestRateTrans: [undefined],
+      beneficiaryNameTrans: [undefined],
       loanAdminFeeInFigureTrans: [undefined],
       loanAdminFeeInWordTrans: [undefined],
       emiInFigureTrans: [undefined],
@@ -119,6 +121,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
       interestRateCT: [undefined, Validators.required],
+      beneficiaryNameCT: [undefined, Validators.required],
       loanAdminFeeInFigureCT: [undefined, Validators.required],
       loanAdminFeeInWordCT: [undefined, Validators.required],
       emiInFigureCT: [undefined, Validators.required],
@@ -289,6 +292,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       nameOfRelationshipOfficer: this.landBuildingForm.get('nameOfRelationshipOfficer').value,
       nameOfBranchManager: this.landBuildingForm.get('nameOfBranchManager').value,
       approvalStaffName: this.landBuildingForm.get('approvalStaffName').value,
+      beneficiaryName: this.landBuildingForm.get('beneficiaryName').value,
     });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
     this.landBuildingForm.get('referenceNumberTrans').patchValue(this.translatedValue.referenceNumber);
@@ -307,6 +311,8 @@ export class HomeLandAndBuildingComponent implements OnInit {
     this.landBuildingForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
     this.landBuildingForm.get('approvalStaffNameTrans').patchValue(this.translatedValue.approvalStaffName);
     this.landBuildingForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
+    this.landBuildingForm.get('beneficiaryNameCT').patchValue(this.translatedValue.beneficiaryName);
+    this.landBuildingForm.get('beneficiaryNameTrans').patchValue(this.translatedValue.beneficiaryName);
 
     this.eventEmitter.emit(true);
     this.spinner = false;

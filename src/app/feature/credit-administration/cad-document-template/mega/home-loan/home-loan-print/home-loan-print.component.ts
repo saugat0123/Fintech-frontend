@@ -22,6 +22,7 @@ export class HomeLoanPrintComponent implements OnInit {
   branchName;
   proposedAmount;
   customerAddress;
+  landbuilding;
   tempData;
   offerLetterConst = NabilOfferLetterConst;
   offerDocumentDetails;
@@ -52,6 +53,9 @@ export class HomeLoanPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+    }
+    if (this.tempData.loanType === 'PURCHASE' || this.tempData.loanType === 'TAKEOVER') {
+      this.landbuilding = this.tempData.loan.landBuildingType;
     }
   }
   guarantorParse(nepData, key, trans?) {
