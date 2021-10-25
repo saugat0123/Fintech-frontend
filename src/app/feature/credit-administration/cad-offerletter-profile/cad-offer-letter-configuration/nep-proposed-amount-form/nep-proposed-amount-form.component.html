@@ -2,25 +2,108 @@
     <nb-card-body>
         <Form [formGroup]="nepForm">
             <div class="col-md-12 row">
-                <div class="col-md-6">
+                <div class="form-group col-md-6">
+                    <label class="title" for="engNumber">प्रस्तावित रकम</label>
                     <input type="number"
                            [ngClass]="{'is-invalid': submitted && nepFormControls.engNumber.errors}"
                             placeholder="प्रस्तावित रकम"
                            (change)="onChangeValue($event)" class="form-control"
                            formControlName="engNumber"/>
                 </div>
-                <div class="col-md-6">
+                <div class="form-group col-md-6">
+                    <label class="title" for="initDate">ऋण स्वीकृति मिति</label>
                     <input [ngClass]="{'is-invalid': submitted && nepFormControls.initDate.errors}"
                            type="text"
-                           placeholder="मिति"
+                           placeholder="ऋण स्वीकृति मिति"
                            class="form-control form-control-sm nepaliFont" formControlName="initDate"/>
                 </div>
             </div>
-            <hr>
-            <div class="col-md-12">
+            <div class="form-group col-md-12">
                 <Strong>{{nepaliNumber.numberNepali}} : अक्षरेपी :</Strong> <span>{{nepaliNumber.nepaliWords}}</span>
             </div>
-
+            <hr>
+            <div class="col-md-12 row">
+                <div class="form-group col-md-3">
+                    <label class="title" for="branchName">शाखाको नाम</label>
+                    <input type="text"
+                           [ngClass]="{'is-invalid': submitted && nepFormControls.branchName.errors}"
+                           placeholder="शाखाको नाम"
+                           (change)="onChangeValue($event)" class="form-control"
+                           formControlName="branchName"/>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="title" for="branchDistrict">
+                        शाखा जिल्ला</label>
+                    <input [ngClass]="{'is-invalid': submitted && nepFormControls.branchDistrict.errors}"
+                           type="text"
+                           placeholder="शाखा जिल्ला"
+                           class="form-control form-control-sm nepaliFont" formControlName="branchDistrict"/>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="title" for="branchMunVdc">
+                        शाखा नगरपालिक⁄गाविस</label>
+                    <input [ngClass]="{'is-invalid': submitted && nepFormControls.branchMunVdc.errors}"
+                           type="text"
+                           placeholder="शाखा म.न.पा.⁄ उ.म.न.पा ⁄ न.पा.⁄गा.बि.स."
+                           class="form-control form-control-sm nepaliFont" formControlName="branchMunVdc"/>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="title" for="branchWardNo">शाखा वडा नं.</label>
+                    <input [ngClass]="{'is-invalid': submitted && nepFormControls.branchWardNo.errors}"
+                           type="text"
+                           placeholder="शाखा वडा नं."
+                           class="form-control form-control-sm nepaliFont" formControlName="branchWardNo"/>
+                </div>
+            </div>
+            <div class="col-md-12 row">
+                <div class="form-group col-md-4">
+                    <label class="title" for="loanType">Type of Loan</label>
+                    <input type="text"
+                           [ngClass]="{'is-invalid': submitted && nepFormControls.loanType.errors}"
+                           placeholder="Type of Loan"
+                           (change)="onChangeValue($event)" class="form-control"
+                           formControlName="loanType"/>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="title" for="interestRate">Interest Rate</label>
+                    <input [ngClass]="{'is-invalid': submitted && nepFormControls.interestRate.errors}"
+                           type="text"
+                           placeholder="Interest Rate"
+                           class="form-control form-control-sm nepaliFont" formControlName="interestRate"/>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="title" for="serviceFee">Service Fee</label>
+                    <input [ngClass]="{'is-invalid': submitted && nepFormControls.serviceFee.errors}"
+                           type="text"
+                           placeholder="Service Fee"
+                           class="form-control form-control-sm nepaliFont" formControlName="serviceFee"/>
+                </div>
+            </div>
+            <div class="col-md-12 row">
+                <div class="form-group col-md-4">
+                    <div class="form-group col-md-12">
+                    <label class="title" for="tenureOfLoan">Tenure of Loan</label>
+                    <input type="text"
+                           [ngClass]="{'is-invalid': submitted && nepFormControls.tenureOfLoanInMonths.errors}"
+                           placeholder="In Months"
+                           (change)="onChangeValue($event)" class="form-control"
+                           formControlName="tenureOfLoanInMonths"/>
+                    </div>
+                <div class="form-group col-md-12">
+                    <input [ngClass]="{'is-invalid': submitted && nepFormControls.tenureOfLoanInYears.errors}"
+                           type="text"
+                           placeholder="In Years"
+                           class="form-control form-control-sm nepaliFont" formControlName="tenureOfLoanInYears"/>
+                </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="title" for="installmentAmount">Installment Amount</label>
+                    <input [ngClass]="{'is-invalid': submitted && nepFormControls.installmentAmount.errors}"
+                           type="text"
+                           placeholder="Installment Amount"
+                           class="form-control form-control-sm nepaliFont" formControlName="installmentAmount"/>
+                </div>
+            </div>
         </Form>
     </nb-card-body>
     <nb-card-footer>

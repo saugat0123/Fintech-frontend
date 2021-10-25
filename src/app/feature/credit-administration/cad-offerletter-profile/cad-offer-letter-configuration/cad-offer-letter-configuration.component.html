@@ -26,6 +26,33 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
+                                <label class="title" for="name">Customer Name</label>
+                                <input  class="form-control rounded"
+                                        formControlName="nameInEnglish"
+                                        id="nameInEnglish"
+                                        [ngClass]="{'is-invalid': submitted && configForm.nameInEnglish.errors}"
+                                        name="nameInEnglish" placeholder="Customer Name"
+                                        type="text"/>
+                            </div>
+                        </div>
+
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="title" for="name">उमेर  </label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="age"
+                                        id="age"
+                                        [ngClass]="{'is-invalid': submitted && configForm.age.errors}"
+                                        name="age" placeholder="उमेर  "
+                                        readonly="readonly"
+                                        type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
                                 <label class="title" for="citizenshipNo">नगरिकता नम्बर</label>
                                 <input  class="form-control rounded nepaliFont"
                                         formControlName="citizenshipNo"
@@ -36,7 +63,6 @@
                                         type="text"/>
                             </div>
                         </div>
-
                         <div class="col">
                             <div class="form-group">
                                 <label class="title" for="citizenshipNo">नगरिकता जारी  मिति</label>
@@ -57,19 +83,6 @@
                                         id="citizenshipIssueDistrict"
                                         [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDistrict.errors}"
                                         name="name" placeholder="नगरिकता जिल्ला"
-                                        type="text"/>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="name">उमेर  </label>
-                                <input  class="form-control rounded nepaliFont"
-                                        formControlName="age"
-                                        id="age"
-                                        [ngClass]="{'is-invalid': submitted && configForm.age.errors}"
-                                        name="age" placeholder="उमेर  "
-                                        readonly="readonly"
                                         type="text"/>
                             </div>
                         </div>
@@ -273,7 +286,6 @@
 
                 </nb-tab>
                 <nb-tab tabId="1"  tabTitle="ग्यारेन्टर विवरण">
-
                     <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
                          class="form-group" formArrayName="guarantorDetails">
                         <div [formGroupName]="i">
@@ -286,6 +298,17 @@
                                                id="guarantorName"
                                                autocomplete="off"
                                                name="name" placeholder="ग्यारेन्टरको नाम"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title">ग्यारेन्टरको उमेर</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="guarantorAge"
+                                               id="guarantorAge"
+                                               autocomplete="off"
+                                               name="name" placeholder="ग्यारेन्टरको उमेर"
                                                type="text"/>
                                     </div>
                                 </div>

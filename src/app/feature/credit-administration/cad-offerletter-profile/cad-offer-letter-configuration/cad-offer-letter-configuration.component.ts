@@ -61,6 +61,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     buildForm() {
         this.userConfigForm = this.formBuilder.group({
             name: [undefined],
+            nameInEnglish : [undefined],
             gender: [this.checkIsIndividual() ? this.gender(this.customerInfo.gender) : undefined],
             fatherName: [undefined],
             grandFatherName: [undefined],
@@ -162,6 +163,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     addGuarantorField() {
         return this.formBuilder.group({
             name: '',
+            guarantorAge: '',
             issuedYear: '',
             issuedPlace: '',
             guarantorLegalDocumentAddress: '',
@@ -194,6 +196,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         guarantorDetails.forEach(value => {
             formArray.push(this.formBuilder.group({
                 name: [value.name],
+                guarantorAge: [value.guarantorAge],
                 issuedYear: [value.issuedYear],
                 issuedPlace: [value.issuedPlace],
                 guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],

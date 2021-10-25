@@ -56,6 +56,16 @@ export class NepProposedAmountFormComponent implements OnInit {
             nepaliNumber: [this.nepaliNumber.numberNepali],
             engNumber: [this.nepaliNumber.engNumber, Validators.required],
             initDate: [this.nepaliNumber.initDate, Validators.required],
+            branchName: [undefined],
+            branchDistrict: [undefined],
+            branchMunVdc: [undefined],
+            branchWardNo: [undefined],
+            loanType: [undefined],
+            interestRate: [undefined],
+            serviceFee: [undefined],
+            tenureOfLoanInMonths: [undefined],
+            tenureOfLoanInYears: [undefined],
+            installmentAmount: [undefined]
         });
     }
 
