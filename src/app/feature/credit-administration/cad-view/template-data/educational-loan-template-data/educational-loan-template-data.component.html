@@ -13,17 +13,6 @@
           <nb-option value="OTHER_COUNTRIES">Other Countries</nb-option>
         </nb-select>
       </div>
-      <div class="col-md-4"
-           *ngIf="form.get('selectedCountry').value !== 'AUSTRALIA'">
-        <label><strong>Name Of Embassy</strong></label>
-        <input
-            class="form-control rounded"
-            formControlName="embassyName"
-            id="nameOfEmbassy"
-            name="embassyName"
-            placeholder="Name Of Embassy"
-            type="text">
-      </div>
       <div class="col-md-4">
         <label><strong>Security Type</strong></label>
         <nb-select
@@ -38,6 +27,35 @@
         </nb-select>
       </div>
     </div>
+    <div class="row mt-5"
+         *ngIf="form.get('selectedCountry').value !== 'AUSTRALIA'">
+      <table
+              class="table table-borderless text-center sb-small table-sm">
+        <tr>
+          <th>Name Of Embassy</th>
+          <th>Nepali Translation</th>
+          <th>Correct Translation</th>
+        <tr>
+        <td>
+          <div class="col-md-6">
+            <input
+                    class="form-control rounded"
+                    formControlName="embassyName"
+                    id="nameOfEmbassy"
+                    name="embassyName"
+                    placeholder="Name Of Embassy"
+                    type="text">
+          </div>
+        </td>
+        <td class="abc">{{translatedData?.embassyName}}</td>
+        <td>
+          <input type="text" class="form-control"
+                 formControlName="embassyNameTransVal"/>
+        </td>
+      </tr>
+      </table>
+    </div>
+    <hr *ngIf="form.get('selectedCountry').value !== 'AUSTRALIA'"/>
     <div class="row pt-3 pl-2">
       <div class="col-md-12 pt-3 pl-2">
         <nb-checkbox #limitCheck (input)="loanChecked(limitCheck.checked)" [checked]="loanLimit">
