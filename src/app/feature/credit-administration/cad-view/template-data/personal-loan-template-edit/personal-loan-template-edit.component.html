@@ -43,8 +43,7 @@
                     </tr>
                     <tr>
                         <td>Reference Number</td>
-                        <td><input type="text" class="form-control" formControlName="refNumber"
-                                   (input)="translateNumber('refNumber', 'refNumberTransVal')"/></td>
+                        <td><input type="text" class="form-control" formControlName="refNumber"/></td>
                         <td class="abc">{{translatedData ? translatedData?.refNumber : initialInformation?.refNumber?.ct}}</td>
                         <td>
                             <input type="text" class="form-control"
