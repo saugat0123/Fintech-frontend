@@ -614,7 +614,7 @@
             <app-collateral-summary
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                     [customerAllLoanList]="customerAllLoanList"
-                    [security]="loanDataHolder?.security"></app-collateral-summary>
+                    [security]="loanDataHolder?.security" [loan]="loanDataHolder?.loan"></app-collateral-summary>
             <!-- End of Security Details-->
 
             <!-- Start Income & Expenses -->
