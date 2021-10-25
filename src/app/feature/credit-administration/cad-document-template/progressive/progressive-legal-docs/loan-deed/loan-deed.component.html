@@ -133,9 +133,9 @@
                                 <tbody *ngFor="let guarantor of form.get('swikritiBibaran')['controls']; let i=index"
                                        formArrayName="swikritiBibaran">
                                 <tr [formGroupName]="i">
-                                    <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesSN"
-                                               value="{{i+1 | nepaliNumber : 'preeti'}}"
-                                               type="text"></td>
+                                    <td>
+                                        {{i | nepaliNumber}}
+                                    </td>
                                     <td><input class="form-field nepaliFont form-control-sm"
                                                formControlName="approvedSubidhakisim"
                                                type="text"></td>
@@ -272,7 +272,7 @@
                             <td>नाम:</td>
                             <td class="text-left"><input class="form-field form-control-sm nepaliFont "
                                                          formControlName="guarantorName"
-                                                        type="text"/>
+                                                         type="text"/>
                                 (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
                                                  formControlName="guarantorCitizenshipNo"
                                                  placeholder=""
@@ -318,7 +318,7 @@
             <br>
             <br>
             <br>
-
+            <br>
             <p>
                 ईतिसम्बत <input class="form-field nepaliFont form-control-sm" formControlName="itiSambatYear"
                                 type="text">

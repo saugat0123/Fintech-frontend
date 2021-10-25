@@ -228,12 +228,12 @@ export class LoanDeedComponent implements OnInit {
             itiSambatDate: [undefined],
             itiSambatTime: [undefined],
             itiSambatRoj: [undefined],
+            SecuritiesSN: [undefined],
             sthit: [undefined],
             staDistrict: [undefined],
             guarantorDetails: this.formBuilder.array([]),
             swikritiBibaran: this.formBuilder.array([this.swikritiFormGroup()]),
             security: this.formBuilder.array([])
-
         });
     }
 
@@ -285,6 +285,7 @@ export class LoanDeedComponent implements OnInit {
         const formArray = this.form.get('guarantorDetails') as FormArray;
         formArray.removeAt(index);
     }
+
     setGuarantors(data) {
         const formArray = this.form.get('guarantorDetails') as FormArray;
         if (data.length === 0) {
@@ -294,13 +295,13 @@ export class LoanDeedComponent implements OnInit {
 
         data.forEach((value) => {
             formArray.push(this.formBuilder.group({
-                guarantorName: [undefined],
-                guarantorCitizenshipNo: [undefined],
-                guarantorCitizenshipIssueDate: [undefined],
-                guarantorCDOoffice: [undefined],
-                guarantorPermanentMunicipality: [undefined],
-                guarantorPermanentWardNo: [undefined],
-                issuedPlace: [undefined]
+                guarantorName: [value.guarantorName],
+                guarantorCitizenshipNo: [value.guarantorCitizenshipNo],
+                guarantorCitizenshipIssueDate: [value.guarantorCitizenshipIssueDate],
+                guarantorCDOoffice: [value.guarantorCDOoffice],
+                guarantorPermanentMunicipality: [value.guarantorPermanentMunicipality],
+                guarantorPermanentWardNo: [value.guarantorPermanentWardNo],
+                issuedPlace: [value.issuedPlace]
             }));
         });
 
