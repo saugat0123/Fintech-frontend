@@ -175,7 +175,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     this.addressService.getAllDistrict().subscribe((resp: any) => {
-      console.log(resp);
       this.allDistrictList = resp.detail;
     });
     this.buildForm();
@@ -201,12 +200,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
     });
-    console.log(this.customerInfo);
-
 
     if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
       this.nepData = (JSON.parse(this.loanHolder.nepData));
-     if(this.loanHolder.customerType === CustomerType.INDIVIDUAL){
+     if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
        this.individualData = (JSON.parse(this.oneFormCustomer.individualJsonData));
      }
     }
@@ -442,7 +439,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.individualJsonData = JSON.stringify(customer);
     this.oneFormCustomer.citizenshipNumber = this.userConfigForm.get('citizenshipNo').value;
     const dobDateType = this.userConfigForm.get('dobDateType').value;
-   if(this.loanHolder.customerType === CustomerType.INDIVIDUAL){
+   if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
      if (dobDateType === 'AD') {
        this.oneFormCustomer.dob = this.userConfigForm.get('dob').value;
      } else {
@@ -887,7 +884,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     //     this.guarantorList = guarantorList;
     //   }
     // }
-    console.log(guarantorDetails, 'listtttt');
     guarantorDetails.forEach((value, i) => {
       this.getGuarantorDistrictsById(ObjectUtil.isEmpty(value.province) ? null : value.province.id, null, i);
       this.getGuarantorMunicipalitiesById(ObjectUtil.isEmpty(value.district) ? null : value.district.id, null, i);
@@ -1163,7 +1159,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   async translateGuarantorData(index) {
-    console.log(index);
     const alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
     if (alluarantors.length > 0) {
       let guarantorsDetails: any = [];
@@ -1256,8 +1251,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // for (let i = 0; i < a.length; i++) {
       const individualData = a[index] as FormGroup;
       Object.keys(individualData.controls).forEach(key => {
-        console.log(key, 'keys');
-
         if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
             || key.indexOf('id') > -1 || key.indexOf('nepData') > -1) {
           return;
@@ -1277,7 +1270,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.attributes.ct = individualData.get(key + 'CT').value;
         newArr[key] = this.attributes;
       });
-      // console.log(newArr, 'GNew Arra');
       this.translatedGuarantorDetails[index] = newArr;
       // this.deleteCTAndTransContorls(index);
       this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
@@ -1632,17 +1624,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get('relationMedium').patchValue(Number(JSON.parse(this.oneFormCustomer.individualJsonData).relationMedium));
       this.userConfigForm.get('municipalityOrVdc').patchValue(JSON.parse(this.oneFormCustomer.individualJsonData).municipalityOrVdc);
       this.userConfigForm.get('temporaryMunicipalityOrVdc').patchValue(JSON.parse(this.oneFormCustomer.individualJsonData).temporaryMunicipalityOrVdc);
-      console.log(this.userConfigForm.get('dobDateType').value);
     }
 
 
     if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
-      console.log(this.oneFormCustomer, this.loanHolder, 'testtt');
-      if(this.loanHolder.customerType === CustomerType.INSTITUTION){
+      if (this.loanHolder.customerType === CustomerType.INSTITUTION) {
         this.getDistrictsById(JSON.parse(this.loanHolder.nepData).registeredProvince.en.id, null);
-        this.getMunicipalitiesById(JSON.parse(this.loanHolder.nepData).registeredDistrict.en.id, null)
+        this.getMunicipalitiesById(JSON.parse(this.loanHolder.nepData).registeredDistrict.en.id, null);
         this.getTempDistrictsById(JSON.parse(this.loanHolder.nepData).currentProvince.en.id, null);
-        this.getTempMunicipalitiesById(JSON.parse(this.loanHolder.nepData).currentDistrict.en.id, null)
+        this.getTempMunicipalitiesById(JSON.parse(this.loanHolder.nepData).currentDistrict.en.id, null);
       }
       this.userConfigForm.patchValue({
         branch: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.customerType === CustomerType.INDIVIDUAL ? this.loanHolder.branch :
@@ -1868,7 +1858,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantor.issuedPlace = formArray.get('issuedPlace').value;
     guarantor.guarantorName = formArray.get('guarantorName').value;
     this.oneFormGuarantorsList.push(guarantor);
-    console.log(this.oneFormGuarantorsList, 'GLIST');
   }
 
   translateNumber(source) {
@@ -2096,7 +2085,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.nepData.registeredProvince.en.nepaliName : undefined),
         this.userConfigForm.get('registeredWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentWard) ? undefined :
             this.loanHolder.customerType === CustomerType.INSTITUTION ?
-                this.nepData.permanentWard.ct : undefined)
+                this.nepData.permanentWard.ct : undefined);
 
   }
 }

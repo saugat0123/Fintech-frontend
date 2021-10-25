@@ -210,6 +210,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       landArea: [undefined],
       promissoryNoteAmount: [undefined],
       loanDeedAmount: [undefined],
+      accountNumber: [undefined],
+      bankName: [undefined],
 
       // Translated Value
       embassyNameTransVal: [undefined],
@@ -262,6 +264,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       loanDeedAmountTransVal: [undefined],
       municipalityOrVdc: [undefined],
       municipalityOrVdcTransVal: [undefined],
+      accountNumberTransVal: [undefined],
+      bankNameTransVal: [undefined],
       securities: this.formBuilder.array([])
     });
   }
@@ -540,6 +544,10 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     }
     this.form.get('selectedCountryTransVal').patchValue(data.selectedCountry.en);
     this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
+    if (this.selectedSecurityVal === 'FIXED_DEPOSIT') {
+      this.form.get('accountNumberTransVal').patchValue(data.accountNumber);
+      this.form.get('bankNameTransVal').patchValue(data.bankName);
+    }
   }
 
   private clearConditionalValidation(): void {
@@ -598,6 +606,11 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.form.get('sakhshiName').patchValue(this.initialInformation.sakhshiName.en);
     this.form.get('promissoryNoteAmount').patchValue(this.initialInformation.promissoryNoteAmount.en);
     this.form.get('loanDeedAmount').patchValue(this.initialInformation.loanDeedAmount.en);
+    if (this.selectedSecurityVal === 'FIXED_DEPOSIT' && (!ObjectUtil.isEmpty(this.initialInformation.accountNumber) ||
+        !ObjectUtil.isEmpty(this.initialInformation.bankName))) {
+      this.form.get('accountNumber').patchValue(this.initialInformation.accountNumber.en);
+      this.form.get('bankName').patchValue(this.initialInformation.bankName.en);
+    }
 
     // set ct value
     //this.form.get('referenceNumberTransVal').patchValue(this.initialInformation.referenceNumber.ct);
@@ -636,6 +649,11 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.form.get('sakhshiNameTransVal').patchValue(this.initialInformation.sakhshiName.ct);
     this.form.get('promissoryNoteAmountTransVal').patchValue(this.initialInformation.promissoryNoteAmount.ct);
     this.form.get('loanDeedAmountTransVal').patchValue(this.initialInformation.loanDeedAmount.ct);
+    if (this.selectedSecurityVal === 'FIXED_DEPOSIT' && (!ObjectUtil.isEmpty(this.initialInformation.accountNumber)
+        || !ObjectUtil.isEmpty(this.initialInformation.bankName))) {
+      this.form.get('accountNumberTransVal').patchValue(this.initialInformation.accountNumber.ct);
+      this.form.get('bankNameTransVal').patchValue(this.initialInformation.bankName.ct);
+    }
   }
 
   public setSecurityData(): void {
