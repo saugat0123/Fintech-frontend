@@ -50,6 +50,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   dateTypeAD = false;
   dateTypeBS1 = false;
   dateTypeAD1 = false;
+  dateTypeBS2 = false;
+  dateTypeAD2 = false;
   provinceList: Array<Province> = new Array<Province>();
   districtList: Array<District> = new Array<District>();
   municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
@@ -193,7 +195,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanCommitmentFeeInPercentageTransVal: [undefined, Validators.required],
       fixedDepositHolderNameTransVal: [undefined, Validators.required],
       fixedDepositAmountFigureTransVal: [undefined, Validators.required],
-      tenureFixedDepositTransVal: [undefined, Validators.required],
+      tenureFixedDepositTransVal: [undefined],
       tenureDepositReceiptNumberTransVal: [undefined, Validators.required],
       guarantorNameTransVal: [undefined],
       // guaranteedAmountFigureTransVal: [undefined, Validators.required],
@@ -488,6 +490,16 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   setDateTypeAD1() {
     this.dateTypeBS1 = false;
     this.dateTypeAD1 = true;
+  }
+
+  setDateTypeBS2() {
+    this.dateTypeBS2 = true;
+    this.dateTypeAD2 = false;
+  }
+
+  setDateTypeAD2() {
+    this.dateTypeBS2 = false;
+    this.dateTypeAD2 = true;
   }
 
   calInterestRate() {

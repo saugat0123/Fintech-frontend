@@ -404,23 +404,36 @@
 
         <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
           <td>Tenure Of Fixed Deposit</td>
-          <td><input type="number" class="form-control" formControlName="tenureFixedDeposit"
-                     (input)="translateNumber('tenureFixedDeposit', 'tenureFixedDepositTransVal')"/>
-          </td>
-          <td class="abc">{{translatedData?.tenureFixedDeposit}}</td>
           <td>
-            <input type="text" class="form-control"
-                   [ngClass]="{ 'is-invalid':submitted && Form.tenureFixedDepositTransVal.errors }"
-                   formControlName="tenureFixedDepositTransVal"/>
-            <div *ngIf="submitted && Form.tenureFixedDepositTransVal.errors"
-                 class="invalid-feedback">
-              <div *ngIf="Form.tenureFixedDepositTransVal.errors.required">Tenure of fixed deposit
-                is required
-              </div>
+            <div class="row" style="margin-left: 5px; margin-top: -8px;">
+              <nb-radio-group name="tenureFixedDeposit">
+                <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span>
+                </nb-radio>
+                <nb-radio (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">
+                  AD
+                </nb-radio>
+              </nb-radio-group>
             </div>
           </td>
         </tr>
-
+        <tr>
+          <td>
+          </td>
+          <td>
+            <nepali-patro *ngIf="dateTypeBS2" formControlName="tenureFixedDeposit" [responseType]="2"
+                          [displayNepali]="true">
+            </nepali-patro>
+            <input [nbDatepicker]="tfd"
+                   *ngIf="dateTypeAD2"
+                   class="form-control form-control-sm-error rounded"
+                   formControlName="tenureFixedDeposit"
+                   id="tenureFixedDeposit"
+                   name="tenureFixedDeposit"
+                   placeholder="Tenure of Fixed Deposit"
+                   type="text">
+            <nb-datepicker #tfd></nb-datepicker>
+          </td>
+        </tr>
         <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
           <td>Fixed Deposit Receipt Number</td>
           <td><input type="number" class="form-control" formControlName="tenureDepositReceiptNumber"
