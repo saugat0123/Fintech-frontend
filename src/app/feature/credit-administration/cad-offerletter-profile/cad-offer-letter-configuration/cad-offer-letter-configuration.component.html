@@ -343,14 +343,13 @@
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
-             (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') ">
+             (configForm?.relationMedium?.value == '1' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') ">
               <td>
                 <label class="title">Grand Father Name</label>
               </td>
               <td>
                 <input class="form-control "
                        formControlName="grandFatherName"
-
                        name="grandFatherName" placeholder="Grand Father Name"
                        type="text"/>
               </td>
@@ -371,7 +370,34 @@
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
-            (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
+            (configForm?.gender?.value == 'FEMALE') && !(configForm?.relationMedium?.value == 0)">
+              <td>
+                <label class="title">Father Name</label>
+              </td>
+              <td>
+                <input class="form-control "
+                       formControlName="fatherName"
+
+                       name="fatherName" placeholder="Father Name"
+                       type="text"/>
+              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="fatherNameTrans" type="text"></td>
+              <td>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.fatherNameCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                         nepData?.fatherName?.ct :translatedValues?.fatherName"
+                       formControlName="fatherNameCT" type="text"
+                />
+                <div *ngIf="submitted && configForm.fatherNameCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.fatherNameCT.errors.required">Father name is required</div>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
+           configForm?.gender?.value == 'MALE'|| configForm?.gender?.value == 'OTHERS'">
               <td>
                 <label class="title">Father Name</label>
               </td>
