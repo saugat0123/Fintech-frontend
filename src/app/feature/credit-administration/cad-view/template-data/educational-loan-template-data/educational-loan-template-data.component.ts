@@ -166,6 +166,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       landArea: [undefined],
       promissoryNoteAmount: [undefined],
       loanDeedAmount: [undefined],
+      accountNumber: [undefined],
+      bankName: [undefined],
 
       // Translated Value
       embassyNameTransVal: [undefined],
@@ -220,6 +222,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanDeedAmountTransVal: [undefined],
       municipalityOrVdc: [undefined],
       municipalityOrVdcTransVal: [undefined],
+      accountNumberTransVal: [undefined],
+      bankNameTransVal: [undefined],
       securities: this.formBuilder.array([])
     });
     this.addDefaultSecurity();
@@ -348,14 +352,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
-      console.log('Security Details!!!!!!!!!!!!:::', securityDetails);
       this.tdValues['securityDetails'] = securityDetails;
       this.translatedData = {};
       this.deleteCTAndTransContorls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
-    console.log('this.customerApprovedDoc: ', this.customerApprovedDoc);
 
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
@@ -550,6 +552,10 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       this.form.get('districtTransVal').patchValue(this.objectTranslate.district);
       this.form.get('municipalityTransVal').patchValue(this.objectTranslate.municipality);
     }
+    if (this.selectedSecurityVal === 'FIXED_DEPOSIT') {
+      this.form.get('accountNumberTransVal').patchValue(data.accountNumber);
+      this.form.get('bankNameTransVal').patchValue(data.bankName);
+    }
   }
 
   private clearConditionalValidation(): void {
@@ -564,14 +570,5 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('tenureDepositReceiptNumberTransVal').clearValidators();
     this.form.get('tenureDepositReceiptNumberTransVal').updateValueAndValidity();
   }
-
-
-  // changeDocumentName(securityType) {
-  //     if (securityType === 'FIXED_DEPOSIT') {
-  //       this.docSecurityName = 'Class A';
-  //     } else {
-  //       this.docSecurityName = 'Class E';
-  //     }
-  // }
 }
 

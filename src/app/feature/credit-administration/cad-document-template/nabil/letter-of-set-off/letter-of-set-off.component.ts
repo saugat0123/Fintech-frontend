@@ -40,6 +40,8 @@ export class LetterOfSetOffComponent implements OnInit {
   @Input() preview;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() nepaliAmount: NepaliNumberAndWords;
+  offerDocument: Array<OfferDocument>;
+  initialInformation: any;
   individualData;
   initialInfoPrint;
   offerLetterConst = NabilDocumentChecklist;
@@ -77,6 +79,12 @@ export class LetterOfSetOffComponent implements OnInit {
           this.initialInfoPrint = initialInfo;
           this.letterOfSetOff.patchValue(initialInfo);
         }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      this.offerDocument = this.cadData.offerDocumentList;
+      this.offerDocument.forEach(offerDocument => {
+        this.initialInformation = JSON.parse(offerDocument.initialInformation);
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
@@ -132,7 +140,8 @@ export class LetterOfSetOffComponent implements OnInit {
     });
   }
 
-  fillform() { let totalLoan = 0;
+  fillform() {
+    let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;
       totalLoan = totalLoan + proposedAmount;
@@ -178,7 +187,16 @@ export class LetterOfSetOffComponent implements OnInit {
         dateOfApproval = this.engToNepaliDate.transform(tempData, true);
       }
     }
-    this.letterOfSetOff.patchValue(
+    if (!ObjectUtil.isEmpty(this.initialInformation.accountNumber)) {
+      this.letterOfSetOff.get('accountNo').patchValue(this.initialInformation.accountNumber.ct);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation.bankName)) {
+      this.letterOfSetOff.get('nameOfTd').patchValue(this.initialInformation.bankName.ct);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation.tenureDepositReceiptNumber)) {
+      this.letterOfSetOff.get('fixedDeposit').patchValue(this.initialInformation.tenureDepositReceiptNumber.ct);
+    }
+      this.letterOfSetOff.patchValue(
         {
           nameOfBranch: this.individualData.branch.ct ?
               this.individualData.branch.ct : '',
@@ -353,8 +371,6 @@ export class LetterOfSetOffComponent implements OnInit {
           this.educationalTemplateData = educationalOfferData;
         }
       }
-      // console.log('documentName', documentName);
-      // console.log('offer document list', this.cadData.offerDocumentList);
       // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString() === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
       // if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
       //   const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
