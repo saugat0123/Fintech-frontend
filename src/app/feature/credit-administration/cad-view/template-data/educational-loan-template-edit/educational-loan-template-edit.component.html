@@ -394,6 +394,40 @@
                         </div>
                     </td>
                 </tr>
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
+                    <td>Account Number</td>
+                    <td><input type="text" class="form-control" formControlName="accountNumber"/>
+                    </td>
+                    <td class="abc">{{translatedData? translatedData?.accountNumber : initialInformation?.accountNumber?.ct}}</td>
+                    <td>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.accountNumberTransVal.errors }"
+                               formControlName="accountNumberTransVal"/>
+                        <div *ngIf="submitted && Form.accountNumberTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.accountNumberTransVal.errors.required">
+                                Account number is required
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
+                    <td>Bank Name</td>
+                    <td><input type="text" class="form-control" formControlName="bankName"/>
+                    </td>
+                    <td class="abc">{{translatedData? translatedData?.bankName : initialInformation?.bankName?.ct}}</td>
+                    <td>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.bankNameTransVal.errors }"
+                               formControlName="bankNameTransVal"/>
+                        <div *ngIf="submitted && Form.bankNameTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.bankNameTransVal.errors.required">
+                                Bank name is required
+                            </div>
+                        </div>
+                    </td>
+                </tr>
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Pledge Amount Figure</td>
                     <td><input type="text" class="form-control" formControlName="pledgeAmountFigure"

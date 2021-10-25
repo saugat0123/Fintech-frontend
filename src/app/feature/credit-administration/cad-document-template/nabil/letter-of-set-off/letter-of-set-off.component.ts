@@ -40,6 +40,8 @@ export class LetterOfSetOffComponent implements OnInit {
   @Input() preview;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() nepaliAmount: NepaliNumberAndWords;
+  offerDocument: Array<OfferDocument>;
+  initialInformation: any;
   individualData;
   initialInfoPrint;
   offerLetterConst = NabilDocumentChecklist;
@@ -68,6 +70,7 @@ export class LetterOfSetOffComponent implements OnInit {
               private customerService: CustomerService) { }
 
   async ngOnInit() {
+    console.log(this.cadData);
     this.buildForm();
     this.checkOfferLetterData();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -77,6 +80,13 @@ export class LetterOfSetOffComponent implements OnInit {
           this.initialInfoPrint = initialInfo;
           this.letterOfSetOff.patchValue(initialInfo);
         }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      this.offerDocument = this.cadData.offerDocumentList;
+      this.offerDocument.forEach(offerDocument => {
+        this.initialInformation = JSON.parse(offerDocument.initialInformation);
+        console.log('this.offerDocument', this.initialInformation);
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
@@ -132,7 +142,8 @@ export class LetterOfSetOffComponent implements OnInit {
     });
   }
 
-  fillform() { let totalLoan = 0;
+  fillform() {
+    let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;
       totalLoan = totalLoan + proposedAmount;
@@ -178,7 +189,16 @@ export class LetterOfSetOffComponent implements OnInit {
         dateOfApproval = this.engToNepaliDate.transform(tempData, true);
       }
     }
-    this.letterOfSetOff.patchValue(
+    if (!ObjectUtil.isEmpty(this.initialInformation.accountNumber)) {
+      this.letterOfSetOff.get('accountNo').patchValue(this.initialInformation.accountNumber.ct);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation.bankName)) {
+      this.letterOfSetOff.get('nameOfTd').patchValue(this.initialInformation.bankName.ct);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation.tenureDepositReceiptNumber)) {
+      this.letterOfSetOff.get('fixedDeposit').patchValue(this.initialInformation.tenureDepositReceiptNumber.ct);
+    }
+      this.letterOfSetOff.patchValue(
         {
           nameOfBranch: this.individualData.branch.ct ?
               this.individualData.branch.ct : '',
