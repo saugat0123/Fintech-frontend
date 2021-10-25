@@ -233,7 +233,7 @@
               placeholder=""
               type="text"
             />
-            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'year']).value}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'year']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'year']).value : '________________________'}}</strong></span>
             साल &nbsp;&nbsp;
             <input
               class="form-field form-control-sm d-print-none"
@@ -241,7 +241,7 @@
               placeholder=""
               type="text"
             />
-            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'month']).value}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'month']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'month']).value : '________'}}</strong></span>
             महिना &nbsp;&nbsp;
             <input
               class="form-field form-control-sm d-print-none"
@@ -249,7 +249,7 @@
               placeholder=""
               type="text"
             />
-            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'day']).value}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'day']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'day']).value : '________'}}</strong></span>
             गते रोज &nbsp;&nbsp;
             <input
               class="form-field form-control-sm d-print-none"
@@ -257,7 +257,7 @@
               placeholder=""
               type="text"
             />
-            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'time']).value}}</strong></span>
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'time']).value ? loanDeedIndividual.get(['loanDeedIndividuals', i, 'time']).value : '________'}}</strong></span>
             शुभम् ।
           </p>
         </div>
