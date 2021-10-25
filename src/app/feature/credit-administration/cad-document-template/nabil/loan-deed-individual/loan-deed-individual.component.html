@@ -217,15 +217,24 @@
            <br />
            <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
          </div>
-         <br />
          <div class="free-txt mt-5" *ngIf="offerDocumentDetails.selectedSecurity.en === 'FIXED_DEPOSIT'">
            <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 nepaliFont form-control d-print-none"></textarea>
            <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>
          </div>
        </ng-container>
-        <br />
-
-        <div>
+        <div class="text-left">
+          <p class="font-weight-bold">
+            साक्षीः
+          </p>
+          <ul class="nepaliList">
+            <app-sakhshi-common></app-sakhshi-common>
+            <li>
+              कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+              ____________________________
+            </li>
+          </ul>
+        </div>
+        <div class="mt-lg-5">
           <p class="text-center">
             ईति सम्वत् <input
               class="form-field form-control-sm d-print-none"
