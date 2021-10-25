@@ -36,11 +36,7 @@
           {{printDocForm.tempWadNo===null || printDocForm.tempWadNo===''?'_______________' :printDocForm?.tempWadNo}}
         </span>
 
-          स्थित <span [ngClass]="{'nepaliFont':printDocForm?.address!==null && printDocForm?.address!==''}">
-          {{printDocForm.address===null || printDocForm.address===''?'_______________' :printDocForm?.address}}
-        </span>
-
-          बस्ने बर्ष <span [ngClass]="{'nepaliFont':printDocForm?.age!==null && printDocForm?.age!==''}">
+          स्थित बस्ने बर्ष <span [ngClass]="{'nepaliFont':printDocForm?.age!==null && printDocForm?.age!==''}">
           {{printDocForm.age===null || printDocForm.age===''?'_______________' :printDocForm?.age}}
         </span>को
           <span [ngClass]="{'nepaliFont':printDocForm?.customerName!==null && printDocForm?.customerName!==''}">
