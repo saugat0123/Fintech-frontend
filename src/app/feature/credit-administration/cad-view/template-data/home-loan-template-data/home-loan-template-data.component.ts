@@ -105,7 +105,6 @@ export class HomeLoanTemplateDataComponent implements OnInit {
             return;
         }
         this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
-
         const offerDocument = new OfferDocument();
         offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN);
         offerDocument.initialInformation = JSON.stringify({loan: homeLoan.value, loanType: this.homeLoanForm.get('homeLoanType').value});
