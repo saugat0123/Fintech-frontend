@@ -70,7 +70,6 @@ export class LetterOfSetOffComponent implements OnInit {
               private customerService: CustomerService) { }
 
   async ngOnInit() {
-    console.log(this.cadData);
     this.buildForm();
     this.checkOfferLetterData();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -86,7 +85,6 @@ export class LetterOfSetOffComponent implements OnInit {
       this.offerDocument = this.cadData.offerDocumentList;
       this.offerDocument.forEach(offerDocument => {
         this.initialInformation = JSON.parse(offerDocument.initialInformation);
-        console.log('this.offerDocument', this.initialInformation);
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
@@ -373,8 +371,6 @@ export class LetterOfSetOffComponent implements OnInit {
           this.educationalTemplateData = educationalOfferData;
         }
       }
-      // console.log('documentName', documentName);
-      // console.log('offer document list', this.cadData.offerDocumentList);
       // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString() === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
       // if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
       //   const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
