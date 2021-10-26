@@ -45,7 +45,7 @@
                 <tr>
                     <td>Reference Number</td>
                     <td><input type="text" class="form-control" formControlName="referenceNumber"
-                               (input)="translateNumber('referenceNumber', 'referenceNumberTransVal')">
+                               (input)="translateNumber1('referenceNumber', 'referenceNumberTransVal')">
                     </td>
                     <td class="abc">{{podtranslatedData?.referenceNumber}}</td>
                     <td>
@@ -137,7 +137,7 @@
                 <tr>
                     <td>Drawing Power (% of Distress Value)</td>
                     <td><input type="text" class="form-control" formControlName="drawingPower"
-                               (input)="translateNumber('drawingPower', 'drawingPowerTransVal')">
+                               (input)="translateNumber1('drawingPower', 'drawingPowerTransVal')">
                     </td>
                     <td class="abc">{{podtranslatedData?.drawingPower}}</td>
                     <td>
@@ -188,7 +188,7 @@
                     </td>
                     <td *ngIf="selectedInterestVal=== 'FIXED_INTEREST_RATE'">Interest Rate (in percentage)</td>
                     <td><input type="text" class="form-control" formControlName="yearlyInterestRate"
-                               (input)="translateNumber('yearlyInterestRate', 'yearlyInterestRateTransVal')"></td>
+                               (input)="translateNumber1('yearlyInterestRate', 'yearlyInterestRateTransVal')"></td>
                     <td class="abc">{{podtranslatedData?.yearlyInterestRateTransVal}}</td>
                     <td>
                         <input type="text" class="form-control"
@@ -271,7 +271,7 @@
                 <tr>
                     <td>Loan Period in Months</td>
                     <td><input type="text" class="form-control" formControlName="numberOfEmi"
-                               (input)="translateNumber('numberOfEmi', 'numberOfEmiTransVal')">
+                               (input)="translateNumber1('numberOfEmi', 'numberOfEmiTransVal')">
                     </td>
                     <td class="abc">{{podtranslatedData?.numberOfEmi}}</td>
                     <td>

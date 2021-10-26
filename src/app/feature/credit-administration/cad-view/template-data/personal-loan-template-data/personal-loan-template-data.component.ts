@@ -16,6 +16,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {PersonalLoanComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-loan/personal-loan.component';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
 
 @Component({
   selector: 'app-personal-loan-template-data',
@@ -60,6 +61,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
       private engToNepaliNumberPipe: EngToNepaliNumberPipe,
+      private currencyFormatterPipe: CurrencyFormatterPipe,
   ) { }
 
   ngOnInit() {
@@ -245,7 +247,12 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
   }
   translateNumber(source, target) {
-    const wordLabelVar = this.engToNepaliNumberPipe.transform(String(this.form.get(source).value));
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.form.get(source).value.toString()));
+    this.form.get(target).patchValue(wordLabelVar);
+  }
+
+  translateNumber1(source, target) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
     this.form.get(target).patchValue(wordLabelVar);
   }
 

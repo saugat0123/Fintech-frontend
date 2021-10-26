@@ -63,6 +63,7 @@ export class PersonalLoanComponent implements OnInit {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
+    console.log('Loan Holder Information:',this.loanHolderInfo);
     this.checkOfferLetterData();
   }
 
@@ -143,7 +144,7 @@ export class PersonalLoanComponent implements OnInit {
       loanAmount: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
-      branchName: this.loanHolderInfo.branch.en.nepaliName ? this.loanHolderInfo.branch.en.nepaliName : '',
+      branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
       refNumber: this.tempData.refNumber.ct ? this.tempData.refNumber.ct : '',
