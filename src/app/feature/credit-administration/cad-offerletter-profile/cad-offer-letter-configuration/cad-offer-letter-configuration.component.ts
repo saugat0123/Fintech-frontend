@@ -387,13 +387,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     return false;
   }
 
-  saveCustomer() {
+ async saveCustomer() {
 
     this.submitted = true;
     this.spinner = true;
-   // this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
-   // this.setNepaliData();
-   // this.setCustomerCTData();
+
     if (this.addressSameAsAbove) {
       this.clearValidationForTemporaryAddress();
     }
@@ -473,7 +471,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.oneFormCustomer.jointInfo = JSON.stringify(jointInfoArr);
     }
     this.oneFormCustomer.customerSubType = this.customerType === CustomerType.INDIVIDUAL ? this.customerSubType : this.institutionSubType;
+   if(this.actionType === 'Edit')
+   {
+     console.log(this.objectValueTranslater,'trans');
+     this.userConfigForm.patchValue({
+       permanentProvinceCT: this.userConfigForm.get('permanentProvince').value.nepaliName,
+       permanentDistrictCT: this.userConfigForm.get('permanentDistrict').value.nepaliName,
+       permanentMunicipalityCT: this.userConfigForm.get('permanentMunicipality').value.nepaliName,
+       temporaryProvinceCT: this.userConfigForm.get('temporaryProvince').value.nepaliName,
+       temporaryDistrictCT: this.userConfigForm.get('temporaryDistrict').value.nepaliName,
+       temporaryMunicipalityCT: this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
+
+     });
     Object.keys(this.userConfigForm.controls).forEach(key => {
+
       if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 ||  !this.userConfigForm.get(key).value) {
         return;
       }
@@ -481,12 +492,30 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       if (key === 'guarantorDetails' || key === 'jointCustomerDetails') {
         return;
       }
+
         this.attributes = new Attributes();
+
+      if(this.translatedValues === undefined){
+
+        this.attributes.en = this.userConfigForm.get(key).value;
+        this.attributes.np = this.userConfigForm.get(key + 'CT').value;
+        this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
+        this.translatedData[key] = this.attributes;
+
+      } else {
         this.attributes.en = this.userConfigForm.get(key).value;
         this.attributes.np = this.translatedValues[key];
         this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
         this.translatedData[key] = this.attributes;
+      }
+
+
+
     });
+
+
+}
+    console.log(this.translatedData, 'CTdata');
 
     this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
       const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
@@ -2088,4 +2117,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.nepData.permanentWard.ct : undefined);
 
   }
+
+
+
 }
