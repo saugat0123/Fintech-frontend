@@ -389,5 +389,11 @@ export class ConstructionLoanEditComponent implements OnInit {
   private setConstructionFormValue(): void {
     this.constructionLoanForm.patchValue(this.formValue);
   }
+  calInterestRate() {
+    const baseRate = this.constructionLoanForm.get('baseRate').value;
+    const premiumRate = this.constructionLoanForm.get('premiumRate').value;
+    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+    this.constructionLoanForm.get('interestRate').patchValue(sum);
+  }
 
 }

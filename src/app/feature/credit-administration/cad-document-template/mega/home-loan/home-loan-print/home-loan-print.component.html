@@ -222,8 +222,8 @@
                         <p> कित्ता नं.    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.kittaNumberCT!== null && letter?.loan.kittaNumberCT!== ''}">
             {{letter?.loan.kittaNumberCT === null || letter?.loan.kittaNumberCT === '' ? '___________' : letter?.loan.kittaNumberCT}}</span>
                             </p>
-                        <p> क्षेत्रफल    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.freeTextRequiredCT!== null && letter?.loan.freeTextRequiredCT!== ''}">
-            {{letter?.loan.freeTextRequiredCT === null || letter?.loan.freeTextRequiredCT === '' ? '___________' : letter?.loan.freeTextRequiredCT}}</span>
+                        <p> क्षेत्रफल    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.areasCT!== null && letter?.loan.areasCT!== ''}">
+            {{letter?.loan.areasCT === null || letter?.loan.areasCT === '' ? '___________' : letter?.loan.areasCT}}</span>
                       </p>
                         <p> सिट नं.    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.seatNumberCT!== null && letter?.loan.seatNumberCT!== ''}">
             {{letter?.loan.seatNumberCT === null || letter?.loan.seatNumberCT === '' ? '___________' : letter?.loan.seatNumberCT}}</span>
@@ -381,7 +381,7 @@
                      </span>
                         ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री
                         <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.beneficiaryNameCT!== null && letter?.loan.beneficiaryNameCT!== ''}">
-            {{letter?.loan.beneficiaryNameCT === null || letter?.loan.beneficiaryNameCT === '' ? '___________' : letter?.loan.beneficiaryNameCT}}</span>  लाई ब्रऋ एबथभभ ऋजभत्रगभ रःऋरम्चबात
+            {{letter?.loan.beneficiaryNameCT === null || letter?.loan.beneficiaryNameCT === '' ? '___________' : letter?.loan.beneficiaryNameCT}}</span>  लाई A/C Payee Cheque /MC/Draft
                         मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                         <div class="row col-md-12">
                     <textarea
