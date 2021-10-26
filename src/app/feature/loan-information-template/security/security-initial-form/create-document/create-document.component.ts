@@ -28,7 +28,6 @@ export class CreateDocumentComponent implements OnInit {
               private toastService: ToastService ) { }
 
   ngOnInit() {
-    console.log('editId', this.editId);
     if (!ObjectUtil.isEmpty(this.editId)) {
       const siteVisitDoc = this.siteVisitDocument[this.editId];
       this.docName = siteVisitDoc.docName;
