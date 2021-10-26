@@ -167,31 +167,77 @@
                         <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
 
 
-                        <table border="1">
-                            <thead>
-                            <tr>
-                                <th>नाम</th>
-                                <th>ना.प्र.नं.</th>
-                                <th>मिति</th>
-                                <th>जिल्ला</th>
-                                <th>जि.प्र.का.</th>
-                                <th> गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.</th>
-                                <th>वडा नं.</th>
+                        <table border="1" class="tableGuarantor text-center" style="width: 100%">
 
+                            <tr>
+                                <th class="text-left" colspan="2"><b> दस्तखत : </b></th>
+                                <th class="text-left" colspan="2"><b> दस्तखत : </b></th>
+                            </tr>
+                            <tr class="text-left">
+                                <th class="align-top" style="border-bottom: none;">
+                                    १.नाम
+                                </th>
+                                <th class="align-top" style="border-bottom: none">
+                                <span [ngClass]="{'nepaliFont' : guarantor?.SakGuarantorName1 !== null && guarantor?.SakGuarantorName1 !== ''}">
+                                      {{guarantor?.SakGuarantorName1 === null || guarantor?.SakGuarantorName1 === '' ? '_________________' : guarantor?.SakGuarantorName1}}</span>
+
+                                    (ना.प्र.नं <span [ngClass]="{'nepaliFont' : guarantor?.SakNaPraNaName1 !== null && guarantor?.SakNaPraNaName1 !== ''}">
+                                      {{guarantor?.SakNaPraNaName1 === null || guarantor?.SakNaPraNaName1 === '' ? '_________________' : guarantor?.SakNaPraNaName1}}</span>
+
+                                    मिति <span [ngClass]="{'nepaliFont' : guarantor?.SakMitiName1 !== null && guarantor?.SakMitiName1 !== ''}">
+                                      {{guarantor?.SakMitiName1 === null || guarantor?.SakMitiName1 === '' ? '_________________' : guarantor?.SakMitiName1}}</span>
+
+                                    जि.प्र.का  <span [ngClass]="{'nepaliFont' : guarantor?.SakJiPrakaName1 !== null && guarantor?.SakJiPrakaName1 !== ''}">
+                                      {{guarantor?.SakJiPrakaName1 === null || guarantor?.SakJiPrakaName1 === '' ? '_________________' : guarantor?.SakJiPrakaName1}}</span>)
+                                </th>
+
+                                <th class="align-top" style="border-bottom: none;">
+                                    २.नाम
+                                </th>
+                                <th class="align-top" style="border-bottom: none">
+                                <span [ngClass]="{'nepaliFont' : guarantor?.SakGuarantorName2 !== null && guarantor?.SakGuarantorName2 !== ''}">
+                                      {{guarantor?.SakGuarantorName2 === null || guarantor?.SakGuarantorName2 === '' ? '_________________' : guarantor?.SakGuarantorName2}}</span>
+
+                                    (ना.प्र.नं <span [ngClass]="{'nepaliFont' : guarantor?.SakNaPraNaName2 !== null && guarantor?.SakNaPraNaName2 !== ''}">
+                                      {{guarantor?.SakNaPraNaName2 === null || guarantor?.SakNaPraNaName2 === '' ? '_________________' : guarantor?.SakNaPraNaName2}}</span>
+
+                                    मिति <span [ngClass]="{'nepaliFont' : guarantor?.SakMitiName2 !== null && guarantor?.SakMitiName2 !== ''}">
+                                      {{guarantor?.SakMitiName2 === null || guarantor?.SakMitiName2 === '' ? '_________________' : guarantor?.SakMitiName2}}</span>
+
+                                    जि.प्र.का  <span [ngClass]="{'nepaliFont' : guarantor?.SakJiPrakaName2 !== null && guarantor?.SakJiPrakaName2 !== ''}">
+                                      {{guarantor?.SakJiPrakaName2 === null || guarantor?.SakJiPrakaName2 === '' ? '_________________' : guarantor?.SakJiPrakaName2}}</span>)
+                                </th>
                             </tr>
 
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><span class="nepaliFont">{{guarantor?.name}}</span></td>
-                                <td><span class="nepaliFont">{{guarantor?.citizenNumber}}</span></td>
-                                <td><span class="nepaliFont">{{guarantor?.issuedYear}}</span></td>
-                                <td><span class="nepaliFont">{{guarantor?.guarantorCDOoffice}}</span></td>
-                                <td><span class="nepaliFont">{{guarantor?.guarantorDistrict}}</span></td>
-                                <td><span class="nepaliFont">{{guarantor?.guarantorMunicipality}}</span></td>
-                                <td><span class="nepaliFont">{{guarantor?.guarantorWadNo}}</span></td>
+                            <tr class="text-left">
+                                <th class="align-top" style="border-top: none">
+                                    ठेगाना
+                                </th>
+                                <th class="align-top" style="border-top: none">
+                               <span [ngClass]="{'nepaliFont' : guarantor?.SakIssuedPlace1 !== null && guarantor?.SakIssuedPlace1 !== ''}">
+                                      {{guarantor?.SakIssuedPlace1 === null || guarantor?.SakIssuedPlace1 === '' ? '_________________' : guarantor?.SakIssuedPlace1}}</span>
+
+                                    जिल्ला  <span [ngClass]="{'nepaliFont' : guarantor?.SakJillaName1 !== null && guarantor?.SakJillaName1 !== ''}">
+                                      {{guarantor?.SakJillaName1 === null || guarantor?.SakJillaName1 === '' ? '_________________' : guarantor?.SakJillaName1}}</span>
+
+                                    गा.पा./न.पा. वडा नं <span [ngClass]="{'nepaliFont' : guarantor?.SakJagaName1 !== null && guarantor?.SakJagaName1 !== ''}">
+                                      {{guarantor?.SakJagaName1 === null || guarantor?.SakJagaName1 === '' ? '_________________' : guarantor?.SakJagaName1}}</span>
+                                </th>
+
+                                <th class="align-top" style="border-top: none">
+                                    ठेगाना
+                                </th>
+                                <th class="align-top" style="border-top: none">
+                                <span [ngClass]="{'nepaliFont' : guarantor?.SakIssuedPlace2 !== null && guarantor?.SakIssuedPlace2 !== ''}">
+                                      {{guarantor?.SakIssuedPlace2 === null || guarantor?.SakIssuedPlace2 === '' ? '_________________' : guarantor?.SakIssuedPlace2}}</span>
+
+                                    जिल्ला<span [ngClass]="{'nepaliFont' : guarantor?.SakJillaName2 !== null && guarantor?.SakJillaName2 !== ''}">
+                                      {{guarantor?.SakJillaName2 === null || guarantor?.SakJillaName2 === '' ? '_________________' : guarantor?.SakJillaName2}}</span>
+
+                                    गा.पा./न.पा. वडा नं <span [ngClass]="{'nepaliFont' : guarantor?.SakJagaName2 !== null && guarantor?.SakJagaName2 !== ''}">
+                                      {{guarantor?.SakJagaName2 === null || guarantor?.SakJagaName2 === '' ? '_________________' : guarantor?.SakJagaName2}}</span>
+                                </th>
                             </tr>
-                            </tbody>
                         </table>
                         <br>
                     </div>
