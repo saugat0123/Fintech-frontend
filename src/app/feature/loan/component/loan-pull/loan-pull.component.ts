@@ -268,7 +268,6 @@ export class LoanPullComponent implements OnInit {
             });
         }
         this.loanFormService.detail(customerLoanId).subscribe((response: any) => {
-            console.log('response', response);
             this.toUser = response.detail.currentStage.toUser.name;
             this.spinner2 = false;
         }, error => {
@@ -276,7 +275,6 @@ export class LoanPullComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Data!'));
             this.spinner2 = false;
         });
-        console.log('toUser', this.toUser);
         // this.modalService.open(template);
         this.modalService.open(template, {
             size: 'xl',
