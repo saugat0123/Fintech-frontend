@@ -46,11 +46,15 @@ export class RetailMortgageLoanComponent implements OnInit {
     selectedAutoLoan;
     selectedInterest;
     loanLimit;
+    finalName;
     loanHolderInfo;
     external = [];
     nepData;
     selectedSecurity;
     offerDocumentDetails;
+    guarantorNames: Array<String> = [];
+    allguarantorNames;
+    guarantorAmount: number = 0;
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
@@ -82,7 +86,9 @@ export class RetailMortgageLoanComponent implements OnInit {
         console.log('Selected Data:',this.cadOfferLetterApprovedDoc);
         console.log('All Data:',this.tempData);
         console.log('Loan Holder initial data:',this.loanHolderInfo);
-        this.checkOfferLetterData();    }
+        this.checkOfferLetterData();
+        this.guarantorDetails();
+    }
 
     buildForm() {
         this.form = this.formBuilder.group({
@@ -209,8 +215,7 @@ export class RetailMortgageLoanComponent implements OnInit {
             insuranceAmount: this.tempData.insuranceAmount.ct ? this.tempData.insuranceAmount.ct : '',
             relationshipOfficerName: this.tempData.relationshipOfficerName.ct ? this.tempData.relationshipOfficerName.ct : '',
             branchManager: this.tempData.branchManagerName.ct ? this.tempData.branchManagerName.ct : '',
-
-        })
+        });
     }
 
 
@@ -283,5 +288,33 @@ export class RetailMortgageLoanComponent implements OnInit {
         } catch (exp) {
             console.log(exp);
         }
+    }
+    guarantorDetails(){
+        if (this.guarantorData.length == 1){
+            let temp = JSON.parse(this.guarantorData[0].nepData);
+            this.finalName =  temp.guarantorName.ct;
+        }
+        else if(this.guarantorData.length == 2){
+            for (let i = 0; i < this.guarantorData.length; i++){
+                let temp = JSON.parse(this.guarantorData[i].nepData);
+                this.guarantorNames.push(temp.guarantorName.ct);
+                // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+            }
+            // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+            this.allguarantorNames = this.guarantorNames.join(" र ");
+            this.finalName = this.allguarantorNames;
+        }
+        else{
+            for (let i = 0; i < this.guarantorData.length-1; i++){
+                let temp = JSON.parse(this.guarantorData[i].nepData);
+                this.guarantorNames.push(temp.guarantorName.ct);
+                // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+            }
+            // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+            this.allguarantorNames = this.guarantorNames.join(" , ");
+            let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length-1].nepData);
+            this.finalName =  this.allguarantorNames + " र " + temp1.guarantorName.ct;
+        }
+        console.log('Guarantor Name:', this.finalName);
     }
 }

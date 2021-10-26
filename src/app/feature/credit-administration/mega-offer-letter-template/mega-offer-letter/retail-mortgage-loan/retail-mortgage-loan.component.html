@@ -688,55 +688,55 @@
                                 को भवनको विमालेख ।
 
                             </p>
-                            <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING'; else guarantorLand">
-                                <p *ngFor="let data of guarantorData; let i = index;">
-                                    {{i + 9 | nepaliWord}}.
+                            <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING'; else guarantorLand" style="margin-top: 1em">
+                                <p>
+                                    झ.
                                     श्री
                                     <input class="form-field form-control-sm col-3"
                                            formControlName="guarantorName"
-                                           [value]="guarantorParse(data.nepData, 'guarantorName')"
+                                           [value]="this.finalName"
                                            type="text"/>
                                     ले रु
                                     <input class="form-field form-control-sm"
                                            formControlName="guaranteedAmountInFigure"
-                                           [value]="guarantorParse(data.nepData, 'gurantedAmount')"
+                                           [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                            type="text"/>
                                     /-(अक्षरेपि
                                     रु. <input class="form-field form-control-sm longInput uniSize"
                                                formControlName="guaranteedAmountInWord"
-                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))"
+                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))"
                                                type="text"/>
                                     मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                                 </p>
                             </div>
-                            <ng-template #guarantorLand>
-                                <p *ngFor="let data of guarantorData; let i = index;">
-                                    {{i + 8 | nepaliWord}}.
+                            <ng-template #guarantorLand style="margin-top: 1em">
+                                <p>
+                                    ज.
                                     श्री
                                     <input class="form-field form-control-sm col-3"
                                            formControlName="guarantorName"
-                                           [value]="guarantorParse(data.nepData, 'guarantorName')"
+                                           [value]="this.finalName"
                                            type="text"/>
                                     ले रु
                                     <input class="form-field form-control-sm"
                                            formControlName="guaranteedAmountInFigure"
-                                           [value]="guarantorParse(data.nepData, 'gurantedAmount')"
+                                           [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                            type="text"/>
                                     /-(अक्षरेपि
                                     रु. <input class="form-field form-control-sm longInput uniSize"
                                                formControlName="guaranteedAmountInWord"
-                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))"
+                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))"
                                                type="text"/>
                                     मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                                 </p>
                             </ng-template>
-                            <div class="row col-md-12">
-                                        <textarea
-                                                class="form-control customFont nepaliFont"
-                                                rows="5"
-                                                style="width:inherit;margin-left:5%"
-                                                name="additionalGuarantorDetails"
-                                                formControlName="additionalGuarantorDetails">
+                            <div class="row col-md-12" style="margin-top: 1.5em">
+                                झ. <textarea
+                                    class="form-control customFont nepaliFont"
+                                    rows="5"
+                                    style="width:inherit;margin-left:2%"
+                                    name="additionalGuarantorDetails"
+                                    formControlName="additionalGuarantorDetails">
                                         </textarea>
                             </div>
                         </td>
@@ -804,7 +804,6 @@
                         </td>
                     </tr>
                     <tr>
-                    <tr>
                         <td>२.</td>
                         <td> म/हामी माथि उल्लेखित शर्तबन्देजहरु पूर्ण स्वीकार गर्दछु/छौं ।</td>
                     </tr>
@@ -852,20 +851,10 @@
                         <p>
                             आधिकारिक हस्ताक्षर (ग्राहक)
                         </p>
-                        <p *ngIf="tempData.signatureDate.en.nDate === undefined; else signatureDateNepali">
-                            मितिः <input class="form-field form-control-sm"
-                                         formControlName="signatureDate"
-                                         [value]="tempData.signatureDate.en === undefined ? '' : ((tempData.signatureDate.en | date) | engNepDate: true)"
-                                         type="text"/>
+                        <p>
+                            मितिः .............................
                         </p>
-                        <ng-template #signatureDateNepali>
-                            <p>
-                                मितिः <input class="form-field form-control-sm"
-                                             formControlName="signatureDate"
-                                             [value]="tempData.signatureDate.en.nDate === undefined ? '' : tempData.signatureDate.en.nDate"
-                                             type="text"/>
-                            </p>
-                        </ng-template>
+
                     </div>
                 </div>
                 <br>
