@@ -448,11 +448,11 @@
                                     रु
                                     <input class="form-field form-control-sm"
                                            formControlName="guaranteedAmountFigure"
-                                           [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                           [value]="guarantorParse(guarantorData[0]?.nepData, 'gurantedAmount')"
                                            type="text"/> /-(अक्षरेपि
                                     रु. <input class="form-field form-control-sm longInput uniSize"
                                                formControlName="guaranteedAmountWords"
-                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
+                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0]?.nepData, 'gurantedAmount', 'en'))"
                                                type="text"/> मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                                 </p>
                             </div>
