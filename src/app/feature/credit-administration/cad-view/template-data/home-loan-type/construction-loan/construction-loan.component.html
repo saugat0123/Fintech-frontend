@@ -52,25 +52,14 @@
                        formControlName="drawingPower" type="number" id="drawingPower">
             </div>
             <div class="form-group">
-                <label for="loanAmountInFigure">Loan Amount in Figure</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       (change)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWord')"
-                       formControlName="loanAmountInFigure" type="number" id="loanAmountInFigure">
-            </div>
-            <div class="form-group">
-                <label for="loanAmountInWord">Loan Amount in Words</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="loanAmountInWord" type="text" id="loanAmountInWord" readonly>
-            </div>
-            <div class="form-group">
                 <label for="baseRate">Base Rate</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="baseRate" type="number" id="baseRate">
+                       formControlName="baseRate" type="number" id="baseRate" (input)="calInterestRate()">
             </div>
             <div class="form-group">
                 <label for="premiumRate">Premium Rate</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="premiumRate" type="number" id="premiumRate">
+                       formControlName="premiumRate" type="number" id="premiumRate" (input)="calInterestRate()">
             </div>
             <div class="form-group">
                 <label for="interestRate">Interest Rate (%)</label>
@@ -157,17 +146,17 @@
             <div class="form-group">
                 <label for="kittaNumber">Kitta Number</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="kittaNumber" type="number" id="kittaNumber">
+                       formControlName="kittaNumber" type="text" id="kittaNumber">
             </div>
             <div class="form-group">
                 <label for="area">Area</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="area" type="number" id="area">
+                       formControlName="area" type="text" id="area">
             </div>
             <div class="form-group">
                 <label for="seatNumber">Seat Number</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="seatNumber" type="number" id="seatNumber">
+                       formControlName="seatNumber" type="text" id="seatNumber">
             </div>
             <div class="form-group">
                 <label for="insuranceAmountInFigure">Insurance amount in figure</label>
@@ -181,11 +170,6 @@
                        formControlName="insuranceAmountInWord" type="text" id="insuranceAmountInWord">
             </div>
             <div class="form-group">
-                <label for="freeTextRequired">Free text required</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="freeTextRequired" type="text" id="freeTextRequired">
-            </div>
-            <div class="form-group">
                 <label for="nameOfRelationshipOfficer">Name of Relationship officer</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="nameOfRelationshipOfficer" type="text" id="nameOfRelationshipOfficer">
@@ -194,11 +178,6 @@
                 <label for="nameOfBranchManager">Name of Branch manager</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="nameOfBranchManager" type="text" id="nameOfBranchManager">
-            </div>
-            <div class="form-group">
-                <label for="approvalStaffName">Approval Staff name</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="approvalStaffName" type="text" id="approvalStaffName">
             </div>
         </div>
         <div class="col-md-4">
@@ -222,14 +201,6 @@
             <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="drawingPowerTrans" type="text" id="drawingPowerTrans" readonly>
-            </div>
-            <div class="form-group mt-medium">
-                <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="loanAmountInFigureTrans" type="text" id="loanAmountInFigureTrans" readonly>
-            </div>
-            <div class="form-group mt-medium">
-                <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="loanAmountInWordTrans" type="text" id="loanAmountInWordTrans" readonly>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
@@ -325,19 +296,11 @@
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="freeTextRequiredTrans" type="text" id="freeTextRequiredTrans" readonly>
-            </div>
-            <div class="form-group mt-small">
-                <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="nameOfRelationshipOfficerTrans" type="text" id="nameOfRelationshipOfficerTrans" readonly>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="nameOfBranchManagerTrans" type="text" id="nameOfBranchManagerTrans" readonly>
-            </div>
-            <div class="form-group mt-small">
-                <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="approvalStaffNameTrans" type="text" id="approvalStaffNameTrans" readonly>
             </div>
         </div>
         <div class="col-md-4">
@@ -380,22 +343,6 @@
                 <span *ngIf="submitted && form.drawingPowerCT.invalid"
                      class="text-danger">
                         Drawing power is required
-                </span>
-            </div>
-            <div class="form-group mt-small-2">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="loanAmountInFigureCT" type="text" id="loanAmountInFigureCT">
-                <span *ngIf="submitted && form.loanAmountInFigureCT.invalid"
-                     class="text-danger">
-                        Loan amount figure is required
-                </span>
-            </div>
-            <div class="form-group mt-small-2">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="loanAmountInWordCT" type="text" id="loanAmountInWordCT">
-                <span *ngIf="submitted && form.loanAmountInWordCT.invalid"
-                     class="text-danger">
-                        Loan amount in word is required
                 </span>
             </div>
             <div class="form-group mt-small-2">
@@ -584,14 +531,6 @@
             </div>
             <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="freeTextRequiredCT" type="text" id="freeTextRequiredCT">
-                <span *ngIf="submitted && form.freeTextRequiredCT.invalid"
-                     class="text-danger">
-                        Free text is required
-                </span>
-            </div>
-            <div class="form-group mt-small-2">
-                <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="nameOfRelationshipOfficerCT" type="text" id="nameOfRelationshipOfficerCT">
                 <span *ngIf="submitted && form.nameOfRelationshipOfficerCT.invalid"
                      class="text-danger">
@@ -601,14 +540,6 @@
             <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="nameOfBranchManagerCT" type="text" id="nameOfBranchManagerCT">
-                <span *ngIf="submitted && form.nameOfBranchManagerCT.invalid"
-                     class="text-danger">
-                        Name of branch manager is required
-                </span>
-            </div>
-            <div class="form-group mt-small-2">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="approvalStaffNameCT" type="text" id="approvalStaffNameCT">
                 <span *ngIf="submitted && form.nameOfBranchManagerCT.invalid"
                      class="text-danger">
                         Name of branch manager is required
