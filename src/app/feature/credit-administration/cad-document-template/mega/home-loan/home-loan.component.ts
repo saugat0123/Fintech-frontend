@@ -92,6 +92,7 @@ export class HomeLoanComponent implements OnInit {
   buildPersonal() {
     this.form = this.formBuilder.group({
       referenceNumber: [undefined],
+      loanLimitChecked: [undefined],
       dateofApproval: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
@@ -178,9 +179,14 @@ export class HomeLoanComponent implements OnInit {
           this.offerLetterData = this.offerLetterDocument;
           this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.pointInformation)) {
+          this.offerLetterData = this.offerLetterDocument;
+          this.form.get('additionalDetails').patchValue(this.offerLetterData.pointInformation);
+        }
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.initialInfoPrint = initialInfo;
+        this.loanLimit = this.tempData.loanLimitChecked;
         this.fillForm();
       }
     } else {
@@ -192,6 +198,7 @@ export class HomeLoanComponent implements OnInit {
   submit(): void {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===

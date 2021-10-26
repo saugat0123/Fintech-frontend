@@ -32,6 +32,7 @@ import {ToastService} from "../../../../../@core/utils";
 import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
 import {CustomerApprovedLoanCadDocumentation} from "../../../model/customerApprovedLoanCadDocumentation";
 import {SmeComponent} from "../../../mega-offer-letter-template/mega-offer-letter/sme/sme.component";
+import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
 
 @Component({
   selector: 'app-sme-template-data',
@@ -75,7 +76,8 @@ export class SmeTemplateDataComponent implements OnInit {
       private translateService: SbTranslateService,
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
-      private engToNepaliNumberPipe: EngToNepaliNumberPipe
+      private engToNepaliNumberPipe: EngToNepaliNumberPipe,
+      private currencyFormatterPipe: CurrencyFormatterPipe,
   ) {
   }
 
@@ -88,7 +90,7 @@ export class SmeTemplateDataComponent implements OnInit {
       selectedAutoLoan: [undefined],
       selectedInterest: [undefined],
       loanLimitChecked: [undefined],
-      referenceNumber: [undefined],
+      // referenceNumber: [undefined],
       dateofApproval: [undefined],
       dateofApplication: [undefined],
       vehicleName: [undefined],
@@ -111,7 +113,7 @@ export class SmeTemplateDataComponent implements OnInit {
       selectedAutoLoanTransVal: [undefined],
       selectedInterestTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
-      referenceNumberTransVal: [undefined, Validators.required],
+      // referenceNumberTransVal: [undefined, Validators.required],
       dateofApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       vehicleNameTransVal: [undefined, Validators.required],
@@ -167,6 +169,11 @@ export class SmeTemplateDataComponent implements OnInit {
     this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
   }
   translateNumber(source, target) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.form.get(source).value.toString()));
+    this.form.get(target).patchValue(wordLabelVar);
+  }
+
+  translateNumber1(source, target) {
     const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
     this.form.get(target).patchValue(wordLabelVar);
   }

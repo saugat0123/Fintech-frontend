@@ -1219,8 +1219,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).patchValue(guarantorsDetails.permanentWard ? guarantorsDetails.permanentWard : '');
       // this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).patchValue(guarantorsDetails.temporaryWard ? guarantorsDetails.temporaryWard : '');
       // this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).patchValue(guarantorsDetails.temporaryWard ? guarantorsDetails.temporaryWard : '');
-      this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).patchValue(guarantorsDetails.relationship ? guarantorsDetails.relationship : '');
-      this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).patchValue(guarantorsDetails.relationship ? guarantorsDetails.relationship : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).patchValue(this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value
+          ? this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).patchValue(this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value
+          ? this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '');
 
       this.addressFromGroup = this.formBuilder.group({
         permanentProvince: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value ? this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value.name : '',

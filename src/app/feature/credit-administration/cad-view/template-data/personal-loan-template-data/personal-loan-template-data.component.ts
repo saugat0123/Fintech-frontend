@@ -16,6 +16,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {PersonalLoanComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-loan/personal-loan.component';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
 
 @Component({
   selector: 'app-personal-loan-template-data',
@@ -60,6 +61,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
       private engToNepaliNumberPipe: EngToNepaliNumberPipe,
+      private currencyFormatterPipe: CurrencyFormatterPipe,
   ) { }
 
   ngOnInit() {
@@ -68,7 +70,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      refNumber: [undefined],
+      // refNumber: [undefined],
       dateOfApproval: [undefined],
       dateofApplication: [undefined],
       purposeOfLoan: [undefined],
@@ -89,7 +91,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       // sakshiName: [undefined],
 
       // Translated Value
-      refNumberTransVal: [undefined, Validators.required],
+      // refNumberTransVal: [undefined, Validators.required],
       dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
@@ -217,7 +219,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.btnDisable = false;
   }
   private setTemplatedCTData(): void {
-    this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
+    // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
@@ -245,7 +247,12 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
   }
   translateNumber(source, target) {
-    const wordLabelVar = this.engToNepaliNumberPipe.transform(String(this.form.get(source).value));
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.form.get(source).value.toString()));
+    this.form.get(target).patchValue(wordLabelVar);
+  }
+
+  translateNumber1(source, target) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
     this.form.get(target).patchValue(wordLabelVar);
   }
 

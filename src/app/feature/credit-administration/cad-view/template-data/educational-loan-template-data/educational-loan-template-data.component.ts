@@ -21,6 +21,7 @@ import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import { key } from 'ionicons/icons';
+import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -50,6 +51,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   dateTypeAD = false;
   dateTypeBS1 = false;
   dateTypeAD1 = false;
+  dateTypeBS2 = false;
+  dateTypeAD2 = false;
   provinceList: Array<Province> = new Array<Province>();
   districtList: Array<District> = new Array<District>();
   municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
@@ -71,6 +74,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
       private addressService: AddressService,
+      private currencyFormatterPipe: CurrencyFormatterPipe,
   ) {
   }
 
@@ -121,7 +125,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanLimitChecked: [undefined],
 
       dateOfApproval: [undefined],
-      referenceNumber: [undefined],
+      //referenceNumber: [undefined],
       dateOfApplication: [undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
@@ -175,7 +179,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
-      referenceNumberTransVal: [undefined, Validators.required],
+      //referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
@@ -195,7 +199,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanCommitmentFeeInPercentageTransVal: [undefined, Validators.required],
       fixedDepositHolderNameTransVal: [undefined, Validators.required],
       fixedDepositAmountFigureTransVal: [undefined, Validators.required],
-      tenureFixedDepositTransVal: [undefined, Validators.required],
+      tenureFixedDepositTransVal: [undefined],
       tenureDepositReceiptNumberTransVal: [undefined, Validators.required],
       guarantorNameTransVal: [undefined],
       // guaranteedAmountFigureTransVal: [undefined, Validators.required],
@@ -425,7 +429,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value.toString());
-    this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.form.get(numLabel).value.toString()));
+    this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.form.get(numLabel).value.toString())));
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
     this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
@@ -433,8 +437,13 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   translateNumber(source, target) {
     console.log(this.form.get(source).value);
-    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.form.get(source).value.toString()));
     console.log(wordLabelVar);
+    this.form.get(target).patchValue(wordLabelVar);
+  }
+
+  translateNumber1(source, target) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
     this.form.get(target).patchValue(wordLabelVar);
   }
 
@@ -492,6 +501,16 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.dateTypeAD1 = true;
   }
 
+  setDateTypeBS2() {
+    this.dateTypeBS2 = true;
+    this.dateTypeAD2 = false;
+  }
+
+  setDateTypeAD2() {
+    this.dateTypeBS2 = false;
+    this.dateTypeAD2 = true;
+  }
+
   calInterestRate() {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
@@ -513,7 +532,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   }
 
   private setTemplatedCTData(data): void {
-    this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
+    //this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     // this.form.get('distressValueTransVal').patchValue(this.translatedData.distressValue);
     // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);

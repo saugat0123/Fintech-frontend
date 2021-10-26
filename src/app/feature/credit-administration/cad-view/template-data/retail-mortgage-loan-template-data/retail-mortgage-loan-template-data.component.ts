@@ -22,6 +22,7 @@ import {Province} from "../../../../admin/modal/province";
 import {MunicipalityVdc} from "../../../../admin/modal/municipality_VDC";
 import {CadDocStatus} from "../../../model/CadDocStatus";
 import {AddressService} from "../../../../../@core/service/baseservice/address.service";
+import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
 
 
 @Component({
@@ -73,6 +74,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       private engToNepaliNumberPipe: EngToNepaliNumberPipe,
       private administrationService: CreditAdministrationService,
       private addressService: AddressService,
+      private currencyFormatterPipe: CurrencyFormatterPipe,
   ) { }
 
   get Form() {
@@ -115,7 +117,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
     this.form = this.formBuilder.group({
       selectedSecurity: [undefined],
       loanLimitChecked: [undefined],
-      referenceNumber: [undefined],
+      // referenceNumber: [undefined],
       dateofApproval: [undefined],
       dateofApplication: [undefined],
       loanPurpose: [undefined],
@@ -137,7 +139,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       //For Translated Value
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
-      referenceNumberTransVal: [undefined, Validators.required],
+      // referenceNumberTransVal: [undefined, Validators.required],
       dateofApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       loanPurposeTransVal: [undefined, Validators.required],
@@ -264,6 +266,11 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
   }
 
   translateNumber(source, target) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.form.get(source).value.toString()));
+    this.form.get(target).patchValue(wordLabelVar);
+  }
+
+  translateNumber1(source, target) {
     const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
     this.form.get(target).patchValue(wordLabelVar);
   }

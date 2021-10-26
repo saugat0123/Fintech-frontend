@@ -75,7 +75,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      refNumber: [undefined],
+      // refNumber: [undefined],
       dateOfApproval: [undefined],
       dateofApplication: [undefined],
       purposeOfLoan: [undefined],
@@ -92,7 +92,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
       loanPeriodInMonth: [undefined],
 
       // Translated Value
-      refNumberTransVal: [undefined, Validators.required],
+      // refNumberTransVal: [undefined, Validators.required],
       dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
@@ -215,7 +215,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
   private setTemplatedCTData(): void {
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
-    this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
+    // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
@@ -289,7 +289,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
   public setPersonalLoanTemplateData(): void {
     // set en value
     this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
-    this.form.get('refNumber').patchValue(this.initialInformation.refNumber.en);
+    // this.form.get('refNumber').patchValue(this.initialInformation.refNumber.en);
     this.form.get('dateofApplication').patchValue(this.initialInformation.dateofApplication.en);
     this.form.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
     this.form.get('baseRate').patchValue(this.initialInformation.baseRate.en);
@@ -305,7 +305,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
     this.form.get('loanPeriodInMonth').patchValue(this.initialInformation.loanPeriodInMonth.en);
 
     // set ct value
-    this.form.get('refNumberTransVal').patchValue(this.initialInformation.refNumber.ct);
+    // this.form.get('refNumberTransVal').patchValue(this.initialInformation.refNumber.ct);
     this.form.get('purposeOfLoanTransVal').patchValue(this.initialInformation.purposeOfLoan.ct);
     this.form.get('baseRateTransVal').patchValue(this.initialInformation.baseRate.ct);
     this.form.get('premiumRateTransVal').patchValue(this.initialInformation.premiumRate.ct);

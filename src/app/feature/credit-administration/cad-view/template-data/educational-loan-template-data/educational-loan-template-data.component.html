@@ -103,22 +103,22 @@
             <nb-datepicker #doa></nb-datepicker>
           </td>
         </tr>
-        <tr>
-          <td>Reference Number</td>
-          <td><input type="text" class="form-control" formControlName="referenceNumber"/></td>
-          <td class="abc">{{translatedData?.referenceNumber}}</td>
-          <td>
-            <input type="text" class="form-control"
-                   [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"
-                   formControlName="referenceNumberTransVal"/>
-            <div *ngIf="submitted && Form.referenceNumberTransVal.errors"
-                 class="invalid-feedback">
-              <div *ngIf="Form.referenceNumberTransVal.errors.required">Reference number is
-                required
-              </div>
-            </div>
-          </td>
-        </tr>
+<!--        <tr>-->
+<!--          <td>Reference Number</td>-->
+<!--          <td><input type="text" class="form-control" formControlName="referenceNumber"/></td>-->
+<!--          <td class="abc">{{translatedData?.referenceNumber}}</td>-->
+<!--          <td>-->
+<!--            <input type="text" class="form-control"-->
+<!--                   [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"-->
+<!--                   formControlName="referenceNumberTransVal"/>-->
+<!--            <div *ngIf="submitted && Form.referenceNumberTransVal.errors"-->
+<!--                 class="invalid-feedback">-->
+<!--              <div *ngIf="Form.referenceNumberTransVal.errors.required">Reference number is-->
+<!--                required-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
         <tr style="padding: 12px">
           <td>Date Of Application</td>
           <td>
@@ -204,7 +204,7 @@
         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
           <td>Drawing Power(%of Distress Value)</td>
           <td><input type="number" class="form-control" formControlName="distressValue"
-          (input)="translateNumber('distressValue', 'distressValueTransVal')"/></td>
+          (input)="translateNumber1('distressValue', 'distressValueTransVal')"/></td>
           <td class="abc">{{translatedData?.distressValue}}</td>
           <td>
             <input type="text" class="form-control" formControlName="distressValueTransVal"/>
@@ -309,7 +309,7 @@
         <tr *ngIf="selectedSecurityVal === 'LAND' || selectedSecurityVal === 'LAND_AND_BUILDING'">
           <td>Loan Period In Months</td>
           <td><input type="number" class="form-control" formControlName="loanPeriodInMonths"
-                     (input)="translateNumber('loanPeriodInMonths', 'loanPeriodInMonthsTransVal')"/>
+                     (input)="translateNumber1('loanPeriodInMonths', 'loanPeriodInMonthsTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.loanPeriodInMonths}}</td>
           <td>
@@ -318,7 +318,7 @@
         <tr *ngIf="selectedSecurityVal === 'LAND' || selectedSecurityVal === 'LAND_AND_BUILDING'">
           <td>Moratorium Period In Months</td>
           <td><input type="number" class="form-control" formControlName="moratoriumPeriodInMonths"
-                     (input)="translateNumber('moratoriumPeriodInMonths', 'moratoriumPeriodInMonthsTransVal')"/>
+                     (input)="translateNumber1('moratoriumPeriodInMonths', 'moratoriumPeriodInMonthsTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.moratoriumPeriodInMonths}}</td>
           <td>
@@ -331,7 +331,7 @@
           <td>Loan Commitment Fee In Percentage</td>
           <td><input type="number" class="form-control"
                      formControlName="loanCommitmentFeeInPercentage"
-                     (input)="translateNumber('loanCommitmentFeeInPercentage', 'loanCommitmentFeeInPercentageTransVal')"/>
+                     (input)="translateNumber1('loanCommitmentFeeInPercentage', 'loanCommitmentFeeInPercentageTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.loanCommitmentFeeInPercentage}}</td>
           <td>
@@ -401,7 +401,6 @@
             </div>
           </td>
         </tr>
-
         <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
           <td>Tenure Of Fixed Deposit</td>
           <td><input type="number" class="form-control" formControlName="tenureFixedDeposit"
@@ -420,11 +419,10 @@
             </div>
           </td>
         </tr>
-
         <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
           <td>Fixed Deposit Receipt Number</td>
           <td><input type="number" class="form-control" formControlName="tenureDepositReceiptNumber"
-                     (input)="translateNumber('tenureDepositReceiptNumber', 'tenureDepositReceiptNumberTransVal')"/>
+                     (input)="translateNumber1('tenureDepositReceiptNumber', 'tenureDepositReceiptNumberTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.tenureDepositReceiptNumber}}</td>
           <td>
@@ -541,15 +539,15 @@
         <!--                </tr>-->
 
         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
-          <td>Pledge Amount Figure</td>
-          <td><input type="number" class="form-control" formControlName="pledgeAmountFigure"
-                     (input)="translateNumber('pledgeAmountFigure', 'pledgeAmountFigureTransVal')"/>
-          </td>
-          <td class="abc">{{translatedData?.pledgeAmountFigure}}</td>
-          <td>
-            <input type="text" class="form-control" formControlName="pledgeAmountFigureTransVal"/>
-          </td>
-        </tr>
+<!--          <td>Pledge Amount Figure</td>-->
+<!--          <td><input type="number" class="form-control" formControlName="pledgeAmountFigure"-->
+<!--                     (input)="translateNumber('pledgeAmountFigure', 'pledgeAmountFigureTransVal')"/>-->
+<!--          </td>-->
+<!--          <td class="abc">{{translatedData?.pledgeAmountFigure}}</td>-->
+<!--          <td>-->
+<!--            <input type="text" class="form-control" formControlName="pledgeAmountFigureTransVal"/>-->
+<!--          </td>-->
+<!--        </tr>-->
 
         <tr *ngIf="selectedSecurityVal === 'LAND_AND_BUILDING'">
           <td>Insurance Amount Figure</td>

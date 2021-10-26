@@ -13,12 +13,16 @@ export class AutoLoanCommercialPrintComponent implements OnInit {
   @Input() letter: any;
   loanHolderInfo;
   offerLetterConst = MegaOfferLetterConst;
+  autoRefNumber;
   constructor() {
   }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    }
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
   }
 }
