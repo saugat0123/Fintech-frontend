@@ -5,7 +5,7 @@
                     <h4 class="text-center font-weight-bold"><u>ऋणकर्जा सुविधा स्वीकृति पत्र</u></h4>
                 </div>
             </div>
-            <form class="nep">
+            <form>
                 <div class="row">
                     <div class="col-md-12">
                         <p>
@@ -595,7 +595,18 @@
                                  बाट खर्च कटाउने अख्तीयारी पत्र ।
                             </p>
                             <p>
-                                ह्.	स्थाई लेखा नम्बरको प्रमाण पत्र ।
+                                {{5 | nepaliWord}}.
+                                रु   <span class="font-weight-bold">
+                                        {{guarantorAmount ? guarantorAmount : '____________________'}}
+                                    </span>/-
+                                को श्री
+                                <span class="font-weight-bold">
+                                    {{finalName ? finalName : '______________________________'}}
+                                </span>
+                                व्यक्तिगत जमानतपत्र र सम्पत्ती विवरण ।
+                            </p>
+                            <p>
+                                च.	स्थाई लेखा नम्बरको प्रमाण पत्र ।
                             </p>
                             <p>
                                 छ.	ग्राहक स्वःघोषणा फारम ।
