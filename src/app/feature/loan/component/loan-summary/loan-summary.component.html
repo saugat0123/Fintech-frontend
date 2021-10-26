@@ -840,7 +840,7 @@
                 </div>
             </div>
 
-            <div *ngIf="client === clientName.ICFC">
+            <div *ngIf="client === clientName.ICFC && loanData?.loanType !== 'CLOSURE_LOAN'">
                 <p><strong>Other Documents to be Completed</strong>
                 <div>
 
@@ -854,11 +854,12 @@
                 </ol>
             </div>
             </div>
-            <div *ngIf="!productUtils.CBS_ENABLE">
+            <div *ngIf="!productUtils.CBS_ENABLE" >
+                <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
                 <app-collateral-summary
                         *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                         [customerAllLoanList]="customerAllLoanList"
-                        [security]="loanDataHolder?.security" [loan]="loanDataHolder?.loan"></app-collateral-summary>
+                        [security]="loanDataHolder?.security" [loan]="loanDataHolder.loan"></app-collateral-summary></div>
                 <app-proposal-justification-summary *ngIf="proposalSummary"
                                                     [customerAllLoanList]="customerAllLoanList"
                                                     [proposalData]="proposalData"></app-proposal-justification-summary>
@@ -885,9 +886,10 @@
                                  [fiscalYears]="fiscalYearArray"
                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
             </ng-template>
-
+            <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
+            </div>
             <br>
             <div *ngIf="client === clientName?.MEGA">
                 <app-comments-summary *ngIf="commentsSummary"
@@ -921,7 +923,7 @@
                         [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
                 </app-report-summary>
             </div>
-            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED' && loanData.loanType !== 'CLOSURE_LOAN'">
                 <span><strong>Loan Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
@@ -931,17 +933,17 @@
                     <p>No any information tagged</p>
                 </ng-template>
             </div>
-            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
+            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA  && loanData?.loanType !== 'CLOSURE_LOAN'">
                 <span><strong>Customer Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
                         [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
             </div>
-
+<div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
-                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary></div>
 
-            <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA">
+            <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA && loanData?.loanType !== 'CLOSURE_LOAN'" >
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
                                [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
             </div>
@@ -1222,7 +1224,7 @@
             <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
                                                       [customerAllLoanList]="customerAllLoanList"
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
                 <div class="row sb-medium py-2">
                     <div class="col-md-12">
                         <p><strong>Authority Comments</strong></p>
