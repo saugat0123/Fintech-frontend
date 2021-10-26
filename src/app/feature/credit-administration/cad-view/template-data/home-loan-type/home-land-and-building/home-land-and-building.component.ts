@@ -6,6 +6,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {DatePipe} from '@angular/common';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
+import {CurrencyFormatterPipe} from "../../../../../../@core/pipe/currency-formatter.pipe";
 
 @Component({
   selector: 'app-home-land-and-building',
@@ -34,7 +35,8 @@ export class HomeLandAndBuildingComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private datePipe: DatePipe,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
-              private translateService: SbTranslateService, ) { }
+              private translateService: SbTranslateService,
+              private currencyFormatterPipe: CurrencyFormatterPipe) { }
 
   get form() {
     return this.landBuildingForm.controls;
@@ -59,8 +61,6 @@ export class HomeLandAndBuildingComponent implements OnInit {
       purposeOfLoan: [undefined],
       beneficiaryName: [undefined],
       drawingPower: [undefined],
-      loanAmountInFigure: [undefined],
-      loanAmountInWord: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
       interestRate: [undefined],
@@ -75,13 +75,10 @@ export class HomeLandAndBuildingComponent implements OnInit {
       kittaNumber: [undefined],
       areas: [undefined],
       seatNumber: [undefined],
-      freeTextRequired: [undefined],
       insuranceAmountInFigure: [undefined],
       insuranceAmountInWord: [undefined],
       nameOfRelationshipOfficer: [undefined],
       nameOfBranchManager: [undefined],
-      approvalStaffName: [undefined],
-
       // trans
       loanLimitCheckedTrans: [undefined],
       referenceNumberTrans: [undefined],
@@ -89,8 +86,6 @@ export class HomeLandAndBuildingComponent implements OnInit {
       dateOfApplicationTrans: [undefined],
       purposeOfLoanTrans: [undefined],
       drawingPowerTrans: [undefined],
-      loanAmountInFigureTrans: [undefined],
-      loanAmountInWordTrans: [undefined],
       baseRateTrans: [undefined],
       premiumRateTrans: [undefined],
       interestRateTrans: [undefined],
@@ -106,13 +101,10 @@ export class HomeLandAndBuildingComponent implements OnInit {
       kittaNumberTrans: [undefined],
       areasTrans: [undefined],
       seatNumberTrans: [undefined],
-      freeTextRequiredTrans: [undefined],
       insuranceAmountInFigureTrans: [undefined],
       insuranceAmountInWordTrans: [undefined],
       nameOfRelationshipOfficerTrans: [undefined],
       nameOfBranchManagerTrans: [undefined],
-      approvalStaffNameTrans: [undefined],
-
       // CT
       loanLimitCheckedCT: [undefined],
       referenceNumberCT: [undefined, Validators.required],
@@ -120,8 +112,6 @@ export class HomeLandAndBuildingComponent implements OnInit {
       dateOfApplicationCT: [undefined, Validators.required],
       purposeOfLoanCT: [undefined, Validators.required],
       drawingPowerCT: [undefined, Validators.required],
-      loanAmountInFigureCT: [undefined, Validators.required],
-      loanAmountInWordCT: [undefined, Validators.required],
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
       interestRateCT: [undefined, Validators.required],
@@ -137,12 +127,10 @@ export class HomeLandAndBuildingComponent implements OnInit {
       kittaNumberCT: [undefined, Validators.required],
       areasCT: [undefined, Validators.required],
       seatNumberCT: [undefined, Validators.required],
-      freeTextRequiredCT: [undefined, Validators.required],
       insuranceAmountInFigureCT: [undefined, Validators.required],
       insuranceAmountInWordCT: [undefined, Validators.required],
       nameOfRelationshipOfficerCT: [undefined, Validators.required],
       nameOfBranchManagerCT: [undefined, Validators.required],
-      approvalStaffNameCT: [undefined, Validators.required]
     });
   }
 
@@ -193,16 +181,6 @@ export class HomeLandAndBuildingComponent implements OnInit {
       this.landBuildingForm.get('drawingPowerTrans').patchValue(this.engToNepaliNumberPipe.transform(drawingPower.toString()));
       this.landBuildingForm.get('drawingPowerCT').patchValue(this.engToNepaliNumberPipe.transform(drawingPower.toString()));
     }
-    const loanAmount = this.landBuildingForm.get('loanAmountInFigure').value;
-    if (!ObjectUtil.isEmpty(loanAmount)) {
-      this.landBuildingForm.get('loanAmountInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(loanAmount.toString()));
-      this.landBuildingForm.get('loanAmountInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(loanAmount.toString()));
-    }
-    const loanAmountInWord = this.landBuildingForm.get('loanAmountInWord').value;
-    if (!ObjectUtil.isEmpty(loanAmountInWord)) {
-      this.landBuildingForm.get('loanAmountInWordTrans').patchValue(loanAmountInWord);
-      this.landBuildingForm.get('loanAmountInWordCT').patchValue(loanAmountInWord);
-    }
     const baseRate = this.landBuildingForm.get('baseRate').value;
     if (!ObjectUtil.isEmpty(baseRate)) {
       this.landBuildingForm.get('baseRateTrans').patchValue(this.engToNepaliNumberPipe.transform(baseRate.toString()));
@@ -218,12 +196,10 @@ export class HomeLandAndBuildingComponent implements OnInit {
       this.landBuildingForm.get('interestRateTrans').patchValue(this.engToNepaliNumberPipe.transform(interestRate.toString()));
       this.landBuildingForm.get('interestRateCT').patchValue(this.engToNepaliNumberPipe.transform(interestRate.toString()));
     }
-    const loanAmountFeeInFigure = this.landBuildingForm.get('loanAdminFeeInFigure').value;
-    if (!ObjectUtil.isEmpty(loanAmountFeeInFigure)) {
-      this.landBuildingForm.get('loanAdminFeeInFigureTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(loanAmountFeeInFigure.toString()));
-      this.landBuildingForm.get('loanAdminFeeInFigureCT').patchValue(this.engToNepaliNumberPipe
-          .transform(loanAmountFeeInFigure.toString()));
+    const loanAdminFeeInFigure = this.landBuildingForm.get('loanAdminFeeInFigure').value;
+    if (!ObjectUtil.isEmpty(loanAdminFeeInFigure)) {
+      this.landBuildingForm.get('loanAdminFeeInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(loanAdminFeeInFigure.toString())));
+      this.landBuildingForm.get('loanAdminFeeInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(loanAdminFeeInFigure.toString())));
     }
     const loanAdminFeeInWord = this.landBuildingForm.get('loanAdminFeeInWord').value;
     if (!ObjectUtil.isEmpty(loanAdminFeeInWord)) {
@@ -232,8 +208,8 @@ export class HomeLandAndBuildingComponent implements OnInit {
     }
     const emiInFigure = this.landBuildingForm.get('emiInFigure').value;
     if (!ObjectUtil.isEmpty(emiInFigure)) {
-      this.landBuildingForm.get('emiInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(emiInFigure.toString()));
-      this.landBuildingForm.get('emiInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(emiInFigure.toString()));
+      this.landBuildingForm.get('emiInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(emiInFigure.toString())));
+      this.landBuildingForm.get('emiInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(emiInFigure.toString())));
     }
     const emiInWord = this.landBuildingForm.get('emiInWord').value;
     if (!ObjectUtil.isEmpty(emiInWord)) {
@@ -249,8 +225,8 @@ export class HomeLandAndBuildingComponent implements OnInit {
     }
     const loanCommitmentFee = this.landBuildingForm.get('loanCommitmentFee').value;
     if (!ObjectUtil.isEmpty(loanCommitmentFee)) {
-      this.landBuildingForm.get('loanCommitmentFeeTrans').patchValue(this.engToNepaliNumberPipe.transform(loanCommitmentFee.toString()));
-      this.landBuildingForm.get('loanCommitmentFeeCT').patchValue(this.engToNepaliNumberPipe.transform(loanCommitmentFee.toString()));
+      this.landBuildingForm.get('loanCommitmentFeeTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(loanCommitmentFee.toString())));
+      this.landBuildingForm.get('loanCommitmentFeeCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(loanCommitmentFee.toString())));
     }
     const landLocation = this.landBuildingForm.get('landLocation').value;
     if (!ObjectUtil.isEmpty(landLocation)) {
@@ -274,10 +250,10 @@ export class HomeLandAndBuildingComponent implements OnInit {
     }
     const insuranceAmountInFigure = this.landBuildingForm.get('insuranceAmountInFigure').value;
     if (!ObjectUtil.isEmpty(insuranceAmountInFigure)) {
-      this.landBuildingForm.get('insuranceAmountInFigureTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(insuranceAmountInFigure.toString()));
-      this.landBuildingForm.get('insuranceAmountInFigureCT').patchValue(this.engToNepaliNumberPipe
-          .transform(insuranceAmountInFigure.toString()));
+      this.landBuildingForm.get('insuranceAmountInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform
+      (this.currencyFormatterPipe.transform(insuranceAmountInFigure.toString())));
+      this.landBuildingForm.get('insuranceAmountInFigureCT').patchValue(this.engToNepaliNumberPipe.transform
+      (this.currencyFormatterPipe.transform(insuranceAmountInFigure.toString())));
     }
     const insuranceAmountInWord = this.landBuildingForm.get('insuranceAmountInWord').value;
     if (!ObjectUtil.isEmpty(insuranceAmountInWord)) {
@@ -292,10 +268,8 @@ export class HomeLandAndBuildingComponent implements OnInit {
       purposeOfLoan: this.landBuildingForm.get('purposeOfLoan').value,
       nameOfLandOwner: this.landBuildingForm.get('nameOfLandOwner').value,
       landLocation: this.landBuildingForm.get('landLocation').value,
-      freeTextRequired: this.landBuildingForm.get('freeTextRequired').value,
       nameOfRelationshipOfficer: this.landBuildingForm.get('nameOfRelationshipOfficer').value,
       nameOfBranchManager: this.landBuildingForm.get('nameOfBranchManager').value,
-      approvalStaffName: this.landBuildingForm.get('approvalStaffName').value,
       beneficiaryName: this.landBuildingForm.get('beneficiaryName').value,
     });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
@@ -307,14 +281,10 @@ export class HomeLandAndBuildingComponent implements OnInit {
     this.landBuildingForm.get('nameOfLandOwnerCT').patchValue(this.translatedValue.nameOfLandOwner);
     this.landBuildingForm.get('landLocationTrans').patchValue(this.translatedValue.landLocation);
     this.landBuildingForm.get('landLocationCT').patchValue(this.translatedValue.landLocation);
-    this.landBuildingForm.get('freeTextRequiredTrans').patchValue(this.translatedValue.freeTextRequired);
-    this.landBuildingForm.get('freeTextRequiredCT').patchValue(this.translatedValue.freeTextRequired);
     this.landBuildingForm.get('nameOfRelationshipOfficerTrans').patchValue(this.translatedValue.nameOfRelationshipOfficer);
     this.landBuildingForm.get('nameOfRelationshipOfficerCT').patchValue(this.translatedValue.nameOfRelationshipOfficer);
     this.landBuildingForm.get('nameOfBranchManagerTrans').patchValue(this.translatedValue.nameOfBranchManager);
     this.landBuildingForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
-    this.landBuildingForm.get('approvalStaffNameTrans').patchValue(this.translatedValue.approvalStaffName);
-    this.landBuildingForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
     this.landBuildingForm.get('beneficiaryNameCT').patchValue(this.translatedValue.beneficiaryName);
     this.landBuildingForm.get('beneficiaryNameTrans').patchValue(this.translatedValue.beneficiaryName);
     this.landBuildingForm.get('loanLimitCheckedCT').patchValue(this.translatedValue.loanLimitChecked);
@@ -329,5 +299,11 @@ export class HomeLandAndBuildingComponent implements OnInit {
   loanChecked(data) {
     this.loanLimit = data;
     console.log('Loan Limit Checked?', this.loanLimit);
+  }
+  calInterestRate() {
+    const baseRate = this.landBuildingForm.get('baseRate').value;
+    const premiumRate = this.landBuildingForm.get('premiumRate').value;
+    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+    this.landBuildingForm.get('interestRate').patchValue(sum);
   }
 }

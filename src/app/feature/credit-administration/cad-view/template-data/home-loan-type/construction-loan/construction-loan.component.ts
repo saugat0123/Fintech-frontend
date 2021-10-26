@@ -7,6 +7,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {OutputEmitter} from '@angular/compiler/src/output/abstract_emitter';
+import {CurrencyFormatterPipe} from "../../../../../../@core/pipe/currency-formatter.pipe";
 
 @Component({
   selector: 'app-construction-loan',
@@ -31,7 +32,8 @@ export class ConstructionLoanComponent implements OnInit {
               private datePipe: DatePipe,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
               private nepaliToEngNumberPipe: NepaliToEngNumberPipe,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private currencyFormatterPipe: CurrencyFormatterPipe) { }
 
   get form() {
     return this.constructionLoanForm.controls;
@@ -70,12 +72,6 @@ export class ConstructionLoanComponent implements OnInit {
       drawingPower: [undefined],
       drawingPowerCT: [undefined, Validators.required],
       drawingPowerTrans: [undefined],
-      loanAmountInFigure: [undefined],
-      loanAmountInFigureCT: [undefined, Validators.required],
-      loanAmountInFigureTrans: [undefined],
-      loanAmountInWord: [undefined],
-      loanAmountInWordCT: [undefined, Validators.required],
-      loanAmountInWordTrans: [undefined],
       baseRate: [undefined],
       baseRateCT: [undefined, Validators.required],
       baseRateTrans: [undefined],
@@ -145,18 +141,12 @@ export class ConstructionLoanComponent implements OnInit {
       insuranceAmountInWord: [undefined],
       insuranceAmountInWordCT: [undefined, Validators.required],
       insuranceAmountInWordTrans: [undefined],
-      freeTextRequired: [undefined],
-      freeTextRequiredCT: [undefined, Validators.required],
-      freeTextRequiredTrans: [undefined],
       nameOfRelationshipOfficer: [undefined],
       nameOfRelationshipOfficerCT: [undefined, Validators.required],
       nameOfRelationshipOfficerTrans: [undefined],
       nameOfBranchManager: [undefined],
       nameOfBranchManagerCT: [undefined, Validators.required],
       nameOfBranchManagerTrans: [undefined],
-      approvalStaffName: [undefined],
-      approvalStaffNameCT: [undefined, Validators.required],
-      approvalStaffNameTrans: [undefined],
     });
   }
 
@@ -197,16 +187,6 @@ export class ConstructionLoanComponent implements OnInit {
       this.constructionLoanForm.get('drawingPowerTrans').patchValue(this.engToNepaliNumberPipe.transform(drawingPower.toString()));
       this.constructionLoanForm.get('drawingPowerCT').patchValue(this.engToNepaliNumberPipe.transform(drawingPower.toString()));
     }
-    const loanAmount = this.constructionLoanForm.get('loanAmountInFigure').value;
-    if (!ObjectUtil.isEmpty(loanAmount)) {
-      this.constructionLoanForm.get('loanAmountInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(loanAmount.toString()));
-      this.constructionLoanForm.get('loanAmountInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(loanAmount.toString()));
-    }
-    const loanAmountInWord = this.constructionLoanForm.get('loanAmountInWord').value;
-    if (!ObjectUtil.isEmpty(loanAmountInWord)) {
-      this.constructionLoanForm.get('loanAmountInWordTrans').patchValue(loanAmountInWord);
-      this.constructionLoanForm.get('loanAmountInWordCT').patchValue(loanAmountInWord);
-    }
     const baseRate = this.constructionLoanForm.get('baseRate').value;
     if (!ObjectUtil.isEmpty(baseRate)) {
       this.constructionLoanForm.get('baseRateTrans').patchValue(this.engToNepaliNumberPipe.transform(baseRate.toString()));
@@ -222,12 +202,10 @@ export class ConstructionLoanComponent implements OnInit {
       this.constructionLoanForm.get('interestRateTrans').patchValue(this.engToNepaliNumberPipe.transform(interestRate.toString()));
       this.constructionLoanForm.get('interestRateCT').patchValue(this.engToNepaliNumberPipe.transform(interestRate.toString()));
     }
-    const loanAmountFeeInFigure = this.constructionLoanForm.get('loanAdminFeeInFigure').value;
-    if (!ObjectUtil.isEmpty(loanAmountFeeInFigure)) {
-      this.constructionLoanForm.get('loanAdminFeeInFigureTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(loanAmountFeeInFigure.toString()));
-      this.constructionLoanForm.get('loanAdminFeeInFigureCT').patchValue(this.engToNepaliNumberPipe
-          .transform(loanAmountFeeInFigure.toString()));
+    const loanAdminFeeInFigure = this.constructionLoanForm.get('loanAdminFeeInFigure').value;
+    if (!ObjectUtil.isEmpty(loanAdminFeeInFigure)) {
+      this.constructionLoanForm.get('loanAdminFeeInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(loanAdminFeeInFigure.toString())));
+      this.constructionLoanForm.get('loanAdminFeeInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(loanAdminFeeInFigure.toString())));
     }
     const loanAdminFeeInWord = this.constructionLoanForm.get('loanAdminFeeInWord').value;
     if (!ObjectUtil.isEmpty(loanAdminFeeInWord)) {
@@ -236,8 +214,8 @@ export class ConstructionLoanComponent implements OnInit {
     }
     const emiInFigure = this.constructionLoanForm.get('emiInFigure').value;
     if (!ObjectUtil.isEmpty(emiInFigure)) {
-      this.constructionLoanForm.get('emiInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(emiInFigure.toString()));
-      this.constructionLoanForm.get('emiInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(emiInFigure.toString()));
+      this.constructionLoanForm.get('emiInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(emiInFigure.toString())));
+      this.constructionLoanForm.get('emiInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(emiInFigure.toString())));
     }
     const emiInWord = this.constructionLoanForm.get('emiInWord').value;
     if (!ObjectUtil.isEmpty(emiInWord)) {
@@ -260,51 +238,51 @@ export class ConstructionLoanComponent implements OnInit {
     }
     const loanCommitmentFee = this.constructionLoanForm.get('loanCommitmentFee').value;
     if (!ObjectUtil.isEmpty(loanCommitmentFee)) {
-      this.constructionLoanForm.get('loanCommitmentFeeTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(loanCommitmentFee.toString()));
-      this.constructionLoanForm.get('loanCommitmentFeeCT').patchValue(this.engToNepaliNumberPipe.transform(loanCommitmentFee.toString()));
+      this.constructionLoanForm.get('loanCommitmentFeeTrans').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(loanCommitmentFee.toString())));
+      this.constructionLoanForm.get('loanCommitmentFeeCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(loanCommitmentFee.toString())));
     }
     const costOfConstruction = this.constructionLoanForm.get('costOfConstruction').value;
     if (!ObjectUtil.isEmpty(costOfConstruction)) {
-      this.constructionLoanForm.get('costOfConstructionTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(costOfConstruction.toString()));
-      this.constructionLoanForm.get('costOfConstructionCT').patchValue(this.engToNepaliNumberPipe
-          .transform(costOfConstruction.toString()));
+      this.constructionLoanForm.get('costOfConstructionTrans').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(costOfConstruction.toString())));
+      this.constructionLoanForm.get('costOfConstructionCT').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(costOfConstruction.toString())));
     }
     const firstInstallmentAmount = this.constructionLoanForm.get('firstInstallmentAmount').value;
     if (!ObjectUtil.isEmpty(firstInstallmentAmount)) {
-      this.constructionLoanForm.get('firstInstallmentAmountTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(firstInstallmentAmount.toString()));
-      this.constructionLoanForm.get('firstInstallmentAmountCT').patchValue(this.engToNepaliNumberPipe
-          .transform(firstInstallmentAmount.toString()));
+      this.constructionLoanForm.get('firstInstallmentAmountTrans').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(firstInstallmentAmount.toString())));
+      this.constructionLoanForm.get('firstInstallmentAmountCT').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(firstInstallmentAmount.toString())));
     }
     const costOfConstructionInSecondPhase = this.constructionLoanForm.get('costOfConstructionInSecondPhase').value;
     if (!ObjectUtil.isEmpty(costOfConstructionInSecondPhase)) {
-      this.constructionLoanForm.get('costOfConstructionInSecondPhaseTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(costOfConstructionInSecondPhase.toString()));
-      this.constructionLoanForm.get('costOfConstructionInSecondPhaseCT').patchValue(this.engToNepaliNumberPipe
-          .transform(costOfConstructionInSecondPhase.toString()));
+      this.constructionLoanForm.get('costOfConstructionInSecondPhaseTrans').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(costOfConstructionInSecondPhase.toString())));
+      this.constructionLoanForm.get('costOfConstructionInSecondPhaseCT').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(costOfConstructionInSecondPhase.toString())));
     }
     const secondInstallmentAmount = this.constructionLoanForm.get('secondInstallmentAmount').value;
     if (!ObjectUtil.isEmpty(secondInstallmentAmount)) {
-      this.constructionLoanForm.get('secondInstallmentAmountTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(secondInstallmentAmount.toString()));
-      this.constructionLoanForm.get('secondInstallmentAmountCT').patchValue(this.engToNepaliNumberPipe
-          .transform(secondInstallmentAmount.toString()));
+      this.constructionLoanForm.get('secondInstallmentAmountTrans').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(secondInstallmentAmount.toString())));
+      this.constructionLoanForm.get('secondInstallmentAmountCT').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(secondInstallmentAmount.toString())));
     }
     const costOfFinalProjectCompletion = this.constructionLoanForm.get('costOfFinalProjectCompletion').value;
     if (!ObjectUtil.isEmpty(costOfFinalProjectCompletion)) {
-      this.constructionLoanForm.get('costOfFinalProjectCompletionTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(costOfFinalProjectCompletion.toString()));
-      this.constructionLoanForm.get('costOfFinalProjectCompletionCT').patchValue(this.engToNepaliNumberPipe
-          .transform(costOfFinalProjectCompletion.toString()));
+      this.constructionLoanForm.get('costOfFinalProjectCompletionTrans').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(costOfFinalProjectCompletion.toString())));
+      this.constructionLoanForm.get('costOfFinalProjectCompletionCT').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(costOfFinalProjectCompletion.toString())));
     }
     const thirdInstallmentAmount = this.constructionLoanForm.get('thirdInstallmentAmount').value;
     if (!ObjectUtil.isEmpty(thirdInstallmentAmount)) {
-      this.constructionLoanForm.get('thirdInstallmentAmountTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(thirdInstallmentAmount.toString()));
-      this.constructionLoanForm.get('thirdInstallmentAmountCT').patchValue(this.engToNepaliNumberPipe
-          .transform(thirdInstallmentAmount.toString()));
+      this.constructionLoanForm.get('thirdInstallmentAmountTrans').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(thirdInstallmentAmount.toString())));
+      this.constructionLoanForm.get('thirdInstallmentAmountCT').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(thirdInstallmentAmount.toString())));
     }
     const kittaNumber = this.constructionLoanForm.get('kittaNumber').value;
     if (!ObjectUtil.isEmpty(kittaNumber)) {
@@ -323,10 +301,10 @@ export class ConstructionLoanComponent implements OnInit {
     }
     const insuranceAmountInFigure = this.constructionLoanForm.get('insuranceAmountInFigure').value;
     if (!ObjectUtil.isEmpty(insuranceAmountInFigure)) {
-      this.constructionLoanForm.get('insuranceAmountInFigureTrans').patchValue(this.engToNepaliNumberPipe
-          .transform(insuranceAmountInFigure.toString()));
-      this.constructionLoanForm.get('insuranceAmountInFigureCT').patchValue(this.engToNepaliNumberPipe
-          .transform(insuranceAmountInFigure.toString()));
+      this.constructionLoanForm.get('insuranceAmountInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(insuranceAmountInFigure.toString())));
+      this.constructionLoanForm.get('insuranceAmountInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(
+         this.currencyFormatterPipe.transform(insuranceAmountInFigure.toString())));
     }
     const insuranceAmount = this.constructionLoanForm.get('insuranceAmountInWord').value;
     if (!ObjectUtil.isEmpty(insuranceAmount)) {
@@ -343,10 +321,8 @@ export class ConstructionLoanComponent implements OnInit {
       purposeOfLoan: this.constructionLoanForm.get('purposeOfLoan').value,
       nameOfLandOwner: this.constructionLoanForm.get('nameOfLandOwner').value,
       landLocation: this.constructionLoanForm.get('landLocation').value,
-      freeTextRequired: this.constructionLoanForm.get('freeTextRequired').value,
       nameOfRelationshipOfficer: this.constructionLoanForm.get('nameOfRelationshipOfficer').value,
       nameOfBranchManager: this.constructionLoanForm.get('nameOfBranchManager').value,
-      approvalStaffName: this.constructionLoanForm.get('approvalStaffName').value,
     });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
     this.constructionLoanForm.get('referenceNumberTrans').patchValue(this.translatedValue.referenceNumber);
@@ -357,14 +333,10 @@ export class ConstructionLoanComponent implements OnInit {
     this.constructionLoanForm.get('nameOfLandOwnerCT').patchValue(this.translatedValue.nameOfLandOwner);
     this.constructionLoanForm.get('landLocationTrans').patchValue(this.translatedValue.landLocation);
     this.constructionLoanForm.get('landLocationCT').patchValue(this.translatedValue.landLocation);
-    this.constructionLoanForm.get('freeTextRequiredTrans').patchValue(this.translatedValue.freeTextRequired);
-    this.constructionLoanForm.get('freeTextRequiredCT').patchValue(this.translatedValue.freeTextRequired);
     this.constructionLoanForm.get('nameOfRelationshipOfficerTrans').patchValue(this.translatedValue.nameOfRelationshipOfficer);
     this.constructionLoanForm.get('nameOfRelationshipOfficerCT').patchValue(this.translatedValue.nameOfRelationshipOfficer);
     this.constructionLoanForm.get('nameOfBranchManagerTrans').patchValue(this.translatedValue.nameOfBranchManager);
     this.constructionLoanForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
-    this.constructionLoanForm.get('approvalStaffNameTrans').patchValue(this.translatedValue.approvalStaffName);
-    this.constructionLoanForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
     this.constructionLoanForm.get('loanLimitCheckedTrans').patchValue(this.translatedValue.loanLimitChecked);
     this.constructionLoanForm.get('loanLimitCheckedCT').patchValue(this.translatedValue.loanLimitChecked);
 
@@ -381,6 +353,12 @@ export class ConstructionLoanComponent implements OnInit {
     this.loanLimit = data;
     this.constructionLoanForm.get('loanLimitChecked').patchValue(this.loanLimit);
     console.log('Loan Limit Checked?', this.loanLimit);
+  }
+  calInterestRate() {
+    const baseRate = this.constructionLoanForm.get('baseRate').value;
+    const premiumRate = this.constructionLoanForm.get('premiumRate').value;
+    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+    this.constructionLoanForm.get('interestRate').patchValue(sum);
   }
 
 }

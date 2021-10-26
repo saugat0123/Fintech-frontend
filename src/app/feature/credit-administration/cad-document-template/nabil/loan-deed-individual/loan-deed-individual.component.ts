@@ -18,6 +18,7 @@ import { NepaliCurrencyWordPipe } from '../../../../../@core/pipe/nepali-currenc
 import { ProposalCalculationUtils } from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
 import { CurrencyFormatterPipe } from '../../../../../@core/pipe/currency-formatter.pipe';
 import { NepaliNumberAndWords } from '../../../model/nepaliNumberAndWords';
+import {OfferDocument} from '../../../model/OfferDocument';
 
 @Component({
   selector: 'app-loan-deed-individual',
@@ -69,13 +70,14 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.loanHolderNepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    console.log('individual data: ', this.loanHolderNepData);
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
         this.offerDocumentDetails = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
     }
-    console.log('offer document details: ', this.offerDocumentDetails);
     this.calulation();
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList.length > 0)) {
+      this.setLoanExpiryDate();
+    }
   }
 
   calulation() {
@@ -127,6 +129,10 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Personal Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyFloatingInterestRate ? this.offerDocumentDetails.yearlyFloatingInterestRate.en : '';
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Auto Loan') {
+      this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
+      this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
     }
     return this.formBuilder.group({
       branchName: [
@@ -258,5 +264,32 @@ export class LoanDeedIndividualComponent implements OnInit {
         this.dialogRef.close();
       }
     );
+  }
+
+  private setLoanExpiryDate(): void {
+    this.cadData.offerDocumentList.forEach((offerDocument: OfferDocument, index: number) => {
+      const initialInformation = JSON.parse(offerDocument.initialInformation);
+      const docName = offerDocument.docName;
+      if (docName === 'Personal Loan') {
+        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+            .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonth.ct + ' महिना सम्म ।');
+      }
+      if (docName === 'Personal Overdraft') {
+        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+            .patchValue(initialInformation.dateofExpiry.en.nDate);
+      }
+      if (docName === 'Educational Loan' && (initialInformation.selectedSecurity.en === 'LAND' || initialInformation.selectedSecurity.en === 'LAND_AND_BUILDING')) {
+        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+            .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।');
+      }
+      if (docName === 'Home Loan') {
+        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+            .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loan.loanPeriodInMonthsCT + ' महिना सम्म ।');
+      }
+      if (docName === 'Auto Loan') {
+        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+            .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.numberOfEmi.ct + ' महिना सम्म ।');
+      }
+    });
   }
 }

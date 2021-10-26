@@ -187,7 +187,7 @@
                 </tr>
                 <tr>
                     <td>Loan Period in Month</td>
-                    <td><input type="number" class="form-control" formControlName="loanPeriodInMonth" (input)="translateNumber('loanPeriodInMonth', 'loanPeriodInMonthTransVal')"/></td>
+                    <td><input type="number" class="form-control" formControlName="loanPeriodInMonth" (input)="translateNumber1('loanPeriodInMonth', 'loanPeriodInMonthTransVal')"/></td>
                     <td class="abc">{{translatedData?.loanPeriodInMonth}}</td>
                     <td>
                         <input type="text" class="form-control" formControlName="loanPeriodInMonthTransVal"/>
@@ -211,7 +211,7 @@
                 <tr>
                     <td>Account Number</td>
                     <td><input type="number" class="form-control" formControlName="accountNumber"
-                               (input)="translateNumber('accountNumber', 'accountNumberTransVal')"/></td>
+                               (input)="translateNumber1('accountNumber', 'accountNumberTransVal')"/></td>
                     <td class="abc">{{translatedData?.accountNumber}}</td>
                     <td>
                         <input type="text" class="form-control"

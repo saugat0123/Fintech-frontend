@@ -222,8 +222,8 @@
                         <p> कित्ता नं.    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.kittaNumberCT!== null && letter?.loan.kittaNumberCT!== ''}">
             {{letter?.loan.kittaNumberCT === null || letter?.loan.kittaNumberCT === '' ? '___________' : letter?.loan.kittaNumberCT}}</span>
                             </p>
-                        <p> क्षेत्रफल    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.freeTextRequiredCT!== null && letter?.loan.freeTextRequiredCT!== ''}">
-            {{letter?.loan.freeTextRequiredCT === null || letter?.loan.freeTextRequiredCT === '' ? '___________' : letter?.loan.freeTextRequiredCT}}</span>
+                        <p> क्षेत्रफल    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.areasCT!== null && letter?.loan.areasCT!== ''}">
+            {{letter?.loan.areasCT === null || letter?.loan.areasCT === '' ? '___________' : letter?.loan.areasCT}}</span>
                       </p>
                         <p> सिट नं.    <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.seatNumberCT!== null && letter?.loan.seatNumberCT!== ''}">
             {{letter?.loan.seatNumberCT === null || letter?.loan.seatNumberCT === '' ? '___________' : letter?.loan.seatNumberCT}}</span>
@@ -381,7 +381,7 @@
                      </span>
                         ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री
                         <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.beneficiaryNameCT!== null && letter?.loan.beneficiaryNameCT!== ''}">
-            {{letter?.loan.beneficiaryNameCT === null || letter?.loan.beneficiaryNameCT === '' ? '___________' : letter?.loan.beneficiaryNameCT}}</span>  लाई ब्रऋ एबथभभ ऋजभत्रगभ रःऋरम्चबात
+            {{letter?.loan.beneficiaryNameCT === null || letter?.loan.beneficiaryNameCT === '' ? '___________' : letter?.loan.beneficiaryNameCT}}</span>  लाई A/C Payee Cheque /MC/Draft
                         मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                         <div class="row col-md-12">
                     <textarea
@@ -443,9 +443,10 @@
                         (Interest Rate Premium) र आधार दर (Base Rate) बैंकको आधिकारिक वेब साईट  (Website) वा समय समयमा
                         बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ।<br>
                         <strong> ग. <u>थप/अतिरिक्त शुल्कः </u></strong>
-                        स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार देहाय बमोजिम
-                        थप जोखिम दर (Additional Risk Premium)  समेत लाग्नेछ।
-
+                        स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
+                        बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार ऋणीले उपभोग गदैं
+                        आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम थप जोखिम दर
+                        (Additional Risk Premium) समेत लाग्नेछ ।
                         <table class="table table-hover table-bordered hello" style="width: 100%">
                             <tr>
                                 <td> विवरण  </td>

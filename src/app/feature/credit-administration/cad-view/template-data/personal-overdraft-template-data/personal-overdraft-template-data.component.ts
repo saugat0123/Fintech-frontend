@@ -18,6 +18,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {District} from '../../../../admin/modal/district';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
 
 @Component({
   selector: 'app-personal-overdraft-template-data',
@@ -69,7 +70,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
-              private addressService: AddressService, ) { }
+              private addressService: AddressService,
+              private currencyFormatterPipe: CurrencyFormatterPipe,
+  ) { }
 
   ngOnInit() {
     this.buildForm();
@@ -270,8 +273,13 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
   }
   translateNumber(source, target) {
-    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.form.get(source).value.toString()));
     console.log(wordLabelVar);
+    this.form.get(target).patchValue(wordLabelVar);
+  }
+
+  translateNumber1(source, target) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
     this.form.get(target).patchValue(wordLabelVar);
   }
 

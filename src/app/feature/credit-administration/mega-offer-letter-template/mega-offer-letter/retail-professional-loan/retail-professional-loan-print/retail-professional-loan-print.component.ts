@@ -43,7 +43,6 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   dateOfApproval;
   dateOfApplication;
   autoRefNumber;
-
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
                public currencyFormatPipe: CurrencyFormatterPipe,
@@ -120,7 +119,12 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   guarantorParse(nepData, key, trans?) {
     const data = JSON.parse(nepData);
     if (ObjectUtil.isEmpty(trans)) {
-      return data[key].ct;
+      if (key === 'gurantedAmount') {
+        const convertData = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(data[key].en));
+        return convertData;
+      } else {
+        return data[key].ct;
+      }
     } else {
       return data[key].en;
     }

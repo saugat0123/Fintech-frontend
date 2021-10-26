@@ -30,6 +30,15 @@
                         placeholder="Name Of Embassy"
                         type="text">
             </div>
+            <div class="col-md-4"
+                 *ngIf="form.get('selectedCountry').value !== 'AUSTRALIA'">
+                <label><strong>Correct Translation</strong></label>
+                    <input class="form-control rounded"
+                           id="embassyNameTransVal"
+                           name="embassyNameTransVal"
+                           formControlName="embassyNameTransVal"
+                           type="text"/>
+            </div>
             <div class="col-md-4">
                 <label><strong>Security Type</strong></label>
                 <nb-select

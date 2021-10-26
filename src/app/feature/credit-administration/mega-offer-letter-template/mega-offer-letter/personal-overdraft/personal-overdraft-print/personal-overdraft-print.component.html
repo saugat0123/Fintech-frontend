@@ -238,7 +238,7 @@
 
                 </table>
 
-                <table class="table table-borderless">
+                <table class="table table-borderless" style="margin-top: 50px">
                     <tr>
                         <td>२.</td>
                         <td>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट
@@ -377,6 +377,8 @@
                             गर्न असक्षम भएमा बैंकको नियम विनियम बमोजिम हर्जाना ब्याज लाग्नेछ ।
                         </td>
                     </tr>
+                </table>
+                <table class="table table-borderless">
                     <tr>
                         <td>१३.</td>
                         <td>साँवा र ब्याज रकम निर्धारित भुक्तानी मिति वा कर्जा समाप्ति मितिमा भुक्तानी नभएमा देहाय
@@ -398,9 +400,10 @@
                             समयमा
                             बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ ।<br>
                             <strong> ग. थप/अतिरिक्त शुल्कः </strong>
-                            स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम विभिन्न बर्गमा
-                            वर्गिकरण भएमा बैंक नियमानुसार देहाय बमोजिम
-                            थप जोखिम दर (Additional Risk Premium) समेत लाग्नेछ ।
+                            स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
+                            बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार ऋणीले उपभोग गदैं
+                            आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम थप जोखिम दर
+                            (Additional Risk Premium) समेत लाग्नेछ ।
                             <table class="table table-hover table-bordered hello">
                                 <tr>
                                     <td> विवरण</td>
@@ -588,25 +591,25 @@
                             पर्नेछ।<br>
                             <div *ngIf="selectedSecurity === 'LAND' && !renewalVal" class="col-md-12">
                                 <p style="line-height: 1.9;margin-left:100px;">
-                                क. रु.
-                                <span class=" font-weight-bold">
+                                    क. रु.
+                                    <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
-                                को प्रतिज्ञा पत्र ।<br>
-                                ख. रु.
-                                <span class=" font-weight-bold">
+                                    को प्रतिज्ञा पत्र ।<br>
+                                    ख. रु.
+                                    <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
-                                ऋण कर्जा तमसुक ।<br>
-                                ग. व्यक्तिगत अधिविकर्ष सुविधाको लागी निवेदन ।<br>
-                                घ. निरन्तरता पत्र ।<br>
-                                ह्. बहुबैंकिङ्ग घोषणा पत्र ।<br>
-                                च. रु.
-                                <span class=" font-weight-bold">
+                                    ऋण कर्जा तमसुक ।<br>
+                                    ग. व्यक्तिगत अधिविकर्ष सुविधाको लागी निवेदन ।<br>
+                                    घ. निरन्तरता पत्र ।<br>
+                                    ह्. बहुबैंकिङ्ग घोषणा पत्र ।<br>
+                                    च. रु.
+                                    <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
-                                को धितो बन्धक तमसुक ।<br>
-                                छ. मूल्यांकन प्रतिवेदन ।
+                                    को धितो बन्धक तमसुक ।<br>
+                                    छ. मूल्यांकन प्रतिवेदन ।
                                 </p>
                                 <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px;line-height: 1.9">
                                     {{i+8 | nepaliWord}}
@@ -623,7 +626,7 @@
                                     {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))}}
                                 </span>
                                     मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
-                               <br>
+                                    <br>
                                 <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12">
                                     <p style="line-height: 1.9;">
                                         <span class="nepaliFont"
@@ -685,7 +688,6 @@
                                         </span>
                                 </div>
                             </div>
-                            <br>
                             <div *ngIf="renewalVal" class="col-md-12" style="line-height: 1.9">
                                 <p style="line-height: 1.9;margin-left:100px"> क. व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।<br>
                                     ख. निरन्तरताको लिखत ।<br>
@@ -696,7 +698,7 @@
                         </td>
                     </tr>
                 </table>
-                <p style="line-height:1.9"> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र
+                <p style="line-height:1.7; margin-top: -20px"> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र
                     साथ संलग्न रहेको प्रतिलिपीमा तपाईंको मञ्जुरी
                     सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ । अन्यथा यो प्रस्ताव स्वतः रद्द हुनेछ । साथै, तपाईले यो ऋण
                     स्वीकृति पत्रमा मञ्जुरी जनाएको
@@ -705,7 +707,7 @@
                     तथा सम्पूर्ण सुरक्षण सम्बन्धी लिखतहरु बैंकको नियमानुसार गर्नु/बुझाउनु भए पश्चातमात्र कर्जा सुविधा
                     प्रवाह हुन सक्नेछ । अन्यथा,
                     स्वीकृत ऋण सुविधा स्वतः रद्द हुनेछ ।</p>
-                <div class="row mt-3" style="width:100%">
+                <div class="row mt-1" style="width:100%">
                     <div class="col-md-12 d-flex justify-content-between">
                         <div class="right-content">
                             ................................
