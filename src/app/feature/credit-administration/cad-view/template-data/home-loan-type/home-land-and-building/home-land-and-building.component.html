@@ -10,6 +10,10 @@
                 <ng-option *ngFor="let landBuildingType of type" [value]="landBuildingType.value">{{landBuildingType.value}}</ng-option>
             </ng-select>
         </div>
+        <div class="col-md-12 pt-3 pl-2">
+            <nb-checkbox #limitCheck (checkedChange)="loanChecked(limitCheck.checked)" [checked]="loanLimit">
+                <i>Customer has total loan amount above One Crore</i></nb-checkbox>
+        </div>
         <div class="col-md-4 mt-3" *ngIf="isLand || isBuilding">
             <b>Loan Data</b>
             <div class="form-group">

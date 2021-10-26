@@ -27,6 +27,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
   BSApproval = false;
   BSApplication = false;
   translatedValue: any;
+  loanLimit = false;
 
   constructor(private formBuilder: FormBuilder,
               private nepaliToEngNumberPipe: NepaliToEngNumberPipe,
@@ -46,6 +47,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.landBuildingForm = this.formBuilder.group({
+      loanLimitChecked: [undefined],
       landBuildingType: [undefined],
       referenceNumber: [undefined],
       dateType: [undefined],
@@ -81,6 +83,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       approvalStaffName: [undefined],
 
       // trans
+      loanLimitCheckedTrans: [undefined],
       referenceNumberTrans: [undefined],
       dateOfApprovalTrans: [undefined],
       dateOfApplicationTrans: [undefined],
@@ -111,6 +114,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       approvalStaffNameTrans: [undefined],
 
       // CT
+      loanLimitCheckedCT: [undefined],
       referenceNumberCT: [undefined, Validators.required],
       dateOfApprovalCT: [undefined, Validators.required],
       dateOfApplicationCT: [undefined, Validators.required],
@@ -313,12 +317,17 @@ export class HomeLandAndBuildingComponent implements OnInit {
     this.landBuildingForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
     this.landBuildingForm.get('beneficiaryNameCT').patchValue(this.translatedValue.beneficiaryName);
     this.landBuildingForm.get('beneficiaryNameTrans').patchValue(this.translatedValue.beneficiaryName);
-
+    this.landBuildingForm.get('loanLimitCheckedCT').patchValue(this.translatedValue.loanLimitChecked);
+    this.landBuildingForm.get('loanLimitCheckedTrans').patchValue(this.translatedValue.loanLimitChecked);
     this.eventEmitter.emit(true);
     this.spinner = false;
   }
 
   getInvalidControls(referenceNumberIsRequired: string) {
     console.log(referenceNumberIsRequired);
+  }
+  loanChecked(data) {
+    this.loanLimit = data;
+    console.log('Loan Limit Checked?', this.loanLimit);
   }
 }
