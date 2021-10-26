@@ -21,13 +21,14 @@ export class CreateDocumentComponent implements OnInit {
   isPrintable;
   file;
   isEdit = false;
-  docNameExist = false;
+  docNameExist;
   jpegType = 'image/jpeg';
 
   constructor(private dialogRef: NbDialogRef<CreateDocumentComponent>,
               private toastService: ToastService ) { }
 
   ngOnInit() {
+    console.log('editId', this.editId);
     if (!ObjectUtil.isEmpty(this.editId)) {
       const siteVisitDoc = this.siteVisitDocument[this.editId];
       this.docName = siteVisitDoc.docName;
@@ -49,32 +50,33 @@ export class CreateDocumentComponent implements OnInit {
       return;
     }
     if (!ObjectUtil.isEmpty(this.docName) && ObjectUtil.isEmpty(this.editId)) {
-      this.siteVisitDocument.forEach((value) => {
-        if (value.docName === this.docName) {
-          this.toastService.show(new Alert(AlertType.ERROR, `${value.docName} is already exist`));
-          this.docNameExist = true;
-        } else {
-          this.docNameExist = false;
-        }
-      });
+      try {
+        this.siteVisitDocument.forEach((value) => {
+          if (value.docName === this.docName) {
+            this.toastService.show(new Alert(AlertType.ERROR, `${value.docName} is already exist`));
+            throw this.docNameExist;
+          }
+        });
+      } catch (ex) {
+        return;
+      }
     }
     if (!ObjectUtil.isEmpty(this.editId)) {
       const docItem = this.siteVisitDocument[this.editId];
       if (this.docName === docItem.docName) {
         this.toastService.show(new Alert(AlertType.SUCCESS, 'Document updated'));
       } else {
-        this.siteVisitDocument.forEach((value) => {
-          if (value.docName === this.docName) {
-            this.toastService.show(new Alert(AlertType.ERROR, `${value.docName} is already exist`));
-            this.docNameExist = true;
-          } else {
-            this.docNameExist = false;
-          }
-        });
+        try {
+          this.siteVisitDocument.forEach((value) => {
+            if (value.docName === this.docName) {
+              this.toastService.show(new Alert(AlertType.ERROR, `${value.docName} is already exist`));
+              throw this.docNameExist;
+            }
+          });
+        } catch (ex) {
+          return;
+        }
       }
-    }
-    if (this.docNameExist) {
-      return;
     }
     if (!ObjectUtil.isEmpty(this.editId)) {
       const item = this.siteVisitDocument[this.editId];
