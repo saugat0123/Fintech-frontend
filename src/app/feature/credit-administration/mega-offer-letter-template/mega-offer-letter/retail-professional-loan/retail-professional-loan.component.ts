@@ -200,7 +200,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 this.selectedSecurity = initialInfo.selectedSecurity.en;
                 this.selectedCountry = initialInfo.selectedCountry.en;
                 this.loanLimit = initialInfo.loanLimitChecked.en;
-                this.nameOfEmbassy = initialInfo.embassyName.np;
+                this.nameOfEmbassy = initialInfo.embassyName.ct;
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
                 // this.retailProfessionalLoan.patchValue(initialInfo, {emitEvent: false});
@@ -273,10 +273,6 @@ submit(): void {
         if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApplication)) {
             tempDateOfApplication = this.dateConversion(this.initialInfoPrint.dateOfApplication);
         }
-        let temptenureFixedDeposit;
-        if (!ObjectUtil.isEmpty(this.initialInfoPrint.tenureFixedDeposit)) {
-            temptenureFixedDeposit = this.dateConversion(this.initialInfoPrint.tenureFixedDeposit);
-        }
         this.retailProfessionalLoan.patchValue({
             nameOfCustomer: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
             addressOfCustomer: customerAddress ? customerAddress : '',
@@ -286,7 +282,6 @@ submit(): void {
             amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
             dateOfApproval: dateOfApprovalTemp ? dateOfApprovalTemp : '',
             dateOfApplication: tempDateOfApplication ? tempDateOfApplication : '',
-            tenureFixedDeposit: temptenureFixedDeposit ? temptenureFixedDeposit : '',
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
