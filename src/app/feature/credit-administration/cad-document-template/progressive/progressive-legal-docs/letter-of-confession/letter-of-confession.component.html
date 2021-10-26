@@ -3,22 +3,19 @@
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
             <h6 class="text-center"><u>प्रोग्रेशिभ फाइनान्स लिमिटेडबाट प्रोफेसनल कर्जा उपभोग गरे वापत ऋणीबाट भएको कबुलियतनामा पत्र</u></h6>
-
-            <br>
-            <br>
             <div class="row col-md-12 justify-content">
                 <p class="justify" style="line-height: 40px">
                     लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन, बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका
                     वडा नं. २२ स्थित रजिष्टर्ड कार्यालय रहेको <b>प्रोग्रेशिभ फाईनान्स लिमिटेड</b>को <input class="form-field form-control-sm nepaliFont"
-                                                                                                    formControlName="financeDistrict"
-                                                                                                    placeholder="" type="text"/>
+                                                                                                           formControlName="financeDistrict"
+                                                                                                           placeholder="" type="text"/>
                     जिल्ला <input class="form-field form-control-sm nepaliFont"
                                   formControlName="financeVdcMun"
                                   placeholder=""
                                   type="text"/>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं. <input class="form-field form-control-sm nepaliFont"
-                                                                formControlName="financeWardNo"
-                                                                placeholder="" type="text"/>
+                                                                 formControlName="financeWardNo"
+                                                                 placeholder="" type="text"/>
                     स्थित <input class="form-field form-control-sm nepaliFont"
                                  formControlName="financeBranch"
                                  placeholder=""
@@ -29,9 +26,9 @@
                                                placeholder=""
                                                readonly type="text"/>,
                     <input class="form-field form-control-sm nepaliFont"
-                                                                              formControlName="grandParentsName"
-                                                                              placeholder=""
-                                                                              readonly type="text"/>
+                           formControlName="grandParentsName"
+                           placeholder=""
+                           readonly type="text"/>
                     को नाति/नातिनि<input class="form-field form-control-sm nepaliFont"
                                          formControlName="parentsName"
                                          placeholder=""
@@ -81,19 +78,19 @@
                               formControlName="relationship"
                               placeholder=""
                               type="text"/> (ना.प्र.नं.<input class="form-field form-control-sm nepaliFont"
-                                                                       formControlName="citizenshipNo"
-                                                                       placeholder=""
-                                                                       readonly type="text"/>
+                                                              formControlName="citizenshipNo"
+                                                              placeholder=""
+                                                              readonly type="text"/>
                     मिति<input class="form-field form-control-sm nepaliFont"
-                                formControlName="citizenshipIssueDate"
-                                placeholder=""
-                                readonly type="text"/>जि.प्र.का. <input class="form-field form-control-sm nepaliFont"
-                                                                        formControlName="citizenshipIssueOffice"
-                                                                        placeholder=""
-                                                                        readonly type="text"/>)
+                               formControlName="citizenshipIssueDate"
+                               placeholder=""
+                               readonly type="text"/>जि.प्र.का. <input class="form-field form-control-sm nepaliFont"
+                                                                       formControlName="citizenshipIssueOffice"
+                                                                       placeholder=""
+                                                                       readonly type="text"/>)
                     आगे म ऋणीको व्यक्तिगत कार्य प्रयोजन वा अन्य कार्य सञ्चालन गर्न <b>मिति</b><input class="form-field form-control-sm nepaliFont"
-                                                                                               formControlName="date"
-                                                                                               placeholder="" type="text"/>
+                                                                                                     formControlName="date"
+                                                                                                     placeholder="" type="text"/>
                     <b>मा</b> यस <b>प्रोग्रेशिभ फाईनान्स लिमिटेड</b>,
                     <input class="form-field form-control-sm nepaliFont"
                            formControlName="financeBranch"
@@ -101,9 +98,9 @@
                            placeholder=""
                            readonly type="text"/>
                     शाखा कार्यालयबाट <b>प्रोफेसनल कर्जा</b> अन्तर्गत लिएको कूल कर्जा रकम रु. <input (change)="getNumAmountWord('amount','amountInWord')"
-                                                                                             class="form-field form-control-sm nepaliFont"
-                                                                                             formControlName="amount"
-                                                                                             placeholder="" readonly type="text"/>/–
+                                                                                                    class="form-field form-control-sm nepaliFont"
+                                                                                                    formControlName="amount"
+                                                                                                    placeholder="" readonly type="text"/>/–
                     (अक्षेरेपि रु.<input class="form-field form-control-sm nepaliFont"
                                          formControlName="amountInWord"
                                          placeholder=""
@@ -115,15 +112,13 @@
                     मनोमानी खुशी राजीले प्रोग्रेशिभ फाइनान्स वित्तिय संस्थाको शाखा कार्यालयमा बसी तपसिलका साक्षीको रोहवरमा यो कबुलियतनामा कागज गरिदिंयॉ ।
                 </p>
             </div>
-            <p class="text-center"><b>भवदीय,</b></p>
             <br>
-
-            <div class="row col-md-12 Sincerely text-center">
+            <p class="text-center"><b>भवदीय,</b></p>
+            <div class="row col-md-12 Sincerely">
                 <table>
                     <thead>
                     <tr>
-                        <td style="text-align: right;width: 20%">दस्तखत र संस्थाको छाप :—</td>
-                        <td style="text-align: left;width: 80%">............................</td>
+                        <td style="text-align: right;width: 20%">दस्तखत :—</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -195,30 +190,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;width: 20%">वावु/आमाको नाम :—</td>
-                        <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                                       formControlName="parentsName"
-                                                                       placeholder=""
-                                                                       readonly
-                                                                       type="text"/></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right;width: 20%">वाजे/बजैको नाम :—</td>
-                        <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                                       formControlName="grandParentsName"
-                                                                       placeholder=""
-                                                                       readonly
-                                                                       type="text"/></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right;width: 20%">पति/पत्निको नाम :—</td>
-                        <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                                       formControlName="husbandWifeName"
-                                                                       placeholder=""
-                                                                       readonly
-                                                                       type="text"/></td>
-                    </tr>
-                    <tr>
                         <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">औठा छाप :—</td>
                         <td style="text-align: left"><table class="table  table-bordered" id="fingerXap">
                             <thead>
@@ -252,7 +223,7 @@
                  formArrayName="guarantorDetails"
                  id="guarantor">
                 <div [formGroupName]="i">
-                    {{i + 1 | nepaliWord: 'unicode'}}
+                    {{i + 1 | nepaliWord: 'unicode'}}.
                     <table class="table table-responsive-md table-borderless">
                         <thead>
                         <tr>
@@ -353,3 +324,4 @@
 
 <app-letter-of-confession-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
                                 hidden></app-letter-of-confession-print>
+
