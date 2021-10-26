@@ -216,20 +216,20 @@
                                 पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ । </p>
                             <p style="text-align: center"><strong>Collateral details </strong></p>
                             <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
-                            <p *ngFor="let data of guarantorData; let i = index;">
-                               <strong>{{i + 2 | nepaliWord}}.</strong>  श्री
+                            <p>
+                               <strong>ख.</strong>  श्री
                                 <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'guarantorName')}}
+                                    {{this.finalName}}
                                 </span>
                                 ले बैंकको पक्षमा
                                 रु
                                 <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                                 </span>
                                 /-(अक्षरेपि
                                 रु.
                                 <span class=" font-weight-bold uniSize">
-                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
+                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                                 </span>
                                 मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                             </p>
@@ -248,7 +248,6 @@
                             गरिनेछ ।
                         </td>
                     </tr>
-                    <p style="page-break-before: always;">&nbsp;</p>
                     <tr>
                         <td>३.</td>
                         <td> बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा
@@ -609,21 +608,18 @@
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
                                     को धितो बन्धक तमसुक ।<br>
-                                    छ. मूल्यांकन प्रतिवेदन ।
-                                </p>
-                                <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px;line-height: 1.9">
-                                    {{i+8 | nepaliWord}}
-                                    श्री
+                                    छ. मूल्यांकन प्रतिवेदन । <br>
+                                    ज. श्री
                                     <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'guarantorName')}}
+                                    {{this.finalName}}
                                 </span>
                                     को बैकको पक्षमा रु
                                     <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                                 </span>
                                     /-(अक्षरेपी रु
                                     <span class=" font-weight-bold">
-                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))}}
+                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}
                                 </span>
                                     मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                     <br>
@@ -657,29 +653,26 @@
                                     </span>
                                     को धितो बन्धक तमसुक ।<br>
                                     छ. मूल्यांकन प्रतिवेदन ।<br>
-                                    ज. बैकर्श शर्त सहितको कम्तीमा रु
+                                    ज. श्री
+                                    <span class=" font-weight-bold">
+                                            {{this.finalName}}
+                                        </span>
+                                    को बैकको पक्षमा रु
+                                    <span class=" font-weight-bold">
+                                            {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+                                        </span> /-
+                                    (अक्षरेपी रु
+                                    <span class=" font-weight-bold">
+                                            {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}
+                                        </span>
+                                    मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                    <br>
+                                    झ.  बैकर्श शर्त सहितको कम्तीमा रु
                                     <span [ngClass]="{'font-weight-bold' : letter?.insuranceAmountinFigure.ct !== null && letter?.insuranceAmountinFigure.ct !== ''}">
                                         {{letter?.insuranceAmountinFigure.ct === null || letter?.insuranceAmountinFigure.ct === '' ? '___________' : letter?.insuranceAmountinFigure.ct}}
                                     </span>
                                     बराबरको भवनको विमालेख ।<br>
-                                    झ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
-                                </p>
-                                <p *ngFor="let data of guarantorData; let i = index;"
-                                   style="margin-left:100px;margin-top: -20px">
-                                    {{i + 10 | nepaliWord}}.
-                                    श्री
-                                    <span class=" font-weight-bold">
-                                            {{guarantorParse(data.nepData, 'guarantorName')}}
-                                        </span>
-                                    को बैकको पक्षमा रु
-                                    <span class=" font-weight-bold">
-                                            {{guarantorParse(data.nepData, 'gurantedAmount')}}
-                                        </span> /-
-                                    (अक्षरेपी रु
-                                    <span class=" font-weight-bold">
-                                            {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))}}
-                                        </span>
-                                    मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                    ञ. भवन निर्माण सम्पन्नताको प्रमाण पत्र । <br>
                                 </p>
                                 <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12"
                                      style="margin-left:5%">

@@ -255,24 +255,24 @@
                                 <div class="pb-4">
                                     <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
                                 </div>
-                                <p *ngFor="let data of guarantorData; let i = index;">
+                                <p>
                                     <strong>
-                                        {{i + 2 | nepaliWord}}.
+                                        ख.
                                     </strong> श्री
                                     <input class="form-field form-control-sm col-3"
                                            formControlName="guarantorName"
-                                           [value]="guarantorParse(data.nepData, 'guarantorName')"
+                                           [value]="this.finalName"
                                            type="text"/>
                                     ले बैंकको पक्षमा
                                     रु
                                     <input class="form-field form-control-sm"
                                            formControlName="guaranteedamountinFigure"
-                                           [value]="guarantorParse(data.nepData, 'gurantedAmount')"
+                                           [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                            type="text"/>
                                     /-(अक्षरेपि
                                     रु. <input class="form-field form-control-sm longInput uniSize"
                                                formControlName="guaranteedamountinWords"
-                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))"
+                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))"
                                                type="text"/>
                                     मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                                 </p>
@@ -281,7 +281,7 @@
 
                     </table>
 
-                        <table class="table table-borderless">
+                        <table class="table table-borderless" style="page-break-before: always">
                             <tr>
                                 <td>२.</td>
                                 <td>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट
@@ -568,24 +568,22 @@
                                                         placeholder=" रकम "
                                                         type="text"/> को धितो बन्धक तमसुक ।<br>
                                         छ.	मूल्यांकन प्रतिवेदन ।
-                                        </p>
-                                        <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px;line-height: 1.9;">
-                                            {{i + 8 | nepaliWord}}
-                                            श्री
+                                            <br>
+                                        ज.  श्री
                                             <input class="form-field form-control-sm col-3"
                                                    formControlName="guarantorName"
-                                                   [value]="guarantorParse(data.nepData, 'guarantorName')"
+                                                   [value]="this.finalName"
                                                    type="text"/>
                                             को बैकको पक्षमा रु
                                             <input class="form-field form-control-sm"
                                                    formControlName="guaranteedamountinFigure"
-                                                   [value]="guarantorParse(data.nepData, 'gurantedAmount')"
+                                                   [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                                    type="text"/>
                                             (अक्षरेपी रु <input class="form-field form-control-sm"
                                                                 formControlName="guaranteedamountinWords"
                                                                 name="guaranteedamountinWords"
                                                                 placeholder=" रकम "
-                                                                [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))"
+                                                                [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
                                                                 type="text"/>
                                             मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                         </p>
@@ -622,33 +620,31 @@
                                                         placeholder=" रकम "
                                                         type="text"/> को धितो बन्धक तमसुक ।<br>
                                         छ.  मूल्यांकन प्रतिवेदन ।<br>
-                                        ज.  बैकर्श शर्त सहितको कम्तीमा रु <input class="form-field form-control-sm"
+                                        ज.  श्री
+                                        <input class="form-field form-control-sm col-3"
+                                               formControlName="guarantorName"
+                                               [value]="this.finalName"
+                                               type="text"/>
+                                        को बैकको पक्षमा रु
+                                        <input class="form-field form-control-sm"
+                                               formControlName="guaranteedamountinFigure"
+                                               [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                               type="text"/>
+                                        (अक्षरेपी रु <input class="form-field form-control-sm"
+                                                            formControlName="guaranteedamountinWords"
+                                                            name="guaranteedamountinWords"
+                                                            placeholder=" रकम "
+                                                            [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
+                                                            type="text"/>
+                                        मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                            <br>
+                                            झ.  बैकर्श शर्त सहितको कम्तीमा रु <input class="form-field form-control-sm"
                                                                                  formControlName="insuranceAmountinFigure"
                                                                                  name="insuranceAmountinFigure"
                                                                                  placeholder=" रकम "
                                                                                  type="text"/>  बराबरको भवनको  विमालेख ।
                                             <br>
-                                            झ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
-                                        </p>
-                                        <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px;line-height: 1.9;">
-                                            {{i + 10 | nepaliWord}}
-                                            श्री
-                                            <input class="form-field form-control-sm col-3"
-                                                   formControlName="guarantorName"
-                                                   [value]="guarantorParse(data.nepData, 'guarantorName')"
-                                                   type="text"/>
-                                            को बैकको पक्षमा रु
-                                            <input class="form-field form-control-sm"
-                                                   formControlName="guaranteedamountinFigure"
-                                                   [value]="guarantorParse(data.nepData, 'gurantedAmount')"
-                                                   type="text"/>
-                                            (अक्षरेपी रु <input class="form-field form-control-sm"
-                                                                formControlName="guaranteedamountinWords"
-                                                                name="guaranteedamountinWords"
-                                                                placeholder=" रकम "
-                                                                [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))"
-                                                                type="text"/>
-                                            मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                            ञ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
                                         </p>
                                         <br>
                                         <div class="row col-md-12">
