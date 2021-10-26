@@ -45,6 +45,7 @@ import {JointFormComponent} from './component/customer-form/joint-form/joint-for
 import {ChangeLoanComponent} from './component/change-loan/change-loan.component';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {NepaliPatroModule} from 'nepali-patro';
+import {LoanActionVerificationComponent} from '../loan/loan-action/loan-action-verification/loan-action-verification.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -68,7 +69,8 @@ const COMPONENTS = [
   CustomerLoanEditComponent,
   CustomerListGroupComponent,
   BankingRelationComponent,
-  JointFormComponent
+  JointFormComponent,
+    LoanActionVerificationComponent
 ];
 
 @NgModule({
@@ -76,6 +78,7 @@ const COMPONENTS = [
     exports: [
         CustomerGroupLoanComponent,
         CompanyFormComponent,
+        LoanActionVerificationComponent
     ],
     imports: [
         CommonModule,
@@ -100,7 +103,7 @@ const COMPONENTS = [
         CbsGroupModule,
         MicroLoanModule,
         LoanInformationDetailViewModule,
-        NepaliPatroModule
+        NepaliPatroModule,
     ],
   entryComponents: [
     CustomerFormComponent,
@@ -110,7 +113,8 @@ const COMPONENTS = [
     EditSwotComponent,
     CustomerLoanApplyComponent,
     JointFormComponent,
-    ChangeLoanComponent
+    ChangeLoanComponent,
+      LoanActionVerificationComponent
   ]
 })
 export class CustomerModule {
