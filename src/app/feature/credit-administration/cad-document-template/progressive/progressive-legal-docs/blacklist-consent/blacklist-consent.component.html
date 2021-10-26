@@ -4,7 +4,10 @@
     <div class="col-md-12 viewFull">
         <form [formGroup]="form" (ngSubmit)="submit()">
             <h5 class="text-center">
-                <strong>ऋणी र जमानतकर्ताले कालोसूचीमा नाम समावेश गर्ने बारे दिएको मञ्जुरीनामा</strong>
+                <strong>
+                    श्री प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
+                    <u>ऋणी र जमानतकर्ताले कालोसूचीमा नाम समावेश गर्ने बारे दिएको मञ्जुरीनामा</u>
+                </strong>
             </h5>
             <div>
                 <p class="linespace">
@@ -19,7 +22,7 @@
                 </p>
                 <p class="text-center"><b>तपसील,</b></p>
                 <br>
-                <div>
+                <div class="row col-md-12" id="Sincerely">
                     <p>
                         दस्तखत :- .......................
                         <br>
@@ -83,9 +86,10 @@
                                                 formControlName="sincerlyKarja"
                                                 type="text">
                         <br>
-
+                    औठा छाप :-
                     </p>
-                    <p>औठा छाप :- </p>
+                    <br>
+
                     <div class="text-center" id="signature">
                         <table class="table  table-bordered fingerXap">
                             <thead>
@@ -104,9 +108,10 @@
 
                     </div>
                     <br>
+                    <br>
+                    <p>
                     दस्तखत :- .......................
                     <br>
-
                     <b>जमानत कर्ताको</b> नाम :— <input class="form-field nepaliFont form-control-sm"
                                                 formControlName="jamanatName"
                                                 type="text">
@@ -157,7 +162,10 @@
                     ससुराको नाम :- <input class="form-field nepaliFont form-control-sm"
                                           formControlName="jamanatSasuraName"
                                           type="text">
-                    <p>औठा छाप :- </p>
+                    <br>
+                    औठा छाप :-
+                    </p>
+
                     <div class="text-center" id="signature2">
                         <table class="table  table-bordered fingerXap">
                             <thead>
@@ -175,8 +183,8 @@
                         </table>
 
                     </div>
-                    <br>
-
+                </div>
+                <br>
                     <b class="text-left">साक्षी : </b>
                     <br>
                     <div class="col-md-12 float-right">
@@ -240,9 +248,9 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-               <p><strong> सनाखत साक्षी</strong></p><br>
+                <br>
+               <strong> सनाखत साक्षी</strong>
+                <br>
                 ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी वित्तीय संस्थामा कार्यरत कर्मचारी
                 <input class="form-field nepaliFont form-control-sm"
                        formControlName="karmachari"
@@ -253,8 +261,7 @@
                 <br>
                 <br>
 <br>
-
-
+                <div class="text-center">
                     <b>ईति सम्बत २०७</b> <input class="form-field nepaliFont form-control-sm"
                                      formControlName="ItisambatYear"
                                      type="text">
@@ -270,8 +277,9 @@
 
 
             </div>
-            <br>
 
+            </div>
+            <br>
             <div class="col-md-12">
                 <button class="btn btn-primary float-right" nbButton status="success" type="submit">
                     Save
