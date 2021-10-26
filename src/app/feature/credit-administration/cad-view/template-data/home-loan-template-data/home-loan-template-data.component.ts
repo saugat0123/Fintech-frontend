@@ -28,6 +28,7 @@ export class HomeLoanTemplateDataComponent implements OnInit {
     submitted = false;
     spinner = false;
     btnDisable = false;
+    loanLimit: false;
     existingOfferLetter = false;
     previewBtn = true;
 
@@ -92,6 +93,7 @@ export class HomeLoanTemplateDataComponent implements OnInit {
     onSubmit() {
         this.spinner = true;
         this.submitted = true;
+
         let homeLoan;
         if (this.isConstructionLoan) {
             homeLoan = this.constructionLoan.constructionLoanForm;
@@ -104,8 +106,8 @@ export class HomeLoanTemplateDataComponent implements OnInit {
             this.spinner = false;
             return;
         }
+        homeLoan.get('loanLimitChecked').patchValue(this.loanLimit);
         this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
-
         const offerDocument = new OfferDocument();
         offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN);
         offerDocument.initialInformation = JSON.stringify({loan: homeLoan.value, loanType: this.homeLoanForm.get('homeLoanType').value});

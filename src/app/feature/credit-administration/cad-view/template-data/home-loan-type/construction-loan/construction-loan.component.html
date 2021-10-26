@@ -1,5 +1,9 @@
 <div class="container-fluid" [nbSpinner]="spinner">
     <div [formGroup]="constructionLoanForm" class="row">
+        <div class="col-md-12 pt-3 pl-2">
+            <nb-checkbox #limitCheck (checkedChange)="loanChecked(limitCheck.checked)" [checked]="loanLimit">
+                <i>Customer has total loan amount above One Crore</i></nb-checkbox>
+        </div>
         <div class="col-md-4">
             <b>Loan Data</b>
             <div class="form-group">

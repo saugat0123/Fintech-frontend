@@ -26,7 +26,7 @@ export class ConstructionLoanComponent implements OnInit {
   BSApproval = false;
   BSApplication = false;
   translatedValue: any;
-
+  loanLimit = false;
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
               private datePipe: DatePipe,
@@ -45,6 +45,9 @@ export class ConstructionLoanComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.constructionLoanForm = this.formBuilder.group({
+      loanLimitChecked: [undefined],
+      loanLimitCheckedTrans: [undefined],
+      loanLimitCheckedCT: [undefined],
       referenceNumber: [undefined],
       referenceNumberCT: [undefined, Validators.required],
       referenceNumberTrans: [undefined],
@@ -334,6 +337,8 @@ export class ConstructionLoanComponent implements OnInit {
     }
 
 
+
+
     // translated by google api
     this.translateFormGroup = this.formBuilder.group({
       referenceNumber: this.constructionLoanForm.get('referenceNumber').value,
@@ -362,6 +367,8 @@ export class ConstructionLoanComponent implements OnInit {
     this.constructionLoanForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
     this.constructionLoanForm.get('approvalStaffNameTrans').patchValue(this.translatedValue.approvalStaffName);
     this.constructionLoanForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
+    this.constructionLoanForm.get('loanLimitCheckedTrans').patchValue(this.translatedValue.loanLimitChecked);
+    this.constructionLoanForm.get('loanLimitCheckedCT').patchValue(this.translatedValue.loanLimitChecked);
 
     this.eventEmitter.emit(true);
     this.spinner = false;
@@ -370,6 +377,12 @@ export class ConstructionLoanComponent implements OnInit {
   public getNumAmountWord(numLabel, wordLabel): void {
     const transformValue = this.nepaliCurrencyWordPipe.transform(this.constructionLoanForm.get(numLabel).value);
     this.constructionLoanForm.get(wordLabel).patchValue(transformValue);
+  }
+
+  loanChecked(data) {
+    this.loanLimit = data;
+    this.constructionLoanForm.get('loanLimitChecked').patchValue(this.loanLimit);
+    console.log('Loan Limit Checked?', this.loanLimit);
   }
 
 }
