@@ -200,7 +200,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 this.selectedSecurity = initialInfo.selectedSecurity.en;
                 this.selectedCountry = initialInfo.selectedCountry.en;
                 this.loanLimit = initialInfo.loanLimitChecked.en;
-                this.nameOfEmbassy = initialInfo.embassyName.np;
+                this.nameOfEmbassy = initialInfo.embassyName.ct;
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
                 // this.retailProfessionalLoan.patchValue(initialInfo, {emitEvent: false});
