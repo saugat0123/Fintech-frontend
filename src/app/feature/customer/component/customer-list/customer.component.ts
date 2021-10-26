@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {CustomerService} from '../../service/customer.service';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -30,8 +30,8 @@ import {Province} from '../../../admin/modal/province';
 import {UserService} from '../../../../@core/service/user.service';
 import {DocAction} from '../../../loan/model/docAction';
 import {JointFormComponent} from '../customer-form/joint-form/joint-form.component';
-import {any} from 'codelyzer/util/function';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {LoanActionVerificationComponent} from '../../../loan/loan-action/loan-action-verification/loan-action-verification.component';
 
 @Component({
     selector: 'app-customer-component',
@@ -39,7 +39,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
     styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
-
+    @Input() docAction: string;
     page = 1;
     spinner = false;
     search = {};
@@ -71,7 +71,7 @@ export class CustomerComponent implements OnInit {
     customerGroupList: Array<CustomerGroup>;
     provinces: Province[];
     onActionChangeSpinner = false;
-
+    nextDialogue;
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,
                 private modalService: NgbModal,
@@ -86,8 +86,8 @@ export class CustomerComponent implements OnInit {
                 private customerGroupService: CustomerGroupService,
                 private companyInfoService: CompanyInfoService,
                 private location: AddressService,
-                private userService: UserService
-    ) {
+                private userService: UserService,
+                private nbDialogService: NbDialogService,) {
     }
 
     static loadData(other: CustomerComponent) {
@@ -197,6 +197,7 @@ export class CustomerComponent implements OnInit {
 
     onClose() {
         this.modalService.dismissAll();
+        this.nextDialogue.close();
     }
 
     clear() {
@@ -407,29 +408,41 @@ export class CustomerComponent implements OnInit {
 
     actionNext(template) {
         this.modalService.dismissAll();
-        this.modalService.open(template, {backdrop: 'static', keyboard: false});
+        this.nextDialogue = this.nbDialogService.open(template);
     }
 
-    confirmTransferCustomer(comment: string) {
-        this.transferSpinner = true;
-        this.formAction.patchValue({
-            docAction: DocAction.value(DocAction.TRANSFER),
-            comment: comment,
-            customerInfoId: this.transferSelectedCustomerInfo.id,
-            toBranchId: this.transferSelectedBranch.id,
-            toUserId: this.selectedUserForTransfer.id,
-            toRoleId: this.selectedUserForTransfer.role.id
+    verifyAndTransfer(comment: string){
+        this.nextDialogue.close();
+        const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+            context: {
+                 action: this.docAction
+            }
         });
-        this.customerInfoService.transferCustomerWithLoansToOtherBranch(this.formAction.value)
-            .subscribe((response: any) => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Customer has been successfully transferred.'));
-            }, error => {
-                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-                this.modalService.dismissAll();
-            });
-        this.modalService.dismissAll();
-        CustomerComponent.loadData(this);
-        this.transferSpinner = false;
+        dialogRef.onClose.subscribe((verified: boolean) => {
+            if (verified === true) {
+                this.transferSpinner = true;
+                this.formAction.patchValue({
+                    docAction: DocAction.value(DocAction.TRANSFER),
+                    comment: comment,
+                    customerInfoId: this.transferSelectedCustomerInfo.id,
+                    toBranchId: this.transferSelectedBranch.id,
+                    toUserId: this.selectedUserForTransfer.id,
+                    toRoleId: this.selectedUserForTransfer.role.id
+                });
+                this.customerInfoService.transferCustomerWithLoansToOtherBranch(this.formAction.value)
+                    .subscribe((response: any) => {
+                        this.modalService.dismissAll();
+                        CustomerComponent.loadData(this);
+                        this.toastService.show(new Alert(AlertType.SUCCESS, 'Customer has been successfully transferred.'));
+                    }, error => {
+                        this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+                        this.modalService.dismissAll();
+                    });
+
+                this.transferSpinner = false;
+            }
+
+        });
     }
 
     onNextJointCustomer(val) {

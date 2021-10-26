@@ -236,7 +236,7 @@
           </button>
           <button [ngStyle]="{ 'filter' : (comment.value == undefined || comment.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
                   [disabled]="comment.value == undefined || comment.value == ''" type="submit"
-                  class="btn btn-primary  btn-flat" (click)="confirmTransferCustomer(comment.value)">
+                  class="btn btn-primary  btn-flat" (click)="verifyAndTransfer(comment.value)">
             Confirm
           </button>
         </div>
