@@ -1,20 +1,39 @@
-@import '../../progressive-legal-docs.component';
-.viewFull {
-  max-height: 85vh;
-  text-align: justify;
-}
-@media print {
-  .page-break { page-break-before: always; }
-}
+@import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-legal-docs/progressive-legal-docs.component";
 
+h5{
+  text-decoration: underline;
+}
+.linespace{
+  line-height: 2rem;
+}
 .fingerXap {
   width: 500px;
   margin: auto;
   text-align: center;
 }
-
-
-table {
-  margin-left:20px;
-  width: 100%;
+.fingerXap .signature-area{
+  width:100%;
+  border-style: none
 }
+
+#signature,
+#signature2{
+  margin-left: 800px;
+}
+
+.guaranter {
+  display: flex;
+  flex-wrap: initial;
+  flex-direction: row;
+}
+
+.guaranter1 {
+  width: 50%;
+}
+
+.guaranter2 {
+  width: 50%;
+  margin-left: 100px;
+}
+
+

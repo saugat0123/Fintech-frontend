@@ -3,13 +3,11 @@
 
     <div class="col-md-12 viewFull">
         <form [formGroup]="form" (ngSubmit)="submit()">
-            <h6 class="text-center">
-                श्री प्रोग्रेशिभ फाइनान्स लिमिटेड
-                <br>
-                ऋणी र जमानतकर्ताले कालोसूचीमा नाम समावेश गर्ने बारे दिएको मञ्जुरीनामा
-            </h6>
-            <div class="row">
-                <p>
+            <h5 class="text-center">
+                <strong>ऋणी र जमानतकर्ताले कालोसूचीमा नाम समावेश गर्ने बारे दिएको मञ्जुरीनामा</strong>
+            </h5>
+            <div>
+                <p class="linespace">
                     नेपाल राट्र बैंकद्धारा बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशन मलाई/हामीलाई पूर्ण जानकारी छ।
                     सो निर्देशन बमोजिम त्यस बैंकबाट लिएको तपसीलमा उल्लेखित कर्जा/सुविधाहरु तपाई धनी बैंकको नीति नियम तथा सो
                     वापत त्यस बैंकबाट जारी भएको कर्जा स्वीकृत पत्र र/वा लिखतको शर्त मुताविक सो वापतको सांवा, ब्याज, फि, कमिशन, दस्तुर आदि
@@ -19,13 +17,11 @@
                     कागजले बदर गरी दिनु होला भनी नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशन वमोजिम यो मञ्जुरीनामाको कागज
                     सही–छाप गरी तपाई प्रोग्रेशिभ फाइनान्स लि. लाई दिएको छू/छौ।
                 </p>
-                <br>
-                <p class="text-center">तपसील,</p>
+                <p class="text-center"><b>तपसील,</b></p>
                 <br>
                 <div>
                     <p>
-
-                        दस्तखत :-..........
+                        दस्तखत :- .......................
                         <br>
                         दस्तखत गर्नेको नाम :- <input class="form-field nepaliFont form-control-sm"
                                                      formControlName="sincerlyName"
@@ -59,7 +55,7 @@
                                                   formControlName="sincerlyPermanentWadNo"
                                                   type="text">
                         <br>
-                        हालको ठेगाना <input class="form-field nepaliFont form-control-sm"
+                        हालको ठेगाना :-<input class="form-field nepaliFont form-control-sm"
                                             formControlName="sincerlyTemporaryDistrict"
                                             type="text">
                         जिल्ला <input class="form-field nepaliFont form-control-sm"
@@ -75,22 +71,22 @@
                                                  formControlName="sincerlyParentName"
                                                  type="text">
                         <br>
-                        बाजेको नाम:-<input class="form-field nepaliFont form-control-sm"
+                        बाजेको नाम :-<input class="form-field nepaliFont form-control-sm"
                                                formControlName="sincerlyGrandParentName"
                                                type="text">
                         <br>
-                        स्थायी लेखा नं.:-<input class="form-field nepaliFont form-control-sm"
+                        स्थायी लेखा नं. :-<input class="form-field nepaliFont form-control-sm"
                                                 formControlName="sincerlyLekhaNo"
                                                 type="text">
                         <br>
-                        कर्जा सूबिधाहरु:-<input class="form-field nepaliFont form-control-sm"
+                        कर्जा सूबिधाहरु :-<input class="form-field nepaliFont form-control-sm"
                                                 formControlName="sincerlyKarja"
                                                 type="text">
                         <br>
 
                     </p>
-                    <p>औठा छाप</p>
-                    <div class="text-center">
+                    <p>औठा छाप :- </p>
+                    <div class="text-center" id="signature">
                         <table class="table  table-bordered fingerXap">
                             <thead>
                             <tr>
@@ -108,10 +104,10 @@
 
                     </div>
                     <br>
-                    दस्तखत:-_________________।
+                    दस्तखत :- .......................
                     <br>
 
-                    जमानत कर्ताको नामः— <input class="form-field nepaliFont form-control-sm"
+                    <b>जमानत कर्ताको</b> नाम :— <input class="form-field nepaliFont form-control-sm"
                                                 formControlName="jamanatName"
                                                 type="text">
                     (ना.प्र.न <input class="form-field nepaliFont form-control-sm"
@@ -123,7 +119,8 @@
                     जि प्र.का<input class="form-field nepaliFont form-control-sm"
                                     formControlName="jamanatJPK"
                                     type="text"> )
-                    कम्पनीको हकमाः – (रजिष्टेशन नं<input class="form-field nepaliFont form-control-sm"
+                    <br>
+                    <b>कम्पनीको हकमा</b> :- (रजिष्टेशन नं<input class="form-field nepaliFont form-control-sm"
                                                            formControlName="jamanatRegNo"
                                                            type="text">
                     मिति<input class="form-field nepaliFont form-control-sm"
@@ -132,7 +129,8 @@
                     दर्ता गर्ने कार्यालय<input class="form-field nepaliFont form-control-sm"
                                                formControlName="jamanatRegCDO"
                                                type="text"> )
-                    ठेगानाः—स्थायी <input class="form-field nepaliFont form-control-sm"
+                    <br>
+                    ठेगाना :—स्थायी <input class="form-field nepaliFont form-control-sm"
                                            formControlName="jamanatPermanentAddress"
                                            type="text">
                     जिल्ला <input class="form-field nepaliFont form-control-sm"
@@ -141,7 +139,8 @@
                     गा.पा./न.पा.वडा नं <input class="form-field nepaliFont form-control-sm"
                                               formControlName="jamanatWadNo"
                                               type="text">
-                    हालको ठेगाना <input class="form-field nepaliFont form-control-sm"
+                    <br>
+                    हालको ठेगाना :- <input class="form-field nepaliFont form-control-sm"
                                         formControlName="jamanatTemporaryAddress"
                                         type="text">
                     जिल्ला <input class="form-field nepaliFont form-control-sm"
@@ -150,14 +149,16 @@
                     गा.पा./न.पा.वडा नं <input class="form-field nepaliFont form-control-sm"
                                               formControlName="jamanatTemporaryWadNo"
                                               type="text">
-                    पतिको नामः—  <input class="form-field nepaliFont form-control-sm"
+                    <br>
+                    पतिको नाम :—  <input class="form-field nepaliFont form-control-sm"
                                          formControlName="jamanatHusbandName"
                                          type="text">
-                    ससुराको नामः— <input class="form-field nepaliFont form-control-sm"
+                    <br>
+                    ससुराको नाम :- <input class="form-field nepaliFont form-control-sm"
                                           formControlName="jamanatSasuraName"
                                           type="text">
-                    <p>औठा छाप</p>
-                    <div class="text-center">
+                    <p>औठा छाप :- </p>
+                    <div class="text-center" id="signature2">
                         <table class="table  table-bordered fingerXap">
                             <thead>
                             <tr>
@@ -176,7 +177,7 @@
                     </div>
                     <br>
 
-                    <b class="text-left">साक्षी :</b>
+                    <b class="text-left">साक्षी : </b>
                     <br>
                     <div class="col-md-12 float-right">
                         <button (click)="addGuarantor()" class="btn btn-primary btn-sm float-right " size="tiny"
@@ -249,24 +250,27 @@
                 <input class="form-field nepaliFont form-control-sm"
                                                              formControlName="karmachariNo"
                                                              type="text">
+                <br>
+                <br>
 <br>
 
 
-                    ईति सम्बत <input class="form-field nepaliFont form-control-sm"
+                    <b>ईति सम्बत २०७</b> <input class="form-field nepaliFont form-control-sm"
                                      formControlName="ItisambatYear"
                                      type="text">
-                    साल <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatMonth"
+                    <b>साल</b> <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatMonth"
                                type="text">
-                    महिना <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatDay"
+                    <b>महिना</b> <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatDay"
                                  type="text">
-                    गते <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatTime"
+                    <b>गते</b> <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatTime"
                                type="text">
-                    रोज शुभम् <input class="form-field nepaliFont form-control-sm"
+                    <b>रोज शुभम्</b> <input class="form-field nepaliFont form-control-sm"
                                      formControlName="ItisambatRojSubham"
                                      type="text">।
 
 
             </div>
+            <br>
 
             <div class="col-md-12">
                 <button class="btn btn-primary float-right" nbButton status="success" type="submit">
