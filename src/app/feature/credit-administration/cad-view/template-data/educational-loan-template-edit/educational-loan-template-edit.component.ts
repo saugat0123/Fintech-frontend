@@ -92,6 +92,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.getAllProvince();
     // get all district list
     this.getAllDistrict();
+    console.log(this.initialInformation);
     if (!ObjectUtil.isEmpty(this.initialInformation)) {
       this.fieldFlag = true;
       this.dateTypeAD = true;
@@ -649,6 +650,9 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.form.get('sakhshiNameTransVal').patchValue(this.initialInformation.sakhshiName.ct);
     this.form.get('promissoryNoteAmountTransVal').patchValue(this.initialInformation.promissoryNoteAmount.ct);
     this.form.get('loanDeedAmountTransVal').patchValue(this.initialInformation.loanDeedAmount.ct);
+    if (!ObjectUtil.isEmpty(this.form.get('embassyName').value)) {
+      this.form.get('embassyNameTransVal').patchValue(this.initialInformation.embassyName.ct);
+    }
     if (this.selectedSecurityVal === 'FIXED_DEPOSIT' && (!ObjectUtil.isEmpty(this.initialInformation.accountNumber)
         || !ObjectUtil.isEmpty(this.initialInformation.bankName))) {
       this.form.get('accountNumberTransVal').patchValue(this.initialInformation.accountNumber.ct);
