@@ -75,6 +75,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        const checkRoute = localStorage.getItem('FromDetailed-view');
+        if (checkRoute === 'true') {
+            this.activeApprovalSheet();
+        }
     }
 
     ngOnDestroy(): void {
