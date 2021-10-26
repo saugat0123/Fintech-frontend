@@ -293,7 +293,6 @@ export class CustomerWiseLoanPullComponent implements OnInit {
                 };
             });
         }
-
         this.loanFormService.detail(customerLoanId).subscribe((response: any) => {
             console.log('response', response);
             this.toUser = response.detail.currentStage.toUser.name;
