@@ -167,7 +167,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       loanLimitChecked: [undefined],
 
       dateOfApproval: [undefined],
-      referenceNumber: [undefined],
+      //referenceNumber: [undefined],
       dateOfApplication: [undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
@@ -210,6 +210,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       landArea: [undefined],
       promissoryNoteAmount: [undefined],
       loanDeedAmount: [undefined],
+      accountNumber: [undefined],
+      bankName: [undefined],
 
       // Translated Value
       embassyNameTransVal: [undefined],
@@ -217,7 +219,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
-      referenceNumberTransVal: [undefined, Validators.required],
+      //referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
@@ -262,6 +264,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       loanDeedAmountTransVal: [undefined],
       municipalityOrVdc: [undefined],
       municipalityOrVdcTransVal: [undefined],
+      accountNumberTransVal: [undefined],
+      bankNameTransVal: [undefined],
       securities: this.formBuilder.array([])
     });
   }
@@ -540,6 +544,10 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     }
     this.form.get('selectedCountryTransVal').patchValue(data.selectedCountry.en);
     this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
+    if (this.selectedSecurityVal === 'FIXED_DEPOSIT') {
+      this.form.get('accountNumberTransVal').patchValue(data.accountNumber);
+      this.form.get('bankNameTransVal').patchValue(data.bankName);
+    }
   }
 
   private clearConditionalValidation(): void {
@@ -560,7 +568,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.form.get('selectedCountry').patchValue(this.initialInformation.selectedCountry.en);
     this.form.get('selectedSecurity').patchValue(this.initialInformation.selectedSecurity.en);
     this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
-    this.form.get('referenceNumber').patchValue(this.initialInformation.referenceNumber.en);
+    //this.form.get('referenceNumber').patchValue(this.initialInformation.referenceNumber.en);
     this.form.get('dateOfApplication').patchValue(this.initialInformation.dateOfApplication.en);
     this.form.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
     this.form.get('fixedDepositReceiptAmountWords').patchValue(this.initialInformation.fixedDepositReceiptAmountWords.en);
@@ -598,9 +606,14 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.form.get('sakhshiName').patchValue(this.initialInformation.sakhshiName.en);
     this.form.get('promissoryNoteAmount').patchValue(this.initialInformation.promissoryNoteAmount.en);
     this.form.get('loanDeedAmount').patchValue(this.initialInformation.loanDeedAmount.en);
+    if (this.selectedSecurityVal === 'FIXED_DEPOSIT' && (!ObjectUtil.isEmpty(this.initialInformation.accountNumber) ||
+        !ObjectUtil.isEmpty(this.initialInformation.bankName))) {
+      this.form.get('accountNumber').patchValue(this.initialInformation.accountNumber.en);
+      this.form.get('bankName').patchValue(this.initialInformation.bankName.en);
+    }
 
     // set ct value
-    this.form.get('referenceNumberTransVal').patchValue(this.initialInformation.referenceNumber.ct);
+    //this.form.get('referenceNumberTransVal').patchValue(this.initialInformation.referenceNumber.ct);
     this.form.get('purposeOfLoanTransVal').patchValue(this.initialInformation.purposeOfLoan.ct);
     this.form.get('fixedDepositReceiptAmountWords').patchValue(this.initialInformation.fixedDepositReceiptAmountWords.ct);
     this.form.get('baseRateTransVal').patchValue(this.initialInformation.baseRate.ct);
@@ -636,6 +649,11 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.form.get('sakhshiNameTransVal').patchValue(this.initialInformation.sakhshiName.ct);
     this.form.get('promissoryNoteAmountTransVal').patchValue(this.initialInformation.promissoryNoteAmount.ct);
     this.form.get('loanDeedAmountTransVal').patchValue(this.initialInformation.loanDeedAmount.ct);
+    if (this.selectedSecurityVal === 'FIXED_DEPOSIT' && (!ObjectUtil.isEmpty(this.initialInformation.accountNumber)
+        || !ObjectUtil.isEmpty(this.initialInformation.bankName))) {
+      this.form.get('accountNumberTransVal').patchValue(this.initialInformation.accountNumber.ct);
+      this.form.get('bankNameTransVal').patchValue(this.initialInformation.bankName.ct);
+    }
   }
 
   public setSecurityData(): void {

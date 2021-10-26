@@ -33,6 +33,7 @@ export class SmePrintComponent implements OnInit {
   guarantorNames: Array<String> = [];
   allguarantorNames;
   guarantorAmount: number = 0;
+  autoRefNumber;
 
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -60,7 +61,9 @@ export class SmePrintComponent implements OnInit {
       this.branchName = this.loanHolderInfo.branch.ct;
     }
     this.guarantorDetails();
-
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
   }
 
   guarantorDetails(){

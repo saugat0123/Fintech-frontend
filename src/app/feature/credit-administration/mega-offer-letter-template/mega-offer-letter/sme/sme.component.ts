@@ -183,12 +183,16 @@ export class SmeComponent implements OnInit {
       const val = value.proposal.proposedLimit;
       totalLoanAmount = totalLoanAmount + val;
     });
+    let autoReferenceNumber;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      autoReferenceNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
     this.loanForm.patchValue({
       customerName: this.smeLoanHolderInfo.name.ct ? this.smeLoanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
-      referenceNumber: this.tempData.referenceNumber.ct ? this.tempData.referenceNumber.ct : '',
+      referenceNumber: autoReferenceNumber ? autoReferenceNumber : '',
       vehicleName: this.tempData.vehicleName.ct ? this.tempData.vehicleName.ct : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',

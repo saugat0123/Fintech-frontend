@@ -95,9 +95,13 @@ export class RetailProfessionalLoanComponent implements OnInit {
     }
 
     buildForm() {
+        let refNumberAuto;
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+            refNumberAuto = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+        }
         this.retailProfessionalLoan = this.formBuilder.group({
             dateOfApproval: [undefined],
-            referenceNumber: [undefined],
+            referenceNumber: [refNumberAuto ? refNumberAuto : undefined],
             nameOfCustomer: [undefined],
             addressOfCustomer: [undefined],
             dateOfApplication: [undefined],

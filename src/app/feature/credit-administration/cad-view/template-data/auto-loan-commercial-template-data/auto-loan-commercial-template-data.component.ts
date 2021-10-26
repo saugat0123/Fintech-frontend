@@ -57,7 +57,7 @@ export class AutoLoanCommercialTemplateDataComponent implements OnInit {
   }
   buildAuto() {
     this.form = this.formBuilder.group({
-      referenceNumber: [undefined],
+      // referenceNumber: [undefined],
       dateofApproval: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
@@ -97,7 +97,7 @@ export class AutoLoanCommercialTemplateDataComponent implements OnInit {
       witnessName: [undefined],
       staffName: [undefined],
       // For Translated Value
-      referenceNumberTransVal: [undefined],
+      // referenceNumberTransVal: [undefined],
       dateofApprovalTransVal: [undefined],
       customerNameTransVal: [undefined],
       customerAddressTransVal: [undefined],
