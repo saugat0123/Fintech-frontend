@@ -480,7 +480,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     createRelativesArray() {
-        console.log('inside add a');
         this.relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
                 customerRelation: [{value: customerRelation, disabled: false}],
