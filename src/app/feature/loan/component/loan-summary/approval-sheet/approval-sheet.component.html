@@ -490,12 +490,13 @@
             <hr>
 
             <!-- Start security group details-->
+            <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
             <app-collateral-summary
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                     [customerAllLoanList]="customerAllLoanList"
                     [security]="loanDataHolder?.security"
                     [loanCategory]="loanDataHolder?.loanCategory"
-                    [approveSheet]="approveSheet" [loan]="loanDataHolder.loan"></app-collateral-summary>
+                    [approveSheet]="approveSheet" [loan]="loanDataHolder.loan"></app-collateral-summary></div>
             <!-- End security group details-->
 
             <!-- Start Guarantors Details -->
