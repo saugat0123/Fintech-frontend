@@ -170,8 +170,8 @@
             </div>
             <br>
             <b> साक्षी :</b>
-
-
+            <br>
+            <br>
             <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i"
                  style="overflow-x: auto">
                 {{i + 1 | nepaliWord: 'unicode'}}.
@@ -222,10 +222,9 @@
 
 
 
-            <div class="row col-md-12">
+            <div class="row col-md-12" style="line-height: 1.9em">
                 <br>
                 <p><b class="text-left">सनाखत साक्षी</b>
-                    <br>
                     <br>
                     ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने धनी वित्तीय संस्थामा कार्यरत कर्मचारी
                     <span [ngClass]="{'nepaliFont' : printDocForm?.IdentifiedGuarantorName !== null && printDocForm?.IdentifiedGuarantorName !== ''}">
@@ -238,7 +237,7 @@
                                             </span>)
                     <br>
                     <br>
-                    ईति सम्बत
+                    <br> ईति सम्बत
                     <span [ngClass]="{'nepaliFont' : printDocForm?.ItisambatYear !== null && printDocForm?.ItisambatYear !== ''}">
                                                 {{printDocForm?.ItisambatYear === null || printDocForm?.ItisambatYear === '' ? '____________________' : printDocForm?.ItisambatYear}}
                                             </span>
