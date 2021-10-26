@@ -22,6 +22,8 @@ export class CreateDocumentComponent implements OnInit {
   file;
   isEdit = false;
   docNameExist;
+  docNameChange = false;
+  docUpload = false;
   jpegType = 'image/jpeg';
 
   constructor(private dialogRef: NbDialogRef<CreateDocumentComponent>,
@@ -29,6 +31,7 @@ export class CreateDocumentComponent implements OnInit {
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.editId)) {
+      this.docUpload = true;
       const siteVisitDoc = this.siteVisitDocument[this.editId];
       this.docName = siteVisitDoc.docName;
       this.isPrintable = siteVisitDoc.isPrintable;
@@ -92,9 +95,20 @@ export class CreateDocumentComponent implements OnInit {
 
   uploadDoc(event) {
     this.file = event.target.files[0];
+    this.docUpload = false;
   }
 
   public onClose(): void {
     this.dialogRef.close();
+  }
+
+  checkValue(event) {
+    if (event) {
+      if (ObjectUtil.isEmpty(this.docName)) {
+        this.docNameChange = true;
+      } else {
+        this.docNameChange = false;
+      }
+    }
   }
 }
