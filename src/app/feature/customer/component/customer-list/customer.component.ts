@@ -197,13 +197,11 @@ export class CustomerComponent implements OnInit {
 
     onClose() {
         this.modalService.dismissAll();
-        this.nextDialogue.close();
     }
 
     clear() {
         this.buildFilterForm();
         CustomerComponent.loadData(this);
-
     }
 
     download() {
