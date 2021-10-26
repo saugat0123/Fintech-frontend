@@ -204,7 +204,7 @@
         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
           <td>Drawing Power(%of Distress Value)</td>
           <td><input type="number" class="form-control" formControlName="distressValue"
-          (input)="translateNumber('distressValue', 'distressValueTransVal')"/></td>
+          (input)="translateNumber1('distressValue', 'distressValueTransVal')"/></td>
           <td class="abc">{{translatedData?.distressValue}}</td>
           <td>
             <input type="text" class="form-control" formControlName="distressValueTransVal"/>
@@ -309,7 +309,7 @@
         <tr *ngIf="selectedSecurityVal === 'LAND' || selectedSecurityVal === 'LAND_AND_BUILDING'">
           <td>Loan Period In Months</td>
           <td><input type="number" class="form-control" formControlName="loanPeriodInMonths"
-                     (input)="translateNumber('loanPeriodInMonths', 'loanPeriodInMonthsTransVal')"/>
+                     (input)="translateNumber1('loanPeriodInMonths', 'loanPeriodInMonthsTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.loanPeriodInMonths}}</td>
           <td>
@@ -318,7 +318,7 @@
         <tr *ngIf="selectedSecurityVal === 'LAND' || selectedSecurityVal === 'LAND_AND_BUILDING'">
           <td>Moratorium Period In Months</td>
           <td><input type="number" class="form-control" formControlName="moratoriumPeriodInMonths"
-                     (input)="translateNumber('moratoriumPeriodInMonths', 'moratoriumPeriodInMonthsTransVal')"/>
+                     (input)="translateNumber1('moratoriumPeriodInMonths', 'moratoriumPeriodInMonthsTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.moratoriumPeriodInMonths}}</td>
           <td>
@@ -331,7 +331,7 @@
           <td>Loan Commitment Fee In Percentage</td>
           <td><input type="number" class="form-control"
                      formControlName="loanCommitmentFeeInPercentage"
-                     (input)="translateNumber('loanCommitmentFeeInPercentage', 'loanCommitmentFeeInPercentageTransVal')"/>
+                     (input)="translateNumber1('loanCommitmentFeeInPercentage', 'loanCommitmentFeeInPercentageTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.loanCommitmentFeeInPercentage}}</td>
           <td>
@@ -404,27 +404,40 @@
 
         <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
           <td>Tenure Of Fixed Deposit</td>
-          <td><input type="number" class="form-control" formControlName="tenureFixedDeposit"
-                     (input)="translateNumber('tenureFixedDeposit', 'tenureFixedDepositTransVal')"/>
-          </td>
-          <td class="abc">{{translatedData?.tenureFixedDeposit}}</td>
           <td>
-            <input type="text" class="form-control"
-                   [ngClass]="{ 'is-invalid':submitted && Form.tenureFixedDepositTransVal.errors }"
-                   formControlName="tenureFixedDepositTransVal"/>
-            <div *ngIf="submitted && Form.tenureFixedDepositTransVal.errors"
-                 class="invalid-feedback">
-              <div *ngIf="Form.tenureFixedDepositTransVal.errors.required">Tenure of fixed deposit
-                is required
-              </div>
+            <div class="row" style="margin-left: 5px; margin-top: -8px;">
+              <nb-radio-group name="tenureFixedDeposit">
+                <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span>
+                </nb-radio>
+                <nb-radio (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">
+                  AD
+                </nb-radio>
+              </nb-radio-group>
             </div>
           </td>
         </tr>
-
+        <tr>
+          <td>
+          </td>
+          <td>
+            <nepali-patro *ngIf="dateTypeBS2" formControlName="tenureFixedDeposit" [responseType]="2"
+                          [displayNepali]="true">
+            </nepali-patro>
+            <input [nbDatepicker]="tfd"
+                   *ngIf="dateTypeAD2"
+                   class="form-control form-control-sm-error rounded"
+                   formControlName="tenureFixedDeposit"
+                   id="tenureFixedDeposit"
+                   name="tenureFixedDeposit"
+                   placeholder="Tenure of Fixed Deposit"
+                   type="text">
+            <nb-datepicker #tfd></nb-datepicker>
+          </td>
+        </tr>
         <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
           <td>Fixed Deposit Receipt Number</td>
           <td><input type="number" class="form-control" formControlName="tenureDepositReceiptNumber"
-                     (input)="translateNumber('tenureDepositReceiptNumber', 'tenureDepositReceiptNumberTransVal')"/>
+                     (input)="translateNumber1('tenureDepositReceiptNumber', 'tenureDepositReceiptNumberTransVal')"/>
           </td>
           <td class="abc">{{translatedData?.tenureDepositReceiptNumber}}</td>
           <td>

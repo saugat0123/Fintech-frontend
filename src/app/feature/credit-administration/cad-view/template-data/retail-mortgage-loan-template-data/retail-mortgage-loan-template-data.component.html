@@ -107,8 +107,7 @@
             </tr>
             <tr>
                 <td>Loan Purpose</td>
-                <td><input type="text" class="form-control" formControlName="loanPurpose"
-                           (input)="translateNumber('loanPurpose', 'loanPurposeTransVal')">
+                <td><input type="text" class="form-control" formControlName="loanPurpose">
                 </td>
                 <td class="abc">{{translatedValues?.loanPurpose}}</td>
                 <td>
@@ -124,7 +123,7 @@
             <tr>
                 <td>Drawing Power (% of Distress Value)</td>
                 <td><input type="text" class="form-control" formControlName="drawingPower"
-                           (input)="translateNumber('drawingPower', 'drawingPowerTransVal')">
+                           (input)="translateNumber1('drawingPower', 'drawingPowerTransVal')">
                 </td>
                 <td class="abc">{{translatedValues?.drawingPower}}</td>
                 <td>
@@ -140,7 +139,7 @@
             <tr>
                 <td>Base Rate</td>
                 <td><input type="text" class="form-control" formControlName="baseRate"
-                           (input)="calInterestRate(); translateNumber('baseRate', 'baseRateTransVal')">
+                           (input)="calInterestRate(); translateNumber1('baseRate', 'baseRateTransVal')">
                 </td>
                 <td class="abc">{{translatedValues?.baseRate}}</td>
                 <td>
@@ -156,7 +155,7 @@
             <tr>
                 <td>Premium Rate</td>
                 <td><input type="text" class="form-control" formControlName="premiumRate"
-                           (input)="calInterestRate(); translateNumber('premiumRate', 'premiumRateTransVal')">
+                           (input)="calInterestRate(); translateNumber1('premiumRate', 'premiumRateTransVal')">
                 </td>
                 <td class="abc">{{translatedValues?.premiumRate}}</td>
                 <td>
@@ -172,7 +171,7 @@
             <tr>
                 <td>Interest Rate</td>
                 <td><input type="text" class="form-control" formControlName="interestRate"
-                           (input)="translateNumber('interestRate', 'interestRateTransVal')">
+                           (input)="translateNumber1('interestRate', 'interestRateTransVal')">
                 </td>
                 <td class="abc">{{translatedValues?.interestRate}}</td>
                 <td>
@@ -250,7 +249,7 @@
             <tr>
                 <td>Loan Periods in Months</td>
                 <td><input type="text" class="form-control" formControlName="loanPeriod"
-                           (input)="translateNumber('loanPeriod', 'loanPeriodTransVal')">
+                           (input)="translateNumber1('loanPeriod', 'loanPeriodTransVal')">
                 </td>
                 <td class="abc">{{translatedValues?.loanPeriod}}</td>
                 <td>
