@@ -39,6 +39,12 @@ export class PersonalLoanComponent implements OnInit {
   tempData;
   afterSave = false;
   offerLetterData;
+  guarantorData;
+  guarantorNames: Array<String> = [];
+  allguarantorNames;
+  guarantorAmount = 0;
+  guarantorAmountNepali;
+  finalName;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -60,9 +66,11 @@ export class PersonalLoanComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     }
+    this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
+    this.guarantorDetails();
     this.checkOfferLetterData();
   }
 
@@ -93,6 +101,8 @@ export class PersonalLoanComponent implements OnInit {
       sakshiMunicipality: [undefined],
       sakshiWardNum: [undefined],
       sakshiName: [undefined],
+      guarantorName: [undefined],
+      guaranteedAmountFigure: [undefined]
     });
   }
 
@@ -137,16 +147,26 @@ export class PersonalLoanComponent implements OnInit {
       const val = value.proposal.proposedLimit;
       totalLoanAmount = totalLoanAmount + val;
     });
+    let autoRefNumber;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
+    const guarantorNep = JSON.parse(this.guarantorData[0].nepData);
+    let guaranteedAmount;
+    if (!ObjectUtil.isEmpty(guarantorNep.gurantedAmount)) {
+      guaranteedAmount = guarantorNep.gurantedAmount.en;
+    }
     this.personalLoan.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmount: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
-      // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
+      guarantorName: this.finalName ? this.finalName : '',
+      guaranteedAmountFigure: guaranteedAmount ?  this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(guaranteedAmount)) : '',
       branchName: this.loanHolderInfo.branch.en.nepaliName ? this.loanHolderInfo.branch.en.nepaliName : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
-      refNumber: this.tempData.refNumber.ct ? this.tempData.refNumber.ct : '',
+      refNumber: autoRefNumber ? autoRefNumber : '',
       purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
       yearlyFloatingInterestRate: this.tempData.yearlyFloatingInterestRate.ct ? this.tempData.yearlyFloatingInterestRate.ct : '',
       loanAdminFee: this.tempData.loanAdminFee.ct ? this.tempData.loanAdminFee.ct : '',
@@ -232,5 +252,27 @@ export class PersonalLoanComponent implements OnInit {
 
   close() {
     this.ref.close();
+  }
+
+  guarantorDetails() {
+    if (this.guarantorData.length === 1) {
+      const temp = JSON.parse(this.guarantorData[0].nepData);
+      this.finalName =  temp.guarantorName.ct;
+    } else if (this.guarantorData.length === 2) {
+      for (let i = 0; i < this.guarantorData.length; i++) {
+        const temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+      }
+      this.allguarantorNames = this.guarantorNames.join(' र ');
+      this.finalName = this.allguarantorNames;
+    } else {
+      for (let i = 0; i < this.guarantorData.length - 1; i++) {
+        const temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+      }
+      this.allguarantorNames = this.guarantorNames.join(' , ');
+      const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
+      this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
+    }
   }
 }

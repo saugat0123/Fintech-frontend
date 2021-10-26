@@ -3,8 +3,8 @@
         <h6 class="text-center">ऋणकर्जा सुविधा स्वीकृति पत्र</h6>
         <p class="text-left"> </p>
 
-        <span [ngClass]="{'nepaliFont num' : letter?.referenceNumber!== null && letter?.referenceNumber!== ''}">
-            {{letter?.referenceNumber === null || letter?.referenceNumber === '' ? '___________' : letter?.referenceNumber}}</span>
+        <span class="font-weight-bold">
+            {{autoRefNumber ? autoRefNumber : '________________________'}}</span>
 
         <p class="text-left"> मिति:
             <span [ngClass]="{'nepaliFont num' : letter?.dateofApproval!== null && letter?.dateofApproval!== ''}">

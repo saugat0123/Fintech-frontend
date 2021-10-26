@@ -3,8 +3,8 @@
         <form class="nep">
             <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
             <p class="text-left"></p>
-            <span [ngClass]="{'font-weight-bold' : letter?.referenceNumber.ct !== null && letter?.referenceNumber.ct !== ''}">
-            {{letter?.referenceNumber.ct === null || letter?.referenceNumber.ct === '' ? '___________' : letter?.referenceNumber.ct}}
+            <span class="font-weight-bold">
+            {{autoRefNumber ? autoRefNumber : '_______________________'}}
         </span>
             <br>
             <p>
