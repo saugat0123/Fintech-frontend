@@ -308,7 +308,12 @@ submit(): void {
         const data = JSON.parse(nepData);
         try {
             if (ObjectUtil.isEmpty(trans)) {
-                return data[key].ct;
+                if (key === 'gurantedAmount') {
+                    const convertData = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(data[key].en));
+                    return convertData;
+                } else {
+                    return data[key].ct;
+                }
             } else {
                 return data[key].en;
             }
