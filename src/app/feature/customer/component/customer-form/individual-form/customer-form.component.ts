@@ -136,13 +136,13 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.customer.bankingRelationship = this.bankingRelationshipInput;
             }
             this.formMaker();
-            if (ObjectUtil.isEmpty(this.customer.customerRelatives)) {
+            if (ObjectUtil.isEmpty(this.customer.customerRelatives) || this.customer.customerRelatives.length < 1) {
                 this.createRelativesArray();
             } else {
                 this.setRelatives(this.customer.customerRelatives);
             }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
-            this.occupationChange();
+             this.occupationChange();
 
         } else {
             this.createRelativesArray();
@@ -480,6 +480,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     createRelativesArray() {
+        console.log('inside add a');
         this.relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
                 customerRelation: [{value: customerRelation, disabled: false}],
