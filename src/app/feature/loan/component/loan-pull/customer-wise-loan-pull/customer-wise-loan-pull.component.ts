@@ -72,6 +72,8 @@ export class CustomerWiseLoanPullComponent implements OnInit {
     provinces = [];
     currentUserId = LocalStorageUtil.getStorage().userId;
     loanTag = LoanTag.values();
+    toUser: String;
+    spinner2 = false;
 
     constructor(
         private branchService: BranchService,
@@ -267,6 +269,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
     onPullClick(template, customerLoanId, loans) {
         const customerLoan: LoanDataHolder = loans;
         this.formVal = [];
+        this.spinner2 = true;
         if (ObjectUtil.isEmpty(customerLoan.combinedLoan)) {
             this.isCombine = false;
 
@@ -291,6 +294,16 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             });
         }
 
+        this.loanFormService.detail(customerLoanId).subscribe((response: any) => {
+            console.log('response', response);
+            this.toUser = response.detail.currentStage.toUser.name;
+            this.spinner2 = false;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Data!'));
+            this.spinner2 = false;
+        });
+        console.log('toUser', this.toUser);
         this.modalService.open(template, {
             size: 'xl',
             windowClass: 'on-pull-click full-width modal'
