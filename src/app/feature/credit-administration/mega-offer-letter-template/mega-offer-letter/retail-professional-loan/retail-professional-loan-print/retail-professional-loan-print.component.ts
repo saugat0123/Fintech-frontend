@@ -43,8 +43,6 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   dateOfApproval;
   dateOfApplication;
   autoRefNumber;
-
-  tenureFixedDeposit;
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
                public currencyFormatPipe: CurrencyFormatterPipe,
@@ -77,9 +75,6 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
       }
       if (!ObjectUtil.isEmpty(this.letter.dateOfApplication)) {
         this.dateOfApplication = this.dateConversion(this.letter.dateOfApplication);
-      }
-      if (!ObjectUtil.isEmpty(this.letter.tenureFixedDeposit)) {
-        this.tenureFixedDeposit = this.dateConversion(this.letter.tenureFixedDeposit);
       }
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {

@@ -4,8 +4,8 @@
             <h2 class="font-weight-bold" style="text-align: center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h2>
         </div>
             <div class="mb-2">
-                <span [ngClass]="{'font-weight-bold' : letter?.referenceNumber.ct !== null && letter?.referenceNumber.ct !== ''}">
-                     {{letter?.referenceNumber.ct === null || letter?.referenceNumber.ct === '' ? '___________' : letter?.referenceNumber.ct}}
+                <span [ngClass]="{'font-weight-bold' : autoReferenceNumber !== null && autoReferenceNumber !== ''}">
+                     {{autoReferenceNumber === null || autoReferenceNumber === '' ? '___________' : autoReferenceNumber}}
                 </span>
                 <p>
                     मितिः
@@ -552,8 +552,9 @@
                                 </u>
                             </strong>
                             <br>
-                            स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम
-                            विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार देहाय बमोजिम थप जोखिम दर
+                            स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
+                            बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार ऋणीले उपभोग गदैं
+                            आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम थप जोखिम दर
                             (Additional Risk Premium) समेत लाग्नेछ ।
 
                             <table class="table table-bordered hello">
