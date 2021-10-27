@@ -263,8 +263,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (this.isRemitLoan) {
             this.beneficiary = JSON.parse(this.loanDataHolder.remitCustomer.beneficiaryData);
             this.senderDetails = JSON.parse(this.loanDataHolder.remitCustomer.senderData);
-            this.calculateEmiEqiAmount();
         }
+        this.calculateEmiEqiAmount();
     }
 
     ngOnDestroy(): void {
