@@ -206,10 +206,10 @@
                         <td><strong>कर्जा अवधि समाप्ती पूनरावलोकन मितिः </strong></td>
                         <td>
                             मितिः
-                            <span *ngIf="letter.dateofExpiry.en.nDate; else dateofExpiryPrint"
-                                  class="font-weight-bold">{{letter?.dateofExpiry.en.nDate}} मा हुनेछ ।</span>
+                            <span *ngIf="letter.dateofExpiry?.en; else dateofExpiryPrint"
+                                  class="font-weight-bold">{{(letter?.dateofExpiry?.en) | engNepDate: true}} मा हुनेछ ।</span>
                             <ng-template #dateofExpiryPrint>
-                                <span class=" font-weight-bold">{{(letter?.dateofExpiry.en | date) | engNepDate: true}} मा हुनेछ ।</span>
+                                <span class=" font-weight-bold">{{letter?.dateofExpiryNepali?.en}} मा हुनेछ ।</span>
                             </ng-template>
                         </td>
                     </tr>
