@@ -14,7 +14,16 @@
       </div>
       <div class="col-md-12">
         <p>
-          श्री <span class=" font-weight-bold">{{loanHolderInfo?.name.ct}}</span>
+          <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री </span>
+          <ng-template #nameDetails>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                श्रीमती
+            </span>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+              सुश्री
+            </span>
+          </ng-template>
+          <span class=" font-weight-bold">{{loanHolderInfo?.name.ct}}</span>
         </p>
         <p>
           <span class=" font-weight-bold">{{customerAddress}}</span>
@@ -74,7 +83,7 @@
             <td>
               कर्जाको सुरक्षण वापत बैंकको पक्षमा ग्रहणाधिकार (Lien) र/वा हकाधिकार हुने गरी
               राखिदिने रु
-              <span class="font-weight-bold">{{letter?.fixedDepositAmountFigure.ct}}</span>/-
+              <span class="font-weight-bold">{{fixedDepositVal ? fixedDepositVal : ''}}</span>/-
               (अक्षरेपि रु
               <span
                   class="font-weight-bold uniSize">{{letter?.fixedDepositReceiptAmountWords.ct}}</span>
@@ -327,7 +336,7 @@
             क. नबिल बैंक लिमिटेडद्धारा जारी गरिएको श्री
             <span class=" font-weight-bold">{{letter?.fixedDepositHolderName.ct}}</span> को
             नाममा रहेको रु.
-            <span class=" font-weight-bold">{{letter?.fixedDepositAmountFigure.ct}}</span> /–
+            <span class=" font-weight-bold">{{fixedDepositVal ? fixedDepositVal : ''}}</span> /–
             बराबरको
             <span class=" font-weight-bold">{{letter?.tenureFixedDeposit.ct}}</span> बर्षे मुद्धति
             रसिद नं.
@@ -937,7 +946,7 @@
                 <p>ह्. श्री
                   <span class=" font-weight-bold">{{letter?.fixedDepositHolderName.ct}}</span> /- को
                   रु
-                  <span class=" font-weight-bold">{{letter?.fixedDepositAmountFigure.ct}}</span>/ को
+                  <span class=" font-weight-bold">{{fixedDepositVal ? fixedDepositVal : ''}}</span>/ को
                   सक्कल मुद्दती रसिद ।</p>
 
               </div>

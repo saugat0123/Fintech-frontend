@@ -46,7 +46,16 @@
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <p>
-                            श्री <input class="form-field form-control-sm " name="customerName" formControlName="customerName" placeholder="नाम" type="text"/>ज्यू,
+                            <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+                            <ng-template #nameDetails>
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                                    श्रीमती
+                                </span>
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                                  सुश्री
+                                </span>
+                            </ng-template>
+                            <input class="form-field form-control-sm " name="customerName" formControlName="customerName" placeholder="नाम" type="text"/>ज्यू,
                         </p>
                         <p>
                             <input class="form-field form-control-sm " name="customerAddress" formControlName="customerAddress" placeholder="ठेगाना" type="text"/>
@@ -626,7 +635,16 @@
 
                             </p>
                             <p>
-                                घ. 	ब्याज, किस्ता तथा अन्य शुल्कहरु असुल गर्न श्री
+                                घ. 	ब्याज, किस्ता तथा अन्य शुल्कहरु असुल गर्न
+                                <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+                                <ng-template #nameDetails>
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                                    श्रीमती
+                                </span>
+                                    <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                                  सुश्री
+                                </span>
+                                </ng-template>
                                 <input class="form-field form-control-sm " name="customerName" formControlName="customerName" placeholder="नाम" type="text"/>
                                 को खाता नं
                                 <input class="form-field form-control-sm " name="accountNumber" formControlName="accountNumber" placeholder="खाता नम्बर" type="text"/>
