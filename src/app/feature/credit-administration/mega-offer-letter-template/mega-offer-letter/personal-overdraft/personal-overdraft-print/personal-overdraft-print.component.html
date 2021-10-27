@@ -15,9 +15,18 @@
                     <span class=" font-weight-bold">{{(letter?.dateOfApproval.en | date) | engNepDate: true}}</span>
                 </ng-template>
             </p>
-            <div class="mb-2"> श्रीमान्/श्रीमती
-                <span [ngClass]="{'font-weight-bold' : letter?.name !== null && letter?.name !== ''}">
-                {{letter?.name === null || letter?.name === '' ? '___________' : letter?.name}}
+            <div class="mb-2">
+                <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+                <ng-template #nameDetails>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                            श्रीमती
+                        </span>
+                    <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                          सुश्री
+                        </span>
+                </ng-template>
+                <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}">
+                {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}
             </span>
                 <div class="mb-1"> ठेगाना:
                     <span [ngClass]="{'font-weight-bold' : customerAddress !== null && customerAddress !== ''}">

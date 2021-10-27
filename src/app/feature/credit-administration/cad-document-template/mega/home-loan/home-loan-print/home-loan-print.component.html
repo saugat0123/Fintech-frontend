@@ -9,7 +9,16 @@
             <span [ngClass]="{'nepaliFont num font-weight-bold' : letter?.loan.dateOfApprovalCT!== null && letter?.loan.dateOfApprovalCT!== ''}">
             {{letter?.loan.dateOfApprovalCT === null || letter?.loan.dateOfApprovalCT === '' ? '___________' : letter?.loan.dateOfApprovalCT}}</span>
         </p>
-        <div class="mb-2"> श्री
+        <div class="mb-2">
+            <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+            <ng-template #nameDetails>
+                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                    श्रीमती
+                </span>
+                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                  सुश्री
+                </span>
+            </ng-template>
             <span [ngClass]="{'nepaliFont num font-weight-bold' : loanHolderInfo?.name.ct!== null && loanHolderInfo?.name.ct!== ''}">
             {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}</span>
 
