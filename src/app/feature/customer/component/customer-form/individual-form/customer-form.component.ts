@@ -15,7 +15,6 @@ import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
 import {RelationshipList} from '../../../../loan/model/relationshipList';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
@@ -101,8 +100,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         showOtherIncomeSource: false,
         hideIncomeSource: false
     };
-bankingRelationshipList = BankingRelationship.enumObject();
-    // bankingRelationshipList = ['CIB Report Obtained', 'Any existing Credit Relationship with other BFIs?', 'Any credit relationship with Laxmi Bank?(Including Group)'];
+// bankingRelationshipList = BankingRelationship.enumObject();
+//      bankingRelationshipList = ['CIB Report Obtained', 'Any existing Credit Relationship with other BFIs?', 'Any credit relationship with Laxmi Bank?(Including Group)'];
     subSector = [];
     clientType = [];
     relationArray: RelationshipList = new RelationshipList();
@@ -115,7 +114,8 @@ bankingRelationshipList = BankingRelationship.enumObject();
     client = environment.client;
     clientName = Clients;
     ckeConfig = Editor.CK_CONFIG;
-    private relation = ['Grand Father', 'Father']
+    private relation = ['Grand Father', 'Father'];
+    stayHidden =false;
 
     ngOnInit() {
         this.getProvince();
@@ -132,19 +132,30 @@ bankingRelationshipList = BankingRelationship.enumObject();
             this.customer = this.formValue;
             this.customer.clientType = this.clientTypeInput;
             this.customer.customerCode = this.customerIdInput;
+            if (!ObjectUtil.isEmpty(this.bankingRelationshipInput)) {
+                this.customer.bankingRelationship = this.bankingRelationshipInput;
+            }
             this.formMaker();
-            if (this.customer.customerRelatives === undefined || this.customer.customerRelatives.length < 1) {
+            if (ObjectUtil.isEmpty(this.customer.customerRelatives) || this.customer.customerRelatives.length < 1) {
                 this.createRelativesArray();
             } else {
                 this.setRelatives(this.customer.customerRelatives);
             }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
-            this.occupationChange();
+             this.occupationChange();
 
         } else {
             this.createRelativesArray();
         }
-
+        if (!ObjectUtil.isEmpty(this.customer.bankingRelationship)) {
+            if (JSON.parse(this.customer.bankingRelationship) instanceof Object) {
+                const banking = JSON.parse(this.customer.bankingRelationship);
+                if (banking.bfi === 'false') {
+                    this.stayHidden = true;
+                }
+                this.basicInfo.patchValue(banking);
+            }
+        }
     }
 
     onCloseCreateCustomer() {
@@ -324,14 +335,14 @@ bankingRelationshipList = BankingRelationship.enumObject();
 
                     /** banking relation setting data from child **/
                     // possibly can have more field in banking relationship
-                    this.customer.bankingRelationship = JSON.stringify(this.basicInfo.get('bankingRelationship').value);
-                    this.customer.netWorth = this.basicInfo.get('netWorth').value;
 
+                    const bakingRelation = {'cibReport': this.basicInfo.get('cibReport').value, 'bfi': this.basicInfo.get('bfi').value, 'creditRelationship': this.basicInfo.get('creditRelationship').value, 'remarks': this.basicInfo.get('remarks').value};
+                    this.customer.bankingRelationship = JSON.stringify(bakingRelation);
+                    this.customer.netWorth = this.basicInfo.get('netWorth').value;
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
 
                     this.customer.isMicroCustomer = this.microCustomer;
-
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
                         this.close();
@@ -417,8 +428,8 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 this.individualJsonData.incomeRisk],
             successionRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.successionRisk],
-            bankingRelationship: [this.customer.bankingRelationship === undefined ?
-                undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : [Validators.required]],
+            // bankingRelationship: [this.customer.bankingRelationship === undefined ?
+            //     undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : [Validators.required]],
             netWorth: [this.customer.netWorth === undefined ?
                 undefined : this.customer.netWorth,
                 this.crgLambdaDisabled ? undefined : [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
@@ -442,7 +453,10 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 this.maritalStatus, Validators.required],
             customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
                 this.customerLegalDocumentAddress, Validators.required],
-
+            cibReport: [undefined],
+            bfi: [undefined],
+            creditRelationship: [undefined],
+            remarks: [undefined]
         });
 
         this.onCustomerTypeChange(this.microCustomer);
@@ -473,8 +487,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
-                age: [undefined, Validators.required],
-                profession: [undefined],
+                age: [undefined],
                 version: [undefined]
             }));
         });
@@ -496,7 +509,6 @@ bankingRelationshipList = BankingRelationship.enumObject();
                     citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
                         undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
                     age: [singleRelatives.age, Validators.required],
-                    profession: [singleRelatives.profession, Validators.required]
                 }));
             });
 
@@ -635,10 +647,10 @@ bankingRelationshipList = BankingRelationship.enumObject();
             this.basicInfo.controls.occupation.patchValue(occupation.multipleOccupation);
             this.basicInfo.controls.otherOccupation.patchValue(occupation.otherOccupation);
         }
-        if (!ObjectUtil.isEmpty(this.bankingRelationshipInput)) {
-            this.basicInfo.controls.bankingRelationship.patchValue(JSON.parse(this.bankingRelationshipInput));
-
-        }
+        // if (!ObjectUtil.isEmpty(this.bankingRelationshipInput)) {
+        //     this.basicInfo.controls.bankingRelationship.patchValue(JSON.parse(this.bankingRelationshipInput));
+        //
+        // }
         if (!ObjectUtil.isEmpty(this.subSectorDetailCodeInput)) {
             this.basicInfo.controls.subsectorDetail.patchValue(this.subSectorDetailCodeInput);
 
@@ -676,10 +688,10 @@ bankingRelationshipList = BankingRelationship.enumObject();
 
     onCustomerTypeChange(check: boolean) {
         if (check || this.crgLambdaDisabled) {
-            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
+            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk',
                 'netWorth'], false);
         } else {
-            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
+            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk',
                 'netWorth'], true);
         }
         const clientTypeControl = this.basicInfo.get('clientType');
@@ -690,6 +702,14 @@ bankingRelationshipList = BankingRelationship.enumObject();
             // this.clientType = this.clientType.filter(v => v !== 'MICRO');
             clientTypeControl.patchValue(this.customer.clientType === undefined ? undefined : this.customer.clientType);
             clientTypeControl.enable();
+        }
+    }
+
+    show(event) {
+        if (event === 'true') {
+            this.stayHidden = false;
+        } else {
+        this.stayHidden = true;
         }
     }
 }

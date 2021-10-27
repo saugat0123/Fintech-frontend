@@ -3,6 +3,7 @@
                        [customerAllLoanList]="customerAllLoanList"
                        [proposalData]="proposalData"
                        [loanDataHolder]="loanDataHolder"></app-proposal-view>
+    <app-security-schedule [proposal]="proposalData" ></app-security-schedule>
 </div>
 <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                      [calendarType]="calendarType"
