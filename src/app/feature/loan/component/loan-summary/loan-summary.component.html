@@ -561,6 +561,7 @@
                         </tbody>
                     </table>
                     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                        <p><strong>3. Address Verification</strong></p>
                         <tr class="text-white sb-bg-dark">
                             <th colspan="7">Permanent Address</th>
                         </tr>
@@ -611,137 +612,277 @@
                 </div>
             </div>
 
-            <table *ngIf="!isJointInfo" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                <tr class="text-white sb-bg-dark">
-                    <th colspan="6">Permanent Address</th>
-                </tr>
-                <tr>
-                    <th> Province</th>
-                    <th>District</th>
-                    <th> Municipalities</th>
-                    <th>Ward no.</th>
-                    <th>Address Line 1</th>
-                    <th>Address Line 2</th>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1">{{individual?.province?.name}}</td>
-                    <td class="text-left pl-1">{{individual?.district?.name}}</td>
-                    <td class="text-left pl-1">{{individual?.municipalities?.name}}</td>
-                    <td class="text-right pr-1">{{individual?.wardNumber || 'NA'}}</td>
-                    <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
-                    <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
-                </tr>
-                <tr class="text-white sb-bg-dark">
-                    <th colspan="6">Temporary Address</th>
-                </tr>
-                <tr>
-                    <th>Province</th>
-                    <th>District</th>
-                    <th>Municipalities</th>
-                    <th>Ward no.</th>
-                    <th>Address Line 1</th>
-                    <th>Address Line 2</th>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1">{{individual?.temporaryProvince?.name}}</td>
-                    <td class="text-left pl-1">{{individual?.temporaryDistrict?.name}}</td>
-                    <td class="text-left pl-1">{{individual?.temporaryMunicipalities?.name}}</td>
-                    <td class="text-right pr-1">{{individual?.temporaryWardNumber || 'NA'}}</td>
-                    <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine1 || 'NA'}}</td>
-                    <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
-                </tr>
-            </table>
+            <div class="row mt-1">
+                <div class="col-md-12">
+                    <p><strong>3. Address Verification</strong></p>
+                    <table *ngIf="!isJointInfo" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                        <tr class="text-white sb-bg-dark">
+                            <th colspan="6">Permanent Address</th>
+                        </tr>
+                        <tr>
+                            <th> Province</th>
+                            <th>District</th>
+                            <th> Municipalities</th>
+                            <th>Ward no.</th>
+                            <th>Address Line 1</th>
+                            <th>Address Line 2</th>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1">{{individual?.province?.name}}</td>
+                            <td class="text-left pl-1">{{individual?.district?.name}}</td>
+                            <td class="text-left pl-1">{{individual?.municipalities?.name}}</td>
+                            <td class="text-right pr-1">{{individual?.wardNumber || 'NA'}}</td>
+                            <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
+                            <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
+                        </tr>
+                        <tr class="text-white sb-bg-dark">
+                            <th colspan="6">Temporary Address</th>
+                        </tr>
+                        <tr>
+                            <th>Province</th>
+                            <th>District</th>
+                            <th>Municipalities</th>
+                            <th>Ward no.</th>
+                            <th>Address Line 1</th>
+                            <th>Address Line 2</th>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1">{{individual?.temporaryProvince?.name}}</td>
+                            <td class="text-left pl-1">{{individual?.temporaryDistrict?.name}}</td>
+                            <td class="text-left pl-1">{{individual?.temporaryMunicipalities?.name}}</td>
+                            <td class="text-right pr-1">{{individual?.temporaryWardNumber || 'NA'}}</td>
+                            <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine1 || 'NA'}}</td>
+                            <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
+                        </tr>
+                    </table>
+                    <app-remit-profile *ngIf="isRemitLoan" [isRemit]="isRemitLoan" [individual]="individual" [loanHolder]="loanDataHolder" ></app-remit-profile>
+                </div>
+            </div>
 
-            <app-remit-profile *ngIf="isRemitLoan" [loanHolder]="loanDataHolder" ></app-remit-profile>
-
-            <ng-container *ngIf="loanCategory === 'INDIVIDUAL' && !isRemitLoan && !isJointInfo; else relations; ">
-                <p><strong>{{(isRemitLoan)?('Undivided Family Information Summary'):'Family Details'}}</strong></p>
-                <table
-                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <thead>
-                    <tr class="text-white sb-bg-dark">
-                        <th>Name</th>
-                        <th>Relation Name</th>
-                        <th>Citizenship no.</th>
-                        <th>Citizenship Issued Date (AD/BS)</th>
-                        <th>Age</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
-                        <td class="text-left pl-1">
-                            {{relative.customerRelativeName}}
-                        </td>
-
-                        <td class="text-left pl-1">
-                            {{relative.customerRelation}}
-                        </td>
-                        <td class="text-right pr-1">
-                            {{relative.citizenshipNumber}}
-                        </td>
-                        <td class="text-left pl-1">
-                            {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}} ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}})
-                        </td>
-                        <td class="text-left pl-1">{{relative.age}} years</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </ng-container>
-            <ng-template #relations>
-                <div class="col-md-12" *ngIf="!isJointInfo">
-                    <p><strong>{{(isRemitLoan)?('Undivided Family Information Summary'):'Family Details'}}</strong></p>
-                    <div>
-                        <table
-                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                            <thead>
-                            </thead>
-                            <tbody>
-                            <ng-container>
-                                <tr class="text-white sb-bg-dark">
-                                    <th>S.N</th>
-                                    <th>Name</th>
-                                    <th>Age</th>
-                                    <th>Relationship</th>
-                                    <th>Profession</th>
-                                </tr>
-                                <tr>
-                                    <td class="text-left pl-1">1</td>
-                                    <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_grandfather)?beneficiary?.beneficiaryIdentity.benef_grandfather : 'NA'}}</td>
-                                    <td class="text-right pr-1"></td>
-                                    <td class="text-left pl-1">Grand Father</td>
-                                    <td class="text-left pl-1"></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left pl-1">2</td>
-                                    <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_father_name)?beneficiary?.beneficiaryIdentity.benef_father_name : 'NA'}}</td>
-                                    <td class="text-right pr-1"></td>
-                                    <td class="text-left pl-1">Father</td>
-                                    <td class="text-left pl-1"></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left pl-1">3</td>
-                                    <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_mother_name)?beneficiary?.beneficiaryIdentity.benef_mother_name :'NA'}}</td>
-                                    <td class="text-right pr-1"></td>
-                                    <td class="text-left pl-1">Mother</td>
-                                    <td class="text-left pl-1"></td>
-                                </tr>
-                            </ng-container>
-                            </tbody>
+            <ng-container *ngIf="isRemitLoan">
+                <div class="row mt-1">
+                    <div class="col-md-12">
+                        <p><b>5. Proposal</b></p>
+                        <table class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
+                            <tr>
+                                <th>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderBanking.loan_purpose}}</th>
+                            </tr>
                         </table>
                     </div>
                 </div>
-            </ng-template>
-            <ng-container *ngIf="isRemitLoan">
+            </ng-container>
+            <ng-container *ngIf="loanData.loanHolder.bankingRelationship !== null || !jointInfo; else banking">
+<div class="row  mt-1">
+    <div class="col-md-12">
+        <p><strong> 6. Banking Relationship</strong></p>
+        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr  class="text-white sb-bg-dark">
+                <th colspan="2">Banking Relationship</th>
+            </tr>
+            <tr>
+                <td class="text-center pl-1">CIB Report Obtained</td>
+                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).cibReport ==='true'?'Yes':'No' : 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="text-center pl-1">Any existing Credit Relationship with other BFIs?</td>
+                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship |jsonParse).bfi ==='true'?'Yes':'No' : 'N/A' }}</td>
+            </tr>
+            <tr *ngIf="(loanData.loanHolder.bankingRelationship | jsonParse).bfi === 'false'">
+                <td class="text-center pl-1">Remarks</td>
+                <td class="text-center pl-1" [innerHTML]="(loanData?.loanHolder.bankingRelationship) ? ((loanData?.loanHolder.bankingRelationship | jsonParse).remarks | safeHtml) : 'N/A'"></td>
+            </tr>
+            <tr>
+                <td class="text-center pl-1">Any credit relationship with Laxmi Bank?(Including Group)</td>
+                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+            </ng-container>
+            <ng-template #banking>
                 <div class="col-md-12">
-                    <p><b>Proposal</b></p>
-                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small sb-bg-dark">
+                    <p><strong>6. Banking Relationship</strong></p>
+                    <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                        <tr class="text-white sb-bg-dark">
+                            <th>Banking Relationship</th>
+                            <th>Net Worth</th>
+                        </tr>
                         <tr>
-                            <th>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderBanking.loan_purpose}}</th>
+                            <td class="text-left pl-1">{{riskInfo?.bankingRelationship}}</td>
+                            <td class="text-right pr-1">Rs. {{riskInfo?.netWorth |currencyFormatter}}</td>
                         </tr>
                     </table>
                 </div>
-            </ng-container>
+                <table >
+
+                </table>
+            </ng-template>
+            <div class="row mt-1">
+                <div class = "col-md-12" *ngIf="isRemitLoan">
+                    <p><b>7. Financial/ Repayment Ability: Primary Source of Income</b></p>
+                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+                        <thead class="sb-bg-dark">
+                        <tr>
+                            <th>Particulars</th>
+                            <th>Summary</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><b>Name of Employee</b></td>
+                            <td>{{this.loanDataHolder.remitCustomer.senderName}}</td>
+                        </tr>
+                        <tr>
+                            <td>Company Name</td>
+                            <td>{{senderDetails.senderEmployment.company_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Address/Contact</td>
+                            <td>{{senderDetails.senderAddress.temp_country +","+ senderDetails.senderAddress.temp_city}}</td>
+                        </tr>
+                        <tr>
+                            <td>Post/Designation</td>
+                            <td>{{senderDetails.senderEmployment.profession_or_position}}</td>
+                        </tr>
+                        <tr>
+                            <td>Years Of Service</td>
+                            <td>{{senderDetails.senderEmployment.employment_period}} months</td>
+                        </tr>
+                        <tr>
+                            <td>Monthly Salary/ Remittance recieved monthly</td>
+                            <td>{{senderDetails.senderEmployment.monthly_salary}}</td>
+                        </tr>
+                        <tr>
+                            <td>Exchange Rate:<br>
+
+                                <b>Date of exchange rate:</b></td>
+                            <td>{{senderDetails.senderEmployment.currency}}</td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+<div class="row mt-1">
+    <div class="col-md-12" *ngIf="isRemitLoan">
+        <p><b>8. DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="sb-bg-dark">
+            <tr>
+                <td><b>Particular</b></td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Monthly Income From Remittance</td>
+                <td>{{(loanData.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+            </tr>
+            <tr>
+                <td>Other Income</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>Total Monthly Income</b></td>
+                <td>{{(loanData.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+            </tr>
+            <tr>
+                <td>Monthly Obligation on Proposed loan</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Total Monthly Obligation</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>DBR</td>
+                <td>{{(dbr)?((dbr) | number : '1.2-3'):'N/A'}}</td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--            <ng-container *ngIf="loanCategory === 'INDIVIDUAL' && !isRemitLoan && !isJointInfo; else relations; ">-->
+<!--                <p><strong>{{(isRemitLoan)?('Undivided Family Information Summary'):'Family Details'}}</strong></p>-->
+<!--                <table-->
+<!--                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
+<!--                    <thead>-->
+<!--                    <tr class="text-white sb-bg-dark">-->
+<!--                        <th>Name</th>-->
+<!--                        <th>Relation Name</th>-->
+<!--                        <th>Citizenship no.</th>-->
+<!--                        <th>Citizenship Issued Date (AD/BS)</th>-->
+<!--                        <th>Age</th>-->
+
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">-->
+<!--                        <td class="text-left pl-1">-->
+<!--                            {{relative.customerRelativeName}}-->
+<!--                        </td>-->
+
+<!--                        <td class="text-left pl-1">-->
+<!--                            {{relative.customerRelation}}-->
+<!--                        </td>-->
+<!--                        <td class="text-right pr-1">-->
+<!--                            {{relative.citizenshipNumber}}-->
+<!--                        </td>-->
+<!--                        <td class="text-left pl-1">-->
+<!--                            {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}} ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}})-->
+<!--                        </td>-->
+<!--                        <td class="text-left pl-1">{{relative.age}} years</td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </ng-container>-->
+<!--            <ng-template #relations>-->
+<!--                <div class="col-md-12" *ngIf="!isJointInfo">-->
+<!--                    <p><strong>{{(isRemitLoan)?('Undivided Family Information Summary'):'Family Details'}}</strong></p>-->
+<!--                    <div>-->
+<!--                        <table-->
+<!--                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--                            <thead>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <ng-container>-->
+<!--                                <tr class="text-white sb-bg-dark">-->
+<!--                                    <th>S.N</th>-->
+<!--                                    <th>Name</th>-->
+<!--                                    <th>Age</th>-->
+<!--                                    <th>Relationship</th>-->
+<!--                                    <th>Profession</th>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td class="text-left pl-1">1</td>-->
+<!--                                    <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_grandfather)?beneficiary?.beneficiaryIdentity.benef_grandfather : 'NA'}}</td>-->
+<!--                                    <td class="text-right pr-1"></td>-->
+<!--                                    <td class="text-left pl-1">Grand Father</td>-->
+<!--                                    <td class="text-left pl-1"></td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td class="text-left pl-1">2</td>-->
+<!--                                    <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_father_name)?beneficiary?.beneficiaryIdentity.benef_father_name : 'NA'}}</td>-->
+<!--                                    <td class="text-right pr-1"></td>-->
+<!--                                    <td class="text-left pl-1">Father</td>-->
+<!--                                    <td class="text-left pl-1"></td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td class="text-left pl-1">3</td>-->
+<!--                                    <td class="text-left pl-1">{{(beneficiary?.beneficiaryIdentity.benef_mother_name)?beneficiary?.beneficiaryIdentity.benef_mother_name :'NA'}}</td>-->
+<!--                                    <td class="text-right pr-1"></td>-->
+<!--                                    <td class="text-left pl-1">Mother</td>-->
+<!--                                    <td class="text-left pl-1"></td>-->
+<!--                                </tr>-->
+<!--                            </ng-container>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </ng-template>-->
 
             <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && !isJointInfo && !isRemitLoan">
                 <div class="col-md-12">
@@ -820,44 +961,6 @@
 
 
                 </div>
-            </div>
-            <div class="col-md-12" *ngIf="isRemitLoan">
-                <p><b>DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
-                <table
-                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <thead class="sb-bg-dark">
-                    <tr>
-                        <td><b>Particular</b></td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Monthly Income From Remittance</td>
-                        <td>{{(loanData.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
-                    </tr>
-                    <tr>
-                        <td>Other Income</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><b>Total Monthly Income</b></td>
-                        <td>{{(loanData.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
-                    </tr>
-                    <tr>
-                        <td>Monthly Obligation on Proposed loan</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Total Monthly Obligation</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>DBR</td>
-                        <td>{{(dbr)?(dbr):'N/A'}}</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
 
             <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && isJointInfo">
@@ -969,51 +1072,7 @@
                     </table>
                 </div>
             </div>-->
-            <ng-container class="row" *ngIf="loanData.loanHolder.bankingRelationship !== null || !jointInfo; else banking">
 
-                <div class="col-md-12">
-                    <p><strong>Banking Relationship</strong></p>
-                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <tr  class="text-white sb-bg-dark">
-                        <th colspan="2">Banking Relationship</th>
-                    </tr>
-                    <tr>
-                        <td class="text-center pl-1">CIB Report Obtained</td>
-                        <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).cibReport ==='true'?'Yes':'No' : 'N/A' }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center pl-1">Any existing Credit Relationship with other BFIs?</td>
-                        <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship |jsonParse).bfi ==='true'?'Yes':'No' : 'N/A' }}</td>
-                    </tr>
-                    <tr *ngIf="(loanData.loanHolder.bankingRelationship | jsonParse).bfi === 'false'">
-                        <td class="text-center pl-1">Remarks</td>
-                        <td class="text-center pl-1" [innerHTML]="(loanData?.loanHolder.bankingRelationship) ? ((loanData?.loanHolder.bankingRelationship | jsonParse).remarks | safeHtml) : 'N/A'"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-center pl-1">Any credit relationship with Laxmi Bank?(Including Group)</td>
-                        <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>
-                    </tr>
-                </table>
-                </div>
-            </ng-container>
-            <ng-template #banking>
-                <div class="col-md-12">
-                    <p><strong>Banking Relationship</strong></p>
-                    <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                        <tr class="text-white sb-bg-dark">
-                            <th>Banking Relationship</th>
-                            <th>Net Worth</th>
-                        </tr>
-                        <tr>
-                            <td class="text-left pl-1">{{riskInfo?.bankingRelationship}}</td>
-                            <td class="text-right pr-1">Rs. {{riskInfo?.netWorth |currencyFormatter}}</td>
-                        </tr>
-                    </table>
-                </div>
-                <table >
-
-                </table>
-            </ng-template>
 
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
                 <div class="col-md-12">

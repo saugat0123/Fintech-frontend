@@ -11,7 +11,6 @@
                      [customerInfoData]="loanDataHolder?.loanHolder"
                      [individual]="loanDataHolder?.customerInfo"
                      [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
-<app-remit-profile *ngIf="isRemit" [loanHolder]="loanHolder" ></app-remit-profile>
 
 <app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
                        [calendarType]="calendarType"
