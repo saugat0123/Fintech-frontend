@@ -3,8 +3,8 @@
 
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
-            <h6 class="text-center">भूक्तानी–पत्र<br>
-                (Authority to Debit Account)</h6>
+            <h6 class="text-center"><strong>खाताबाट रकमकट्टि गर्नदिइएको अख्तियारीनामा</strong></h6>
+            <h2 class="text-center"><strong>(Authority to Debt Account)</strong></h2>
             <p class="text-right"> मिति:
                 <input class="form-field form-control-sm nepaliFont "
                        formControlName="date"
@@ -33,7 +33,7 @@
                     प्रदान गर्दछू/छौ।
                     <br>
                     <br>
-                    चल्ति/बचतखाता नं.
+                    चल्ति/बचतखाता नं.:
                     <input class="form-field form-control-sm nepaliFont "
                            formControlName="accNumber"
                            placeholder=""
@@ -55,9 +55,8 @@
             </div>
             <br>
             <p class="text-center"><b>भवदीय,</b></p>
-            <br>
             <div class="row" id="signature">
-                <table style="float: right" class="table  table-bordered" id="fingerXap">
+                <table style="margin-left: auto;margin-right: auto;" class="table  table-bordered" id="fingerXap">
                     <thead>
                     <tr>
                         <th>दाँ.</th>
@@ -79,11 +78,8 @@
             </div>
             <p><b>भवदीय,</b></p>
             <div class="row col-md-12" id="Sincerely">
-
-                <br>
                 <p>
-                    दस्तखत :-.............
-                    <br>
+                    दस्तखत :- ..................
                     <br>
                     दस्तखत गर्नेको नाम :-<input class="form-field form-control-sm nepaliFont "
                                                 formControlName="sincerlyname"
@@ -101,7 +97,7 @@
                                      placeholder=""
                                      type="text"/> )
                     <br>
-                    स्थायीठेगाना :-<input class="form-field form-control-sm nepaliFont "
+                    स्थायी ठेगाना :-<input class="form-field form-control-sm nepaliFont "
                                           formControlName="sincerlyPermanentAddress"
                                           placeholder=""
                                           type="text"/>
