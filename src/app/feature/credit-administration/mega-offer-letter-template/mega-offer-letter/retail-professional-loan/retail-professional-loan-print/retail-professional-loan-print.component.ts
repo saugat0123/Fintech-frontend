@@ -42,6 +42,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   finalName;
   dateOfApproval;
   dateOfApplication;
+  dateofExpiry;
   autoRefNumber;
   fixedDepositVal;
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -76,6 +77,9 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
       }
       if (!ObjectUtil.isEmpty(this.letter.dateOfApplication)) {
         this.dateOfApplication = this.dateConversion(this.letter.dateOfApplication);
+      }
+      if (!ObjectUtil.isEmpty(this.letter.dateofExpiry)) {
+        this.dateofExpiry = this.dateConversion(this.letter.dateofExpiry);
       }
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
