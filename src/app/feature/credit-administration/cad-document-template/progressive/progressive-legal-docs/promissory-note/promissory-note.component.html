@@ -37,9 +37,7 @@
                        type="text">
           गा.पा./न.पा./म.न.पा. वडा नं.<input class="form-field nepaliFont form-control-sm"
                                             formControlName="tempWadNo" type="text">
-          स्थित<input class="form-field nepaliFont form-control-sm"
-                      formControlName="address" type="text">
-          बस्ने बर्ष<input class="form-field nepaliFont form-control-sm" formControlName="age"
+          स्थित बस्ने बर्ष<input class="form-field nepaliFont form-control-sm" formControlName="age"
                            type="text">को
           <input class="form-field nepaliFont form-control-sm" formControlName="customerName"
                    type="text">
@@ -71,7 +69,7 @@
       <div>
         <p>
           <br><br>
-          दस्तखत :-..........
+          दस्तखत:- ...........
           <br><br>
           दस्तखत गर्नेको नाम :- <input class="form-field nepaliFont form-control-sm"
                                        formControlName="sincerlyName"
@@ -146,11 +144,8 @@
       <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; let i=index"
            formArrayName="guarantorDetails">
         <div [formGroupName]="i">
-
           <div>
-            <br><p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
-
-
+            <br><p> {{i + 1 | nepaliNumber: 'unicode'}}.&nbsp;&nbsp;दस्तखत: ......................</p>
             <table class="table-bordered table text-center ">
               <thead>
               <tr>
