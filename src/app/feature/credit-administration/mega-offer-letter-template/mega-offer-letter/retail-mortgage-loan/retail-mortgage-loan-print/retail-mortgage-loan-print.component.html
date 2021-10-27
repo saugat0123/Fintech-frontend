@@ -642,7 +642,7 @@
                         च. बहुबैंकिङ घोषणा पत्र प्राप्त ।<br>
                         छ. भवनको निर्माण सम्पन्न प्रमाणपत्र ।
                     </p>
-                    <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'">
+                    <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" style="margin-top: -1em">
                         {{ 8 | nepaliWord}}.
                         बैंकर्स शर्त सहितको रु.
                         <span [ngClass]="{'font-weight-bold' : letter?.insuranceAmount.ct !== null && letter?.insuranceAmount.ct !== ''}">
@@ -650,48 +650,47 @@
                     </span>
                         को भवनको विमालेख ।
                     </p>
-                    <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING'; else guarantorLand">
-                        <p *ngFor="let data of guarantorData; let i = index;">
-                            {{i + 9 | nepaliWord}}.
+                    <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING'; else guarantorLand" >
+                        <p style="margin-top: -1em">
+                            झ.
                             श्री
                             <span class="font-weight-bold">
-                            {{guarantorParse(data.nepData, 'guarantorName')}}
+                            {{this.finalName}}
                         </span>
                             ले रु
                             <span class="font-weight-bold">
-                            {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                            {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                         </span>
                             /-(अक्षरेपि
                             रु.
                             <span class="font-weight-bold">
-                            {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
+                            {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                         </span>
                             मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                         </p>
                     </div>
-                    <ng-template #guarantorLand>
-                        <p *ngFor="let data of guarantorData; let i = index;">
-                            {{i + 8 | nepaliWord}}.
+                    <ng-template #guarantorLand >
+                        <p style="margin-top: -1em"> ज.
                             श्री
                             <span class="font-weight-bold">
-                            {{guarantorParse(data.nepData, 'guarantorName')}}
+                            {{this.finalName}}
                         </span>
                             ले रु
                             <span class="font-weight-bold">
-                            {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                            {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                         </span>
                             /-(अक्षरेपि
                             रु.
                             <span class="font-weight-bold">
-                            {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
+                            {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                         </span>
                             मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                         </p>
                     </ng-template>
-                    <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12">
+                    <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12" style="margin-top: -1.5em">
                         <p>
-                                    <span class="nepaliFont"
-                                          style="font-size: 24px;">{{offerData?.supportedInformation}}
+                            ञ.<span class="nepaliFont"
+                                    style="font-size: 24px; margin-top: -15px;">{{offerData?.supportedInformation}}
                                     </span>
                         </p>
                     </div>
@@ -801,12 +800,8 @@
             <p>
                 आधिकारिक हस्ताक्षर (ग्राहक)
             </p>
-            मितिः
-            <span *ngIf="letter.signatureDate.en.nDate; else signatureDatePrint"
-                  class="font-weight-bold">{{letter?.signatureDate.en.nDate}}</span>
-            <ng-template #signatureDatePrint>
-                <span class=" font-weight-bold">{{(letter?.signatureDate.en | date) | engNepDate: true}}</span>
-            </ng-template>
+            मितिः .............................
+
         </div>
     </div>
     <br>

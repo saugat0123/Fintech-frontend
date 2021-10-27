@@ -231,7 +231,6 @@ export class HomeLoanComponent implements OnInit {
     });
   }
   fillForm() {
-    console.log('Fill form works:');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
     const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' +
@@ -251,7 +250,7 @@ export class HomeLoanComponent implements OnInit {
       ownerName: this.tempData.loan.nameOfLandOwnerCT ? this.tempData.loan.nameOfLandOwnerCT : '',
       ownersAddress: this.tempData.loan.landLocationCT ? this.tempData.loan.landLocationCT : '',
       propertyPlotNumber: this.tempData.loan.kittaNumberCT ? this.tempData.loan.kittaNumberCT : '',
-      propertyArea: this.tempData.loan.areaCT ? this.tempData.loan.areaCT : '',
+      propertyArea: this.tempData.loan.areasCT ? this.tempData.loan.areasCT : '',
       branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
@@ -273,6 +272,7 @@ export class HomeLoanComponent implements OnInit {
       seatNumber: this.tempData.loan.seatNumberCT ? this.tempData.loan.seatNumberCT : '',
       relationshipofficerName: this.tempData.loan.nameOfRelationshipOfficerCT ? this.tempData.loan.nameOfRelationshipOfficerCT : '',
       branchManager: this.tempData.loan.nameOfBranchManagerCT ? this.tempData.loan.nameOfBranchManagerCT : '',
+
 
     });
   }
