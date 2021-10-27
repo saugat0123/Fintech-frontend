@@ -801,7 +801,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         const n = this.loanDataHolder.proposal.tenureDurationInMonths;
             const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
             this.dbr = emi / JSON.parse(this.loanDataHolder.remitCustomer.senderData).senderEmployment.monthly_salary;
-        console.log('this is s=dbr', this.dbr);
     }
 }
 
