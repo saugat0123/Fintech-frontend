@@ -339,8 +339,6 @@ export class ConstructionLoanComponent implements OnInit {
     this.constructionLoanForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
     this.constructionLoanForm.get('loanLimitCheckedTrans').patchValue(this.translatedValue.loanLimitChecked);
     this.constructionLoanForm.get('loanLimitCheckedCT').patchValue(this.translatedValue.loanLimitChecked);
-
-    this.eventEmitter.emit(true);
     this.spinner = false;
   }
 

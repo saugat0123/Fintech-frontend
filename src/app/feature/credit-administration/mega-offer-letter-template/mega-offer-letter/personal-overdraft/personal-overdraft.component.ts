@@ -52,13 +52,17 @@ export class PersonalOverdraftComponent implements OnInit {
   loanLimit;
   renewal;
   offerDocumentDetails;
+  guarantorNames: Array<String> = [];
+  allguarantorNames;
+  guarantorAmount: number = 0;
+  finalName;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
               private administrationService: CreditAdministrationService,
               private routerUtilsService: RouterUtilsService,
               protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -75,10 +79,8 @@ export class PersonalOverdraftComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
-    console.log('guarantor Data:',this.guarantorData);
-    console.log('All Data:',this.tempData);
-    console.log('Loan Holder initial data:',this.loanHolderInfo);
     this.checkOfferLetterData();
+    this.guarantorDetails();
   }
 
 buildPersonal() {
@@ -263,6 +265,29 @@ buildPersonal() {
       }
     } catch (exp) {
       console.log(exp);
+    }
+  }
+  guarantorDetails(){
+    if (this.guarantorData.length == 1){
+      let temp = JSON.parse(this.guarantorData[0].nepData);
+      this.finalName =  temp.guarantorName.ct;
+    }
+    else if(this.guarantorData.length == 2){
+      for (let i = 0; i < this.guarantorData.length; i++){
+        let temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+      }
+      this.allguarantorNames = this.guarantorNames.join(" र ");
+      this.finalName = this.allguarantorNames;
+    }
+    else{
+      for (let i = 0; i < this.guarantorData.length-1; i++){
+        let temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+      }
+      this.allguarantorNames = this.guarantorNames.join(" , ");
+      let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length-1].nepData);
+      this.finalName =  this.allguarantorNames + " र " + temp1.guarantorName.ct;
     }
   }
 }

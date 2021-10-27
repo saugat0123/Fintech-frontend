@@ -352,40 +352,31 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
         if (offerLetterPath.docName.toString() ===
           this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL).toString()) {
           this.tdValues['securityDetails'] = securityDetails;
-          this.mappedData();
+          Object.keys(this.form.controls).forEach(key => {
+            if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+              return;
+            }
+            this.attributes = new Attributes();
+            this.attributes.en = this.form.get(key).value;
+            this.attributes.np = this.tdValues[key];
+            this.attributes.ct = this.form.get(key + 'TransVal').value;
+            this.tdValues[key] = this.attributes;
+          });
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
           this.translatedData = {};
         }
       });
-    } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
-      this.tdValues['securityDetails'] = securityDetails;
-      this.translatedData = {};
-      this.deleteCTAndTransContorls(this.tdValues);
-      offerDocument.initialInformation = JSON.stringify(this.tdValues);
-      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
     console.log(this.customerApprovedDoc);
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully update Offer Letter'));
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = true;
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to update Offer Letter'));
       this.spinner = false;
       this.btnDisable = true;
     });
@@ -465,19 +456,6 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
 
   clearForm(controlName) {
     this.form.get(controlName).setValue(null);
-  }
-
-  mappedData() {
-    Object.keys(this.form.controls).forEach(key => {
-      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
-        return;
-      }
-      this.attributes = new Attributes();
-      this.attributes.en = this.form.get(key).value;
-      this.attributes.np = this.tdValues[key];
-      this.attributes.ct = this.form.get(key + 'TransVal').value;
-      this.tdValues[key] = this.attributes;
-    });
   }
 
   loanChecked(data) {

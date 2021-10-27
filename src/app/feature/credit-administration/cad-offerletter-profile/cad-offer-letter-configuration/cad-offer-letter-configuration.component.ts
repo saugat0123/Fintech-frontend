@@ -35,6 +35,7 @@ import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {OneFormGuarantors} from '../../model/oneFormGuarantors';
+import {CurrencyFormatterPipe} from "../../../../@core/pipe/currency-formatter.pipe";
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -135,7 +136,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
               protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
               private http: HttpClient,
               private translateService: SbTranslateService,
-              private addressService: AddressService) {
+              private addressService: AddressService,
+              private currencyFormatterPipe: CurrencyFormatterPipe) {
   }
 
   get configForm() {
@@ -389,11 +391,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   saveCustomer() {
 
+    this.checkEditedValidationForIndividualJsonData();
     this.submitted = true;
     this.spinner = true;
-   // this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
-   // this.setNepaliData();
-   // this.setCustomerCTData();
+
     if (this.addressSameAsAbove) {
       this.clearValidationForTemporaryAddress();
     }
@@ -473,20 +474,52 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.oneFormCustomer.jointInfo = JSON.stringify(jointInfoArr);
     }
     this.oneFormCustomer.customerSubType = this.customerType === CustomerType.INDIVIDUAL ? this.customerSubType : this.institutionSubType;
+   if(this.actionType === 'Edit') {
+     console.log(this.objectValueTranslater, 'trans');
+     this.userConfigForm.patchValue({
+       permanentProvinceCT: this.userConfigForm.get('permanentProvince').value.nepaliName,
+       permanentDistrictCT: this.userConfigForm.get('permanentDistrict').value.nepaliName,
+       permanentMunicipalityCT: this.userConfigForm.get('permanentMunicipality').value.nepaliName,
+       temporaryProvinceCT: this.userConfigForm.get('temporaryProvince').value.nepaliName,
+       temporaryDistrictCT: this.userConfigForm.get('temporaryDistrict').value.nepaliName,
+       temporaryMunicipalityCT: this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
+     });
+   }
+
     Object.keys(this.userConfigForm.controls).forEach(key => {
-      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 ||  !this.userConfigForm.get(key).value) {
+
+      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !this.userConfigForm.get(key).value) {
         return;
       }
 
       if (key === 'guarantorDetails' || key === 'jointCustomerDetails') {
         return;
       }
-        this.attributes = new Attributes();
-        this.attributes.en = this.userConfigForm.get(key).value;
-        this.attributes.np = this.translatedValues[key];
-        this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
-        this.translatedData[key] = this.attributes;
-    });
+
+      this.attributes = new Attributes();
+      if (this.actionType === 'Edit') {
+        if (this.translatedValues === undefined) {
+
+           this.attributes.en = this.userConfigForm.get(key).value;
+           this.attributes.np = this.userConfigForm.get(key + 'CT').value;
+           this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
+           this.translatedData[key] = this.attributes;
+
+         } else {
+           this.attributes.en = this.userConfigForm.get(key).value;
+           this.attributes.np = this.translatedValues[key];
+           this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
+           this.translatedData[key] = this.attributes;
+         }
+       } else {
+         this.attributes.en = this.userConfigForm.get(key).value;
+         this.attributes.np = this.translatedValues[key];
+         this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
+         this.translatedData[key] = this.attributes;
+       }
+
+
+     });
 
     this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
       const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
@@ -1869,7 +1902,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   translateNumberInFA(source, i) {
-    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(['guarantorDetails', i, source]).value.toString());
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.userConfigForm.get(['guarantorDetails', i, source]).value.toString()));
     this.userConfigForm.get(['guarantorDetails', i, source + 'Trans']).patchValue(wordLabelVar);
     this.userConfigForm.get(['guarantorDetails', i, source + 'CT']).patchValue(wordLabelVar);
   }
@@ -2063,8 +2096,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('panNoTrans').patchValue(ObjectUtil.isEmpty(this.nepData.panNo) ? undefined : this.nepData.panNo.np);
     this.userConfigForm.get('customerCodeTrans').patchValue(ObjectUtil.isEmpty(this.nepData.customerCode) ? undefined : this.nepData.customerCode.ct);
     this.userConfigForm.get('genderTrans').patchValue(ObjectUtil.isEmpty(this.nepData.gender) ? undefined : this.nepData.gender.np);
-    this.userConfigForm.get('fatherNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.fatherName) ? undefined : this.nepData.fatherName.np);
-    this.userConfigForm.get('grandFatherNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.grandFatherName) ? undefined : this.nepData.grandFatherName.np);
+    this.userConfigForm.get('fatherNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.fatherName) ? undefined : this.nepData.fatherName.ct);
+    this.userConfigForm.get('grandFatherNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.grandFatherName) ? undefined : this.nepData.grandFatherName.ct);
     this.userConfigForm.get('relationMediumTrans').patchValue(ObjectUtil.isEmpty(this.nepData.relationMedium) ? undefined : this.nepData.relationMedium.np);
     this.userConfigForm.get('husbandNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.husbandName) ? undefined : this.nepData.husbandName.np);
     this.userConfigForm.get('fatherInLawNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.fatherInLawName) ? undefined : this.nepData.fatherInLawName.np);
@@ -2090,4 +2123,23 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.nepData.permanentWard.ct : undefined);
 
   }
+
+checkEditedValidationForIndividualJsonData(){
+  if(this.actionType === 'Edit') {
+    if (this.userConfigForm.get('fatherNameCT').value === null) {
+      this.userConfigForm.get('fatherNameCT').patchValue(ObjectUtil.isEmpty(this.nepData.fatherName) ? undefined : this.nepData.fatherName.ct);
+    }
+
+    if (this.userConfigForm.get('husbandNameCT').value === null) {
+      this.userConfigForm.get('husbandNameCT').patchValue(ObjectUtil.isEmpty(this.nepData.husbandName) ? undefined : this.nepData.husbandName.ct);
+    }
+    if (this.userConfigForm.get('fatherInLawNameCT').value === null) {
+      this.userConfigForm.get('fatherInLawNameCT').patchValue(ObjectUtil.isEmpty(this.nepData.fatherInLawName) ? undefined : this.nepData.fatherInLawName.ct);
+    }
+    if (this.userConfigForm.get('grandFatherNameCT').value === null) {
+      this.userConfigForm.get('grandFatherNameCT').patchValue(ObjectUtil.isEmpty(this.nepData.grandFatherName) ? undefined : this.nepData.grandFatherName.ct);
+    }
+  }
+}
+
 }

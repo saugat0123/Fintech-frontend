@@ -282,6 +282,12 @@ submit(): void {
             amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
             dateOfApproval: dateOfApprovalTemp ? dateOfApprovalTemp : '',
             dateOfApplication: tempDateOfApplication ? tempDateOfApplication : '',
+            fixedDepositAmountFigure: this.initialInfoPrint.fixedDepositAmountFigure ?
+                this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.initialInfoPrint.fixedDepositAmountFigure.en))
+                : '',
+            fixedDepositReceiptAmountFigure: this.initialInfoPrint.fixedDepositAmountFigure ?
+                this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.initialInfoPrint.fixedDepositAmountFigure.en)) :
+                ''
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }

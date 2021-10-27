@@ -134,26 +134,20 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
       this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN).toString()) {
-          this.mappedData();
+          Object.keys(this.form.controls).forEach(key => {
+            if (key.indexOf('TransVal') > -1) {
+              return;
+            }
+            this.attributes = new Attributes();
+            this.attributes.en = this.form.get(key).value;
+            this.attributes.np = this.tdValues[key];
+            this.attributes.ct = this.form.get(key + 'TransVal').value;
+            this.tdValues[key] = this.attributes;
+          });
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+          this.translatedData = {};
         }
       });
-    } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN);
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1) {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
-      this.translatedData = {};
-      offerDocument.initialInformation = JSON.stringify(this.tdValues);
-      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
@@ -170,20 +164,6 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
     });
   }
 
-  mappedData() {
-    Object.keys(this.form.controls).forEach(key => {
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1) {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
-    });
-  }
   get Form() {
     return this.form.controls;
   }

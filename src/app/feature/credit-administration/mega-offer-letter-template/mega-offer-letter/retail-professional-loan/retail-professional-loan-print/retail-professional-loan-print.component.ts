@@ -43,6 +43,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   dateOfApproval;
   dateOfApplication;
   autoRefNumber;
+  fixedDepositVal;
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
                public currencyFormatPipe: CurrencyFormatterPipe,
@@ -84,6 +85,9 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
+    this.fixedDepositVal = this.letter.fixedDepositAmountFigure ?
+        this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.letter.fixedDepositAmountFigure.en))
+        : '';
     this.guarantorDetails();
   }
 
