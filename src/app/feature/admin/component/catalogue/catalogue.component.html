@@ -155,6 +155,10 @@
                 <th>Type</th>
                 <th>Status</th>
                 <th>Possession Under/Days</th>
+                <th>Interest Rate</th>
+                <th>Service Charge</th>
+                <th>Tenure</th>
+                <th>Loan Type</th>
                 <th>Loan lifespan</th>
                 <th *ngIf="transferDoc">Transfer</th>
                 <th>Created On</th>
@@ -196,6 +200,14 @@
                         /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList?.length - 1].lastModifiedAt)}}
                     </div>
                 </td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.loan?.interestRate ? model?.loan?.interestRate : '-'}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">{{(model?.proposal?.data | jsonParse)?.serviceCharge ? (model?.proposal?.data | jsonParse)?.serviceCharge : '-'}} </td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">
+                    <span *ngIf="!model?.proposal.limitExpiryMethod">-</span>
+                    <span *ngIf="model?.proposal.limitExpiryMethod === 'ABSOLUTE'">{{model.proposal?.dateOfExpiry | date}}
+                        ({{model.proposal?.dateOfExpiry | engNepDate: false}})</span>
+                    <span *ngIf="model.proposal.limitExpiryMethod === 'CUSTOM'">{{model.proposal?.duration}} {{model.proposal?.frequency}} {{model.proposal?.condition}}</span></td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.loan?.name}}</td>
                 <td (click)="onClick(model?.loan?.id,model?.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||

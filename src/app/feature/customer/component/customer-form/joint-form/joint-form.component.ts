@@ -312,6 +312,7 @@ this.dynamic = false;
 
     onSubmit(value) {
         this.submitted = true;
+        this.spinner = true;
         const tempId = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
             this.isBlackListed = response.detail;
