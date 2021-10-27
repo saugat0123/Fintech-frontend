@@ -260,6 +260,7 @@ export class FixAssetCollateralComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.securityId)) {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'No security found please add one'));
+            this.spinner = false;
             return;
         }
         this.fixedAssetsForm.get('securityName').patchValue(this.security);

@@ -35,6 +35,7 @@ import {CadDocument} from './cadDocument';
 import {User} from '../../admin/modal/user';
 import {Comments} from '../../admin/modal/comments';
 import {CrgMicro} from './CrgMicro';
+import {CollateralSiteVisitDto} from './collateralSiteVisitDto';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -99,7 +100,5 @@ export class LoanDataHolder extends BaseEntity {
     limitExceed: any;
     loanRemarks: any;
     comments: Comments;
-
-
-
+    collateralSiteVisits: Array<CollateralSiteVisitDto>;
 }
