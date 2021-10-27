@@ -234,21 +234,12 @@
                                 </td>
                             <tr>
                                 <td><strong>कर्जा अवधि समाप्ती पूनरावलोकन मितिः </strong></td>
-                            <td *ngIf="initialInfoPrint.dateofExpiry.en.nDate === undefined; else dateofExpiryNepali" class="text-left">
+                            <td class="text-left">
                                 मितिः
                                 <input class="form-field form-control-sm"
                                          formControlName="dateofExpiry"
-                                         [value]="initialInfoPrint.dateofExpiry.en === undefined ? '' : ((initialInfoPrint.dateofExpiry.en | date) | engNepDate: true)"
                                          type="text"/>
                                 मा हुनेछ ।</td>
-                            <ng-template #dateofExpiryNepali>
-                                <td>
-                                    मितिः <input class="form-field form-control-sm"
-                                             formControlName="dateofExpiry"
-                                             [value]="initialInfoPrint.dateofExpiry.en.nDate === undefined ? '' : initialInfoPrint.dateofExpiry.en.nDate"
-                                             type="text"/>
-                                    मा हुनेछ ।</td>
-                            </ng-template>
                         </tr>
                         </table>
                     <table class="table table-borderless" style="margin-left:20px;width:100%">

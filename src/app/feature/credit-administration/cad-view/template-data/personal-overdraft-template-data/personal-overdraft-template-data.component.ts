@@ -101,6 +101,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       loanadminFeeWords: [undefined],
       loanCommitmentFee: [undefined],
       dateofExpiry: [undefined],
+      dateofExpiryNepali: [undefined],
+      dateOfExpiryType: [undefined],
       insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
@@ -120,6 +122,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       loanadminFeeWordsTransVal: [undefined],
       loanCommitmentFeeTransVal: [undefined, Validators.required],
       dateofExpiryTransVal: [undefined],
+      dateofExpiryNepaliTransVal: [undefined],
+      dateOfExpiryTypeTransVal: [undefined],
       insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined, Validators.required],
       nameofBranchManagerTransVal: [undefined, Validators.required],
@@ -255,6 +259,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
     // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
     this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
+    this.form.get('dateofExpiryNepaliTransVal').patchValue(this.translatedData.dateofExpiry);
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
     // this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
