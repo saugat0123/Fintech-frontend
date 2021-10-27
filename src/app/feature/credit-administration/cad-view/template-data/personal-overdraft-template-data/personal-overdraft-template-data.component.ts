@@ -18,7 +18,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {District} from '../../../../admin/modal/district';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
-import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-personal-overdraft-template-data',
@@ -189,7 +189,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
       this.previewBtn = false;
-      this.btnDisable = true;
+      this.btnDisable = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -241,7 +241,6 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.tdValues = this.translatedData;
     this.setTemplatedCTData(this.translatedData);
     this.spinner = false;
-    this.btnDisable = false;
   }
   private setTemplatedCTData(data): void {
     console.log('Data Value:', data);

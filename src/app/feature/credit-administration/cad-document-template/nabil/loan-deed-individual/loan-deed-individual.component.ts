@@ -276,7 +276,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       }
       if (docName === 'Personal Overdraft') {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
-            .patchValue(initialInformation.dateofExpiry.en.nDate);
+            .patchValue(initialInformation.dateofExpiry.ct);
       }
       if (docName === 'Educational Loan' && (initialInformation.selectedSecurity.en === 'LAND' || initialInformation.selectedSecurity.en === 'LAND_AND_BUILDING')) {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
