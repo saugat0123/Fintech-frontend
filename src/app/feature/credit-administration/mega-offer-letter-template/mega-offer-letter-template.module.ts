@@ -31,6 +31,9 @@ import {NepaliPatroModule} from 'nepali-patro';
 import { PersonalLoanAndPersonalOverdraftPrintComponent } from './mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft-print/personal-loan-and-personal-overdraft-print.component';
 import { PersonalLoanComponent } from './mega-offer-letter/personal-loan/personal-loan.component';
 import { PersonalLoanPrintComponent } from './mega-offer-letter/personal-loan/personal-loan-print/personal-loan-print.component';
+import {NabilModule} from '../cad-document-template/nabil/nabil.module';
+import {SakhshiCommonComponent} from '../component/sakhshi-common/sakhshi-common.component';
+import { SecuritiesComponent } from '../cad-document-template/nabil/securities-view/securities-view.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -51,12 +54,14 @@ const COMPONENTS = [
     RetailProfessionalLoanPrintComponent,
     RetailLoanAgainstInsuranceComponent,
     SmeComponent,
-    SmePrintComponent,
+    SmePrintComponent
 
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent, PersonalLoanAndPersonalOverdraftComponent, PersonalLoanAndPersonalOverdraftPrintComponent, PersonalLoanComponent, PersonalLoanPrintComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent, PersonalLoanAndPersonalOverdraftComponent, PersonalLoanAndPersonalOverdraftPrintComponent, PersonalLoanComponent, PersonalLoanPrintComponent,
+        SakhshiCommonComponent,
+        SecuritiesComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
@@ -69,21 +74,27 @@ const COMPONENTS = [
         RetailLoanAgainstInsuranceComponent,
         PersonalOverdraftComponent,
         PersonalLoanAndPersonalOverdraftComponent,
-        PersonalLoanComponent
+        PersonalLoanComponent,
+        SakhshiCommonComponent,
+    SecuritiesComponent
     ],
-  imports: [
-    ThemeModule,
-    CommonModule,
-    NgxPrintModule,
-    CoreModule,
-    NbAccordionModule,
-    NepaliPatroModule,
-  ],
+    imports: [
+        ThemeModule,
+        CommonModule,
+        NgxPrintModule,
+        CoreModule,
+        NbAccordionModule,
+        NepaliPatroModule,
+    ],
     entryComponents: [
         RetailProfessionalLoanComponent,
         PersonalOverdraftComponent,
         PersonalLoanAndPersonalOverdraftComponent,
-        PersonalLoanComponent
+        PersonalLoanComponent,
+        SmeComponent,
+        RetailMortgageLoanComponent,
+        SakhshiCommonComponent,
+    SecuritiesComponent
     ]
 })
 export class MegaOfferLetterTemplateModule {

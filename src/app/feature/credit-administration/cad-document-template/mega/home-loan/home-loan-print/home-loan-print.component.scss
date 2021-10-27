@@ -9,6 +9,20 @@
   text-align: justify;
   text-justify: inter-word;
   margin: 10px 50px;
+}table {
+   text-align: justify !important;
+   line-height: 1.9;
+ }
+p{
+  line-height: 1.9;
+}
+.nepaliList {
+  list-style-type: devanagari;
+  line-height: 1.9;
+}
+.nepaliList > li {
+  list-style-type: devanagari;
+  line-height: 1.9;
 }
 
 .form-fields {
@@ -26,23 +40,27 @@
 
 }
 
-@media print{
-  .divFooter{
-    //position: fixed;
-    //bottom: 0;
-    //width: 100%;
-    //page-break-before: auto;
-    //page-break-inside: avoid;
-    //color: black !important;
-    padding-top: 50px;
-    padding-bottom: 50px;
+@media print {
+  footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
-  //footer {page-break-after: always;
 }
-.nepaliFont {
-  font-size: 21px;
-  font-family: Preeti;
+.nepaliFont{
+  font-size: 16px;
 }
 .size{
   font-size: 16px;
+}
+.nep {
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 70px;
+}
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
 }

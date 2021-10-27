@@ -3,16 +3,16 @@
         <form class="nep">
             <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
             <p class="text-left"></p>
-            <span [ngClass]="{'font-weight-bold' : letter?.referenceNumber.ct !== null && letter?.referenceNumber.ct !== ''}">
-            {{letter?.referenceNumber.ct === null || letter?.referenceNumber.ct === '' ? '___________' : letter?.referenceNumber.ct}}
+            <span class="font-weight-bold">
+            {{autoRefNumber ? autoRefNumber : '_______________________'}}
         </span>
             <br>
             <p>
                 मितिः
-                <span *ngIf="letter.dateofApproval.en.nDate; else dateofApprovalPrint"
-                      class="font-weight-bold">{{letter?.dateofApproval.en.nDate}}</span>
-                <ng-template #dateofApprovalPrint>
-                    <span class=" font-weight-bold">{{(letter?.dateofApproval.en | date) | engNepDate: true}}</span>
+                <span *ngIf="letter.dateOfApproval.en.nDate; else dateOfApprovalPrint"
+                      class="font-weight-bold">{{letter?.dateOfApproval.en.nDate}}</span>
+                <ng-template #dateOfApprovalPrint>
+                    <span class=" font-weight-bold">{{(letter?.dateOfApproval.en | date) | engNepDate: true}}</span>
                 </ng-template>
             </p>
             <div class="mb-2"> श्रीमान्/श्रीमती
@@ -51,8 +51,8 @@
                         <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
                         <td>
                             <strong> व्यक्तिगत अधिविकर्षः
-                                <span [ngClass]="{'font-weight-bold' : letter?.loanPurpose.ct !== null && letter?.loanPurpose.ct !== ''}">
-                                    {{letter?.loanPurpose.ct === null || letter?.loanPurpose.ct === '' ? '___________' : letter?.loanPurpose.ct}}
+                                <span [ngClass]="{'font-weight-bold' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
+                                    {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct}}
                                 </span>
                             </strong> गर्ने प्रयोजनको निमित्त मात्र
                             कर्जा प्रयोग गर्न सकिनेछ ।
@@ -94,7 +94,7 @@
                             <span [ngClass]="{'font-weight-bold' : letter?.premiumRate.ct !== null && letter?.premiumRate.ct !== ''}">
                                 {{letter?.premiumRate.ct === null || letter?.premiumRate.ct === '' ? '___________' : letter?.premiumRate.ct}}
                             </span>
-                            प्रतिशत ब्याज दर प्रिमियम( interest rate premium)
+                            % प्रतिशत ब्याज दर प्रिमियम( interest rate premium)
                             हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
                             <span [ngClass]="{'font-weight-bold' : letter?.yearlyInterestRate.ct !== null && letter?.yearlyInterestRate.ct !== ''}">
                                 {{letter?.yearlyInterestRate.ct === null || letter?.yearlyInterestRate.ct === '' ? '___________' : letter?.yearlyInterestRate.ct}}
@@ -182,6 +182,16 @@
                                     <td> अग्रिम भुक्तानी रकमको ०.१५ %</td>
                                 </tr>
                             </table>
+                            <p style="font-style: italic">
+                                नेपाल राष्ट्र बैंकको निर्देशन बमोजिम रु ५० लाखसम्मको सीमा कायम भएको
+                                जुनसुकै प्रकारको कर्जा भुक्तानी गर्दा अग्रिम भुक्तानी शूल्क लाग्ने
+                                छैन । सो सीमाभन्दा बढीको कर्जाको हकमा कर्जा लिंदा बखत तोकिएको शर्त
+                                वा ब्याजदर थप/परिवर्तन भएको कारण अग्रिम रुपमा कर्जा चुक्ता गर्न
+                                चाहेमा त्यस्तो अग्रिम भुक्तानी गरे बापत कुनै किसिमको शुल्क लिइने छैन
+                                । तर उल्लिखित सिमा समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम
+                                परिवर्तन भई थप/घट भएमा सोहिबमोजिम अग्रिम भुक्तानी शुल्क दर
+                                कार्यान्वयन गरिनेछ ।
+                            </p>
                         </td>
                     <tr>
                         <td><strong>कर्जा अवधि समाप्ती पूनरावलोकन मितिः </strong></td>
@@ -204,35 +214,10 @@
                         <td>
                             <p><strong>क. </strong> स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको
                                 पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ । </p>
-                            <p><strong>Collateral details </strong></p>
-                            <p> धनी
-                                <span [ngClass]="{'font-weight-bold' : letter?.ownerName.ct !== null && letter?.ownerName.ct !== ''}">
-                                    {{letter?.ownerName.ct === null || letter?.ownerName.ct === '' ? '___________' : letter?.ownerName.ct}}
-                                </span>
-                            </p>
-                            <p> स्थान
-                                <span [ngClass]="{'font-weight-bold' : letter?.ownersAddress.ct !== null && letter?.ownersAddress.ct !== ''}">
-                                    {{letter?.ownersAddress.ct === null || letter?.ownersAddress.ct === '' ? '___________' : letter?.ownersAddress.ct}}
-                                </span>
-                            </p>
-                            <p> कित्ता नं.
-                                <span [ngClass]="{'font-weight-bold' : letter?.propertyPlotNumber.ct !== null && letter?.propertyPlotNumber.ct !== ''}">
-                                    {{letter?.propertyPlotNumber.ct === null || letter?.propertyPlotNumber.ct === '' ? '___________' : letter?.propertyPlotNumber.ct}}
-                                </span>
-                            </p>
-                            <p>
-                                सिट नं.
-                                <span [ngClass]="{'font-weight-bold' : letter?.sheetNumber.ct !== null && letter?.sheetNumber.ct !== ''}">
-                                    {{letter?.sheetNumber.ct === null || letter?.sheetNumber.ct === '' ? '___________' : letter?.sheetNumber.ct}}
-                                </span>
-                            </p>
-                            <p> क्षेत्रफल
-                                <span [ngClass]="{'font-weight-bold' : letter?.propertyArea.ct !== null && letter?.propertyArea.ct !== ''}">
-                                    {{letter?.propertyArea.ct === null || letter?.propertyArea.ct === '' ? '___________' : letter?.propertyArea.ct}}
-                                </span>
-                            </p>
+                            <p style="text-align: center"><strong>Collateral details </strong></p>
+                            <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
                             <p *ngFor="let data of guarantorData; let i = index;">
-                                {{i + 2 | nepaliWord}}. श्री
+                               <strong>{{i + 2 | nepaliWord}}.</strong>  श्री
                                 <span class=" font-weight-bold">
                                     {{guarantorParse(data.nepData, 'guarantorName')}}
                                 </span>
@@ -253,7 +238,7 @@
 
                 </table>
 
-                <table class="table table-borderless">
+                <table class="table table-borderless" style="margin-top: 50px">
                     <tr>
                         <td>२.</td>
                         <td>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट
@@ -263,7 +248,7 @@
                             गरिनेछ ।
                         </td>
                     </tr>
-
+                    <p style="page-break-before: always;">&nbsp;</p>
                     <tr>
                         <td>३.</td>
                         <td> बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा
@@ -392,6 +377,8 @@
                             गर्न असक्षम भएमा बैंकको नियम विनियम बमोजिम हर्जाना ब्याज लाग्नेछ ।
                         </td>
                     </tr>
+                </table>
+                <table class="table table-borderless">
                     <tr>
                         <td>१३.</td>
                         <td>साँवा र ब्याज रकम निर्धारित भुक्तानी मिति वा कर्जा समाप्ति मितिमा भुक्तानी नभएमा देहाय
@@ -412,40 +399,34 @@
                             (Interest Rate Premium) र आधार दर (Base Rate) बैंकको आधिकारिक वेब साईट (Website) वा समय
                             समयमा
                             बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ ।<br>
-                            <strong> ग. बिलम्ब भुक्तानी शुल्कः </strong>
-                            माथि उल्लिखित साँवा/किस्ता तथा व्याज विलम्बमा लाग्ने हर्जाना ब्याजका अतिरिक्त प्रत्येक
-                            साँवा/किस्ता तथा व्याज विलम्बमा रु.५००।
-                            ( का दरले थप विलम्ब शुल्क लाग्नेछ ।<br>
-                            <strong> घ. थप/अतिरिक्त शुल्कः </strong>
-                            स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम विभिन्न बर्गमा
-                            वर्गिकरण भएमा बैंक नियमानुसार देहाय बमोजिम
-                            थप जोखिम दर (Additional Risk Premium) समेत लाग्नेछ ।
-
+                            <strong> ग. थप/अतिरिक्त शुल्कः </strong>
+                            स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
+                            बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार ऋणीले उपभोग गदैं
+                            आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम थप जोखिम दर
+                            (Additional Risk Premium) समेत लाग्नेछ ।
                             <table class="table table-hover table-bordered hello">
                                 <tr>
                                     <td> विवरण</td>
                                     <td> थप जोखिम दर (Additional Risk Premium)</td>
                                 </tr>
                                 <tr>
-                                    <td> ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति
-                                        पछि ७ औं दिन देखि २९ औं दिन भित्र नविकरण/चुक्ता नभएमा
+                                    <td>
+                                        ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ३० औं दिन
+                                        देखि ८९ औं दिन भित्र नविकरण/चुक्ता नभएमा
                                     </td>
-                                    <td> वार्षिक १.०० %</td>
+                                    <td>
+                                        वार्षिक २.०० %
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td> ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति
-                                        पछि ३० औं दिन देखि ८९ औं दिन भित्र नविकरण/चुक्ता नभएमा
+                                    <td>
+                                        ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ९० औं दिन
+                                        देखि माथि ऋणकर्जा नविकरण/चुक्ता नभए सम्म
                                     </td>
-                                    <td> वार्षिक २.०० %</td>
-                                </tr>
-
-                                <tr>
-                                    <td> ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति
-                                        पछि ९० औं दिन देखि माथि ऋणकर्जा नविकरण/चुक्ता नभए सम्म
+                                    <td>
+                                        वार्षिक ३.०० %
                                     </td>
-                                    <td> वार्षिक ३.०० %</td>
                                 </tr>
-
                             </table>
                         </td>
                     </tr>
@@ -527,7 +508,6 @@
                             व्यहोराले तेश्रो पक्षको हक श्रृजना गरी दिन पाईने छैन ।
                         </td>
                     </tr>
-
                     <tr>
                         <td>२२.</td>
                         <td>बैंकको धितोबन्धक र/वा दृष्टिबन्धकमा रहेको सम्पत्तिहरु/सुरक्षणहरुको बिमालेखमा बैंकर्स शर्त
@@ -609,40 +589,46 @@
                         <td>३०.</td>
                         <td>तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु
                             पर्नेछ।<br>
-                            <div *ngIf="selectedSecurity === 'LAND' && !renewalVal" class="col-md-12"
-                                 style="line-height: 1.9">
-                                क. रु.
-                                <span class=" font-weight-bold">
+                            <div *ngIf="selectedSecurity === 'LAND' && !renewalVal" class="col-md-12">
+                                <p style="line-height: 1.9;margin-left:100px;">
+                                    क. रु.
+                                    <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
-                                को प्रतिज्ञा पत्र ।<br>
-                                ख. रु.
-                                <span class=" font-weight-bold">
+                                    को प्रतिज्ञा पत्र ।<br>
+                                    ख. रु.
+                                    <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
-                                ऋण कर्जा तमसुक ।<br>
-                                ग. व्यक्तिगत अधिविकर्ष सुविधाको लागी निवेदन ।<br>
-                                घ. निरन्तरता पत्र ।<br>
-                                ह्. बहुबैंकिङ्ग घोषणा पत्र ।<br>
-                                च. रु.
-                                <span class=" font-weight-bold">
+                                    ऋण कर्जा तमसुक ।<br>
+                                    ग. व्यक्तिगत अधिविकर्ष सुविधाको लागी निवेदन ।<br>
+                                    घ. निरन्तरता पत्र ।<br>
+                                    ह्. बहुबैंकिङ्ग घोषणा पत्र ।<br>
+                                    च. रु.
+                                    <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
-                                को धितो बन्धक तमसुक ।<br>
-                                छ. मूल्यांकन प्रतिवेदन ।<br>
-                                ज. श्री
-                                <span class=" font-weight-bold">{{guarantorName}}</span>
-                                को बैकको पक्षमा रु
-                                <span class=" font-weight-bold">
-                                        {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
-                                    </span>
-                                /-(अक्षरेपी रु
-                                <span class=" font-weight-bold">
-                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}
+                                    को धितो बन्धक तमसुक ।<br>
+                                    छ. मूल्यांकन प्रतिवेदन ।
+                                </p>
+                                <p *ngFor="let data of guarantorData; let i = index;" style="margin-left:100px;margin-top: -20px;line-height: 1.9">
+                                    {{i+8 | nepaliWord}}
+                                    श्री
+                                    <span class=" font-weight-bold">
+                                    {{guarantorParse(data.nepData, 'guarantorName')}}
                                 </span>
-                                मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।<br>
+                                    को बैकको पक्षमा रु
+                                    <span class=" font-weight-bold">
+                                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                                </span>
+                                    /-(अक्षरेपी रु
+                                    <span class=" font-weight-bold">
+                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))}}
+                                </span>
+                                    मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                    <br>
                                 <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12">
-                                    <p>
+                                    <p style="line-height: 1.9;">
                                         <span class="nepaliFont"
                                               style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
                                     </p>
@@ -650,9 +636,8 @@
                             </div>
 
                             <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING' && !renewalVal"
-                                 class="col-md-12"
-                                 style="line-height: 1.9">
-                                <p>क. रु.
+                                 class="col-md-12">
+                                <p style="line-height: 1.9;margin-left:100px">क. रु.
                                     <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span>
@@ -672,24 +657,30 @@
                                     </span>
                                     को धितो बन्धक तमसुक ।<br>
                                     छ. मूल्यांकन प्रतिवेदन ।<br>
-                                    ज. श्री
-                                    <span class=" font-weight-bold">{{guarantorName}}</span>
-                                    को बैकको पक्षमा रु
-                                    <span class=" font-weight-bold">
-                                        {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
-                                    </span>
-                                    (अक्षरेपी रु
-                                    <span class=" font-weight-bold">
-                                        {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}
-                                    </span>
-                                    मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
-                                    <br>
-                                    झ. बैकर्श शर्त सहितको कम्तीमा रु
+                                    ज. बैकर्श शर्त सहितको कम्तीमा रु
                                     <span [ngClass]="{'font-weight-bold' : letter?.insuranceAmountinFigure.ct !== null && letter?.insuranceAmountinFigure.ct !== ''}">
                                         {{letter?.insuranceAmountinFigure.ct === null || letter?.insuranceAmountinFigure.ct === '' ? '___________' : letter?.insuranceAmountinFigure.ct}}
                                     </span>
                                     बराबरको भवनको विमालेख ।<br>
-                                    ञ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।</p>
+                                    झ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
+                                </p>
+                                <p *ngFor="let data of guarantorData; let i = index;"
+                                   style="margin-left:100px;margin-top: -20px">
+                                    {{i + 10 | nepaliWord}}.
+                                    श्री
+                                    <span class=" font-weight-bold">
+                                            {{guarantorParse(data.nepData, 'guarantorName')}}
+                                        </span>
+                                    को बैकको पक्षमा रु
+                                    <span class=" font-weight-bold">
+                                            {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                                        </span> /-
+                                    (अक्षरेपी रु
+                                    <span class=" font-weight-bold">
+                                            {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'en'))}}
+                                        </span>
+                                    मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                </p>
                                 <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12"
                                      style="margin-left:5%">
                                         <span class="nepaliFont" style="font-size: 28px;">
@@ -697,9 +688,8 @@
                                         </span>
                                 </div>
                             </div>
-                            <br>
                             <div *ngIf="renewalVal" class="col-md-12" style="line-height: 1.9">
-                                <p style="line-height: 1.9"> क. व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।<br>
+                                <p style="line-height: 1.9;margin-left:100px"> क. व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।<br>
                                     ख. निरन्तरताको लिखत ।<br>
                                     ग. बहुबैंकिङ्ग घोषणा पत्र ।<br>
                                     घ. ग्राहक स्वघोषणा फारम ।
@@ -708,7 +698,7 @@
                         </td>
                     </tr>
                 </table>
-                <p style="line-height:1.9"> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र
+                <p style="line-height:1.7; margin-top: -20px"> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र
                     साथ संलग्न रहेको प्रतिलिपीमा तपाईंको मञ्जुरी
                     सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ । अन्यथा यो प्रस्ताव स्वतः रद्द हुनेछ । साथै, तपाईले यो ऋण
                     स्वीकृति पत्रमा मञ्जुरी जनाएको
@@ -717,7 +707,7 @@
                     तथा सम्पूर्ण सुरक्षण सम्बन्धी लिखतहरु बैंकको नियमानुसार गर्नु/बुझाउनु भए पश्चातमात्र कर्जा सुविधा
                     प्रवाह हुन सक्नेछ । अन्यथा,
                     स्वीकृत ऋण सुविधा स्वतः रद्द हुनेछ ।</p>
-                <div class="row mt-3" style="width:100%">
+                <div class="row mt-1" style="width:100%">
                     <div class="col-md-12 d-flex justify-content-between">
                         <div class="right-content">
                             ................................
@@ -815,7 +805,7 @@
                     </tr>
                 </table>
                 <br>
-                <div style="margin-left:80%; margin-top:2em">
+                <div style="margin-left:75%; margin-top:2em">
 
                     .........................................
                     <p>
@@ -827,31 +817,13 @@
                     <p>
                         साक्षीः
                     </p>
-                    <table class="table table-borderless" style="line-height: 1.9">
-                        <tr>
-                            <td>
-                                १.
-                            </td>
-                            <td>
-                                ____________________ जिल्ला
-                                ______________________ गा.वि.स/न.पा,
-                                वडा नंं. _________
-                                बस्ने श्री ____________________________
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                २.
-                            </td>
-                            <td>
-                                कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का
-                                कर्मचारी श्री
-                                <span [ngClass]="{'font-weight-bold' : letter?.staffName.ct !== null && letter?.staffName.ct !== ''}">
-                                {{letter?.staffName.ct === null || letter?.staffName.ct === '' ? '___________' : letter?.staffName.ct}}
-                            </span>
-                            </td>
-                        </tr>
-                    </table>
+                    <ul class="nepaliList">
+                        <app-sakhshi-common></app-sakhshi-common>
+                        <li>
+                            कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+                            ____________________________
+                        </li>
+                    </ul>
                 </div>
             </div>
         </form>

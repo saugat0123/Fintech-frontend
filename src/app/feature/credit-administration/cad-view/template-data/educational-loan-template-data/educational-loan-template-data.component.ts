@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +20,8 @@ import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import { key } from 'ionicons/icons';
+import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -31,6 +33,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   tdValues: any = {};
   form: FormGroup;
   objectForm: FormGroup;
+  oneForm: FormGroup;
   fieldFlag = false;
   selectedSecurityVal;
   selectedCountryVal;
@@ -48,6 +51,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   dateTypeAD = false;
   dateTypeBS1 = false;
   dateTypeAD1 = false;
+  dateTypeBS2 = false;
+  dateTypeAD2 = false;
   provinceList: Array<Province> = new Array<Province>();
   districtList: Array<District> = new Array<District>();
   municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
@@ -56,7 +61,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   cadDocStatus = CadDocStatus.key();
   offerLetterDocument: OfferDocument;
   submitted = false;
-
+  municipalityListForSecurities = [];
   constructor(
       private formBuilder: FormBuilder,
       private dialogService: NbDialogService,
@@ -69,6 +74,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
       private addressService: AddressService,
+      private currencyFormatterPipe: CurrencyFormatterPipe,
   ) {
   }
 
@@ -97,14 +103,18 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     });
   }
 
-  public getMunicipalityByDistrict(district): void {
-    this.addressService.getMunicipalityVDCByDistrict(district).subscribe((response: any) => {
-      this.municipalityList = response.detail;
-      this.municipalityList.sort((a, b) => a.name.localeCompare(b.name));
-      if (event !== null) {
-        this.form.get('municipality').patchValue(null);
+  public getMunicipalityByDistrict(data, event, index): void {
+    const district = new District();
+    district.id = data;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+      (response: any) => {
+        this.municipalityListForSecurities[index] = response.detail;
+        this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+        if (event !== null) {
+          this.form.get(['securities', index, 'securityOwnersMunicipalityOrVdc']).patchValue(null);
+        }
       }
-    });
+    );
   }
 
   buildForm() {
@@ -115,7 +125,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanLimitChecked: [undefined],
 
       dateOfApproval: [undefined],
-      referenceNumber: [undefined],
+      //referenceNumber: [undefined],
       dateOfApplication: [undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
@@ -151,7 +161,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       sakhshiMunicipality: [undefined],
       sakhshiWardNo: [undefined],
       sakhshiName: [undefined],
-      approvalStaffName: [undefined],
       ownersName: [undefined],
       district: [undefined],
       municipality: [undefined],
@@ -161,6 +170,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       landArea: [undefined],
       promissoryNoteAmount: [undefined],
       loanDeedAmount: [undefined],
+      accountNumber: [undefined],
+      bankName: [undefined],
 
       // Translated Value
       embassyNameTransVal: [undefined],
@@ -168,7 +179,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
-      referenceNumberTransVal: [undefined, Validators.required],
+      //referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
@@ -188,7 +199,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanCommitmentFeeInPercentageTransVal: [undefined, Validators.required],
       fixedDepositHolderNameTransVal: [undefined, Validators.required],
       fixedDepositAmountFigureTransVal: [undefined, Validators.required],
-      tenureFixedDepositTransVal: [undefined, Validators.required],
+      tenureFixedDepositTransVal: [undefined],
       tenureDepositReceiptNumberTransVal: [undefined, Validators.required],
       guarantorNameTransVal: [undefined],
       // guaranteedAmountFigureTransVal: [undefined, Validators.required],
@@ -204,7 +215,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       sakhshiMunicipalityTransVal: [undefined],
       sakhshiWardNoTransVal: [undefined],
       sakhshiNameTransVal: [undefined],
-      approvalStaffNameTransVal: [undefined, Validators.required],
       ownersNameTransVal: [undefined],
       districtTransVal: [undefined],
       municipalityTransVal: [undefined],
@@ -216,11 +226,92 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanDeedAmountTransVal: [undefined],
       municipalityOrVdc: [undefined],
       municipalityOrVdcTransVal: [undefined],
+      accountNumberTransVal: [undefined],
+      bankNameTransVal: [undefined],
+      securities: this.formBuilder.array([])
     });
+    this.addDefaultSecurity();
+  }
+
+  addDefaultSecurity() {
+    (this.form.get('securities') as FormArray).push(
+      this.initSecuritiesForm()
+    );
+  }
+
+  initSecuritiesForm() {
+    return this.formBuilder.group({
+      securityOwnersName: [undefined],
+      securityOwnersNameTransVal: [{value: undefined, disabled: true}],
+      securityOwnersNameCT: [undefined],
+      
+      securityOwnersDistrict: [undefined],
+      securityOwnersDistrictTransVal: [{value: undefined, disabled: true}],
+      securityOwnersDistrictCT: [undefined],
+
+      securityOwnersMunicipalityOrVdc: [undefined],
+
+      securityOwnersMunicipality: [undefined],
+      securityOwnersMunicipalityTransVal: [{value: undefined, disabled: true}],
+      securityOwnersMunicipalityCT: [undefined],
+
+      securityOwnersWardNo: [undefined],
+      securityOwnersWardNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersWardNoCT: [undefined],
+
+      securityOwnersSeatNo: [undefined],
+      securityOwnersSeatNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersSeatNoCT: [undefined],
+
+      securityOwnersKittaNo: [undefined],
+      securityOwnersKittaNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersKittaNoCT: [undefined],
+
+      securityOwnersLandArea: [undefined],
+      securityOwnersLandAreaTransVal: [{value: undefined, disabled: true}],
+      securityOwnersLandAreaCT: [undefined],
+    });
+  }
+
+  removeIndividualSecurities(i) {
+    (this.form.get('securities') as FormArray).removeAt(i);
+  }
+
+  translateSecuritiDetailsNumberFields(arrName, source, index, target) {
+    const translatedNepaliNum = this.engToNepaliNumberPipe.transform(String(this.form.get([String(arrName), index, String(source)]).value));
+    this.form.get([String(arrName), index, String(target)]).patchValue(translatedNepaliNum);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(translatedNepaliNum);
+  }
+
+  setDefaultNepaliResponse(arrName, source, index, target) {
+    this.form.get([String(arrName), index, String(target)]).patchValue(this.form.get([String(arrName), index, String(source)]).value.nepaliName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(this.form.get([String(arrName), index, String(source)]).value.nepaliName);
+  }
+
+  async onChangeSecurityOwnersName(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
+  async onChangeTranslateSecurity(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
   }
 
   submit() {
     this.submitted = true;
+    const securityDetails = [{
+      securityType: this.form.get('selectedSecurity').value,
+      securities: this.form.get('securities').value,
+    }];
     if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
       this.clearConditionalValidation();
     }
@@ -255,7 +346,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
       Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
+        console.log('key: ', key);
+        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
           return;
         }
         this.attributes = new Attributes();
@@ -264,6 +356,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
+      this.tdValues['securityDetails'] = securityDetails;
       this.translatedData = {};
       this.deleteCTAndTransContorls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
@@ -305,6 +398,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       closeOnBackdropClick: false,
       closeOnEsc: false,
       hasBackdrop: false,
+      hasScroll: true,
+      dialogClass: 'model-full',
       context: {
         cadOfferLetterApprovedDoc: this.customerApprovedDoc,
         preview: true,
@@ -334,7 +429,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value.toString());
-    this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.form.get(numLabel).value.toString()));
+    this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.form.get(numLabel).value.toString())));
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
     this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
@@ -342,8 +437,13 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   translateNumber(source, target) {
     console.log(this.form.get(source).value);
-    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.form.get(source).value.toString()));
     console.log(wordLabelVar);
+    this.form.get(target).patchValue(wordLabelVar);
+  }
+
+  translateNumber1(source, target) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.form.get(source).value.toString());
     this.form.get(target).patchValue(wordLabelVar);
   }
 
@@ -365,7 +465,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   mappedData() {
     Object.keys(this.form.controls).forEach(key => {
-      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
+      console.log('key: ', key);
+      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
         return;
       }
       this.attributes = new Attributes();
@@ -400,6 +501,16 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.dateTypeAD1 = true;
   }
 
+  setDateTypeBS2() {
+    this.dateTypeBS2 = true;
+    this.dateTypeAD2 = false;
+  }
+
+  setDateTypeAD2() {
+    this.dateTypeBS2 = false;
+    this.dateTypeAD2 = true;
+  }
+
   calInterestRate() {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
@@ -421,7 +532,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   }
 
   private setTemplatedCTData(data): void {
-    // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
+    //this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     // this.form.get('distressValueTransVal').patchValue(this.translatedData.distressValue);
     // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
@@ -445,7 +556,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     // this.form.get('insuranceAmountFigureTransVal').patchValue(this.translatedData.insuranceAmountFigure);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedData.relationshipOfficerName);
     this.form.get('branchManagerTransVal').patchValue(this.translatedData.branchManager);
-    this.form.get('approvalStaffNameTransVal').patchValue(this.translatedData.approvalStaffName);
     this.form.get('ownersNameTransVal').patchValue(this.translatedData.ownersName);
     // this.form.get('wardNoTransVal').patchValue(this.translatedData.wardNo);
     // this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
@@ -461,6 +571,10 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       this.form.get('districtTransVal').patchValue(this.objectTranslate.district);
       this.form.get('municipalityTransVal').patchValue(this.objectTranslate.municipality);
     }
+    if (this.selectedSecurityVal === 'FIXED_DEPOSIT') {
+      this.form.get('accountNumberTransVal').patchValue(data.accountNumber);
+      this.form.get('bankNameTransVal').patchValue(data.bankName);
+    }
   }
 
   private clearConditionalValidation(): void {
@@ -475,14 +589,5 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('tenureDepositReceiptNumberTransVal').clearValidators();
     this.form.get('tenureDepositReceiptNumberTransVal').updateValueAndValidity();
   }
-
-
-  // changeDocumentName(securityType) {
-  //     if (securityType === 'FIXED_DEPOSIT') {
-  //       this.docSecurityName = 'Class A';
-  //     } else {
-  //       this.docSecurityName = 'Class E';
-  //     }
-  // }
 }
 

@@ -47,6 +47,9 @@ export class PromissoryNoteIndividualComponent implements OnInit {
   selectiveArr = [];
   offerLetterDocument;
   educationalTemplateData;
+  jointNepData;
+  spinner = false;
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -129,15 +132,23 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
     }
     let age;
-    if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
-      const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
-      // age = this.engToNepNumberPipe.transform(String(calAge));
-      age = this.ageCalculation(this.individualData.dob.en.eDate);
-    } else {
-      // const calAge = AgeCalculation.calculateAge(this.individualData.dob.en);
-      // age = this.engToNepNumberPipe.transform(String(calAge));
-      age = this.ageCalculation(this.individualData.dob.en);
+    if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData)) {
+      if (this.individualData.dob.en.eDate === undefined) {
+        age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en).toString());
+      } else {
+        age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en.eDate).toString());
+      }
+
     }
+    // if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
+    //   const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
+    //   // age = this.engToNepNumberPipe.transform(String(calAge));
+    //   age = this.ageCalculation(this.individualData.dob.en.eDate);
+    // } else {
+    //   // const calAge = AgeCalculation.calculateAge(this.individualData.dob.en);
+    //   // age = this.engToNepNumberPipe.transform(String(calAge));
+    //   age = this.ageCalculation(this.individualData.dob.en);
+    // }
     let length = 1;
     if (!ObjectUtil.isEmpty(this.jointInfoData)) {
       length = this.jointInfoData.length;
@@ -153,9 +164,14 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     this.form.patchValue(
         {
           nameofBranchLocated: this.individualData.branch.ct,
-          nameofGrandFather: this.individualData.grandFatherName.ct,
-          nameofFather: this.individualData.fatherName.ct,
-          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
+          nameofGrandFather: this.individualData.grandFatherName ?
+              this.individualData.grandFatherName.ct :
+              this.individualData.fatherInLawName ?
+                  this.individualData.fatherInLawName.ct : '',
+          nameofFather: this.individualData.fatherName ?
+              this.individualData.fatherName.ct :
+              this.individualData.husbandName ? this.individualData.husbandName.ct : '',
+          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict ? this.individualData.citizenshipIssueDistrict.ct : '',
           dateofIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
           citizenshipNo: this.individualData.citizenshipNo.ct,
           nameofPerson: this.individualData.name.ct,
@@ -177,7 +193,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     const endDate = new Date();
     let diff = (endDate.getTime() - stDate.getTime()) / 1000;
     diff = diff / (60 * 60 * 24);
-    const yr = Math.abs(Math.round(diff / 365.25));
+    const yr = Math.abs(Math.round(diff / 365));
     return this.engToNepNumberPipe.transform(yr.toString());
   }
 
@@ -268,8 +284,12 @@ export class PromissoryNoteIndividualComponent implements OnInit {
         citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
       }
       formArray.push(this.formBuilder.group({
-        nameofGrandFatherJoint : [nepData.grandFatherName.ct || nepData.grandFatherName.np],
-        nameofFatherJoint : [nepData.fatherName.np || nepData.fatherName.ct],
+        nameofGrandFatherJoint : [nepData.grandFatherName ?
+            nepData.grandFatherName.ct :
+            nepData.fatherInLawName ? nepData.fatherInLawName.ct : ''],
+        nameofFatherJoint : [ nepData.fatherName ?
+            nepData.fatherName.ct :
+            nepData.husbandName ? nepData.husbandName.ct : ''],
         districtJoint : [nepData.permanentDistrict.ct],
         vdcJoint : [nepData.permanentMunicipality.ct],
         wardNoJoint : [nepData.permanentWard.np || nepData.permanentWard.ct],
@@ -284,12 +304,35 @@ export class PromissoryNoteIndividualComponent implements OnInit {
 
   checkOfferLetterData() {
     if (this.cadData.offerDocumentList.length > 0) {
-      this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
-      if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-        this.educationalTemplateData = educationalOfferData.interestRate;
+      let documentName;
+      this.cadData.offerDocumentList.filter((document: OfferDocument) => {
+        documentName = document.docName;
+        this.offerLetterDocument = document;
+      });
+      if (documentName === 'Educational Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate;
+        }
       }
+      if (documentName === 'Personal Overdraft') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyInterestRate;
+        }
+      }
+      if (documentName === 'Personal Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyFloatingInterestRate;
+        }
+      }
+      // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
+      //     === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
+      // if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+      //   const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+      //   this.educationalTemplateData = educationalOfferData.interestRate;
+      // }
     }
   }
 
@@ -297,10 +340,13 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     if (this.cadData.loanHolder.customerType === this.customerType.INDIVIDUAL
         && this.clientType === this.customerSubType.JOINT.toUpperCase()) {
       const associateId = this.cadData.loanHolder.associateId;
+      this.spinner = true;
       await this.customerService.getJointInfoDetails(associateId).toPromise().then((res: any) => {
         this.jointInfoData = JSON.parse(res.detail.jointInfo);
+        this.spinner = false;
       }, error => {
         console.log(error);
+        this.spinner = false;
       });
     }
   }

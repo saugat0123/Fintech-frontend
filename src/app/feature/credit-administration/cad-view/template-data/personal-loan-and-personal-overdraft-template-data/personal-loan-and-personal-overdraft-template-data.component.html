@@ -1,5 +1,344 @@
 <div>
     <form [formGroup]="form">
+        <div class="col-md-12">
+            <h5>
+                Personal Loan Details
+            </h5>
+        </div>
+        <table class="table table-borderless table-hover text-center sb-small table-sm">
+            <tr>
+                <th></th>
+                <th>Loan Data</th>
+                <th>Nepali Translation</th>
+                <th>Correct Translation</th>
+            </tr>
+            <tr>
+                <td>
+                    Loan Amount in Figure
+                </td>
+                <td>
+                    <input type="text" class="form-control" formControlName="loanAmountPl"
+                           (input)="getNumAmountWord('loanAmountPl', 'loanAmountPlInWords');translateNumber('loanAmountPl', 'loanAmountPlTransVal')">
+                </td>
+                <td class="abc">
+                    {{podtranslatedData?.loanAmountPl}}
+                </td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanAmountPlTransVal.errors }"
+                           formControlName="loanAmountPlTransVal"/>
+                    <div *ngIf="submitted && Form.loanAmountPlTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanAmountPlTransVal.errors.required">Loan Amount is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Loan Amount In Words</td>
+                <td><input type="text" class="form-control" formControlName="loanAmountPlInWords"></td>
+                <td class="abc">{{podtranslatedData?.loanAmountPlInWords}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanAmountPlInWordsTransVal.errors }"
+                           formControlName="loanAmountPlInWordsTransVal"/>
+                    <div *ngIf="submitted && Form.loanAmountPlInWordsTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanAmountPlInWordsTransVal.errors.required">Loan amount is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Purpose of Loan</td>
+                <td><input type="text" class="form-control" formControlName="purposeofLoan"></td>
+                <td class="abc">{{podtranslatedData?.purposeofLoan}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.purposeofLoanTransVal.errors }"
+                           formControlName="purposeofLoanTransVal"/>
+                    <div *ngIf="submitted && Form.purposeofLoanTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.purposeofLoanTransVal.errors.required">Purpose of Loan is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Base Rate</td>
+                <td><input type="text" class="form-control" formControlName="baseRate"
+                           (input)="calInterestRate()">
+                </td>
+                <td class="abc">{{podtranslatedData?.baseRate}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.baseRateTransVal.errors }"
+                           formControlName="baseRateTransVal"/>
+                    <div *ngIf="submitted && Form.baseRateTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.baseRateTransVal.errors.required">Base Rate is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Premium Rate</td>
+                <td><input type="text" class="form-control"
+                           formControlName="premiumRate"
+                           (input)="calInterestRate()"></td>
+                <td class="abc">{{podtranslatedData?.premiumRate}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.premiumRateTransVal.errors }"
+                           formControlName="premiumRateTransVal"/>
+                    <div *ngIf="submitted && Form.premiumRateTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.premiumRateTransVal.errors.required">Premium Rate is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Interest Rate</td>
+                <td><input type="text" class="form-control" formControlName="yearlyInterestRate"></td>
+                <td class="abc">{{podtranslatedData?.yearlyInterestRateTransVal}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.yearlyInterestRateTransVal.errors }"
+                           formControlName="yearlyInterestRateTransVal"/>
+                    <div *ngIf="submitted && Form.yearlyInterestRateTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.yearlyInterestRateTransVal.errors.required">Yearly Interest Rate is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Loan Admin Fee in Figure</td>
+                <td><input type="text" class="form-control" formControlName="loanAdminFeeinFigure"
+                           (input)="getNumAmountWord('loanAdminFeeinFigure', 'loanAdminFeeinWords');translateNumber('loanAdminFeeinFigure', 'loanAdminFeeinFigureTransVal')"></td>
+                <td class="abc">{{podtranslatedData?.loanAdminFeeinFigure}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinFigureTransVal.errors }"
+                           formControlName="loanAdminFeeinFigureTransVal"/>
+                    <div *ngIf="submitted && Form.loanAdminFeeinFigureTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanAdminFeeinFigureTransVal.errors.required">Loan Admin Fee in Figure is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Loan Admin Fee in Words</td>
+                <td><input type="text" class="form-control" formControlName="loanAdminFeeinWords"></td>
+                <td class="abc">{{podtranslatedData?.loanAdminFeeinWords}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinWordsTransVal.errors }"
+                           formControlName="loanAdminFeeinWordsTransVal"/>
+                    <div *ngIf="submitted && Form.loanAdminFeeinWordsTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanAdminFeeinWordsTransVal.errors.required">Loan Admin Fee in words is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Emi In Figure</td>
+                <td><input type="text" class="form-control" formControlName="emiInFigure"
+                           (input)="getNumAmountWord('emiInFigure', 'emiInWords');translateNumber('emiInFigure', 'emiInFigureTransVal')"></td>
+                <td class="abc">{{podtranslatedData?.emiInFigure}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.emiInFigureTransVal.errors }"
+                           formControlName="emiInFigureTransVal"/>
+                    <div *ngIf="submitted && Form.emiInFigureTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.emiInFigureTransVal.errors.required">Emi In Figure is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Emi In Words</td>
+                <td><input type="text" class="form-control" formControlName="emiInWords"></td>
+                <td class="abc">{{podtranslatedData?.emiInWords}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.emiInWordsTransVal.errors }"
+                           formControlName="emiInWordsTransVal"/>
+                    <div *ngIf="submitted && Form.emiInWordsTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.emiInWordsTransVal.errors.required">emi In Words is required</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <hr/>
+        <div class="col-md-12">
+            <h5>
+                Personal Overdraft Details
+            </h5>
+        </div>
+        <table class="table table-borderless table-hover text-center sb-small table-sm">
+            <tr>
+                <th></th>
+                <th>Loan Data</th>
+                <th>Nepali Translation</th>
+                <th>Correct Translation</th>
+            </tr>
+            <tr>
+                <td>
+                    Loan Amount in Figure
+                </td>
+                <td>
+                    <input type="text" class="form-control" formControlName="loanAmountOd"
+                           (input)="getNumAmountWord('loanAmountOd', 'loanAmountOdInWords');translateNumber('loanAmountOd', 'loanAmountOdTransVal')">
+                </td>
+                <td class="abc">
+                    {{podtranslatedData?.loanAmountOd}}
+                </td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanAmountOdTransVal.errors }"
+                           formControlName="loanAmountOdTransVal"/>
+                    <div *ngIf="submitted && Form.loanAmountOdTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanAmountOdTransVal.errors.required">Loan Amount is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Loan Amount In Words</td>
+                <td><input type="text" class="form-control" formControlName="loanAmountOdInWords"></td>
+                <td class="abc">{{podtranslatedData?.loanAmountOdInWords}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanAmountOdInWordsTransVal.errors }"
+                           formControlName="loanAmountOdInWordsTransVal"/>
+                    <div *ngIf="submitted && Form.loanAmountOdInWordsTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanAmountOdInWordsTransVal.errors.required">Loan amount is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Purpose of Loan</td>
+                <td><input type="text" class="form-control" formControlName="purposeofLoanOd"></td>
+                <td class="abc">{{podtranslatedData?.purposeofLoanOd}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.purposeofLoanOdTransVal.errors }"
+                           formControlName="purposeofLoanOdTransVal"/>
+                    <div *ngIf="submitted && Form.purposeofLoanOdTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.purposeofLoanOdTransVal.errors.required">Purpose of Loan is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Base Rate</td>
+                <td><input type="text" class="form-control" formControlName="baseRateOd"
+                           (input)="calInterestRate1()">
+                </td>
+                <td class="abc">{{podtranslatedData?.baseRateOd}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.baseRateOdTransVal.errors }"
+                           formControlName="baseRateOdTransVal"/>
+                    <div *ngIf="submitted && Form.baseRateOdTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.baseRateOdTransVal.errors.required">Base Rate is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Premium Rate</td>
+                <td><input type="text" class="form-control"
+                           formControlName="premiumRateOd"
+                           (input)="calInterestRate1()"></td>
+                <td class="abc">{{podtranslatedData?.premiumRateOd}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.premiumRateOdTransVal.errors }"
+                           formControlName="premiumRateOdTransVal"/>
+                    <div *ngIf="submitted && Form.premiumRateOdTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.premiumRateOdTransVal.errors.required">Premium Rate is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Interest Rate</td>
+                <td><input type="text" class="form-control" formControlName="yearlyInterestRateOd"></td>
+                <td class="abc">{{podtranslatedData?.yearlyInterestRateOdTransVal}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.yearlyInterestRateOdTransVal.errors }"
+                           formControlName="yearlyInterestRateOdTransVal"/>
+                    <div *ngIf="submitted && Form.yearlyInterestRateOdTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.yearlyInterestRateOdTransVal.errors.required">Yearly Interest Rate is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Loan Admin Fee in Figure</td>
+                <td><input type="text" class="form-control" formControlName="loanAdminFeeinFigureOd"
+                           (input)="getNumAmountWord('loanAdminFeeinFigureOd', 'loanAdminFeeinWordsOd');translateNumber('loanAdminFeeinFigureOd', 'loanAdminFeeinFigureOdTransVal')"></td>
+                <td class="abc">{{podtranslatedData?.loanAdminFeeinFigureOd}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinFigureOdTransVal.errors }"
+                           formControlName="loanAdminFeeinFigureOdTransVal"/>
+                    <div *ngIf="submitted && Form.loanAdminFeeinFigureOdTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanAdminFeeinFigureOdTransVal.errors.required">Loan Admin Fee in Figure is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Loan Admin Fee in Words</td>
+                <td><input type="text" class="form-control" formControlName="loanAdminFeeinWordsOd"></td>
+                <td class="abc">{{podtranslatedData?.loanAdminFeeinWordsOd}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinWordsOdTransVal.errors }"
+                           formControlName="loanAdminFeeinWordsOdTransVal"/>
+                    <div *ngIf="submitted && Form.loanAdminFeeinWordsOdTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanAdminFeeinWordsOdTransVal.errors.required">Loan Admin Fee in words is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Loan Expiry Date</td>
+                <td>
+                    <div class="row" style="margin-left: 5px; margin-top: -8px;">
+                        <nb-radio-group name="loanExpiryDate">
+                            <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span></nb-radio>
+                            <nb-radio (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <nepali-patro *ngIf="dateTypeBS2" formControlName="loanExpiryDate" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                    <input [nbDatepicker]="doe"
+                           *ngIf="dateTypeAD2"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="loanExpiryDate"
+                           id="loanExpiryDate"
+                           name="loanExpiryDate"
+                           placeholder="Loan Expiry Date"
+                           type="text">
+                    <nb-datepicker #doe></nb-datepicker>
+                </td>
+            </tr>
+        </table>
+        <hr/>
+        <div class="col-md-12">
+            <h5>
+                Other Details
+            </h5>
+        </div>
         <table class="table table-borderless table-hover text-center sb-small table-sm">
             <tr>
                 <th></th>
@@ -10,9 +349,9 @@
             <tr>
                 <td>Reference Number</td>
                 <td><input type="text" class="form-control" formControlName="referenceNumber"
-                           (input)="translateNumber('referenceNumber', 'referenceNumberTransVal')">
+                           (input)="translateNumber1('referenceNumber', 'referenceNumberTransVal')">
                 </td>
-                <td class="abc">{{translatedValues?.referenceNumber}}</td>
+                <td class="abc">{{podtranslatedData?.referenceNumber}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"
@@ -81,161 +420,13 @@
                     <nb-datepicker #doap></nb-datepicker>
                 </td>
             </tr>
-
-            <tr>
-                <td>Purpose of Loan</td>
-                <td><input type="text" class="form-control" formControlName="purposeofLoan"></td>
-                <td class="abc">{{translatedValues?.purposeofLoan}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.purposeofLoanTransVal.errors }"
-                           formControlName="purposeofLoanTransVal"/>
-                    <div *ngIf="submitted && Form.purposeofLoanTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.purposeofLoanTransVal.errors.required">Purpose of Loan is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Base Rate</td>
-                <td><input type="text" class="form-control" formControlName="baseRate"
-                           (input)="calInterestRate()">
-                </td>
-                <td class="abc">{{translatedValues?.baseRate}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.baseRateTransVal.errors }"
-                           formControlName="baseRateTransVal"/>
-                    <div *ngIf="submitted && Form.baseRateTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.baseRateTransVal.errors.required">Base Rate is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Premium Rate</td>
-                <td><input type="text" class="form-control"
-                           formControlName="premiumRate"
-                           (input)="calInterestRate()"></td>
-                <td class="abc">{{translatedValues?.premiumRate}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.premiumRateTransVal.errors }"
-                           formControlName="premiumRateTransVal"/>
-                    <div *ngIf="submitted && Form.premiumRateTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.premiumRateTransVal.errors.required">Premium Rate is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Yearly Interest Rate</td>
-                <td><input type="text" class="form-control" formControlName="yearlyInterestRate"></td>
-                <td class="abc">{{translatedValues?.yearlyInterestRateTransVal}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.yearlyInterestRateTransVal.errors }"
-                           formControlName="yearlyInterestRateTransVal"/>
-                    <div *ngIf="submitted && Form.yearlyInterestRateTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.yearlyInterestRateTransVal.errors.required">Yearly Interest Rate is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Loan Admin Fee in Figure</td>
-                <td><input type="text" class="form-control" formControlName="loanAdminFeeinFigure"
-                           (input)="getNumAmountWord('loanAdminFeeinFigure', 'loanAdminFeeinWords');translateNumber('loanAdminFeeinFigure', 'loanAdminFeeinFigureTransVal')"></td>
-                <td class="abc">{{translatedValues?.loanAdminFeeinFigure}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinFigureTransVal.errors }"
-                           formControlName="loanAdminFeeinFigureTransVal"/>
-                    <div *ngIf="submitted && Form.loanAdminFeeinFigureTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.loanAdminFeeinFigureTransVal.errors.required">Loan Admin Fee in Figure is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Loan Admin Fee in Words</td>
-                <td><input type="text" class="form-control" formControlName="loanAdminFeeinWords"></td>
-                <td class="abc">{{translatedValues?.loanAdminFeeinWords}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinWordsTransVal.errors }"
-                           formControlName="loanAdminFeeinWordsTransVal"/>
-                    <div *ngIf="submitted && Form.loanAdminFeeinWordsTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.loanAdminFeeinWordsTransVal.errors.required">Loan Admin Fee in words is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Emi In Figure</td>
-                <td><input type="text" class="form-control" formControlName="emiInFigure"
-                           (input)="getNumAmountWord('emiInFigure', 'emiInWords');translateNumber('emiInFigure', 'emiInFigureTransVal')"></td>
-                <td class="abc">{{translatedValues?.emiInFigure}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.emiInFigureTransVal.errors }"
-                           formControlName="emiInFigureTransVal"/>
-                    <div *ngIf="submitted && Form.emiInFigureTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.emiInFigureTransVal.errors.required">Emi In Figure is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Emi In Words</td>
-                <td><input type="text" class="form-control" formControlName="emiInWords"></td>
-                <td class="abc">{{translatedValues?.emiInWords}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.emiInWordsTransVal.errors }"
-                           formControlName="emiInWordsTransVal"/>
-                    <div *ngIf="submitted && Form.emiInWordsTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.emiInWordsTransVal.errors.required">emi In Words is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Loan Expiry Date</td>
-                <td>
-                    <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                        <nb-radio-group name="loanExpiryDate">
-                            <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span></nb-radio>
-                            <nb-radio (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
-                        </nb-radio-group>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                </td>
-                <td>
-                    <nepali-patro *ngIf="dateTypeBS2" formControlName="loanExpiryDate" [responseType]="2"
-                                  [displayNepali]="true">
-                    </nepali-patro>
-                    <input [nbDatepicker]="doe"
-                           *ngIf="dateTypeAD2"
-                           class="form-control form-control-sm-error rounded"
-                           formControlName="loanExpiryDate"
-                           id="loanExpiryDate"
-                           name="loanExpiryDate"
-                           placeholder="Loan Expiry Date"
-                           type="text">
-                    <nb-datepicker #doe></nb-datepicker>
-                </td>
-            </tr>
             <tr>
                 <td>Account Number</td>
                 <td><input type="text" class="form-control"
                            formControlName="accountNumber"
-                           (input)="translateNumber('accountNumber', 'accountNumberTransVal')">
+                           (input)="translateNumber1('accountNumber', 'accountNumberTransVal')">
                 </td>
-                <td class="abc">{{translatedValues?.accountNumber}}</td>
+                <td class="abc">{{podtranslatedData?.accountNumber}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.accountNumberTransVal.errors }"
@@ -247,9 +438,9 @@
                 </td>
             </tr>
             <tr>
-                <td>Name of Company Customer Working</td>
+                <td>Name of Company where Customer is Working</td>
                 <td><input type="text" class="form-control" formControlName="nameofCompanyCustomerWorking"></td>
-                <td class="abc">{{translatedValues?.nameofCompanyCustomerWorking}}</td>
+                <td class="abc">{{podtranslatedData?.nameofCompanyCustomerWorking}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.nameofCompanyCustomerWorkingTransVal.errors }"
@@ -263,7 +454,7 @@
             <tr>
                 <td>Relationship officer Name</td>
                 <td><input type="text" class="form-control" formControlName="relationshipofficerName"></td>
-                <td class="abc">{{translatedValues?.relationshipofficerName}}</td>
+                <td class="abc">{{podtranslatedData?.relationshipofficerName}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.relationshipofficerNameTransVal.errors }"
@@ -277,7 +468,7 @@
             <tr>
                 <td>Branch Manager</td>
                 <td><input type="text" class="form-control" formControlName="branchManager"></td>
-                <td class="abc">{{translatedValues?.branchManager}}</td>
+                <td class="abc">{{podtranslatedData?.branchManager}}</td>
                 <td>
                     <input type="text" class="form-control"
                            [ngClass]="{ 'is-invalid':submitted && Form.branchManagerTransVal.errors }"
@@ -285,49 +476,6 @@
                     <div *ngIf="submitted && Form.branchManagerTransVal.errors"
                          class="invalid-feedback">
                         <div *ngIf="Form.branchManagerTransVal.errors.required">Branch Manager name is required</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Signature Date</td>
-                <td>
-                    <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                        <nb-radio-group name="signatureDate">
-                            <nb-radio (click)="setDateTypeBS3()"><span style="margin-left:-60px">BS</span></nb-radio>
-                            <nb-radio (click)="setDateTypeAD3()" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
-                        </nb-radio-group>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                </td>
-                <td>
-                    <nepali-patro *ngIf="dateTypeBS3" formControlName="signatureDate" [responseType]="2"
-                                  [displayNepali]="true">
-                    </nepali-patro>
-                    <input [nbDatepicker]="doe"
-                           *ngIf="dateTypeAD3"
-                           class="form-control form-control-sm-error rounded"
-                           formControlName="signatureDate"
-                           id="signatureDate"
-                           name="signatureDate"
-                           placeholder="Signature Date"
-                           type="text">
-                    <nb-datepicker #doe></nb-datepicker>
-                </td>
-            </tr>
-            <tr>
-                <td>Staff Name</td>
-                <td><input type="text" class="form-control" formControlName="staffName"></td>
-                <td class="abc">{{translatedValues?.staffName}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.staffNameTransVal.errors }"
-                           formControlName="staffNameTransVal"/>
-                    <div *ngIf="submitted && Form.staffNameTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.staffNameTransVal.errors.required"> Staff Name is required</div>
                     </div>
                 </td>
             </tr>

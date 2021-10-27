@@ -5,13 +5,14 @@
                     <h4 class="text-center font-weight-bold"><u>ऋणकर्जा सुविधा स्वीकृति पत्र</u></h4>
                 </div>
             </div>
-            <form class="nep">
+            <form>
                 <div class="row">
                     <div class="col-md-12">
                         <p>
                             <span style="float: left">
-                                <span [ngClass]="{'font-weight-bold' : letter?.refNumber.ct !== null && letter?.refNumber.ct !== ''}">
-                                    {{letter?.refNumber.ct === null || letter?.refNumber.ct === '' ? '___________' : letter?.refNumber.ct}}
+                                 ऋण स्वीकृती पत्र सं. :
+                                <span class="font-weight-bold">
+                                    {{ autoRefNumber ? autoRefNumber : '___________________'}}
                                 </span>
                             </span>
                         </p><br>
@@ -30,8 +31,8 @@
                         <p>
                             श्री
                             <span [ngClass]="{'font-weight-bold' : letter?.name !== null && letter?.name !== ''}">
-                                {{letter?.name === null || letter?.name === '' ? '___________' : letter?.name}}
-                            </span>
+                                {{loanHolderInfo?.name?.ct ?  loanHolderInfo?.name?.ct : '___________'}}
+                            </span> ज्यू,
                         </p>
                         <p>
                             <span [ngClass]="{'font-weight-bold' : customerAddress !== null && customerAddress !== ''}">
@@ -61,11 +62,11 @@
                     <thead><tr><th colspan="3" class="text-center">स्वीकृत ऋणकर्जा सुविधाहरुको बिबरण</th></tr></thead>
                     <tbody>
                     <tr>
-                        <td rowspan="8"><strong>१.</strong></td>
+                        <td rowspan="5"><strong>१.</strong></td>
                         <td><strong>कर्जा प्रकार/ प्रयोजनः</strong></td>
                         <td>व्यक्तिगत कर्जाः
-                            <span [ngClass]="{'font-weight-bold' : letter?.loanPurpose.ct !== null && letter?.loanPurpose.ct !== ''}">
-                                {{letter?.loanPurpose.ct === null || letter?.loanPurpose.ct === '' ? '___________' : letter?.loanPurpose.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
+                                {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct}}
                             </span>
                             प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
                         </td>
@@ -138,7 +139,9 @@
                             <span [ngClass]="{'font-weight-bold' : letter?.emiAmountWords.ct !== null && letter?.emiAmountWords.ct !== ''}">
                                 {{letter?.emiAmountWords.ct === null || letter?.emiAmountWords.ct === '' ? '___________' : letter?.emiAmountWords.ct}}
                             </span>
-                            मात्र) का दरले ६० मासिक किस्ताहरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
+                            मात्र) का दरले
+                            {{letter?.loanPeriodInMonth ? letter?.loanPeriodInMonth.ct : '______________'}}
+                            मासिक किस्ताहरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                             <p>
                                 <strong>द्रष्टब्यः</strong>
                                 कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अञग्रेजी पात्रोको प्रत्येक २० तारिखका दिन
@@ -146,7 +149,11 @@
                             </p>
                         </td>
                     </tr>
+                    </tbody></table>
+                <div class="page-break"></div>
+                <table class="table table-bordered"><tbody>
                     <tr>
+                        <td rowspan="3"></td>
                         <td>
                             <strong>
                                 अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः
@@ -177,7 +184,7 @@
                                         कर्जा प्रवाह भएको मितिले २ वर्ष भित्र
                                     </td>
                                     <td>
-                                        अग्रिम भुक्तानी रकमको ०.७५%
+                                        अग्रिम भुक्तानी रकमको ०.७५ %
                                     </td>
                                 </tr>
                                 <tr>
@@ -185,7 +192,7 @@
                                         २ वर्ष देखि ५ वर्ष भित्र
                                     </td>
                                     <td>
-                                        अग्रिम भुक्तानी रकमको ०.३७५%
+                                        अग्रिम भुक्तानी रकमको ०.३७५ %
                                     </td>
                                 </tr>
                                 <tr>
@@ -193,10 +200,20 @@
                                         ५ वर्ष भन्दा पछि
                                     </td>
                                     <td>
-                                        अग्रिम भुक्तानी रकमको ०.१५ ५
+                                        अग्रिम भुक्तानी रकमको ०.१५ %
                                     </td>
                                 </tr>
                             </table>
+                            <p style="font-style: italic">
+                                नेपाल राष्ट्र बैंकको निर्देशन बमोजिम रु ५० लाखसम्मको सीमा कायम भएको
+                                जुनसुकै प्रकारको कर्जा भुक्तानी गर्दा अग्रिम भुक्तानी शूल्क लाग्ने
+                                छैन । सो सीमाभन्दा बढीको कर्जाको हकमा कर्जा लिंदा बखत तोकिएको शर्त
+                                वा ब्याजदर थप/परिवर्तन भएको कारण अग्रिम रुपमा कर्जा चुक्ता गर्न
+                                चाहेमा त्यस्तो अग्रिम भुक्तानी गरे बापत कुनै किसिमको शुल्क लिइने छैन
+                                । तर उल्लिखित सिमा समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम
+                                परिवर्तन भई थप/घट भएमा सोहिबमोजिम अग्रिम भुक्तानी शुल्क दर
+                                कार्यान्वयन गरिनेछ ।
+                            </p>
                         </td>
                     </tr>
                     </tbody>
@@ -321,7 +338,7 @@
                             आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यकत्ता र निवेदन बमोजिम
                             ब्यक्तिगत कर्जा तपाईंले यस नबिल बैंक लिमिटेडको,
                             <span [ngClass]="{'font-weight-bold' : letter?.branch !== null && letter?.branch !== ''}">
-                                {{letter?.branch === null || letter?.branch === '' ? '___________' : letter?.branch}}
+                                {{cadOfferLetterApprovedDoc?.loanHolder?.branch?.nepaliName}}
                             </span>
                             मा खोल्नु भएको चल्ती खातामा
                             ऋणकर्जा प्रवाह गरिनेछ ।
@@ -384,42 +401,33 @@
                                 <tr>
                                     <td>
                                         ग.<u>
-                                        बिलम्ब भुक्तानी शुल्कः
-                                    </u>
-                                        <p>
-                                            माथि उल्लिखित साँवा/किस्ता तथा व्याज विलम्बमा लाग्ने हर्जाना ब्याजका अतिरिक्त प्रत्येक साँवा/किस्ता तथा
-                                            व्याज विलम्बमा  रु.५०० (का दरले थप विलम्ब शुल्क लाग्नेछ) ।
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        घ.<u>
                                         थप/अतिरिक्त शुल्कः </u>
-                                        <p>स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम विभिन्न बर्गमा वर्गिकरण
-                                            भएमा बैंक नियमानुसार देहाय बमोजिम थप जोखिम दर (Additional Risk Premium) समेत लाग्नेछ । </p>
+                                        <p> स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
+                                            बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार ऋणीले उपभोग गदैं
+                                            आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम थप जोखिम दर
+                                            (Additional Risk Premium) समेत लाग्नेछ ।</p>
                                         <table class="table table-bordered hello">
                                             <tr>
                                                 <td>विवरण</td>
                                                 <td>थप जोखिम दर (Additional Risk Premium)</td>
                                             </tr>
                                             <tr>
-                                                <td>ऋणकर्जाको पुर्व निर्धारित सावाञ  र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ७ औं दिन
-                                                    देखि २९ औं दिन भित्र नविकरण/चुक्ता नभएमा
-                                                </td>
-                                                <td>वार्षिक १.००%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ऋणकर्जाको पुर्व निर्धारित सावाञ  र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ३० औं दिन
+                                                <td>
+                                                    ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ३० औं दिन
                                                     देखि ८९ औं दिन भित्र नविकरण/चुक्ता नभएमा
                                                 </td>
-                                                <td>वार्षिक २.००%</td>
+                                                <td>
+                                                    वार्षिक २.०० %
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>ऋणकर्जाको पुर्व निर्धारित सावाञ  र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ९० औं दिन
+                                                <td>
+                                                    ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ९० औं दिन
                                                     देखि माथि ऋणकर्जा नविकरण/चुक्ता नभए सम्म
                                                 </td>
-                                                <td>वार्षिक ३.००%</td>
+                                                <td>
+                                                    वार्षिक ३.०० %
+                                                </td>
                                             </tr>
                                         </table>
                                     </td>
@@ -589,7 +597,18 @@
                                  बाट खर्च कटाउने अख्तीयारी पत्र ।
                             </p>
                             <p>
-                                ह्.	स्थाई लेखा नम्बरको प्रमाण पत्र ।
+                                {{5 | nepaliWord}}.
+                                रु   <span class="font-weight-bold">
+                                        {{guarantorAmount ? guarantorAmount : '____________________'}}
+                                    </span>/-
+                                को श्री
+                                <span class="font-weight-bold">
+                                    {{finalName ? finalName : '______________________________'}}
+                                </span>
+                                व्यक्तिगत जमानतपत्र र सम्पत्ती विवरण ।
+                            </p>
+                            <p>
+                                च.	स्थाई लेखा नम्बरको प्रमाण पत्र ।
                             </p>
                             <p>
                                 छ.	ग्राहक स्वःघोषणा फारम ।
@@ -603,8 +622,12 @@
                         </td>
                     </tr>
                 </table>
-                <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12" style="margin-left:5%">
-                    <span class="nepaliFont" style="font-size: 28px;">{{offerData?.supportedInformation}}</span>
+                <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12"
+                     style="margin-left: 6%;margin-top: -4%;">
+                    ञ.
+                    <span class="nepaliFont" style="margin-top: -11px;font-size: 26px;">
+                                            {{offerData?.supportedInformation}}
+                                        </span>
                 </div>
                 <br>
                 <div class="row">
@@ -726,11 +749,7 @@
                                 आधिकारिक हस्ताक्षर (ग्राहक)
                             </p>
                             <p>
-                                मितिः <span *ngIf="letter.signatureDate.en.nDate; else signatureDatePrint"
-                                            class="font-weight-bold">{{letter?.signatureDate.en.nDate}}</span>
-                            <ng-template #signatureDatePrint>
-                                <span class=" font-weight-bold">{{(letter?.signatureDate.en | date) | engNepDate: true}}</span>
-                            </ng-template>
+                                मितिः <span class="font-weight-bold">................................</span>
                             </p>
                         </div>
                     </div>
@@ -740,17 +759,10 @@
                         साक्षीः
                     </p>
                     <ul class="nepaliList">
-                        <li>
-                            ____________________ जिल्ला
-                            ______________________ गा.वि.स/न.पा,
-                            वडा नंं. _________
-                            बस्ने श्री ____________________________
-                        </li>
+                        <app-sakhshi-common></app-sakhshi-common>
                         <li>
                             कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                            <span [ngClass]="{'font-weight-bold' : letter?.employeeName.ct !== null && letter?.employeeName.ct !== ''}">
-                                {{letter?.employeeName.ct === null || letter?.employeeName.ct === '' ? '___________' : letter?.employeeName.ct}}
-                            </span>
+                            ____________________________
                         </li>
                     </ul>
                 </div>

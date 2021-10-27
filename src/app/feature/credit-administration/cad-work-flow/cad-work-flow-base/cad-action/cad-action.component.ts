@@ -154,7 +154,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         // if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
         //   this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
         // }
-        this.getUserList(this.sendForwardBackwardList[0].role);
+        // this.getUserList(this.sendForwardBackwardList[0].role);
       }
     });
   }
@@ -170,7 +170,7 @@ export class CadActionComponent implements OnInit, OnChanges {
 
   checkForwardValidMessage() {
     const storage = LocalStorageUtil.getStorage();
-    if (storage.roleType === 'MAKER') {
+    if (storage.roleType === RoleType[this.roleType.CAS_MAKER]) {
       this.missingSignDoc = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value =>
           value.draftPath === undefined || value.pathSigned === null).length > 0;
     }
@@ -433,7 +433,7 @@ export class CadActionComponent implements OnInit, OnChanges {
 
   public showHideCadActionButtons() {
     // send to branch -> cas maker / cad
-    if (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_MAKER) {
+    if (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_MAKER && this.hasBranchMaker) {
       this.isSendToBranchDisabled = false;
     }
 

@@ -51,6 +51,7 @@ export class PersonalOverdraftComponent implements OnInit {
   selectedSecurity;
   loanLimit;
   renewal;
+  offerDocumentDetails;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -71,6 +72,9 @@ export class PersonalOverdraftComponent implements OnInit {
     this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
   }
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
+      this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+    }
     console.log('guarantor Data:',this.guarantorData);
     console.log('All Data:',this.tempData);
     console.log('Loan Holder initial data:',this.loanHolderInfo);
@@ -80,25 +84,20 @@ export class PersonalOverdraftComponent implements OnInit {
 buildPersonal() {
   this.form = this.formBuilder.group({
     referenceNumber: [undefined],
-    dateofApproval: [undefined],
+    dateOfApproval: [undefined],
     customerName: [undefined],
     customerAddress: [undefined],
     dateofApplication: [undefined],
     loanCommitmentFee: [undefined],
     loanAmountinFigure: [undefined],
     loanAmountInWords: [undefined],
-    loanPurpose: [undefined],
+    purposeOfLoan: [undefined],
     baseRate: [undefined],
     premiumRate: [undefined],
     yearlyInterestRate: [undefined],
     loanadminFee: [undefined],
     loanadminFeeWords: [undefined],
     dateofExpiry: [undefined],
-    ownerName: [undefined],
-    ownersAddress: [undefined],
-    propertyPlotNumber: [undefined],
-    propertyArea: [undefined],
-    sheetNumber: [undefined],
     nameofBranch: [undefined],
     nameofBranchManager: [undefined],
     guarantorName: [undefined],
@@ -110,7 +109,6 @@ buildPersonal() {
     district: [undefined],
     wardNum: [undefined],
     witnessName: [undefined],
-    staffName: [undefined],
     selectedSecurity: [undefined],
     loanLimitChecked: [undefined],
     renewalChecked: [undefined],
@@ -175,30 +173,28 @@ buildPersonal() {
       const val = value.proposal.proposedLimit;
       totalLoanAmount = totalLoanAmount + val;
     });
+    let autoRefNumber;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
     this.form.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
-      referenceNumber: this.tempData.referenceNumber.ct ? this.tempData.referenceNumber.ct : '',
-      loanPurpose: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
+      referenceNumber: autoRefNumber ? autoRefNumber : '',
+      purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
       loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
       yearlyInterestRate: this.tempData.yearlyInterestRate.ct ? this.tempData.yearlyInterestRate.ct : '',
       loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
       loanadminFeeWords: this.tempData.loanadminFeeWords.ct ? this.tempData.loanadminFeeWords.ct : '',
-      ownerName: this.tempData.ownerName.ct ? this.tempData.ownerName.ct : '',
-      ownersAddress: this.tempData.ownersAddress.ct ? this.tempData.ownersAddress.ct : '',
-      propertyPlotNumber: this.tempData.propertyPlotNumber.ct ? this.tempData.propertyPlotNumber.ct : '',
-      propertyArea: this.tempData.propertyArea.ct ? this.tempData.propertyArea.ct : '',
-      sheetNumber: this.tempData.sheetNumber.ct ? this.tempData.sheetNumber.ct : '',
-      nameofBranch: this.tempData.branch ? this.tempData.branch : '',
+      nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
       nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
-      branchName : this.tempData.branch ? this.tempData.branch : '',
-      staffName : this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
+      branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
     });
   }

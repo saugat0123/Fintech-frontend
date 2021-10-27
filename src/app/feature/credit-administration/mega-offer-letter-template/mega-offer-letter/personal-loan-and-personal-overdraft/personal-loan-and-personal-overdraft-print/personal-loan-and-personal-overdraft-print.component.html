@@ -4,7 +4,7 @@
         <form>
             <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
             <p class="text-left"></p>
-            <span [ngClass]="{'font-weight-bold' : letter?.referenceNumber.ct !== null && letter?.referenceNumber.ct !== ''}">
+            ऋणकर्जा संख्याः <span [ngClass]="{'font-weight-bold' : letter?.referenceNumber.ct !== null && letter?.referenceNumber.ct !== ''}">
                 {{letter?.referenceNumber.ct === null || letter?.referenceNumber.ct === '' ? '___________' : letter?.referenceNumber.ct}}
             </span>
             <br>
@@ -61,11 +61,12 @@
                         <td><strong> रकम </strong></td>
                         <td>
                             रु.
-                            <span class=" font-weight-bold">
-                                    {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.loanAmountPl.ct !== null && letter?.loanAmountPl.ct !== ''}">
+                                {{letter?.loanAmountPl.ct === null || letter?.loanAmountPl.ct === '' ? '___________' : letter?.loanAmountPl.ct}}
                             </span>
                             ( अक्षेरुपी रु.
-                            <span class=" font-weight-bold uniSize">{{nepaliCurrencyWordPipe.transform(proposedAmount)}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.loanAmountPlInWords.ct !== null && letter?.loanAmountPlInWords.ct !== ''}">
+                                {{letter?.loanAmountPlInWords.ct === null || letter?.loanAmountPlInWords.ct === '' ? '___________' : letter?.loanAmountPlInWords.ct}}
                             </span>
                             मात्र )
                         </td>
@@ -118,7 +119,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (क्धबउ) शुल्कः </strong></td>
+                        <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः </strong></td>
                         <td>
                             स्वीकृत अधिविकर्ष तथा नविकरणीय प्रकृतिका कर्जाको तथा निश्चित अवधि वा भुक्तानी तालिका
                             बमोजिम भुक्तानी
@@ -127,7 +128,7 @@
                             अन्य कुनै बैंक तथा वित्तीय संस्थाबाट ऋणकर्जा स्वीकृत गरी यस बैंकको ऋण कर्जा भुक्तान
                             गरिएमा यसरी अग्रिम
                             भुक्तानी गरिने ऋणकर्जा रकममा हालका लागि देहाय बमोजिम<strong> अग्रिम भुक्तानी शुल्क र/वा
-                            स्वाप (क्धबउ) शुल्क</strong>
+                            स्वाप (Swap) शुल्क</strong>
                             लाग्नेछ तर उल्लिखित दरहरु समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम परिवर्तन भई
                             थप/घट हुनसक्नेछन ।<br>
                             <table>
@@ -149,12 +150,22 @@
                                     <td> अग्रिम भुक्तानी रकमको ०.१५ %</td>
                                 </tr>
                             </table>
+                            <p style="font-style: italic">
+                                नेपाल राष्ट्र बैंकको निर्देशन बमोजिम रु ५० लाखसम्मको सीमा कायम भएको
+                                जुनसुकै प्रकारको कर्जा भुक्तानी गर्दा अग्रिम भुक्तानी शूल्क लाग्ने
+                                छैन । सो सीमाभन्दा बढीको कर्जाको हकमा कर्जा लिंदा बखत तोकिएको शर्त
+                                वा ब्याजदर थप/परिवर्तन भएको कारण अग्रिम रुपमा कर्जा चुक्ता गर्न
+                                चाहेमा त्यस्तो अग्रिम भुक्तानी गरे बापत कुनै किसिमको शुल्क लिइने छैन
+                                । तर उल्लिखित सिमा समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम
+                                परिवर्तन भई थप/घट भएमा सोहिबमोजिम अग्रिम भुक्तानी शुल्क दर
+                                कार्यान्वयन गरिनेछ ।
+                            </p>
                         </td>
                     <tr>
                         <td><strong>कर्जा प्रकार/ प्रयोजनः </strong></td>
                         <td>व्यक्तिगत अधिविकर्षः
-                            <span [ngClass]="{'font-weight-bold' : letter?.purposeofLoan.ct !== null && letter?.purposeofLoan.ct !== ''}">
-                                {{letter?.purposeofLoan.ct === null || letter?.purposeofLoan.ct === '' ? '___________' : letter?.purposeofLoan.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.purposeofLoanOd.ct !== null && letter?.purposeofLoanOd.ct !== ''}">
+                                {{letter?.purposeofLoanOd.ct === null || letter?.purposeofLoanOd.ct === '' ? '___________' : letter?.purposeofLoanOd.ct}}
                             </span>
                             प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न
                             सकिनेछ ।
@@ -163,11 +174,12 @@
                     <tr>
                         <td><strong>रकमः </strong></td>
                         <td>रु.
-                            <span class=" font-weight-bold">
-                                    {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.loanAmountOd.ct !== null && letter?.loanAmountOd.ct !== ''}">
+                                {{letter?.loanAmountOd.ct === null || letter?.loanAmountOd.ct === '' ? '___________' : letter?.loanAmountOd.ct}}
                             </span>
                             ( अक्षेरुपी रु.
-                            <span class=" font-weight-bold uniSize">{{nepaliCurrencyWordPipe.transform(proposedAmount)}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.loanAmountOdInWords.ct !== null && letter?.loanAmountOdInWords.ct !== ''}">
+                                {{letter?.loanAmountOdInWords.ct === null || letter?.loanAmountOdInWords.ct === '' ? '___________' : letter?.loanAmountOdInWords.ct}}
                             </span>
                             मात्र )
                         </td>
@@ -175,16 +187,16 @@
                     <tr>
                         <td><strong>ब्याज दरः</strong></td>
                         <td>प्रकाशित आधार दर (Base Rate)
-                            <span [ngClass]="{'font-weight-bold' : letter?.baseRate.ct !== null && letter?.baseRate.ct !== ''}">
-                                {{letter?.baseRate.ct === null || letter?.baseRate.ct === '' ? '___________' : letter?.baseRate.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.baseRateOd.ct !== null && letter?.baseRateOd.ct !== ''}">
+                                {{letter?.baseRateOd.ct === null || letter?.baseRateOd.ct === '' ? '___________' : letter?.baseRateOd.ct}}
                             </span>
                             +
-                            <span [ngClass]="{'font-weight-bold' : letter?.premiumRate.ct !== null && letter?.premiumRate.ct !== ''}">
-                                {{letter?.premiumRate.ct === null || letter?.premiumRate.ct === '' ? '___________' : letter?.premiumRate.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.premiumRateOd.ct !== null && letter?.premiumRateOd.ct !== ''}">
+                                {{letter?.premiumRateOd.ct === null || letter?.premiumRateOd.ct === '' ? '___________' : letter?.premiumRateOd.ct}}
                             </span>
                             हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
-                            <span [ngClass]="{'font-weight-bold' : letter?.yearlyInterestRate.ct !== null && letter?.yearlyInterestRate.ct !== ''}">
-                                {{letter?.yearlyInterestRate.ct === null || letter?.yearlyInterestRate.ct === '' ? '___________' : letter?.yearlyInterestRate.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.yearlyInterestRateOd.ct !== null && letter?.yearlyInterestRateOd.ct !== ''}">
+                                {{letter?.yearlyInterestRateOd.ct === null || letter?.yearlyInterestRateOd.ct === '' ? '___________' : letter?.yearlyInterestRateOd.ct}}
                             </span>
                             % का दर निर्धारण
                             गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक महिनाको मसान्तमा र ऋणकर्जा चुक्ता
@@ -196,12 +208,12 @@
                         <td>
                             <ul class="disclist">
                                 <li>ऋण प्रशासनिक शुल्क बापत रु
-                                    <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinFigure.ct !== null && letter?.loanAdminFeeinFigure.ct !== ''}">
-                                        {{letter?.loanAdminFeeinFigure.ct === null || letter?.loanAdminFeeinFigure.ct === '' ? '___________' : letter?.loanAdminFeeinFigure.ct}}
+                                    <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinFigureOd.ct !== null && letter?.loanAdminFeeinFigureOd.ct !== ''}">
+                                        {{letter?.loanAdminFeeinFigureOd.ct === null || letter?.loanAdminFeeinFigureOd.ct === '' ? '___________' : letter?.loanAdminFeeinFigureOd.ct}}
                                     </span>
                                     अक्षरेपी रु
-                                    <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinWords.ct !== null && letter?.loanAdminFeeinWords.ct !== ''}">
-                                        {{letter?.loanAdminFeeinWords.ct === null || letter?.loanAdminFeeinWords.ct === '' ? '___________' : letter?.loanAdminFeeinWords.ct}}
+                                    <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinWordsOd.ct !== null && letter?.loanAdminFeeinWordsOd.ct !== ''}">
+                                        {{letter?.loanAdminFeeinWordsOd.ct === null || letter?.loanAdminFeeinWordsOd.ct === '' ? '___________' : letter?.loanAdminFeeinWordsOd.ct}}
                                     </span>
                                     मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                     कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट
@@ -235,14 +247,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (क्धबउ) शुल्कः </strong></td>
+                        <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः </strong></td>
                         <td>स्वीकृत अधिविकर्ष तथा नविकरणीय प्रकृतिका कर्जाको तथा निश्चित अवधि वा भुक्तानी तालिका
                             बमोजिम भुक्तानी हुने प्रकृतिका
                             आवधिक वा दीर्घकालिन कर्जाको किस्ता तालिका भन्दा अगावैे ऋणकर्जा अग्रिम भुक्तानी भएमा र/वा
                             अन्य कुनै बैंक तथा वित्तीय
                             संस्थाबाट ऋणकर्जा स्वीकृत गरी यस बैंकको ऋण कर्जा भुक्तान गरिएमा यसरी अग्रिम भुक्तानी
                             गरिने ऋणकर्जा रकममा हालका लागि
-                            देहाय बमोजिम अग्रिम भुक्तानी शुल्क र/वा स्वाप (क्धबउ) शुल्क लाग्नेछ तर उल्लिखित दरहरु
+                            देहाय बमोजिम अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्क लाग्नेछ तर उल्लिखित दरहरु
                             समय समयमा नेपाल राष्ट्र बैंकको
                             निर्देशन बमोजिम परिवर्तन भई थप/घट हुनसक्नेछन ।<br>
                             <table>
@@ -264,6 +276,16 @@
                                     <td> अग्रिम भुक्तानी रकमको ०.१५ %</td>
                                 </tr>
                             </table>
+                            <p style="font-style: italic">
+                                नेपाल राष्ट्र बैंकको निर्देशन बमोजिम रु ५० लाखसम्मको सीमा कायम भएको
+                                जुनसुकै प्रकारको कर्जा भुक्तानी गर्दा अग्रिम भुक्तानी शूल्क लाग्ने
+                                छैन । सो सीमाभन्दा बढीको कर्जाको हकमा कर्जा लिंदा बखत तोकिएको शर्त
+                                वा ब्याजदर थप/परिवर्तन भएको कारण अग्रिम रुपमा कर्जा चुक्ता गर्न
+                                चाहेमा त्यस्तो अग्रिम भुक्तानी गरे बापत कुनै किसिमको शुल्क लिइने छैन
+                                । तर उल्लिखित सिमा समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम
+                                परिवर्तन भई थप/घट भएमा सोहिबमोजिम अग्रिम भुक्तानी शुल्क दर
+                                कार्यान्वयन गरिनेछ ।
+                            </p>
                         </td>
                     </tr>
                     <tr>
@@ -275,6 +297,7 @@
                             <ng-template #loanExpiryDatePrint>
                                 <span class=" font-weight-bold">{{(letter?.loanExpiryDate.en | date) | engNepDate: true}}</span>
                             </ng-template>
+                            मा हुनेछ ।
                         </td>
                     </tr>
                 </table>
@@ -284,23 +307,18 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <p *ngFor="let data of guarantorData; let i = index;">
-                            {{i + 1 | nepaliWord}}. श्री
-                                <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'guarantorName')}}
-                                </span>
+                            क. श्री
+                            <span class=" font-weight-bold">{{this.finalName}}</span>
                             ले बैंकको पक्षमा
                             रु
-                                <span class=" font-weight-bold">
-                                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
-                                </span>
-                            /-(अक्षरेपि
+                            <span class=" font-weight-bold">
+                                {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+                            </span> /-(अक्षरेपि
                             रु.
-                                <span class=" font-weight-bold uniSize">
-                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
-                                </span>
-                            मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
-                        </p>
+                            <span class=" font-weight-bold uniSize">
+                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}</span>
+                            मात्र) को व्यक्तिगत
+                            जमानत पत्र दिनु पर्नेछ ।
                         </td>
                     </tr>
                     <tr>
@@ -323,7 +341,7 @@
                             आधार दर (Base Rate) जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु
                             अर्थात श्रावण,
                             कार्तिक, माघ र बैशाखको पहिलो दिनबाट ब्याज दरसमायोजन तथा संसोधन गरीनेछ ।
-                            बंैकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated
+                            बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated
                             Monthly Installment )
                             भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा किस्ता भुक्तानी
                             तालिकामा परीवर्तन गरिने छैन ।
@@ -515,37 +533,33 @@
                             बैंकले निर्धारण गरेको ब्याजदर प्रिमियम (Interest Rate Premium) र आधार दर (Base Rate)
                             बैंकको आधिकारिक वेब साईट (Website) समय समयमा
                             बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ ।<br>
-                            <strong>ग. <u>बिलम्ब भुक्तानी शुल्कः </u></strong>
-                            माथि उल्लिखित साँवा/किस्ता तथा व्याज विलम्बमा लाग्ने हर्जाना ब्याजका अतिरिक्त प्रत्येक
-                            साँवा/किस्ता तथा व्याज
-                            विलम्बमा रु.५००।( का दरले थप विलम्ब शुल्क लाग्नेछ ।<br>
-                            <strong>घ. <u>थप/अतिरिक्त शुल्कः</u></strong>
-                            स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम विभिन्न बर्गमा
-                            वर्गिकरण भएमा बैंक नियमानुसार देहाय बमोजिम थप जोखिम दर (Additional Risk Premium) समेत
-                            लाग्नेछ ।<br>
+                            <strong>ग. <u>थप/अतिरिक्त शुल्कः</u></strong>
+                            स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
+                            बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार ऋणीले उपभोग गदैं
+                            आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम थप जोखिम दर
+                            (Additional Risk Premium) समेत लाग्नेछ ।<br>
                             <table class="table table-hover table-bordered hello">
                                 <tr>
                                     <td> विवरण</td>
                                     <td> थप जोखिम दर (Additional Risk Premium)</td>
                                 </tr>
                                 <tr>
-                                    <td> ऋणकर्जाको पुर्व निर्धारित सावा र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति
-                                        मिति पछि ७ औं दिन देखि २९ औं दिन भित्र नविकरण/चुक्ता नभएमा
+                                    <td>
+                                        ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ३० औं दिन
+                                        देखि ८९ औं दिन भित्र नविकरण/चुक्ता नभएमा
                                     </td>
-                                    <td> वार्षिक १.०० %</td>
+                                    <td>
+                                        वार्षिक २.०० %
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td> ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति
-                                        मिति पछि ३० औं दिन देखि ८९ औं दिन भित्र नविकरण/चुक्ता नभएमा
+                                    <td>
+                                        ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ९० औं दिन
+                                        देखि माथि ऋणकर्जा नविकरण/चुक्ता नभए सम्म
                                     </td>
-                                    <td> वार्षिक २.०० %</td>
-                                </tr>
-
-                                <tr>
-                                    <td> ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति
-                                        मिति पछि ९० औं दिन देखि माथि ऋणकर्जा नविकरण/चुक्ता नभए सम्म
+                                    <td>
+                                        वार्षिक ३.०० %
                                     </td>
-                                    <td> वार्षिक ३.०० %</td>
                                 </tr>
 
                             </table>
@@ -705,9 +719,25 @@
                                 <br>
                                 झ. ऋणीबाट (undertaking letter ) ।
                                 <br>
+                                ञ. श्री
+                                <span class="font-weight-bold">
+                                    {{this.finalName}}
+                                </span>
+                                को बैकको पक्षमा रु
+                                <span class="font-weight-bold">
+                                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+                                </span>
+                               /- (अक्षरेपी रु
+                                <span class="font-weight-bold">
+                                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}
+                                </span>
+                                मात्र) बराबरको
+                                व्यक्तिगत जमानत पत्र ।
+                                <br>
                             <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12"
-                                 style="margin-left:5%">
-                                        <span class="nepaliFont" style="font-size: 28px;">
+                                 style=" margin-left: 10%;margin-top: -2%;">
+                                ट.
+                                        <span class="nepaliFont" style=" margin-left: 8px;margin-top: -11px;font-size: 26px;">
                                             {{offerData?.supportedInformation}}
                                         </span>
                             </div>
@@ -782,7 +812,6 @@
                         <td>२.</td>
                         <td> म/हामी माथि उल्लेखित शर्तबन्देजहरु पूर्ण स्वीकार गर्दछु/छौं ।</td>
                     </tr>
-                    <br>
                     <tr>
                         <td>३.</td>
                         <td>म/हामीलाई पूर्व जानकारी सहित वा जानकारी बेगर कुनै वा सम्पूर्ण ऋणकर्जा सिमा जुनसुकै समयमा
@@ -825,11 +854,7 @@
                             आधिकारिक हस्ताक्षर (ग्राहक)
                         </p>
                         <p>
-                            मितिः <span *ngIf="letter.signatureDate.en.nDate; else signatureDatePrint"
-                                        class="font-weight-bold">{{letter?.signatureDate.en.nDate}}</span>
-                            <ng-template #signatureDatePrint>
-                                <span class=" font-weight-bold">{{(letter?.signatureDate.en | date) | engNepDate: true}}</span>
-                            </ng-template>
+                            मितिः .....................................
                         </p>
                     </div>
                 </div>
@@ -839,18 +864,10 @@
                         साक्षीः
                     </p>
                     <ul class="nepaliList">
+                        <app-sakhshi-common></app-sakhshi-common>
                         <li>
-                            ____________________ जिल्ला
-                            ______________________ गा.वि.स/न.पा,
-                            वडा नंं. _________
-                            बस्ने श्री ____________________________
-                        </li>
-                        <li>
-                            कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का
-                            कर्मचारी श्री
-                            <span [ngClass]="{'font-weight-bold' : letter?.staffName.ct !== null && letter?.staffName.ct !== ''}">
-                                {{letter?.staffName.ct === null || letter?.staffName.ct === '' ? '___________' : letter?.staffName.ct}}
-                            </span>
+                            कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+                            ____________________________
                         </li>
                     </ul>
                 </div>

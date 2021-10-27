@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {OfferDocument} from '../../../model/OfferDocument';
-import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
@@ -32,7 +31,7 @@ export class PersonalLoanComponent implements OnInit {
   offerLetterConst = MegaOfferLetterConst;
   offerLetterDocument: OfferDocument;
   selectedArray = [];
-   laiTermLoanSelected = false;
+  laiTermLoanSelected = false;
   editor = NepaliEditor.CK_CONFIG;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() preview;
@@ -40,6 +39,13 @@ export class PersonalLoanComponent implements OnInit {
   tempData;
   afterSave = false;
   offerLetterData;
+  guarantorData;
+  guarantorNames: Array<String> = [];
+  allguarantorNames;
+  guarantorAmount = 0;
+  guarantorAmountNepali;
+  finalName;
+
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -52,16 +58,22 @@ export class PersonalLoanComponent implements OnInit {
               private nepPercentWordPipe: NepaliPercentWordPipe,
               protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private ref: NbDialogRef<PersonalLoanComponent>,
-              private routerUtilsService: RouterUtilsService) { }
+              private routerUtilsService: RouterUtilsService) {
+  }
 
   ngOnInit(): void {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    }
+    this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+    if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
+    this.guarantorDetails();
     this.checkOfferLetterData();
   }
+
   buildForm() {
     this.personalLoan = this.formBuilder.group({
       refNumber: [undefined],
@@ -69,7 +81,7 @@ export class PersonalLoanComponent implements OnInit {
       customerName: [undefined],
       customerAddress: [undefined],
       dateofApplication: [undefined],
-      loanPurpose: [undefined],
+      purposeOfLoan: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
       baseRate: [undefined],
@@ -78,20 +90,22 @@ export class PersonalLoanComponent implements OnInit {
       loanAdminFee: [undefined],
       emiAmount: [undefined],
       emiAmountWords: [undefined],
+      loanPeriodInMonth: [undefined],
       companyName: [undefined],
       branchName: [undefined],
       accountNumber: [undefined],
       additionalGuarantorDetails: [undefined],
       relationshipOfficer: [undefined],
       managerName: [undefined],
-      signatureDate : [undefined],
       sakshiDistrict: [undefined],
       sakshiMunicipality: [undefined],
       sakshiWardNum: [undefined],
       sakshiName: [undefined],
-      employeeName : [undefined]
+      guarantorName: [undefined],
+      guaranteedAmountFigure: [undefined]
     });
   }
+
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.personalLoan.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
@@ -121,6 +135,7 @@ export class PersonalLoanComponent implements OnInit {
       this.fillForm();
     }
   }
+
   fillForm() {
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
     const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
@@ -132,35 +147,45 @@ export class PersonalLoanComponent implements OnInit {
       const val = value.proposal.proposedLimit;
       totalLoanAmount = totalLoanAmount + val;
     });
+    let autoRefNumber;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
+    const guarantorNep = JSON.parse(this.guarantorData[0].nepData);
+    let guaranteedAmount;
+    if (!ObjectUtil.isEmpty(guarantorNep.gurantedAmount)) {
+      guaranteedAmount = guarantorNep.gurantedAmount.en;
+    }
     this.personalLoan.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmount: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
-      // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
-      branchName: this.tempData.branch ? this.tempData.branch : '',
+      guarantorName: this.finalName ? this.finalName : '',
+      guaranteedAmountFigure: guaranteedAmount ?  this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(guaranteedAmount)) : '',
+      branchName: this.loanHolderInfo.branch.en.nepaliName ? this.loanHolderInfo.branch.en.nepaliName : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
-      refNumber: this.tempData.refNumber.ct ? this.tempData.refNumber.ct : '',
-      loanPurpose: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
+      refNumber: autoRefNumber ? autoRefNumber : '',
+      purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
       yearlyFloatingInterestRate: this.tempData.yearlyFloatingInterestRate.ct ? this.tempData.yearlyFloatingInterestRate.ct : '',
       loanAdminFee: this.tempData.loanAdminFee.ct ? this.tempData.loanAdminFee.ct : '',
       emiAmount: this.tempData.emiAmount.ct ? this.tempData.emiAmount.ct : '',
       emiAmountWords: this.tempData.emiAmountWords.ct ? this.tempData.emiAmountWords.ct : '',
+      loanPeriodInMonth: this.tempData.loanPeriodInMonth.ct ? this.tempData.loanPeriodInMonth.ct : '',
       companyName: this.tempData.companyName.ct ? this.tempData.companyName.ct : '',
       accountNumber: this.tempData.accountNumber.ct ? this.tempData.accountNumber.ct : '',
-      // freeText: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
+      // freeText: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
       relationshipOfficer: this.tempData.relationshipOfficer.ct ? this.tempData.relationshipOfficer.ct : '',
       managerName: this.tempData.managerName.ct ? this.tempData.managerName.ct : '',
-      signatureDate : this.tempData.signatureDate.ct ? this.tempData.signatureDate.ct : '',
       /*sakshiDistrict: this.tempData.sakshiDistrict.ct ? this.tempData.sakshiDistrict.ct : '',
       sakshiMunicipality: this.tempData.sakshiMunicipality.ct ? this.tempData.sakshiMunicipality.ct : '',
       sakshiWardNum: this.tempData.sakshiWardNum.ct ? this.tempData.sakshiWardNum.ct : '',
       sakshiName: this.tempData.sakshiName.ct ? this.tempData.sakshiName.ct : '',*/
-      employeeName : this.tempData.employeeName.ct ? this.tempData.employeeName.ct : '',
     });
     // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
   }
+
   setLoanConfigData(data) {
     let cadNepData = {
       numberNepali: ')',
@@ -181,6 +206,7 @@ export class PersonalLoanComponent implements OnInit {
       LoanAmountWords: cadNepData.nepaliWords,
     });
   }
+
   calculateData(baseRateName, premiumRateName) {
     const baseRate = this.nepToEngNumberPipe.transform(this.personalLoan.get(baseRateName).value);
     const premiumRate = this.nepToEngNumberPipe.transform(this.personalLoan.get(premiumRateName).value);
@@ -188,6 +214,7 @@ export class PersonalLoanComponent implements OnInit {
     const finalVal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedValue));
     this.personalLoan.get('yearlyFloatingInterestRate').patchValue(finalVal);
   }
+
   submit(): void {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
@@ -195,7 +222,7 @@ export class PersonalLoanComponent implements OnInit {
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN)
-            .toString()) {
+        .toString()) {
           offerLetterPath.supportedInformation = this.personalLoan.get('additionalGuarantorDetails').value;
         }
       });
@@ -222,7 +249,30 @@ export class PersonalLoanComponent implements OnInit {
       this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
   }
+
   close() {
     this.ref.close();
+  }
+
+  guarantorDetails() {
+    if (this.guarantorData.length === 1) {
+      const temp = JSON.parse(this.guarantorData[0].nepData);
+      this.finalName =  temp.guarantorName.ct;
+    } else if (this.guarantorData.length === 2) {
+      for (let i = 0; i < this.guarantorData.length; i++) {
+        const temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+      }
+      this.allguarantorNames = this.guarantorNames.join(' र ');
+      this.finalName = this.allguarantorNames;
+    } else {
+      for (let i = 0; i < this.guarantorData.length - 1; i++) {
+        const temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+      }
+      this.allguarantorNames = this.guarantorNames.join(' , ');
+      const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
+      this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
+    }
   }
 }

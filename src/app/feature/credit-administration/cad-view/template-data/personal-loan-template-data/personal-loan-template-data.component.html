@@ -1,5 +1,10 @@
 <div [nbSpinner]="spinner">
-    <form [formGroup]="form">
+    <form [formGroup]="form"><div class="row pt-3 pl-2">
+        <div class="col-md-12 pt-3 pl-2">
+            <nb-checkbox #limitCheck (input)="loanChecked(limitCheck.checked)" [checked]="loanLimit">
+                <i>Customer has total loan amount above One Crore</i></nb-checkbox>
+        </div>
+    </div>
         <div class="row mt-5">
             <table class="table table-borderless text-center sb-small table-sm">
                 <tr>
@@ -37,21 +42,20 @@
                         <nb-datepicker #doa></nb-datepicker>
                     </td>
                 </tr>
-                <tr>
-                    <td>Reference Number</td>
-                    <td><input type="text" class="form-control" formControlName="refNumber"
-                               (input)="translateNumber('refNumber', 'refNumberTransVal')"/></td>
-                    <td class="abc">{{translatedData?.refNumber}}</td>
-                    <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.refNumberTransVal.errors }"
-                               formControlName="refNumberTransVal"/>
-                        <div *ngIf="submitted && Form.refNumberTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.refNumberTransVal.errors.required">Reference number is required</div>
-                        </div>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td>Reference Number</td>-->
+<!--                    <td><input type="text" class="form-control" formControlName="refNumber"/></td>-->
+<!--                    <td class="abc">{{translatedData?.refNumber}}</td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control"-->
+<!--                               [ngClass]="{ 'is-invalid':submitted && Form.refNumberTransVal.errors }"-->
+<!--                               formControlName="refNumberTransVal"/>-->
+<!--                        <div *ngIf="submitted && Form.refNumberTransVal.errors"-->
+<!--                             class="invalid-feedback">-->
+<!--                            <div *ngIf="Form.refNumberTransVal.errors.required">Reference number is required</div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
                 <tr style="padding: 12px">
                     <td>Date Of Application</td>
                     <td>
@@ -85,21 +89,21 @@
                 </tr>
                 <tr>
                     <td>Purpose Of Loan</td>
-                    <td><input type="text" class="form-control" formControlName="loanPurpose"/></td>
-                    <td class="abc">{{translatedData?.loanPurpose}}</td>
+                    <td><input type="text" class="form-control" formControlName="purposeOfLoan"/></td>
+                    <td class="abc">{{translatedData?.purposeOfLoan}}</td>
                     <td>
                         <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.loanPurposeTransVal.errors }"
-                               formControlName="loanPurposeTransVal"/>
-                        <div *ngIf="submitted && Form.loanPurposeTransVal.errors"
+                               [ngClass]="{ 'is-invalid':submitted && Form.purposeOfLoanTransVal.errors }"
+                               formControlName="purposeOfLoanTransVal"/>
+                        <div *ngIf="submitted && Form.purposeOfLoanTransVal.errors"
                              class="invalid-feedback">
-                            <div *ngIf="Form.loanPurposeTransVal.errors.required">Purpose of loan is required</div>
+                            <div *ngIf="Form.purposeOfLoanTransVal.errors.required">Purpose of loan is required</div>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>Base Rate</td>
-                    <td><input type="text" class="form-control" formControlName="baseRate" (input)="calInterestRate()"/></td>
+                    <td><input type="number" class="form-control" formControlName="baseRate" (input)="calInterestRate()"/></td>
                     <td class="abc">{{translatedData?.baseRate}}</td>
                     <td>
                         <input type="text" class="form-control"
@@ -113,7 +117,7 @@
                 </tr>
                 <tr>
                     <td>Premium Rate</td>
-                    <td><input type="text" class="form-control" formControlName="premiumRate" (input)="calInterestRate()"/></td>
+                    <td><input type="number" class="form-control" formControlName="premiumRate" (input)="calInterestRate()"/></td>
                     <td class="abc">{{translatedData?.premiumRate}}</td>
                     <td>
                         <input type="text" class="form-control"
@@ -127,7 +131,7 @@
                 </tr>
                 <tr>
                     <td>Interest Rate</td>
-                    <td><input type="text" class="form-control" formControlName="yearlyFloatingInterestRate"/></td>
+                    <td><input type="number" class="form-control" formControlName="yearlyFloatingInterestRate"/></td>
                     <td class="abc">{{translatedData?.yearlyFloatingInterestRate}}</td>
                     <td>
                         <input type="text" class="form-control"
@@ -142,7 +146,7 @@
                 <tr>
                     <td>Loan Admin Fee</td>
                     <td>
-                        <input type="text" class="form-control"
+                        <input type="number" class="form-control"
                                formControlName="loanAdminFee"
                                (input)="translateNumber('loanAdminFee', 'loanAdminFeeTransVal')"/>
                     </td>
@@ -159,7 +163,7 @@
                 </tr>
                 <tr>
                     <td>Emi Amount Figure</td>
-                    <td><input type="text" class="form-control"
+                    <td><input type="number" class="form-control"
                                formControlName="emiAmount"
                                (input)="getNumAmountWord('emiAmount', 'emiAmountWords');translateNumber('emiAmount', 'emiAmountTransVal')"/></td>
                     <td class="abc">{{translatedData?.emiAmount}}</td>
@@ -182,6 +186,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Loan Period in Month</td>
+                    <td><input type="number" class="form-control" formControlName="loanPeriodInMonth" (input)="translateNumber1('loanPeriodInMonth', 'loanPeriodInMonthTransVal')"/></td>
+                    <td class="abc">{{translatedData?.loanPeriodInMonth}}</td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="loanPeriodInMonthTransVal"/>
+                    </td>
+                </tr>
+                <tr>
                     <td>Name of Company</td>
                     <td><input type="text" class="form-control" formControlName="companyName"/></td>
                     <td class="abc">{{translatedData?.companyName}}</td>
@@ -198,8 +210,8 @@
 
                 <tr>
                     <td>Account Number</td>
-                    <td><input type="text" class="form-control" formControlName="accountNumber"
-                               (input)="translateNumber('accountNumber', 'accountNumberTransVal')"/></td>
+                    <td><input type="number" class="form-control" formControlName="accountNumber"
+                               (input)="translateNumber1('accountNumber', 'accountNumberTransVal')"/></td>
                     <td class="abc">{{translatedData?.accountNumber}}</td>
                     <td>
                         <input type="text" class="form-control"
@@ -239,35 +251,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>Signature Date</td>
-                    <td>
-                        <div class="row" style="margin-left: 5px; margin-top: -8px;">
-                            <nb-radio-group name="signatureDate">
-                                <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span></nb-radio>
-                                <nb-radio (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
-                            </nb-radio-group>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <nepali-patro *ngIf="dateTypeBS2" formControlName="signatureDate" [responseType]="2"
-                                      [displayNepali]="true">
-                        </nepali-patro>
-                        <input [nbDatepicker]="dos"
-                               *ngIf="dateTypeAD2"
-                               class="form-control form-control-sm-error rounded"
-                               formControlName="signatureDate"
-                               id="signatureDate"
-                               name="signatureDate"
-                               placeholder="Date of Signature"
-                               type="text">
-                        <nb-datepicker #dos></nb-datepicker>
-                    </td>
-                </tr>
+
                 <!--<tr>
                     <td>Witness District</td>
                     <td><input type="text" class="form-control" formControlName="sakshiDistrict"/></td>
@@ -304,20 +288,7 @@
                                formControlName="sakshiNameTransVal"/>
                     </td>
                 </tr>-->
-                <tr>
-                    <td>Approval Staff Name</td>
-                    <td><input type="text" class="form-control" formControlName="employeeName"/></td>
-                    <td class="abc">{{translatedData?.employeeName}}</td>
-                    <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.employeeNameTransVal.errors }"
-                               formControlName="employeeNameTransVal"/>
-                        <div *ngIf="submitted && Form.employeeNameTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.employeeNameTransVal.errors.required">Approval Staff name is required</div>
-                        </div>
-                    </td>
-                </tr>
+
             </table>
         </div>
     </form>

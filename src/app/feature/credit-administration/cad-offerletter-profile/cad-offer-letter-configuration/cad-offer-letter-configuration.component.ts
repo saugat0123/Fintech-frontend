@@ -35,7 +35,6 @@ import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {OneFormGuarantors} from '../../model/oneFormGuarantors';
-import {CadDocStatus} from '../../model/CadDocStatus';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -176,7 +175,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     this.addressService.getAllDistrict().subscribe((resp: any) => {
-      console.log(resp);
       this.allDistrictList = resp.detail;
     });
     this.buildForm();
@@ -202,16 +200,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
     });
-    console.log(this.customerInfo);
-    if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
-      const data = JSON.parse(this.customerInfo.nepData);
-      this.userConfigForm.patchValue(data);
-      this.setGuarantors(data.guarantorDetails);
-    }
 
     if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
       this.nepData = (JSON.parse(this.loanHolder.nepData));
-      this.individualData = (JSON.parse(this.oneFormCustomer.individualJsonData));
+     if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
+       this.individualData = (JSON.parse(this.oneFormCustomer.individualJsonData));
+     }
     }
 
 
@@ -219,7 +213,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.patchNepData();
     this.patchIndividualData();
     this.editedTransData();
-
+    if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
+      const data = JSON.parse(this.customerInfo.nepData);
+      this.userConfigForm.patchValue(data);
+      this.setGuarantors(data.guarantorDetails);
+    }
   }
 
   buildForm() {
@@ -243,8 +241,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       contactNoCT: [undefined, Validators.required],
       contactNoTrans: [undefined, Validators.required],
       panNo: [undefined],
-      panNoCT: [undefined, Validators.required],
-      panNoTrans: [undefined, Validators.required],
+      panNoCT: [undefined],
+      panNoTrans: [undefined],
       registrationNo: [undefined],
       registrationNoCT: [undefined, Validators.required],
       registrationNoTrans: [undefined],
@@ -255,7 +253,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       registeredMunicipalityCT: [undefined],
       registeredMunicipalityTrans: [undefined, Validators.required],
       registeredMunType: [undefined],
-      registeredMunTypeCT: [undefined, Validators.required],
+      registeredMunTypeCT: [undefined],
       registeredMunTypeTrans: [undefined],
       registeredDistrict: [undefined],
       registeredDistrictCT: [undefined, Validators.required],
@@ -264,7 +262,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       registeredProvinceCT: [undefined, Validators.required],
       registeredProvinceTrans: [undefined],
       currentMunType: [undefined],
-      currentMunTypeCT: [undefined, Validators.required],
+      currentMunTypeCT: [undefined],
       currentMunTypeTrans: [undefined],
       currentProvince: [undefined],
       currentProvinceCT: [undefined, Validators.required],
@@ -390,8 +388,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   saveCustomer() {
+
     this.submitted = true;
     this.spinner = true;
+   // this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+   // this.setNepaliData();
+   // this.setCustomerCTData();
     if (this.addressSameAsAbove) {
       this.clearValidationForTemporaryAddress();
     }
@@ -422,7 +424,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.panNumber = this.userConfigForm.get('panNo').value;
     this.oneFormCustomer.email = this.userConfigForm.get('email').value;
     this.oneFormCustomer.registrationNumber = this.userConfigForm.get('registrationNo').value;
-    this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
     this.oneFormCustomer.contactNumber = this.userConfigForm.get('contactNo').value;
     this.oneFormCustomer.gender = this.userConfigForm.get('gender').value;
     const customer = {
@@ -438,17 +439,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.individualJsonData = JSON.stringify(customer);
     this.oneFormCustomer.citizenshipNumber = this.userConfigForm.get('citizenshipNo').value;
     const dobDateType = this.userConfigForm.get('dobDateType').value;
-    if (dobDateType === 'AD') {
-      this.oneFormCustomer.dob = this.userConfigForm.get('dob').value;
-    } else {
-      this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value.eDate);
-    }
-    const issuedDate = this.userConfigForm.get('issuedDate').value;
-    if (issuedDate === 'AD') {
-      this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
-    } else {
-      this.oneFormCustomer.citizenshipIssuedDate = new Date(this.userConfigForm.get('citizenshipIssueDate').value.eDate);
-    }
+   if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
+     if (dobDateType === 'AD') {
+       this.oneFormCustomer.dob = this.userConfigForm.get('dob').value;
+     } else {
+       this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value.eDate);
+     }
+     const issuedDate = this.userConfigForm.get('issuedDate').value;
+     if (issuedDate === 'AD') {
+       this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
+     } else {
+       this.oneFormCustomer.citizenshipIssuedDate = new Date(this.userConfigForm.get('citizenshipIssueDate').value.eDate);
+     }
+   }
     this.oneFormCustomer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value;
     this.oneFormCustomer.province = this.userConfigForm.get('permanentProvince').value;
     this.oneFormCustomer.district = this.userConfigForm.get('permanentDistrict').value;
@@ -471,35 +474,37 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
     this.oneFormCustomer.customerSubType = this.customerType === CustomerType.INDIVIDUAL ? this.customerSubType : this.institutionSubType;
     Object.keys(this.userConfigForm.controls).forEach(key => {
-      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !this.userConfigForm.get(key).value) {
+      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 ||  !this.userConfigForm.get(key).value) {
         return;
       }
 
       if (key === 'guarantorDetails' || key === 'jointCustomerDetails') {
         return;
       }
-      this.attributes = new Attributes();
-      this.attributes.en = this.userConfigForm.get(key).value;
-      this.attributes.np = this.translatedValues[key];
-      this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
-      this.translatedData[key] = this.attributes;
+        this.attributes = new Attributes();
+        this.attributes.en = this.userConfigForm.get(key).value;
+        this.attributes.np = this.translatedValues[key];
+        this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
+        this.translatedData[key] = this.attributes;
     });
 
     this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
       const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
       if (issueDateType === 'AD') {
         this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
-        // this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
-        //     this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate);
       } else if (issueDateType === 'BS') {
         const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate;
         this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = new Date(issueDate);
-        // this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(new Date(issueDate.nDate));
       }
+      this.deleteCTAndTransContorls(index);
     });
 
     // this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
-
+    if (this.customerType === CustomerType.INDIVIDUAL && this.customerSubType === CustomerSubType.JOINT) {
+      this.userConfigForm.get('jointCustomerDetails').value.forEach((value, index) => {
+        this.deleteJointCustomerCTAndTransControls(index);
+      });
+    }
     const jointInfoArr = this.userConfigForm.get('jointCustomerDetails').value;
     jointInfoArr.push(this.oneFormCustomer);
     const data = {
@@ -510,6 +515,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
       translatedData: this.translatedData
     };
+    data.guarantorDetails.forEach((value, index) => {
+      const issueDateType = value.radioCitizenIssuedDate;
+      if (issueDateType === 'BS') {
+        const issueDate = value.citizenIssuedDate.eDate;
+        data.guarantorDetails[index].citizenIssuedDate = new Date(issueDate);
+      }
+    });
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
       if (this.hideLoan === true) {
@@ -776,10 +788,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   addGuarantorField() {
     return this.formBuilder.group({
       guarantorName: '',
-      guarantorNameTrans: [undefined],
+      guarantorNameTrans: '',
       guarantorNameCT: '',
       issuedPlace: '',
-      issuedPlaceTrans: [undefined],
+      issuedPlaceTrans: '',
       issuedPlaceCT: '',
       guarantorPermanentMunicipalityOrVdc: '',
       guarantorPermanentMunicipalityOrVdcTrans: '',
@@ -813,9 +825,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       radioCitizenIssuedDate: [undefined],
       radioCitizenIssuedDateTrans: [undefined],
       radioCitizenIssuedDateCT: [undefined],
-      citizenIssuedDate: [undefined],
-      citizenIssuedDateTrans: [undefined],
-      citizenIssuedDateCT: [undefined],
+
       gurantedAmount: [undefined],
       gurantedAmountCT: [undefined],
       gurantedAmountTrans: [undefined],
@@ -848,8 +858,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       isSameTemporaryAndPermanent: [false],
       isSameTemporaryAndPermanentCT: [undefined],
       isSameTemporaryAndPermanentTrans: [undefined],
+      citizenIssuedDate: [undefined],
+      citizenIssuedDateTrans: [undefined],
+      citizenIssuedDateCT: [undefined],
+      nepData: [undefined],
 
-      nepData: [undefined]
     });
   }
 
@@ -871,15 +884,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     //     this.guarantorList = guarantorList;
     //   }
     // }
-    console.log(guarantorDetails, 'listtttt');
-    guarantorDetails.forEach(value => {
+    guarantorDetails.forEach((value, i) => {
+      this.getGuarantorDistrictsById(ObjectUtil.isEmpty(value.province) ? null : value.province.id, null, i);
+      this.getGuarantorMunicipalitiesById(ObjectUtil.isEmpty(value.district) ? null : value.district.id, null, i);
+      this.getGuarantorTempDistrictsById(ObjectUtil.isEmpty(value.provinceTemporary) ? null : value.provinceTemporary.id, null, i);
+      this.getGuarantorTempMunicipalitiesById(ObjectUtil.isEmpty(value.districtTemporary) ? null : value.districtTemporary.id, null , i);
       const nepaData = JSON.parse(value.nepData);
+
+
       formArray.push(this.formBuilder.group({
         guarantorName: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.en],
         guarantorNameTrans: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.np],
         guarantorNameCT: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.ct],
         citizenNumberTrans: [ObjectUtil.isEmpty(nepaData.citizenNumber) ? undefined : nepaData.citizenNumber.np],
-        issuedPlace: [value.issuedPlace],
+        issuedPlace: [ObjectUtil.isEmpty(nepaData.issuedPlace) ? undefined : nepaData.issuedPlace.ct],
         issuedPlaceTrans: [ObjectUtil.isEmpty(nepaData.issuedPlace) ? undefined : nepaData.issuedPlace.np],
         issuedPlaceCT: [ObjectUtil.isEmpty(nepaData.issuedPlace) ? undefined : nepaData.issuedPlace.ct],
         genderCT: [ObjectUtil.isEmpty(nepaData.gender) ? undefined : nepaData.gender.ct],
@@ -912,10 +930,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         gurantedAmountCT: [ObjectUtil.isEmpty(nepaData.gurantedAmount) ? undefined : nepaData.gurantedAmount.ct],
         gurantedAmountTrans: [ObjectUtil.isEmpty(nepaData.gurantedAmount) ? undefined : nepaData.gurantedAmount.ct],
 
-        permanentProvince: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.en],
+        permanentProvince: [ObjectUtil.isEmpty(value.province) ? undefined : value.province],
         permanentProvinceCT: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.en.nepaliName],
         permanentProvinceTrans: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.en.nepaliName],
-        permanentDistrict: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentDistrict.en],
+        permanentDistrict: [ObjectUtil.isEmpty(value.district) ? undefined : value.district],
         permanentDistrictCT: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.en.nepaliName],
         permanentDistrictTrans: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.en.nepaliName],
         permanentMunicipality: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.en],
@@ -925,31 +943,43 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         permanentWardCT: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.ct],
         permanentWardTrans: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.np],
 
-        temporaryProvince: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.en],
+        temporaryProvince: [ObjectUtil.isEmpty(value.provinceTemporary) ? undefined : value.provinceTemporary],
         temporaryProvinceCT: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.en.nepaliName],
         temporaryProvinceTrans: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.en.nepaliName],
-        temporaryDistrict: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.en],
+        temporaryDistrict: [ObjectUtil.isEmpty(value.districtTemporary) ? undefined : value.districtTemporary],
         temporaryDistrictCT: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.en.nepaliName],
         temporaryDistrictTrans: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.en.nepaliName],
-        temporaryMunicipality: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.en],
+        temporaryMunicipality: [ObjectUtil.isEmpty(value.municipalitiesTemporary) ? undefined : value.municipalitiesTemporary],
         temporaryMunicipalityCT: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.en.nepaliName],
         temporaryMunicipalityTrans: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.en.nepaliName],
         temporaryWard: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.en],
         temporaryWardCT: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.ct],
         temporaryWardTrans: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.np],
-        isSameTemporaryAndPermanent: [value.isSameTemporaryAndPermanent],
+        isSameTemporaryAndPermanent: [ObjectUtil.isEmpty(value.isSameTemporaryAndPermanent) ? undefined : value.isSameTemporaryAndPermanent],
         isSameTemporaryAndPermanentCT: [undefined],
         isSameTemporaryAndPermanentTrans: [undefined],
+        guarantorPermanentMunicipalityOrVdc: [ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) ?
+            undefined : nepaData.guarantorPermanentMunicipalityOrVdc.en],
         nepData: [value.nepData],
-        radioCitizenIssuedDate: [ObjectUtil.isEmpty(nepaData.radioCitizenIssuedDate) ? undefined : nepaData.radioCitizenIssuedDate.en],
-        citizenIssuedDate: [ObjectUtil.isEmpty(nepaData.radioCitizenIssuedDate) ? undefined :
-            nepaData.radioCitizenIssuedDate.en === 'AD' ?
-                nepaData.citizenIssuedDate.en : nepaData.citizenIssuedDate.np],
+        guarantorTemporaryMunicipalityOrVdc: [ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) ?
+            undefined : nepaData.guarantorTemporaryMunicipalityOrVdc.en],
+        radioCitizenIssuedDate: ['AD'],
+        citizenIssuedDate: [ObjectUtil.isEmpty(value.issuedYear) ? undefined : value.issuedYear],
+        guarantorPermanentMunicipalityOrVdcCT: [ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) ?
+            undefined : nepaData.guarantorPermanentMunicipalityOrVdc.np],
+        guarantorTemporaryMunicipalityOrVdcCT: [ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) ?
+            undefined : nepaData.guarantorTemporaryMunicipalityOrVdc.np],
+        radioCitizenIssuedDateCT: [undefined],
+        citizenIssuedDateCT: [undefined],
         id: [value.id],
 
       }));
     });
+
+    console.log(this.userConfigForm.get('guarantorDetails').value);
   }
+
+
 
   refreshPage() {
     window.location.reload();
@@ -1031,8 +1061,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // this.userConfigForm.get(['jointCustomerDetails', index, 'contactNoCT']).patchValue(jointCustomerDetails.contactNo ? jointCustomerDetails.contactNo : '');
       // this.userConfigForm.get(['jointCustomerDetails', index, 'panNoTrans']).patchValue(jointCustomerDetails.panNo ? jointCustomerDetails.panNo : '');
       // this.userConfigForm.get(['jointCustomerDetails', index, 'panNoCT']).patchValue(jointCustomerDetails.panNo ? jointCustomerDetails.panNo : '');
-      // this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeTrans']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
-      // this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeCT']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeTrans']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeCT']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'genderTrans']).patchValue(jointCustomerDetails.gender ? jointCustomerDetails.gender : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'genderCT']).patchValue(jointCustomerDetails.gender ? jointCustomerDetails.gender : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'fatherNameTrans']).patchValue(jointCustomerDetails.fatherName ? jointCustomerDetails.fatherName : '');
@@ -1122,43 +1152,48 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         newArr[key] = this.attributes;
       });
       this.translatedJointCustomerDetails[index] = newArr;
-      this.deleteJointCustomerCTAndTransControls(index);
+
       this.userConfigForm.get(['jointCustomerDetails', index, 'nepData']).patchValue(JSON.stringify(newArr));
 
     }
   }
 
   async translateGuarantorData(index) {
-    console.log(index);
     const alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
     if (alluarantors.length > 0) {
       let guarantorsDetails: any = [];
       guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
-      this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).setValue(guarantorsDetails.guarantorName || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).setValue(guarantorsDetails.guarantorName || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).setValue(guarantorsDetails.citizenNumber || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberCT']).setValue(guarantorsDetails.citizenNumber || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).setValue(guarantorsDetails.issuedPlace || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).setValue(guarantorsDetails.issuedPlace || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'genderTrans']).setValue(guarantorsDetails.gender || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'genderCT']).setValue(guarantorsDetails.gender || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'husbandNameCT']).setValue(guarantorsDetails.husbandName || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameCT']).setValue(guarantorsDetails.fatherInLawName || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).setValue(guarantorsDetails.grandFatherName || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).setValue(guarantorsDetails.fatherName || '');
-      // this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountCT']).setValue(guarantorsDetails.gurantedAmount || '');
+       this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).patchValue(guarantorsDetails.citizenNumber ? guarantorsDetails.citizenNumber : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberCT']).patchValue(guarantorsDetails.citizenNumber ? guarantorsDetails.citizenNumber : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'genderTrans']).patchValue(guarantorsDetails.gender ? guarantorsDetails.gender : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'genderCT']).patchValue(guarantorsDetails.gender ? guarantorsDetails.gender : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'husbandNameCT']).patchValue(guarantorsDetails.husbandName ? guarantorsDetails.husbandName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameCT']).patchValue(guarantorsDetails.fatherInLawName ? guarantorsDetails.fatherInLawName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).patchValue(guarantorsDetails.grandFatherName ? guarantorsDetails.grandFatherName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).patchValue(guarantorsDetails.fatherName ? guarantorsDetails.fatherName : '');
+      // this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountCT']).patchValue(guarantorsDetails.gurantedAmount ? guarantorsDetails.gurantedAmount : '');
 
-      this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).setValue(guarantorsDetails.husbandName || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).setValue(guarantorsDetails.fatherInLawName || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).setValue(guarantorsDetails.grandFatherName || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).setValue(guarantorsDetails.fatherName || '');
-      // this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).setValue(guarantorsDetails.gurantedAmount || '');
-      // this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).setValue(guarantorsDetails.permanentWard || '');
-      // this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).setValue(guarantorsDetails.permanentWard || '');
-      // this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).setValue(guarantorsDetails.temporaryWard || '');
-      // this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).setValue(guarantorsDetails.temporaryWard || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).setValue(guarantorsDetails.relationship || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).setValue(guarantorsDetails.relationship || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).patchValue(guarantorsDetails.husbandName ? guarantorsDetails.husbandName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).patchValue(guarantorsDetails.fatherInLawName ? guarantorsDetails.fatherInLawName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).patchValue(guarantorsDetails.grandFatherName ? guarantorsDetails.grandFatherName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).patchValue(guarantorsDetails.fatherName ? guarantorsDetails.fatherName : '');
+      // this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).patchValue(guarantorsDetails.gurantedAmount ? guarantorsDetails.gurantedAmount : '');
+      // this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).patchValue(guarantorsDetails.permanentWard ? guarantorsDetails.permanentWard : '');
+      // this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).patchValue(guarantorsDetails.permanentWard ? guarantorsDetails.permanentWard : '');
+      // this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).patchValue(guarantorsDetails.temporaryWard ? guarantorsDetails.temporaryWard : '');
+      // this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).patchValue(guarantorsDetails.temporaryWard ? guarantorsDetails.temporaryWard : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).patchValue(this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value
+          ? this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).patchValue(this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value
+          ? this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '');
 
       this.addressFromGroup = this.formBuilder.group({
         permanentProvince: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value ? this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value.name : '',
@@ -1171,19 +1206,43 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
       // translate temp/permanent address and patch accordingly
       this.addressTranslatedValue = await this.translateService.translateForm(this.addressFromGroup);
-      this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).setValue(this.addressTranslatedValue.permanentProvince || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).setValue(this.addressTranslatedValue.permanentProvince || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).setValue(this.addressTranslatedValue.permanentDistrict || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).setValue(this.addressTranslatedValue.permanentDistrict || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).setValue(this.addressTranslatedValue.permanentMunicipality || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).setValue(this.addressTranslatedValue.permanentMunicipality || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value ?
+          this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value.nepaliName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value ?
+          this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value.nepaliName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value.nepaliName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value.nepaliName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value.nepaliName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value.nepaliName : '');
 
-      this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).setValue(this.addressTranslatedValue.temporaryProvince || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).setValue(this.addressTranslatedValue.temporaryProvince || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).setValue(this.addressTranslatedValue.temporaryDistrict || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).setValue(this.addressTranslatedValue.temporaryDistrict || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).setValue(this.addressTranslatedValue.temporaryMunicipality || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).setValue(this.addressTranslatedValue.temporaryMunicipality || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value.nepaliName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value.nepaliName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value.nepaliName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value.nepaliName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value.nepaliName : '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).patchValue(
+          this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value ?
+              this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value.nepaliName : '');
 
 
       // translate guarantorsDetails
@@ -1194,23 +1253,27 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // for (let i = 0; i < a.length; i++) {
       const individualData = a[index] as FormGroup;
       Object.keys(individualData.controls).forEach(key => {
-
-
         if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
-            || key.indexOf('id') > -1 || key.indexOf('nepData') > -1 || key.indexOf('radioCitizenIssuedDate') > -1
-            || key.indexOf('citizenIssuedDate') > -1) {
+            || key.indexOf('id') > -1 || key.indexOf('nepData') > -1) {
           return;
         }
-        // console.log(key, 'keys');
+
+        // if(this.actionType === 'Edit'){
+        //  if( key.indexOf('citizenIssuedDate') > -1
+        //  || key.indexOf('guarantorPermanentMunicipalityOrVdc') > -1 || key.indexOf('guarantorTemporaryMunicipalityOrVdc') > -1
+        //  || key.indexOf('radioCitizenIssuedDate') > -1){
+        //    return;
+        //   }
+        // }
+
         this.attributes = new Attributes();
         this.attributes.en = individualData.get(key).value;
         this.attributes.np = guarantorsDetails[key];
         this.attributes.ct = individualData.get(key + 'CT').value;
         newArr[key] = this.attributes;
       });
-      // console.log(newArr, 'GNew Arra');
       this.translatedGuarantorDetails[index] = newArr;
-      this.deleteCTAndTransContorls(index);
+      // this.deleteCTAndTransContorls(index);
       this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
       // end guarantorDetails
     }
@@ -1257,7 +1320,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         temporaryDistrict: this.userConfigForm.get('permanentDistrict').value,
         temporaryMunicipality: this.userConfigForm.get('permanentMunicipality').value,
         temporaryWard: this.userConfigForm.get('permanentWard').value,
-        tempMunicipalitiesOrVdc: this.userConfigForm.get('municipalityOrVdc').value
+        temporaryMunicipalityOrVdc: this.userConfigForm.get('municipalityOrVdc').value
       });
     } else {
       this.addressSameAsAbove = false;
@@ -1326,16 +1389,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   // get district/municipalities for guarantors
-  getGuarantorDistrictsById(provinceId: number, event, index) {
+  getGuarantorDistrictsById(provinceId: number, event?, index?) {
     const province = new Province();
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
-          this.guarantorDistrict = response.detail;
+          this.guarantorDistrict[index] = response.detail;
           this.guarantorDistrict.sort((a, b) => a.name.localeCompare(b.name));
-          if (event !== null) {
-            this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
-          }
+          // if (event !== null) {
+          //   this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
+          // }
         }
     );
   }
@@ -1345,11 +1408,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     district.id = districtId;
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
-          this.guarantorMunicipalities = response.detail;
+          this.guarantorMunicipalities[index] = response.detail;
           this.guarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
-          if (event !== null) {
-            this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).patchValue(null);
-          }
+          // if (event !== null) {
+          //   this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).patchValue(null);
+          // }
         }
     );
   }
@@ -1360,11 +1423,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
-          this.tempGuarantorDistricts = response.detail;
+          this.tempGuarantorDistricts[index] = response.detail;
           this.tempGuarantorDistricts.sort((a, b) => a.name.localeCompare(b.name));
-          if (event !== null) {
-            this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).patchValue(null);
-          }
+          // if (event !== null) {
+          //   this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).patchValue(null);
+          // }
         }
     );
   }
@@ -1374,11 +1437,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     district.id = districtId;
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
-          this.tempGuarantorMunicipalities = response.detail;
+          this.tempGuarantorMunicipalities[index] = response.detail;
           this.tempGuarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
-          if (event !== null) {
-            this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).patchValue(null);
-          }
+          // if (event !== null) {
+          //   this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).patchValue(null);
+          // }
         }
     );
   }
@@ -1388,12 +1451,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentProvince']).value);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentDistrict']).value);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipality']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentMunicipality']).value);
+      this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdc']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentMunicipalityOrVdc']).value);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryWard']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentWard']).value);
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryWardCT']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentWardCT']).value);
+
     } else {
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(null);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict']).patchValue(null);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipality']).patchValue(null);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryWard']).patchValue(null);
+      this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdc']).patchValue(null);
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryWardCT']).patchValue(null);
     }
   }
 
@@ -1558,19 +1626,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get('relationMedium').patchValue(Number(JSON.parse(this.oneFormCustomer.individualJsonData).relationMedium));
       this.userConfigForm.get('municipalityOrVdc').patchValue(JSON.parse(this.oneFormCustomer.individualJsonData).municipalityOrVdc);
       this.userConfigForm.get('temporaryMunicipalityOrVdc').patchValue(JSON.parse(this.oneFormCustomer.individualJsonData).temporaryMunicipalityOrVdc);
-      console.log(this.userConfigForm.get('dobDateType').value);
     }
 
 
     if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
-
+      if (this.loanHolder.customerType === CustomerType.INSTITUTION) {
+        this.getDistrictsById(JSON.parse(this.loanHolder.nepData).registeredProvince.en.id, null);
+        this.getMunicipalitiesById(JSON.parse(this.loanHolder.nepData).registeredDistrict.en.id, null);
+        this.getTempDistrictsById(JSON.parse(this.loanHolder.nepData).currentProvince.en.id, null);
+        this.getTempMunicipalitiesById(JSON.parse(this.loanHolder.nepData).currentDistrict.en.id, null);
+      }
       this.userConfigForm.patchValue({
-        branch: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.branch,
+        branch: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.customerType === CustomerType.INDIVIDUAL ? this.loanHolder.branch :
+            this.loanHolder.branch.district,
         gender: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.gender,
         customerCode: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.customerCode,
-        name: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.customerName,
+        name: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.loanHolder.customerType === CustomerType.INDIVIDUAL ?
+            this.oneFormCustomer.customerName :  this.oneFormCustomer.companyName ,
         email: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.email,
-        contactNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.contactNumber,
+        contactNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.loanHolder.customerType === CustomerType.INDIVIDUAL ?
+            this.oneFormCustomer.contactNumber :  this.oneFormCustomer.contactNum,
         panNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.panNumber,
         citizenshipNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipNumber,
         permanentProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.province,
@@ -1579,10 +1654,57 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         temporaryProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryProvince,
         temporaryDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryDistrict,
         temporaryMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities,
-        permanentWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.wardNumber,
+        permanentWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.loanHolder.customerType === CustomerType.INDIVIDUAL ?
+            this.oneFormCustomer.wardNumber : JSON.parse(this.loanHolder.nepData).permanentWard.en,
         temporaryWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber,
-        citizenshipIssueDistrict : ObjectUtil.isEmpty(this.nepData) ? undefined : this.nepData.citizenshipIssueDistrict.ct,
-
+        citizenshipIssueDistrict: ObjectUtil.isEmpty(this.nepData) ? undefined : this.loanHolder.customerType === CustomerType.INDIVIDUAL ?
+            this.nepData.citizenshipIssueDistrict.ct : undefined,
+        registrationNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            this.oneFormCustomer.registrationNumber : undefined,
+        registeredMunType: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunType) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).registeredMunType.en : undefined,
+        registeredProvince: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredProvince) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).registeredProvince.en : undefined,
+        registeredProvinceCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredProvince) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).registeredProvince.en.nepaliName : undefined,
+        registeredDistrict: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).registeredDistrict.en : undefined,
+        registeredDistrictCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).registeredDistrict.en.nepaliName : undefined,
+        registeredDistrictTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).registeredDistrict.en.nepaliName : undefined,
+        registeredMunicipality: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).registeredMunicipality.en : undefined,
+        registeredMunicipalityCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).registeredMunicipality.en.nepaliName : undefined,
+        registeredMunicipalityTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).registeredMunicipality.en.nepaliName : undefined,
+        currentMunType:  ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunType) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentMunType.en : undefined,
+        currentProvince:  ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentProvince) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentProvince.en : undefined,
+        currentProvinceTrans:  ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentProvince) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentProvince.en.nepaliName : undefined,
+        currentProvinceCT:  ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentProvince) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentProvince.en.nepaliName : undefined,
+        currentDistrict: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentDistrict.en : undefined,
+        currentDistrictTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentDistrict.en.nepaliName : undefined,
+        currentDistrictCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentDistrict.en.nepaliName : undefined,
+        currentMunicipality: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentMunicipality.en : undefined,
+        currentMunicipalityCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentMunicipality.en.nepaliName : undefined,
+        currentMunicipalityTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentMunicipality.en.nepaliName : undefined,
+        currentWard: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentWard) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentWard.en : undefined,
+        currentWardTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentWard) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentWard.np : undefined,
+        currentWardCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentWard) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            JSON.parse(this.loanHolder.nepData).currentWard.np : undefined,
       });
 
       if (this.addressSameAsAbove) {
@@ -1616,7 +1738,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         genderCT: ObjectUtil.isEmpty(nepData.gender) ? undefined : nepData.gender.np,
         permanentProvinceCT: ObjectUtil.isEmpty(nepData.permanentProvince) ? undefined : nepData.permanentProvince.np,
         permanentDistrictCT: ObjectUtil.isEmpty(nepData.permanentDistrict) ? undefined : nepData.permanentDistrict.np,
-       // permanentMunicipality: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
+        // permanentMunicipality: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
         temporaryProvinceCT: ObjectUtil.isEmpty(nepData.temporaryProvince) ? undefined : nepData.temporaryProvince.np,
         temporaryDistrictCT: ObjectUtil.isEmpty(nepData.temporaryDistrict) ? undefined : nepData.temporaryDistrict.np,
         temporaryMunicipalityCT: ObjectUtil.isEmpty(nepData.temporaryMunicipality) ? undefined : nepData.temporaryMunicipality.np,
@@ -1625,7 +1747,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         citizenshipIssueDateCT: ObjectUtil.isEmpty(nepData.citizenshipIssueDate) ? undefined : nepData.citizenshipIssueDate.np,
         // dobCT: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
         // citizenshipIssueDistrictCT: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
-
+        registrationNoCT: ObjectUtil.isEmpty(nepData.registrationNo) ? undefined :
+            this.loanHolder.customerType === CustomerType.INSTITUTION ?
+              nepData.registrationNo.ct : undefined
       });
     }
   }
@@ -1660,7 +1784,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       husbandNameCT: this.translatedValues.husbandName,
       fatherInLawNameCT: this.translatedValues.fatherInLawName,
       citizenshipNoCT: this.translatedValues.citizenshipNo,
-
 
 
     });
@@ -1737,7 +1860,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantor.issuedPlace = formArray.get('issuedPlace').value;
     guarantor.guarantorName = formArray.get('guarantorName').value;
     this.oneFormGuarantorsList.push(guarantor);
-    console.log(this.oneFormGuarantorsList, 'GLIST');
   }
 
   translateNumber(source) {
@@ -1750,6 +1872,40 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(['guarantorDetails', i, source]).value.toString());
     this.userConfigForm.get(['guarantorDetails', i, source + 'Trans']).patchValue(wordLabelVar);
     this.userConfigForm.get(['guarantorDetails', i, source + 'CT']).patchValue(wordLabelVar);
+  }
+
+  setNepaliData() {
+    this.userConfigForm.patchValue({
+      branchCT: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
+      branchTrans: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
+      permanentProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? undefined : this.userConfigForm.get('permanentProvince').value.nepaliName,
+      permanentProvinceTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? undefined : this.userConfigForm.get('permanentProvince').value.nepaliName,
+
+      permanentDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrict').value) ?
+          undefined : this.userConfigForm.get('permanentDistrict').value.nepaliName,
+      permanentDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrict').value) ?
+          undefined : this.userConfigForm.get('permanentDistrict').value.nepaliName,
+      permanentMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ?
+          undefined : this.userConfigForm.get('permanentMunicipality').value.nepaliName,
+      permanentMunicipalityTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ?
+          undefined : this.userConfigForm.get('permanentMunicipality').value.nepaliName,
+      temporaryProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ?
+          undefined : this.userConfigForm.get('temporaryProvince').value.nepaliName,
+      temporaryProvinceTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ?
+          undefined : this.userConfigForm.get('temporaryProvince').value.nepaliName,
+      temporaryDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ?
+          undefined : this.userConfigForm.get('temporaryDistrict').value.nepaliName,
+      temporaryDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ?
+          undefined : this.userConfigForm.get('temporaryDistrict').value.nepaliName,
+      temporaryMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
+          undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
+      temporaryMunicipalityTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
+          undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
+      citizenshipIssueDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ?
+          undefined : this.userConfigForm.get('citizenshipIssueDistrict').value,
+      citizenshipIssueDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ?
+          undefined : this.userConfigForm.get('citizenshipIssueDistrict').value
+    });
   }
 
   private setCustomerTransData(): void {
@@ -1769,7 +1925,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('currentWardTrans').patchValue(this.translatedValues.currentWard);
     this.userConfigForm.get('currentDistrictTrans').patchValue(this.translatedValues.currentDistrict);
     this.userConfigForm.get('currentMunicipalityTrans').patchValue(this.translatedValues.currentMunicipality);
-    // this.userConfigForm.get('customerCodeTrans').patchValue(this.translatedValues.customerCode);
+    this.userConfigForm.get('customerCodeTrans').patchValue(this.translatedValues.customerCode);
     this.userConfigForm.get('genderTrans').patchValue(this.translatedValues.gender);
     this.userConfigForm.get('fatherNameTrans').patchValue(this.translatedValues.fatherName);
     this.userConfigForm.get('grandFatherNameTrans').patchValue(this.translatedValues.grandFatherName);
@@ -1797,7 +1953,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   private setCustomerCTData(): void {
-    // this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
+    this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
     this.userConfigForm.get('nameCT').patchValue(this.translatedValues.name);
     // this.userConfigForm.get('contactNoCT').patchValue(this.translatedValues.contactNo);
     this.userConfigForm.get('genderCT').patchValue(this.translatedValues.gender);
@@ -1811,6 +1967,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     // this.userConfigForm.get('panNoCT').patchValue(this.translatedValues.panNo);
     //  this.userConfigForm.get('permanentWardCT').patchValue(this.translatedValues.permanentWard);
     // this.userConfigForm.get('temporaryWardCT').patchValue(this.translatedValues.temporaryWard);
+
   }
 
   private clearValidationForTemporaryAddress(): void {
@@ -1891,6 +2048,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   private editedTransData(): void {
+    this.userConfigForm.get('citizenshipNoCT').patchValue(
+        ObjectUtil.isEmpty( this.nepData.citizenshipNo) ? undefined :  this.nepData.citizenshipNo.ct);
+    this.userConfigForm.get('citizenshipIssueDistrictCT').patchValue(
+        ObjectUtil.isEmpty(this.nepData.citizenshipIssueDistrict) ? undefined : this.nepData.citizenshipIssueDistrict.ct
+    );
+    this.userConfigForm.get('permanentMunicipalityCT').patchValue(
+        ObjectUtil.isEmpty(this.nepData.temporaryMunicipality) ? undefined : this.nepData.temporaryMunicipality.en.nepaliName
+    );
     this.userConfigForm.get('branchTrans').patchValue(ObjectUtil.isEmpty(this.nepData.branch) ? undefined : this.nepData.branch.en.nepaliName);
     this.userConfigForm.get('nameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.name) ? undefined : this.nepData.name.np);
     this.userConfigForm.get('emailTrans').patchValue(ObjectUtil.isEmpty(this.nepData.email) ? undefined : this.nepData.email.np);
@@ -1909,44 +2074,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('permanentMunicipalityTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentMunicipality) ? undefined : this.nepData.permanentMunicipality.en.nepaliName);
     this.userConfigForm.get('temporaryProvinceTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryProvince) ? undefined : this.nepData.temporaryProvince.en.nepaliName);
     this.userConfigForm.get('temporaryDistrictTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryDistrict) ? undefined : this.nepData.temporaryDistrict.en.nepaliName);
-    this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryMunicipality) ? undefined : this.nepData.temporaryMunicipality.en.nepaliName);
+    this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(
+        ObjectUtil.isEmpty(this.nepData.temporaryMunicipality) ? undefined : this.nepData.temporaryMunicipality.en.nepaliName);
     this.userConfigForm.get('permanentWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentWard) ? undefined : this.nepData.permanentWard.np);
     this.userConfigForm.get('temporaryWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryWard) ? undefined : this.nepData.temporaryWard.np);
     this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(ObjectUtil.isEmpty(this.nepData.citizenshipIssueDistrict) ? undefined : this.nepData.citizenshipIssueDistrict.ct);
+    this.userConfigForm.get('registrationNoTrans').patchValue(ObjectUtil.isEmpty(this.nepData.registrationNo) ? undefined :
+        this.loanHolder.customerType === CustomerType.INSTITUTION ?
+            this.nepData.registrationNo.ct : undefined),
+        this.userConfigForm.get('registeredProvinceTrans').patchValue(ObjectUtil.isEmpty(this.nepData.registeredProvince) ? undefined :
+            this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                this.nepData.registeredProvince.en.nepaliName : undefined),
+        this.userConfigForm.get('registeredWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentWard) ? undefined :
+            this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                this.nepData.permanentWard.ct : undefined);
 
-  }
-
-  setNepaliData() {
-    this.userConfigForm.patchValue({
-      branchCT: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
-      branchTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
-      permanentProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? undefined : this.userConfigForm.get('permanentProvince').value.nepaliName,
-      permanentProvinceTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? undefined : this.userConfigForm.get('permanentProvince').value.nepaliName,
-
-      permanentDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrict').value) ?
-          undefined : this.userConfigForm.get('permanentDistrict').value.nepaliName,
-      permanentDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrict').value) ?
-          undefined : this.userConfigForm.get('permanentDistrict').value.nepaliName,
-      permanentMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ?
-          undefined : this.userConfigForm.get('permanentMunicipality').value.nepaliName,
-      permanentMunicipalityTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ?
-          undefined : this.userConfigForm.get('permanentMunicipality').value.nepaliName,
-      temporaryProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ?
-          undefined : this.userConfigForm.get('temporaryProvince').value.nepaliName,
-      temporaryProvinceTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ?
-          undefined : this.userConfigForm.get('temporaryProvince').value.nepaliName,
-      temporaryDistrictCT : ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ?
-          undefined : this.userConfigForm.get('temporaryDistrict').value.nepaliName,
-      temporaryDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ?
-          undefined : this.userConfigForm.get('temporaryDistrict').value.nepaliName,
-      temporaryMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
-          undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
-      temporaryMunicipalityTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
-          undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
-      citizenshipIssueDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ?
-          undefined : this.userConfigForm.get('citizenshipIssueDistrict').value,
-      citizenshipIssueDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ?
-          undefined : this.userConfigForm.get('citizenshipIssueDistrict').value
-    });
   }
 }

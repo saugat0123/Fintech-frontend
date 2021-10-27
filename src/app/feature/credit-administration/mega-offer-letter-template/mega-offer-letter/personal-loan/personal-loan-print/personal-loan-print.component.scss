@@ -13,18 +13,23 @@
 .inside{
   font-size: 24px;
 }
+p{
+  line-height: 1.9;
+}
 table {
   text-align: justify !important;
+  line-height: 1.9;
 }
-.nepaliList {
+.nepaliList > li {
   list-style-type: devanagari;
+  line-height: 1.9;
 }
 .nep {
-  font-size: 20px;
-  line-height: 1.9;
+  font-size: 16px;
+  line-height: 1.9 !important;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 70px;
+  margin: 10px 50px;
 }
 .logo-container {
   display: flex;
@@ -37,10 +42,6 @@ footer {
   text-align: center;
   margin-top: 20px;
 }
-@page {
-  size: A4;
-  margin: 17mm 17mm 17mm 17mm;
-}
 
 .hello{
   width: 95%;
@@ -48,9 +49,16 @@ footer {
 }
 
 @media print {
+  @page {
+    size: A4;
+    margin: 17mm 17mm 17mm 17mm;
+  }
+
   footer{
     position: fixed;
     bottom: 0;
     width: 100%;
   }
+
+
 }

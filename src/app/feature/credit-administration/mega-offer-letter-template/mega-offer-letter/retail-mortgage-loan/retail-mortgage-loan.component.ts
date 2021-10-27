@@ -19,6 +19,7 @@ import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-num
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
+import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
 
 @Component({
     selector: 'app-retail-mortgage-loan',
@@ -26,6 +27,8 @@ import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-wo
     styleUrls: ['./retail-mortgage-loan.component.scss']
 })
 export class RetailMortgageLoanComponent implements OnInit {
+    @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @Input() preview;
     form: FormGroup;
     // todo replace enum constant string compare
     spinner = false;
@@ -34,15 +37,24 @@ export class RetailMortgageLoanComponent implements OnInit {
     nepaliNumber = new NepaliNumberAndWords();
     nepaliAmount = [];
     finalNepaliWord = [];
-    offerLetterConst = MegaOfferLetterConst;
+    offerLetterConst = NabilOfferLetterConst;
     offerLetterDocument: OfferDocument;
-
-    @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-
-   loanHolderInfo;
+    guarantorData;
+    offerLetterData;
+    tempData;
+    afterSave = false;
+    selectedAutoLoan;
+    selectedInterest;
+    loanLimit;
+    finalName;
+    loanHolderInfo;
     external = [];
     nepData;
-
+    selectedSecurity;
+    offerDocumentDetails;
+    guarantorNames: Array<String> = [];
+    allguarantorNames;
+    guarantorAmount: number = 0;
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
@@ -51,76 +63,70 @@ export class RetailMortgageLoanComponent implements OnInit {
                 private administrationService: CreditAdministrationService,
                 protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
                 private routerUtilsService: RouterUtilsService,
-                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private currencyFormatPipe: CurrencyFormatterPipe,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
-                private nepPercentWordPipe: NepaliPercentWordPipe
-    ) {
+                private nepPercentWordPipe: NepaliPercentWordPipe,
+                private ref: NbDialogRef<RetailMortgageLoanComponent>
+) {
     }
 
     ngOnInit() {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+            this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
         }
-        this.checkOfferLetterData();    }
+        this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
+            // tslint:disable-next-line:max-line-length
+            this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+        }
+        console.log('Selected Data:',this.cadOfferLetterApprovedDoc);
+        console.log('All Data:',this.tempData);
+        console.log('Loan Holder initial data:',this.loanHolderInfo);
+        this.checkOfferLetterData();
+        this.guarantorDetails();
+    }
 
     buildForm() {
         this.form = this.formBuilder.group({
-            dateOfGeneration: [undefined],
+            selectedSecurity: [undefined],
+            loanLimitChecked: [undefined],
+            referenceNumber: [undefined],
+            dateofApproval: [undefined],
             customerName: [undefined],
             customerAddress: [undefined],
-            applicationDateInAD: [undefined],
-            loanAmount: [undefined],
-            loanNameInWord: [undefined],
+            dateofApplication: [undefined],
+            loanPurpose: [undefined],
+            loanAmountInFigure: [undefined],
+            loanAmountInWords: [undefined],
             drawingPowerRate: [undefined],
-            signatureDate : [undefined],
-            district: [undefined],
-            witnessName: [undefined],
-            wardNum: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
-            staffName: [undefined],
-            floatingRate: [undefined],
-            serviceCharge: [undefined],
-            serviceChargeWords: [undefined],
-            communicationFees: [undefined],
-            emiAmount: [undefined],
-            emiAmountInWords: [undefined],
-            numberOfEMI: [undefined],
-            firstEMIMonth: [undefined],
-            loanCommitmentFee: [undefined],
             yearlyLoanRate: [undefined],
+            emiAmountInFigure: [undefined],
+            emiAmountInWords: [undefined],
+            loanPeriod: [undefined],
+            loanAdminFeeInFigure: [undefined],
+            loanAdminFeeInWords: [ undefined],
+            loanCommitmentFee: [undefined],
             ownerName: [undefined],
-            ownersAddress: [undefined],
-            loanAmountWords: [undefined],
-            branchName: [undefined],
+            ownerAddress: [undefined],
             propertyPlotNumber: [undefined],
-            secondDisbursementAmountWords: [undefined],
-            firstConstructionCompletionAmount: [undefined],
-            firstDisbursementAmountWords: [undefined],
-            secondDisbursementAmount: [undefined],
-            firstDisbursementAmount: [undefined],
-            secondConstructionCompletionAmount: [undefined],
-            thirdConstructionCompletionAmount: [undefined],
-            thirdDisbursementAmount : [undefined],
-            thirdDisbursementAmountWords: [undefined],
-            changeFeeBelow1Cr: [undefined],
-            lateFee : [undefined],
-            changeFeeAbove1Cr: [undefined],
-            collateralReleaseFee: [undefined],
-            pledgeAmount : [undefined],
-            documentAccessFee: [undefined],
-            promissoryNoteAmount: [undefined],
-            sheetNumber  : [undefined],
             propertyArea: [undefined],
-            loanDeedAmount: [undefined],
+            sheetNumber: [undefined],
+            guarantorName: [undefined],
+            guaranteedAmountInFigure: [undefined],
+            guaranteedAmountInWord: [undefined],
+            branchName: [undefined],
+            additionalGuarantorDetails: [undefined],
+            additionalDetails: [undefined],
             insuranceAmount: [undefined],
-            insuranceAmountWords: [undefined],
-            guarantorName1: [undefined],
-            guarantorAmount1: [undefined],
-            guarantorAmountWords1: [undefined],
+            relationshipOfficerName: [undefined],
+            branchManager: [undefined],
+            signatureDate: [undefined],
             security: this.formBuilder.array([])
         });
     }
@@ -147,41 +153,92 @@ export class RetailMortgageLoanComponent implements OnInit {
     checkOfferLetterData() {
         if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
             this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-                === this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN).toString())[0];
+                === this.offerLetterConst.value(this.offerLetterConst.MORTAGE_LOAN).toString())[0];
             if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
                 this.offerLetterDocument = new OfferDocument();
-                this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN);
+                this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.MORTAGE_LOAN);
             } else {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+                if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
+                    this.offerLetterData = this.offerLetterDocument;
+                    this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
+                }
+                if (!ObjectUtil.isEmpty(this.offerLetterDocument.pointInformation)) {
+                    this.offerLetterData = this.offerLetterDocument;
+                    this.form.get('additionalDetails').patchValue(this.offerLetterData.pointInformation);
+                }
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
-                this.form.patchValue(initialInfo, {emitEvent: false});
                 this.initialInfoPrint = initialInfo;
+                this.selectedSecurity = initialInfo.selectedSecurity.en;
+                this.loanLimit = this.tempData.loanLimitChecked.en;
+                this.fillForm();
             }
         } else {
-            if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
-                this.setLoanConfigData(this.loanHolderInfo);
-            }
+            this.fillForm();
         }
+    }
 
+    fillForm(){
+        const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
+        const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+            this.loanHolderInfo.permanentWard.ct + ', ' +
+            this.loanHolderInfo.permanentDistrict.ct + ' ,' + this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+        const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
+        let totalLoanAmount = 0;
+        this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
+            const val = value.proposal.proposedLimit;
+            totalLoanAmount = totalLoanAmount + val;
+        });
+        let autoRefNumber;
+        if (this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo) {
+            autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+        }
+        this.form.patchValue({
+            referenceNumber: autoRefNumber ? autoRefNumber : '',
+            customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
+            customerAddress: customerAddress ? customerAddress : '',
+            loanPurpose: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
+            loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+            loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+            drawingPowerRate: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
+            baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
+            premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
+            yearlyLoanRate: this.tempData.interestRate.ct ? this.tempData.interestRate.ct : '',
+            emiAmountInFigure: this.tempData.emiInFigure.ct ? this.tempData.emiInFigure.ct : '',
+            emiAmountInWords: this.tempData.emiInWords.ct ? this.tempData.emiInWords.ct : '',
+            loanPeriod: this.tempData.loanPeriod.ct ? this.tempData.loanPeriod.ct : '',
+            loanAdminFeeInFigure: this.tempData.loanAdminFeeInFigure.ct ? this.tempData.loanAdminFeeInFigure.ct : '',
+            loanAdminFeeInWords: this.tempData.loanAdminFeeInWords.ct ? this.tempData.loanAdminFeeInWords.ct : '',
+            loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
+            branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+            insuranceAmount: this.tempData.insuranceAmount.ct ? this.tempData.insuranceAmount.ct : '',
+            relationshipOfficerName: this.tempData.relationshipOfficerName.ct ? this.tempData.relationshipOfficerName.ct : '',
+            branchManager: this.tempData.branchManagerName.ct ? this.tempData.branchManagerName.ct : '',
+        });
     }
 
 
     submit(): void {
         this.spinner = true;
-        this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+        this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+        this.form.get('loanLimitChecked').patchValue(this.loanLimit);
+        this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
 
         if (this.existingOfferLetter) {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
                 if (offerLetterPath.docName.toString() ===
-                    this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN).toString()) {
-                    offerLetterPath.initialInformation = JSON.stringify(this.form.value);
+                    this.offerLetterConst.value(this.offerLetterConst.MORTAGE_LOAN).toString()) {
+                    offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+                    offerLetterPath.pointInformation = this.form.get('additionalDetails').value;
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
-            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN);
+            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.MORTAGE_LOAN);
             offerDocument.initialInformation = JSON.stringify(this.form.value);
+            offerDocument.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+            offerDocument.pointInformation = this.form.get('additionalDetails').value;
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
 
@@ -189,21 +246,21 @@ export class RetailMortgageLoanComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.afterSave = true;
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.afterSave = false;
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         });
 
     }
 
     getNumAmountWord(numLabel, wordLabel) {
-        console.log('Number label', numLabel);
         const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-        console.log('dfghjk', wordLabel);
         const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
         this.form.get(wordLabel).patchValue(returnVal);
     }
@@ -214,5 +271,50 @@ export class RetailMortgageLoanComponent implements OnInit {
         const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
         const asd = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
         this.form.get('yearlyLoanRate').patchValue(asd);
+    }
+
+    close() {
+        this.ref.close();
+    }
+
+    guarantorParse(nepData, key, trans?) {
+        const data = JSON.parse(nepData);
+        try {
+            if (ObjectUtil.isEmpty(trans)) {
+                return data[key].ct;
+            } else {
+                return data[key].en;
+            }
+        } catch (exp) {
+            console.log(exp);
+        }
+    }
+    guarantorDetails(){
+        if (this.guarantorData.length == 1){
+            let temp = JSON.parse(this.guarantorData[0].nepData);
+            this.finalName =  temp.guarantorName.ct;
+        }
+        else if(this.guarantorData.length == 2){
+            for (let i = 0; i < this.guarantorData.length; i++){
+                let temp = JSON.parse(this.guarantorData[i].nepData);
+                this.guarantorNames.push(temp.guarantorName.ct);
+                // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+            }
+            // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+            this.allguarantorNames = this.guarantorNames.join(" र ");
+            this.finalName = this.allguarantorNames;
+        }
+        else{
+            for (let i = 0; i < this.guarantorData.length-1; i++){
+                let temp = JSON.parse(this.guarantorData[i].nepData);
+                this.guarantorNames.push(temp.guarantorName.ct);
+                // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+            }
+            // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+            this.allguarantorNames = this.guarantorNames.join(" , ");
+            let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length-1].nepData);
+            this.finalName =  this.allguarantorNames + " र " + temp1.guarantorName.ct;
+        }
+        console.log('Guarantor Name:', this.finalName);
     }
 }
