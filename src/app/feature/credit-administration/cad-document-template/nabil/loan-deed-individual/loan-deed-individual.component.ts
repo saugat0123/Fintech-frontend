@@ -275,8 +275,13 @@ export class LoanDeedIndividualComponent implements OnInit {
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonth.ct + ' महिना सम्म ।');
       }
       if (docName === 'Personal Overdraft') {
-        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
-            .patchValue(initialInformation.dateofExpiry.ct);
+        if (initialInformation.dateOfExpiryType.en === 'AD') {
+          this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+              .patchValue(this.englishNepaliDatePipe.transform(initialInformation.dateofExpiry.en, true));
+        } else {
+          this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+              .patchValue(initialInformation.dateofExpiryNepali.en);
+        }
       }
       if (docName === 'Educational Loan' && (initialInformation.selectedSecurity.en === 'LAND' || initialInformation.selectedSecurity.en === 'LAND_AND_BUILDING')) {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
