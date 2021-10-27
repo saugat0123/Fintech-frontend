@@ -122,16 +122,17 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER_PERSONAL);
             this.fillForm();
             this.addEmptySecurityDetail();
-            this.addEmptyWitness();
+            //this.addEmptyWitness();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
             this.setEmptyGuarantors(initialInfo.guarantorDetails);
+            console.log('initialInfo.guarantorDetails', initialInfo.guarantorDetails);
             this.setSecurityDetails(initialInfo.securityDetails);
             this.setLoanFacility(initialInfo.loanFacilityTable);
             this.form.patchValue(initialInfo);
-            this.setEmptyWitnesses(initialInfo.witnessDetails);
+            //this.setEmptyWitnesses(initialInfo.witnessDetails);
         }
     }
 
@@ -250,13 +251,14 @@ export class OfferLetterPersonalComponent implements OnInit {
                 guarantorRelation: [value.guarantorRelation],
                 fatherInLawName: [value.fatherInLawName],
                 spouseOrFatherName: [value.spouseOrFatherName],
-                customerMobile: [value.customerMobile],
-                guarantorEmail: [value.guarantorEmail]
+                guarantorMobileNo: [value.guarantorMobileNo],
+                guarantorEmail: [value.guarantorEmail],
+                guarantorDate: [value.guarantorDate]
             }));
         });
     }
 
-    setEmptyWitnesses(data) {
+    /*setEmptyWitnesses(data) {
         const formArray = this.form.get('witnessDetails') as FormArray;
         data.forEach(value => {
             formArray.push(this.formBuilder.group({
@@ -264,7 +266,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 witnessAddress: [value.witnessAddress],
             }));
         });
-    }
+    }*/
 
     buildGuarantorDetails() {
         return this.formBuilder.group({
@@ -285,33 +287,34 @@ export class OfferLetterPersonalComponent implements OnInit {
             guarantorRelation: [undefined],
             fatherInLawName: [undefined],
             spouseOrFatherName: [undefined],
-            customerMobile: [undefined],
-            guarantorEmail: [undefined]
+            guarantorMobileNo: [undefined],
+            guarantorEmail: [undefined],
+            guarantorDate: [undefined]
         });
     }
 
-    buildWitnessDetails() {
+    /*buildWitnessDetails() {
         return this.formBuilder.group({
             witnessName: [undefined],
             witnessAddress: [undefined]
         });
-    }
+    }*/
 
     addEmptyGuarantor() {
         (this.form.get('guarantors') as FormArray).push(this.buildGuarantorDetails());
     }
 
-    addEmptyWitness() {
+    /*addEmptyWitness() {
         (this.form.get('witnessDetails') as FormArray).push(this.buildWitnessDetails());
-    }
+    }*/
 
     removeGuarantor(index) {
         (this.form.get('guarantors') as FormArray).removeAt(index);
     }
 
-    removeWitness(index) {
+    /*removeWitness(index) {
         (this.form.get('witnessDetails') as FormArray).removeAt(index);
-    }
+    }*/
 
     buildForm() {
         this.form = this.formBuilder.group({
@@ -366,7 +369,9 @@ export class OfferLetterPersonalComponent implements OnInit {
 
             amount2: [undefined],
             amountInWords2: [undefined],
-
+            amount3: [undefined],
+            amountInWords3: [undefined],
+            
             financeBranch: [undefined],
             financeMunicipality: [undefined],
             financeWardNum: [undefined],
@@ -427,9 +432,13 @@ export class OfferLetterPersonalComponent implements OnInit {
             spouseOrFatherName: [undefined],
             guarantorMobileNo: [undefined],
             guarantorEmail: [undefined],
+            guarantorDate: [undefined],
             letterSubmittedDate: [undefined],
             loanFacilityTable: this.formBuilder.array([this.addLoanFacilityTable()]),
-
+            witnessName: [undefined],
+            witnessAddress: [undefined],
+            witnessName2: [undefined],
+            witnessAddress2: [undefined]
         });
     }
 
