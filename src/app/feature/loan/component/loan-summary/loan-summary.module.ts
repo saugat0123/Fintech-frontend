@@ -67,7 +67,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, RemitProfileComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -78,9 +78,9 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         CoreModule,
         CbsGroupModule,
         NgSelectModule,
-        LoanInformationViewModule,
         NepaliPatroModule,
-        VideoKycModule
+        VideoKycModule,
+        LoanInformationViewModule
     ],
     exports: [
         LoanSummaryComponent,
@@ -104,7 +104,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         PreviousSecuritySummaryComponent,
         RoleHierarchyChainComponent,
         RemitDetailsComponent,
-        RemitProfileComponent,
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

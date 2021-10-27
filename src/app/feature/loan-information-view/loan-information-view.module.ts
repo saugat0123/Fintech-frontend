@@ -23,6 +23,7 @@ import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-d
 import { CrgAlphaDetailedViewComponent } from './crg-alpha-detailed-view/crg-alpha-detailed-view.component';
 import { CrgLambdaDetailViewComponent } from './crg-lambda-detail-view/crg-lambda-detail-view.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import {RemitProfileComponent} from '../loan/component/loan-summary/remit-profile/remit-profile.component';
 import {SecurityScheduleComponent} from '../loan/component/security-schedule/security-schedule.component';
 
 
@@ -43,6 +44,7 @@ import {SecurityScheduleComponent} from '../loan/component/security-schedule/sec
         CrgGammaDetailViewComponent,
         CrgAlphaDetailedViewComponent,
         CrgLambdaDetailViewComponent,
+        RemitProfileComponent,
         SecurityScheduleComponent,
     ],
     exports: [
@@ -60,6 +62,7 @@ import {SecurityScheduleComponent} from '../loan/component/security-schedule/sec
         CrgGammaDetailViewComponent,
         CrgAlphaDetailedViewComponent,
         CrgLambdaDetailViewComponent,
+        RemitProfileComponent,
         SecurityScheduleComponent,
     ],
     imports: [

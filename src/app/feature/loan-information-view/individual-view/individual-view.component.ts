@@ -31,7 +31,7 @@ export class IndividualViewComponent implements OnInit {
   clientName = Clients;
 
   @Input() calendarType: CalendarType;
-
+dbr;
   @Input() loanId: any;
   isJointInfo = false;
   jointInfo = [];
@@ -39,6 +39,7 @@ export class IndividualViewComponent implements OnInit {
   age: number;
   isRemit = false;
   beneficiary;
+  senderDetails;
 
   constructor() {
   }
@@ -61,11 +62,13 @@ export class IndividualViewComponent implements OnInit {
       this.isRemit = true;
       if (this.isRemit) {
         this.beneficiary = JSON.parse(this.loanDataHolder.remitCustomer.beneficiaryData);
+        this.senderDetails = JSON.parse(this.loanDataHolder.remitCustomer.senderData)
       }
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
       this.financialData = this.loanDataHolder.financial;
     }
+    this.calculateEmiEqiAmount();
   }
 
   calculateAge(dob) {
@@ -73,5 +76,11 @@ export class IndividualViewComponent implements OnInit {
     this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
     return this.age;
   }
-
+  calculateEmiEqiAmount() {
+    const proposedAmount = this.loanDataHolder.proposal.proposedLimit;
+    const rate = Number(this.loanDataHolder.loan.interestRate) / (12 * 100);
+    const n = this.loanDataHolder.proposal.tenureDurationInMonths;
+    const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
+    this.dbr = emi / JSON.parse(this.loanDataHolder.remitCustomer.senderData).senderEmployment.monthly_salary;
+  }
 }

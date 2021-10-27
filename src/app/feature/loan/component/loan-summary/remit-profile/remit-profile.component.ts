@@ -11,6 +11,8 @@ export class RemitProfileComponent implements OnInit {
   constructor() { }
 
   @Input() loanHolder;
+  @Input() isRemit;
+  @Input() individual;
   remit: any;
   agentDetails: any;
   beneficiaryDetails: any;
