@@ -103,4 +103,5 @@ export class LoanDataHolder extends BaseEntity {
     comments: Comments;
     customerLoanDtoList: Array<CustomerLoanDto>;
     collateralSiteVisits: Array<CollateralSiteVisitDto>;
+    zipPath: String;
 }
