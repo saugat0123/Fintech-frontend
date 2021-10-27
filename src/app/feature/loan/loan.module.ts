@@ -63,7 +63,6 @@ import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {LoanActionModalComponent} from './loan-action/loan-action-modal/loan-action-modal.component';
-import {LoanActionVerificationComponent} from './loan-action/loan-action-verification/loan-action-verification.component';
 import {LoanActionCombinedModalComponent} from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
 import {GuarantorAdderComponent} from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
 import {GuarantorDetailComponent} from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
@@ -137,7 +136,6 @@ const COMPONENTS = [
     CustomerAssociateComponent,
     CustomerAssociateComponent,
     LoanActionModalComponent,
-    LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
     GuarantorAdderComponent,
     GuarantorDetailComponent,
@@ -158,7 +156,6 @@ const ENTRY_COMPONENTS = [
     CustomerInfoNepaliComponent,
     CustomerAssociateComponent,
     LoanActionModalComponent,
-    LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
     GuarantorDetailComponent,
     ApprovalSheetComponent,
@@ -227,13 +224,16 @@ const modules = {
         NgbActiveModal
     ],
 
-    entryComponents: [...ENTRY_COMPONENTS],
+    entryComponents: [...ENTRY_COMPONENTS,
+        LoanActionCombinedModalComponent,
+    ],
     exports: [
         KycInfoComponent,
         MicroProposalSummaryComponent,
         MicroBaselRiskExposureSummaryComponent,
         CustomerWiseLoanPullComponent,
-        ApprovalSheetComponent
+        ApprovalSheetComponent,
+        LoanActionCombinedModalComponent,
     ]
 })
 export class LoanModule {
