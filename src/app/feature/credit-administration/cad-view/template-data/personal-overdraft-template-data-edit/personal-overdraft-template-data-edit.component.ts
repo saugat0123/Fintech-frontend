@@ -185,40 +185,31 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
           this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString()) {
+          Object.keys(this.form.controls).forEach(key => {
+            if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+              return;
+            }
+            this.attributes = new Attributes();
+            this.attributes.en = this.form.get(key).value;
+            this.attributes.np = this.tdValues[key];
+            this.attributes.ct = this.form.get(key + 'TransVal').value;
+            this.tdValues[key] = this.attributes;
+          });
           this.tdValues['securityDetails'] = securityDetails;
-          this.mappedData();
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
           this.translatedData = {};
         }
       });
-    } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
-      this.tdValues['securityDetails'] = securityDetails;
-      this.translatedData = {};
-      this.deleteCTAndTransContorls(this.tdValues);
-      offerDocument.initialInformation = JSON.stringify(this.tdValues);
-      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully update Offer Letter'));
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = true;
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to update Offer Letter'));
       this.spinner = false;
       this.btnDisable = true;
     });
@@ -227,21 +218,6 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
   private clearConditionalValidation(): void {
     this.form.get('insuranceAmountinFigureTransVal').clearValidators();
     this.form.get('insuranceAmountinFigureTransVal').updateValueAndValidity();
-  }
-
-  mappedData() {
-    Object.keys(this.form.controls).forEach(key => {
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
-    });
   }
   get Form() {
     return this.form.controls;

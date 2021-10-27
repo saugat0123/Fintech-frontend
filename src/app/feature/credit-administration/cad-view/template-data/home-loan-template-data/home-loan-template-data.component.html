@@ -15,10 +15,10 @@
 <div class="row pt-3 pl-2">
 <nb-card-body>
     <div *ngIf="isConstructionLoan">
-        <app-construction-loan #constructionLoan (eventEmitter)="emitValue($event)" [submitted]="submitted" [spinner]="spinner"></app-construction-loan>
+        <app-construction-loan #constructionLoan [submitted]="submitted" [spinner]="spinner"></app-construction-loan>
     </div>
     <div *ngIf="isPurchaseLoan || isTakeOverLoan">
-        <app-home-land-and-building #landAndBuilding (eventEmitter)="emitValue($event)" [submitted]="submitted" [spinner]="spinner"></app-home-land-and-building>
+        <app-home-land-and-building #landAndBuilding [submitted]="submitted" [spinner]="spinner"></app-home-land-and-building>
     </div>
 </nb-card-body>
 <nb-card-footer>
