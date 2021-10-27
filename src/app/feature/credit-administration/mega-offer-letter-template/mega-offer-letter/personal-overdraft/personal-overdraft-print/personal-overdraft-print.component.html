@@ -151,7 +151,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (क्धबउ) शुल्कः </strong></td>
+                        <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः </strong></td>
                         <td>
                             स्वीकृत अधिविकर्ष तथा नविकरणीय प्रकृतिका कर्जाको तथा निश्चित अवधि वा भुक्तानी तालिका बमोजिम
                             भुक्तानी हुने
@@ -198,9 +198,9 @@
                         <td>
                             मितिः
                             <span *ngIf="letter.dateofExpiry.en.nDate; else dateofExpiryPrint"
-                                  class="font-weight-bold">{{letter?.dateofExpiry.en.nDate}}</span>
+                                  class="font-weight-bold">{{letter?.dateofExpiry.en.nDate}} मा हुनेछ ।</span>
                             <ng-template #dateofExpiryPrint>
-                                <span class=" font-weight-bold">{{(letter?.dateofExpiry.en | date) | engNepDate: true}}</span>
+                                <span class=" font-weight-bold">{{(letter?.dateofExpiry.en | date) | engNepDate: true}} मा हुनेछ ।</span>
                             </ng-template>
                         </td>
                     </tr>
@@ -623,10 +623,11 @@
                                 </span>
                                     मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                     <br>
-                                <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12">
+                                <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12"
+                                     style="margin-left: 5.5em; width: 95%;margin-top: -1.3em;">
                                     <p style="line-height: 1.9;">
-                                        <span class="nepaliFont"
-                                              style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
+                                        झ. <span class="nepaliFont"
+                                                 style="font-size: 24px;margin-top: -0.35em;margin-left: 0.3em;">{{offerData?.supportedInformation}}</span>
                                     </p>
                                 </div>
                             </div>
@@ -675,8 +676,8 @@
                                     ञ. भवन निर्माण सम्पन्नताको प्रमाण पत्र । <br>
                                 </p>
                                 <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12"
-                                     style="margin-left:5%">
-                                        <span class="nepaliFont" style="font-size: 28px;">
+                                     style="margin-left: 5.5em; width: 95%;margin-top: -1.3em;">
+                                    ट. <span class="nepaliFont" style="font-size: 24px;margin-top: -0.35em;margin-left: 0.3em;">
                                             {{offerData?.supportedInformation}}
                                         </span>
                                 </div>
@@ -777,7 +778,7 @@
                             भएको छैन भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं ।
                         </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="!loanLimit">
                         <td>५.</td>
                         <td>म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि नभएको बिनाशर्त उद्घोष
                             गर्दछु
@@ -785,7 +786,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>६.</td>
+                        <td *ngIf="loanLimit">५.</td>
+                        <td *ngIf="!loanLimit">६.</td>
                         <td>यस नबिल बैंक लिमिटेडका संस्थापक, सञचालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो भन्दा माथिल्लो
                             स्तरका कर्मचारीहरु,
                             चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सञग

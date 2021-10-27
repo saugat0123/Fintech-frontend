@@ -186,7 +186,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (क्धबउ) शुल्कः  </strong></td>
+                                <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः  </strong></td>
                                 <td>
                                     स्वीकृत अधिविकर्ष तथा नविकरणीय प्रकृतिका कर्जाको तथा निश्चित अवधि वा भुक्तानी तालिका बमोजिम भुक्तानी हुने
                                     प्रकृतिका आवधिक वा दीर्घकालिन कर्जाको किस्ता तालिका भन्दा अगावैे ऋणकर्जा अग्रिम भुक्तानी भएमा र/वा अन्य
@@ -588,12 +588,13 @@
                                             मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                         </p>
                                         <br>
-                                        <div class="row col-md-12">
+                                        <div class="row col-md-12" style="margin-left: 5.8em;width: 95%;margin-top: -2em;">
+                                            झ.
                                             <textarea
                                                     id="additionalGuarantorDetails"
                                                     class="form-control customFont nepaliFont"
                                                     rows="5"
-                                                    style="width:inherit;margin-left:5%"
+                                                    style="width:inherit;margin-left:2%"
                                                     name="additionalGuarantorDetails"
                                                     formControlName="additionalGuarantorDetails">
                                             </textarea>
@@ -647,11 +648,12 @@
                                             ञ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
                                         </p>
                                         <br>
-                                        <div class="row col-md-12">
+                                        <div class="row col-md-12" style="margin-left: 5.8em;width: 95%;margin-top: -2em;">
+                                            ट.
                                             <textarea
                                                     class="form-control customFont nepaliFont"
                                                     rows="5"
-                                                    style="width:inherit;margin-left:5%"
+                                                    style="width:inherit;margin-left:2%"
                                                     name="additionalGuarantorDetails"
                                                     formControlName="additionalGuarantorDetails">
                                             </textarea>
@@ -725,12 +727,13 @@
                                 <td>४.</td>
                                 <td>म/हामी विरुद्ध दामासाही सम्बन्धि कुनै कारवाही भएको छैन र म/हामी हालसम्म दामासाहिमा परेको घोषणा भएको छैन भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं ।</td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="!loanLimit">
                                 <td>५.</td>
                                 <td>म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि नभएको बिनाशर्त उद्घोष गर्दछु ।</td>
                             </tr>
                             <tr>
-                                <td>६.</td>
+                                <td *ngIf="loanLimit">५.</td>
+                                <td *ngIf="!loanLimit">६.</td>
                                 <td>यस नबिल बैंक लिमिटेडका संस्थापक, सञचालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो भन्दा माथिल्लो स्तरका कर्मचारीहरु,
                                     चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सञग मेरो/हाम्रो, कम्पनीको
                                     हकमा संस्थापक शेयरधनीहरु र सञचालकहरुको समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको एकाघरको पारिवारिक सम्बन्ध नभएको र
@@ -789,4 +792,5 @@
                               [security]="this.selectedSecurity"
                               [renewal]="this.renewal"
                               [offerData] = offerLetterData
+                              [loanLimit]="this.loanLimit"
                               hidden></app-personal-overdraft-print>
