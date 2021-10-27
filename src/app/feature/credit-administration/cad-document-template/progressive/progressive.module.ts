@@ -61,6 +61,8 @@ import { BlacklistConsentCorporateComponent } from './progressive-legal-docs/bla
 import { BlacklistConsentCorporatePrintComponent } from './progressive-legal-docs/blacklist-consent-corporate/blacklist-consent-corporate-print/blacklist-consent-corporate-print.component';
 import { LetterOfConfessionComponent } from './progressive-legal-docs/letter-of-confession/letter-of-confession.component';
 import { LetterOfConfessionPrintComponent } from './progressive-legal-docs/letter-of-confession/letter-of-confession-print/letter-of-confession-print.component';
+import { MortgageDeedCorporateComponent } from './progressive-legal-docs/mortgage-deed-corporate/mortgage-deed-corporate.component';
+import { MortgageDeedCorporatePrintComponent } from './progressive-legal-docs/mortgage-deed-corporate/mortgage-deed-corporate-print/mortgage-deed-corporate-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -123,6 +125,8 @@ const COMPONENTS = [
     BlacklistConsentCorporatePrintComponent,
     LetterOfConfessionComponent,
     LetterOfConfessionPrintComponent,
+    MortgageDeedCorporateComponent,
+    MortgageDeedCorporatePrintComponent,
 
   ],
     exports: [
@@ -150,7 +154,8 @@ const COMPONENTS = [
         RokkaLetterComponent,
         ConsentLetterIndividualComponent,
         BlacklistConsentCorporateComponent,
-        LetterOfConfessionComponent
+        LetterOfConfessionComponent,
+        MortgageDeedCorporateComponent
     ],
   imports: [
     ThemeModule,
