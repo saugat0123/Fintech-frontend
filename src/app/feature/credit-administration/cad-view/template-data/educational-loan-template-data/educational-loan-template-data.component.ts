@@ -148,6 +148,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       tenureFixedDeposit: [undefined],
       tenureDepositReceiptNumber: [undefined],
       guarantorName: [undefined],
+      dateofExpiry: [undefined],
       // guaranteedAmountFigure: [undefined],
       // guaranteedAmountWords: [undefined],
       nameOfBranch: [undefined],
@@ -228,6 +229,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       municipalityOrVdcTransVal: [undefined],
       accountNumberTransVal: [undefined],
       bankNameTransVal: [undefined],
+      dateofExpiryTransVal: [undefined],
       securities: this.formBuilder.array([])
     });
     this.addDefaultSecurity();

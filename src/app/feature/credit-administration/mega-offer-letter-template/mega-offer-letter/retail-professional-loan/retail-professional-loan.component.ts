@@ -152,6 +152,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
             embassyName: [undefined],
             loanLimitChecked: [undefined],
             additionalGuarantorDetails: [undefined],
+            dateofExpiry: [undefined],
         });
     }
 
@@ -273,6 +274,10 @@ submit(): void {
         if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApplication)) {
             tempDateOfApplication = this.dateConversion(this.initialInfoPrint.dateOfApplication);
         }
+        let tempDateOfExpiry;
+        if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateofExpiry)) {
+            tempDateOfExpiry = this.dateConversion(this.initialInfoPrint.dateofExpiry);
+        }
         this.retailProfessionalLoan.patchValue({
             nameOfCustomer: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
             addressOfCustomer: customerAddress ? customerAddress : '',
@@ -282,6 +287,7 @@ submit(): void {
             amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
             dateOfApproval: dateOfApprovalTemp ? dateOfApprovalTemp : '',
             dateOfApplication: tempDateOfApplication ? tempDateOfApplication : '',
+            dateofExpiry: tempDateOfExpiry ? tempDateOfExpiry : '',
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
