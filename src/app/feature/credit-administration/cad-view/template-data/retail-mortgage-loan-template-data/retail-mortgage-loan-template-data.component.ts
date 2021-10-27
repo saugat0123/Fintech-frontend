@@ -409,6 +409,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
             this.offerLetterConst.value(this.offerLetterConst.MORTAGE_LOAN).toString()) {
           this.mappedData();
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+          this.translatedValues = {};
         }
       });
     } else {
@@ -425,6 +426,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
         this.tdValues[key] = this.attributes;
       });
       this.tdValues['securityDetails'] = securityDetails;
+      this.translatedValues = {};
       this.deleteCTAndTransControls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
