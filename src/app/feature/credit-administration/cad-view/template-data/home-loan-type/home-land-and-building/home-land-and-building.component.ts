@@ -289,7 +289,6 @@ export class HomeLandAndBuildingComponent implements OnInit {
     this.landBuildingForm.get('beneficiaryNameTrans').patchValue(this.translatedValue.beneficiaryName);
     this.landBuildingForm.get('loanLimitCheckedCT').patchValue(this.translatedValue.loanLimitChecked);
     this.landBuildingForm.get('loanLimitCheckedTrans').patchValue(this.translatedValue.loanLimitChecked);
-    this.eventEmitter.emit(true);
     this.spinner = false;
   }
 
