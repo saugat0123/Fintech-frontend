@@ -252,7 +252,6 @@
 
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
-                                                       readonly
                                                        (change)="updateServiceCharge('loanFacilityTable', i, form.get(['loanFacilityTable', i, 'amount']).value)"
                                                        formControlName="loanLimitPercent">
 
@@ -503,6 +502,7 @@
                                         <input
                                                 class="form-control-sm form-field nepaliFont"
                                                 type="text"
+                                                (input)="getNumAmountWord('amount2','amountInWords2')"
                                                 formControlName="amount2">
                                         /–
                                         (अक्षरेपी
@@ -518,12 +518,13 @@
                                     <td>रु.
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               formControlName="amount2">
+                                               (input)="getNumAmountWord('amount3','amountInWords3')"
+                                               formControlName="amount3">
                                         /-(अक्षरेपी:
                                         <input class="form-control-lg form-field nepaliFont font-size-normal"
                                                readonly
                                                type="text"
-                                               formControlName="amountInWords2">
+                                               formControlName="amountInWords3">
                                         मात्र ।) को ऋणि तथा जमानी कर्ताले
                                         एक एकप्रति प्रतिज्ञापत्रमा सहीछाप गरी फाइनान्सलाई उपलव्ध गराउनु पर्नेछ ।
                                     </td>
@@ -1115,8 +1116,6 @@
                                                        type="text"
                                                        formControlName="akhtiyarContactNum">
                                                 <br>
-
-
                                             </td>
                                         </tr>
                                         </tbody>
@@ -1126,11 +1125,8 @@
                             <br>
 
                             <div class="row">
-
                                 <div class="col-md-12">
-
                                     <table class="table  table-borderless">
-
                                         <tr>
                                         </tr>
                                         <tbody>
@@ -1165,7 +1161,6 @@
                                                 .....................................
                                                 <br>
                                                 आधिकारीक दस्तखत<br>
-
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        formControlName="employeeName2">
@@ -1206,7 +1201,6 @@
                                 <div class="col-md-6 justify-content-end">
                                     औठा छाप दाँ. बाँ.
                                     <table id="fingerXap" class="table table-bordered text-center">
-
                                         <thead>
                                         <tr>
                                             <th style="border: none;">दाँ.</th>
@@ -1269,7 +1263,7 @@
                             <b> साक्षी : </b><br>
                             <div class="row">
                                 <div class="col-md-12" id="witness">
-                                <span (click)="addEmptyWitness()" nbButton size="small" status="info" type="button"
+                                <!--<span (click)="addEmptyWitness()" nbButton size="small" status="info" type="button"
                                       class="d-print-none btn btn-sm btn-primary">+साक्षी थप्नुहोस्</span>
                                     <br>
                                     <div *ngFor="let witness of form.get('witnessDetails')['controls']; let i=index"
@@ -1293,7 +1287,33 @@
                                             <i (click)="removeWitness(i)" size="small" class="float-right fa fa-trash"
                                                *ngIf="form.get('witnessDetails')['length']>1"></i>
                                         </div>
-                                    </div>
+                                    </div>-->
+                                    <p> दस्तखत : ...........................................
+                                        <br>
+                                        नाम:
+                                        <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               formControlName="witnessName">
+                                        <br>
+                                        ठेगाना:
+                                        <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               formControlName="witnessAddress">
+
+                                    </p>
+                                    <p> दस्तखत : ...........................................
+                                        <br>
+                                        नाम:
+                                        <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               formControlName="witnessName2">
+                                        <br>
+                                        ठेगाना:
+                                        <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               formControlName="witnessAddress2">
+
+                                    </p>
                                 </div>
                             </div>
                             <br>
@@ -1466,7 +1486,7 @@
                                                                            type="text"
                                                                            readonly
                                                                            [value]="form.get('customerMobile').value"
-                                                                           formControlName="customerMobile">
+                                                                           formControlName="guarantorMobileNo">
                                         </li>
                                         <li>
                                             सम्पर्क ईमेल ठेगानाः <input class="form-control-sm form-field"
@@ -1476,8 +1496,8 @@
                                         <li>
                                             मितिः <input class="form-control-sm form-field nepaliFont"
                                                          type="text"
-                                                         readonly
-                                                         [value]="form.get('date').value">
+                                                         value="{{form.get('date').value}}"
+                                                         formControlName="guarantorDate">
                                             दस्तखतः ...................
                                         </li>
                                     </ul>
