@@ -127,12 +127,7 @@
                             गा.पा./न.पा.वडा नं.<span [ngClass]="{'nepaliFont' : printDocForm?.permanentWardNo !== null && printDocForm?.permanentWardNo !== ''}">
                                                 {{printDocForm?.permanentWardNo === null || printDocForm?.permanentWardNo === '' ? '____________________' : printDocForm?.permanentWardNo}}
                                             </span>
-                            (साबिक <span [ngClass]="{'nepaliFont' : printDocForm?.sabikVdcMun !== null && printDocForm?.sabikVdcMun !== ''}">
-                                                {{printDocForm?.sabikVdcMun === null || printDocForm?.sabikVdcMun === '' ? '____________________' : printDocForm?.sabikVdcMun}}
-                                            </span>
-                            गा.बि.स.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.sabikWardNo !== null && printDocForm?.sabikWardNo !== ''}">
-                                                {{printDocForm?.sabikWardNo === null || printDocForm?.sabikWardNo === '' ? '____________________' : printDocForm?.sabikWardNo}}
-                                            </span>)</td>
+                        </td>
                     </tr>
                     <tr>
                         <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">हालको ठेगाना :— </td>
