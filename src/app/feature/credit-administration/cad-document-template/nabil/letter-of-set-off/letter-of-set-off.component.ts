@@ -55,6 +55,7 @@ export class LetterOfSetOffComponent implements OnInit {
   selectiveArr = [];
   offerLetterDocument;
   educationalTemplateData;
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -137,6 +138,7 @@ export class LetterOfSetOffComponent implements OnInit {
       sakshiAge: [undefined],
       nameOfWitness: [undefined],
       nameOfWitnessFromBank: [undefined],
+      jointDetailsArr: this.formBuilder.array([]),
     });
   }
 
@@ -200,11 +202,12 @@ export class LetterOfSetOffComponent implements OnInit {
         {
           nameOfBranch: this.individualData.branch.ct ?
               this.individualData.branch.ct : '',
-          grandFatherName: this.individualData.grandFatherName.ct ?
-              this.individualData.grandFatherName.ct : '',
-          fatherName: !ObjectUtil.isEmpty(this.individualData.fatherName) && this.individualData.fatherName.ct ?
-              this.individualData.fatherName.ct : this.individualData.fatherInLawName ?
+          grandFatherName: this.individualData.grandFatherName ?
+              this.individualData.grandFatherName.ct : this.individualData.fatherInLawName ?
                   this.individualData.fatherInLawName.ct : '',
+          fatherName: !ObjectUtil.isEmpty(this.individualData.fatherName) ?
+              this.individualData.fatherName.ct : this.individualData.husbandName ?
+                  this.individualData.husbandName.ct : '',
           identifyIssuedDistrictName: this.individualData.citizenshipIssueDistrict.ct ?
               this.individualData.citizenshipIssueDistrict.ct : '',
           dateOfIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
@@ -313,9 +316,6 @@ export class LetterOfSetOffComponent implements OnInit {
       return;
     }
     data.forEach(value => {
-      // if (!ObjectUtil.isEmpty(value.nepData)) {
-      //
-      // }
       const nepData = value;
       let age;
       if (!ObjectUtil.isEmpty(nepData.dob) && !ObjectUtil.isEmpty(nepData.dob.en.eDate)) {
@@ -332,16 +332,20 @@ export class LetterOfSetOffComponent implements OnInit {
         citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
       }
       formArray.push(this.formBuilder.group({
-        nameofGrandFatherJoint : [nepData.grandFatherName.ct || nepData.grandFatherName.np],
-        nameofFatherJoint : [nepData.fatherName.np || nepData.fatherName.ct],
-        districtJoint : [nepData.permanentDistrict.ct],
-        vdcJoint : [nepData.permanentMunicipality.ct],
-        wardNoJoint : [nepData.permanentWard.np || nepData.permanentWard.ct],
+        nameofGrandFatherJoint : [nepData.grandFatherName ?
+            nepData.grandFatherName.ct :
+            nepData.fatherInLawName ? nepData.fatherInLawName.ct : ''],
+        nameofFatherJoint : [ nepData.fatherName ?
+            nepData.fatherName.ct :
+            nepData.husbandName ? nepData.husbandName.ct : ''],
+        districtJoint : [nepData.permanentDistrict ? nepData.permanentDistrict.ct : ''],
+        vdcJoint : [nepData.permanentMunicipality ? nepData.permanentMunicipality.ct : ''],
+        wardNoJoint : [nepData.permanentWard ? nepData.permanentWard.ct : ''],
         ageJoint : [age ? age : ''],
-        nameofPersonJoint : [nepData.name.np || nepData.name.ct],
-        citizenshipNoJoint : [nepData.citizenNumber.np || nepData.citizenNumber.ct],
+        nameofPersonJoint : [nepData.name ? nepData.name.ct : ''],
+        citizenshipNoJoint : [nepData.citizenNumber ? nepData.citizenNumber.ct : ''],
         dateofIssueJoint : [citizenshipIssuedDate ? citizenshipIssuedDate : ''],
-        nameofIssuedDistrictJoint : [nepData.citizenshipIssueDistrict.en.nepaliName],
+        nameofIssuedDistrictJoint : [nepData.citizenshipIssueDistrict ? nepData.citizenshipIssueDistrict.en.nepaliName : ''],
       }));
     });
   }
