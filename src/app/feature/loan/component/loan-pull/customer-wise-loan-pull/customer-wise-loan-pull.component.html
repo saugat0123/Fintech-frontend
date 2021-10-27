@@ -324,32 +324,36 @@
 
 
 <ng-template #pullDocument>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Pull Loan Document</h4>
-        <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
-            <span aria-hidden="true">&times;</span>
-        </a>
-    </div>
-    <div class="modal-body">
-        Do you want to pull this Document?
+    <div [nbSpinner]="spinner2">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Pull Loan Document</h4>
+            <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+                <span aria-hidden="true">&times;</span>
+            </a>
+        </div>
+        <div class="modal-body">
+            This Document is under <strong>{{toUser}}</strong>.
+            <br>
+            Do you want to pull this Document?
 
 
-        <div class="col-md-12">
-            <form>
-                <div class="d-flex justify-content-end">
-                    <div class="px-2">
-                        <button type="submit" class="btn btn-danger btn-sm btn-flat fa-pull-left" (click)="onClose()">
-                            NO
+            <div class="col-md-12">
+                <form>
+                    <div class="d-flex justify-content-end">
+                        <div class="px-2">
+                            <button type="submit" class="btn btn-danger btn-sm btn-flat fa-pull-left" (click)="onClose()">
+                                NO
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-success float-right" (click)="confirm()">YES
                         </button>
                     </div>
-                    <button type="submit" class="btn btn-sm btn-success float-right" (click)="confirm()">YES
-                    </button>
-                </div>
-            </form>
+                </form>
+
+            </div>
+
 
         </div>
-
-
     </div>
 </ng-template>
 
