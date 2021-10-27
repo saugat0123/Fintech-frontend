@@ -190,6 +190,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     individual;
     individualJsonData;
     riskInfo;
+    senderDetails;
 
 
     constructor(
@@ -261,6 +262,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         if (this.isRemitLoan) {
             this.beneficiary = JSON.parse(this.loanDataHolder.remitCustomer.beneficiaryData);
+            this.senderDetails = JSON.parse(this.loanDataHolder.remitCustomer.senderData);
             this.calculateEmiEqiAmount();
         }
     }
@@ -800,7 +802,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
             this.dbr = emi / JSON.parse(this.loanDataHolder.remitCustomer.senderData).senderEmployment.monthly_salary;
         console.log('this is s=dbr', this.dbr);
-
     }
 }
 

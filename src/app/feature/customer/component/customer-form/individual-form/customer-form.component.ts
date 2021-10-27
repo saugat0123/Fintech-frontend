@@ -335,7 +335,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
                     /** banking relation setting data from child **/
                     // possibly can have more field in banking relationship
-
+                    if (this.basicInfo.get('bfi').value === 'true') {
+                        this.toastService.show(new Alert(AlertType.WARNING, 'This Customer Is Not Eligible To apply Loan'));
+                        return;
+                    }
                     const bakingRelation = {'cibReport': this.basicInfo.get('cibReport').value, 'bfi': this.basicInfo.get('bfi').value, 'creditRelationship': this.basicInfo.get('creditRelationship').value, 'remarks': this.basicInfo.get('remarks').value};
                     this.customer.bankingRelationship = JSON.stringify(bakingRelation);
                     this.customer.netWorth = this.basicInfo.get('netWorth').value;
