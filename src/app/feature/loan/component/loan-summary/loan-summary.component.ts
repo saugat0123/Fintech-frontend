@@ -681,6 +681,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             for (const doc of insuranceDocument) {
                 docPaths.push(doc.policyDocumentPath);
             }
+            const siteVisitDocument = this.siteVisitDocuments;
+            for (const doc of siteVisitDocument) {
+                docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+            }
         } else {
             docPaths.push(this.loanDataHolder.zipPath);
         }
@@ -719,6 +723,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         } else {
             this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
         }
+    }
+
+    checkSiteVisitDocument(event: any) {
+        this.siteVisitDocuments = event;
     }
 }
 

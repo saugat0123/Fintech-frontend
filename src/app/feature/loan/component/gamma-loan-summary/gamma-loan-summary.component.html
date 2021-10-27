@@ -620,7 +620,7 @@
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
                                   [securityId]="securityId"
                                   [collateralData]="loanDataHolder?.collateralSiteVisits"
-                                  [docStatus]="loanDataHolder?.documentStatus"></app-security-summary>
+                                  [docStatus]="loanDataHolder?.documentStatus" (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-summary>
             <app-collateral-summary
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                     [customerAllLoanList]="customerAllLoanList"

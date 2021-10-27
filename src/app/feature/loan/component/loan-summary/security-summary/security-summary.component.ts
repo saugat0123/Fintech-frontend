@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {environment} from '../../../../../../environments/environment';
@@ -66,6 +66,7 @@ export class SecuritySummaryComponent implements OnInit {
     totalBondSecurityValue = 0;
     isPrintable = 'YES';
     @Input() docStatus;
+    @Output() downloadSiteVisitDocument = new EventEmitter();
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
@@ -225,13 +226,13 @@ export class SecuritySummaryComponent implements OnInit {
                         const docArray = flatten(arr);
                         // filter for only printable document
                         this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
-
                         this.collateralSiteVisits.filter(item => {
                             this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
                         });
                         if (response.detail.length > 0) {
                             this.isCollateralSiteVisitPresent = true;
                         }
+                        this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
                     });
             }
         }

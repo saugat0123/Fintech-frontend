@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -65,6 +65,7 @@ export class SecurityViewComponent implements OnInit {
   summaryTypeName = SummaryType;
   bondSecurity = false;
   totalBondSecurityValue = 0;
+  @Output() downloadSiteVisitDocument = new EventEmitter();
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
@@ -224,6 +225,7 @@ export class SecurityViewComponent implements OnInit {
               if (response.detail.length > 0) {
                 this.isCollateralSiteVisit = true;
               }
+              this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
             });
       }
     }
