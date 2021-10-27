@@ -294,7 +294,7 @@
     </form>
     <button [disabled]="previewBtn" class="float-right" nbButton (click)="openModel()" status="primary">Preview
     </button>
-    <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right" [disabled]="btnDisable">Save</button>
+    <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right" [disabled]="!btnDisable">Save</button>
     <button nbButton size="medium" class="float-right" (click)="translate()">
         Translate
     </button>

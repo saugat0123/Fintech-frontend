@@ -368,7 +368,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
       this.previewBtn = false;
-      this.btnDisable = true;
+      this.btnDisable = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -424,7 +424,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     }
     this.setTemplatedCTData(this.translatedData);
     this.spinner = false;
-    this.btnDisable = false;
   }
 
   getNumAmountWord(numLabel, wordLabel) {
