@@ -35,6 +35,7 @@ import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {OneFormGuarantors} from '../../model/oneFormGuarantors';
+import {CurrencyFormatterPipe} from "../../../../@core/pipe/currency-formatter.pipe";
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -135,7 +136,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
               protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
               private http: HttpClient,
               private translateService: SbTranslateService,
-              private addressService: AddressService) {
+              private addressService: AddressService,
+              private currencyFormatterPipe: CurrencyFormatterPipe) {
   }
 
   get configForm() {
@@ -1869,7 +1871,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   translateNumberInFA(source, i) {
-    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(['guarantorDetails', i, source]).value.toString());
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.userConfigForm.get(['guarantorDetails', i, source]).value.toString()));
     this.userConfigForm.get(['guarantorDetails', i, source + 'Trans']).patchValue(wordLabelVar);
     this.userConfigForm.get(['guarantorDetails', i, source + 'CT']).patchValue(wordLabelVar);
   }
