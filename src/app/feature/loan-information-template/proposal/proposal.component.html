@@ -873,6 +873,9 @@
                                                                formControlName="remarks"
                                                                placeholder="Remarks"
                                                                type="text"/></td>
+                                                    <td hidden><input class="form-control text-center"
+                                                               formControlName="files"
+                                                               type="text"/></td>
                                                     <div>
                                                         <button (click)="removeGroupExposureData(index)"
                                                                 *ngIf="index > 0"
@@ -903,7 +906,13 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-md-12 form-group">
+                                <button nbButton (click)="openCadSetup(datax)"><b>Setup Legal Required Documents</b>
+                                </button>
+                            </div>
+<ng-template #datax>
+    <app-cad-file-setup [files] = "files" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
+</ng-template>
                         </form>
                     </div>
                 </nb-card-body>

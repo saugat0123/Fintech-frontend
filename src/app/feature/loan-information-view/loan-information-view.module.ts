@@ -23,26 +23,28 @@ import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-d
 import { CrgAlphaDetailedViewComponent } from './crg-alpha-detailed-view/crg-alpha-detailed-view.component';
 import { CrgLambdaDetailViewComponent } from './crg-lambda-detail-view/crg-lambda-detail-view.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import {SecurityScheduleComponent} from '../loan/component/security-schedule/security-schedule.component';
 
 
 @NgModule({
-  declarations: [
-    InsuranceViewComponent,
-    FinancialViewComponent,
-    GuarantorViewComponent,
-    SiteVisitViewComponent,
-    IndividualViewComponent,
-    CustomerInfoSearchFormComponent,
-    SecurityViewComponent,
-    CompanyInfoViewComponent,
-    CiclViewComponent,
-    AllDocumentViewComponent,
-    ProposalViewComponent,
-    IncomeFromAccountViewComponent,
-    CrgGammaDetailViewComponent,
-    CrgAlphaDetailedViewComponent,
-    CrgLambdaDetailViewComponent
-  ],
+    declarations: [
+        InsuranceViewComponent,
+        FinancialViewComponent,
+        GuarantorViewComponent,
+        SiteVisitViewComponent,
+        IndividualViewComponent,
+        CustomerInfoSearchFormComponent,
+        SecurityViewComponent,
+        CompanyInfoViewComponent,
+        CiclViewComponent,
+        AllDocumentViewComponent,
+        ProposalViewComponent,
+        IncomeFromAccountViewComponent,
+        CrgGammaDetailViewComponent,
+        CrgAlphaDetailedViewComponent,
+        CrgLambdaDetailViewComponent,
+        SecurityScheduleComponent,
+    ],
     exports: [
         InsuranceViewComponent,
         FinancialViewComponent,
@@ -57,7 +59,8 @@ import {NepaliPatroModule} from 'nepali-patro';
         IncomeFromAccountViewComponent,
         CrgGammaDetailViewComponent,
         CrgAlphaDetailedViewComponent,
-        CrgLambdaDetailViewComponent
+        CrgLambdaDetailViewComponent,
+        SecurityScheduleComponent,
     ],
     imports: [
         CommonModule,
@@ -68,7 +71,6 @@ import {NepaliPatroModule} from 'nepali-patro';
         NgSelectModule,
         NepaliCalendarModule,
         NepaliPatroModule,
-
     ],
     entryComponents: [
         AllDocumentViewComponent
