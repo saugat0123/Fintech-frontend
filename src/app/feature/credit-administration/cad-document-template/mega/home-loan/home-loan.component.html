@@ -18,7 +18,7 @@
                        placeholder=""
                        type="text"/>
                 <p class="text-left"> मिति:
-                    <input class="form-field form-control-sm nepaliFont col-3"
+                    <input class="form-field form-control-sm col-3"
                            formControlName="dateofApproval"
                            name="dateofApproval"
                            placeholder=""
@@ -43,7 +43,7 @@
                     <br>
                     <div class="mb-1">
                         <p> महोदय, <br>
-                            तपाईंले मिति <input class="form-field form-control-sm nepaliFont"
+                            तपाईंले मिति <input class="form-field form-control-sm"
                                                 formControlName="dateofApplication"
                                                 name="dateofApplication"
                                                 placeholder=""
@@ -74,12 +74,12 @@
                                 <td><strong> रकम </strong></td>
                                 <td>
                                     रु.<input (input)="getNumAmountWord('loanAmountinFigure', 'loanAmountInWords')"
-                                              class="form-field form-control-sm nepaliFont"
+                                              class="form-field form-control-sm"
                                               formControlName="loanAmountinFigure"
                                               name="loanAmountinFigure"
                                               placeholder=""
                                               type="text"/>
-                                    ( अक्षेरुपी <input class="form-field form-control-sm nepaliFont"
+                                    ( अक्षेरुपी <input class="form-field form-control-sm"
                                                        formControlName="loanAmountInWords"
                                                        name="loanAmountInWords"
                                                        placeholder=" "
@@ -123,19 +123,19 @@
                                 <td><strong> ब्याज दरः </strong></td>
                                 <td>प्रकाशित आधार दर (Base Rate)
                                     <input (change)="calcYearlyRate()"
-                                           class="form-field form-control-sm nepaliFont"
+                                           class="form-field form-control-sm"
                                            formControlName="baseRate"
                                            name="baseRate"
                                            placeholder=""
                                            type="text"/> +
                                     <input (change)="calcYearlyRate()"
-                                           class="form-field form-control-sm nepaliFont"
+                                           class="form-field form-control-sm"
                                            formControlName="premiumRate"
                                            name="प्रिमियम दर"
                                            placeholder=""
                                            type="text"/> प्रतिशत ब्याज दर प्रिमियम( interest rate premium)
                                     हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                            formControlName="yearlyInterestRate"
                                            name="yearlyInterestRate"
                                            placeholder=""
@@ -146,13 +146,13 @@
                                 <td><strong>ऋण प्रशासनिक शुल्क </strong> </td>
                                 <td><ul class="disclist">
                                     <li> ऋण प्रशासनिक शुल्क बापत रु
-                                        <input class="form-field form-control-sm nepaliFont"
+                                        <input class="form-field form-control-sm"
                                                (change)="getNumAmountWord('loanadminFee', 'loanadminFeeWords')"
                                                formControlName="loanadminFee"
                                                name="loanadminFee"
                                                placeholder=" "
                                                type="text"/> (अक्षरेपी रु
-                                        <input class="form-field form-control-sm nepaliFont"
+                                        <input class="form-field form-control-sm"
                                                formControlName="loanadminFeeWords"
                                                name="loanadminFeeWords "
                                                placeholder=" "
@@ -174,24 +174,24 @@
                                 <td><strong> चुक्ता भुक्तानीः </strong></td>
                                 <td>
                                     साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                                            formControlName="EMIAmount"
                                                            name="EMIAmount"
                                                            placeholder=""
                                                            type="text"/> (अक्षरेपि रु.
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                            formControlName="EMIAmountInWord"
                                            name="EMIAmountInWord"
                                            placeholder=""
                                            type="text"/> मात्र) का दरले
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                            formControlName="equatedMonth"
                                            name="equatedMonth"
                                            placeholder=""
                                            type="text"/>
                                     सम मासिक किस्ता ९भ्त्रगबतभम (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु पर्नेछ। <br>
                                     <strong><u>द्रष्टब्यः </u></strong>
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                            formControlName="equatedMonth"
                                            name="equatedMonth"
                                            placeholder=""
@@ -204,7 +204,7 @@
                                 <td><strong> ऋण प्रतिबद्धता शुल्क </strong></td>
                                 <td>
                                     स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सिमामा
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                                            formControlName="loanCommitmentFee"
                                                            name="loanCommitmentFee "
                                                            placeholder=" "
@@ -262,46 +262,46 @@
                             <td>
                                 <p><strong>क. </strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको नाममा देहाय बमोजिमका घरजग्गा धितोबन्धक पारित गरि दिनु पर्नेछ। </p>
                                 <p> <strong>Collateral details </strong></p>
-                                <p> धनी    <input class="form-field form-control-sm nepaliFont"
+                                <p> धनी    <input class="form-field form-control-sm"
                                                   formControlName="ownerName"
                                                   name="ownerName"
                                                   placeholder=" "
                                                   type="text"/> </p>
-                                <p> स्थान  <input class="form-field form-control-sm nepaliFont"
+                                <p> स्थान  <input class="form-field form-control-sm"
                                                   formControlName="ownersAddress"
                                                   name="ownersAddress"
                                                   placeholder=" "
                                                   type="text"/> </p>
-                                <p> कित्ता नं.  <input class="form-field form-control-sm nepaliFont"
+                                <p> कित्ता नं.  <input class="form-field form-control-sm"
                                                        formControlName="propertyPlotNumber"
                                                        name="propertyPlotNumber"
                                                        placeholder=" "
                                                        type="text"/> </p>
-                                <p> क्षेत्रफल  <input class="form-field form-control-sm nepaliFont"
+                                <p> क्षेत्रफल  <input class="form-field form-control-sm"
                                                       formControlName="propertyArea"
                                                       name="propertyArea"
                                                       placeholder=" "
                                                       type="text"/> </p>
-                                <p> सिट नं. <input class="form-field form-control-sm nepaliFont"
+                                <p> सिट नं. <input class="form-field form-control-sm"
                                                       formControlName="seatNumber"
                                                       name="seatNumber"
                                                       placeholder=" "
                                                       type="text"/> </p>
 
-                                <p> <strong>ख. </strong>श्री <input class="form-field form-control-sm nepaliFont"
+                                <p> <strong>ख. </strong>श्री <input class="form-field form-control-sm"
                                                                       formControlName="guarantorName"
                                                                     [value]="this.finalName"
                                                                       name="guarantorName"
                                                                       placeholder=" "
                                                                       type="text"/> ले बैंकको पक्षमा
-                                    रु <input class="form-field form-control-sm nepaliFont"
+                                    रु <input class="form-field form-control-sm"
                                               (input)="getNumAmountWord('guarantorAmount', 'guarantorAmountinWord')"
                                               formControlName="guarantorAmount"
                                               [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                               name="guarantorAmount"
                                               placeholder=" "
                                               type="text"/>
-                                    (अक्षरेपी रु <input class="form-field form-control-sm nepaliFont"
+                                    (अक्षरेपी रु <input class="form-field form-control-sm"
                                                         formControlName="guarantorAmountinWord"
                                                         [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
                                                         name="guarantorAmountinWord"
@@ -382,77 +382,77 @@
                         <tr *ngIf="this.tempData.loanType === 'CONSTRUCTION'">
                             <td>९. </td>
                             <td> धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
-                                <input class="form-field form-control-sm nepaliFont"
+                                <input class="form-field form-control-sm"
                                        formControlName="branchName"
                                        name="branchName"
                                        placeholder=""
                                        type="text"/>  शाखामा रहेको खातामा निम्न तरीकाले कर्जा प्रवाह गरिनेछ। <br>
                                 <p>
                                     क.
-                                    रु. <input class="form-field form-control-sm nepaliFont"
+                                    रु. <input class="form-field form-control-sm"
                                          formControlName="guaranteeAmount"
                                                [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                          name="guaranteeAmount"
                                          placeholder=" "
                                          type="text"/>/
                                     बराबरको निर्माण कार्य सम्पन्न भएकोले पहिलो किस्ता रु.
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                            formControlName="loanAmountinFigure"
                                            name="loanAmountinFigure"
                                            placeholder=""
                                            type="text"/>/ (अक्षरेपि रु.
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                            formControlName="loanAmountInWords"
                                            name="loanAmountInWords"
                                            placeholder=" "
-                                           type="text"/>)
+                                           type="text"/>मात्र)
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
                                 </p>
                                 <p>
                                     ख.
-                                    रु. <input class="form-field form-control-sm nepaliFont"
+                                    रु. <input class="form-field form-control-sm"
                                                        formControlName="guaranteeAmount"
                                                [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                                        name="guaranteeAmount"
                                                        placeholder=" "
                                                        type="text"/>
                                     बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि दोस्रो किस्ता रु.
-                                        <input class="form-field form-control-sm nepaliFont"
+                                        <input class="form-field form-control-sm"
                                                formControlName="loanAmountinFigure"
                                                name="loanAmountinFigure"
                                                placeholder=""
                                                type="text"/>/ (अक्षरेपि रु.
-                                        <input class="form-field form-control-sm nepaliFont"
+                                        <input class="form-field form-control-sm"
                                                formControlName="loanAmountInWords"
                                                name="loanAmountInWords"
                                                placeholder=" "
-                                               type="text"/>)
+                                               type="text"/>मात्र)
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
                                 </p>
                                 <p>
                                     ग.
-                                    रु. <input class="form-field form-control-sm nepaliFont"
+                                    रु. <input class="form-field form-control-sm"
                                                formControlName="guaranteeAmount"
                                                [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                                name="guaranteeAmount"
                                                placeholder=" "
                                                type="text"/>
                                     बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि तेस्रो किस्ता रु.
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                            formControlName="loanAmountinFigure"
                                            name="loanAmountinFigure"
                                            placeholder=""
                                            type="text"/>/ (अक्षरेपि रु.
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                            formControlName="loanAmountInWords"
                                            name="loanAmountInWords"
                                            placeholder=" "
-                                           type="text"/>)
+                                           type="text"/>मात्र)
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
                                 </p>
                                 <div class="row col-md-12">
                     <textarea
-                              class="form-control customFont nepaliFont"
+                              class="form-control customFont"
                               rows="5"
                               style="width:inherit;margin-left:5%"
                               name="additionalDetail"
@@ -465,17 +465,17 @@
                             <td>९. </td>
                             <td>
                                 धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
-                                तपाईंको यस नबिल बैंक लिमिटेडको, <input class="form-field form-control-sm nepaliFont"
+                                तपाईंको यस नबिल बैंक लिमिटेडको, <input class="form-field form-control-sm"
                                                                        formControlName="branchName"
                                                                        name="branchName"
                                                                        placeholder=" "
                                                                        type="text"/> शाखामा रहेको चल्ती
-                                खातामा रु <input class="form-field form-control-sm nepaliFont"
+                                खातामा रु <input class="form-field form-control-sm"
                                                  formControlName="loanAmount"
                                                  name="loanAmount"
                                                  placeholder=" "
                                                  type="text"/>
-                                ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री <input class="form-field form-control-sm nepaliFont"
+                                ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री <input class="form-field form-control-sm"
                                                                              formControlName="beneficiaryName"
                                                                              name="beneficiaryName"
                                                                              placeholder=" "
@@ -483,7 +483,7 @@
                                 मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                                 <div class="row col-md-12">
                     <textarea
-                              class="form-control customFont nepaliFont"
+                              class="form-control customFont"
                               rows="5"
                               style="width:inherit;margin-left:5%"
                               name="additionalDetail"
@@ -678,7 +678,7 @@
                                 <p>तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ। </p>
                                 <p>
                                     क.
-                                    रु. <input class="form-field form-control-sm nepaliFont"
+                                    रु. <input class="form-field form-control-sm"
                                                formControlName="loanAmount"
                                                name="loanAmount"
                                                placeholder=" "
@@ -690,7 +690,7 @@
                                 </p>
                                 <p>
                                     ग.
-                                    रु. <input class="form-field form-control-sm nepaliFont"
+                                    रु. <input class="form-field form-control-sm"
                                                formControlName="loanAmount"
                                                name="loanAmount"
                                                placeholder=" "
@@ -699,7 +699,7 @@
                                 </p>
                                 <p>
                                     घ.
-                                    रु. <input class="form-field form-control-sm nepaliFont"
+                                    रु. <input class="form-field form-control-sm"
                                                formControlName="loanAmount"
                                                name="loanAmount"
                                                placeholder=" "
@@ -714,12 +714,12 @@
                                 </p>
                                 <p>
                                     छ. बैकर्स शर्त सहितको कम्तीमा रु.
-                                    रु. <input class="form-field form-control-sm nepaliFont"
+                                    रु. <input class="form-field form-control-sm"
                                                formControlName="insuranceAmount"
                                                name="insuranceAmount"
                                                placeholder=" "
                                                type="text"/>/-
-                                    (अक्षेरेपी रु. <input class="form-field form-control-sm nepaliFont"
+                                    (अक्षेरेपी रु. <input class="form-field form-control-sm"
                                               formControlName="insuranceAmountinWord"
                                               name="insuranceAmountinWord"
                                               placeholder=" "
@@ -727,20 +727,20 @@
                                 </p>
                                 <p>
                                     ज.	श्री
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                            formControlName="guarantorName"
                                            [value]="this.finalName"
                                            name="guarantorName"
                                            placeholder=" "
                                            type="text"/>
                                     को बैकको पक्षमा रु.
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm"
                                            formControlName="guarantorAmount"
                                            [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                            name="guarantorAmount"
                                            placeholder=" "
                                            type="text"/>/-
-                                    (अक्षेरेपी रु. <input class="form-field form-control-sm nepaliFont"
+                                    (अक्षेरेपी रु. <input class="form-field form-control-sm"
                                               formControlName="guarantorAmountinWord"
                                                           [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
                                               name="guarantorAmountinWord"
@@ -753,7 +753,7 @@
 
                     <div class="row col-md-12">
                     <textarea id="additionalGuarantorDetails"
-                              class="form-control customFont nepaliFont"
+                              class="form-control customFont"
                               rows="5"
                               style="width:inherit;margin-left:5%"
                               name="additionalGuarantorDetails"
@@ -788,25 +788,25 @@
                     <div class="row mt-3">
                         <div class="col-md d-flex justify-content-between">
                             <div class="left-content">
-                                <input class="form-field form-control-sm nepaliFont ios"
+                                <input class="form-field form-control-sm ios"
                                        formControlName="relationshipofficerName"
                                        name="relationshipofficerName"
                                        placeholder="सम्बन्ध अधिकारी को नाम"
                                        type="text"/><br><br>
 
-                                <input class="form-field form-control-sm nepaliFont ios"
+                                <input class="form-field form-control-sm ios"
                                        formControlName="branchName"
                                        name="branchName"
                                        placeholder="शाखाको नाम"
                                        type="text"/>
                             </div>
                             <div class="right-content">
-                                <input class="form-field form-control-sm nepaliFont ios"
+                                <input class="form-field form-control-sm ios"
                                        formControlName="branchManager"
                                        name="branchManager"
                                        placeholder="शाखा प्रबन्धक"
                                        type="text"/><br><br>
-                                <input class="form-field form-control-sm nepaliFont ios"
+                                <input class="form-field form-control-sm ios"
                                        formControlName="branchName"
                                        name="branchName"
                                        placeholder="शाखाको नाम"
