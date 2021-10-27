@@ -220,12 +220,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.activatedRoute.queryParams.subscribe((res) => {
            this.customerLoanService.detail(res.customerId).subscribe(response => {
             const details = JSON.parse(response.detail.data);
-           if(!ObjectUtil.isEmpty(details.documents)){
+           if (!ObjectUtil.isEmpty(details.documents)) {
                details.documents.forEach( resData => {
                    this.obtainableDocuments.push(resData);
                });
            }
-            if(!ObjectUtil.isEmpty(details.OtherDocuments)) {
+            if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
                 details.OtherDocuments.split(',').forEach(splitData => {
                     if (splitData !== '') {
                         this.otherObtainableDocuments.push(splitData);
@@ -247,24 +247,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            this.securityId = this.loanDataHolder.security.id;
-            this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
-               .subscribe((response: any) => {
-                   this.collateralSiteVisitDetail.push(response.detail);
-                   const arr = [];
-                   response.detail.forEach(f => {
-                       if (f.siteVisitDocuments.length > 0) {
-                         arr.push(f.siteVisitDocuments);
-                       }
-                   });
-                   // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-                   this.siteVisitDocuments = flatten(arr);
-                   if (response.detail.length > 0) {
-                       this.isCollateralSiteVisit = true;
-                   }
-               });
-        }
     }
 
     ngOnDestroy(): void {
@@ -286,6 +268,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
         // Setting Security data--
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            this.securityId = this.loanDataHolder.security.id;
             this.securityData = JSON.parse(this.loanDataHolder.security.data);
             this.securitySummary = true;
         }

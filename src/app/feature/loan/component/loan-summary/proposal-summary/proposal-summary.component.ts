@@ -13,7 +13,6 @@ import {LoanConfigService} from '../../../../admin/component/loan-config/loan-co
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {SummaryType} from '../../SummaryType';
-import {Customer} from '../../../../admin/modal/customer';
 import {CustomerLoanDto} from '../../../model/CustomerLoanDto';
 
 @Component({

@@ -233,24 +233,6 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-      this.securityId = this.loanDataHolder.security.id;
-      this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
-          .subscribe((response: any) => {
-            this.collateralSiteVisitDetail.push(response.detail);
-            const arr = [];
-            response.detail.forEach(f => {
-              if (f.siteVisitDocuments.length > 0) {
-                arr.push(f.siteVisitDocuments);
-              }
-            });
-            // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-            this.siteVisitDocuments = flatten(arr);
-            if (response.detail.length > 0) {
-              this.isCollateralSiteVisit = true;
-            }
-          });
-    }
   }
 
   ngOnDestroy(): void {
@@ -272,6 +254,7 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
 
     // Setting Security data--
     if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+      this.securityId = this.loanDataHolder.security.id;
       this.securityData = JSON.parse(this.loanDataHolder.security.data);
       this.securitySummary = true;
     }
