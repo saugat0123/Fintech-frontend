@@ -26,6 +26,7 @@ export class RetailMortgageLoanPrintComponent implements OnInit {
     proposedAmount;
     customerAddress;
     tempData;
+    finalName;
     selectedSecurity;
     loanLimitVal;
     offerLetterConst = NabilOfferLetterConst;
