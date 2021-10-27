@@ -14,7 +14,16 @@
       </div>
       <div class="col-md-12">
         <p>
-          श्री <span class=" font-weight-bold">{{loanHolderInfo?.name.ct}}</span>
+          <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री </span>
+          <ng-template #nameDetails>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                श्रीमती
+            </span>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+              सुश्री
+            </span>
+          </ng-template>
+          <span class=" font-weight-bold">{{loanHolderInfo?.name.ct}}</span>
         </p>
         <p>
           <span class=" font-weight-bold">{{customerAddress}}</span>
@@ -323,20 +332,28 @@
           </p>
         </div>
         <div class="col-md-12">
-          <p *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landAndBuildingSecuritySec">
-            क. नबिल बैंक लिमिटेडद्धारा जारी गरिएको श्री
-            <span class=" font-weight-bold">{{letter?.fixedDepositHolderName.ct}}</span> को
-            नाममा रहेको रु.
-            <span class=" font-weight-bold">{{letter?.fixedDepositAmountFigure.ct}}</span> /–
-            बराबरको
-            <span class=" font-weight-bold">{{letter?.tenureFixedDeposit.ct}}</span> बर्षे मुद्धति
-            रसिद नं.
+          <p *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landAndBuildingSecuritySec" style="line-height: 1.9em">
+            क. नबिल बैंक लिमिटेडद्धारा जारी गरिएको
+            <span class=" font-weight-bold">{{letter?.tenureFixedDeposit.ct}}</span>
+            बर्षे मुद्धति
+            श्री
+            <span class=" font-weight-bold">{{letter?.fixedDepositHolderName.ct}}</span>
+            को नाममा रहेको रु
+            <span class=" font-weight-bold">{{letter?.fixedDepositAmountFigure.ct}}</span>
+            /–
+            (अक्षरेपी
+            <span class=" font-weight-bold">{{letter?.fixedDepositReceiptAmountWords.ct}}</span>
+            ) बराबरको मिति
+            <span class="font-weight-bold">{{dateofExpiry}}</span>
+            सम्म अवधि रहेको मुद्धति
+            रसिद नं
             <span class=" font-weight-bold">{{letter?.tenureDepositReceiptNumber.ct}}</span>
-            उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न
-            सक्ने अधिकार सहितको मोजरापत्र (Letter of Set-off) बैंकको पक्षमा जारी गरी दिनु पर्नेछ ।
-            मुद्धति निक्षेप कर्जा समाप्ति
-            अवधि बमोजिम आवधिक रुपमा नविकरण गरिनेछ र सो मुद्धती रसिदको सक्कल प्रति बैंकलाई हस्तान्तरण
-            गर्नु पर्नेछ ।
+            उपर बैंकले उल्लिखित मुद्धति रसिद बैंकको पक्षमा
+            रसिद ग्रहणाधिकार (Lien) र/वा धितो र/वा हकाधिकार लेखिदिई सो वापतको रकम कर्जामा
+            समायोजन वा कर्जा भुक्तानी/फछ्र्यौट/राफसाफ गर्न सक्ने अधिकार सहितको मोजरापत्र (Letter of Set-Off)
+            बैंकको पक्षमा जारी गरी दिनु पर्नेछ । कर्जा वहाल रहने अवधि बमोजिम आवधिक
+            रुपमा मुद्धति निक्षेपको नविकरण गरिनेछ र मुद्धती रसिदको सक्कल प्रति बैंकलाई
+            हस्तान्तरण गर्नुपर्नेछ/बैंकले राख्न सक्नेछ ।
           </p>
           <ng-template #landAndBuildingSecuritySec>
             <p>
@@ -900,7 +917,7 @@
         </div>
       </div>
       <div>
-        <table>
+        <table class="table table-borderless">
           <tr>
             <td>
               {{selectedSecurity !== 'FIXED_DEPOSIT' ? '२९.' : '२८.'}}
@@ -939,6 +956,10 @@
                   रु
                   <span class=" font-weight-bold">{{letter?.fixedDepositAmountFigure.ct}}</span>/ को
                   सक्कल मुद्दती रसिद ।</p>
+                <p *ngIf="offerData?.supportedInformation !== null">
+                  च. <span class="nepaliFont"
+                           style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
+                </p>
 
               </div>
               <div *ngIf="selectedSecurity === 'LAND'" class="col-md-12">
@@ -1021,7 +1042,7 @@
                 </p>
                 <p *ngIf="offerData?.supportedInformation">
                   ञ. <span class="nepaliFont"
-                           style="font-size: 28px;">{{offerData?.supportedInformation}}</span>
+                           style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
                 </p>
 
               </div>

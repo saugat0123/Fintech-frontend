@@ -42,7 +42,9 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   finalName;
   dateOfApproval;
   dateOfApplication;
+  dateofExpiry;
   autoRefNumber;
+  fixedDepositVal;
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
                public currencyFormatPipe: CurrencyFormatterPipe,
@@ -76,6 +78,9 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.letter.dateOfApplication)) {
         this.dateOfApplication = this.dateConversion(this.letter.dateOfApplication);
       }
+      if (!ObjectUtil.isEmpty(this.letter.dateofExpiry)) {
+        this.dateofExpiry = this.dateConversion(this.letter.dateofExpiry);
+      }
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       // tslint:disable-next-line:max-line-length
@@ -84,6 +89,9 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
+    this.fixedDepositVal = this.letter.fixedDepositAmountFigure ?
+        this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.letter.fixedDepositAmountFigure.en))
+        : '';
     this.guarantorDetails();
   }
 

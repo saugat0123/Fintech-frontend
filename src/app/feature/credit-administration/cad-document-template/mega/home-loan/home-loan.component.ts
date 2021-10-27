@@ -250,7 +250,7 @@ export class HomeLoanComponent implements OnInit {
       ownerName: this.tempData.loan.nameOfLandOwnerCT ? this.tempData.loan.nameOfLandOwnerCT : '',
       ownersAddress: this.tempData.loan.landLocationCT ? this.tempData.loan.landLocationCT : '',
       propertyPlotNumber: this.tempData.loan.kittaNumberCT ? this.tempData.loan.kittaNumberCT : '',
-      propertyArea: this.tempData.loan.areasCT ? this.tempData.loan.areasCT : '',
+      propertyArea: this.tempData.loan.areaCT ? this.tempData.loan.areaCT : '',
       branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
