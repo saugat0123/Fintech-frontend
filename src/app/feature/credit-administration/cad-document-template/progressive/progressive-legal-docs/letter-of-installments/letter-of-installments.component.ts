@@ -118,6 +118,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
       karjaAmount: [undefined],
       timePeriod: [undefined],
       kistaAmount: [undefined],
+      mahina: [undefined],
       kista: [undefined],
       debtorSign: [undefined],
       debtorName: [undefined],
