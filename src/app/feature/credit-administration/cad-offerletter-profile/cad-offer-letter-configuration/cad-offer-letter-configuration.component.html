@@ -685,7 +685,7 @@
               <td><input disabled readonly class="form-control"
                          formControlName="permanentProvinceTrans" type="text"></td>
               <td>
-                <input class="form-control"
+                <input class="form-control" readonly
                        [ngClass]="{'is-invalid': submitted && form.permanentProvinceCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
                         nepData?.permanentProvince?.ct :''"
@@ -715,7 +715,7 @@
               <td><input disabled readonly class="form-control"
                          formControlName="permanentDistrictTrans" type="text"></td>
               <td>
-                <input class="form-control"
+                <input class="form-control" readonly
                        [ngClass]="{'is-invalid': submitted && form.permanentDistrictCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
                         nepData?.permanentDistrict?.ct :''"
@@ -837,7 +837,7 @@
               <td><input disabled readonly class="form-control"
                          formControlName="temporaryProvinceTrans" type="text"></td>
               <td>
-                <input class="form-control"
+                <input class="form-control" readonly
                        [ngClass]="{'is-invalid': submitted && form.temporaryProvinceCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
                        nepData?.temporaryProvince?.ct :''"
@@ -869,7 +869,7 @@
               <td><input disabled readonly class="form-control"
                          formControlName="temporaryDistrictTrans" type="text"></td>
               <td>
-                <input class="form-control"
+                <input class="form-control" readonly
                        [ngClass]="{'is-invalid': submitted && form.temporaryDistrictCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
                        nepData?.temporaryDistrict?.ct :''"
