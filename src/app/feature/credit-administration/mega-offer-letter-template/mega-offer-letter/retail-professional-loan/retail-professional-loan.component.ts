@@ -288,6 +288,12 @@ submit(): void {
             dateOfApproval: dateOfApprovalTemp ? dateOfApprovalTemp : '',
             dateOfApplication: tempDateOfApplication ? tempDateOfApplication : '',
             dateofExpiry: tempDateOfExpiry ? tempDateOfExpiry : '',
+            fixedDepositAmountFigure: this.initialInfoPrint.fixedDepositAmountFigure ?
+                this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.initialInfoPrint.fixedDepositAmountFigure.en))
+                : '',
+            fixedDepositReceiptAmountFigure: this.initialInfoPrint.fixedDepositAmountFigure ?
+                this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.initialInfoPrint.fixedDepositAmountFigure.en)) :
+                ''
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }

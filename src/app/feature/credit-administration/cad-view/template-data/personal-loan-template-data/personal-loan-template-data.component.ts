@@ -16,7 +16,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {PersonalLoanComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-loan/personal-loan.component';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-personal-loan-template-data',
@@ -166,7 +166,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
       this.previewBtn = false;
-      this.btnDisable = true;
+      this.btnDisable = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -216,7 +216,6 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.tdValues = this.translatedData;
     this.setTemplatedCTData();
     this.spinner = false;
-    this.btnDisable = false;
   }
   private setTemplatedCTData(): void {
     // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);

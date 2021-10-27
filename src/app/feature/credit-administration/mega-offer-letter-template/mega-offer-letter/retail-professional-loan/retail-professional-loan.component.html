@@ -30,7 +30,16 @@
                             </div>
                             <div class="col-md-12">
                                 <p>
-                                    श्री <input class="form-field form-control-sm col-3"
+                                    <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+                                    <ng-template #nameDetails>
+                                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                                            श्रीमती
+                                        </span>
+                                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                                          सुश्री
+                                        </span>
+                                    </ng-template>
+                                    <input class="form-field form-control-sm col-3"
                                                 formControlName="nameOfCustomer"
                                                 type="text"
                                                 value="{{loanHolderInfo.name.ct}}"/>
@@ -107,7 +116,6 @@
                                             राखिदिने रु
                                             <input class="form-field form-control-sm"
                                                    formControlName="fixedDepositReceiptAmountFigure"
-                                                   [value]="initialInfoPrint?.fixedDepositAmountFigure === undefined ? '' : initialInfoPrint?.fixedDepositAmountFigure?.ct"
                                                    (change)="getNumAmountWord('fixedDepositReceiptAmountFigure', 'fixedDepositReceiptAmountWords')"
                                                    type="text"/>/-
                                             (अक्षरेपि रु
@@ -464,7 +472,7 @@
                                     रु
                                     <input class="form-field form-control-sm"
                                            formControlName="guaranteedAmountFigure"
-                                           [value]="guarantorParse(guarantorData[0]?.nepData, 'gurantedAmount')"
+                                           [value]="guarantorParse(guarantorData[0]?.nepData, 'gurantedAmount') ? guarantorParse(guarantorData[0]?.nepData, 'gurantedAmount') : ''"
                                            type="text"/> /-(अक्षरेपि
                                     रु. <input class="form-field form-control-sm longInput uniSize"
                                                formControlName="guaranteedAmountWords"
@@ -1014,7 +1022,6 @@
                                                            type="text"/> /- को रु
                                                     <input class="form-field form-control-sm"
                                                            formControlName="fixedDepositAmountFigure"
-                                                           [value]="initialInfoPrint?.fixedDepositAmountFigure === undefined ? '' : initialInfoPrint?.fixedDepositAmountFigure?.ct "
                                                            type="text"/>/ को सक्कल मुद्दती रसिद ।</p>
                                                 <p class="highlited-Color">
                                                     च. <textarea rows="6" class="form-control nepaliFont" formControlName="additionalGuarantorDetails" style="font-size:24px"></textarea>

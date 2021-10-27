@@ -966,9 +966,8 @@
         status="primary" size="small">
         Preview
         </button>
-        <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right"
-        >Save
-        <!-- [disabled]="btnDisable" -->
+        <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right" [disabled]="!btnDisable">
+          Save
         </button>
       </div>
   </div>

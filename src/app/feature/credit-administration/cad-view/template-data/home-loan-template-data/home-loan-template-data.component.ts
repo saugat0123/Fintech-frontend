@@ -27,7 +27,7 @@ export class HomeLoanTemplateDataComponent implements OnInit {
     isTakeOverLoan = false;
     submitted = false;
     spinner = false;
-    btnDisable = false;
+    btnDisable = true;
     loanLimit: false;
     existingOfferLetter = false;
     previewBtn = true;
@@ -73,10 +73,6 @@ export class HomeLoanTemplateDataComponent implements OnInit {
         this.isTakeOverLoan = value === HomeLoanType.TAKE_OVER.valueOf();
     }
 
-    public emitValue(event) {
-        this.btnDisable = event;
-    }
-
     openModel() {
         this.dialogService.open(HomeLoanComponent, {
             closeOnBackdropClick: false,
@@ -118,6 +114,7 @@ export class HomeLoanTemplateDataComponent implements OnInit {
             this.customerApprovedDoc = res.detail;
             this.spinner = false;
             this.previewBtn = false;
+            this.btnDisable = false;
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
