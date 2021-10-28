@@ -150,8 +150,8 @@ export class SmeTemplateDataComponent implements OnInit {
     // this.form.get('premiumRateTransVal').patchValue(this.podtranslatedData.premiumRate);
     // this.form.get('yearlyInterestRateTransVal').patchValue(this.podtranslatedData.yearlyInterestRate);
     // this.form.get('loanAdminFeeinFigureTransVal').patchValue(this.podtranslatedData.loanAdminFeeinFigure);
-    this.form.get('loanAdminFeeInWordsTransVal').patchValue(this.podtranslatedData.loanAdminFeeInWords);
-    this.form.get('emiAmountInWordsTransVal').patchValue(this.podtranslatedData.emiAmountInWords);
+    // this.form.get('loanAdminFeeInWordsTransVal').patchValue(this.podtranslatedData.loanAdminFeeInWords);
+    // this.form.get('emiAmountInWordsTransVal').patchValue(this.podtranslatedData.emiAmountInWords);
     this.form.get('vendorNameTransVal').patchValue(this.podtranslatedData.vendorName);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.podtranslatedData.relationshipOfficerName);
     this.form.get('branchManagerTransVal').patchValue(this.podtranslatedData.branchManager);

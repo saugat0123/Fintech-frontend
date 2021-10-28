@@ -15,6 +15,7 @@ export class PersonalLoanPrintComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() letter: any;
   @Input() offerData;
+  @Input() loanLimit;
   loanHolderInfo;
   offerLetterConst = MegaOfferLetterConst;
   customerAddress;
@@ -57,6 +58,7 @@ export class PersonalLoanPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(guarantorNep.gurantedAmount)) {
       this.guarantorAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(guarantorNep.gurantedAmount.en));
     }
+    console.log('Loan Holder Information', this.loanHolderInfo);
   }
 
   guarantorDetails() {
