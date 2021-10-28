@@ -19,6 +19,7 @@ import { ProposalCalculationUtils } from '../../../../loan/component/loan-summar
 import { CurrencyFormatterPipe } from '../../../../../@core/pipe/currency-formatter.pipe';
 import { NepaliNumberAndWords } from '../../../model/nepaliNumberAndWords';
 import {OfferDocument} from '../../../model/OfferDocument';
+import {utcDay} from 'd3';
 
 @Component({
   selector: 'app-loan-deed-individual',
@@ -38,6 +39,9 @@ export class LoanDeedIndividualComponent implements OnInit {
   educationInterestRate: any;
   offerLetterAdminFee: any;
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
+  initialInformation: any;
+  expiryDate: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private administrationService: CreditAdministrationService,
@@ -52,6 +56,11 @@ export class LoanDeedIndividualComponent implements OnInit {
 
   ngOnInit() {
     console.log('This is cad Approved doc ', this.cadData);
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      this.cadData.offerDocumentList.forEach((offerDocument: OfferDocument) => {
+        this.initialInformation = JSON.parse(offerDocument.initialInformation);
+      });
+    }
     if (
       !ObjectUtil.isEmpty(this.cadData) &&
       !ObjectUtil.isEmpty(this.cadData.cadFileList)
@@ -191,6 +200,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       plotNo2: [undefined],
       area2: [undefined],
       freeText: [undefined],
+      purposeOfLoan: [this.initialInformation ? this.initialInformation.purposeOfLoan.ct : undefined],
     });
   }
 
@@ -273,27 +283,33 @@ export class LoanDeedIndividualComponent implements OnInit {
       if (docName === 'Personal Loan') {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonth.ct + ' महिना सम्म ।');
+        this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonth.ct + ' महिना सम्म ।';
       }
       if (docName === 'Personal Overdraft') {
         if (initialInformation.dateOfExpiryType.en === 'AD') {
           this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
               .patchValue(this.englishNepaliDatePipe.transform(initialInformation.dateofExpiry.en, true));
+          this.expiryDate = this.englishNepaliDatePipe.transform(initialInformation.dateofExpiry.en, true);
         } else {
           this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
               .patchValue(initialInformation.dateofExpiryNepali.en);
+          this.expiryDate = initialInformation.dateofExpiryNepali.en;
         }
       }
       if (docName === 'Educational Loan' && (initialInformation.selectedSecurity.en === 'LAND' || initialInformation.selectedSecurity.en === 'LAND_AND_BUILDING')) {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।');
+        this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।';
       }
       if (docName === 'Home Loan') {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loan.loanPeriodInMonthsCT + ' महिना सम्म ।');
+        this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loan.loanPeriodInMonthsCT + ' महिना सम्म ।';
       }
       if (docName === 'Auto Loan') {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.numberOfEmi.ct + ' महिना सम्म ।');
+        this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.numberOfEmi.ct + ' महिना सम्म ।';
       }
     });
   }
