@@ -97,11 +97,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   activeTemplateDataTab = false;
   addressSameAsAbove = false;
   provinceList: Array<Province> = new Array<Province>();
-  tempGuarantorProvinceList: Array<Province> = new Array<Province>();
+  tempGuarantorProvinceList = [];
   districts: Array<District> = new Array<District>();
-  tempGuarantorDistricts: Array<District> = new Array<District>();
+  tempGuarantorDistricts = [];
   municipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
-  tempGuarantorMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
+  tempGuarantorMunicipalities = [];
   allDistrictList: Array<District> = new Array<District>();
   objectTranslateForm: FormGroup;
   objectValueTranslater;
@@ -119,9 +119,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   individualData;
   editedTranslatedValueForm: FormGroup;
   oneFormGuarantorsList: Array<OneFormGuarantors> = new Array<OneFormGuarantors>();
-  guarantorProvienceList: Array<Province> = new Array<Province>();
-  guarantorDistrict: Array<District> = new Array<District>();
-  guarantorMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
+  guarantorProvienceList = [];
+  guarantorDistrict = [];
+  guarantorMunicipalities = [];
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -512,6 +512,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
            this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
            this.translatedData[key] = this.attributes;
 
+           /**
+            * guarantor existing CT value patch
+            * @author Paribartan Kalathoki
+            */
+            this.setGuarantorsDetailsCTValueIfNotTranslated();
+
+           // end guarantor detault CT value patch
+
          } else {
            this.attributes.en = this.userConfigForm.get(key).value;
            this.attributes.np = this.translatedValues[key];
@@ -527,6 +535,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
      });
+
+    // to map guarantor nepData according to guarantor CT value
+    this.setIndividualGuarantorNepData();
 
     this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
       const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
@@ -579,6 +590,87 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
     });
   }
+
+  /**
+   * set guarators details data
+   * @author Paribartan Kalathoki
+   */
+  setGuarantorsDetailsCTValueIfNotTranslated() {
+    let allGuarantorsList = [];
+    allGuarantorsList = this.loanHolder.guarantors.guarantorList;
+    
+    if (allGuarantorsList.length === 0) return;
+
+    allGuarantorsList.forEach((value, index) => {
+      let nepData: any;
+      nepData = JSON.parse(value.nepData);
+
+      nepData.guarantorName ? nepData.guarantorName.ct = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).value : '';
+      nepData.issuedPlace ? nepData.issuedPlace.ct = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '';
+
+      nepData.relationship ? nepData.relationship.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value : '';
+      nepData.citizenNumber ? nepData.citizenNumber.ct = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberCT']).value : '';
+      nepData.gender ? nepData.gender.ct = this.userConfigForm.get(['guarantorDetails', index, 'genderCT']).value : '';
+      nepData.grandFatherName ? nepData.grandFatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).value : '';
+      nepData.fatherName ? nepData.fatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).value : '';
+
+      nepData.permanentDistrict ? nepData.permanentDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value : '';
+      nepData.permanentProvince ? nepData.permanentProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value : '';
+      nepData.gurantedAmount ? nepData.gurantedAmount.ct = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountCT']).value : '';
+
+      nepData.permanentMunicipality ? nepData.permanentMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value : '';
+      nepData.permanentWard ? nepData.permanentWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value : '';
+      nepData.temporaryProvince ? nepData.temporaryProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value : '';
+
+      nepData.temporaryDistrict ? nepData.temporaryDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value : '';
+      nepData.temporaryMunicipality ? nepData.temporaryMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value : '';
+      nepData.temporaryWard ? nepData.temporaryWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value : '';
+      
+      // set guarantor nepData values based on index in guarantorDetails form
+      this.userConfigForm.get(['guarantorDetails', index, 'nepData']).patchValue(JSON.stringify(nepData));
+    });
+  }
+
+  /**
+   * set individual guarantor nepData Details
+   * @author Paribartan Kalathoki
+   */
+
+  setIndividualGuarantorNepData() {
+    const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+    if (formArray.value.length === 0) return;
+
+    formArray.value.forEach((value, index) => {
+      let nepData: any;
+      nepData = JSON.parse(value.nepData);
+
+      nepData.guarantorName ? nepData.guarantorName.ct = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).value : '';
+      nepData.issuedPlace ? nepData.issuedPlace.ct = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '';
+
+      nepData.relationship ? nepData.relationship.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value : '';
+      nepData.citizenNumber ? nepData.citizenNumber.ct = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberCT']).value : '';
+      nepData.gender ? nepData.gender.ct = this.userConfigForm.get(['guarantorDetails', index, 'genderCT']).value : '';
+      nepData.grandFatherName ? nepData.grandFatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).value : '';
+      nepData.fatherName ? nepData.fatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).value : '';
+
+      nepData.permanentDistrict ? nepData.permanentDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value : '';
+      nepData.permanentProvince ? nepData.permanentProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value : '';
+      nepData.gurantedAmount ? nepData.gurantedAmount.ct = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountCT']).value : '';
+
+      nepData.permanentMunicipality ? nepData.permanentMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value : '';
+      nepData.permanentWard ? nepData.permanentWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value : '';
+      nepData.temporaryProvince ? nepData.temporaryProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value : '';
+
+      nepData.temporaryDistrict ? nepData.temporaryDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value : '';
+      nepData.temporaryMunicipality ? nepData.temporaryMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value : '';
+      nepData.temporaryWard ? nepData.temporaryWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value : '';
+
+      // set guarantor nepData values based on index in guarantorDetails form
+      this.userConfigForm.get(['guarantorDetails', index, 'nepData']).patchValue(JSON.stringify(nepData));
+    })
+  }
+
+  // end guarantor details data patch
 
   closeModal() {
     this.dialogRef.close();
@@ -971,26 +1063,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         gurantedAmountTrans: [ObjectUtil.isEmpty(nepaData.gurantedAmount) ? undefined : nepaData.gurantedAmount.ct],
 
         permanentProvince: [ObjectUtil.isEmpty(value.province) ? undefined : value.province],
-        permanentProvinceCT: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.en.nepaliName],
+        permanentProvinceCT: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.ct],
         permanentProvinceTrans: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.en.nepaliName],
         permanentDistrict: [ObjectUtil.isEmpty(value.district) ? undefined : value.district],
-        permanentDistrictCT: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.en.nepaliName],
+        permanentDistrictCT: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.ct],
         permanentDistrictTrans: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.en.nepaliName],
         permanentMunicipality: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.en],
-        permanentMunicipalityCT: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.en.nepaliName],
+        permanentMunicipalityCT: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.ct],
         permanentMunicipalityTrans: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.en.nepaliName],
         permanentWard: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.en],
         permanentWardCT: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.ct],
         permanentWardTrans: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.np],
 
         temporaryProvince: [ObjectUtil.isEmpty(value.provinceTemporary) ? undefined : value.provinceTemporary],
-        temporaryProvinceCT: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.en.nepaliName],
+        temporaryProvinceCT: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.ct],
         temporaryProvinceTrans: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.en.nepaliName],
         temporaryDistrict: [ObjectUtil.isEmpty(value.districtTemporary) ? undefined : value.districtTemporary],
-        temporaryDistrictCT: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.en.nepaliName],
+        temporaryDistrictCT: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.ct],
         temporaryDistrictTrans: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.en.nepaliName],
         temporaryMunicipality: [ObjectUtil.isEmpty(value.municipalitiesTemporary) ? undefined : value.municipalitiesTemporary],
-        temporaryMunicipalityCT: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.en.nepaliName],
+        temporaryMunicipalityCT: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.ct],
         temporaryMunicipalityTrans: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.en.nepaliName],
         temporaryWard: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.en],
         temporaryWardCT: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.ct],
@@ -1435,7 +1527,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.guarantorDistrict[index] = response.detail;
-          this.guarantorDistrict.sort((a, b) => a.name.localeCompare(b.name));
+          this.guarantorDistrict[index].sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
           // }
@@ -1449,7 +1541,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
           this.guarantorMunicipalities[index] = response.detail;
-          this.guarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
+          this.guarantorMunicipalities[index].sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).patchValue(null);
           // }
@@ -1464,7 +1556,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.tempGuarantorDistricts[index] = response.detail;
-          this.tempGuarantorDistricts.sort((a, b) => a.name.localeCompare(b.name));
+          this.tempGuarantorDistricts[index].sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).patchValue(null);
           // }
@@ -1478,7 +1570,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
           this.tempGuarantorMunicipalities[index] = response.detail;
-          this.tempGuarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
+          this.tempGuarantorMunicipalities[index].sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).patchValue(null);
           // }
