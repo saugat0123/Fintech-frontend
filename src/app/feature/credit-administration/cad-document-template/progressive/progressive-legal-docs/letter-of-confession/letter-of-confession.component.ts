@@ -10,7 +10,6 @@ import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
@@ -50,8 +49,7 @@ export class LetterOfConfessionComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
   ngOnInit() {
@@ -179,6 +177,20 @@ export class LetterOfConfessionComponent implements OnInit {
       ItisambatRojSubham: [undefined],
       branchName: [undefined],
       guarantorDetails: this.formBuilder.array([]),
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
     });
   }
 
