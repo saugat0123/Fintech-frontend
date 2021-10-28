@@ -7,16 +7,17 @@
         <p class="text-center" style="font-size: 16pt">
           <b>विषयः ऋण तमसुक </b>
         </p>
-        <p>
-          लिखितम धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका कमलादि स्थित
-          नविल हाउसमा मुख्य कार्यालय रहिएको
+        <p class="text-justify">
+          लिखितम धनीका नाम काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका, तिनधारा विणा मार्ग दरबारमार्ग स्थित
+          <b>“नविल सेन्टरमा”</b>
+          मा मुख्य कार्यालय रही
           <input
             class="form-field form-control-sm d-print-none"
             formControlName="branchName"
             placeholder=""
             type="text"
           />
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'branchName']).value}}</strong></span>
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'branchName']).value}}</strong></span> मा
           शाखा कार्यालयमा रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त धनी बैंक
           भनिएको छ) लिखत गरी दिने ऋणीको नाम
           <input
@@ -57,7 +58,7 @@
             type="text"
           />
           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'district']).value}}</strong></span>
-          जिल्ला
+          जिल्ला,
           <input
             class="form-field form-control-sm d-print-none"
             formControlName="municipality"
@@ -75,7 +76,7 @@
             formControlName="wardNo"
             placeholder=""
             type="text"
-          /><span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'wardNo']).value}}</strong></span>
+          /><span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'wardNo']).value}}</strong></span>,
           बस्ने बर्ष
           <input
             class="form-field form-control-sm d-print-none"
@@ -93,9 +94,8 @@
           />
           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'borrowerName']).value}}</strong></span>
           (जसलाई यसपछि ऋणी भनिएको छ) आगे म ऋणीलाई
-<!--          यस अघि देखि नै तपाईं धनी-->
-<!--          बैंकसंग ऋणकर्जा सुविधा प्राप्त गरी उपभोग गर्दै आएको ठीक साञचो हो । हाल-->
-<!--          म ऋणीलाई उक्त ऋणकर्जा सुविधा को अलावा थप-->
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'purposeOfLoan']).value}}</strong></span>
+          <input formControlName="purposeOfLoan" id="purposeOfLoan" class="form-field form-control-sm d-print-none" type="text">
           ऋणकर्जा सुविधा आवश्यक भई सोको
           लागि तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाई धनी बैंकले म ऋणीको नाउंमा
           जारी गरेको मिति
@@ -166,6 +166,7 @@
                 <span>/ {{ offerLetterAdminFee ? convertNepaliNumber(offerLetterAdminFee) : '___________'}}</span>
               </td>
               <td class="px-2">
+                <span class="print-only">{{expiryDate}}</span>
                 <input
                   class="
                     form-field form-control-sm

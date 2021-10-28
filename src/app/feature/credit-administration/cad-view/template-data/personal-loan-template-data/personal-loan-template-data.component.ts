@@ -221,6 +221,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.btnDisable = false;
   }
   private setTemplatedCTData(): void {
+    this.translatedData.emiAmountWords = this.form.get('emiAmountWords').value;
     // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
@@ -311,7 +312,6 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
 
   loanChecked(data) {
     this.loanLimit = data;
-    console.log('Loan limit',this.loanLimit);
   }
 
 }

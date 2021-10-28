@@ -82,6 +82,11 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     this.getAllDistrict();
     if (!ObjectUtil.isEmpty(this.initialInformation)) {
       this.selectedSecurityVal = this.initialInformation.selectedSecurity.en;
+      if (this.initialInformation.dateOfExpiryType.en === 'AD') {
+        this.dateTypeAD2 = true;
+      } else {
+       this.dateTypeBS2 = true;
+      }
       this.fieldFlag = true;
       this.dateTypeAD = true;
       this.dateTypeAD1 = true;
@@ -120,10 +125,9 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       loanadminFee: [undefined],
       loanadminFeeWords: [undefined],
       loanCommitmentFee: [undefined],
+      dateOfExpiryType: [undefined],
       dateofExpiry: [undefined],
-      // nameofGuarantors: [undefined],
-      /*guaranteedamountinFigure: [undefined],
-      guaranteedamountinWords: [undefined],*/
+      dateofExpiryNepali: [undefined],
       insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
@@ -143,9 +147,8 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       loanadminFeeWordsTransVal: [undefined],
       loanCommitmentFeeTransVal: [undefined, Validators.required],
       dateofExpiryTransVal: [undefined],
-      // nameofGuarantorsTransVal: [undefined],
-      /*guaranteedamountinFigureTransVal: [undefined],
-      guaranteedamountinWordsTransVal: [undefined],*/
+      dateofExpiryNepaliTransVal: [undefined],
+      dateOfExpiryTypeTransVal: [undefined],
       insuranceAmountinFigureTransVal: [undefined, Validators.required],
       relationshipofficerNameTransVal: [undefined, Validators.required],
       nameofBranchManagerTransVal: [undefined, Validators.required],
@@ -248,33 +251,23 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     this.btnDisable = false;
   }
   private setTemplatedCTData(data): void {
-    // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
     this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
     this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
-    // this.form.get('loanadminFeeTransVal').patchValue(this.translatedData.loanadminFee);
     this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
-    // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmfentFee);
-    this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
-    // this.form.get('propertyPlotNumberTransVal').patchValue(this.translatedData.propertyPlotNumber);
-    // this.form.get('propertyAreaTransVal').patchValue(this.translatedData.propertyArea);
-    // this.form.get('sheetNumberTransVal').patchValue(this.translatedData.sheetNumber);
+    if (this.dateTypeAD1) {
+      this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
+    } else {
+      this.form.get('dateofExpiryNepaliTransVal').patchValue(this.translatedData.dateofExpiryNepali);
+    }
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
-    // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
     this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
-
-    // this.form.get('renewalCheckedTransval').patchValue(this.renewal);
-    // this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
-    /*this.form.get('sakshiDistrictTransVal').patchValue(this.translatedData.sakshiDistrict);
-    this.form.get('sakshiMunicipalityTransVal').patchValue(this.translatedData.sakshiMunicipality);
-    this.form.get('sakshiWardNumTransVal').patchValue(this.translatedData.sakshiWardNum);
-    this.form.get('sakshiNameTransVal').patchValue(this.translatedData.sakshiName);*/
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -479,7 +472,12 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     this.form.get('loanadminFee').patchValue(this.initialInformation.loanadminFee.en);
     this.form.get('loanadminFeeWords').patchValue(this.initialInformation.loanadminFeeWords.en);
     this.form.get('loanCommitmentFee').patchValue(this.initialInformation.loanCommitmentFee.en);
-    this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
+    this.form.get('dateOfExpiryType').patchValue(this.initialInformation.dateOfExpiryType.en);
+    if (this.initialInformation.dateOfExpiryType.en === 'AD') {
+      this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
+    } else {
+      this.form.get('dateofExpiryNepali').patchValue(this.initialInformation.dateofExpiryNepali.en);
+    }
     this.form.get('relationshipofficerName').patchValue(this.initialInformation.relationshipofficerName.en);
     this.form.get('nameofBranchManager').patchValue(this.initialInformation.nameofBranchManager.en);
     this.form.get('insuranceAmountinFigure').patchValue(this.initialInformation.insuranceAmountinFigure.en);
