@@ -153,6 +153,4 @@ export class LetterOfLeinComponent implements OnInit {
     const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(convertedVal);
   }
-
-
 }
