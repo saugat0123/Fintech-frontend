@@ -7,16 +7,17 @@
         <p class="text-center" style="font-size: 16pt">
           <b>विषयः ऋण तमसुक </b>
         </p>
-        <p>
-          लिखितम धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका कमलादि स्थित
-          नविल हाउसमा मुख्य कार्यालय रहिएको
+        <p class="text-justify">
+          लिखितम धनीका नाम काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका, तिनधारा विणा मार्ग दरबारमार्ग स्थित
+          <b>“नविल सेन्टरमा”</b>
+          मा मुख्य कार्यालय रही
           <input
             class="form-field form-control-sm d-print-none"
             formControlName="branchName"
             placeholder=""
             type="text"
           />
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'branchName']).value}}</strong></span>
+          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'branchName']).value}}</strong></span> मा
           शाखा कार्यालयमा रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त धनी बैंक
           भनिएको छ) लिखत गरी दिने ऋणीको नाम
           <input
@@ -57,7 +58,7 @@
             type="text"
           />
           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'district']).value}}</strong></span>
-          जिल्ला
+          जिल्ला,
           <input
             class="form-field form-control-sm d-print-none"
             formControlName="municipality"
@@ -75,7 +76,7 @@
             formControlName="wardNo"
             placeholder=""
             type="text"
-          /><span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'wardNo']).value}}</strong></span>
+          /><span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'wardNo']).value}}</strong></span>,
           बस्ने बर्ष
           <input
             class="form-field form-control-sm d-print-none"
