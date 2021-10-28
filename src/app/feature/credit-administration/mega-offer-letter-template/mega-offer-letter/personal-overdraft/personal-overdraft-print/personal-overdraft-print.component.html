@@ -206,10 +206,10 @@
                         <td><strong>कर्जा अवधि समाप्ती पूनरावलोकन मितिः </strong></td>
                         <td>
                             मितिः
-                            <span *ngIf="letter.dateofExpiry.en.nDate; else dateofExpiryPrint"
-                                  class="font-weight-bold">{{letter?.dateofExpiry.en.nDate}} मा हुनेछ ।</span>
+                            <span *ngIf="letter.dateofExpiry?.en; else dateofExpiryPrint"
+                                  class="font-weight-bold">{{(letter?.dateofExpiry?.en) | engNepDate: true}} मा हुनेछ ।</span>
                             <ng-template #dateofExpiryPrint>
-                                <span class=" font-weight-bold">{{(letter?.dateofExpiry.en | date) | engNepDate: true}} मा हुनेछ ।</span>
+                                <span class=" font-weight-bold">{{letter?.dateofExpiryNepali?.en}} मा हुनेछ ।</span>
                             </ng-template>
                         </td>
                     </tr>
@@ -408,7 +408,7 @@
                             समयमा
                             बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ ।<br>
                             <strong> ग. थप/अतिरिक्त शुल्कः </strong>
-                            स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
+                            स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
                             बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार ऋणीले उपभोग गदैं
                             आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम थप जोखिम दर
                             (Additional Risk Premium) समेत लाग्नेछ ।
@@ -611,7 +611,7 @@
                                     ऋण कर्जा तमसुक ।<br>
                                     ग. व्यक्तिगत अधिविकर्ष सुविधाको लागी निवेदन ।<br>
                                     घ. निरन्तरता पत्र ।<br>
-                                    ह्. बहुबैंकिङ्ग घोषणा पत्र ।<br>
+                                    ङ. बहुबैंकिङ्ग घोषणा पत्र ।<br>
                                     च. रु.
                                     <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
@@ -656,7 +656,7 @@
                                     <br>
                                     ग. व्यक्तिगत अधिविकर्ष सुविधाको लागी निवेदन ।<br>
                                     घ. निरन्तरता पत्र ।<br>
-                                    ह्. बहुबैंकिङ्ग घोषणा पत्र ।<br>
+                                    ङ. बहुबैंकिङ्ग घोषणा पत्र ।<br>
                                     च. रु.
                                     <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}

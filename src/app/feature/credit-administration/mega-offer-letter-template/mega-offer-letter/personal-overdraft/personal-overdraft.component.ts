@@ -20,6 +20,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-personal-overdraft',
@@ -67,7 +68,8 @@ export class PersonalOverdraftComponent implements OnInit {
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepPercentWordPipe: NepaliPercentWordPipe,
-              private ref: NbDialogRef<PersonalOverdraftComponent>) { }
+              private ref: NbDialogRef<PersonalOverdraftComponent>,
+              private engToNepaliDate: EngNepDatePipe) { }
 
   ngOnInit() {
   this.buildPersonal();
@@ -138,6 +140,7 @@ buildPersonal() {
     });
   }
   checkOfferLetterData() {
+    console.log(this.initialInfoPrint);
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
           === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString())[0];
@@ -159,6 +162,12 @@ buildPersonal() {
         this.selectedArray = initialInfo.loanTypeSelectedArray;
         this.fillForm();
         this.initialInfoPrint = initialInfo;
+        if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
+          this.form.get('dateofExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateofExpiry.en, true));
+        } else {
+          this.form.get('dateofExpiry').patchValue(this.initialInfoPrint.dateofExpiryNepali.en);
+        }
+        console.log(this.initialInfoPrint);
       }
     } else {
       this.fillForm();
