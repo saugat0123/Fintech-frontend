@@ -174,6 +174,7 @@ export class SecurityInitialFormComponent implements OnInit {
         this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
             this.nepseList = list.detail;
+            this.nepseList.map((i) => i.bindCompanyNameAndCode = i.companyName + ' :: ' + i.companyCode);
         });
         this.findActiveShareRate();
         this.buildForm();
@@ -1826,7 +1827,7 @@ export class SecurityInitialFormComponent implements OnInit {
         const companyName = this.shareField.at(index).get('companyName').value;
         const totalShareUnit = this.shareField.at(index).get('totalShareUnit').value;
         const matchedNepse = this.nepseList.filter(n => n.companyName === companyName);
-        if (matchedNepse) {
+        if (matchedNepse.length > 0) {
             this.shareField.at(index).patchValue({
                 shareType: matchedNepse[0].shareType,
                 companyCode: matchedNepse[0].companyCode,
@@ -2495,5 +2496,9 @@ export class SecurityInitialFormComponent implements OnInit {
         if (this.client === this.clientName.ICFC) {
             this.securityTypes.push({key: 'BondSecurity', value: 'Bond Security'});
         }
+    }
+
+    checkCompany(event: KeyboardEvent, i: number) {
+
     }
 }
