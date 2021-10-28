@@ -536,6 +536,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
      });
 
+    // to map guarantor nepData according to guarantor CT value
+    this.setIndividualGuarantorNepData();
+
     this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
       const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
       if (issueDateType === 'AD') {
@@ -595,6 +598,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   setGuarantorsDetailsCTValueIfNotTranslated() {
     let allGuarantorsList = [];
     allGuarantorsList = this.loanHolder.guarantors.guarantorList;
+    
+    if (allGuarantorsList.length === 0) return;
+
     allGuarantorsList.forEach((value, index) => {
       let nepData: any;
       nepData = JSON.parse(value.nepData);
@@ -624,6 +630,46 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'nepData']).patchValue(JSON.stringify(nepData));
     });
   }
+
+  /**
+   * set individual guarantor nepData Details
+   * @author Paribartan Kalathoki
+   */
+
+  setIndividualGuarantorNepData() {
+    const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+    if (formArray.value.length === 0) return;
+
+    formArray.value.forEach((value, index) => {
+      let nepData: any;
+      nepData = JSON.parse(value.nepData);
+
+      nepData.guarantorName ? nepData.guarantorName.ct = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).value : '';
+      nepData.issuedPlace ? nepData.issuedPlace.ct = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '';
+
+      nepData.relationship ? nepData.relationship.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value : '';
+      nepData.citizenNumber ? nepData.citizenNumber.ct = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberCT']).value : '';
+      nepData.gender ? nepData.gender.ct = this.userConfigForm.get(['guarantorDetails', index, 'genderCT']).value : '';
+      nepData.grandFatherName ? nepData.grandFatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).value : '';
+      nepData.fatherName ? nepData.fatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).value : '';
+
+      nepData.permanentDistrict ? nepData.permanentDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value : '';
+      nepData.permanentProvince ? nepData.permanentProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value : '';
+      nepData.gurantedAmount ? nepData.gurantedAmount.ct = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountCT']).value : '';
+
+      nepData.permanentMunicipality ? nepData.permanentMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value : '';
+      nepData.permanentWard ? nepData.permanentWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value : '';
+      nepData.temporaryProvince ? nepData.temporaryProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value : '';
+
+      nepData.temporaryDistrict ? nepData.temporaryDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value : '';
+      nepData.temporaryMunicipality ? nepData.temporaryMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value : '';
+      nepData.temporaryWard ? nepData.temporaryWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value : '';
+
+      // set guarantor nepData values based on index in guarantorDetails form
+      this.userConfigForm.get(['guarantorDetails', index, 'nepData']).patchValue(JSON.stringify(nepData));
+    })
+  }
+
   // end guarantor details data patch
 
   closeModal() {
