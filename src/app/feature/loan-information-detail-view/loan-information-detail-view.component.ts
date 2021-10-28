@@ -21,7 +21,7 @@ import {Clients} from '../../../environments/Clients';
 import {SummaryType} from '../loan/component/SummaryType';
 import {ObtainableDoc} from '../loan-information-template/obtained-document/obtainableDoc';
 import {LoanType} from '../loan/model/loanType';
-import {NgxSpinnerService} from 'ngx-spinner';
+import {SiteVisitDocument} from '../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -36,7 +36,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     id;
     loanConfig: LoanConfig;
     loanDataHolder: LoanDataHolder;
-    spinner= false;
+    spinner = false;
     loanCategory;
     client;
     clientList;
@@ -61,6 +61,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     loanType = LoanType;
     loaded = false;
     docAction = DocAction;
+    siteVisitDocuments: Array<SiteVisitDocument>;
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -75,11 +76,11 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.spinner=true;
+        this.spinner = true;
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
-            this.spinner=false;
+            this.spinner = false;
             this.loaded = true;
             this.id = this.loanDataHolder.id;
             this.loanHolder = this.loanDataHolder.loanHolder;
@@ -136,11 +137,11 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 // }
             });
         // this.id = this.activatedRoute.snapshot.params['id'];
-        this.spinner=true;
+        this.spinner = true;
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
-                this.spinner=false;
+                this.spinner = false;
                 if (this.loanConfig.loanTag === 'MICRO_LOAN') {
                     this.isMicro = true;
                 }
@@ -159,14 +160,14 @@ export class LoanInformationDetailViewComponent implements OnInit {
         modalRef.componentInstance.comments = comments;
     }
     getFiscalYears() {
-        this.spinner=true;
+        this.spinner = true;
         this.fiscalYearService.getAll().subscribe(response => {
             this.fiscalYearArray = response.detail;
-            this.spinner=false;
+            this.spinner = false;
         }, error => {
             console.log(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
-            this.spinner=false;
+            this.spinner = false;
         });
     }
 
@@ -175,11 +176,11 @@ export class LoanInformationDetailViewComponent implements OnInit {
             loanHolderId: customerInfoId.toString(),
             isStaged: 'true'
         };
-        this.spinner=true;
+        this.spinner = true;
         this.customerLoanService.getAllWithSearch(search)
         .subscribe((res: any) => {
             this.customerAllLoanList = res.detail;
-            this.spinner=false;
+            this.spinner = false;
             // push current loan if not fetched from staged spec response
             if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
                 this.customerAllLoanList.push(this.loanDataHolder);
@@ -189,9 +190,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
             .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
             if (combinedLoans.length > 0) {
                 const combinedLoanId = combinedLoans[0].combinedLoan.id;
-                this.spinner=true;
+                this.spinner = true;
                 this.combinedLoanService.detail(combinedLoanId).subscribe((response: any) => {
-                    this.spinner=false;
+                    this.spinner = false;
                     (response.detail as CombinedLoan).loans.forEach((cl) => {
                         const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
                         if (!allLoanIds.includes(cl.id)) {
@@ -200,12 +201,12 @@ export class LoanInformationDetailViewComponent implements OnInit {
                     });
                 }, err => {
                     console.error(err);
-                    this.spinner=false;
+                    this.spinner = false;
                 });
             }
         }, error => {
             console.error(error);
-            this.spinner=false;
+            this.spinner = false;
         });
     }
 
@@ -219,5 +220,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
         localStorage.setItem('FromDetailed-view', 'true');
         this.spinner = true;
         window.history.back();
+    }
+
+    checkSiteVisitDocument(event: any) {
+        this.siteVisitDocuments = event;
     }
 }

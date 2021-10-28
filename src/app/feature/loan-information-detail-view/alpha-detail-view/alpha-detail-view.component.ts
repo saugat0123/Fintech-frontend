@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {Proposal} from '../../admin/modal/proposal';
@@ -14,6 +14,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../loan/model/combined-loan';
 import {ObtainableDoc} from '../../loan-information-template/obtained-document/obtainableDoc';
 import {ActivatedRoute} from '@angular/router';
+import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 @Component({
   selector: 'app-alpha-detail-view',
@@ -47,6 +48,8 @@ export class AlphaDetailViewComponent implements OnInit {
   obtainableDocuments = Array<ObtainableDoc>();
   otherObtainableDocuments = Array<string>();
   businessGiven;
+  @Output() documents = new EventEmitter();
+  siteVisitDocuments: Array<SiteVisitDocument>;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -136,6 +139,11 @@ export class AlphaDetailViewComponent implements OnInit {
         }, error => {
           console.error(error);
         });
+  }
+
+  checkSiteVisitDocument(event: any) {
+    this.siteVisitDocuments = event;
+    this.documents.emit(this.siteVisitDocuments);
   }
 
 }
