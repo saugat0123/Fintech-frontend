@@ -17,7 +17,8 @@
                         <td colspan="3">कम्पनी ऐन, २०६३ बमोजिम संथापित भई बैंक तथा वित्तिय संस्था सम्बन्धी ऐन, २०७३
                             बमोजिम काम
                             कारोबार
-                            गर्नेे प्रोग्रेशिभ फाइनान्स लिमिटेडको
+                            गर्नेे
+                            <b>प्रोग्रेशिभ फाइनान्स लिमिटेडको</b>
                             <span [ngClass]="{'nepaliFont' : printDocForm?.financePlace !== null && printDocForm?.financePlace !== ''}">
     {{printDocForm?.financePlace === null || printDocForm?.financePlace === '' ? '________________________' : printDocForm?.financePlace}}
 </span>
@@ -158,6 +159,16 @@
 </span>
                         </td>
                     </tr>
+
+                    </tbody>
+                </table>
+
+                <p>  ऋणीको व्यवशाय, पसल, उद्योग, गोदाम रहेको ठाउँ । <br>
+                    जस्तै नेपाल सरकार, उद्योग मन्त्रालय, कम्पनी रजिष्ट्रारको कार्यालय, त्रिपुरेश्वर, काठमाण्डौ </p>
+
+                <table class="table table-bordered">
+                    <tbody>
+
                     <tr>
                         <td>ऋ.सं.</td>
                         <th>कर्जा/वित्तीय सुविधा शीर्षक</th>
@@ -697,7 +708,6 @@
                 <p>कम्पनी/फर्मको छाप : </p>
                 <p>
                     <span class="signature-area"></span></p>
-                <br><br>
                 <b>साक्षीः</b><br>
                 <b>ऋणीको तर्फबाटः</b><br>
 
@@ -705,10 +715,12 @@
                      class="mb-4">
                     <div>
                         {{i + 1 | nepaliWord: 'unicode'}}.
-                        <span class="nepaliFont">{{guarantor?.name}}</span>
+                        <span [ngClass]="{'nepaliFont' : guarantor?.name!== null && guarantor?.name !== ''}">
+                        {{guarantor?.name === null || guarantor?.name === '' ? '_________________' : guarantor?.name}}</span>
                         <br>
                     </div>
                 </div>
+                <br>
 
                 <b>धनी वित्तीय संस्थाको तर्फबाटः</b><br>
 
@@ -716,22 +728,28 @@
                      class="mb-4">
                     <div>
                         {{i + 1 | nepaliWord: 'unicode'}}.
-                        <span class="nepaliFont">{{financeGuarantor?.name}}</span>
+                        <span [ngClass]="{'nepaliFont' : financeGuarantor?.name!== null && financeGuarantor?.name !== ''}">
+                        {{financeGuarantor?.name === null || financeGuarantor?.name === '' ? '_________________' : financeGuarantor?.name}}</span>
 
                         <br>
                     </div>
                 </div>
 
                 <p>ईति सम्वत् २०
-                    <span class="nepaliFont">{{printDocForm?.docYear}}</span>
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.docYear!== null && printDocForm?.docYear!== ''}">
+                        {{printDocForm?.docYear === null || printDocForm?.docYear === '' ? '_________________' : printDocForm?.docYear}}</span>
                     साल
-                    <span class="nepaliFont">{{printDocForm?.docMonth}}</span>
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.docMonth!== null && printDocForm?.docMonth!== ''}">
+                        {{printDocForm?.docMonth === null || printDocForm?.docMonth === '' ? '_________________' : printDocForm?.docMonth}}</span>
                     महिना
-                    <span class="nepaliFont">{{printDocForm?.docDate}}</span>
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.docDate!== null && printDocForm?.docDate!== ''}">
+                        {{printDocForm?.docDate === null || printDocForm?.docDate === '' ? '_________________' : printDocForm?.docDate}}</span>
                     गते रोज
-                    <span class="nepaliFont">{{printDocForm?.docRoj}}</span>
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.docRoj!== null && printDocForm?.docRoj!== ''}">
+                        {{printDocForm?.docRoj === null || printDocForm?.docRoj === '' ? '_________________' : printDocForm?.docRoj}}</span>
                     शुभम्
-                    <span class="nepaliFont">{{printDocForm?.docSubham}}</span>
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.docSubham!== null && printDocForm?.docSubham!== ''}">
+                        {{printDocForm?.docSubham === null || printDocForm?.docSubham === '' ? '_________________' : printDocForm?.docSubham}}</span>
                 </p>
                 <br>
 
@@ -755,16 +773,20 @@
                             {{i + 1 | nepaliWord: 'unicode' }}.
                         </td>
                         <td>
-                            <span class="nepaliFont">{{anusuchi?.name}}</span>
+                            <span [ngClass]="{'nepaliFont' : anusuchi?.name!== null && anusuchi?.name!== ''}">
+                            {{anusuchi?.name === null || anusuchi?.name === '' ? '_________________' : anusuchi?.name}}</span>
                         </td>
                         <td>
-                            <span class="nepaliFont">{{anusuchi?.quantity}}</span>
+                            <span [ngClass]="{'nepaliFont' : anusuchi?.quantity!== null && anusuchi?.quantity!== ''}">
+                            {{anusuchi?.quantity === null || anusuchi?.quantity === '' ? '_________________' : anusuchi?.quantity}}</span>
                         </td>
                         <td>
-                            <span class="nepaliFont">{{anusuchi?.amount}}</span>
+                            <span [ngClass]="{'nepaliFont' : anusuchi?.amount!== null && anusuchi?.amount!== ''}">
+                            {{anusuchi?.amount === null || anusuchi?.amount === '' ? '_________________' : anusuchi?.amount}}</span>
                         </td>
                         <td>
-                            <span class="nepaliFont">{{anusuchi?.remarks}}</span></td>
+                        <span [ngClass]="{'nepaliFont' : anusuchi?.remarks!== null && anusuchi?.remarks!== ''}">
+                            {{anusuchi?.remarks === null || anusuchi?.remarks === '' ? '_________________' : anusuchi?.remarks}}</span>
 
                     </tr>
                     </tbody>
