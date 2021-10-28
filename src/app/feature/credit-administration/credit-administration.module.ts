@@ -88,6 +88,7 @@ import { HomeLandAndBuildingComponent } from './cad-view/template-data/home-loan
 import { HomeLoanTemplateEditComponent } from './cad-view/template-data/home-loan-template-edit/home-loan-template-edit.component';
 import { ConstructionLoanEditComponent } from './cad-view/template-data/home-loan-template-edit/construction-loan-edit/construction-loan-edit.component';
 import { HomeLandAndBuildingLoanEditComponent } from './cad-view/template-data/home-loan-template-edit/home-land-and-building-loan-edit/home-land-and-building-loan-edit.component';
+import { RetailMortageLoanTemplateDataEditComponent } from './cad-view/template-data/retail-mortage-loan-template-data-edit/retail-mortage-loan-template-data-edit.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -165,7 +166,8 @@ import { HomeLandAndBuildingLoanEditComponent } from './cad-view/template-data/h
     HomeLandAndBuildingComponent,
     HomeLoanTemplateEditComponent,
     ConstructionLoanEditComponent,
-    HomeLandAndBuildingLoanEditComponent],
+    HomeLandAndBuildingLoanEditComponent,
+    RetailMortageLoanTemplateDataEditComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -198,7 +200,7 @@ import { HomeLandAndBuildingLoanEditComponent } from './cad-view/template-data/h
     CadFileSetupComponent,
     ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent,
     EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent, PersonalOverdraftTemplateDataEditComponent,
-  HomeLoanTemplateEditComponent],
+  HomeLoanTemplateEditComponent, RetailMortageLoanTemplateDataEditComponent],
   exports: [CadFileSetupComponent, FilterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })

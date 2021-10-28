@@ -26,6 +26,7 @@ import {EditLoanDetailComponent} from '../../../cad-view/template-data/edit-loan
 import {PersonalLoanTemplateEditComponent} from '../../../cad-view/template-data/personal-loan-template-edit/personal-loan-template-edit.component';
 import {PersonalOverdraftTemplateDataEditComponent} from '../../../cad-view/template-data/personal-overdraft-template-data-edit/personal-overdraft-template-data-edit.component';
 import {HomeLoanTemplateEditComponent} from '../../../cad-view/template-data/home-loan-template-edit/home-loan-template-edit.component';
+import {RetailMortageLoanTemplateDataEditComponent} from '../../../cad-view/template-data/retail-mortage-loan-template-data-edit/retail-mortage-loan-template-data-edit.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -239,6 +240,17 @@ export class OfferLetterListComponent implements OnInit {
                       customerApprovedDoc: this.cadOfferLetterApprovedDoc,
                       offerDocumentList: this.offerDocumentList,
                       initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === 'Mortage Loan') {
+                  this.dialogService.open(RetailMortageLoanTemplateDataEditComponent, {
+                    context: {
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation),
+                      fieldFlag: true
                     },
                     hasBackdrop: false,
                     dialogClass: 'model-full',
