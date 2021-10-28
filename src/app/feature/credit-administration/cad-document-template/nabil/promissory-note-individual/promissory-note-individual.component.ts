@@ -113,7 +113,9 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       nameofBranchLocated: [undefined],
       signature: [undefined],
       nameofStaff: [undefined],
+      loanHolderName: [undefined],
       jointDetailsArr: this.formBuilder.array([]),
+      signatureData: this.formBuilder.array([]),
     });
   }
   fillform() {
@@ -159,6 +161,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
         }
       });
       this.setJointDetailsArr(this.selectiveArr);
+      this.setSignatureData(this.selectiveArr);
     }
     this.checkOfferLetterData();
     this.form.patchValue(
@@ -298,6 +301,22 @@ export class PromissoryNoteIndividualComponent implements OnInit {
         citizenshipNoJoint : [nepData.citizenNumber.np || nepData.citizenNumber.ct],
         dateofIssueJoint : [citizenshipIssuedDate ? citizenshipIssuedDate : ''],
         nameofIssuedDistrictJoint : [nepData.citizenshipIssueDistrict.en.nepaliName],
+      }));
+    });
+  }
+
+  buildSetSignature() {
+    return this.formBuilder.group({
+      loanHolderNameJoint : [undefined],
+    });
+  }
+
+  setSignatureData(data) {
+    const formArray = (this.form.get('signatureData') as FormArray);
+    data.forEach(value => {
+      const nepData = value;
+      formArray.push(this.formBuilder.group({
+        loanHolderNameJoint : [nepData.name ? nepData.name.ct : ''],
       }));
     });
   }
