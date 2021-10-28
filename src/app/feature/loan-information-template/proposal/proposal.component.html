@@ -680,6 +680,16 @@
                                                 </nb-select>
                                             </div>
                                         </div>
+                                      <div class="col-md-4 form-group">
+                                        <div *ngIf="subsidizedLoanChecked">
+                                          <label for="subsidyJustification"><strong>Subsidy Justification</strong></label>
+                                          <input  [ngClass]="{ 'is-invalid': (submitted) && formControls.subsidyJustification.errors }"
+                                                  class="form-control" formControlName="subsidyJustification"
+                                                  id="subsidyJustification"
+                                                  name="subsidyJustification" placeholder="Subsidy Justification"
+                                                  type="text"/>
+                                        </div>
+                                      </div>
                                         <div *ngIf="othersSubsidyLoan" class="col-md-4 form-group">
                                             <label for="others"><strong>Others</strong></label>
                                             <input class="form-control" formControlName="others"

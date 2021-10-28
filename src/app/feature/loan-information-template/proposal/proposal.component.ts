@@ -213,6 +213,7 @@ export class ProposalComponent implements OnInit {
       cashMarginMethod: ['PERCENT'],
       enhanceLimitAmount: [undefined],
       subsidyLoanType: [undefined],
+      subsidyJustification: [undefined],
       others: [undefined],
 
       // Additional Fields--
@@ -380,6 +381,7 @@ export class ProposalComponent implements OnInit {
           this.subsidizedLoanChecked = false;
           this.proposalForm.get('subsidizedLoan').setValue(null);
           this.proposalForm.get('subsidyLoanType').setValue(null);
+          this.proposalForm.get('subsidyJustification').setValue(null);
         }
         break;
     }

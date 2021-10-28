@@ -272,6 +272,7 @@
         <th *ngIf="(client !== clientName?.SHINE_RESUNGA) && (client !== clientName?.MEGA) &&(checkedData?.swapChargeChecked)">Swap Charge</th>
         <th *ngIf="(client !== clientName?.MEGA) && checkedData?.subsidizedLoanChecked">Subsidy Rate(%)</th>
         <th *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA)">Subsidized Loan Type</th>
+        <th *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA)  && proposalAllData?.subsidyJustification">Subsidy Justification</th>
         <th *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA) && proposalAllData?.others !== null">Others</th>
       </tr>
       <tr>
@@ -297,6 +298,7 @@
           </ng-template>
         </td>
         <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA)">{{proposalAllData?.subsidyLoanType}}</td>
+        <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA)  && proposalAllData?.subsidyJustification">{{proposalAllData?.subsidyJustification}}</td>
         <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA) && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>
       </tr>
     </table>

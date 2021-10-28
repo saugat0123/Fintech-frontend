@@ -265,6 +265,7 @@
             <tr class="text-white sb-bg-dark">
                 <th *ngIf="checkedData?.subsidizedLoanChecked">Subsidy Rate(%)</th>
                 <th *ngIf="checkedData?.subsidizedLoanChecked">Subsidized Loan Type</th>
+                <th *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.subsidyJustification">Subsidy Justification</th>
                 <th *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.others !== null">Others</th>
             </tr>
             </thead>
@@ -272,6 +273,8 @@
                 <td class="text-right pr-1" *ngIf="checkedData?.subsidizedLoanChecked">{{calculateInterestRate()}}%</td>
                 <td class="text-left pl-1"
                     *ngIf="checkedData?.subsidizedLoanChecked">{{proposalAllData?.subsidyLoanType}}</td>
+                <td class="text-left pl-1"
+                    *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.subsidyJustification">{{proposalAllData?.subsidyJustification}}</td>
                 <td class="text-left pl-1"
                     *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>
             </tr>
