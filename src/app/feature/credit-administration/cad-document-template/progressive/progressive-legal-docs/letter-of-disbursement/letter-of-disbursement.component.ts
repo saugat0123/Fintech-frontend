@@ -188,6 +188,8 @@ export class LetterOfDisbursementComponent implements OnInit {
       signaturePersonPermanentWadNo: [undefined],
       sabikVDC: [undefined],
       sabikWadNo: [undefined],
+      borrowerSabikVDC: [undefined],
+      borrowerSabikWardNo: [undefined],
       signaturePersonTempDistrict: [undefined],
       signaturePersonTempMunicipality: [undefined],
       signaturePersonTempWadNo: [undefined],
@@ -229,6 +231,20 @@ export class LetterOfDisbursementComponent implements OnInit {
       ItisambatRojSubham: [undefined],
       kaSanNumber: [undefined],
       KarmachariSanNu: [undefined],
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
     });
   }
 
