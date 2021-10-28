@@ -24,6 +24,8 @@ export class RemitProfileComponent implements OnInit {
   district;
   municipality;
   isLoaded = false;
+  isJointInfo = false;
+  jointInfo = [];
   ngOnInit() {
     this.remit = this.loanHolder.remitCustomer;
     if (this.remit !== null || !ObjectUtil.isEmpty(this.remit)) {
@@ -39,7 +41,18 @@ export class RemitProfileComponent implements OnInit {
         this.newDocDetails.push(data);
       }
     });
+    if (this.loanHolder.loanCategory === 'INDIVIDUAL' &&
+        !ObjectUtil.isEmpty(this.loanHolder.customerInfo.jointInfo)) {
+      const jointCustomerInfo = JSON.parse(this.loanHolder.customerInfo.jointInfo);
+      this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+      this.isJointInfo = true;
+    }
+  }
+  calculateAge(dob) {
+    const difference = Math.abs(Date.now() - new Date(dob).getTime());
+    const age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+    return age;
   }
 
 
-}
+  }
