@@ -45,6 +45,7 @@ export class PersonalLoanComponent implements OnInit {
   guarantorAmount = 0;
   guarantorAmountNepali;
   finalName;
+  loanLimit;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -72,10 +73,13 @@ export class PersonalLoanComponent implements OnInit {
     }
     this.guarantorDetails();
     this.checkOfferLetterData();
+    console.log('Template loan holder Information', this.loanHolderInfo);
+
   }
 
   buildForm() {
     this.personalLoan = this.formBuilder.group({
+      loanLimitChecked: [undefined],
       refNumber: [undefined],
       dateOfApproval: [undefined],
       customerName: [undefined],
@@ -125,6 +129,7 @@ export class PersonalLoanComponent implements OnInit {
           this.offerLetterData = this.offerLetterDocument;
           this.personalLoan.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
+        this.loanLimit = initialInfo.loanLimitChecked.en;
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
@@ -163,7 +168,7 @@ export class PersonalLoanComponent implements OnInit {
       loanAmountWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       guarantorName: this.finalName ? this.finalName : '',
       guaranteedAmountFigure: guaranteedAmount ?  this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(guaranteedAmount)) : '',
-      branchName: this.loanHolderInfo.branch.en.nepaliName ? this.loanHolderInfo.branch.en.nepaliName : '',
+      branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
       refNumber: autoRefNumber ? autoRefNumber : '',
@@ -218,6 +223,7 @@ export class PersonalLoanComponent implements OnInit {
   submit(): void {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+    this.personalLoan.get('loanLimitChecked').patchValue(this.loanLimit);
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
