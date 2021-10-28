@@ -233,7 +233,21 @@ export class LoanDeedComponent implements OnInit {
             staDistrict: [undefined],
             guarantorDetails: this.formBuilder.array([]),
             swikritiBibaran: this.formBuilder.array([this.swikritiFormGroup()]),
-            security: this.formBuilder.array([])
+            security: this.formBuilder.array([]),
+            witnessName: [undefined],
+            witnessCitizenshipNo: [undefined],
+            witnessCitizenshipIssueDate: [undefined],
+            witnessCDOoffice: [undefined],
+            witnessIssuedPlace: [undefined],
+            witnessMunicipality: [undefined],
+            witnessWardNo: [undefined],
+            witnessName1: [undefined],
+            witnessCitizenshipNo1: [undefined],
+            witnessCitizenshipIssueDate1: [undefined],
+            witnessCDOoffice1: [undefined],
+            witnessIssuedPlace1: [undefined],
+            witnessMunicipality1: [undefined],
+            witnessWardNo1: [undefined]
         });
     }
 
