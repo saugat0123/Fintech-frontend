@@ -64,29 +64,23 @@ export class CreateDocumentComponent implements OnInit {
       }
     }
     if (!ObjectUtil.isEmpty(this.editId)) {
-      const docItem = this.siteVisitDocument[this.editId];
-      if (this.docName === docItem.docName) {
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Document updated'));
-      } else {
-        try {
-          this.siteVisitDocument.forEach((value) => {
-            if (value.docName === this.docName) {
-              this.toastService.show(new Alert(AlertType.ERROR, `${value.docName} is already exist`));
-              throw this.docNameExist;
-            }
-          });
-        } catch (ex) {
-          return;
-        }
-      }
-    }
-    if (!ObjectUtil.isEmpty(this.editId)) {
       const item = this.siteVisitDocument[this.editId];
+      try {
+        this.siteVisitDocument.forEach((value) => {
+          if (this.docName === (value.docName || item.docName)) {
+            this.toastService.show(new Alert(AlertType.ERROR, `${value.docName} is already exist`));
+            throw this.docNameExist;
+          }
+        });
+      } catch (ex) {
+        return;
+      }
       siteVisitDoc.id = item.id;
       siteVisitDoc.docName = this.docName;
       siteVisitDoc.isPrintable = this.isPrintable;
       siteVisitDoc.multipartFile = this.file;
       this.siteVisitDocument.splice(this.editId, 1, siteVisitDoc);
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Document updated'));
     } else {
       this.siteVisitDocument.push(siteVisitDoc);
     }
