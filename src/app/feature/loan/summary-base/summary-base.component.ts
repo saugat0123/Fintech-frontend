@@ -51,7 +51,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     loanTag = LoanTag;
     summaryType = environment.summaryType;
     summaryTypeName = SummaryType;
-    spinner=false;
+    spinner = false;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -112,10 +112,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
     getLoanDataHolder() {
-        this.spinner=true;
+        this.spinner = true;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
-            this.spinner=false;
+            this.spinner = false;
             this.loanCategory = this.loanDataHolder.loanCategory;
             this.currentIndex = this.loanDataHolder.previousList.length;
             this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
@@ -145,9 +145,11 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 default:
                     deferredDocs = [];
             }
-            deferredDocs = deferredDocs.filter((d) => (
-                !ObjectUtil.isEmpty(d.checkType) && d.checkType === EnumUtils.getEnum(DocumentCheckType, DocumentCheckType.DEFERRAL)
-            ));
+            if (!ObjectUtil.isEmpty(deferredDocs)) {
+                deferredDocs = deferredDocs.filter((d) => (
+                    !ObjectUtil.isEmpty(d.checkType) && d.checkType === EnumUtils.getEnum(DocumentCheckType, DocumentCheckType.DEFERRAL)
+                ));
+            }
             const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
             this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
         });
