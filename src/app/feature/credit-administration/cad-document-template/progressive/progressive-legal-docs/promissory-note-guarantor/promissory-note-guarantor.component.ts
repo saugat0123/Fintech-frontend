@@ -176,7 +176,21 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       itiSambatDay: [undefined],
       itiSambatTime: [undefined],
       itiSambatRojSubham: [undefined],
-      witnessDetails: this.formBuilder.array([])
+      witnessDetails: this.formBuilder.array([]),
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
     });
   }
 
