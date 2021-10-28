@@ -1,8 +1,7 @@
 <div [nbSpinner]="spinner">
     <form [formGroup]="form"><div class="row pt-3 pl-2">
         <div class="col-md-12 pt-3 pl-2">
-            <nb-checkbox #limitCheck (input)="loanChecked(limitCheck.checked)" [checked]="loanLimit">
-                <i>Customer has total loan amount above One Crore</i></nb-checkbox>
+            <nb-checkbox #limitCheck (change)="loanChecked(limitCheck.checked)" [checked]="loanLimit"><i>Customer has total loan amount above One Crore</i></nb-checkbox>
         </div>
     </div>
         <div class="row mt-5">
@@ -180,7 +179,7 @@
                 <tr>
                     <td>Emi Amount Words</td>
                     <td><input type="text" class="form-control" formControlName="emiAmountWords"/></td>
-                    <td class="abc">{{translatedData?.emiAmountWords}}</td>
+                    <td class="abc"></td>
                     <td>
                         <input type="text" class="form-control" formControlName="emiAmountWordsTransVal"/>
                     </td>
@@ -294,7 +293,7 @@
     </form>
     <button [disabled]="previewBtn" class="float-right" nbButton (click)="openModel()" status="primary">Preview
     </button>
-    <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right" [disabled]="!btnDisable">Save</button>
+    <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right" [disabled]="btnDisable">Save</button>
     <button nbButton size="medium" class="float-right" (click)="translate()">
         Translate
     </button>
