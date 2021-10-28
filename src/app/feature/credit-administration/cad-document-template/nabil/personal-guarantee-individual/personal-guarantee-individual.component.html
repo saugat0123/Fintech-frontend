@@ -458,26 +458,32 @@
                                                     formControlName="guarantorTemporaryWard" placeholder="वडा नं" type="text"/>
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorTemporaryWard']).value}}</strong></span>
                                             </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
                                             <p>
                                                 ना.प्र.नं.
                                                 <input class="form-field form-control-sm d-print-none"
-                                                    name="guarantorCitizenNumber"
-                                                    formControlName="guarantorCitizenNumber" placeholder="ना प्र नं" type="text"/>
-                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitizenNumber']).value}}</strong></span>
+                                                       name="guarantorCitizenNumber"
+                                                       formControlName="guarantorCitizenNumber" placeholder="ना प्र नं" type="text"/>
+                                                <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitizenNumber']).value}}</strong></span>
                                                 जारी गर्ने कार्यालय
                                                 <input class="form-field form-control-sm d-print-none"
-                                                    name="guarantorCitzenIssuedPlace"
-                                                    formControlName="guarantorCitzenIssuedPlace" placeholder="जारी गर्ने कार्यालय" type="text"/>
-                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitzenIssuedPlace']).value}}</strong></span>
+                                                       name="guarantorCitzenIssuedPlace"
+                                                       formControlName="guarantorCitzenIssuedPlace" placeholder="जारी गर्ने कार्यालय" type="text"/>
+                                                <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitzenIssuedPlace']).value}}</strong></span>
                                             </p>
                                             <p>
                                                 जारी मिति:
                                                 <input class="form-field form-control-sm d-print-none"
-                                                    name="guarantorCitzenIssuedDate"
-                                                    formControlName="guarantorCitzenIssuedDate" placeholder="जारी मिति" type="text"/>
-                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitzenIssuedDate']).value}}</strong></span>
+                                                       name="guarantorCitzenIssuedDate"
+                                                       formControlName="guarantorCitzenIssuedDate" placeholder="जारी मिति" type="text"/>
+                                                <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitzenIssuedDate']).value}}</strong></span>
                                             </p>
                                         </td>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="text-left mt-2">
