@@ -1,5 +1,8 @@
 @import '../../progressive-legal-docs.component';
 
+p{
+  line-height: 2em;
+}
 .viewFull {
   max-height: 85vh;
   text-align: justify;
