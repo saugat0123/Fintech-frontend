@@ -12,24 +12,28 @@
                                                                 placeholder="मिति"
                                                                 type="text"/>
                             <span class="print-only font-weight-bold nepaliFont">{{form.get('date').value ? form.get('date').value : "============================"}}</span>
-
-                            <table class="table table-bordered" style="width: 40%">
-                                रु <input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
-                                class="form-field disable-print form-control-sm nepaliFont"
-                                          name="loanamountinFigure"
-                                          formControlName="loanamountinFigure"
-                                          placeholder=" रकम "
-                                          type="text"/>
-                                <span class="print-only font-weight-bold">{{form.get('loanamountinFigure').value ? form.get('loanamountinFigure').value : "_____________________"}}</span>
-                                ।<br>
-                                (अक्षरेपी <input class="form-field disable-print form-control-sm nepaliFont"
-                                                 name="loanamountinWords"
-                                                 formControlName="loanamountinWords"
-                                                 placeholder=" ऋण रकम"
+                            <div class="col-md-12 border">
+                                <table class="table table-borderless mt-3" style="width: 100%">
+                                   <td>
+                                       रु <input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
+                                                 class="form-field disable-print form-control-sm nepaliFont"
+                                                 name="loanamountinFigure"
+                                                 formControlName="loanamountinFigure"
+                                                 placeholder=" रकम "
                                                  type="text"/>
-                                <span class="print-only font-weight-bold">{{form.get('loanamountinWords').value ? form.get('loanamountinWords').value : "_____________________"}}</span>
-                                )
-                            </table><br>
+                                       <span class="print-only font-weight-bold">{{form.get('loanamountinFigure').value ? form.get('loanamountinFigure').value : "_____________________"}}</span>
+                                       ।
+                                       (अक्षरेपी <input class="form-field disable-print form-control-sm nepaliFont"
+                                                        name="loanamountinWords"
+                                                        formControlName="loanamountinWords"
+                                                        placeholder=" ऋण रकम"
+                                                        type="text"/>
+                                       <span class="print-only font-weight-bold">{{form.get('loanamountinWords').value ? form.get('loanamountinWords').value : "_____________________"}}</span>
+                                       )
+                                   </td>
+                                </table>
+                            </div>
+                            <br>
                             <p>लिखितम् <input class="form-field disable-print form-control-sm"
                                               name="nameofGrandFather"
                                               formControlName="nameofGrandFather"
@@ -337,26 +341,74 @@
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('nameofBranchLocated').value ? form.get('nameofBranchLocated').value : "_____________________"}}</span>
 
-                                लाई दिएँ/यौं । </p>
+                                लाई
+                                <span *ngIf="cadData?.loanHolder['customerSubType'] === (customerSubType.JOINT | uppercase)">दियौं</span>
+                                <span *ngIf="cadData?.loanHolder['customerSubType'] !== (customerSubType.JOINT | uppercase)">दिएं</span> ।
+                            </p>
 
                             <p class="text-center"><b>प्रतिज्ञा गर्ने व्यक्तिको</b><br>
-                                लेखात्मक सहीः <input class="form-field disable-print form-control-sm nepaliFont pt-3"
-                                                     name="signature"
-                                                     formControlName="signature"
-                                                     placeholder=""
-                                                     type="text"/>
-                                <span class="print-only font-weight-bold">{{form.get('signature').value ? form.get('signature').value : "_______________________"}}</span>
+<!--                                लेखात्मक सहीः <input class="form-field disable-print form-control-sm nepaliFont pt-3"-->
+<!--                                                     name="signature"-->
+<!--                                                     formControlName="signature"-->
+<!--                                                     placeholder=""-->
+<!--                                                     type="text"/>-->
+<!--                                <span class="print-only font-weight-bold">{{form.get('signature').value ? form.get('signature').value : "_______________________"}}</span>-->
                             </p>
-                            <table class="table table-hover table-bordered" style="width: 45%">
-                                <tr>
-                                    <th colspan="2" style="text-align: center">औठाछाप</th>
-                                </tr>
+                            <div class="row">
+                                <div class="col-md-4 mt-4">
+                                    <div>
+                                        लेखात्मक सहीः <input class="form-field disable-print form-control-sm nepaliFont pt-3"
+                                                             name="signature"
+                                                             formControlName="signature"
+                                                             placeholder=""
+                                                             type="text"/>
+                                        <span class="print-only font-weight-bold">{{form.get('signature').value ? form.get('signature').value : "_______________________"}}</span>
+                                    </div>
+                                    <div>
+                                        नाम: <input class="form-field disable-print form-control-sm nepaliFont pt-3"
+                                                    name="signature"
+                                                    formControlName="nameofPerson"
+                                                    placeholder=""
+                                                    type="text"/>
+                                        <span class="print-only font-weight-bold">{{form.get(['nameofPerson']).value ? form.get('nameofPerson').value : "_____________________"}}</span>
+                                    </div>
+                                    <table class="table table-hover table-bordered" style="width: 95%">
+                                        <tr>
+                                            <th colspan="2" style="text-align: center">औठाछाप</th>
+                                        </tr>
 
-                                <tr style="line-height: 200px !important;">
-                                    <td><p style="text-align: center" >दायाँ</p><br></td>
-                                    <td><p style="text-align: center">बायाँ</p></td>
-                                </tr>
-                            </table>
+                                        <tr style="line-height: 120px !important;">
+                                            <td><p style="text-align: center">दायाँ</p><br></td>
+                                            <td><p style="text-align: center">बायाँ</p></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div *ngFor="let data of form.get('signatureData')['controls']; let i = index;" formArrayName="signatureData" class="col-md-4 mt-4">
+                                    <ng-container [formGroupName]="i">
+                                    <span class="mt-2 mb-2">
+                                        लेखात्मक सहीः _______________________
+                                    </span>
+                                        <div>
+                                            नाम: <input class="form-field disable-print form-control-sm nepaliFont pt-3"
+                                                        name="signature"
+                                                        formControlName="loanHolderNameJoint"
+                                                        placeholder=""
+                                                        type="text"/>
+                                            <span class="print-only font-weight-bold">{{form.get(['signatureData', i, 'loanHolderNameJoint']).value ? form.get(['signatureData', i, 'loanHolderNameJoint']).value : "_____________________"}}</span>
+                                        </div>
+                                        <table class="table table-hover table-bordered" style="width: 95%">
+                                            <tr>
+                                                <th colspan="2" style="text-align: center">औठाछाप</th>
+                                            </tr>
+
+                                            <tr style="line-height: 120px !important;">
+                                                <td><p style="text-align: center">दायाँ</p><br></td>
+                                                <td><p style="text-align: center">बायाँ</p></td>
+                                            </tr>
+                                        </table>
+                                    </ng-container>
+                                </div>
+                            </div>
                             <p class="text-center"><b>साक्षी</b><br>
                             <p>१. <input class="form-field disable-print form-control-sm nepaliFont"
                                          name="sakshiDistrict"
