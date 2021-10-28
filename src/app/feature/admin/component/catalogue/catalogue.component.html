@@ -200,7 +200,7 @@
                         /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList?.length - 1].lastModifiedAt)}}
                     </div>
                 </td>
-                <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.loan?.interestRate ? model?.loan?.interestRate : '-'}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">{{(model?.proposal?.data | jsonParse)?.interestRate ? (model?.proposal?.data | jsonParse)?.interestRate : '-'}}</td>
                 <td (click)="onClick(model?.loan?.id,model?.id)">{{(model?.proposal?.data | jsonParse)?.serviceCharge ? (model?.proposal?.data | jsonParse)?.serviceCharge : '-'}} </td>
                 <td (click)="onClick(model?.loan?.id,model?.id)">
                     <span *ngIf="!model?.proposal.limitExpiryMethod">-</span>

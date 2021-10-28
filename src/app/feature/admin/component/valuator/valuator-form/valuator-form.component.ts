@@ -141,7 +141,7 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
                 || ObjectUtil.isEmpty(this.model.state)) ? undefined :
                 this.model.state],
             isAllBranch: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.isAllBranch)) ? undefined :
+                || ObjectUtil.isEmpty(this.model.isAllBranch)) ? false :
                 this.model.isAllBranch],
             version: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.version)) ? undefined :
