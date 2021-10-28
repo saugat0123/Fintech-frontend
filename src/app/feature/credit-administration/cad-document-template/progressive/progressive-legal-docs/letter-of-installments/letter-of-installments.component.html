@@ -84,7 +84,7 @@
                         <br>
                         <br>
 
-                    <div class="col-md-12 float-right">
+                    <!--<div class="col-md-12 float-right">
                         <button (click)="addGuarantor()" class="btn btn-primary btn-sm float-right " size="tiny"
                                 type="button">साक्षी थप्नुहोस्<i class="fas fa-plus"></i></button>
                     </div>
@@ -117,7 +117,19 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
+                    <p> {{i + 1 | nepaliWord:'unicode'}}</p>
+                    दस्तखत : ................
+                    <br>
+                    नाम :<input class="form-field form-control-sm nepaliFont "
+                                formControlName="guarantorName"
+                                placeholder=""
+                                type="text"/>
+                    <br>
+                    ठेगाना :<input class="form-field form-control-sm nepaliFont "
+                                   formControlName="guarantorAddress"
+                                   placeholder=""
+                                   type="text"/>
                 </div>
             </div>
             <br>
