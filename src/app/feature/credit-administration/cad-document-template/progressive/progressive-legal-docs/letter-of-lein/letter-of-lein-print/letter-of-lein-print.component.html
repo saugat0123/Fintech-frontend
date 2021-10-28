@@ -21,7 +21,9 @@
 
         <p>महोदय, <br>
           <br>
-            म/हामी लेखनाथ भण्डारीलाई त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋण वा कुनै प्रकारको
+            म/हामी <span [ngClass]="{'nepaliFont' : printDocForm?.name !== null && printDocForm?.name !== ''}">
+    {{printDocForm?.name === null || printDocForm?.name === '' ? '_________________' : printDocForm?.name}}
+</span>लाई त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋण वा कुनै प्रकारको
             बैकिङ्ग सुविधाहरु
             उपलब्ध गर्ने वा ऋणको निरन्तरता कायम राख्ने वा अन्यकुनै प्रकारबाट उधारो वा ऋण
             सेवा प्रदान गरिएकोमा म/हामी रु.<span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
@@ -83,7 +85,7 @@
       <div>
         <p>भवदीय,
           <br>
-          दस्तखत :..............
+          दस्तखत : .......................
           <br>
           नाम :  <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}

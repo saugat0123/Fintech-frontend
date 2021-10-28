@@ -36,11 +36,7 @@
           {{printDocForm.tempWadNo===null || printDocForm.tempWadNo===''?'_______________' :printDocForm?.tempWadNo}}
         </span>
 
-          स्थित <span [ngClass]="{'nepaliFont':printDocForm?.address!==null && printDocForm?.address!==''}">
-          {{printDocForm.address===null || printDocForm.address===''?'_______________' :printDocForm?.address}}
-        </span>
-
-          बस्ने बर्ष <span [ngClass]="{'nepaliFont':printDocForm?.age!==null && printDocForm?.age!==''}">
+          स्थित बस्ने बर्ष <span [ngClass]="{'nepaliFont':printDocForm?.age!==null && printDocForm?.age!==''}">
           {{printDocForm.age===null || printDocForm.age===''?'_______________' :printDocForm?.age}}
         </span>को
           <span [ngClass]="{'nepaliFont':printDocForm?.customerName!==null && printDocForm?.customerName!==''}">
@@ -75,7 +71,7 @@
       <div>
         <p>
         <br><br>
-          दस्तखत :-.................
+          दस्तखत:- .................
           <br><br>
           दस्तखत गर्नेको नाम :- <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyName!==null && printDocForm?.sincerlyName!==''}">
           {{printDocForm.sincerlyName===null || printDocForm.sincerlyName===''?'_______________' :printDocForm?.sincerlyName}}
@@ -143,14 +139,16 @@
       </div>
       <br>
       <div>
+        <b class="text-left">साक्षी: </b><br>
         <div class="row page-break">
-        <b class="text-left">साक्षी :</b>
+
+          <br>
         <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
           <div>
-            <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
+            <p> {{i + 1 | nepaliNumber: 'unicode'}}.&nbsp;&nbsp;दस्तखत: ......................</p>
 
 
-            <table border="1" width="100%" class="table-bordered table text-center">
+            <table style = "width: 100%;" class="table-bordered table text-center col-md-12">
               <thead>
               <tr>
                 <th>नाम</th>
@@ -176,14 +174,13 @@
               </tr>
               </tbody>
             </table>
+
             <br>
           </div>
-        </div>
 
-      <br>
-        <br>
-        <b>सनाखत साक्षी</b>
-        <br>
+        </div>
+<div>
+      <b>सनाखत साक्षी</b>
         <p>ऋणीले मेरो  मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने
           धनीवित्तीय संस्थामाकार्यरत कर्मचारी <span [ngClass]="{'nepaliFont':printDocForm?.IdentifiedGuarantorName!==null && printDocForm?.IdentifiedGuarantorName!==''}">
           {{printDocForm.IdentifiedGuarantorName===null || printDocForm.IdentifiedGuarantorName===''?'_______________' :printDocForm?.IdentifiedGuarantorName}}
@@ -209,8 +206,8 @@
         रोज शुभम् <span [ngClass]="{'nepaliFont':printDocForm?.ItisambatRojSubham!==null && printDocForm?.ItisambatRojSubham!==''}">
           {{printDocForm.ItisambatRojSubham===null || printDocForm.ItisambatRojSubham===''?'_______________' :printDocForm?.ItisambatRojSubham}}
         </span> ।</p>
+</div>
         </div>
-      <br>
       </div>
 
     </form>
