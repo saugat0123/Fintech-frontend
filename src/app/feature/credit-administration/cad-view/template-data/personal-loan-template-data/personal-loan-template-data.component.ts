@@ -218,6 +218,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.spinner = false;
   }
   private setTemplatedCTData(): void {
+    this.translatedData.emiAmountWords = this.form.get('emiAmountWords').value;
     // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
@@ -227,7 +228,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     // this.form.get('yearlyFloatingInterestRateTransVal').patchValue(this.translatedData.yearlyFloatingInterestRate);
     // this.form.get('loanAdminFeeTransVal').patchValue(this.translatedData.loanAdminFee);
     // this.form.get('emiAmountTransVal').patchValue(this.translatedData.emiAmount);
-    this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
+    this.form.get('emiAmountWordsTransVal').patchValue(this.form.get('emiAmountWords').value);
     // this.form.get('accountNumberTransVal').patchValue(this.translatedData.accountNumber);
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
     this.form.get('managerNameTransVal').patchValue(this.translatedData.managerName);
