@@ -188,6 +188,8 @@ export class LetterOfDisbursementComponent implements OnInit {
       signaturePersonPermanentWadNo: [undefined],
       sabikVDC: [undefined],
       sabikWadNo: [undefined],
+      borrowerSabikVDC: [undefined],
+      borrowerSabikWardNo: [undefined],
       signaturePersonTempDistrict: [undefined],
       signaturePersonTempMunicipality: [undefined],
       signaturePersonTempWadNo: [undefined],
