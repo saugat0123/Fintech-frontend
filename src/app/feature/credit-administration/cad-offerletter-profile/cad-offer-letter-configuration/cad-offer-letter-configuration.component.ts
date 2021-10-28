@@ -97,11 +97,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   activeTemplateDataTab = false;
   addressSameAsAbove = false;
   provinceList: Array<Province> = new Array<Province>();
-  tempGuarantorProvinceList: Array<Province> = new Array<Province>();
+  tempGuarantorProvinceList = [];
   districts: Array<District> = new Array<District>();
-  tempGuarantorDistricts: Array<District> = new Array<District>();
+  tempGuarantorDistricts = [];
   municipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
-  tempGuarantorMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
+  tempGuarantorMunicipalities = [];
   allDistrictList: Array<District> = new Array<District>();
   objectTranslateForm: FormGroup;
   objectValueTranslater;
@@ -119,9 +119,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   individualData;
   editedTranslatedValueForm: FormGroup;
   oneFormGuarantorsList: Array<OneFormGuarantors> = new Array<OneFormGuarantors>();
-  guarantorProvienceList: Array<Province> = new Array<Province>();
-  guarantorDistrict: Array<District> = new Array<District>();
-  guarantorMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
+  guarantorProvienceList = [];
+  guarantorDistrict = [];
+  guarantorMunicipalities = [];
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -1527,7 +1527,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.guarantorDistrict[index] = response.detail;
-          this.guarantorDistrict.sort((a, b) => a.name.localeCompare(b.name));
+          this.guarantorDistrict[index].sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
           // }
@@ -1541,7 +1541,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
           this.guarantorMunicipalities[index] = response.detail;
-          this.guarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
+          this.guarantorMunicipalities[index].sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).patchValue(null);
           // }
@@ -1556,7 +1556,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.tempGuarantorDistricts[index] = response.detail;
-          this.tempGuarantorDistricts.sort((a, b) => a.name.localeCompare(b.name));
+          this.tempGuarantorDistricts[index].sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).patchValue(null);
           // }
@@ -1570,7 +1570,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
           this.tempGuarantorMunicipalities[index] = response.detail;
-          this.tempGuarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
+          this.tempGuarantorMunicipalities[index].sort((a, b) => a.name.localeCompare(b.name));
           // if (event !== null) {
           //   this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).patchValue(null);
           // }

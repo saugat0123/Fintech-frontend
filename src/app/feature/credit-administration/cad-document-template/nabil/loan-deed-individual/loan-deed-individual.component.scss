@@ -1,6 +1,6 @@
 .nep {
   font-size: 16px;
-  line-height: 1.9;
+  line-height: 1.7;
   text-align: justify;
   text-justify: inter-word;
 }
@@ -38,6 +38,11 @@ p {
 
   }
 }
+
+.text-justify {
+  text-align: justify !important;
+}
+
 
 @media print {
   .print-only {
