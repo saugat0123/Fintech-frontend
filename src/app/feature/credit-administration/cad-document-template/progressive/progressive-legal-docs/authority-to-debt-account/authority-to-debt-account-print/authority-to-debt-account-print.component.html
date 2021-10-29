@@ -10,16 +10,16 @@
     {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
 </span>
             </p>
-            <b> प्रोग्रेशिभ फाईनान्स लिमिटेड,</b>
+            <strong> प्रोग्रेशिभ फाईनान्स लिमिटेड,</strong>
             <br>
-            <b>  <span
+            <strong>  <span
                     [ngClass]="{'nepaliFont' : printDocForm?.BranchName !== null && printDocForm?.BranchName !== ''}">
     {{printDocForm?.BranchName === null || printDocForm?.BranchName === '' ? '_________________' : printDocForm?.BranchName}}
-</span> शाखा कार्यालय।</b>
+</span> शाखा कार्यालय।</strong>
             <br>
             <br>
-            <p><b> विषय :- त्यस वित्तीय संस्थामा संचालन गरेको मेरो/ हाम्रो चल्ति/बचतखाताको सीमा
-                रकमकट्टि गर्न विनाशर्त अपरिवर्तनिय अख्तियारी प्रदान गरेको। </b>
+            <p><strong> विषय :- त्यस वित्तीय संस्थामा संचालन गरेको मेरो/ हाम्रो चल्ति/बचतखाताको सीमा
+                रकमकट्टि गर्न विनाशर्त अपरिवर्तनिय अख्तियारी प्रदान गरेको। </strong>
             </p>
             <div class="row col-md-12">
                 <p>
@@ -51,13 +51,13 @@
 
             </div>
             <br>
-            <p class="text-center"><b>भवदीय,</b></p>
+            <p class="text-center"><strong>भवदीय,</strong></p>
     <div class="row" id="signature">
         <table style="margin-right: auto;margin-left: auto;" class="table  table-bordered" id="fingerXap">
             <thead>
             <tr>
-                <th>दाँ.</th>
-                <th>बाँ.</th>
+                <th id="rightthumb">दाँ.</th>
+                <th id="leftthumb">बाँ.</th>
             </tr>
             </thead>
             <tbody>
@@ -73,7 +73,7 @@
         </table>
 
     </div>
-    <p><b>भवदीय,</b></p>
+    <p><strong>भवदीय,</strong></p>
     <div class="row col-md-12" id="Sincerely">
         <p>
             दस्तखत :- ..................
