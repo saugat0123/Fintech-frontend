@@ -1739,9 +1739,9 @@
                     <td><label class="title">Province</label></td>
                     <td>
                       <select #element
-                              (change)="getJointCustomerDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'permanentProvince'])?.value?.id, $event, i)"
+                              (change)="getJointCustomerPermanentDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'permanentProvince'])?.value?.id, $event, i)"
                               [compareWith]="compareFn"
-                              class="custom-select"
+                              class="custom-select" id="jointCustomerPermanentProvince{{i}}" name="jointCustomerPermanentProvince{{i}}"
                               formControlName="permanentProvince"
                       >
                         <option [ngValue]="null" hidden>Province</option>
@@ -1766,13 +1766,13 @@
                   <tr>
                     <td><label class="title">District</label></td>
                     <td><select
-                        (change)="getJointCustomerMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'permanentDistrict']).value?.id, $event, i)"
+                        (change)="getJointCustomerPermanentMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'permanentDistrict']).value?.id, $event, i)"
                         [compareWith]="compareFn"
-                        class="custom-select"
+                        class="custom-select" id="jointCustomerPermanentDistrict{{i}}" name="jointCustomerPermanentDistrict{{i}}"
                         formControlName="permanentDistrict"
                     >
                       <option [ngValue]="null" hidden>District</option>
-                      <option *ngFor="let districtVal of districts"
+                      <option *ngFor="let districtVal of jointCustomerPermanentDistrictList[i]"
                               [ngValue]="districtVal">
                         {{districtVal.name}} || {{districtVal.nepaliName}}
                       </option>
@@ -1802,11 +1802,11 @@
                                   [value]="vdcOption.values()">{{option.label}}</nb-radio>
                       </nb-radio-group>
                       <select [compareWith]="compareFn"
-                              class="custom-select"
+                              class="custom-select" id="jointCustomerPermanentMunicipality{{i}}" name="jointCustomerPermanentMunicipality{{i}}"
                               formControlName="permanentMunicipality"
 
                               name="municipality">
-                        <option *ngFor="let municipalityVal of municipalities"
+                        <option *ngFor="let municipalityVal of jointCustomerPermanentMunicipalities[i]"
                                 [ngValue]="municipalityVal">
                           {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                         </option>
@@ -1869,9 +1869,9 @@
                     <td><label class="title">Province</label></td>
                     <td>
                       <select
-                          (change)="getJointCustomerDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryProvince'])?.value?.id , $event, i)"
+                          (change)="getJointCustomerTemporaryDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryProvince'])?.value?.id , $event, i)"
                           [compareWith]="compareFn"
-                          class="custom-select"
+                          class="custom-select" id="jointCustomerTemporaryProvince{{i}}" name="jointCustomerTemporaryProvince{{i}}"
                           formControlName="temporaryProvince">
                         <option [ngValue]="null" hidden>Province</option>
                         <option *ngFor="let provinceVal of tempProvinceList"
@@ -1895,13 +1895,13 @@
                     <td><label class="title">District</label></td>
                     <td>
                       <select
-                          (change)="getJointCustomerMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryDistrict'])?.value?.id, $event, i)"
+                          (change)="getJointCustomerTemporaryMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryDistrict'])?.value?.id, $event, i)"
                           [compareWith]="compareFn"
-                          class="custom-select"
+                          class="custom-select" id="jointCustomerTemporaryDistrict{{i}}" name="jointCustomerTemporaryDistrict{{i}}"
                           formControlName="temporaryDistrict"
                       >
                         <option [ngValue]="null" hidden>District</option>
-                        <option *ngFor="let districtVal of districts"
+                        <option *ngFor="let districtVal of jointCustomerTemporaryDistrictList[i]"
                                 [ngValue]="districtVal">
                           {{districtVal.name}} || {{districtVal.nepaliName}}
                         </option>
@@ -1932,9 +1932,8 @@
                       <select [compareWith]="compareFn"
                               class="custom-select"
                               formControlName="temporaryMunicipality"
-
-                              name="municipality">
-                        <option *ngFor="let municipalityVal of municipalities"
+                              id="jointCustomerTemporaryMunicipality{{i}}" name="jointCustomerTemporaryMunicipality{{i}}">
+                        <option *ngFor="let municipalityVal of jointCustomerTemporaryMunicipalities[i]"
                                 [ngValue]="municipalityVal">
                           {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                         </option>

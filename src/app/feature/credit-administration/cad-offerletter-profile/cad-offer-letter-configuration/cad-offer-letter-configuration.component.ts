@@ -35,7 +35,7 @@ import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {OneFormGuarantors} from '../../model/oneFormGuarantors';
-import {CurrencyFormatterPipe} from "../../../../@core/pipe/currency-formatter.pipe";
+import {CurrencyFormatterPipe} from '../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -97,6 +97,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   activeTemplateDataTab = false;
   addressSameAsAbove = false;
   provinceList: Array<Province> = new Array<Province>();
+  jointCustomerPermanentDistrictList = [];
+  jointCustomerTemporaryDistrictList = [];
+  jointCustomerPermanentMunicipalities = [];
+  jointCustomerTemporaryMunicipalities = [];
   tempGuarantorProvinceList = [];
   districts: Array<District> = new Array<District>();
   tempGuarantorDistricts = [];
@@ -155,19 +159,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addressService.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
-        });
-
-    this.addressService.getProvince().subscribe(
-        (response: any) => {
           this.tempProvinceList = response.detail;
+          this.tempGuarantorProvinceList = response.detail;
+          this.guarantorProvienceList = response.detail;
         });
-    this.addressService.getProvince().subscribe((response: any) => {
-      this.tempGuarantorProvinceList = response.detail;
-    });
-
-    this.addressService.getProvince().subscribe((response: any) => {
-      this.guarantorProvienceList = response.detail;
-    });
 
     if (!ObjectUtil.isEmpty(this.oneFormCustomer)) {
       this.getAllEditedDistrictAndMunicipalities();
@@ -475,7 +470,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.oneFormCustomer.jointInfo = JSON.stringify(jointInfoArr);
     }
     this.oneFormCustomer.customerSubType = this.customerType === CustomerType.INDIVIDUAL ? this.customerSubType : this.institutionSubType;
-   if(this.actionType === 'Edit') {
+   if (this.actionType === 'Edit') {
      this.userConfigForm.patchValue({
        permanentProvinceCT: this.userConfigForm.get('permanentProvince').value.nepaliName,
        permanentDistrictCT: this.userConfigForm.get('permanentDistrict').value.nepaliName,
@@ -485,10 +480,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
        // temporaryMunicipalityCT: this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
      });
 
-     if(this.addressSameAsAbove){
+     if (this.addressSameAsAbove) {
        this.userConfigForm.patchValue({
          temporaryMunicipalityCT: this.userConfigForm.get('permanentMunicipalityCT').value
-       })
+       });
      }
 
    }
@@ -598,8 +593,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   setGuarantorsDetailsCTValueIfNotTranslated() {
     let allGuarantorsList = [];
     allGuarantorsList = this.loanHolder.guarantors.guarantorList;
-    
-    if (allGuarantorsList.length === 0) return;
+
+    if (allGuarantorsList.length === 0) { return; }
 
     allGuarantorsList.forEach((value, index) => {
       let nepData: any;
@@ -625,7 +620,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       nepData.temporaryDistrict ? nepData.temporaryDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value : '';
       nepData.temporaryMunicipality ? nepData.temporaryMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value : '';
       nepData.temporaryWard ? nepData.temporaryWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value : '';
-      
+
       // set guarantor nepData values based on index in guarantorDetails form
       this.userConfigForm.get(['guarantorDetails', index, 'nepData']).patchValue(JSON.stringify(nepData));
     });
@@ -638,7 +633,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   setIndividualGuarantorNepData() {
     const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
-    if (formArray.value.length === 0) return;
+    if (formArray.value.length === 0) { return; }
 
     formArray.value.forEach((value, index) => {
       let nepData: any;
@@ -667,7 +662,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
       // set guarantor nepData values based on index in guarantorDetails form
       this.userConfigForm.get(['guarantorDetails', index, 'nepData']).patchValue(JSON.stringify(nepData));
-    })
+    });
   }
 
   // end guarantor details data patch
@@ -1477,15 +1472,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     );
   }
 
-  // get district/municipalities for guarantors
-  getJointCustomerDistrictsById(provinceId: number, event, index) {
-    console.log('provinceId: ', provinceId, ' event: ', event, ' index: ', index);
+  // get permanent district/municipalities for joint customer
+  getJointCustomerPermanentDistrictsById(provinceId: number, event, index) {
     const province = new Province();
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
-          this.districts = response.detail;
-          this.districts.sort((a, b) => a.name.localeCompare(b.name));
+          this.jointCustomerPermanentDistrictList[index] = response.detail;
+          this.jointCustomerPermanentDistrictList[index].sort((a, b) => a.name.localeCompare(b.name));
           if (event !== null) {
             this.userConfigForm.get(['jointCustomerDetails', index, 'permanentDistrict']).patchValue(null);
           }
@@ -1493,15 +1487,46 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     );
   }
 
-  getJointCustomerMunicipalitiesById(districtId: number, event, index) {
+  // get temporary district/municipalities for joint customer
+  getJointCustomerTemporaryDistrictsById(provinceId: number, event, index) {
+    const province = new Province();
+    province.id = provinceId;
+    this.addressService.getDistrictByProvince(province).subscribe(
+        (response: any) => {
+          this.jointCustomerTemporaryDistrictList[index] = response.detail;
+          this.jointCustomerTemporaryDistrictList[index].sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryDistrict']).patchValue(null);
+          }
+        }
+    );
+  }
+
+// for permanent
+  getJointCustomerPermanentMunicipalitiesById(districtId: number, event, index) {
     const district = new District();
     district.id = districtId;
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
-          this.municipalities = response.detail;
-          this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+          this.jointCustomerPermanentMunicipalities[index] = response.detail;
+          this.jointCustomerPermanentMunicipalities[index].sort((a, b) => a.name.localeCompare(b.name));
           if (event !== null) {
             this.userConfigForm.get(['jointCustomerDetails', index, 'permanentMunicipality']).patchValue(null);
+          }
+        }
+    );
+  }
+
+  // for temporary
+  getJointCustomerTemporaryMunicipalitiesById(districtId: number, event, index) {
+    const district = new District();
+    district.id = districtId;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.jointCustomerTemporaryMunicipalities[index] = response.detail;
+          this.jointCustomerTemporaryMunicipalities[index].sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryMunicipality']).patchValue(null);
           }
         }
     );
@@ -2225,8 +2250,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   }
 
-checkEditedValidationForIndividualJsonData(){
-  if(this.actionType === 'Edit') {
+checkEditedValidationForIndividualJsonData() {
+  if (this.actionType === 'Edit') {
     if (this.userConfigForm.get('fatherNameCT').value === null) {
       this.userConfigForm.get('fatherNameCT').patchValue(ObjectUtil.isEmpty(this.nepData.fatherName) ? undefined : this.nepData.fatherName.ct);
     }
