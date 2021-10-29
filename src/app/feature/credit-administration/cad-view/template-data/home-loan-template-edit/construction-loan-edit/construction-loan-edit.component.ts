@@ -319,21 +319,6 @@ export class ConstructionLoanEditComponent implements OnInit {
       this.constructionLoanForm.get('thirdInstallmentAmountCT').patchValue(this.engToNepaliNumberPipe
           .transform(thirdInstallmentAmount.toString()));
     }
-    const kittaNumber = this.constructionLoanForm.get('kittaNumber').value;
-    if (!ObjectUtil.isEmpty(kittaNumber)) {
-      this.constructionLoanForm.get('kittaNumberTrans').patchValue(this.engToNepaliNumberPipe.transform(kittaNumber.toString()));
-      this.constructionLoanForm.get('kittaNumberCT').patchValue(this.engToNepaliNumberPipe.transform(kittaNumber.toString()));
-    }
-    const area = this.constructionLoanForm.get('area').value;
-    if (!ObjectUtil.isEmpty(area)) {
-      this.constructionLoanForm.get('areaTrans').patchValue(this.engToNepaliNumberPipe.transform(area.toString()));
-      this.constructionLoanForm.get('areaCT').patchValue(this.engToNepaliNumberPipe.transform(area.toString()));
-    }
-    const seatNumber = this.constructionLoanForm.get('seatNumber').value;
-    if (!ObjectUtil.isEmpty(seatNumber)) {
-      this.constructionLoanForm.get('seatNumberTrans').patchValue(this.engToNepaliNumberPipe.transform(seatNumber.toString()));
-      this.constructionLoanForm.get('seatNumberCT').patchValue(this.engToNepaliNumberPipe.transform(seatNumber.toString()));
-    }
     const insuranceAmountInFigure = this.constructionLoanForm.get('insuranceAmountInFigure').value;
     if (!ObjectUtil.isEmpty(insuranceAmountInFigure)) {
       this.constructionLoanForm.get('insuranceAmountInFigureTrans').patchValue(this.engToNepaliNumberPipe
@@ -358,8 +343,17 @@ export class ConstructionLoanEditComponent implements OnInit {
       nameOfRelationshipOfficer: this.constructionLoanForm.get('nameOfRelationshipOfficer').value,
       nameOfBranchManager: this.constructionLoanForm.get('nameOfBranchManager').value,
       approvalStaffName: this.constructionLoanForm.get('approvalStaffName').value,
+      kittaNumber: this.constructionLoanForm.get('kittaNumber').value,
+      area: this.constructionLoanForm.get('area').value,
+      seatNumber: this.constructionLoanForm.get('seatNumber').value,
     });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
+    this.constructionLoanForm.get('kittaNumberTrans').patchValue(this.translatedValue.kittaNumber);
+    this.constructionLoanForm.get('kittaNumberCT').patchValue(this.translatedValue.kittaNumber);
+    this.constructionLoanForm.get('areaTrans').patchValue(this.translatedValue.area);
+    this.constructionLoanForm.get('areaCT').patchValue(this.translatedValue.area);
+    this.constructionLoanForm.get('seatNumberTrans').patchValue(this.translatedValue.seatNumber);
+    this.constructionLoanForm.get('seatNumberCT').patchValue(this.translatedValue.seatNumber);
     this.constructionLoanForm.get('referenceNumberTrans').patchValue(this.translatedValue.referenceNumber);
     this.constructionLoanForm.get('referenceNumberCT').patchValue(this.translatedValue.referenceNumber);
     this.constructionLoanForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
