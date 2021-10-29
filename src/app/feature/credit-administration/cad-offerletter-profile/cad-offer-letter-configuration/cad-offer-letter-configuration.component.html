@@ -1435,7 +1435,7 @@
                     <td><label class="title">Contact No</label></td>
                     <td><input class="form-control "
                                formControlName="contactNo"
-
+                               (change)="translateJointCustomerSectionNumberField('jointCustomerDetails', 'contactNo', i, 'contactNoTrans')"
                                name="contactNo" placeholder="Contact No"
                                type="number"/>
                     </td>
@@ -1704,6 +1704,7 @@
                     <td>
                       <input class="form-control "
                              formControlName="panNo"
+                             (change)="translateJointCustomerSectionNumberField('jointCustomerDetails', 'panNo', i, 'panNoTrans')"
                              name="panNo" placeholder="PAN No" type="text"/>
                     </td>
                     <td><input class="form-control" type="text"
@@ -1831,9 +1832,9 @@
                     <td>
                       <input class="form-control "
                              formControlName="permanentWard"
-
-                             name="permanentMunicipality" placeholder="Ward No"
-                             type="number"/>
+                             (change)="translateJointCustomerSectionNumberField('jointCustomerDetails', 'permanentWard', i, 'permanentWardTrans')"
+                             name="permanentWard" placeholder="Ward No"
+                             type="text"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="permanentWardTrans"
@@ -1957,9 +1958,9 @@
                     <td>
                       <input class="form-control "
                              formControlName="temporaryWard"
-                             (input)="translateNumberInFA('temporaryWard', i)"
+                             (change)="translateJointCustomerSectionNumberField('jointCustomerDetails', 'temporaryWard', i, 'temporaryWardTrans')"
                              name="temporaryWard" placeholder="Ward No"
-                             type="number"/>
+                             type="text"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="temporaryWardTrans"

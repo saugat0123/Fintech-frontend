@@ -512,7 +512,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             * @author Paribartan Kalathoki
             */
             this.setGuarantorsDetailsCTValueIfNotTranslated();
-
            // end guarantor detault CT value patch
 
          } else {
@@ -533,6 +532,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     // to map guarantor nepData according to guarantor CT value
     this.setIndividualGuarantorNepData();
+
+    this.setIndividualJointCustomerNepData();
+    // to map individual joint customer nepData according to jointCustomer CT value
 
     this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
       const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
@@ -1206,8 +1208,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipNoTrans']).setCT(jointCustomerDetails.citizenshipNo ? jointCustomerDetails.citizenshipNo : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'dobTrans']).patchValue(jointCustomerDetails.dob ? jointCustomerDetails.dob : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'dobCT']).patchValue(jointCustomerDetails.dob ? jointCustomerDetails.dob : '');
-      this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDistrictTrans']).patchValue(jointCustomerDetails.citizenshipIssueDistrict ? jointCustomerDetails.citizenshipIssueDistrict : '');
-      this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDistrictCT']).patchValue(jointCustomerDetails.citizenshipIssueDistrict ? jointCustomerDetails.citizenshipIssueDistrict : '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDistrictTrans']).patchValue(this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDistrict']).value ? this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDistrict']).value.name : '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDistrictCT']).patchValue(this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDistrict']).value ? this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDistrict']).value.name : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDateTrans']).patchValue(jointCustomerDetails.citizenshipIssueDate ? jointCustomerDetails.citizenshipIssueDate : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDateCT']).patchValue(jointCustomerDetails.citizenshipIssueDate ? jointCustomerDetails.citizenshipIssueDate : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'municipalityOrVdcTrans']).patchValue(jointCustomerDetails.municipalityOrVdc ? jointCustomerDetails.municipalityOrVdc : '');
@@ -1283,6 +1285,43 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['jointCustomerDetails', index, 'nepData']).patchValue(JSON.stringify(newArr));
 
     }
+  }
+
+  /**
+   * set individual guarantor nepData Details
+   * @author Paribartan Kalathoki
+   */
+  setIndividualJointCustomerNepData() {
+    const formArray = this.userConfigForm.get('jointCustomerDetails') as FormArray;
+    if (formArray.value.length === 0) { return; }
+    formArray.value.forEach((value, index) => {
+      if (index === 0) { return; }
+
+      let nepData: any;
+      nepData = JSON.parse(value.nepData);
+      nepData.branch ? nepData.branch.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'branchCT']).value : '';
+      nepData.name ? nepData.name.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'nameCT']).value : '';
+      nepData.email ? nepData.email.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'emailCT']).value : '';
+      nepData.contactNo ? nepData.contactNo.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'contactNoCT']).value : '';
+      nepData.panNo ? nepData.panNo.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'panNoCT']).value : '';
+      nepData.customerCode ? nepData.customerCode.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeCT']).value : '';
+      nepData.gender ? nepData.gender.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'genderCT']).value : '';
+      nepData.fatherName ? nepData.fatherName.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'fatherNameCT']).value : '';
+      nepData.grandFatherName ? nepData.grandFatherName.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'grandFatherNameCT']).value : '';
+      nepData.citizenNumber ? nepData.citizenNumber.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'citizenNumberCT']).value : '';
+      nepData.permanentProvince ? nepData.permanentProvince.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'permanentProvinceCT']).value : '';
+      nepData.permanentDistrict ? nepData.permanentDistrict.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'permanentDistrictCT']).value : '';
+      nepData.permanentMunicipality ? nepData.permanentMunicipality.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'permanentMunicipalityCT']).value : '';
+      nepData.temporaryProvince ? nepData.temporaryProvince.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryProvinceCT']).value : '';
+      nepData.temporaryDistrict ? nepData.temporaryDistrict.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryDistrictCT']).value : '';
+      nepData.temporaryMunicipality ? nepData.temporaryMunicipality.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryMunicipalityCT']).value : '';
+      nepData.permanentWard ? nepData.permanentWard.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'permanentWardCT']).value : '';
+      nepData.temporaryWard ? nepData.temporaryWard.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryWardCT']).value : '';
+      nepData.citizenshipIssueDistrict ? nepData.citizenshipIssueDistrict.ct = this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDistrictCT']).value : '';
+
+      // set joint customer nepData values based on index in jointCustomerDetails form
+      this.userConfigForm.get(['jointCustomerDetails', index, 'nepData']).patchValue(JSON.stringify(nepData));
+    });
   }
 
   async translateGuarantorData(index) {
@@ -2025,6 +2064,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(source).value.toString());
     this.userConfigForm.get(source + 'Trans').patchValue(wordLabelVar);
     this.userConfigForm.get(source + 'CT').patchValue(wordLabelVar);
+  }
+
+  translateJointCustomerSectionNumberField(arrName, source, index, target) {
+    const translatedNepaliNum = this.engToNepaliNumberPipe.transform(String(this.userConfigForm.get([String(arrName), index, String(source)]).value));
+    this.userConfigForm.get([String(arrName), index, String(target)]).patchValue(translatedNepaliNum);
+    this.userConfigForm.get([String(arrName), index, String(source + 'CT')]).patchValue(translatedNepaliNum);
   }
 
   translateNumberInFA(source, i) {
