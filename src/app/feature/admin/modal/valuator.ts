@@ -25,5 +25,5 @@ export class Valuator {
   maxAmount: number;
   inactiveComment: string;
   isAllBranch: boolean;
-  valuatingFields: Array<ValuatingField>;
+  valuatingFields: any[];
 }

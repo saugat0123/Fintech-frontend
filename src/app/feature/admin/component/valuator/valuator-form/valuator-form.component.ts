@@ -60,6 +60,9 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
             this.branchList = response.detail;
             if (!ObjectUtil.isEmpty(this.model) && !ObjectUtil.isEmpty(this.model.branch)) {
                 this.valuatorForm.get('branch').patchValue(this.model.branch);
+                if (this.model.valuatingFields.length === 0) {
+                    this.model.valuatingFields = [this.model.valuatingField];
+                }
                 this.valuatorFieldModel = this.model.valuatingFields;
                 this.placeHolderValuatingType = '';
                 this.placeHolderBranchSelect = '';
