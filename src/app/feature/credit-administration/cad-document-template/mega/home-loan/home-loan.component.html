@@ -12,7 +12,7 @@
             <form [formGroup]="form">
                 <h6 class="text-center">ऋणकर्जा सुविधा स्वीकृति पत्र</h6>
                 <p class="text-left"> </p>
-                <input class="form-field form-control-sm nepaliFont col-3"
+                <input class="form-field form-control-sm col-3"
                        formControlName="referenceNumber"
                        name="referenceNumber"
                        placeholder=""
@@ -34,13 +34,13 @@
                           सुश्री
                         </span>
                     </ng-template>
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm"
                            formControlName="customerName"
                            name="customerName"
                            placeholder=""
                            type="text"/>
                     <div class="mb-1"> ठेगाना:
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field form-control-sm"
                                formControlName="customerAddress"
                                name="customerAddress"
                                placeholder=""
@@ -466,15 +466,14 @@
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
                                 </p>
                                 <div class="row col-md-12">
-                    <textarea
-                              class="form-control customFont"
+                                    घ. <textarea
+                              class="form-control customFont nepaliFont"
                               rows="5"
-                              style="width:inherit;margin-left:5%"
-                              name="additionalDetail"
-                              formControlName="additionalDetail">
+                              style="width:inherit;margin-left:5%;font-size: 24px;"
+                              name="additionalDetails"
+                              formControlName="additionalDetails">
                     </textarea>
                                 </div>
-
                         </tr>
                         <tr *ngIf="landbuilding === 'LAND & BUILDING' || landbuilding === 'LAND'">
                             <td>९. </td>
@@ -497,18 +496,15 @@
                                                                              type="text"/>   लाई A/C Payee Cheque /MC/Draft
                                 मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                                 <div class="row col-md-12">
-                    <textarea
-                              class="form-control customFont"
+                                    <textarea
+                              class="form-control customFont nepaliFont"
                               rows="5"
-                              style="width:inherit;margin-left:5%"
-                              name="additionalDetail"
-                              formControlName="additionalDetail">
+                              style="width:inherit;margin-left:5%;font-size:24px;"
+                              name="additionalDetails"
+                              formControlName="additionalDetails">
                     </textarea>
                                 </div>
-
-
                             </td>
-
                         <tr>
                             <td>१०.</td>
                             <td>कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साञचो छन र अन्यथा भएमा तपाईं जिम्मेवार हुनुहुनेछ।</td>
@@ -694,8 +690,8 @@
                                 <p>
                                     क.
                                     रु. <input class="form-field form-control-sm"
-                                               formControlName="loanAmount"
-                                               name="loanAmount"
+                                               formControlName="loanAmountinFigure"
+                                               name="loanAmountinFigure"
                                                placeholder=" "
                                                type="text"/>/-
                                     को प्रतिज्ञा पत्र।
@@ -706,8 +702,8 @@
                                 <p>
                                     ग.
                                     रु. <input class="form-field form-control-sm"
-                                               formControlName="loanAmount"
-                                               name="loanAmount"
+                                               formControlName="loanAmountinFigure"
+                                               name="loanAmountinFigure"
                                                placeholder=" "
                                                type="text"/>/-
                                     को ऋणकर्जा तमसुक।
@@ -715,8 +711,8 @@
                                 <p>
                                     घ.
                                     रु. <input class="form-field form-control-sm"
-                                               formControlName="loanAmount"
-                                               name="loanAmount"
+                                               formControlName="loanAmountinFigure"
+                                               name="loanAmountinFigure"
                                                placeholder=" "
                                                type="text"/>/-
                                     को धितोबन्धक तमसुक।
@@ -762,15 +758,17 @@
                                               placeholder=" "
                                               type="text"/> मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण।
                                 </p>
+                                <p>
+
+                                </p>
                             </td>
                         </tr>
                     </table>
-
-                    <div class="row col-md-12">
-                    <textarea id="additionalGuarantorDetails"
-                              class="form-control customFont"
+                    <div class="row col-md-12" style="margin-left: 3em;margin-top: -2em;">
+                        झ.<textarea id="additionalGuarantorDetails"
+                              class="form-control customFont nepaliFont"
                               rows="5"
-                              style="width:inherit;margin-left:5%"
+                              style="margin-left: 2%;width: 85%;font-size:24px;"
                               name="additionalGuarantorDetails"
                               formControlName="additionalGuarantorDetails">
                     </textarea>
@@ -854,14 +852,13 @@
                         <td>४.</td>
                         <td>म/हामी विरुद्ध दामासाही सम्बन्धि कुनै कारवाही भएको छैन र म/हामी हालसम्म दामासाहिमा परेको घोषणा भएको छैन भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं।</td>
                     </tr><br>
-                    <tr  *ngIf="!loanLimit">
+                    <tr>
                         <td>५.</td>
                         <td>म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि नभएको बिनाशर्त उद्घोष गर्दछु।</td>
                          <!-- (This clause should be variable. It depends upon approved loan amount) -->
                     </tr><br>
                     <tr>
-                        <td *ngIf="!loanLimit">६.</td>
-                        <td *ngIf="loanLimit">५.</td>
+                        <td>६.</td>
                         <td>यस नबिल बैंक लिमिटेडका संस्थापक, सञ्चालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो भन्दा माथिल्लो स्तरका कर्मचारीहरु,
                             चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सञग मेरो/हाम्रो,
                             कम्पनीको हकमा संस्थापक शेयरधनीहरु र सञ्चालकहरुको समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको  एकाघरको पारिवारिक
@@ -922,4 +919,6 @@
 <app-home-loan-print *ngIf="initialInfoPrint"
                       [letter]="initialInfoPrint"
                       [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                     [offerData] = "offerLetterData"
+                     [loanLimit] = "loanLimit"
                       hidden></app-home-loan-print>
