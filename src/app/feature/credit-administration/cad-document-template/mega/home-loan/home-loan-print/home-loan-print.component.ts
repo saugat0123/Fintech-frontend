@@ -63,11 +63,15 @@ export class HomeLoanPrintComponent implements OnInit {
         this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
       }
       this.branchName = this.loanHolderInfo.branch.ct;
-      if (!ObjectUtil.isEmpty(this.letter.loan.dateOfApprovalCT)) {
-        this.dateOfApproval = this.dateConversion(this.letter.loan.dateOfApprovalCT);
+      if (!ObjectUtil.isEmpty(this.letter.loan.dateOfApproval)) {
+        this.dateOfApproval = this.engNepDatePipe.transform(this.datePipe.transform(this.tempData.loan.dateOfApproval), true);
+      } else {
+        this.dateOfApproval = this.letter.loan.dateOfApprovalCT;
       }
-      if (!ObjectUtil.isEmpty(this.letter.loan.dateOfApplicationCT)) {
-        this.dateOfApplication = this.dateConversion(this.letter.loan.dateOfApplicationCT);
+      if (!ObjectUtil.isEmpty(this.letter.loan.dateOfApplication)) {
+        this.dateOfApplication = this.engNepDatePipe.transform(this.datePipe.transform(this.tempData.loan.dateOfApplication), true);
+      } else {
+        this.dateOfApplication = this.letter.loan.dateOfApplicationCT;
       }
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
