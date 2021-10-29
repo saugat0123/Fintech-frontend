@@ -35,12 +35,14 @@ export class RemitProfileComponent implements OnInit {
       this.beneficiaryDetails = JSON.parse(this.remit.beneficiaryData);
       this.documentDetails = JSON.parse(this.remit.remitFilePathData);
     }
-    this.documentDetails.forEach((data, i) => {
-      if (data instanceof Array) {
-      } else {
-        this.newDocDetails.push(data);
-      }
-    });
+    if(!ObjectUtil.isEmpty(this.documentDetails)) {
+      this.documentDetails.forEach((data, i) => {
+        if (data instanceof Array) {
+        } else {
+          this.newDocDetails.push(data);
+        }
+      });
+    }
     if (this.loanHolder.loanCategory === 'INDIVIDUAL' &&
         !ObjectUtil.isEmpty(this.loanHolder.customerInfo.jointInfo)) {
       const jointCustomerInfo = JSON.parse(this.loanHolder.customerInfo.jointInfo);

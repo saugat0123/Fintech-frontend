@@ -655,7 +655,7 @@
                             <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
                         </tr>
                     </table>
-                    <app-remit-profile *ngIf="isRemitLoan" [isRemit]="isRemitLoan" [individual]="individual" [loanHolder]="loanDataHolder" ></app-remit-profile>
+                    <app-remit-profile  [isRemit]="isRemitLoan" [individual]="individual" [loanHolder]="loanDataHolder" ></app-remit-profile>
                 </div>
             </div>
 
@@ -674,7 +674,7 @@
             <ng-container *ngIf="loanData.loanHolder.bankingRelationship !== null || !jointInfo; else banking">
 <div class="row  mt-1">
     <div class="col-md-12">
-        <p><strong> 6. Banking Relationship</strong></p>
+        <p><strong> {{isRemitLoan?('6. '):'5. '}}Banking Relationship</strong></p>
         <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr  class="text-white sb-bg-dark">
                 <th colspan="2">Banking Relationship</th>
@@ -701,7 +701,7 @@
             </ng-container>
             <ng-template #banking>
                 <div class="col-md-12">
-                    <p><strong>6. Banking Relationship</strong></p>
+                    <p><strong>{{isRemitLoan?('6. '):'5. '}} Banking Relationship</strong></p>
                     <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <tr class="text-white sb-bg-dark">
                             <th>Banking Relationship</th>
