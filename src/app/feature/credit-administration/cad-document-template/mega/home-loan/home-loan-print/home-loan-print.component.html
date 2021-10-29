@@ -333,14 +333,14 @@
                         <p>
                             क.
                             रु.    <span class=" font-weight-bold">
-              {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+              {{((tempData?.loan?.costOfConstruction | currencyFormatter) | engToNepaliNumber)}}
                             बराबरको निर्माण कार्य सम्पन्न भएकोले पहिलो किस्ता रु.
                             <span class=" font-weight-bold">
-                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                         {{((tempData?.loan?.firstInstallmentAmount | currencyFormatter) | engToNepaliNumber)}}
                      </span>
                            (अक्षरेपि रु.
                             <span class=" font-weight-bold uniSize">
-                        {{nepaliCurrencyWordPipe.transform(proposedAmount)}}
+                        {{tempData?.loan?.firstInstallmentAmount | nepaliCurrencyWord}}
                     </span>मात्र)
                             तपाईंको खातामा भुक्तानी गरिनेछ।
                         </span>
@@ -348,15 +348,15 @@
                         <p>
                             ख.
                             रु.   <span class=" font-weight-bold">
-              {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+              {{((tempData?.loan?.costOfConstructionInSecondPhase | currencyFormatter) | engToNepaliNumber)}}
 
                             बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि दोस्रो किस्ता रु.
                             <span class=" font-weight-bold">
-                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                         {{((tempData?.loan?.secondInstallmentAmount | currencyFormatter) | engToNepaliNumber)}}
                      </span>
                             (अक्षरेपि रु.
                             <span class=" font-weight-bold uniSize">
-                        {{nepaliCurrencyWordPipe.transform(proposedAmount)}}
+                        {{tempData?.loan?.secondInstallmentAmount | nepaliCurrencyWord}}
                     </span>मात्र)
                             तपाईंको खातामा भुक्तानी गरिनेछ।
                         </span>
@@ -364,15 +364,15 @@
                         <p>
                             ग.
                             रु.   <span class=" font-weight-bold">
-              {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
+              {{((tempData?.loan?.costOfFinalProjectCompletion | currencyFormatter) | engToNepaliNumber)}}
 
                             बराबरको निर्माण कार्य सम्पन्न गरेको प्रमाणपत्र पेश गरे पछि तेस्रो किस्ता रु.
                             <span class=" font-weight-bold">
-                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                         {{((tempData?.loan?.thirdInstallmentAmount | currencyFormatter) | engToNepaliNumber)}}
                      </span>
                             (अक्षरेपि रु.
                             <span class=" font-weight-bold uniSize">
-                        {{nepaliCurrencyWordPipe.transform(proposedAmount)}})
+                        {{tempData?.loan?.thirdInstallmentAmount | nepaliCurrencyWord}})
                               </span> मात्र)  तपाईंको खातामा भुक्तानी गरिनेछ।
                         </span>
 

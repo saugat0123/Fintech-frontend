@@ -400,7 +400,7 @@
                                     क.
                                     रु. <input class="form-field form-control-sm"
                                          formControlName="guaranteeAmount"
-                                               [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                               [value]="((tempData?.loan?.costOfConstruction | currencyFormatter) | engToNepaliNumber)"
                                          name="guaranteeAmount"
                                          placeholder=" "
                                          type="text"/>/
@@ -408,11 +408,13 @@
                                     <input class="form-field form-control-sm"
                                            formControlName="loanAmountinFigure"
                                            name="loanAmountinFigure"
+                                           [value]="((tempData?.loan?.firstInstallmentAmount | currencyFormatter) | engToNepaliNumber)"
                                            placeholder=""
                                            type="text"/>/ (अक्षरेपि रु.
                                     <input class="form-field form-control-sm"
                                            formControlName="loanAmountInWords"
                                            name="loanAmountInWords"
+                                           [value]="tempData?.loan?.firstInstallmentAmount | nepaliCurrencyWord"
                                            placeholder=" "
                                            type="text"/>मात्र)
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
@@ -421,7 +423,7 @@
                                     ख.
                                     रु. <input class="form-field form-control-sm"
                                                        formControlName="guaranteeAmount"
-                                               [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                               [value]="((tempData?.loan?.costOfConstructionInSecondPhase | currencyFormatter) | engToNepaliNumber)"
                                                        name="guaranteeAmount"
                                                        placeholder=" "
                                                        type="text"/>
@@ -430,10 +432,12 @@
                                                formControlName="loanAmountinFigure"
                                                name="loanAmountinFigure"
                                                placeholder=""
+                                               [value]="((tempData?.loan?.secondInstallmentAmount | currencyFormatter) | engToNepaliNumber)"
                                                type="text"/>/ (अक्षरेपि रु.
                                         <input class="form-field form-control-sm"
                                                formControlName="loanAmountInWords"
                                                name="loanAmountInWords"
+                                               [value]="tempData?.loan?.secondInstallmentAmount | nepaliCurrencyWord"
                                                placeholder=" "
                                                type="text"/>मात्र)
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
@@ -442,7 +446,7 @@
                                     ग.
                                     रु. <input class="form-field form-control-sm"
                                                formControlName="guaranteeAmount"
-                                               [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                               [value]="((tempData?.loan?.costOfFinalProjectCompletion | currencyFormatter) | engToNepaliNumber)"
                                                name="guaranteeAmount"
                                                placeholder=" "
                                                type="text"/>
@@ -450,11 +454,13 @@
                                     <input class="form-field form-control-sm"
                                            formControlName="loanAmountinFigure"
                                            name="loanAmountinFigure"
+                                           [value]="((tempData?.loan?.thirdInstallmentAmount | currencyFormatter) | engToNepaliNumber)"
                                            placeholder=""
                                            type="text"/>/ (अक्षरेपि रु.
                                     <input class="form-field form-control-sm"
                                            formControlName="loanAmountInWords"
                                            name="loanAmountInWords"
+                                           [value]="tempData?.loan?.thirdInstallmentAmount | nepaliCurrencyWord"
                                            placeholder=" "
                                            type="text"/>मात्र)
                                     तपाईंको खातामा भुक्तानी गरिनेछ।
