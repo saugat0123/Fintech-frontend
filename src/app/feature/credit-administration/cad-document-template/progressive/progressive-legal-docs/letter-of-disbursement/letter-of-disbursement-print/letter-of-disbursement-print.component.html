@@ -10,21 +10,21 @@
     {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
 </span>
             </p>
-            <b> प्रोग्रेशिभ फाईनान्स लिमिटेड,</b>
+            <strong> प्रोग्रेशिभ फाईनान्स लिमिटेड,</strong>
             <br>
-            <b>  <span
+            <strong>  <span
                     [ngClass]="{'nepaliFont' : printDocForm?.BranchName !== null && printDocForm?.BranchName !== ''}">
     {{printDocForm?.BranchName === null || printDocForm?.BranchName === '' ? '_________________' : printDocForm?.BranchName}}
-</span> शाखा।</b>
+</span> शाखा कार्यालय।</strong>
             <br>
             <br>
             <br>
-            <p class="text-center"><b>विषय :- रु. <span
+            <p class="text-center"><strong>विषय :- रु. <span
                     [ngClass]="{'sizefont nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
 </span>
                 /– को ऋण रकम
-                भूक्तानी गरी पाउं।</b>
+                भूक्तानी गरी पाउं।</strong>
             </p>
             <div class="row col-md-12">
 
@@ -40,13 +40,13 @@
                     <span [ngClass]="{'nepaliFont' : printDocForm?.accNumber !== null && printDocForm?.accNumber !== ''}">
     {{printDocForm?.accNumber === null || printDocForm?.accNumber === '' ? '_________________' : printDocForm?.accNumber}}
 </span>
-                    मा रकमान्तर (<strong>Transfer</strong>)
-                    गरि दिन यो भुक्तानी पत्रमा सहि छाप गरि दिएका छु/छौं।
+                    मा रकमान्तर (Transfer)
+                    गरिदिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं।
                 </p>
 
             </div>
             <br>
-            <p class="text-center"><b>भवदीय,</b></p>
+            <p class="text-center"><strong>भवदीय,</strong></p>
             <div class="row col-md-12" id="Sincerely">
 <table style="line-height: 1.9em">
     <thead>
@@ -152,7 +152,7 @@
             </div>
 
             <div>
-                <p class="text-left"><b class="text-left">साक्षी :</b></p>
+                <p class="text-left"><strong class="text-left">साक्षी :</strong></p>
 
                <!-- <div *ngFor="let witness of printDocForm?.witnessDetails; index as i"
                      style="overflow-x: auto">
@@ -271,9 +271,9 @@
                                             </span></p>
             </div>
             <div class="col-md-12">
-                <b>सनाखत साक्षी</b>
-                <p>ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने
-                    धनी वित्तीय संस्थामा कार्यरत कर्मचारी <span [ngClass]="{'nepaliFont' : printDocForm?.biktiyaPersonName !== null && printDocForm?.biktiyaPersonName !== ''}">
+                <strong>सनाखत साक्षी</strong>
+                <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने
+                    धनीवित्तीय संस्थामा कार्यरत कर्मचारी <span [ngClass]="{'nepaliFont' : printDocForm?.biktiyaPersonName !== null && printDocForm?.biktiyaPersonName !== ''}">
     {{printDocForm?.biktiyaPersonName === null || printDocForm?.biktiyaPersonName === '' ? '_________________' : printDocForm?.biktiyaPersonName}}
                     </span>
                     (कर्मचारी सङ्केत नं. <span [ngClass]="{'nepaliFont' : printDocForm?.kaSanNumber !== null && printDocForm?.kaSanNumber !== ''}">
