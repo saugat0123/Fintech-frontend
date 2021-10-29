@@ -23,5 +23,5 @@ export class Valuator {
   minAmount: number;
   maxAmount: number;
   inactiveComment: string;
-  isAllBranch: boolean;
+  isAllBranch: Boolean = false;
 }
