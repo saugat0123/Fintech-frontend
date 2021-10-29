@@ -139,13 +139,14 @@ export class AllDocumentViewComponent implements OnInit {
       });
 
       urls.forEach((url: string) => {
-        const pathToZipFrom = new URL(url).pathname;
+        const pathToZipFrom = url.replace(/.*\//g, "");
         // loading a file and add it in a zip file
         JSZipUtils.getBinaryContent(url, (err, data) => {
           if (err) {
             throw err; // or handle the error
           }
-          zip.file(pathToZipFrom, data, {binary: true});
+          zip.file(pathToZipFrom, data, { binary: true, createFolders: true });
+           // zip.file(pathToZipFrom, data, {binary: true});
           count++;
           if (count === urls.length) {
             zip.generateAsync({type: 'blob'}).then(content => {
