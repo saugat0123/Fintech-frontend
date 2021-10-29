@@ -3,44 +3,44 @@
     <form class="nepali">
       <div class="row justify-content-end">
         <div class="col-md-8 justify-content-end">
-          <table class="table  table-bordered text-center">
+          <table class="table table-bordered text-center">
             <tbody>
             <tr>
-              <td>टोकन/दर्ता नं. :-</td>
+              <td style="width: 25%;">टोकन/दर्ता नं. :-</td>
               <td><span class="nepaliFont">{{printDocForm?.tokenDartaNo}}</span>
               </td>
-              <td>
+              <td style="width: 25%;">
                 दर्ता मिति :-
               </td>
-              <td>
+              <td style="width: 25%;">
                 <span class="nepaliFont">{{printDocForm?.tokenDartaDate1}}</span>
               </td>
             </tr>
             <tr>
-              <td>रजिष्ट्रेशन नं. :-</td>
+              <td style="width: 25%;">रजिष्ट्रेशन नं. :-</td>
               <td><span class="nepaliFont">{{printDocForm?.regNo}}</span>
               </td>
-              <td>दर्ता मिति :-</td>
+              <td style="width: 25%;">दर्ता मिति :-</td>
               <td><span class="nepaliFont">{{printDocForm?.tokenDartaDate2}}</span>
               </td>
             </tr>
             <tr>
-              <td>ऋणीको नाम :-</td>
-              <td colspan="2"><span class="nepaliFont">{{printDocForm?.creditorName}}</span>
+              <td style="width: 25%;">ऋणीको नाम :-</td>
+              <td colspan="3" style="width: 25%;"><span class="nepaliFont">{{printDocForm?.creditorName}}</span>
               </td>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <div class="row" style="margin-top: 50px">
+      <div class="row">
         <br><br>
         <div class="col-md-12">
           <p>
             <strong>विषय :- धितोबन्धक लिखत ।</strong><br>
           </p>
           <p style="line-height: 1.8">
-            लिखितम लिखत गराई लिने धनिकानाम का.जि.का.म.न.पा.वडा नं. ३२,
+            लिखितम लिखत गराई लिने धनिका नाम का.जि.का.म.न.पा.वडा नं. २२,
             न्यूरोडस्थित रजिष्टर्ड कार्यालय भएको <strong> प्रोग्रेशिभ फाइनान्स लिमिटेडको</strong>
             <span [ngClass]="{'nepaliFont':printDocForm?.cityName!==null && printDocForm?.cityName!==''}" >
             {{printDocForm?.cityName===null||printDocForm?.cityName===''?'________________':printDocForm.cityName }}
@@ -51,7 +51,7 @@
           </span>,
             स्थित <span [ngClass]="{'nepaliFont':printDocForm?.jillaName2!==null && printDocForm?.jillaName2!==''}" >
             {{printDocForm?.jillaName2===null||printDocForm?.jillaName2===''?'________________':printDocForm.jillaName2 }}
-          </span> शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा “धनीवित्तीय संस्था” भनिएको), लिखत गरि धितो सुरक्षण लेखिदिनेको नाम
+          </span> शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा “धनीवित्तीय संस्था” भनिएको), लिखत गरि धितो सुरक्षण लेखि दिनेको नाम
             <span [ngClass]="{'nepaliFont':printDocForm?.dhitoName!==null && printDocForm?.dhitoName!==''}" >
             {{printDocForm?.dhitoName===null||printDocForm?.dhitoName===''?'________________':printDocForm.dhitoName }}
           </span>
@@ -62,19 +62,20 @@
             गर्ने
             रु.<span [ngClass]="{'nepaliFont':printDocForm?.upabhogRu!==null && printDocForm.upabhogRu!==''}" >
             {{printDocForm?.upabhogRu===null||printDocForm?.upabhogRu===''?'________________':printDocForm.upabhogRu }}
-          </span>।
+          </span>।-
             (अक्षेरेपी <span [ngClass]="{'nepaliFont':printDocForm?.upabhogRuWord!==null && printDocForm.upabhogRuWord!==''}" >
             {{printDocForm?.upabhogRuWord===null||printDocForm?.upabhogRuWord===''?'________________':printDocForm.upabhogRuWord }}
           </span>मात्र)
-            सम्मको कर्जा सीमा मध्ये प्रस्तुत जायजेथा रु <span [ngClass]="{'nepaliFont':printDocForm?.jyayeJethaRu!==null && printDocForm.jyayeJethaRu!==''}" >
+            सम्मको कर्जा सीमा मध्ये प्रस्तुत जाय जेथा रु <span [ngClass]="{'nepaliFont':printDocForm?.jyayeJethaRu!==null && printDocForm.jyayeJethaRu!==''}" >
             {{printDocForm?.jyayeJethaRu===null||printDocForm?.jyayeJethaRu===''?'________________':printDocForm.jyayeJethaRu }}
           </span>।–
             (अक्षेरेपी <span [ngClass]="{'nepaliFont':printDocForm?.jyayeJethaRuWord!==null && printDocForm.jyayeJethaRuWord!==''}" >
             {{printDocForm?.jyayeJethaRuWord===null||printDocForm?.jyayeJethaRuWord===''?'________________':printDocForm.jyayeJethaRuWord }}
           </span>मात्र)
+
             सम्म वा धितोको मुल्यले खामे सम्मको चालुपूंजि (Working Capital), डिमाण्डलोन (Demand Loan)
             वा अन्यकर्जा लगायतका कुनै पनि शीर्षकका अल्प आबधिक कर्जा
-            (Short Term Loan) वा दिर्घकालीन कर्जा (Term Loan),बैंक ग्यारेन्टी (Bank Guarantee), बिल्स पर्चेज (दBill Purchase), ब्रिजग्यापकर्जा (Bridge Gap Loan)
+            (Short Term Loan) वा दिर्घकालीन कर्जा (Term Loan),बैंक ग्यारेन्टी (Bank Guarantee), बिल्स पर्चेज (Bill Purchase), ब्रिजग्यापकर्जा (Bridge Gap Loan)
             वा वित्तीय संस्थाले प्रदान गर्ने अन्य विभिन्न किसीमका ऋण कर्जा तथा बैकिङ्ग सुविधाहरु एकै पटक वा पटकपटक गरी वा नविकरण गर्नु परेमा सो समेत गर्न सक्ने गरि मैले/हामीले/ऋणीले
             उपभोग गर्ने सम्पूर्ण ऋणकर्जा तथा बैकिङ्ग सुविधाहरुको धितो बन्धक सुरक्षण वापत अचल सम्पत्ति घरजग्गा धितोबन्धक लेखि दिन मञ्जुर छ, छैन भनी धनी वित्तीय संस्थाबाट सोधनी हुँदा
             सो मा मेरो/हाम्रो पूुर्ण मञ्जुरी भएको र मलाई/हामीलाई/ऋणीलाई उपरोक्तानूसार कुनै पनि उद्देश्यका लागि एकै पटक वा पटकपटक गरी भविष्यमा समेत तपांई धनि वित्तीय संस्थाले उपलव्ध
@@ -101,7 +102,7 @@
       <p class="page-break"></p>
       <div class="row mt-5 ">
         <br><br>
-        <div style="margin-top: 35px;">
+        <div>
           <p><strong>ऋणीको विवरण सहीछाप :- ब्यक्तिको हकमा</strong></p>
           <br>
           <div *ngFor="let guarantor of printDocForm?.rinBibaran; let i=index">
@@ -178,36 +179,28 @@
             </div>
           </div>
         </div>
-        <br><br>
       </div>
-
-
-
-      <div class="row" style="margin-top: 50px">
-        <br><br>
-        <div></div>
-        <p><strong>धितोबन्धक लिखत गरिदिनेको विवरण र सहीछाप (व्यक्तिको हकमा) :- यो धितोबन्धक दिएको जग्गा
+      <div class="row">
+        <p><strong>धितोबन्धक लिखत गरिदिनेको विवरण र सहीछाप (व्यक्तिको हकमा)</strong> : यो धितोबन्धक दिएको जग्गा
           समेत गर्दा
-          नेपाल अधिराज्य भरमा मेरो र मेरो परिवारको नाममा हद बन्दी भन्दा बढि जग्गा छैन।</strong></p>
-        <div>
-          <table class="table  table-bordered text-center">
+          नेपाल अधिराज्य भरमा मेरो र मेरो परिवारको नाममा हद बन्दी भन्दा बढि जग्गा छैन।</p>
+          <table class="table table-bordered text-center">
             <tbody>
             <tr>
-              <th>नाम थर :-<span class="nepaliFont">{{printDocForm?.creditorNameNepali4}}</span>
+              <th style="width: 25%">नाम थर :-<span class="nepaliFont">{{printDocForm?.creditorNameNepali4}}</span>
               </th>
-              <th>नाम थर (अंग्रेजीमा) :-<span>{{printDocForm?.creditorNameEnglish4}}</span>
+              <th style="width: 25%">नाम थर (अंग्रेजीमा) :-<span>{{printDocForm?.creditorNameEnglish4}}</span>
               </th>
-              <th>जन्म मिति :-<span class="nepaliFont">{{printDocForm?.dateOfBirth3}}</span>
+              <th style="width: 25%">जन्म मिति :-<span class="nepaliFont">{{printDocForm?.dateOfBirth3}}</span>
               </th>
-              <th rowspan="5" width="31%">
-                <div>
+              <th style="width: 25%" rowspan="5" width="31%">
                   <table class="table  table-bordered text-center" id="fingerXap" width="100%">
                     <tr>
                       <td colspan="2">दस्तखत:- .....................</td>
                     </tr>
                     <tr>
-                      <th>दाँ.</th>
-                      <th>बाँ.</th>
+                      <th style="width: 50%">दाँ.</th>
+                      <th style="width: 50%">बाँ.</th>
                     </tr>
                     <tr style="height: 130px;">
                       <td></td>
@@ -215,7 +208,6 @@
                     </tr>
 
                   </table>
-                </div>
               </th>
             </tr>
             <tr>
@@ -256,31 +248,29 @@
             </td>
             </tbody>
           </table>
-        </div>
       </div>
-      <p class="page-break"></p>
-
       <div class="row">
         <div class="col-md-12">
+          <br>
           <strong>लिखत गराई लिने (धनी) को विवरण र सहिछाप :- </strong>
           <table class="table  table-bordered text-center">
             <tbody>
             <tr>
-              <th>नामथर:- :-<span
+              <th>नामथर :- <span
                       class="nepaliFont">{{printDocForm?.creditorNameNepali5}}</span><br>
                 (<span class="nepaliFont">{{printDocForm?.branchName1}}</span>शाखा)
               </th>
-              <th>नाम थर (अंग्रेजीमा):-<span>{{printDocForm?.creditorNameEnglish5}}</span><br>
-                (<span>{{printDocForm?.branchName2}}</span> &nbsp;&nbsp;&nbsp; BRANCH)
+              <th>नाम थर (अंग्रेजीमा) :-<span>{{printDocForm?.creditorNameEnglish5}}</span><br>
+                (<span>{{printDocForm?.branchName2}}</span>BRANCH)
               </th>
               <th>दर्ता मिति :- <span class="nepaliFont">{{printDocForm?.dartaDate3}}</span>
               </th>
               <th>वित्तीय संस्थाको छाप</th>
             </tr>
             <tr>
-              <td>दर्ता नं.:- <span class="nepaliFont">{{printDocForm?.dartaNo3}}</span>
+              <td>दर्ता नं. :- <span class="nepaliFont">{{printDocForm?.dartaNo3}}</span>
               </td>
-              <td>दर्ता गर्ने कार्यालय:-कम्पनी रजिष्ट्रारको कार्यालय
+              <td>दर्ता गर्ने कार्यालय :- कम्पनी रजिष्ट्रारको कार्यालय
               </td>
               <td></td>
               <td></td>
@@ -292,7 +282,7 @@
               </td>
               <td>दर्ता मिति:-<span class="nepaliFont">{{printDocForm?.dartaMiti3}}</span>
               </td>
-              <td>दर्ता गर्ने कार्यालय:-आन्तरिक राजश्व कार्यालय,
+              <td>दर्ता गर्ने कार्यालय :- आन्तरिक राजश्व कार्यालय,
               </td>
               <td></td>
             </tr>
@@ -310,7 +300,7 @@
               </td>
               <td>प्रतिनिधिकोनाम थर (अंग्रेजीमा) :-<span>{{printDocForm?.pratiNameEnglish3}}</span>
               </td>
-              <td>ना.प्र.प.नं.:-<span
+              <td>ना.प्र.प.नं. :-<span
                       class="nepaliFont">{{printDocForm?.pratiCitizenNo3}}</span><br>
                 जारी मिति :-<span
                         class="nepaliFont">{{printDocForm?.pratiCitizenJariDate3}}</span><br>
@@ -319,7 +309,7 @@
               <td rowspan="2">दस्तखत:- .....................</td>
             </tr>
             <tr>
-              <td colspan="2">ठेगाना:-<span
+              <td colspan="2">ठेगाना :-<span
                       class="nepaliFont">{{printDocForm?.pratiAddress3}}</span>
               </td>
               <td></td>
@@ -328,9 +318,10 @@
           </table>
         </div>
         <br><br>
-
-        <div style="margin-top: 85px;">
-          <div class="col-md-12" style="overflow-x: auto;">
+        <p class="page-break"></p>
+        <div>
+          <div class="col-md-12">
+            <br>
             <strong>धितोबन्धक दिएको अचल सम्पत्तिको विवरण :-</strong>
             <table class="table  table-bordered text-center">
               <tbody>
@@ -391,10 +382,11 @@
         <p>उक्त कित्ता नं.<span [ngClass]="{'nepaliFont':printDocForm?.kittaNo!==null && printDocForm.kittaNo!==''}" >
             {{printDocForm?.kittaNo===null||printDocForm?.kittaNo===''?'________________':printDocForm.kittaNo }}
           </span>
-          को घर/जग्गातथा सो घर/जग्गाले चर्चेको सम्पूर्ण लिगलगापात समेत।</p>
-
-        <p>संलग्नप्रमाणहरु :-</p><br>
-          <p>(क) चालु आ.व. <span [ngClass]="{'nepaliFont':printDocForm?.chaluArthikBarsa!==null && printDocForm.chaluArthikBarsa!==''}" >
+          को घर/जग्गातथा सो घर/जग्गाले चर्चेको सम्पूर्ण लिगलगापात समेत।
+        <br>
+          <br>
+        <strong><u>संलग्नप्रमाणहरु :</u></strong><br>
+          (क) चालु आ.व. <span [ngClass]="{'nepaliFont':printDocForm?.chaluArthikBarsa!==null && printDocForm.chaluArthikBarsa!==''}" >
             {{printDocForm?.chaluArthikBarsa===null||printDocForm?.chaluArthikBarsa===''?'________________':printDocForm.chaluArthikBarsa }}
           </span>.को मालपोत
           तिरेको रसिदको प्रतिलिपीथान–१<br>
@@ -403,12 +395,10 @@
           (घ) कर चुक्ता प्रमाण पत्रको प्रतिलिपीथान–१<br>
           (ङ) लिखत गराई लिनेको दर्ता प्रमाणपत्रको प्रतिलिपीथान–१<br>
           (च) लिनेको प्रतिनिधिनियुक्त गरिएको पत्र सक्कलथान–१<br>
-          </p>
+
         <p class="pages-break"></p>
         <br>
         <br>
-        <br>
-
         <div class="col-lg-12">
           <strong class="text-left">साक्षी :</strong>
           <!--<div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
@@ -474,10 +464,6 @@
                     [ngClass]="{'nepaliFont' : printDocForm?.witnessWardNo !== null && printDocForm?.witnessWardNo !== ''}">
                         {{printDocForm?.witnessWardNo === null || printDocForm?.witnessWardNo === '' ? '__________' : printDocForm?.witnessWardNo}}
                     </span></p>
-
-
-
-          <br>
           <p>२.</p>
 
           <p>दस्तखत:.............................</p>
@@ -514,8 +500,8 @@
                                             </span></p>
         </div>
           <br>
-
         <p>
+          <br>
           ईति सम्बत २०
           <span [ngClass]="{'nepaliFont':printDocForm?.itisambatYear!==null && printDocForm.itisambatYear!==''}" >
             {{printDocForm?.itisambatYear===null||printDocForm?.itisambatYear===''?'________________':printDocForm.itisambatYear }}
@@ -547,10 +533,12 @@
           हस्ताक्षर ........................ ।
         </p><br><br>
       </div>
-<p class="page-break"></p>
-      <div class="row nepali">
-        <div class="col-md-12" style="margin-top: 50px;">
-          <table class="table  table-bordered text-center">
+      <p class="page-break"></p>
+      <div class="col-md-12" style="width: 100%;border-top: 5px solid black;padding-top: 5px">
+          <p>
+            <strong>कार्यालय प्रयोजनकालागि</strong>
+          </p>
+          <table style="width: 100%" class="table table-bordered text-center">
             <tbody>
             <tr>
               <td><strong>लेखिएको वमोजिम श्रेस्ता कायम छ/छैन:-</strong><br>
@@ -582,12 +570,11 @@
             </tbody>
           </table>
         </div>
-        <br><br>
-        <div class="col-md-12">
-          <table class="table  table-bordered text-center">
-            <tbody>
+        <div style="width: 100%" class="col-md-12">
+          <table style="width: 100%" class="table  table-bordered">
+            <tbody style="width: 100%;">
             <tr>
-              <td width="35%">
+              <td style="width: 30%;">
                 रजिष्ट्रेशन नं. <span class="nepaliFont">{{printDocForm?.regNo2}}</span><br>
                 पारित मिति :- <span class="nepaliFont">{{printDocForm?.paritDate}}</span><br>
                 टोकन/दर्ता नं. :- <span
@@ -602,14 +589,17 @@
                 <br>
                 रसिद नं. <span class="nepaliFont">{{printDocForm?.rasidNo}}</span>
               </td>
-              <td>
+              <td style="width: 30%">
                 <strong class="text-center">नेपाल सरकार<br>
                   भूमिव्यवस्था, सहकारी तथा गरिबि निवारण मन्त्रालय<br>
-                  भूमि व्यवस्थापन तथा अभिलेख विभाग।</strong><br>
+                  भूमि व्यवस्थापन तथा अभिलेख विभाग।</strong><br><br>
 
                 मालपोत कार्यालय:- <span class="nepaliFont">{{printDocForm?.malpotKaryalaya}}</span>
                 <br>
-                डोरमुकाम:- <span class="nepaliFont">{{printDocForm?.doormukam}}</span>
+                <br>
+                डोर मुकाम:- <span class="nepaliFont">{{printDocForm?.doormukam}}</span>
+                <br>
+                <br>
               </td>
               <td>
                 <strong> स्वीकृत (पारित) गर्नेको</strong><br>
@@ -622,7 +612,7 @@
                 यो लिखतको व्यहोरा लिने दिने दुवै पक्षलाई पढेर सुनाउँदा लिखत बमोजिम कारोबार गरेको मञ्जुर
                 गरेकोले
                 लिखत पारित (स्वीकृत) गर्नको लागि पेश गरेको छु।<br>
-                <strong>फाँटवालाको</strong><br>
+                <strong><u>फाँटवालाको</u></strong><br>
                 दस्तखत र मिति :- .......................<span
                       class="nepaliFont">{{printDocForm?.fatwalaMiti}}</span><br>
                 नाम :- <span class="nepaliFont">{{printDocForm?.fatwalaName}}</span><br>
@@ -632,8 +622,6 @@
             </tbody>
           </table>
         </div>
-
-      </div>
     </form>
   </div>
 </div>

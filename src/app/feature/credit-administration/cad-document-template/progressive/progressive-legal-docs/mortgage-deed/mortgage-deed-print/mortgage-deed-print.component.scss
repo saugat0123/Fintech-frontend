@@ -1,5 +1,10 @@
 @import '../../progressive-legal-docs.component';
-
+*{
+  line-height: 1.9em;
+}
+body{
+  overflow: visible;
+}
 .viewFull {
   max-height: 85vh;
   text-align: justify;
@@ -14,6 +19,9 @@
 @media print {
   .pages-break { page-break-before: always; }
 }
+p{
+  word-wrap: break-word;
+}
 
 .signature-area2 {
   display: block;
@@ -26,5 +34,5 @@
 }
 
 .span-paragraph {
-  line-height: 1.5;
+  line-height: 1.9em;
 }
