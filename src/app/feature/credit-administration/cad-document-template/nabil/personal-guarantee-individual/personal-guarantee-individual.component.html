@@ -109,7 +109,7 @@
                                     placeholder="ऋण रकम"
                                     value="{{nepaliNumber.nepaliWords}}"
                                     type="text"/>
-                                    <span class="print-only"><strong>{{nepaliNumber.nepaliWords}}</strong></span>
+                                    <span class="print-only"><strong>{{nepaliNumber.nepaliWords}}</strong></span>)
                                 तथा भविष्यमा उल्लिखित
                                 ऋणसिमा समय समयमा नविकरण गरी थप प्राप्त गरेमा सो समेतको सुरक्षण वापत तपाई धनी बैंकबाट
                                 माथवर/हैसियतवाल
@@ -143,7 +143,7 @@
                                     शर्तवन्देजहरुः
                                 </strong>
                             </p>
-                            <table class="table table-borderless" style="border-collapse: collapse">
+                            <table class="table table-borderless" style="border-collapse: collapse; line-height: 1.9">
                                 <tr>
                                     <td>
                                         १)
@@ -366,6 +366,19 @@
                             <div class="col-md-12">
                                 <table class="table table-borderless">
                                     <tr>
+                                        <td colspan="2">
+                                            <div style="width: 9em;float: left;border: 1px solid black;height: 9em;margin-left: 5em">
+                                                <p style="text-align: center;margin-top:80%">दा.</p>
+                                            </div>
+                                            <div class="d-print-none" style="width: 9em;float: right;border: 1px solid black;height: 9em;margin-right:60%;">
+                                                <p style="text-align: center;margin-top:80%">बा.</p>
+                                            </div>
+                                            <div class="print-only" style="width: 9em;float: right;border: 1px solid black;height: 9em;margin-right:45%;">
+                                                <p style="text-align: center;margin-top:80%">बा.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>
                                             १.
                                         </td>
@@ -458,11 +471,6 @@
                                                     formControlName="guarantorTemporaryWard" placeholder="वडा नं" type="text"/>
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorTemporaryWard']).value}}</strong></span>
                                             </p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
                                             <p>
                                                 ना.प्र.नं.
                                                 <input class="form-field form-control-sm d-print-none"
@@ -498,6 +506,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            <br/>
                             <div>
                                 <p style="text-align:center">
                                     ईति सम्वत् &nbsp;&nbsp;
