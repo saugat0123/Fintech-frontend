@@ -17,9 +17,11 @@
                                 formControlName="dateType" class="d-inline-flex">
                     <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                 </nb-radio-group>
-                <nepali-patro *ngIf="BSApproval" formControlName="nepaliDateOfApproval" [responseType]="2"
-                              [displayNepali]="true">
-                </nepali-patro>
+                <div *ngIf="BSApproval" style="margin-bottom: -50px;">
+                    <nepali-patro *ngIf="BSApproval" formControlName="nepaliDateOfApproval" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                </div>
                 <input *ngIf="ADApproval" nbInput fullWidth status="success" shape="semi-round"
                        [nbDatepicker]="approvalDate"
                        placeholder="Select Date"
@@ -29,16 +31,18 @@
             <div class="form-group">
                 <label for="applicationDateType">Date of Application</label><br>
                 <nb-radio-group name="applicationDateType" id="applicationDateType" (valueChange)="dateOfApplication($event)" status="success"
-                                formControlName="applicationDateType" class="d-inline-flex">
+                                formControlName="applicationDateType" class="d-inline-flex" >
                     <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                 </nb-radio-group>
-                <nepali-patro *ngIf="BSApplication" formControlName="nepaliDateOfApplication" [responseType]="2"
-                              [displayNepali]="true">
-                </nepali-patro>
+                <div *ngIf="BSApplication" style="margin-bottom: -50px;">
+                    <nepali-patro *ngIf="BSApplication" formControlName="nepaliDateOfApplication" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                </div>
                 <input *ngIf="ADApplication" nbInput fullWidth status="success" shape="semi-round"
                        [nbDatepicker]="approvalDate"
                        placeholder="Select Date"
-                       formControlName="dateOfApplication" id="applicationDate">
+                       formControlName="dateOfApplication" id="applicationDate" >
                 <nb-datepicker #approvalDate></nb-datepicker>
             </div>
             <div class="form-group">
@@ -186,8 +190,8 @@
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="referenceNumberTrans" type="text" readonly>
             </div>
-            <div class="form-group mt-large">
-                <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
+            <div class="form-group mt-large" style="margin-top: 19%">
+                <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="dateOfApprovalTrans" type="text" readonly>
             </div>
             <div class="form-group mt-large">
