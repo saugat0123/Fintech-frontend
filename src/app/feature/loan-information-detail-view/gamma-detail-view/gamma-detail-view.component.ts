@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {Proposal} from '../../admin/modal/proposal';
@@ -12,46 +12,49 @@ import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../loan/model/combined-loan';
 import {CompanyInfo} from '../../admin/modal/company-info';
+import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 @Component({
-  selector: 'app-gamma-detail-view',
-  templateUrl: './gamma-detail-view.component.html',
-  styleUrls: ['./gamma-detail-view.component.scss']
+    selector: 'app-gamma-detail-view',
+    templateUrl: './gamma-detail-view.component.html',
+    styleUrls: ['./gamma-detail-view.component.scss']
 })
 export class GammaDetailViewComponent implements OnInit {
-  @Input() loanDataHolder;
-  @Input() loanHolder;
-  @Input() calendarType;
-  @Input() loanId;
-  @Input() comment;
-  @Input() formData;
-  fiscalYearArray: Array<FiscalYear>;
-  customerAllLoanList: LoanDataHolder[] = [];
-  proposalData: Proposal;
-  megaGroupEnabled = environment.MEGA_GROUP;
-  dataFromComments: any;
-  commentsSummary = false;
-  previousSecuritySummary = false;
-  dataFromPreviousSecurity: any;
-  client = environment.client;
-  clientName = Clients;
-  productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-  showCadDoc = false;
-  securityId: number;
-  proposalAllData;
-  companyInfo = CompanyInfo;
-  companyJsonData;
-  individualJsonData;
+    @Input() loanDataHolder;
+    @Input() loanHolder;
+    @Input() calendarType;
+    @Input() loanId;
+    @Input() comment;
+    @Input() formData;
+    fiscalYearArray: Array<FiscalYear>;
+    customerAllLoanList: LoanDataHolder[] = [];
+    proposalData: Proposal;
+    megaGroupEnabled = environment.MEGA_GROUP;
+    dataFromComments: any;
+    commentsSummary = false;
+    previousSecuritySummary = false;
+    dataFromPreviousSecurity: any;
+    client = environment.client;
+    clientName = Clients;
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    showCadDoc = false;
+    securityId: number;
+    proposalAllData;
+    companyInfo = CompanyInfo;
+    companyJsonData;
+    individualJsonData;
+    siteVisitDocuments: Array<SiteVisitDocument>;
+    @Output() documents = new EventEmitter();
 
-  constructor(private customerLoanService: LoanFormService,
-              private combinedLoanService: CombinedLoanService,
-              private fiscalYearService: FiscalYearService) {
-    this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
-  }
+    constructor(private customerLoanService: LoanFormService,
+                private combinedLoanService: CombinedLoanService,
+                private fiscalYearService: FiscalYearService) {
+        this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
+    }
 
   ngOnInit() {
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
-    this. fiscalYearService.getAll().subscribe( res => {
+    this.fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
     });
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
@@ -118,5 +121,10 @@ export class GammaDetailViewComponent implements OnInit {
           console.error(error);
         });
   }
+
+    checkSiteVisitDocument(event: any) {
+        this.siteVisitDocuments = event;
+        this.documents.emit(this.siteVisitDocuments);
+    }
 
 }

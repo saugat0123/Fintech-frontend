@@ -117,7 +117,8 @@
 <!-- Start Security Details-->
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
-                   [securityId]="securityId"></app-security-view>
+                   [securityId]="securityId"
+                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
 <!-- End Security Details-->
 
 <!-- Start SiteVisit Details-->
@@ -267,7 +268,7 @@
 
 <!-- Start All Document Details-->
 <app-all-document-view *ngIf="loanDataHolder"
-                       [loanDataHolder]="loanDataHolder"></app-all-document-view>
+                       [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
 <span><strong>Obtainable Document</strong></span>
 <div>
     <ol class="row" type="1">
