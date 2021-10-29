@@ -818,7 +818,7 @@
                 </table>
             </div>
 
-            <div *ngIf="megaGroupEnabled">
+            <div *ngIf="megaGroupEnabled && mGroupInfo.groupCode !=='' && loanData.loanType !== 'CLOSURE_LOAN'">
                 <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
             </div>
 

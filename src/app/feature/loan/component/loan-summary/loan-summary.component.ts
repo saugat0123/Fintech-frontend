@@ -214,6 +214,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     fundableNonFundableSelcted = false;
     loanNatureSelected = false;
     companyInfoId: any;
+    mGroupInfo: any;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -271,6 +272,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         });
 
         this.loanDataHolder = this.loanData;
+        this.mGroupInfo = this.loanDataHolder.loanHolder.mgroupInfo;
         this.customerData = this.loanDataHolder.loanHolder.name;
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
             !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
