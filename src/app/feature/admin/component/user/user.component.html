@@ -78,6 +78,7 @@
                                         <option [value]="null">All Status</option>
                                         <option [value]="active">Active</option>
                                         <option [value]="inactive">Inactive</option>
+                                        <option [value]="locked">Locked</option>
                                     </select>
                                 </div>
                             </div>
@@ -139,7 +140,8 @@
                                 <select [(ngModel)]="allList.status" name="status" class="cursor"
                                         (change)="onChange(allList)">
                                     <option value="ACTIVE">ACTIVE</option>
-                                    <option value="INACTIVE">INACTIVE</option>
+                                    <option *ngIf="allList.status !== locked" value="INACTIVE">INACTIVE</option>
+                                    <option *ngIf="allList.status === locked" value="LOCKED">LOCKED</option>
                                 </select>
                             </td>
                             <ng-template #status>
