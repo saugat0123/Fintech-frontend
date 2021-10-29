@@ -1479,6 +1479,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   // get district/municipalities for guarantors
   getJointCustomerDistrictsById(provinceId: number, event, index) {
+    console.log('provinceId: ', provinceId, ' event: ', event, ' index: ', index);
     const province = new Province();
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(

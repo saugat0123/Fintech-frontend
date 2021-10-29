@@ -1746,7 +1746,7 @@
                       >
                         <option [ngValue]="null" hidden>Province</option>
                         <option *ngFor="let provinceVal of provinceList"
-                                [ngValue]="provinceVal.name">
+                                [ngValue]="provinceVal">
                           {{provinceVal.name}} || {{provinceVal.nepaliName}}
                         </option>
                       </select>
@@ -1773,7 +1773,7 @@
                     >
                       <option [ngValue]="null" hidden>District</option>
                       <option *ngFor="let districtVal of districts"
-                              [ngValue]="districtVal.name">
+                              [ngValue]="districtVal">
                         {{districtVal.name}} || {{districtVal.nepaliName}}
                       </option>
                     </select>
