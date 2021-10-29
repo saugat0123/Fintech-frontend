@@ -41,7 +41,8 @@
 
         <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                            [shareSecurityData]="loanHolder?.shareSecurity"
-                           [securityId]="securityId"></app-security-view>
+                           [securityId]="securityId"
+                           (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
         <app-financial-view *ngIf="financialView"
                             [formData]="financialData"
                             [customerType]="loanHolder?.customerType"
@@ -116,7 +117,7 @@
                                            [loanTag]="loanDataHolder?.loan?.loanTag"></app-credit-risk-grading-alpha>
         </div>
         <ng-template #allDocumentView>
-            <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
+            <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"[siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
         </ng-template>
 
         <nb-card *ngIf="!otherMicroDetailsVisibility">

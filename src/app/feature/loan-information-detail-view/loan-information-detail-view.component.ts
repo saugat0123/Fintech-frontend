@@ -18,6 +18,10 @@ import {ToastService} from '../../@core/utils';
 import {CombinedLoan} from '../loan/model/combined-loan';
 import {CombinedLoanService} from '../service/combined-loan.service';
 import {Clients} from '../../../environments/Clients';
+import {SummaryType} from '../loan/component/SummaryType';
+import {ObtainableDoc} from '../loan-information-template/obtained-document/obtainableDoc';
+import {LoanType} from '../loan/model/loanType';
+import {SiteVisitDocument} from '../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -51,6 +55,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     isJointInfo = false;
     jointInfo = [];
     loaded = false;
+    siteVisitDocuments: Array<SiteVisitDocument>;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -192,5 +197,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
             return '';
         }
         return val.replace(/(<([^>]+)>)/gi, '');
+    }
+
+    checkSiteVisitDocument(event: any) {
+        this.siteVisitDocuments = event;
     }
 }
