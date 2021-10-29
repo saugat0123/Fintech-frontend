@@ -250,12 +250,16 @@ export class HomeLoanComponent implements OnInit {
       totalLoanAmount = totalLoanAmount + val;
     });
     let dateOfApprovalTemp;
-    if (!ObjectUtil.isEmpty(this.initialInfoPrint.loan.dateOfApprovalCT)) {
-      dateOfApprovalTemp = this.dateConversion(this.initialInfoPrint.loan.dateOfApprovalCT);
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint.loan.dateOfApproval)) {
+      dateOfApprovalTemp = this.engNepDatePipe.transform(this.datePipe.transform(this.tempData.loan.dateOfApproval), true);
+    } else {
+      dateOfApprovalTemp = this.initialInfoPrint.loan.dateOfApprovalCT;
     }
     let tempDateOfApplication;
-    if (!ObjectUtil.isEmpty(this.initialInfoPrint.loan.dateOfApplicationCT)) {
-      tempDateOfApplication = this.dateConversion(this.initialInfoPrint.loan.dateOfApplicationCT);
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint.loan.dateOfApplication)) {
+      tempDateOfApplication = this.engNepDatePipe.transform(this.datePipe.transform(this.tempData.loan.dateOfApplication), true);
+    } else {
+      tempDateOfApplication = this.initialInfoPrint.loan.dateOfApplicationCT;
     }
     this.form.patchValue({
       dateofApproval: dateOfApprovalTemp ? dateOfApprovalTemp : '',
