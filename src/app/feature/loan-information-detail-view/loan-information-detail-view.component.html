@@ -171,32 +171,37 @@
             <!-- Normal Detail View-->
             <app-detail-view-base *ngIf="loanHolder && !isMicro && (summaryType === summaryTypeName.GENERAL)"
                                   [calendarType]="calendarType"
-                                  [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
-                                  [loanId]="id"></app-detail-view-base>
+                                  [loanDataHolder]="loanDataHolder"
+                                  [loanHolder]="loanHolder"
+                                  [loanId]="id"
+                                  (documents)="checkSiteVisitDocument($event)"></app-detail-view-base>
 
             <!-- Gamma Detail View-->
             <app-gamma-detail-view *ngIf="loanHolder && !isMicro && (summaryType === summaryTypeName.GAMMA)"
                                    [calendarType]="calendarType"
                                    [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
-                                   [loanId]="id"></app-gamma-detail-view>
+                                   [loanId]="id"
+                                   (documents)="checkSiteVisitDocument($event)"></app-gamma-detail-view>
 
             <!-- Micro Detail View-->
             <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro"
                                              [calendarType]="calendarType"
                                              [customerAllLoanList]="customerAllLoanList"
                                              [fiscalYearArray]="fiscalYearArray"
-                                             [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
-                                             [loanId]="id"></app-micro-loan-detail-view-base>
+                                             [loanDataHolder]="loanDataHolder"
+                                             [loanHolder]="loanHolder"
+                                             [loanId]="id"
+                                             (documents)="checkSiteVisitDocument($event)"></app-micro-loan-detail-view-base>
 
             <!-- Alpha or ICFC Summay Page-->
             <app-alpha-detail-view *ngIf="loanHolder && !isMicro && (summaryType === summaryTypeName?.ALPHA)"
                                    [calendarType]="calendarType"
                                    [loanDataHolder]="loanDataHolder"
                                    [loanHolder]="loanHolder"
-                                   [loanId]="id"></app-alpha-detail-view>
+                                   [loanId]="id" (documents)="checkSiteVisitDocument($event)"></app-alpha-detail-view>
 
             <ng-template  #allDocumentView>
-                <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
+                <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
             </ng-template>
 <!--            <div *ngIf="client === clientList.ICFC">-->
 <!--                <p><strong>Other Documents to be Completed</strong>-->
