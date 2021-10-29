@@ -62,6 +62,7 @@ import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/cr
 import {ObtainedDocumentComponent} from '../../../loan-information-template/obtained-document/obtained-document.component';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
 import {OutstandingUpdateComponent} from '../../../loan-information-template/outstanding-update/outstanding-update.component';
+import {GuarantorDetail} from '../../model/guarantor-detail';
 
 @Component({
     selector: 'app-loan-form',
@@ -261,13 +262,13 @@ export class LoanFormComponent implements OnInit {
         this.docStatusForMaker();
         this.buildPriorityForm();
         this.buildDocStatusForm();
-        this.activatedRoute.queryParams.subscribe((data)=> {
+        this.activatedRoute.queryParams.subscribe((data) => {
             this.companyInfoId = data.customerInfoId;
-        })
+        });
         this.loanFormService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
             this.nbSpinner = false;
             this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
-        })
+        });
 
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -299,21 +300,24 @@ export class LoanFormComponent implements OnInit {
                     this.getTemplateInfoFromCustomerInfo(this.allId.customerInfoId);
                 }
                 if (this.customerId !== undefined) {
-                    this.nbSpinner=true;
+                    this.nbSpinner = true;
                     this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
-                            this.nbSpinner=false;
+                            this.nbSpinner = false;
                             this.loanFile = response.detail.dmsLoanFile;
                             this.loanDocument = response.detail;
                             if ((this.loanDocument.currentStage.toUser.id.toString() !== this.currentUserId) &&
                                 (this.currentUserRoleType === 'MAKER') && (this.loanDocument.documentStatus.toString() === 'PENDING')) {
                                 this.edit = true;
                             } else {
-                                this.edit= false;
+                                this.edit = false;
                             }
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
                             this.loanHolder = this.loanDocument.loanHolder;
+                            if (ObjectUtil.isEmpty(this.loanHolder.guarantors)) {
+                                this.loanHolder.guarantors = new GuarantorDetail();
+                            }
                             this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
                             this.loanType = this.loanDocument.loanType;
                             if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
@@ -378,11 +382,11 @@ export class LoanFormComponent implements OnInit {
 
 
     populateTemplate() {
-        this.nbSpinner=true
+        this.nbSpinner = true;
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
             this.loanTag = response.detail.loanTag;
             this.loanNature = response.detail.loanNature;
-            this.nbSpinner=false;
+            this.nbSpinner = false;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
             if (this.edit) {
@@ -421,12 +425,12 @@ export class LoanFormComponent implements OnInit {
                     }
                 });
                 this.templateList.forEach((value, index) => {
-                    if ( value.name === 'Obtained Document') {
+                    if (value.name === 'Obtained Document') {
                         this.templateList.splice(index, 1);
                     }
                 });
                 this.templateList.forEach((value, index) => {
-                    if ( value.name === 'Outstanding Update') {
+                    if (value.name === 'Outstanding Update') {
                         this.templateList.splice(index, 1);
                     }
                 });
@@ -469,10 +473,10 @@ export class LoanFormComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.INFO, 'NO FORM ARE AVAILABLE'));
                 this.router.navigate(['/home/dashboard']);
             }
-            this.nbSpinner=true;
+            this.nbSpinner = true;
             this.riskQuestionService.getAllQuestions(this.id).subscribe(riskQsnRes => {
                 const crgQuestionsList = riskQsnRes.detail as Array<any>;
-                this.nbSpinner=false;
+                this.nbSpinner = false;
                 if (!(crgQuestionsList.length > 0)) {
                     this.removeCrgGammaFromTemplateList();
                     this.templateList.forEach((value, index) => {
@@ -502,7 +506,7 @@ export class LoanFormComponent implements OnInit {
                 }
                 this.pushProposalTemplateToLast();
             }, error => {
-                this.nbSpinner=false;
+                this.nbSpinner = false;
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Error while checking for available CRG-GAMMA questions!'));
                 this.removeCrgGammaFromTemplateList();
@@ -871,22 +875,24 @@ export class LoanFormComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Customer cannot be empty! Please search customer'));
                 return;
             }
-            this.nbSpinner=true;
+            this.nbSpinner = true;
             this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
                 this.loanDocument = response.detail;
-                this.nbSpinner=false;
+                this.nbSpinner = false;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
-                this.router.navigate(['/home/loan/summary'], {queryParams: {
+                this.router.navigate(['/home/loan/summary'], {
+                    queryParams: {
                         loanConfigId: this.id,
                         customerId: this.customerLoanId,
                         customerInfoId: this.companyInfoId
-                }})
+                    }
+                })
                     .then(() => {
                         this.spinner.hide();
                     });
             }, error => {
-                this.nbSpinner=false;
+                this.nbSpinner = false;
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, `Error saving loan: ${error.error.message}`));
             });
@@ -901,6 +907,7 @@ export class LoanFormComponent implements OnInit {
         const loanHolder = this.loanDocument.loanHolder;
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
     }
+
     filterTemplateList(templateList) {
         this.templateList = [];
         let index = 0;

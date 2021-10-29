@@ -108,8 +108,10 @@
                         </div>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
-                        <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #proposalInfo></app-proposal>
-                        <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #microProposalInfo></app-micro-proposal>
+                        <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()"
+                                      [loanType]="loanType" #proposalInfo></app-proposal>
+                        <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()"
+                                            [loanType]="loanType" #microProposalInfo></app-micro-proposal>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
                         <div class="py-4">
@@ -162,7 +164,7 @@
                     <ng-template ngbTabContent *ngIf="allList.name === 'Loan Document'">
                         <app-customer-loan-document #customerDocument
                                                     [loanDataHolder]="loanDocument"
-                        [loanType]="loanType"></app-customer-loan-document>
+                                                    [loanType]="loanType"></app-customer-loan-document>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
                         <app-group #group [groupValue]="loanDocument?.group"
@@ -170,6 +172,9 @@
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
                         <div class="py-4">
+                            <div class="d-flex justify-content-center">
+                                <span *ngIf="!loanHolder?.guarantors" class="text-danger py-4"><strong> No Guarantor has been added</strong></span>
+                            </div>
                             <app-guarantor-adder #guarantor
                                                  *ngIf="loanHolder?.guarantors"
                                                  [taggedGuarantors]="loanDocument?.taggedGuarantors"
@@ -201,7 +206,7 @@
                                                         [ciCl]="loanDocument?.loanHolder?.cicl"
                                                         [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
                                                         [proposedLimit]="loanDocument?.proposal?.proposedLimit"
-                                                       [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
+                                                        [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
                     </ng-template>
                     <!-- Todo Not require for srdb-->
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
@@ -225,15 +230,19 @@
                         </app-obtained-document>
                     </ng-template>
 
-                        <ng-template ngbTabContent *ngIf="allList.name == 'Outstanding Update'">
-                            <div *ngIf="approvedLoans.length !== 0 ">
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Outstanding Update'">
+                        <div *ngIf="approvedLoans.length !== 0 ">
                             <app-outstanding-update></app-outstanding-update>
-                            </div>
-                            <div *ngIf="approvedLoans.length == 0">
-                                <strong><mark style="color: red; margin-left: 300px; font-size: 15px">*Sorry there are no approved loans</mark></strong>
-                                <angular-emojis [name]="'pensive'" size="25"> </angular-emojis>
-                            </div>
-                        </ng-template>
+                        </div>
+                        <div *ngIf="approvedLoans.length == 0">
+                            <strong>
+                                <mark style="color: red; margin-left: 300px; font-size: 15px">*Sorry there are no
+                                    approved loans
+                                </mark>
+                            </strong>
+                            <angular-emojis [name]="'pensive'" size="25"></angular-emojis>
+                        </div>
+                    </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">
                         <!--            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">-->
