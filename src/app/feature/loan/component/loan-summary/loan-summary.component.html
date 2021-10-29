@@ -859,7 +859,7 @@
                 <app-collateral-summary
                         *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                         [customerAllLoanList]="customerAllLoanList"
-                        [security]="loanDataHolder?.security" [loan]="loanDataHolder.loan"></app-collateral-summary></div>
+                        [security]="loanDataHolder?.security" [loan]="loanDataHolder?.loan" [loanData]="loanDataHolder"></app-collateral-summary></div>
                 <app-proposal-justification-summary *ngIf="proposalSummary"
                                                     [customerAllLoanList]="customerAllLoanList"
                                                     [proposalData]="proposalData"></app-proposal-justification-summary>

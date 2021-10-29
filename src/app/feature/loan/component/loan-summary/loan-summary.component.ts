@@ -792,8 +792,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             });
 
             urls.forEach((url: string) => {
-                const pathToZipFrom = url.replace(/.*\//g, "");
-                // loading a file and add it in a zip file
+                const pathToZipFrom = url.replace(/.*\//g, "" +  new Date().getTime());                // loading a file and add it in a zip file
                 JSZipUtils.getBinaryContent(url, (err, data) => {
                     if (err) {
                         throw err; // or handle the error
