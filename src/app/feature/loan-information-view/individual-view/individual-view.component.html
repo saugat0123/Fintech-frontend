@@ -116,7 +116,7 @@
                         <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
                     </tr>
                 </table>
-                <app-remit-profile *ngIf="isRemit" [loanHolder]="loanDataHolder" [isRemit]="isRemit" [individual]="individual"  ></app-remit-profile>
+                <app-remit-profile  [loanHolder]="loanDataHolder" [isRemit]="isRemit" [individual]="individual"  ></app-remit-profile>
             </div>
     </ng-container>
     <ng-container *ngIf="isRemit">

@@ -2,7 +2,7 @@
     nbSpinnerStatus="primary"
     nbSpinnerSize="giant">
     <nb-card-header>
-        <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer"
+        <nb-checkbox *ngIf="client !== clientName.LAXMI" [hidden]="!microEnabled" [(ngModel)]="microCustomer"
         (click)="microCustomerValidation(!micro_checked.checked); microRestData(!micro_checked.checked)" #micro_checked>Micro Customer</nb-checkbox>
 
 <!--      <div class="ml-5">-->

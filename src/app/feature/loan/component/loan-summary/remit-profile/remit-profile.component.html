@@ -1,73 +1,75 @@
 <div class="row mt-1">
 <div class="col-md-12">
     <p><strong>4. Personal Details</strong></p>
-    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-        <thead>
-        <tr class="text-white sb-bg-dark">
-            <th>Particulars</th>
-            <th>Applicant/Beneficiary</th>
-            <th>Guarantor/Migrant Worker</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Name</td>
-            <td class="text-left pl-1">{{(remit.beneficiaryName) ? (remit.beneficiaryName) : 'N/A'}}</td>
-            <td>
-                {{(remit.senderName) ? (remit.senderName) : 'N/A'}}
-            </td>
-        </tr>
-        <tr>
-            <td>Age</td>
-            <td class="text-left pl-1">{{(agentDetails.email) ? (agentDetails.email) : 'N/A'}}</td>
-            <td>
-                {{(agentDetails.branch) ? (agentDetails.branch) : 'N/A'}}
-            </td>
-        </tr>
-        <tr>
-            <td>Father's Name</td>
-            <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_father_name) ? (beneficiaryDetails.beneficiaryIdentity.benef_father_name) : 'N/A'}}</td>
-            <td>
-                {{(senderDetails.senderIdentity.father_name) ? (senderDetails.senderIdentity.father_name) : 'N/A'}}
-            </td>
-        </tr>
-        <tr>
-            <td>Grand Father's Name</td>
-            <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_grandfather) ? (beneficiaryDetails.beneficiaryIdentity.benef_grandfather) : 'N/A'}}</td>
-            <td>
-                {{(senderDetails.senderIdentity.grandfather_name) ? (senderDetails.senderIdentity.grandfather_name) : 'N/A'}}
-            </td>
-        </tr>
-        <tr>
-            <td>Marital Status</td>
-            <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_marital_status) ? (beneficiaryDetails.beneficiaryIdentity.benef_marital_status.toUpperCase()) : 'N/A'}}</td>
-            <td>
-                {{(senderDetails.senderIdentity.relationship_status) ? (senderDetails.senderIdentity.relationship_status.toUpperCase()) : 'N/A'}}
-            </td>
-        </tr>
+    <ng-container *ngIf="isRemit; else personalDetails">
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Particulars</th>
+                <th>Applicant/Beneficiary</th>
+                <th>Guarantor/Migrant Worker</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Name</td>
+                <td class="text-left pl-1">{{(remit.beneficiaryName) ? (remit.beneficiaryName) : 'N/A'}}</td>
+                <td>
+                    {{(remit.senderName) ? (remit.senderName) : 'N/A'}}
+                </td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td class="text-left pl-1">{{(agentDetails.email) ? (agentDetails.email) : 'N/A'}}</td>
+                <td>
+                    {{(agentDetails.branch) ? (agentDetails.branch) : 'N/A'}}
+                </td>
+            </tr>
+            <tr>
+                <td>Father's Name</td>
+                <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_father_name) ? (beneficiaryDetails.beneficiaryIdentity.benef_father_name) : 'N/A'}}</td>
+                <td>
+                    {{(senderDetails.senderIdentity.father_name) ? (senderDetails.senderIdentity.father_name) : 'N/A'}}
+                </td>
+            </tr>
+            <tr>
+                <td>Grand Father's Name</td>
+                <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_grandfather) ? (beneficiaryDetails.beneficiaryIdentity.benef_grandfather) : 'N/A'}}</td>
+                <td>
+                    {{(senderDetails.senderIdentity.grandfather_name) ? (senderDetails.senderIdentity.grandfather_name) : 'N/A'}}
+                </td>
+            </tr>
+            <tr>
+                <td>Marital Status</td>
+                <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_marital_status) ? (beneficiaryDetails.beneficiaryIdentity.benef_marital_status.toUpperCase()) : 'N/A'}}</td>
+                <td>
+                    {{(senderDetails.senderIdentity.relationship_status) ? (senderDetails.senderIdentity.relationship_status.toUpperCase()) : 'N/A'}}
+                </td>
+            </tr>
 
-        <tr>
-            <td>Home/Telephone Number</td>
+            <tr>
+                <td>Home/Telephone Number</td>
 
-            <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_mob_no) ? (beneficiaryDetails.beneficiaryIdentity.benef_mob_no) : 'N/A'}}</td>
-            <td>
-                {{(senderDetails.senderIdentity.alternative_phone_no) ? (senderDetails.senderIdentity.alternative_phone_no) : 'N/A'}}
-            </td>
-        </tr>
-        <tr>
-            <td>Estimated Net Worth</td>
-            <td class="text-left pl-1"></td>
-            <td>
-                {{(beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth) ? (beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth) : 'N/A'}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="text-justify col-md-12 border">
-        <p>Additional guarantee to be obtained if required for additional comfort.<br>
-            Please specify relationship between the above mentoined parties <b>( Applicant and PG holder/migrant worker must be immediate family members)</b> </p>
-    </div>
-    <ng-container *ngIf="!isRemit; else relation">
+                <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_mob_no) ? (beneficiaryDetails.beneficiaryIdentity.benef_mob_no) : 'N/A'}}</td>
+                <td>
+                    {{(senderDetails.senderIdentity.alternative_phone_no) ? (senderDetails.senderIdentity.alternative_phone_no) : 'N/A'}}
+                </td>
+            </tr>
+            <tr>
+                <td>Estimated Net Worth</td>
+                <td class="text-left pl-1"></td>
+                <td>
+                    {{(beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth) ? (beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth) : 'N/A'}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-justify col-md-12 border">
+            <p>Additional guarantee to be obtained if required for additional comfort.<br>
+                Please specify relationship between the above mentoined parties <b>( Applicant and PG holder/migrant worker must be immediate family members)</b> </p>
+        </div>
+    </ng-container>
+    <ng-container>
         <div class="col-md-12">
             <p><strong>Family Details</strong></p>
             <table
@@ -154,5 +156,87 @@
             </div>
         </div>
     </ng-template>
+
+    <ng-template #personalDetails>
+        <div class="row" *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo && !isRemit">
+            <div class="col-md-12">
+                <p><strong>Details of Borrower</strong></p>
+            </div>
+            <div class="col-md-12">
+                <div>
+                    <table
+                            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>Name</th>
+                            <th>Date Of Birth(AD/BS)</th>
+                            <th>Age</th>
+                            <th>Citizenship Number</th>
+                            <th>Mobile Number</th>
+                            <th>LandLine Number</th>
+                            <th>Occupation</th>
+                            <th>Income Source</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-left">
+                            <td class="pl-1">{{loanHolder?.customerInfo?.customerName}}</td>
+                            <td class="pl-1">{{loanHolder?.customerInfo?.dob | date}} ({{loanHolder?.customerInfo?.dob | engNepDate: false}})</td>
+                            <td class="text-left pl-1">{{calculateAge(loanHolder?.customerInfo?.dob)}} years</td>
+                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.citizenshipNumber}}</td>
+                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.contactNumber}}</td>
+                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.landLineNumber}}</td>
+                            <td class="pl-1">{{(loanHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
+                            <td class="pl-1">{{(loanHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
+
+
+                        </tr>
+                        <tr class="text-white sb-bg-dark">
+                            <!--                        <th *ngIf="client !== clientName.LAXMI">Father's Name</th>-->
+                            <!--                        <th *ngIf="client !== clientName.LAXMI">Grandfather's Name</th>-->
+                            <th>Customer Client Type</th>
+                            <th>SubSector</th>
+                            <!--<td>Address as per Legal Document</td>-->
+                        </tr>
+                        <tr>
+                            <!--                        <td class="pl-1" *ngIf="client !== clientName.LAXMI">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>-->
+                            <!--                        <td class="pl-1" *ngIf="client !== clientName.LAXMI">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>-->
+                            <td class="text-left pl-1">{{loanHolder?.loanHolder['clientType']}}</td>
+                            <td class="text-left pl-1">{{loanHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
+                            <!--<td>{{loanHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
+
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--                        <table class="print-only table table-bordered text-center table-sm sb-small"-->
+                    <!--                               id="print-borrower-table">-->
+                    <!--                            <thead>-->
+                    <!--                            <tr class="text-white sb-bg-dark">-->
+                    <!--                                <th>Name</th>-->
+                    <!--                                <th>Date Of Birth</th>-->
+                    <!--                                <th>Citizenship Number</th>-->
+                    <!--                                <th>Mobile Number</th>-->
+                    <!--                                <th>Occupation</th>-->
+                    <!--                                <th>Income Source</th>-->
+                    <!--                            </tr>-->
+                    <!--                            </thead>-->
+                    <!--                            <tbody>-->
+                    <!--                            <tr>-->
+                    <!--                                <td>{{loanHolder?.customerInfo?.customerName}}</td>-->
+                    <!--                                <td>{{loanHolder?.customerInfo?.dob | date}}</td>-->
+                    <!--                                <td>{{loanHolder?.customerInfo?.citizenshipNumber}}</td>-->
+                    <!--                                <td>{{loanHolder?.customerInfo?.contactNumber}}</td>-->
+                    <!--                                <td>{{loanHolder?.customerInfo?.occupation}}</td>-->
+                    <!--                                <td>{{loanHolder?.customerInfo?.incomeSource}}</td>-->
+                    <!--                            </tr>-->
+                    <!--                            </tbody>-->
+                    <!--                        </table>-->
+                </div>
+
+
+            </div>
+        </div>
+    </ng-template>
+
 </div>
 </div>
