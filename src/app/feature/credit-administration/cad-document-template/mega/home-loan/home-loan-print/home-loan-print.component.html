@@ -3,11 +3,11 @@
     <div class="viewFull" style="height: auto">
         <h6 class="text-center">ऋणकर्जा सुविधा स्वीकृति पत्र</h6>
         <p class="text-left"> </p>
-        <span [ngClass]="{'font-weight-bold' : letter?.loan.referenceNumberCT!== null && letter?.loan.referenceNumberCT!== ''}">
-            {{letter?.loan.referenceNumberCT === null || letter?.loan.referenceNumberCT === '' ? '___________' : letter?.loan.referenceNumberCT}}</span>
+        <span [ngClass]="{'font-weight-bold' : autoRefNumber!== null && autoRefNumber!== ''}">
+            {{autoRefNumber === null || autoRefNumber === '' ? '___________' : autoRefNumber}}</span>
         <p class="text-left"> मिति:
-            <span [ngClass]="{'font-weight-bold' : letter?.loan.dateOfApprovalCT!== null && letter?.loan.dateOfApprovalCT!== ''}">
-            {{letter?.loan.dateOfApprovalCT === null || letter?.loan.dateOfApprovalCT === '' ? '___________' : letter?.loan.dateOfApprovalCT}}</span>
+            <span [ngClass]="{'font-weight-bold' : dateOfApproval!== null && dateOfApproval!== ''}">
+            {{dateOfApproval === null || dateOfApproval === '' ? '___________' : dateOfApproval}}</span>
         </p>
         <div class="mb-2">
             <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
@@ -21,7 +21,7 @@
             </ng-template>
             <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name.ct!== null && loanHolderInfo?.name.ct!== ''}">
             {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}</span>
-
+            <br/>
             <div class="mb-1"> ठेगाना:
                 <span [ngClass]="{'font-weight-bold': customerAddress!== null && customerAddress!== ''}">
             {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}</span>
@@ -34,8 +34,8 @@
             <div class="mb-1">
                 <p> महोदय, <br>
                     तपाईंले मिति
-                    <span [ngClass]="{'font-weight-bold' : letter?.loan.dateOfApplicationCT!== null && letter?.loan.dateOfApplicationCT!== ''}">
-            {{letter?.loan.dateOfApplicationCT === null || letter?.loan.dateOfApplicationCT === '' ? '___________' : letter?.loan.dateOfApplicationCT}}</span>
+                    <span [ngClass]="{'font-weight-bold' : dateOfApplication!== null && dateOfApplication!== ''}">
+            {{dateOfApplication === null || dateOfApplication === '' ? '___________' : dateOfApplication}}</span>
                    मा आवास कर्जा सुविधाको लागि यस बैंकमा दिनु
                     भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका
                     ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको
@@ -240,17 +240,17 @@
                     </td></tr>
                 <tr>
                     <td>
-                        <p *ngFor="let data of guarantorData; let i = index;">
-                            {{i + 2 | nepaliWord}}.  <span class=" font-weight-bold">
-                    {{guarantorParse(data.nepData, 'guarantorName')}}
+                        <p>
+                            ख.  <span class=" font-weight-bold">
+                    {{this.finalName}}
                 </span>
                             ले बैंकको पक्षमा
                             रु    <span class="font-weight-bold">
-                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                 </span>
 
                             (अक्षरेपी रु    <span class="font-weight-bold">
-                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
+                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                 </span>
                             मात्र) बराबरको व्यक्तिगत जमानत पत्र दिनुपर्नेछ।
                         </p>
@@ -375,8 +375,14 @@
                         {{tempData?.loan?.thirdInstallmentAmount | nepaliCurrencyWord}})
                               </span> मात्र)  तपाईंको खातामा भुक्तानी गरिनेछ।
                         </span>
-
                         </p>
+                        <div *ngIf="offerData?.pointInformation !== null" class="row col-md-12"
+                             style="margin-top: -0.5em">
+                            घ.
+                            <span class="nepaliFont" style="margin-top: -8px;font-size: 24px; margin-left: 0.2em">
+                                            {{offerData?.pointInformation}}
+                                        </span>
+                        </div>
                 </tr>
 
                 <tr *ngIf="landbuilding === 'LAND & BUILDING' || landbuilding === 'LAND'">
@@ -392,16 +398,12 @@
                         <span [ngClass]="{'font-weight-bold' : letter?.loan.beneficiaryNameCT!== null && letter?.loan.beneficiaryNameCT!== ''}">
             {{letter?.loan.beneficiaryNameCT === null || letter?.loan.beneficiaryNameCT === '' ? '___________' : letter?.loan.beneficiaryNameCT}}</span>  लाई A/C Payee Cheque /MC/Draft
                         मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
-                        <div class="row col-md-12">
-                    <textarea
-                            class="form-control customFont nepaliFont"
-                            rows="5"
-                            style="width:inherit;margin-left:5%"
-                            name="additionalDetail"
-                            formControlName="additionalDetail">
-                    </textarea>
+                        <div *ngIf="offerData?.pointInformation !== null" class="row col-md-12"
+                             style="margin-top: -0.5em">
+                            <span class="nepaliFont" style="margin-top: -8px;font-size: 24px; margin-left: 0.2em">
+                                            {{offerData?.pointInformation}}
+                                        </span>
                         </div>
-
 
                     </td>
 
@@ -624,26 +626,25 @@
             {{letter?.loan.insuranceAmountInWordCT === null || letter?.loan.insuranceAmountInWordCT === '' ? '___________' : letter?.loan.insuranceAmountInWordCT}}</span>
                              मात्र) को भवनको विमालेख।
                         </p>
-                        <p *ngFor="let data of guarantorData; let i = index;">
-                            {{i + 2 | nepaliWord}}. ज.	श्री <span class=" font-weight-bold">ज. श्री
-                            {{guarantorParse(data.nepData, 'guarantorName')}}
+                        <p>
+                            ज.	श्री <span class=" font-weight-bold">
+                            {{this.finalName}}
                 </span>
                             को बैकको पक्षमा रु.
                             <span class="font-weight-bold">
-                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                 </span>/-
                             (अक्षेरेपी रु.     <span class="font-weight-bold">
-                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
+                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                 </span>
                              मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण।
                         </p>
                     </td>
                 </tr>
             </table>
-
-            <p *ngIf="offerData?.supportedInformation">
-                ण. <span class="nepaliFont"
-                         style="font-size: 28px;">{{offerData?.supportedInformation}}</span>
+            <p *ngIf="offerData?.supportedInformation" style="margin-top: -2.8em;margin-left: 3.8em;">
+                झ. <span class="nepaliFont"
+                         style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
             </p><br>
 
             <p> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको प्रतिलिपीमा तपाईंको मञ्जुरी

@@ -20,6 +20,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {DatePipe} from "@angular/common";
+import {EngNepDatePipe} from "nepali-patro";
 
 @Component({
   selector: 'app-home-loan',
@@ -65,10 +67,11 @@ export class HomeLoanComponent implements OnInit {
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepPercentWordPipe: NepaliPercentWordPipe,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe,
               private ref: NbDialogRef<HomeLoanComponent>) { }
 
   ngOnInit() {
-    console.log('Offer Letter Details for Home Loan', this.cadOfferLetterApprovedDoc);
     this.buildPersonal();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -91,8 +94,12 @@ export class HomeLoanComponent implements OnInit {
   }
 
   buildPersonal() {
+    let refNumberAuto;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      refNumberAuto = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
     this.form = this.formBuilder.group({
-      referenceNumber: [undefined],
+      referenceNumber: [refNumberAuto ? refNumberAuto : undefined],
       loanLimitChecked: [undefined],
       dateofApproval: [undefined],
       customerName: [undefined],
@@ -107,7 +114,7 @@ export class HomeLoanComponent implements OnInit {
       loanadminFeeWords: [undefined],
       dateofExpiry: [undefined],
       ownerName: [undefined],
-      additionalDetail: [undefined],
+      additionalDetails: [undefined],
       ownersAddress: [undefined],
       propertyPlotNumber: [undefined],
       beneficiaryName: [undefined],
@@ -187,7 +194,6 @@ export class HomeLoanComponent implements OnInit {
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.initialInfoPrint = initialInfo;
-        this.loanLimit = this.tempData.loanLimitChecked;
         this.fillForm();
       }
     } else {
@@ -205,6 +211,7 @@ export class HomeLoanComponent implements OnInit {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN).toString()) {
           offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+          offerLetterPath.pointInformation= this.form.get('additionalDetails').value;
         }
       });
     } else {
@@ -242,19 +249,26 @@ export class HomeLoanComponent implements OnInit {
       const val = value.proposal.proposedLimit;
       totalLoanAmount = totalLoanAmount + val;
     });
+    let dateOfApprovalTemp;
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint.loan.dateOfApprovalCT)) {
+      dateOfApprovalTemp = this.dateConversion(this.initialInfoPrint.loan.dateOfApprovalCT);
+    }
+    let tempDateOfApplication;
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint.loan.dateOfApplicationCT)) {
+      tempDateOfApplication = this.dateConversion(this.initialInfoPrint.loan.dateOfApplicationCT);
+    }
     this.form.patchValue({
-      referenceNumber: this.tempData.loan.referenceNumberCT ? this.tempData.loan.referenceNumberCT : '',
-      dateofApproval: this.tempData.loan.dateOfApprovalCT ? this.tempData.loan.dateOfApprovalCT : '',
+      dateofApproval: dateOfApprovalTemp ? dateOfApprovalTemp : '',
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
-      dateofApplication: this.tempData.loan.dateOfApplicationCT ? this.tempData.loan.dateOfApplicationCT : '',
-      additionalGuarantorDetails: this.tempData.loan.freeTextRequiredCT ? this.tempData.loan.freeTextRequiredCT : '',
+      dateofApplication: tempDateOfApplication ? tempDateOfApplication : '',
       ownerName: this.tempData.loan.nameOfLandOwnerCT ? this.tempData.loan.nameOfLandOwnerCT : '',
       ownersAddress: this.tempData.loan.landLocationCT ? this.tempData.loan.landLocationCT : '',
       propertyPlotNumber: this.tempData.loan.kittaNumberCT ? this.tempData.loan.kittaNumberCT : '',
       propertyArea: this.tempData.loan.areaCT ? this.tempData.loan.areaCT : '',
       branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
-      loanAmount: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       distressSituationPercentage: this.tempData.loan.drawingPowerCT ? this.tempData.loan.drawingPowerCT : '',
       baseRate: this.tempData.loan.baseRateCT ? this.tempData.loan.baseRateCT : '',
       premiumRate: this.tempData.loan.premiumRateCT ? this.tempData.loan.premiumRateCT : '',
@@ -271,8 +285,6 @@ export class HomeLoanComponent implements OnInit {
       seatNumber: this.tempData.loan.seatNumberCT ? this.tempData.loan.seatNumberCT : '',
       relationshipofficerName: this.tempData.loan.nameOfRelationshipOfficerCT ? this.tempData.loan.nameOfRelationshipOfficerCT : '',
       branchManager: this.tempData.loan.nameOfBranchManagerCT ? this.tempData.loan.nameOfBranchManagerCT : '',
-
-
     });
   }
   calcYearlyRate() {
@@ -311,7 +323,6 @@ export class HomeLoanComponent implements OnInit {
       let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
       this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
     }
-    console.log('Guarantor Name:', this.finalName);
   }
   guarantorParse(nepData, key, trans?) {
     const data = JSON.parse(nepData);
@@ -327,5 +338,17 @@ export class HomeLoanComponent implements OnInit {
   }
   close() {
     this.ref.close();
+  }
+  dateConversion(controlVal) {
+    let dateTemp;
+    if (!ObjectUtil.isEmpty(controlVal.en)) {
+      if (!ObjectUtil.isEmpty(controlVal.en.nDate)) {
+        dateTemp = controlVal.en.nDate;
+      } else {
+        const date = this.datePipe.transform(controlVal.en);
+        dateTemp = this.engNepDatePipe.transform(date, true);
+      }
+    }
+    return dateTemp;
   }
 }
