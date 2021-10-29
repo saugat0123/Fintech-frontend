@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -11,8 +11,6 @@ import {SiteVisitDocument} from '../../loan-information-template/security/securi
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {flatten} from '@angular/compiler';
 import {SummaryType} from '../../loan/component/SummaryType';
-import {LogicalProjectPath} from '@angular/compiler-cli/src/ngtsc/file_system';
-import {OpeningBeneficiary} from '../../admin/modal/openingBeneficiary';
 
 @Component({
   selector: 'app-security-view',
@@ -22,6 +20,8 @@ import {OpeningBeneficiary} from '../../admin/modal/openingBeneficiary';
 export class SecurityViewComponent implements OnInit {
   @Input() security: Security;
   @Input() shareSecurityData;
+  @Input() collateralData;
+  @Input() docStatus;
   securityData: Security;
   shareSecurity;
   vehicleSelected = false;
@@ -62,6 +62,7 @@ export class SecurityViewComponent implements OnInit {
   summaryTypeName = SummaryType;
   bondSecurity = false;
   totalBondSecurityValue = 0;
+  @Output() downloadSiteVisitDocument = new EventEmitter();
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
@@ -179,20 +180,41 @@ export class SecurityViewComponent implements OnInit {
     if (this.bondSecurity) {
       this.calculateTotalBondSecurityAmount();
     }
-    if (this.securityId !== undefined) {
-      this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
-          .subscribe((response: any) => {
-            this.collateralSiteVisits = response.detail;
-            const arr = [];
-            this.collateralSiteVisits.forEach(f => {
-              if (f.siteVisitDocuments.length > 0) {
-                arr.push(f.siteVisitDocuments);
-              }
-            });
-            // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-            const docArray = flatten(arr);
-            // filter for only printable document
-            this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+
+    if (!ObjectUtil.isEmpty(this.collateralData) && this.docStatus.toString() === 'APPROVED') {
+      this.collateralSiteVisits = this.collateralData;
+      const doc = [];
+      this.collateralSiteVisits.forEach(f => {
+        if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
+          doc.push(f.siteVisitDocuments);
+        }
+      });
+      // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+      const docArray = flatten(doc);
+      // filter for only printable document
+      this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+
+      this.collateralSiteVisits.filter(item => {
+        this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+      });
+      if (this.collateralData.length > 0) {
+        this.isCollateralSiteVisit = true;
+      }
+    } else {
+      if (this.securityId !== undefined) {
+        this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
+            .subscribe((response: any) => {
+              this.collateralSiteVisits = response.detail;
+              const arr = [];
+              this.collateralSiteVisits.forEach(f => {
+                if (f.siteVisitDocuments.length > 0) {
+                  arr.push(f.siteVisitDocuments);
+                }
+              });
+              // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+              const docArray = flatten(arr);
+              // filter for only printable document
+              this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
 
               this.collateralSiteVisits.filter(item => {
                 this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
@@ -200,7 +222,9 @@ export class SecurityViewComponent implements OnInit {
               if (response.detail.length > 0) {
                 this.isCollateralSiteVisit = true;
               }
-          });
+              this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
+            });
+      }
     }
   }
 
