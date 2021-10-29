@@ -13,9 +13,11 @@
                                 formControlName="dateType" class="d-inline-flex">
                     <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                 </nb-radio-group>
+                <div *ngIf="BSApproval" style="margin-bottom: -50px;">
                 <nepali-patro *ngIf="BSApproval" formControlName="nepaliDateOfApproval" [responseType]="2"
                               [displayNepali]="true">
                 </nepali-patro>
+                </div>
                 <input *ngIf="ADApproval" nbInput fullWidth status="success" shape="semi-round"
                        [nbDatepicker]="approvalDate"
                        placeholder="Select Date"
@@ -28,9 +30,11 @@
                                 formControlName="applicationDateType" class="d-inline-flex">
                     <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                 </nb-radio-group>
-                <nepali-patro *ngIf="BSApplication" formControlName="nepaliDateOfApplication" [responseType]="2"
-                              [displayNepali]="true">
-                </nepali-patro>
+                <div *ngIf="BSApplication" style="margin-bottom: -50px;">
+                    <nepali-patro *ngIf="BSApplication" formControlName="nepaliDateOfApplication" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                </div>
                 <input *ngIf="ADApplication" nbInput fullWidth status="success" shape="semi-round"
                        [nbDatepicker]="approvalDate"
                        placeholder="Select Date"
