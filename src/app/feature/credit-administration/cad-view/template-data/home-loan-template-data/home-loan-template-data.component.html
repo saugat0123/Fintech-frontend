@@ -1,3 +1,4 @@
+<nb-card>
 <nb-card-header class="container-fluid" [nbSpinner]="spinner">
     <div class="row">
         <div class="col-md-12" style="height: 125px;">
@@ -12,8 +13,7 @@
         </div>
     </div>
 </nb-card-header>
-<div class="row pt-3 pl-2">
-<nb-card-body>
+<nb-card-body class="row pt-3 pl-2">
     <div *ngIf="isConstructionLoan">
         <app-construction-loan #constructionLoan [submitted]="submitted" [spinner]="spinner"></app-construction-loan>
     </div>
@@ -32,3 +32,4 @@
         </button>
     </div>
 </nb-card-footer>
+</nb-card>
