@@ -81,6 +81,8 @@ dbr;
     const rate = Number(this.loanDataHolder.loan.interestRate) / (12 * 100);
     const n = this.loanDataHolder.proposal.tenureDurationInMonths;
     const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
-    this.dbr = emi / JSON.parse(this.loanDataHolder.remitCustomer.senderData).senderEmployment.monthly_salary;
+    if (this.isRemit) {
+      this.dbr = emi / JSON.parse(this.loanDataHolder.remitCustomer.senderData).senderEmployment.monthly_salary;
+    }
   }
 }
