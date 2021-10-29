@@ -373,6 +373,21 @@
             </tr>
         </table>
     </div>
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.subsidyJustification">Subsidy Justification</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.subsidyJustification">
+                    <span [innerHTML]="proposalAllData?.subsidyJustification || 'N/A' | safeHtml"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="row" *ngIf="isRevolving && loanNatureSelected">
