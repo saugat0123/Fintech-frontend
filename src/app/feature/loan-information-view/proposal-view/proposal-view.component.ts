@@ -66,6 +66,7 @@ export class ProposalViewComponent implements OnInit {
   }
 
   public getTotal(key: string): number {
+    console.log('thus', this.loanDataHolder.proposal.proposedLimit);
     if (!ObjectUtil.isEmpty(this.proposalData.data)) {
       const filteredList = this.customerFundedLoanList.filter(l => l.proposal.data !== null);
       const tempList = filteredList
@@ -75,11 +76,12 @@ export class ProposalViewComponent implements OnInit {
           .reduce((a, b) => a + b, 0);
       return this.isNumber(total);
     } else {
-      return 0;
+      return this.loanDataHolder.proposal.proposedLimit;
     }
   }
 
   public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
+    console.log('thus', this.loanDataHolder.proposal.proposedLimit);
     if (!ObjectUtil.isEmpty(this.proposalData.data)) {
       this.fundedAndNonfundedList(loanList);
       if (this.customerFundedLoanList.length > 0) {
@@ -101,7 +103,7 @@ export class ProposalViewComponent implements OnInit {
 
         return this.isNumber(numb);
       } else {
-        return 0;
+        return this.loanDataHolder.proposal.proposedLimit;
       }
     } else {
       return 0;
