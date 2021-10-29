@@ -143,7 +143,6 @@ export class LetterOfLeinComponent implements OnInit {
       tablePaisa: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
-      companyStamp: [undefined],
       amount: [undefined],
       amountInWords: [undefined]
     });

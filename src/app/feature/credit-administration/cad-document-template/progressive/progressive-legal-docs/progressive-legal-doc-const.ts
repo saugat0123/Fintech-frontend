@@ -25,7 +25,9 @@ export enum ProgressiveLegalDocConst {
   // CONSENT_LETTER_INSTITUTIONAL = '2023',
   BLACKLIST_CONSENT_CORPORATE = '2024',
   LETTER_OF_CONFESSION = '2025',
-  HP_DEED_CORPORATE = '2027'
+  HP_DEED_CORPORATE = '2027',
+  MORTGAGE_DEED_CORPORATE = '2026',
+  LOAN_DEED_CORPORATE = '2028'
 }
 
 export namespace ProgressiveLegalDocConst {
@@ -79,6 +81,10 @@ export namespace ProgressiveLegalDocConst {
         return 'Letter of Confession';
       case ProgressiveLegalDocConst.HP_DEED_CORPORATE:
         return 'Hp Deed Corporate';
+      case ProgressiveLegalDocConst.MORTGAGE_DEED_CORPORATE:
+        return 'Mortgage Deed Corporate';
+      case ProgressiveLegalDocConst.LOAN_DEED_CORPORATE:
+        return 'Loan Deed Corporate';
     }
   }
 

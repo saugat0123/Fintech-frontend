@@ -136,6 +136,7 @@ export class LetterOfAgreementComponent implements OnInit {
       // itiMonth: [undefined],
       // itiDate: [undefined],
       // itiSambat: [undefined]
+      tole: [undefined],
       perDistrict: [undefined],
       perMunicipality: [undefined],
       perWardNo: [undefined],
