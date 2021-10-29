@@ -59,6 +59,7 @@ export class UserComponent implements OnInit {
     inactive = Status.INACTIVE;
     allBranches = RoleAccess.ALL;
     roleType = RoleType;
+    locked = Status.LOCKED;
 
     constructor(
         private service: UserService,
