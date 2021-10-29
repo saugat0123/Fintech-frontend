@@ -73,6 +73,7 @@ export class HomeLoanComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      console.log('this.tempData', this.tempData);
     }
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
@@ -253,9 +254,7 @@ export class HomeLoanComponent implements OnInit {
       propertyArea: this.tempData.loan.areaCT ? this.tempData.loan.areaCT : '',
       branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
-      loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmount: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-      loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       distressSituationPercentage: this.tempData.loan.drawingPowerCT ? this.tempData.loan.drawingPowerCT : '',
       baseRate: this.tempData.loan.baseRateCT ? this.tempData.loan.baseRateCT : '',
       premiumRate: this.tempData.loan.premiumRateCT ? this.tempData.loan.premiumRateCT : '',
