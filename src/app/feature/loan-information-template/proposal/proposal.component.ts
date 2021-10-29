@@ -95,6 +95,9 @@ export class ProposalComponent implements OnInit {
       this.formDataForEdit = JSON.parse(this.formValue.data);
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
+      if (this.proposalForm.get('subsidyLoanType').value === 'Others') {
+        this.othersSubsidyLoan = true;
+      }
       this.setCheckedData(this.checkedDataEdit);
       this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       this.interestLimit = this.formDataForEdit['interestRate'];
@@ -379,6 +382,8 @@ export class ProposalComponent implements OnInit {
           this.subsidizedLoanChecked = true;
         } else {
           this.subsidizedLoanChecked = false;
+          this.othersSubsidyLoan = false;
+          this.proposalForm.get('others').setValue(null);
           this.proposalForm.get('subsidizedLoan').setValue(null);
           this.proposalForm.get('subsidyLoanType').setValue(null);
           this.proposalForm.get('subsidyJustification').setValue(null);
