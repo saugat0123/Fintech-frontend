@@ -35,7 +35,7 @@ import {CadDocument} from './cadDocument';
 import {User} from '../../admin/modal/user';
 import {Comments} from '../../admin/modal/comments';
 import {CrgMicro} from './CrgMicro';
-import {CustomerLoanDto} from './CustomerLoanDto';
+import {CustomerLoanDto} from './customerLoanDto';
 import {CollateralSiteVisitDto} from './collateralSiteVisitDto';
 
 

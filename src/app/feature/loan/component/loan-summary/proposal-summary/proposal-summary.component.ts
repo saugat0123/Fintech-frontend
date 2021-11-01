@@ -12,7 +12,7 @@ import {LoanConfigService} from '../../../../admin/component/loan-config/loan-co
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {LoanTag} from '../../../model/loanTag';
-import {CustomerLoanDto} from '../../../model/CustomerLoanDto';
+import {CustomerLoanDto} from '../../../model/customerLoanDto';
 
 @Component({
     selector: 'app-proposal-summary',

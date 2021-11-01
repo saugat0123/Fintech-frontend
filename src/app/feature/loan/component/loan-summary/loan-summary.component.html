@@ -138,7 +138,7 @@
                         <br>
                         <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch.branchCode}}</span></div>
                         <br>
-                        <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan.name + " "+ loanDataHolder.loan.shortNames}}</span></div>
+                        <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan.name + "-"+ (loanDataHolder.loan.shortNames)}}</span></div>
                         <div class="float-right" *ngIf="loanDataHolder?.isSol">
                             <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
 
@@ -434,7 +434,7 @@
                             [loanDataHolder]="loanDataHolder"></app-company-info-summary>
                 </div>
             </div>
-            <ng-container *ngIf="proposalData.data !== null">
+            <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
                         [customerAllLoanList]="customerAllLoanList"

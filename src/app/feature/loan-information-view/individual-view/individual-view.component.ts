@@ -49,14 +49,14 @@ dbr;
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
       }
-    }
-    if (!ObjectUtil.isEmpty(this.individual.jointInfo)) {
-      const jointCustomerInfo = JSON.parse(this.individual.jointInfo);
-      this.riskInfo = jointCustomerInfo;
-      this.clientType = jointCustomerInfo.clientType;
-      this.subsectorDetail = jointCustomerInfo.subsectorDetail;
-      this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
-      this.isJointInfo = true;
+      if (!ObjectUtil.isEmpty(this.individual.jointInfo)) {
+        const jointCustomerInfo = JSON.parse(this.individual.jointInfo);
+        this.riskInfo = jointCustomerInfo;
+        this.clientType = jointCustomerInfo.clientType;
+        this.subsectorDetail = jointCustomerInfo.subsectorDetail;
+        this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+        this.isJointInfo = true;
+      }
     }
     if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
       this.isRemit = true;

@@ -226,6 +226,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.isRemitLoan = this.loanConfig.loanTag === 'REMIT_LOAN';
         this.loanDataHolder = this.loanData;
+        console.log('loanDataHolder', this.loanDataHolder);
         this.individual  = this.loanDataHolder.customerInfo;
         if (!ObjectUtil.isEmpty(this.individual)) {
             if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
@@ -233,33 +234,17 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
         }
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
-            !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
-            const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
-            this.riskInfo = jointCustomerInfo;
-            this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
-            this.isJointInfo = true;
+            !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+                const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+                this.riskInfo = jointCustomerInfo;
+                this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+                this.isJointInfo = true;
+            }
         }
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            this.securityId = this.loanDataHolder.security.id;
-            this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
-               .subscribe((response: any) => {
-                   this.collateralSiteVisitDetail.push(response.detail);
-                   const arr = [];
-                   response.detail.forEach(f => {
-                       if (f.siteVisitDocuments.length > 0) {
-                         arr.push(f.siteVisitDocuments);
-                       }
-                   });
-                   // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-                   this.siteVisitDocuments = flatten(arr);
-                   if (response.detail.length > 0) {
-                       this.isCollateralSiteVisit = true;
-                   }
-               });
-        }
         if (this.isRemitLoan) {
             this.beneficiary = JSON.parse(this.loanDataHolder.remitCustomer.beneficiaryData);
             this.senderDetails = JSON.parse(this.loanDataHolder.remitCustomer.senderData);
