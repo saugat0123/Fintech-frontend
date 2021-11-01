@@ -80,11 +80,10 @@
               </td>
             </tr>
             <tr>
-              <td class="text-left pl-1" colspan="3"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
-                      : 'Gross Monthly Income/EMI (in %)'}}</strong></td>
+              <td class="text-left pl-1" colspan="3"><strong>Gross Monthly Income/EMI (in %)</strong></td>
               <td colspan="2" class="text-right pr-1">
-                <strong *ngIf="client === clientName.ICFC; else other">{{financialData?.initialForm?.totalEMIInterest}} %</strong>
-                <ng-template #other>
+                <strong>{{financialData?.initialForm?.totalEMIInterest}} %</strong>
+                <ng-template>
                   <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
                 </ng-template>
 
