@@ -127,6 +127,21 @@
                 </tr>
 
                 <tr>
+                    <td>Drawing Power (Percentage)</td>
+                    <td><input type="text" class="form-control" formControlName="drawingPower" (input)="translateNumber('drawingPower', 'drawingPowerTransVal');"></td>
+                    <td class="abc">{{translatedValues ? translatedValues?.drawingPower : initialInformation?.drawingPower?.ct}}</td>
+                    <td>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.drawingPowerTransVal.errors }"
+                               formControlName="drawingPowerTransVal"/>
+                        <div *ngIf="submitted && Form.drawingPowerTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.drawingPowerTransVal.errors.required">Drawing Power is required</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
                     <td>Base Rate</td>
                     <td><input type="text" class="form-control" formControlName="baseRate" (input)="calInterestRate()"></td>
                     <td class="abc">{{translatedValues ? translatedValues?.baseRate : initialInformation?.baseRate?.ct}}</td>
