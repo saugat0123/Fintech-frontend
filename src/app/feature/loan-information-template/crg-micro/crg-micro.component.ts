@@ -306,15 +306,15 @@ export class CrgMicroComponent implements OnInit {
       this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Excellent');
       this.creditRiskGradingForm.get('creditRiskRating').patchValue('Low Risk');
       this.creditRiskGradingForm.get('premium').patchValue('2%');
-    } else if (total >= 75 && total <= 89) {
+    } else if (total >= 75 && total < 90) {
       this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Very Good');
       this.creditRiskGradingForm.get('creditRiskRating').patchValue('Average Risk');
       this.creditRiskGradingForm.get('premium').patchValue('2.5%');
-    } else if (total >= 65 && total <= 74) {
+    } else if (total >= 65 && total < 75) {
       this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Good');
       this.creditRiskGradingForm.get('creditRiskRating').patchValue('Moderate Risk');
       this.creditRiskGradingForm.get('premium').patchValue('3%');
-    } else if (total >= 50 && total <= 64) {
+    } else if (total >= 50 && total < 65) {
       this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Acceptable');
       this.creditRiskGradingForm.get('creditRiskRating').patchValue('Tolerable Risk');
       this.creditRiskGradingForm.get('premium').patchValue('3.5%');
