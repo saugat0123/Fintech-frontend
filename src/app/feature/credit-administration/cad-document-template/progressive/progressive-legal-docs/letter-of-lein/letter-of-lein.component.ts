@@ -133,6 +133,7 @@ export class LetterOfLeinComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      name: [undefined],
       date: [undefined],
       branchName: [undefined],
       muddatiKhata: [undefined],
@@ -142,7 +143,6 @@ export class LetterOfLeinComponent implements OnInit {
       tablePaisa: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
-      companyStamp: [undefined],
       amount: [undefined],
       amountInWords: [undefined]
     });

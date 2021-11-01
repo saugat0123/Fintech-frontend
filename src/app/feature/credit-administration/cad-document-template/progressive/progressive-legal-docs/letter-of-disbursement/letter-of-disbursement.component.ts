@@ -15,6 +15,11 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-letter-of-disbursement',
@@ -33,9 +38,12 @@ export class LetterOfDisbursementComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  loanAmount = new NepaliNumberAndWords();
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
+              private engToNepNumberPipe: EngToNepaliNumberPipe,
+              private currencyFormatPipe: CurrencyFormatterPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -46,8 +54,15 @@ export class LetterOfDisbursementComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
+      const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
+      this.loanAmount.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+      this.loanAmount.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+      this.loanAmount.engNumber = number;
+    } else {
+      this.loanAmount = JSON.parse(this.cadData.nepData);
+    }
     this.fillForm();
-
   }
 
   fillForm() {
@@ -56,25 +71,25 @@ export class LetterOfDisbursementComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          this.setGuarantorDetails(initialInfo.guarantorDetails);
+          this.setWitnessDetails(initialInfo.witnessDetails);
           this.form.patchValue(this.initialInfoPrint);
         }
       });
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      const loanAmount = JSON.parse(this.cadData.nepData);
+      // const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
         clientName: this.nepaliData.name ? this.nepaliData.name : '',
-        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-        amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        // amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        // amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
         sincerlyname: this.nepaliData.name ? this.nepaliData.name : '',
         naPraNaName: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
         mitiName: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
         jiPrakaName: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-        sincerlyPermanentAddress:  this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        sincerlyPermanentAddress: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
         jillaName: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
         jagaName: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
         sincerlytempAddress: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
@@ -85,6 +100,8 @@ export class LetterOfDisbursementComponent implements OnInit {
         husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
       });
     }
+    this.form.get('amount').patchValue(this.loanAmount.numberNepali);
+    this.form.get('amountInWord').patchValue(this.loanAmount.nepaliWords);
   }
 
 
@@ -148,7 +165,7 @@ export class LetterOfDisbursementComponent implements OnInit {
       itiSambatDate: [undefined],
       itiSambatTime: [undefined],
       itiSambatRojSumbham: [undefined],
-      guarantorDetails: this.formBuilder.array([]),
+      witnessDetails: this.formBuilder.array([]),
       clientName: [undefined],
       BranchName: [undefined],
       udhyogBibhag: [undefined],
@@ -171,6 +188,8 @@ export class LetterOfDisbursementComponent implements OnInit {
       signaturePersonPermanentWadNo: [undefined],
       sabikVDC: [undefined],
       sabikWadNo: [undefined],
+      borrowerSabikVDC: [undefined],
+      borrowerSabikWardNo: [undefined],
       signaturePersonTempDistrict: [undefined],
       signaturePersonTempMunicipality: [undefined],
       signaturePersonTempWadNo: [undefined],
@@ -184,7 +203,6 @@ export class LetterOfDisbursementComponent implements OnInit {
       buttonParentName: [undefined],
       buttonGrandParentName: [undefined],
       buttonHusbandWifeName: [undefined],
-      secguarantorDetails: this.formBuilder.array([]),
       shakhaName: [undefined],
       naPraNaName: [undefined],
       mitiName: [undefined],
@@ -193,14 +211,12 @@ export class LetterOfDisbursementComponent implements OnInit {
       jagaName: [undefined],
       jillaName1: [undefined],
       jagaName1: [undefined],
-      SakGuarantorName1: [undefined],
       SakNaPraNaName1: [undefined],
       SakMitiName1: [undefined],
       SakJiPrakaName1: [undefined],
       SakIssuedPlace1: [undefined],
       SakJillaName1: [undefined],
       SakJagaName1: [undefined],
-      SakGuarantorName2: [undefined],
       SakNaPraNaName2: [undefined],
       SakMitiName2: [undefined],
       SakJiPrakaName2: [undefined],
@@ -212,60 +228,65 @@ export class LetterOfDisbursementComponent implements OnInit {
       ItisambatMonth: [undefined],
       ItisambatDay: [undefined],
       ItisambatTime: [undefined],
+      ItisambatRojSubham: [undefined],
       kaSanNumber: [undefined],
       KarmachariSanNu: [undefined],
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
     });
   }
 
-  guarantorFormgroup(): FormGroup {
+  witnessFormgroup(): FormGroup {
     return this.formBuilder.group({
-      guarantorName: [undefined],
-      issuedPlace: [undefined],
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCitizenshipIssueOffice: [undefined],
+      witnessDistrict: [undefined],
+      witnessVdcMun: [undefined],
+      witnessWardNo: [undefined],
     });
   }
 
-  addGuarantor(): void {
-    const fomrArray = this.form.get('guarantorDetails') as FormArray;
-    fomrArray.push(this.guarantorFormgroup());
+  addWitness(): void {
+    const formArray = this.form.get('witnessDetails') as FormArray;
+    formArray.push(this.witnessFormgroup());
   }
 
-  removeGuarantor(index: number): void {
-    const fomrArray = this.form.get('guarantorDetails') as FormArray;
-    fomrArray.removeAt(index);
+  removeWitness(index: number): void {
+    const formArray = this.form.get('witnessDetails') as FormArray;
+    formArray.removeAt(index);
   }
 
 
-  setGuarantorDetails(data) {
-    const fomrArray = this.form.get('guarantorDetails') as FormArray;
+  setWitnessDetails(data) {
+    const formArray = this.form.get('witnessDetails') as FormArray;
     if (data.length === 0) {
-      this.addGuarantor();
+      this.addWitness();
       return;
     }
     data.forEach((value) => {
-      fomrArray.push(
+      formArray.push(
           this.formBuilder.group({
-            guarantorName: [value.name],
-            issuedPlace: [value.issuedPlace],
-            naPraNaName: [value.naPraNaName],
-            mitiName: [value.mitiName],
-            jiPrakaName: [value.citizenNumber],
-            jillaName1: [value.districtName],
-            jagaName1: [value.wadNo],
-            SakGuarantorName1: [value.name],
-            SakIssuedPlace1: [value.issuedPlace],
-            SakNaPraNaName1: [value.naPraNaName],
-            SakMitiName1: [value.mitiName],
-            SakJiPrakaName1: [value.citizenNumber],
-            SakJillaName1: [value.districtName],
-            SakJagaName1: [value.wadNo],
-            SakGuarantorName2: [value.name],
-            SakIssuedPlace2: [value.issuedPlace],
-            SakNaPraNaName2: [value.naPraNaName],
-            SakMitiName2: [value.mitiName],
-            SakJiPrakaName2: [value.citizenNumber],
-            SakJillaName2: [value.districtName],
-            SakJagaName2: [value.wadNo],
-            KaSanNumber: [value.KarmachariSanNu],
+            witnessName: [value.name],
+            witnessCitizenshipNo: [value.witnessCitizenshipNo],
+            witnessCitizenshipIssueDate: [value.witnessCitizenshipIssueDate],
+            witnessCitizenshipIssueOffice: [value.witnessCitizenshipIssueOffice],
+            witnessDistrict: [value.witnessDistrict],
+            witnessVdcMun: [value.witnessVdcMun],
+            witnessWardNo: [value.witnessWardNo],
           })
       );
     });
@@ -277,5 +298,4 @@ export class LetterOfDisbursementComponent implements OnInit {
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
   }
-
 }
