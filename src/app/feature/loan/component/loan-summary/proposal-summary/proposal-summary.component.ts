@@ -5,7 +5,6 @@ import {DocStatus} from '../../../model/docStatus';
 import {LoanType} from '../../../model/loanType';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {ActivatedRoute, Params} from '@angular/router';
@@ -13,6 +12,7 @@ import {LoanConfigService} from '../../../../admin/component/loan-config/loan-co
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {SummaryType} from '../../SummaryType';
+import {CustomerLoanDto} from '../../../model/CustomerLoanDto';
 
 @Component({
     selector: 'app-proposal-summary',
@@ -52,6 +52,7 @@ export class ProposalSummaryComponent implements OnInit {
     summaryType = environment.summaryType;
     summaryTypeName = SummaryType;
     @Input() loanCategory;
+    customerLoanDtoList: CustomerLoanDto[];
 
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
@@ -60,6 +61,11 @@ export class ProposalSummaryComponent implements OnInit {
     ngOnInit() {
         this.proposalAllData = JSON.parse(this.proposalData.data);
         this.checkedData = JSON.parse(this.proposalData.checkedData);
+        if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
+                this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
+            }
+        }
         this.calculateInterestRate();
         this.getLoanConfig();
         this.checkInstallmentAmount();
@@ -68,9 +74,14 @@ export class ProposalSummaryComponent implements OnInit {
     public getTotal(key: string): number {
         const tempList = this.customerAllLoanList
             .filter(l => JSON.parse(l.proposal.data)[key]);
-        const total = tempList
+        let total = tempList
             .map(l => JSON.parse(l.proposal.data)[key])
             .reduce((a, b) => a + b, 0);
+        if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+            this.customerLoanDtoList.forEach(cdl => {
+               total += JSON.parse(cdl.proposal.data)[key];
+            });
+        }
         return this.isNumber(total);
     }
 
@@ -83,12 +94,26 @@ export class ProposalSummaryComponent implements OnInit {
             numb = tempList
                 .map(l => JSON.parse(l.proposal.data)[key])
                 .reduce((a, b) => a + b, 0);
+            if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+                const tempCustomerLoanDtoList = this.customerLoanDtoList
+                    .filter(l => l.isFundable);
+                tempCustomerLoanDtoList.forEach(cdl => {
+                    numb = numb + JSON.parse(cdl.proposal.data)[key];
+                });
+            }
         } else {
             const tempList = this.customerNonFundedLoanList
                 .filter(l => JSON.parse(l.proposal.data)[key]);
             numb = tempList
                 .map(l => JSON.parse(l.proposal.data)[key])
                 .reduce((a, b) => a + b, 0);
+            if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+                const tempCustomerLoanDtoList = this.customerLoanDtoList
+                    .filter(l => !l.isFundable);
+                tempCustomerLoanDtoList.forEach(cdl => {
+                    numb = numb + JSON.parse(cdl.proposal.data)[key];
+                });
+            }
         }
 
         return this.isNumber(numb);

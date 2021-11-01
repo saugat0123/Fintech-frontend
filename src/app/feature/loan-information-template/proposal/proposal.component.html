@@ -680,7 +680,7 @@
                                                 </nb-select>
                                             </div>
                                         </div>
-                                        <div *ngIf="othersSubsidyLoan" class="col-md-4 form-group">
+                                        <div *ngIf="othersSubsidyLoan && subsidizedLoanChecked" class="col-md-4 form-group">
                                             <label for="others"><strong>Others</strong></label>
                                             <input class="form-control" formControlName="others"
                                                    id="others" placeholder="Others">
@@ -688,6 +688,23 @@
                                     </div>
 
                                 </div>
+
+                              <div class="col-md-12 form-group" *ngIf="client !== clientName?.MEGA">
+                                <div *ngIf="subsidizedLoanChecked">
+                                  <label class="title" for="subsidyJustification">
+                                    <strong>Subsidy Justification</strong>
+                                  </label>
+                                  <ng-template>
+                                    <label class="title" for="subsidyJustification"><strong>Subsidy
+                                      Justification</strong></label>
+                                  </ng-template>
+                                  <ckeditor
+                                      formControlName="subsidyJustification"
+                                      id="subsidyJustification"
+                                      name="subsidyJustification"
+                                      [config]="ckeConfig"></ckeditor>
+                                </div>
+                              </div>
 
 
                                 <!--                end of Moratorium Period amount div-->

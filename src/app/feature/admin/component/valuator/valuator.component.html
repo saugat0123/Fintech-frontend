@@ -20,7 +20,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <nb-card>
+        <nb-card [nbSpinner]="spinner">
             <nb-card-header>
                 <div class=row>
                     <div class="col-md-6">
@@ -34,6 +34,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="float-right">
+                            <button
+                                nbButton outline status="info"
+                                class="mr-2"
+                                size="small"
+                                (click)="getValuators()">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                            </button>
                             <button nbButton outline size="small" status="success" (click)="add()">
                                 <i class="fa fa-plus"></i>
                             </button>
@@ -197,7 +204,6 @@
                     </tbody>
                 </table>
 
-                <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                 <!-- ===================table-pagination==================== -->
                 <app-paging (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable"></app-paging>
                 <!-- ===================table-pagination==================== -->

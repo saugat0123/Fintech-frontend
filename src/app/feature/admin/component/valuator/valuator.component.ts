@@ -19,6 +19,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {BranchService} from '../branch/branch.service';
 import {Branch} from '../../modal/branch';
 import {ValuatingField} from '../../modal/valuatingField';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-valuator',
@@ -50,7 +51,7 @@ export class ValuatorComponent implements OnInit {
     filterForm: FormGroup;
     branchList: Array<Branch> = new Array<Branch>();
     valuatingFieldEnumObject = ValuatingField.enumObject();
-
+    restApi = ApiConfig.URL;
     constructor(
         private service: ValuatorService,
         private permissionService: PermissionService,
@@ -203,5 +204,20 @@ export class ValuatorComponent implements OnInit {
         this.search.maxAmount = ObjectUtil.isEmpty(this.filterForm.get('maxAmount').value) ? undefined :
             this.filterForm.get('maxAmount').value.toString();
         ValuatorComponent.loadData(this);
+    }
+    getValuators() {
+        this.spinner = true;
+        this.service.download(this.search).subscribe((response: any) => {
+            this.spinner = false;
+            const link = document.createElement('a');
+            link.target = '_blank';
+            link.href = this.restApi + '/' + response.detail;
+            link.download = this.restApi + '/' + response.detail;
+            link.setAttribute('visibility', 'hidden');
+            link.click();
+        }, error => {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message === null ? 'Unable to download!' : error.error.message));
+        });
     }
 }

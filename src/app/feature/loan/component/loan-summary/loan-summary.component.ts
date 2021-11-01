@@ -220,12 +220,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.activatedRoute.queryParams.subscribe((res) => {
            this.customerLoanService.detail(res.customerId).subscribe(response => {
             const details = JSON.parse(response.detail.data);
-           if(!ObjectUtil.isEmpty(details.documents)){
+           if (!ObjectUtil.isEmpty(details.documents)) {
                details.documents.forEach( resData => {
                    this.obtainableDocuments.push(resData);
                });
            }
-            if(!ObjectUtil.isEmpty(details.OtherDocuments)) {
+            if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
                 details.OtherDocuments.split(',').forEach(splitData => {
                     if (splitData !== '') {
                         this.otherObtainableDocuments.push(splitData);
@@ -247,24 +247,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            this.securityId = this.loanDataHolder.security.id;
-            this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
-               .subscribe((response: any) => {
-                   this.collateralSiteVisitDetail.push(response.detail);
-                   const arr = [];
-                   response.detail.forEach(f => {
-                       if (f.siteVisitDocuments.length > 0) {
-                         arr.push(f.siteVisitDocuments);
-                       }
-                   });
-                   // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-                   this.siteVisitDocuments = flatten(arr);
-                   if (response.detail.length > 0) {
-                       this.isCollateralSiteVisit = true;
-                   }
-               });
-        }
     }
 
     ngOnDestroy(): void {
@@ -286,6 +268,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
         // Setting Security data--
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            this.securityId = this.loanDataHolder.security.id;
             this.securityData = JSON.parse(this.loanDataHolder.security.data);
             this.securitySummary = true;
         }
@@ -681,21 +664,29 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     // method to get all the paths which is require to zipping all files
     public getDocPath(): void {
         const docPaths = [];
-        const loanDocument = this.loanDataHolder.customerDocument;
-        for (const doc of loanDocument) {
-            docPaths.push(doc.documentPath);
-        }
-        const generalDocument = this.loanDataHolder.loanHolder.customerGeneralDocuments;
-        for (const doc of generalDocument) {
-            docPaths.push(doc.docPath);
-        }
-        const guarantorDocument = this.taggedGuarantorWithDoc;
-        for (const doc of guarantorDocument) {
-            docPaths.push(doc.docPath);
-        }
-        const insuranceDocument = this.insuranceWithDoc;
-        for (const doc of insuranceDocument) {
-            docPaths.push(doc.policyDocumentPath);
+        if (this.loanDataHolder.zipPath === null || this.loanDataHolder.zipPath === '') {
+            const loanDocument = this.loanDataHolder.customerDocument;
+            for (const doc of loanDocument) {
+                docPaths.push(doc.documentPath);
+            }
+            const generalDocument = this.loanDataHolder.loanHolder.customerGeneralDocuments;
+            for (const doc of generalDocument) {
+                docPaths.push(doc.docPath);
+            }
+            const guarantorDocument = this.taggedGuarantorWithDoc;
+            for (const doc of guarantorDocument) {
+                docPaths.push(doc.docPath);
+            }
+            const insuranceDocument = this.insuranceWithDoc;
+            for (const doc of insuranceDocument) {
+                docPaths.push(doc.policyDocumentPath);
+            }
+            const siteVisitDocument = this.siteVisitDocuments;
+            for (const doc of siteVisitDocument) {
+                docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+            }
+        } else {
+            docPaths.push(this.loanDataHolder.zipPath);
         }
         this.downloadAll(docPaths);
     }
@@ -732,6 +723,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         } else {
             this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
         }
+    }
+
+    checkSiteVisitDocument(event: any) {
+        this.siteVisitDocuments = event;
     }
 }
 
