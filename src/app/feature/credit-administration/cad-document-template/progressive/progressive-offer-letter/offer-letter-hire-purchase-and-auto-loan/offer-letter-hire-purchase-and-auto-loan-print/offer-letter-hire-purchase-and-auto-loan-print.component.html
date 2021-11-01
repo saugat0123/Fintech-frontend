@@ -70,7 +70,7 @@
         <p style="margin-top: 30px">महाशय,</p>
         <div style="margin-left: 30px">
           <p>
-            तपाइ <strong>श्री</strong>
+            तपाई <strong>श्री</strong>
             <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                                 {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
             </span>
@@ -263,7 +263,7 @@
                 </td>
                 <td>
                   <span [ngClass]="{'nepaliFont' : primaryCollateral?.marginPercentageOne !== null && primaryCollateral?.marginPercentageOne !== ''}">
-                    {{primaryCollateral?.marginPercentageOne === null || primaryCollateral?.marginPercentageOne === '' ? '' : primaryCollateral?.vehicleQuotationPrice}}
+                    {{primaryCollateral?.marginPercentageOne === null || primaryCollateral?.marginPercentageOne === '' ? '' : primaryCollateral?.marginPercentageOne}}
                   </span>% तथा <br>
                   <span [ngClass]="{'nepaliFont' : primaryCollateral?.marginPercentageTwo !== null && primaryCollateral?.marginPercentageTwo !== ''}">
                     {{primaryCollateral?.marginPercentageTwo === null || primaryCollateral?.marginPercentageTwo === '' ? '' : primaryCollateral?.marginPercentageTwo}}

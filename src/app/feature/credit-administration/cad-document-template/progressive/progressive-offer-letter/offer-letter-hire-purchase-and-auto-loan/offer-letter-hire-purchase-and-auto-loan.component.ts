@@ -308,6 +308,7 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       interestFinalRate: [undefined],
       loanLimitTime: [undefined],
       serviceCharge: [undefined],
+      vehicleType: [undefined],
     });
   }
 
