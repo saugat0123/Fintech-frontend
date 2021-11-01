@@ -3,7 +3,9 @@
   max-height: 85vh;
   text-align: justify;
 }
-
+.nepaliFont{
+  font-size: 25px;
+}
 @media print {
   .page-break { page-break-before: always; }
 }
