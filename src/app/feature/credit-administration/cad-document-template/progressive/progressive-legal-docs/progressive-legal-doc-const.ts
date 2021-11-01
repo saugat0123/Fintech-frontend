@@ -85,6 +85,8 @@ export namespace ProgressiveLegalDocConst {
         return 'Mortgage Deed Corporate';
       case ProgressiveLegalDocConst.LOAN_DEED_CORPORATE:
         return 'Loan Deed Corporate';
+      case ProgressiveLegalDocConst.LETTER_OF_CONTINUITY_INSTITUTIONAL:
+        return 'Letter of Continuity Institution';
     }
   }
 
