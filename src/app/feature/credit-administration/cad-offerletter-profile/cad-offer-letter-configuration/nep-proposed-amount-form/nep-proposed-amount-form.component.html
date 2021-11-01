@@ -28,7 +28,7 @@
                     <input type="text"
                            [ngClass]="{'is-invalid': submitted && nepFormControls.branchName.errors}"
                            placeholder="शाखाको नाम"
-                           (change)="onChangeValue($event)" class="form-control"
+                           class="form-control form-control-sm nepaliFont"
                            formControlName="branchName"/>
                 </div>
                 <div class="form-group col-md-3">
@@ -41,17 +41,17 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label class="title" for="branchMunVdc">
-                        शाखा नगरपालिक⁄गाविस</label>
+                        शाखा नगरपालिक ⁄ गाविस</label>
                     <input [ngClass]="{'is-invalid': submitted && nepFormControls.branchMunVdc.errors}"
                            type="text"
-                           placeholder="शाखा म.न.पा.⁄ उ.म.न.पा ⁄ न.पा.⁄गा.बि.स."
+                           placeholder="शाखा म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स="
                            class="form-control form-control-sm nepaliFont" formControlName="branchMunVdc"/>
                 </div>
                 <div class="form-group col-md-3">
                     <label class="title" for="branchWardNo">शाखा वडा नं.</label>
                     <input [ngClass]="{'is-invalid': submitted && nepFormControls.branchWardNo.errors}"
                            type="text"
-                           placeholder="शाखा वडा नं."
+                           placeholder="शाखा वडा नं="
                            class="form-control form-control-sm nepaliFont" formControlName="branchWardNo"/>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                     <input type="text"
                            [ngClass]="{'is-invalid': submitted && nepFormControls.loanType.errors}"
                            placeholder="Type of Loan"
-                           (change)="onChangeValue($event)" class="form-control"
+                           class="form-control form-control-sm"
                            formControlName="loanType"/>
                 </div>
                 <div class="form-group col-md-4">
@@ -69,14 +69,14 @@
                     <input [ngClass]="{'is-invalid': submitted && nepFormControls.interestRate.errors}"
                            type="text"
                            placeholder="Interest Rate"
-                           class="form-control form-control-sm nepaliFont" formControlName="interestRate"/>
+                           class="form-control form-control-sm" formControlName="interestRate"/>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="title" for="serviceFee">Service Fee</label>
                     <input [ngClass]="{'is-invalid': submitted && nepFormControls.serviceFee.errors}"
                            type="text"
                            placeholder="Service Fee"
-                           class="form-control form-control-sm nepaliFont" formControlName="serviceFee"/>
+                           class="form-control form-control-sm" formControlName="serviceFee"/>
                 </div>
             </div>
             <div class="col-md-12 row">
@@ -86,14 +86,14 @@
                     <input type="text"
                            [ngClass]="{'is-invalid': submitted && nepFormControls.tenureOfLoanInMonths.errors}"
                            placeholder="In Months"
-                           (change)="onChangeValue($event)" class="form-control"
+                           class="form-control form-control-sm"
                            formControlName="tenureOfLoanInMonths"/>
                     </div>
                 <div class="form-group col-md-12">
                     <input [ngClass]="{'is-invalid': submitted && nepFormControls.tenureOfLoanInYears.errors}"
                            type="text"
                            placeholder="In Years"
-                           class="form-control form-control-sm nepaliFont" formControlName="tenureOfLoanInYears"/>
+                           class="form-control form-control-sm" formControlName="tenureOfLoanInYears"/>
                 </div>
                 </div>
                 <div class="form-group col-md-4">
@@ -101,7 +101,7 @@
                     <input [ngClass]="{'is-invalid': submitted && nepFormControls.installmentAmount.errors}"
                            type="text"
                            placeholder="Installment Amount"
-                           class="form-control form-control-sm nepaliFont" formControlName="installmentAmount"/>
+                           class="form-control form-control-sm" formControlName="installmentAmount"/>
                 </div>
             </div>
         </Form>

@@ -11,7 +11,6 @@
         <form [formGroup]="userConfigForm">
             <nb-tabset (changeTab)="onChangeTab($event)">
                 <nb-tab tabId="0" tabTitle="व्यक्तिगत विवरण" #personal>
-
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -35,8 +34,6 @@
                                         type="text"/>
                             </div>
                         </div>
-
-
                         <div class="col">
                             <div class="form-group">
                                 <label class="title" for="name">उमेर  </label>
@@ -44,7 +41,7 @@
                                         formControlName="age"
                                         id="age"
                                         [ngClass]="{'is-invalid': submitted && configForm.age.errors}"
-                                        name="age" placeholder="उमेर  "
+                                        name="age" placeholder="उमेर "
                                         readonly="readonly"
                                         type="text"/>
                             </div>
@@ -74,7 +71,6 @@
                                         type="text"/>
                             </div>
                         </div>
-
                         <div class="col">
                             <div class="form-group">
                                 <label class="title" for="citizenshipNo">नगरिकता जारी  जिल्ला</label>
@@ -211,12 +207,12 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label class="title" for="permanentWard">वार्ड न</label>
+                                <label class="title" for="permanentWard">वडा नं.</label>
                                 <input  class="form-control rounded nepaliFont"
                                         formControlName="permanentWard"
                                         [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
                                         id="permanentWard"
-                                        name="permanentMunicipality" placeholder="वार्ड न"
+                                        name="permanentMunicipality" placeholder="वडा नं="
                                         type="text"/>
                             </div>
                         </div>
@@ -273,12 +269,12 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label class="title" for="temporaryWard">वार्ड न</label>
+                                <label class="title" for="temporaryWard">वडा नं.</label>
                                 <input  class="form-control rounded nepaliFont"
                                         formControlName="temporaryWard"
                                         [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
                                         id="temporaryWard"
-                                        name="temporaryWard" placeholder="वार्ड न"
+                                        name="temporaryWard" placeholder="वडा नं="
                                         type="text"/>
                             </div>
                         </div>
@@ -357,7 +353,6 @@
                                                 autocomplete="off"
                                                 name="name" placeholder="ठेगाना"
                                                 type="text"/>
-
                                     </div>
                                 </div>
                                 <div class="col">

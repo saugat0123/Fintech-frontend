@@ -12,7 +12,6 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NbDialogRef} from '@nebular/theme';
 
 @Component({
@@ -39,7 +38,6 @@ export class NepProposedAmountFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('cadData', this.cadData);
         if (ObjectUtil.isEmpty(this.cadData.nepData)) {
             const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
             this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
@@ -77,8 +75,6 @@ export class NepProposedAmountFormComponent implements OnInit {
         this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
         this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
         this.nepaliNumber.engNumber = number;
-
-
     }
 
     get nepFormControls() {
@@ -92,9 +88,7 @@ export class NepProposedAmountFormComponent implements OnInit {
         }
         this.spinner = true;
         this.nepaliNumber.initDate = this.nepForm.get('initDate').value;
-        console.log('nepaliNumber', this.nepaliNumber);
         this.cadData.nepData = JSON.stringify(this.nepaliNumber);
-        console.log('NepData', this.cadData.nepData);
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.spinner = false;
             this.dialogRef.close();
@@ -104,13 +98,10 @@ export class NepProposedAmountFormComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
-
         });
     }
 
     closeModal() {
         this.dialogRef.close();
     }
-
-
 }
