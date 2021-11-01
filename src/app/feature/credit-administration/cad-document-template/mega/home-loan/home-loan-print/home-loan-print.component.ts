@@ -42,7 +42,6 @@ export class HomeLoanPrintComponent implements OnInit {
               private engNepDatePipe: EngNepDatePipe,) { }
 
   ngOnInit() {
-    console.log('Letter Data:', this.letter);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;
       this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {

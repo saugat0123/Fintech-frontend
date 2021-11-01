@@ -178,7 +178,6 @@ export class HomeLoanComponent implements OnInit {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
           === this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        console.log('If condition works:');
         this.offerLetterDocument = new OfferDocument();
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN);
       } else {
@@ -192,6 +191,7 @@ export class HomeLoanComponent implements OnInit {
           this.form.get('additionalDetails').patchValue(this.offerLetterData.pointInformation);
         }
         this.initialInfoPrint = initialInfo;
+        this.loanLimit = this.tempData.loan.loanLimitChecked;
         this.existingOfferLetter = true;
         this.initialInfoPrint = initialInfo;
         this.fillForm();
