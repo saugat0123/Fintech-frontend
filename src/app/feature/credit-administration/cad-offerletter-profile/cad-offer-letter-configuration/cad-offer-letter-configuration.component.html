@@ -279,6 +279,56 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="title" for="companyName">
+                                    कम्पनीको नाम </label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="companyName"
+                                        [ngClass]="{'is-invalid': submitted && configForm.companyName.errors}"
+                                        id="companyName"
+                                        name="companyName" placeholder="कम्पनीको नाम"
+                                        type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="title" for="companyAddress">
+                                कम्पनीको ठेगाना </label>
+                            <div class="form-group col-md-4">
+                                <label class="title" for="companyDistrict">
+                                    कम्पनीको जिल्ला </label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="companyDistrict"
+                                        [ngClass]="{'is-invalid': submitted && configForm.companyDistrict.errors}"
+                                        id="companyDistrict"
+                                        name="companyDistrict" placeholder="कम्पनीको जिल्ला"
+                                        type="text"/>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="title" for="companyVdcMun">
+                                    कम्पनीको म.न.पा. ⁄ उ.म.न.पा. ⁄ न.पा. ⁄ गा.बि.स. </label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="companyVdcMun"
+                                        [ngClass]="{'is-invalid': submitted && configForm.companyVdcMun.errors}"
+                                        id="companyVdcMun"
+                                        name="companyVdcMun" placeholder="कम्पनीको म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स="
+                                        type="text"/>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="title" for="companyWardNo">
+                                    कम्पनीको  वडा नं. </label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="companyWardNo"
+                                        [ngClass]="{'is-invalid': submitted && configForm.companyWardNo.errors}"
+                                        id="companyWardNo"
+                                        name="companyWardNo" placeholder="कम्पनीको  वडा नं="
+                                        type="text"/>
+                            </div>
+                        </div>
+                    </div>
 
                 </nb-tab>
                 <nb-tab tabId="1"  tabTitle="ग्यारेन्टर विवरण">

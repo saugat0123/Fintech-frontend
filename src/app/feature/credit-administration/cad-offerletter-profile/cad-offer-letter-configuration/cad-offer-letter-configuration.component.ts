@@ -89,6 +89,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             guarantorDetails: this.formBuilder.array([]),
             citizenshipIssueDistrict: [undefined],
             citizenshipIssueDate: [undefined],
+            companyName: [undefined],
+            companyDistrict: [undefined],
+            companyVdcMun: [undefined],
+            companyWardNo: [undefined]
         });
     }
 
