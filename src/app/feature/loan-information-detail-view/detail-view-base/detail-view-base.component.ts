@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {environment} from '../../../../environments/environment';
 import {LoanDataHolder} from '../../loan/model/loanData';
@@ -10,8 +10,7 @@ import {CombinedLoanService} from '../../service/combined-loan.service';
 import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
-import {CollateralSiteVisitService} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
-import {CollateralSiteVisit} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
+import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -36,6 +35,8 @@ export class DetailViewBaseComponent implements OnInit {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   showCadDoc = false;
   securityId: number;
+  siteVisitDocuments: Array<SiteVisitDocument>;
+  @Output() documents = new EventEmitter();
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -98,4 +99,8 @@ export class DetailViewBaseComponent implements OnInit {
         });
   }
 
+  checkSiteVisitDocument(event: any) {
+    this.siteVisitDocuments = event;
+    this.documents.emit(this.siteVisitDocuments);
+  }
 }
