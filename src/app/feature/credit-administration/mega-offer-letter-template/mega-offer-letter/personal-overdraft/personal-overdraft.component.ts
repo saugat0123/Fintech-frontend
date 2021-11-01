@@ -167,7 +167,6 @@ buildPersonal() {
         } else {
           this.form.get('dateofExpiry').patchValue(this.initialInfoPrint.dateofExpiryNepali.en);
         }
-        console.log(this.initialInfoPrint);
       }
     } else {
       this.fillForm();

@@ -102,12 +102,13 @@ export class HomeLoanTemplateDataComponent implements OnInit {
             this.spinner = false;
             return;
         }
-        homeLoan.get('loanLimitChecked').patchValue(this.loanLimit);
         this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
         const offerDocument = new OfferDocument();
         offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN);
         offerDocument.initialInformation = JSON.stringify({loan: homeLoan.value, loanType: this.homeLoanForm.get('homeLoanType').value});
         this.customerApprovedDoc.offerDocumentList.push(offerDocument);
+
+        console.log('Customer Document', this.customerApprovedDoc.offerDocumentList);
 
         this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
