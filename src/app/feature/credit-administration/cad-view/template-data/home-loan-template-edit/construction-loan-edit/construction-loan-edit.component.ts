@@ -25,6 +25,7 @@ export class ConstructionLoanEditComponent implements OnInit {
   BSApproval = false;
   BSApplication = false;
   translatedValue: any;
+  loanLimit = false;
 
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
@@ -49,6 +50,9 @@ export class ConstructionLoanEditComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.constructionLoanForm = this.formBuilder.group({
+      loanLimitChecked: [false],
+      loanLimitCheckedTrans: [undefined],
+      loanLimitCheckedCT: [undefined],
       referenceNumber: [undefined],
       referenceNumberCT: [undefined, Validators.required],
       referenceNumberTrans: [undefined],
@@ -370,6 +374,8 @@ export class ConstructionLoanEditComponent implements OnInit {
     this.constructionLoanForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
     this.constructionLoanForm.get('approvalStaffNameTrans').patchValue(this.translatedValue.approvalStaffName);
     this.constructionLoanForm.get('approvalStaffNameCT').patchValue(this.translatedValue.approvalStaffName);
+    this.constructionLoanForm.get('loanLimitCheckedTrans').patchValue(this.translatedValue.loanLimitChecked);
+    this.constructionLoanForm.get('loanLimitCheckedCT').patchValue(this.translatedValue.loanLimitChecked);
 
     this.eventEmitter.emit(true);
     this.spinner = false;
@@ -388,6 +394,10 @@ export class ConstructionLoanEditComponent implements OnInit {
     const premiumRate = this.constructionLoanForm.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.constructionLoanForm.get('interestRate').patchValue(sum);
+  }
+  loanChecked(data) {
+    this.loanLimit = data;
+    this.constructionLoanForm.get('loanLimitChecked').patchValue(this.loanLimit);
   }
 
 }

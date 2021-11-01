@@ -49,7 +49,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.landBuildingForm = this.formBuilder.group({
-      loanLimitChecked: [undefined],
+      loanLimitChecked: [false],
       landBuildingType: [undefined],
       referenceNumber: [undefined],
       dateType: [undefined],
@@ -297,7 +297,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
   }
   loanChecked(data) {
     this.loanLimit = data;
-    console.log('Loan Limit Checked?', this.loanLimit);
+    this.landBuildingForm.get('loanLimitChecked').patchValue(this.loanLimit);
   }
   calInterestRate() {
     const baseRate = this.landBuildingForm.get('baseRate').value;
