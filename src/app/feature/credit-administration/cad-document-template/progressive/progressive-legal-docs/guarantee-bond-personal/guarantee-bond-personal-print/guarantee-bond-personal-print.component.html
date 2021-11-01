@@ -538,7 +538,7 @@
                     [ngClass]="{'nepaliFont' : printDocForm?.karmachariSanketNo !== null && printDocForm?.karmachariSanketNo !== ''}">
     {{printDocForm?.karmachariSanketNo === null || printDocForm?.karmachariSanketNo === '' ? '_________________' : printDocForm?.karmachariSanketNo}}
 </span> )
-
+    <p class="text-center">
                 ईति सम्बत <span
                     [ngClass]="{'nepaliFont' : printDocForm?.itiSambatYear !== null && printDocForm?.itiSambatYear !== ''}">
     {{printDocForm?.itiSambatYear === null || printDocForm?.itiSambatYear === '' ? '_________________' : printDocForm?.itiSambatYear}}
@@ -555,7 +555,7 @@
                     [ngClass]="{'nepaliFont' : printDocForm?.itiSambatRojSumbham !== null && printDocForm?.itiSambatRojSumbham !== ''}">
     {{printDocForm?.itiSambatRojSumbham === null || printDocForm?.itiSambatRojSumbham === '' ? '_________________' : printDocForm?.itiSambatRojSumbham}}
 </span> रोज शुभम्।
-
+    </p>
             </div>
         </form>
 
