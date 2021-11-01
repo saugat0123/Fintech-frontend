@@ -115,11 +115,14 @@
 <!-- Start Security Details-->
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
-                   [securityId]="securityId"></app-security-view>
+                   [securityId]="securityId"
+                   [collateralData]="loanDataHolder?.collateralSiteVisits"
+                   [docStatus]="loanDataHolder?.documentStatus"
+                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
 <app-collateral-summary
         *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
         [customerAllLoanList]="customerAllLoanList"
-        [security]="loanDataHolder?.security"></app-collateral-summary>
+        [security]="loanDataHolder?.security" [loan]="loanDataHolder?.loan"></app-collateral-summary>
 <!-- End Security Details-->
 
 <!-- Start SiteVisit Details-->
@@ -313,5 +316,5 @@
 
 <!-- Start All Document Details-->
 <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
-                       [loanCategory]="loanDataHolder?.loanCategory"></app-all-document-view>
+                       [loanCategory]="loanDataHolder?.loanCategory" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
 <!-- End All Document Details-->

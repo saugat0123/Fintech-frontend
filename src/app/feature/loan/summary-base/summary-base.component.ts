@@ -52,7 +52,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     loanTag = LoanTag;
     summaryType = environment.summaryType;
     summaryTypeName = SummaryType;
-    spinner=false;
+    spinner = false;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -120,10 +120,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.sendBackward = false;
         this.actionsList.rejected = false;
         this.actionsList.closed = false;
-        this.spinner=true;
+        this.spinner = true;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
-            this.spinner=false;
+            this.spinner = false;
             this.loanCategory = this.loanDataHolder.loanCategory;
             this.currentIndex = this.loanDataHolder.previousList.length;
 
@@ -143,6 +143,13 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.edit = false;
             }
 
+            if (this.user.role.signApprovalSheet &&
+                this.loanDataHolder.currentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId) {
+                this.actionsList.roleTypeCommittee = true;
+            } else {
+                this.actionsList.roleTypeCommittee = false;
+            }
+
             if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
                 this.actionsList.approved = false;
             } else {
@@ -151,10 +158,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
             this.actionsList.loanApproveStatus = this.loanDataHolder.documentStatus.toString() === 'APPROVED';
 
             if (this.user.role.roleName !== 'admin') {
-                this.spinner=true;
+                this.spinner = true;
                 await this.loanActionService.getSendForwardList().subscribe((res: any) => {
                     const forward = res.detail;
-                    this.spinner=false;
+                    this.spinner = false;
                     if (forward.length === 0) {
                         this.actionsList.sendForward = false;
                     }
@@ -170,17 +177,17 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.rejected = false;
                 this.actionsList.closed = false;
             }
-            this.spinner=true;
+            this.spinner = true;
             await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
                 .subscribe((res: any) => {
-                    this.spinner=false;
+                    this.spinner = false;
                     if (res.detail === undefined) {
                         this.actionsList.approved = false;
                     } else {
                         if (this.loanDataHolder.proposal !== null
                             && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
                             this.actionsList.approved = false;
-                            this.spinner=false;
+                            this.spinner = false;
                         }
                     }
                 });
@@ -218,9 +225,11 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 default:
                     deferredDocs = [];
             }
-            deferredDocs = deferredDocs.filter((d) => (
-                !ObjectUtil.isEmpty(d.checkType) && d.checkType === EnumUtils.getEnum(DocumentCheckType, DocumentCheckType.DEFERRAL)
-            ));
+            if (!ObjectUtil.isEmpty(deferredDocs)) {
+                deferredDocs = deferredDocs.filter((d) => (
+                    !ObjectUtil.isEmpty(d.checkType) && d.checkType === EnumUtils.getEnum(DocumentCheckType, DocumentCheckType.DEFERRAL)
+                ));
+            }
             const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
             this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
         });
@@ -234,5 +243,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     activeLoanSummary() {
         this.approvalSheetActive = false;
         this.loanSummaryActive = true;
+    }
+
+    refreshLoanSummary() {
+        this.loanDataHolder = undefined;
+        this.getLoanDataHolder();
     }
 }

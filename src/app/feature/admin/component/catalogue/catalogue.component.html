@@ -165,18 +165,18 @@
                 [ngStyle]="{'color': (getSortedLoanFlags(model?.loanHolder?.loanFlags, model?.id)?.length > 0) ? 'red': 'auto'}"
                 class="cursor">
                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                <td (click)="onClick(model?.loan?.id,model?.id)"
+                <td (click)="onClick(model?.loan?.id,model?.id,model?.loanHolder?.id)"
                     *ngIf="showBranch">{{model?.branch?.name}}</td>
-                <td (click)="onClick(model?.loan?.id,model?.id)">
+                <td (click)="onClick(model?.loan?.id,model?.id,model?.loanHolder?.id)">
                     {{model?.loanHolder?.name}}</td>
-                <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.loan?.name}}</td>
-                <td (click)="onClick(model?.loan?.id,model?.id)">
+                <td (click)="onClick(model?.loan?.id,model?.id,model?.loanHolder?.id)">{{model?.loan?.name}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id, model?.loanHolder?.id)">
                     <span
                             class="d-flex justify-content-end pr-1">Rs. {{model?.proposal?.proposedLimit | currencyFormatter}}</span>
                 </td>
-                <td (click)="onClick(model?.loan?.id,model?.id)">{{loanType[model?.loanType]}}</td>
-                <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.documentStatus}}</td>
-                <td (click)="onClick(model?.loan?.id,model?.id)">
+                <td (click)="onClick(model?.loan?.id,model?.id, model?.loanHolder?.id)">{{loanType[model?.loanType]}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id, model?.loanHolder?.id)">{{model?.documentStatus}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id, model?.loanHolder?.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
@@ -192,7 +192,7 @@
                         /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList?.length - 1].lastModifiedAt)}}
                     </div>
                 </td>
-                <td (click)="onClick(model?.loan?.id,model?.id)">
+                <td (click)="onClick(model?.loan?.id,model?.id, model?.loanHolder?.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
@@ -224,15 +224,15 @@
 
                 </td>
                 <td>
-                    <div (click)="onClick(model?.loan?.id,model?.id)">
+                    <div (click)="onClick(model?.loan?.id,model?.id, model?.loanHolder?.id)">
                         {{model?.createdAt | date}}
                     </div>
                 </td>
-                <td (click)="onClick(model?.loan?.id,model?.id)"
+                <td (click)="onClick(model?.loan?.id,model?.id, model?.loanHolder?.id)"
                     *ngIf="showBranchProvince">{{model?.branch?.province?.name}}</td>
                 <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
-                    <select [(ngModel)]="tempLoanType" class="form-control form-control-tiny py-0"
-                            (ngModelChange)="onChange(model,onActionChange)">
+                    <select class="form-control form-control-tiny py-0"
+                            (change)="onChange(model,onActionChange, $event.target.value)">
                         <option [value]="null" selected hidden>Select Type</option>
                         <ng-container *ngIf="showUpdateLoanInfo(model?.loanHolder?.loanFlags)">
                             <option value="UPDATE_LOAN_INFORMATION" [ngStyle]="{color: 'red'}">Update Loan Information

@@ -351,13 +351,15 @@ export class CatalogueComponent implements OnInit {
         }
     }
 
-    onClick(loanConfigId: number, customerId: number) {
+    onClick(loanConfigId: number, customerId: number, customerInfoId: number) {
         this.spinner = true;
         this.router.navigate(['/home/loan/summary'], {
             queryParams: {
                 loanConfigId: loanConfigId,
                 customerId: customerId,
-                catalogue: true
+                catalogue: true,
+                customerInfoId: customerInfoId,
+
             }
         });
     }
@@ -401,7 +403,8 @@ export class CatalogueComponent implements OnInit {
                 this.router.navigate(['/home/loan/summary'], {
                 queryParams: {
                     loanConfigId: res.detail.loan.id,
-                    customerId: res.detail.id
+                    customerId: res.detail.id,
+                    customerInfoId: res.detail.loanHolder.id
                 }
             });
             }, error => {
@@ -447,9 +450,10 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
-    onChange(data, onActionChange) {
+    onChange(data, onActionChange, event) {
         this.loanConfigId = data.loan.id;
         this.customerId = data.id;
+        this.tempLoanType = event;
         if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
             this.router.navigate(['/home/update-loan/dashboard'], {
                 queryParams: {

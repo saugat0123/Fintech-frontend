@@ -92,13 +92,16 @@ export class SignatureSectionComponent implements OnInit {
     }
     const signatureList = new Array<LoanStage>();
     const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
+    let count = 0;
     stages.forEach((loanStage, index) => {
       if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
+        count = count + 1;
         if (addedStages.has(loanStage.fromUser.id)) {
           signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
+          count = count - 1;
         } else {
           signatureList.push(loanStage);
-          addedStages.set(loanStage.fromUser.id, index);
+          addedStages.set(loanStage.fromUser.id, count - 1);
         }
       }
     });

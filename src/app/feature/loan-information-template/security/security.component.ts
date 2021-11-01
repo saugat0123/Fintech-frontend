@@ -401,6 +401,7 @@ export class SecurityComponent implements OnInit {
                         totalSecurityAmount += Number(bondSecurityArray[i].bondValue);
                     }
                     break;
+
                 default:
                     totalSecurityAmount += 0;
                     break;
@@ -465,6 +466,39 @@ export class SecurityComponent implements OnInit {
                         totalDistressAmount += Number(landBuildingArray[i].distressValue);
                     }
                     break;
+
+                case 'ShareSecurity':
+                    const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
+                    shareSecurity.forEach(value => {
+                        totalDistressAmount += value.total;
+                    });
+                    break;
+                case 'VehicleSecurity':
+                    const vehicleDetailsArray = securityData.initialForm.vehicleDetails as Array<any>;
+                    for (let i = 0; i < vehicleDetailsArray.length; i++) {
+                        totalDistressAmount += Number(vehicleDetailsArray[i].valuationAmount);
+                    }
+                    break;
+                case 'BondSecurity':
+                    const bondSecurityArray = securityData.initialForm.bondSecurity as Array<any>;
+                    for (let i = 0; i < bondSecurityArray.length; i++) {
+                        totalDistressAmount += Number(bondSecurityArray[i].bondValue);
+                    }
+                    break;
+
+                case 'FixedDeposit':
+                    const fixedDepositArray = securityData.initialForm.fixedDepositDetails as Array<any>;
+                    for (let i = 0; i < fixedDepositArray.length; i++) {
+                        totalDistressAmount += Number(fixedDepositArray[i].amount);
+                    }
+                    break;
+                case 'PlantSecurity':
+                    const plantDetailsArray = securityData.initialForm.plantDetails as Array<any>;
+                    for (let i = 0; i < plantDetailsArray.length; i++) {
+                        totalDistressAmount += Number(plantDetailsArray[i].quotation);
+                    }
+                    break;
+
                 default:
                     totalDistressAmount += 0;
                     break;

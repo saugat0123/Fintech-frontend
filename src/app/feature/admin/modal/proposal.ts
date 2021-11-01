@@ -17,6 +17,7 @@ export class Proposal {
     cashMargin: number;
     commissionPercentage: number;
     commissionFrequency: string;
+    cashMarginOrFac:string;
     couponRate: number;
     premiumOnCouponRate: number;
     tenorOfEachDeal: string;

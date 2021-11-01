@@ -7,6 +7,7 @@ import {KeyIndicatorsHeaderMap} from '../../loan-information-template/financial/
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {SummaryType} from '../../loan/component/SummaryType';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-financial-view',
@@ -64,5 +65,26 @@ export class FinancialViewComponent implements OnInit {
         this.activeTab = tabContent['tabTitle'];
       }
     });
+  }
+
+  public isNumber(value) {
+    if (ObjectUtil.isEmpty(value)) {
+      return 0;
+    }
+    if (Number.isNaN(value)) {
+      return 0;
+    } else {
+      return value;
+    }
+
+  }
+
+  public twoDecimalDigit(value) {
+    const number = this.isNumber(value);
+    return parseFloat(number).toFixed(2);
+  }
+
+  Number(s: string) {
+    return this.isNumber(s);
   }
 }

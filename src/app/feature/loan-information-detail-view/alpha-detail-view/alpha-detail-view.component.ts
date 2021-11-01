@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {Proposal} from '../../admin/modal/proposal';
@@ -14,6 +14,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../loan/model/combined-loan';
 import {ObtainableDoc} from '../../loan-information-template/obtained-document/obtainableDoc';
 import {ActivatedRoute} from '@angular/router';
+import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 @Component({
   selector: 'app-alpha-detail-view',
@@ -50,6 +51,8 @@ export class AlphaDetailViewComponent implements OnInit {
   isJointCustomer = false;
   jointCustomerData: any;
   customerId: number;
+  @Output() documents = new EventEmitter();
+  siteVisitDocuments: Array<SiteVisitDocument>;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -91,26 +94,30 @@ export class AlphaDetailViewComponent implements OnInit {
       this.securityId = this.loanHolder.security.id;
     }
 
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
-      this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
-      this.isJointCustomer = true;
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+        this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+        this.isJointCustomer = true;
+      }
     }
   }
 
   private getObtainableDocumentList(): void {
     this.customerLoanService.detail(this.customerId).subscribe(response => {
       const details = JSON.parse(response.detail.data);
-      if (!ObjectUtil.isEmpty(details.documents)) {
-        details.documents.forEach( resData => {
-          this.obtainableDocuments.push(resData);
-        });
-      }
-      if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
-        details.OtherDocuments.split(',').forEach(splitData => {
-          if (splitData !== '') {
-            this.otherObtainableDocuments.push(splitData);
-          }
-        });
+      if (!ObjectUtil.isEmpty(details)) {
+        if (!ObjectUtil.isEmpty(details.documents)) {
+          details.documents.forEach(resData => {
+            this.obtainableDocuments.push(resData);
+          });
+        }
+        if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
+          details.OtherDocuments.split(',').forEach(splitData => {
+            if (splitData !== '') {
+              this.otherObtainableDocuments.push(splitData);
+            }
+          });
+        }
       }
     });
   }
@@ -151,6 +158,11 @@ export class AlphaDetailViewComponent implements OnInit {
         }, error => {
           console.error(error);
         });
+  }
+
+  checkSiteVisitDocument(event: any) {
+    this.siteVisitDocuments = event;
+    this.documents.emit(this.siteVisitDocuments);
   }
 
 }

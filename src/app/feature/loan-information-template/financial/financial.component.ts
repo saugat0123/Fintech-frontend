@@ -26,7 +26,7 @@ import {
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-financial',
@@ -151,6 +151,38 @@ export class FinancialComponent implements OnInit {
         'closingBalance',
         'differenceCFS'
     ];
+    newCashFlowStatementArray = [
+        'cashFromOperatingActivities',
+        'netProfitForThePeriod',
+        'depreciation',
+        'otherAmortizationAndNonCashExpenses',
+        'increaseDecreaseInInventory',
+        'increaseDecreaseInAccountsReceivable',
+        'increaseDecreaseInShortTermInvestment',
+        'increaseDecreaseInAdvanceAndDeposit',
+        'increaseDecreaseInOtherCurrentAssets',
+        'increaseDecreaseInCreditors',
+        'increaseDecreaseInOtherCurrentLiabilities',
+        'adjustmentForNonOperatingIncome',
+        'interestExpensesCFSa',
+        'cashFromInvestingActivities',
+        'changedInFixedAsset',
+        'nonOperatingIncomeExpenses',
+        'changeInOtherAssets',
+        'cashFromFinancingActivities',
+        'paidUpCapitalEquity',
+        'additionalCapital',
+        'shortTermLoan',
+        'longTermLoanReceived',
+        'dividendDrawing',
+        'interestExpensesCFSb',
+        'otherAdjustments',
+        'netCashFlow',
+        'addOpeningBalance',
+        'closingCash',
+        'closingBalance',
+        'differenceCFS'
+    ];
     keyIndicatorsArray = [
         'growth',
         'sales',
@@ -210,7 +242,6 @@ export class FinancialComponent implements OnInit {
             this.fiscalYear = this.currentFormData['fiscalYear'];
             this.auditorList = this.currentFormData['auditorList'];
             const initialFormData = this.currentFormData['initialForm'];
-
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
             this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
@@ -434,9 +465,16 @@ export class FinancialComponent implements OnInit {
 
     addingFiscalYearForCashFlowStatement(yearValue) {
         const cashFlowStatementData = this.currentFormData['cashFlowStatementData'];
-        this.cashFlowStatementArray.forEach(headingValue => {
-            this.financialService.addFiscalYearForJson(cashFlowStatementData[headingValue], yearValue);
-        });
+        // check additional Capital Json Value
+        if (cashFlowStatementData.additionalCapital === undefined) {
+            this.cashFlowStatementArray.forEach(headingValue => {
+                this.financialService.addFiscalYearForJson(cashFlowStatementData[headingValue], yearValue);
+            });
+        } else {
+            this.newCashFlowStatementArray.forEach(headingValue => {
+                this.financialService.addFiscalYearForJson(cashFlowStatementData[headingValue], yearValue);
+            });
+        }
     }
 
     addingFiscalYearForKeyIndicators(yearValue) {
@@ -473,9 +511,15 @@ export class FinancialComponent implements OnInit {
 
     removingFiscalYearForCashFlowStatement(index) {
         const cashFlowStatementData = this.currentFormData['cashFlowStatementData'];
-        this.cashFlowStatementArray.forEach(headingValue => {
-            this.financialService.removeFiscalYearForJson(cashFlowStatementData[headingValue], index);
-        });
+        if (cashFlowStatementData.additionalCapital === undefined) {
+            this.cashFlowStatementArray.forEach(headingValue => {
+                this.financialService.removeFiscalYearForJson(cashFlowStatementData[headingValue], index);
+            });
+        } else {
+            this.newCashFlowStatementArray.forEach(headingValue => {
+                this.financialService.removeFiscalYearForJson(cashFlowStatementData[headingValue], index);
+            });
+        }
     }
 
     removingFiscalYearForKeyIndicators(index) {
@@ -485,8 +529,6 @@ export class FinancialComponent implements OnInit {
         });
     }
 
-    //
-    //
     // Header Part--
     addIncomeOfBorrower() {
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
