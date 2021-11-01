@@ -18,8 +18,8 @@ export class EngToNepaliNumberPipe implements PipeTransform {
     0: '०',
     '.': '.',
     ',': ',',
-    '/': '/',
-    '-': '-',
+    '/': '÷',
+    '-': '-'
   };
   transform(value: any, ...args: any[]): any {
     if (ObjectUtil.isEmpty(value)) {

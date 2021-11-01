@@ -70,18 +70,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             citizenshipNo: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customerInfo.idNumber) : undefined],
             age: [this.checkIsIndividual() ? this.ageCalculation(this.customer.dob) : undefined],
             // tslint:disable-next-line:max-line-length
-            permanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province.nepaliName) ? undefined : this.customer.province.nepaliName : undefined],
+            permanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province) ? undefined : this.customer.province.nepaliName : undefined],
             // tslint:disable-next-line:max-line-length
-            permanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district.nepaliName) ? undefined : this.customer.district.nepaliName : undefined],
+            permanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district) ? undefined : this.customer.district.nepaliName : undefined],
             // tslint:disable-next-line:max-line-length
-            permanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities.nepaliName) ? undefined : this.customer.municipalities.nepaliName : undefined],
+            permanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities) ? undefined : this.customer.municipalities.nepaliName : undefined],
             permanentMunType: [0],
             // tslint:disable-next-line:max-line-length
-            temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince.nepaliName) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
+            temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
             // tslint:disable-next-line:max-line-length
-            temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict.nepaliName) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
+            temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
             // tslint:disable-next-line:max-line-length
-            temporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities.nepaliName) ? undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
+            temporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) ? undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
             permanentWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.wardNumber) : undefined],
             temporaryWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
             temporaryMunType: [1],
@@ -118,6 +118,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     save() {
         this.submitted = true;
+
         if (this.userConfigForm.invalid) {
             return;
         }
@@ -127,6 +128,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.customerInfoData = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
             this.spinner = false;
+            this.reloadPage();
             this.dialogRef.close(this.customerInfoData);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
@@ -134,6 +136,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
+
 
     }
 
@@ -198,5 +201,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 citizenNumber: [value.citizenNumber]
             }));
         });
+    }
+
+    reloadPage() {
+        window.location.reload();
     }
 }

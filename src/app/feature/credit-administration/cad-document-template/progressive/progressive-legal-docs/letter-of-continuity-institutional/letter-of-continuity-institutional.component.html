@@ -8,14 +8,14 @@
             <br>
             <div class="row">
 
-                <b class="text-left">
+                <strong class="text-left">
                     प्रोग्रेशिभ फाईनान्स लिमिटेड, <br>
                     <input class="form-field form-control-sm nepaliFont"
                            formControlName="branchName"
                            placeholder=""
                            type="text"/>
                     शाखा।
-                </b>
+                </strong>
 
                 <br>
                 <p>
@@ -87,7 +87,7 @@
                 </p>
 
             </div>
-            <p class="text-center"><b>भवदीय,</b></p>
+            <p class="text-center"><strong>भवदीय,</strong></p>
             <br>
             <div class="row  Sincerely">
 
@@ -190,14 +190,14 @@
 
             </div>
             <br>
-            <b> साक्षी :</b>
-            <div class="col-md-12 float-right">
+            <strong> साक्षी :</strong>
+            <!--<div class="col-md-12 float-right">
                 <button (click)="addsecGuarantor()" class="btn btn-primary btn-sm float-right "
                         size="tiny" type="button">साक्षी थप्नुहोस्<i
                         class="fas fa-plus"></i></button>
-            </div>
+            </div>-->
             <div>
-                <div *ngFor="let guarantor of form.get('secguarantorDetails')['controls']; let i=index"
+                <!--<div *ngFor="let guarantor of form.get('secguarantorDetails')['controls']; let i=index"
                      class="container"
                      formArrayName="secguarantorDetails">
                     <div [formGroupName]="i">
@@ -250,12 +250,98 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
+                <table class="table table-responsive-md table-borderless">
+                    <thead>
+                    <tr>
+                        <td>१. दस्तखत:</td>
+                        <td>.............................</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>नाम:</td>
+                        <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                                     formControlName="witnessName"
+                                                     type="text"/>
+                            (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+                                             formControlName="witnessCitizenshipNo"
+                                             placeholder=""
+                                             type="text"/>
+                            मिति <input class="form-field form-control-sm nepaliFont"
+                                        formControlName="witnessCitizenshipIssueDate"
+                                        placeholder=""
+                                        type="text"/> जि.प्र.का. <input
+                                    class="form-field form-control-sm nepaliFont"
+                                    formControlName="witnessCDOoffice"
+                                    placeholder=""
+                                    type="text"/>)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ठेगाना:</td>
+                        <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                                     formControlName="witnessIssuedPlace"
+                                                     placeholder="" type="text"/>जिल्ला <input
+                                class="form-field form-control-sm nepaliFont"
+                                formControlName="witnessMunicipality"
+                                placeholder=""
+                                type="text"/>
+                            गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                                                     formControlName="witnessWardNo"
+                                                     placeholder=""
+                                                     type="text"/></td>
+                    </tr>
+                    </tbody>
+                </table>
 
+                <table class="table table-responsive-md table-borderless">
+                    <thead>
+                    <tr>
+                        <td>२. दस्तखत:</td>
+                        <td>.............................</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>नाम:</td>
+                        <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                                     formControlName="witnessName1"
+                                                     type="text"/>
+                            (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+                                             formControlName="witnessCitizenshipNo1"
+                                             placeholder=""
+                                             type="text"/>
+                            मिति <input class="form-field form-control-sm nepaliFont"
+                                        formControlName="witnessCitizenshipIssueDate1"
+                                        placeholder=""
+                                        type="text"/> जि.प्र.का. <input
+                                    class="form-field form-control-sm nepaliFont"
+                                    formControlName="witnessCDOoffice1"
+                                    placeholder=""
+                                    type="text"/>)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ठेगाना:</td>
+                        <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                                     formControlName="witnessIssuedPlace1"
+                                                     placeholder="" type="text"/>जिल्ला <input
+                                class="form-field form-control-sm nepaliFont"
+                                formControlName="witnessMunicipality1"
+                                placeholder=""
+                                type="text"/>
+                            गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                                                     formControlName="witnessWardNo1"
+                                                     placeholder=""
+                                                     type="text"/></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div>
-                <b>सनाखत साक्षी</b>
+                <strong>सनाखत साक्षी</strong>
                 <br>
                 <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछापगर्ने धनीवित्तीय संस्थामा
                     कार्यरत कर्मचारी

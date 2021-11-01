@@ -184,7 +184,21 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       buttonCdoOfficeName: [undefined],
       buttonCitizenshipNoName: [undefined],
       buttonAgeName: [undefined],
-      sirName: [undefined]
+      sirName: [undefined],
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
     });
   }
 
