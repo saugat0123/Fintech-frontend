@@ -59,14 +59,14 @@
                 <td class="text-left pl-1">{{customerInfo?.clientType}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Subsector</th>
+<!--                <th>Subsector</th>-->
                 <th>Address as per Legal Document</th>
 
                 <!--        Obligor code for SRDB and Group Code for other banks-->
                 <th *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{customerInfo?.subsectorDetail || 'N/A'}}</td>
+<!--                <td class="text-left pl-1">{{customerInfo?.subsectorDetail || 'N/A'}}</td>-->
                 <td class="text-left pl-1">{{customerInfo?.customerLegalDocumentAddress}}</td>
                 <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
             </tr>
