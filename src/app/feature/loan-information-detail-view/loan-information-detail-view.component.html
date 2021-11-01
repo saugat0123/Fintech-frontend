@@ -111,17 +111,19 @@
             <app-detail-view-base *ngIf="loanHolder && loanHolder && !isMicro"
                                   [calendarType]="calendarType"
                                   [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
-                                  [loanId]="id"></app-detail-view-base>
+                                  [loanId]="id"
+                                  (documents)="checkSiteVisitDocument($event)"></app-detail-view-base>
             <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro"
                                              [calendarType]="calendarType"
                                              [customerAllLoanList]="customerAllLoanList"
                                              [fiscalYearArray]="fiscalYearArray"
                                              [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
                                              [loanId]="id"
-                                             [isMicro]="isMicro"></app-micro-loan-detail-view-base>
+                                             [isMicro]="isMicro"
+                                             (documents)="checkSiteVisitDocument($event)"></app-micro-loan-detail-view-base>
 
             <ng-template  #allDocumentView>
-                <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
+                <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
             </ng-template>
 
             <app-proposal-terms-and-condition-summery
@@ -138,9 +140,7 @@
                             <th>S.N</th>
                             <th>Date</th>
                             <th>From User</th>
-
                             <th>To User</th>
-
                             <th>Status</th>
                             <th class="cmt-width">Remarks</th>
                         </tr>
