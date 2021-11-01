@@ -26,7 +26,7 @@
       </div>
       <div style="...">
         <p>
-          <b>श्री</b>
+          <strong>श्री</strong>
           <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                             {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
           </span>
@@ -70,7 +70,7 @@
         <p style="margin-top: 30px">महाशय,</p>
         <div style="margin-left: 30px">
           <p>
-            तपाइ <b>श्री</b>
+            तपाइ <strong>श्री</strong>
             <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                                 {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
             </span>
@@ -84,7 +84,7 @@
         </div>
         पक्षहरु :–<br>
         <div style="margin-left: 40px">
-          १.१ &nbsp; <b>श्री</b>
+          १.१ &nbsp; <strong>श्री</strong>
             <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
               {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
             </span>
@@ -100,15 +100,15 @@
             <table class="table table-borderless">
               <tr>
                 <td rowspan="11">
-                  <b>१.</b>
+                  <strong>१.</strong>
                 </td>
-                <td colspan="2"><b>कर्जा तथा सुविधाको विवरण : </b></td>
+                <td colspan="2"><strong>कर्जा तथा सुविधाको विवरण : </strong></td>
               </tr>
               <tr>
-                <td colspan="2"><b>(क) कर्जा सुविधाको किसिम :</b> &nbsp; &nbsp; हायर पर्चेज कर्जा/ सवारी साधन खरिद कर्जा</td>
+                <td colspan="2"><strong>(क) कर्जा सुविधाको किसिम :</strong> &nbsp; &nbsp; हायर पर्चेज कर्जा/ सवारी साधन खरिद कर्जा</td>
               </tr>
               <tr>
-                <td><b>कर्जा सिमा :</b></td>
+                <td><strong>कर्जा सिमा :</strong></td>
                 <td>अधिकतम रु.
                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
                     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
@@ -121,11 +121,11 @@
                 </td>
               </tr>
               <tr>
-                <td><b>उदेश्य :</b></td>
+                <td><strong>उदेश्य :</strong></td>
                 <td> सवारी साधन  खरिद गर्न । <br></td>
               </tr>
               <tr>
-                <td><b> तिर्नुपर्ने किस्ताको विवरण :</b></td>
+                <td><strong> तिर्नुपर्ने किस्ताको विवरण :</strong></td>
                 <td>
                   प्रत्येक महिनाको नेपाली क्यलेन्डर अनुसार २५ गतेका दिन मासिक रु
                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.monthlyPayment !== null && printDocForm?.monthlyPayment !== ''}">
@@ -175,11 +175,6 @@
                       {{printDocForm?.interestTempDiscountRate === null || printDocForm?.interestTempDiscountRate === '' ? '_________________' : printDocForm?.interestTempDiscountRate}}
                     </span>
                     % =
-                    <input
-                        class="form-control-sm form-field nepaliFont font-size-normal"
-                        type="text"
-                        readonly
-                        formControlName="interestFinalRate">
                     <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.yearlyInterest !== null && printDocForm?.yearlyInterest !== ''}">
                       {{printDocForm?.yearlyInterest === null || printDocForm?.yearlyInterest === '' ? '_________________' : printDocForm?.yearlyInterest}}
                     </span>
@@ -191,7 +186,7 @@
                 </td>
               </tr>
               <tr>
-                <td><b>समयाबधि</b></td>
+                <td><strong>समयाबधि</strong></td>
                 <td>
                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.loanLimitTime !== null && printDocForm?.loanLimitTime !== ''}">
                       {{printDocForm?.loanLimitTime === null || printDocForm?.loanLimitTime === '' ? '_________________' : printDocForm?.loanLimitTime}}
@@ -200,7 +195,7 @@
                 </td>
               </tr>
               <tr>
-                <td><b>सेवा शुल्क</b></td>
+                <td><strong>सेवा शुल्क</strong></td>
                 <td>स्वीकृत कर्जा रकमको
                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.serviceCharge !== null && printDocForm?.serviceCharge !== ''}">
                       {{printDocForm?.serviceCharge === null || printDocForm?.serviceCharge === '' ? '_________________' : printDocForm?.serviceCharge}}
@@ -214,9 +209,9 @@
         <table class="table table-borderless">
           <tr>
             <td rowspan="3">
-              <b>२.</b>
+              <strong>२.</strong>
             </td>
-            <td colspan="2"><b><u>धितो सुरक्षण विवरण (Security Detail):</u></b></td>
+            <td colspan="2"><strong><u>धितो सुरक्षण विवरण (Security Detail):</u></strong></td>
           </tr>
           <tr>
             <td>ऋणीले लिने वा लिएको तथा भविष्यमा लिने सम्पूर्ण कर्जा तथा सुविधाहरु निम्न वमोजिमको सम्पत्ति तथा लिखतहरुले
@@ -226,7 +221,7 @@
         </table>
         <div class="row">
           <div style="margin-left: 80px">
-            <p>क. <b>Primary Collateral:  धितो राखिने जायजेथाको बिबरण</b></p>
+            <p>क. <strong>Primary Collateral:  धितो राखिने जायजेथाको बिबरण</strong></p>
             <table class="table table-bordered">
               <thead>
               <tr>
@@ -279,7 +274,7 @@
             </table>
             उपरोक्त धिताकोे को गाडी ऋणीले नेपाल सरकार यातायात व्यावस्था कार्यालय गयीे यस प्रोग्रेशिभफाइनान्स लि.को
             नाममा धनि दर्ता कायम गराउनु पर्ने छ ।
-            <p>ख. <b>Additional Collateral:  धधितो राखिने जग्गा वा घर जग्गाको बिबरण</b></p>
+            <p>ख. <strong>Additional Collateral:  धधितो राखिने जग्गा वा घर जग्गाको बिबरण</strong></p>
             <table class="table table-bordered">
               <thead>
               <tr>
@@ -385,9 +380,8 @@
           <div class="col-md-12" id="individual">
             <br>
             <div *ngFor="let individualDetail of printDocForm?.individualDetails; index as i">
-              <div [formGroupName]="i">
                 <p>{{i + 1 | nepaliWord: 'unicode'}}
-                  <b>श्री </b>
+                  <strong>श्री </strong>
                   <span [ngClass]="{'nepaliFont' : individualDetail?.shreeName1 !== null && individualDetail?.shreeName1 !== ''}">
                     {{individualDetail?.shreeName1 === null || individualDetail?.shreeName1 === '' ? '____________________' : individualDetail?.shreeName1}}
                   </span>
@@ -406,7 +400,6 @@
                   </span>
                   रुपैंया मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
                 </p>
-              </div>
             </div>
           </div>
         </div>
@@ -440,8 +433,8 @@
       </table>
       <table class="table table-borderless">
         <tr>
-          <td><b>३.</b></td>
-          <td><b>व्याज :</b> <br>
+          <td><strong>३.</strong></td>
+          <td><strong>व्याज :</strong> <br>
             <ul style="line-height: 40px;">
               <li>
                 अन्यथा व्यवस्था गरिएकोमा वाहेक यस कर्जा सुबिधा स्वीकृति पत्रमा तोकिएको व्याज दरले बांकी रहेको
@@ -475,11 +468,8 @@
           </td>
         </tr>
         <tr>
-          <td><b>४.</b></td>
-          <td> <b>पुनरावलोकन :</b> रु.
-            <input class="form-control-sm form-field nepaliFont"
-                   type="text"
-                   formControlName="amount4">
+          <td><strong>४.</strong></td>
+          <td> <strong>पुनरावलोकन :</strong> रु.
                   <span [ngClass]="{'nepaliFont' : printDocForm?.amount4 !== null && printDocForm?.amount4 !== ''}">
                       {{printDocForm?.amount4 === null || printDocForm?.amount4 === '' ? '_________________' : printDocForm?.amount4}}
                   </span>
@@ -488,15 +478,15 @@
           </td>
         </tr>
         <tr>
-          <td><b>५.</b></td>
-          <td> <b>निरिक्षण :</b>
+          <td><strong>५.</strong></td>
+          <td> <strong>निरिक्षण :</strong>
             कुनै पूर्व तयारी नगरी फाइनान्सले आवश्यक देखेको समयमा व्यवसाय गरेका वा धितो सुरक्षण दिएका सम्पत्तिहरुको
             निरिक्षण गर्न फाइनान्स अधिकृत रहेको छ । यसरी नीरिक्षण गर्दा लाग्ने सवै किसिमका खर्चहरु ऋणीले व्यहोर्नु पर्ने छ । <br>
           </td>
         </tr>
         <tr>
-          <td><b>६.</b></td>
-          <td> <b>शर्त वन्देजहरु :</b>
+          <td><strong>६.</strong></td>
+          <td> <strong>शर्त वन्देजहरु :</strong>
             सुविधा समाप्त नभएसम्म वा कुनै रकम कलम वा दायित्वहरु वांकी रहे सम्म ऋणीले निम्न
             वमोजिमको शर्त वन्देजहरु अविच्छिन्न रुपमा पालना गर्नु पर्नेछ ।<br></td>
         </tr>
@@ -561,8 +551,8 @@
           </td>
         </tr>
         <tr>
-          <td><b>७.</b></td>
-          <td> <b><u>अन्य शर्त वन्देजहरु:</u></b>
+          <td><strong>७.</strong></td>
+          <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong>
             यसका अतिरिक्त ऋणी निम्न शर्त वन्देजहरु स्वीकार गर्दछ ।
           </td>
         </tr>
@@ -614,8 +604,8 @@
           </td>
         </tr>
         <tr>
-          <td><b>८.</b></td>
-          <td><b><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></b><br>
+          <td><strong>८.</strong></td>
+          <td><bstrong><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></bstrong><br>
             देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा किस्ता/कर्जा खिलाफी भएको मानिने छ ।
           </td>
         </tr>
@@ -710,8 +700,8 @@
           </td>
         </tr>
         <tr>
-          <td><b>९.</b></td>
-          <td><b><u>लागू हुने पूर्व शर्त</u></b> <br>
+          <td><strong>९.</strong></td>
+          <td><strong><u>लागू हुने पूर्व शर्त</u></strong> <br>
             यो कर्जा सुविधा प्राप्त गर्न, यस कर्जा सुविधाको लागि माथि दफा २ मा लेखिएको सम्पत्तिको रुपमा उपलव्ध गराउन र
             धितो सम्पत्तिका लिखतहरु लगायतका कर्जा सुविधासंग सम्वन्धित कानूनी कागजपत्रमा सहीछाप गर्न, यो कर्जा
             स्वीकृतिपत्र स्वीकार गर्न र ऋणीको तर्फवाट यो कर्जा सुविधाको सञ्चालन गर्ने अधिकार प्रत्यायोजन गरेको ऋणीको
@@ -724,16 +714,16 @@
             (क) कर्जा तमसुक ।
             (ख) व्यक्तिगत जमानी तमसुक ।
             (ग) प्रतिज्ञापत्र
-            यो कर्जा स्वीकृति पत्र ऋणीलाई स्वीकार्य भएमा प्रस्ताव गरेको मितिले <b>७</b> दिन भित्र यसको प्रतिलिपिमा दस्तखत गरी
+            यो कर्जा स्वीकृति पत्र ऋणीलाई स्वीकार्य भएमा प्रस्ताव गरेको मितिले <strong>७</strong> दिन भित्र यसको प्रतिलिपिमा दस्तखत गरी
             फाइनान्सलाई फिर्ता गर्नु होला ।
             फाइनान्सले कर्जा तथा सुविधा स्वीकृति गर्दाको परिस्थितिको विपरित नकारात्मक परिस्थिति सिर्जना भएमा यो कर्जा
             स्वीकृति पत्रमा ऋणीले स्वीकृति जनाउनु भन्दा अगावै फाइनान्सले कर्जा सुविधा फिर्ता गर्न सक्नेछ ।
           </td>
         </tr>
         <tr>
-          <td><b>१०.</b></td>
+          <td><strong>१०.</strong></td>
           <td>
-            <b><u>घोषणा (Declaration) : </u></b>
+            <strong><u>घोषणा (Declaration) : </u></strong>
             ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने कुराको विना शर्त घोषणा
             गर्दछ ।
           </td>
@@ -763,18 +753,18 @@
           </td>
         </tr>
         <tr>
-          <td><b>११.</b></td>
+          <td><strong>११.</strong></td>
           <td>
-            <b><u>छुट (Waiver)</u></b><br>
+            <strong><u>छुट (Waiver)</u></strong><br>
             कुनै खास अधिकार छोडेको लिखित सूचना ऋणीले प्राप्त नगरे सम्म यस कर्जा स्वीकृतिपत्र वमोजिम फाइनान्सलाई
             प्राप्त अधिकारमा कुनै किसिमको छुट प्रदान भएको मानिने छैन । फाइनान्सले एक पटक सवै वा केही अधिकारहरुको
             प्रयोग गरेमा वा नगरेमा ती अधिकारहरु पुनः प्रयोग गर्न सक्नेछ ।
           </td>
         </tr>
         <tr>
-          <td><b>१२.</b></td>
+          <td><strong>१२.</strong></td>
           <td>
-            <b><u>सूचना (Notice)</u></b><br>
+            <strong><u>सूचना (Notice)</u></strong><br>
             कुनै पनि सूचना गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी, भ्mबष् िगरी वा फ्याक्स मार्फत आदान प्रदान
             गर्न सकिने छ ।
           </td>
@@ -785,8 +775,8 @@
         <div class="col-md-12">
           <table class="table text-center table-bordered">
             <tr>
-              <th><b><u>फाइनान्स</u></b></th>
-              <th><b><u>ऋणी</u></b></th>
+              <th><strong><u>फाइनान्स</u></strong></th>
+              <th><strong><u>ऋणी</u></strong></th>
             </tr>
             <tbody>
             <tr>
@@ -807,7 +797,7 @@
                       {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                 </span><br>
                 हालको ठेगाना :
-                <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.currentAddress1 !== ''}">
+                <span [ngClass]="{'nepaliFont' : printDocForm?.currentAddress1 !== null && printDocForm?.currentAddress1 !== ''}">
                       {{printDocForm?.currentAddress1 === null || printDocForm?.currentAddress1 === '' ? '_________________' : printDocForm?.currentAddress1}}
                 </span><br><br>
                 मोबाइल नं.
@@ -873,19 +863,19 @@
               {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
             </span><br>
             नागरिकता नं., मिति र कार्यालय:—
-            <b> (ना.प्र.नं </b>
+            <strong> (ना.प्र.नं </strong>
             <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipNum !== null && printDocForm?.signatoryCitizenshipNum !== ''}">
               {{printDocForm?.signatoryCitizenshipNum === null || printDocForm?.signatoryCitizenshipNum === '' ? '_________________' : printDocForm?.signatoryCitizenshipNum}}
             </span>
-            <b> मिति </b>
+            <strong> मिति </strong>
             <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipIssueDate !== null && printDocForm?.signatoryCitizenshipIssueDate !== ''}">
               {{printDocForm?.signatoryCitizenshipIssueDate === null || printDocForm?.signatoryCitizenshipIssueDate === '' ? '_________________' : printDocForm?.signatoryCitizenshipIssueDate}}
             </span>
-            <b> जि.प्र.का. </b>
+            <strong> जि.प्र.का. </strong>
             <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipIssuePlace !== null && printDocForm?.signatoryCitizenshipIssuePlace !== ''}">
               {{printDocForm?.signatoryCitizenshipIssuePlace === null || printDocForm?.signatoryCitizenshipIssuePlace === '' ? '_________________' : printDocForm?.signatoryCitizenshipIssuePlace}}
             </span>
-            <b> ) </b><br>
+            <strong> ) </strong><br>
             ऋणी वा अख्तियार प्राप्त व्यक्तिको ठेगाना :—
             <span [ngClass]="{'nepaliFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
               {{printDocForm?.customerAddress === null || printDocForm?.customerAddress === '' ? '_________________' : printDocForm?.customerAddress}}
@@ -925,7 +915,7 @@
         <div class="col-md-12">
           <table class="table  table-borderless">
             <tr>
-              <td><b>साक्षी :</b></td>
+              <td><strong>साक्षी :</strong></td>
             </tr>
             <tbody>
             <tr>
@@ -952,7 +942,7 @@
             </tr>
             </tbody>
           </table>
-          <b>सनाखत साक्षी</b><br>
+          <strong>सनाखत साक्षी</strong><br>
           ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी फाइनान्समा कार्यरत कर्मचारी
           <span [ngClass]="{'nepaliFont' : printDocForm?.sahichhapEmployee !== null && printDocForm?.sahichhapEmployee !== ''}">
             {{printDocForm?.sahichhapEmployee === null || printDocForm?.sahichhapEmployee === '' ? '_________________' : printDocForm?.sahichhapEmployee}}

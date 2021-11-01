@@ -42,7 +42,7 @@
           <p>
             हालको ठेगाना :
             <input class="form-control-sm form-field nepaliFont"
-                   formControlName="customerCurrentAddress"
+                   formControlName="customerTempAddress"
                    type="text">
           </p>
         </div>
@@ -68,7 +68,7 @@
         <p style="margin-top: 30px">महाशय,</p>
         <div style="margin-left: 30px">
         <p>
-          तपाइ <b>श्री</b>
+          तपाइ <strong>श्री</strong>
           <input class="form-control-sm form-field nepaliFont"
                  [value]="form.get('customerName').value"
                  type="text">
@@ -82,7 +82,7 @@
         </div>
           पक्षहरु :–<br>
           <div style="margin-left: 40px">
-            १.१ &nbsp; <b>श्री</b>
+            १.१ &nbsp; <strong>श्री</strong>
             <input class="form-control-sm form-field nepaliFont"
                    [value]="form.get('customerName').value"
                    type="text">
@@ -98,15 +98,15 @@
             <table class="table table-borderless">
               <tr>
                 <td rowspan="11">
-                   <b>१.</b>
+                   <strong>१.</strong>
                 </td>
-                <td colspan="2"><b>कर्जा तथा सुविधाको विवरण : </b></td>
+                <td colspan="2"><strong>कर्जा तथा सुविधाको विवरण : </strong></td>
               </tr>
               <tr>
                 <td colspan="2"><b>(क) कर्जा सुविधाको किसिम :</b> &nbsp; &nbsp; हायर पर्चेज कर्जा/ सवारी साधन खरिद कर्जा</td>
               </tr>
               <tr>
-                <td><b>कर्जा सिमा :</b></td>
+                <td><strong>कर्जा सिमा :</strong></td>
                 <td>अधिकतम रु.
                   <input class="form-control-sm form-field nepaliFont"
                          type="text"
@@ -121,11 +121,11 @@
                 </td>
               </tr>
               <tr>
-                <td><b>उदेश्य :</b></td>
+                <td><strong>उदेश्य :</strong></td>
                 <td> सवारी साधन  खरिद गर्न । <br></td>
               </tr>
               <tr>
-                <td><b> तिर्नुपर्ने किस्ताको विवरण :</b></td>
+                <td><strong> तिर्नुपर्ने किस्ताको विवरण :</strong></td>
                 <td>
                   प्रत्येक महिनाको नेपाली क्यलेन्डर अनुसार २५ गतेका दिन मासिक रु
                   <input class="form-control-sm form-field nepaliFont"
@@ -205,7 +205,7 @@
                 </td>
               </tr>
               <tr>
-                <td><b>समयाबधि</b></td>
+                <td><strong>समयाबधि</strong></td>
                 <td>
                   <input class="form-control-sm form-field nepaliFont"
                          type="text"
@@ -214,7 +214,7 @@
                 </td>
               </tr>
               <tr>
-                <td><b>सेवा शुल्क</b></td>
+                <td><strong>सेवा शुल्क</strong></td>
                 <td>स्वीकृत कर्जा रकमको
                   <input class="form-control-sm form-field nepaliFont"
                          type="text"
@@ -228,9 +228,9 @@
           <table class="table table-borderless">
             <tr>
               <td rowspan="3">
-                <b>२.</b>
+                <strong>२.</strong>
               </td>
-              <td colspan="2"><b><u>धितो सुरक्षण विवरण (Security Detail):</u></b></td>
+              <td colspan="2"><strong><u>धितो सुरक्षण विवरण (Security Detail):</u></strong></td>
             </tr>
             <tr>
               <td>ऋणीले लिने वा लिएको तथा भविष्यमा लिने सम्पूर्ण कर्जा तथा सुविधाहरु निम्न वमोजिमको सम्पत्ति तथा लिखतहरुले
@@ -240,7 +240,7 @@
           </table>
         <div class="row">
           <div style="margin-left: 80px">
-        <p>क. <b>Primary Collateral:  धितो राखिने जायजेथाको बिबरण</b></p>
+        <p>क. <strong>Primary Collateral:  धितो राखिने जायजेथाको बिबरण</strong></p>
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -290,18 +290,18 @@
                              formControlName="marginPercentageTwo"> %
                     </td>
                     <td>
-                      <i (click)="addPrimaryCollateral()" size="large"
-                         class="d-print-none fa fa-plus-square"></i>
-                      <i (click)="removePrimaryCollateral(i)" size="small"
+                      <em (click)="addPrimaryCollateral()" size="large"
+                         class="d-print-none fa fa-plus-square"></em>
+                      <em (click)="removePrimaryCollateral(i)" size="small"
                          class="d-print-none fa fa-trash"
-                         *ngIf="form.get('primaryCollaterals')['length']>1"></i>
+                         *ngIf="form.get('primaryCollaterals')['length']>1"></em>
                     </td>
                   </tr>
                   </tbody>
                 </table>
                 उपरोक्त धिताकोे को गाडी ऋणीले नेपाल सरकार यातायात व्यावस्था कार्यालय गयीे यस प्रोग्रेशिभफाइनान्स लि.को
                 नाममा धनि दर्ता कायम गराउनु पर्ने छ ।
-        <p>ख. <b>Additional Collateral:  धधितो राखिने जग्गा वा घर जग्गाको बिबरण</b></p>
+        <p>ख. <strong>Additional Collateral:  धधितो राखिने जग्गा वा घर जग्गाको बिबरण</strong></p>
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -365,11 +365,11 @@
                              type="text">
                     </td>
                     <td>
-                      <i (click)="addAdditionalCollateral()" size="large"
-                         class="d-print-none fa fa-plus-square"></i>
-                      <i (click)="removeAdditionalCollateral(i)" size="small"
+                      <em (click)="addAdditionalCollateral()" size="large"
+                         class="d-print-none fa fa-plus-square"></em>
+                      <em (click)="removeAdditionalCollateral(i)" size="small"
                          class="d-print-none fa fa-trash"
-                         *ngIf="form.get('additionalCollaterals')['length']>1"></i>
+                         *ngIf="form.get('additionalCollaterals')['length']>1"></em>
                     </td>
                   </tr>
                   </tbody>
@@ -419,7 +419,7 @@
                  id="individualDetail">
               <div [formGroupName]="i">
                 <p>{{i + 1 | nepaliWord: 'unicode'}}
-                  <b>श्री </b>
+                  <strong>श्री </strong>
                   <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="shreeName1">
@@ -440,8 +440,8 @@
                          type="text"
                          formControlName="amountInWords1">
                   रुपैंया मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
-                  <i (click)="removeIndividualDetails(i)" size="small" class="float-right fa fa-trash"
-                     *ngIf="form.get('individualDetails')['length']>1"></i>
+                  <em (click)="removeIndividualDetails(i)" size="small" class="float-right fa fa-trash"
+                     *ngIf="form.get('individualDetails')['length']>1"></em>
                 </p>
               </div>
             </div>
@@ -479,15 +479,15 @@
           </table>
           <table class="table table-borderless">
             <tr>
-              <td><b>३.</b></td>
-              <td><b>व्याज :</b> <br>
+              <td><strong>३.</strong></td>
+              <td><strong>व्याज :</strong> <br>
                 <ul style="line-height: 40px;">
                   <li>
                     अन्यथा व्यवस्था गरिएकोमा वाहेक यस कर्जा सुबिधा स्वीकृति पत्रमा तोकिएको व्याज दरले बांकी रहेको
                     कर्जामा दैनिक व्याज गणना गरी सांवा तथा पाकेको व्याजको किस्ता भुक्तानी तालिका बमोजिम वा प्रत्येक
                     त्रैमासकोे अन्तमा असुलउपर गरिने छ । कर्जा समयमा भुक्तानी नभएको अवस्थामा वा यस कर्जा
                     स्वीकृतिपत्रमा उल्लेखित शर्त तथा वन्देजहरुको उल्लंघन भएमा वा स्वीकृत सीमा भन्दा वढी कर्जा उपभोग
-                    गरेमा विना पूर्व सूचना यस कर्जा स्वीकृतिपत्रमा उल्लेखित व्याज दरमा कम्तीमा<b>२</b> प्रतिशत थप व्याज लगाई
+                    गरेमा विना पूर्व सूचना यस कर्जा स्वीकृतिपत्रमा उल्लेखित व्याज दरमा कम्तीमा<strong>२</strong> प्रतिशत थप व्याज लगाई
                     असुल उपर गरिनेछ ।<br><br>
                   </li>
                   <li>
@@ -514,8 +514,8 @@
               </td>
             </tr>
             <tr>
-              <td><b>४.</b></td>
-              <td> <b>पुनरावलोकन :</b> रु.
+              <td><strong>४.</strong></td>
+              <td> <strong>पुनरावलोकन :</strong> रु.
                 <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        formControlName="amount4">
@@ -524,15 +524,15 @@
               </td>
             </tr>
             <tr>
-              <td><b>५.</b></td>
-              <td> <b>निरिक्षण :</b>
+              <td><strong>५.</strong></td>
+              <td> <strong>निरिक्षण :</strong>
                 कुनै पूर्व तयारी नगरी फाइनान्सले आवश्यक देखेको समयमा व्यवसाय गरेका वा धितो सुरक्षण दिएका सम्पत्तिहरुको
                 निरिक्षण गर्न फाइनान्स अधिकृत रहेको छ । यसरी नीरिक्षण गर्दा लाग्ने सवै किसिमका खर्चहरु ऋणीले व्यहोर्नु पर्ने छ । <br>
               </td>
             </tr>
             <tr>
-              <td><b>६.</b></td>
-              <td> <b>शर्त वन्देजहरु :</b>
+              <td><strong>६.</strong></td>
+              <td> <strong>शर्त वन्देजहरु :</strong>
                 सुविधा समाप्त नभएसम्म वा कुनै रकम कलम वा दायित्वहरु वांकी रहे सम्म ऋणीले निम्न
                 वमोजिमको शर्त वन्देजहरु अविच्छिन्न रुपमा पालना गर्नु पर्नेछ ।<br></td>
             </tr>
@@ -597,8 +597,8 @@
               </td>
             </tr>
             <tr>
-              <td><b>७.</b></td>
-              <td> <b><u>अन्य शर्त वन्देजहरु:</u></b>
+              <td><strong>७.</strong></td>
+              <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong>
                 यसका अतिरिक्त ऋणी निम्न शर्त वन्देजहरु स्वीकार गर्दछ ।
               </td>
             </tr>
@@ -650,8 +650,8 @@
               </td>
             </tr>
             <tr>
-              <td><b>८.</b></td>
-              <td><b><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></b><br>
+              <td><strong>८.</strong></td>
+              <td><strong><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></strong><br>
                 देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा किस्ता/कर्जा खिलाफी भएको मानिने छ ।
               </td>
             </tr>
@@ -746,8 +746,8 @@
               </td>
             </tr>
             <tr>
-              <td><b>९.</b></td>
-              <td><b><u>लागू हुने पूर्व शर्त</u></b> <br>
+              <td><strong>९.</strong></td>
+              <td><strong><u>लागू हुने पूर्व शर्त</u></strong> <br>
                 यो कर्जा सुविधा प्राप्त गर्न, यस कर्जा सुविधाको लागि माथि दफा २ मा लेखिएको सम्पत्तिको रुपमा उपलव्ध गराउन र
                 धितो सम्पत्तिका लिखतहरु लगायतका कर्जा सुविधासंग सम्वन्धित कानूनी कागजपत्रमा सहीछाप गर्न, यो कर्जा
                 स्वीकृतिपत्र स्वीकार गर्न र ऋणीको तर्फवाट यो कर्जा सुविधाको सञ्चालन गर्ने अधिकार प्रत्यायोजन गरेको ऋणीको
@@ -760,16 +760,16 @@
                 (क) कर्जा तमसुक ।
                 (ख) व्यक्तिगत जमानी तमसुक ।
                 (ग) प्रतिज्ञापत्र
-                यो कर्जा स्वीकृति पत्र ऋणीलाई स्वीकार्य भएमा प्रस्ताव गरेको मितिले <b>७</b> दिन भित्र यसको प्रतिलिपिमा दस्तखत गरी
+                यो कर्जा स्वीकृति पत्र ऋणीलाई स्वीकार्य भएमा प्रस्ताव गरेको मितिले <strong>७</strong> दिन भित्र यसको प्रतिलिपिमा दस्तखत गरी
                 फाइनान्सलाई फिर्ता गर्नु होला ।
                 फाइनान्सले कर्जा तथा सुविधा स्वीकृति गर्दाको परिस्थितिको विपरित नकारात्मक परिस्थिति सिर्जना भएमा यो कर्जा
                 स्वीकृति पत्रमा ऋणीले स्वीकृति जनाउनु भन्दा अगावै फाइनान्सले कर्जा सुविधा फिर्ता गर्न सक्नेछ ।
               </td>
             </tr>
             <tr>
-              <td><b>१०.</b></td>
+              <td><strong>१०.</strong></td>
               <td>
-                <b><u>घोषणा (Declaration) : </u></b>
+                <strong><u>घोषणा (Declaration) : </u></strong>
                 ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने कुराको विना शर्त घोषणा
                 गर्दछ ।
               </td>
@@ -799,7 +799,7 @@
               </td>
             </tr>
             <tr>
-              <td><b>११.</b></td>
+              <td><strong>११.</strong></td>
               <td>
                 <b><u>छुट (Waiver)</u></b><br>
                 कुनै खास अधिकार छोडेको लिखित सूचना ऋणीले प्राप्त नगरे सम्म यस कर्जा स्वीकृतिपत्र वमोजिम फाइनान्सलाई
@@ -808,9 +808,9 @@
               </td>
             </tr>
             <tr>
-              <td><b>१२.</b></td>
+              <td><strong>१२.</strong></td>
               <td>
-                <b><u>सूचना (Notice)</u></b><br>
+                <strong><u>सूचना (Notice)</u></strong><br>
                 कुनै पनि सूचना गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी, भ्mबष् िगरी वा फ्याक्स मार्फत आदान प्रदान
                 गर्न सकिने छ ।
               </td>
@@ -821,8 +821,8 @@
             <div class="col-md-12">
               <table class="table text-center table-bordered">
                 <tr>
-                  <th><b><u>फाइनान्स</u></b></th>
-                  <th><b><u>ऋणी</u></b></th>
+                  <th><strong><u>फाइनान्स</u></strong></th>
+                  <th><strong><u>ऋणी</u></strong></th>
                 </tr>
                 <tbody>
                 <tr>
@@ -912,22 +912,22 @@
                            readonly
                            [value]="form.get('customerName').value"><br>
                 नागरिकता नं., मिति र कार्यालय:—
-               <b> (ना.प्र.नं </b>
+               <strong> (ना.प्र.नं </strong>
                 <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        readonly
                        [value]="form.get('signatoryCitizenshipNum').value">
-               <b> मिति </b>
+               <strong> मिति </strong>
                 <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        readonly
                        [value]="form.get('signatoryCitizenshipIssueDate').value">
-                <b> जि.प्र.का. </b>
+                <strong> जि.प्र.का. </strong>
                 <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        readonly
                        [value]="form.get('signatoryCitizenshipIssuePlace').value">
-                <b> ) </b><br>
+                <strong> ) </strong><br>
                 ऋणी वा अख्तियार प्राप्त व्यक्तिको ठेगाना :—
                 <input class="form-control-sm form-field nepaliFont"
                        type="text"
@@ -971,7 +971,7 @@
             <div class="col-md-12">
               <table class="table  table-borderless">
                 <tr>
-                  <td><b>साक्षी :</b></td>
+                  <td><strong>साक्षी :</strong></td>
                 </tr>
                 <tbody>
                 <tr>
@@ -998,7 +998,7 @@
                 </tr>
                 </tbody>
               </table>
-              <b>सनाखत साक्षी</b><br>
+              <strong>सनाखत साक्षी</strong><br>
               ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी फाइनान्समा कार्यरत कर्मचारी
               <input class="form-control-sm form-field nepaliFont"
                      type="text"

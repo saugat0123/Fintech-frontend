@@ -58,28 +58,29 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
 
   fillForm() {
     this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-    console.log(this.nepaliData);
-    const customerAddress =
-        this.nepaliData.permanentMunicipality + ' j8f g ' +
-        this.nepaliData.permanentWard + ' , ' +
-        this.nepaliData.permanentDistrict;
-    const customerTempAddress =
-        this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
-        this.nepaliData.temporaryWard + ' , ' +
-        this.nepaliData.temporaryDistrict;
-    this.form.patchValue({
-      customerName: this.nepaliData.name ? this.nepaliData.name : '',
-      customerAddress: customerAddress ? customerAddress : '',
-      customerTempAddress: customerTempAddress ? customerTempAddress : '',
-      customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-      customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-      customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-      signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-      signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-      signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-      signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-      signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-    });
+    if (!ObjectUtil.isEmpty(this.nepaliData)) {
+      const customerAddress =
+          this.nepaliData.permanentMunicipality + ' j8f g= ' +
+          this.nepaliData.permanentWard + ', ' +
+          this.nepaliData.permanentDistrict;
+      const customerTempAddress =
+          this.nepaliData.temporaryMunicipality + ' j8f g= ' +
+          this.nepaliData.temporaryWard + ', ' +
+          this.nepaliData.temporaryDistrict;
+      this.form.patchValue({
+        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        customerAddress: customerAddress ? customerAddress : '',
+        customerTempAddress: customerTempAddress ? customerTempAddress : '',
+        customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+      });
+    }
   }
 
   checkOfferLetter() {
@@ -143,6 +144,7 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
+        vehicleType: [value.vehicleType],
         vehicleNumber: [value.vehicleNumber],
         vehicleModelNum: [value.vehicleModelNum],
         engineNumber: [value.engineNumber],
@@ -159,6 +161,7 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   addPrimaryCollateral() {
     (this.form.get('primaryCollaterals') as FormArray).push(
         this.formBuilder.group({
+          vehicleType: [undefined],
           vehicleNumber: [undefined],
           vehicleModelNum: [undefined],
           engineNumber: [undefined],
@@ -251,15 +254,14 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   private buildForm() {
     this.form = this.formBuilder.group({
       patraNum: [undefined],
-      paFil: [undefined],
+      paFile: [undefined],
       date: [undefined],
       customerName: [undefined],
       branchName: [undefined],
       customerAddress: [undefined],
-      customerCurrentAddress: [undefined],
+      customerTempAddress: [undefined],
       customerCitizenshipAddress: [undefined],
       customerMobileNum: [undefined],
-      vehicleType: [undefined],
       primaryCollaterals: this.formBuilder.array([]),
       additionalCollaterals: this.formBuilder.array([]),
       dhitoDate: [undefined],
@@ -283,6 +285,8 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       signatoryCitizenshipNum: [undefined],
       signatoryCitizenshipIssueDate: [undefined],
       signatoryCitizenshipIssuePlace: [undefined],
+      signatoryParentName: [undefined],
+      signatoryGrandParentName: [undefined],
       witnessName1: [undefined],
       witnessAddress1: [undefined],
       witnessName2: [undefined],
