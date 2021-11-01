@@ -1,0 +1,1052 @@
+<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.OFFER_LETTER_HIRE_PURCHASE_AND_AUTO_LOAN}}">
+  <div class="col-md-12 viewFull">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" class="text-justify nepali">
+      <div class="row" style="margin-top: 50px">
+        <div class="col-md-8">
+          <p>
+            पत्र स.:
+            <input class="form-control-sm form-field nepaliFont"
+                   formControlName="patraNum"
+                   type="text">
+           /पिएफएल/
+            <input class="form-control-sm form-field nepaliFont" formControlName="paFile" type="text">
+            /सिआरडि /०७७/०७८
+          </p>
+        </div>
+      </div><br>
+        <div style="...">
+          <p>
+            मिति :
+            <input class="form-control-sm form-field nepaliFont"
+                   type="text"
+                   formControlName="date">
+          </p>
+        </div>
+        <div style="...">
+          <p>
+            <b>श्री</b>
+            <input class="form-control-sm form-field nepaliFont"
+                   formControlName="customerName"
+                   type="text">
+          </p>
+        </div>
+        <div style="...">
+          <p>
+            ठेगाना :
+            <input class="form-control-sm form-field nepaliFont"
+                   formControlName="customerAddress"
+                   type="text">
+          </p>
+        </div>
+        <div style="...">
+          <p>
+            हालको ठेगाना :
+            <input class="form-control-sm form-field nepaliFont"
+                   formControlName="customerCurrentAddress"
+                   type="text">
+          </p>
+        </div>
+        <div style="...">
+          <p>
+            हनागरिकता बमोजिम ठेगाना :
+            <input class="form-control-sm form-field nepaliFont"
+                   formControlName="customerCitizenshipAddress"
+                   type="text">
+          </p>
+        </div>
+        <div style="...">
+          <p>
+            मोबाइल नं. :
+            <input class="form-control-sm form-field nepaliFont"
+                   formControlName="customerMobileNum"
+                   type="text">
+          </p>
+        </div>
+      <h2 class="text-center"><u>व्यक्तिगत तथा गोप्य</u><br></h2>
+      <div style="margin-top:30px">
+        <h5 class="text-center"><u>विषय : कर्जा/सुबिधा स्वीकृती पत्र ।</u></h5>
+        <p style="margin-top: 30px">महाशय,</p>
+        <div style="margin-left: 30px">
+        <p>
+          तपाइ <b>श्री</b>
+          <input class="form-control-sm form-field nepaliFont"
+                 [value]="form.get('customerName').value"
+                 type="text">
+          (उप्रान्त ऋणी भनिएको) ले श्री प्रोग्रेशिभ फाइनान्स लिमिटेड, शाखा कार्यालय,
+          <input class="form-control-sm form-field nepaliFont"
+                 [value]="form.get('financeBranch').value"
+                 type="text">
+          (उप्रान्त फाइनान्स भनिएको) मा पेश गरेको कर्जा आवेदन उपर कारवाही हुदा देहाय
+          वमोजिमको धितो सुरक्षणमा तपसिलमा उल्लेखित शर्त बन्देजहरु पालना गर्ने गरी कर्जा तथा सुविधा स्वीकृति गरिएको ब्यहोरा
+          जानकारी गराउदछौं ।
+        </div>
+          पक्षहरु :–<br>
+          <div style="margin-left: 40px">
+            १.१ &nbsp; <b>श्री</b>
+            <input class="form-control-sm form-field nepaliFont"
+                   [value]="form.get('customerName').value"
+                   type="text">
+            (यस पछि “ऋणी” भनिएको)<br>
+            १.२ &nbsp; श्री प्रोग्रेशिभ फाइनान्स लिमिटेड, शाखा कार्यालय,
+            <input class="form-control-sm form-field nepaliFont"
+                   [value]="form.get('branchName').value"
+                   type="text">
+            (यसपछि “फाइनान्स” भनिएको)
+          </div>
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-borderless">
+              <tr>
+                <td rowspan="11">
+                   <b>१.</b>
+                </td>
+                <td colspan="2"><b>कर्जा तथा सुविधाको विवरण : </b></td>
+              </tr>
+              <tr>
+                <td colspan="2"><b>(क) कर्जा सुविधाको किसिम :</b> &nbsp; &nbsp; हायर पर्चेज कर्जा/ सवारी साधन खरिद कर्जा</td>
+              </tr>
+              <tr>
+                <td><b>कर्जा सिमा :</b></td>
+                <td>अधिकतम रु.
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         (input)="getNumAmountFormArray('amount','amountInWords')"
+                         formControlName="amount">
+                  /– (अक्षरेपी:
+                  <input class="form-control-lg form-field nepaliFont font-size-normal"
+                         readonly
+                         type="text"
+                         formControlName="amountInWords">
+                  रुपैंया मात्र ।)
+                </td>
+              </tr>
+              <tr>
+                <td><b>उदेश्य :</b></td>
+                <td> सवारी साधन  खरिद गर्न । <br></td>
+              </tr>
+              <tr>
+                <td><b> तिर्नुपर्ने किस्ताको विवरण :</b></td>
+                <td>
+                  प्रत्येक महिनाको नेपाली क्यलेन्डर अनुसार २५ गतेका दिन मासिक रु
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         formControlName="monthlyPayment">
+                  / - सम मासिक किस्ता (EMI BASIS) मा असुल उपर गरिने छ ।
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         readonly
+                         formControlName="yearlyInterest">
+                  प्रतिशत वार्षिक व्याजका दरले तिर्न वांकी कर्जा तथा सुविधामा व्याज
+                  गणना गरिनेछ  । यो व्याज दर समय समयमा नेपाल राष्ट्र बैंकको परिपत्र वा
+                  फाइनान्सको आधार दर वमोजिम परिवर्तन हुन सक्नेछ ।
+                  <p>
+                    आधार दर (Base Rate) :
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           (change)="calcYearlyRate('interestBaseRate',
+                                               'interestPremiumRate',
+                                               'interestTempDiscountRate',
+                                               'yearlyInterest')"
+                           formControlName="interestBaseRate">
+                    प्रतिशत
+                  </p>
+                  <p>
+                    प्रिमियम दर (Premium Rate):
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           (change)="calcYearlyRate('interestBaseRate',
+                                               'interestPremiumRate',
+                                               'interestTempDiscountRate',
+                                               'yearlyInterest')"
+                           formControlName="interestPremiumRate">
+                    प्रतिशत
+                  </p>
+                  <p>
+                    अस्थाई छुट Temporary Discount) :
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           (change)="calcYearlyRate('interestBaseRate',
+                                               'interestPremiumRate',
+                                               'interestTempDiscountRate',
+                                               'yearlyInterest')"
+                           formControlName="interestTempDiscountRate">
+                    प्रतिशत
+                  </p>
+                  <p>
+                    ब्याजदर = आधार दर + प्रिमियम – अस्थाई छुट =
+                    <input
+                        class="form-control-sm form-field nepaliFont"
+                        readonly
+                        type="text"
+                        [value]="form.get('interestBaseRate').value">
+                    %
+                    +
+                    <input class="form-control-sm form-field nepaliFont"
+                           readonly
+                           type="text"
+                           [value]="form.get('interestPremiumRate').value">
+                    %
+                    –
+                    <input class="form-control-sm form-field nepaliFont"
+                           readonly
+                           type="text"
+                           [value]="form.get('interestTempDiscountRate').value">
+                    % =
+                    <input
+                        class="form-control-sm form-field nepaliFont font-size-normal"
+                        type="text"
+                        readonly
+                        formControlName="yearlyInterest">
+                    %
+                  </p>
+                  (Base Rate + Risk Premium - Temporary Discount = Interest Rate)
+                  कर्जाको अवधि कर्जा स्वीकृत भएको मितिबाट ............ वर्ष, भुक्तानीको आधारमा सो
+                  अवधि भित्र ।
+                </td>
+              </tr>
+              <tr>
+                <td><b>समयाबधि</b></td>
+                <td>
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         formControlName="loanLimitTime">
+                  बर्ष ।
+                </td>
+              </tr>
+              <tr>
+                <td><b>सेवा शुल्क</b></td>
+                <td>स्वीकृत कर्जा रकमको
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         formControlName="serviceCharge">
+                  %
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+          <table class="table table-borderless">
+            <tr>
+              <td rowspan="3">
+                <b>२.</b>
+              </td>
+              <td colspan="2"><b><u>धितो सुरक्षण विवरण (Security Detail):</u></b></td>
+            </tr>
+            <tr>
+              <td>ऋणीले लिने वा लिएको तथा भविष्यमा लिने सम्पूर्ण कर्जा तथा सुविधाहरु निम्न वमोजिमको सम्पत्ति तथा लिखतहरुले
+                सुरक्षित राखिने छ ।
+              </td>
+            </tr>
+          </table>
+        <div class="row">
+          <div style="margin-left: 80px">
+        <p>क. <b>Primary Collateral:  धितो राखिने जायजेथाको बिबरण</b></p>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th width="40%">धितोको विवरण</th>
+                      <th width="30%">जकोटेशन मूल्य/ मुल्याङ्कन रकम</th>
+                      <th width="30%">लगानी तथा मार्जिन प्रतिशत</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let primaryCollateral of form.get('primaryCollaterals')['controls']; index as i"
+                  formArrayName="primaryCollaterals">
+                  <tr [formGroupName]="i">
+                    <td> सवारी साधनको किसिम :
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="vehicleType"
+                             type="text"> <br>
+                      गाडी नं. :
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="vehicleNumber"
+                             type="text"> <br>
+                      मोडल नं. :
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="vehicleModelNum"
+                             type="text"> <br>
+                      इन्जिन नं. :
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="engineNumber"
+                             type="text"> <br>
+                      च्यासिज नं. :
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="chassisNumber"
+                             type="text">
+                    </td>
+                    <td>
+                      गाडीको जम्मा <br>
+                      रु
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="vehicleQuotationPrice"
+                             type="text"> /-
+                    </td>
+                    <td>
+                      <input class="form-control-sm form-field nepaliFont"
+                             type="text"
+                             formControlName="marginPercentageOne"> % तथा <br>
+                      <input class="form-control-sm form-field nepaliFont"
+                             type="text"
+                             formControlName="marginPercentageTwo"> %
+                    </td>
+                    <td>
+                      <i (click)="addPrimaryCollateral()" size="large"
+                         class="d-print-none fa fa-plus-square"></i>
+                      <i (click)="removePrimaryCollateral(i)" size="small"
+                         class="d-print-none fa fa-trash"
+                         *ngIf="form.get('primaryCollaterals')['length']>1"></i>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                उपरोक्त धिताकोे को गाडी ऋणीले नेपाल सरकार यातायात व्यावस्था कार्यालय गयीे यस प्रोग्रेशिभफाइनान्स लि.को
+                नाममा धनि दर्ता कायम गराउनु पर्ने छ ।
+        <p>ख. <b>Additional Collateral:  धधितो राखिने जग्गा वा घर जग्गाको बिबरण</b></p>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th  width="35%">जग्गाधनिको नाम, ठेगाना र तिनपूस्ते</th>
+                      <th  width="15%">जिल्ला</th>
+                      <th  width="20%">जग्गाको ठेगाना</th>
+                      <th  width="8%">कि.नं.</th>
+                      <th  width="20%">क्षेत्रफल रोपनी/ब.मी.</th>
+                      <th  width="20%">सि.नं.</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let additionalCollateral of form.get('additionalCollaterals')['controls']; index as i"
+                         formArrayName="additionalCollaterals">
+                  <tr [formGroupName]="i">
+                    <td> जग्गाधनिको नाम :
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="name"
+                             type="text"> <br>
+                      बूबाको नाम :
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="fatherName"
+                             type="text"> <br>
+                      बाजेको नाम. :
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="grandFatherName"
+                             type="text"> <br>
+                      ठेगाना :
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="address"
+                             type="text">
+                    </td>
+                    <td>
+                      <input class="form-control-sm form-field nepaliFont"
+                             type="text"
+                             formControlName="district">
+                    </td>
+                    <td>
+                      लालपुर्जामा भएको :
+                      <input class="form-control-sm form-field nepaliFont"
+                             type="text"
+                             formControlName="existingAddress"> <br>
+                      हालको :
+                      <input class="form-control-sm form-field nepaliFont"
+                             type="text"
+                             formControlName="currentAddress">
+                    </td>
+                    <td>
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="jaggaKittaNum"
+                             type="text">
+                    </td>
+                    <td>
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="landArea"
+                             type="text">
+                    </td>
+                    <td>
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="jaggaSiNum"
+                             type="text">
+                    </td>
+                    <td>
+                      <i (click)="addAdditionalCollateral()" size="large"
+                         class="d-print-none fa fa-plus-square"></i>
+                      <i (click)="removeAdditionalCollateral(i)" size="small"
+                         class="d-print-none fa fa-trash"
+                         *ngIf="form.get('additionalCollaterals')['length']>1"></i>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+        <table class="table table-borderless">
+                माथि उल्लेखित धितोको मिति
+                <input class="form-control-sm form-field nepaliFont"
+                       formControlName="dhitoDate"
+                       type="text">
+                मा
+                <input class="form-control-sm form-field nepaliFont"
+                       formControlName="currentDate"
+                       type="text">
+                बाट मुल्याङ्कित फेयस मार्केट मुल्य रु.
+                <input class="form-control-sm form-field nepaliFont"
+                       formControlName="marketPrice"
+                       type="text">
+                र डिस्टेस मुल्य रु.
+                <input class="form-control-sm form-field nepaliFont"
+                       formControlName="distestPrice"
+                       type="text">
+                को जग्गा तथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण लिगलगापात
+                फाइनान्सको नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.
+                <input class="form-control-sm form-field nepaliFont"
+                       formControlName="farePrice"
+                       type="text">
+                मा दृ.ब पारित गरि यस
+                फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
+          </table>
+        </div>
+        </div>
+        </div>
+      <div class="row">
+        <div style="margin-left: 45px">
+          २.१
+        </div>
+        </div>
+        <div class="row">
+          <div style="margin-left: 70px">
+          <div class="col-md-12" id="individual">
+            <span (click)="addMoreIndividualDetails()" nbButton size="small" status="info" type="button"
+                  class="d-print-none btn btn-sm btn-primary">ब्याक्तितग विवरण थप्नुहोस्</span>
+            <br>
+            <div *ngFor="let individualDetail of form.get('individualDetails')['controls']; let i=index"
+                 class="container"
+                 formArrayName="individualDetails"
+                 id="individualDetail">
+              <div [formGroupName]="i">
+                <p>{{i + 1 | nepaliWord: 'unicode'}}
+                  <b>श्री </b>
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         formControlName="shreeName1">
+                  र
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         formControlName="shreeName2">
+                  को रु.
+                  <input
+                      class="form-control-sm form-field nepaliFont"
+                      type="text"
+                      (input)="getNumAmount('amount1','amountInWords1',i)"
+                      formControlName="amount1">
+                  /–
+                  (अक्षरेपी :
+                  <input class="form-control-lg form-field nepaliFont font-size-normal"
+                         readonly
+                         type="text"
+                         formControlName="amountInWords1">
+                  रुपैंया मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
+                  <i (click)="removeIndividualDetails(i)" size="small" class="float-right fa fa-trash"
+                     *ngIf="form.get('individualDetails')['length']>1"></i>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+            <table class="table table-borderless">
+              <div style="margin-left: 20px">
+                <tr>
+                  <td>२.२</td>
+                  <td>रु.
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           (input)="getNumAmountInWord('amount3','amountInWords3')"
+                           formControlName="amount3">
+                    /-(अक्षरेपी:
+                    <input class="form-control-lg form-field nepaliFont font-size-normal"
+                           readonly
+                           type="text"
+                           formControlName="amountInWords3">
+                    रुपैंया मात्र ।)  को ऋणि तथा जमानी कर्ताले एक एक प्रति प्रतिज्ञापत्रमा
+                    सही छाप गरी फाइनान्सलाई उपलव्ध गराउनु पर्ने छ ।
+                  </td>
+                </tr>
+                <tr>
+                  <td>२.३</td>
+                  <td>
+                    ऋणीले वा निजले संस्थापन गरेको कुनै पनि संगठित संस्थाले फाइनान्सवाट लिएको अरु कुनै कर्जा सुविधाको सुरक्षण
+                    स्वरुप फाइनान्सलाई उपलव्ध गराएको धितो सुरक्षण समेत यसै कर्जाको सुरक्षणको लागि समेत धितो दिएको मानिने छ ।
+                    यो कर्जा सुविधा वमोजिम तिर्नु वुझाउनु पर्ने कर्जा नतिरी नवुझाई  कर्जा वांकी रहन गएमा सो धितो समेत यसै
+                    कर्जाको लागि धितो दिए सरह मानी सो धितो समेतवाट असुल उपर गर्न फाइनान्स अधिकृत रहनेछ ।
+                  </td>
+                </tr>
+              </div>
+          </table>
+          <table class="table table-borderless">
+            <tr>
+              <td><b>३.</b></td>
+              <td><b>व्याज :</b> <br>
+                <ul style="line-height: 40px;">
+                  <li>
+                    अन्यथा व्यवस्था गरिएकोमा वाहेक यस कर्जा सुबिधा स्वीकृति पत्रमा तोकिएको व्याज दरले बांकी रहेको
+                    कर्जामा दैनिक व्याज गणना गरी सांवा तथा पाकेको व्याजको किस्ता भुक्तानी तालिका बमोजिम वा प्रत्येक
+                    त्रैमासकोे अन्तमा असुलउपर गरिने छ । कर्जा समयमा भुक्तानी नभएको अवस्थामा वा यस कर्जा
+                    स्वीकृतिपत्रमा उल्लेखित शर्त तथा वन्देजहरुको उल्लंघन भएमा वा स्वीकृत सीमा भन्दा वढी कर्जा उपभोग
+                    गरेमा विना पूर्व सूचना यस कर्जा स्वीकृतिपत्रमा उल्लेखित व्याज दरमा कम्तीमा<b>२</b> प्रतिशत थप व्याज लगाई
+                    असुल उपर गरिनेछ ।<br><br>
+                  </li>
+                  <li>
+                    आधार दर र स्वीकृत प्रिमियम दरको आधारमा ब्याजदरको निर्धारण गरिएको छ । आधार दर र स्वीकृत
+                    प्रिमियम दरको आधारमा कायम हुने कर्जाको अधिकतम ब्याजदरमा अस्थाई रुपमा छुट दिएको अवस्थामा
+                    फाईनान्सले कुनैपनि समय पुर्व जानकारी गराई, अस्थाई छुटलाई खारेज गरी आधार दर र स्वीकृत प्रिमियम
+                    दरको योगसम्म ब्याजदर समायोजन गर्न सक्नेछ । अपरिवर्तनीय ब्याजदरको हकमा स्थिर अवधि सम्म
+                    ब्याजदरमा कुनैपनि परिवर्तन हुनेछैन । तत्पश्चात् आधार दर प्रिमियमको योगसम्म ब्याजदर कायम गरिनेछ ।
+                    आधार दरमा ०.५ प्रतिशत वा सो भन्दा बढी थपघट भएको अवस्थामा मात्र तहाँले उपभोग गर्नुभएको कर्जा
+                    सुविधाहरुमा फाईनान्सले त्रैमासिक रुपमा ब्याजदरको निर्धारण ÷ समायोजन गर्नेछ । तथापि ब्याजदरमा
+                    अस्थाई रुपमा छुट दिई ब्याजदर कायम गरिएको हकमा भने आधार दर घटेपनि वा ०.५ प्रतिशतभन्दा कमले
+                    बृद्घि भएता पनि अस्थाई छुट खारेज गरी आधार दर र स्वीकृत प्रिमियम दरको योगसम्म ब्याजदर समायोजन
+                    गर्न फाईनान्स स्वतन्त्र रहनेछ ।<br><br>
+                  </li>
+                  <li>
+                    आधारदरमा आएको परिवर्तनको कारणले हुने ब्याजदर समायोजन यसै कर्जा सम्झौतामा उल्लेखित शर्त
+                    बन्देज बमोजिम स्वत : हुनेछ । उक्त परिवर्तनको पुर्व जानकारी गराउन फाईनान्स बाध्यकारी हुने छैन ।
+                  </li>
+                  <li>
+                    कर्जा भुक्तानि तालिका बमोजिम ऋणीले कर्जा रकम नतिरेको खण्डमा ऋणीलाई प्रदान गरेको अस्थाई छुट
+                    खारेज गरी आधार दर र स्वीकृत प्रिमियम दरको योगसम्म ब्याजदर समायोजन गर्न फाईनान्स स्वतन्त्र रहनेछ ।
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td><b>४.</b></td>
+              <td> <b>पुनरावलोकन :</b> रु.
+                <input class="form-control-sm form-field nepaliFont"
+                       type="text"
+                       formControlName="amount4">
+                को भुक्तानी मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका कर्जा तथा
+                सुविधाहरु कुनै कारण देखाई वा नदेखाई फाइनान्सले फिर्ता भुक्तानी माग गरेका वखत तत्कालै भुक्तानी गर्नु पर्नेछ । <br>
+              </td>
+            </tr>
+            <tr>
+              <td><b>५.</b></td>
+              <td> <b>निरिक्षण :</b>
+                कुनै पूर्व तयारी नगरी फाइनान्सले आवश्यक देखेको समयमा व्यवसाय गरेका वा धितो सुरक्षण दिएका सम्पत्तिहरुको
+                निरिक्षण गर्न फाइनान्स अधिकृत रहेको छ । यसरी नीरिक्षण गर्दा लाग्ने सवै किसिमका खर्चहरु ऋणीले व्यहोर्नु पर्ने छ । <br>
+              </td>
+            </tr>
+            <tr>
+              <td><b>६.</b></td>
+              <td> <b>शर्त वन्देजहरु :</b>
+                सुविधा समाप्त नभएसम्म वा कुनै रकम कलम वा दायित्वहरु वांकी रहे सम्म ऋणीले निम्न
+                वमोजिमको शर्त वन्देजहरु अविच्छिन्न रुपमा पालना गर्नु पर्नेछ ।<br></td>
+            </tr>
+            <tr>
+              <td>६.१</td>
+              <td>
+                फाइनान्सले आवश्यक देखेको समयमा ऋणीले धितो सुरक्षण राखेको सवारी साधन, रियल स्टेट सम्पत्ति, घरजग्गाको
+                पुर्नमूल्यांकन गरी फाइनान्समा पेश गर्नु पर्नेछ । यसरी पुर्नमूल्यांकन गर्न लाग्ने खर्च ऋणी आफैले व्यहोर्नु पर्नेछ ।
+              </td>
+            </tr>
+            <tr>
+              <td>६.२</td>
+              <td>
+                आवश्यक परेमा फाइनान्स समक्ष ऋणीले धितो राखेको सम्पत्ति पुरै वा आंिशक रुपमा फाइनान्सले अरु कुनै तेश्रो
+                पक्षलाई पुनः धितो दिन सक्नेछ ।
+              </td>
+            </tr>
+            <tr>
+              <td>६.३</td>
+              <td>
+                ऋणीले सदैव प्रचलित कानूनको अनुपालना गर्नुपर्ने छ ।
+              </td>
+            </tr>
+            <tr>
+              <td>६.४</td>
+              <td>
+                फाइनान्सको पूर्व स्वीकृति विना अन्य कुनै फाइनान्स तथा वित्तीय संस्थावाट कुनै किसिमको कर्जा सुविधा उपभोग गर्न
+                पाइने छैन ।
+              </td>
+            </tr>
+            <tr>
+              <td>६.५</td>
+              <td>
+                कर्जा वा सुविधा प्राप्त गरेको वखत स्वीकार गरे वाहेक ऋणीले प्राप्त गर्ने कर्जा वा सुविधा वा त्यसको अंश अन्य कुनै
+                उदेश्यको लागि उपयोग गर्न पाइने छैन ।
+              </td>
+            </tr>
+            <tr>
+              <td>६.६</td>
+              <td>
+                ऋणीले अरु संस्थासंग बैंकिङ्ग कारोवार गर्न सर्वप्रथम फाइनान्सलाई प्रस्ताव गर्नु पर्ने छ ।
+              </td>
+            </tr>
+            <tr>
+              <td>६.७</td>
+              <td>
+                फाइनान्सको पूर्व स्वीकृति नलिई ऋणीले आफूसंग रहेका सम्पत्तिहरु अरु कसैको वा कुनै निकायका नाममा हस्तान्तरण
+                गर्न, वा अरु कुनै निकायसंग मर्जर गर्न वा विलिन हुन वा अन्य निकायलाई प्राप्त गर्न वा एकिकरण हुन पाइने छैन ।
+              </td>
+            </tr>
+            <tr>
+              <td>६.८</td>
+              <td>
+                फाइनान्सको पूर्व स्वीकृति विना ऋणीको स्वामित्व वा नियन्त्रण परिवर्तन गर्न वा यससंग सम्वद्ध कुनै घटना परिघटनामा
+                परिवर्तन गर्न पाइने छैन ।
+                (क) फाइनान्सको पूर्व स्वीकृति विना ऋणीको सम्पत्ति अन्य कुनै बैंक तथा वित्तिय संस्था वा कर्जा लगानी गर्ने कुनै
+                संस्थालाई धितो दिन पाइने छैन ।
+                (ख) फाइनान्समा धितो दिएको सम्पत्ति राम्रो चालु हालतमा राख्नु पर्ने छ ।
+                (ग) फाइनान्समा धितो राखिएको सम्पत्तिको सम्वन्धमा कुनै प्रकारको विवाद सिर्जना भएमा फाइनान्स र ऋणीको आफ्नै
+                अधिकार सुनिश्चित गर्न ऋणीले सवै सावधानी अपनाउनु पर्ने छ ।
+                (घ) ऋणीले कर्जा तमसुक लागाएत अन्य आबश्यक कानुनी लिखतमा दस्तखत गरी संस्थालाई बुझाउनु पर्ने छ ।
+              </td>
+            </tr>
+            <tr>
+              <td><b>७.</b></td>
+              <td> <b><u>अन्य शर्त वन्देजहरु:</u></b>
+                यसका अतिरिक्त ऋणी निम्न शर्त वन्देजहरु स्वीकार गर्दछ ।
+              </td>
+            </tr>
+            <tr>
+              <td>७.१</td>
+              <td> यो कर्जा/सुविधा लिंदा लाग्ने सवै प्रकारका खर्चहरु ऋणीले व्यहोर्नेछ ।</td>
+            </tr>
+            <tr>
+              <td>७.२</td>
+              <td>
+                फाइनान्सले पूर्व सूचना दिएर वा नदिई पनि कर्जा/सुविधालाई नियमित वनाई राख्न ऋणीको खाता खर्च गर्न सक्नेछ ।
+                यसका लागि ऋणीले आफ्नो खातामा पर्याप्त रकम कायम राख्नु पर्नेछ । ऋणीको खातामा पर्याप्त रकम नभई कर्जा वा
+                सुविधाको किस्ता खिलाफी भएमा ऋणीले फाइनान्स नियमानुसार विलम्व शुल्क तिर्नु पर्नेछ । बैंक जमानत वमोजिमको
+                रकम फाइनान्सले भुक्तानी गरेमा जमानीको रकम फाइनान्सले ऋणीको खातामा खर्च लेखी सोझै असुल उपर गर्ने छ ।
+              </td>
+            </tr>
+            <tr>
+              <td>७.३</td>
+              <td>
+                ऋणीले सवै किसिमका कर, फि, शुल्क तथा लाग्ने दैदस्तुर र अविवादित ज्यालाको भुक्तानी समयमै गर्नु पर्ने छ ।
+              </td>
+            </tr>
+            <tr>
+              <td>७.४</td>
+              <td>
+                माथि उल्लेख भए वमोजिम भुक्तानी गर्न ऋणी असफल भएमा वा भुक्तानी नगरेमा ऋणीको चल्ती/बचत खाता खर्च
+                गरी फाइनान्सले भुक्तानी पठाउने छ ।
+              </td>
+            </tr>
+            <tr>
+              <td>७.५</td>
+              <td>
+                ऋणी वा यस कर्जा/सुविधाको लागि जमानी दिने जमानीकर्ताले यस फाइनान्सको १ (एक) प्रतिशत वा सो भन्दा वढी
+                शेयर धारण गर्न पाइने छैन ।
+              </td>
+            </tr>
+            <tr>
+              <td>७.६</td>
+              <td>
+                फाइनान्सले प्रचलित नेपाल कानून र नेपाल राष्ट्र बैंकको निर्देशिका वमोजिम ऋणी वा ऋणीसंग सम्वद्ध व्यक्ति उपर
+                कुनै कारवाही सुरु गर्नका लागि कर्जा सूचना केन्द्र वा अन्य सक्षम निकाय समक्ष सिफारिश गर्न सक्नेछ ।
+              </td>
+            </tr>
+            <tr>
+              <td>७.७</td>
+              <td>
+                यो कर्जा सुबिधा स्वीकृति पत्रमा उल्लेखित कुनै पनि शर्त वन्देज ऋणीले उल्लंघन गरेको कारणले कुनै हानी नोक्सानी
+                वा क्षति भएमा ऋणी आफैले व्यहोर्नु पर्ने छ ।
+              </td>
+            </tr>
+            <tr>
+              <td><b>८.</b></td>
+              <td><b><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></b><br>
+                देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा किस्ता/कर्जा खिलाफी भएको मानिने छ ।
+              </td>
+            </tr>
+            <tr>
+              <td>८.१</td>
+              <td>
+                ऋणीले उपलव्ध गराएको कुनै पनि किसिमको विवरण, प्रतिनिधित्व, प्रतिवद्धता वा अन्य कुनै पत्राचार वा कर्जा आवेदन
+                वा उपलव्ध गराएको कुनै वित्तीय विवरणहरु तात्वीक रुपमा असत्य, गलत वा झुट्ठा वा गलत सूचना प्रवाह हुने
+                खालको भएमा ।
+              </td>
+            </tr>
+            <tr>
+              <td>८.२</td>
+              <td>
+                ऋणीको हैसियत, कानूनी अस्तित्व वा कानूनी निकायको सम्वन्धमा वा ऋणीको आर्थिक अवस्था, प्रतिवद्धता वा दायित्व
+                वा वढोत्तरी कार्यक्रमहरु वा ऋणीको पूंजीगत खर्चको सम्वन्धमा फाइनान्सलाई समयमा जानकारी नगराएमा वा लुकाउने
+                प्रयास गरेमा ।
+              </td>
+            </tr>
+            <tr>
+              <td>८.३</td>
+              <td>
+                ऋणीले कुनै सांवा तथा व्याजको किस्ता भुक्तानी गर्नु पर्ने समयमा भुक्तानी गर्न असफल भएमा वा भुक्तानी नगरेमा ।
+              </td>
+            </tr>
+            <tr>
+              <td>८.४</td>
+              <td>
+                ऋणीले कुनै शर्त वन्देजको पालना नगरेमा वा शर्त वन्देज पालना गर्न असक्षम भएमा ।
+              </td>
+            </tr>
+            <tr>
+              <td>८.५</td>
+              <td>
+                कुनै असाधारण परिस्थितिको सिर्जना भयो तर फाइनान्सको विचारमा त्यस्तो अवस्था शंकास्पद भई ऋणी यो कर्जा
+                सुबिधा स्वीकृतिपत्र वमोजिम पुरा गर्नु पर्ने दायित्व पुरा गर्न असक्षम छ भन्ने लागेमा फाइनान्सको विचार अविवादित,
+                अन्तिम र ऋणीको लागि वन्धनकारी हुनेछ ।
+              </td>
+            </tr>
+            <tr>
+              <td>८.६</td>
+              <td>
+                ऋणीले फाइनान्समा राखेको धितो पुरै वा आंशिक रुपमा कच्चा ठहरियो वा कुनै अड्डा अदालतको आदेशले तहसिलमा
+                गएमा ।
+              </td>
+            </tr>
+            <tr>
+              <td>८.७</td>
+              <td>
+                ऋणीले व्यवसाय वन्द गरेमा वा गरीरहेको व्यवसायको प्रकृतिमा महत्वपूर्ण परिवर्तन गरेमा ।
+              </td>
+            </tr>
+            <tr>
+              <td>८.८</td>
+              <td>
+                फाइनान्समा धितो रहेको सम्पत्तिको पुरै वा आंशिक भाग खारेज गर्न वा अरु कसैलाई दिन वा कुनै किसिमको चार्ज
+                सिर्जना गर्न वा कुनै कानूनी कारवाही गर्न ऋणीले स्वीकृति दिएमा वा ऋणी आफैले वा कुनै अड्डा अदालतवाट
+                लिक्वीडेटर वा अन्य लाभग्राही नियुक्त गरेमा ।
+              </td>
+            </tr>
+            <tr>
+              <td>८.९</td>
+              <td>
+                ऋणीको कुनै सम्पत्ति वा कारोवारको पुरै वा आंशिक अंश जफत भएमा वा जफत हुने भएमा वा ऋणीको कारोवार वा
+                सम्पत्ति कुनै सरकारी निकाय वा कुनै अड्डा अदालत वा कुनै पक्ष वा व्यक्ति वा संस्थाले वन्द गरेमा वा निलम्वन गरेमा ।
+              </td>
+            </tr>
+            <tr>
+              <td>८.१०</td>
+              <td>
+                ऋणीले अरु कसैवाट लिएको ऋण समयमा भुक्तानी गर्न नसकेमा फाइनान्सलाई देहायमा लेखिए वमोजिम गर्ने अधिकार
+                हुने छ ।<br>
+                (क) भुक्तानी गर्न बांकी रहको सवै कर्जा तथा सुविधा र सोमा लाग्ने व्याज सहितको सम्पूर्ण लेना रकम तत्कालै
+                भुक्तानी गर्नु पर्ने गरी घोषणा गर्न सक्नेछ ।<br>
+                (ख) यस कर्जा सुबिधा स्वीकृति पत्रको दफा ३ मा लेखिए वमोजिम व्याज लगाई असुउपर गर्न सक्ने छ ।<br>
+                (ग) फाइनान्सलाई लेखिदिएको सवै धितो सुरक्षणहरु आफ्नो नियन्त्रणमा लिई लिलाम विक्री वा अन्य कुनै व्यवस्था गरी
+                सोवाट प्राप्त रकम कलम कर्जा हिसावमा मिलान गर्न सस्क्ने छ । <br>
+                (घ) किस्ता/कर्जा खिलाफीको कारणले सिर्जित केही वा सवै अधिकारहरु समर्पण गर्न सक्नेछ ।<br>
+                (ङ) फाइनान्सले उपलव्ध गराएको एक वा सो भन्दा वढी बैंकिङ्ग सुविधाहरुमा भै रहेको शर्त वन्देजहरुमा परिवर्तन गर्न
+                सक्नेछ ।<br>
+                (च) कुनै सुविधासंग सम्वद्ध दायित्वको लागि नगद भुक्तानी माग गर्न सक्ने छ ।<br>
+                (छ) किस्ता/कर्जा खिलाफीको कारणले सिर्जित केही वा सवै अधिकारहरु समर्पण गर्न सक्नेछ ।<br>
+                (ज) फाइनान्समा धितो सुरक्षण दिएको सम्पत्ति वाहेक ऋणी र जमानीकर्ता र निजका परिवारका सदस्यहरुको नाममा
+                रहेका अन्य सम्पुर्ण चल अचल सम्पत्तिहरु रोक्का राख्न सक्नेछ ।<br>
+                (झ) ऋणीको बैंक खातामा जम्मा भएको सवै रकमहरु रोक्का राख्न सक्ने छ ।<br>
+                (ञ) कर्जा तथा सुविधाको भुक्तानीको अवधि नाघेको मितिलाई नै ऋणीले अन्तिम सूचना प्राप्त गरेको अकाट्य प्रमाण
+                मानी बैंकिङ्ग कानून वमोजिम फाइनान्सले असुली प्रकृया आरम्भ गर्न सक्नेछ ।<br>
+                (ट) यो कर्जा सुबिधा स्वीकृति पत्रमा उल्लेख नभएको कुनै बैंकिङ्ग सुविधा ऋणीले फाइनान्सवाट उपभोग गरेको रहेछ र
+                सो सुविधाको किस्ता/कर्जा खिलाफी भएको रहेछ भने सो समेत यसै कर्जा स्वीकृति पत्र वमोजिम प्रवाह भएसरह
+                मानिनेछ र सम्पूर्ण कर्जा सुविधा फिर्ता भुक्तानी माग गर्न र सम्पूर्ण कर्जा तथा सुविधा तत्कालै भुक्तानी गराउन
+                फाइनान्स पूर्ण रुपमा अधिकृत रहेको छ ।
+              </td>
+            </tr>
+            <tr>
+              <td><b>९.</b></td>
+              <td><b><u>लागू हुने पूर्व शर्त</u></b> <br>
+                यो कर्जा सुविधा प्राप्त गर्न, यस कर्जा सुविधाको लागि माथि दफा २ मा लेखिएको सम्पत्तिको रुपमा उपलव्ध गराउन र
+                धितो सम्पत्तिका लिखतहरु लगायतका कर्जा सुविधासंग सम्वन्धित कानूनी कागजपत्रमा सहीछाप गर्न, यो कर्जा
+                स्वीकृतिपत्र स्वीकार गर्न र ऋणीको तर्फवाट यो कर्जा सुविधाको सञ्चालन गर्ने अधिकार प्रत्यायोजन गरेको ऋणीको
+                विधान, प्रवन्धपत्र तथा नियमावली वमोजिम विधिवत गठित सञ्चालक समिति÷कार्यसमिति वा आवश्यकता अनुसार
+                ऋणीको साधारण सभावाट पारित निर्णय माईन्यूट, साझेदारी फर्मको हकमा सर्वसम्मत सम्झौता बमोजिम फाइनान्समा
+                पेश गर्नु पर्ने छ ।
+                <br>
+                तपसिल वमोजिमका कानूनी कागजातहरुले समेत कर्जा तथा सुविधाहरुको सुरक्षण लिखतको काम गर्ने छन् ।<br>
+                <br>
+                (क) कर्जा तमसुक ।
+                (ख) व्यक्तिगत जमानी तमसुक ।
+                (ग) प्रतिज्ञापत्र
+                यो कर्जा स्वीकृति पत्र ऋणीलाई स्वीकार्य भएमा प्रस्ताव गरेको मितिले <b>७</b> दिन भित्र यसको प्रतिलिपिमा दस्तखत गरी
+                फाइनान्सलाई फिर्ता गर्नु होला ।
+                फाइनान्सले कर्जा तथा सुविधा स्वीकृति गर्दाको परिस्थितिको विपरित नकारात्मक परिस्थिति सिर्जना भएमा यो कर्जा
+                स्वीकृति पत्रमा ऋणीले स्वीकृति जनाउनु भन्दा अगावै फाइनान्सले कर्जा सुविधा फिर्ता गर्न सक्नेछ ।
+              </td>
+            </tr>
+            <tr>
+              <td><b>१०.</b></td>
+              <td>
+                <b><u>घोषणा (Declaration) : </u></b>
+                ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने कुराको विना शर्त घोषणा
+                गर्दछ ।
+              </td>
+            </tr>
+            <tr>
+              <td>१०.१</td>
+              <td>
+                सवै कारोवारी लिखतहरु कानूनी रुपमा वन्धनकारी हुनेछन् ।
+              </td>
+            </tr>
+            <tr>
+              <td>१०.२</td>
+              <td>
+                कुनै किसिमको किस्ता खिलाफीको अवस्था जानी जानी उपस्थिति रहेको छैन ।
+              </td>
+            </tr>
+            <tr>
+              <td>१०.३</td>
+              <td>
+                ऋणी वा जमानीकर्ता माथि कुनै पनि मुद्धा मामिला चलिरहेको वा मुद्धा लागेको अवस्था विद्यमान छैन ।
+              </td>
+            </tr>
+            <tr>
+              <td>१०.४</td>
+              <td>
+                कुनै कानून, इजाजतपत्र, कम्पनीको प्रवन्धपत्र तथा नियमावली, विधान, सर्वसम्मत सम्झौताको वर्खिलाप भए गरेको छैन ।
+              </td>
+            </tr>
+            <tr>
+              <td><b>११.</b></td>
+              <td>
+                <b><u>छुट (Waiver)</u></b><br>
+                कुनै खास अधिकार छोडेको लिखित सूचना ऋणीले प्राप्त नगरे सम्म यस कर्जा स्वीकृतिपत्र वमोजिम फाइनान्सलाई
+                प्राप्त अधिकारमा कुनै किसिमको छुट प्रदान भएको मानिने छैन । फाइनान्सले एक पटक सवै वा केही अधिकारहरुको
+                प्रयोग गरेमा वा नगरेमा ती अधिकारहरु पुनः प्रयोग गर्न सक्नेछ ।
+              </td>
+            </tr>
+            <tr>
+              <td><b>१२.</b></td>
+              <td>
+                <b><u>सूचना (Notice)</u></b><br>
+                कुनै पनि सूचना गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी, भ्mबष् िगरी वा फ्याक्स मार्फत आदान प्रदान
+                गर्न सकिने छ ।
+              </td>
+            </tr>
+          </table>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table text-center table-bordered">
+                <tr>
+                  <th><b><u>फाइनान्स</u></b></th>
+                  <th><b><u>ऋणी</u></b></th>
+                </tr>
+                <tbody>
+                <tr>
+                  <td> श्री प्रोग्रेशिभ फाइनान्स लिमिटेड,<br>
+                    शाखा कार्यालय
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           formControlName="financeBranch">
+                    ।<br>
+                    टेलिफोन :
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           formControlName="telephoneNumber"><br>
+                  </td>
+                  <td>
+                    श्री
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           readonly
+                           [value]="form.get('customerName').value"><br>
+                    हालको ठेगाना :
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           readonly
+                           formControlName="currentAddress1"><br><br>
+                    मोबाइल नं.
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           formControlName="customerMobileNum1"><br>
+                    Email Address :
+                    <input class="form-control-sm form-field"
+                           type="text"
+                           formControlName="customerEmail"><br>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <div style="margin-left: 50px">
+                <table class="table  table-borderless">
+                  <tr>
+                  </tr>
+                  <tbody>
+                  <tr>
+                    <td class="text-left">
+                      दस्तखत : ............................ <br><br>
+                      नाम :
+                      <input class="form-control-sm form-field nepaliFont"
+                             type="text"
+                             formControlName="employeeName1">
+                      <br>
+                      कर्जा विभाग
+                    </td>
+                    <td class="text-left">
+                     दस्तखत: ............................ <br><br>
+                      नाम :
+                      <input class="form-control-sm form-field nepaliFont"
+                             type="text"
+                             formControlName="employeeName2">
+                      <br>
+                      शाखा प्रमुख
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br>
+          <p>
+            यस पत्रमा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु मलाई पूर्ण मन्जुर छ । उपरोक्त बमोजिम फाइनान्सबाट प्राप्त हुने ऋण कर्जा
+            सुबिधा तथा अन्य दायित्व तिर्न बुझाउन मेरो पूर्ण मन्जुरी रहेकोले यो कर्जा स्वीकृतिपत्रमा स्वीकृति जनाई सही छाप गरी
+            तपाई फाइनान्सलाई दियाँ र यसै बमोजिमको एक प्रति पत्र बुझिलिएं ।
+          </p>
+          <br>
+          <div class="row justify-content-end">
+            <div class="col-md-10">
+              <p>दस्तखत : ............................
+                <br>
+                दस्तखत गर्नेको नाम :—
+                <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           readonly
+                           [value]="form.get('customerName').value"><br>
+                नागरिकता नं., मिति र कार्यालय:—
+               <b> (ना.प्र.नं </b>
+                <input class="form-control-sm form-field nepaliFont"
+                       type="text"
+                       readonly
+                       [value]="form.get('signatoryCitizenshipNum').value">
+               <b> मिति </b>
+                <input class="form-control-sm form-field nepaliFont"
+                       type="text"
+                       readonly
+                       [value]="form.get('signatoryCitizenshipIssueDate').value">
+                <b> जि.प्र.का. </b>
+                <input class="form-control-sm form-field nepaliFont"
+                       type="text"
+                       readonly
+                       [value]="form.get('signatoryCitizenshipIssuePlace').value">
+                <b> ) </b><br>
+                ऋणी वा अख्तियार प्राप्त व्यक्तिको ठेगाना :—
+                <input class="form-control-sm form-field nepaliFont"
+                       type="text"
+                       formControl="customerAddress">
+<!--                       readonly-->
+<!--                       [value]="form.get('customerAddress').value">-->
+                <br>
+                बाजेको नाम :—
+                <input class="form-control-sm form-field nepaliFont"
+                       type="text"
+                       readonly
+                       [value]="form.get('signatoryGrandParentName').value">
+                <br>
+                बाबुको नाम :—
+                <input class="form-control-sm form-field nepaliFont"
+                       type="text"
+                       readonly
+                       [value]="form.get('signatoryParentName').value">
+                <br>
+              </p>
+            </div>
+            <div class="col-md-6 justify-content-end">
+              <table id="fingerXap" class="table table-bordered text-center">
+                <thead>
+                <tr>
+                  <th style="border: none;">दाँ.</th>
+                  <th style="border: none;">बाँ.</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="height: 200px">
+                  <td></td>
+                  <td></td>
+                </tr>
+                </tbody>
+              </table>
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table  table-borderless">
+                <tr>
+                  <td><b>साक्षी :</b></td>
+                </tr>
+                <tbody>
+                <tr>
+                  <td class="text-left">
+                    (१) दस्तखत : ............................ <br>
+                    नाम :
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           formControlName="witnessName1"><br>
+                    ठेगाना :
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           formControlName="witnessAddress1"><br><br>
+                    (२) दस्तखत : ............................ <br>
+                    नाम :
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           formControlName="witnessName2"><br>
+                    ठेगाना :
+                    <input class="form-control-sm form-field nepaliFont"
+                           type="text"
+                           formControlName="witnessAddress2"><br><br>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <b>सनाखत साक्षी</b><br>
+              ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी फाइनान्समा कार्यरत कर्मचारी
+              <input class="form-control-sm form-field nepaliFont"
+                     type="text"
+                     formControlName="sahichhapEmployee">
+              संकेत नं
+              <input class="form-control-sm form-field nepaliFont"
+                     type="text"
+                     formControlName="sanketNumber">
+              ।<br><br>
+              <p>
+              इति सम्बत
+              <input class="form-control-sm form-field nepaliFont"
+                     type="text"
+                     formControlName="docDate">
+
+              साल
+              <input class="form-control-sm form-field nepaliFont"
+                     type="text"
+                     formControlName="docyear">
+
+              महिना
+              <input class="form-control-sm form-field nepaliFont"
+                     type="text"
+                     formControlName="docMonth">
+              गते रोज
+              <input class="form-control-sm form-field nepaliFont"
+                     type="text"
+                     formControlName="docRoj">
+              शुभम्
+                <input class="form-control-sm form-field nepaliFont"
+                       type="text"
+                       formControlName="subham">
+                ।
+              </p>
+            </div>
+          </div>
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-success float-right" nbButton status="success">Save
+        </button>
+      </div>
+    </form>
+    <button class="btn btn-primary d-print-none"
+            [useExistingCss]="true"
+            [disabled]="!initialInfoPrint"
+            printSectionId="print-section-{{ offerLetterConst.OFFER_LETTER_HIRE_PURCHASE_AND_AUTO_LOAN }}"
+            ngxPrint>print
+    </button><br>
+  </div>
+</div>
+<app-offer-letter-hire-purchase-and-auto-loan-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                 hidden></app-offer-letter-hire-purchase-and-auto-loan-print>
