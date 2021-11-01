@@ -10,7 +10,7 @@
       <form #nepseForm="ngForm" (ngSubmit)="nepseForm.form.valid && onSubmit()" name="form">
         <div class="row form-group">
           <div class="col-md-6">
-            <label for="name">Company Name</label>
+            <label for="name">{{nepseForm.form.valid}}</label>
             <input [(ngModel)]="model.id" class="form-control" name="id" placeholder="id"
                    type="hidden">
             <input #companyVal="ngModel" [(ngModel)]="model.companyName" [ngClass]="{'is-invalid': nepseForm.submitted && companyVal.invalid}" class="form-control"
