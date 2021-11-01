@@ -58,19 +58,17 @@
                                        </div>
                                    </div>
                                    </div>
-                               <div class="col-md-4">
-                                   <div class="form-group">
-                                       <label ><strong>SubSector</strong></label>
-                                       <select class="custom-select" formControlName="subsectorDetail">
-                                           <option  [ngValue]="null">Select  Subsector</option>
-                                           <option *ngFor="let data of subSector " [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>
-                                       </select>
-                                   </div>
-                               </div>
-                               </div>
-                           </div>
+<!--                               <div class="col-md-4">-->
+<!--                                   <div class="form-group">-->
+<!--                                       <label ><strong>SubSector</strong></label>-->
+<!--                                       <select class="custom-select" formControlName="subsectorDetail">-->
+<!--                                           <option  [ngValue]="null">Select  Subsector</option>-->
+<!--                                           <option *ngFor="let data of subSector " [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>-->
+<!--                                       </select>-->
+<!--                                   </div>-->
+<!--                               </div>-->
 
-                           <div class="row">
+
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="customerCode"><strong>Customer ID</strong></label>
@@ -86,6 +84,13 @@
                                        </div>
                                    </div>
                                </div>
+
+
+                               </div>
+                           </div>
+
+                           <div class="row">
+
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="companyName"><strong>Company Name</strong></label>
