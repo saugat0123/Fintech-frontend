@@ -5,7 +5,6 @@ import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
-import {SummaryType} from '../../SummaryType';
 import {flatten} from '@angular/compiler';
 
 
