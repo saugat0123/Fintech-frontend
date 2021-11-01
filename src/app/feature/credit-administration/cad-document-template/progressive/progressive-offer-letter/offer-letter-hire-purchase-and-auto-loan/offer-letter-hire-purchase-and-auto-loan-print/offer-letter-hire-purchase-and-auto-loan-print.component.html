@@ -10,7 +10,7 @@
                         </span>
             /पिएफएल/
             <span [ngClass]="{'nepaliFont' : printDocForm?.paFile !== null && printDocForm?.paFile !== ''}">
-                            {{printDocForm?.pafile === null || printDocForm?.paFile === '' ? '_________________' : printDocForm?.patraNum}}
+                            {{printDocForm?.paFile === null || printDocForm?.paFile === '' ? '_________________' : printDocForm?.paFile}}
                         </span>
             /सिआरडि /०७७/०७८
           </p>
@@ -43,8 +43,8 @@
       <div style="...">
         <p>
           हालको ठेगाना :
-          <span [ngClass]="{'nepaliFont' : printDocForm?.customerCurrentAddress !== null && printDocForm?.customerCurrentAddress !== ''}">
-            {{printDocForm?.customerCurrentAddress === null || printDocForm?.customerCurrentAddress === '' ? '_________________' : printDocForm?.customerCurrentAddress}}
+          <span [ngClass]="{'nepaliFont' : printDocForm?.customerTempAddress !== null && printDocForm?.customerTempAddress !== ''}">
+            {{printDocForm?.customerTempAddress === null || printDocForm?.customerTempAddress === '' ? '_________________' : printDocForm?.customerTempAddress}}
           </span>
         </p>
       </div>
@@ -332,9 +332,6 @@
                   </span>
                 </td>
                 <td>
-                  <input class="form-control-sm form-field nepaliFont"
-                         formControlName="jaggaSiNum"
-                         type="text">
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.jaggaSiNum !== null && additionalCollateral?.jaggaSiNum !== ''}">
                     {{additionalCollateral?.jaggaSiNum === null || additionalCollateral?.jaggaSiNum === '' ? '' : additionalCollateral?.jaggaSiNum}}
                   </span>
