@@ -286,6 +286,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
         // Setting Security data--
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            this.securityId = this.loanDataHolder.security.id;
             this.securityData = JSON.parse(this.loanDataHolder.security.data);
             this.securitySummary = true;
         }
@@ -743,21 +744,29 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     // method to get all the paths which is require to zipping all files
     public getDocPath(): void {
         const docPaths = [];
-        const loanDocument = this.loanDataHolder.customerDocument;
-        for (const doc of loanDocument) {
-            docPaths.push(doc.documentPath);
-        }
-        const generalDocument = this.loanDataHolder.loanHolder.customerGeneralDocuments;
-        for (const doc of generalDocument) {
-            docPaths.push(doc.docPath);
-        }
-        const guarantorDocument = this.taggedGuarantorWithDoc;
-        for (const doc of guarantorDocument) {
-            docPaths.push(doc.docPath);
-        }
-        const insuranceDocument = this.insuranceWithDoc;
-        for (const doc of insuranceDocument) {
-            docPaths.push(doc.policyDocumentPath);
+        if (this.loanDataHolder.zipPath === null || this.loanDataHolder.zipPath === '') {
+            const loanDocument = this.loanDataHolder.customerDocument;
+            for (const doc of loanDocument) {
+                docPaths.push(doc.documentPath);
+            }
+            const generalDocument = this.loanDataHolder.loanHolder.customerGeneralDocuments;
+            for (const doc of generalDocument) {
+                docPaths.push(doc.docPath);
+            }
+            const guarantorDocument = this.taggedGuarantorWithDoc;
+            for (const doc of guarantorDocument) {
+                docPaths.push(doc.docPath);
+            }
+            const insuranceDocument = this.insuranceWithDoc;
+            for (const doc of insuranceDocument) {
+                docPaths.push(doc.policyDocumentPath);
+            }
+            const siteVisitDocument = this.siteVisitDocuments;
+            for (const doc of siteVisitDocument) {
+                docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+            }
+        } else {
+            docPaths.push(this.loanDataHolder.zipPath);
         }
         this.downloadAll(docPaths);
     }
@@ -803,6 +812,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             if(this.isRemitLoan) {
                 this.dbr = emi / JSON.parse(this.loanDataHolder.remitCustomer.senderData).senderEmployment.monthly_salary;
             }
+    }
+
+    checkSiteVisitDocument(event: any) {
+        this.siteVisitDocuments = event;
     }
 }
 

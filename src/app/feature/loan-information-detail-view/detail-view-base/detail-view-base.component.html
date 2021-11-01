@@ -42,7 +42,8 @@
 
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
-                   [securityId]="securityId"></app-security-view>
+                   [securityId]="securityId"
+                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
 <app-financial-view *ngIf="loanHolder?.financial"
                     [customerType]="loanHolder?.customerType"
                     [formData]="loanHolder?.financial"></app-financial-view>
@@ -125,4 +126,4 @@
 <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
 <!--                                [fromProfile]="false"></app-credit-grading>-->
 
-<app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
+<app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
