@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -8,21 +10,17 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
-import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-guarantee-bond-personal',
-  templateUrl: './guarantee-bond-personal.component.html',
-  styleUrls: ['./guarantee-bond-personal.component.scss']
+  selector: 'app-hp-deed-corporate',
+  templateUrl: './hp-deed-corporate.component.html',
+  styleUrls: ['./hp-deed-corporate.component.scss']
 })
-export class GuaranteeBondPersonalComponent implements OnInit {
+export class HpDeedCorporateComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -35,28 +33,25 @@ export class GuaranteeBondPersonalComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepaliData;
 
-  constructor(private dialogRef: NbDialogRef<GuaranteeBondPersonalComponent>,
+  constructor(private dialogRef: NbDialogRef<HpDeedCorporateComponent>,
               private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
-  }
+              private routerUtilsService: RouterUtilsService) { }
 
   ngOnInit() {
     this.buildForm();
     this.fillForm();
   }
-
   fillForm() {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          /*this.setGuarantors(initialInfo.guarantorDetails);*/
+          /*this.setGuarantors(initialInfo.guarantorDetail);*/
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -70,8 +65,6 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       });
     }
   }
-
-
   onSubmit(): void {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -112,106 +105,123 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       this.dialogRef.close();
     });
   }
-
-
-  buildForm(): void {
+  buildForm() {
     this.form = this.formBuilder.group({
-      grandParentName: [undefined],
-      parentName: [undefined],
-      husbandName: [undefined],
-      sasuSasura: [undefined],
-      district: [undefined],
-      municipality: [undefined],
-      wadNo: [undefined],
-      tempDistrict: [undefined],
-      tempMunicipality: [undefined],
-      tempWadNo: [undefined],
-      date: [undefined],
-      cdoOffice: [undefined],
-      citizenshipNo: [undefined],
-      age: [undefined],
-      buttonGrandParentName: [undefined],
-      buttonParentName: [undefined],
-      buttonhusbandName: [undefined],
-      buttonSasuSasura: [undefined],
-      buttonDistrict: [undefined],
-      buttonMunicipalityt: [undefined],
-      buttonWadNo: [undefined],
-      buttonTempDistrict: [undefined],
-      buttonTempMuniciplity: [undefined],
-      buttonTempWadNo: [undefined],
-      buttonDate: [undefined],
-      buttonWifeName: [undefined],
-      buttonCdoOffice: [undefined],
-      buttonCitizenshipNo: [undefined],
-      buttonAge: [undefined],
-      guaranteeNAme: [undefined],
-      guaranteeCitizenshipNo: [undefined],
-      guaranteeIssueDate: [undefined],
-      guaranteeCdoOffice: [undefined],
-      guaranteePermanentDistrict: [undefined],
-      guaranteePermanentMunicipality: [undefined],
-      guaranteePermanentWadNo: [undefined],
-      sabikVDC: [undefined],
-      sabikWaNo: [undefined],
-      guaranteeTempDistrict: [undefined],
-      guaranteeTempMunicipality: [undefined],
-      guaranteeTempWadNo: [undefined],
-      fatherMotherName: [undefined],
-      grandFatherGrandmomName: [undefined],
-      husbandWifeName: [undefined],
-      karmachariName: [undefined],
-      karmachariSanketNo: [undefined],
-      itiSambatYear: [undefined],
-      itiSambatMonth: [undefined],
-      itiSambatDate: [undefined],
-      itiSambatRojSubham: [undefined],
-      guarantorDetails: this.formBuilder.array([]),
-      locationName: [undefined],
-      sahiName: [undefined],
-      namName: [undefined],
-      newName: [undefined],
-      sriName: [undefined],
-      sriiName: [undefined],
-      parName: [undefined],
-      husName: [undefined],
-      saSura: [undefined],
       districtName: [undefined],
       municipalityName: [undefined],
-      wadNoName: [undefined],
-      tempDistrictName: [undefined],
-      tempMunicipalityName: [undefined],
-      tempWardNo: [undefined],
-      buttonDateName: [undefined],
-      buttonCdoOfficeName: [undefined],
-      buttonCitizenshipNoName: [undefined],
-      buttonAgeName: [undefined],
-      sirName: [undefined],
-      karjaYojana: [undefined],
-      personalLoan: [undefined],
-      name: [undefined],
-      citizenNumber: [undefined],
-      issuedYear: [undefined],
+      wadNo: [undefined],
+      branchName: [undefined],
+      grandParentName: [undefined],
+      parentName: [undefined],
+      husbandWifeName: [undefined],
+      customerDistrict: [undefined],
+      customerMunicipality: [undefined],
+      customerWadNo: [undefined],
+      sabikVDC: [undefined],
+      sabikWadNo: [undefined],
+      tempMunicipality: [undefined],
+      tempWadNo: [undefined],
+      age: [undefined],
+      customerName: [undefined],
+      customerCitizenshipNo: [undefined],
+      date: [undefined],
+      cdoOffice: [undefined],
+      matralayaName: [undefined],
+      biBhagCompany: [undefined],
+      regOffice: [undefined],
+      act: [undefined],
+      under: [undefined],
+      underDate: [undefined],
+      praliNo: [undefined],
+      serviceOffice: [undefined],
+      serviceDate: [undefined],
+      certificateNo: [undefined],
+      certifiedDistrict: [undefined],
+      certifiedMunicipality: [undefined],
+      certifiedWadNo: [undefined],
+      secRegOffice: [undefined],
+      pratinidhiGrandParent: [undefined],
+      pratinidhiParent: [undefined],
+      pratinidhiHusbandWifeName: [undefined],
+      pratinidhiDistrict: [undefined],
+      pratinidhiMunicipality: [undefined],
+      pratinidhiWadNo: [undefined],
+      pratinidhiTempDistrict: [undefined],
+      pratinidhiTempMunicipality: [undefined],
+      pratinidhiTempWadNo: [undefined],
+      pratinidhiAge: [undefined],
+      pratinidhiName: [undefined],
+      pratinidhiCitizenshipNo: [undefined],
+      pratinidhiDate: [undefined],
+      pratinidhiCDOoffice: [undefined],
+      kistabandiBranchName: [undefined],
+      kistabandiBranchAddress: [undefined],
+      tapsilSN: [undefined],
+      sawariPrakar: [undefined],
+      engineNo: [undefined],
+      chasisNo: [undefined],
+      regNo: [undefined],
+      regDate: [undefined],
+      sincerlySign: [undefined],
+      akhtiyarName: [undefined],
+      akhtiyarCitizenshipNo: [undefined],
+      akhtiyarDate: [undefined],
+      akhtiyarMuniciplity: [undefined],
+      akhtiyarPermanentDistrict: [undefined],
+      akhtiyarPermanentMunicipality: [undefined],
+      akhtiyarPermanentWadNo: [undefined],
+      akhtiyarSabikVDC: [undefined],
+      akhtiyarSabikWadNo: [undefined],
+      akhtiyarTempDistrict: [undefined],
+      akhtiyarTempMunicipality: [undefined],
+      akhtiyarTempWadNo: [undefined],
+      sicerlyFatherName: [undefined],
+      sicerlyMotherName: [undefined],
+      sicerlyGrandFatherName: [undefined],
+      sicerlyGrandMotherName: [undefined],
+      sicerlyHusbandName: [undefined],
+      sicerlyWifeNAme: [undefined],
+      sanakhatPersonName: [undefined],
+      sanakhatPersonSymNo: [undefined],
+      itisambatYear: [undefined],
+      itisambatMonth: [undefined],
+      itisambatDate: [undefined],
+      itisambatTime: [undefined],
+      itisambatSubham: [undefined],
+      guarantorName: [undefined],
+      guarantorCitizenshipNo: [undefined],
+      guarantorCitizenshipIssueDate: [undefined],
       guarantorCDOoffice: [undefined],
-      guarantorDistrict: [undefined],
-      guarantorMunicipality: [undefined],
-      guarantorWadNo: [undefined],
-      name1: [undefined],
-      citizenNumber1: [undefined],
-      issuedYear1: [undefined],
+      guarantorPermanentMunicipality: [undefined],
+      guarantorPermanentWardNo: [undefined],
+      issuedPlace: [undefined],
+      guarantorName1: [undefined],
+      guarantorCitizenshipNo1: [undefined],
+      guarantorCitizenshipIssueDate1: [undefined],
       guarantorCDOoffice1: [undefined],
-      guarantorDistrict1: [undefined],
-      guarantorMunicipality1: [undefined],
-      guarantorWadNo1: [undefined],
+      guarantorPermanentMunicipality1: [undefined],
+      guarantorPermanentWardNo1: [undefined],
+      issuedPlace1: [undefined],
+      mantralayaName1: [undefined],
+      bibhaga: [undefined],
+      regKaryalaya: [undefined],
+      yen: [undefined],
+      yen2: [undefined],
+      regDate1: [undefined],
+      praliNo1: [undefined],
+      sewaKaryalaya1: [undefined],
+      regDate2: [undefined],
+      panNo: [undefined],
+      pramadJilla: [undefined],
+      pramadMunicipallity: [undefined],
+      pramadWardNo: [undefined],
+      regKaryalaya2: [undefined],
+      riniName: [undefined]
+      /*guarantorDetail: this.formBuilder.array([])*/
     });
   }
-  getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.form.get(wordLabel).patchValue(returnVal);
-  }
 
- /* guarantorFormGroup(): FormGroup {
+  /*guarantorFormGroup(): FormGroup {
     return this.formBuilder.group({
       name: [undefined],
       citizenNumber: [undefined],
@@ -220,12 +230,14 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       guarantorDistrict: [undefined],
       guarantorMunicipality: [undefined],
       guarantorWadNo: [undefined]
+
     });
 
-  }*/
 
- /* setGuarantors(data) {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
+  }
+
+  setGuarantors(data) {
+    const formArray = this.form.get('guarantorDetail') as FormArray;
     if (data.length === 0) {
       this.addMoreGuarantor();
       return;
@@ -241,15 +253,15 @@ export class GuaranteeBondPersonalComponent implements OnInit {
         guarantorWadNo: [value.guarantorWadNo]
       }));
     });
-  }*/
+  }
 
-  /*addMoreGuarantor(): void {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
+  addMoreGuarantor(): void {
+    const formArray = this.form.get('guarantorDetail') as FormArray;
     formArray.push(this.guarantorFormGroup());
-  }*/
+  }
 
- /* removeGuarantor(index: number): void {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
+  removeGuarantor(index: number): void {
+    const formArray = this.form.get('guarantorDetail') as FormArray;
     formArray.removeAt(index);
   }*/
 
