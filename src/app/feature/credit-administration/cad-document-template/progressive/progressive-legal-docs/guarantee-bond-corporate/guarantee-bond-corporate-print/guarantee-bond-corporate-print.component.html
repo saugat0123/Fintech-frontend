@@ -5,7 +5,7 @@
             <h6 class="text-center"><strong>संस्थागत जमानीपत्र </strong><br>
             </h6>
             <div class="row col-md-12">
-                <p>
+                <p style="line-height: 1.9em">
                     लिखितम् जमानीको लिखत गराई लिनेका नाम बैंक तथा वित्तीय संस्था सम्बन्धी ऐन, २०७३ बमोजिम सञ्चालनमा
                     रहेको काठमाण्डौ जिल्ला, वडा नं. २२ स्थित प्रोग्रेशिभ फाइनान्स लि.
                     <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
@@ -139,7 +139,7 @@
                     (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ ) लाई यस अ३ि समय समयमा प्रदान गरेको/गर्दै आएको र
                     साथै
                     भविष्यमा प्रदान गर्ने जम्मा रु.
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                    <span [ngClass]="{'unifont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
 </span>
                     (अक्षेरुपी रु. <span
@@ -298,7 +298,7 @@
                                 {{printDocForm?.middleAmount === null || printDocForm?.middleAmount === '' ? '_________________' : printDocForm?.middleAmount}}
                                 </span>
                                 (अक्षेरुपी रु. <span
-                                        [ngClass]="{'nepaliFont' : printDocForm?.middleAmountInWord !== null && printDocForm?.middleAmountInWord !== ''}">
+                                        [ngClass]="{'uniFont' : printDocForm?.middleAmountInWord !== null && printDocForm?.middleAmountInWord !== ''}">
                                 {{printDocForm?.middleAmountInWord === null || printDocForm?.middleAmountInWord === '' ? '_________________' : printDocForm?.middleAmountInWord}}
                                 </span>)
                                 सम्मको ऋण कर्जा तथा बैंकिङ्ग कारोवार सूविधाको रकम कलमको हद सम्म सिमित रहने छ ।
