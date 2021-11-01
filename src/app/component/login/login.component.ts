@@ -101,6 +101,9 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                 } else if (error.status === 400) {
                     this.spinner = false;
                     this.msg = 'INVALID USERNAME OR PASSWORD';
+                } else if (error.status === 403) {
+                    this.spinner = false;
+                    this.msg = 'ACCOUNT IS LOCKED';
                 }
             })
         );
