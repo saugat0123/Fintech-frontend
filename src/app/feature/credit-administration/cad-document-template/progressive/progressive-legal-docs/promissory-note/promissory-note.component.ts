@@ -147,7 +147,7 @@ export class PromissoryNoteComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      address:[undefined],
+      address: [undefined],
       grandParentName: [undefined],
       fatherName: [undefined],
       motherName: [undefined],
@@ -191,8 +191,21 @@ export class PromissoryNoteComponent implements OnInit {
       ItisambatTime: [undefined],
       ItisambatRojSubham: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      secguarantorDetails: this.formBuilder.array([])
-
+      secguarantorDetails: this.formBuilder.array([]),
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
     });
   }
 
@@ -218,7 +231,6 @@ export class PromissoryNoteComponent implements OnInit {
       guarantorWadNo: [undefined]
     });
   }
-
 
   setGuarantorDetails(data) {
     const formArray = this.form.get('guarantorDetails') as FormArray;
@@ -249,7 +261,6 @@ export class PromissoryNoteComponent implements OnInit {
     formArray.removeAt(index);
   }
 
-
   secguarantorFormGroup(): FormGroup {
     return this.formBuilder.group({
       name: [undefined],
@@ -261,7 +272,6 @@ export class PromissoryNoteComponent implements OnInit {
       guarantorWadNo: [undefined]
     });
   }
-
 
   setsecGuarantorDetails(data) {
     const formArray = this.form.get('secguarantorDetails') as FormArray;
@@ -281,7 +291,6 @@ export class PromissoryNoteComponent implements OnInit {
       }));
     });
   }
-
 
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);

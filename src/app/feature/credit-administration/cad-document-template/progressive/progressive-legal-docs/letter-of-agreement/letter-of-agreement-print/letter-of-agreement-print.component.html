@@ -18,7 +18,7 @@
               <span [ngClass]="{'nepaliFont' : printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
                   {{printDocForm?.perMunicipality === null || printDocForm?.perMunicipality === '' ? '_________________' : printDocForm?.perMunicipality}}
               </span>
-              गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.
+              न.पा./गा.वि.स. वडा नं.
               <span [ngClass]="{'nepaliFont' : printDocForm?.perWardNo !== null && printDocForm?.perWardNo !== ''}">
                   {{printDocForm?.perWardNo === null || printDocForm?.perWardNo === '' ? '_________________' : printDocForm?.perWardNo}}
               </span>
@@ -30,7 +30,7 @@
               <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryMunicipalityVDC !== null && printDocForm?.temporaryMunicipalityVDC !== ''}">
                   {{printDocForm?.temporaryMunicipalityVDC === null || printDocForm?.temporaryMunicipalityVDC === '' ? '_________________' : printDocForm?.temporaryMunicipalityVDC}}
               </span>
-              गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.
+              न.पा./गा.वि.स. वडा नं.
               <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryWardNo !== null && printDocForm?.temporaryWardNo !== ''}">
                   {{printDocForm?.temporaryWardNo === null || printDocForm?.temporaryWardNo === '' ? '_________________' : printDocForm?.temporaryWardNo}}
               </span>
@@ -43,10 +43,10 @@
                   {{printDocForm?.grandFatherName === null || printDocForm?.grandFatherName === '' ? '_________________' : printDocForm?.grandFatherName}}
               </span>
               को
-              नाती,
+              नाति/नातिनी
               <span [ngClass]="{'nepaliFont' : printDocForm?.fatherName !== null && printDocForm?.fatherName !== ''}">
                   {{printDocForm?.fatherName === null || printDocForm?.fatherName === '' ? '_________________' : printDocForm?.fatherName}}
-              </span>को छोरा वर्ष
+              </span>को छोरा/छोरी वर्ष
               <span [ngClass]="{'nepaliFont' : printDocForm?.loanHolderAge !== null && printDocForm?.loanHolderAge !== ''}">
                   {{printDocForm?.loanHolderAge === null || printDocForm?.loanHolderAge === '' ? '_________________' : printDocForm?.loanHolderAge}}
               </span>को
@@ -58,9 +58,12 @@
               <span [ngClass]="{'nepaliFont' : printDocForm?.financeWardNo !== null && printDocForm?.financeWardNo !== ''}">
                   {{printDocForm?.financeWardNo === null || printDocForm?.financeWardNo === '' ? '_________________' : printDocForm?.financeWardNo}}
               </span>
-              , स्थित प्रोग्रेशिभ फाइनान्स लि., शाखा कार्यालयको नाममा मालपोत कार्यालय
-              <span [ngClass]="{'nepaliFont' : printDocForm?.financeBranchName !== null && printDocForm?.financeBranchName !== ''}">
-                  {{printDocForm?.financeBranchName === null || printDocForm?.financeBranchName === '' ? '_________________' : printDocForm?.financeBranchName}}
+              ,<span [ngClass]="{'nepaliFont' : printDocForm?.financeWardNo !== null && printDocForm?.financeWardNo !== ''}">
+                  {{printDocForm?.financeWardNo === null || printDocForm?.financeWardNo === '' ? '_________________' : printDocForm?.financeWardNo}}
+              </span>
+              (टोल) स्थित प्रोग्रेशिभ फाइनान्स लि., शाखा कार्यालयको नाममा मालपोत कार्यालय
+              <span [ngClass]="{'nepaliFont' : printDocForm?.tole !== null && printDocForm?.tole !== ''}">
+                  {{printDocForm?.tole === null || printDocForm?.tole === '' ? '_________________' : printDocForm?.tole}}
               </span>
               मार्फत
               रजिस्ट्रेशन नं.
@@ -109,7 +112,7 @@
       </div>
 
         <div class="col-md-12 mt-lg-3 text-center">
-            <p>
+            <p style="margin-left: 50px">
                 ईति सम्बत २०
                 <span [ngClass]="{'nepaliFont' : printDocForm?.itiYear !== null && printDocForm?.itiYear !== ''}">
                   {{printDocForm?.itiYear === null || printDocForm?.itiYear === '' ? '___________' : printDocForm?.itiYear}}
@@ -126,6 +129,7 @@
                 <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambat !== null && printDocForm?.itiSambat !== ''}">
                   {{printDocForm?.itiSambat === null || printDocForm?.itiSambat === '' ? '_______' : printDocForm?.itiSambat}}
                 </span> शुभम्।
+                <br>
             </p>
         </div>
 

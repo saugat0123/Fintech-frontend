@@ -3,72 +3,99 @@
 
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      <h6 class="text-center">ऋणीको नाममा जारी गरेको कर्जा विरुद्ध पेश्की दिएकोमा ग्रहणाधिकार–पत्र<br>
-        (Letter of Lien)</h6>
+      <h6 class="text-center">ऋणीको नाममा जारी गरेको मुद्दती खाता रसिद विरुद्ध पेश्की दिएकोमा ग्रहणाधिकार–पत्र</h6>
+        <h6 class="text-center">(Letter of Lien)</h6>
       <p class="text-right"> मिति:
         <input class="form-field form-control-sm nepaliFont "
                formControlName="date"
                placeholder=""
                type="text"/>
       </p>
-      <b> प्रोग्रेशिभ फाइनान्स लि.</b>
+      <strong> प्रोग्रेशिभ फाइनान्स लि.</strong>
       <br>
-      <b> <input class="form-field form-control-sm nepaliFont "
+      <strong> <input class="form-field form-control-sm nepaliFont "
                  formControlName="branchName"
                  placeholder=""
-                 type="text"/> शाखा।</b>
+                 type="text"/> शाखा।</strong>
       <br>
       <br>
       <div class="row ">
         <p>महोदय, <br>
           <br>
-          म/हामी लेखनाथ भण्डारीलाई त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋण वा कुनै प्रकारको
+          म/हामी <input class="form-field form-control-sm nepaliFont "
+                        formControlName="name"
+                        placeholder=""
+                        type="text"/>लाई
+          त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋण वा कुनै प्रकारको
           बैकिङ्ग सुविधाहरु
-          उपलब्ध गर्ने वा ऋणको निरन्तरता कायम राख्ने वा अन्यकुनै प्रकारबाट उधारो वाऋण
-          सेवा प्रदान गरिएकोमा म/हामी रु.१०,००,०००। अक्षरेंपी दश लाख रुपौयाकोे मेरो नामको निम्न विवरणको
-          चल्तीखाताको रकम त्यस
-          वित्तीय संस्थालाई ग्रहणा धिकार–पत्र स्वरुप पेश गर्दछु/छौ। कथमकदाचित मैले/हामीले
-          मेरो/हाम्रो खाता माग गरिएको समयमा मिलानगर्न
+          उपलब्ध गर्ने वा ऋणको निरन्तरता कायम राख्ने वा अन्य कुनै प्रकारबाट उधारो वा ऋण
+          सेवा प्रदान गरिएकोमा म/हामी रु.<input class="form-field form-control-sm nepaliFont "
+                                                formControlName="amount"
+                                                placeholder=""
+                                                type="text"
+                                                readonly
+                                                (input)="convertAmountInWords('amount','amountInWords')"/>
+          अक्षरेंपी <input class="form-field form-control-sm nepaliFont "
+                           formControlName="amountInWords"
+                           placeholder=""
+                           readonly
+                           type="text"/>कोे मेरो नामको निम्न विवरणको
+          मुद्दती खाताको रसिद त्यस
+          वित्तीय संस्थालाई ग्रहणा धिकार–पत्र स्वरुप पेश गर्दछु/छौ। कथम कदाचित मैले/हामीले
+          मेरो/हाम्रो खाता माग गरिएको समयमा मिलान गर्न
           असफल भएमा वा मेरो/हाम्रो दायित्व पुरा नगरेमा वा त्यस वित्तीय संस्थाप्रति आफ्नो वचनवद्धता कुनै
-          प्रकार वातरिकबाट पुरा नगरेमा यस
+          प्रकार वा तरिकबाट पुरा नगरेमा यस
           मामिलामा त्यस वित्तीय संस्थाको अधिकार तथा उपचारमा कुनै पूर्वाग्रह नराखी त्यस वित्तीय
-          संस्थाले उक्तखातामा भएको रकमबाट म्यादपुग्ने
-          मितिवा सो अगावै कुनै पनि समयमा/हामीलाई विना सूचना आफ्नो लेना असुलउपर गरी सोबाट मेरो/हाम्रो
-          खाता, दायित्व व त्यस
+          संस्थाले मुद्दती खाता रसिदहरुबाट म्याद पुग्ने
+          मिति वा सो अगावै कुनै पनि समयमा म/हामीलाई विना सूचना आफ्नो लेना असुल उपर गरी सोबाट मेरो/हाम्रो
+          खाता, दायित्व वा त्यस
           वित्तीय संस्थाप्रतिको वचनवद्धता (commitment) मिलानगर्न म/हामी यसै पत्रसाथ अपरिवर्र्तीत
           (irrevocably) र निश्चित
-          रुपले(expressly)अधिकार प्रत्यायोजन गर्दछु/छौं।
+          रुपले (expressly) अधिकार प्रत्यायोजन गर्दछु/छौं।
         </p>
       </div>
-      <p class="text-center">उपरोक्त उल्लेखित मुद्दतीखाता रसिदहरुको विवरण</p>
+      <p class="text-center">उपरोक्त उल्लेखित मुद्दती खाता रसिदहरुको विवरण</p>
       <div class="table-responsive-md">
 
         <table class="table table-bordered text-center table-responsive-md">
           <tr>
-            <th>चल्तीखाता नं</th>
-            <th>जारी गर्नेशाखा</th>
+            <th>मुद्धति खाता रसिद</th>
+            <th>जारी गर्ने शाखा</th>
             <th>खातावालको नाम</th>
             <th colspan="2">रकम</th>
 
           </tr>
           <tr>
             <td rowspan="2">
-              <input class=" nepaliFont " cols="30" formControlName="chaltiKhataNo" id="" name=""
-                     rows="10" type="text"></td>
+              <input class="form-field form-control-sm nepaliFont "
+                     formControlName="muddatiKhata"
+                     placeholder=""
+                     type="text"/>
+              </td>
             <td rowspan="2">
-              <input class="nepaliFont " cols="30" formControlName="jariBranch" id="" name=""
-                     rows="10" type="text">
+              <input class="form-field form-control-sm nepaliFont "
+                     formControlName="jariBranch"
+                     placeholder=""
+                     type="text"/>
             </td>
-            <td rowspan="2"><input class=" nepaliFont " cols="30" formControlName="khatawalName" id=""
-                                   name="" rows="10" type="text"></td>
+            <td rowspan="2"><input class="form-field form-control-sm nepaliFont "
+                                   formControlName="khatawalName"
+                                   placeholder=""
+                                   type="text"/>
+              </td>
             <th width="5%">रु.</th>
             <th width="5%">पैसा</th>
           </tr>
           <tr>
-            <td><input class=" nepaliFont " cols="30" formControlName="tableAmount" id="" name=""
-                       rows="10" type="text"></td>
-            <td><input class=" nepaliFont " cols="30" formControlName="tablePaisa" id="" name=""
-                       rows="10" type="text"></td>
+            <td rowspan="2" style="width: 25%"><input class="form-field form-control-sm nepaliFont "
+                       formControlName="tableAmount"
+                       placeholder=""
+                       type="text"/>
+              </td>
+            <td rowspan="2" style="width: 25%"><input class="form-field form-control-sm nepaliFont "
+                       formControlName="tablePaisa"
+                       placeholder=""
+                       type="text"/>
           </tr>
         </table>
       </div>
@@ -76,7 +103,7 @@
       <div>
         <p>भवदीय,
           <br>
-          दस्तखत :....................
+          दस्तखत : .......................
           <br>
           नाम : <input class="form-field form-control-sm nepaliFont "
                        formControlName="customerName"
@@ -89,10 +116,8 @@
                           type="text"/>
 
         </p>
-        <p class="text-right">संस्थाको छाप : <input class="form-field form-control-sm nepaliFont "
-                                                   formControlName="companyStamp"
-                                                   placeholder=""
-                                                   type="text"/></p>
+        <p class="text-right" style="margin-right: 10rem">संस्थाको छाप :
+          <br>
       </div>
       <div class="col-md-12">
         <button class="btn btn-primary float-right" nbButton status="success" type="submit">
