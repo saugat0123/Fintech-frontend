@@ -161,7 +161,7 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let guarantor of printDocForm?.swikritiBibaran; let i=index">
-                            <td><span class="nepaliFont">{{i + 1 | nepaliNumber : 'preeti'}}</span></td>
+                            <td><span>{{i + 1 | nepaliNumber}}.</span></td>
                             <td><span
                                     [ngClass]="{nepaliFont: guarantor.approvedSubidhakisim!==null && guarantor.approvedSubidhakisim!==''}">
                             {{guarantor?.approvedSubidhakisim === null || guarantor.approvedSubidhakisim === '' ? '      ' : guarantor?.approvedSubidhakisim }}</span>
@@ -201,7 +201,7 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let guarantor of printDocForm?.security; let i=index">
-                            <td><span class="nepaliFont">{{i + 1 | nepaliNumber : 'preeti'}}</span></td>
+                            <td><span>{{i + 1 | nepaliNumber}}.</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesSNBibaran}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesDistrict}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesMunicipality}}</span></td>
