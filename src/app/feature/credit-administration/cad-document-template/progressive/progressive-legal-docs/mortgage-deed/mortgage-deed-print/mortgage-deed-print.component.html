@@ -37,7 +37,7 @@
         <br><br>
         <div class="col-md-12">
           <p>
-            <b>विषय :- धितोबन्धक लिखत ।</b><br>
+            <strong>विषय :- धितोबन्धक लिखत ।</strong><br>
           </p>
           <p style="line-height: 1.8">
             लिखितम लिखत गराई लिने धनिकानाम का.जि.का.म.न.पा.वडा नं. ३२,
@@ -102,7 +102,7 @@
       <div class="row mt-5 ">
         <br><br>
         <div style="margin-top: 35px;">
-          <p><b>ऋणीको विवरण सहीछाप :- ब्यक्तिको हकमा</b></p>
+          <p><strong>ऋणीको विवरण सहीछाप :- ब्यक्तिको हकमा</strong></p>
           <br>
           <div *ngFor="let guarantor of printDocForm?.rinBibaran; let i=index">
             <div class="col-lg-12">
@@ -186,9 +186,9 @@
       <div class="row" style="margin-top: 50px">
         <br><br>
         <div></div>
-        <p><b>धितोबन्धक लिखत गरिदिनेको विवरण र सहीछाप (व्यक्तिको हकमा) :- यो धितोबन्धक दिएको जग्गा
+        <p><strong>धितोबन्धक लिखत गरिदिनेको विवरण र सहीछाप (व्यक्तिको हकमा) :- यो धितोबन्धक दिएको जग्गा
           समेत गर्दा
-          नेपाल अधिराज्य भरमा मेरो र मेरो परिवारको नाममा हद बन्दी भन्दा बढि जग्गा छैन।</b></p>
+          नेपाल अधिराज्य भरमा मेरो र मेरो परिवारको नाममा हद बन्दी भन्दा बढि जग्गा छैन।</strong></p>
         <div>
           <table class="table  table-bordered text-center">
             <tbody>
@@ -262,7 +262,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <b>लिखत गराई लिने (धनी) को विवरण र सहिछाप :- </b>
+          <strong>लिखत गराई लिने (धनी) को विवरण र सहिछाप :- </strong>
           <table class="table  table-bordered text-center">
             <tbody>
             <tr>
@@ -331,7 +331,7 @@
 
         <div style="margin-top: 85px;">
           <div class="col-md-12" style="overflow-x: auto;">
-            <b>धितोबन्धक दिएको अचल सम्पत्तिको विवरण :-</b>
+            <strong>धितोबन्धक दिएको अचल सम्पत्तिको विवरण :-</strong>
             <table class="table  table-bordered text-center">
               <tbody>
               <tr>
@@ -410,8 +410,8 @@
         <br>
 
         <div class="col-lg-12">
-          <b class="text-left">साक्षी :</b>
-          <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
+          <strong class="text-left">साक्षी :</strong>
+          <!--<div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
             <div>
               <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
               <table border="1" width="100%" class="table-bordered text-center">
@@ -440,7 +440,78 @@
               </table>
               <br>
             </div>
-          </div>
+          </div>-->
+          <p>१. </p>
+          <p>दस्तखत:.............................</p>
+
+          <p>नाम:
+            <span
+                    [ngClass]="{'nepaliFont' : printDocForm?.witnessName !== null && printDocForm?.witnessName !== ''}">
+                        {{printDocForm?.witnessName === null || printDocForm?.witnessName === '' ? '_________________________________' : printDocForm?.witnessName}}
+                    </span>
+
+            (ना.प्र.नं<span
+                    [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipNo !== null && printDocForm?.witnessCitizenshipNo !== ''}">
+                        {{printDocForm?.witnessCitizenshipNo === null || printDocForm?.witnessCitizenshipNo === '' ? '_________________' : printDocForm?.witnessCitizenshipNo}}
+                    </span>
+            मिति <span
+                    [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipIssueDate !== null && printDocForm?.witnessCitizenshipIssueDate !== ''}">
+                        {{printDocForm?.witnessCitizenshipIssueDate === null || printDocForm?.witnessCitizenshipIssueDate === '' ? '_________________' : printDocForm?.witnessCitizenshipIssueDate}}
+                    </span> जि.प्र.का. <span
+                    [ngClass]="{'nepaliFont' : printDocForm?.witnessCDOoffice !== null && printDocForm?.witnessCDOoffice !== ''}">
+                        {{printDocForm?.witnessCDOoffice === null || printDocForm?.witnessCDOoffice === '' ? '_________________' : printDocForm?.witnessCDOoffice}}
+                    </span>)
+          </p>
+
+          <p>ठेगाना:<span
+                  [ngClass]="{'nepaliFont' : printDocForm?.witnessIssuedPlace !== null && printDocForm?.witnessIssuedPlace !== ''}">
+                        {{printDocForm?.witnessIssuedPlace === null || printDocForm?.witnessIssuedPlace === '' ? '_________________' : printDocForm?.witnessIssuedPlace}}
+                    </span>जिल्ला <span
+                  [ngClass]="{'nepaliFont' : printDocForm?.witnessMunicipality !== null && printDocForm?.witnessMunicipality !== ''}">
+                        {{printDocForm?.witnessMunicipality === null || printDocForm?.witnessMunicipality === '' ? '_________________' : printDocForm?.witnessMunicipality}}
+                    </span>
+            गा.पा./न.पा.वडा नं<span
+                    [ngClass]="{'nepaliFont' : printDocForm?.witnessWardNo !== null && printDocForm?.witnessWardNo !== ''}">
+                        {{printDocForm?.witnessWardNo === null || printDocForm?.witnessWardNo === '' ? '__________' : printDocForm?.witnessWardNo}}
+                    </span></p>
+
+
+
+          <br>
+          <p>२.</p>
+
+          <p>दस्तखत:.............................</p>
+
+          <p>नाम:<span
+                  [ngClass]="{'nepaliFont' : printDocForm?.witnessName1 !== null && printDocForm?.witnessName1 !== ''}">
+                        {{printDocForm?.witnessName1 === null || printDocForm?.witnessName1 === '' ? '_________________________________' : printDocForm?.witnessName1}}
+                    </span>
+
+            (ना.प्र.नं<span
+                    [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipNo1 !== null && printDocForm?.witnessCitizenshipNo1 !== ''}">
+                        {{printDocForm?.witnessCitizenshipNo1 === null || printDocForm?.witnessCitizenshipNo1 === '' ? '_________________' : printDocForm?.witnessCitizenshipNo}}
+                    </span>
+            मिति <span
+                    [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipIssueDate1 !== null && printDocForm?.witnessCitizenshipIssueDate1 !== ''}">
+                        {{printDocForm?.witnessCitizenshipIssueDate1 === null || printDocForm?.witnessCitizenshipIssueDate1 === '' ? '_________________' : printDocForm?.witnessCitizenshipIssueDate1}}
+                    </span> जि.प्र.का. <span
+                    [ngClass]="{'nepaliFont' : printDocForm?.witnessCDOoffice1 !== null && printDocForm?.witnessCDOoffice1 !== ''}">
+                        {{printDocForm?.witnessCDOoffice1 === null || printDocForm?.witnessCDOoffice1 === '' ? '_________________' : printDocForm?.witnessCDOoffice1}}
+                    </span>)
+          </p>
+
+          <p>ठेगाना:<span
+                  [ngClass]="{'nepaliFont' : printDocForm?.witnessIssuedPlace1 !== null && printDocForm?.witnessIssuedPlace1 !== ''}">
+                                                {{printDocForm?.witnessIssuedPlace1 === null || printDocForm?.witnessIssuedPlace1 === '' ? '_________________' : printDocForm?.witnessIssuedPlace1}}
+                                            </span>
+            जिल्ला
+            <span [ngClass]="{'nepaliFont' : printDocForm?.witnessMunicipality1 !== null && printDocForm?.witnessMunicipality1 !== ''}">
+                                                {{printDocForm?.witnessMunicipality1 === null || printDocForm?.witnessMunicipality1 === '' ? '____________________' : printDocForm?.witnessMunicipality1}}
+                                            </span>
+            गा.पा./न.पा.वडा नं
+            <span [ngClass]="{'nepaliFont' : printDocForm?.witnessWardNo1 !== null && printDocForm?.witnessWardNo1 !== ''}">
+                                                {{printDocForm?.witnessWardNo1 === null || printDocForm?.witnessWardNo1 === '' ? '__________' : printDocForm?.witnessWardNo1}}
+                                            </span></p>
         </div>
           <br>
 
@@ -482,7 +553,7 @@
           <table class="table  table-bordered text-center">
             <tbody>
             <tr>
-              <td><b>लेखिएको वमोजिम श्रेस्ता कायम छ/छैन:-</b><br>
+              <td><strong>लेखिएको वमोजिम श्रेस्ता कायम छ/छैन:-</strong><br>
                 कर्मचारीको दस्तखत:-........................... <br>
                 नाम:- <span class="nepaliFont"> {{printDocForm?.karmachariName1}} </span> <br>
                 पद:- <span class="nepaliFont"> {{printDocForm?.karmachariPosition1}} </span> <br>
@@ -490,7 +561,7 @@
               </td>
             </tr>
             <tr>
-              <td><b>लेखिएको किता नं. को जग्गा र घरजग्गा रोक्का छ/छैन :-</b><br>
+              <td><strong>लेखिएको किता नं. को जग्गा र घरजग्गा रोक्का छ/छैन :-</strong><br>
                 कर्मचारीको दस्तखत:-..................... <br>
                 नाम:- <span class="nepaliFont">{{printDocForm?.karmachariName2}}</span> <br>
                 पद:- <span class="nepaliFont">{{printDocForm?.karmachariPosition2}}</span> <br>
@@ -498,10 +569,10 @@
               </td>
             </tr>
             <tr>
-              <td><b>लेखिएको जग्गाको न्युनतम मुल्याङ्कन रु <span
+              <td><strong>लेखिएको जग्गाको न्युनतम मुल्याङ्कन रु <span
                       class="nepaliFont">{{printDocForm?.jaggaMinimumPrice}}</span>
                 हुने देखिन्छ ।
-              </b><br>
+              </strong><br>
                 कर्मचारीको दस्तखत:-..................... <br>
                 नाम:- <span class="nepaliFont">{{printDocForm?.karmachariName3}}</span> <br>
                 पद:- <span class="nepaliFont">{{printDocForm?.karmachariPosition3}}</span> <br>
@@ -532,16 +603,16 @@
                 रसिद नं. <span class="nepaliFont">{{printDocForm?.rasidNo}}</span>
               </td>
               <td>
-                <b class="text-center">नेपाल सरकार<br>
+                <strong class="text-center">नेपाल सरकार<br>
                   भूमिव्यवस्था, सहकारी तथा गरिबि निवारण मन्त्रालय<br>
-                  भूमि व्यवस्थापन तथा अभिलेख विभाग।</b><br>
+                  भूमि व्यवस्थापन तथा अभिलेख विभाग।</strong><br>
 
                 मालपोत कार्यालय:- <span class="nepaliFont">{{printDocForm?.malpotKaryalaya}}</span>
                 <br>
                 डोरमुकाम:- <span class="nepaliFont">{{printDocForm?.doormukam}}</span>
               </td>
               <td>
-                <b> स्वीकृत (पारित) गर्नेको</b><br>
+                <strong> स्वीकृत (पारित) गर्नेको</strong><br>
                 दस्तखत र मिति :- ..................<span
                       class="nepaliFont">{{printDocForm?.paritMiti}}</span>
                 <br>
@@ -551,7 +622,7 @@
                 यो लिखतको व्यहोरा लिने दिने दुवै पक्षलाई पढेर सुनाउँदा लिखत बमोजिम कारोबार गरेको मञ्जुर
                 गरेकोले
                 लिखत पारित (स्वीकृत) गर्नको लागि पेश गरेको छु।<br>
-                <b>फाँटवालाको</b><br>
+                <strong>फाँटवालाको</strong><br>
                 दस्तखत र मिति :- .......................<span
                       class="nepaliFont">{{printDocForm?.fatwalaMiti}}</span><br>
                 नाम :- <span class="nepaliFont">{{printDocForm?.fatwalaName}}</span><br>

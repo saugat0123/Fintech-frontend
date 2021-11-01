@@ -10,12 +10,12 @@
                        placeholder=""
                        type="text"/>
             </p>
-            <b> श्री प्रोग्रेशिभ फाइनान्स लि.</b>
+            <strong> श्री प्रोग्रेशिभ फाइनान्स लि.,</strong>
             <br>
-            <b> <input class="form-field form-control-sm nepaliFont "
+            <strong> <input class="form-field form-control-sm nepaliFont "
                        formControlName="branchName"
                        placeholder=""
-                       type="text"/> शाखा।</b>
+                       type="text"/> शाखा कार्यालय</strong>
             <br>
             <div class="row col-md-12">
                 <p>महोदय,</p>
@@ -69,7 +69,7 @@
                 </p>
 
             </div>
-            <p class="text-center"><b>भवदीय,</b></p>
+            <p class="text-center"><strong>भवदीय,</strong></p>
             <div id="officeDetail">
                 <p>
                     दस्तखत:
@@ -119,7 +119,7 @@
 
                 </p>
                 <div class="col-md-12" id="signature">
-                    <p><b>औठा छाप:</b>
+                    <p><strong>औठा छाप:</strong>
 
                     <table id="fingerXap" style="width: 35%;" class="table  table-bordered text-center">
                         <thead>
@@ -137,7 +137,7 @@
                     </table>
                 </div>
             </div>
-            <div class="row col-md-12 ">
+            <!--<div class="row col-md-12 ">
                 <b class="text-left">साक्षी :</b>
                 <div class="col-md-12 float-right">
                     <button (click)="addGuarantor()" class="btn btn-primary btn-sm float-right " size="tiny"
@@ -254,10 +254,102 @@
 
                 </div>
                 <br>
-            </div>
+            </div>-->
+            <br>
+            <strong> साक्षी :</strong>
+
+            <!--{{i + 1 | nepaliWord: 'unicode'}}-->
+            <table class="table table-responsive-md table-borderless">
+                <thead>
+                <tr>
+                    <td>१. दस्तखत:</td>
+                    <td>.............................</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>नाम:</td>
+                    <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                                 formControlName="guarantorName"
+                                                 type="text"/>
+                        (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+                                         formControlName="guarantorCitizenshipNo"
+                                         placeholder=""
+                                         type="text"/>
+                        मिति <input class="form-field form-control-sm nepaliFont"
+                                    formControlName="guarantorCitizenshipIssueDate"
+                                    placeholder=""
+                                    type="text"/> जि.प्र.का. <input
+                                class="form-field form-control-sm nepaliFont"
+                                formControlName="guarantorCDOoffice"
+                                placeholder=""
+                                type="text"/>)
+                    </td>
+                </tr>
+                <tr>
+                    <td>ठेगाना:</td>
+                    <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                                 formControlName="issuedPlace"
+                                                 placeholder="" type="text"/>जिल्ला <input
+                            class="form-field form-control-sm nepaliFont"
+                            formControlName="guarantorPermanentMunicipality"
+                            placeholder=""
+                            type="text"/>
+                        गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                                                 formControlName="guarantorPermanentWardNo"
+                                                 placeholder=""
+                                                 type="text"/></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-responsive-md table-borderless">
+                <thead>
+                <tr>
+                    <td>२. दस्तखत:</td>
+                    <td>.............................</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>नाम:</td>
+                    <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                                 formControlName="guarantorName1"
+                                                 type="text"/>
+                        (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+                                         formControlName="guarantorCitizenshipNo1"
+                                         placeholder=""
+                                         type="text"/>
+                        मिति <input class="form-field form-control-sm nepaliFont"
+                                    formControlName="guarantorCitizenshipIssueDate1"
+                                    placeholder=""
+                                    type="text"/> जि.प्र.का. <input
+                                class="form-field form-control-sm nepaliFont"
+                                formControlName="guarantorCDOoffice1"
+                                placeholder=""
+                                type="text"/>)
+                    </td>
+                </tr>
+                <tr>
+                    <td>ठेगाना:</td>
+                    <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                                 formControlName="issuedPlace1"
+                                                 placeholder="" type="text"/>जिल्ला <input
+                            class="form-field form-control-sm nepaliFont"
+                            formControlName="guarantorPermanentMunicipality1"
+                            placeholder=""
+                            type="text"/>
+                        गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                                                 formControlName="guarantorPermanentWardNo1"
+                                                 placeholder=""
+                                                 type="text"/></td>
+                </tr>
+                </tbody>
+            </table>
+
             <br>
             <div>
-                <b>सनाखत साक्षी</b>
+                <strong>सनाखत साक्षी</strong>
                 <br>
                 <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने धनीवित्तीय
                     संस्थामा कार्यरत कर्मचारी

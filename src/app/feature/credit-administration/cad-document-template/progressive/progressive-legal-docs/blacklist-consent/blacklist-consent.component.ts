@@ -1,20 +1,20 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {CustomerApprovedLoanCadDocumentation} from "../../../../model/customerApprovedLoanCadDocumentation";
-import {ProgressiveLegalDocConst} from "../progressive-legal-doc-const";
-import {CustomerOfferLetter} from "../../../../../loan/model/customer-offer-letter";
-import {OfferDocument} from "../../../../model/OfferDocument";
-import {NbDialogRef} from "@nebular/theme";
-import {NepaliToEngNumberPipe} from "../../../../../../@core/pipe/nepali-to-eng-number.pipe";
-import {NepaliCurrencyWordPipe} from "../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {CreditAdministrationService} from "../../../../service/credit-administration.service";
-import {ToastService} from "../../../../../../@core/utils";
-import {RouterUtilsService} from "../../../../utils/router-utils.service";
-import {CustomerOfferLetterService} from "../../../../../loan/service/customer-offer-letter.service";
-import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
-import {CadFile} from "../../../../model/CadFile";
-import {Document} from "../../../../../admin/modal/document";
-import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
+import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
+import {OfferDocument} from '../../../../model/OfferDocument';
+import {NbDialogRef} from '@nebular/theme';
+import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {CreditAdministrationService} from '../../../../service/credit-administration.service';
+import {ToastService} from '../../../../../../@core/utils';
+import {RouterUtilsService} from '../../../../utils/router-utils.service';
+import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {CadFile} from '../../../../model/CadFile';
+import {Document} from '../../../../../admin/modal/document';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
   selector: 'app-blacklist-consent',
@@ -45,8 +45,8 @@ export class BlacklistConsentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.buildForm()
-    this.fillForm()
+    this.buildForm();
+    this.fillForm();
   }
 
   fillForm() {
@@ -137,51 +137,65 @@ export class BlacklistConsentComponent implements OnInit {
   }
 
 
-  buildForm(){
+  buildForm() {
 
     this.form = this.formBuilder.group({
-      sincerlyName:[undefined],
-      sincerlyCitizenshipNo:[undefined],
-      sincerlyDate:[undefined],
-      sincerlyCDOoffice:[undefined],
-      sincerlyRegNo:[undefined],
-      regDate:[undefined],
-      regKaryalaya:[undefined],
-      sincerlyPermanentDistrict:[undefined],
-      sincerlyPermanentMunicipality:[undefined],
-      sincerlyPermanentWadNo:[undefined],
-      sincerlyTemporaryDistrict:[undefined],
-      sincerlyTemporaryVDCname:[undefined],
-      sincerlyTemporaryWadNo:[undefined],
-      sincerlyParentName:[undefined],
-      sincerlyGrandParentName:[undefined],
-      sincerlyLekhaNo:[undefined],
-      sincerlyKarja:[undefined],
-      jamanatName:[undefined],
-      jamanatNPN:[undefined],
-      jamanatDate:[undefined],
-      jamanatJPK:[undefined],
-      jamanatRegNo:[undefined],
-      jamanatRegDate:[undefined],
-      jamanatRegCDO:[undefined],
-      jamanatPermanentAddress:[undefined],
-      jamanatDistrict:[undefined],
-      jamanatWadNo:[undefined],
-      jamanatTemporaryAddress:[undefined],
-      jamanatTemporaryDistrict:[undefined],
-      jamanatTemporaryWadNo:[undefined],
-      jamanatHusbandName:[undefined],
-      jamanatSasuraName:[undefined],
-      karmachari:[undefined],
-      karmachariNo:[undefined],
+      sincerlyName: [undefined],
+      sincerlyCitizenshipNo: [undefined],
+      sincerlyDate: [undefined],
+      sincerlyCDOoffice: [undefined],
+      sincerlyRegNo: [undefined],
+      regDate: [undefined],
+      regKaryalaya: [undefined],
+      sincerlyPermanentDistrict: [undefined],
+      sincerlyPermanentMunicipality: [undefined],
+      sincerlyPermanentWadNo: [undefined],
+      sincerlyTemporaryDistrict: [undefined],
+      sincerlyTemporaryVDCname: [undefined],
+      sincerlyTemporaryWadNo: [undefined],
+      sincerlyParentName: [undefined],
+      sincerlyGrandParentName: [undefined],
+      sincerlyLekhaNo: [undefined],
+      sincerlyKarja: [undefined],
+      jamanatName: [undefined],
+      jamanatNPN: [undefined],
+      jamanatDate: [undefined],
+      jamanatJPK: [undefined],
+      jamanatRegNo: [undefined],
+      jamanatRegDate: [undefined],
+      jamanatRegCDO: [undefined],
+      jamanatPermanentAddress: [undefined],
+      jamanatDistrict: [undefined],
+      jamanatWadNo: [undefined],
+      jamanatTemporaryAddress: [undefined],
+      jamanatTemporaryDistrict: [undefined],
+      jamanatTemporaryWadNo: [undefined],
+      jamanatHusbandName: [undefined],
+      jamanatSasuraName: [undefined],
+      karmachari: [undefined],
+      karmachariNo: [undefined],
       ItisambatYear: [undefined],
       ItisambatMonth: [undefined],
       ItisambatDay: [undefined],
       ItisambatTime: [undefined],
       ItisambatRojSubham: [undefined],
       guarantorDetails: this.formBuilder.array([]),
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
 
-    })
+    });
 
   }
   addGuarantor(): void {
