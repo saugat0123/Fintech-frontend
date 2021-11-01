@@ -34,16 +34,18 @@
           <p>
             ठेगाना :
             <input class="form-control-sm form-field nepaliFont"
-                   formControlName="customerAddress"
-                   type="text">
+                   readonly
+                   type="text"
+                   [value]="form.get('customerAddress').value">
           </p>
         </div>
         <div style="...">
           <p>
             हालको ठेगाना :
             <input class="form-control-sm form-field nepaliFont"
-                   formControlName="customerTempAddress"
-                   type="text">
+                   readonly
+                   type="text"
+                   [value]="form.get('customerTempAddress').value">
           </p>
         </div>
         <div style="...">
