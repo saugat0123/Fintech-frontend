@@ -7,3 +7,6 @@ text-align: justify;
 @media print {
   .page-break { page-break-before: always; }
 }
+strong{
+  text-decoration: underline;
+}
