@@ -19,6 +19,8 @@
           <th>Loan Limit</th>
           <th>Outstanding Amount</th>
           <th>Overdue Installment(s)</th>
+          <th>Probability of Defer(in %)</th>
+          <th>Risk Score</th>
         </tr>
         <tr *ngFor="let data of ciclList; let i=index">
           <td>{{i + 1}}</td>
@@ -32,6 +34,8 @@
           <td class="text-right pr-1">Rs. {{data?.loanamount | currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
           <td class="text-right pr-1">{{data?.overdue}}</td>
+          <td class="text-right pr-1">{{data?.probabilityDefer}} %</td>
+          <td class="text-right pr-1">{{data?.riskScore}}</td>
         </tr>
         </thead>
       </table>

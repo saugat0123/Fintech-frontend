@@ -12,6 +12,8 @@ export class Cicl {
   lastModifiedAt: Date;
   version: number;
   ciclRelation: string;
+  probabilityDefer: number;
+  riskScore: number;
 }
 
 export class CiclArray {
