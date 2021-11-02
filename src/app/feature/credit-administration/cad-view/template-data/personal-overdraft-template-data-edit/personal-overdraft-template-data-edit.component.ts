@@ -262,7 +262,6 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
     this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
     this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
-    this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
     if (this.dateTypeAD1) {
       this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
     } else {
