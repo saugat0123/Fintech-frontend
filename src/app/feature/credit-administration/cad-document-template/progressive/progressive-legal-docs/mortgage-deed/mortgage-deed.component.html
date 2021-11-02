@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="row" style="margin-top: 20px">
-        <b class="text-center"><strong>विषय :- धितोबन्धक लिखत ।</strong></b>
+        <strong class="text-center"><strong>विषय :- धितोबन्धक लिखत ।</strong></strong>
         <br>
         <p>
           लिखितम लिखत गराई लिने धनिकानाम का.जि.का.म.न.पा.वडा नं. ३२,
@@ -112,11 +112,11 @@
         <br><br>
 
 
-        <p><b>ऋणीको विवरण र सहीछाप :- ब्यक्तिको हकमा</b></p>
+        <p><strong>ऋणीको विवरण र सहीछाप :- ब्यक्तिको हकमा</strong></p>
         <div>
           <div class="col-md-12 float-right">
             <button (click)="addRinBibaran()" class="btn btn-primary btn-sm float-right " size="tiny"
-                    type="button">विवरण र सहीछाप थप्नुहोस्<i class="fas fa-plus"></i></button>
+                    type="button">विवरण र सहीछाप थप्नुहोस्<em class="fas fa-plus"></em></button>
           </div>
 
 
@@ -225,9 +225,9 @@
         </div>
         <br><br>
 
-        <p><b>धितो बन्धक लिखत गरिदिनेको विवरण र सहीछाप (व्यक्तिको हकमा) :- यो धितो बन्धकदिएको जग्गा
+        <p><strong>धितो बन्धक लिखत गरिदिनेको विवरण र सहीछाप (व्यक्तिको हकमा) :- यो धितो बन्धकदिएको जग्गा
           समेत गर्दा
-          नेपाल अधिराज्यभरमा मेरो र मेरो परिवारको नाममा हद बन्दी भन्दा बढिज ग्गा छैन।</b></p>
+          नेपाल अधिराज्यभरमा मेरो र मेरो परिवारको नाममा हद बन्दी भन्दा बढिज ग्गा छैन।</strong></p>
         <div>
           <table class="table  table-bordered text-center">
             <tbody>
@@ -324,7 +324,7 @@
         </div>
         <br><br>
 
-        <p><b>लिखत गराई लिने (धनी) को विवरण र सहिछाप :- </b></p>
+        <p><strong>लिखत गराई लिने (धनी) को विवरण र सहिछाप :- </strong></p>
         <div class="col-md-12">
           <table class="table  table-bordered text-center">
             <tbody>
@@ -406,7 +406,7 @@
         </div>
         <br><br>
 
-        <b>धितोबन्धक दिएको अचल सम्पत्तिको विवरण :-</b>
+        <strong>धितोबन्धक दिएको अचल सम्पत्तिको विवरण :-</strong>
         <div class="col-md-12">
           <table class="table  table-bordered text-center">
             <tbody>
@@ -512,14 +512,12 @@
           (च) लिनेको प्रतिनिधिनियुक्त गरिएको पत्र सक्कलथान–१<br>
           <br>
 
-          <b class="text-left">साक्षी :</b>
+          <strong class="text-left">साक्षी :</strong>
           <br>
-        <div class="col-md-12 float-right">
+        <!--<div class="col-md-12 float-right">
           <button (click)="addGuarantor()" class="btn btn-primary btn-sm float-right " size="tiny"
                   type="button">साक्षी थप्नुहोस्<i class="fas fa-plus"></i></button>
         </div>
-
-
         <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; let i=index"
              formArrayName="guarantorDetails">
           <div [formGroupName]="i">
@@ -578,7 +576,94 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
+        <table class="table table-responsive-md table-borderless">
+          <thead>
+          <tr>
+            <td>१. दस्तखत:</td>
+            <td>.............................</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>नाम:</td>
+            <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                         formControlName="witnessName"
+                                         type="text"/>
+              (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+                               formControlName="witnessCitizenshipNo"
+                               placeholder=""
+                               type="text"/>
+              मिति <input class="form-field form-control-sm nepaliFont"
+                          formControlName="witnessCitizenshipIssueDate"
+                          placeholder=""
+                          type="text"/> जि.प्र.का. <input
+                      class="form-field form-control-sm nepaliFont"
+                      formControlName="witnessCDOoffice"
+                      placeholder=""
+                      type="text"/>)
+            </td>
+          </tr>
+          <tr>
+            <td>ठेगाना:</td>
+            <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                         formControlName="witnessIssuedPlace"
+                                         placeholder="" type="text"/>जिल्ला <input
+                    class="form-field form-control-sm nepaliFont"
+                    formControlName="witnessMunicipality"
+                    placeholder=""
+                    type="text"/>
+              गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                                       formControlName="witnessWardNo"
+                                       placeholder=""
+                                       type="text"/></td>
+          </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-responsive-md table-borderless">
+          <thead>
+          <tr>
+            <td>२. दस्तखत:</td>
+            <td>.............................</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>नाम:</td>
+            <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                         formControlName="witnessName1"
+                                         type="text"/>
+              (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+                               formControlName="witnessCitizenshipNo1"
+                               placeholder=""
+                               type="text"/>
+              मिति <input class="form-field form-control-sm nepaliFont"
+                          formControlName="witnessCitizenshipIssueDate1"
+                          placeholder=""
+                          type="text"/> जि.प्र.का. <input
+                      class="form-field form-control-sm nepaliFont"
+                      formControlName="witnessCDOoffice1"
+                      placeholder=""
+                      type="text"/>)
+            </td>
+          </tr>
+          <tr>
+            <td>ठेगाना:</td>
+            <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                                         formControlName="witnessIssuedPlace1"
+                                         placeholder="" type="text"/>जिल्ला <input
+                    class="form-field form-control-sm nepaliFont"
+                    formControlName="witnessMunicipality1"
+                    placeholder=""
+                    type="text"/>
+              गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                                       formControlName="witnessWardNo1"
+                                       placeholder=""
+                                       type="text"/></td>
+          </tr>
+          </tbody>
+        </table>
 
           <br>
 
@@ -613,7 +698,7 @@
           <table class="table  table-bordered text-center">
             <tbody>
             <tr>
-              <td><b>लेखिएको वमोजिम श्रेस्ताकायम छ/छैन:-</b><br>
+              <td><strong>लेखिएको वमोजिम श्रेस्ताकायम छ/छैन:-</strong><br>
                 कर्मचारीको दस्तखत:-........................... <br>
                 नाम:- <input class="form-control-sm form-field nepaliFont"
                              formControlName="karmachariName1"
@@ -627,7 +712,7 @@
               </td>
             </tr>
             <tr>
-              <td><b>लेखिएको किता नं. को जग्गा र घरजग्गा रोक्का छ/छैन :-</b><br>
+              <td><strong>लेखिएको किता नं. को जग्गा र घरजग्गा रोक्का छ/छैन :-</strong><br>
                 कर्मचारीको दस्तखत:-............................ <br>
                 नाम:- <input class="form-control-sm form-field nepaliFont"
                              formControlName="karmachariName2"
@@ -641,12 +726,12 @@
               </td>
             </tr>
             <tr>
-              <td><b>लेखिएको जग्गाको न्युनतम मुल्याङ्कन रु <input
+              <td><strong>लेखिएको जग्गाको न्युनतम मुल्याङ्कन रु <input
                   class="form-control-sm form-field nepaliFont"
                   formControlName="jaggaMinimumPrice"
                   type="text">
                 हुने देखिन्छ ।
-              </b><br>
+              </strong><br>
                 कर्मचारीको दस्तखत:-............................ <br>
                 नाम:- <input class="form-control-sm form-field nepaliFont"
                              formControlName="karmachariName3"
@@ -698,9 +783,9 @@
 
               </td>
               <td class="text-center" width="35%">
-                <b class="text-center">नेपाल सरकार<br>
+                <strong class="text-center">नेपाल सरकार<br>
                   भूमि व्यवस्था, सहकारी तथा गरिबि निवारण मन्त्रालय<br>
-                  भूमि व्यवस्थापन तथा अभिलेख विभाग।</b><br>
+                  भूमि व्यवस्थापन तथा अभिलेख विभाग।</strong><br>
 
                 मालपोत कार्यालय:- <input class="form-control-sm form-field nepaliFont"
                                          formControlName="malpotKaryalaya"
@@ -711,7 +796,7 @@
                                   type="text">
               </td>
               <td>
-                <b> स्वीकृत (पारित) गर्नेको</b><br>
+                <strong> स्वीकृत (पारित) गर्नेको</strong><br>
                 दस्तखत र मिति :- ......................<input
                       class="form-control-sm form-field nepaliFont"
                       formControlName="paritMiti"
@@ -728,7 +813,7 @@
                 यो लिखतको व्यहोरा लिने दिने दुवै पक्षलाई पढेर सुनाउँदा लिखत बमोजिम कारोबार गरेको मञ्जुर
                 गरेकोले
                 लिखतपारित (स्वीकृत) गर्नको लागि पेश गरेको छु ।<br>
-                <b>फाँटवालाको</b><br>
+                <strong>फाँटवालाको</strong><br>
                 दस्तखत र मिति :- .......................<input
                       class="form-control-sm form-field nepaliFont"
                       formControlName="fatwalaMiti"

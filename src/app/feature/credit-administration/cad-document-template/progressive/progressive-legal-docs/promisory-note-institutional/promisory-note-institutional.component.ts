@@ -107,8 +107,22 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
       buttomItisambatRojSubham: [undefined],
       guarantorDetails: this.formBuilder.array([]),
       secguarantorDetails: this.formBuilder.array([]),
-      address:[undefined]
-    })
+      address: [undefined],
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
+    });
 
   }
   fillForm(){
