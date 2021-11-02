@@ -102,7 +102,9 @@ export class CiclComponent implements OnInit {
           obtaineddate: [undefined, Validators.required],
           loanamount: [undefined, Validators.required],
           overdue: [undefined],
-          ciclRelation: [undefined]
+          ciclRelation: [undefined],
+            probabilityDefer: [undefined],
+            riskScore: [undefined]
         }));
   }
 
@@ -123,7 +125,9 @@ export class CiclComponent implements OnInit {
           obtaineddate: [undefined, Validators.required],
           loanamount: [undefined, Validators.required],
           overdue: [undefined],
-          ciclRelation: [undefined]
+          ciclRelation: [undefined],
+            probabilityDefer: [undefined],
+            riskScore: [undefined]
 
         }));
 
@@ -147,7 +151,9 @@ export class CiclComponent implements OnInit {
             obtaineddate: [new Date(cicl.obtaineddate), Validators.required],
             loanamount: [cicl.loanamount, Validators.required],
             overdue: [cicl.overdue],
-            ciclRelation: [cicl.ciclRelation]
+            ciclRelation: [cicl.ciclRelation],
+              probabilityDefer: [cicl.probabilityDefer],
+              riskScore: [cicl.riskScore],
 
           }));
     });
@@ -201,6 +207,8 @@ export class CiclComponent implements OnInit {
       cicl.loanamount = controls.loanamount.value;
       cicl.overdue = controls.overdue.value;
       cicl.ciclRelation = controls.ciclRelation.value;
+      cicl.probabilityDefer = controls.probabilityDefer.value;
+      cicl.riskScore = controls.riskScore.value;
 
       this.ciclList.push(cicl);
 

@@ -809,14 +809,25 @@
                                     <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
                                                  [checked]="waiverChecked">
-                                        <b>Waiver/Deviation</b>
+                                        <b>Waiver</b>
                                     </nb-checkbox>
                                     <div *ngIf="waiverChecked">
                                         <ckeditor formControlName="waiverConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
-
                                 </div>
+
+                                <div class="col-md-12 form-group">
+                                    <nb-checkbox (change)="checkChecked($event.target.checked,'deviation')"
+                                                 [checked]="deviationChecked">
+                                        <b>Deviation</b>
+                                    </nb-checkbox>
+                                    <div *ngIf="deviationChecked">
+                                        <ckeditor formControlName="deviationConclusionRecommendation"
+                                                  [config]="ckeConfig"></ckeditor>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'sol')"
                                                  [checked]="solChecked"><b>Single Obligor Limit</b>
@@ -897,8 +908,7 @@
                                 <div class="col-md-12 form-group">
 
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'risk')"
-                                                 [checked]="riskChecked"><b>Risk &
-                                        Mitigation</b>
+                                                 [checked]="riskChecked"><b>Risk & Mitigation</b>
                                     </nb-checkbox>
                                     <div *ngIf="riskChecked">
                                         <ckeditor formControlName="riskConclusionRecommendation"
