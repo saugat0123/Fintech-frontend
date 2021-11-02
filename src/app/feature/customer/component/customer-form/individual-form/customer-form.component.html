@@ -64,18 +64,18 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-6">
-                               <div class="form-group">
-                                   <label for="customerNameForm"><strong>SubSector</strong></label>
-                                   <select
-                                           class="custom-select" formControlName="subsectorDetail">
-                                       <option [ngValue]="null">Select Subsector</option>
-                                       <option *ngFor="let data of subSector "
-                                               [selected]="(data.key.toString().concat('-'+data.value)) === clientTypeInput"
-                                               [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>
-                                   </select>
-                               </div>
-                           </div>
+<!--                           <div class="col-md-6">-->
+<!--                               <div class="form-group">-->
+<!--                                   <label for="customerNameForm"><strong>SubSector</strong></label>-->
+<!--                                   <select-->
+<!--                                           class="custom-select" formControlName="subsectorDetail">-->
+<!--                                       <option [ngValue]="null">Select Subsector</option>-->
+<!--                                       <option *ngFor="let data of subSector "-->
+<!--                                               [selected]="(data.key.toString().concat('-'+data.value)) === clientTypeInput"-->
+<!--                                               [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>-->
+<!--                                   </select>-->
+<!--                               </div>-->
+<!--                           </div>-->
                            <div class="col-md-4">
                                <div class="form-group">
                                    <label for="customerNameForm"><strong>Customer Name</strong></label>
