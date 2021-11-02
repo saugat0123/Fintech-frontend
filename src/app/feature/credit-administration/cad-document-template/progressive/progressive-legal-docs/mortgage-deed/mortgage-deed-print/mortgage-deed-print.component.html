@@ -193,8 +193,8 @@
               </th>
               <th style="width: 25%">जन्म मिति :-<span class="nepaliFont">{{printDocForm?.dateOfBirth3}}</span>
               </th>
-              <th style="width: 25%" rowspan="5" width="31%">
-                  <table class="table  table-bordered text-center" id="fingerXap" width="100%">
+              <th style="width: 25%" rowspan="5">
+                  <table class="table  table-bordered text-center" id="fingerXap" style="width: 100%;" >
                     <tr>
                       <td colspan="2">दस्तखत:- .....................</td>
                     </tr>
@@ -219,7 +219,7 @@
             </tr>
 
             <tr>
-              <td>नागरिकता नं.<span
+              <td>ना.प्र.प.नं. :<span
                   class="nepaliFont">{{printDocForm?.creditorCitizenshipNo2}}</span>
               </td>
               <td>नागरिकता जारी गर्ने कार्यालय र स्थान:- <span
@@ -256,7 +256,7 @@
           <table class="table  table-bordered text-center">
             <tbody>
             <tr>
-              <th>नामथर : ्रोग्रेशिभ फाइनान्स लिमिटेड : <span
+              <th>नामथर : प्रोग्रेशिभ फाइनान्स लिमिटेड : <span
                       class="nepaliFont">{{printDocForm?.creditorNameNepali5}}</span><br>
                 (<span class="nepaliFont">{{printDocForm?.branchName1}}</span>शाखा)
               </th>
@@ -316,14 +316,11 @@
             </tbody>
           </table>
         </div>
-        <br><br>
-        <p class="page-break"></p>
-        <div>
+<p class="page-break"></p>
           <div class="col-md-12">
-            <br>
             <strong>धितोबन्धक दिएको अचल सम्पत्तिको विवरण :-</strong>
-            <table class="table  table-bordered text-center">
-              <tbody>
+            <table class="table table-bordered text-center">
+              <tbody style="word-wrap: break-word;line-height: 2em">
               <tr>
                 <th colspan="8">जग्गाको विवरण (स्रेस्ता बमोजिम) प्रदेश नं. :-
                   <span class="nepaliFont">{{printDocForm?.jaggaPradeshNo}}</span>
@@ -376,7 +373,6 @@
               </tbody>
             </table>
           </div>
-        </div>
         <br><br>
         <p>उक्त कित्ता नं.<span [ngClass]="{'nepaliFont':printDocForm?.kittaNo!==null && printDocForm.kittaNo!==''}" >
             {{printDocForm?.kittaNo===null||printDocForm?.kittaNo===''?'________________':printDocForm.kittaNo }}
@@ -384,7 +380,7 @@
           को घर/जग्गातथा सो घर/जग्गाले चर्चेको सम्पूर्ण लिगलगापात समेत।
         <br>
           <br>
-        <strong><u>संलग्नप्रमाणहरु :</u></strong><br>
+        <strong><u>संलग्नप्रमाणहरु</u> :</strong><br>
           (क) चालु आ.व. <span [ngClass]="{'nepaliFont':printDocForm?.chaluArthikBarsa!==null && printDocForm.chaluArthikBarsa!==''}" >
             {{printDocForm?.chaluArthikBarsa===null||printDocForm?.chaluArthikBarsa===''?'________________':printDocForm.chaluArthikBarsa }}
           </span>.को मालपोत
@@ -430,8 +426,6 @@
               <br>
             </div>
           </div>-->
-          <p>१. </p>
-          <p>दस्तखत:.............................</p>
 
           <p>नाम:
             <span
@@ -463,9 +457,6 @@
                     [ngClass]="{'nepaliFont' : printDocForm?.witnessWardNo !== null && printDocForm?.witnessWardNo !== ''}">
                         {{printDocForm?.witnessWardNo === null || printDocForm?.witnessWardNo === '' ? '__________' : printDocForm?.witnessWardNo}}
                     </span></p>
-          <p>२.</p>
-
-          <p>दस्तखत:.............................</p>
 
           <p>नाम:<span
                   [ngClass]="{'nepaliFont' : printDocForm?.witnessName1 !== null && printDocForm?.witnessName1 !== ''}">
@@ -532,6 +523,7 @@
           हस्ताक्षर ........................ ।
         </p>
       </div>
+      <p class="page-break"></p>
       <div class="col-md-12" style="width: 100%;border-top: 5px solid black;padding-top: 5px">
           <p class="text-center">
             <strong>कार्यालय प्रयोजनकालागि</strong>

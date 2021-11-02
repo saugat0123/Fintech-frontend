@@ -1,9 +1,10 @@
 @import '../../progressive-legal-docs.component';
 *{
   line-height: 1.9em;
+  overflow: visible;
 }
 body{
-  overflow: visible;
+  overflow-y:visible;
 }
 .viewFull {
   max-height: 85vh;
