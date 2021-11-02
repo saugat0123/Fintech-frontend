@@ -210,7 +210,7 @@
                         <tr *ngFor="let totalSalesSubCategory of financialData['incomeStatementData']['totalSalesSubCategory']; let i = index">
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{totalSalesSubCategory.name}}</td>
-                            <td *ngFor="let amounts of totalSalesSubCategory['amount']" class="text-right pr-1">{{amounts['value']?.toFixed(2)}}</td>
+                            <td *ngFor="let amounts of totalSalesSubCategory['amount']" class="text-right pr-1">{{amounts['value']?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
