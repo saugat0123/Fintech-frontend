@@ -263,17 +263,20 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="panNumber"><strong>Pan Number</strong></label>
-                                   <input
-                                           class="form-control form-control-sm-error rounded" formControlName="panNumber"
-                                           id="panNumber"
-                                           name="panNumber"
-                                           placeholder="Pan Number (Optional)"
-                                           type="text">
+                         <div class="col-md-4">
+                           <div class="form-group">
+                             <label for="panNumber"><strong>Pan Number</strong></label>
+                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.panNumber.errors }"
+                                    class="form-control" formControlName="panNumber" id="panNumber" name="panNumber"
+                                    placeholder="Enter PAN"
+                                    type="text">
+                             <div *ngIf="(submitted) && basicInfoControls.panNumber.invalid" class="invalid-feedback">
+                               <div *ngIf="basicInfoControls.panNumber.errors.maxlength || basicInfoControls.panNumber.errors.minlength">
+                                 Length should be of 9 digit
                                </div>
+                             </div>
                            </div>
+                         </div>
                            <!-- START ROW -->
                            <div class="col-md-4">
                                <div class="form-group">
