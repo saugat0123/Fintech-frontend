@@ -37,6 +37,7 @@ export class ProposalComponent implements OnInit {
   loanId: number;
   solChecked = false;
   waiverChecked = false;
+  deviationChecked = false;
   riskChecked = false;
   checkedDataEdit;
   ckeConfig;
@@ -260,6 +261,7 @@ export class ProposalComponent implements OnInit {
       settlementAmount: [undefined],
       groupExposure: this.formBuilder.array([]),
       files: [undefined],
+      deviationConclusionRecommendation: [undefined],
     });
   }
 
@@ -314,7 +316,8 @@ export class ProposalComponent implements OnInit {
       waiverChecked: this.waiverChecked,
       riskChecked: this.riskChecked,
       swapChargeChecked: this.swapChargeChecked,
-      subsidizedLoanChecked: this.subsidizedLoanChecked
+      subsidizedLoanChecked: this.subsidizedLoanChecked,
+      deviationChecked: this.deviationChecked,
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -397,6 +400,14 @@ export class ProposalComponent implements OnInit {
           this.proposalForm.get('subsidyLoanType').setValue(null);
         }
         break;
+      case 'deviation':
+        if (event) {
+          this.deviationChecked = true;
+        } else {
+          this.deviationChecked = false;
+          this.proposalForm.get('deviationConclusionRecommendation').setValue(null);
+        }
+        break;
     }
   }
 
@@ -407,6 +418,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['riskChecked'], 'risk');
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
       this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
+      this.checkChecked(data['deviationChecked'], 'deviation');
     }
   }
 
