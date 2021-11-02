@@ -75,7 +75,18 @@
                                     name="ward"
                                     formControlName="ward" placeholder="वार्ड" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'ward']).value}}</strong></span>
-                                बस्ने श्री
+                                बस्ने
+                                <span *ngIf="loanHolderNepData?.gender?.en === 'MALE'; else relationOfCustomer">
+                                    श्री
+                                </span>
+                                <ng-template #relationOfCustomer>
+                                    <span *ngIf="loanHolderNepData?.relationMedium && loanHolderNepData?.relationMedium?.en === '1'">
+                                        सुश्री
+                                    </span>
+                                    <span *ngIf="loanHolderNepData?.relationMedium && loanHolderNepData?.relationMedium?.en === '0'">
+                                        श्रीमती
+                                    </span>
+                                </ng-template>
                                 <input class="form-field form-control-sm d-print-none"
                                     name="borrowerName"
                                     formControlName="borrowerName" placeholder="ऋण लिनेको नाम" type="text"/>

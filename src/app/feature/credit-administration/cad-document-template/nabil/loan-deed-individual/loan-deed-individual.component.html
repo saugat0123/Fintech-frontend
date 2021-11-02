@@ -173,14 +173,14 @@
                       loanDeedIndividual.get(['loanDeedIndividuals' , i,'loanDeedJoint', index, 'ageJoint']).value : "_____________________"}}</span>
 
                   को
-                  <span *ngIf="selectiveArr[i].gender.en === 'MALE' else personDetails">
+                  <span *ngIf="selectiveArr[index].gender.en === 'MALE' else personDetails">
                       श्री
                   </span>
                   <ng-template #personDetails>
-                      <span *ngIf="selectiveArr[i].relationMedium && selectiveArr[i].relationMedium.en === '1'">
+                      <span *ngIf="selectiveArr[index].relationMedium && selectiveArr[index].relationMedium.en === '1'">
                           सुश्री
                       </span>
-                      <span *ngIf="selectiveArr[i].relationMedium && selectiveArr[i].relationMedium.en === '0'">
+                      <span *ngIf="selectiveArr[index].relationMedium && selectiveArr[index].relationMedium.en === '0'">
                           श्रीमती
                       </span>
                   </ng-template>

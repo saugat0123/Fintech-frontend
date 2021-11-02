@@ -206,8 +206,10 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         ).push(
           this.formBuilder.group({
             branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
-            grandFatherName: [this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct : ''],
-            father_husbandName: [this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct : ''],
+            grandFatherName: [this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct
+                : this.loanHolderNepData.fatherInLawName ? this.loanHolderNepData.fatherInLawName.ct : ''],
+            father_husbandName: [this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct
+                : this.loanHolderNepData.husbandName ? this.loanHolderNepData.husbandName.ct : ''],
             district: [this.loanHolderNepData.permanentDistrict ? this.loanHolderNepData.permanentDistrict.ct : ''],
             VDCMunicipality: [
               this.loanHolderNepData.permanentMunicipality ? this.loanHolderNepData.permanentMunicipality.ct : '',
