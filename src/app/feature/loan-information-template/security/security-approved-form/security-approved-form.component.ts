@@ -2,7 +2,7 @@ import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {OwnerKycApplicableComponent} from '../security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {SecurityIds} from '../security-initial-form/SecurityIds';
-import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SecurityValuator} from '../../../loan/model/securityValuator';
 import {ValuatingField} from '../../../admin/modal/valuatingField';
 import {ShareType} from '../../../loan/model/ShareType';
@@ -30,7 +30,6 @@ import {FormUtils} from '../../../../@core/utils/form.utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DateValidator} from '../../../../@core/validator/date-validator';
 import {LoanTag} from '../../../loan/model/loanTag';
-import {CustomerShareData} from '../../../admin/modal/CustomerShareData';
 import {NumberUtils} from '../../../../@core/utils/number-utils';
 import {FixAssetCollateralComponent} from '../security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
 
@@ -986,6 +985,7 @@ export class SecurityApprovedFormComponent implements OnInit {
 
   configEditor() {
     this.ckeConfig = Editor.CK_CONFIG;
+    console.log('this.ckeConfig.allowedContent', this.ckeConfig.allowedContent);
   }
 
   landDetailsFormGroup(): FormGroup {
@@ -1560,47 +1560,47 @@ export class SecurityApprovedFormComponent implements OnInit {
   addShareSecurity() {
     this.shareField.push(this.shareSecurityFormGroup());
   }
-
-  submit() {
-    this.pushSecurityNameInArray();
-    this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
-    this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
-    this.shareSecurityData.customerShareData = this.getShareDataList();
-
-    if (this.ownerKycRelationInfoCheckedForLand) {
-      this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
-    }
-    if (this.ownerKycRelationInfoCheckedForLandBuilding) {
-      this.fetchOwnerKycValue('landBuilding', this.ownerKycApplicableLandBuilding, SecurityIds.land_buildingId);
-    }
-    if (this.ownerKycRelationInfoCheckedForHypothecation) {
-      this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
-    }
-
-  }
-
-  fetchOwnerKycValue(controlName, list: QueryList<any>, securityId) {
-    this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
-      const comp: any = list.filter(item => item.kycId === (securityId + index))[0];
-      if (ObjectUtil.isEmpty(comp)) {
-        control.get('ownerKycApplicableData').setValue(null);
-      } else {
-        control.get('ownerKycApplicableData').setValue(comp.ownerKycForm.value);
-      }
-    });
-  }
-
-  private getShareDataList() {
-    const list: Array<CustomerShareData> = [];
-    this.shareField.controls.forEach(c => list.push(c.value));
-    return list;
-  }
-
-  private getInsurance() {
-    const newlist: Array<CustomerShareData> = [];
-    this.insuranceDetails.controls.forEach(c => newlist.push(c.value));
-    return newlist;
-  }
+  // todo need to remove
+  // submit() {
+  //   this.pushSecurityNameInArray();
+  //   this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
+  //   this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
+  //   this.shareSecurityData.customerShareData = this.getShareDataList();
+  //
+  //   if (this.ownerKycRelationInfoCheckedForLand) {
+  //     this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
+  //   }
+  //   if (this.ownerKycRelationInfoCheckedForLandBuilding) {
+  //     this.fetchOwnerKycValue('landBuilding', this.ownerKycApplicableLandBuilding, SecurityIds.land_buildingId);
+  //   }
+  //   if (this.ownerKycRelationInfoCheckedForHypothecation) {
+  //     this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
+  //   }
+  //
+  // }
+  //
+  // fetchOwnerKycValue(controlName, list: QueryList<any>, securityId) {
+  //   this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
+  //     const comp: any = list.filter(item => item.kycId === (securityId + index))[0];
+  //     if (ObjectUtil.isEmpty(comp)) {
+  //       control.get('ownerKycApplicableData').setValue(null);
+  //     } else {
+  //       control.get('ownerKycApplicableData').setValue(comp.ownerKycForm.value);
+  //     }
+  //   });
+  // }
+  //
+  // private getShareDataList() {
+  //   const list: Array<CustomerShareData> = [];
+  //   this.shareField.controls.forEach(c => list.push(c.value));
+  //   return list;
+  // }
+  //
+  // private getInsurance() {
+  //   const newlist: Array<CustomerShareData> = [];
+  //   this.insuranceDetails.controls.forEach(c => newlist.push(c.value));
+  //   return newlist;
+  // }
 
   calculateBuildUpAreaRate(i, type) {
     switch (type) {
