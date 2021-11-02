@@ -6,8 +6,8 @@
                     <strong> विषय:- धितो निरन्तरताको लिखत (Cross Guarantee Bond)</strong>
                 </div>
                 <br>
-                <p>
-                    लिखितम धनीका नाम प्रचलित कम्पनी सम्बन्धी कानुन तथा बैंक तथा वित्तीय संस्था सम्बन्धी कानुन,
+                <p style="line-height: 1.8">
+            लिखितम धनीका नाम प्रचलित कम्पनी सम्बन्धी कानुन तथा बैंक तथा वित्तीय संस्था सम्बन्धी कानुन,
                     २०७३ बमोजिम संस्थापना भएको
                     प्रोग्रेशिभ फाइनान्स लिमिटेड , मुख्य/शाखा कार्यालय,
                     <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
@@ -210,7 +210,7 @@
     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
 </span>
                     /(अक्षेरपी रुपैया <span
-                        [ngClass]="{'nepaliFont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
+                        [ngClass]="{'uniFont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
     {{printDocForm?.amountInWord === null || printDocForm?.amountInWord === '' ? '_________________' : printDocForm?.amountInWord}}
 </span> मात्र)
                     सम्मको ऋण कर्जा तथा वित्तीय सूविधाको सुरक्षण स्वरुप म धितो जमानतवालाले श्री मा.पो.का.
