@@ -241,7 +241,7 @@
                         [ngClass]="{'nepaliFont' : printDocForm?.buttonAmount !== null && printDocForm?.buttonAmount !== ''}">
     {{printDocForm?.buttonAmount === null || printDocForm?.buttonAmount === '' ? '_________________' : printDocForm?.buttonAmount}}
 </span>
-                    /(अक्षरेपी  <span
+                    /(अक्षरेपी <span
                         [ngClass]="{'nepaliFont' : printDocForm?.buttonAmountInWord !== null && printDocForm?.buttonAmountInWord !== ''}">
     {{printDocForm?.buttonAmountInWord === null || printDocForm?.buttonAmountInWord === '' ? '_________________' : printDocForm?.buttonAmountInWord}}
 </span>
@@ -271,23 +271,43 @@
                 </p>
                 <p>
                     तपसिल
-                <p>
-                    जग्गाधनीको नाम :- श्री/श्रीमती/सुश्री <span
-                        [ngClass]="{'nepaliFont' : printDocForm?.landownerName !== null && printDocForm?.landownerName !== ''}">
-    {{printDocForm?.landownerName === null || printDocForm?.landownerName === '' ? '_________________' : printDocForm?.landownerName}}
-</span>
-                    <br>
-                    जग्गाधनीको बाबू/पतिको नाम :- श्री/श्रीमती/सुश्री <span
-                        [ngClass]="{'nepaliFont' : printDocForm?.landownerParentName !== null && printDocForm?.landownerParentName !== ''}">
-    {{printDocForm?.landownerParentName === null || printDocForm?.landownerParentName === '' ? '_________________' : printDocForm?.landownerParentName}}
-</span>
-                    <br>
-                    जग्गाधनीको बाजे/ससूराकोनाम :- श्री/श्रीमती/सुश्री <span
-                        [ngClass]="{'nepaliFont' : printDocForm?.landownerSasuraName !== null && printDocForm?.landownerSasuraName !== ''}">
-    {{printDocForm?.landownerSasuraName === null || printDocForm?.landownerSasuraName === '' ? '_________________' : printDocForm?.landownerSasuraName}}
-</span>
-
-                </p>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td width="50%">
+                            जग्गाधनीको नाम
+                        </td>
+                        <td>
+                            :श्री/श्रीमती/सुश्री <span
+                                [ngClass]="{'nepaliFont' : printDocForm?.landownerName !== null && printDocForm?.landownerName !== ''}">
+                                    {{printDocForm?.landownerName === null || printDocForm?.landownerName === '' ? '_________________' : printDocForm?.landownerName}}
+                                </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">
+                            जग्गाधनीको बाबू/पतिको नाम
+                        </td>
+                        <td>
+                            :श्री/श्रीमती/सुश्री <span
+                                [ngClass]="{'nepaliFont' : printDocForm?.landownerParentName !== null && printDocForm?.landownerParentName !== ''}">
+                                    {{printDocForm?.landownerParentName === null || printDocForm?.landownerParentName === '' ? '_________________' : printDocForm?.landownerParentName}}
+                                </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">
+                            जग्गाधनीको बाजे/ससूराकोनाम
+                        </td>
+                        <td>
+                            :श्री/श्रीमती/सुश्री <span
+                                [ngClass]="{'nepaliFont' : printDocForm?.landownerSasuraName !== null && printDocForm?.landownerSasuraName !== ''}">
+                                        {{printDocForm?.landownerSasuraName === null || printDocForm?.landownerSasuraName === '' ? '_________________' : printDocForm?.landownerSasuraName}}
+                                    </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
                 <br>
                 <br>
                 <div>
@@ -321,25 +341,26 @@
                 <div>
                     <p>
                         उल्लेखित जग्गा र सो जग्गामा रहेको घर, टहरा, कम्पाउण्ड तथा भविष्यमा बन्ने/कायम
-                        हूने अन्य निर्माण कार्य, लिगलगापात समेत सम्पूर्ण यसै लिखितबाट वित्तीय संस्थालाई दिन मञ्जुर भएको ।
+                        हूने अन्य निर्माण कार्य, लिगलगापात समेत सम्पूर्ण यसै लिखितबाट वित्तीय संस्थालाई दिन मञ्जुर भएको
+                        ।
                         <br>
 
                         इति सम्बत् <span
                             [ngClass]="{'nepaliFont' : printDocForm?.itsisambatYear !== null && printDocForm?.itsisambatYear !== ''}">
-    {{printDocForm?.itsisambatYear === null || printDocForm?.itsisambatYear === '' ? '_________________' : printDocForm?.itsisambatYear}}
-</span>
+                            {{printDocForm?.itsisambatYear === null || printDocForm?.itsisambatYear === '' ? '_________________' : printDocForm?.itsisambatYear}}
+                        </span>
                         साल <span
                             [ngClass]="{'nepaliFont' : printDocForm?.itsisambatMonth !== null && printDocForm?.itsisambatMonth !== ''}">
-    {{printDocForm?.itsisambatMonth === null || printDocForm?.itsisambatMonth === '' ? '_________________' : printDocForm?.itsisambatMonth}}
-</span>
+                            {{printDocForm?.itsisambatMonth === null || printDocForm?.itsisambatMonth === '' ? '_________________' : printDocForm?.itsisambatMonth}}
+                        </span>
                         महिना <span
                             [ngClass]="{'nepaliFont' : printDocForm?.itsisambatDate !== null && printDocForm?.itsisambatDate !== ''}">
-    {{printDocForm?.itsisambatDate === null || printDocForm?.itsisambatDate === '' ? '_________________' : printDocForm?.itsisambatDate}}
-</span>
+                            {{printDocForm?.itsisambatDate === null || printDocForm?.itsisambatDate === '' ? '_________________' : printDocForm?.itsisambatDate}}
+                        </span>
                         गते रोज <span
                             [ngClass]="{'nepaliFont' : printDocForm?.itsisambatRojSubham !== null && printDocForm?.itsisambatRojSubham !== ''}">
-    {{printDocForm?.itsisambatRojSubham === null || printDocForm?.itsisambatRojSubham === '' ? '_________________' : printDocForm?.itsisambatRojSubham}}
-</span> शूभम् ।
+                            {{printDocForm?.itsisambatRojSubham === null || printDocForm?.itsisambatRojSubham === '' ? '_________________' : printDocForm?.itsisambatRojSubham}}
+                        </span> शूभम् ।
 
                         <br>
                         <br>
