@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label for="reValuatedConsideredValue">Considered Value as per Revaluation</label>
                             <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
-                                   class="form-control" formControlName="reValuatedConsideredValue"
+                                   class="form-control" formControlName="reValuatedConsideredValue" readonly
                                    id="reValuatedConsideredValue" name="total" placeholder="Considered Value as per Revaluation">
                         </div>
                     </div>
@@ -63,13 +63,23 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="title" for="reValuatedDv">{{client === clientName?.EXCEL ? 'MV' : 'DV'}} as per Revaluation</label>
+                            <label class="title" for="reValuatedDv">MV as per Revaluation</label>
                             <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                                   (input)="calcRevalatedConsiderValue()"
                                    class="form-control rounded" formControlName="reValuatedDv"
                                    id="reValuatedDv"
                                    name="reValuatedDv"
-                                   [placeholder]="(client === clientName?.EXCEL) ? 'MV as per Revaluation' : 'DV as per Revaluation'"
+                                   placeholder="MV as per Revaluation"
                                    type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="reValuatedRate">Rate as per Revaluation</label>
+                            <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                                   (input)="calcRevalatedConsiderValue()"
+                                   class="form-control" formControlName="reValuatedRate"
+                                   id="reValuatedRate" name="total" placeholder="Rate as per Revaluation">
                         </div>
                     </div>
                 </ng-container>
@@ -88,11 +98,11 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="title" for="changeInDv">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</label>
+                        <label class="title" for="changeInDv">Change in MV</label>
                         <input [readOnly]="true" class="form-control rounded" formControlName="changeInDv"
                                id="changeInDv"
                                name="changeInDv"
-                               [placeholder]="(client === clientName?.EXCEL) ? 'Change in MV' : 'Change in DV'"
+                               placeholder="Change in MV"
                                type="text"/>
                     </div>
                 </div>
