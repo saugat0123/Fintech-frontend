@@ -29,13 +29,13 @@
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <p>
-                            <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
-                            <ng-template #nameDetails>
-                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
-                                    श्रीमती
+                            <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else customerRelation"> श्री</span>
+                            <ng-template #customerRelation>
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && ( loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
+                                    सुश्री
                                 </span>
-                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
-                                  सुश्री
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
+                                  श्रीमती
                                 </span>
                             </ng-template>
                             <span [ngClass]="{'font-weight-bold' : letter?.name !== null && letter?.name !== ''}">
@@ -597,10 +597,10 @@
                                 घ. 	ब्याज, किस्ता तथा अन्य शुल्कहरु असुल गर्न
                                 <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
                                 <ng-template #nameDetails>
-                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
                                     श्रीमती
                                 </span>
-                                    <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                                    <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
                                   सुश्री
                                 </span>
                                 </ng-template>

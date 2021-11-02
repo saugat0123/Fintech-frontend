@@ -177,10 +177,10 @@
                                             <span *ngIf="selectiveArr[i]?.gender?.en === 'MALE' else nameDetailsJoint"> श्री </span>
                                             <ng-template #nameDetailsJoint>
                                                 <span *ngIf="selectiveArr[i]?.relationMedium && selectiveArr[i]?.relationMedium?.en === '1'">
-                                                    श्रीमती
+                                                    सुश्री
                                                 </span>
                                                 <span *ngIf="selectiveArr[i]?.relationMedium && selectiveArr[i]?.relationMedium?.en === '0'">
-                                                सुश्री
+                                                 श्रीमती
                                             </span>
                                             </ng-template>
                                             <input class="disable-print form-field form-control-sm"
