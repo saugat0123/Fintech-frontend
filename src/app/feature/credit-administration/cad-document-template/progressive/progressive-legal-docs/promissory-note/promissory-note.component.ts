@@ -147,7 +147,7 @@ export class PromissoryNoteComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      address:[undefined],
+      address: [undefined],
       grandParentName: [undefined],
       fatherName: [undefined],
       motherName: [undefined],

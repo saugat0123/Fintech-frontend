@@ -3,8 +3,8 @@
 
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      <h6 class="text-center">प्रतिज्ञापत्र<br>
-        (PROMISSORY NOTE)</h6>
+      <b><h6 class="text-center">प्रतिज्ञापत्र<br>
+        (PROMISSORY NOTE)</h6></b>
 
       <br>
       <div class="row">
@@ -43,14 +43,14 @@
                            type="text">को
           <input class="form-field nepaliFont form-control-sm" formControlName="customerName"
                    type="text">
-          (ना.प्र.न.)<input class="form-field nepaliFont form-control-sm"
+          <b>(ना.प्र.न.<input class="form-field nepaliFont form-control-sm"
                            formControlName="citizenShipNo"
                            type="text">
           मिति <input class="form-field nepaliFont form-control-sm" formControlName="date"
                       type="text">
           जि.प्र.का. <input class="form-field nepaliFont form-control-sm"
                             formControlName="cdoOffice"
-                            type="text">)ले
+                            type="text">)</b> ले
           यस प्रोग्रेशिभ फाईनान्स लिमिटेड<input class="form-field nepaliFont form-control-sm"
                                                  formControlName="branchName" type="text">
           शाखा कार्यालयबाट लिएको कूल ऋण कर्जा रकम रु.<input (change)="getNumAmountWord('amount','amountInNumber')"
@@ -67,25 +67,24 @@
         </p>
       </div>
       <br>
-      <p class="text-left"><b>भवदीय,</b></p>
-      <div>
-        <p>
-          <br><br>
-          दस्तखत :-..........
+      <p class="text-center"><b>भवदीय,</b></p>
+      <div style="margin-left: 12rem">
+        <p class="text-left">
+          दस्तखत :-
           <br><br>
           दस्तखत गर्नेको नाम :- <input class="form-field nepaliFont form-control-sm"
                                        formControlName="sincerlyName"
                                        type="text">
-          (ना.प्र.नं.<input class="form-field nepaliFont form-control-sm"
+          <b>(ना.प्र.नं.<input class="form-field nepaliFont form-control-sm"
                             formControlName="sincerlyCitizenshipNo"
                             type="text">
           मिति <input class="form-field nepaliFont form-control-sm" formControlName="sincerlyDate"
                       type="text">
           जि.प्र.का. <input class="form-field nepaliFont form-control-sm"
                             formControlName="sincerlyCDOoffice"
-                            type="text">)
+                            type="text">)</b>
           <br>
-          ठेगाना :-स्थायी<input class="form-field nepaliFont form-control-sm"
+          स्थायी ठेगाना :- <input class="form-field nepaliFont form-control-sm"
                                 formControlName="sincerlyPermanentDistrict"
                                 type="text">
           जिल्ला <input class="form-field nepaliFont form-control-sm"
@@ -106,7 +105,7 @@
                                     type="text">
 
         </p>
-        <p>
+        <p class="text-left">
           वावु/आमाको नाम :- <input class="form-field nepaliFont form-control-sm"
                                    formControlName="sincerlyParentName"
                                    type="text">
@@ -115,8 +114,12 @@
                                  formControlName="sincerlyGrandParentName"
                                  type="text">
           <br>
+          पति/पत्निको नाम :<input class="form-field nepaliFont form-control-sm"
+                                 formControlName="sincerlyHusbandWifeName"
+                                 type="text">
 
         </p>
+      </div>
         <p class="text-center"><b>औठा छाप</b>
         <div class="text-center">
           <table class="table  table-bordered fingerXap">
@@ -135,7 +138,6 @@
           </table>
 
         </div>
-      </div>
       <br>
       <b class="text-left">साक्षी :</b>
       <br><br><br>

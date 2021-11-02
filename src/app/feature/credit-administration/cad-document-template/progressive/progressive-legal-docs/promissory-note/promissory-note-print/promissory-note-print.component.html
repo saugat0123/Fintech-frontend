@@ -2,8 +2,8 @@
 
   <div class="col-md-12 viewFull">
     <form class="nepali">
-      <h6 class="text-center">प्रतिज्ञापत्र<br>
-        (PROMISSORY NOTE)</h6>
+      <b><h6 class="text-center">प्रतिज्ञापत्र<br>
+        (PROMISSORY NOTE)</h6></b>
 
       <div class="row">
         <p>
@@ -46,7 +46,7 @@
           <span [ngClass]="{'nepaliFont':printDocForm?.customerName!==null && printDocForm?.customerName!==''}">
           {{printDocForm.customerName===null || printDocForm.customerName===''?'_______________' :printDocForm?.customerName}}
         </span>
-          (ना.प्र.न. <span [ngClass]="{'nepaliFont':printDocForm?.citizenShipNo!==null && printDocForm?.citizenShipNo!==''}">
+          <b>(ना.प्र.न. <span [ngClass]="{'nepaliFont':printDocForm?.citizenShipNo!==null && printDocForm?.citizenShipNo!==''}">
           {{printDocForm.citizenShipNo===null || printDocForm.citizenShipNo===''?'_______________' :printDocForm?.citizenShipNo}}
         </span>
           मिति <span [ngClass]="{'nepaliFont':printDocForm?.date!==null && printDocForm?.date!==''}">
@@ -54,7 +54,7 @@
         </span>
           जि.प्र.का. <span [ngClass]="{'nepaliFont':printDocForm?.cdoOffice!==null && printDocForm?.cdoOffice!==''}">
           {{printDocForm.cdoOffice===null || printDocForm.cdoOffice===''?'_______________' :printDocForm?.cdoOffice}}
-        </span>)
+        </span>)</b>
           ले यस <strong> प्रोग्रेशिभ फाईनान्स लिमिटेड</strong>  <span [ngClass]="{'nepaliFont':printDocForm?.branchName!==null && printDocForm?.branchName!==''}">
           {{printDocForm.branchName===null || printDocForm.branchName===''?'_______________' :printDocForm?.branchName}}
         </span>
@@ -70,17 +70,15 @@
           कबुल गर्दछु/छौं।
         </p>
       </div>
-      <br>
-      <p class="text-left"><b>भवदीय,</b></p>
-      <div>
+      <p class="text-center"><b>भवदीय,</b></p>
+      <div style="margin-left: 12rem">
         <p>
-        <br><br>
-          दस्तखत :-.................
+          दस्तखत :-
           <br><br>
           दस्तखत गर्नेको नाम :- <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyName!==null && printDocForm?.sincerlyName!==''}">
           {{printDocForm.sincerlyName===null || printDocForm.sincerlyName===''?'_______________' :printDocForm?.sincerlyName}}
         </span>
-          (ना.प्र.नं. <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyCitizenshipNo!==null && printDocForm?.sincerlyCitizenshipNo!==''}">
+          <b>(ना.प्र.नं. <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyCitizenshipNo!==null && printDocForm?.sincerlyCitizenshipNo!==''}">
           {{printDocForm.sincerlyCitizenshipNo===null || printDocForm.sincerlyCitizenshipNo===''?'_______________' :printDocForm?.sincerlyCitizenshipNo}}
         </span>
           मिति <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyDate!==null && printDocForm?.sincerlyDate!==''}">
@@ -88,9 +86,9 @@
         </span>
           जि.प्र.का.  <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyCDOoffice!==null && printDocForm?.sincerlyCDOoffice!==''}">
           {{printDocForm.sincerlyCDOoffice===null || printDocForm.sincerlyCDOoffice===''?'_______________' :printDocForm?.sincerlyCDOoffice}}
-        </span> )
+        </span> )</b>
           <br>
-          ठेगाना :-स्थायी <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyPermanentDistrict!==null && printDocForm?.sincerlyPermanentDistrict!==''}">
+          स्थायी ठेगाना :- <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyPermanentDistrict!==null && printDocForm?.sincerlyPermanentDistrict!==''}">
           {{printDocForm.sincerlyPermanentDistrict===null || printDocForm.sincerlyPermanentDistrict===''?'_______________' :printDocForm?.sincerlyPermanentDistrict}}
         </span>
           जिल्ला <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyPermanentMunicipality!==null && printDocForm?.sincerlyPermanentMunicipality!==''}">
@@ -100,7 +98,7 @@
           {{printDocForm.sincerlyPermanentWadNo===null || printDocForm.sincerlyPermanentWadNo===''?'_______________' :printDocForm?.sincerlyPermanentWadNo}}
         </span>
           <br>
-          हालको ठेगाना <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyTemporaryDistrict!==null && printDocForm?.sincerlyTemporaryDistrict!==''}">
+          हालको ठेगाना :- <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyTemporaryDistrict!==null && printDocForm?.sincerlyTemporaryDistrict!==''}">
           {{printDocForm.sincerlyTemporaryDistrict===null || printDocForm.sincerlyTemporaryDistrict===''?'_______________' :printDocForm?.sincerlyTemporaryDistrict}}
         </span>
           जिल्ला <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyTemporaryVDCname!==null && printDocForm?.sincerlyTemporaryVDCname!==''}">
@@ -119,7 +117,12 @@
           वाजे/बजैको नाम : <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyGrandParentName!==null && printDocForm?.sincerlyGrandParentName!==''}">
           {{printDocForm.sincerlyGrandParentName===null || printDocForm.sincerlyGrandParentName===''?'_______________' :printDocForm?.sincerlyGrandParentName}}
         </span>
+          <br>
+          पति/पत्निको नाम : <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyHusbandWifeName!==null && printDocForm?.sincerlyHusbandWifeName!==''}">
+          {{printDocForm.sincerlyHusbandWifeName===null || printDocForm.sincerlyHusbandWifeName===''?'_______________' :printDocForm?.sincerlyHusbandWifeName}}
+        </span>
         </p>
+      </div>
         <p class="text-center"><b>औठा छाप</b>
         <div class="text-center">
           <table class="table  table-bordered fingerXap">
@@ -140,10 +143,8 @@
           </table>
 
         </div>
-      </div>
       <br>
-      <div>
-        <div class="row page-break">
+        <div class="row">
         <b class="text-left">साक्षी :</b>
         <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
           <div>
@@ -179,9 +180,8 @@
             <br>
           </div>
         </div>
-
-      <br>
-        <br>
+        </div>
+      <div>
         <b>सनाखत साक्षी</b>
         <br>
         <p>ऋणीले मेरो  मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने
@@ -193,6 +193,7 @@
           {{printDocForm.IdentifiedHintNo===null || printDocForm.IdentifiedHintNo===''?'_______________' :printDocForm?.IdentifiedHintNo}}
         </span> )
         </p>
+          <br>
         <br>
         <p>ईति सम्बत <span [ngClass]="{'nepaliFont':printDocForm?.ItisambatYear!==null && printDocForm?.ItisambatYear!==''}">
           {{printDocForm.ItisambatYear===null || printDocForm.ItisambatYear===''?'_______________' :printDocForm?.ItisambatYear}}
@@ -209,10 +210,8 @@
         रोज शुभम् <span [ngClass]="{'nepaliFont':printDocForm?.ItisambatRojSubham!==null && printDocForm?.ItisambatRojSubham!==''}">
           {{printDocForm.ItisambatRojSubham===null || printDocForm.ItisambatRojSubham===''?'_______________' :printDocForm?.ItisambatRojSubham}}
         </span> ।</p>
-        </div>
       <br>
       </div>
-
     </form>
   </div>
 
