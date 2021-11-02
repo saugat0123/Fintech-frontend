@@ -185,7 +185,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           loanamountinWords: loanAmountWord,
           age: age ? age : '',
           totalPeople: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
-          interest: this.educationalTemplateData && this.educationalTemplateData.ct ? this.educationalTemplateData.ct : '',
+          interest: (this.educationalTemplateData && this.educationalTemplateData.ct) ? (this.educationalTemplateData.ct) : ((this.educationalTemplateData) ? (this.educationalTemplateData) : ('')),
         }
     );
   }
@@ -344,6 +344,12 @@ export class PromissoryNoteIndividualComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.yearlyFloatingInterestRate;
+        }
+      }
+      if (documentName === 'Home Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.loan.interestRateCT;
         }
       }
       // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
