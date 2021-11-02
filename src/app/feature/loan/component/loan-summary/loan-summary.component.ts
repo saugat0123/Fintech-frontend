@@ -233,11 +233,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
         }
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
-            !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
-            const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
-            this.riskInfo = jointCustomerInfo;
-            this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
-            this.isJointInfo = true;
+            !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+            if (this.loanDataHolder.customerInfo.jointInfo) {
+                const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+                this.riskInfo = jointCustomerInfo;
+                this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+                this.isJointInfo = true;
+            }
         }
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
