@@ -1,4 +1,6 @@
-<div class="row nepaliConfig" id="print-section-{{offerLetterConst.OFFER_LETTER_HIRE_PURCHASE_AND_AUTO_LOAN}}">
+<div class="row nepaliConfig"
+     id="print-section-{{offerLetterConst.OFFER_LETTER_HIRE_PURCHASE_AND_AUTO_LOAN}}"
+     xmlns="http://www.w3.org/1999/html">
   <div class="col-md-12 viewFull">
     <div class="text-justify nepaliConfig">
       <div class="row" style="margin-top: 50px">
@@ -85,12 +87,12 @@
         पक्षहरु :–<br>
         <div style="margin-left: 40px">
           १.१ &nbsp; <strong>श्री</strong>
-            <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+          <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
               {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
             </span>
           (यस पछि “ऋणी” भनिएको)<br>
           १.२ &nbsp; श्री प्रोग्रेशिभ फाइनान्स लिमिटेड, शाखा कार्यालय,
-            <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+          <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
               {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
             </span>
           (यसपछि “फाइनान्स” भनिएको)
@@ -177,8 +179,7 @@
                     % =
                     <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.yearlyInterest !== null && printDocForm?.yearlyInterest !== ''}">
                       {{printDocForm?.yearlyInterest === null || printDocForm?.yearlyInterest === '' ? '_________________' : printDocForm?.yearlyInterest}}
-                    </span>
-                    %
+                    </span>%
                   </p>
                   (Base Rate + Risk Premium - Temporary Discount = Interest Rate)
                   कर्जाको अवधि कर्जा स्वीकृत भएको मितिबाट ............ वर्ष, भुक्तानीको आधारमा सो
@@ -199,13 +200,13 @@
                 <td>स्वीकृत कर्जा रकमको
                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.serviceCharge !== null && printDocForm?.serviceCharge !== ''}">
                       {{printDocForm?.serviceCharge === null || printDocForm?.serviceCharge === '' ? '_________________' : printDocForm?.serviceCharge}}
-                  </span>
-                  %
+                  </span>%
                 </td>
               </tr>
             </table>
           </div>
         </div>
+        <div class="page-break"></div>
         <table class="table table-borderless">
           <tr>
             <td rowspan="3">
@@ -379,26 +380,26 @@
           <div class="col-md-12" id="individual">
             <br>
             <div *ngFor="let individualDetail of printDocForm?.individualDetails; index as i">
-                <p>{{i + 1 | nepaliWord: 'unicode'}}
-                  <strong>श्री </strong>
-                  <span [ngClass]="{'nepaliFont' : individualDetail?.shreeName1 !== null && individualDetail?.shreeName1 !== ''}">
+              <p>{{i + 1 | nepaliWord: 'unicode'}}
+                <strong>श्री </strong>
+                <span [ngClass]="{'nepaliFont' : individualDetail?.shreeName1 !== null && individualDetail?.shreeName1 !== ''}">
                     {{individualDetail?.shreeName1 === null || individualDetail?.shreeName1 === '' ? '____________________' : individualDetail?.shreeName1}}
                   </span>
-                  र
-                  <span [ngClass]="{'nepaliFont' : individualDetail?.shreeName2 !== null && individualDetail?.shreeName2 !== ''}">
+                र
+                <span [ngClass]="{'nepaliFont' : individualDetail?.shreeName2 !== null && individualDetail?.shreeName2 !== ''}">
                     {{individualDetail?.shreeName2 === null || individualDetail?.shreeName2 === '' ? '____________________' : individualDetail?.shreeName2}}
                   </span>
-                  को रु.
-                  <span [ngClass]="{'nepaliFont' : individualDetail?.amount1 !== null && individualDetail?.amount1 !== ''}">
+                को रु.
+                <span [ngClass]="{'nepaliFont' : individualDetail?.amount1 !== null && individualDetail?.amount1 !== ''}">
                     {{individualDetail?.amount1 === null || individualDetail?.amount1 === '' ? '____________________' : individualDetail?.amount1}}
                   </span>
-                  /–
-                  (अक्षरेपी :
-                  <span [ngClass]="{'nepaliFont' : individualDetail?.amountInWords1 !== null && individualDetail?.amountInWords1 !== ''}">
+                /–
+                (अक्षरेपी :
+                <span [ngClass]="{'nepaliFont' : individualDetail?.amountInWords1 !== null && individualDetail?.amountInWords1 !== ''}">
                     {{individualDetail?.amountInWords1 === null || individualDetail?.amountInWords1 === '' ? '____________________' : individualDetail?.amountInWords1}}
                   </span>
-                  रुपैंया मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
-                </p>
+                रुपैंया मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
+              </p>
             </div>
           </div>
         </div>
@@ -429,7 +430,7 @@
             </td>
           </tr>
         </div>
-      </table>
+      <tr>
       <table class="table table-borderless">
         <tr>
           <td><strong>३.</strong></td>
@@ -469,7 +470,7 @@
         <tr>
           <td><strong>४.</strong></td>
           <td> <strong>पुनरावलोकन :</strong> रु.
-                  <span [ngClass]="{'nepaliFont' : printDocForm?.amount4 !== null && printDocForm?.amount4 !== ''}">
+            <span [ngClass]="{'nepaliFont' : printDocForm?.amount4 !== null && printDocForm?.amount4 !== ''}">
                       {{printDocForm?.amount4 === null || printDocForm?.amount4 === '' ? '_________________' : printDocForm?.amount4}}
                   </span>
             को भुक्तानी मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका कर्जा तथा
@@ -478,7 +479,7 @@
         </tr>
         <tr>
           <td><strong>५.</strong></td>
-          <td> <strong>निरिक्षण :</strong>
+          <td> <strong>निरिक्षण :</strong><br>
             कुनै पूर्व तयारी नगरी फाइनान्सले आवश्यक देखेको समयमा व्यवसाय गरेका वा धितो सुरक्षण दिएका सम्पत्तिहरुको
             निरिक्षण गर्न फाइनान्स अधिकृत रहेको छ । यसरी नीरिक्षण गर्दा लाग्ने सवै किसिमका खर्चहरु ऋणीले व्यहोर्नु पर्ने छ । <br>
           </td>
@@ -551,8 +552,7 @@
         </tr>
         <tr>
           <td><strong>७.</strong></td>
-          <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong></td>
-          <td>
+          <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong><br>
             यसका अतिरिक्त ऋणी निम्न शर्त वन्देजहरु स्वीकार गर्दछ ।
           </td>
         </tr>
@@ -770,6 +770,8 @@
           </td>
         </tr>
       </table>
+      </tr>
+      </table>
       <br>
       <div class="row">
         <div class="col-md-12">
@@ -781,11 +783,11 @@
             <tbody>
             <tr>
               <td> श्री प्रोग्रेशिभ फाइनान्स लिमिटेड,<br>
-                शाखा कार्यालय
+                शाखा कार्यालय <br>
                 <span [ngClass]="{'nepaliFont' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
                       {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '_________________' : printDocForm?.financeBranch}}
                 </span>
-                ।<br>
+                ।<br> <br>
                 टेलिफोन :
                 <span [ngClass]="{'nepaliFont' : printDocForm?.telephoneNumber !== null && printDocForm?.telephoneNumber !== ''}">
                       {{printDocForm?.telephoneNumber === null || printDocForm?.telephoneNumber === '' ? '_________________' : printDocForm?.telephoneNumber}}
