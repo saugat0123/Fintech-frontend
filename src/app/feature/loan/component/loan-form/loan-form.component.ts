@@ -290,6 +290,7 @@ export class LoanFormComponent implements OnInit {
                             this.submitDisable = false;
                             this.loanHolder = this.loanDocument.loanHolder;
                             this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
+                            this.approvingLevelForm.get('approvingLevel').patchValue(this.loanDocument.approvingLevel);
                             this.loanType = this.loanDocument.loanType;
                             if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
                                 this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION) ||
