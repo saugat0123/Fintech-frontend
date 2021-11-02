@@ -246,6 +246,7 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
+                      <th>क्र.सं.</th>
                       <th width="40%">धितोको विवरण</th>
                       <th width="30%">जकोटेशन मूल्य/ मुल्याङ्कन रकम</th>
                       <th width="30%">लगानी तथा मार्जिन प्रतिशत</th>
@@ -255,6 +256,9 @@
                   <tbody *ngFor="let primaryCollateral of form.get('primaryCollaterals')['controls']; index as i"
                   formArrayName="primaryCollaterals">
                   <tr [formGroupName]="i">
+                    <td>
+                      {{i + 1 | nepaliNumber: 'unicode'}}
+                    </td>
                     <td> सवारी साधनको किसिम :
                       <input class="form-control-sm form-field nepaliFont"
                              formControlName="vehicleType"
@@ -600,7 +604,8 @@
             </tr>
             <tr>
               <td><strong>७.</strong></td>
-              <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong>
+              <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong></td>
+              <td>
                 यसका अतिरिक्त ऋणी निम्न शर्त वन्देजहरु स्वीकार गर्दछ ।
               </td>
             </tr>
@@ -950,6 +955,66 @@
                 <br>
               </p>
             </div>
+            <table class="table  table-borderless">
+              <tr>
+              </tr>
+              <tbody>
+              <tr>
+                <td class="text-left">
+                  दस्तखत :
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         formControlName="signature">
+                </td>
+                <td class="text-left">
+                  दस्तखत गर्नेको नाम :—
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         readonly
+                         [value]="form.get('customerName').value">
+                </td>
+                <td class="text-left">
+                  नागरिकता नं., मिति र कार्यालय:—
+                  <strong> (ना.प्र.नं </strong>
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         readonly
+                         [value]="form.get('signatoryCitizenshipNum').value">
+                  <strong> मिति </strong>
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         readonly
+                         [value]="form.get('signatoryCitizenshipIssueDate').value">
+                  <strong> जि.प्र.का. </strong>
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         readonly
+                         [value]="form.get('signatoryCitizenshipIssuePlace').value">
+                  <strong> ) </strong>
+                </td>
+                <td class="text-left">
+                  ऋणी वा अख्तियार प्राप्त व्यक्तिको ठेगाना :—
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         readonly
+                         [value]="form.get('customerAddress').value">
+                </td>
+                <td class="text-left">
+                  बाजेको नाम :—
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         readonly
+                         [value]="form.get('signatoryGrandParentName').value">
+                </td>
+                <td class="text-left">
+                  <input class="form-control-sm form-field nepaliFont"
+                         type="text"
+                         readonly
+                         [value]="form.get('signatoryParentName').value">
+                </td>
+              </tr>
+              </tbody>
+            </table>
             <div class="col-md-6 justify-content-end">
               <table id="fingerXap" class="table table-bordered text-center">
                 <thead>

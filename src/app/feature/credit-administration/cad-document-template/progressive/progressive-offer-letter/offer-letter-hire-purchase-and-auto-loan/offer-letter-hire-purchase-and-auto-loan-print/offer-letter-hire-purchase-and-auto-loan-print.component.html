@@ -225,6 +225,7 @@
             <table class="table table-bordered">
               <thead>
               <tr>
+                <th>क्र.सं.</th>
                 <th width="40%">धितोको विवरण</th>
                 <th width="30%">जकोटेशन मूल्य/ मुल्याङ्कन रकम</th>
                 <th width="30%">लगानी तथा मार्जिन प्रतिशत</th>
@@ -232,6 +233,9 @@
               </thead>
               <tbody>
               <tr *ngFor = "let primaryCollateral of printDocForm?.primaryCollaterals; index as i">
+                <td>
+                  {{i + 1 | nepaliNumber: 'unicode'}}
+                </td>
                 <td> सवारी साधनको किसिम :
                   <span [ngClass]="{'nepaliFont' : primaryCollateral?.vehicleType !== null && primaryCollateral?.vehicleType !== ''}">
                     {{primaryCollateral?.vehicleType === null || primaryCollateral?.vehicleType === '' ? '_____________' : primaryCollateral?.vehicleType}}
@@ -547,7 +551,8 @@
         </tr>
         <tr>
           <td><strong>७.</strong></td>
-          <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong>
+          <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong></td>
+          <td>
             यसका अतिरिक्त ऋणी निम्न शर्त वन्देजहरु स्वीकार गर्दछ ।
           </td>
         </tr>
