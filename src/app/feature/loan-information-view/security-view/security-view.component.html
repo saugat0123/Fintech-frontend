@@ -1699,4 +1699,21 @@
       </table>
     </div>
   </div>
+  <div *ngIf="securityData['initialForm']['remark']" class="row">
+    <div class="col-md-12">
+      <p><b>Security Remark</b></p>
+      <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+        <thead>
+        <tr class="sb-bg-dark text-white">
+          <th>Remark</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-left pl-1">{{securityData['initialForm']['remark']}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
