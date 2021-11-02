@@ -228,37 +228,36 @@
                 <th width="40%">धितोको विवरण</th>
                 <th width="30%">जकोटेशन मूल्य/ मुल्याङ्कन रकम</th>
                 <th width="30%">लगानी तथा मार्जिन प्रतिशत</th>
-                <th></th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor = "let primaryCollateral of printDocForm?.primaryCollaterals; index as i">
                 <td> सवारी साधनको किसिम :
                   <span [ngClass]="{'nepaliFont' : primaryCollateral?.vehicleType !== null && primaryCollateral?.vehicleType !== ''}">
-                    {{primaryCollateral?.vehicleType === null || primaryCollateral?.vehicleType === '' ? '' : primaryCollateral?.vehicleType}}
+                    {{primaryCollateral?.vehicleType === null || primaryCollateral?.vehicleType === '' ? '_____________' : primaryCollateral?.vehicleType}}
                   </span><br>
                   गाडी नं. :
                   <span [ngClass]="{'nepaliFont' : primaryCollateral?.vehicleNumber !== null && primaryCollateral?.vehicleNumber !== ''}">
-                    {{primaryCollateral?.vehicleNumber === null || primaryCollateral?.vehicleNumber === '' ? '' : primaryCollateral?.vehicleNumber}}
+                    {{primaryCollateral?.vehicleNumber === null || primaryCollateral?.vehicleNumber === '' ? '_____________' : primaryCollateral?.vehicleNumber}}
                   </span><br>
                   मोडल नं. :
                   <span [ngClass]="{'nepaliFont' : primaryCollateral?.vehicleModelNum !== null && primaryCollateral?.vehicleModelNum !== ''}">
-                    {{primaryCollateral?.vehicleModelNum === null || primaryCollateral?.vehicleModelNum === '' ? '' : primaryCollateral?.vehicleModelNum}}
+                    {{primaryCollateral?.vehicleModelNum === null || primaryCollateral?.vehicleModelNum === '' ? '_____________' : primaryCollateral?.vehicleModelNum}}
                   </span><br>
                   इन्जिन नं. :
                   <span [ngClass]="{'nepaliFont' : primaryCollateral?.engineNumber !== null && primaryCollateral?.engineNumber !== ''}">
-                    {{primaryCollateral?.engineNumber === null || primaryCollateral?.engineNumber === '' ? '' : primaryCollateral?.engineNumber}}
+                    {{primaryCollateral?.engineNumber === null || primaryCollateral?.engineNumber === '' ? '_____________' : primaryCollateral?.engineNumber}}
                   </span><br>
                   च्यासिज नं. :
                   <span [ngClass]="{'nepaliFont' : primaryCollateral?.chassisNumber !== null && primaryCollateral?.chassisNumber !== ''}">
-                    {{primaryCollateral?.chassisNumber === null || primaryCollateral?.chassisNumber === '' ? '' : primaryCollateral?.chassisNumber}}
+                    {{primaryCollateral?.chassisNumber === null || primaryCollateral?.chassisNumber === '' ? '_____________' : primaryCollateral?.chassisNumber}}
                   </span>
                 </td>
                 <td>
                   गाडीको जम्मा <br>
                   रु
                   <span [ngClass]="{'nepaliFont' : primaryCollateral?.vehicleQuotationPrice !== null && primaryCollateral?.vehicleQuotationPrice !== ''}">
-                    {{primaryCollateral?.vehicleQuotationPrice === null || primaryCollateral?.vehicleQuotationPrice === '' ? '' : primaryCollateral?.vehicleQuotationPrice}}
+                    {{primaryCollateral?.vehicleQuotationPrice === null || primaryCollateral?.vehicleQuotationPrice === '' ? '_____________' : primaryCollateral?.vehicleQuotationPrice}}
                   </span>/-
                 </td>
                 <td>
@@ -284,56 +283,55 @@
                 <th  width="8%">कि.नं.</th>
                 <th  width="20%">क्षेत्रफल रोपनी/ब.मी.</th>
                 <th  width="20%">सि.नं.</th>
-                <th></th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor = "let additionalCollateral of printDocForm?.additionalCollaterals; index as i">
                 <td> जग्गाधनिको नाम :
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.name !== null && additionalCollateral?.name !== ''}">
-                    {{additionalCollateral?.name === null || additionalCollateral?.name === '' ? '' : additionalCollateral?.name}}
+                    {{additionalCollateral?.name === null || additionalCollateral?.name === '' ? '_____________' : additionalCollateral?.name}}
                   </span><br>
                   बूबाको नाम :
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.fatherName !== null && additionalCollateral?.fatherName !== ''}">
-                    {{additionalCollateral?.fatherName === null || additionalCollateral?.fatherName === '' ? '' : additionalCollateral?.fatherName}}
+                    {{additionalCollateral?.fatherName === null || additionalCollateral?.fatherName === '' ? '_____________' : additionalCollateral?.fatherName}}
                   </span><br>
                   बाजेको नाम. :
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.grandFatherName !== null && additionalCollateral?.grandFatherName !== ''}">
-                    {{additionalCollateral?.grandFatherName === null || additionalCollateral?.grandFatherName === '' ? '' : additionalCollateral?.grandFatherName}}
+                    {{additionalCollateral?.grandFatherName === null || additionalCollateral?.grandFatherName === '' ? '_____________' : additionalCollateral?.grandFatherName}}
                   </span><br>
                   ठेगाना :
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.address !== null && additionalCollateral?.address !== ''}">
-                    {{additionalCollateral?.address === null || additionalCollateral?.address === '' ? '' : additionalCollateral?.address}}
+                    {{additionalCollateral?.address === null || additionalCollateral?.address === '' ? '_____________' : additionalCollateral?.address}}
                   </span>
                 </td>
                 <td>
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.district !== null && additionalCollateral?.district !== ''}">
-                    {{additionalCollateral?.district === null || additionalCollateral?.district === '' ? '' : additionalCollateral?.district}}
+                    {{additionalCollateral?.district === null || additionalCollateral?.district === '' ? '_____________' : additionalCollateral?.district}}
                   </span>
                 </td>
                 <td>
                   लालपुर्जामा भएको :
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.existingAddress !== null && additionalCollateral?.existingAddress !== ''}">
-                    {{additionalCollateral?.existingAddress === null || additionalCollateral?.existingAddress === '' ? '' : additionalCollateral?.existingAddress}}
+                    {{additionalCollateral?.existingAddress === null || additionalCollateral?.existingAddress === '' ? '_____________' : additionalCollateral?.existingAddress}}
                   </span><br>
                   हालको :
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.currentAddress !== null && additionalCollateral?.currentAddress !== ''}">
-                    {{additionalCollateral?.currentAddress === null || additionalCollateral?.currentAddress === '' ? '' : additionalCollateral?.currentAddress}}
+                    {{additionalCollateral?.currentAddress === null || additionalCollateral?.currentAddress === '' ? '_____________' : additionalCollateral?.currentAddress}}
                   </span>
                 </td>
                 <td>
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.jaggaKittaNum !== null && additionalCollateral?.jaggaKittaNum !== ''}">
-                    {{additionalCollateral?.jaggaKittaNum === null || additionalCollateral?.jaggaKittaNum === '' ? '' : additionalCollateral?.jaggaKittaNum}}
+                    {{additionalCollateral?.jaggaKittaNum === null || additionalCollateral?.jaggaKittaNum === '' ? '_____________' : additionalCollateral?.jaggaKittaNum}}
                   </span>
                 </td>
                 <td>
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.landArea !== null && additionalCollateral?.landArea !== ''}">
-                    {{additionalCollateral?.landArea === null || additionalCollateral?.landArea === '' ? '' : additionalCollateral?.landArea}}
+                    {{additionalCollateral?.landArea === null || additionalCollateral?.landArea === '' ? '_____________' : additionalCollateral?.landArea}}
                   </span>
                 </td>
                 <td>
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.jaggaSiNum !== null && additionalCollateral?.jaggaSiNum !== ''}">
-                    {{additionalCollateral?.jaggaSiNum === null || additionalCollateral?.jaggaSiNum === '' ? '' : additionalCollateral?.jaggaSiNum}}
+                    {{additionalCollateral?.jaggaSiNum === null || additionalCollateral?.jaggaSiNum === '' ? '_____________' : additionalCollateral?.jaggaSiNum}}
                   </span>
                 </td>
               </tr>
@@ -762,7 +760,7 @@
           <td><strong>१२.</strong></td>
           <td>
             <strong><u>सूचना (Notice)</u></strong><br>
-            कुनै पनि सूचना गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी, भ्mबष् िगरी वा फ्याक्स मार्फत आदान प्रदान
+            कुनै पनि सूचना गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी, Email गरी वा फ्याक्स मार्फत आदान प्रदान
             गर्न सकिने छ ।
           </td>
         </tr>
