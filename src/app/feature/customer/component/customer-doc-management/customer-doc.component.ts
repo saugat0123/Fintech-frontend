@@ -82,12 +82,15 @@ export class CustomerDocComponent implements OnInit {
         formData.append('customerName', this.customerInfo.name);
         formData.append('customerInfoId', this.customerInfo.id.toString());
         formData.append('customerType', this.customerInfo.customerType);
+        this.modelService.dismissAll();
         if (ObjectUtil.isEmpty(this.customerInfo.name)) {
-            this.modelService.dismissAll();
+            this.spinner=false;
+
             this.toastService.show(new Alert(AlertType.INFO, 'Customer Name Cannot Be Empty'));
             return;
         } else if (this.uploadFile.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
-            this.modelService.dismissAll();
+
+            this.spinner=false;
             this.toastService.show(new Alert(AlertType.INFO, 'Maximum File Size Exceeds for'.concat(documentName)));
             return;
         }
@@ -112,15 +115,13 @@ export class CustomerDocComponent implements OnInit {
             //         console.error(error);
             //         this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save '.concat(documentName)));
             //     });
-            this.modelService.dismissAll();
+
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved '.concat(documentName)));
             this.refreshCustomerInfo.emit(true);
             this.spinner = false;
         }, error => {
             this.spinner = false;
-            this.modelService.dismissAll();
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save '.concat(documentName)));
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
         this.generalDocumentReq[index].checked = true;
     }

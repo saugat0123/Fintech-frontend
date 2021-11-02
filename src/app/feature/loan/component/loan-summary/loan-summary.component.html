@@ -434,7 +434,10 @@
                             [loanDataHolder]="loanDataHolder"></app-company-info-summary>
                 </div>
             </div>
-            <ng-container *ngIf="proposalData.data !== null">
+            here
+
+            <ng-container *ngIf="proposalData?.data !== null">
+                I am here
                 <app-proposal-summary
                         *ngIf="proposalSummary"
                         [customerAllLoanList]="customerAllLoanList"

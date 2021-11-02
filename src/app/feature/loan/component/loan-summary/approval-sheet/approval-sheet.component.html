@@ -462,7 +462,7 @@
                 </div>
             </div>
 
-            <ng-container *ngIf="proposalData.data !== null">
+            <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
                         [approveSheet]="approveSheet"
