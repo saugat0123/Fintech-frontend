@@ -216,6 +216,16 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       this.landBuildingForm.get('interestRateTrans').patchValue(this.engToNepaliNumberPipe.transform(interestRate.toString()));
       this.landBuildingForm.get('interestRateCT').patchValue(this.engToNepaliNumberPipe.transform(interestRate.toString()));
     }
+    const loanAdminFeeInFigure = this.landBuildingForm.get('loanAdminFeeInFigure').value;
+    if (!ObjectUtil.isEmpty(loanAdminFeeInFigure)) {
+      this.landBuildingForm.get('loanAdminFeeInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(loanAdminFeeInFigure.toString()));
+      this.landBuildingForm.get('loanAdminFeeInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(loanAdminFeeInFigure.toString()));
+    }
+    const loanAdminFeeInWord = this.landBuildingForm.get('loanAdminFeeInWord').value;
+    if (!ObjectUtil.isEmpty(loanAdminFeeInWord)) {
+      this.landBuildingForm.get('loanAdminFeeInWordTrans').patchValue(loanAdminFeeInWord);
+      this.landBuildingForm.get('loanAdminFeeInWordCT').patchValue(loanAdminFeeInWord);
+    }
     const emiInFigure = this.landBuildingForm.get('emiInFigure').value;
     if (!ObjectUtil.isEmpty(emiInFigure)) {
       this.landBuildingForm.get('emiInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(emiInFigure.toString()));
