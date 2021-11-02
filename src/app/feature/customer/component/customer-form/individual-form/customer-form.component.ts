@@ -324,7 +324,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     };
                     const incomeSource = {
                         multipleIncome: this.basicInfo.get('incomeSource').value,
-                        otherIncome: this.basicInfo.get('otherIncome').value
+                        otherIncome: this.basicInfo.get('otherIncome').value,
+                        panNumber: this.basicInfo.get('panNumber').value
                     };
                     this.customer.occupation = JSON.stringify(occupations);
                     this.customer.incomeSource = JSON.stringify(incomeSource);
@@ -424,6 +425,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             otherOccupation: [this.customer.otherOccupation === undefined ? undefined : this.customer.otherOccupation],
             incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
             otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
+            panNumber: [this.customer.panNumber === undefined ? undefined : this.customer.panNumber],
             customerRelatives: this.formBuilder.array([]),
             introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
             securityRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
@@ -645,6 +647,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             const incomeSource = JSON.parse(formValue.incomeSource);
             this.basicInfo.controls.incomeSource.patchValue(incomeSource.multipleIncome);
             this.basicInfo.controls.otherIncome.patchValue(incomeSource.otherIncome);
+            this.basicInfo.controls.panNumber.patchValue(incomeSource.panNumber);
         }
         if (!ObjectUtil.isEmpty(formValue.occupation)) {
             const occupation = JSON.parse(formValue.occupation);
