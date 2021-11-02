@@ -119,8 +119,16 @@ export class LoanFormComponent implements OnInit {
 
     ];
 
+    dropdownApprovalLevel = [
+        {id: 'L1', name: 'L1'},
+        {id: 'L2', name: 'L2'},
+        {id: 'L3', name: 'L3'}
+    ];
+
     // Priority Form
     priorityForm: FormGroup;
+
+    approvingLevelForm: FormGroup;
 
     docStatusForm: FormGroup;
     loanTypeForm: FormGroup;
@@ -240,6 +248,7 @@ export class LoanFormComponent implements OnInit {
         console.log('productUtils', this.productUtils);
         this.docStatusForMaker();
         this.buildPriorityForm();
+        this.buildApprovingLevelForm();
         this.buildDocStatusForm();
 
         this.activatedRoute.queryParams.subscribe(
@@ -274,6 +283,7 @@ export class LoanFormComponent implements OnInit {
                 if (this.customerId !== undefined) {
                     this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
+                            console.log('response customer', response);
                             this.loanFile = response.detail.dmsLoanFile;
                             this.loanDocument = response.detail;
                             this.loanDocument.id = response.detail.id;
@@ -328,6 +338,12 @@ export class LoanFormComponent implements OnInit {
     buildPriorityForm() {
         this.priorityForm = this.formBuilder.group({
             priority: [undefined, Validators.required]
+        });
+    }
+
+    buildApprovingLevelForm() {
+        this.approvingLevelForm = this.formBuilder.group({
+            approvingLevel: [undefined, Validators.required]
         });
     }
 
@@ -784,6 +800,7 @@ export class LoanFormComponent implements OnInit {
         } else {
             this.loanDocument.loan = this.loan;
             this.loanDocument.priority = this.priorityForm.get('priority').value;
+            this.loanDocument.approvingLevel = this.approvingLevelForm.get('approvingLevel').value;
             this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
             this.loanDocument.loanType = this.loanType;
             this.loanDocument.loanCategory = this.allId.loanCategory;
