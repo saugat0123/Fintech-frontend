@@ -1271,7 +1271,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // for (let i = 0; i < a.length; i++) {
       const individualData = a[index] as FormGroup;
       Object.keys(individualData.controls).forEach(key => {
-        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
+        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
+            || key.indexOf('id') > -1 || key.indexOf('nepData') > -1) {
           return;
         }
         this.attributes = new Attributes();

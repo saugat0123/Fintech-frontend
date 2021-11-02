@@ -248,8 +248,6 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
     this.form.get('dateofApprovalTransVal').patchValue(this.translatedValues.dateofApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedValues.dateofApplication);
     this.form.get('loanPurposeTransVal').patchValue(this.translatedValues.loanPurpose);
-    this.form.get('loanAdminFeeInWordsTransVal').patchValue(this.translatedValues.loanAdminFeeInWords);
-    this.form.get('emiInWordsTransVal').patchValue(this.translatedValues.emiInWords);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedValues.relationshipOfficerName);
     this.form.get('branchManagerNameTransVal').patchValue(this.translatedValues.branchManagerName);
     this.form.get('signatureDateTransVal').patchValue(this.translatedValues.signatureDate);
