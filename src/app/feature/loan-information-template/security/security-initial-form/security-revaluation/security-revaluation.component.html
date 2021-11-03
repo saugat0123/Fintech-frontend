@@ -45,17 +45,17 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="reValuatedConsideredValue">Considered Value as per Revaluation</label>
+                            <label for="reValuatedConsideredValue">Realisable Value as per Revaluation</label>
                             <ng-template [ngIf]="!apartmentSelected" [ngIfElse]="reValuatedConsideredValue">
                                 <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
                                        class="form-control" formControlName="reValuatedConsideredValue" readonly
-                                       name="total" placeholder="Considered Value as per Revaluation" readonly>
+                                       name="total" placeholder="Realisable Value as per Revaluation" readonly>
                             </ng-template>
 
                             <ng-template #reValuatedConsideredValue>
                                 <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
                                        class="form-control" formControlName="reValuatedConsideredValue"
-                                       id="reValuatedConsideredValue" name="total" placeholder="Considered Value as per Revaluation">
+                                       id="reValuatedConsideredValue" name="total" placeholder="Realisable Value as per Revaluation">
                             </ng-template>
                         </div>
                     </div>
@@ -111,9 +111,9 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="changeInConsideredValue">Change in Considered Value</label>
+                        <label for="changeInConsideredValue">Change in Realisable Value</label>
                         <input [readOnly]="true" class="form-control" formControlName="changeInConsideredValue"
-                               id="changeInConsideredValue" name="total" placeholder="Change in Considered Value">
+                               id="changeInConsideredValue" name="total" placeholder="Change in Realisable Value">
                     </div>
                 </div>
                 <div class="col-md-4">
