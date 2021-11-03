@@ -333,6 +333,21 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="panNumber{{i}}"><strong>Pan Number</strong></label>
+                                                    <input [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('panNumber').errors }"
+                                                           class="form-control" formControlName="panNumber" id="panNumber{{i}}" name="panNumber{{i}}"
+                                                           placeholder="Enter PAN"
+                                                           type="text">
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('panNumber').invalid"
+                                                         class="invalid-feedback">
+                                                        <div *ngIf="joinCustomerInfo.get('panNumber').errors.maxlength || joinCustomerInfo.get('panNumber').errors.minlength">
+                                                            Length should be of 9 digit
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                         </div>
                                         <div class="row ml-1">
