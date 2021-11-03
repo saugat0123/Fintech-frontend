@@ -23,6 +23,7 @@ export class CollateralSummaryComponent implements OnInit {
   @Input() loanCategory;
   @Input() approveSheet;
   @Input() loan;
+  @Input() loanData;
 
   client = environment.client;
   clientName = Clients;
