@@ -149,7 +149,7 @@ export class AllDocumentViewComponent implements OnInit {
       });
 
       urls.forEach((url: string) => {
-        const pathToZipFrom = url.replace(/.*\//g, "");
+        const pathToZipFrom = url.replace(/.*\//g, "" +  new Date().getTime());
         // loading a file and add it in a zip file
         JSZipUtils.getBinaryContent(url, (err, data) => {
           if (err) {

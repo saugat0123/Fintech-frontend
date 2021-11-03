@@ -74,8 +74,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="2"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
-                    : 'EMI / Gross Monthly Income'}}</strong></td>
+                <td class="text-left pl-1" colspan="2"><strong>Gross Monthly Income/EMI (in %)</strong></td>
                 <td colspan="2" class="text-right pr-1">
                     <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
                 </td>
@@ -211,7 +210,7 @@
                         <tr *ngFor="let totalSalesSubCategory of financialData['incomeStatementData']['totalSalesSubCategory']; let i = index">
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{totalSalesSubCategory.name}}</td>
-                            <td *ngFor="let amounts of totalSalesSubCategory['amount']" class="text-right pr-1">{{amounts['value']?.toFixed(2)}}</td>
+                            <td *ngFor="let amounts of totalSalesSubCategory['amount']" class="text-right pr-1">{{amounts['value']?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
