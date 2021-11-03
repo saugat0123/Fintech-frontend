@@ -15,7 +15,7 @@
         <th>Plot No.</th>
         <th>Area Format</th>
         <th>Area</th>
-        <th>Considered Value</th>
+        <th>Realisable Value</th>
         <th>Market Value</th>
         <th>Fair Market Value</th>
         <th>Rate</th>
@@ -120,11 +120,11 @@
           <th></th>
           <th>ReValuation Date(AD/BS)</th>
           <th colspan="1">Valuator name</th>
-          <th colspan="1">ReValuation Considered Value</th>
+          <th colspan="1">ReValuation Realisable Value</th>
           <th colspan="1">ReValuation MV</th>
           <th colspan="1">ReValuation Rate</th>
           <th colspan="1">ReValuation Fmv</th>
-          <th colspan="1">Change in Considered Value</th>
+          <th colspan="1">Change in Realisable Value</th>
           <th colspan="1">Change in MV</th>
           <th colspan="1">Change in Fmv</th>
         </tr>
@@ -182,7 +182,7 @@
           <th>Plot No.</th>
           <th>Area Format</th>
           <th>Area</th>
-          <th>Considered Value</th>
+          <th>Realisable Value</th>
           <th>Fair Market Value</th>
         </tr>
         </thead>
@@ -301,11 +301,11 @@
           <tr class="sb-bg-dark text-white">
             <th>ReValuation Date(AD/BS)</th>
             <th colspan="1">Valuator name</th>
-            <th colspan="1">ReValuation Considered Value</th>
+            <th colspan="1">ReValuation Realisable Value</th>
             <th colspan="1">ReValuation MV</th>
             <th colspan="1">ReValuation Rate</th>
             <th colspan="1">ReValuation Fmv</th>
-            <th colspan="1">Change in Considered Value</th>
+            <th colspan="1">Change in Realisable Value</th>
             <th colspan="1">Change in MV</th>
             <th colspan="1">Change in Fmv</th>
           </tr>
@@ -332,7 +332,7 @@
           <th>Plot No.</th>
           <th>Area Format</th>
           <th>Area</th>
-          <th>Considered Value</th>
+          <th>Realisable Value</th>
           <th>Market Value</th>
           <th>Rate</th>
         </tr>
@@ -641,10 +641,10 @@
         <tr class="sb-bg-dark text-white">
           <th colspan="1">ReValuation Date(AD/BS)</th>
           <th colspan="1">Valuator name</th>
-          <th colspan="1">ReValuation Considered Value</th>
+          <th colspan="1">ReValuation Realisable Value</th>
           <th colspan="1">ReValuation MV</th>
           <th colspan="1">ReValuation Fmv</th>
-          <th colspan="1">Change in Considered Value</th>
+          <th colspan="1">Change in Realisable Value</th>
           <th colspan="1">Change in MV</th>
           <th colspan="1">Change in Fmv</th>
         </tr>
@@ -926,7 +926,7 @@
         <th>Valuator Name</th>
         <th>Valuator Representative Name</th>
         <th>Valuated Date(AD/BS)</th>
-        <th>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</th>
+        <th>Valuation Amount</th>
         <th>Down Payment</th>
         <th>Remaining Amount</th>
       </tr>
@@ -1033,11 +1033,7 @@
           <th>Share Unit</th>
           <th>Rate</th>
           <th>Total Value</th>
-          <th>Considered Value</th>
-          <th *ngIf="client === clientName?.ICFC">Price Earning Ratio</th>
-          <th *ngIf="client === clientName?.ICFC">Price to Book Value</th>
-          <th *ngIf="client === clientName?.ICFC">Dividend Yield</th>
-          <th *ngIf="client === clientName?.ICFC">Dividend Payout Ratio</th>
+          <th>Realisable Value</th>
         </tr>
         </thead>
         <tbody>
@@ -1049,10 +1045,6 @@
           <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceEarningRatio}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceBookValue}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendYield}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendPayoutRatio}}</td>
         </tr>
         <tr>
           <th class="text-left pl-1" colspan="5">Total</th>
@@ -1095,7 +1087,7 @@
         <th>Insurance Policy Type</th>
         <th>Surrender Value</th>
         <th>Early Surrender Date(AD/BS)</th>
-        <th>Considered Value</th>
+        <th>Realisable Value</th>
         <th>Cash Back Amount</th>
       </tr>
       <tr *ngFor="let insurancePolicy of securityData['initialForm']['insurancePolicy']; let i= index">

@@ -892,7 +892,6 @@ export class CompanyFormComponent implements OnInit {
         if (this.companyInfoFormGroup.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
-            console.log(this.companyInfoFormGroup);
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
@@ -900,7 +899,6 @@ export class CompanyFormComponent implements OnInit {
         }
         this.companyInfo = new CompanyInfo();
         this.companyInfo.isMicroCustomer = this.microCustomer;
-        console.log(this.companyInfoFormGroup.get('microCustomerType').value);
         this.companyInfo.microCustomerType =  this.companyInfoFormGroup.get('microCustomerType').value;
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
@@ -1219,7 +1217,6 @@ export class CompanyFormComponent implements OnInit {
         const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
         const clientTypeControl = this.companyInfoFormGroup.get('clientType');
-        console.log(micro, this.disableCrgAlpha);
         if (micro || !this.disableCrgAlpha) {
             if (micro) {
                 clientTypeControl.patchValue('MICRO');
