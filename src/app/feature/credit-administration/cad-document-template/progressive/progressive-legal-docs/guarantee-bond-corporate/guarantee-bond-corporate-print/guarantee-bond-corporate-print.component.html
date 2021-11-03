@@ -140,11 +140,11 @@
                     (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ ) लाई यस अघि समय समयमा प्रदान गरेको/गर्दै आएको र
                 साथै
                     भविष्यमा प्रदान गर्ने जम्मा रु.
-                    <span [ngClass]="{'uniFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
 </span>
                     (अक्षेरुपी रु. <span
-                        [ngClass]="{'nepaliFont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
+                        [ngClass]="{'uniFont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
     {{printDocForm?.amountInWord === null || printDocForm?.amountInWord === '' ? '_________________' : printDocForm?.amountInWord}}
 </span>) सम्मको विभिन्न नगदी कर्जा, बैंक जमानत आदि
                     अन्य बैंकिङ्ग कारोवार सुविधा र सोमा तपाई धनी फाइनान्स र ऋणीका विच सम्पन्न सम्झौता तथा अन्य लिखत
@@ -427,7 +427,7 @@
 </span></p>
                 </div>
 
-                <div  style="margin-top: 120px">
+                <div>
                 <p>औठा छाप:
                 <table class="table  table-bordered" id="fingerXap">
                     <thead>
