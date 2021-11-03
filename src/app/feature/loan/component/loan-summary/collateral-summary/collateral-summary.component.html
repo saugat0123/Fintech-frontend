@@ -37,7 +37,7 @@
                 <td class="text-right pr-1">Rs. {{fundedCollateralTotal | currencyFormatter}}</td>
             </tr>
             <ng-container *ngFor="let model of fundedList;  let i=index">
-                <tr class="cursor">
+                <tr class="cursor" *ngIf="loanData.documentStatus !== 'APPROVED' ">
                     <td>{{i + 1}}</td>
                     <td class="text-left pl-1">{{model?.loan?.name}}</td>
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
@@ -92,7 +92,7 @@
             </tr>
             </ng-container>
             <ng-container *ngFor="let model of nonFundedList; let i=index">
-                <tr class="cursor">
+                <tr class="cursor" *ngIf="loanData.documentStatus !== 'APPROVED' ">
                     <td>{{i + 1}}</td>
                     <td class="text-left pl-1">{{model?.loan?.name}}<b *ngIf="model.proposal.cashMarginOrFac==='FAC'"> =>F</b><b *ngIf="model.proposal.cashMarginOrFac === 'CASHMARGIN'">=>CM</b></td>
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter) || 0}}</td>
