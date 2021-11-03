@@ -453,6 +453,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                     kycCheckForLand: [singleData.kycCheckForLand],
+                    landRate: [singleData.landRate],
                 })
             );
         });
@@ -684,7 +685,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     progessCost: [singleData.progessCost],
                     landBuildingOtherBranchChecked: [singleData.landBuildingOtherBranchChecked],
-                    kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding]
+                    kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding],
+                    landBuildingRate: [singleData.landBuildingRate],
+                    landbuildingUnderRate: [singleData.landbuildingUnderRate],
                 })
             );
         });
@@ -1162,6 +1165,7 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
             kycCheckForLand: [false],
+            landRate: [undefined],
         });
     }
 
@@ -1256,7 +1260,9 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             progessCost: [undefined],
             landBuildingOtherBranchChecked: [undefined],
-            kycCheckForLandAndBuilding: [false]
+            kycCheckForLandAndBuilding: [false],
+            landBuildingRate: undefined,
+            landbuildingUnderRate: undefined,
         });
     }
 
@@ -2074,5 +2080,25 @@ export class SecurityInitialFormComponent implements OnInit {
         const index = this.ownershipTransferEnumPair.indexOf(other[0]);
         this.ownershipTransferEnumPair.splice(index, 1);
         this.newOwnerShipTransfer = this.ownershipTransferEnumPair.concat(other);
+    }
+
+    calConsiderValue(type, index) {
+        switch (type) {
+            case 'land':
+                const considerValue = (Number(this.securityForm.get(['landDetails', index, 'distressValue']).value)
+                    * Number(this.securityForm.get(['landDetails', index, 'landRate']).value));
+                this.securityForm.get(['landDetails', index, 'landConsideredValue']).patchValue(considerValue);
+                break;
+            case 'landBuilding':
+                const landBuildingConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValue']).value)
+                    * Number(this.securityForm.get(['landBuilding', index, 'landBuildingRate']).value));
+                this.securityForm.get(['landBuilding', index, 'landConsideredValue']).patchValue(landBuildingConValue);
+                break;
+            case 'lbUnderConstruction':
+                const lbUnderConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValueConstruction']).value)
+                    * Number(this.securityForm.get(['landBuilding', index, 'landbuildingUnderRate']).value));
+                this.securityForm.get(['landBuilding', index, 'landConsideredValueConstruction']).patchValue(lbUnderConValue);
+                break;
+        }
     }
 }
