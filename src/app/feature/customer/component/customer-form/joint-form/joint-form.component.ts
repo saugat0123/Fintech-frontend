@@ -295,7 +295,7 @@ export class JointFormComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
         return;
       } else {
-          if (this.basicJointInfo.controls['jointCustomerInfo'].invalid) {
+          if (this.basicJointInfo.controls['jointCustomerInfo'].invalid || this.basicJointInfo.invalid) {
               this.toastService.show(new Alert(AlertType.WARNING, 'Please check validation'));
               return;
           }
