@@ -11,6 +11,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {BranchService} from '../branch.service';
 import {Branch} from '../../../modal/branch';
 import {Action} from '../../../../../@core/Action';
+import {SbTranslateService} from "../../../../../@core/service/sbtranslate.service";
 
 declare let google: any;
 
@@ -40,7 +41,6 @@ export class BranchFormComponent implements OnInit {
   latLng: string[];
   isBranchCodeValid = false;
 
-
   constructor(
       private service: BranchService,
       private location: AddressService,
@@ -48,6 +48,7 @@ export class BranchFormComponent implements OnInit {
       private toastService: ToastService,
       private formBuilder: FormBuilder,
       private el: ElementRef,
+      private translateService: SbTranslateService,
   ) {
 
   }
@@ -79,6 +80,7 @@ export class BranchFormComponent implements OnInit {
     this.branchForm = this.formBuilder.group({
       id: [ObjectUtil.setUndefinedIfNull(this.model.id)],
       name: [ObjectUtil.setUndefinedIfNull(this.model.name), [Validators.required]],
+      nepaliName: [ObjectUtil.setUndefinedIfNull(this.model.nepaliName), [Validators.required]],
       landlineNumber: [ObjectUtil.setUndefinedIfNull(this.model.landlineNumber), [Validators.required]],
       email: [ObjectUtil.setUndefinedIfNull(this.model.email), [Validators.required, Validators.email]],
       province: [ObjectUtil.setUndefinedIfNull(this.model.province), [Validators.required]],
@@ -89,7 +91,8 @@ export class BranchFormComponent implements OnInit {
       branchCode: [ObjectUtil.setUndefinedIfNull(this.model.branchCode), [Validators.required]],
       status: [ObjectUtil.setUndefinedIfNull(this.model.status)],
       locationPreview: [ObjectUtil.setUndefinedIfNull(this.model.locationPreview)],
-      version: [ObjectUtil.setUndefinedIfNull(this.model.version)]
+      version: [ObjectUtil.setUndefinedIfNull(this.model.version)],
+
     });
   }
 
