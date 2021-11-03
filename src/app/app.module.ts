@@ -6,7 +6,7 @@ import {LoginComponent} from './component/login/login.component';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {AddressService} from './@core/service/baseservice/address.service';
 import {QuillModule} from 'ngx-quill';
-import {DatePipe, HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {DatePipe, HashLocationStrategy, LocationStrategy, TitleCasePipe} from '@angular/common';
 import {ThemeModule} from './@theme/theme.module';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
@@ -71,7 +71,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
         provide: LocationStrategy,
         useClass: HashLocationStrategy,
     }, {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
-        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,
+        DatePipe, TitleCasePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,
         NepaliPercentWordPipe, AmountWordPipe],
     bootstrap: [AppComponent],
     exports: [
