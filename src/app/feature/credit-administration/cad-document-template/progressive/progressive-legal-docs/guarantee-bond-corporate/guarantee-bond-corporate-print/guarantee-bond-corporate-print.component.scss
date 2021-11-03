@@ -1,5 +1,10 @@
 @import '../../progressive-legal-docs.component';
-
+@media print {
+  .pagebreak { page-break-before: always; }
+}
+//body {
+//  overflow-y: visible;
+//}
 #fingerXap {
   width: 500px;
   text-align: center;
