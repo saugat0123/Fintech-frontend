@@ -1,8 +1,12 @@
 @import '../../progressive-legal-docs.component';
-
+@media print {
+  .pagebreak { page-break-before: always; }
+}
+//body {
+//  overflow-y: visible;
+//}
 #fingerXap {
   width: 500px;
-
   text-align: center;
 }
 
@@ -16,5 +20,5 @@ table {
   text-align: justify;
 }
 .uniFont{
-  font-size: 17px;
+  font-size: 15px !important;
 }
