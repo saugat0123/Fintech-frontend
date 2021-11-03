@@ -2,7 +2,8 @@
 
     <div class="col-md-12 viewFull">
         <form class="nepali">
-            <h6 class="text-center"><strong>संस्थागत जमानीपत्र (Corporate Guarantee) </strong><br>
+            <h6 class="text-center">संस्थागत जमानीपत्र <br/>
+                (Corporate Guarantee) <br>
             </h6>
             <div class="row col-md-12">
                 <p style="line-height: 1.9em">
@@ -137,7 +138,7 @@
     {{printDocForm?.registered === null || printDocForm?.registered === '' ? '_________________' : printDocForm?.registered}}
 </span>
                     (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ ) लाई यस अघि समय समयमा प्रदान गरेको/गर्दै आएको र
-                    साथै
+                साथै
                     भविष्यमा प्रदान गर्ने जम्मा रु.
                     <span [ngClass]="{'uniFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
