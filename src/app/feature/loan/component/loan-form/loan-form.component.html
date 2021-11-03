@@ -34,6 +34,20 @@
             </div>
 
 
+            <div class="col-md-3">
+                <form #approvalLevel id="approvalLevel" [formGroup]="approvingLevelForm">
+                    <label><strong>Approving Level</strong></label>
+                    <ng-select [items]="dropdownApprovalLevel"
+                               [multiple]="false"
+                               bindLabel="name"
+                               bindValue="id"
+                               formControlName="approvingLevel"
+                    >
+                    </ng-select>
+                </form>
+            </div>
+
+
             <div *ngIf="showDocStatusDropDown" class="col-md-3">
                 <form [formGroup]="docStatusForm">
                     <label><strong>
