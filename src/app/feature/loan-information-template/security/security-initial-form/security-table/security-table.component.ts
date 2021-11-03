@@ -46,8 +46,6 @@ export class SecurityTableComponent implements OnInit {
   insurancePolicy: any;
   isShareSecurity = false;
   shareSecurityData: any;
-  isBondSecurity = false;
-  bondSecurity: any;
 
   constructor() { }
 
@@ -152,12 +150,6 @@ export class SecurityTableComponent implements OnInit {
           this.isInsurancePolicy = true;
         }
       });
-      this.selectedArray.filter(f => {
-        if (f.indexOf('BondSecurity') !== -1) {
-          this.bondSecurity = this.formDataForEdit['bondSecurity'];
-          this.isBondSecurity = true;
-        }
-      });
     }
   }
 
@@ -205,9 +197,6 @@ export class SecurityTableComponent implements OnInit {
     }
     if (formArrayName === 'insurancePolicy') {
       this.isInsurancePolicy = false;
-    }
-    if (formArrayName === 'bondSecurity') {
-      this.isBondSecurity = false;
     }
   }
 

@@ -187,7 +187,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
-        this.pushNewSecurityType();
+        // this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -2104,6 +2104,42 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
 
+    public resetSecurityForm(event): void {
+        const securityIndex = this.selectedArray.indexOf(event.securityName);
+        if (securityIndex > -1) {
+            this.selectedArray.splice(securityIndex, 1);
+        }
+        let index = 1;
+        if (event.formArrayName === 'shareSecurityDetails') {
+            const shareSecurityFormControl = this.shareSecurityForm.get(event.formArrayName) as FormArray;
+            shareSecurityFormControl.controls.forEach(f => {
+                f.reset();
+                f.clearValidators();
+                f.updateValueAndValidity();
+                index++;
+            });
+            for (let i = 1; i <= index; i++) {
+                shareSecurityFormControl.removeAt(i);
+                index--;
+                i--;
+            }
+        } else {
+            const formControl = this.securityForm.get(event.formArrayName) as FormArray;
+            formControl.controls.forEach(f => {
+                f.reset();
+                f.clearValidators();
+                f.updateValueAndValidity();
+                index++;
+            });
+            for (let i = 1; i <= index; i++) {
+                formControl.removeAt(i);
+                index--;
+                i--;
+            }
+        }
+        this.toastService.show(new Alert(AlertType.INFO, 'Please save security to make changes'));
+    }
+
     private pushSecurityNameInArray(): void {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         landDetails.controls.forEach(f => {
@@ -2222,19 +2258,5 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.selectedArray.push('OtherSecurity');
             }
         });
-        const bondSecurity = this.securityForm.get('bondSecurity') as FormArray;
-        bondSecurity.controls.forEach(f => {
-            const value = f.value.nameOfBond || f.value.validityOfBond || f.value.couponRate || f.value.bondValue;
-            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
-                this.selectedArray.indexOf('BondSecurity') === -1) {
-                this.selectedArray.push('BondSecurity');
-            }
-        });
-    }
-
-    private pushNewSecurityType(): void {
-        if (this.client === this.clientName.ICFC) {
-            this.securityTypes.push({key: 'BondSecurity', value: 'Bond Security'});
-        }
     }
 }
