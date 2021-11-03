@@ -257,6 +257,23 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
+                                                    <label for="panNumber{{i}}"><strong>Pan Number</strong></label>
+                                                    <input [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('panNumber').errors }"
+                                                           class="form-control" formControlName="panNumber" id="panNumber{{i}}" name="panNumber{{i}}"
+                                                           placeholder="Enter PAN"
+                                                           type="text">
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('panNumber').invalid"
+                                                         class="invalid-feedback">
+                                                        <div *ngIf="joinCustomerInfo.get('panNumber').errors.maxlength || joinCustomerInfo.get('panNumber').errors.minlength">
+                                                            Length should be of 9 digit
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END ROW -->
+                                            <!-- START ROW -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
                                                     <label for="occupation{{i}}"><strong>Occupation </strong></label>
                                                     <nb-select [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('occupation').errors }"
                                                                formControlName="occupation"
@@ -288,7 +305,7 @@
                                                         <input class="form-control" formControlName="otherOccupation" id="otherOccupation{{i}}"
                                                                name="otherOccupation{{i}}" placeholder="Other occupation" type="text">
                                                         <div *ngIf="submitted && joinCustomerInfo.get('otherOccupation').errors"
-                                                                                                         class="help-block small">
+                                                             class="help-block small">
                                                               <span *ngIf="joinCustomerInfo.get('otherOccupation').errors.required">
                                                               <span class="text-danger">Other occupation is required</span>
                                                             </span>
@@ -296,8 +313,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- END ROW -->
-                                            <!-- START ROW -->
                                             <div class="col-md-4" *ngIf="!tempFlag?.hideIncomeSource">
                                                 <div class="form-group">
                                                     <label><strong>Income Source</strong></label>
@@ -329,21 +344,6 @@
                                                             <div *ngIf="joinCustomerInfo.get('otherIncome').errors.required">Other income Source is
                                                                 required
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="panNumber{{i}}"><strong>Pan Number</strong></label>
-                                                    <input [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('panNumber').errors }"
-                                                           class="form-control" formControlName="panNumber" id="panNumber{{i}}" name="panNumber{{i}}"
-                                                           placeholder="Enter PAN"
-                                                           type="text">
-                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('panNumber').invalid"
-                                                         class="invalid-feedback">
-                                                        <div *ngIf="joinCustomerInfo.get('panNumber').errors.maxlength || joinCustomerInfo.get('panNumber').errors.minlength">
-                                                            Length should be of 9 digit
                                                         </div>
                                                     </div>
                                                 </div>
