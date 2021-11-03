@@ -823,7 +823,8 @@
                                                               [data]="formDataForEdit?.buildingDetails[i]?.revaluationData"
                                                               [oldValuation]="securityForm.get('buildingDetails').value"
                                                               [revaluationId]="securityId.apartmentId + i"
-                                                              [calendarType]="calendarType"></app-security-revaluation>
+                                                              [calendarType]="calendarType"
+                                                              [apartmentSelected]="apartmentSelected"></app-security-revaluation>
                                 </div>
                                 <div *ngIf="securityForm.get('buildingDetails')['length'] > 1"
                                      class="col-md-1 pt-4">

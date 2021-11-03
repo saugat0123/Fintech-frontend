@@ -23,6 +23,7 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     formGroup: FormGroup;
     submitValue;
     @Output() revaluationDataEmitter = new EventEmitter();
+    @Input() apartmentSelected;
 
     // client
     client = environment.client;
@@ -33,7 +34,6 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        console.log('oldValuation', this.oldValuation);
         this.formGroup = this.formBuilder.group({
             isReValuated: [false],
             reValuationDate: [undefined, Validators.required],

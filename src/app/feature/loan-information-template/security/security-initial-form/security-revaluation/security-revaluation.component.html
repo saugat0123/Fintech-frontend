@@ -46,9 +46,17 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="reValuatedConsideredValue">Considered Value as per Revaluation</label>
-                            <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
-                                   class="form-control" formControlName="reValuatedConsideredValue" readonly
-                                   id="reValuatedConsideredValue" name="total" placeholder="Considered Value as per Revaluation">
+                            <ng-template [ngIf]="!apartmentSelected" [ngIfElse]="reValuatedConsideredValue">
+                                <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                                       class="form-control" formControlName="reValuatedConsideredValue" readonly
+                                       name="total" placeholder="Considered Value as per Revaluation" readonly>
+                            </ng-template>
+
+                            <ng-template #reValuatedConsideredValue>
+                                <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                                       class="form-control" formControlName="reValuatedConsideredValue"
+                                       id="reValuatedConsideredValue" name="total" placeholder="Considered Value as per Revaluation">
+                            </ng-template>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -64,22 +72,34 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="reValuatedDv">MV as per Revaluation</label>
-                            <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
-                                   (input)="calcRevalatedConsiderValue()"
-                                   class="form-control rounded" formControlName="reValuatedDv"
-                                   id="reValuatedDv"
-                                   name="reValuatedDv"
-                                   placeholder="MV as per Revaluation"
-                                   type="text"/>
+                            <ng-template [ngIf]="!apartmentSelected" [ngIfElse]="reValuatedDv">
+                                <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                                       (input)="calcRevalatedConsiderValue()"
+                                       class="form-control rounded" formControlName="reValuatedDv"
+                                       name="reValuatedDv"
+                                       placeholder="MV as per Revaluation"
+                                       type="number"/>
+                            </ng-template>
+                            <ng-template #reValuatedDv>
+                                <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                                       class="form-control rounded" formControlName="reValuatedDv"
+                                       id="reValuatedDv"
+                                       name="reValuatedDv"
+                                       placeholder="MV as per Revaluation"
+                                       type="number"/>
+                            </ng-template>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div *ngIf="!apartmentSelected" class="col-md-4">
                         <div class="form-group">
                             <label for="reValuatedRate">Rate as per Revaluation</label>
                             <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
                                    (input)="calcRevalatedConsiderValue()"
                                    class="form-control" formControlName="reValuatedRate"
-                                   id="reValuatedRate" name="total" placeholder="Rate as per Revaluation">
+                                   id="reValuatedRate"
+                                   name="total"
+                                   placeholder="Rate as per Revaluation"
+                                   type="number">
                         </div>
                     </div>
                 </ng-container>
