@@ -378,9 +378,8 @@
             {{printDocForm?.kittaNo===null||printDocForm?.kittaNo===''?'________________':printDocForm.kittaNo }}
           </span>
           को घर/जग्गातथा सो घर/जग्गाले चर्चेको सम्पूर्ण लिगलगापात समेत।
-        <br>
-          <br>
-        <strong><u>संलग्नप्रमाणहरु</u> :</strong><br>
+        <div style="margin-top: 2rem">
+        <p><strong><u>संलग्नप्रमाणहरु</u> :</strong><br>
           (क) चालु आ.व. <span [ngClass]="{'nepaliFont':printDocForm?.chaluArthikBarsa!==null && printDocForm.chaluArthikBarsa!==''}" >
             {{printDocForm?.chaluArthikBarsa===null||printDocForm?.chaluArthikBarsa===''?'________________':printDocForm.chaluArthikBarsa }}
           </span>.को मालपोत
@@ -390,11 +389,9 @@
           (घ) कर चुक्ता प्रमाण पत्रको प्रतिलिपीथान–१<br>
           (ङ) लिखत गराई लिनेको दर्ता प्रमाणपत्रको प्रतिलिपीथान–१<br>
           (च) लिनेको प्रतिनिधिनियुक्त गरिएको पत्र सक्कलथान–१<br>
-
-        <p class="pages-break"></p>
-        <br>
-        <br>
-        <div class="col-lg-12">
+        </p>
+      </div>
+        <div class="col-lg-12" style="margin-top: 2rem">
           <strong class="text-left">साक्षी :</strong>
           <!--<div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
             <div>
