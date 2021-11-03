@@ -262,6 +262,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
+        this.spinner = true;
         this.submitted = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
@@ -289,12 +290,12 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 if (this.microCustomer) {
                     this.microIndividualFormComponent.onSubmit();
                     if (this.microIndividualFormComponent.microCustomerForm.invalid) {
+                        this.spinner = false;
                         this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
                         return;
                     }
                 }
                 {
-                    this.spinner = true;
                     this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
                     this.customer.customerName = this.basicInfo.get('customerName').value;
                     this.customer.customerCode = this.basicInfo.get('customerCode').value;
