@@ -2,7 +2,8 @@
 
     <div class="col-md-12 viewFull">
         <form class="nepali">
-            <h6 class="text-center"><strong>संस्थागत जमानीपत्र </strong><br>
+            <h6 class="text-center">संस्थागत जमानीपत्र <br/>
+                (Corporate Guarantee) <br>
             </h6>
             <div class="row col-md-12">
                 <p style="line-height: 1.9em">
@@ -71,7 +72,7 @@
                         [ngClass]="{'nepaliFont' : printDocForm?.middleDistrict !== null && printDocForm?.middleDistrict !== ''}">
     {{printDocForm?.middleDistrict === null || printDocForm?.middleDistrict === '' ? '_________________' : printDocForm?.middleDistrict}}
 </span>
-                    गा.पा./न.पा./म.न.पा. व८ा न.
+                    गा.पा./न.पा./म.न.पा. वडा नं.
                     <span [ngClass]="{'nepaliFont' : printDocForm?.middleWadNo !== null && printDocForm?.middleWadNo !== ''}">
     {{printDocForm?.middleWadNo === null || printDocForm?.middleWadNo === '' ? '_________________' : printDocForm?.middleWadNo}}
 </span>
@@ -115,7 +116,7 @@
                         [ngClass]="{'nepaliFont' : printDocForm?.rajaswaMunicipality !== null && printDocForm?.rajaswaMunicipality !== ''}">
     {{printDocForm?.rajaswaMunicipality === null || printDocForm?.rajaswaMunicipality === '' ? '_________________' : printDocForm?.rajaswaMunicipality}}
 </span>
-                    गा.पा./न.पा./म.न.पा. व८ा नं. <span
+                    गा.पा./न.पा./म.न.पा. वडा नं. <span
                         [ngClass]="{'nepaliFont' : printDocForm?.rajaswaWadNo !== null && printDocForm?.rajaswaWadNo !== ''}">
     {{printDocForm?.rajaswaWadNo === null || printDocForm?.rajaswaWadNo === '' ? '_________________' : printDocForm?.rajaswaWadNo}}
 </span>
@@ -136,14 +137,14 @@
                         [ngClass]="{'nepaliFont' : printDocForm?.registered !== null && printDocForm?.registered !== ''}">
     {{printDocForm?.registered === null || printDocForm?.registered === '' ? '_________________' : printDocForm?.registered}}
 </span>
-                    (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ ) लाई यस अ३ि समय समयमा प्रदान गरेको/गर्दै आएको र
-                    साथै
+                    (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ ) लाई यस अघि समय समयमा प्रदान गरेको/गर्दै आएको र
+                साथै
                     भविष्यमा प्रदान गर्ने जम्मा रु.
-                    <span [ngClass]="{'unifont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
 </span>
                     (अक्षेरुपी रु. <span
-                        [ngClass]="{'nepaliFont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
+                        [ngClass]="{'uniFont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
     {{printDocForm?.amountInWord === null || printDocForm?.amountInWord === '' ? '_________________' : printDocForm?.amountInWord}}
 </span>) सम्मको विभिन्न नगदी कर्जा, बैंक जमानत आदि
                     अन्य बैंकिङ्ग कारोवार सुविधा र सोमा तपाई धनी फाइनान्स र ऋणीका विच सम्पन्न सम्झौता तथा अन्य लिखत
@@ -181,7 +182,7 @@
                                 शर्त कवूलियत
                                 उल्लंघन गरेमा धनी फाइनान्सले सोझै म संग माग गर्न सक्ने र त्यसरी माग गरेको रकम, कलम मैले
                                 तपाई धनी फाइनान्सलाई
-                                ऋणी (Principal Debtor) सरह प्राथमिक दायित्व ९(Primary Liability) को रुपमा तिर्न बूझाउन
+                                ऋणी (Principal Debtor) सरह प्राथमिक दायित्व (Primary Liability) को रुपमा तिर्न बूझाउन
                                 पर्ने र
                                 ऋणीले लिएको ऋण कर्जाको सम्पूर्ण रकम कलम चूक्ता भूक्तान नभएसम्म सो प्रति मेरो दायित्व
                                 निरन्तर रहीरहने कुरामा मेरो मन्जूरी छ ।
@@ -292,7 +293,7 @@
                         </tr>
                         <tr>
                             <td>१०.</td>
-                            <td> माथी प्रकरण, प्रकरणमा जे जस्तो उल्लेख भएता पनि यस लिखत बमोजिम मेरो दायित्व तपाई धनी
+                            <td style="line-height: 20px"> माथी प्रकरण, प्रकरणमा जे जस्तो उल्लेख भएता पनि यस लिखत बमोजिम मेरो दायित्व तपाई धनी
                                 फाइनान्सले ऋणीलाई प्रदान गर्ने रु.
                                 <span [ngClass]="{'nepaliFont' : printDocForm?.middleAmount !== null && printDocForm?.middleAmount !== ''}">
                                 {{printDocForm?.middleAmount === null || printDocForm?.middleAmount === '' ? '_________________' : printDocForm?.middleAmount}}
@@ -334,16 +335,14 @@
                             <td>१३.</td>
                             <td> म र ऋणीका बिचमा लेनदेन कारोवार भई ऋणीले मलाई रकम कलम तिर्न, बूझाउनू पर्ने अवस्थामा समेत
                                 ऋणीले तपाई धनी फाइनान्सलाई तिर्न बूझाउन पर्ने रकम कलम तिरी बूझाई फछ्र्यौट नभएसम्म मैले
-                                ऋणीसंग
-                                लेनदेन कारोवार अन्तर्गत प्राप्त गर्नू पर्ने रकम प्राप्त गर्नका लागि कूनै किसिमको दावा
+                                ऋणीसंग लेनदेन कारोवार अन्तर्गत प्राप्त गर्नू पर्ने रकम प्राप्त गर्नका लागि कूनै किसिमको दावा
                                 गर्ने वा कानूनी कारवाही चलाउने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td> १४.</td>
                             <td>यस लिखत बमोजिम धनी फाइनान्सले रकम कलम माग गरी मलाई लिखित सूचना दिनू पर्ने भएमा वा धनी
-                                फाइनान्सले मलाई
-                                जूनसूकै किसिमको सूचना दिनू पर्ने भएमा यस लिखतमा लेखिएको ठेगानामा वा धनी बैकलाई मैले
+                                फाइनान्सले मलाई जूनसूकै किसिमको सूचना दिनू पर्ने भएमा यस लिखतमा लेखिएको ठेगानामा वा धनी बैकलाई मैले
                                 अन्तिम पटक उपलब्ध गराएको घर
                                 ठेगानामा व्यक्ति वा हूलाक वा विद्यूतीय माध्यम मार्फत सूचना दिन सकिनेछ । त्यसरी व्यक्ति
                                 मार्फत दिएको सूचनाको हकमा बूझाएको मिति,
@@ -426,7 +425,7 @@
 </span></p>
                 </div>
 
-                <div  style="margin-top: 120px">
+                <div>
                 <p>औठा छाप:
                 <table class="table  table-bordered" id="fingerXap">
                     <thead>
@@ -451,7 +450,7 @@
                 </div>
                 <br>
 
-                <div>
+                <div style="margin-top: 2em">
                     <strong class="text-left">साक्षी :</strong>
 
                     <div>
