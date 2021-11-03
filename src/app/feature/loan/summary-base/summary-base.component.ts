@@ -213,9 +213,11 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 default:
                     deferredDocs = [];
             }
-            deferredDocs = deferredDocs.filter((d) => (
-                !ObjectUtil.isEmpty(d.checkType) && d.checkType === EnumUtils.getEnum(DocumentCheckType, DocumentCheckType.DEFERRAL)
-            ));
+            if (!ObjectUtil.isEmpty(deferredDocs)) {
+                deferredDocs = deferredDocs.filter((d) => (
+                    !ObjectUtil.isEmpty(d.checkType) && d.checkType === EnumUtils.getEnum(DocumentCheckType, DocumentCheckType.DEFERRAL)
+                ));
+            }
             const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
             this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
         });
