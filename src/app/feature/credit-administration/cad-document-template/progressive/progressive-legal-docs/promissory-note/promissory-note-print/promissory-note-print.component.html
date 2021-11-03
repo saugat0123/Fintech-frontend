@@ -6,7 +6,7 @@
         (PROMISSORY NOTE)</h6></b>
 
       <div class="row">
-        <p>
+        <p style="line-height: 1.8em">
           लिखितम् <span [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
     {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
 </span> को
@@ -71,10 +71,10 @@
         </p>
       </div>
       <p class="text-center"><b>भवदीय,</b></p>
-      <div style="margin-left: 12rem">
+      <div style="margin-left: 6rem;line-height: 1.9em">
         <p>
           दस्तखत :-
-          <br><br>
+          <br>
           दस्तखत गर्नेको नाम :- <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyName!==null && printDocForm?.sincerlyName!==''}">
           {{printDocForm.sincerlyName===null || printDocForm.sincerlyName===''?'_______________' :printDocForm?.sincerlyName}}
         </span>
@@ -144,7 +144,8 @@
 
         </div>
       <br>
-        <div class="row">
+        <div class="row" style="margin-top: 3rem">
+          <div>
         <b class="text-left">साक्षी :</b>
           <br>
         <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
@@ -182,8 +183,9 @@
           </div>
         </div>
         </div>
-      <p class="page-break"></p>
+        </div>
       <div>
+        <p class="page-break"></p>
         <b>सनाखत साक्षी</b>
         <br>
         <p>ऋणीले मेरो  मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने
@@ -214,6 +216,7 @@
         </span> ।</p>
       <br>
       </div>
+
     </form>
   </div>
 
