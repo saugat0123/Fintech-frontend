@@ -867,6 +867,7 @@ export class CompanyFormComponent implements OnInit {
     }
 
     onSubmit() {
+        this.spinner = true;
         this.submitted = true;
         this.marketScenarioComponent.onSubmit();
         this.companyOtherDetailComponent.onSubmit();
@@ -880,6 +881,7 @@ export class CompanyFormComponent implements OnInit {
             } else if (this.microCustomerType === MicroCustomerType.DIRECT) {
                 this.microIndividualFormComponent.onSubmit();
                 if (this.microIndividualFormComponent.microCustomerForm.invalid) {
+                    this.spinner = false;
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
                     return;
                 }
@@ -891,11 +893,11 @@ export class CompanyFormComponent implements OnInit {
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
             console.log(this.companyInfoFormGroup);
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
             return;
         }
-        this.spinner = true;
         this.companyInfo = new CompanyInfo();
         this.companyInfo.isMicroCustomer = this.microCustomer;
         console.log(this.companyInfoFormGroup.get('microCustomerType').value);
