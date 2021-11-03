@@ -96,16 +96,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="landConsideredValue">Considered Value</label>
                                 <input (change)="updateLandSecurityTotal()"
                                        class="form-control"
                                        formControlName="landConsideredValue"
-                                       id="landConsideredValue" name="total" placeholder="Considered Value">
+                                       id="landConsideredValue" name="total" placeholder="Considered Value" readonly>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title" for="marketValue">Fair Market Value</label>
                                 <input (change)="updateLandSecurityTotal()"
@@ -116,16 +116,28 @@
                                        type="text"/>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
-                                <input (change)="updateLandSecurityTotal(i)"
+                                <label class="title" for="distressValue">Market Value</label>
+                                <input (change)="updateLandSecurityTotal()"
+                                       (input)="calConsiderValue('land', i)"
                                        class="form-control rounded"
                                        formControlName="distressValue"
                                        id="distressValue"
-                                       [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
+                                       placeholder="Market Value"
                                        name="distressValue"
                                        type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="rate">Rate</label>
+                                <input (input)="calConsiderValue('land', i)"
+                                       class="form-control rounded"
+                                       formControlName="landRate"
+                                       placeholder="Rate"
+                                       name="landRate"
+                                       type="number"/>
                             </div>
                         </div>
                     </div>
@@ -451,7 +463,7 @@
                         <tr>
                             <th>Total Considered Value</th>
                             <th>Total Fair Market Value</th>
-                            <th>Total {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                            <th>Total Market Value</th>
                             <th>Remarks</th>
                         </tr>
                         </thead>
@@ -682,11 +694,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingDistressValue">Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
+                                        <label class="title" for="buildingDistressValue">Apartment Market Value</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingDistressValue"
                                                id="buildingDistressValue"
-                                               [placeholder]="(client == clientName?.EXCEL) ? 'Apartment Market Value' : 'Apartment Distress Value'"
+                                               placeholder="Apartment Market Value"
                                                name="buildingDistressValue"
                                                type="text"/>
                                     </div>
@@ -811,7 +823,8 @@
                                                               [data]="formDataForEdit?.buildingDetails[i]?.revaluationData"
                                                               [oldValuation]="securityForm.get('buildingDetails').value"
                                                               [revaluationId]="securityId.apartmentId + i"
-                                                              [calendarType]="calendarType"></app-security-revaluation>
+                                                              [calendarType]="calendarType"
+                                                              [apartmentSelected]="apartmentSelected"></app-security-revaluation>
                                 </div>
                                 <div *ngIf="securityForm.get('buildingDetails')['length'] > 1"
                                      class="col-md-1 pt-4">
@@ -1034,12 +1047,11 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingDistressValue">Apartment Distress
-                                                Value</label>
+                                            <label class="title" for="buildingDistressValue">Apartment Market Value</label>
                                             <input class="form-control rounded"
                                                    formControlName="buildingDistressValue"
                                                    id="dv"
-                                                   name="buildingDistressValue" placeholder="Apartment Distress Value"
+                                                   name="buildingDistressValue" placeholder="Apartment Market Value"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -1231,12 +1243,11 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingDistressValue">Apartment Distress
-                                                Value</label>
+                                            <label class="title" for="buildingDistressValue">Apartment Market Value</label>
                                             <input class="form-control rounded"
                                                    formControlName="buildingDistressValue"
                                                    id="afterDV"
-                                                   name="buildingDistressValue" placeholder="Apartment Distress Value"
+                                                   name="buildingDistressValue" placeholder="Apartment Market Value"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -1359,7 +1370,7 @@
                                     <label for="landConsideredValue">Considered Value</label>
                                     <input class="form-control" formControlName="landConsideredValue"
                                            id="landBuildingConsideredValue" name="total" placeholder="Considered Value"
-                                           type="number">
+                                           type="number" readonly>
                                 </div>
                             </div>
 
@@ -1427,12 +1438,25 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
-                                    <input class="form-control rounded"
+                                    <label class="title" for="distressValue">Market Value</label>
+                                    <input (input)="calConsiderValue('landBuilding', i)"
+                                           class="form-control rounded"
                                            formControlName="distressValue"
                                            name="distressValue"
-                                           [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
+                                           placeholder="Market Value"
                                            type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="landBuildingRate">Rate</label>
+                                    <input (input)="calConsiderValue('landBuilding', i)"
+                                           class="form-control rounded"
+                                           formControlName="landBuildingRate"
+                                           id="landBuildingRate"
+                                           placeholder="Rate"
+                                           name="landBuildingRate"
+                                           type="number"/>
                                 </div>
                             </div>
                         </div>
@@ -1803,7 +1827,7 @@
                                         <label for="landConsideredValueConstruction">Considered Value</label>
                                         <input class="form-control" formControlName="landConsideredValueConstruction"
                                                id="landConsideredValueConstruction" name="total"
-                                               placeholder="Considered Value" type="number">
+                                               placeholder="Considered Value" type="number" readonly>
                                     </div>
                                 </div>
                                 <!--                                To do: need to remove if not required in future-->
@@ -1868,12 +1892,24 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
-                                        <input class="form-control rounded"
+                                        <label class="title" for="distressValue">Market Value</label>
+                                        <input (input)="calConsiderValue('lbUnderConstruction', i)"
+                                               class="form-control rounded"
                                                formControlName="distressValueConstruction"
                                                name="distressValue"
-                                               [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
+                                               placeholder="Market Value"
                                                type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title">Rate</label>
+                                        <input (input)="calConsiderValue('lbUnderConstruction', i)"
+                                               class="form-control rounded"
+                                               formControlName="landbuildingUnderRate"
+                                               placeholder="Rate"
+                                               name="landbuildingUnderRate"
+                                               type="number"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
