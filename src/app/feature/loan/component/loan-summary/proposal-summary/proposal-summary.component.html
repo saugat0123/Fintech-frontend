@@ -420,6 +420,14 @@
                     <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
                 </tr>
             </ng-container>
+            <ng-container *ngIf="checkedData?.deviationChecked">
+                <tr class="text-white sb-bg-dark">
+                    <th>Waiver/Deviation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+                </tr>
+            </ng-container>
             <ng-container *ngIf="checkedData?.solChecked">
                 <tr class="text-white sb-bg-dark">
                     <th>Single Obligor Limit</th>

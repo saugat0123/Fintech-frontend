@@ -60,6 +60,7 @@ export class LoanDataHolder extends BaseEntity {
     guarantor: GuarantorDetail;
     taggedGuarantors: Array<Guarantor>;
     priority: Priority;
+    approvingLevel: any;
     createdAt: Date;
     previousList: LoanStage[] = [];
     previousStageList: string;

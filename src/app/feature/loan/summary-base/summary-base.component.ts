@@ -168,17 +168,17 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.closed = false;
             }
 
-            await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
-                .subscribe((res: any) => {
-                    if (res.detail === undefined) {
-                        this.actionsList.approved = false;
-                    } else {
-                        if (this.loanDataHolder.proposal !== null
-                            && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
-                            this.actionsList.approved = false;
-                        }
-                    }
-                });
+            // await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
+            //     .subscribe((res: any) => {
+            //         if (res.detail === undefined) {
+            //             this.actionsList.approved = false;
+            //         } else {
+            //             if (this.loanDataHolder.proposal !== null
+            //                 && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
+            //                 this.actionsList.approved = false;
+            //             }
+            //         }
+            //     });
             if (this.loanDataHolder.isSol) {
                 if (this.loanDataHolder.solUser.id !== this.user.id) {
                     this.actionsList.approved = false;

@@ -49,7 +49,9 @@ dbr;
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
       }
-      if (!ObjectUtil.isEmpty(this.individual.jointInfo)) {
+    }
+    if (!ObjectUtil.isEmpty(this.individual)) {
+      if (this.individual.jointInfo) {
         const jointCustomerInfo = JSON.parse(this.individual.jointInfo);
         this.riskInfo = jointCustomerInfo;
         this.clientType = jointCustomerInfo.clientType;
