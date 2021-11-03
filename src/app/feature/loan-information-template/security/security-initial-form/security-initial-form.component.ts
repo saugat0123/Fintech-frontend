@@ -187,6 +187,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
+        // this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -1703,6 +1704,7 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     submit() {
+        this.pushSecurityNameInArray();
         this.setRevaluationData('landDetails', this.revaluationComponent, SecurityIds.landId);
         this.setRevaluationData('buildingDetails', this.revaluationComponentApartment, SecurityIds.apartmentId);
         this.setRevaluationData('landBuilding', this.revaluationComponentLandBuilding, SecurityIds.land_buildingId);
@@ -2100,5 +2102,161 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.securityForm.get(['landBuilding', index, 'landConsideredValueConstruction']).patchValue(lbUnderConValue);
                 break;
         }
+    }
+
+    public resetSecurityForm(event): void {
+        const securityIndex = this.selectedArray.indexOf(event.securityName);
+        if (securityIndex > -1) {
+            this.selectedArray.splice(securityIndex, 1);
+        }
+        let index = 1;
+        if (event.formArrayName === 'shareSecurityDetails') {
+            const shareSecurityFormControl = this.shareSecurityForm.get(event.formArrayName) as FormArray;
+            shareSecurityFormControl.controls.forEach(f => {
+                f.reset();
+                f.clearValidators();
+                f.updateValueAndValidity();
+                index++;
+            });
+            for (let i = 1; i <= index; i++) {
+                shareSecurityFormControl.removeAt(i);
+                index--;
+                i--;
+            }
+        } else {
+            const formControl = this.securityForm.get(event.formArrayName) as FormArray;
+            formControl.controls.forEach(f => {
+                f.reset();
+                f.clearValidators();
+                f.updateValueAndValidity();
+                index++;
+            });
+            for (let i = 1; i <= index; i++) {
+                formControl.removeAt(i);
+                index--;
+                i--;
+            }
+        }
+        this.toastService.show(new Alert(AlertType.INFO, 'Please save security to make changes'));
+    }
+
+    private pushSecurityNameInArray(): void {
+        const landDetails = this.securityForm.get('landDetails') as FormArray;
+        landDetails.controls.forEach(f => {
+            const value = f.value.owner || f.value.considerValue || f.value.fairMarketValue;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('LandSecurity') === -1) {
+                this.selectedArray.push('LandSecurity');
+            }
+        });
+        const vehicleDetails = this.securityForm.get('vehicleDetails') as FormArray;
+        vehicleDetails.controls.forEach(f => {
+            const value = f.value.model || f.value.valuationAmount || f.value.registrationNumber || f.value.engineNumber;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('VehicleSecurity') === -1) {
+                this.selectedArray.push('VehicleSecurity');
+            }
+        });
+        const buildingDetails = this.securityForm.get('buildingDetails') as FormArray;
+        buildingDetails.controls.forEach(f => {
+            const value = f.value.buildArea || f.value.buildingFairMarketValue || f.value.buildingFairMarketValue ||
+                f.value.buildingDistressValue;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('ApartmentSecurity') === -1) {
+                this.selectedArray.push('ApartmentSecurity');
+            }
+        });
+        const landBuilding = this.securityForm.get('landBuilding') as FormArray;
+        landBuilding.controls.forEach(f => {
+            const value = f.value.owner || f.value.landConsideredValue || f.value.marketValue;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('Land and Building Security') === -1) {
+                this.selectedArray.push('Land and Building Security');
+            }
+        });
+        const plantDetails = this.securityForm.get('plantDetails') as FormArray;
+        plantDetails.controls.forEach(f => {
+            const value = f.value.model || f.value.quotation || f.value.supplier
+                || f.value.downPay || f.value.loanExp;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('PlantSecurity') === -1) {
+                this.selectedArray.push('PlantSecurity');
+            }
+        });
+        const fixedDepositDetails = this.securityForm.get('fixedDepositDetails') as FormArray;
+        fixedDepositDetails.controls.forEach(f => {
+            const value = f.value.accountNumber || f.value.amount || f.value.receiptNumber
+                || f.value.accountHolderName;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('FixedDeposit') === -1) {
+                this.selectedArray.push('FixedDeposit');
+            }
+        });
+        const hypothecationOfStock = this.securityForm.get('hypothecationOfStock') as FormArray;
+        hypothecationOfStock.controls.forEach(f => {
+            const value = f.value.owner || f.value.description || f.value.stock
+                || f.value.value || f.value.otherDetail;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('HypothecationOfStock') === -1) {
+                this.selectedArray.push('HypothecationOfStock');
+            }
+        });
+        const corporateGuarantee = this.securityForm.get('corporateGuarantee') as FormArray;
+        corporateGuarantee.controls.forEach(f => {
+            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('CorporateGuarantee') === -1) {
+                this.selectedArray.push('CorporateGuarantee');
+            }
+        });
+        const personalGuarantee = this.securityForm.get('personalGuarantee') as FormArray;
+        personalGuarantee.controls.forEach(f => {
+            const value = f.value.name || f.value.address || f.value.otherDetail;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('PersonalGuarantee') === -1) {
+                this.selectedArray.push('PersonalGuarantee');
+            }
+        });
+        const insurancePolicy = this.securityForm.get('insurancePolicy') as FormArray;
+        insurancePolicy.controls.forEach(f => {
+            const value = f.value.insuredAmount || f.value.insuranceCompanyName
+                || f.value.surrenderValue || f.value.consideredValue || f.value.cashBackAmount;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('InsurancePolicySecurity') === -1) {
+                this.selectedArray.push('InsurancePolicySecurity');
+            }
+        });
+        const assignmentOfReceivables = this.securityForm.get('assignmentOfReceivables') as FormArray;
+        assignmentOfReceivables.controls.forEach(f => {
+            const value = f.value.amount || f.value.otherDetail;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('AssignmentOfReceivables') === -1) {
+                this.selectedArray.push('AssignmentOfReceivables');
+            }
+        });
+        const shareSecurityDetails = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+        shareSecurityDetails.controls.forEach(f => {
+            const value = f.value.companyName || f.value.totalShareUnit;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('ShareSecurity') === -1) {
+                this.selectedArray.push('ShareSecurity');
+            }
+        });
+        const leaseAssignment = this.securityForm.get('leaseAssignment') as FormArray;
+        leaseAssignment.controls.forEach(f => {
+            const value = f.get('otherDetail').value;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('LeaseAssignment') === -1) {
+                this.selectedArray.push('LeaseAssignment');
+            }
+        });
+        const otherSecurity = this.securityForm.get('otherSecurity') as FormArray;
+        otherSecurity.controls.forEach(f => {
+            const value = f.get('otherDetail').value;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('OtherSecurity') === -1) {
+                this.selectedArray.push('OtherSecurity');
+            }
+        });
     }
 }
