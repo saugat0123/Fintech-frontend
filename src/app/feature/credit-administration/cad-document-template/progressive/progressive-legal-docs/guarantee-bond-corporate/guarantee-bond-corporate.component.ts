@@ -122,6 +122,8 @@ export class GuaranteeBondCorporateComponent implements OnInit {
       municipalityName: [undefined],
       wadNo: [undefined],
       branchName: [undefined],
+      sonDaughterName: [undefined],
+      husbandWifeName: [undefined],
       registerCompanyName: [undefined],
       date: [undefined],
       ltdNo: [undefined],
