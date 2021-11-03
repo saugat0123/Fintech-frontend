@@ -4,6 +4,11 @@
     </nb-card-header>
     <div>
         <form [formGroup]="form">
+            <div class="row pt-3 pl-2">
+                <div class="col-md-12 pt-3 pl-2">
+                    <nb-checkbox #limitCheck (change)="loanChecked(limitCheck.checked)" [checked]="loanLimit"><i>Customer has total loan amount above One Crore</i></nb-checkbox>
+                </div>
+            </div>
             <div class="row mt-5 px-5">
                 <table class="table table-borderless text-center sb-small table-sm">
                     <tr>
