@@ -48,8 +48,8 @@ export class CustomerGroupComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      groupCode: [undefined, Validators.required],
-      detailInformation: [undefined, Validators.required],
+      groupCode: [undefined],
+      detailInformation: [undefined],
     });
   }
 

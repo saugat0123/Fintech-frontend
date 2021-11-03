@@ -1,9 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../customer/model/customerType';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
+// tslint:disable-next-line:max-line-length
+import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 @Component({
     selector: 'app-micro-loan-detail-view-base',
@@ -26,6 +28,8 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
     financialView = false;
     financialData;
     @Input() isMicro;
+  @Output() documents = new EventEmitter();
+  siteVisitDocuments: Array<SiteVisitDocument>;
 
     constructor() {
     }
@@ -61,5 +65,10 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
                 this.loanDataHolder.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
         }
     }
+
+  checkSiteVisitDocument(event: any) {
+    this.siteVisitDocuments = event;
+    this.documents.emit(this.siteVisitDocuments);
+  }
 
 }

@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {flatten} from '@angular/compiler';
 
 
 @Component({
@@ -15,6 +16,7 @@ import {SiteVisitDocument} from '../../../../loan-information-template/security/
 export class SecuritySummaryComponent implements OnInit {
     @Input() formData: Object;
     @Input() shareSecurity;
+    @Input() collateralData;
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;
@@ -47,6 +49,9 @@ export class SecuritySummaryComponent implements OnInit {
     isCollateralSiteVisitPresent = false;
     collateralSiteVisits: Array<CollateralSiteVisit> = [];
     siteVisitJson = [];
+    isPrintable = 'YES';
+    @Input() docStatus;
+    @Output() downloadSiteVisitDocument = new EventEmitter();
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
@@ -165,17 +170,49 @@ export class SecuritySummaryComponent implements OnInit {
         if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
             this.isPresentGuarantor = true;
         }
-        if (this.securityId !== undefined) {
-            this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
-                .subscribe((response: any) => {
-                    this.collateralSiteVisits = response.detail;
-                    this.collateralSiteVisits.filter(item => {
-                        this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+        if (!ObjectUtil.isEmpty(this.collateralData) && this.docStatus.toString() === 'APPROVED') {
+            this.collateralSiteVisits = this.collateralData;
+            const arr = [];
+            this.collateralSiteVisits.forEach(f => {
+                if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
+                    arr.push(f.siteVisitDocuments);
+                }
+            });
+            // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+            const docArray = flatten(arr);
+            // filter for only printable document
+            this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+
+            this.collateralSiteVisits.filter(item => {
+                this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+            });
+            if (this.collateralData.length > 0) {
+                this.isCollateralSiteVisitPresent = true;
+            }
+        } else {
+            if (!ObjectUtil.isEmpty(this.securityId)) {
+                this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
+                    .subscribe((response: any) => {
+                        this.collateralSiteVisits = response.detail;
+                        const arr = [];
+                        this.collateralSiteVisits.forEach(f => {
+                            if (f.siteVisitDocuments.length > 0) {
+                                arr.push(f.siteVisitDocuments);
+                            }
+                        });
+                        // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+                        const docArray = flatten(arr);
+                        // filter for only printable document
+                        this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+                        this.collateralSiteVisits.filter(item => {
+                            this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                        });
+                        if (response.detail.length > 0) {
+                            this.isCollateralSiteVisitPresent = true;
+                        }
+                        this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
                     });
-                    if (response.detail.length > 0) {
-                        this.isCollateralSiteVisitPresent = true;
-                    }
-                });
+            }
         }
     }
 
