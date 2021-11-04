@@ -76,7 +76,8 @@ const COMPONENTS = [
         PersonalLoanAndPersonalOverdraftComponent,
         PersonalLoanComponent,
         SakhshiCommonComponent,
-    SecuritiesComponent
+        SecuritiesComponent,
+        PersonalLoanPrintComponent
     ],
     imports: [
         ThemeModule,
