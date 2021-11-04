@@ -4,7 +4,7 @@
       <div class="row justify-content-end">
         <div class="col-md-8 justify-content-end">
           <div>
-            <table class="table  table-bordered text-center">
+            <table style="margin-bottom: 20px" class="table  table-bordered text-center">
               <tbody>
               <tr>
                 <td>टोकन/दर्ता नं. :-</td>
@@ -35,7 +35,7 @@
               </tr>
               <tr>
                 <td>ऋणीको नाम :-</td>
-                <td colspan="2"><input class="form-control-sm form-field nepaliFont"
+                <td colspan="3 "><input class="form-control-sm form-field nepaliFont"
                            formControlName="creditorName"
                            type="text">
                 </td>
@@ -49,7 +49,7 @@
         <strong class="text-center"><strong>विषय :- धितोबन्धक लिखत ।</strong></strong>
         <br>
         <p>
-          लिखितम लिखत गराई लिने धनिकानाम का.जि.का.म.न.पा.वडा नं. ३२,
+          लिखितम लिखत गराई लिने धनिका नाम का.जि.का.म.न.पा.वडा नं. २२,
           न्यूरोडस्थित रजिष्टर्ड कार्यालय भएको <strong> प्रोग्रेशिभ फाइनान्स लिमिटेडको</strong>
           <input class="form-control-sm form-field nepaliFont"
                  formControlName="cityName"
@@ -60,7 +60,7 @@
                                                                      type="text">,
           स्थित <input class="form-control-sm form-field nepaliFont"
                        formControlName="jillaName2"
-                       type="text"> शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा “धनीवित्तीय संस्था” भनिएको), लिखत गरि धितो सुरक्षण लेखिदिनेको नाम
+                       type="text"> शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा “धनीवित्तीय संस्था” भनिएको), लिखत गरि धितो सुरक्षण लेखि दिनेको नाम
           <input class="form-control-sm form-field nepaliFont"
                                                        formControlName="dhitoName"
                                                        type="text">
@@ -73,21 +73,22 @@
           रु. <input (change)="getNumAmountWord('upabhogRu','upabhogRuWord')"
                      class="form-control-sm form-field nepaliFont"
                      formControlName="upabhogRu"
-                     type="text">।
-          (अक्षेरेपी <input class="form-control-sm form-field nepaliFont"
+                     type="text">।-
+          (अक्षेरेपी <input style="font-size: 16px" class="form-control-sm form-field nepaliFont"
                             formControlName="upabhogRuWord"
                             readonly type="text">मात्र)
-          सम्मको कर्जा सीमा मध्ये प्रस्तुत जायजेथा रु <input
+          सम्मको कर्जा सीमा मध्ये प्रस्तुत जाय जेथा रु <input
             (change)="getNumAmountWord('jyayeJethaRu','jyayeJethaRuWord')"
             class="form-control-sm form-field nepaliFont"
             formControlName="jyayeJethaRu"
             type="text">।–
-          (अक्षेरेपी <input class="form-control-sm form-field nepaliFont"
+          (अक्षेरेपी <input style="font-size: 16px" class="form-control-sm form-field nepaliFont"
                             formControlName="jyayeJethaRuWord"
                             readonly type="text">मात्र)
+
           सम्म वा धितोको मुल्यले खामे सम्मको चालुपूंजि (Working Capital), डिमाण्डलोन (Demand Loan)
           वा अन्यकर्जा लगायतका कुनै पनि शीर्षकका अल्प आबधिक कर्जा
-          (Short Term Loan) वा दिर्घकालीन कर्जा (Term Loan),बैंक ग्यारेन्टी (Bank Guarantee), बिल्स पर्चेज (दBill Purchase), ब्रिजग्यापकर्जा (Bridge Gap Loan)
+          (Short Term Loan) वा दिर्घकालीन कर्जा (Term Loan),बैंक ग्यारेन्टी (Bank Guarantee), बिल्स पर्चेज (Bill Purchase), ब्रिजग्यापकर्जा (Bridge Gap Loan)
           वा वित्तीय संस्थाले प्रदान गर्ने अन्य विभिन्न किसीमका ऋण कर्जा तथा बैकिङ्ग सुविधाहरु एकै पटक वा पटकपटक गरी वा नविकरण गर्नु परेमा सो समेत गर्न सक्ने गरि मैले/हामीले/ऋणीले
           उपभोग गर्ने सम्पूर्ण ऋणकर्जा तथा बैकिङ्ग सुविधाहरुको धितो बन्धक सुरक्षण वापत अचल सम्पत्ति घरजग्गा धितोबन्धक लेखि दिन मञ्जुर छ, छैन भनी धनी वित्तीय संस्थाबाट सोधनी हुँदा
           सो मा मेरो/हाम्रो पूुर्ण मञ्जुरी भएको र मलाई/हामीलाई/ऋणीलाई उपरोक्तानूसार कुनै पनि उद्देश्यका लागि एकै पटक वा पटकपटक गरी भविष्यमा समेत तपांई धनि वित्तीय संस्थाले उपलव्ध
@@ -112,7 +113,7 @@
         <br><br>
 
 
-        <p><strong>ऋणीको विवरण र सहीछाप :- ब्यक्तिको हकमा</strong></p>
+        <p><strong>ऋणीको विवरण र सहीछाप : ब्यक्तिको हकमा</strong></p>
         <div>
           <div class="col-md-12 float-right">
             <button (click)="addRinBibaran()" class="btn btn-primary btn-sm float-right " size="tiny"
@@ -225,9 +226,9 @@
         </div>
         <br><br>
 
-        <p><strong>धितो बन्धक लिखत गरिदिनेको विवरण र सहीछाप (व्यक्तिको हकमा) :- यो धितो बन्धकदिएको जग्गा
+        <p><strong>धितोबन्धक लिखत गरिदिनेको विवरण र सहीछाप (व्यक्तिको हकमा)</strong> : यो धितो बन्धकदिएको जग्गा
           समेत गर्दा
-          नेपाल अधिराज्यभरमा मेरो र मेरो परिवारको नाममा हद बन्दी भन्दा बढिज ग्गा छैन।</strong></p>
+          नेपाल अधिराज्यभरमा मेरो र मेरो परिवारको नाममा हद बन्दी भन्दा बढिज जग्गा छैन।</p>
         <div>
           <table class="table  table-bordered text-center">
             <tbody>
@@ -277,7 +278,7 @@
             </tr>
 
             <tr>
-              <td>नागरिकता नं.<input class="form-control-sm form-field nepaliFont"
+              <td>ना.प्र.प.नं. :<input class="form-control-sm form-field nepaliFont"
                                      formControlName="creditorCitizenshipNo2"
                                      type="text">
               </td>
@@ -286,12 +287,14 @@
                   formControlName="creditorCitizenshipOfficeAddress2"
                   type="text"><br>
               </td>
-              <td>मोबाईल नम्बर :-<input class="form-control-sm form-field nepaliFont"
-                                        formControlName="creditorMobileNo2"
-                                        type="text"><br>
+              <td>
                 जग्गाधनी संकेत नंं. :-<input class="form-control-sm form-field nepaliFont"
                                              formControlName="jaggaDhaniSanketNo"
                                              type="text">
+                मोबाईल नम्बर :-<input class="form-control-sm form-field nepaliFont"
+                                        formControlName="creditorMobileNo2"
+                                        type="text"><br>
+
               </td>
             <tr>
               <td>जारी मिति :- <input class="form-control-sm form-field nepaliFont"
@@ -324,47 +327,44 @@
         </div>
         <br><br>
 
-        <p><strong>लिखत गराई लिने (धनी) को विवरण र सहिछाप :- </strong></p>
+        <p><strong>लिखत गराई लिने (धनी) को विवरण र सहिछाप : </strong></p>
         <div class="col-md-12">
           <table class="table  table-bordered text-center">
             <tbody>
             <tr>
-              <th>नामथर:- :-<input class="form-control-sm form-field nepaliFont"
+              <th>नाम थर: प्रोग्रेशिभ फाइनान्स लिमिटेड : <input class="form-control-sm form-field nepaliFont"
                                    formControlName="creditorNameNepali5"
                                    type="text"><br>
                 (<input class="form-control-sm form-field nepaliFont"
                         formControlName="branchName1"
                         type="text">शाखा)
               </th>
-              <th>नाम थर (अंग्रेजीमा):-<input class="form-control-sm form-field "
+              <th>नाम थर (Progressive Finance Ltd )<input class="form-control-sm form-field "
                                               formControlName="creditorNameEnglish5"
                                               type="text"><br>
                 (<input class="form-control-sm form-field"
                         formControlName="branchName2"
                         type="text">BRANCH)
               </th>
-              <th>दर्ता मिति :- <input class="form-control-sm form-field nepaliFont"
+              <th>दर्ता मिति : २०५१/०६/१४ <input class="form-control-sm form-field nepaliFont"
                                        formControlName="dartaDate3"
                                        type="text"></th>
               <th>वित्तीय संस्थाको छाप</th>
             </tr>
             <tr>
-              <td>दर्ता नं.:- <input class="form-control-sm form-field nepaliFont"
+              <td>दर्ता नं.: ९८/०५१/०५२ <input class="form-control-sm form-field nepaliFont"
                                      formControlName="dartaNo3"
                                      type="text"></td>
-              <td>दर्ता गर्ने कार्यालय:-कम्पनी रजिष्ट्रारको कार्यालय
+              <td>दर्ता गर्ने कार्यालय: कम्पनी रजिष्ट्रारको कार्यालय
               </td>
               <td></td>
               <td></td>
             </tr>
 
             <tr>
-              <td>स्थायी लेखादर्ता (पान) नं. :-<input class="form-control-sm form-field nepaliFont"
-                                                      formControlName="panNo3"
-                                                      type="text"></td>
-              <td>दर्ता मिति:-<input class="form-control-sm form-field nepaliFont"
-                                     formControlName="dartaMiti3"
-                                     type="text"></td>
+              <td>स्थायी लेखादर्ता (पान) नं. : ५०००५५३०४
+              <td>दर्ता मिति: २०५७/०२/३०
+            </td>
               <td>दर्ता गर्ने कार्यालय:-आन्तरिक राजश्वकार्यालय,
               </td>
               <td></td>
@@ -406,7 +406,7 @@
         </div>
         <br><br>
 
-        <strong>धितोबन्धक दिएको अचल सम्पत्तिको विवरण :-</strong>
+        <strong>धितोबन्धक दिएको अचल सम्पत्तिको विवरण :</strong>
         <div class="col-md-12">
           <table class="table  table-bordered text-center">
             <tbody>
@@ -497,10 +497,10 @@
         <br><br>
         <p>उक्त कित्ता नं. <input class="form-control-sm form-field nepaliFont"
                                  formControlName="kittaNo"
-                                 type="text"> को घर/जग्गातथा सो घर/जग्गाले चर्चेको
-          सम्पूर्ण लिगलगापात समेत ।</p>
-
-        <p>संलग्नप्रमाणहरु :-<br>
+                                 type="text"> को घर/जग्गातथा सो घर/जग्गाले चर्चेको सम्पूर्ण लिगलगापात समेत ।
+        <br>
+          <br>
+        <strong><u>संलग्नप्रमाणहरु</u></strong> :<br>
           (क) चालु आ.व. <input class="form-control-sm form-field nepaliFont"
                                formControlName="chaluArthikBarsa"
                                type="text">.को मालपोत तिरेको रसिदको
@@ -578,12 +578,6 @@
           </div>
         </div>-->
         <table class="table table-responsive-md table-borderless">
-          <thead>
-          <tr>
-            <td>१. दस्तखत:</td>
-            <td>.............................</td>
-          </tr>
-          </thead>
           <tbody>
           <tr>
             <td>नाम:</td>
@@ -622,12 +616,6 @@
         </table>
 
         <table class="table table-responsive-md table-borderless">
-          <thead>
-          <tr>
-            <td>२. दस्तखत:</td>
-            <td>.............................</td>
-          </tr>
-          </thead>
           <tbody>
           <tr>
             <td>नाम:</td>
@@ -694,7 +682,10 @@
           हस्ताक्षर ........................ ।
         </p>
         <br><br>
-        <div class="col-md-12">
+        <div class="col-md-12" style="border-top: 5px solid black;padding-top: 5px">
+          <p class="text-center">
+            <strong>कार्यालय प्रयोजनकालागि</strong>
+          </p>
           <table class="table  table-bordered text-center">
             <tbody>
             <tr>
@@ -785,11 +776,11 @@
               <td class="text-center" width="35%">
                 <strong class="text-center">नेपाल सरकार<br>
                   भूमि व्यवस्था, सहकारी तथा गरिबि निवारण मन्त्रालय<br>
-                  भूमि व्यवस्थापन तथा अभिलेख विभाग।</strong><br>
+                  भूमि व्यवस्थापन तथा अभिलेख विभाग।</strong><br><br>
 
                 मालपोत कार्यालय:- <input class="form-control-sm form-field nepaliFont"
                                          formControlName="malpotKaryalaya"
-                                         type="text"><br>
+                                         type="text"><br><br>
 
                 डोरमुकाम:- <input class="form-control-sm form-field nepaliFont"
                                   formControlName="doormukam"
@@ -813,7 +804,7 @@
                 यो लिखतको व्यहोरा लिने दिने दुवै पक्षलाई पढेर सुनाउँदा लिखत बमोजिम कारोबार गरेको मञ्जुर
                 गरेकोले
                 लिखतपारित (स्वीकृत) गर्नको लागि पेश गरेको छु ।<br>
-                <strong>फाँटवालाको</strong><br>
+                <strong><u>फाँटवालाको</u></strong><br>
                 दस्तखत र मिति :- .......................<input
                       class="form-control-sm form-field nepaliFont"
                       formControlName="fatwalaMiti"
