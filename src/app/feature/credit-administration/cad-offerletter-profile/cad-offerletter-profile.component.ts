@@ -41,6 +41,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     loanLimit: any;
     initialInfoPrint: any;
     offerLetterData: any;
+    nbDialogServiceRef;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -124,7 +125,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         });
     }
 
-    openPrintModel(model, documentName: string, documentId, index: number) {
+    openPreviewModal(model, documentName: string, documentId, index: number) {
         if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
             this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
                 === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN).toString())[0];
@@ -144,9 +145,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             }
             this.documentName = documentName;
         }
-        this.modelService.open(model, {
-            size: 'xl',
-            windowClass: 'model-full'
+        this.nbDialogServiceRef = this.nbDialogService.open(model, {
+            dialogClass: 'model-full'
         });
     }
     openModel(model, documentName: string, documentId, index: number) {
@@ -267,6 +267,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     }
 
-    onClose() {
+    nbDialogServiceClose() {
+        this.nbDialogServiceRef.close();
     }
 }

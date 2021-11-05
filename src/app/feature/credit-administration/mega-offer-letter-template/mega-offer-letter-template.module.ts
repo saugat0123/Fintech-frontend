@@ -77,7 +77,12 @@ const COMPONENTS = [
         PersonalLoanComponent,
         SakhshiCommonComponent,
         SecuritiesComponent,
-        PersonalLoanPrintComponent
+        PersonalLoanPrintComponent,
+        RetailProfessionalLoanPrintComponent,
+        SmePrintComponent,
+        PersonalOverdraftPrintComponent,
+        PersonalLoanAndPersonalOverdraftPrintComponent,
+        RetailMortgageLoanPrintComponent
     ],
     imports: [
         ThemeModule,

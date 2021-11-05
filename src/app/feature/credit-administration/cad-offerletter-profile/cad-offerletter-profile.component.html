@@ -150,7 +150,7 @@
                                         <a
                                            class="fa fa-eye cursor ml-1"
                                            nbTooltip="Preview"
-                                           (click)="openPrintModel(printDocModal,cusOfferLetter?.docName,cusOfferLetter?.id,i)"></a>
+                                           (click)="openPreviewModal(printDocModal,cusOfferLetter?.docName,cusOfferLetter?.id,i)"></a>
 <!--                                            </span>-->
                   </td>
                 </tr>
@@ -439,16 +439,59 @@
 <ng-template #printDocModal>
     <nb-card accent="primary">
         <nb-card-header>
-          <a (click)="modelService.dismissAll()" aria-label="Close" class="close cursor"
+          <a (click)="nbDialogServiceClose()" aria-label="Close" class="close cursor"
              data-dismiss="modal">
             <span aria-hidden="true">×</span></a>
         </nb-card-header>
         <nb-card-body [ngSwitch]="documentName" *ngIf="cadOfferLetterApprovedDoc">
-          <app-personal-loan-print *ngSwitchCase="offerLetterConst.value(offerLetterConst.PERSONAL_LOAN)" [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                                    [letter]="initialInfoPrint"
-                                    [loanLimit]="this.loanLimit"
-                                    [preview]="true"
-                                    [offerData] = "offerLetterData"></app-personal-loan-print>
+          <app-personal-loan-print *ngSwitchCase="offerLetterConst.value(offerLetterConst.PERSONAL_LOAN)"
+                                   [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                   [letter]="initialInfoPrint"
+                                   [loanLimit]="this.loanLimit"
+                                   [preview]="true"
+                                   [offerData]="offerLetterData"></app-personal-loan-print>
+          <app-retail-professional-loan-print *ngSwitchCase="offerLetterConst.value(offerLetterConst.EDUCATIONAL)"
+                                        [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                        [preview]="true"
+                                        [offerData]="offerLetterData"></app-retail-professional-loan-print>
+          <app-sme-print *ngSwitchCase="offerLetterConst.value(offerLetterConst.AUTO_LOAN)"
+                         [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                         [letter]="initialInfoPrint"
+                         [loanLimit]="this.loanLimit"
+                         [preview]="true"
+                         [offerData]="offerLetterData"></app-sme-print>
+          <app-personal-overdraft-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.PERSONAL_OVERDRAFT)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [loanLimit]="this.loanLimit"
+                  [preview]="true"
+                  [offerData]="offerLetterData"></app-personal-overdraft-print>
+          <app-personal-loan-and-personal-overdraft-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [preview]="true"
+                  [offerData]="offerLetterData"></app-personal-loan-and-personal-overdraft-print>
+          <app-home-loan-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.HOME_LOAN)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [loanLimit]="this.loanLimit"
+                  [preview]="true"
+                  [offerData]="offerLetterData"></app-home-loan-print>
+          <app-retail-mortgage-loan-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.MORTAGE_LOAN)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [loanLimit]="this.loanLimit"
+                  [preview]="true"
+                  [offerData]="offerLetterData"></app-retail-mortgage-loan-print>
+          <app-auto-loan-commercial-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.AUTO_LOAN_COMMERCIAL)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [preview]="true"></app-auto-loan-commercial-print>
         </nb-card-body>
     </nb-card>
 </ng-template>
