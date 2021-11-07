@@ -451,9 +451,10 @@
                                    [preview]="true"
                                    [offerData]="offerLetterData"></app-personal-loan-print>
           <app-retail-professional-loan-print *ngSwitchCase="offerLetterConst.value(offerLetterConst.EDUCATIONAL)"
-                                        [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                                        [preview]="true"
-                                        [offerData]="offerLetterData"></app-retail-professional-loan-print>
+                                              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                              [letter]="initialInfoPrint"
+                                              [preview]="true"
+                                              [offerData]="offerLetterData"></app-retail-professional-loan-print>
           <app-sme-print *ngSwitchCase="offerLetterConst.value(offerLetterConst.AUTO_LOAN)"
                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                          [letter]="initialInfoPrint"

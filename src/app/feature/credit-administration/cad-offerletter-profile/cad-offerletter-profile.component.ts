@@ -127,11 +127,11 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     openPreviewModal(model, documentName: string, documentId, index: number) {
         if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
-            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-                === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN).toString())[0];
+            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName
+                === documentName)[0];
             if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
                 this.offerLetterDocument = new OfferDocument();
-                this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN);
+                this.offerLetterDocument.docName = documentName;
             } else {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
                 if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
