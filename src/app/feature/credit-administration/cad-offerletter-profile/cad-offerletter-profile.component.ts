@@ -22,7 +22,6 @@ import {OfferDocument} from '../model/OfferDocument';
 import {PersonalLoanPrintComponent} from '../mega-offer-letter-template/mega-offer-letter/personal-loan/personal-loan-print/personal-loan-print.component';
 
 
-
 @Component({
     selector: 'app-cad-offerletter-profile',
     templateUrl: './cad-offerletter-profile.component.html',
@@ -72,9 +71,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.initial();
-                this.offerLetterTypes = NabilOfferLetterConst.enumObject();
-                this.offerLetterConst = NabilOfferLetterConst;
-                this.component = CadOfferLetterModalComponent;
+        this.offerLetterTypes = NabilOfferLetterConst.enumObject();
+        this.offerLetterConst = NabilOfferLetterConst;
+        this.component = CadOfferLetterModalComponent;
     }
 
     initial() {
@@ -117,7 +116,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
 
-
     openCustomOfferLetterDocumentModal(editId) {
         const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
         this.nbDialogService.open(CustomOfferLetterDocumentComponent, {
@@ -138,7 +136,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                     this.offerLetterData = this.offerLetterDocument;
                     // this.personalLoan.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
                 }
-                this.loanLimit = initialInfo.loanLimitChecked.en;
+                if ('loanLimitChecked' in initialInfo) {
+                    this.loanLimit = initialInfo.loanLimitChecked.en;
+                }
                 this.initialInfoPrint = initialInfo;
                 // this.selectedArray = initialInfo.loanTypeSelectedArray;
                 this.initialInfoPrint = initialInfo;
@@ -149,13 +149,12 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             dialogClass: 'model-full'
         });
     }
+
     openModel(model, documentName: string, documentId, index: number) {
         this.documentName = documentName;
         this.documentId = documentId;
         this.modelService.open(model);
     }
-
-
 
 
     // todo move document upload to seperate to component
@@ -250,8 +249,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     public getTotal() {
         const loanList = this.cadOfferLetterApprovedDoc.assignedLoan;
         return this.isNumber(loanList
-        .map(l => (l.proposal.proposedLimit))
-        .reduce((a, b) => a + b, 0));
+            .map(l => (l.proposal.proposedLimit))
+            .reduce((a, b) => a + b, 0));
 
     }
 
