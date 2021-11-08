@@ -56,7 +56,7 @@
                 <td class="text-left pl-1">{{individual?.email || 'NA'}}</td>
                 <td class="text-left pl-1">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
                 <td class="text-left pl-1">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
-                <td class="text-left pl-1">{{customerInfo?.clientType}}</td>
+                <td class="text-left pl-1">{{loanDataHolder.loanHolder?.clientType | clientType}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
 <!--                <th>Subsector</th>-->
@@ -334,7 +334,7 @@
                     <td class="pl-1">{{info?.email}}</td>
                     <td class="text-left pl-1">{{info?.occupation || 'NA'}}</td>
                     <td class="text-left pl-1">{{info?.incomeSource || 'NA'}}</td>
-                    <td class="pl-1">{{clientType}}</td>
+                    <td class="pl-1">{{loanDataHolder.loanHolder.clientType | clientType}}</td>
 <!--                    <td class="pl-1">{{subsectorDetail}}</td>-->
                 </tr>
                 <tr>
