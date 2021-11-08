@@ -125,6 +125,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
+            this.fillForm();
             this.setEmptyGuarantors(initialInfo.guarantorDetails);
             console.log('initialInfo.guarantorDetails', initialInfo.guarantorDetails);
             this.setSecurityDetails(initialInfo.securityDetails);
