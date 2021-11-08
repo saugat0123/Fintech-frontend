@@ -156,7 +156,7 @@ export class UserComponent implements OnInit {
     edit(user: User) {
         const modalRef = this.modalService.open(UserFormComponent, {size: 'lg'});
         modalRef.componentInstance.model = user;
-
+        UserComponent.loadData(this);
         ModalUtils.resolve(modalRef.result, UserComponent.loadData, this);
     }
 
