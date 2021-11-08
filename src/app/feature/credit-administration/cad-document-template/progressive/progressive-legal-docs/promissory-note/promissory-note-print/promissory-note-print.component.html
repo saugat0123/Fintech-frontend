@@ -8,15 +8,15 @@
             <div class="row">
                 <p>
                     लिखितम् <span
-                        [ngClass]="{'nepaliFont uniFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
+                        [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
     {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
 </span> को
                     नाति/नातिनि ,<span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.fatherName!==null && printDocForm?.fatherName!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.fatherName!==null && printDocForm?.fatherName!==''}">
           {{printDocForm.fatherName === null || printDocForm.fatherName === '' ? '_______________' : printDocForm?.fatherName}}
         </span>को
                     छोरा/छोरी <span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.husbandName!==null && printDocForm?.husbandName!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.husbandName!==null && printDocForm?.husbandName!==''}">
           {{printDocForm.husbandName === null || printDocForm.husbandName === '' ? '_______________' : printDocForm?.husbandName}}
         </span>को
                     पति/पत्नी <span
@@ -45,29 +45,29 @@
           {{printDocForm.tempWadNo === null || printDocForm.tempWadNo === '' ? '_______________' : printDocForm?.tempWadNo}}
         </span>
 
-                    स्थित <span [ngClass]="{'nepaliFont uniFont':printDocForm?.address!==null && printDocForm?.address!==''}">
+                    स्थित <span [ngClass]="{'nepaliFont':printDocForm?.address!==null && printDocForm?.address!==''}">
           {{printDocForm.address === null || printDocForm.address === '' ? '_______________' : printDocForm?.address}}
         </span>
 
                     बस्ने बर्ष <span [ngClass]="{'nepaliFont uniFont':printDocForm?.age!==null && printDocForm?.age!==''}">
           {{printDocForm.age === null || printDocForm.age === '' ? '_______________' : printDocForm?.age}}
         </span>को
-                    <span [ngClass]="{'nepaliFont uniFont':printDocForm?.customerName!==null && printDocForm?.customerName!==''}">
+                    <span [ngClass]="{'nepaliFont':printDocForm?.customerName!==null && printDocForm?.customerName!==''}">
           {{printDocForm.customerName === null || printDocForm.customerName === '' ? '_______________' : printDocForm?.customerName}}
         </span>
                     <b>(ना.प्र.न. <span
                             [ngClass]="{'nepaliFont uniFont':printDocForm?.citizenShipNo!==null && printDocForm?.citizenShipNo!==''}">
           {{printDocForm.citizenShipNo === null || printDocForm.citizenShipNo === '' ? '_______________' : printDocForm?.citizenShipNo}}
         </span>
-                        मिति <span [ngClass]="{'nepaliFont uniFont':printDocForm?.date!==null && printDocForm?.date!==''}">
+                        मिति <span [ngClass]="{'nepaliFont':printDocForm?.date!==null && printDocForm?.date!==''}">
           {{printDocForm.date === null || printDocForm.date === '' ? '_______________' : printDocForm?.date}}
         </span>
                         जि.प्र.का. <span
-                                [ngClass]="{'nepaliFont uniFont':printDocForm?.cdoOffice!==null && printDocForm?.cdoOffice!==''}">
+                                [ngClass]="{'nepaliFont':printDocForm?.cdoOffice!==null && printDocForm?.cdoOffice!==''}">
           {{printDocForm.cdoOffice === null || printDocForm.cdoOffice === '' ? '_______________' : printDocForm?.cdoOffice}}
         </span>)</b>
                     ले यस <strong> प्रोग्रेशिभ फाईनान्स लिमिटेड</strong> <span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.branchName!==null && printDocForm?.branchName!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.branchName!==null && printDocForm?.branchName!==''}">
           {{printDocForm.branchName === null || printDocForm.branchName === '' ? '_______________' : printDocForm?.branchName}}
         </span>
                     शाखा कार्यालयबाट लिएको कूल ऋण कर्जा रकम रु.<span
@@ -90,7 +90,7 @@
                     दस्तखत :-
                     <br><br>
                     दस्तखत गर्नेको नाम :- <span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyName!==null && printDocForm?.sincerlyName!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.sincerlyName!==null && printDocForm?.sincerlyName!==''}">
           {{printDocForm.sincerlyName === null || printDocForm.sincerlyName === '' ? '_______________' : printDocForm?.sincerlyName}}
         </span>
                     <b>(ना.प्र.नं. <span
@@ -98,11 +98,11 @@
           {{printDocForm.sincerlyCitizenshipNo === null || printDocForm.sincerlyCitizenshipNo === '' ? '_______________' : printDocForm?.sincerlyCitizenshipNo}}
         </span>
                         मिति <span
-                                [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyDate!==null && printDocForm?.sincerlyDate!==''}">
+                                [ngClass]="{'nepaliFont':printDocForm?.sincerlyDate!==null && printDocForm?.sincerlyDate!==''}">
           {{printDocForm.sincerlyDate === null || printDocForm.sincerlyDate === '' ? '_______________' : printDocForm?.sincerlyDate}}
         </span>
                         जि.प्र.का. <span
-                                [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyCDOoffice!==null && printDocForm?.sincerlyCDOoffice!==''}">
+                                [ngClass]="{'nepaliFont':printDocForm?.sincerlyCDOoffice!==null && printDocForm?.sincerlyCDOoffice!==''}">
           {{printDocForm.sincerlyCDOoffice === null || printDocForm.sincerlyCDOoffice === '' ? '_______________' : printDocForm?.sincerlyCDOoffice}}
         </span> )</b>
                     <br>
@@ -135,17 +135,17 @@
                 </p>
                 <p>
                     वावु/आमाको नाम :- <span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyParentName!==null && printDocForm?.sincerlyParentName!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.sincerlyParentName!==null && printDocForm?.sincerlyParentName!==''}">
           {{printDocForm.sincerlyParentName === null || printDocForm.sincerlyParentName === '' ? '_______________' : printDocForm?.sincerlyParentName}}
         </span>
                     <br>
                     वाजे/बजैको नाम : <span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyGrandParentName!==null && printDocForm?.sincerlyGrandParentName!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.sincerlyGrandParentName!==null && printDocForm?.sincerlyGrandParentName!==''}">
           {{printDocForm.sincerlyGrandParentName === null || printDocForm.sincerlyGrandParentName === '' ? '_______________' : printDocForm?.sincerlyGrandParentName}}
         </span>
                     <br>
                     पति/पत्निको नाम : <span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyHusbandWifeName!==null && printDocForm?.sincerlyHusbandWifeName!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.sincerlyHusbandWifeName!==null && printDocForm?.sincerlyHusbandWifeName!==''}">
           {{printDocForm.sincerlyHusbandWifeName === null || printDocForm.sincerlyHusbandWifeName === '' ? '_______________' : printDocForm?.sincerlyHusbandWifeName}}
         </span>
                 </p>
