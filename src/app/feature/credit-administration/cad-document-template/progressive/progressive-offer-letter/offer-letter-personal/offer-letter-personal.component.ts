@@ -68,7 +68,6 @@ export class OfferLetterPersonalComponent implements OnInit {
         } else {
             this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         }
-        // this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         this.checkOfferLetter();
     }
 
@@ -122,7 +121,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER_PERSONAL);
             this.fillForm();
             this.addEmptySecurityDetail();
-            //this.addEmptyWitness();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
@@ -132,7 +130,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.setSecurityDetails(initialInfo.securityDetails);
             this.setLoanFacility(initialInfo.loanFacilityTable);
             this.form.patchValue(initialInfo);
-            //this.setEmptyWitnesses(initialInfo.witnessDetails);
         }
     }
 

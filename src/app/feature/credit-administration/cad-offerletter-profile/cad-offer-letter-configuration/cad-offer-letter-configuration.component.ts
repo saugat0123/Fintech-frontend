@@ -15,12 +15,15 @@ import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {environment} from '../../../../../environments/environment';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
     templateUrl: './cad-offer-letter-configuration.component.html',
     styleUrls: ['./cad-offer-letter-configuration.component.scss']
 })
+
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
     @Input() customerInfo: CustomerInfoData;
@@ -35,6 +38,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
     hideSaveBtn = false;
+    client = environment.client;
+    clientList = Clients;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -50,6 +55,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('cadData cad offer', this.customerInfo.nepData);
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -92,7 +98,35 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             companyName: [undefined],
             companyDistrict: [undefined],
             companyVdcMun: [undefined],
-            companyWardNo: [undefined]
+            companyWardNo: [undefined],
+            ministryOfGovernmentOfNepal: [undefined],
+            department: [undefined],
+            companyRegistrarOfficeDistrict: [undefined],
+            companyRegistrarOfficeVdcMun: [undefined],
+            companyRegistrarOfficeWardNo: [undefined],
+            nameOfRegisteringAct: [undefined],
+            yearOfActEnactment: [undefined],
+            registrationDate: [undefined],
+            companyRegistrationNo: [undefined],
+            taxPayerServiceOffice: [undefined],
+            panRegistrationDate: [undefined],
+            panNo: [undefined],
+            representativePermanentDistrict: [undefined],
+            representativePermanentMunType: [undefined],
+            representativePermanentMunicipality: [undefined],
+            representativePermanentWard: [undefined],
+            representativeTemporaryDistrict: [undefined],
+            representativeTemporaryMunType: [undefined],
+            representativeTemporaryMunicipality: [undefined],
+            representativeTemporaryWard: [undefined],
+            representativeGrandFatherName: [undefined],
+            representativeFatherName: [undefined],
+            representativeHusbandWifeName: [undefined],
+            borrowerAge: [undefined],
+            representativeName: [undefined],
+            representativeCitizenshipNo: [undefined],
+            representativeCitizenshipIssueDate: [undefined],
+            representativeCitizenshipIssuingAuthority: [undefined]
         });
     }
 
@@ -129,6 +163,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
         this.spinner = true;
         const data = JSON.stringify(this.userConfigForm.value);
+        console.log('data', data);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
             this.customerInfoData = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
@@ -141,8 +176,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
-
-
     }
 
     closeModal() {
@@ -186,7 +219,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (event.tabId === '2') {
             this.hideSaveBtn = true;
         }
-
     }
 
     setGuarantors(guarantorDetails: any) {
@@ -197,6 +229,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.guarantorList = guarantorList;
             }
         }
+
         guarantorDetails.forEach(value => {
             formArray.push(this.formBuilder.group({
                 name: [value.name],
