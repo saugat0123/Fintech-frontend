@@ -939,11 +939,15 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicleDetailsFormControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
+                f.get('valuationAmount').clearValidators();
+                f.get('valuationAmount').updateValueAndValidity();
             });
             const buildingDetailsFormControls = this.securityForm.get('buildingDetails') as FormArray;
             buildingDetailsFormControls.controls.forEach(f => {
                 f.get('buildArea').clearValidators();
                 f.get('buildArea').updateValueAndValidity();
+                f.get('buildingFairMarketValue').clearValidators();
+                f.get('buildingFairMarketValue').updateValueAndValidity();
             });
             const landBuildingFormControls = this.securityForm.get('landBuilding') as FormArray;
             landBuildingFormControls.controls.forEach(f => {
@@ -954,11 +958,15 @@ export class SecurityInitialFormComponent implements OnInit {
             plantDetailsFormControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
+                f.get('quotation').clearValidators();
+                f.get('quotation').updateValueAndValidity();
             });
             const fixedDepositDetailsFormControls = this.securityForm.get('fixedDepositDetails') as FormArray;
             fixedDepositDetailsFormControls.controls.forEach(f => {
                 f.get('accountNumber').clearValidators();
                 f.get('accountNumber').updateValueAndValidity();
+                f.get('amount').clearValidators();
+                f.get('amount').updateValueAndValidity();
             });
             const hypothecationOfStockFormControls = this.securityForm.get('hypothecationOfStock') as FormArray;
             hypothecationOfStockFormControls.controls.forEach(f => {
@@ -979,11 +987,20 @@ export class SecurityInitialFormComponent implements OnInit {
             insurancePolicyFormControls.controls.forEach(f => {
                 f.get('insuredAmount').clearValidators();
                 f.get('insuredAmount').updateValueAndValidity();
+                f.get('insuranceCompanyName').clearValidators();
+                f.get('insuranceCompanyName').updateValueAndValidity();
             });
             const assignmentFormControls = this.securityForm.get('assignmentOfReceivables') as FormArray;
             assignmentFormControls.controls.forEach(f => {
                 f.get('amount').clearValidators();
                 f.get('amount').updateValueAndValidity();
+            });
+            const shareSecurityControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+            shareSecurityControls.controls.forEach(f => {
+                f.get('companyName').clearValidators();
+                f.get('companyName').updateValueAndValidity();
+                f.get('totalShareUnit').clearValidators();
+                f.get('totalShareUnit').updateValueAndValidity();
             });
         }
     }
@@ -1006,6 +1023,8 @@ export class SecurityInitialFormComponent implements OnInit {
             formControls.controls.forEach(f => {
                 f.get('model').setValidators(Validators.required);
                 f.get('model').updateValueAndValidity();
+                f.get('valuationAmount').setValidators(Validators.required);
+                f.get('valuationAmount').updateValueAndValidity();
             });
         } else {
             const formControls = this.securityForm.get('vehicleDetails') as FormArray;
