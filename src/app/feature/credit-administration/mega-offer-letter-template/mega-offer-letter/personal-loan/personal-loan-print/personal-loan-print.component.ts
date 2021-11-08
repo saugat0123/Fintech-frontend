@@ -16,7 +16,7 @@ export class PersonalLoanPrintComponent implements OnInit {
   @Input() letter: any;
   @Input() offerData;
   @Input() loanLimit;
-  @Input() preview = false;
+  @Input() preview;
   loanHolderInfo;
   offerLetterConst = MegaOfferLetterConst;
   customerAddress;

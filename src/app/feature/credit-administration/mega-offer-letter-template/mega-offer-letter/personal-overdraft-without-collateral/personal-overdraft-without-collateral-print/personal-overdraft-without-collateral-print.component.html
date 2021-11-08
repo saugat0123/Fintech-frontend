@@ -4,19 +4,19 @@
             <form style="padding-left:20px; padding-right:20px; line-height: 1.9">
                 <h6 class="text-center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h6>
                 <p class="text-left"> </p>
-                <input class="form-field form-control-sm col-3"
-                       formControlName="referenceNumber"
-                       name="referenceNumber"
-                       placeholder=" सन्दर्भ नम्बर "
-                       type="text"/>
+                <span class="font-weight-bold">
+            {{autoRefNumber ? autoRefNumber : '_______________________'}}
+        </span>
                 <br>
 
-                <p> <span *ngIf="letter.dateOfApproval.en.nDate; else dateOfApprovalPrint"
+                <p>
+                    ितिः
+                    <span *ngIf="letter.dateOfApproval.en.nDate; else dateOfApprovalPrint"
                              class="font-weight-bold">{{letter?.dateOfApproval.en.nDate}}</span>
                     <ng-template #dateOfApprovalPrint>
                         <span class=" font-weight-bold">{{(letter?.dateOfApproval.en | date) | engNepDate: true}}</span>
                     </ng-template>
-
+                </p>
                 <div class="mb-2">
                     <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
                     <ng-template #nameDetails>
@@ -293,8 +293,6 @@
                             </span>मात्र) को अधिविकर्ष सिमा राखिनेछ ।
                                 </td>
                             </tr>
-
-
                             <tr>
                                 <td>१०.</td>
                                 <td>तपाईले बैंकलाई प्रदान गर्नु भएका स्विकृत कर्जासंग सम्बन्धित सम्पूर्ण सूचनाहरु ठीक

@@ -105,7 +105,8 @@ const COMPONENTS = [
         SmeComponent,
         RetailMortgageLoanComponent,
         SakhshiCommonComponent,
-    SecuritiesComponent
+    SecuritiesComponent,
+        PersonalOverdraftWithoutCollateralComponent,
     ]
 })
 export class MegaOfferLetterTemplateModule {

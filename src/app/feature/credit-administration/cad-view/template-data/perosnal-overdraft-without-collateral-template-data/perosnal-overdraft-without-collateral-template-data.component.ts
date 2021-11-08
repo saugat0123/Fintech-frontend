@@ -19,6 +19,7 @@ import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatte
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Attributes} from '../../../../../@core/model/attributes';
+import {PersonalOverdraftWithoutCollateralComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-overdraft-without-collateral/personal-overdraft-without-collateral.component';
 
 @Component({
   selector: 'app-perosnal-overdraft-without-collateral-template-data',
@@ -108,22 +109,22 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       renewalCheckedTransVal: [undefined],
-      referenceNumberTransVal: [undefined, Validators.required],
+      referenceNumberTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
-      purposeOfLoanTransVal: [undefined, Validators.required],
+      purposeOfLoanTransVal: [undefined],
       baseRateTransVal: [undefined],
       premiumRateTransVal: [undefined],
       yearlyInterestRateTransVal: [undefined],
-      loanadminFeeTransVal: [undefined, Validators.required],
+      loanadminFeeTransVal: [undefined],
       loanadminFeeWordsTransVal: [undefined],
-      loanCommitmentFeeTransVal: [undefined, Validators.required],
+      loanCommitmentFeeTransVal: [undefined],
       dateofExpiryTransVal: [undefined],
       dateofExpiryNepaliTransVal: [undefined],
       dateOfExpiryTypeTransVal: [undefined],
       insuranceAmountinFigureTransVal: [undefined],
-      relationshipofficerNameTransVal: [undefined, Validators.required],
-      nameofBranchManagerTransVal: [undefined, Validators.required],
+      relationshipofficerNameTransVal: [undefined],
+      nameofBranchManagerTransVal: [undefined],
       securities: this.formBuilder.array([])
     });
     this.addDefaultSecurity();
@@ -221,7 +222,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
   }
 
   openModel() {
-    this.dialogService.open(PersonalOverdraftComponent, {
+    this.dialogService.open(PersonalOverdraftWithoutCollateralComponent, {
       closeOnBackdropClick: false,
       closeOnEsc: false,
       hasBackdrop: false,

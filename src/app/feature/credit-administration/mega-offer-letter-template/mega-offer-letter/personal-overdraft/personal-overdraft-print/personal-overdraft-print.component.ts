@@ -20,7 +20,7 @@ export class PersonalOverdraftPrintComponent implements OnInit {
   @Input() renewal: any;
   @Input() offerData;
   @Input() loanLimit;
-  @Input() preview = false;
+  @Input() preview;
   loanHolderInfo;
   offerLetterConst = NabilOfferLetterConst;
   selectedSecurity;
