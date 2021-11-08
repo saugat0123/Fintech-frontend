@@ -169,7 +169,7 @@
 <!-- End NTCA Details-->
 
 <!-- Start Group and Group security Details-->
-<div *ngIf="megaGroupEnabled">
+<div *ngIf="megaGroupEnabled && loanDataHolder.loanType !== 'CLOSURE_LOAN' ">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
 </div>
 
