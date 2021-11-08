@@ -58,13 +58,12 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
 
   fillForm() {
     this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-    if (!ObjectUtil.isEmpty(this.nepaliData)) {
       const customerAddress =
-          this.nepaliData.permanentMunicipality + ' j8f g= ' +
+          this.nepaliData.permanentMunicipality + ', वडा नं. ' +
           this.nepaliData.permanentWard + ', ' +
           this.nepaliData.permanentDistrict;
       const customerTempAddress =
-          this.nepaliData.temporaryMunicipality + ' j8f g= ' +
+          this.nepaliData.temporaryMunicipality + ', वडा नं. ' +
           this.nepaliData.temporaryWard + ', ' +
           this.nepaliData.temporaryDistrict;
       this.form.patchValue({
@@ -80,9 +79,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
         signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
         signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
       });
-    }
-    this.form.get(['addMoreIndividualDetails', 0, 'amount1']).patchValue(this.loanAmountTemplate.numberNepali);
-    this.form.get(['addMoreIndividualDetails', 0, 'amountInWords1']).patchValue(this.loanAmountTemplate.nepaliWords);
   }
 
   checkOfferLetter() {
@@ -94,7 +90,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       this.fillForm();
       this.addPrimaryCollateral();
       this.addAdditionalCollateral();
-      this.addMoreIndividualDetails();
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
       this.initialInfoPrint = initialInfo;
@@ -224,8 +219,9 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
 
   setIndividualDetails(data) {
     const formArray = this.form.get('individualDetails') as FormArray;
+    (this.form.get('individualDetails') as FormArray).clear();
     if (data.length === 0) {
-      this.addMoreIndividualDetails();
+      this.addIndividualDetails();
       return;
     }
     data.forEach(value => {
@@ -238,15 +234,19 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
     });
   }
 
-  addMoreIndividualDetails() {
-    (this.form.get('individualDetails') as FormArray).push(
-        this.formBuilder.group({
+  addIndividualDetails() {
+    return this.formBuilder.group({
           shreeName1: [undefined],
           shreeName2: [undefined],
           amount1: [undefined],
           amountInWords1: [undefined],
-        }));
+        });
   }
+
+  addMoreIndividualDetails() {
+  const formArray = (this.form.get('individualDetails') as FormArray);
+  formArray.push(this.addIndividualDetails());
+}
 
   removeIndividualDetails(index) {
     (this.form.get('individualDetails') as FormArray).removeAt(index);
@@ -267,11 +267,12 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       primaryCollaterals: this.formBuilder.array([]),
       additionalCollaterals: this.formBuilder.array([]),
       dhitoDate: [undefined],
+      yearDate: [undefined],
       currentDate: [undefined],
       marketPrice: [undefined],
       distestPrice: [undefined],
       farePrice: [undefined],
-      individualDetails: this.formBuilder.array([]),
+      individualDetails: this.formBuilder.array([this.addIndividualDetails()]),
       amount2: [undefined],
       amountInWords2: [undefined],
       amount3: [undefined],
@@ -320,10 +321,10 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
     this.form.get(wordLabel).patchValue(returnVal);
   }
 
-  getNumAmount(amount1, amountInWords1, i) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(['addMoreIndividualDetails', i, amount1]).value);
-    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.form.get(['addMoreIndividualDetails', i, amountInWords1]).patchValue(returnVal);
+  getNumAmount(amount1: string, amountInWords1: string, i: number) {
+    const wordLabelVar1 = this.nepToEngNumberPipe.transform(this.form.get(['individualDetails', i, amount1]).value);
+    const returnVal1 = this.nepaliCurrencyWordPipe.transform(wordLabelVar1);
+    this.form.get(['individualDetails', i, amountInWords1]).patchValue(returnVal1);
   }
 
   getNumAmountInWord(amount3: string, amountInWords3: string) {
@@ -339,4 +340,5 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
     const finalValue = this.engToNepaliNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
     this.form.get(yearlyInterest).patchValue(finalValue);
   }
+
 }
