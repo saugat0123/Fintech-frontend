@@ -879,7 +879,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.insurancePolicySelected = this.hypothecationOfStock = this.assignmentOfReceivable =
                 this.corporateGuarantee = this.personal = this.insurancePolicySelected = this.landOtherBranchChecked =
                     this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked = this.vehicleOtherBranchChecked =
-                        this.plantOtherBranchChecked = false;
+                        this.plantOtherBranchChecked = this.assignments = this.securityOther = false;
         selectedSecurity.push(arraySelected);
         selectedSecurity.forEach(selectedValue => {
             switch (selectedValue) {
@@ -988,81 +988,182 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
     clearValidationState() {
-        if (this.selectedSecurity !== 'LandSecurity') {
+        if (this.selectedSecurity === 'LandSecurity') {
             const formControls = this.securityForm.get('landDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
+                f.get('owner').setValidators(Validators.required);
+                f.get('owner').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('landDetails') as FormArray;
+            formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
                 f.get('owner').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'VehicleSecurity') {
+        if (this.selectedSecurity === 'VehicleSecurity') {
             const formControls = this.securityForm.get('vehicleDetails') as FormArray;
-            formControls.controls.forEach( f => {
-                f.get('model').clearValidators();
+            formControls.controls.forEach(f => {
+                f.get('model').setValidators(Validators.required);
                 f.get('model').updateValueAndValidity();
             });
+        } else {
+            const formControls = this.securityForm.get('vehicleDetails') as FormArray;
+            formControls.controls.forEach(f => {
+                f.get('model').clearValidators();
+                f.get('model').updateValueAndValidity();
+                f.get('valuationAmount').clearValidators();
+                f.get('valuationAmount').updateValueAndValidity();
+            });
         }
-        if (this.selectedSecurity !== 'ApartmentSecurity') {
+        if (this.selectedSecurity === 'ApartmentSecurity') {
             const formControls = this.securityForm.get('buildingDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
+                f.get('buildArea').setValidators(Validators.required);
+                f.get('buildArea').updateValueAndValidity();
+                f.get('buildingFairMarketValue').setValidators(Validators.required);
+                f.get('buildingFairMarketValue').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('buildingDetails') as FormArray;
+            formControls.controls.forEach(f => {
                 f.get('buildArea').clearValidators();
                 f.get('buildArea').updateValueAndValidity();
+                f.get('buildingFairMarketValue').clearValidators();
+                f.get('buildingFairMarketValue').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'Land and Building Security') {
+        if (this.selectedSecurity === 'Land and Building Security') {
             const formControls = this.securityForm.get('landBuilding') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
+                f.get('owner').setValidators(Validators.required);
+                f.get('owner').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('landBuilding') as FormArray;
+            formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
                 f.get('owner').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'PlantSecurity') {
+        if (this.selectedSecurity === 'PlantSecurity') {
             const formControls = this.securityForm.get('plantDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
+                f.get('model').setValidators(Validators.required);
+                f.get('model').updateValueAndValidity();
+                f.get('quotation').setValidators(Validators.required);
+                f.get('quotation').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('plantDetails') as FormArray;
+            formControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
+                f.get('quotation').clearValidators();
+                f.get('quotation').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'FixedDeposit') {
+        if (this.selectedSecurity === 'FixedDeposit') {
             const formControls = this.securityForm.get('fixedDepositDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
+                f.get('accountNumber').setValidators(Validators.required);
+                f.get('accountNumber').updateValueAndValidity();
+                f.get('amount').setValidators(Validators.required);
+                f.get('amount').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('fixedDepositDetails') as FormArray;
+            formControls.controls.forEach(f => {
                 f.get('accountNumber').clearValidators();
                 f.get('accountNumber').updateValueAndValidity();
+                f.get('amount').clearValidators();
+                f.get('amount').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'HypothecationOfStock') {
+        if (this.selectedSecurity === 'HypothecationOfStock') {
             const formControls = this.securityForm.get('hypothecationOfStock') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
+                f.get('owner').setValidators(Validators.required);
+                f.get('owner').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('hypothecationOfStock') as FormArray;
+            formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
                 f.get('owner').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'CorporateGuarantee') {
+        if (this.selectedSecurity === 'CorporateGuarantee') {
             const formControls = this.securityForm.get('corporateGuarantee') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
+                f.get('name').setValidators(Validators.required);
+                f.get('name').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('corporateGuarantee') as FormArray;
+            formControls.controls.forEach(f => {
                 f.get('name').clearValidators();
                 f.get('name').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'PersonalGuarantee') {
+        if (this.selectedSecurity === 'PersonalGuarantee') {
             const formControls = this.securityForm.get('personalGuarantee') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
+                f.get('name').setValidators(Validators.required);
+                f.get('name').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('personalGuarantee') as FormArray;
+            formControls.controls.forEach(f => {
                 f.get('name').clearValidators();
                 f.get('name').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'InsurancePolicySecurity') {
+        if (this.selectedSecurity === 'InsurancePolicySecurity') {
             const formControls = this.securityForm.get('insurancePolicy') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
+                f.get('insuredAmount').setValidators(Validators.required);
+                f.get('insuredAmount').updateValueAndValidity();
+                f.get('insuranceCompanyName').setValidators(Validators.required);
+                f.get('insuranceCompanyName').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('insurancePolicy') as FormArray;
+            formControls.controls.forEach(f => {
                 f.get('insuredAmount').clearValidators();
                 f.get('insuredAmount').updateValueAndValidity();
+                f.get('insuranceCompanyName').clearValidators();
+                f.get('insuranceCompanyName').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'AssignmentOfReceivables') {
+        if (this.selectedSecurity === 'AssignmentOfReceivables') {
             const formControls = this.securityForm.get('assignmentOfReceivables') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
+                f.get('amount').setValidators(Validators.required);
+                f.get('amount').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.securityForm.get('assignmentOfReceivables') as FormArray;
+            formControls.controls.forEach(f => {
                 f.get('amount').clearValidators();
                 f.get('amount').updateValueAndValidity();
+            });
+        }
+        if (this.selectedSecurity === 'ShareSecurity') {
+            const formControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+            formControls.controls.forEach(f => {
+                f.get('companyName').setValidators(Validators.required);
+                f.get('companyName').updateValueAndValidity();
+                f.get('totalShareUnit').setValidators(Validators.required);
+                f.get('totalShareUnit').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+            formControls.controls.forEach(f => {
+                f.get('companyName').clearValidators();
+                f.get('companyName').updateValueAndValidity();
+                f.get('totalShareUnit').clearValidators();
+                f.get('totalShareUnit').updateValueAndValidity();
             });
         }
     }
@@ -1267,7 +1368,7 @@ export class SecurityInitialFormComponent implements OnInit {
     insurancePolicyFormGroup(): FormGroup {
         return this.formBuilder.group({
                 insuredAmount: [undefined, Validators.required],
-                insuranceCompanyName: [undefined],
+                insuranceCompanyName: [undefined, Validators.required],
                 policyStartDate: [undefined],
                 maturityDate: [undefined],
                 insurancePolicyType: [undefined],
@@ -1438,7 +1539,7 @@ export class SecurityInitialFormComponent implements OnInit {
             registrationDate: [''],
             engineNumber: [''],
             chassisNumber: [''],
-            valuationAmount: [''],
+            valuationAmount: ['', Validators.required],
             downPayment: [''],
             remainingAmount: [undefined],
             loanExposure: [''],
@@ -1681,10 +1782,10 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             id: undefined,
             version: undefined,
-            companyName: [''],
+            companyName: ['', Validators.required],
             companyCode: [undefined],
             shareType: undefined,
-            totalShareUnit: [''],
+            totalShareUnit: ['', Validators.required],
             amountPerUnit: [''],
             total: [''],
             consideredValue: [''],
