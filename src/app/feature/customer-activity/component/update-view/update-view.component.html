@@ -93,7 +93,7 @@
                          [customerInfo]="profile"
                          *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INDIVIDUAL'">
     </app-individual-view>
-    <app-company-info-view [formValue]="data"
+    <app-company-info-view [formValue]="data" [customerInfo]="profile"
                            *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INSTITUTION'">
     </app-company-info-view>
 
