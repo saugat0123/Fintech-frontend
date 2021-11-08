@@ -3,25 +3,27 @@
 
   <div class="col-md-12 viewFull">
     <form class="nepali">
-        <h6 class="text-center"><b>ऋणीको नाममा जारी गरेको मुद्दती खाता रसिद विरुद्ध पेश्की दिएकोमा ग्रहणाधिकार–पत्र</b></h6>
-        <h6 class="text-center"><b>(Letter of Lien)</b></h6>
+        <h6 class="text-center"><strong>ऋणीको नाममा जारी गरेको मुद्दती खाता रसिद विरुद्ध पेश्की दिएकोमा ग्रहणाधिकार–पत्र</strong></h6>
+        <h6 class="text-center"><strong>(Letter of Lien)</strong></h6>
       <p class="text-right"> मिति:
         <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
     {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
 </span>
       </p>
-      <b> प्रोग्रेशिभ फाइनान्स लि.</b>
+      <strong> प्रोग्रेशिभ फाइनान्स लि.</strong>
       <br>
-      <b> <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+      <strong> <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
     {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
-</span>शाखा।</b>
+</span>शाखा।</strong>
       <br>
       <br>
       <div class="row ">
 
         <p>महोदय, <br>
           <br>
-            म/हामी लेखनाथ भण्डारीलाई त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋण वा कुनै प्रकारको
+            म/हामी <span [ngClass]="{'nepaliFont' : printDocForm?.name !== null && printDocForm?.name !== ''}">
+    {{printDocForm?.name === null || printDocForm?.name === '' ? '_________________' : printDocForm?.name}}
+</span>लाई त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋण वा कुनै प्रकारको
             बैकिङ्ग सुविधाहरु
             उपलब्ध गर्ने वा ऋणको निरन्तरता कायम राख्ने वा अन्यकुनै प्रकारबाट उधारो वा ऋण
             सेवा प्रदान गरिएकोमा म/हामी रु.<span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
@@ -55,26 +57,26 @@
 
           </tr>
           <tr>
-            <td rowspan="2">
+            <td rowspan="2" style="width: 25%">
               <span [ngClass]="{'nepaliFont' : printDocForm?.muddatiKhata !== null && printDocForm?.muddatiKhata !== ''}">
     {{printDocForm?.muddatiKhata === null || printDocForm?.muddatiKhata === '' ? '_________________' : printDocForm?.muddatiKhata}}
 </span></td>
-            <td rowspan="2">
+            <td rowspan="2" style="width: 25%">
                 <span [ngClass]="{'nepaliFont' : printDocForm?.jariBranch !== null && printDocForm?.jariBranch !== ''}">
     {{printDocForm?.jariBranch === null || printDocForm?.jariBranch === '' ? '_________________' : printDocForm?.jariBranch}}
 </span>
             </td>
-            <td rowspan="2">  <span [ngClass]="{'nepaliFont' : printDocForm?.khatawalName !== null && printDocForm?.khatawalName !== ''}">
+            <td rowspan="2" style="width: 25%">  <span [ngClass]="{'nepaliFont' : printDocForm?.khatawalName !== null && printDocForm?.khatawalName !== ''}">
     {{printDocForm?.khatawalName === null || printDocForm?.khatawalName === '' ? '_________________' : printDocForm?.khatawalName}}
 </span></td>
             <th width="5%">रु.</th>
             <th width="5%">पैसा</th>
           </tr>
           <tr>
-            <td> <span [ngClass]="{'nepaliFont' : printDocForm?.tableAmount !== null && printDocForm?.tableAmount !== ''}">
+            <td style="width: 25%"> <span [ngClass]="{'nepaliFont' : printDocForm?.tableAmount !== null && printDocForm?.tableAmount !== ''}">
     {{printDocForm?.tableAmount === null || printDocForm?.tableAmount === '' ? '_________________' : printDocForm?.tableAmount}}
 </span></td>
-            <td> <span [ngClass]="{'nepaliFont' : printDocForm?.tablePaisa !== null && printDocForm?.tablePaisa !== ''}">
+            <td style="width: 25%"> <span [ngClass]="{'nepaliFont' : printDocForm?.tablePaisa !== null && printDocForm?.tablePaisa !== ''}">
     {{printDocForm?.tablePaisa === null || printDocForm?.tablePaisa === '' ? '_________________' : printDocForm?.tablePaisa}}
 </span></td>
           </tr>
@@ -83,7 +85,7 @@
       <div>
         <p>भवदीय,
           <br>
-          दस्तखत :..............
+          दस्तखत : .......................
           <br>
           नाम :  <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
@@ -94,8 +96,7 @@
 </span>
 
         </p>
-        <p class="text-right">संस्थाको छाप : <span
-            class="nepaliFont">{{printDocForm?.companyStamp}}</span></p>
+        <p class="text-right" style="margin-right: 16rem">संस्थाको छाप : </p>
       </div>
 
     </form>

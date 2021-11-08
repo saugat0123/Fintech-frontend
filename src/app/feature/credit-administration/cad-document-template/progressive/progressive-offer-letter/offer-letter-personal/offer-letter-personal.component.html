@@ -484,8 +484,6 @@
                                         <input
                                                 class="form-control-sm form-field nepaliFont"
                                                 type="text"
-                                                readonly
-                                                value="{{form.get(['loanFacilityTable', 0, 'amount']).value}}"
                                                 formControlName="dhitoLekhi">
 
                                         मा दृ.ब पारित गरि यस फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
@@ -499,21 +497,19 @@
                                                type="text"
                                                readonly
                                                formControlName="shreeName1">
-                                        को रु
+                                        को रु.
                                         <input
                                                 class="form-control-sm form-field nepaliFont"
                                                 type="text"
-                                                readonly
-                                                value="{{form.get(['loanFacilityTable', 0, 'amount']).value}}"
+                                                (input)="getNumAmountWord('amount2','amountInWords2')"
                                                 formControlName="amount2">
                                         /–
-                                        (अक्षरेपी:
+                                        (अक्षरेपी
                                         <input class="form-control-lg form-field nepaliFont font-size-normal"
                                                readonly
                                                type="text"
-                                               value="{{form.get(['loanFacilityTable', 0, 'amountInWords']).value}}"
                                                formControlName="amountInWords2">
-                                        मात्र )को व्यक्तिगत जमानीको लिखत ।
+                                        मात्र ) को व्यक्तिगत जमानीको लिखत ।
                                     </td>
                                 </tr>
                                 <tr>
@@ -521,16 +517,14 @@
                                     <td>रु.
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               readonly
-                                               value="{{form.get(['loanFacilityTable', 0, 'amount']).value}}"
-                                               formControlName="amount2">
+                                               (input)="getNumAmountWord('amount3','amountInWords3')"
+                                               formControlName="amount3">
                                         /-(अक्षरेपी:
                                         <input class="form-control-lg form-field nepaliFont font-size-normal"
                                                readonly
                                                type="text"
-                                               value="{{form.get(['loanFacilityTable', 0, 'amountInWords']).value}}"
-                                               formControlName="amountInWords2">
-                                        मात्र ।)को ऋणि तथा जमानी कर्ताले
+                                               formControlName="amountInWords3">
+                                        मात्र ।) को ऋणि तथा जमानी कर्ताले
                                         एक एकप्रति प्रतिज्ञापत्रमा सहीछाप गरी फाइनान्सलाई उपलव्ध गराउनु पर्नेछ ।
                                     </td>
                                 </tr>
@@ -745,7 +739,7 @@
                                 </tr>
                                 <tr>
                                     <td>७.२</td>
-                                    <td> फाइनान्सले पूर्व सूचना दिएर वा नदिई पनि कर्जा÷सुविधालाई नियमित वनाई
+                                    <td> फाइनान्सले पूर्व सूचना दिएर वा नदिई पनि कर्जा/सुविधालाई नियमित वनाई
                                         राख्न ऋणीको खाता खर्च गर्न सक्नेछ । यसका लागि ऋणीले आफ्नो खातामा
                                         पर्याप्त रकम कायम राख्नु पर्नेछ । ऋणीको खातामा पर्याप्त रकम नभई कर्जा
                                         वा सुविधाको किस्ता खिलाफी भएमा ऋणीले फाइनान्स नियमानुसार विलम्व शुल्क
@@ -770,7 +764,7 @@
                                 </tr>
                                 <tr>
                                     <td>७.५</td>
-                                    <td> ऋणी वा यस कर्जा÷सुविधाको लागि जमानी दिने जमानीकर्ताले
+                                    <td> ऋणी वा यस कर्जा/सुविधाको लागि जमानी दिने जमानीकर्ताले
                                         यस फाइनान्सको १ (एक) प्रतिशत वा सो भन्दा वढी शेयर धारण
                                         गर्न पाइने छैन ।
                                     </td>
@@ -851,7 +845,7 @@
                                 </tr>
                                 <tr>
                                     <td>८.८</td>
-                                    <td> फाइनान्समा धितो रहेको सम्पत्तिको पुरै वा आंंिशक भाग खारेज गर्न वा अरु
+                                    <td> फाइनान्समा धितो रहेको सम्पत्तिको पुरै वा आंशिक भाग खारेज गर्न वा अरु
                                         कसैलाई दिन वा कुनै किसिमको चार्ज सिर्जना गर्न वा कुनै कानूनी कारवाही गर्न
                                         ऋणीले स्वीकृति दिएमा वा ऋणी आफैले वा कुनै अड्डा अदालतवाट लिक्वीडेटर वा
                                         अन्य लाभग्राही नियुक्त गरेमा ।
@@ -899,7 +893,7 @@
                                         अकाट्य प्रमाण मानी बैंकिङ्ग कानून वमोजिम फाइनान्सले
                                         असुली प्रकृया आरम्भ गर्न सक्नेछ ।<br>
                                         (ट) यो कर्जा सुबिधा स्वीकृति पत्रमा उल्लेख नभएको कुनै बैंकिङ्ग सुविधा
-                                        ऋणीले फाइनान्सवाट उपभोग गरेको रहेछ र सो सुविधाको किस्ता÷कर्जा
+                                        ऋणीले फाइनान्सवाट उपभोग गरेको रहेछ र सो सुविधाको किस्ता/कर्जा
                                         खिलाफी भएको रहेछ भने सो समेत यसै कर्जा स्वीकृति पत्र वमोजिम
                                         प्रवाह भएसरह मानिनेछ र सम्पूर्ण कर्जा सुविधा फिर्ता भुक्तानी माग
                                         गर्न र सम्पूर्ण कर्जा तथा सुविधा तत्कालै भुक्तानी गराउन फाइनान्स
@@ -916,7 +910,7 @@
                                         स्वीकार गर्न र ऋणीको तर्फवाट यो कर्जा
                                         सुविधाको सञ्चालन गर्ने अधिकार प्रत्यायोजन गरेको ऋणीको विधान,
                                         प्रवन्धपत्र तथा नियमावली वमोजिम विधिवत गठित सञ्चालक
-                                        समिति÷कार्यसमिति वा आवश्यकता अनुसार ऋणीको साधारणसभावाट पारित निर्णय माईन्यूट,
+                                        समिति/कार्यसमिति वा आवश्यकता अनुसार ऋणीको साधारणसभावाट पारित निर्णय माईन्यूट,
                                         साझेदारी
                                         फर्मको हकमा सर्वसम्मत
                                         सम्झौता बमोजिम फाइनान्समा पेश गर्नु पर्ने छ ।
@@ -1121,8 +1115,6 @@
                                                        type="text"
                                                        formControlName="akhtiyarContactNum">
                                                 <br>
-
-
                                             </td>
                                         </tr>
                                         </tbody>
@@ -1132,11 +1124,8 @@
                             <br>
 
                             <div class="row">
-
                                 <div class="col-md-12">
-
                                     <table class="table  table-borderless">
-
                                         <tr>
                                         </tr>
                                         <tbody>
@@ -1151,7 +1140,7 @@
                                                        formControlName="employeeName">
                                                 <br>
                                                 प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
-                                                शाखाकार्यालय,
+                                                शाखा कार्यालय,
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        readonly
@@ -1171,13 +1160,12 @@
                                                 .....................................
                                                 <br>
                                                 आधिकारीक दस्तखत<br>
-
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        formControlName="employeeName2">
                                                 <br>
                                                 प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
-                                                शाखाकार्यालय,
+                                                शाखा कार्यालय,
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        readonly
@@ -1212,7 +1200,6 @@
                                 <div class="col-md-6 justify-content-end">
                                     औठा छाप दाँ. बाँ.
                                     <table id="fingerXap" class="table table-bordered text-center">
-
                                         <thead>
                                         <tr>
                                             <th style="border: none;">दाँ.</th>
@@ -1274,32 +1261,58 @@
                             </div>
                             <b> साक्षी : </b><br>
                             <div class="row">
-                                <div class="col-md-12" id="guaranter">
-                                <!--<span (click)="addEmptyGuarantor()" nbButton size="small" status="info" type="button"
-                                      class="d-print-none btn btn-sm btn-primary">+साक्षी थप्नुहोस्</span>-->
+                                <div class="col-md-12" id="witness">
+                                <!--<span (click)="addEmptyWitness()" nbButton size="small" status="info" type="button"
+                                      class="d-print-none btn btn-sm btn-primary">+साक्षी थप्नुहोस्</span>
                                     <br>
-                                    <div *ngFor="let guarantor of form.get('guarantors')['controls']; index as i"
-                                         formArrayName="guarantors" class="mt-4">
+                                    <div *ngFor="let witness of form.get('witnessDetails')['controls']; let i=index"
+                                         class="container"
+                                         formArrayName="witnessDetails"
+                                         id="guarantor">
                                         <div [formGroupName]="i">
                                             <p>{{i + 1 | nepaliWord: 'unicode'}}. दस्तखत : ...........................................
                                                 <br>
                                               नाम:
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
-                                                       readonly
-                                                       formControlName="name">
+                                                        formControlName="witnessName">
                                                 <br>
                                                 ठेगाना:
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
-                                                       readonly
-                                                       formControlName="guarantorLegalDocumentAddress">
+                                                       formControlName="witnessAddress">
 
                                             </p>
-                                            <!--<i (click)="removeGuarantor(i)" size="small" class="float-right fa fa-trash"
-                                               *ngIf="form.get('guarantors')['length']>1"></i>-->
+                                            <i (click)="removeWitness(i)" size="small" class="float-right fa fa-trash"
+                                               *ngIf="form.get('witnessDetails')['length']>1"></i>
                                         </div>
-                                    </div>
+                                    </div>-->
+                                    <p> दस्तखत : ...........................................
+                                        <br>
+                                        नाम:
+                                        <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               formControlName="witnessName">
+                                        <br>
+                                        ठेगाना:
+                                        <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               formControlName="witnessAddress">
+
+                                    </p>
+                                    <p> दस्तखत : ...........................................
+                                        <br>
+                                        नाम:
+                                        <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               formControlName="witnessName2">
+                                        <br>
+                                        ठेगाना:
+                                        <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               formControlName="witnessAddress2">
+
+                                    </p>
                                 </div>
                             </div>
                             <br>
@@ -1312,7 +1325,7 @@
                                    type="text"
                                    formControlName="sahichhapEmployee">
                             <p>
-                            ईतिसम्बन्त
+                            ईति सम्बत
                             <input class="form-control-sm form-field nepaliFont"
                                    type="text"
                                    formControlName="docYear">
@@ -1336,6 +1349,9 @@
 
                         </div>
                         <div id="GuarantorSection" style="margin-top: 25px;">
+                            <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; index as i"
+                                 formArrayName="guarantorDetails" class="mt-4">
+                                <div [formGroupName]="i">
                             <div class="row mt-lg-5">
                                 <div class="col-md-12">
                                     <p class="text-center">
@@ -1402,9 +1418,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <ul class="list-inline" style="line-height: 1.5">
-                                        <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; index as i"
-                                             formArrayName="guarantorDetails" class="mt-4">
-                                            <div [formGroupName]="i">
+
                                                 <li>
                                                     जमानतकर्ताको नामः श्री <input
                                                         class="form-control-sm form-field nepaliFont"
@@ -1429,8 +1443,7 @@
                                                                       formControlName="guarantorCitizenIssuedOffice">
 
                                                 </li>
-                                            </div>
-                                        </div>
+
                                         <li>
                                             <p>
                                                 ठेगानाः
@@ -1468,25 +1481,27 @@
                                                                          formControlName="spouseOrFatherName">
                                         </li>
                                         <li>
-                                            सम्पर्क फोन/मोवाइल नं.ः <input class="form-control-sm form-field nepaliFont"
+                                            सम्पर्क फोन/मोवाइल नंः <input class="form-control-sm form-field nepaliFont"
                                                                            type="text"
                                                                            readonly
                                                                            [value]="form.get('customerMobile').value"
-                                                                           formControlName="customerMobile">
+                                                                           formControlName="guarantorMobileNo">
                                         </li>
                                         <li>
-                                            सम्पर्क ईमेल ठेगानाः <input class="form-control-sm form-field nepaliFont"
+                                            सम्पर्क ईमेल ठेगानाः <input class="form-control-sm form-field"
                                                                         type="text"
                                                                         formControlName="guarantorEmail">
                                         </li>
                                         <li>
                                             मितिः <input class="form-control-sm form-field nepaliFont"
                                                          type="text"
-                                                         readonly
-                                                         [value]="form.get('date').value">
-                                            दस्तखतः ...................
+                                                         value="{{form.get('date').value}}"
+                                                         formControlName="guarantorDate">
+                                            <span style="margin-left: 250px">दस्तखतः ...................</span>
                                         </li>
                                     </ul>
+                                </div>
+                            </div>
                                 </div>
                             </div>
                         </div>
