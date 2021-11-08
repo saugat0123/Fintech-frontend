@@ -80,7 +80,7 @@ export class ProposalViewComponent implements OnInit {
           .reduce((a, b) => a + b, 0);
       return this.isNumber(total);
     } else {
-      return 0;
+      return this.loanDataHolder.proposal.proposedLimit;
     }
   }
 
@@ -106,7 +106,7 @@ export class ProposalViewComponent implements OnInit {
 
         return this.isNumber(numb);
       } else {
-        return 0;
+        return this.loanDataHolder.proposal.proposedLimit;
       }
     } else {
       return 0;
