@@ -71,7 +71,6 @@ export class ProposalViewComponent implements OnInit {
   }
 
   public getTotal(key: string): number {
-    console.log('thus', this.loanDataHolder.proposal.proposedLimit);
     if (!ObjectUtil.isEmpty(this.proposalData.data)) {
       const filteredList = this.customerFundedLoanList.filter(l => l.proposal.data !== null);
       const tempList = filteredList
