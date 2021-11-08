@@ -196,16 +196,16 @@
                   status="danger" type="button" (click)="saveCompanyInfoDetail()">Save
           </button>
         </div>
-        <div class="px-2">
-          <button (click)="openSingleSelectLoanTemplate()" *ngIf="!isEdited && maker"
-                  nbButton size="small" type="button">Apply Loan
-          </button>
-        </div>
-        <div class="px-2">
-          <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"
-                  nbButton size="small" type="button">Combine Loan
-          </button>
-        </div>
+<!--        <div class="px-2">-->
+<!--          <button (click)="openSingleSelectLoanTemplate()" *ngIf="!isEdited && maker"-->
+<!--                  nbButton size="small" type="button">Apply Loan-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div class="px-2">-->
+<!--          <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"-->
+<!--                  nbButton size="small" type="button">Combine Loan-->
+<!--          </button>-->
+<!--        </div>-->
       </div>
     </div>
     <div *ngIf="customerInfo?.loanFlags && customerInfo?.loanFlags?.length > 0" class="row mb-2">
