@@ -86,7 +86,6 @@ export class ProposalViewComponent implements OnInit {
   }
 
   public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
-    console.log('thus', this.loanDataHolder.proposal.proposedLimit);
     if (!ObjectUtil.isEmpty(this.proposalData.data)) {
       this.fundedAndNonfundedList(loanList);
       if (this.customerFundedLoanList.length > 0) {
