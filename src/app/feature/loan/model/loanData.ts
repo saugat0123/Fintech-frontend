@@ -35,6 +35,8 @@ import {CadDocument} from './cadDocument';
 import {User} from '../../admin/modal/user';
 import {Comments} from '../../admin/modal/comments';
 import {CrgMicro} from './CrgMicro';
+import {CustomerLoanDto} from './customerLoanDto';
+import {CollateralSiteVisitDto} from './collateralSiteVisitDto';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -58,6 +60,7 @@ export class LoanDataHolder extends BaseEntity {
     guarantor: GuarantorDetail;
     taggedGuarantors: Array<Guarantor>;
     priority: Priority;
+    approvingLevel: any;
     createdAt: Date;
     previousList: LoanStage[] = [];
     previousStageList: string;
@@ -99,5 +102,8 @@ export class LoanDataHolder extends BaseEntity {
     limitExceed: any;
     loanRemarks: any;
     comments: Comments;
+    customerLoanDtoList: Array<CustomerLoanDto>;
+    collateralSiteVisits: Array<CollateralSiteVisitDto>;
+    zipPath: String;
     remitCustomer: any;
 }

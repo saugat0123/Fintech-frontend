@@ -15,10 +15,10 @@
         <th>Plot No.</th>
         <th>Area Format</th>
         <th>Area</th>
-        <th>Considered Value</th>
-        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+        <th>Realisable Value</th>
+        <th>Market Value</th>
         <th>Fair Market Value</th>
-        <th>Collateral Owner Relationship</th>
+        <th>Rate</th>
       </tr>
       <tr>
         <td rowspan="5" class="align-middle">{{i + 1}}</td>
@@ -30,9 +30,8 @@
         <td class="text-right pr-1">Rs. {{landDetails?.landConsideredValue | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{landDetails?.distressValue | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{landDetails?.marketValue | currencyFormatter}}</td>
-        <td class="text-right pr-1">{{landDetails?.landCollateralOwnerRelationship}}</td>
+        <td class="text-right pr-1">Rs. {{landDetails?.landRate | currencyFormatter}}</td>
       </tr>
-
       <ng-container>
         <tr *ngIf="landDetails?.ownerKycApplicableData !== null"  class="sb-bg-dark text-white">
           <th>Relation</th>
@@ -62,24 +61,26 @@
 
       <tr class="text-white sb-bg-dark">
         <th *ngIf="landDetails?.landOtherBranchChecked === true">Branch</th>
-        <th colspan="2">Valuator Name</th>
+        <th>Valuator Name</th>
         <th>Valuated Date(AD/BS)</th>
         <th>Valuator Representative Name</th>
         <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
         <th>Staff Representative Name 2</th>
+        <th>Collateral Owner Relationship</th>
       </tr>
 
       <tr>
         <td *ngIf="landDetails?.landOtherBranchChecked === true">{{landDetails?.landBranch?.name || 'N/A'}}</td>
-        <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
+        <td class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
         <td class="text-left pl-1">{{landDetails?.landValuatorDate | date}} ({{landDetails?.landValuatorDate | engNepDate: false}})</td>
         <td class="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeDesignation}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeDesignation2}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName2}}</td>
+        <td class="text-right pr-1">{{landDetails?.landCollateralOwnerRelationship}}</td>
       </tr>
       <tr>
       <tr class="text-white sb-bg-dark">
@@ -116,20 +117,24 @@
           <td colspan="8"></td>
         </tr>
         <tr class="sb-bg-dark text-white">
+          <th></th>
           <th>ReValuation Date(AD/BS)</th>
-          <th colspan="2">Valuator name</th>
-          <th colspan="1">ReValuation Considered Value</th>
-          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">Valuator name</th>
+          <th colspan="1">ReValuation Realisable Value</th>
+          <th colspan="1">ReValuation MV</th>
+          <th colspan="1">ReValuation Rate</th>
           <th colspan="1">ReValuation Fmv</th>
-          <th colspan="1">Change in Considered Value</th>
-          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">Change in Realisable Value</th>
+          <th colspan="1">Change in MV</th>
           <th colspan="1">Change in Fmv</th>
         </tr>
         <tr class="text-right">
+          <td></td>
           <td class="text-left pl-1">{{landDetails?.revaluationData?.reValuationDate | date}} ({{landDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
-          <td colspan="2" class="text-left pl-1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
+          <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
           <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
           <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+          <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
           <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
           <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
           <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
@@ -177,7 +182,7 @@
           <th>Plot No.</th>
           <th>Area Format</th>
           <th>Area</th>
-          <th>Considered Value</th>
+          <th>Realisable Value</th>
           <th>Fair Market Value</th>
         </tr>
         </thead>
@@ -195,8 +200,8 @@
         </tbody>
         <thead>
         <tr class="text-white sb-bg-dark">
-          <th></th>
-          <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+          <th>Rate</th>
+          <th>Market Value</th>
           <th>House Number</th>
           <th>Total building area (Sqf)</th>
           <th>Cost per sqf</th>
@@ -207,7 +212,7 @@
         </thead>
         <tbody>
         <tr>
-          <td></td>
+          <td class="text-right pr-1">Rs. {{landBuilding?.landBuildingRate}}</td>
           <td class="text-right pr-1">Rs. {{landBuilding?.distressValue | currencyFormatter}}</td>
           <td class="text-right pr-1">{{landBuilding?.houseNumber}}</td>
           <td class="text-right pr-1">{{landBuilding?.totalBuildingArea}}</td>
@@ -295,19 +300,21 @@
           </tr>
           <tr class="sb-bg-dark text-white">
             <th>ReValuation Date(AD/BS)</th>
-            <th colspan="2">Valuator name</th>
-            <th colspan="1">ReValuation Considered Value</th>
-            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+            <th colspan="1">Valuator name</th>
+            <th colspan="1">ReValuation Realisable Value</th>
+            <th colspan="1">ReValuation MV</th>
+            <th colspan="1">ReValuation Rate</th>
             <th colspan="1">ReValuation Fmv</th>
-            <th colspan="1">Change in Considered Value</th>
-            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+            <th colspan="1">Change in Realisable Value</th>
+            <th colspan="1">Change in MV</th>
             <th colspan="1">Change in Fmv</th>
           </tr>
           <tr class="text-right">
             <td class="text-left pl-1">{{landBuilding?.revaluationData?.reValuationDate | date}} ({{landBuilding?.revaluationData?.reValuationDate |engNepDate: false}})</td>
-            <td colspan="2" class="text-left pl-1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
+            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+            <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
@@ -316,7 +323,7 @@
         </ng-container>
         <br>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
-          <th colspan="8">land and Building Under Construction</th>
+          <th colspan="7">land and Building Under Construction</th>
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true" class="text-center sb-bg-dark text-white">
           <th></th>
@@ -325,8 +332,9 @@
           <th>Plot No.</th>
           <th>Area Format</th>
           <th>Area</th>
-          <th>Considered Value</th>
-          <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+          <th>Realisable Value</th>
+          <th>Market Value</th>
+          <th>Rate</th>
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <td></td>
@@ -337,6 +345,7 @@
           <td class="text-right pr-1">{{landBuilding?.areaConstruction}}</td>
           <td class="text-right pr-1">Rs.{{landBuilding?.landConsideredValueConstruction | currencyFormatter}}</td>
           <td class="text-right pr-1">Rs.{{landBuilding?.distressValueConstruction | currencyFormatter}}</td>
+          <td class="text-right pr-1">Rs.{{landBuilding?.landbuildingUnderRate | currencyFormatter}}</td>
         </tr>
         <tr class="text-center sb-bg-dark text-white" *ngIf="landBuilding.underConstructionChecked === true">
           <th></th>
@@ -537,7 +546,7 @@
         class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <thead>
       <tr>
-        <th colspan="6">{{i+1}}.Apartment Security Details</th>
+        <th colspan="8">{{i+1}}.Apartment Security Details</th>
       </tr>
       </thead>
       <thead>
@@ -548,6 +557,8 @@
         <th>Build Up Area (Sq.ft)</th>
         <th>Build Up Area Rate</th>
         <th>Total Cost</th>
+        <th>Floor Name</th>
+        <th>Valuation Area(Sq.ft)</th>
       </tr>
       </thead>
       <tbody>
@@ -558,31 +569,15 @@
         <td class="text-right pr-1">{{buildingDetails?.buildArea}}</td>
         <td class="text-right pr-1">Rs.{{buildingDetails?.buildRate | currencyFormatter}}</td>
         <td class="text-right pr-1"><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
+        <td class="text-left pl-1">{{buildingDetails?.floorName}}</td>
+        <td class="text-right pr-1">{{buildingDetails?.valuationArea}}</td>
       </tr>
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
-        <th></th>
-        <th>Floor Name</th>
-        <th>Valuation Area(Sq.ft)</th>
         <th>Rate Per Square Feet</th>
         <th>Estimated Cost</th>
         <th>Water Supply %</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td></td>
-        <td class="text-left pl-1">{{buildingDetails?.floorName}}</td>
-        <td class="text-right pr-1">{{buildingDetails?.valuationArea}}</td>
-        <td class="text-right pr-1">Rs.{{buildingDetails?.ratePerSquareFeet | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs.{{buildingDetails?.estimatedCost | currencyFormatter}}</td>
-        <td class="text-right pr-1">{{buildingDetails?.waterSupplyPercent}}</td>
-      </tr>
-      </tbody>
-      <thead>
-      <tr class="text-white sb-bg-dark">
-        <th></th>
         <th>Water Supply</th>
         <th>Sanitation %</th>
         <th>Sanitation</th>
@@ -592,7 +587,9 @@
       </thead>
       <tbody>
       <tr>
-        <td></td>
+        <td class="text-right pr-1">Rs.{{buildingDetails?.ratePerSquareFeet | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs.{{buildingDetails?.estimatedCost | currencyFormatter}}</td>
+        <td class="text-right pr-1">{{buildingDetails?.waterSupplyPercent}}</td>
         <td class="text-right pr-1">Rs.{{buildingDetails?.waterSupply | currencyFormatter}}</td>
         <td class="text-right pr-1">{{buildingDetails?.sanitationPercent}}</td>
         <td class="text-right pr-1">Rs.{{buildingDetails?.sanitation | currencyFormatter}}</td>
@@ -604,7 +601,7 @@
       <tr class="text-white sb-bg-dark">
         <th>Apartment Total Cost</th>
         <th>Apartment Fair Market Value</th>
-        <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+        <th>Apartment Market Value</th>
         <th  *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Branch</th>
         <th>Valuator Name</th>
         <th>Valuated Date(AD/BS)</th>
@@ -644,11 +641,11 @@
         <tr class="sb-bg-dark text-white">
           <th colspan="1">ReValuation Date(AD/BS)</th>
           <th colspan="1">Valuator name</th>
-          <th colspan="1">ReValuation Considered Value</th>
-          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">ReValuation Realisable Value</th>
+          <th colspan="1">ReValuation MV</th>
           <th colspan="1">ReValuation Fmv</th>
-          <th colspan="1">Change in Considered Value</th>
-          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">Change in Realisable Value</th>
+          <th colspan="1">Change in MV</th>
           <th colspan="1">Change in Fmv</th>
         </tr>
         <tr>
@@ -688,7 +685,7 @@
           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
         <thead>
         <tr>
-          <th colspan="6">Apartment Before Completion</th>
+          <th colspan="8">Apartment Before Completion</th>
         </tr>
         <tr class="text-white sb-bg-dark">
           <th class="sn">S.N</th>
@@ -697,6 +694,8 @@
           <th>BuildArea (Sq.ft)</th>
           <th>BuildRate</th>
           <th>TotalCost</th>
+          <th>Floor Name</th>
+          <th>Valuation Area</th>
         </tr>
         </thead>
         <tbody>
@@ -709,55 +708,39 @@
           <td class="text-right pr-1">
             <strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong>
           </td>
+          <td class="text-left pl-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.floorName}}</td>
+          <td class="rignt pr-1-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.valuationArea}}</td>
         </tr>
         </tbody>
         <thead>
         <tr class="text-white sb-bg-dark">
-          <th></th>
-          <th>Floor Name</th>
-          <th>Valuation Area</th>
           <th>Rate Per Square Feet</th>
           <th>Estimated Cost</th>
           <th>Water Supply%</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td></td>
-          <td  class="text-left pl-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.floorName}}</td>
-          <td  class="rignt pr-1-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.valuationArea}}</td>
-          <td class="text-right pr-1">Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.ratePerSquareFeet | currencyFormatter}}</td>
-          <td class="text-right pr-1">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.estimatedCost | currencyFormatter}}</td>
-          <td class="text-right pr-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupplyPercent}}</td>
-        </tr>
-        </tbody>
-        <thead>
-        <tr class="text-white sb-bg-dark">
-          <th></th>
           <th>Water Supply</th>
           <th>Sanitation %</th>
           <th>Sanitation</th>
           <th>Electrification %</th>
           <th>Electrification</th>
-
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td></td>
+          <td class="text-right pr-1">Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.ratePerSquareFeet | currencyFormatter}}</td>
+          <td class="text-right pr-1">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.estimatedCost | currencyFormatter}}</td>
+          <td class="text-right pr-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupplyPercent}}</td>
           <td class="text-right pr-1">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupply | currencyFormatter}}</td>
           <td class="text-right pr-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitationPercent}}</td>
           <td class="text-right pr-1">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitation | currencyFormatter}}</td>
           <td class="text-right pr-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrificationPercent}}</td>
           <td class="text-right pr-1">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrification | currencyFormatter}}</td>
-
         </tr>
         </tbody>
         <tr class="text-white sb-bg-dark">
           <th></th>
           <th>Apartment Total Cost</th>
           <th>Apartment Fair Market Value</th>
-          <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+          <th>Apartment Market Value</th>
         </tr>
         <tr class="text-right">
           <td></td>
@@ -782,6 +765,8 @@
           <th>BuildArea(Sq.ft)</th>
           <th>BuildRate</th>
           <th>TotalCost</th>
+          <th>Floor Name</th>
+          <th>Valuation Area</th>
         </tr>
         </thead>
         <tbody>
@@ -794,31 +779,15 @@
           <td class="text-right pr-1">
             <strong>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong>
           </td>
+          <td class="text-left pl-1">{{afterCompletion?.buildingDetailsAfterCompletion?.floorName}}</td>
+          <td class="text-right pr-1">{{afterCompletion?.buildingDetailsAfterCompletion?.valuationArea}}</td>
         </tr>
         </tbody>
         <thead>
         <tr class="text-white sb-bg-dark">
-          <th></th>
-          <th>Floor Name</th>
-          <th>Valuation Area</th>
           <th>Rate Per Square Feet</th>
           <th>Estimated Cost</th>
           <th>Water Supply %</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td></td>
-          <td class="text-left pl-1">{{afterCompletion?.buildingDetailsAfterCompletion?.floorName}}</td>
-          <td class="text-right pr-1">{{afterCompletion?.buildingDetailsAfterCompletion?.valuationArea}}</td>
-          <td class="text-right pr-1">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.ratePerSquareFeet | currencyFormatter}}</td>
-          <td class="text-right pr-1">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.estimatedCost | currencyFormatter}}</td>
-          <td class="text-right pr-1">{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupplyPercent}}</td>
-        </tr>
-        </tbody>
-        <thead>
-        <tr class="text-white sb-bg-dark">
-          <th></th>
           <th>Water Supply</th>
           <th>Sanitation %</th>
           <th>Sanitation</th>
@@ -828,20 +797,21 @@
         </thead>
         <tbody>
         <tr>
-          <td></td>
+          <td class="text-right pr-1">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.ratePerSquareFeet | currencyFormatter}}</td>
+          <td class="text-right pr-1">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.estimatedCost | currencyFormatter}}</td>
+          <td class="text-right pr-1">{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupplyPercent}}</td>
           <td class="text-right pr-1">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupply | currencyFormatter}}</td>
           <td class="text-right pr-1">{{afterCompletion?.buildingDetailsAfterCompletion?.sanitationPercent}}</td>
           <td class="text-right pr-1">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.sanitation | currencyFormatter}}</td>
           <td class="text-right pr-1">{{afterCompletion?.buildingDetailsAfterCompletion?.electrificationPercent}}</td>
           <td class="text-right pr-1">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.electrification | currencyFormatter}}</td>
-
         </tr>
         </tbody>
         <tr class="text-white sb-bg-dark">
           <th></th>
           <th>Apartment Total Cost</th>
           <th>Apartment Fair Market Value</th>
-          <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+          <th>Apartment Market Value</th>
         </tr>
         <tr class="text-right">
           <td></td>
@@ -956,7 +926,7 @@
         <th>Valuator Name</th>
         <th>Valuator Representative Name</th>
         <th>Valuated Date(AD/BS)</th>
-        <th>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</th>
+        <th>Valuation Amount</th>
         <th>Down Payment</th>
         <th>Remaining Amount</th>
       </tr>
@@ -1063,11 +1033,7 @@
           <th>Share Unit</th>
           <th>Rate</th>
           <th>Total Value</th>
-          <th>Considered Value</th>
-          <th *ngIf="client === clientName?.ICFC">Price Earning Ratio</th>
-          <th *ngIf="client === clientName?.ICFC">Price to Book Value</th>
-          <th *ngIf="client === clientName?.ICFC">Dividend Yield</th>
-          <th *ngIf="client === clientName?.ICFC">Dividend Payout Ratio</th>
+          <th>Realisable Value</th>
         </tr>
         </thead>
         <tbody>
@@ -1079,10 +1045,6 @@
           <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceEarningRatio}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceBookValue}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendYield}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendPayoutRatio}}</td>
         </tr>
         <tr>
           <th class="text-left pl-1" colspan="5">Total</th>
@@ -1125,7 +1087,7 @@
         <th>Insurance Policy Type</th>
         <th>Surrender Value</th>
         <th>Early Surrender Date(AD/BS)</th>
-        <th>Considered Value</th>
+        <th>Realisable Value</th>
         <th>Cash Back Amount</th>
       </tr>
       <tr *ngFor="let insurancePolicy of securityData['initialForm']['insurancePolicy']; let i= index">

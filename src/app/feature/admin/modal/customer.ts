@@ -48,5 +48,5 @@ export class Customer {
     jointInfo: string;
     isMicroCustomer: boolean;
     isJointCustomer: boolean;
-
+    panNumber: string;
 }

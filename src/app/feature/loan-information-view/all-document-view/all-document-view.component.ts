@@ -11,6 +11,7 @@ import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
+import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 
 @Component({
@@ -20,6 +21,7 @@ import {saveAs as importedSaveAs} from 'file-saver';
 })
 export class AllDocumentViewComponent implements OnInit {
   @Input() loanDataHolder;
+  @Input() siteVisitDocument: Array<SiteVisitDocument>;
   minOneGuarantorDoc;
   minOneInsuranceDoc;
   taggedGuarantorWithDoc = [];
@@ -96,21 +98,29 @@ export class AllDocumentViewComponent implements OnInit {
   // method to get all the paths which is require to zipping all files
   public getDocPath(): void {
     const docPaths = [];
-    const loanDocument = this.loanDataHolder.customerDocument;
-    for (const doc of loanDocument) {
-      docPaths.push(doc.documentPath);
-    }
-    const generalDocument = this.loanDataHolder.loanHolder.customerGeneralDocuments;
-    for (const doc of generalDocument) {
-      docPaths.push(doc.docPath);
-    }
-    const guarantorDocument = this.taggedGuarantorWithDoc;
-    for (const doc of guarantorDocument) {
-      docPaths.push(doc.docPath);
-    }
-    const insuranceDocument = this.insuranceWithDoc;
-    for (const doc of insuranceDocument) {
-      docPaths.push(doc.policyDocumentPath);
+    if (this.loanDataHolder.zipPath === null || this.loanDataHolder.zipPath === '') {
+      const loanDocument = this.loanDataHolder.customerDocument;
+      for (const doc of loanDocument) {
+        docPaths.push(doc.documentPath);
+      }
+      const generalDocument = this.loanDataHolder.loanHolder.customerGeneralDocuments;
+      for (const doc of generalDocument) {
+        docPaths.push(doc.docPath);
+      }
+      const guarantorDocument = this.taggedGuarantorWithDoc;
+      for (const doc of guarantorDocument) {
+        docPaths.push(doc.docPath);
+      }
+      const insuranceDocument = this.insuranceWithDoc;
+      for (const doc of insuranceDocument) {
+        docPaths.push(doc.policyDocumentPath);
+      }
+      const siteVisitDocument = this.siteVisitDocument;
+      for (const doc of siteVisitDocument) {
+        docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+      }
+    } else {
+      docPaths.push(this.loanDataHolder.zipPath);
     }
     this.downloadAll(docPaths);
   }

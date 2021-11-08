@@ -64,18 +64,18 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-6">
-                               <div class="form-group">
-                                   <label for="customerNameForm"><strong>SubSector</strong></label>
-                                   <select
-                                           class="custom-select" formControlName="subsectorDetail">
-                                       <option [ngValue]="null">Select Subsector</option>
-                                       <option *ngFor="let data of subSector "
-                                               [selected]="(data.key.toString().concat('-'+data.value)) === clientTypeInput"
-                                               [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>
-                                   </select>
-                               </div>
-                           </div>
+<!--                           <div class="col-md-6">-->
+<!--                               <div class="form-group">-->
+<!--                                   <label for="customerNameForm"><strong>SubSector</strong></label>-->
+<!--                                   <select-->
+<!--                                           class="custom-select" formControlName="subsectorDetail">-->
+<!--                                       <option [ngValue]="null">Select Subsector</option>-->
+<!--                                       <option *ngFor="let data of subSector "-->
+<!--                                               [selected]="(data.key.toString().concat('-'+data.value)) === clientTypeInput"-->
+<!--                                               [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>-->
+<!--                                   </select>-->
+<!--                               </div>-->
+<!--                           </div>-->
                            <div class="col-md-4">
                                <div class="form-group">
                                    <label for="customerNameForm"><strong>Customer Name</strong></label>
@@ -263,6 +263,7 @@
                                    </div>
                                </div>
                            </div>
+
                            <!-- START ROW -->
                            <div class="col-md-4">
                                <div class="form-group">
@@ -308,6 +309,20 @@
                             </div>
                         </div>
                     </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="panNumber"><strong>Pan Number</strong></label>
+                                   <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.panNumber.errors }"
+                                          class="form-control" formControlName="panNumber" id="panNumber" name="panNumber"
+                                          placeholder="Enter PAN"
+                                          type="text">
+                                   <div *ngIf="(submitted) && basicInfoControls.panNumber.invalid" class="invalid-feedback">
+                                       <div *ngIf="basicInfoControls.panNumber.errors.maxlength || basicInfoControls.panNumber.errors.minlength">
+                                           Length should be of 9 digit
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="otherOccupation"><strong>Occupation </strong></label>
@@ -779,7 +794,7 @@
                                </div>
                            </div>
                        </div>
-                       <div *ngIf="!crgLambdaDisabled  && !microCustomer">
+                       <div>
                            <nb-card class="card-height">
                                <nb-card-header>
                                    <label for="cibReport"><h6>Banking Relationship</h6></label>
@@ -860,7 +875,7 @@
                        </div>
                    </div>
 
-                   <div *ngIf="!crgLambdaDisabled && !microCustomer" class="col-4">
+                   <div class="col-4">
                            <label><strong>Net worth</strong></label>
                            <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
                                   class="form-control" placeholder="Net Worth Amount"
@@ -885,7 +900,7 @@
     <nb-card-footer class="py-4">
         <div class="d-flex justify-content-end">
             <button nbButton status="info" (click)="changeAction(closeForm)" class=" mr-2">close</button>
-            <button nbButton (click)="onSubmit()">save</button>
+            <button nbButton [disabled]="spinner" (click)="onSubmit()">save</button>
         </div>
     </nb-card-footer>
 </nb-card>

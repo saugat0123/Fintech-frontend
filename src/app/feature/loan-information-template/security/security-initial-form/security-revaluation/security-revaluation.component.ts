@@ -23,6 +23,7 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     formGroup: FormGroup;
     submitValue;
     @Output() revaluationDataEmitter = new EventEmitter();
+    @Input() apartmentSelected;
 
     // client
     client = environment.client;
@@ -43,6 +44,7 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             changeInFmv: [undefined, Validators.required],
             changeInDv: [undefined, Validators.required],
             changeInConsideredValue: [undefined, Validators.required],
+            reValuatedRate: undefined
         });
         if (!ObjectUtil.isEmpty(this.data)) {
             this.formGroup.patchValue(this.data);
@@ -109,5 +111,11 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             index: index
         };
         this.revaluationDataEmitter.emit(revData);
+    }
+
+    calcRevalatedConsiderValue() {
+        const reConsiderValue = Number(this.formGroup.get('reValuatedRate').value)
+            * Number(this.formGroup.get('reValuatedDv').value);
+       this.formGroup.get('reValuatedConsideredValue').patchValue(reConsiderValue);
     }
 }

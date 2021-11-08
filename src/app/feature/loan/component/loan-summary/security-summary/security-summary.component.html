@@ -82,7 +82,7 @@
                         <th>Area Format</th>
                         <th>Area</th>
                         <th>FMV</th>
-                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th>Market Value</th>
                         <th>Collateral Owner Relationship</th>
                         <th colspan="2">Address as per Legal Document</th>
                     </tr>
@@ -100,7 +100,8 @@
                     </tr>
 
                     <tr class="sb-bg-secondary text-white">
-                        <th>Considered Value</th>
+                        <th>Realisable Value</th>
+                        <th>Rate</th>
                         <th>Valuated Date(AD/BS)</th>
                         <th *ngIf="landDetails?.landOtherBranchChecked === true">Valuator Branch</th>
                         <th colspan="2">Valautor Name</th>
@@ -112,6 +113,7 @@
 
                     <tr>
                         <td class="text-right pr-1">Rs. {{landDetails?.landConsideredValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{landDetails?.landRate | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{landDetails?.landValuatorDate | date}} ({{landDetails?.landValuatorDate | engNepDate: false}})</td>
                         <td *ngIf="landDetails?.landOtherBranchChecked === true" class="text-left pl-1">{{landDetails?.landBranch?.name || 'N/A'}}</td>
                         <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name || 'N/A'}}</td>
@@ -178,11 +180,12 @@
                       <tr class="sb-bg-secondary text-white">
                           <th>ReValuation Date(AD/BS)</th>
                           <th colspan="1">Valuator name</th>
-                          <th colspan="1">ReValuation Considered Value</th>
-                          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                          <th colspan="1">ReValuation Realisable Value</th>
+                          <th colspan="1">ReValuation MV</th>
                           <th colspan="1">ReValuation Fmv</th>
-                          <th colspan="1">Change in Considered Value</th>
-                          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                          <th colspan="1">ReValuation Rate</th>
+                          <th colspan="1">Change in Realisable Value</th>
+                          <th colspan="1">Change in MV</th>
                           <th colspan="1">Change in Fmv</th>
                       </tr>
                       <tr>
@@ -191,6 +194,7 @@
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                          <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
@@ -231,7 +235,7 @@
                         <th>Area Format</th>
                         <th>Area</th>
                         <th>FMV</th>
-                        <th colspan="2">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th colspan="2">Market Value</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -250,21 +254,23 @@
                         <th>Valuated Date(AD/BS)</th>
                         <th *ngIf="landBuilding?.landBuildingOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
-                        <th>Considered Value</th>
+                        <th>Realisable Value</th>
+                        <th>Rate</th>
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name 1</th>
                         <th>Collateral Owner Relationship</th>
-                        <th colspan="2">Staff Representative Name 2</th>
+                        <th>Staff Representative Name 2</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{landBuilding?.buildingValuatorDate | date}} ({{landBuilding?.buildingValuatorDate |engNepDate: false}})</td>
                         <td *ngIf="landBuilding?.landBuildingOtherBranchChecked === true" class="text-left pl-1">{{landBuilding?.buildingBranch?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td>
                         <td class="text-right pr-1">Rs. {{landBuilding?.landConsideredValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{landBuilding?.landBuildingRate | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
-                        <td colspan="2" class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeName2}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeName2}}</td>
                     </tr>
 
                     <ng-container>
@@ -333,11 +339,12 @@
                         <tr class="sb-bg-secondary text-white">
                             <th>ReValuation Date(AD/BS)</th>
                             <th colspan="1">Valuator name</th>
-                            <th colspan="1">ReValuation Considered Value</th>
-                            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">ReValuation Realisable Value</th>
+                            <th colspan="1">ReValuation MV</th>
                             <th colspan="1">ReValuation Fmv</th>
-                            <th colspan="2">Change in Considered Value</th>
-                            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">ReValuation Rate</th>
+                            <th colspan="1">Change in Realisable Value</th>
+                            <th colspan="1">Change in MV</th>
                             <th colspan="1">Change in Fmv</th>
                         </tr>
                         <tr>
@@ -346,7 +353,8 @@
                             <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-                            <td colspan="2" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
                         </tr>
@@ -363,8 +371,8 @@
                         <th>Total building area (Sqf)</th>
                         <th>Total cost</th>
                         <th>FMV</th>
-                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
-                        <th>Considered Value</th>
+                        <th>Market Value</th>
+                        <th>Realisable Value</th>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
                         <td class="text-left pl-1">{{landBuilding?.ownerConstruction}}</td>
@@ -410,7 +418,7 @@
                         <th>Build Rate</th>
                         <th>Total Cost</th>
                         <th>FMV</th>
-                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th>Market Value</th>
                     </tr>
                     <tr>
                         <td rowspan="3" class="align-middle">{{i + 1}}</td>
@@ -447,11 +455,11 @@
                         <tr class="sb-bg-secondary text-white">
                             <th>ReValuation Date(AD/BS)</th>
                             <th colspan="1">Valuator name</th>
-                            <th colspan="1">ReValuation Considered Value</th>
-                            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">ReValuation Realisable Value</th>
+                            <th colspan="1">ReValuation MV</th>
                             <th colspan="1">ReValuation Fmv</th>
-                            <th colspan="1">Change in Considered Value</th>
-                            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">Change in Realisable Value</th>
+                            <th colspan="1">Change in MV</th>
                             <th colspan="1">Change in Fmv</th>
                         </tr>
                         <tr>
@@ -614,7 +622,7 @@
                         <th>Share Unit</th>
                         <th> Rate</th>
                         <th>Total Value</th>
-                        <th>Considered Value</th>
+                        <th>Realisable Value</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -831,8 +839,8 @@
                         <td class="text-left pl-1">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
                     </tr>
                 </table>
-                <strong *ngIf="siteVisitDocuments">Collateral Site Visit Documents</strong>
-                <table *ngIf="siteVisitDocuments" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <strong *ngIf="siteVisitDocuments.length > 0">Collateral Site Visit Documents</strong>
+                <table *ngIf="siteVisitDocuments.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Security Name</th>
@@ -881,7 +889,7 @@
                         <th>Insurance Policy Type</th>
                         <th>Surrender Value</th>
                         <th>Early Surrender Date(AD/BS)</th>
-                        <th>Considered Value</th>
+                        <th>Realisable Value</th>
                         <th>Cash Back Amount</th>
                     </tr>
                     <tr *ngFor="let insurancePolicy of formData['initialForm']['insurancePolicy']; let i= index">

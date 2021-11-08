@@ -44,10 +44,12 @@ export class RemitProfileComponent implements OnInit {
       });
     }
     if (this.loanHolder.loanCategory === 'INDIVIDUAL' &&
-        !ObjectUtil.isEmpty(this.loanHolder.customerInfo.jointInfo)) {
-      const jointCustomerInfo = JSON.parse(this.loanHolder.customerInfo.jointInfo);
-      this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
-      this.isJointInfo = true;
+        !ObjectUtil.isEmpty(this.loanHolder.customerInfo)) {
+      if (this.loanHolder.customerInfo.jointInfo) {
+        const jointCustomerInfo = JSON.parse(this.loanHolder.customerInfo.jointInfo);
+        this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+        this.isJointInfo = true;
+      }
     }
   }
   calculateAge(dob) {
