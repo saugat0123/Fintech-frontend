@@ -122,7 +122,7 @@ export class CompanyFormComponent implements OnInit {
     additionalFieldSelected = false;
     additionalFieldData: any;
     subSector = [];
-    clientType = [];
+    clientType: any;
 
     ckeConfig = Editor.CK_CONFIG;
 
@@ -158,6 +158,7 @@ export class CompanyFormComponent implements OnInit {
     srdbAffiliatedId = false;
     disableCrgAlpha = environment.disableCrgAlpha;
     microCustomerType: string;
+
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -689,7 +690,7 @@ export class CompanyFormComponent implements OnInit {
         } else {
             contactPersonFormArray.push(this.contactPersonFormGroup());
         }
-            return contactPersonFormArray;
+        return contactPersonFormArray;
     }
 
     addContactPersons() {
@@ -899,7 +900,7 @@ export class CompanyFormComponent implements OnInit {
         }
         this.companyInfo = new CompanyInfo();
         this.companyInfo.isMicroCustomer = this.microCustomer;
-        this.companyInfo.microCustomerType =  this.companyInfoFormGroup.get('microCustomerType').value;
+        this.companyInfo.microCustomerType = this.companyInfoFormGroup.get('microCustomerType').value;
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
         this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
@@ -1213,21 +1214,22 @@ export class CompanyFormComponent implements OnInit {
 
         }
     }
+
     microCustomerValidation(micro: boolean) {
         const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
-        this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
+        this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'], !micro);
         const clientTypeControl = this.companyInfoFormGroup.get('clientType');
         if (micro || !this.disableCrgAlpha) {
             if (micro) {
                 clientTypeControl.patchValue('MICRO');
-                this.controlValidation(alphaFields , false);
+                this.controlValidation(alphaFields, false);
                 clientTypeControl.disable();
             } else {
-                this.controlValidation(alphaFields , true);
+                this.controlValidation(alphaFields, true);
                 clientTypeControl.enable();
             }
         } else {
-            this.controlValidation(alphaFields , false);
+            this.controlValidation(alphaFields, false);
             // this.clientType = this.clientType.filter(v => v !== 'MICRO');
             clientTypeControl.patchValue(ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
                 this.clientTypeInput);

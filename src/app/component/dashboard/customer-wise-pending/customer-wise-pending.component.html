@@ -87,8 +87,8 @@
                                 <select
                                         class="form-control form-control-tiny" formControlName="clientType">
                                     <option [ngValue]="null">Select Client Type</option>
-                                    <option *ngFor="let data of clientType" [ngValue]="data"
-                                    >{{data}}</option>
+                                    <option *ngFor="let data of clientType | keyvalue" [ngValue]="data.key"
+                                    >{{data.value}}</option>
                                 </select>
                             </div>
 
@@ -142,7 +142,7 @@
                                 <td>{{loanHolderLoans?.customerInfo?.name}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.customerCode || '-'}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.customerType}}</td>
-                                <td>{{loanHolderLoans?.customerInfo?.clientType || '-'}}</td>
+                                <td>{{(loanHolderLoans?.customerInfo?.clientType) || '-'}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.contactNo || '-'}}</td>
                                 <td>{{loanHolderLoans?.totalLoan}}</td>
                                 <td>

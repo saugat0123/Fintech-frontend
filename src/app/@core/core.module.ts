@@ -24,6 +24,7 @@ import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
 import {EnumConverterPipe} from "./pipe/enum-converter.pipe";
 import {DisbursementConvertPipe} from './pipe/disbursement-convert.pipe';
 import {RemitCountryConvertPipe} from './pipe/remit-country-convert.pipe';
+import {ClientTypePipe} from './pipe/client-type.pipe';
 
 
 const DATA_SERVICES = [];
@@ -71,7 +72,8 @@ const UTILITY_MODULES = [
         LoginPopUp,
         NepaliNumberPipe,
         DisbursementConvertPipe,
-        RemitCountryConvertPipe
+        RemitCountryConvertPipe,
+        ClientTypePipe
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -91,8 +93,9 @@ const UTILITY_MODULES = [
         LoginPopUp,
         NepaliNumberPipe,
 DisbursementConvertPipe,
-        RemitCountryConvertPipe
-    ], entryComponents: [LoginPopUp], providers: [NepaliNumberPipe, RemitCountryConvertPipe]
+        RemitCountryConvertPipe,
+        ClientTypePipe
+    ], entryComponents: [LoginPopUp], providers: [NepaliNumberPipe, RemitCountryConvertPipe, ClientTypePipe]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

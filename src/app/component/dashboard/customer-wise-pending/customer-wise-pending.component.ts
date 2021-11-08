@@ -30,6 +30,7 @@ import {CustomerService} from '../../../feature/admin/service/customer.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SafePipe} from '../../../feature/memo/pipe/safe.pipe';
 import {LoanTag} from '../../../feature/loan/model/loanTag';
+import {MaritalStatus} from '../../../@core/model/enum/marital-status';
 
 @Component({
     selector: 'app-customer-wise-pending',
@@ -74,7 +75,7 @@ export class CustomerWisePendingComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
     loanForCombine: { loan: Array<LoanDataHolder> }[] = [];
     initStatus;
-    clientType = [];
+    clientType: any;
     loanTag = LoanTag.values();
     subSector = [];
     model = new LoanDataHolder();
@@ -109,6 +110,7 @@ export class CustomerWisePendingComponent implements OnInit {
             (response: any) => {
                 other.spinner = false;
                 other.loanHolderLoanList = response.detail.content;
+                console.log('loan holder list pending', other.loanHolderLoanList);
                 other.loanHolderLoanListTemp = response.detail.content;
                 other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
                 other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));

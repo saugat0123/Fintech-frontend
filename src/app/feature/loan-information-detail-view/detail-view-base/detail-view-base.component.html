@@ -15,7 +15,9 @@
 <app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
                        [calendarType]="calendarType"
                        [formValue]="loanDataHolder?.companyInfo"
-                       [loanId]="loanId" [customerInfo]="loanHolder"></app-company-info-view>
+                       [loanId]="loanId"
+                       [loanDataHolder]="loanDataHolder"
+                       [customerInfo]="loanHolder"></app-company-info-view>
 
 <div *ngIf="megaGroupEnabled">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
