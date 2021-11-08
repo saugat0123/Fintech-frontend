@@ -19,6 +19,7 @@ export class SmePrintComponent implements OnInit {
   @Input() autoLoanType;
   @Input() interest;
   @Input() loanLimit;
+  @Input() preview = false;
   loanHolderInfo;
   guarantorName;
   guarantorData;

@@ -27,6 +27,7 @@ export class PersonalLoanAndPersonalOverdraftPrintComponent implements OnInit {
   allguarantorNames;
   guarantorAmount: number = 0;
   finalName;
+  @Input() preview = false;
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
               public currencyFormatPipe: CurrencyFormatterPipe) {

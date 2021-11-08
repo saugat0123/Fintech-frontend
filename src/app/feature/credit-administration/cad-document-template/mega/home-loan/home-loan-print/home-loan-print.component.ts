@@ -19,6 +19,7 @@ export class HomeLoanPrintComponent implements OnInit {
   @Input() letter: any;
   @Input() offerData;
   @Input() loanLimit;
+  @Input() preview = false;
   loanHolderInfo;
   guarantorName;
   guarantorData;
@@ -35,6 +36,7 @@ export class HomeLoanPrintComponent implements OnInit {
   autoRefNumber;
   dateOfApproval;
   dateOfApplication;
+
   constructor(public engToNepNumberPipe: EngToNepaliNumberPipe,
               public currencyFormatPipe: CurrencyFormatterPipe,
               public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
