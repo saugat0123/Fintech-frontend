@@ -33,6 +33,7 @@ import {Editor} from '../../../../../@core/utils/constants/editor';
 })
 export class CustomerFormComponent implements OnInit, DoCheck {
     onActionChangeSpinner = false;
+
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -50,7 +51,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         return this.basicInfo.controls;
     }
 
-    @ViewChild('microIndividualFormComponent' , {static: false}) microIndividualFormComponent: MicroIndividualFormComponent;
+    @ViewChild('microIndividualFormComponent', {static: false}) microIndividualFormComponent: MicroIndividualFormComponent;
 
     @Input() formValue: Customer = new Customer();
     @Input() clientTypeInput: any;
@@ -103,7 +104,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 // bankingRelationshipList = BankingRelationship.enumObject();
 //      bankingRelationshipList = ['CIB Report Obtained', 'Any existing Credit Relationship with other BFIs?', 'Any credit relationship with Laxmi Bank?(Including Group)'];
     subSector = [];
-    clientType = [];
+    clientType: any;
     relationArray: RelationshipList = new RelationshipList();
     public genderPairs = EnumUtils.pairs(Gender);
     maritalStatusEnum = MaritalStatus;
@@ -115,9 +116,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     clientName = Clients;
     ckeConfig = Editor.CK_CONFIG;
     private relation = ['Grand Father', 'Father'];
-    stayHidden =false;
+    stayHidden = false;
 
     ngOnInit() {
+        console.log('client type input', this.clientTypeInput);
         this.getProvince();
         this.getAllDistrict();
         this.getClientType();
@@ -142,7 +144,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.setRelatives(this.customer.customerRelatives);
             }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
-             this.occupationChange();
+            this.occupationChange();
 
         } else {
             this.createRelativesArray();
@@ -206,13 +208,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
                 this.municipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
-                            this.basicInfo.controls.municipalities.setValue(municipality);
+                        this.basicInfo.controls.municipalities.setValue(municipality);
                     }
                 });
             }
         );
 
     }
+
     getTemporaryDistricts(province: Province) {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
@@ -236,7 +239,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.temporaryMunicipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
                         municipality.id === this.customer.temporaryMunicipalities.id) {
-                            this.basicInfo.controls.temporaryMunicipalities.setValue(municipality);
+                        this.basicInfo.controls.temporaryMunicipalities.setValue(municipality);
                     }
                 });
             }
@@ -342,7 +345,12 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                         this.spinner = false;
                         return;
                     }
-                    const bakingRelation = {'cibReport': this.basicInfo.get('cibReport').value, 'bfi': this.basicInfo.get('bfi').value, 'creditRelationship': this.basicInfo.get('creditRelationship').value, 'remarks': this.basicInfo.get('remarks').value};
+                    const bakingRelation = {
+                        'cibReport': this.basicInfo.get('cibReport').value,
+                        'bfi': this.basicInfo.get('bfi').value,
+                        'creditRelationship': this.basicInfo.get('creditRelationship').value,
+                        'remarks': this.basicInfo.get('remarks').value
+                    };
                     this.customer.bankingRelationship = JSON.stringify(bakingRelation);
                     this.customer.netWorth = this.basicInfo.get('netWorth').value;
                     /** Remaining static read-write only data*/
@@ -484,7 +492,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }
-        return  JSON.stringify(individualJsonData);
+        return JSON.stringify(individualJsonData);
     }
 
     createRelativesArray() {
@@ -588,13 +596,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         if (houseWifeSelected) {
             this.tempFlag.hideIncomeSource = true;
             this.basicInfo.get('incomeSource').clearValidators();
-        }  else {
+        } else {
             this.tempFlag.hideIncomeSource = false;
             this.basicInfo.get('incomeSource').setValidators(Validators.required);
         }
         this.basicInfo.get('incomeSource').updateValueAndValidity();
 
     }
+
     ngDoCheck(): void {
         if (this.formValue.id == null) {
             this.formLabel = 'Add';
@@ -618,6 +627,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
                 this.clientType = res.detail;
+                console.log('res client type', this.clientType);
             }
             , error => {
                 console.error(error);
@@ -666,6 +676,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         }
 
     }
+
     sameAsPermanent() {
         // if (ObjectUtil.isEmpty(this.basicInfo.get('municipalities').value)) {
         //     this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
@@ -718,7 +729,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         if (event === 'true') {
             this.stayHidden = false;
         } else {
-        this.stayHidden = true;
+            this.stayHidden = true;
         }
     }
 }
