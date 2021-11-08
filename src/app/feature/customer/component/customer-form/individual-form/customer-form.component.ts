@@ -119,7 +119,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     stayHidden = false;
 
     ngOnInit() {
-        console.log('client type input', this.clientTypeInput);
         this.getProvince();
         this.getAllDistrict();
         this.getClientType();
@@ -627,7 +626,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
                 this.clientType = res.detail;
-                console.log('res client type', this.clientType);
             }
             , error => {
                 console.error(error);

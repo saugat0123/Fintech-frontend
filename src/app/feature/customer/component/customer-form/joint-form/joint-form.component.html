@@ -25,7 +25,7 @@
                                     id="clientType">
                                 <option [ngValue]="null">Select Client Type</option>
                                 <option *ngFor="let data of clientType | keyvalue" [ngValue]="data.key"
-                                        [selected]="data === clientTypeInput" >{{data.value}}</option>
+                                        [selected]="data.key === clientTypeInput" >{{data.value}}</option>
                             </select>
                         </div>
                     </div>

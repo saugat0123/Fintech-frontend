@@ -73,7 +73,7 @@
             </tbody>
         </table>
     </div>
-    <ng-container>
+    <ng-container *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" >
             <div class="col-md-12">
                 <p><b>3. Address Verification</b></p>
                 <table class="table table-condensed table-bordered table-sm table-responsive-lg text-center sb-small">

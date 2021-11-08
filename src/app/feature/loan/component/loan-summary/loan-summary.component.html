@@ -570,7 +570,7 @@
                         </ng-container>
                         </tbody>
                     </table>
-                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <table *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <p><strong>3. Address Verification</strong></p>
                         <tr class="text-white sb-bg-dark">
                             <th colspan="7">Permanent Address</th>
@@ -622,7 +622,7 @@
                 </div>
             </div>
 
-            <div class="row mt-1">
+            <div class="row mt-1" *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" >
                 <div class="col-md-12">
                     <p><strong>3. Address Verification</strong></p>
                     <table *ngIf="!isJointInfo" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">

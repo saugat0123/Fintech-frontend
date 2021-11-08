@@ -102,8 +102,9 @@ export class JointFormComponent implements OnInit {
         this.setJointDetail(this.individualJsonData);
         this.id = this.formValue.id;
         this.version = this.formValue.version;
-        this.customer.clientType = this.clientTypeInput;
+        this.customer.clientType = this.individualJsonData.clientType;
         this.customer.subsectorDetail = this.subSectorInput;
+        this.clientTypeInput = this.customer.clientType;
         this.basicJointInfo.get('clientType').patchValue(this.customer.clientType);
         this.basicJointInfo.get('subsectorDetail').patchValue(this.customer.subsectorDetail);
         this.basicJointInfo.get('introduction').patchValue(this.individualJsonData.introduction);
