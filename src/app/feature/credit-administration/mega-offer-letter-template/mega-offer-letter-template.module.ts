@@ -81,6 +81,12 @@ const COMPONENTS = [
         PersonalLoanComponent,
         SakhshiCommonComponent,
         SecuritiesComponent,
+        PersonalLoanPrintComponent,
+        RetailProfessionalLoanPrintComponent,
+        SmePrintComponent,
+        PersonalOverdraftPrintComponent,
+        PersonalLoanAndPersonalOverdraftPrintComponent,
+        RetailMortgageLoanPrintComponent,
         PersonalOverdraftWithoutCollateralComponent
     ],
     imports: [

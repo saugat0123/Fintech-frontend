@@ -12,11 +12,11 @@
         <div class="mb-2">
             <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
             <ng-template #nameDetails>
-                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
-                    श्रीमती
+                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
+                    सुश्री
                 </span>
-                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
-                  सुश्री
+                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
+                   श्रीमती
                 </span>
             </ng-template>
             <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name.ct!== null && loanHolderInfo?.name.ct!== ''}">
@@ -718,13 +718,14 @@
                 <td>४.</td>
                 <td>म/हामी विरुद्ध दामासाही सम्बन्धि कुनै कारवाही भएको छैन र म/हामी हालसम्म दामासाहिमा परेको घोषणा भएको छैन भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं।</td>
             </tr><br>
-            <tr>
+            <tr *ngIf="!loanLimit">
                 <td>५.</td>
                 <td>म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि नभएको बिनाशर्त उद्घोष गर्दछु।</td>
                 <!-- (This clause should be variable. It depends upon approved loan amount) -->
             </tr><br>
             <tr>
-                <td>६.</td>
+                <td *ngIf="!loanLimit">६.</td>
+                <td *ngIf="loanLimit">५.</td>
                 <td>यस नबिल बैंक लिमिटेडका संस्थापक, सञ्चालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो भन्दा माथिल्लो स्तरका कर्मचारीहरु,
                     चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सञग मेरो/हाम्रो,
                     कम्पनीको हकमा संस्थापक शेयरधनीहरु र सञ्चालकहरुको समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको  एकाघरको पारिवारिक
@@ -756,3 +757,5 @@
             </div>
     </div>
 </div>
+<button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+         ngxPrint printSectionId="{{offerLetterConst.HOME_LOAN}}Print" #printButton>Print</button>

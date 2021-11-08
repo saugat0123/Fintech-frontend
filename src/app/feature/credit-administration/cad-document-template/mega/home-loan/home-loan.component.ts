@@ -178,7 +178,6 @@ export class HomeLoanComponent implements OnInit {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
           === this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        console.log('If condition works:');
         this.offerLetterDocument = new OfferDocument();
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN);
       } else {
@@ -192,6 +191,7 @@ export class HomeLoanComponent implements OnInit {
           this.form.get('additionalDetails').patchValue(this.offerLetterData.pointInformation);
         }
         this.initialInfoPrint = initialInfo;
+        this.loanLimit = this.tempData.loan.loanLimitChecked;
         this.existingOfferLetter = true;
         this.initialInfoPrint = initialInfo;
         this.fillForm();
@@ -268,10 +268,11 @@ export class HomeLoanComponent implements OnInit {
       ownerName: this.tempData.loan.nameOfLandOwnerCT ? this.tempData.loan.nameOfLandOwnerCT : '',
       ownersAddress: this.tempData.loan.landLocationCT ? this.tempData.loan.landLocationCT : '',
       propertyPlotNumber: this.tempData.loan.kittaNumberCT ? this.tempData.loan.kittaNumberCT : '',
-      propertyArea: this.tempData.loan.areaCT ? this.tempData.loan.areaCT : '',
+      propertyArea: (this.tempData.loan.areaCT) ? (this.tempData.loan.areaCT) : ((this.tempData.loan.areasCT) ? (this.tempData.loan.areasCT) : ('')),
       branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      loanAmount: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       distressSituationPercentage: this.tempData.loan.drawingPowerCT ? this.tempData.loan.drawingPowerCT : '',
       baseRate: this.tempData.loan.baseRateCT ? this.tempData.loan.baseRateCT : '',

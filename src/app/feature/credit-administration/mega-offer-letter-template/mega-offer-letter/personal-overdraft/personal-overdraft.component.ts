@@ -81,6 +81,7 @@ export class PersonalOverdraftComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
+    console.log('Temp Data',this.tempData);
     this.checkOfferLetterData();
     this.guarantorDetails();
   }
@@ -96,6 +97,7 @@ buildPersonal() {
     loanAmountinFigure: [undefined],
     loanAmountInWords: [undefined],
     purposeOfLoan: [undefined],
+    drawingPower: [undefined],
     baseRate: [undefined],
     premiumRate: [undefined],
     yearlyInterestRate: [undefined],
@@ -167,7 +169,6 @@ buildPersonal() {
         } else {
           this.form.get('dateofExpiry').patchValue(this.initialInfoPrint.dateofExpiryNepali.en);
         }
-        console.log(this.initialInfoPrint);
       }
     } else {
       this.fillForm();
@@ -196,6 +197,7 @@ buildPersonal() {
       // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
       referenceNumber: autoRefNumber ? autoRefNumber : '',
       purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
+      drawingPower: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
       loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',

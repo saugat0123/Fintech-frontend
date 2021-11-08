@@ -1,6 +1,7 @@
 <nb-card [nbSpinner]="spinner" class="px-3">
     <nb-card-header>
-        <a class="font-weight-bold cursor d-flex justify-content-end" (click)="ngDialogRef.close()">x</a>
+        <h3>Edit Personal Overdraft Data</h3>
+        <a class="font-weight-bold cursor d-flex justify-content-end" (click)="ngDialogRef.close()" style="margin-top:-2em">x</a>
     </nb-card-header>
     <div class="px-2">
         <form [formGroup]="form">
@@ -122,6 +123,21 @@
                         <div *ngIf="submitted && Form.purposeOfLoanTransVal.errors"
                              class="invalid-feedback">
                             <div *ngIf="Form.purposeOfLoanTransVal.errors.required">Purpose of loan is required</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Drawing Power (Percentage)</td>
+                    <td><input type="text" class="form-control" formControlName="drawingPower" (input)="translateNumber('drawingPower', 'drawingPowerTransVal');"></td>
+                    <td class="abc">{{translatedValues ? translatedValues?.drawingPower : initialInformation?.drawingPower?.ct}}</td>
+                    <td>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.drawingPowerTransVal.errors }"
+                               formControlName="drawingPowerTransVal"/>
+                        <div *ngIf="submitted && Form.drawingPowerTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.drawingPowerTransVal.errors.required">Drawing Power is required</div>
                         </div>
                     </td>
                 </tr>

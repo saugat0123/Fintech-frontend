@@ -66,6 +66,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.loanLimit = this.initialInformation.loanLimitChecked.en;
       this.dateTypeAD = true;
       this.dateTypeAD1 = true;
       this.dateTypeAD2 = true;
@@ -76,6 +77,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       // refNumber: [undefined],
+      loanLimitChecked: [undefined],
       dateOfApproval: [undefined],
       dateofApplication: [undefined],
       purposeOfLoan: [undefined],
@@ -93,6 +95,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
 
       // Translated Value
       // refNumberTransVal: [undefined, Validators.required],
+      loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
@@ -118,6 +121,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
       this.spinner = false;
       return;
     }
+    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
     this.spinner = true;
     this.btnDisable = true;
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
@@ -195,13 +199,12 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
   private setTemplatedCTData(): void {
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
-    // this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
-    this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
     this.form.get('managerNameTransVal').patchValue(this.translatedData.managerName);
     this.form.get('companyNameTransVal').patchValue(this.translatedData.companyName);
     this.form.get('loanPeriodInMonthTransVal').patchValue(this.translatedData.loanPeriodInMonth);
+    this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -295,10 +298,13 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
     this.form.get('emiAmountWordsTransVal').patchValue(this.initialInformation.emiAmountWords.ct);
     this.form.get('companyNameTransVal').patchValue(this.initialInformation.companyName.ct);
     this.form.get('accountNumberTransVal').patchValue(this.initialInformation.accountNumber.ct);
-    this.form.get('relationshipOfficer').patchValue(this.initialInformation.relationshipOfficer.ct);
-    this.form.get('relationshipOfficerTransVal').patchValue(this.initialInformation.managerName.ct);
+    this.form.get('relationshipOfficerTransVal').patchValue(this.initialInformation.relationshipOfficer.ct);
     this.form.get('managerNameTransVal').patchValue(this.initialInformation.managerName.ct);
     this.form.get('loanPeriodInMonthTransVal').patchValue(this.initialInformation.loanPeriodInMonth.ct);
+  }
+
+  loanChecked(data) {
+    this.loanLimit = data;
   }
 
 }

@@ -45,7 +45,7 @@ export class ConstructionLoanComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.constructionLoanForm = this.formBuilder.group({
-      loanLimitChecked: [undefined],
+      loanLimitChecked: [false],
       loanLimitCheckedTrans: [undefined],
       loanLimitCheckedCT: [undefined],
       referenceNumber: [undefined],
@@ -344,7 +344,6 @@ export class ConstructionLoanComponent implements OnInit {
   loanChecked(data) {
     this.loanLimit = data;
     this.constructionLoanForm.get('loanLimitChecked').patchValue(this.loanLimit);
-    console.log('Loan Limit Checked?', this.loanLimit);
   }
   calInterestRate() {
     const baseRate = this.constructionLoanForm.get('baseRate').value;
@@ -352,5 +351,4 @@ export class ConstructionLoanComponent implements OnInit {
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.constructionLoanForm.get('interestRate').patchValue(sum);
   }
-
 }

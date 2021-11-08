@@ -1,9 +1,15 @@
 <nb-card [nbSpinner]="spinner" class="px-3">
     <nb-card-header class="px-2 cursor">
-        <a class="d-flex justify-content-end font-weight-bold text-dark" (click)="ngDialogRef.close()">x</a>
+        <h3>Edit Personal Loan Data</h3>
+        <a class="d-flex justify-content-end font-weight-bold text-dark" (click)="ngDialogRef.close()" style="margin-top:-2em">x</a>
     </nb-card-header>
     <div>
         <form [formGroup]="form">
+            <div class="row pt-3 pl-2">
+                <div class="col-md-12 pt-3 pl-2">
+                    <nb-checkbox #limitCheck (change)="loanChecked(limitCheck.checked)" [checked]="loanLimit"><i>Customer has total loan amount above One Crore</i></nb-checkbox>
+                </div>
+            </div>
             <div class="row mt-5 px-5">
                 <table class="table table-borderless text-center sb-small table-sm">
                     <tr>
