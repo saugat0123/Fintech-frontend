@@ -298,8 +298,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
     this.form.get('emiAmountWordsTransVal').patchValue(this.initialInformation.emiAmountWords.ct);
     this.form.get('companyNameTransVal').patchValue(this.initialInformation.companyName.ct);
     this.form.get('accountNumberTransVal').patchValue(this.initialInformation.accountNumber.ct);
-    this.form.get('relationshipOfficer').patchValue(this.initialInformation.relationshipOfficer.ct);
-    this.form.get('relationshipOfficerTransVal').patchValue(this.initialInformation.managerName.ct);
+    this.form.get('relationshipOfficerTransVal').patchValue(this.initialInformation.relationshipOfficer.ct);
     this.form.get('managerNameTransVal').patchValue(this.initialInformation.managerName.ct);
     this.form.get('loanPeriodInMonthTransVal').patchValue(this.initialInformation.loanPeriodInMonth.ct);
   }
