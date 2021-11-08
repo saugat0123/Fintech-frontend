@@ -1,10 +1,8 @@
 <div class="row" id="{{offerLetterConst.MORTAGE_LOAN}}Print" xmlns="http://www.w3.org/1999/html">
-    <div>
-        <div class="text-center">
-            <h2 class="font-weight-bold" style="text-align: center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h2>
-        </div>
+    <div class="text-center col-md-12">
+        <h4 class="font-weight-bold" style="text-align: center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h4>
     </div>
-    <div class="mb-2">
+    <div class="mb-2 col-md-12">
         <span class="font-weight-bold">
                      {{autoRefNum ? autoRefNum : '_______________________'}}
                 </span>
@@ -17,21 +15,23 @@
             </ng-template>
         </p>
     </div>
-    <div class="mb-2">
+    <div class="mb-2 col-md-12">
         श्री
         <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
                     {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}
                 </span>
     </div>
 
-    <div class="mb-2">
+    <div class="mb-2 col-md-12">
          <span [ngClass]="{'font-weight-bold' : customerAddress !== null && customerAddress !== ''}">
              {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}
          </span>
     </div>
-    <p style="text-align: center;text-decoration: underline;"><strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong></p>
+    <div class="col-md-12">
+        <p style="text-align: center;text-decoration: underline;"><strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong></p>
+    </div>
     <br>
-    <div class="mb-1">
+    <div class="mb-1 col-md-12">
         <p> महोदय, <br>
             तपाईंले मिति
             <span *ngIf="letter.dateofApplication.en.nDate; else dateofApplicationPrint"
