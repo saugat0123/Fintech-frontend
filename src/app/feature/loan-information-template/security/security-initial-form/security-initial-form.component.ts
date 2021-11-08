@@ -187,7 +187,6 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
-        // this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -881,9 +880,6 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.corporateGuarantee = this.personal = this.insurancePolicySelected = this.landOtherBranchChecked =
                     this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked = this.vehicleOtherBranchChecked =
                         this.plantOtherBranchChecked = false;
-        if (this.selectedArray !== undefined && this.selectedArray.indexOf(arraySelected) === -1 && arraySelected !== null) {
-            this.selectedArray.push(arraySelected);
-        }
         selectedSecurity.push(arraySelected);
         selectedSecurity.forEach(selectedValue => {
             switch (selectedValue) {
