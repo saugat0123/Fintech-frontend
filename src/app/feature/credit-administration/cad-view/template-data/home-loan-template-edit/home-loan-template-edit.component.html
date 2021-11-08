@@ -1,6 +1,8 @@
 <nb-card [nbSpinner]="spinner" class="px-3">
     <nb-card-header>
-        <a class="d-flex justify-content-end cursor" (click)="nbDialogRef.close()"><b>x</b></a>
+        <h3 *ngIf="isConstructionLoan">Edit Home Loan (Construction) Data </h3>
+        <h3 *ngIf="isPurchaseLoan || isTakeOverLoan">Edit Home Loan (Land/Building) Data </h3>
+        <a class="d-flex justify-content-end cursor" (click)="nbDialogRef.close()" style="margin-top:-2em"><b>x</b></a>
     </nb-card-header>
     <nb-card-body>
         <div [formGroup]="homeLoanForm">

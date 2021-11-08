@@ -99,6 +99,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       this.fieldFlag = true;
       this.dateTypeAD = true;
       this.dateTypeAD1 = true;
+      this.dateTypeAD2 = true;
       this.selectedSecurityVal = this.initialInformation.selectedSecurity.en;
       this.selectedCountryVal = this.initialInformation.selectedCountry.en;
       this.securityDetails = this.initialInformation.securityDetails;
