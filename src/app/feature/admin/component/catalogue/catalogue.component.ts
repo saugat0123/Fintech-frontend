@@ -109,7 +109,8 @@ export class CatalogueComponent implements OnInit {
     roleTypeMaker: string;
     length = false;
     isFileUnderCurrentToUser: any;
-
+    loanConfigId: number;
+    customerId: number;
     constructor(
         private branchService: BranchService,
         private loanConfigService: LoanConfigService,
@@ -421,7 +422,10 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
-    onChange(data, onActionChange) {
+    onChange(data, onActionChange, event) {
+        this.loanConfigId = data.loan.id;
+        this.customerId = data.id;
+        this.tempLoanType = event;
         if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
             this.router.navigate(['/home/update-loan/dashboard'], {
                 queryParams: {
