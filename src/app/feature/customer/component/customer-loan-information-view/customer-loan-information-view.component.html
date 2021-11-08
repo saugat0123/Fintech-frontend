@@ -93,12 +93,16 @@
             </div>
           </div>
         </nb-accordion-item-header>
-        <nb-accordion-item-body>
+        <nb-accordion-item-body *ngIf="customerInfo?.security?.data != null && customerInfo?.security?.data != undefined">
           <app-security-view *ngIf="security.expanded"
                              [security]="customerInfo?.security"
                              [shareSecurityData]="customerInfo?.shareSecurity">
 
           </app-security-view>
+        </nb-accordion-item-body>
+        <nb-accordion-item-body *ngIf="customerInfo?.security?.approvedData != null && customerInfo?.security?.approvedData != undefined">
+          <app-security-approved-view [security]="customerInfo?.security"
+                                      [shareSecurityData]="customerInfo?.shareSecurity"></app-security-approved-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
 

@@ -119,10 +119,18 @@
 <!-- End Income From Account Details-->
 
 <!-- Start Security Details-->
+<ng-container *ngIf="initialSecurity">
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
+</ng-container>
+<ng-container *ngIf="approvedSecurity">
+<app-security-approved-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
+        [shareSecurityData]="loanHolder?.shareSecurity"
+        [securityId]="securityId"
+        (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-view>
+</ng-container>
 <!-- End Security Details-->
 
 <!-- Start SiteVisit Details-->

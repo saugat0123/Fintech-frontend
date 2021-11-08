@@ -114,6 +114,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     navigationSubscription;
     securitySummary = false;
     securityData: Object;
+    approvedSecurityData: Object;
     siteVisitData: Object;
     checkGuarantorData = false;
     offerLetterDocuments: {
@@ -214,6 +215,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     fundableNonFundableSelcted = false;
     loanNatureSelected = false;
     companyInfoId: any;
+    initialSecurity = false;
+    approvedSecurity = false;
+
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -324,6 +328,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.loanNatureSelected = false;
             this.fundableNonFundableSelcted = false;
         }
+        console.log(this.loanDataHolder.security);
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
+            this.initialSecurity = true;
+        }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+            this.approvedSecurity = true;
+        }
     }
 
     ngOnDestroy(): void {
@@ -346,7 +357,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         // Setting Security data--
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
             this.securityId = this.loanDataHolder.security.id;
-            this.securityData = JSON.parse(this.loanDataHolder.security.data);
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
+                this.securityData = JSON.parse(this.loanDataHolder.security.data);
+            }
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+                this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
+            }
             this.securitySummary = true;
         }
 

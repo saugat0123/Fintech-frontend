@@ -120,6 +120,7 @@ export class CollateralSummaryComponent implements OnInit {
 
   displaySecurityExposure() {
     const securityData = JSON.parse(this.security.data);
+    if (!ObjectUtil.isEmpty(securityData)) {
     const initialData = securityData.initialForm;
     if (!ObjectUtil.isEmpty(this.security) && securityData.selectedArray.length > 0) {
       this.securityExposure = true;
@@ -129,6 +130,7 @@ export class CollateralSummaryComponent implements OnInit {
       }
     } else {
       this.securityExposure = false;
+    }
     }
   }
   getApprovedLoans(id) {

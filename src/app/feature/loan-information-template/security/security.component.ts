@@ -105,6 +105,7 @@ export class SecurityComponent implements OnInit {
         this.buildCrgSecurityForm();
         this.getProvince();
         console.log(this.securityValue);
+        console.log(this.approvedSecurityValue);
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;

@@ -222,7 +222,7 @@
         </div>
     </div>
     <hr><br>
-    <div *ngIf="approvedSecurityValue !== null">
+    <div *ngIf="approvedSecurityValue !== null && approvedSecurityValue !== undefined">
     <h1>Existing Security</h1>
     <div class="form-group">
         <app-security-approved-form [calendarType]="calendarType"

@@ -23,6 +23,7 @@ import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-d
 import { CrgAlphaDetailedViewComponent } from './crg-alpha-detailed-view/crg-alpha-detailed-view.component';
 import { CrgLambdaDetailViewComponent } from './crg-lambda-detail-view/crg-lambda-detail-view.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import { SecurityApprovedViewComponent } from './security-approved-view/security-approved-view.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {NepaliPatroModule} from 'nepali-patro';
     IncomeFromAccountViewComponent,
     CrgGammaDetailViewComponent,
     CrgAlphaDetailedViewComponent,
-    CrgLambdaDetailViewComponent
+    CrgLambdaDetailViewComponent,
+    SecurityApprovedViewComponent
   ],
     exports: [
         InsuranceViewComponent,
@@ -57,7 +59,8 @@ import {NepaliPatroModule} from 'nepali-patro';
         IncomeFromAccountViewComponent,
         CrgGammaDetailViewComponent,
         CrgAlphaDetailedViewComponent,
-        CrgLambdaDetailViewComponent
+        CrgLambdaDetailViewComponent,
+        SecurityApprovedViewComponent
     ],
     imports: [
         CommonModule,
