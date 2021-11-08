@@ -81,6 +81,8 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
         signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
       });
     }
+    this.form.get(['addMoreIndividualDetails', 0, 'amount1']).patchValue(this.loanAmountTemplate.numberNepali);
+    this.form.get(['addMoreIndividualDetails', 0, 'amountInWords1']).patchValue(this.loanAmountTemplate.nepaliWords);
   }
 
   checkOfferLetter() {

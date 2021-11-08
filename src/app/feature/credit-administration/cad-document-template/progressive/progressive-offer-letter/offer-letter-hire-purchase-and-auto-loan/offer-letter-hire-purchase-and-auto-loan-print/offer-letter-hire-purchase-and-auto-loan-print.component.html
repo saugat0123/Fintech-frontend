@@ -6,7 +6,7 @@
       <div class="row" style="margin-top: 50px">
         <div class="col-md-8">
           <p>
-            पत्र स.:
+            प.सं.:
             <span [ngClass]="{'nepaliFont' : printDocForm?.patraNum !== null && printDocForm?.patraNum !== ''}">
                             {{printDocForm?.patraNum === null || printDocForm?.patraNum === '' ? '_________________' : printDocForm?.patraNum}}
                         </span>
@@ -52,7 +52,7 @@
       </div>
       <div style="...">
         <p>
-          हनागरिकता बमोजिम ठेगाना :
+          नागरिकता बमोजिम ठेगाना :
           <span [ngClass]="{'nepaliFont' : printDocForm?.customerCitizenshipAddress !== null && printDocForm?.customerCitizenshipAddress !== ''}">
             {{printDocForm?.customerCitizenshipAddress === null || printDocForm?.customerCitizenshipAddress === '' ? '_________________' : printDocForm?.customerCitizenshipAddress}}
           </span>
@@ -107,11 +107,11 @@
                 <td colspan="2"><strong>कर्जा तथा सुविधाको विवरण : </strong></td>
               </tr>
               <tr>
-                <td colspan="2"><strong>(क) कर्जा सुविधाको किसिम :</strong> &nbsp; &nbsp; हायर पर्चेज कर्जा/ सवारी साधन खरिद कर्जा</td>
+                <td colspan="2"><strong>(क)	कर्जा सुविधाको किसिम :</strong> &nbsp; &nbsp; हायर पर्चेज कर्जा/ सवारी साधन खरिद कर्जा</td>
               </tr>
               <tr>
                 <td><strong>कर्जा सिमा :</strong></td>
-                <td>अधिकतम रु.
+                <td>अधिकतम रु
                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
                     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
                   </span>
@@ -127,13 +127,13 @@
                 <td> सवारी साधन  खरिद गर्न । <br></td>
               </tr>
               <tr>
-                <td><strong> तिर्नुपर्ने किस्ताको विवरण :</strong></td>
+                <td><strong> ततिर्नुपर्ने किस्ताको विवरण :</strong></td>
                 <td>
                   प्रत्येक महिनाको नेपाली क्यलेन्डर अनुसार २५ गतेका दिन मासिक रु
                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.monthlyPayment !== null && printDocForm?.monthlyPayment !== ''}">
                     {{printDocForm?.monthlyPayment === null || printDocForm?.monthlyPayment === '' ? '_________________' : printDocForm?.monthlyPayment}}
                   </span>
-                  / - सम मासिक किस्ता (EMI BASIS) मा असुल उपर गरिने छ ।
+                  / - सम मासिक किस्ता ९भ्ःक्ष् द्यब्क्क्ष्क्० मा असुल उपर गरिने छ ।
                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.yearlyInterest !== null && printDocForm?.yearlyInterest !== ''}">
                     {{printDocForm?.yearlyInterest === null || printDocForm?.yearlyInterest === '' ? '_________________' : printDocForm?.yearlyInterest}}
                   </span>
@@ -222,13 +222,13 @@
         </table>
         <div class="row">
           <div style="margin-left: 80px">
-            <p>क. <strong>Primary Collateral:  धितो राखिने जायजेथाको बिबरण</strong></p>
+            <p>क. <strong>Primary Collateral:  धितो राखिने सवारी साधनको बिबरण</strong></p>
             <table class="table table-bordered">
               <thead>
               <tr>
                 <th>क्र.सं.</th>
                 <th width="40%">धितोको विवरण</th>
-                <th width="30%">जकोटेशन मूल्य/ मुल्याङ्कन रकम</th>
+                <th width="30%">कोटेशन मूल्य/ मुल्याङ्कन रकम</th>
                 <th width="30%">लगानी तथा मार्जिन प्रतिशत</th>
               </tr>
               </thead>
@@ -278,7 +278,7 @@
             </table>
             उपरोक्त धिताकोे को गाडी ऋणीले नेपाल सरकार यातायात व्यावस्था कार्यालय गयीे यस प्रोग्रेशिभफाइनान्स लि.को
             नाममा धनि दर्ता कायम गराउनु पर्ने छ ।
-            <p>ख. <strong>Additional Collateral:  धधितो राखिने जग्गा वा घर जग्गाको बिबरण</strong></p>
+            <p>ख. <strong>Additional Collateral:  धितो राखिने जग्गा वा घर जग्गाको बिबरण</strong></p>
             <table class="table table-bordered">
               <thead>
               <tr>
@@ -286,7 +286,7 @@
                 <th  width="15%">जिल्ला</th>
                 <th  width="20%">जग्गाको ठेगाना</th>
                 <th  width="8%">कि.नं.</th>
-                <th  width="20%">क्षेत्रफल रोपनी/ब.मी.</th>
+                <th  width="20%">क्षेत्रफल रोपनी/ब.मी</th>
                 <th  width="20%">सि.नं.</th>
               </tr>
               </thead>
@@ -300,7 +300,7 @@
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.fatherName !== null && additionalCollateral?.fatherName !== ''}">
                     {{additionalCollateral?.fatherName === null || additionalCollateral?.fatherName === '' ? '_____________' : additionalCollateral?.fatherName}}
                   </span><br>
-                  बाजेको नाम. :
+                  बाजेको नाम :
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.grandFatherName !== null && additionalCollateral?.grandFatherName !== ''}">
                     {{additionalCollateral?.grandFatherName === null || additionalCollateral?.grandFatherName === '' ? '_____________' : additionalCollateral?.grandFatherName}}
                   </span><br>
@@ -319,7 +319,7 @@
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.existingAddress !== null && additionalCollateral?.existingAddress !== ''}">
                     {{additionalCollateral?.existingAddress === null || additionalCollateral?.existingAddress === '' ? '_____________' : additionalCollateral?.existingAddress}}
                   </span><br>
-                  हालको :
+                  हालको:
                   <span [ngClass]="{'nepaliFont' : additionalCollateral?.currentAddress !== null && additionalCollateral?.currentAddress !== ''}">
                     {{additionalCollateral?.currentAddress === null || additionalCollateral?.currentAddress === '' ? '_____________' : additionalCollateral?.currentAddress}}
                   </span>
@@ -412,11 +412,11 @@
               <span [ngClass]="{'nepaliFont' : printDocForm?.amount3 !== null && printDocForm?.amount3 !== ''}">
                 {{printDocForm?.amount3 === null || printDocForm?.amount3 === '' ? '_________________' : printDocForm?.amount3}}
               </span>
-              /-(अक्षरेपी:
+              /-(अक्षरेपी :
               <span [ngClass]="{'nepaliFont' : printDocForm?.amountInWords3 !== null && printDocForm?.amountInWords3 !== ''}">
                 {{printDocForm?.amountInWords3 === null || printDocForm?.amountInWords3 === '' ? '_________________' : printDocForm?.amountInWords3}}
               </span>
-              रुपैंया मात्र ।)  को ऋणि तथा जमानी कर्ताले एक एक प्रति प्रतिज्ञापत्रमा
+              रुपैंया मात्र ।) को ऋणि तथा जमानी कर्ताले एक एक प्रति प्रतिज्ञापत्रमा
               सही छाप गरी फाइनान्सलाई उपलव्ध गराउनु पर्ने छ ।
             </td>
           </tr>
@@ -441,7 +441,7 @@
                 कर्जामा दैनिक व्याज गणना गरी सांवा तथा पाकेको व्याजको किस्ता भुक्तानी तालिका बमोजिम वा प्रत्येक
                 त्रैमासकोे अन्तमा असुलउपर गरिने छ । कर्जा समयमा भुक्तानी नभएको अवस्थामा वा यस कर्जा
                 स्वीकृतिपत्रमा उल्लेखित शर्त तथा वन्देजहरुको उल्लंघन भएमा वा स्वीकृत सीमा भन्दा वढी कर्जा उपभोग
-                गरेमा विना पूर्व सूचना यस कर्जा स्वीकृतिपत्रमा उल्लेखित व्याज दरमा कम्तीमा<strong>२</strong> प्रतिशत थप व्याज लगाई
+                गरेमा विना पूर्व सूचना यस कर्जा स्वीकृतिपत्रमा उल्लेखित व्याज दरमा कम्तीमा <strong>२</strong> प्रतिशत थप व्याज लगाई
                 असुल उपर गरिनेछ ।<br><br>
               </li>
               <li>
@@ -461,7 +461,7 @@
                 बन्देज बमोजिम स्वत : हुनेछ । उक्त परिवर्तनको पुर्व जानकारी गराउन फाईनान्स बाध्यकारी हुने छैन ।
               </li>
               <li>
-                कर्जा भुक्तानि तालिका बमोजिम ऋणीले कर्जा रकम नतिरेको खण्डमा ऋणीलाई प्रदान गरेको अस्थाई छुट
+                कर्जा भुक्तानि तालिका बमोजिम ऋणीले कर्जा रकम नतिरेको खण्डमा ऋणीलाई प्रदान गरेको  अस्थाई छुट
                 खारेज गरी आधार दर र स्वीकृत प्रिमियम दरको योगसम्म ब्याजदर समायोजन गर्न फाईनान्स स्वतन्त्र रहनेछ ।
               </li>
             </ul>
@@ -474,14 +474,14 @@
                       {{printDocForm?.amount4 === null || printDocForm?.amount4 === '' ? '_________________' : printDocForm?.amount4}}
                   </span>
             को भुक्तानी मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका कर्जा तथा
-            सुविधाहरु कुनै कारण देखाई वा नदेखाई फाइनान्सले फिर्ता भुक्तानी माग गरेका वखत तत्कालै भुक्तानी गर्नु पर्नेछ । <br>
+            सुविधाहरु कुनै कारण देखाई वा नदेखाई फाइनान्सले फिर्ता भुक्तानी माग गरेका वखत तत्कालै भुक्तानी गर्नु पर्नेछ ।<br>
           </td>
         </tr>
         <tr>
           <td><strong>५.</strong></td>
           <td> <strong>निरिक्षण :</strong><br>
             कुनै पूर्व तयारी नगरी फाइनान्सले आवश्यक देखेको समयमा व्यवसाय गरेका वा धितो सुरक्षण दिएका सम्पत्तिहरुको
-            निरिक्षण गर्न फाइनान्स अधिकृत रहेको छ । यसरी नीरिक्षण गर्दा लाग्ने सवै किसिमका खर्चहरु ऋणीले व्यहोर्नु पर्ने छ । <br>
+            निरिक्षण गर्न फाइनान्स अधिकृत रहेको छ । यसरी नीरिक्षण गर्दा लाग्ने सवै किसिमका खर्चहरु ऋणीले व्यहोर्नु पर्ने छ ।<br>
           </td>
         </tr>
         <tr>
@@ -558,12 +558,12 @@
         </tr>
         <tr>
           <td>७.१</td>
-          <td> यो कर्जा/सुविधा लिंदा लाग्ने सवै प्रकारका खर्चहरु ऋणीले व्यहोर्नेछ ।</td>
+          <td> यो कर्जा/सुविधा लिंदा लाग्ने सवै प्रकारका खर्चहरु ऋणीले व्यहोर्ने छ । </td>
         </tr>
         <tr>
           <td>७.२</td>
           <td>
-            फाइनान्सले पूर्व सूचना दिएर वा नदिई पनि कर्जा/सुविधालाई नियमित वनाई राख्न ऋणीको खाता खर्च गर्न सक्नेछ ।
+            फाइनान्सले पूर्व सूचना दिएर वा नदिई पनि कर्जा÷सुविधालाई नियमित वनाई राख्न ऋणीको खाता खर्च गर्न सक्नेछ ।
             यसका लागि ऋणीले आफ्नो खातामा पर्याप्त रकम कायम राख्नु पर्नेछ । ऋणीको खातामा पर्याप्त रकम नभई कर्जा वा
             सुविधाको किस्ता खिलाफी भएमा ऋणीले फाइनान्स नियमानुसार विलम्व शुल्क तिर्नु पर्नेछ । बैंक जमानत वमोजिमको
             रकम फाइनान्सले भुक्तानी गरेमा जमानीको रकम फाइनान्सले ऋणीको खातामा खर्च लेखी सोझै असुल उपर गर्ने छ ।
@@ -661,7 +661,7 @@
         <tr>
           <td>८.८</td>
           <td>
-            फाइनान्समा धितो रहेको सम्पत्तिको पुरै वा आंशिक भाग खारेज गर्न वा अरु कसैलाई दिन वा कुनै किसिमको चार्ज
+            फाइनान्समा धितो रहेको सम्पत्तिको पुरै वा आंंिशक भाग खारेज गर्न वा अरु कसैलाई दिन वा कुनै किसिमको चार्ज
             सिर्जना गर्न वा कुनै कानूनी कारवाही गर्न ऋणीले स्वीकृति दिएमा वा ऋणी आफैले वा कुनै अड्डा अदालतवाट
             लिक्वीडेटर वा अन्य लाभग्राही नियुक्त गरेमा ।
           </td>
