@@ -170,43 +170,36 @@ export class JointFormComponent implements OnInit {
             successionRisk: [jointDetail.successionRisk],
             bankingRelationship: [jointDetail.bankingRelationship],
             netWorth: [jointDetail.netWorth],
-            customerRelation1: [jointDetail.customerRelation1, Validators.required],
-            customerRelativeName1: [jointDetail.customerRelativeName1, Validators.compose([Validators.required])],
+            customerRelation1: [jointDetail.customerRelation1],
+            customerRelativeName1: [jointDetail.customerRelativeName1],
             citizenshipNumber1: [jointDetail.citizenshipNumber1],
             citizenshipIssuedPlace1: [jointDetail.citizenshipIssuedPlace1],
             citizenshipIssuedDate1: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate1) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate1), DateValidator.isValidBefore],
-            age1: [jointDetail.age1],
-            customerRelation2: [jointDetail.customerRelation2, Validators.required],
-            customerRelativeName2: [jointDetail.customerRelativeName2, Validators.compose([Validators.required])],
+            customerRelation2: [jointDetail.customerRelation2],
+            customerRelativeName2: [jointDetail.customerRelativeName2],
             citizenshipNumber2: [jointDetail.citizenshipNumber2],
             citizenshipIssuedPlace2: [jointDetail.citizenshipIssuedPlace2],
             citizenshipIssuedDate2: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate2) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate2), DateValidator.isValidBefore],
-            age2: [jointDetail.age2],
             customerRelation3: [jointDetail.customerRelation3],
             customerRelativeName3: [jointDetail.customerRelativeName3],
             citizenshipNumber3: [jointDetail.citizenshipNumber3],
             citizenshipIssuedPlace3: [jointDetail.citizenshipIssuedPlace3],
             citizenshipIssuedDate3: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate3) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate3), DateValidator.isValidBefore],
-            age3: [jointDetail.age3],
             customerRelation4: [jointDetail.customerRelation4],
             customerRelativeName4: [jointDetail.customerRelativeName4],
             citizenshipNumber4: [jointDetail.citizenshipNumber4],
             citizenshipIssuedPlace4: [jointDetail.citizenshipIssuedPlace4],
             citizenshipIssuedDate4: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate4) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate4), DateValidator.isValidBefore],
-            age4: [jointDetail.age4],
             customerRelation5: [jointDetail.customerRelation5],
             customerRelativeName5: [jointDetail.customerRelativeName5],
             citizenshipNumber5: [jointDetail.citizenshipNumber5],
             citizenshipIssuedPlace5: [jointDetail.citizenshipIssuedPlace5],
             citizenshipIssuedDate5: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate5) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate5), DateValidator.isValidBefore],
-            age5: [jointDetail.age5],
-              fatherName: [jointDetail.fatherName],
-              grandFatherName: [jointDetail.grandFatherName],
               customerRelations: this.formBuilder.array([])
           })
       );
@@ -217,7 +210,6 @@ export class JointFormComponent implements OnInit {
             if (jointDetail.customerRelations.length > 0) {
                 jointDetail.customerRelations.forEach((cr) => {
                     secControl.push(this.formBuilder.group({
-                        age: [cr.age],
                         customerRelation: [cr.customerRelation],
                         customerRelativeName: [cr.customerRelativeName],
                         citizenshipNumber: [cr.citizenshipNumber],
@@ -322,6 +314,9 @@ export class JointFormComponent implements OnInit {
         return;
       } else {
           if (this.basicJointInfo.controls['jointCustomerInfo'].invalid || this.basicJointInfo.invalid) {
+              console.log('this is invalid',this.basicJointInfo.controls['jointCustomerInfo'].invalid );
+              console.log('this is invalid',this.basicJointInfo.invalid);
+              console.log('this is invalid',this.basicJointInfo);
               this.toastService.show(new Alert(AlertType.WARNING, 'Please check validation'));
               return;
           }
@@ -432,6 +427,7 @@ export class JointFormComponent implements OnInit {
       otherOccupation: [undefined],
       incomeSource: [undefined, [Validators.required]],
       otherIncome: [undefined],
+      panNumber: [undefined, [Validators.max(999999999), Validators.min(100000000)]],
       temporaryProvince: [undefined, Validators.required],
       temporaryDistrict: [undefined, Validators.required],
       temporaryMunicipalities: [undefined, Validators.required],
@@ -441,36 +437,31 @@ export class JointFormComponent implements OnInit {
       gender: [undefined, Validators.required],
       maritalStatus: [undefined, Validators.required],
       customerLegalDocumentAddress: [undefined, Validators.required],
-            customerRelation1: [undefined],
-            customerRelativeName1: [undefined],
+      customerRelation1: [undefined],
+      customerRelativeName1: [undefined],
             citizenshipNumber1: [undefined],
             citizenshipIssuedPlace1: [undefined],
-            citizenshipIssuedDate1: [undefined],
-            age1: [undefined],
-        customerRelation2: [undefined],
-        customerRelativeName2: [undefined],
+      citizenshipIssuedDate1: [undefined, DateValidator.isValidBefore],
+      customerRelation2: [undefined],
+      customerRelativeName2: [undefined],
             citizenshipNumber2: [undefined],
             citizenshipIssuedPlace2: [undefined],
-            citizenshipIssuedDate2: [undefined],
-            age2: [undefined],
+      citizenshipIssuedDate2: [undefined, DateValidator.isValidBefore],
             customerRelation3: [undefined],
             customerRelativeName3: [undefined],
             citizenshipNumber3: [undefined],
             citizenshipIssuedPlace3: [undefined],
             citizenshipIssuedDate3: [undefined],
-            age3: [undefined],
             customerRelation4: [undefined],
             customerRelativeName4: [undefined],
             citizenshipNumber4: [undefined],
             citizenshipIssuedPlace4: [undefined],
             citizenshipIssuedDate4: [undefined],
-            age4: [undefined],
             customerRelation5: [undefined],
             customerRelativeName5: [undefined],
             citizenshipNumber5: [undefined],
             citizenshipIssuedPlace5: [undefined],
             citizenshipIssuedDate5: [undefined],
-            age5: [undefined],
         customerRelations: this.formBuilder.array([this.setRelation()]),
     });
   }
@@ -589,12 +580,11 @@ export class JointFormComponent implements OnInit {
 
     setRelation(): FormGroup {
         return this.formBuilder.group({
-            age: [undefined],
             customerRelation: [undefined, Validators.required],
             customerRelativeName: [undefined, Validators.compose([Validators.required])],
             citizenshipNumber: [undefined],
             citizenshipIssuedPlace: [undefined],
-            citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
+            citizenshipIssuedDate: [undefined],
         });
     }
 }
