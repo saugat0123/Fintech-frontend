@@ -960,15 +960,6 @@
   </form>
   <div class="row pt-4">
       <div class="col-md-12">
-        <button [disabled]="previewBtn"
-        class="float-right" nbButton
-        (click)="openModel()"
-        status="primary" size="small">
-        Preview
-        </button>
-        <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right" [disabled]="!btnDisable">
-          Save
-        </button>
         <button class="float-right" nbButton size="small" (click)="openCloseTemplate(confirm)" status="info" style="margin-right: 0.5em" [disabled]="!close">
           Close
         </button>
@@ -986,6 +977,15 @@
             <button type="button" class="btn btn-primary" (click)="accept()">Yes</button>
           </div>
         </ng-template>
+        <button [disabled]="previewBtn"
+        class="float-right" nbButton
+        (click)="openModel()"
+        status="primary" size="small">
+        Preview
+        </button>
+        <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right" [disabled]="!btnDisable">
+          Save
+        </button>
       </div>
   </div>
 </div>
