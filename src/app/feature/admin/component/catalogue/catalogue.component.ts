@@ -380,7 +380,8 @@ export class CatalogueComponent implements OnInit {
                 this.onSearch();
                 this.onActionChangeSpinner = false;
             }, error => {
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
+            this.onActionChangeSpinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
                 this.modalService.dismissAll('Close modal');
             }
         );
