@@ -354,22 +354,18 @@ export class OfferLetterPersonalComponent implements OnInit {
             // sthantarandRate: [undefined],
 
             securityDetails: this.formBuilder.array([]),
-
             dhitoDate: [undefined],
             dhitoAuditor: [undefined],
             dhitoAmount: [undefined],
             dhitoDistress: [undefined],
             dhitoLekhi: [undefined],
-
             shreeName1: [undefined],
             shreeAmount: [undefined],
             shreeAmountInWord: [undefined],
-
             amount2: [undefined],
             amountInWords2: [undefined],
             amount3: [undefined],
             amountInWords3: [undefined],
-            
             financeBranch: [undefined],
             financeMunicipality: [undefined],
             financeWardNum: [undefined],
@@ -537,6 +533,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     updateServiceCharge(formArrayName, i) {
+        // tslint:disable-next-line:max-line-length
         const loanLimitPercent = Number(this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'loanLimitPercent']).value) / 100);
         const amount = this.loanAmountTemplate.engNumber;
         const loanLimitAmount = loanLimitPercent * amount;
