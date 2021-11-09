@@ -37,6 +37,7 @@ export class JointFormComponent implements OnInit {
   @Input() currentVal: any;
   jointInputVal: number;
   calendarType = 'AD';
+    dynamic = true;
   basicJointInfo: FormGroup;
   submitted = false;
   spinner = false;
@@ -100,7 +101,6 @@ export class JointFormComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.formValue.jointInfo)) {
         this.individualJsonData = JSON.parse(this.formValue.jointInfo);
         this.setJointDetail(this.individualJsonData);
-          console.log('individualJsonData', this.individualJsonData);
         this.id = this.formValue.id;
         this.version = this.formValue.version;
         this.customer.clientType = this.individualJsonData.clientType;
@@ -128,7 +128,7 @@ export class JointFormComponent implements OnInit {
 
   setJointDetail(data) {
     const formControls = this.basicJointInfo.get('jointCustomerInfo') as FormArray;
-    data.jointCustomerInfo.forEach((jointDetail) => {
+    data.jointCustomerInfo.forEach((jointDetail, i) => {
       formControls.push(
           this.formBuilder.group({
             customerName: [jointDetail.customerName, Validators.required],
@@ -154,7 +154,7 @@ export class JointFormComponent implements OnInit {
             otherOccupation: [jointDetail.otherOccupation],
             incomeSource: [jointDetail.incomeSource, [Validators.required]],
             otherIncome: [jointDetail.otherIncome],
-            panNumber: [jointDetail.panNumber, [Validators.max(999999999), Validators.min(100000000)]],
+            panNumber: [jointDetail.panNumber, [Validators.required, Validators.max(999999999), Validators.min(100000000)]],
             temporaryProvince: [jointDetail.temporaryProvince, Validators.required],
             temporaryDistrict: [jointDetail.temporaryDistrict, Validators.required],
             temporaryMunicipalities: [jointDetail.temporaryMunicipalities, Validators.required],
@@ -171,44 +171,61 @@ export class JointFormComponent implements OnInit {
             successionRisk: [jointDetail.successionRisk],
             bankingRelationship: [jointDetail.bankingRelationship],
             netWorth: [jointDetail.netWorth],
-            customerRelation1: [jointDetail.customerRelation1, Validators.required],
-            customerRelativeName1: [jointDetail.customerRelativeName1, Validators.compose([Validators.required])],
+            customerRelation1: [jointDetail.customerRelation1],
+            customerRelativeName1: [jointDetail.customerRelativeName1],
             citizenshipNumber1: [jointDetail.citizenshipNumber1],
             citizenshipIssuedPlace1: [jointDetail.citizenshipIssuedPlace1],
             citizenshipIssuedDate1: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate1) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate1), DateValidator.isValidBefore],
-            age1: [jointDetail.age1],
-            customerRelation2: [jointDetail.customerRelation2, Validators.required],
-            customerRelativeName2: [jointDetail.customerRelativeName2, Validators.compose([Validators.required])],
+            customerRelation2: [jointDetail.customerRelation2],
+            customerRelativeName2: [jointDetail.customerRelativeName2],
             citizenshipNumber2: [jointDetail.citizenshipNumber2],
             citizenshipIssuedPlace2: [jointDetail.citizenshipIssuedPlace2],
             citizenshipIssuedDate2: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate2) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate2), DateValidator.isValidBefore],
-            age2: [jointDetail.age2],
             customerRelation3: [jointDetail.customerRelation3],
             customerRelativeName3: [jointDetail.customerRelativeName3],
             citizenshipNumber3: [jointDetail.citizenshipNumber3],
             citizenshipIssuedPlace3: [jointDetail.citizenshipIssuedPlace3],
             citizenshipIssuedDate3: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate3) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate3), DateValidator.isValidBefore],
-            age3: [jointDetail.age3],
             customerRelation4: [jointDetail.customerRelation4],
             customerRelativeName4: [jointDetail.customerRelativeName4],
             citizenshipNumber4: [jointDetail.citizenshipNumber4],
             citizenshipIssuedPlace4: [jointDetail.citizenshipIssuedPlace4],
             citizenshipIssuedDate4: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate4) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate4), DateValidator.isValidBefore],
-            age4: [jointDetail.age4],
             customerRelation5: [jointDetail.customerRelation5],
             customerRelativeName5: [jointDetail.customerRelativeName5],
             citizenshipNumber5: [jointDetail.citizenshipNumber5],
             citizenshipIssuedPlace5: [jointDetail.citizenshipIssuedPlace5],
             citizenshipIssuedDate5: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate5) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate5), DateValidator.isValidBefore],
-            age5: [jointDetail.age5],
+              customerRelations: this.formBuilder.array([]),
             checkSameAddress: [jointDetail.checkSameAddress],
           })
       );
+        const secControl = this.basicJointInfo.get(['jointCustomerInfo', i, 'customerRelations']) as FormArray;
+        (this.basicJointInfo.get(['jointCustomerInfo', i, 'customerRelations']) as FormArray).clear();
+        if (jointDetail.customerRelations) {
+            this.dynamic = true;
+            if (jointDetail.customerRelations.length > 0) {
+                jointDetail.customerRelations.forEach((cr) => {
+                    secControl.push(this.formBuilder.group({
+                        customerRelation: [cr.customerRelation],
+                        customerRelativeName: [cr.customerRelativeName],
+                        citizenshipNumber: [cr.citizenshipNumber],
+                        citizenshipIssuedPlace: [cr.citizenshipIssuedPlace],
+                        citizenshipIssuedDate: [cr.citizenshipIssuedDate],
+                    }));
+                });
+            } else {
+                secControl.push(this.setRelation());
+            }
+        } else {
+            this.dynamic = false;
+
+        }
     });
   }
 
@@ -386,6 +403,7 @@ export class JointFormComponent implements OnInit {
       jointCustomerInfo: this.formBuilder.array([])
     });
   }
+
   jointFormGroup(): FormGroup {
     return this.formBuilder.group({
       customerName: [undefined, Validators.required],
@@ -419,37 +437,33 @@ export class JointFormComponent implements OnInit {
       gender: [undefined, Validators.required],
       maritalStatus: [undefined, Validators.required],
       customerLegalDocumentAddress: [undefined, Validators.required],
-      customerRelation1: [undefined, Validators.required],
-      customerRelativeName1: [undefined, Validators.compose([Validators.required])],
-      citizenshipNumber1: [undefined],
-      citizenshipIssuedPlace1: [undefined],
+      customerRelation1: [undefined],
+      customerRelativeName1: [undefined],
+            citizenshipNumber1: [undefined],
+            citizenshipIssuedPlace1: [undefined],
       citizenshipIssuedDate1: [undefined, DateValidator.isValidBefore],
-      age1: [undefined],
-      customerRelation2: [undefined, Validators.required],
-      customerRelativeName2: [undefined, Validators.compose([Validators.required])],
-      citizenshipNumber2: [undefined],
-      citizenshipIssuedPlace2: [undefined],
+      customerRelation2: [undefined],
+      customerRelativeName2: [undefined],
+            citizenshipNumber2: [undefined],
+            citizenshipIssuedPlace2: [undefined],
       citizenshipIssuedDate2: [undefined, DateValidator.isValidBefore],
-      age2: [undefined],
-      customerRelation3: [undefined],
-      customerRelativeName3: [undefined],
-      citizenshipNumber3: [undefined],
-      citizenshipIssuedPlace3: [undefined],
-      citizenshipIssuedDate3: [undefined],
-      age3: [undefined],
-      customerRelation4: [undefined],
-      customerRelativeName4: [undefined],
-      citizenshipNumber4: [undefined],
-      citizenshipIssuedPlace4: [undefined],
-      citizenshipIssuedDate4: [undefined],
-      age4: [undefined],
-      customerRelation5: [undefined],
-      customerRelativeName5: [undefined],
-      citizenshipNumber5: [undefined],
-      citizenshipIssuedPlace5: [undefined],
-      citizenshipIssuedDate5: [undefined],
-      age5: [undefined],
-      checkSameAddress: [undefined],
+            customerRelation3: [undefined],
+            customerRelativeName3: [undefined],
+            citizenshipNumber3: [undefined],
+            citizenshipIssuedPlace3: [undefined],
+            citizenshipIssuedDate3: [undefined],
+            customerRelation4: [undefined],
+            customerRelativeName4: [undefined],
+            citizenshipNumber4: [undefined],
+            citizenshipIssuedPlace4: [undefined],
+            citizenshipIssuedDate4: [undefined],
+            customerRelation5: [undefined],
+            customerRelativeName5: [undefined],
+            citizenshipNumber5: [undefined],
+            citizenshipIssuedPlace5: [undefined],
+            citizenshipIssuedDate5: [undefined],
+        customerRelations: this.formBuilder.array([this.setRelation()]),
+        checkSameAddress: [undefined],
     });
   }
 
@@ -567,6 +581,25 @@ export class JointFormComponent implements OnInit {
             });
     }
 
+    addRelation(i: number) {
+        const formGroup = this.basicJointInfo.get(['jointCustomerInfo', i, 'customerRelations']) as FormArray;
+        formGroup.push(this.setRelation());
+    }
+
+    removeRelation(i: number, ii: number) {
+        const formGroup = this.basicJointInfo.get(['jointCustomerInfo', i, 'customerRelations']) as FormArray;
+        formGroup.removeAt(ii);
+    }
+
+    setRelation(): FormGroup {
+        return this.formBuilder.group({
+            customerRelation: [undefined, Validators.required],
+            customerRelativeName: [undefined, Validators.compose([Validators.required])],
+            citizenshipNumber: [undefined],
+            citizenshipIssuedPlace: [undefined],
+            citizenshipIssuedDate: [undefined],
+        });
+    }
     resetValue(index)  {
         this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryProvince']).patchValue(null);
         this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryDistrict']).patchValue(null);
