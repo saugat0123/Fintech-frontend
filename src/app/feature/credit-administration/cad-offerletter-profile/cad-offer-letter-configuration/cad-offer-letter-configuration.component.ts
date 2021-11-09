@@ -668,6 +668,55 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             nepData.temporaryMunicipality ? nepData.temporaryMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value : '';
             nepData.temporaryWard ? nepData.temporaryWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value : '';
 
+            //english value
+            nepData.guarantorName ? nepData.guarantorName.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorName']).value : '';
+            nepData.issuedPlace ? nepData.issuedPlace.en = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value : '';
+
+            nepData.relationship ? nepData.relationship.en = this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '';
+            nepData.citizenNumber ? nepData.citizenNumber.en = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumber']).value : '';
+            nepData.gender ? nepData.gender.en = this.userConfigForm.get(['guarantorDetails', index, 'gender']).value : '';
+            nepData.grandFatherName ? nepData.grandFatherName.en = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherName']).value : '';
+            nepData.fatherName ? nepData.fatherName.en = this.userConfigForm.get(['guarantorDetails', index, 'fatherName']).value : '';
+
+            nepData.permanentDistrict ? nepData.permanentDistrict.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value : '';
+            nepData.permanentProvince ? nepData.permanentProvince.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value : '';
+            nepData.gurantedAmount ? nepData.gurantedAmount.en = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).value : '';
+
+            nepData.permanentMunicipality ? nepData.permanentMunicipality.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value : '';
+            nepData.permanentWard ? nepData.permanentWard.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentWard']).value : '';
+            nepData.temporaryProvince ? nepData.temporaryProvince.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value : '';
+
+            nepData.temporaryDistrict ? nepData.temporaryDistrict.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value : '';
+            nepData.temporaryMunicipality ? nepData.temporaryMunicipality.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value : '';
+            nepData.temporaryWard ? nepData.temporaryWard.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWard']).value : '';
+
+            nepData.guarantorPermanentMunicipalityOrVdc ? nepData.guarantorPermanentMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value : '';
+            nepData.guarantorTemporaryMunicipalityOrVdc ? nepData.guarantorTemporaryMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value : '';
+
+
+            //translated data
+            nepData.guarantorName ? nepData.guarantorName.np = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).value : '';
+            nepData.issuedPlace ? nepData.issuedPlace.np = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).value : '';
+
+            nepData.relationship ? nepData.relationship.np = this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).value : '';
+            nepData.citizenNumber ? nepData.citizenNumber.np = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).value : '';
+            nepData.gender ? nepData.gender.np = this.userConfigForm.get(['guarantorDetails', index, 'genderTrans']).value : '';
+            nepData.grandFatherName ? nepData.grandFatherName.np = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).value : '';
+            nepData.fatherName ? nepData.fatherName.np = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).value : '';
+
+            nepData.permanentDistrict ? nepData.permanentDistrict.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).value : '';
+            nepData.permanentProvince ? nepData.permanentProvince.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).value : '';
+            nepData.gurantedAmount ? nepData.gurantedAmount.np = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).value : '';
+
+            nepData.permanentMunicipality ? nepData.permanentMunicipality.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).value : '';
+            nepData.permanentWard ? nepData.permanentWard.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).value : '';
+            nepData.temporaryProvince ? nepData.temporaryProvince.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).value : '';
+
+            nepData.temporaryDistrict ? nepData.temporaryDistrict.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).value : '';
+            nepData.temporaryMunicipality ? nepData.temporaryMunicipality.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).value : '';
+            nepData.temporaryWard ? nepData.temporaryWard.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).value : '';
+
+
             // set guarantor nepData values based on index in guarantorDetails form
             this.userConfigForm.get(['guarantorDetails', index, 'nepData']).patchValue(JSON.stringify(nepData));
         });
