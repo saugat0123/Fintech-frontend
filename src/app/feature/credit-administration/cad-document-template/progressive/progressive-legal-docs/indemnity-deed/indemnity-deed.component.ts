@@ -65,7 +65,7 @@ export class IndemnityDeedComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             const loanAmount = JSON.parse(this.cadData.nepData);
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
+            console.log(this.nepaliData);
             this.form.patchValue({
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
                 sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
@@ -79,7 +79,7 @@ export class IndemnityDeedComponent implements OnInit {
                 sinserlyTempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
                 sinserlyTempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
                 parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-                grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.husbandName : '',
+                grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
                 husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
                 amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
                 amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
