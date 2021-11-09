@@ -67,6 +67,8 @@ import {LoanDeedCorporateComponent} from './progressive-legal-docs/loan-deed-cor
 import {LoanDeedCorporatePrintComponent} from './progressive-legal-docs/loan-deed-corporate/loan-deed-corporate-print/loan-deed-corporate-print.component';
 import {HpDeedCorporateComponent} from './progressive-legal-docs/hp-deed-corporate/hp-deed-corporate.component';
 import {HpDeedCorporatePrintComponent} from './progressive-legal-docs/hp-deed-corporate/hp-deed-corporate-print/hp-deed-corporate-print.component';
+import {OfferLetterHirePurchaseAndAutoLoanComponent} from './progressive-offer-letter/offer-letter-hire-purchase-and-auto-loan/offer-letter-hire-purchase-and-auto-loan.component';
+import {OfferLetterHirePurchaseAndAutoLoanPrintComponent} from './progressive-offer-letter/offer-letter-hire-purchase-and-auto-loan/offer-letter-hire-purchase-and-auto-loan-print/offer-letter-hire-purchase-and-auto-loan-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -134,41 +136,44 @@ const COMPONENTS = [
     LoanDeedCorporateComponent,
     LoanDeedCorporatePrintComponent,
     HpDeedCorporateComponent,
-    HpDeedCorporatePrintComponent
+    HpDeedCorporatePrintComponent,
+    OfferLetterHirePurchaseAndAutoLoanComponent,
+    OfferLetterHirePurchaseAndAutoLoanPrintComponent
 
 
   ],
-    exports: [
-        ...COMPONENTS,
-        LetterOfLeinComponent,
-        PromissoryNoteComponent,
-        LoanDeedComponent,
-        PromissoryNoteGuarantorComponent,
-        LetterOfAgreementComponent,
-        HirePurchaseDeedComponent,
-        IndemnityDeedComponent,
-        LetterOfDisbursementComponent,
-        GuaranteeBondCorporateComponent,
-        LetterOfContinuityComponent,
-        CrossGuaranteeBondComponent,
-        GuaranteeBondPersonalComponent,
-        HypothecationOfGoodsAndReceivablesAComponent,
-        HypothecationOfGoodsAndReceivablesBComponent,
-        MortgageDeedComponent,
-        PromisoryNoteInstitutionalComponent,
-        BlacklistConsentComponent,
-        MortgageDeedComponent,
-        LetterOfContinuityInstitutionalComponent,
-        AuthorityToDebtAccountComponent,
-        RokkaLetterComponent,
-        ConsentLetterIndividualComponent,
-        BlacklistConsentCorporateComponent,
-        LetterOfConfessionComponent,
-        MortgageDeedCorporateComponent,
-        LoanDeedCorporateComponent,
-        HpDeedCorporateComponent
+  exports: [
+    ...COMPONENTS,
+    LetterOfLeinComponent,
+    PromissoryNoteComponent,
+    LoanDeedComponent,
+    PromissoryNoteGuarantorComponent,
+    LetterOfAgreementComponent,
+    HirePurchaseDeedComponent,
+    IndemnityDeedComponent,
+    LetterOfDisbursementComponent,
+    GuaranteeBondCorporateComponent,
+    LetterOfContinuityComponent,
+    CrossGuaranteeBondComponent,
+    GuaranteeBondPersonalComponent,
+    HypothecationOfGoodsAndReceivablesAComponent,
+    HypothecationOfGoodsAndReceivablesBComponent,
+    MortgageDeedComponent,
+    PromisoryNoteInstitutionalComponent,
+    BlacklistConsentComponent,
+    MortgageDeedComponent,
+    LetterOfContinuityInstitutionalComponent,
+    AuthorityToDebtAccountComponent,
+    RokkaLetterComponent,
+    ConsentLetterIndividualComponent,
+    BlacklistConsentCorporateComponent,
+    LetterOfConfessionComponent,
+    MortgageDeedCorporateComponent,
+    LoanDeedCorporateComponent,
+    HpDeedCorporateComponent,
+    OfferLetterHirePurchaseAndAutoLoanComponent
 
-    ],
+  ],
   imports: [
     ThemeModule,
     CommonModule,
