@@ -45,6 +45,7 @@ export class SecurityApprovedFormComponent implements OnInit {
   @Input() shareSecurity;
   @Input() customerSecurityId;
   @Input() approvedData: string;
+  @Input() disable;
 
   @ViewChildren('ownerKycApplicable')
   ownerKycApplicable: QueryList<OwnerKycApplicableComponent>;
@@ -1914,7 +1915,8 @@ export class SecurityApprovedFormComponent implements OnInit {
     this.close();
     const context = {
       securityId: this.customerSecurityId,
-      security: security
+      security: security,
+      readMode: true,
     };
     this.dialogRef = this.nbDialogService.open(FixAssetCollateralComponent, {
       context,

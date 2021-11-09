@@ -31,6 +31,7 @@ export class FixAssetCollateralComponent implements OnInit {
     @Input() securityId: number;
     @Input() security: string;
     @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
+    @Input() readMode;
     customerType: string;
     customerId: number;
     submitted = false;
