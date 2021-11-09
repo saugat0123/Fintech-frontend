@@ -55,12 +55,12 @@ export class PromissoryNoteComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          if (!ObjectUtil.isEmpty(initialInfo.secguarantorDetails)) {
+         /* if (!ObjectUtil.isEmpty(initialInfo.secguarantorDetails)) {
             this.setsecGuarantorDetails(initialInfo.secguarantorDetails);
           }
           if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
             this.setGuarantorDetails(initialInfo.guarantorDetails);
-          }
+          }*/
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -192,24 +192,24 @@ export class PromissoryNoteComponent implements OnInit {
       ItisambatRojSubham: [undefined],
       guarantorDetails: this.formBuilder.array([]),
       secguarantorDetails: this.formBuilder.array([]),
-      witnessName: [undefined],
-      witnessCitizenshipNo: [undefined],
-      witnessCitizenshipIssueDate: [undefined],
-      witnessCDOoffice: [undefined],
-      witnessIssuedPlace: [undefined],
-      witnessMunicipality: [undefined],
-      witnessWardNo: [undefined],
-      witnessName1: [undefined],
-      witnessCitizenshipNo1: [undefined],
-      witnessCitizenshipIssueDate1: [undefined],
-      witnessCDOoffice1: [undefined],
-      witnessIssuedPlace1: [undefined],
-      witnessMunicipality1: [undefined],
-      witnessWardNo1: [undefined]
+      name: [undefined],
+      citizenNumber: [undefined],
+      issuedYear: [undefined],
+      guarantorCDOoffice: [undefined],
+      guarantorDistrict: [undefined],
+      guarantorMunicipality: [undefined],
+      guarantorWadNo: [undefined],
+      name1: [undefined],
+      citizenNumber1: [undefined],
+      issuedYear1: [undefined],
+      guarantorCDOoffice1: [undefined],
+      guarantorDistrict1: [undefined],
+      guarantorMunicipality1: [undefined],
+      guarantorWadNo1: [undefined]
     });
   }
 
-  addGuarantor(): void {
+ /* addGuarantor(): void {
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray.push(this.guarantorFormGroup());
   }
@@ -290,7 +290,7 @@ export class PromissoryNoteComponent implements OnInit {
         guarantorWadNo: [value.guarantorWadNo]
       }));
     });
-  }
+  }*/
 
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
