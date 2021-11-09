@@ -287,6 +287,7 @@ export class JointFormComponent implements OnInit {
   }
 
   onSubmit(value) {
+    this.spinner = true;
     this.submitted = true;
     const tempId = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('citizenshipNumber').value;
     this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
@@ -299,11 +300,11 @@ export class JointFormComponent implements OnInit {
         return;
       } else {
           if (this.basicJointInfo.controls['jointCustomerInfo'].invalid || this.basicJointInfo.invalid) {
+              this.spinner = false;
               this.toastService.show(new Alert(AlertType.WARNING, 'Please check validation'));
               return;
           }
         {
-          this.spinner = true;
           // for update join customer form
           if (!ObjectUtil.isEmpty(this.formValue)) {
               this.customer.id = this.id;
