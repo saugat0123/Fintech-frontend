@@ -73,7 +73,7 @@
             </tbody>
         </table>
     </div>
-    <ng-container>
+    <ng-container *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" >
             <div class="col-md-12">
                 <p><b>3. Address Verification</b></p>
                 <table class="table table-condensed table-bordered table-sm table-responsive-lg text-center sb-small">
@@ -326,6 +326,7 @@
                     <th>Occupation</th>
                     <th>Income Source</th>
                     <th>Client Type</th>
+                    <th *ngIf="info?.panNumber">Pan Number</th>
 <!--                    <th>Subsector</th>-->
                 </tr>
                 <tr class="text-left">
@@ -335,7 +336,8 @@
                     <td class="text-left pl-1">{{info?.occupation || 'NA'}}</td>
                     <td class="text-left pl-1">{{info?.incomeSource || 'NA'}}</td>
                     <td class="pl-1">{{loanDataHolder.loanHolder.clientType | clientType}}</td>
-<!--                    <td class="pl-1">{{subsectorDetail}}</td>-->
+                    <td class="pl-1" *ngIf="info?.panNumber">{{info?.panNumber}}</td>
+
                 </tr>
                 <tr>
                     <th colspan="5">Family Detail</th>
