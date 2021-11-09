@@ -65,7 +65,6 @@ export class IndemnityDeedComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             const loanAmount = JSON.parse(this.cadData.nepData);
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-            console.log(this.nepaliData);
             this.form.patchValue({
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
                 sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
