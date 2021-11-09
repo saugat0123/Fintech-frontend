@@ -280,6 +280,7 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       amountInWords3: [undefined],
       amount4: [undefined],
       financeBranch: [undefined],
+      financeBranch1: [undefined],
       telephoneNumber: [undefined],
       currentAddress1: [undefined],
       customerMobileNum1: [undefined],
