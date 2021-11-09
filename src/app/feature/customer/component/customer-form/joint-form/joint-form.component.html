@@ -463,11 +463,12 @@
                                         </div>
                                         <div class="row ml-1">
                                             <div class="col-md-12">
-                                                <nb-checkbox (change)="sameAsPermanent(i)" id="relationCheck{{i}}">
+                                                <nb-checkbox #tempAddress (change)="sameAsPermanent(i, tempAddress.checked)" formControlName="checkSameAddress" id="relationCheck{{i}}">
                                                     <i>Check if Temporary Address is same as Permanent Address</i>
                                                 </nb-checkbox>
                                             </div>
                                         </div>
+                                        <ng-container *ngIf="!basicJointInfo.get(['jointCustomerInfo', i, 'checkSameAddress']).value">
                                         <div class="row ml-1">
                                             <div class="col-md-12">
                                                 <h5>Temporary Address {{i+1}}</h5>
@@ -496,7 +497,7 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="temporaryProvince{{i}}">Province</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryProvince').errors}"
-                                                        (change)="getTemporaryDistricts(i, joinCustomerInfo.get('temporaryProvince')?.value, $event)"
+                                                        (change)="getTemporaryDistricts(joinCustomerInfo.get('temporaryProvince')?.value, i, $event)"
                                                         formControlName="temporaryProvince"
                                                         id="temporaryProvince{{i}}"
                                                         bindLabel="name">
@@ -516,7 +517,7 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="temporaryDistrict{{i}}">District</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryDistrict').errors}"
-                                                        (change)="getTemporaryMunicipalities(i, joinCustomerInfo.get('temporaryDistrict')?.value, $event)"
+                                                        (change)="getTemporaryMunicipalities(joinCustomerInfo.get('temporaryDistrict')?.value, i, $event)"
                                                         formControlName="temporaryDistrict"
                                                         id="temporaryDistrict{{i}}"
                                                            bindLabel="name">
@@ -571,6 +572,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </ng-container>
                                         <div>
                                             <h5>Joint Customer Relation {{i+1}}</h5>
                                             <label><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
