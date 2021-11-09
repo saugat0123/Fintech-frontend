@@ -279,9 +279,9 @@
                                    </ng-select>
                                    <div *ngIf="(submitted) && basicInfoControls.citizenshipIssuedPlace.invalid"
                                         class="help-block">
-                <span *ngIf="basicInfoControls.citizenshipIssuedPlace.errors.required">
-                  <span class="text-danger">citizenship issued district is required</span>
-                </span>
+                                        <span *ngIf="basicInfoControls.citizenshipIssuedPlace.errors.required">
+                                            <span class="text-danger">citizenship issued district is required</span>
+                                        </span>
                                    </div>
                                </div>
                            </div>
@@ -302,8 +302,7 @@
                             <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
                             <div *ngIf="submitted && basicInfoControls.citizenshipIssuedDate.errors"
                                  class="small text-danger">
-                                <div
-                                        *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required || basicInfoControls.citizenshipIssuedDate.errors.beforeToday">
+                                <div *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required || basicInfoControls.citizenshipIssuedDate.errors.beforeToday">
                                     Registration Date is required
                                 </div>
                             </div>
@@ -389,7 +388,8 @@
                                    <div *ngIf="tempFlag.showOtherIncomeSource"
                                         class="col-md-12 mt-3 form-group">
                                        <label>Other Income Source</label>
-                                       <input class="form-control" formControlName="otherIncome" id="otherIncome"
+                                       <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.otherIncome.errors }"
+                                              class="form-control" formControlName="otherIncome" id="otherIncome"
                                               name="otherIncome" placeholder="Other Income source" type="text">
                                        <div *ngIf="submitted && basicInfoControls.otherIncome.errors"
                                             class="invalid-feedback small">
@@ -523,9 +523,9 @@
                        </div>
                        <div class="row ml-1">
                            <div class="col-md-12">
-                               <nb-checkbox (change)="sameAsPermanent()"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
-                           </div>
+                               <nb-checkbox (checkedChange)="sameAsPermanent($event)" [checked]="sameAddress" formControlName="sameAddress"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>                           </div>
                        </div>
+                   <ng-container *ngIf="sameAddress === false">
                        <div class="row ml-1">
                            <div class="col-md-12">
                                <h5>Temporary Address</h5>
@@ -628,6 +628,8 @@
                                </div>
                            </div>
                        </div>
+                   </ng-container>
+
                        <hr>
                        <div>
                            <h5>Relation</h5>

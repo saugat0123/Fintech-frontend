@@ -50,6 +50,8 @@ export class GuarantorComponent implements OnInit {
   docTitle = 'Net Worth Document';
   docFolderName = 'guarantorDoc';
   occupation = Occupation.enumObject();
+  checkSameAddress = false;
+
   constructor(
       private formBuilder: FormBuilder,
       private addressServices: AddressService,
@@ -94,6 +96,7 @@ export class GuarantorComponent implements OnInit {
           }
         }
         formArray.push(this.addGuarantorDetails(v));
+        this.checkSameAddress = v.checkSameAddress;
       });
     }
   }
@@ -199,10 +202,9 @@ export class GuarantorComponent implements OnInit {
       fatherInLaw: [ObjectUtil.setUndefinedIfNull(data.fatherInLaw)],
       profession: [ObjectUtil.setUndefinedIfNull(data.profession)],
       background: [ObjectUtil.setUndefinedIfNull(data.background)],
-      guarantorLegalDocumentAddress: [
-        ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
-        Validators.required
-      ],
+      guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
+        Validators.required],
+      checkSameAddress: [ObjectUtil.isEmpty(data.checkSameAddress) ? false : data.checkSameAddress],
     });
   }
 
@@ -317,21 +319,40 @@ export class GuarantorComponent implements OnInit {
     this.form.get(['guarantorDetails', i, 'docPath']).patchValue(path);
   }
 
-  sameAsAbove(i) {
-    if (ObjectUtil.isEmpty(this.form.get(['guarantorDetails', i, 'municipalities']).value)) {
-      this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
-      return;
+    sameAsAbove(i, event) {
+        if (event === true) {
+            this.form.get(['guarantorDetails', i]).patchValue({checkedSameAsCurrent: true});
+            // tslint:disable-next-line:max-line-length
+            this.form.get(['guarantorDetails', i, 'provinceTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'province']).value);
+            // tslint:disable-next-line:max-line-length
+            this.form.get(['guarantorDetails', i, 'districtTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'district']).value);
+            this.form.get(['guarantorDetails', i, 'municipalitiesTemporary'])
+                .patchValue(this.form.get(['guarantorDetails', i, 'municipalities']).value);
+            this.getMunicipalitiesTemporary(this.form.get(['guarantorDetails', i, 'district']).value, i);
+            this.getDistrictTemporary(this.form.get(['guarantorDetails', i, 'province']).value, i);
+            // tslint:disable-next-line:max-line-length
+            this.form.get(['guarantorDetails', i, 'wardNumberTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'wardNumber']).value);
+            this.form.get(['guarantorDetails', i, 'temporaryAddressLineOne'])
+                .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineOne']).value);
+            this.form.get(['guarantorDetails', i, 'temporaryAddressLineTwo'])
+                .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineTwo']).value);
+            this.checkSameAddress = event;
+        } else {
+            this.resetValue(i);
+            this.checkSameAddress = event;
+        }
+        if (ObjectUtil.isEmpty(this.form.get(['guarantorDetails', i, 'municipalities']).value)) {
+            this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
+            return;
+        }
     }
-    this.form.get(['guarantorDetails', i, 'provinceTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'province']).value);
-    this.form.get(['guarantorDetails', i, 'districtTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'district']).value);
-    this.form.get(['guarantorDetails', i, 'municipalitiesTemporary'])
-    .patchValue(this.form.get(['guarantorDetails', i, 'municipalities']).value);
-    this.getMunicipalitiesTemporary(this.form.get(['guarantorDetails', i, 'district']).value, i);
-    this.getDistrictTemporary(this.form.get(['guarantorDetails', i, 'province']).value, i);
-    this.form.get(['guarantorDetails', i, 'wardNumberTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'wardNumber']).value);
-    this.form.get(['guarantorDetails', i, 'temporaryAddressLineOne'])
-        .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineOne']).value);
-    this.form.get(['guarantorDetails', i, 'temporaryAddressLineTwo'])
-        .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineTwo']).value);
-  }
+    resetValue(index)  {
+        this.form.get(['guarantorDetails', index, 'provinceTemporary']).patchValue(null);
+        this.form.get(['guarantorDetails', index, 'districtTemporary']).patchValue(null);
+        this.form.get(['guarantorDetails', index, 'municipalitiesTemporary']).patchValue(null);
+        this.form.get(['guarantorDetails', index, 'temporaryAddressLineOne']).patchValue(null);
+        this.form.get(['guarantorDetails', index, 'temporaryAddressLineTwo']).patchValue(null);
+        this.form.get(['guarantorDetails', index, 'wardNumberTemporary']).patchValue(null);
+    }
+
 }
