@@ -1,22 +1,19 @@
-input{
-  font-size: 16px !important;
+.nepaliFont{
+  font-size: 16px;
 }
-.longInput{
-  width: 250px;
-}
-.customFont {
-  font-size: 22px;
-}
-.shortInput{
-  width: 50px;
-}
-
-
-.nepaliList {
-  list-style-type: devanagari !important;
-}
-table{
+table {
   text-align: justify !important;
+  line-height: 1.9;
+}
+p{
+  line-height: 1.9;
+}
+.nepaliList {
+  list-style-type: devanagari;
+  line-height: 1.9;
+}
+.nepaliList > li {
+  list-style-type: devanagari;
   line-height: 1.9;
 }
 .nep {
@@ -24,33 +21,11 @@ table{
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 50px;
+  margin: 10px 70px;
 }
-
-.form-field {
-  background: yellow;
-  margin: 0px 5px 5px 5px;
-  border: 0;
-  border-bottom: 1px solid black;
-  border-radius: 0px;
-  &:focus {
-    outline: none;
-  }
-}
-
-nb-card{
-  max-height: 100vh !important;
-}
-
-input::-webkit-input-placeholder {
-  font-size: 16px;
-}
-
-input[type="text"] {
-  font-size:16px;
-}
-.disclist > li{
-  list-style-type: disc;
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
 }
 .hello{
   width: 95%;
@@ -62,4 +37,16 @@ input[type="text"] {
 .hello > tr > td{
   border: 1px solid black !important;
 }
-
+@media print {
+  footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .full-width{
+    width: 100%;
+  }
+}
+.disclist > li{
+  list-style-type: disc;
+}

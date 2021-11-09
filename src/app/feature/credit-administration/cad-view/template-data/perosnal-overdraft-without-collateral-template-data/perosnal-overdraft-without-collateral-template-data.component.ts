@@ -101,6 +101,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       dateofExpiry: [undefined],
       dateofExpiryNepali: [undefined],
       dateOfExpiryType: [undefined],
+      nameOfCompany: [undefined],
       insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
@@ -124,6 +125,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       dateOfExpiryTypeTransVal: [undefined],
       insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined],
+      nameOfCompanyTransVal: [undefined],
       nameofBranchManagerTransVal: [undefined],
       securities: this.formBuilder.array([])
     });
@@ -256,6 +258,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     // this.form.get('loanadminFeeTransVal').patchValue(this.translatedData.loanadminFee);
     this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
     // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
+    this.form.get('nameOfCompanyTransVal').patchValue(this.translatedData.nameOfCompanyTransVal);
     this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
     this.form.get('dateofExpiryNepaliTransVal').patchValue(this.translatedData.dateofExpiry);
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);

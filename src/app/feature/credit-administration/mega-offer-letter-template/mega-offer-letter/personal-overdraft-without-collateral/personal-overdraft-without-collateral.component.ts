@@ -71,6 +71,7 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
               private engToNepaliDate: EngNepDatePipe) { }
 
   ngOnInit() {
+    console.log('Offer Letter Details ', this.cadOfferLetterApprovedDoc);
     this.buildPersonal();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -80,6 +81,9 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
+    console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
+    console.log('All Data:', this.tempData);
+    console.log('Loan Holder initial data:', this.loanHolderInfo);
     this.checkOfferLetterData();
     this.guarantorDetails();
   }
@@ -89,6 +93,7 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
       dateOfApproval: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
+      nameOfCompany: [undefined],
       dateofApplication: [undefined],
       loanCommitmentFee: [undefined],
       loanAmountinFigure: [undefined],
@@ -195,6 +200,7 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
       referenceNumber: autoRefNumber ? autoRefNumber : '',
       purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
       loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
+      nameOfCompany: this.tempData.nameOfCompany.ct ? this.tempData.nameOfCompany.ct : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
       yearlyInterestRate: this.tempData.yearlyInterestRate.ct ? this.tempData.yearlyInterestRate.ct : '',

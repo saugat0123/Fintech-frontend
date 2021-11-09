@@ -123,6 +123,23 @@
             </tr>
 
             <tr>
+                <td>Company Name</td>
+                <td><input type="text" class="form-control" formControlName="nameOfCompany"></td>
+                <td class="abc">{{translatedData?.nameOfCompany}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.nameOfCompanyTransVal.errors }"
+                           formControlName="nameOfCompanyTransVal"/>
+                    <div *ngIf="submitted && Form.nameOfCompanyTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.nameOfCompanyTransVal.errors.required">Name of Company is Required</div>
+                    </div>
+                </td>
+            </tr>
+
+
+
+            <tr>
                 <td>Base Rate</td>
                 <td><input type="text" class="form-control" formControlName="baseRate" (input)="calInterestRate()"></td>
                 <td class="abc">{{translatedData?.baseRate}}</td>

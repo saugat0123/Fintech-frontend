@@ -17,6 +17,7 @@ export class PersonalOverdraftWithoutCollateralPrintComponent implements OnInit 
   @Input() security: any;
   @Input() renewal: any;
   @Input() offerData;
+  @Input() preview;
   @Input() loanLimit;
   loanHolderInfo;
   offerLetterConst = NabilOfferLetterConst;
@@ -27,6 +28,7 @@ export class PersonalOverdraftWithoutCollateralPrintComponent implements OnInit 
   guarantorName;
   branchName;
   guarantorData;
+  autoRefNum;
   offerDocumentDetails;
   autoRefNumber;
   guarantorNames: Array<String> = [];
