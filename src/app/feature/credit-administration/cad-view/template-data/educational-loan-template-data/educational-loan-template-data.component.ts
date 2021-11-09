@@ -22,6 +22,7 @@ import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import { key } from 'ionicons/icons';
 import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -62,6 +63,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   submitted = false;
   municipalityListForSecurities = [];
+  close = false;
   constructor(
       private formBuilder: FormBuilder,
       private dialogService: NbDialogService,
@@ -75,7 +77,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private toastService: ToastService,
       private addressService: AddressService,
       private currencyFormatterPipe: CurrencyFormatterPipe,
-  ) {
+      private modalService: NgbModal,
+      protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
+      ) {
   }
 
   get Form() {
@@ -371,6 +375,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = false;
+      this.close = true;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -589,6 +594,23 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('tenureFixedDepositTransVal').updateValueAndValidity();
     this.form.get('tenureDepositReceiptNumberTransVal').clearValidators();
     this.form.get('tenureDepositReceiptNumberTransVal').updateValueAndValidity();
+  }
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  dismiss(template){
+    this.modalService.dismissAll();
+  }
+
+  decline(template){
+    this.modalService.dismissAll();
+  }
+
+  accept(){
+    this.modalService.dismissAll();
+    this.dialogRef.close();
   }
 }
 

@@ -189,6 +189,7 @@ export class FilterComponent implements OnInit {
       },
       hasBackdrop: false,
       dialogClass: 'model-full',
+      closeOnEsc: false,
     }).onClose
     .subscribe(value => {
       if (!ObjectUtil.isEmpty(value)) {
