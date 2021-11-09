@@ -19,6 +19,17 @@ let mainBundleFile = '';
 // RegExp to find main.bundle.js, even if it doesn't include a hash in it's name (dev build)
 let mainBundleRegexp = /^main[-]([a-z0-9]*).([a-z0-9]*).js$/;
 
+function makeId(length) {
+    let result           = '';
+    const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() *
+            charactersLength));
+    }
+    return result;
+}
+
 // read the dist folder files and find the one we're looking for
 readDir(path.join(__dirname, '/../dist/sb-frontend/'))
     .then(files => {
@@ -31,6 +42,10 @@ readDir(path.join(__dirname, '/../dist/sb-frontend/'))
             // if it has a hash in it's name, mark it down
             if (matchHash.length > 1 && !!matchHash[2]) {
                 mainHash = matchHash[2];
+            }
+            const generatedHash = makeId(20);
+            if (generatedHash) {
+                mainHash = generatedHash;
             }
         }
         console.log('main bundle file: ', mainBundleFile);
