@@ -236,6 +236,36 @@
             </div>
         </div>
     </ng-container>
+    <ng-container *ngIf="isRemit">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-left"><strong>Remit Loan Document</strong></p>
+                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>S.N.</th>
+                        <th>File Name</th>
+                        <th>Action</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let document of newDocDetails; let i = index">
+                    <ng-container *ngIf="document!==null">
+                        <td>{{(document.name) ? (i + 1) : 'N/A'}}</td>
+                        <td>{{(document.name) ? (document.name) : 'N/A'}}</td>
+                        <td>
+                <span class="ml-1" *ngIf="document.fullpath !== null">
+                    <a (click)="opendocument(document)"><i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a>
+                </span>
+                        </td>
+                    </ng-container>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </ng-container>
 
 </div>
 </div>

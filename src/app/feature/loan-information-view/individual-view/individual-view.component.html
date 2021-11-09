@@ -1,5 +1,5 @@
-<div *ngIf="individual && !isJointInfo && !isRemit" class="row">
-    <div class="col-md-12 text-center">
+<div *ngIf="individual && !isJointInfo" class="row">
+    <div class="col-md-12 text-center" *ngIf="!isRemit">
         <p><strong>Individual Details</strong></p>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
