@@ -261,10 +261,10 @@
                                                     <input [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('panNumber').errors }"
                                                            class="form-control" formControlName="panNumber" id="panNumber{{i}}" name="panNumber{{i}}"
                                                            placeholder="Enter PAN"
-                                                           type="text">
+                                                           type="number">
                                                     <div *ngIf="(submitted) && joinCustomerInfo.get('panNumber').invalid"
                                                          class="invalid-feedback">
-                                                        <div *ngIf="joinCustomerInfo.get('panNumber').errors.maxlength || joinCustomerInfo.get('panNumber').errors.minlength">
+                                                        <div *ngIf="joinCustomerInfo.get('panNumber').errors.max || joinCustomerInfo.get('panNumber').errors.min">
                                                             Length should be of 9 digit
                                                         </div>
                                                     </div>
