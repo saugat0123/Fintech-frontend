@@ -92,7 +92,6 @@ export class JointFormComponent implements OnInit {
 
   ngOnInit() {
     this.getProvince(0);
-    // this.getProvince();
     this.getAllDistrict();
     this.getClientType();
     this.getSubSector();
@@ -465,6 +464,7 @@ export class JointFormComponent implements OnInit {
 
   close() {
     this.ref.close();
+    this.onClose();
   }
 
   changeAction(template) {

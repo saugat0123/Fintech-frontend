@@ -270,7 +270,7 @@
     </button>
   </div>
 </ng-template>
-<ng-template #chooseAcType let-ref="dialogRef">
+<ng-template #chooseAcType>
   <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">
     <nb-card-header>
       <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
@@ -280,13 +280,13 @@
     </nb-card-header>
     <nb-card-footer>
       <div class="d-flex justify-content-end">
-        <button (click)="changeAction(chooseJointNo);ref.close()" nbButton status="primary" type="submit">YES</button>
-        <button (click)="onCloseJoint();ref.close()" nbButton status="warning" type="button">NO</button>
+        <button (click)="changeAction(chooseJointNo)" nbButton status="primary" type="submit">YES</button>
+        <button (click)="onCloseJoint()" nbButton status="warning" type="button">NO</button>
       </div>
     </nb-card-footer>
   </nb-card>
 </ng-template>
-<ng-template #chooseJointNo let-ref="dialogRef">
+<ng-template #chooseJointNo>
   <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">
     <nb-card-header>
       <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
@@ -299,7 +299,7 @@
              #joint>
     </nb-card-header>
     <nb-card-footer>
-      <button class="btn btn-success float-right" nbButton size="small" (click)="onNextJointCustomer(joint.value);ref.close()">Next
+      <button class="btn btn-success float-right" nbButton size="small" (click)="onNextJointCustomer(joint.value)">Next
       </button>
     </nb-card-footer>
   </nb-card>
