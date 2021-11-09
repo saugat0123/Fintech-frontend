@@ -59,11 +59,11 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   fillForm() {
     this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       const customerAddress =
-          this.nepaliData.permanentMunicipality + ', वडा नं. ' +
+          this.nepaliData.permanentMunicipality + ', ' +
           this.nepaliData.permanentWard + ', ' +
           this.nepaliData.permanentDistrict;
       const customerTempAddress =
-          this.nepaliData.temporaryMunicipality + ', वडा नं. ' +
+          this.nepaliData.temporaryMunicipality + ', ' +
           this.nepaliData.temporaryWard + ', ' +
           this.nepaliData.temporaryDistrict;
       this.form.patchValue({
@@ -118,6 +118,7 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       offerDocument.initialInformation = JSON.stringify(this.form.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
+    console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
 
     this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
