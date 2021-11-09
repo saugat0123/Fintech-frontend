@@ -1,4 +1,4 @@
-export class PersonalLoan {
+export class NepDataPersonal {
     branchName: string;
     branchDistrict: string;
     branchMunVdc: string;

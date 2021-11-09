@@ -55,7 +55,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('cadData cad offer', this.customerInfo.nepData);
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -163,7 +162,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
         this.spinner = true;
         const data = JSON.stringify(this.userConfigForm.value);
-        console.log('data', data);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
             this.customerInfoData = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
