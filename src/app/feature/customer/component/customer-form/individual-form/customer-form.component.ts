@@ -119,7 +119,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     stayHidden = false;
 
     ngOnInit() {
-        console.log('client type input', this.clientTypeInput);
         this.getProvince();
         this.getAllDistrict();
         this.getClientType();
@@ -435,7 +434,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
             otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
             panNumber: [this.customer.panNumber === undefined ? undefined : this.customer.panNumber,
-                [Validators.maxLength(9), Validators.minLength(9)]],
+                [Validators.max(999999999), Validators.min(100000000)]],
             customerRelatives: this.formBuilder.array([]),
             introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
             securityRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
@@ -627,7 +626,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
                 this.clientType = res.detail;
-                console.log('res client type', this.clientType);
             }
             , error => {
                 console.error(error);

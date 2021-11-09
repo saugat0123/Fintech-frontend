@@ -497,6 +497,7 @@
                                 <th>Occupation</th>
                                 <th>Income Source</th>
                                 <th>Client Type</th>
+                                <th *ngIf="info?.panNumber">Pan Number</th>
 <!--                                <th>Subsector</th>-->
                             </tr>
                             <tr class="text-left">
@@ -506,6 +507,8 @@
                                 <td class="text-left pl-1">{{info?.occupation || 'NA'}}</td>
                                 <td class="text-left pl-1">{{info?.incomeSource || 'NA'}}</td>
                                 <td class="pl-1">{{loanDataHolder.loanHolder?.clientType | clientType}}</td>
+
+                                <td class="pl-1" *ngIf="info?.panNumber">{{info?.panNumber}}</td>
 <!--                                <td class="pl-1">{{subsectorDetail}}</td>-->
                             </tr>
                             <tr>
@@ -578,7 +581,8 @@
                         </ng-container>
                         </tbody>
                     </table>
-                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <table *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                        <p><strong>3. Address Verification</strong></p>
                         <tr class="text-white sb-bg-dark">
                             <th colspan="7">Permanent Address</th>
                         </tr>
@@ -629,7 +633,7 @@
                 </div>
             </div>
 
-            <div class="row mt-1">
+            <div class="row mt-1" *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" >
                 <div class="col-md-12">
                     <p><strong *ngIf="!isJointInfo">Address Verification</strong></p>
                     <table *ngIf="!isJointInfo" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">

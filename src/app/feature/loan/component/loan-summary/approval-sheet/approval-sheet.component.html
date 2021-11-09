@@ -299,6 +299,7 @@
                                     <th>LandLine Number</th>
                                     <th>Occupation</th>
                                     <th>Income Source</th>
+                                    <th *ngIf="info?.panNumber">Pan Number</th>
                                 </tr>
                                 <tr>
                                     <td class="text-left pl-1">{{info?.customerName}}</td>
@@ -309,6 +310,7 @@
                                     <td class="text-right pr-1">{{info?.landLineNumber || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.occupation || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.incomeSource || 'NA'}}</td>
+                                    <td class="pl-1" *ngIf="info?.panNumber">{{info?.panNumber}}</td>
                                 </tr>
 
                                 <!-- Family Details -->
