@@ -492,9 +492,9 @@
                                     </div>
 
                                 <div class="col-md-12">
-                                    <nb-checkbox #tempAddress (change)="sameAsAbove(i,tempAddress.checked)" formControlName="checkedSameAsCurrent"><i>Same as Permanent Address for Current Address</i></nb-checkbox>
+                                    <nb-checkbox #tempAddress (change)="sameAsAbove(i,tempAddress.checked)" formControlName="checkSameAddress"><i>Same as Permanent Address for Current Address</i></nb-checkbox>
                                 </div>
-                            <ng-container *ngIf="!form.get(['guarantorDetails', i, 'checkedSameAsCurrent']).value">
+                            <ng-container *ngIf="!form.get(['guarantorDetails', i, 'checkSameAddress']).value">
                                 <div class="col-md-12">
                                     <h6><b>Current Address</b></h6>
                                 </div>
