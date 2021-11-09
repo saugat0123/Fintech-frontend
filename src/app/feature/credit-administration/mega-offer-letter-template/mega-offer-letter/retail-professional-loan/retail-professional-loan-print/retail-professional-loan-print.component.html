@@ -103,7 +103,7 @@
                 कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो लेखिदिने/लेखिदिएको घर/जग्गाको बैंकको
                 आधिकारिक मुल्याह्कनकर्ता
                 द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value) कोे
-                <span class=" font-weight-bold">{{letter?.distressValue.ct}}</span>
+                <span class=" font-weight-bold">{{letter?.distressValue?.ct}}</span>
                 प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम
                 हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ।
               </td>
@@ -1157,3 +1157,5 @@
     </div>
   </div>
 </div>
+<button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+         ngxPrint printSectionId="{{offerLetterConst.EDUCATIONAL}}Print" #printButton>Print</button>

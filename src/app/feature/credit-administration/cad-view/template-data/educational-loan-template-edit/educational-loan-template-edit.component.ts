@@ -54,6 +54,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
   dateTypeAD = false;
   dateTypeBS1 = false;
   dateTypeAD1 = false;
+  dateTypeBS2= false;
+  dateTypeAD2 = false;
   provinceList: Array<Province> = new Array<Province>();
   districtList: Array<District> = new Array<District>();
   municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
@@ -97,6 +99,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       this.fieldFlag = true;
       this.dateTypeAD = true;
       this.dateTypeAD1 = true;
+      this.dateTypeAD2 = true;
       this.selectedSecurityVal = this.initialInformation.selectedSecurity.en;
       this.selectedCountryVal = this.initialInformation.selectedCountry.en;
       this.securityDetails = this.initialInformation.securityDetails;
@@ -170,6 +173,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       dateOfApproval: [undefined],
       //referenceNumber: [undefined],
       dateOfApplication: [undefined],
+      dateofExpiry:[undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
       fixedDepositReceiptAmountFigure: [undefined],
@@ -222,6 +226,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       dateOfApprovalTransVal: [undefined],
       //referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
+      dateofExpiryTransVal:[undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
       fixedDepositReceiptAmountFigureTransVal: [undefined],
@@ -482,6 +487,16 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.dateTypeAD1 = true;
   }
 
+  setDateTypeBS2() {
+    this.dateTypeBS2 = true;
+    this.dateTypeAD2 = false;
+  }
+
+  setDateTypeAD2() {
+    this.dateTypeBS2 = false;
+    this.dateTypeAD2 = true;
+  }
+
   calInterestRate() {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
@@ -589,6 +604,9 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
         !ObjectUtil.isEmpty(this.initialInformation.bankName))) {
       this.form.get('accountNumber').patchValue(this.initialInformation.accountNumber.en);
       this.form.get('bankName').patchValue(this.initialInformation.bankName.en);
+    }
+    if (this.selectedSecurityVal === 'FIXED_DEPOSIT') {
+      this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
     }
 
     // set ct value

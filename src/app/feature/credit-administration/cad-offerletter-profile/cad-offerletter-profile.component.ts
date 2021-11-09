@@ -4,7 +4,7 @@ import {CreditAdministrationService} from '../service/credit-administration.serv
 import {MegaOfferLetterConst} from '../mega-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from './cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ToastService} from '../../../@core/utils';
@@ -18,7 +18,8 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CadOfferLetterConfigurationComponent} from './cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {NabilOfferLetterConst} from '../nabil-offer-letter-const';
-
+import {OfferDocument} from '../model/OfferDocument';
+import {PersonalLoanPrintComponent} from '../mega-offer-letter-template/mega-offer-letter/personal-loan/personal-loan-print/personal-loan-print.component';
 
 
 @Component({
@@ -35,6 +36,11 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     // change this on basis of bank
     offerLetterConst;
     nepData;
+    offerLetterDocument;
+    loanLimit: any;
+    initialInfoPrint: any;
+    offerLetterData: any;
+    nbDialogServiceRef;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -65,9 +71,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.initial();
-                this.offerLetterTypes = NabilOfferLetterConst.enumObject();
-                this.offerLetterConst = NabilOfferLetterConst;
-                this.component = CadOfferLetterModalComponent;
+        this.offerLetterTypes = NabilOfferLetterConst.enumObject();
+        this.offerLetterConst = NabilOfferLetterConst;
+        this.component = CadOfferLetterModalComponent;
     }
 
     initial() {
@@ -93,10 +99,54 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         });
     }
 
+    openOfferLetterPrintDocumentModal(offerLetterType) {
+        if (ObjectUtil.isEmpty(offerLetterType)) {
+            this.toastrService.show(new Alert(AlertType.WARNING, 'Please Select Offer letter type'));
+            return;
+        }
+
+        const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
+        if (isNaN(offerLetterType)) {
+            offerLetterType = this.offerLetterConst.keysEnum(offerLetterType);
+        }
+        this.nbDialogService.open(this.component, {
+            context: {offerLetterType, cadOfferLetterApprovedDoc},
+            dialogClass: 'model-full',
+        });
+    }
+
+
     openCustomOfferLetterDocumentModal(editId) {
         const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
         this.nbDialogService.open(CustomOfferLetterDocumentComponent, {
             context: {editId, cadOfferLetterApprovedDoc}
+        });
+    }
+
+    openPreviewModal(model, documentName: string, documentId, index: number) {
+        if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
+            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName
+                === documentName)[0];
+            if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+                this.offerLetterDocument = new OfferDocument();
+                this.offerLetterDocument.docName = documentName;
+            } else {
+                const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+                if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
+                    this.offerLetterData = this.offerLetterDocument;
+                    // this.personalLoan.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
+                }
+                if ('loanLimitChecked' in initialInfo) {
+                    this.loanLimit = initialInfo.loanLimitChecked.en;
+                }
+                this.initialInfoPrint = initialInfo;
+                // this.selectedArray = initialInfo.loanTypeSelectedArray;
+                this.initialInfoPrint = initialInfo;
+            }
+            this.documentName = documentName;
+        }
+        this.nbDialogServiceRef = this.nbDialogService.open(model, {
+            dialogClass: 'model-full'
         });
     }
 
@@ -105,6 +155,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         this.documentId = documentId;
         this.modelService.open(model);
     }
+
 
     // todo move document upload to seperate to component
     submitOfferLetter() {
@@ -198,8 +249,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     public getTotal() {
         const loanList = this.cadOfferLetterApprovedDoc.assignedLoan;
         return this.isNumber(loanList
-        .map(l => (l.proposal.proposedLimit))
-        .reduce((a, b) => a + b, 0));
+            .map(l => (l.proposal.proposedLimit))
+            .reduce((a, b) => a + b, 0));
 
     }
 
@@ -215,4 +266,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     }
 
+    nbDialogServiceClose() {
+        this.nbDialogServiceRef.close();
+    }
 }

@@ -1,7 +1,8 @@
 <nb-card [nbSpinner]="spinner" >
     <nb-card-header>
+        <h3>Edit Education Loan Data </h3>
         <div class="row d-flex justify-content-end px-2 cursor text-dark font-weight-bold">
-            <a (click)="close()">x</a>
+            <a (click)="close()" style="margin-top:-2em">x</a>
         </div>
     </nb-card-header>
     <nb-card-body>
@@ -491,6 +492,39 @@
                             <div *ngIf="Form.branchManagerTransVal.errors.required">Branch manager is required
                             </div>
                         </div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'" style="padding: 12px">
+                    <td>Fixed Deposit Expiry Date</td>
+                    <td>
+                        <div class="row" style="margin-left: 5px; margin-top: -8px;">
+                            <nb-radio-group name="dateofExpiry">
+                                <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span>
+                                </nb-radio>
+                                <nb-radio (click)="setDateTypeAD2()" [checked]="dateTypeAD2" style="margin-left: 60px;margin-top: -35px;">
+                                    AD
+                                </nb-radio>
+                            </nb-radio-group>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <nepali-patro *ngIf="dateTypeBS2" formControlName="dateofExpiry" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input [nbDatepicker]="doe"
+                               *ngIf="dateTypeAD2"
+                               class="form-control form-control-sm-error rounded"
+                               formControlName="dateofExpiry"
+                               id="dateofExpiry"
+                               name="dateofExpiry"
+                               placeholder="Fixed Deposit Expiry Date"
+                               type="text">
+                        <nb-datepicker #doe></nb-datepicker>
                     </td>
                 </tr>
             </table>
