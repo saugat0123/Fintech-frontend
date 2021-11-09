@@ -77,9 +77,11 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.loanFlags.currentValue) {
-            this.loanFlags = this.loanFlags.filter((l) =>
-                (l.customerLoanId === Number(this.id) || ObjectUtil.isEmpty(l.customerLoanId)));
+        if (!ObjectUtil.isEmpty(changes.loanFlags)) {
+            if (changes.loanFlags.currentValue) {
+                this.loanFlags = this.loanFlags.filter((l) =>
+                    (l.customerLoanId === Number(this.id) || ObjectUtil.isEmpty(l.customerLoanId)));
+            }
         }
     }
 

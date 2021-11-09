@@ -57,6 +57,12 @@ export class RemitProfileComponent implements OnInit {
     const age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
     return age;
   }
-
+  opendocument(filePath: any) {
+    let fileName = filePath.fullpath;
+    const link = document.createElement('a');
+    link.href = fileName;
+    link.target = '_blank';
+    link.click();
+  }
 
   }
