@@ -16,15 +16,12 @@ import {RelationshipList} from '../../../../loan/model/relationshipList';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {Clients} from '../../../../../../environments/Clients';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {Editor} from '../../../../../@core/utils/constants/editor';
-import {Address} from '../../../../loan/model/address';
-import {Guarantor} from '../../../../loan/model/guarantor';
 
 @Component({
   selector: 'app-joint-form',
@@ -80,8 +77,6 @@ export class JointFormComponent implements OnInit {
   version: number;
   ckeConfig = Editor.CK_CONFIG;
   checkSameAddress: false;
-  addressListTemporary: Array<Address> = new Array<Address>();
-  addressList: Array<Address> = new Array<Address>();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -145,7 +140,7 @@ export class JointFormComponent implements OnInit {
             permanentAddressLine1: [jointDetail.permanentAddressLine1],
             permanentAddressLine2: [jointDetail.permanentAddressLine2],
             wardNumber: [jointDetail.wardNumber, Validators.required],
-            contactNumber: [jointDetail.contactNumber,[Validators.required,
+            contactNumber: [jointDetail.contactNumber, [Validators.required,
               Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [jointDetail.landLineNumber],
             email: [jointDetail.email, Validators.email],
@@ -160,7 +155,7 @@ export class JointFormComponent implements OnInit {
             otherOccupation: [jointDetail.otherOccupation],
             incomeSource: [jointDetail.incomeSource, [Validators.required]],
             otherIncome: [jointDetail.otherIncome],
-            panNumber: [jointDetail.panNumber,[Validators.max(999999999), Validators.min(100000000)]],
+            panNumber: [jointDetail.panNumber, [Validators.max(999999999), Validators.min(100000000)]],
             temporaryProvince: [jointDetail.temporaryProvince, Validators.required],
             temporaryDistrict: [jointDetail.temporaryDistrict, Validators.required],
             temporaryMunicipalities: [jointDetail.temporaryMunicipalities, Validators.required],
@@ -255,7 +250,6 @@ export class JointFormComponent implements OnInit {
 
   }
   getTemporaryDistricts(province: Province, index: number, event) {
-      console.log('tempprov', province);
       if (event) {
           this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryDistrict']).setValue(null);
           this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryMunicipalities']).setValue(null);
@@ -275,7 +269,6 @@ export class JointFormComponent implements OnInit {
   }
 
   getTemporaryMunicipalities(district: District, index: number, event) {
-      console.log('tempdis', district);
       if (event) {
           this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryMunicipalities']).setValue(null);
       }
@@ -336,32 +329,6 @@ export class JointFormComponent implements OnInit {
               .get('citizenshipIssuedDate').value;
           this.customer.dob = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('dob').value;
           // to json
-          //   const formArray = this.basicJointInfo.get('jointCustomerInfo') as FormArray;
-          //   formArray['controls'].forEach(c => {
-          //       const customer1: Customer = c.value;
-          //       if (!ObjectUtil.isEmpty(c.get('province').value)) {
-          //           const province = new Province();
-          //           province.id = c.get('province').value;
-          //           customer1.province = province;
-          //           const district = new District();
-          //           district.id = c.get('district').value;
-          //           customer1.district = district;
-          //           const municipalityVdc = new MunicipalityVdc();
-          //           municipalityVdc.id = c.get('municipalities').value;
-          //           customer1.municipalities = municipalityVdc;
-          //       }
-          //       if (!ObjectUtil.isEmpty(c.get('provinceTemporary').value)) {
-          //           const province = new Province();
-          //           province.id = c.get('provinceTemporary').value;
-          //           customer1.temporaryProvince = province;
-          //           const district = new District();
-          //           district.id = c.get('districtTemporary').value;
-          //           customer1.temporaryDistrict = district;
-          //           const municipalityVdc = new MunicipalityVdc();
-          //           municipalityVdc.id = c.get('municipalitiesTemporary').value;
-          //           customer1.temporaryMunicipalities = municipalityVdc;
-          //       }
-                // this.customer.jointInfo
           this.customer.jointInfo = JSON.stringify(value);
           this.customerService.save(this.customer).subscribe(res => {
             this.spinner = false;
@@ -557,13 +524,6 @@ export class JointFormComponent implements OnInit {
               .patchValue(this.basicJointInfo.get(['jointCustomerInfo', i, 'district']).value);
           this.basicJointInfo.get(['jointCustomerInfo', i, 'temporaryMunicipalities'])
               .patchValue(this.basicJointInfo.get(['jointCustomerInfo', i, 'municipalities']).value);
-          console.log('index', i);
-          console.log('province', this.basicJointInfo.get(['jointCustomerInfo', i, 'province']).value);
-          console.log('district', this.basicJointInfo.get(['jointCustomerInfo', i, 'district']).value);
-          this.getTemporaryDistricts(this.basicJointInfo.get(['jointCustomerInfo', i, 'province']).value, i, event);
-          this.getTemporaryMunicipalities(this.basicJointInfo.get(['jointCustomerInfo', i, 'district']).value, i, event);
-          // this.getMunicipalitiesTemporary(this.basicJointInfo.get(['jointCustomerInfo', i, 'district']).value, i);
-          // this.getDistrictTemporary(this.basicJointInfo.get(['jointCustomerInfo', i, 'province']).value, i);
           this.basicJointInfo.get(['jointCustomerInfo', i, 'temporaryWardNumber'])
               .patchValue(this.basicJointInfo.get(['jointCustomerInfo', i, 'wardNumber']).value);
           this.basicJointInfo.get(['jointCustomerInfo', i, 'temporaryAddressLine1'])
@@ -571,7 +531,6 @@ export class JointFormComponent implements OnInit {
           this.basicJointInfo.get(['jointCustomerInfo', i, 'temporaryAddressLine2'])
               .patchValue(this.basicJointInfo.get(['jointCustomerInfo', i, 'permanentAddressLine2']).value);
           this.checkSameAddress = checked;
-          console.log('basicJointInfo', this.basicJointInfo);
       } else {
           this.resetValue(i);
           this.checkSameAddress = checked;
