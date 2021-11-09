@@ -15,12 +15,15 @@ import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {environment} from '../../../../../environments/environment';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
     templateUrl: './cad-offer-letter-configuration.component.html',
     styleUrls: ['./cad-offer-letter-configuration.component.scss']
 })
+
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
     @Input() customerInfo: CustomerInfoData;
@@ -35,6 +38,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
     hideSaveBtn = false;
+    client = environment.client;
+    clientList = Clients;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -61,6 +66,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     buildForm() {
         this.userConfigForm = this.formBuilder.group({
             name: [undefined],
+            nameInEnglish : [undefined],
             gender: [this.checkIsIndividual() ? this.gender(this.customerInfo.gender) : undefined],
             fatherName: [undefined],
             grandFatherName: [undefined],
@@ -88,6 +94,38 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             guarantorDetails: this.formBuilder.array([]),
             citizenshipIssueDistrict: [undefined],
             citizenshipIssueDate: [undefined],
+            companyName: [undefined],
+            companyDistrict: [undefined],
+            companyVdcMun: [undefined],
+            companyWardNo: [undefined],
+            ministryOfGovernmentOfNepal: [undefined],
+            department: [undefined],
+            companyRegistrarOfficeDistrict: [undefined],
+            companyRegistrarOfficeVdcMun: [undefined],
+            companyRegistrarOfficeWardNo: [undefined],
+            nameOfRegisteringAct: [undefined],
+            yearOfActEnactment: [undefined],
+            registrationDate: [undefined],
+            companyRegistrationNo: [undefined],
+            taxPayerServiceOffice: [undefined],
+            panRegistrationDate: [undefined],
+            panNo: [undefined],
+            representativePermanentDistrict: [undefined],
+            representativePermanentMunType: [undefined],
+            representativePermanentMunicipality: [undefined],
+            representativePermanentWard: [undefined],
+            representativeTemporaryDistrict: [undefined],
+            representativeTemporaryMunType: [undefined],
+            representativeTemporaryMunicipality: [undefined],
+            representativeTemporaryWard: [undefined],
+            representativeGrandFatherName: [undefined],
+            representativeFatherName: [undefined],
+            representativeHusbandWifeName: [undefined],
+            borrowerAge: [undefined],
+            representativeName: [undefined],
+            representativeCitizenshipNo: [undefined],
+            representativeCitizenshipIssueDate: [undefined],
+            representativeCitizenshipIssuingAuthority: [undefined]
         });
     }
 
@@ -136,8 +174,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
-
-
     }
 
     closeModal() {
@@ -162,6 +198,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     addGuarantorField() {
         return this.formBuilder.group({
             name: '',
+            guarantorAge: '',
             issuedYear: '',
             issuedPlace: '',
             guarantorLegalDocumentAddress: '',
@@ -180,7 +217,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (event.tabId === '2') {
             this.hideSaveBtn = true;
         }
-
     }
 
     setGuarantors(guarantorDetails: any) {
@@ -191,9 +227,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.guarantorList = guarantorList;
             }
         }
+
         guarantorDetails.forEach(value => {
             formArray.push(this.formBuilder.group({
                 name: [value.name],
+                guarantorAge: [value.guarantorAge],
                 issuedYear: [value.issuedYear],
                 issuedPlace: [value.issuedPlace],
                 guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
