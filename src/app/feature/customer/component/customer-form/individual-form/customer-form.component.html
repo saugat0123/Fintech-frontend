@@ -56,7 +56,7 @@
                                            class="custom-select" formControlName="clientType">
                                        <option [ngValue]="null">Select Client Type</option>
                                        <option *ngFor="let data of clientType | keyvalue " [ngValue]="data.key"
-                                               [selected]="data === clientTypeInput" >{{data.value}}</option>
+                                               [selected]="data.key === clientTypeInput" >{{data.value}}</option>
                                    </select>
                                    <div *ngIf="submitted && basicInfoControls.clientType.errors"
                                         class="invalid-feedback">
@@ -314,9 +314,9 @@
                                    <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.panNumber.errors }"
                                           class="form-control" formControlName="panNumber" id="panNumber" name="panNumber"
                                           placeholder="Enter PAN"
-                                          type="text">
+                                          type="number">
                                    <div *ngIf="(submitted) && basicInfoControls.panNumber.invalid" class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls.panNumber.errors.maxlength || basicInfoControls.panNumber.errors.minlength">
+                                       <div *ngIf="basicInfoControls.panNumber.errors.max || basicInfoControls.panNumber.errors.min">
                                            Length should be of 9 digit
                                        </div>
                                    </div>

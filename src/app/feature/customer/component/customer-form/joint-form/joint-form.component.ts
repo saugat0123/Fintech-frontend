@@ -109,8 +109,9 @@ export class JointFormComponent implements OnInit {
           console.log('individualJsonData', this.individualJsonData);
         this.id = this.formValue.id;
         this.version = this.formValue.version;
-        this.customer.clientType = this.clientTypeInput;
+        this.customer.clientType = this.individualJsonData.clientType;
         this.customer.subsectorDetail = this.subSectorInput;
+        this.clientTypeInput = this.customer.clientType;
         this.basicJointInfo.get('clientType').patchValue(this.customer.clientType);
         this.basicJointInfo.get('subsectorDetail').patchValue(this.customer.subsectorDetail);
         this.basicJointInfo.get('introduction').patchValue(this.individualJsonData.introduction);
@@ -136,37 +137,39 @@ export class JointFormComponent implements OnInit {
     data.jointCustomerInfo.forEach((jointDetail) => {
       formControls.push(
           this.formBuilder.group({
-            customerName: [jointDetail.customerName],
+            customerName: [jointDetail.customerName, Validators.required],
             customerCode: [jointDetail.customerCode],
-            province: [jointDetail.province],
-            district: [jointDetail.district],
-            municipalities: [jointDetail.municipalities],
+            province: [jointDetail.province, Validators.required],
+            district: [jointDetail.district, Validators.required],
+            municipalities: [jointDetail.municipalities, Validators.required],
             permanentAddressLine1: [jointDetail.permanentAddressLine1],
             permanentAddressLine2: [jointDetail.permanentAddressLine2],
-            wardNumber: [jointDetail.wardNumber],
-            contactNumber: [jointDetail.contactNumber],
+            wardNumber: [jointDetail.wardNumber, Validators.required],
+            contactNumber: [jointDetail.contactNumber,[Validators.required,
+              Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [jointDetail.landLineNumber],
-            email: [jointDetail.email],
+            email: [jointDetail.email, Validators.email],
             // initial Relation Date not used in ui
             initialRelationDate: [jointDetail.initialRelationDate],
-            citizenshipNumber: [jointDetail.citizenshipNumber],
-            citizenshipIssuedPlace: [jointDetail.citizenshipIssuedPlace],
-            citizenshipIssuedDate: new Date(jointDetail.citizenshipIssuedDate),
+            citizenshipNumber: [jointDetail.citizenshipNumber, Validators.required],
+            citizenshipIssuedPlace: [jointDetail.citizenshipIssuedPlace, Validators.required],
+            citizenshipIssuedDate: [new Date(jointDetail.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
             dob: [ObjectUtil.isEmpty(jointDetail.dob) ?
-                undefined : new Date(jointDetail.dob), DateValidator.isValidBefore],
-            occupation: [jointDetail.occupation],
+                undefined : new Date(jointDetail.dob), [Validators.required, DateValidator.isValidBefore]],
+            occupation: [jointDetail.occupation, [Validators.required]],
             otherOccupation: [jointDetail.otherOccupation],
-            incomeSource: [jointDetail.incomeSource],
+            incomeSource: [jointDetail.incomeSource, [Validators.required]],
             otherIncome: [jointDetail.otherIncome],
-            temporaryProvince: [jointDetail.temporaryProvince],
-            temporaryDistrict: [jointDetail.temporaryDistrict],
-            temporaryMunicipalities: [jointDetail.temporaryMunicipalities],
+            panNumber: [jointDetail.panNumber,[Validators.max(999999999), Validators.min(100000000)]],
+            temporaryProvince: [jointDetail.temporaryProvince, Validators.required],
+            temporaryDistrict: [jointDetail.temporaryDistrict, Validators.required],
+            temporaryMunicipalities: [jointDetail.temporaryMunicipalities, Validators.required],
             temporaryAddressLine1: [jointDetail.temporaryAddressLine1],
             temporaryAddressLine2: [jointDetail.temporaryAddressLine2],
-            temporaryWardNumber: [jointDetail.temporaryWardNumber],
-            gender: [jointDetail.gender],
-            maritalStatus: [jointDetail.maritalStatus],
-            customerLegalDocumentAddress: [jointDetail.customerLegalDocumentAddress],
+            temporaryWardNumber: [jointDetail.temporaryWardNumber, Validators.required],
+            gender: [jointDetail.gender, Validators.required],
+            maritalStatus: [jointDetail.maritalStatus, Validators.required],
+            customerLegalDocumentAddress: [jointDetail.customerLegalDocumentAddress, Validators.required],
             relationCheck: [jointDetail.relationCheck],
             introduction: [jointDetail.introduction],
             incomeRisk: [jointDetail.incomeRisk],
@@ -174,15 +177,15 @@ export class JointFormComponent implements OnInit {
             successionRisk: [jointDetail.successionRisk],
             bankingRelationship: [jointDetail.bankingRelationship],
             netWorth: [jointDetail.netWorth],
-            customerRelation1: [jointDetail.customerRelation1],
-            customerRelativeName1: [jointDetail.customerRelativeName1],
+            customerRelation1: [jointDetail.customerRelation1, Validators.required],
+            customerRelativeName1: [jointDetail.customerRelativeName1, Validators.compose([Validators.required])],
             citizenshipNumber1: [jointDetail.citizenshipNumber1],
             citizenshipIssuedPlace1: [jointDetail.citizenshipIssuedPlace1],
             citizenshipIssuedDate1: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate1) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate1), DateValidator.isValidBefore],
             age1: [jointDetail.age1],
-            customerRelation2: [jointDetail.customerRelation2],
-            customerRelativeName2: [jointDetail.customerRelativeName2],
+            customerRelation2: [jointDetail.customerRelation2, Validators.required],
+            customerRelativeName2: [jointDetail.customerRelativeName2, Validators.compose([Validators.required])],
             citizenshipNumber2: [jointDetail.citizenshipNumber2],
             citizenshipIssuedPlace2: [jointDetail.citizenshipIssuedPlace2],
             citizenshipIssuedDate2: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate2) ?
@@ -303,7 +306,7 @@ export class JointFormComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
         return;
       } else {
-          if (this.basicJointInfo.controls['jointCustomerInfo'].invalid) {
+          if (this.basicJointInfo.controls['jointCustomerInfo'].invalid || this.basicJointInfo.invalid) {
               this.toastService.show(new Alert(AlertType.WARNING, 'Please check validation'));
               return;
           }
@@ -416,7 +419,6 @@ export class JointFormComponent implements OnInit {
       jointCustomerInfo: this.formBuilder.array([])
     });
   }
-
   jointFormGroup(): FormGroup {
     return this.formBuilder.group({
       customerName: [undefined, Validators.required],
@@ -440,6 +442,7 @@ export class JointFormComponent implements OnInit {
       otherOccupation: [undefined],
       incomeSource: [undefined, [Validators.required]],
       otherIncome: [undefined],
+      panNumber: [undefined, [Validators.max(999999999), Validators.min(100000000)]],
       temporaryProvince: [undefined, Validators.required],
       temporaryDistrict: [undefined, Validators.required],
       temporaryMunicipalities: [undefined, Validators.required],

@@ -439,7 +439,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
             otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
             panNumber: [this.customer.panNumber === undefined ? undefined : this.customer.panNumber,
-                [Validators.maxLength(9), Validators.minLength(9)]],
+                [Validators.max(999999999), Validators.min(100000000)]],
             customerRelatives: this.formBuilder.array([]),
             introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
             securityRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
