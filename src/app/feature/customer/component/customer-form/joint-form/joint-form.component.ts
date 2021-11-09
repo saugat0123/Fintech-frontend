@@ -154,7 +154,7 @@ export class JointFormComponent implements OnInit {
             otherOccupation: [jointDetail.otherOccupation],
             incomeSource: [jointDetail.incomeSource, [Validators.required]],
             otherIncome: [jointDetail.otherIncome],
-            panNumber: [jointDetail.panNumber, [Validators.required, Validators.max(999999999), Validators.min(100000000)]],
+            panNumber: [jointDetail.panNumber, [Validators.max(999999999), Validators.min(100000000)]],
             temporaryProvince: [jointDetail.temporaryProvince, Validators.required],
             temporaryDistrict: [jointDetail.temporaryDistrict, Validators.required],
             temporaryMunicipalities: [jointDetail.temporaryMunicipalities, Validators.required],
