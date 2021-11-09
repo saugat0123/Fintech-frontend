@@ -1,33 +1,19 @@
-@page {
-  size: A4;
-  margin: 17mm 17mm 17mm 17mm;
+.nepaliFont{
+  font-size: 16px;
 }
-table { page-break-inside:auto }
-tr    { page-break-inside:avoid;
-        page-break-after:auto;}
-thead { display:table-header-group }
-tfoot { display:table-footer-group }
-@media print{
-  div.divFooter{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
-
-  tr, td {
-    break-after: auto;
-    break-inside: avoid;
-    line-height: 1.9;
-  }
+table {
+  text-align: justify !important;
+  line-height: 1.9;
 }
-input{
-  font-size: 16px !important;
+p{
+  line-height: 1.9;
 }
 .nepaliList {
-  list-style-type: devanagari !important;
+  list-style-type: devanagari;
+  line-height: 1.9;
 }
-table{
-  text-align: justify !important;
+.nepaliList > li {
+  list-style-type: devanagari;
   line-height: 1.9;
 }
 .nep {
@@ -35,31 +21,11 @@ table{
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 50px;
+  margin: 10px 70px;
 }
-
-.form-field {
-  background: yellow;
-  margin: 0px 5px 5px 5px;
-  border: 0;
-  border-bottom: 1px solid black;
-  border-radius: 0px;
-  &:focus {
-    outline: none;
-  }
-}
-
-nb-card{
-  max-height: 100vh !important;
-}
-
-li {
-  list-style-type: none;
-  line-height: 1.9;
-}
-
-.disclist > li{
-  list-style-type: disc;
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
 }
 .hello{
   width: 95%;
@@ -71,7 +37,16 @@ li {
 .hello > tr > td{
   border: 1px solid black !important;
 }
-
-.page-break {
-  page-break-after: always !important;
+@media print {
+  footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .full-width{
+    width: 100%;
+  }
+}
+.disclist > li{
+  list-style-type: disc;
 }

@@ -19,7 +19,7 @@ import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-wo
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({

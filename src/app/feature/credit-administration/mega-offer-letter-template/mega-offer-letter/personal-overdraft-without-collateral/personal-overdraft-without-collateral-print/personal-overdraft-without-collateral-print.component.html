@@ -465,16 +465,12 @@
                                             ज. ऋणीबाट गलमभचतबपष्लन भिततभच ।
                                         </p>
                                         <br>
-                                        <div class="row col-md-12" style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
-                                            झ.
-                                            <textarea
-                                                    id="additionalGuarantorDetails"
-                                                    class="form-control customFont nepaliFont"
-                                                    rows="5"
-                                                    style="width:inherit;margin-left:4px;margin-top: 9px"
-                                                    name="additionalGuarantorDetails"
-                                                    formControlName="additionalGuarantorDetails">
-                                            </textarea>
+                                        <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12"
+                                             style="margin-left: 5.5em; width: 95%;margin-top: -1.3em;">
+                                            <p style="line-height: 1.9;margin-top: -2em">
+                                                झ. <span class="nepaliFont"
+                                                         style="font-size: 24px;margin-top: -0.3em;margin-left: 0.5em;">{{offerData?.supportedInformation}}</span>
+                                            </p>
                                         </div>
                                     </div>
 

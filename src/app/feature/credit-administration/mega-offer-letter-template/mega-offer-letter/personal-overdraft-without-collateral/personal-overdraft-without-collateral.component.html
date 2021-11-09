@@ -43,7 +43,7 @@
                           सुश्री
                         </span>
                     </ng-template>
-                    <input class="form-field form-control-sm"
+                   <input class="form-field form-control-sm"
                            formControlName="customerName"
                            name="customerName"
                            placeholder="{{loanHolderInfo?.name}}"
@@ -234,14 +234,6 @@
                             <tr>
                                 <th colspan="2"><strong> कर्जाका लागि सुरक्षण विवरणः</strong></th>
                             </tr>
-
-<!--                                    <p><strong>क. </strong>  स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ । </p>-->
-<!--                                    <p style="text-align: center"> <strong>Collateral details </strong></p>-->
-<!--                                    <div class="pb-4">-->
-<!--                                        <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>-->
-<!--                                    </div>-->
-
-
                         </table>
 
                         <table class="table table-borderless" style="page-break-before: always">
@@ -570,75 +562,6 @@
                                             </textarea>
                                         </div>
                                     </div>
-
-<!--                                    <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING' && !renewal" class="col-md-12">-->
-<!--                                        <p style="line-height: 1.9;margin-left:100px">क. रु.<input class="form-field form-control-sm"-->
-<!--                                                                                                   formControlName="loanAmountinFigure"-->
-<!--                                                                                                   name="loanAmountinFigure"-->
-<!--                                                                                                   placeholder=" रकम "-->
-<!--                                                                                                   type="text"/>को प्रतिज्ञा पत्र ।<br>-->
-<!--                                            ख.	रु.<input class="form-field form-control-sm"-->
-<!--                                                            formControlName="loanAmountinFigure"-->
-<!--                                                            name="loanAmountinFigure"-->
-<!--                                                            placeholder=" रकम "-->
-<!--                                                            type="text"/> ऋण कर्जा तमसुक ।<br>-->
-<!--                                            ग.	व्यक्तिगत अधिविकर्ष सुविधाको लागी निवेदन ।<br>-->
-<!--                                            घ.	निरन्तरता पत्र ।<br>-->
-<!--                                            ङ.	बहुबैंकिङ्ग घोषणा पत्र ।<br>-->
-<!--                                            च.	रु.<input class="form-field form-control-sm"-->
-<!--                                                            formControlName="loanAmountinFigure"-->
-<!--                                                            name="loanAmountinFigure"-->
-<!--                                                            placeholder=" रकम "-->
-<!--                                                            type="text"/> को धितो बन्धक तमसुक ।<br>-->
-<!--                                            छ.  मूल्यांकन प्रतिवेदन ।<br>-->
-<!--                                            ज.  श्री-->
-<!--                                            <input class="form-field form-control-sm col-3"-->
-<!--                                                   formControlName="guarantorName"-->
-<!--                                                   [value]="this.finalName"-->
-<!--                                                   type="text"/>-->
-<!--                                            को बैकको पक्षमा रु-->
-<!--                                            <input class="form-field form-control-sm"-->
-<!--                                                   formControlName="guaranteedamountinFigure"-->
-<!--                                                   [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"-->
-<!--                                                   type="text"/>-->
-<!--                                            (अक्षरेपी रु <input class="form-field form-control-sm"-->
-<!--                                                                formControlName="guaranteedamountinWords"-->
-<!--                                                                name="guaranteedamountinWords"-->
-<!--                                                                placeholder=" रकम "-->
-<!--                                                                [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"-->
-<!--                                                                type="text"/>-->
-<!--                                            मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।-->
-<!--                                            <br>-->
-<!--                                            झ.  बैकर्श शर्त सहितको कम्तीमा रु <input class="form-field form-control-sm"-->
-<!--                                                                                     formControlName="insuranceAmountinFigure"-->
-<!--                                                                                     name="insuranceAmountinFigure"-->
-<!--                                                                                     placeholder=" रकम "-->
-<!--                                                                                     type="text"/>  बराबरको भवनको  विमालेख ।-->
-<!--                                            <br>-->
-<!--                                            ञ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।-->
-<!--                                        </p>-->
-<!--                                        <br>-->
-<!--                                        <div class="row col-md-12" style="margin-left: 5.8em;width: 95%;margin-top: -2em;">-->
-<!--                                            ट.-->
-<!--                                            <textarea-->
-<!--                                                    class="form-control customFont nepaliFont"-->
-<!--                                                    rows="5"-->
-<!--                                                    style="width:inherit;margin-left:2%"-->
-<!--                                                    name="additionalGuarantorDetails"-->
-<!--                                                    formControlName="additionalGuarantorDetails">-->
-<!--                                            </textarea>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <br>-->
-<!--                                    <div *ngIf="renewal" class="col-md-12">-->
-<!--                                        <p style="line-height: 1.9;margin-left:100px"> क.	व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।<br>-->
-<!--                                            ख. 	निरन्तरताको लिखत ।<br>-->
-<!--                                            ग. 	बहुबैंकिङ्ग घोषणा पत्र ।<br>-->
-<!--                                            घ.  ग्राहक स्वघोषणा फारम ।-->
-<!--                                        </p>-->
-<!--                                    </div>-->
-<!--                                </td>-->
-<!--                            </tr>-->
                         </table>
                         <p style="line-height:1.9"> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको प्रतिलिपीमा तपाईंको मञ्जुरी
                             सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ । अन्यथा यो प्रस्ताव स्वतः रद्द हुनेछ । साथै, तपाईले यो ऋण स्वीकृति पत्रमा मञ्जुरी जनाएको

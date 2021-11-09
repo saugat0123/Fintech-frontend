@@ -28,7 +28,6 @@ export class PersonalOverdraftWithoutCollateralPrintComponent implements OnInit 
   guarantorName;
   branchName;
   guarantorData;
-  autoRefNum;
   offerDocumentDetails;
   autoRefNumber;
   guarantorNames: Array<String> = [];
