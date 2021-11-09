@@ -21,6 +21,7 @@ import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
 import {EngNepDatePipe} from 'nepali-patro';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-personal-overdraft',
@@ -69,7 +70,8 @@ export class PersonalOverdraftComponent implements OnInit {
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepPercentWordPipe: NepaliPercentWordPipe,
               private ref: NbDialogRef<PersonalOverdraftComponent>,
-              private engToNepaliDate: EngNepDatePipe) { }
+              private engToNepaliDate: EngNepDatePipe,
+              public datePipe: DatePipe) { }
 
   ngOnInit() {
   this.buildPersonal();
@@ -81,7 +83,6 @@ export class PersonalOverdraftComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
-    console.log('Temp Data',this.tempData);
     this.checkOfferLetterData();
     this.guarantorDetails();
   }
@@ -142,7 +143,6 @@ buildPersonal() {
     });
   }
   checkOfferLetterData() {
-    console.log(this.initialInfoPrint);
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
           === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString())[0];
@@ -189,6 +189,26 @@ buildPersonal() {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
+    // For date of Approval
+    const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
+    let finalDateOfApproval;
+    if (dateOfApprovalType === 'AD') {
+      const templateDateApproval = this.initialInfoPrint.dateOfApproval ? this.initialInfoPrint.dateOfApproval.en : '';
+      finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
+    } else {
+      const templateDateApproval = this.initialInfoPrint.dateOfApprovalNepali ? this.initialInfoPrint.dateOfApprovalNepali.en : '';
+      finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
+    }
+    // For Date of Application:
+    const dateOfApplication = this.initialInfoPrint.dateofApplicationType ? this.initialInfoPrint.dateofApplicationType.en : '';
+    let finalDateOfApplication;
+    if (dateOfApplication === 'AD') {
+      const templateDateApplication = this.initialInfoPrint.dateofApplication ? this.initialInfoPrint.dateofApplication.en : '';
+      finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+    } else {
+      const templateDateApplication = this.initialInfoPrint.dateofApplicationNepali ? this.initialInfoPrint.dateofApplicationNepali.en : '';
+      finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
+    }
     this.form.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
@@ -209,6 +229,8 @@ buildPersonal() {
       nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
       branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
+      dateOfApproval : finalDateOfApproval ? finalDateOfApproval : '',
+      dateofApplication : finalDateOfApplication ? finalDateOfApplication : '',
     });
   }
   submit(): void {

@@ -105,8 +105,8 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
         this.dateTypeBS1 = true;
       }
       this.fieldFlag = true;
-      this.dateTypeAD = true;
-      this.dateTypeAD1 = true;
+      // this.dateTypeAD = true;
+      // this.dateTypeAD1 = true;
       this.loanLimit = this.initialInformation.loanLimitChecked.en;
       this.renewal = this.initialInformation.renewalChecked.en;
       this.securityDetails = this.initialInformation.securityDetails;
