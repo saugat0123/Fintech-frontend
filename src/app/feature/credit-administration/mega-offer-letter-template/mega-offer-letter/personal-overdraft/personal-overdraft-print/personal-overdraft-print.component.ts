@@ -26,7 +26,7 @@ export class PersonalOverdraftPrintComponent implements OnInit {
   loanHolderInfo;
   offerLetterConst = NabilOfferLetterConst;
   selectedSecurity;
-  renewalVal;
+  renewalVal = false;
   customerAddress;
   proposedAmount;
   guarantorName;
