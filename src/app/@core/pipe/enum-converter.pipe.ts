@@ -19,6 +19,9 @@ export class EnumConverterPipe implements PipeTransform {
             case 'MICRO_FINANCE':
                 value = 'Micro Finance';
                 break;
+            case 'NOT_TRANSFERRED':
+                value = 'Not Transferred';
+                break;
             default:
                 break;
         }
