@@ -15,6 +15,7 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class LoanDeedComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
+    nepDataPersonal = new NepDataPersonal();
 
 
     constructor(private dialogRef: NbDialogRef<LoanDeedComponent>,
@@ -73,10 +75,16 @@ export class LoanDeedComponent implements OnInit {
 
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
+            this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+            console.log('nepalidata', this.nepaliData);
             this.form.patchValue({
+                district: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
+                municipality: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
+                wadNo: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
+                branchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
                 grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
                 parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+                husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
                 age: this.nepaliData.age ? this.nepaliData.age : '',
                 likhitDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
@@ -186,7 +194,7 @@ export class LoanDeedComponent implements OnInit {
             likhitMunicipalty: [undefined],
             likhitWadNo: [undefined],
             sabikVDC: [undefined],
-            sabikWadNo: [undefined],
+            sabikWardNo: [undefined],
             tempVDC: [undefined],
             tempWadNo: [undefined],
             age: [undefined],
