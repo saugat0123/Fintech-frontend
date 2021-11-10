@@ -5,11 +5,11 @@
         <div class="col-md-8">
           <p>
             प.सं.:
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    formControlName="patraNum"
                    type="text">
             /पिएफएल/
-            <input class="form-control-sm form-field nepaliFont uniFont" formControlName="paFile" type="text">
+            <input class="form-control-sm form-field nepaliFont" formControlName="paFile" type="text">
             /सिआरडि /०७७/०७८
           </p>
         </div>
@@ -17,7 +17,7 @@
       <div style="...">
         <p>
           मिति :
-          <input class="form-control-sm form-field nepaliFont uniFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="date">
         </p>
@@ -25,9 +25,10 @@
       <div style="...">
         <p>
           <strong>श्री</strong>
-          <input class="form-control-sm form-field nepaliFont uniFont"
-                 formControlName="customerName"
-                 type="text">
+          <input class="form-control-sm form-field nepaliFont"
+                 type="text"
+                 readonly
+                 [value]="form.get('customerName').value">
         </p>
       </div>
       <div style="...">
@@ -50,8 +51,8 @@
       </div>
       <div style="...">
         <p>
-          हनागरिकता बमोजिम ठेगाना :
-          <input class="form-control-sm form-field nepaliFont uniFont"
+          नागरिकता बमोजिम ठेगाना :
+          <input class="form-control-sm form-field nepaliFont"
                  formControlName="customerCitizenshipAddress"
                  type="text">
         </p>
@@ -59,7 +60,7 @@
       <div style="...">
         <p>
           मोबाइल नं. :
-          <input class="form-control-sm form-field nepaliFont uniFont"
+          <input class="form-control-sm form-field nepaliFont"
                  formControlName="customerMobileNum"
                  type="text">
         </p>
@@ -71,13 +72,15 @@
         <div style="margin-left: 30px">
           <p>
             तपाई <strong>श्री</strong>
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
+                   readonly
                    [value]="form.get('customerName').value"
                    type="text">
             (उप्रान्त ऋणी भनिएको) ले श्री प्रोग्रेशिभ फाइनान्स लिमिटेड, शाखा कार्यालय,
             <input class="form-control-sm form-field nepaliFont uniFont"
-                   formControlName="branchName"
-                   type="text">
+                   readonly
+                   type="text"
+                   [value]="form.get('financeBranch').value">
             (उप्रान्त फाइनान्स भनिएको) मा पेश गरेको कर्जा आवेदन उपर कारवाही हुदा देहाय
             वमोजिमको धितो सुरक्षणमा तपसिलमा उल्लेखित शर्त बन्देजहरु पालना गर्ने गरी कर्जा तथा सुविधा स्वीकृति गरिएको ब्यहोरा
             जानकारी गराउदछौं ।
@@ -85,7 +88,8 @@
         पक्षहरु :–<br>
         <div style="margin-left: 40px">
           १.१ &nbsp; <strong>श्री</strong>
-          <input class="form-control-sm form-field nepaliFont uniFont"
+          <input class="form-control-sm form-field nepaliFont"
+                 readonly
                  [value]="form.get('customerName').value"
                  type="text">
           (यस पछि “ऋणी” भनिएको)<br>
@@ -93,8 +97,7 @@
           <input class="form-control-sm form-field nepaliFont uniFont"
                  type="text"
                  readonly
-                 value="{{form.get('branchName').value}}"
-                 formControlName="financeBranch">
+                 value="{{form.get('financeBranch').value}}">
           (यसपछि “फाइनान्स” भनिएको)
         </div>
         <div class="row">
@@ -112,12 +115,12 @@
               <tr>
                 <td><strong>कर्जा सिमा :</strong></td>
                 <td>अधिकतम रु
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          (input)="getNumAmountFormArray('amount','amountInWords')"
                          formControlName="amount">
                   /– (अक्षरेपी:
-                  <input class="form-control-lg form-field nepaliFont font-size-normal uniFont"
+                  <input class="form-control-lg form-field nepaliFont font-size-normal"
                          readonly
                          type="text"
                          formControlName="amountInWords">
@@ -132,11 +135,11 @@
                 <td><strong> तिर्नुपर्ने किस्ताको विवरण :</strong></td>
                 <td>
                  	प्रत्येक महिनाको नेपाली क्यलेन्डर अनुसार २५ गतेका दिन मासिक रु
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="monthlyPayment">
                   / - सम मासिक किस्ता (EMI BASIS) मा असुल उपर गरिने छ ।
-                  <input class="form-control-sm form-field nepaliFont font-size-normal uniFont"
+                  <input class="form-control-sm form-field nepaliFont font-size-normal"
                          type="text"
                          readonly
                          formControlName="yearlyInterest">
@@ -145,7 +148,7 @@
                   फाइनान्सको आधार दर वमोजिम परिवर्तन हुन सक्नेछ ।
                   <p>
                     आधार दर (Base Rate) :
-                    <input class="form-control-sm form-field nepaliFont uniFont"
+                    <input class="form-control-sm form-field nepaliFont"
                            type="text"
                            (change)="calcYearlyRate('interestBaseRate',
                                                'interestPremiumRate',
@@ -156,7 +159,7 @@
                   </p>
                   <p>
                     प्रिमियम दर (Premium Rate):
-                    <input class="form-control-sm form-field nepaliFont uniFont"
+                    <input class="form-control-sm form-field nepaliFont"
                            type="text"
                            (change)="calcYearlyRate('interestBaseRate',
                                                'interestPremiumRate',
@@ -167,7 +170,7 @@
                   </p>
                   <p>
                     अस्थाई छुट Temporary Discount) :
-                    <input class="form-control-sm form-field nepaliFont uniFont"
+                    <input class="form-control-sm form-field nepaliFont"
                            type="text"
                            (change)="calcYearlyRate('interestBaseRate',
                                                'interestPremiumRate',
@@ -179,25 +182,25 @@
                   <p>
                     ब्याजदर = आधार दर + प्रिमियम – अस्थाई छुट =
                     <input
-                        class="form-control-sm form-field nepaliFont uniFont"
+                        class="form-control-sm form-field nepaliFont"
                         readonly
                         type="text"
                         [value]="form.get('interestBaseRate').value">
                     %
                     +
-                    <input class="form-control-sm form-field nepaliFont uniFont"
+                    <input class="form-control-sm form-field nepaliFont"
                            readonly
                            type="text"
                            [value]="form.get('interestPremiumRate').value">
                     %
                     –
-                    <input class="form-control-sm form-field nepaliFont uniFont"
+                    <input class="form-control-sm form-field nepaliFont"
                            readonly
                            type="text"
                            [value]="form.get('interestTempDiscountRate').value">
                     % =
                     <input
-                        class="form-control-sm form-field nepaliFont font-size-normal uniFont"
+                        class="form-control-sm form-field nepaliFont font-size-normal"
                         type="text"
                         readonly
                         formControlName="yearlyInterest">%
@@ -205,26 +208,29 @@
                   (Base Rate + Risk Premium - Temporary Discount = Interest Rate)<br>
                   कर्जाको अवधि कर्जा स्वीकृत भएको मितिबाट
                   <input
-                      class="form-control-sm form-field nepaliFont font-size-normal uniFont"
+                      class="form-control-sm form-field nepaliFont font-size-normal"
                       type="text"
-                      formControlName="yearDate">वर्ष, भुक्तानीको आधारमा सो अवधि भित्र ।
+                      readonly
+                      [value]="form.get('loanLimitTime').value">वर्ष, भुक्तानीको आधारमा सो अवधि भित्र ।
                 </td>
               </tr>
               <tr>
                 <td><strong>समयाबधि</strong></td>
                 <td>
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
-                         formControlName="loanLimitTime">
+                         readonly
+                         [value]="form.get('loanLimitTime').value">
                   बर्ष ।
                 </td>
               </tr>
               <tr>
                 <td><strong>सेवा शुल्क</strong></td>
                 <td>स्वीकृत कर्जा रकमको
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
-                         formControlName="serviceCharge">%
+                         readonly
+                         [value]="form.get('serviceCharge').value">%
                 </td>
               </tr>
             </table>
@@ -264,38 +270,38 @@
                   {{i + 1 | nepaliNumber: 'unicode'}}
                 </td>
                 <td> सवारी साधनको किसिम :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="vehicleType"
                          type="text"> <br>
                   गाडी नं. :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="vehicleNumber"
                          type="text"> <br>
                   मोडल नं. :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="vehicleModelNum"
                          type="text"> <br>
                   इन्जिन नं. :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="engineNumber"
                          type="text"> <br>
                   च्यासिज नं. :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="chassisNumber"
                          type="text">
                 </td>
                 <td>
                   गाडीको जम्मा <br>
                   रु
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="vehicleQuotationPrice"
                          type="text"> /-
                 </td>
                 <td>
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="marginPercentageOne"> % तथा <br>
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="marginPercentageTwo"> %
                 </td>
@@ -328,49 +334,49 @@
                      formArrayName="additionalCollaterals">
               <tr [formGroupName]="i">
                 <td> जग्गाधनिको नाम :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="name"
                          type="text"> <br>
                   बूबाको नाम :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="fatherName"
                          type="text"> <br>
                   बाजेको नाम. :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="grandFatherName"
                          type="text"> <br>
                   ठेगाना :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="address"
                          type="text">
                 </td>
                 <td>
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="district">
                 </td>
                 <td>
                   लालपुर्जामा भएको :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="existingAddress"> <br>
                   हालको :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="currentAddress">
                 </td>
                 <td>
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="jaggaKittaNum"
                          type="text">
                 </td>
                 <td>
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="landArea"
                          type="text">
                 </td>
                 <td>
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          formControlName="jaggaSiNum"
                          type="text">
                 </td>
@@ -386,24 +392,24 @@
             </table>
             <table class="table table-borderless">
               माथि उल्लेखित धितोको मिति
-              <input class="form-control-sm form-field nepaliFont uniFont"
+              <input class="form-control-sm form-field nepaliFont"
                      formControlName="dhitoDate"
                      type="text">
               मा
-              <input class="form-control-sm form-field nepaliFont uniFont"
+              <input class="form-control-sm form-field nepaliFont"
                      formControlName="currentDate"
                      type="text">
               बाट मुल्याङ्कित फेयस मार्केट मुल्य रु.
-              <input class="form-control-sm form-field nepaliFont uniFont"
+              <input class="form-control-sm form-field nepaliFont"
                      formControlName="marketPrice"
                      type="text">
               र डिस्टेस मुल्य रु.
-              <input class="form-control-sm form-field nepaliFont uniFont"
+              <input class="form-control-sm form-field nepaliFont"
                      formControlName="distestPrice"
                      type="text">
               को जग्गा तथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण लिगलगापात
               फाइनान्सको नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.
-              <input class="form-control-sm form-field nepaliFont uniFont"
+              <input class="form-control-sm form-field nepaliFont"
                      formControlName="farePrice"
                      type="text">
               मा दृ.ब पारित गरि यस
@@ -430,22 +436,24 @@
               <div [formGroupName]="i">
                 <p>{{i + 1 | nepaliWord: 'unicode'}}
                   <strong>श्री </strong>
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
+                         readonly
                          formControlName="shreeName1">
                   र
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
+                         readonly
                          formControlName="shreeName2">
                   को रु.
                   <input
-                      class="form-control-sm form-field nepaliFont uniFont"
+                      class="form-control-sm form-field nepaliFont"
                       type="text"
                       (input)="getNumAmount('amount1','amountInWords1',i)"
                       formControlName="amount1">
                   /–
                   (अक्षरेपी :
-                  <input class="form-control-lg form-field nepaliFont font-size-normal uniFont"
+                  <input class="form-control-lg form-field nepaliFont font-size-normal"
                          readonly
                          type="text"
                          formControlName="amountInWords1">
@@ -463,12 +471,12 @@
           <tr>
             <td>२.२</td>
             <td>रु.
-              <input class="form-control-sm form-field nepaliFont uniFont"
+              <input class="form-control-sm form-field nepaliFont"
                      type="text"
                      (input)="getNumAmountInWord('amount3','amountInWords3')"
                      formControlName="amount3">
               /-(अक्षरेपी:
-              <input class="form-control-lg form-field nepaliFont font-size-normal uniFont"
+              <input class="form-control-lg form-field nepaliFont font-size-normal"
                      readonly
                      type="text"
                      formControlName="amountInWords3">
@@ -526,7 +534,7 @@
         <tr>
           <td><strong>४.</strong></td>
           <td> <strong>पुनरावलोकन :</strong> रु.
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    formControlName="amount4">
             को भुक्तानी मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका कर्जा तथा
@@ -841,17 +849,16 @@
                 <input class="form-control-sm form-field nepaliFont uniFont"
                        type="text"
                        readonly
-                       value="{{form.get('branchName').value}}"
-                       formControlName="financeBranch1">
+                       value="{{form.get('financeBranch').value}}">
                 ।<br><br>
                 टेलिफोन :
-                <input class="form-control-sm form-field nepaliFont uniFont"
+                <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        formControlName="telephoneNumber"><br>
               </td>
               <td>
                 श्री
-                <input class="form-control-sm form-field nepaliFont uniFont"
+                <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        readonly
                        [value]="form.get('customerName').value"><br>
@@ -861,7 +868,7 @@
                        type="text"
                        [value]="form.get('customerTempAddress').value"><br><br>
                 मोबाइल नं.
-                <input class="form-control-sm form-field nepaliFont uniFont"
+                <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        formControlName="customerMobileNum1"><br>
                 Email Address :
@@ -886,7 +893,7 @@
                 <td class="text-left">
                   दस्तखत : ............................ <br><br>
                   नाम :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="employeeName1">
                   <br>
@@ -895,7 +902,7 @@
                 <td class="text-left">
                   दस्तखत: ............................ <br><br>
                   नाम :
-                  <input class="form-control-sm form-field nepaliFont uniFont"
+                  <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="employeeName2">
                   <br>
@@ -919,7 +926,7 @@
           <p>दस्तखत : ............................
             <br>
             दस्तखत गर्नेको नाम :—
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    readonly
                    [value]="form.get('customerName').value"><br>
@@ -930,12 +937,12 @@
                    readonly
                    [value]="form.get('signatoryCitizenshipNum').value">
             <strong> मिति </strong>
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    readonly
                    [value]="form.get('signatoryCitizenshipIssueDate').value">
             <strong> जि.प्र.का. </strong>
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    readonly
                    [value]="form.get('signatoryCitizenshipIssuePlace').value">
@@ -947,13 +954,13 @@
                    [value]="form.get('customerAddress').value">
             <br>
             बाजेको नाम :—
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    readonly
                    [value]="form.get('signatoryGrandParentName').value">
             <br>
             बाबुको नाम :—
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    readonly
                    [value]="form.get('signatoryParentName').value">
@@ -989,20 +996,20 @@
               <td class="text-left">
                 (१) दस्तखत : ............................ <br>
                 नाम :
-                <input class="form-control-sm form-field nepaliFont uniFont"
+                <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        formControlName="witnessName1"><br>
                 ठेगाना :
-                <input class="form-control-sm form-field nepaliFont uniFont"
+                <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        formControlName="witnessAddress1"><br><br>
                 (२) दस्तखत : ............................ <br>
                 नाम :
-                <input class="form-control-sm form-field nepaliFont uniFont"
+                <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        formControlName="witnessName2"><br>
                 ठेगाना :
-                <input class="form-control-sm form-field nepaliFont uniFont"
+                <input class="form-control-sm form-field nepaliFont"
                        type="text"
                        formControlName="witnessAddress2"><br><br>
               </td>
@@ -1011,35 +1018,35 @@
           </table>
           <strong>सनाखत साक्षी</strong><br>
           ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी फाइनान्समा कार्यरत कर्मचारी
-          <input class="form-control-sm form-field nepaliFont uniFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="sahichhapEmployee">
           संकेत नं
-          <input class="form-control-sm form-field nepaliFont uniFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="sanketNumber">
           ।<br><br>
           <p>
             इति सम्बत
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    formControlName="docDate">
 
             साल
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    formControlName="docyear">
 
             महिना
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    formControlName="docMonth">
             गते रोज
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    formControlName="docRoj">
             शुभम्
-            <input class="form-control-sm form-field nepaliFont uniFont"
+            <input class="form-control-sm form-field nepaliFont"
                    type="text"
                    formControlName="subham">
             ।

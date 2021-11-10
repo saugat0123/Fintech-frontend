@@ -20,6 +20,7 @@ import {AddressService} from '../../../../../../@core/service/baseservice/addres
 import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
 import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
 import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
     selector: 'app-offer-letter-personal',
@@ -369,7 +370,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             amountInWords2: [undefined],
             amount3: [undefined],
             amountInWords3: [undefined],
-            
             financeBranch: [undefined],
             financeMunicipality: [undefined],
             financeWardNum: [undefined],
