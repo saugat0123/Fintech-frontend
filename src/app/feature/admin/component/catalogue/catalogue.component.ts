@@ -141,9 +141,13 @@ export class CatalogueComponent implements OnInit {
             other.insuranceToggle = true;
         }, error => {
             console.error(error);
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
-            other.spinner = false;
-            other.transferToggle = true;
+            if (error.status === 403) {
+                other.router.navigate(['/home/error']);
+            } else {
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
+                other.spinner = false;
+                other.transferToggle = true;
+            }
         });
     }
 
@@ -176,8 +180,12 @@ export class CatalogueComponent implements OnInit {
                 this.branchList = response.detail;
                 this.branchList.sort((a, b) => a.name.localeCompare(b.name));
             }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+                if (error.status === 403) {
+                    this.router.navigate(['/home/error']);
+                } else {
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+                }
             });
         }
         if (this.accessAll) {

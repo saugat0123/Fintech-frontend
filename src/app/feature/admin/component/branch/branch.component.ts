@@ -20,6 +20,7 @@ import {PermissionService} from '../../../../@core/service/permission.service';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Action} from '../../../../@core/Action';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-branch',
@@ -68,6 +69,7 @@ export class BranchComponent implements OnInit {
         private permissionService: PermissionService,
         private location: AddressService,
         private modalService: NgbModal,
+        private router: Router,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService,
         private formBuilder: FormBuilder
@@ -84,10 +86,13 @@ export class BranchComponent implements OnInit {
                 other.spinner = false;
             }, error => {
 
+            if (error.status === 403) {
+                other.router.navigate(['/home/error']);
+            } else {
                 console.log(error);
-
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
                 other.spinner = false;
+            }
             }
         );
     }
@@ -214,7 +219,7 @@ export class BranchComponent implements OnInit {
         this.location.getMunicipalityVDCByDistrict(this.district).subscribe(
             (response: any) => {
                 this.municipalities = response.detail;
-                this.municipalities.sort((a,b) => a.name.localeCompare(b.name));
+                this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
             }
         );
     }
@@ -228,7 +233,7 @@ export class BranchComponent implements OnInit {
         this.location.getDistrictByProvince(this.province).subscribe(
             (response: any) => {
                 this.districts = response.detail;
-                this.districts.sort((a,b) => a.name.localeCompare(b.name));
+                this.districts.sort((a, b) => a.name.localeCompare(b.name));
             }
         );
     }

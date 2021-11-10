@@ -13,6 +13,7 @@ import {DocumentService} from './document.service';
 import {Action} from '../../../../@core/Action';
 import {ProductModeService, ProductUtils} from '../../service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-document',
@@ -42,6 +43,7 @@ export class DocumentComponent implements OnInit {
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService,
+        private router: Router,
         private productModeService: ProductModeService,
     ) {
     }
@@ -59,6 +61,9 @@ export class DocumentComponent implements OnInit {
             other.spinner = false;
         }, error => {
             console.log(error);
+            if (error.status === 403) {
+                other.router.navigate(['/home/error']);
+            }
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Documents'));
         });
         other.service.getAllLoanCycle().subscribe((response: any) => {

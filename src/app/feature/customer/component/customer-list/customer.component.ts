@@ -104,10 +104,13 @@ export class CustomerComponent implements OnInit {
 
         }, error => {
             console.error(error);
-            other.overlay.hide();
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Customer!'));
-            other.spinner = false;
-
+            if (error.status === 403) {
+                other.router.navigate(['/home/error']);
+            } else {
+                other.overlay.hide();
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Customer!'));
+                other.spinner = false;
+            }
         });
     }
 
