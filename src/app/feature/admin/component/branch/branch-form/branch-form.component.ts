@@ -79,6 +79,7 @@ export class BranchFormComponent implements OnInit {
     this.branchForm = this.formBuilder.group({
       id: [ObjectUtil.setUndefinedIfNull(this.model.id)],
       name: [ObjectUtil.setUndefinedIfNull(this.model.name), [Validators.required]],
+      nepaliName: [ObjectUtil.setUndefinedIfNull(this.model.nepaliName), [Validators.required]],
       landlineNumber: [ObjectUtil.setUndefinedIfNull(this.model.landlineNumber), [Validators.required]],
       email: [ObjectUtil.setUndefinedIfNull(this.model.email), [Validators.required, Validators.email]],
       province: [ObjectUtil.setUndefinedIfNull(this.model.province), [Validators.required]],

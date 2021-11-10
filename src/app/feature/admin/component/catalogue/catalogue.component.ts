@@ -109,7 +109,8 @@ export class CatalogueComponent implements OnInit {
     roleTypeMaker: string;
     length = false;
     isFileUnderCurrentToUser: any;
-
+    loanConfigId: number;
+    customerId: number;
     constructor(
         private branchService: BranchService,
         private loanConfigService: LoanConfigService,
@@ -379,7 +380,8 @@ export class CatalogueComponent implements OnInit {
                 this.onSearch();
                 this.onActionChangeSpinner = false;
             }, error => {
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
+            this.onActionChangeSpinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
                 this.modalService.dismissAll('Close modal');
             }
         );
@@ -421,7 +423,10 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
-    onChange(data, onActionChange) {
+    onChange(data, onActionChange, event) {
+        this.loanConfigId = data.loan.id;
+        this.customerId = data.id;
+        this.tempLoanType = event;
         if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
             this.router.navigate(['/home/update-loan/dashboard'], {
                 queryParams: {

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 text-center">
-        <p *ngIf="!isBusinessLoan" class="float-left"><strong>Income & Expenses</strong></p>
+        <p *ngIf="!isBusinessLoan" class="float-left"><strong>Income & Bank Obligation</strong></p>
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
@@ -34,7 +34,7 @@
         <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
-                <th colspan="4">{{client === clientName?.EXCEL ? 'Monthly Obligation of Borrower' : 'Expenses of Borrower'}}</th>
+                <th colspan="4">Bank Obligation of Borrower</th>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th class="sn">S.N</th>
@@ -51,7 +51,7 @@
                 <td  class="text-left pl-1">{{expensesOfBorrower.remarks}}</td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="2"><strong>{{client === clientName?.EXCEL ? 'Total Obligations' : 'Total Expense'}}</strong></td>
+                <td class="text-left pl-1" colspan="2"><strong>Total Bank Obligation</strong></td>
                 <td class="text-right pr-1" colspan="2">
                     <strong>Rs. {{financialData['initialForm']['totalExpense'] | currencyFormatter}}</strong>
                 </td>
@@ -72,8 +72,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="2"><strong>{{client === clientName?.LAXMI ? 'Total EMI and interest expenses to Gross income'
-                    : 'EMI / Gross Monthly Income'}}</strong></td>
+                <td class="text-left pl-1" colspan="2"><strong>Total EMI and interest expenses to Gross income</strong></td>
                 <td colspan="2" class="text-right pr-1">
                     <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
                 </td>

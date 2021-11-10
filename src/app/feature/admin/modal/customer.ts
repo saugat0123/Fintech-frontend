@@ -49,4 +49,5 @@ export class Customer {
     isMicroCustomer: boolean;
     isJointCustomer: boolean;
     panNumber: string;
+    sameAddress: boolean;
 }
