@@ -589,7 +589,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     occupationChange() {
-        const isOtherSelected = this.basicInfo.get('occupation').value.includes('Other');
+        let isOtherSelected;
+        if (!ObjectUtil.isEmpty(this.basicInfo.get('occupation').value)) {
+            console.log('this is occupation', this.basicInfo.get('occupation').value);
+            isOtherSelected = this.basicInfo.get('occupation').value.includes('Other');
+        }
         if (isOtherSelected) {
             this.tempFlag.showOtherOccupation = true;
             this.basicInfo.get('otherOccupation').setValidators(Validators.required);
@@ -599,7 +603,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.basicInfo.get('otherOccupation').setValidators(null);
         }
         this.basicInfo.get('otherOccupation').updateValueAndValidity();
-        const houseWifeSelected = !this.basicInfo.get('occupation').value.includes('House Wife') ?
+        const houseWifeSelected = !this.basicInfo.get('occupation').value ? false : !this.basicInfo.get('occupation').value.includes('House Wife') ?
             false : this.basicInfo.get('occupation').value.length <= 1;
         if (houseWifeSelected) {
             this.tempFlag.hideIncomeSource = true;
