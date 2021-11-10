@@ -67,7 +67,7 @@
                data-dismiss="modal" (click)="ref.close()">
               <span aria-hidden="true">×</span></a>
           </nb-card-header>
-          <nb-card-body>F
+          <nb-card-body>
             <app-cicl #ciclComponent [ciclValue]="ciclResponse" [fromProfile]="true"
                       (ciclDataEmitter)="saveCICL($event)"></app-cicl>
 
@@ -275,7 +275,7 @@
       </ng-template>
 
       <nb-card class="col-md-4 py-2" #itemIncomeFromAccount>
-        <a class="cursor info-label">
+        <a class="cursor info-label" (click)="openModel(inccomeFromAccountComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
               <span>INCOME FROM ACCOUNT</span>
@@ -292,12 +292,22 @@
           </div>
         </a>
       </nb-card>
-      <ng-template>
-        <app-income-from-account [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"
-                                 [fromProfile]="true"
-                                 *ngIf="itemIncomeFromAccount.expanded"
-                                 (incomeFromAccountDataEmitter)="saveIncomeFromAccount($event)">
-        </app-income-from-account>
+      <ng-template #inccomeFromAccountComponentTemplate let-data let-ref="dialogRef">
+        <nb-card class="template-css">
+          <nb-card-header>
+            INCOME FROM ACCOUNT
+            <a aria-label="Close" class="close cursor"
+               data-dismiss="modal" (click)="ref.close()">
+              <span aria-hidden="true">×</span></a>
+          </nb-card-header>
+          <nb-card-body>
+            <app-income-from-account [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"
+                                     [fromProfile]="true"
+                                     (incomeFromAccountDataEmitter)="saveIncomeFromAccount($event)">
+            </app-income-from-account>
+
+          </nb-card-body>
+        </nb-card>
       </ng-template>
 
 
@@ -344,7 +354,7 @@
 
 
       <nb-card class="col-md-4 py-2" #itemSecurity>
-        <a class="cursor info-label">
+        <a class="cursor info-label" (click)="openModel(securityComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
               <span>SECURITY</span>
@@ -362,19 +372,29 @@
           </div>
         </a>
       </nb-card>
-      <ng-template>
-        <app-security
-            (securityDataEmitter)="saveSecurity($event)"
-            [calendarType]="calendarType"
-            [fromProfile]="true"
-            [isMicroCustomer]="isMicroCustomer"
-            [securityValue]="customerInfo?.security"
-            [shareSecurity]="customerInfo?.shareSecurity"></app-security>
+      <ng-template #securityComponentTemplate let-data let-ref="dialogRef">
+        <nb-card class="template-css">
+          <nb-card-header>
+            SECURITY
+            <a aria-label="Close" class="close cursor"
+               data-dismiss="modal" (click)="ref.close()">
+              <span aria-hidden="true">×</span></a>
+          </nb-card-header>
+          <nb-card-body>
+            <app-security
+                (securityDataEmitter)="saveSecurity($event)"
+                [calendarType]="calendarType"
+                [fromProfile]="true"
+                [isMicroCustomer]="isMicroCustomer"
+                [securityValue]="customerInfo?.security"
+                [shareSecurity]="customerInfo?.shareSecurity"></app-security>
+          </nb-card-body>
+        </nb-card>
       </ng-template>
 
 
       <nb-card class="col-md-4 py-2" #itemGuarantor>
-        <a class="cursor info-label">
+        <a class="cursor info-label" (click)="openModel(guarantorComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
               <span>GUARANTOR</span>
@@ -392,18 +412,27 @@
           </div>
         </a>
       </nb-card>
-      <ng-template>
-        <app-guarantor #guarantorComponent
-
+      <ng-template #guarantorComponentTemplate let-data let-ref="dialogRef">
+        <nb-card class="template-css">
+          <nb-card-header>
+            GUARANTOR
+            <a aria-label="Close" class="close cursor"
+               data-dismiss="modal" (click)="ref.close()">
+              <span aria-hidden="true">×</span></a>
+          </nb-card-header>
+          <nb-card-body>
+            <app-guarantor
                        (guarantorDataEmitter)="saveGuarantor($event)"
                        [calendarType]="calendarType"
                        [fromProfile]="true"
                        [guarantorDetailValue]="customerInfo?.guarantors"
                        [customerInfo]="customerInfo"></app-guarantor>
+          </nb-card-body>
+        </nb-card>
       </ng-template>
 
       <nb-card class="col-md-4 py-2" #itemInsurance>
-        <a class="cursor info-label">
+        <a class="cursor info-label" (click)="openModel(insuranceComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
               <span>INSURANCE</span>
@@ -419,12 +448,22 @@
           </div>
         </a>
       </nb-card>
-      <ng-template>
+      <ng-template #insuranceComponentTemplate let-data let-ref="dialogRef">
+        <nb-card class="template-css">
+          <nb-card-header>
+            INSURANCE
+            <a aria-label="Close" class="close cursor"
+               data-dismiss="modal" (click)="ref.close()">
+              <span aria-hidden="true">×</span></a>
+          </nb-card-header>
+          <nb-card-body>
         <app-insurance
             (insuranceDataEmitter)="saveInsurance($event)"
 
             [insuranceDataFromModel]="customerInfo?.insurance"
             [fromProfile]="true" [customerInfo]="customerInfo"></app-insurance>
+          </nb-card-body>
+        </nb-card>
       </ng-template>
 
 
@@ -482,7 +521,7 @@
       <!--     </div> -->
       <!--  DEFAULT CRG-->
       <nb-card class="col-md-4 py-2" #itemloanChecklist>
-        <a class="cursor info-label">
+        <a class="cursor info-label" (click)="openModel(creditCheckComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
               <span>CREDIT CHECKLIST</span>
@@ -498,15 +537,24 @@
           </div>
         </a>
       </nb-card>
-      <ng-template>
-        <app-credit-checklist-general
-            (creditChecklistGeneralEmitter)="saveCreditChecklist($event)"
-
-            [formData]="customerInfo?.creditChecklist"
-            [fromProfile]="true"
-            [calendarType]="calendarType"
-            [customerType]="customerInfo?.customerType"
-        ></app-credit-checklist-general>
+      <ng-template #creditCheckComponentTemplate let-data let-ref="dialogRef">
+        <nb-card class="template-css">
+          <nb-card-header>
+            CREDIT CHECKLIST
+            <a aria-label="Close" class="close cursor"
+               data-dismiss="modal" (click)="ref.close()">
+              <span aria-hidden="true">×</span></a>
+          </nb-card-header>
+          <nb-card-body>
+            <app-credit-checklist-general
+                (creditChecklistGeneralEmitter)="saveCreditChecklist($event)"
+                [formData]="customerInfo?.creditChecklist"
+                [fromProfile]="true"
+                [calendarType]="calendarType"
+                [customerType]="customerInfo?.customerType"
+            ></app-credit-checklist-general>
+          </nb-card-body>
+        </nb-card>
       </ng-template>
 
       <nb-card class="col-md-4 py-2" #synopsisAccordion
@@ -536,7 +584,7 @@
 
       <nb-card class="col-md-4 py-2" #reportingInfoLevelAccordion
                *ngIf="client !== clientName?.SHINE_RESUNGA">
-        <a class="cursor info-label">
+        <a class="cursor info-label" (click)="openModel(customerComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
               <span class="text-uppercase">Customer Reporting Information</span>
@@ -554,8 +602,16 @@
           </div>
         </a>
       </nb-card>
-      <ng-template>
-        <app-reporting-info-tagging #reportingInfoTagging
+      <ng-template #customerComponentTemplate let-data let-ref="dialogRef">
+        <nb-card class="template-css">
+          <nb-card-header>
+            Customer Reporting Information
+            <a aria-label="Close" class="close cursor"
+               data-dismiss="modal" (click)="ref.close()">
+              <span aria-hidden="true">×</span></a>
+          </nb-card-header>
+          <nb-card-body>
+            <app-reporting-info-tagging #reportingInfoTagging
 
                                     (reportingInfoLevelsEmitter)="saveCustomerReportingInfo($event)"
                                     [type]="'c'"
@@ -565,6 +621,8 @@
                   (click)="reportingInfoTaggingComponent.onSubmit()" type="submit" nbButton>Save
           </button>
         </div>
+          </nb-card-body>
+        </nb-card>
       </ng-template>
 
 

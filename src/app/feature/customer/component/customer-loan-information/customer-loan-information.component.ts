@@ -279,7 +279,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.financial, this.customerInfoId, TemplateName.FINANCIAL)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Financial!'));
-            this.itemFinancial.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
             console.error(error);
@@ -301,7 +301,7 @@ export class CustomerLoanInformationComponent implements OnInit {
                     this.saveShare(data);
                 } else {
                     this.triggerCustomerRefresh.emit(true);
-                    this.itemSecurity.close();
+                    this.nbDialogRef.close();
                 }
             }, error => {
                 console.error(error);
@@ -330,7 +330,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.guarantors, this.customerInfoId, TemplateName.GUARANTOR)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Guarantor saved successfully !'));
-            this.itemGuarantor.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
             console.error(error);
@@ -346,7 +346,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Insurance!'));
-            this.itemInsurance.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
             console.error(error);
@@ -427,7 +427,8 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfoId, TemplateName.INCOME_FROM_ACCOUNT)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Income From Account!'));
-            this.itemIncomeFromAccount.close();
+            // this.itemIncomeFromAccount.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
             console.error(error);
@@ -459,7 +460,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.creditChecklistGeneral, this.customerInfoId, TemplateName.CREDIT_CHECKlIST)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Checklist!'));
-            this.itemloanChecklist.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
             console.error(error);
@@ -571,7 +572,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.reportingInfoLevels, this.customerInfoId, TemplateName.CUSTOMER_REPORTING_INFO)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully save Customer Reporting Info!'));
-            this.reportingInfoLevelAccordion.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
             console.error(error);
