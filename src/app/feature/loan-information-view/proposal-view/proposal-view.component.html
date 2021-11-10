@@ -1,6 +1,6 @@
 <div class="row mt-1">
   <div class="col-md-12 sb-small">
-    <p><strong>1. Facility Schedule: </strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates
+    <p><strong>Facility Schedule: </strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates
       current loan proposal</em></p>
     <ul>
       <li class="sb-medium"><i class="fas fa-check-circle"></i> = Approved
@@ -220,81 +220,96 @@
       <tr class="sb-bg-secondary text-white">
         <td class="text-left pl-1"><strong>Funded</strong></td>
         <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span>
             Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}
           </span>
         </td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span>
             Rs. {{ getTotalFundable('enhanceLimitAmount', true, customerAllLoanList) | currencyFormatter }}
           </span>
         </td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span>
             Rs. {{ getTotalFundable('settlementAmount', true, customerAllLoanList) | currencyFormatter }}
           </span>
         </td>
         <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
-        <ng-container *ngIf="!isRemit">
+        <ng-container *ngIf="isRemit;else gap;">
+          <td >-</td>
+          <td>-</td>
+          <td>-</td>
+        </ng-container>
+        <ng-template #gap>
           <td >-</td>
           <td>-</td>
           <td>-</td>
           <td>-</td>
-        </ng-container>
+        </ng-template>
       </tr>
       <tr class="sb-bg-secondary text-white">
         <td class="text-left pl-1"><strong>Non-Funded</strong></td>
         <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span>
             Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}
           </span>
         </td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span>
             Rs. {{ getTotalFundable('enhanceLimitAmount', false, customerAllLoanList) | currencyFormatter }}
           </span>
         </td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span>
             Rs. {{ getTotalFundable('settlementAmount', false, customerAllLoanList) | currencyFormatter }}
           </span>
         </td>
         <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
-        <ng-container *ngIf="!isRemit">
+        <ng-container *ngIf="isRemit;else gaps;">
+          <td >-</td>
+          <td>-</td>
+          <td>-</td>
+        </ng-container>
+        <ng-template #gaps>
           <td >-</td>
           <td>-</td>
           <td>-</td>
           <td>-</td>
-        </ng-container>
+        </ng-template>
       </tr>
       <tr class="sb-bg-secondary text-white">
         <td class="text-left pl-1"><strong>Total</strong></td>
 
         <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span>
             Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}
           </span>
         </td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span>
             Rs. {{ getTotal('enhanceLimitAmount') | currencyFormatter }}
           </span>
         </td>
-        <td class="text-right pr-1">
+        <td class="text-right pr-1" *ngIf="!isRemit">
           <span>
             Rs. {{ getTotal('settlementAmount') | currencyFormatter }}
           </span>
         </td>
         <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
-        <ng-container *ngIf="!isRemit">
+        <ng-container *ngIf="isRemit;else gapss;">
+          <td >-</td>
+          <td>-</td>
+          <td>-</td>
+        </ng-container>
+        <ng-template #gapss>
           <td >-</td>
           <td>-</td>
           <td>-</td>
           <td>-</td>
-        </ng-container>
+        </ng-template>
       </tr>
       </tbody>
     </table>
