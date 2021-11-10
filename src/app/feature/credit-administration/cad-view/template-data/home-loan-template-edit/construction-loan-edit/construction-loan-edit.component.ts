@@ -53,9 +53,6 @@ export class ConstructionLoanEditComponent implements OnInit {
       loanLimitChecked: [false],
       loanLimitCheckedTrans: [undefined],
       loanLimitCheckedCT: [undefined],
-      referenceNumber: [undefined],
-      referenceNumberCT: [undefined, Validators.required],
-      referenceNumberTrans: [undefined],
       dateType: [undefined],
       dateTypeCT: [undefined],
       dateOfApproval: [undefined],
@@ -339,7 +336,6 @@ export class ConstructionLoanEditComponent implements OnInit {
 
     // translated by google api
     this.translateFormGroup = this.formBuilder.group({
-      referenceNumber: this.constructionLoanForm.get('referenceNumber').value,
       purposeOfLoan: this.constructionLoanForm.get('purposeOfLoan').value,
       nameOfLandOwner: this.constructionLoanForm.get('nameOfLandOwner').value,
       landLocation: this.constructionLoanForm.get('landLocation').value,
@@ -358,8 +354,6 @@ export class ConstructionLoanEditComponent implements OnInit {
     this.constructionLoanForm.get('areaCT').patchValue(this.translatedValue.area);
     this.constructionLoanForm.get('seatNumberTrans').patchValue(this.translatedValue.seatNumber);
     this.constructionLoanForm.get('seatNumberCT').patchValue(this.translatedValue.seatNumber);
-    this.constructionLoanForm.get('referenceNumberTrans').patchValue(this.translatedValue.referenceNumber);
-    this.constructionLoanForm.get('referenceNumberCT').patchValue(this.translatedValue.referenceNumber);
     this.constructionLoanForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
     this.constructionLoanForm.get('purposeOfLoanCT').patchValue(this.translatedValue.purposeOfLoan);
     this.constructionLoanForm.get('nameOfLandOwnerTrans').patchValue(this.translatedValue.nameOfLandOwner);

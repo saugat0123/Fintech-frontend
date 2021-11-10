@@ -75,7 +75,6 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
     return this.landBuildingForm = this.formBuilder.group({
       loanLimitChecked: [false],
       landBuildingType: [undefined],
-      referenceNumber: [undefined],
       dateType: [undefined],
       applicationDateType: [undefined],
       dateOfApproval: [undefined],
@@ -104,7 +103,6 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       nameOfBranchManager: [undefined],
       // trans
       loanLimitCheckedTrans: [false],
-      referenceNumberTrans: [undefined],
       dateOfApprovalTrans: [undefined],
       dateOfApplicationTrans: [undefined],
       purposeOfLoanTrans: [undefined],
@@ -129,7 +127,6 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       nameOfBranchManagerTrans: [undefined],
       // CT
       loanLimitCheckedCT: [false],
-      referenceNumberCT: [undefined, Validators.required],
       dateOfApprovalCT: [undefined, Validators.required],
       dateOfApplicationCT: [undefined, Validators.required],
       purposeOfLoanCT: [undefined, Validators.required],
@@ -284,7 +281,6 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
 
     // translated by google api
     this.translateFormGroup = this.formBuilder.group({
-      referenceNumber: this.landBuildingForm.get('referenceNumber').value,
       purposeOfLoan: this.landBuildingForm.get('purposeOfLoan').value,
       nameOfLandOwner: this.landBuildingForm.get('nameOfLandOwner').value,
       landLocation: this.landBuildingForm.get('landLocation').value,
@@ -292,8 +288,6 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       nameOfBranchManager: this.landBuildingForm.get('nameOfBranchManager').value,
     });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
-    this.landBuildingForm.get('referenceNumberTrans').patchValue(this.translatedValue.referenceNumber);
-    this.landBuildingForm.get('referenceNumberCT').patchValue(this.translatedValue.referenceNumber);
     this.landBuildingForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
     this.landBuildingForm.get('purposeOfLoanCT').patchValue(this.translatedValue.purposeOfLoan);
     this.landBuildingForm.get('nameOfLandOwnerTrans').patchValue(this.translatedValue.nameOfLandOwner);

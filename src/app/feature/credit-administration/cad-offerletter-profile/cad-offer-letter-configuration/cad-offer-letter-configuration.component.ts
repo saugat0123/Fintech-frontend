@@ -5,7 +5,7 @@ import {CustomerInfoService} from '../../../customer/service/customer-info.servi
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {NbDialogRef} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {EngToNepaliNumberPipe} from '../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
@@ -36,6 +36,7 @@ import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {OneFormGuarantors} from '../../model/oneFormGuarantors';
 import {CurrencyFormatterPipe} from '../../../../@core/pipe/currency-formatter.pipe';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -142,7 +143,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 private http: HttpClient,
                 private translateService: SbTranslateService,
                 private addressService: AddressService,
-                private currencyFormatterPipe: CurrencyFormatterPipe) {
+                private currencyFormatterPipe: CurrencyFormatterPipe,
+                private dialogService: NbDialogService,
+                private modalService: NgbModal
+    ) {
     }
 
     get configForm() {
@@ -2370,6 +2374,23 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     this.nepData.permanentWard.ct : undefined);
 
+    }
+
+    openCloseTemplate(template) {
+        this.modalService.open(template);
+    }
+
+    dismiss(template){
+        this.modalService.dismissAll();
+    }
+
+    decline(template){
+        this.modalService.dismissAll();
+    }
+
+    accept(){
+        this.modalService.dismissAll();
+        this.dialogRef.close();
     }
 
 }

@@ -10,7 +10,9 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {HomeLandAndBuildingComponent} from '../home-loan-type/home-land-and-building/home-land-and-building.component';
 import {HomeLoanComponent} from '../../../cad-document-template/mega/home-loan/home-loan.component';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-home-loan-template-data',
@@ -31,6 +33,7 @@ export class HomeLoanTemplateDataComponent implements OnInit {
     loanLimit: false;
     existingOfferLetter = false;
     previewBtn = true;
+    closed = false;
 
     @ViewChild('constructionLoan', {static: false}) constructionLoan: ConstructionLoanComponent;
     @ViewChild('landAndBuilding', {static: false}) landAndBuilding: HomeLandAndBuildingComponent;
@@ -39,6 +42,8 @@ export class HomeLoanTemplateDataComponent implements OnInit {
                 private toastService: ToastService,
                 private administrationService: CreditAdministrationService,
                 private dialogService: NbDialogService,
+                protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
+                private modalService: NgbModal,
     ) {
     }
 
@@ -116,6 +121,7 @@ export class HomeLoanTemplateDataComponent implements OnInit {
             this.spinner = false;
             this.previewBtn = false;
             this.btnDisable = false;
+            this.closed = true;
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -123,6 +129,23 @@ export class HomeLoanTemplateDataComponent implements OnInit {
             this.btnDisable = true;
             this.previewBtn = false;
         });
+    }
+
+    openCloseTemplate(template) {
+        this.modalService.open(template);
+    }
+
+    dismiss(template){
+        this.modalService.dismissAll();
+    }
+
+    decline(template){
+        this.modalService.dismissAll();
+    }
+
+    accept(){
+        this.modalService.dismissAll();
+        this.dialogRefcad.close();
     }
 
 }
