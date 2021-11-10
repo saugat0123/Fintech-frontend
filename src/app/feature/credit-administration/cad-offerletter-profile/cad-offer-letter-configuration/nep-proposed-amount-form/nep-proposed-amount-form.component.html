@@ -32,6 +32,7 @@
                            [ngClass]="{'is-invalid': submitted && nepFormControls.branchName.errors}"
                            placeholder="शाखाको नाम"
                            class="form-control form-control-sm nepaliFont"
+                           readonly="readonly"
                            id="branchName"
                            formControlName="branchName"/>
                 </div>
@@ -41,6 +42,7 @@
                     <input [ngClass]="{'is-invalid': submitted && nepFormControls.branchDistrict.errors}"
                            type="text"
                            placeholder="शाखा जिल्ला"
+                           readonly="readonly"
                            id="branchDistrict"
                            class="form-control form-control-sm nepaliFont" formControlName="branchDistrict"/>
                 </div>
@@ -51,6 +53,7 @@
                            type="text"
                            placeholder="शाखा म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स="
                            class="form-control form-control-sm nepaliFont"
+                           readonly="readonly"
                            id="branchMunVdc"
                            formControlName="branchMunVdc"/>
                 </div>
