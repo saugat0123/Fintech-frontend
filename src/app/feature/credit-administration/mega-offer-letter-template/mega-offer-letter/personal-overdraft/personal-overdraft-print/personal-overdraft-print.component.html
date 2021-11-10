@@ -1,12 +1,12 @@
 <div class="row" id="{{offerLetterConst.PERSONAL_OVERDRAFT}}Print" xmlns="http://www.w3.org/1999/html">
-    <div class="text-justify nep">
-        <form class="nep">
-            <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
-            <p class="text-left"></p>
-            <span class="font-weight-bold">
-            {{autoRefNumber ? autoRefNumber : '_______________________'}}
-        </span>
-            <br>
+    <div class="text-center col-md-12">
+        <h4 class="font-weight-bold" style="text-align: center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h4>
+    </div>
+    <div class="mb-2 col-md-12">
+        <span class="font-weight-bold">
+                     {{autoRefNumber ? autoRefNumber : '_______________________'}}
+                </span>
+        <br>
             <p>
                 मितिः
                 <span *ngIf="letter.dateOfApproval.en.nDate; else dateOfApprovalPrint"
@@ -34,7 +34,7 @@
                 </span>
                 </div>
             </div>
-            <p style="text-align: center"><strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong></p>
+            <p style="text-align: left"><strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong></p>
             <br>
             <br>
             <div class="mb-1">
@@ -861,7 +861,6 @@
                     </ul>
                 </div>
             </div>
-        </form>
     </div>
 </div>
 

@@ -88,6 +88,7 @@ import { HomeLandAndBuildingComponent } from './cad-view/template-data/home-loan
 import { HomeLoanTemplateEditComponent } from './cad-view/template-data/home-loan-template-edit/home-loan-template-edit.component';
 import { ConstructionLoanEditComponent } from './cad-view/template-data/home-loan-template-edit/construction-loan-edit/construction-loan-edit.component';
 import { HomeLandAndBuildingLoanEditComponent } from './cad-view/template-data/home-loan-template-edit/home-land-and-building-loan-edit/home-land-and-building-loan-edit.component';
+import { PerosnalOverdraftWithoutCollateralTemplateDataComponent } from './cad-view/template-data/perosnal-overdraft-without-collateral-template-data/perosnal-overdraft-without-collateral-template-data.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -165,7 +166,8 @@ import { HomeLandAndBuildingLoanEditComponent } from './cad-view/template-data/h
     HomeLandAndBuildingComponent,
     HomeLoanTemplateEditComponent,
     ConstructionLoanEditComponent,
-    HomeLandAndBuildingLoanEditComponent],
+    HomeLandAndBuildingLoanEditComponent,
+    PerosnalOverdraftWithoutCollateralTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,
