@@ -172,13 +172,13 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
       this.previewBtn = false;
-      this.btnDisable = false;
+      this.btnDisable = true;
       this.closed = true;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
-      this.btnDisable = true;
+      this.btnDisable = false;
     });
   }
 

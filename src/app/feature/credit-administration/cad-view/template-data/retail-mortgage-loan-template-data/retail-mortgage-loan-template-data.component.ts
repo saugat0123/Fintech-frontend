@@ -64,6 +64,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
   cadDocStatus = CadDocStatus.key();
   municipalityListForSecurities = [];
   closed = false;
+  saved = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -246,6 +247,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
     this.setTemplatedCTData(this.translatedValues);
     this.spinner = false;
     this.btnDisable = false;
+    this.saved = true;
   }
 
   private setTemplatedCTData(data): void {
@@ -440,11 +442,13 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       this.previewBtn = false;
       this.btnDisable = true;
       this.closed = true;
+      this.saved = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.btnDisable = true;
+      this.saved = true;
     });
   }
   onClose() {
