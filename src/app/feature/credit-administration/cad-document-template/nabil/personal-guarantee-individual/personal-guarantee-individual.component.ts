@@ -195,7 +195,11 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         }
         let approvedDate: any;
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
-          approvedDate = (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate) ? (this.offerDocumentDetails.dateOfApproval.en.eDate) : (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en) ? (this.offerDocumentDetails.dateOfApproval.en) : ((this.offerDocumentDetails.loan.nepaliDateOfApproval && this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) ? (this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) : (''));
+            if (this.cadData.offerDocumentList[0].docName === 'Mortage Loan'){
+                approvedDate = this.offerDocumentDetails.dateofApproval && this.offerDocumentDetails.dateofApproval.en.eDate ? this.offerDocumentDetails.dateofApproval.en.eDate : this.offerDocumentDetails.dateofApproval && this.offerDocumentDetails.dateofApproval.en ? this.offerDocumentDetails.dateofApproval.en : '';
+            } else {
+                approvedDate = (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate) ? (this.offerDocumentDetails.dateOfApproval.en.eDate) : (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en) ? (this.offerDocumentDetails.dateOfApproval.en) : ((this.offerDocumentDetails.loan.nepaliDateOfApproval && this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) ? (this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) : (''));
+            }
         }
         let citznIssuedDate: any;
         if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate)) {
@@ -219,7 +223,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             temporaryVDCMunicipality: [undefined],
             temporaryward: [undefined],
             borrowerName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
-            loanPurpose: [(this.offerDocumentDetails.purposeOfLoan && this.offerDocumentDetails) ? (this.offerDocumentDetails.purposeOfLoan.ct) : ((this.offerDocumentDetails.loan.purposeOfLoanCT) ? (this.offerDocumentDetails.loan.purposeOfLoanCT) : (''))],
+            loanPurpose: [(this.offerDocumentDetails.loanPurpose) ? (this.offerDocumentDetails.loanPurpose.ct) : ((this.offerDocumentDetails.purposeOfLoan && this.offerDocumentDetails) ? (this.offerDocumentDetails.purposeOfLoan.ct) : ((this.offerDocumentDetails.loan.purposeOfLoanCT) ? (this.offerDocumentDetails.loan.purposeOfLoanCT) : ('')))],
             dateOfApproval: [this.englishNepaliDatePipe.transform(approvedDate || '', true)  || ''],
             loanAmount: [undefined],
             loanAmountWords: [undefined],

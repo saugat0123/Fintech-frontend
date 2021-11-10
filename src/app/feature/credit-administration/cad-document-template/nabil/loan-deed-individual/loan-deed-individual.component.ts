@@ -69,7 +69,6 @@ export class LoanDeedIndividualComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    console.log('This is cad Approved doc ', this.cadData);
     if (!ObjectUtil.isEmpty(this.cadData)) {
       this.cadData.offerDocumentList.forEach((offerDocument: OfferDocument) => {
         this.initialInformation = JSON.parse(offerDocument.initialInformation);
@@ -142,6 +141,10 @@ export class LoanDeedIndividualComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
         approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
     }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateofApproval)) {
+      approvedDate = this.offerDocumentDetails.dateofApproval && this.offerDocumentDetails.dateofApproval.en.eDate ? this.offerDocumentDetails.dateofApproval.en.eDate : this.offerDocumentDetails.dateofApproval && this.offerDocumentDetails.dateofApproval.en ? this.offerDocumentDetails.dateofApproval.en : '';
+    }
+
     this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
 
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Educational Loan') {
@@ -159,6 +162,10 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Auto Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Mortage Loan') {
+      this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFeeInFigure ? this.offerDocumentDetails.loanAdminFeeInFigure.en : '';
+      this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
     }
     return this.formBuilder.group({
       branchName: [
@@ -218,11 +225,10 @@ export class LoanDeedIndividualComponent implements OnInit {
       area2: [undefined],
       freeText: [undefined],
       totalPeople: [this.numberOfJointCustomer ? this.numberOfJointCustomer : ''],
-      purposeOfLoan: [this.initialInformation ? this.initialInformation.purposeOfLoan.ct : undefined],
+      purposeOfLoan: [(this.initialInformation.loanPurpose) ? (this.initialInformation.loanPurpose.ct) : (this.initialInformation ? this.initialInformation.purposeOfLoan.ct : undefined)],
       loanDeedJoint: this.formBuilder.array([]),
     });
   }
-
   addIndividualLoandeedForm() {
     this.numberOfJointCustomer = this.engToNepNumberPipe.transform('1');
     (this.loanDeedIndividual.get('loanDeedIndividuals') as FormArray).push(
@@ -346,6 +352,11 @@ export class LoanDeedIndividualComponent implements OnInit {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.numberOfEmi.ct + ' महिना सम्म ।');
         this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.numberOfEmi.ct + ' महिना सम्म ।';
+      }
+      if (docName === 'Mortage Loan') {
+        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+            .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriod.ct + ' महिना सम्म ।');
+        this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriod.ct + ' महिना सम्म ।';
       }
     });
   }
