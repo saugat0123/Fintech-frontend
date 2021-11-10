@@ -36,10 +36,20 @@
                         </ng-template>
                     </div>
                     <div class="mb-2">
-                        श्रीमान/श्रीमती: &nbsp; <input class="form-field form-control-sm"
-                                                  formControlName="customerName"
-                                                  type="text">
-                    </div>
+                        <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+                        <ng-template #nameDetails>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                            श्रीमती
+                        </span>
+                            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                          सुश्री
+                        </span>
+                        </ng-template>
+                        <input class="form-field form-control-sm"
+                               formControlName="customerName"
+                               name="customerName"
+                               placeholder="{{loanHolderInfo?.name}}"
+                               type="text"/>
 
                     <div class="mb-2">&nbsp; ठेगाना:
                      <input class="form-field form-control-sm"
@@ -1048,6 +1058,7 @@
                         <div class="col-md-12 text-right">
                             <button nbButton status="success" (click)="submit()">Save</button>
                         </div>
+                    </div>
                     </div>
                 </form>
             </div>
