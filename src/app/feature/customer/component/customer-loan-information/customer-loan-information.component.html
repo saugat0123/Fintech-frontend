@@ -6,12 +6,15 @@
   <nb-card-body>
     <div class="row col-md-12">
 
-      <nb-card class="col-md-4 py-2" #itemSiteVisit>
+      <div class="col-md-4">
+        <nb-card class="col-md-11 py-2" #itemSiteVisit>
         <a class="cursor info-label" (click)="openModel(itemSiteVisitTemplate)">
           <div class="row col-md-12 cursor">
 
             <div class="col-md-8">
-              <span>SITE VISIT</span>
+              <nb-card-header>
+                SITE VISIT
+              </nb-card-header>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.siteVisit" style="color:green" title="Status : Saved">
@@ -40,13 +43,15 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+    </div>
 
 
-      <nb-card class="col-md-4 py-2" #ciclComponent>
+      <div class="col-md-4">
+        <nb-card class="col-md-11 py-2" #ciclComponent>
         <a class="cursor info-label" (click)="openModel(ciclComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>CICL</span>
+              <nb-card-header>CICL</nb-card-header>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.cicl" style="color:green" title="Status : Saved">
@@ -74,15 +79,19 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+      </div>
 
 
-      <nb-card class="col-md-4 py-2" #itemFinancial *ngIf="!isMicroCustomer">
+      <div class="col-md-4">
+        <nb-card class="col-md-11 py-2" #itemFinancial *ngIf="!isMicroCustomer">
         <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span
+              <nb-card-header>
+                <span
                   *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
               <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
+              </nb-card-header>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.financial" style="color:green" title="Status : Saved">
@@ -115,6 +124,7 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+      </div>
 
 
       <nb-card class="col-md-4 py-2" #loanPortfolio
@@ -274,13 +284,14 @@
             (baselRiskExposureEmitter)="saveBaselRiskExposure($event)"></app-basel-risk-exposure>
       </ng-template>
 
-      <nb-card class="col-md-4 py-2" #itemIncomeFromAccount>
+      <div class="col-md-4">
+        <nb-card class="col-md-11 py-2" #itemIncomeFromAccount>
         <a class="cursor info-label" (click)="openModel(inccomeFromAccountComponentTemplate)">
           <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>INCOME FROM ACCOUNT</span>
+            <div class="col-md-10">
+              <nb-card-header>INCOME FROM ACCOUNT</nb-card-header>
             </div>
-            <div class="col-md-4 d-flex justify-content-end">
+            <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="customerInfo?.incomeFromAccount" style="color:green"
                     title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
@@ -309,6 +320,7 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+      </div>
 
 
       <nb-card class="col-md-4 py-2" #itemNetTradingAssets
@@ -353,11 +365,12 @@
       </ng-template>
 
 
-      <nb-card class="col-md-4 py-2" #itemSecurity>
+      <div class="col-md-4">
+        <nb-card class="col-md-11 py-2" #itemSecurity>
         <a class="cursor info-label" (click)="openModel(securityComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>SECURITY</span>
+              <nb-card-header>SECURITY</nb-card-header>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.security !== null" style="color:green"
@@ -391,13 +404,15 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+      </div>
 
 
-      <nb-card class="col-md-4 py-2" #itemGuarantor>
+      <div class="col-md-4">
+        <nb-card class="col-md-11 py-2" #itemGuarantor>
         <a class="cursor info-label" (click)="openModel(guarantorComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>GUARANTOR</span>
+              <nb-card-header>GUARANTOR</nb-card-header>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.guarantors !== null" style="color:green"
@@ -430,12 +445,14 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+      </div>
 
-      <nb-card class="col-md-4 py-2" #itemInsurance>
+      <div class="col-md-4">
+        <nb-card class="col-md-11 py-2" #itemInsurance>
         <a class="cursor info-label" (click)="openModel(insuranceComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>INSURANCE</span>
+              <nb-card-header>INSURANCE</nb-card-header>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="insurance?.length>0" style="color:green" title="Status : Saved">
@@ -465,6 +482,7 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+      </div>
 
 
       <!--<nb-accordion-item #itemCrgAlpha>
@@ -520,11 +538,12 @@
       <!--        </ng-template>-->
       <!--     </div> -->
       <!--  DEFAULT CRG-->
-      <nb-card class="col-md-4 py-2" #itemloanChecklist>
+      <div class="col-md-4">
+        <nb-card class="col-md-11 py-2" #itemloanChecklist>
         <a class="cursor info-label" (click)="openModel(creditCheckComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>CREDIT CHECKLIST</span>
+              <nb-card-header>CREDIT CHECKLIST</nb-card-header>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="creditChecklistGeneral" style="color:green" title="Status : Saved">
@@ -556,6 +575,7 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+      </div>
 
       <nb-card class="col-md-4 py-2" #synopsisAccordion
                *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
@@ -582,12 +602,13 @@
             [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>
       </ng-template>
 
-      <nb-card class="col-md-4 py-2" #reportingInfoLevelAccordion
+      <div class="col-md-4">
+        <nb-card class="col-md-11 py-2" #reportingInfoLevelAccordion
                *ngIf="client !== clientName?.SHINE_RESUNGA">
         <a class="cursor info-label" (click)="openModel(customerComponentTemplate)">
           <div class="row col-md-12">
-            <div class="col-md-8">
-              <span class="text-uppercase">Customer Reporting Information</span>
+            <div class="col-md-8 text-center">
+              <nb-card-header>CUSTOMER REPORTING INFORMATION</nb-card-header>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span style="color: green" title="Status : Saved">
@@ -624,6 +645,7 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+      </div>
 
 
       <nb-card class="col-md-4 py-2" #commentsFromAccount *ngIf="client === clientName?.MEGA">
