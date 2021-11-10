@@ -17,12 +17,17 @@
                 </p>
             </div>
             <div class="mb-2">
-                श्रीमान/श्रीमती: &nbsp;
-                <span [ngClass]="{'font-weight-bold' : letter?.name !== null && letter?.name !== ''}">
-                    {{letter?.name === null || letter?.name === '' ? '___________' : letter?.name}}
-                </span>
-            </div>
-
+                <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+                <ng-template #nameDetails>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                            श्रीमती
+                        </span>
+                    <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                          सुश्री
+                        </span>
+                </ng-template>
+                <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}">
+                    {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}</span>
             <div class="mb-2"> ठेगाना:
                 <span [ngClass]="{'font-weight-bold' : customerAddress !== null && customerAddress !== ''}">
                         {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}
@@ -874,7 +879,7 @@
 
                 <div class="row mt-3">
                     <div class="col-md d-flex justify-content-between">
-                        <div class="left-content">
+                        <div class="left-conten" style="margin-top: -2em">
                             <span [ngClass]="{'font-weight-bold' : letter?.relationshipOfficerName.ct !== null && letter?.relationshipOfficerName.ct !== ''}">
                                     {{letter?.relationshipOfficerName.ct === null || letter?.relationshipOfficerName.ct === '' ? '___________' : letter?.relationshipOfficerName.ct}}
                                 </span>
@@ -884,7 +889,7 @@
                             </span>
 
                         </div>
-                        <div class="right-content">
+                        <div class="right-content" style="margin-top: -2em">
                             <span [ngClass]="{'font-weight-bold' : letter?.branchManager.ct !== null && letter?.branchManager.ct !== ''}">
                                 {{letter?.branchManager.ct === null || letter?.branchManager.ct === '' ? '___________' : letter?.branchManager.ct}}
                             </span>
@@ -992,6 +997,7 @@
                 </li>
             </ul>
         </div>
+            </div>
     </div>
 </div>
 <button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
