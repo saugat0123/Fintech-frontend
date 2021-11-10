@@ -44,7 +44,7 @@ export class PersonalOverdraftPrintComponent implements OnInit {
 
   ngOnInit() {
     this.selectedSecurity = this.security;
-    this.renewalVal = this.renewal;
+    this.renewalVal = this.letter.renewalChecked.en;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;
       this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
