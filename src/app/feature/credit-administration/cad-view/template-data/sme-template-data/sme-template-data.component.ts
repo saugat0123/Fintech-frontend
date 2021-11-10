@@ -25,7 +25,7 @@ import {CadDocStatus} from "../../../model/CadDocStatus";
 import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
 import {OfferDocument} from "../../../model/OfferDocument";
 import {Attributes} from "../../../../../@core/model/attributes";
-import {NbDialogService} from "@nebular/theme";
+import {NbDialogRef, NbDialogService} from "@nebular/theme";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CreditAdministrationService} from "../../../service/credit-administration.service";
 import {ToastService} from "../../../../../@core/utils";
@@ -33,6 +33,7 @@ import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-num
 import {CustomerApprovedLoanCadDocumentation} from "../../../model/customerApprovedLoanCadDocumentation";
 import {SmeComponent} from "../../../mega-offer-letter-template/mega-offer-letter/sme/sme.component";
 import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
 
 @Component({
   selector: 'app-sme-template-data',
@@ -65,6 +66,7 @@ export class SmeTemplateDataComponent implements OnInit {
   fieldFlag = false;
   selectedAutoLoanVal;
   selectedInterestVal;
+  closed = false;
 
 
   constructor(
@@ -78,6 +80,8 @@ export class SmeTemplateDataComponent implements OnInit {
       private toastService: ToastService,
       private engToNepaliNumberPipe: EngToNepaliNumberPipe,
       private currencyFormatterPipe: CurrencyFormatterPipe,
+      protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
+      private modalService: NgbModal,
   ) {
   }
 
@@ -338,12 +342,30 @@ export class SmeTemplateDataComponent implements OnInit {
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = true;
+      this.closed = true;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.btnDisable = true;
     });
+  }
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  dismiss(template){
+    this.modalService.dismissAll();
+  }
+
+  decline(template){
+    this.modalService.dismissAll();
+  }
+
+  accept(){
+    this.modalService.dismissAll();
+    this.dialogRefcad.close();
   }
 }
 
