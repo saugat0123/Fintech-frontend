@@ -11,7 +11,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 export class AutoLoanCommercialPrintComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() letter: any;
-  @Input() preview;
+  @Input() preview = false;
   loanHolderInfo;
   offerLetterConst = MegaOfferLetterConst;
   autoRefNumber;

@@ -19,7 +19,7 @@ export class RetailMortgageLoanPrintComponent implements OnInit {
     @Input() offerData;
     @Input() security;
     @Input() loanLimit;
-    @Input() preview;
+    @Input() preview = false;
     loanHolderInfo;
     guarantorName;
     guarantorData;
