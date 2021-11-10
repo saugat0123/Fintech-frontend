@@ -17,6 +17,8 @@ import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {NepDataPersonal} from '../../../model/nepDataPersonal';
+import {CustomerType} from '../../../../customer/model/customerType';
+import {Branch} from '../../../../admin/modal/branch';
 
 @Component({
     selector: 'app-nep-proposed-amount-form',
@@ -36,6 +38,7 @@ export class NepProposedAmountFormComponent implements OnInit {
     submitted = false;
     client = environment.client;
     clientList = Clients;
+    branch: Branch;
 
     constructor(private formBuilder: FormBuilder,
                 private toastService: ToastService,
@@ -59,6 +62,7 @@ export class NepProposedAmountFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.nepDataPersonal)) {
             this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
         }
+        this.branch = this.customerInfo.branch;
         this.buildForm();
     }
 
@@ -67,9 +71,9 @@ export class NepProposedAmountFormComponent implements OnInit {
             nepaliNumber: [this.nepaliNumber.numberNepali],
             engNumber: [this.nepaliNumber.engNumber, Validators.required],
             initDate: [this.nepaliNumber.initDate, Validators.required],
-            branchName: [this.nepDataPersonal.branchName, Validators.required],
-            branchDistrict: [this.nepDataPersonal.branchDistrict, Validators.required],
-            branchMunVdc: [this.nepDataPersonal.branchMunVdc, Validators.required],
+            branchName: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.branch) ? undefined : this.branch.nepaliName : undefined, Validators.required],
+            branchDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.branch) && ObjectUtil.isEmpty(this.branch.district) ? undefined : this.branch.district.nepaliName : undefined, Validators.required],
+            branchMunVdc: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.branch) && ObjectUtil.isEmpty(this.branch.municipalityVdc) ? undefined : this.branch.municipalityVdc.nepaliName : undefined, Validators.required],
             branchWardNo: [this.nepDataPersonal.branchWardNo, Validators.required],
             loanType: [this.nepDataPersonal.loanType, Validators.required],
             interestRate: [this.nepDataPersonal.interestRate, Validators.required],
@@ -78,6 +82,13 @@ export class NepProposedAmountFormComponent implements OnInit {
             tenureOfLoanInYears: [this.nepDataPersonal.tenureOfLoanInYears, Validators.required],
             installmentAmount: [this.nepDataPersonal.installmentAmount, Validators.required]
         });
+    }
+
+    checkIsIndividual() {
+        if (CustomerType.INDIVIDUAL === CustomerType[this.customerInfo.customerType]) {
+            return true;
+        }
+        return false;
     }
 
     onChangeValue(event) {

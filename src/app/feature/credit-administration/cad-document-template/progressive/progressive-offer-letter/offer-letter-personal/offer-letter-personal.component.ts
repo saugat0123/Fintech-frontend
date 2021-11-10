@@ -40,6 +40,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     nepaliData;
     districtList;
     loanAmountTemplate = new NepaliNumberAndWords();
+    nepDataPersonal = new NepDataPersonal();
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -57,9 +58,10 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.addressService.getAllDistrict().subscribe((res: any) => {
+  /*    this.addressService.getAllDistrict().subscribe((res: any) => {
           this.districtList = res.detail;
-      });
+      });*/
+
         this.buildForm();
         if (ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
             const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadOfferLetterApprovedDoc.assignedLoan);
@@ -68,6 +70,9 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.loanAmountTemplate.engNumber = number;
         } else {
             this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        }
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepDataPersonal)) {
+            this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
         }
         this.checkOfferLetter();
     }
@@ -82,11 +87,11 @@ export class OfferLetterPersonalComponent implements OnInit {
             allGuarantors = allGuarantors.slice(0, -2);
             allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');
             const customerAddress =
-                this.nepaliData.permanentMunicipality + ' वडा नं. ' +
+                this.nepaliData.permanentMunicipality + ' j8f g+= ' +
                 this.nepaliData.permanentWard + ' , ' +
                 this.nepaliData.permanentDistrict;
             const customerTempAddress =
-                this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
+                this.nepaliData.temporaryMunicipality + ' j8f g+= ' +
                 this.nepaliData.temporaryWard + ' , ' +
                 this.nepaliData.temporaryDistrict;
             this.form.patchValue({
@@ -105,6 +110,10 @@ export class OfferLetterPersonalComponent implements OnInit {
                 temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
                 temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
                 shreeName1: allGuarantors ? allGuarantors : '',
+                financeBranch: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
+                financeMunicipality: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
+                financeWardNo: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
+                financeDistrict: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
             });
             this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
 
@@ -128,7 +137,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.existingOfferLetter = true;
             this.fillForm();
             this.setEmptyGuarantors(initialInfo.guarantorDetails);
-            console.log('initialInfo.guarantorDetails', initialInfo.guarantorDetails);
             this.setSecurityDetails(initialInfo.securityDetails);
             this.setLoanFacility(initialInfo.loanFacilityTable);
             this.form.patchValue(initialInfo);
@@ -340,8 +348,8 @@ export class OfferLetterPersonalComponent implements OnInit {
             // interestTempDiscountRate: [undefined],
             // interestFinalRate: [undefined],
             // loanLimitPercent: [undefined],
-            // loanLimitAmount: [undefined],
-            // loanInstallmentAmount: [undefined],
+            // loanLimitAmount: [undefined]
+        // loanInstallmentAmount: [undefined],
             // interestRepayPlan: [undefined],
             // loanLimitYearAD: [undefined],
             // loanLimitYearBS: [undefined],
@@ -465,7 +473,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             pratibadhataAdditionalAmount: [undefined],
             pratibadhataRate: [undefined],
             pratibadhataYearlyRate: [undefined],
-
             sthantarandRate: [undefined],
         });
     }
@@ -536,11 +543,19 @@ export class OfferLetterPersonalComponent implements OnInit {
         this.form.get(['loanFacilityTable', index, target]).patchValue(finalValue);
     }
 
-    updateServiceCharge(formArrayName, i) {
-        const loanLimitPercent = Number(this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'loanLimitPercent']).value) / 100);
-        const amount = this.loanAmountTemplate.engNumber;
-        const loanLimitAmount = loanLimitPercent * amount;
-        const asd = this.engToNepNumberPipe.transform(loanLimitAmount.toString());
-        this.form.get([formArrayName, i, 'loanLimitAmount']).patchValue(asd);
+    updateServiceCharge(i) {
+        const amount1 = this.form.get(['loanFacilityTable', i, 'amount']).value;
+        const loanLimitPercent1 = this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value;
+        let amount = 0;
+        const loanLimitPercent = Number(this.nepToEngNumberPipe.transform(loanLimitPercent1) / 100);
+
+        if (i > 0) {
+            amount = Number(this.nepToEngNumberPipe.transform(amount1));
+        } else {
+            amount = this.loanAmountTemplate.engNumber;
+       }
+        let value = Number(loanLimitPercent * amount).toFixed(2);
+        value = this.engToNepNumberPipe.transform(value.toString());
+        this.form.get(['loanFacilityTable', i, 'loanLimitAmount']).patchValue(value);
     }
 }
