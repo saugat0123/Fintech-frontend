@@ -8,6 +8,7 @@ import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Guarantor} from '../../../model/guarantor';
 import {CustomerGroup} from '../../../../admin/modal/customer-group';
 import {CustomerDocuments} from '../../../model/customerDocuments';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 
 
 @Injectable({
@@ -91,11 +92,11 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
     }
 
     public postLoanBackToSenderOrAgent(object): Observable<any> {
-        return this.http.post('http://202.166.201.232/api/forwardback-application', object);
+        return this.http.post(`${this.getRemitApi()}/forwardback-application`, object);
     }
 
     public sendLegalDocumentBackToSenderOrAgent(object): Observable<any> {
-        return this.http.post('http://202.166.201.232/api/forwardback-legaldoc', object);
+        return this.http.post(`${this.getRemitApi()}/forwardback-legaldoc`, object);
     }
 
     public postCombinedLoanAction(object: any[], stageSingle: boolean): Observable<any> {
@@ -210,5 +211,9 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
 
     protected getApi(): string {
         return LoanFormService.API;
+    }
+
+    protected getRemitApi(): string {
+        return ApiConfig.REMIT_WEB;
     }
 }
