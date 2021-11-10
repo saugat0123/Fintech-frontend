@@ -73,11 +73,17 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
         this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
       }
       this.branchName = this.loanHolderInfo.branch.ct;
-      if (!ObjectUtil.isEmpty(this.letter.dateOfApproval)) {
+      const dateOfApprovalType = this.letter.dateOfApprovalType ? this.letter.dateOfApprovalType.en : '';
+      if (dateOfApprovalType === 'AD') {
         this.dateOfApproval = this.dateConversion(this.letter.dateOfApproval);
+      } else {
+        this.dateOfApproval = this.letter.dateOfApprovalNepali ? this.letter.dateOfApprovalNepali.en.nDate : '';
       }
-      if (!ObjectUtil.isEmpty(this.letter.dateOfApplication)) {
+      const dateOfApplicationType = this.letter.dateOfApplicationType ? this.letter.dateOfApplicationType.en : '';
+      if (dateOfApplicationType === 'AD') {
         this.dateOfApplication = this.dateConversion(this.letter.dateOfApplication);
+      } else {
+        this.dateOfApplication = this.letter.dateOfApplicationNepali.en.nDate;
       }
       if (!ObjectUtil.isEmpty(this.letter.dateofExpiry)) {
         this.dateofExpiry = this.dateConversion(this.letter.dateofExpiry);
