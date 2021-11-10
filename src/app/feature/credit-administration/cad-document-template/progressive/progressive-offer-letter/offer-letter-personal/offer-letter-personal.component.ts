@@ -58,9 +58,10 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.addressService.getAllDistrict().subscribe((res: any) => {
+  /*    this.addressService.getAllDistrict().subscribe((res: any) => {
           this.districtList = res.detail;
-      });
+      });*/
+
         this.buildForm();
         if (ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
             const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadOfferLetterApprovedDoc.assignedLoan);
@@ -69,6 +70,9 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.loanAmountTemplate.engNumber = number;
         } else {
             this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        }
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepDataPersonal)) {
+            this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
         }
         this.checkOfferLetter();
     }
@@ -83,11 +87,11 @@ export class OfferLetterPersonalComponent implements OnInit {
             allGuarantors = allGuarantors.slice(0, -2);
             allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');
             const customerAddress =
-                this.nepaliData.permanentMunicipality + ' वडा नं. ' +
+                this.nepaliData.permanentMunicipality + ' j8f g+= ' +
                 this.nepaliData.permanentWard + ' , ' +
                 this.nepaliData.permanentDistrict;
             const customerTempAddress =
-                this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
+                this.nepaliData.temporaryMunicipality + ' j8f g+= ' +
                 this.nepaliData.temporaryWard + ' , ' +
                 this.nepaliData.temporaryDistrict;
             this.form.patchValue({
@@ -133,7 +137,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.existingOfferLetter = true;
             this.fillForm();
             this.setEmptyGuarantors(initialInfo.guarantorDetails);
-            console.log('initialInfo.guarantorDetails', initialInfo.guarantorDetails);
             this.setSecurityDetails(initialInfo.securityDetails);
             this.setLoanFacility(initialInfo.loanFacilityTable);
             this.form.patchValue(initialInfo);
