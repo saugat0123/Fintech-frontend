@@ -16,5 +16,6 @@ export const environment = {
     microLoan: false,
     SBS_GROUP: false,
     MEGA_GROUP: false,
-    summaryType: SummaryType.GAMMA
+    summaryType: SummaryType.GAMMA,
+    versionCheckUrl: 'http://localhost:84/version.json'
 };
