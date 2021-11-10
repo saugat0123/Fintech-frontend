@@ -4,6 +4,10 @@ export class ApiConfig {
 
   // Laxmi Micro Finance
   public static MICRO_URL = 'http://172.16.16.52:8086';
+
+  // Remit App
+  public static REMIT_WEB = 'http://202.166.201.232/api';
+
   //
   // public static TOKEN = 'http://3.17.141.198:8080/LAS/oauth/token';
   // public static URL = 'http://3.17.141.198:8080/LAS';
