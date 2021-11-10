@@ -22,6 +22,8 @@ import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import { key } from 'ionicons/icons';
 import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -75,6 +77,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private toastService: ToastService,
       private addressService: AddressService,
       private currencyFormatterPipe: CurrencyFormatterPipe,
+      private datePipe: DatePipe,
+      private engNepDatePipe: EngNepDatePipe
   ) {
   }
 
@@ -125,8 +129,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanLimitChecked: [undefined],
 
       dateOfApproval: [undefined],
+      dateOfApprovalNepali: [undefined],
+      dateOfApprovalType: [undefined],
       //referenceNumber: [undefined],
       dateOfApplication: [undefined],
+      dateOfApplicationType: [undefined],
+      dateOfApplicationNepali: [undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
       fixedDepositReceiptAmountFigure: [undefined],
@@ -180,8 +188,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       //referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
+      dateOfApplicationTypeTransVal: [undefined],
+      dateOfApplicationNepaliTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
       fixedDepositReceiptAmountFigureTransVal: [undefined],

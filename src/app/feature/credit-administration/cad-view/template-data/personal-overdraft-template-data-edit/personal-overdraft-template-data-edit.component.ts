@@ -507,14 +507,14 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     // Set Date of Approval
     this.form.get('dateOfApprovalType').patchValue(this.initialInformation.dateOfApprovalType.en);
     if (this.initialInformation.dateOfApprovalType.en === 'AD') {
-      this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
+      this.form.get('dateOfApproval').patchValue(new Date(this.initialInformation.dateOfApproval.en));
     } else {
       this.form.get('dateOfApprovalNepali').patchValue(this.initialInformation.dateOfApprovalNepali.en);
     }
     // Set Date of Application
     this.form.get('dateofApplicationType').patchValue(this.initialInformation.dateofApplicationType.en);
     if (this.initialInformation.dateofApplicationType.en === 'AD') {
-      this.form.get('dateofApplication').patchValue(this.initialInformation.dateofApplication.en);
+      this.form.get('dateofApplication').patchValue(new Date(this.initialInformation.dateofApplication.en));
     } else {
       this.form.get('dateofApplicationNepali').patchValue(this.initialInformation.dateofApplicationNepali.en);
     }

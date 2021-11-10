@@ -22,6 +22,8 @@ import {Attributes} from '../../../../../@core/model/attributes';
 import {RetailProfessionalLoanComponent} from '../../../mega-offer-letter-template/mega-offer-letter/retail-professional-loan/retail-professional-loan.component';
 import {SecurityDetails} from '../../../cad-document-template/nabil/securities-view/model/securities-details.model';
 import {Securities} from '../../../cad-document-template/nabil/securities-view/model/securities.model';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-educational-loan-template-edit',
@@ -81,6 +83,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       private toastService: ToastService,
       private addressService: AddressService,
       public  modalService: NgbActiveModal,
+      private datePipe: DatePipe,
+      private engNepDatePipe: EngNepDatePipe
   ) {
   }
 
@@ -96,10 +100,22 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.getAllDistrict();
     console.log(this.initialInformation);
     if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      const dateOfApproval1 = this.initialInformation.dateOfApprovalType ? this.initialInformation.dateOfApprovalType.en : '';
+      if (dateOfApproval1 === 'AD') {
+        this.dateTypeAD = true;
+      } else {
+        this.dateTypeBS = true;
+      }
+      const dateOfApplication1 = this.initialInformation.dateOfApplicationType ? this.initialInformation.dateOfApplicationType.en : '';
+      if (dateOfApplication1 === 'AD') {
+        this.dateTypeAD1 = true;
+      } else {
+        this.dateTypeBS1 = true;
+      }
       this.fieldFlag = true;
-      this.dateTypeAD = true;
-      this.dateTypeAD1 = true;
-      this.dateTypeAD2 = true;
+      // this.dateTypeAD = true;
+      // this.dateTypeAD1 = true;
+      // this.dateTypeAD2 = true;
       this.selectedSecurityVal = this.initialInformation.selectedSecurity.en;
       this.selectedCountryVal = this.initialInformation.selectedCountry.en;
       this.securityDetails = this.initialInformation.securityDetails;
@@ -171,8 +187,12 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       loanLimitChecked: [undefined],
 
       dateOfApproval: [undefined],
+      dateOfApprovalType: [undefined],
+      dateOfApprovalNepali: [undefined],
       //referenceNumber: [undefined],
       dateOfApplication: [undefined],
+      dateOfApplicationNepali: [undefined],
+      dateOfApplicationType: [undefined],
       dateofExpiry:[undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
@@ -224,8 +244,12 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       //referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
+      dateOfApplicationNepaliTransVal: [undefined],
+      dateOfApplicationTypeTransVal: [undefined],
       dateofExpiryTransVal:[undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
@@ -542,6 +566,24 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       this.form.get('accountNumberTransVal').patchValue(data.accountNumber);
       this.form.get('bankNameTransVal').patchValue(data.bankName);
     }
+    if (this.dateTypeAD) {
+      const actualDateOfApproval = this.form.get('dateOfApproval').value;
+      // tslint:disable-next-line:max-line-length
+      this.form.get('dateOfApprovalTransVal').patchValue(this.engNepDatePipe.transform(this.datePipe.transform(actualDateOfApproval), true));
+    } else {
+      const actualDateOfNepali = this.form.get('dateOfApprovalNepali').value;
+      this.form.get('dateOfApprovalNepaliTransVal').patchValue(actualDateOfNepali.nDate);
+    }
+
+    // Set Ct Value for Date of Application:
+    if (this.dateTypeAD1) {
+      const finalDateOfApplication = this.form.get('dateOfApplication').value;
+      // tslint:disable-next-line:max-line-length
+      this.form.get('dateOfApplicationTransVal').patchValue(this.engNepDatePipe.transform(this.datePipe.transform(finalDateOfApplication), true));
+    } else {
+      const finalNepaliDate = this.form.get('dateOfApplicationNepali').value;
+      this.form.get('dateOfApplicationNepaliTransVal').patchValue(finalNepaliDate.nDate);
+    }
   }
 
   private clearConditionalValidation(): void {
@@ -561,9 +603,25 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     // set en value
     this.form.get('selectedCountry').patchValue(this.initialInformation.selectedCountry.en);
     this.form.get('selectedSecurity').patchValue(this.initialInformation.selectedSecurity.en);
-    this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
+    // this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
+    // Set Date of Approval
+    this.form.get('dateOfApprovalType').patchValue(this.initialInformation.dateOfApprovalType.en);
+    if (this.initialInformation.dateOfApprovalType.en === 'AD') {
+      this.form.get('dateOfApproval').patchValue(new Date(this.initialInformation.dateOfApproval.en));
+    } else {
+      const dateApproval = this.initialInformation.dateOfApprovalNepali ? this.initialInformation.dateOfApprovalNepali.en : '';
+      this.form.get('dateOfApprovalNepali').patchValue(dateApproval);
+    }
     //this.form.get('referenceNumber').patchValue(this.initialInformation.referenceNumber.en);
-    this.form.get('dateOfApplication').patchValue(this.initialInformation.dateOfApplication.en);
+    // Set Date Of Application:
+    this.form.get('dateOfApplicationType').patchValue(this.initialInformation.dateOfApplicationType.en);
+    if (this.initialInformation.dateOfApplicationType.en === 'AD') {
+      this.form.get('dateOfApplication').patchValue(new Date(this.initialInformation.dateOfApplication.en));
+    } else {
+      const dateApplication = this.initialInformation.dateOfApplicationNepali ? this.initialInformation.dateOfApplicationNepali.en : '';
+      this.form.get('dateOfApplicationNepali').patchValue(dateApplication);
+    }
+    // this.form.get('dateOfApplication').patchValue(this.initialInformation.dateOfApplication.en);
     this.form.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
     this.form.get('fixedDepositReceiptAmountWords').patchValue(this.initialInformation.fixedDepositReceiptAmountWords.en);
     this.form.get('baseRate').patchValue(this.initialInformation.baseRate.en);

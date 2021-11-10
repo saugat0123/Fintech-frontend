@@ -179,15 +179,13 @@ export class LetterOfSetOffComponent implements OnInit {
       this.setJointDetailsArr(this.selectiveArr);
     }
     this.checkOfferLetterData();
-    const tempApprDate = this.educationalTemplateData.dateOfApproval ? this.educationalTemplateData.dateOfApproval.en : '';
+    const selectedDateType = this.educationalTemplateData.dateOfApprovalType ? this.educationalTemplateData.dateOfApprovalType.en : '';
     let dateOfApproval;
-    if (!ObjectUtil.isEmpty(tempApprDate)) {
-      if (!ObjectUtil.isEmpty(tempApprDate.nDate)) {
-        dateOfApproval = tempApprDate.nDate;
-      } else  {
-        const tempData = this.datePipe.transform(tempApprDate);
-        dateOfApproval = this.engToNepaliDate.transform(tempData, true);
-      }
+    if (selectedDateType === 'AD') {
+      const tempData = this.datePipe.transform(this.educationalTemplateData.dateOfApproval.en);
+      dateOfApproval = this.engToNepaliDate.transform(tempData, true);
+    } else {
+      dateOfApproval = this.educationalTemplateData.dateOfApprovalNepali.en.nDate;
     }
     if (!ObjectUtil.isEmpty(this.initialInformation.accountNumber)) {
       this.letterOfSetOff.get('accountNo').patchValue(this.initialInformation.accountNumber.ct);
