@@ -82,7 +82,8 @@ export class RemitCustomerListComponent implements OnInit {
             agentName: [undefined],
             proposedAmount: [undefined],
             // branch: [undefined],
-            preferredBranch: [undefined]
+            preferredBranch: [undefined],
+            shipped: [undefined]
         });
     }
 
