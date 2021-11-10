@@ -1,6 +1,9 @@
 export class ApiConfig {
   public static TOKEN = 'http://localhost:8086/oauth/token';
   public static URL = 'http://localhost:8086';
+
+  // Laxmi Micro Finance
+  public static MICRO_URL = 'http://172.16.16.52:8086';
   //
   // public static TOKEN = 'http://3.17.141.198:8080/LAS/oauth/token';
   // public static URL = 'http://3.17.141.198:8080/LAS';

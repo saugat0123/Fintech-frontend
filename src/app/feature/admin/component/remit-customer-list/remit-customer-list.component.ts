@@ -43,7 +43,8 @@ export class RemitCustomerListComponent implements OnInit {
         name: undefined
     };
     pageable: Pageable = new Pageable();
-   totalCustomerList = 0;
+    totalCustomerList = 0;
+
     constructor(private router: Router,
                 public modalService: NgbModal, private dialogService: NbDialogService,
                 private customerService: CustomerService,
@@ -54,6 +55,7 @@ export class RemitCustomerListComponent implements OnInit {
                 private form: FormBuilder
     ) {
     }
+
     static loadData(other: RemitCustomerListComponent) {
         other.overlay.show();
         other.spinner = true;
@@ -71,24 +73,28 @@ export class RemitCustomerListComponent implements OnInit {
 
         });
     }
- buildSearchForm() {
-     this.filterForm = this.form.group({
-         beneficiaryName: [undefined],
-         senderName: [undefined],
-         senderCountry: [undefined],
-         agentName: [undefined],
-         proposedAmount: [undefined],
-         // branch: [undefined],
-         preferredBranch: [undefined]
-     });
- }
- clear() {
+
+    buildSearchForm() {
+        this.filterForm = this.form.group({
+            beneficiaryName: [undefined],
+            senderName: [undefined],
+            senderCountry: [undefined],
+            agentName: [undefined],
+            proposedAmount: [undefined],
+            // branch: [undefined],
+            preferredBranch: [undefined]
+        });
+    }
+
+    clear() {
         this.buildSearchForm();
         RemitCustomerListComponent.loadData(this);
- }
- Search() {
+    }
+
+    Search() {
         RemitCustomerListComponent.loadData(this);
- }
+    }
+
     ngOnInit(): void {
         this.buildSearchForm();
         RemitCustomerListComponent.loadData(this);
@@ -146,7 +152,7 @@ export class RemitCustomerListComponent implements OnInit {
             this.router.navigate(['/home/customer/profile/' + res.detail.associateId], {
                 queryParams: {
                     customerType: 'INDIVIDUAL',
-                        customerInfoId: res.detail.id
+                    customerInfoId: res.detail.id
                 }
             }).then(() => {
                 this.onBoardSpinner = false;
@@ -164,15 +170,27 @@ export class RemitCustomerListComponent implements OnInit {
         this.onBoardData.shipped = this.shipped;
         this.modalService.dismissAll();
         this.onBoardSpinner = true;
-        this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
-            this.onBoardData.alreadyTransferred = true;
-            this.onBoardSpinner = false;
-            this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
-        }, error => {
-            this.onBoardSpinner = false;
-            this.toastService.success('Failed to transfer to');
-        });
+        if (this.shipped === 'MICRO_FINANCE') {
+            this.remitCustomerService.saveRemitCustomerToMicroFinance(this.onBoardData).subscribe((res) => {
+                this.onBoardData.alreadyTransferred = true;
+                this.onBoardSpinner = false;
+                this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
+            }, error => {
+                this.onBoardSpinner = false;
+                this.toastService.success('Failed to transfer to');
+            });
+        } else {
+            this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
+                this.onBoardData.alreadyTransferred = true;
+                this.onBoardSpinner = false;
+                this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
+            }, error => {
+                this.onBoardSpinner = false;
+                this.toastService.success('Failed to transfer to');
+            });
+        }
     }
+
     customerTransferToBranch() {
         this.onBoardSpinner = true;
         this.modalService.dismissAll();
@@ -194,28 +212,33 @@ export class RemitCustomerListComponent implements OnInit {
             }
         });
     }
+
     onBranchChange(branchList: any, branchId: any) {
         let bId = branchId.target.value;
         let branch = branchList.filter(b => b.id == bId);
         this.onBoardData.branch = branch[0];
     }
+
     onInstituitionChange(value: any) {
         this.shipped = value;
     }
+
     onChange(value: any) {
         this.shipped = value;
         console.log('on change value', this.shipped);
     }
+
     changePage(page: number) {
         this.page = page;
         RemitCustomerListComponent.loadData(this);
     }
+
     viewVideo(model) {
-       const ref =  this.modalService.open(VideoKycComponent, {size: 'xl', backdrop: true});
-       ref.componentInstance.isModal = true;
+        const ref = this.modalService.open(VideoKycComponent, {size: 'xl', backdrop: true});
+        ref.componentInstance.isModal = true;
         ref.componentInstance.showHeader = true;
         ref.componentInstance.showSender = true;
-       ref.componentInstance.showBenificiary = true;
-       ref.componentInstance.remitCustomer = model;
+        ref.componentInstance.showBenificiary = true;
+        ref.componentInstance.remitCustomer = model;
     }
 }

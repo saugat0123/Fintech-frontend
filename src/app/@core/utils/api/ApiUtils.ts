@@ -18,6 +18,18 @@ export class ApiUtils {
         };
     }
 
+    public static getMicroFinanceRequest(api: string) {
+        const fullApi = `${ApiConfig.MICRO_URL}/${api}`;
+        const at = LocalStorageUtil.getStorage().at;
+
+        return {
+            url: fullApi,
+            header: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+    }
+
     public static getRequestWithFileSupport(api: string) {
         const fullApi = `${ApiConfig.URL}/${api}`;
         const at = LocalStorageUtil.getStorage().at;

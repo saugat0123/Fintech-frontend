@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {BaseService} from "../../../../../@core/BaseService";
+import {BaseService} from '../../../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ApiUtils} from "../../../../../@core/utils/api/ApiUtils";
+import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 
 @Injectable({
     providedIn: 'root'
@@ -29,10 +30,15 @@ export class RemitCustomerService extends BaseService<Object> {
     }
 
     public saveRemitCustomer(remitCustomer): Observable<any> {
-        console.log('inside service', remitCustomer);
         const api = `${this.getApi()}/save`;
         const req = ApiUtils.getRequest(api);
         return this.http.post(req.url, remitCustomer, {headers: req.header});
+    }
+
+    public saveRemitCustomerToMicroFinance(remitCustomer): Observable<any> {
+        const api = `${ApiConfig.MICRO_URL}/v2/public/remit/save`;
+        const req = ApiUtils.getMicroFinanceRequest(api);
+        return this.http.post(api, remitCustomer, {headers: req.header});
     }
 
     protected getApi(): string {
