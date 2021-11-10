@@ -20,4 +20,5 @@ export class Branch {
     email: string;
     locationPreview: string;
     version: number;
+    nepaliName: any;
 }

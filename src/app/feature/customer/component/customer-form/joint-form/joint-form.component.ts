@@ -38,6 +38,7 @@ export class JointFormComponent implements OnInit {
   @Input() currentVal: any;
   jointInputVal: number;
   calendarType = 'AD';
+    dynamic = true;
   basicJointInfo: FormGroup;
   submitted = false;
   spinner = false;
@@ -65,7 +66,7 @@ export class JointFormComponent implements OnInit {
   };
   bankingRelationshipList = BankingRelationship.enumObject();
   subSector = [];
-  clientType = [];
+  clientType: any;
   relationArray: RelationshipList = new RelationshipList();
   public genderPairs = EnumUtils.pairs(Gender);
   maritalStatusEnum = MaritalStatus;
@@ -77,6 +78,7 @@ export class JointFormComponent implements OnInit {
   id: number;
   version: number;
   ckeConfig = Editor.CK_CONFIG;
+  checkSameAddress: false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -102,8 +104,9 @@ export class JointFormComponent implements OnInit {
         this.setJointDetail(this.individualJsonData);
         this.id = this.formValue.id;
         this.version = this.formValue.version;
-        this.customer.clientType = this.clientTypeInput;
+        this.customer.clientType = this.individualJsonData.clientType;
         this.customer.subsectorDetail = this.subSectorInput;
+        this.clientTypeInput = this.customer.clientType;
         this.basicJointInfo.get('clientType').patchValue(this.customer.clientType);
         this.basicJointInfo.get('subsectorDetail').patchValue(this.customer.subsectorDetail);
         this.basicJointInfo.get('introduction').patchValue(this.individualJsonData.introduction);
@@ -126,40 +129,42 @@ export class JointFormComponent implements OnInit {
 
   setJointDetail(data) {
     const formControls = this.basicJointInfo.get('jointCustomerInfo') as FormArray;
-    data.jointCustomerInfo.forEach((jointDetail) => {
+    data.jointCustomerInfo.forEach((jointDetail, i) => {
       formControls.push(
           this.formBuilder.group({
-            customerName: [jointDetail.customerName],
+            customerName: [jointDetail.customerName, Validators.required],
             customerCode: [jointDetail.customerCode],
-            province: [jointDetail.province],
-            district: [jointDetail.district],
-            municipalities: [jointDetail.municipalities],
+            province: [jointDetail.province, Validators.required],
+            district: [jointDetail.district, Validators.required],
+            municipalities: [jointDetail.municipalities, Validators.required],
             permanentAddressLine1: [jointDetail.permanentAddressLine1],
             permanentAddressLine2: [jointDetail.permanentAddressLine2],
-            wardNumber: [jointDetail.wardNumber],
-            contactNumber: [jointDetail.contactNumber],
+            wardNumber: [jointDetail.wardNumber, Validators.required],
+            contactNumber: [jointDetail.contactNumber, [Validators.required,
+              Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [jointDetail.landLineNumber],
-            email: [jointDetail.email],
+            email: [jointDetail.email, Validators.email],
             // initial Relation Date not used in ui
             initialRelationDate: [jointDetail.initialRelationDate],
-            citizenshipNumber: [jointDetail.citizenshipNumber],
-            citizenshipIssuedPlace: [jointDetail.citizenshipIssuedPlace],
-            citizenshipIssuedDate: new Date(jointDetail.citizenshipIssuedDate),
+            citizenshipNumber: [jointDetail.citizenshipNumber, Validators.required],
+            citizenshipIssuedPlace: [jointDetail.citizenshipIssuedPlace, Validators.required],
+            citizenshipIssuedDate: [new Date(jointDetail.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
             dob: [ObjectUtil.isEmpty(jointDetail.dob) ?
-                undefined : new Date(jointDetail.dob), DateValidator.isValidBefore],
-            occupation: [jointDetail.occupation],
+                undefined : new Date(jointDetail.dob), [Validators.required, DateValidator.isValidBefore]],
+            occupation: [jointDetail.occupation, [Validators.required]],
             otherOccupation: [jointDetail.otherOccupation],
-            incomeSource: [jointDetail.incomeSource],
+            incomeSource: [jointDetail.incomeSource, [Validators.required]],
             otherIncome: [jointDetail.otherIncome],
-            temporaryProvince: [jointDetail.temporaryProvince],
-            temporaryDistrict: [jointDetail.temporaryDistrict],
-            temporaryMunicipalities: [jointDetail.temporaryMunicipalities],
+            panNumber: [jointDetail.panNumber, [Validators.max(999999999), Validators.min(100000000)]],
+            temporaryProvince: [jointDetail.temporaryProvince, Validators.required],
+            temporaryDistrict: [jointDetail.temporaryDistrict, Validators.required],
+            temporaryMunicipalities: [jointDetail.temporaryMunicipalities, Validators.required],
             temporaryAddressLine1: [jointDetail.temporaryAddressLine1],
             temporaryAddressLine2: [jointDetail.temporaryAddressLine2],
-            temporaryWardNumber: [jointDetail.temporaryWardNumber],
-            gender: [jointDetail.gender],
-            maritalStatus: [jointDetail.maritalStatus],
-            customerLegalDocumentAddress: [jointDetail.customerLegalDocumentAddress],
+            temporaryWardNumber: [jointDetail.temporaryWardNumber, Validators.required],
+            gender: [jointDetail.gender, Validators.required],
+            maritalStatus: [jointDetail.maritalStatus, Validators.required],
+            customerLegalDocumentAddress: [jointDetail.customerLegalDocumentAddress, Validators.required],
             relationCheck: [jointDetail.relationCheck],
             introduction: [jointDetail.introduction],
             incomeRisk: [jointDetail.incomeRisk],
@@ -173,37 +178,55 @@ export class JointFormComponent implements OnInit {
             citizenshipIssuedPlace1: [jointDetail.citizenshipIssuedPlace1],
             citizenshipIssuedDate1: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate1) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate1), DateValidator.isValidBefore],
-            age1: [jointDetail.age1],
             customerRelation2: [jointDetail.customerRelation2],
             customerRelativeName2: [jointDetail.customerRelativeName2],
             citizenshipNumber2: [jointDetail.citizenshipNumber2],
             citizenshipIssuedPlace2: [jointDetail.citizenshipIssuedPlace2],
             citizenshipIssuedDate2: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate2) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate2), DateValidator.isValidBefore],
-            age2: [jointDetail.age2],
             customerRelation3: [jointDetail.customerRelation3],
             customerRelativeName3: [jointDetail.customerRelativeName3],
             citizenshipNumber3: [jointDetail.citizenshipNumber3],
             citizenshipIssuedPlace3: [jointDetail.citizenshipIssuedPlace3],
             citizenshipIssuedDate3: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate3) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate3), DateValidator.isValidBefore],
-            age3: [jointDetail.age3],
             customerRelation4: [jointDetail.customerRelation4],
             customerRelativeName4: [jointDetail.customerRelativeName4],
             citizenshipNumber4: [jointDetail.citizenshipNumber4],
             citizenshipIssuedPlace4: [jointDetail.citizenshipIssuedPlace4],
             citizenshipIssuedDate4: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate4) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate4), DateValidator.isValidBefore],
-            age4: [jointDetail.age4],
             customerRelation5: [jointDetail.customerRelation5],
             customerRelativeName5: [jointDetail.customerRelativeName5],
             citizenshipNumber5: [jointDetail.citizenshipNumber5],
             citizenshipIssuedPlace5: [jointDetail.citizenshipIssuedPlace5],
             citizenshipIssuedDate5: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate5) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate5), DateValidator.isValidBefore],
-            age5: [jointDetail.age5],
+              customerRelations: this.formBuilder.array([]),
+            checkSameAddress: [jointDetail.checkSameAddress],
           })
       );
+        const secControl = this.basicJointInfo.get(['jointCustomerInfo', i, 'customerRelations']) as FormArray;
+        (this.basicJointInfo.get(['jointCustomerInfo', i, 'customerRelations']) as FormArray).clear();
+        if (jointDetail.customerRelations) {
+            this.dynamic = true;
+            if (jointDetail.customerRelations.length > 0) {
+                jointDetail.customerRelations.forEach((cr) => {
+                    secControl.push(this.formBuilder.group({
+                        customerRelation: [cr.customerRelation],
+                        customerRelativeName: [cr.customerRelativeName],
+                        citizenshipNumber: [cr.citizenshipNumber],
+                        citizenshipIssuedPlace: [cr.citizenshipIssuedPlace],
+                        citizenshipIssuedDate: [cr.citizenshipIssuedDate],
+                    }));
+                });
+            } else {
+                secControl.push(this.setRelation());
+            }
+        } else {
+            this.dynamic = false;
+
+        }
     });
   }
 
@@ -243,7 +266,7 @@ export class JointFormComponent implements OnInit {
     );
 
   }
-  getTemporaryDistricts(index, province: Province, event) {
+  getTemporaryDistricts(province: Province, index: number, event) {
       if (event) {
           this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryDistrict']).setValue(null);
           this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryMunicipalities']).setValue(null);
@@ -255,14 +278,14 @@ export class JointFormComponent implements OnInit {
           this.temporaryDistrictList.forEach(district => {
             if (!ObjectUtil.isEmpty(this.customer.temporaryDistrict) && district.id === this.customer.temporaryDistrict.id) {
               this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryDistrict']).setValue(district);
-              this.getTemporaryMunicipalities(index, district, event);
+              this.getTemporaryMunicipalities(district, index, event);
             }
           });
         }
     );
   }
 
-  getTemporaryMunicipalities(index, district: District, event) {
+  getTemporaryMunicipalities(district: District, index: number, event) {
       if (event) {
           this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryMunicipalities']).setValue(null);
       }
@@ -282,6 +305,7 @@ export class JointFormComponent implements OnInit {
   }
 
   onSubmit(value) {
+    this.spinner = true;
     this.submitted = true;
     const tempId = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('citizenshipNumber').value;
     this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
@@ -293,12 +317,12 @@ export class JointFormComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
         return;
       } else {
-          if (this.basicJointInfo.controls['jointCustomerInfo'].invalid) {
+          if (this.basicJointInfo.controls['jointCustomerInfo'].invalid || this.basicJointInfo.invalid) {
+              this.spinner = false;
               this.toastService.show(new Alert(AlertType.WARNING, 'Please check validation'));
               return;
           }
         {
-          this.spinner = true;
           // for update join customer form
           if (!ObjectUtil.isEmpty(this.formValue)) {
               this.customer.id = this.id;
@@ -358,7 +382,7 @@ export class JointFormComponent implements OnInit {
                 if (province.id === this.customer.temporaryProvince.id) {
                     this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryProvince']).setValue(province);
                   // this.basicJointInfo.controls.temporaryProvince.setValue(province);
-                  this.getTemporaryDistricts(index, province, event);
+                  this.getTemporaryDistricts(province, index, event);
                 }
               }
             }
@@ -404,6 +428,7 @@ export class JointFormComponent implements OnInit {
       otherOccupation: [undefined],
       incomeSource: [undefined, [Validators.required]],
       otherIncome: [undefined],
+      panNumber: [undefined, [Validators.max(999999999), Validators.min(100000000)]],
       temporaryProvince: [undefined, Validators.required],
       temporaryDistrict: [undefined, Validators.required],
       temporaryMunicipalities: [undefined, Validators.required],
@@ -413,36 +438,33 @@ export class JointFormComponent implements OnInit {
       gender: [undefined, Validators.required],
       maritalStatus: [undefined, Validators.required],
       customerLegalDocumentAddress: [undefined, Validators.required],
-      customerRelation1: [undefined, Validators.required],
-      customerRelativeName1: [undefined, Validators.compose([Validators.required])],
-      citizenshipNumber1: [undefined],
-      citizenshipIssuedPlace1: [undefined],
+      customerRelation1: [undefined],
+      customerRelativeName1: [undefined],
+            citizenshipNumber1: [undefined],
+            citizenshipIssuedPlace1: [undefined],
       citizenshipIssuedDate1: [undefined, DateValidator.isValidBefore],
-      age1: [undefined],
-      customerRelation2: [undefined, Validators.required],
-      customerRelativeName2: [undefined, Validators.compose([Validators.required])],
-      citizenshipNumber2: [undefined],
-      citizenshipIssuedPlace2: [undefined],
+      customerRelation2: [undefined],
+      customerRelativeName2: [undefined],
+            citizenshipNumber2: [undefined],
+            citizenshipIssuedPlace2: [undefined],
       citizenshipIssuedDate2: [undefined, DateValidator.isValidBefore],
-      age2: [undefined],
-      customerRelation3: [undefined],
-      customerRelativeName3: [undefined],
-      citizenshipNumber3: [undefined],
-      citizenshipIssuedPlace3: [undefined],
-      citizenshipIssuedDate3: [undefined],
-      age3: [undefined],
-      customerRelation4: [undefined],
-      customerRelativeName4: [undefined],
-      citizenshipNumber4: [undefined],
-      citizenshipIssuedPlace4: [undefined],
-      citizenshipIssuedDate4: [undefined],
-      age4: [undefined],
-      customerRelation5: [undefined],
-      customerRelativeName5: [undefined],
-      citizenshipNumber5: [undefined],
-      citizenshipIssuedPlace5: [undefined],
-      citizenshipIssuedDate5: [undefined],
-      age5: [undefined],
+            customerRelation3: [undefined],
+            customerRelativeName3: [undefined],
+            citizenshipNumber3: [undefined],
+            citizenshipIssuedPlace3: [undefined],
+            citizenshipIssuedDate3: [undefined],
+            customerRelation4: [undefined],
+            customerRelativeName4: [undefined],
+            citizenshipNumber4: [undefined],
+            citizenshipIssuedPlace4: [undefined],
+            citizenshipIssuedDate4: [undefined],
+            customerRelation5: [undefined],
+            customerRelativeName5: [undefined],
+            citizenshipNumber5: [undefined],
+            citizenshipIssuedPlace5: [undefined],
+            citizenshipIssuedDate5: [undefined],
+        customerRelations: this.formBuilder.array([this.setRelation()]),
+        checkSameAddress: [undefined],
     });
   }
 
@@ -458,6 +480,7 @@ export class JointFormComponent implements OnInit {
 
   close() {
     this.ref.close();
+    this.onClose();
   }
 
   changeAction(template) {
@@ -508,19 +531,30 @@ export class JointFormComponent implements OnInit {
     this.basicJointInfo.get(['jointCustomerInfo', index, 'otherIncome']).updateValueAndValidity();
   }
 
-  sameAsPermanent(index) {
-    this.basicJointInfo.get(['jointCustomerInfo' , index, 'temporaryProvince'])
-        .setValue(this.basicJointInfo.get(['jointCustomerInfo', index, 'province']).value);
-    this.customer.temporaryDistrict = this.basicJointInfo.get(['jointCustomerInfo', index, 'district']).value;
-    this.getTemporaryDistricts(index, this.basicJointInfo.get(['jointCustomerInfo', index, 'province']).value, event);
-    this.customer.temporaryMunicipalities = this.basicJointInfo.get(['jointCustomerInfo', index, 'municipalities']).value;
-    this.getTemporaryMunicipalities(index, this.basicJointInfo.get(['jointCustomerInfo', index, 'district']).value, event);
-    this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryAddressLine1'])
-        .setValue(this.basicJointInfo.get(['jointCustomerInfo', index, 'permanentAddressLine1']).value);
-    this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryAddressLine2'])
-        .setValue(this.basicJointInfo.get(['jointCustomerInfo', index, 'permanentAddressLine2']).value);
-    this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryWardNumber'])
-        .setValue(this.basicJointInfo.get(['jointCustomerInfo', index, 'wardNumber']).value);
+  sameAsPermanent(i, checked) {
+      if (checked === true) {
+          this.basicJointInfo.get(['jointCustomerInfo', i]).patchValue({checkSameAddress: true});
+          this.basicJointInfo.get(['jointCustomerInfo', i, 'temporaryProvince'])
+              .patchValue(this.basicJointInfo.get(['jointCustomerInfo', i, 'province']).value);
+          this.basicJointInfo.get(['jointCustomerInfo', i, 'temporaryDistrict'])
+              .patchValue(this.basicJointInfo.get(['jointCustomerInfo', i, 'district']).value);
+          this.basicJointInfo.get(['jointCustomerInfo', i, 'temporaryMunicipalities'])
+              .patchValue(this.basicJointInfo.get(['jointCustomerInfo', i, 'municipalities']).value);
+          this.basicJointInfo.get(['jointCustomerInfo', i, 'temporaryWardNumber'])
+              .patchValue(this.basicJointInfo.get(['jointCustomerInfo', i, 'wardNumber']).value);
+          this.basicJointInfo.get(['jointCustomerInfo', i, 'temporaryAddressLine1'])
+              .patchValue(this.basicJointInfo.get(['jointCustomerInfo', i, 'permanentAddressLine1']).value);
+          this.basicJointInfo.get(['jointCustomerInfo', i, 'temporaryAddressLine2'])
+              .patchValue(this.basicJointInfo.get(['jointCustomerInfo', i, 'permanentAddressLine2']).value);
+          this.checkSameAddress = checked;
+      } else {
+          this.resetValue(i);
+          this.checkSameAddress = checked;
+      }
+      if (ObjectUtil.isEmpty(this.basicJointInfo.get(['jointCustomerInfo', i, 'municipalities']).value)) {
+          this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
+          return;
+      }
   }
 
     getClientType() {
@@ -546,6 +580,34 @@ export class JointFormComponent implements OnInit {
             , error => {
                 console.error(error);
             });
+    }
+
+    addRelation(i: number) {
+        const formGroup = this.basicJointInfo.get(['jointCustomerInfo', i, 'customerRelations']) as FormArray;
+        formGroup.push(this.setRelation());
+    }
+
+    removeRelation(i: number, ii: number) {
+        const formGroup = this.basicJointInfo.get(['jointCustomerInfo', i, 'customerRelations']) as FormArray;
+        formGroup.removeAt(ii);
+    }
+
+    setRelation(): FormGroup {
+        return this.formBuilder.group({
+            customerRelation: [undefined, Validators.required],
+            customerRelativeName: [undefined, Validators.compose([Validators.required])],
+            citizenshipNumber: [undefined],
+            citizenshipIssuedPlace: [undefined],
+            citizenshipIssuedDate: [undefined],
+        });
+    }
+    resetValue(index)  {
+        this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryProvince']).patchValue(null);
+        this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryDistrict']).patchValue(null);
+        this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryMunicipalities']).patchValue(null);
+        this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryAddressLine1']).patchValue(null);
+        this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryAddressLine2']).patchValue(null);
+        this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryWardNumber']).patchValue(null);
     }
 
 }

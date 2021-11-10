@@ -29,7 +29,6 @@ export class RemitCustomerService extends BaseService<Object> {
     }
 
     public saveRemitCustomer(remitCustomer): Observable<any> {
-        console.log('inside service', remitCustomer);
         const api = `${this.getApi()}/save`;
         const req = ApiUtils.getRequest(api);
         return this.http.post(req.url, remitCustomer, {headers: req.header});

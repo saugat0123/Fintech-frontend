@@ -186,10 +186,8 @@ export class CustomerLoanInformationComponent implements OnInit {
         // });
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
-                console.log('paramsvalue', paramsValue);
             });
 
-        console.log('customer info', this.customerInfo);
         this.customerInfo.isMicroCustomer = this.isMicroCustomer;
         if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
             this.siteVisit = this.customerInfo.siteVisit;

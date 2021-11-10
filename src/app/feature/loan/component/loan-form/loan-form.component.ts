@@ -245,7 +245,6 @@ export class LoanFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('productUtils', this.productUtils);
         this.docStatusForMaker();
         this.buildPriorityForm();
         this.buildApprovingLevelForm();

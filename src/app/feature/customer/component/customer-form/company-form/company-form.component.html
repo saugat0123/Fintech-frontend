@@ -50,7 +50,7 @@
                                            class="custom-select" formControlName="clientType">
                                            <option  [ngValue]="null">Select Client Type</option>
 
-                                           <option *ngFor="let data of clientType " [ngValue]="data">{{data}}</option>
+                                           <option *ngFor="let data of clientType | keyvalue " [ngValue]="data.key">{{data.value}}</option>
                                        </select>
                                        <div *ngIf="submitted && form.clientType.errors"
                                             class="invalid-feedback">
