@@ -234,87 +234,80 @@
                                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
                                                  [formValue]="customer"></app-customer-group-loan>
                     </nb-card-body>
-                    <nb-card-footer>
-                        <div class="row">
-                            <div class="col" *ngIf=" !isRemarkEdited ">
-                                <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
-                                        class="fa fa-edit"></em></a>
-                                <label><b>Within Limit Remarks (if any):</b></label>
-                                {{customer.withinLimitRemarks}}
-                            </div>
-                            <div *ngIf="isRemarkEdited" class="col-md-12 form-group">
-                                <form [formGroup]="basicForm">
-                                    <label><b>Within Limit Remarks (if any):</b></label>
-                                    <textarea rows="2" placeholder="Within Limit Remarks " class="form-control border"
-                                              formControlName="withinLimitRemarks"></textarea>
-                                </form>
-                                <button class="btn btn-sm float-right small" nbButton (click)="saveBasic()">Save
-                                    Remark
-                                </button>
-                            </div>
-                        </div>
-                    </nb-card-footer>
+<!--                    <nb-card-footer>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col" *ngIf=" !isRemarkEdited ">-->
+<!--                                <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em-->
+<!--                                        class="fa fa-edit"></em></a>-->
+<!--                                <label><b>Within Limit Remarks (if any):</b></label>-->
+<!--                                {{customer.withinLimitRemarks}}-->
+<!--                            </div>-->
+<!--                            <div *ngIf="isRemarkEdited" class="col-md-12 form-group">-->
+<!--                                <form [formGroup]="basicForm">-->
+<!--                                    <label><b>Within Limit Remarks (if any):</b></label>-->
+<!--                                    <textarea rows="2" placeholder="Within Limit Remarks " class="form-control border"-->
+<!--                                              formControlName="withinLimitRemarks"></textarea>-->
+<!--                                </form>-->
+<!--                                <button class="btn btn-sm float-right small" nbButton (click)="saveBasic()">Save-->
+<!--                                    Remark-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </nb-card-footer>-->
                 </nb-card>
-                <nb-card accent="primary" *ngIf="sbsGroupEnabled">
-                    <nb-card-header>
-                        Customer Groups
-                        <div class="float-right" nbTooltip="{{totalGroupAmount | currencyFormatter}}">Total Group Limit
-                            : {{customerInfo?.customerGroup?.groupLimit}}
-                        </div>
-                    </nb-card-header>
-                    <nb-card-body>
-                        <nb-accordion>
-                            <nb-accordion-item>
-                                <nb-accordion-item-header>
-                                    <div class="row col-md-12">
-                                        <div class="col-md-6">
-                                            <span>Groups</span>
-                                        </div>
-                                        <div class="col-md-6 d-flex justify-content-end">
-                                            <!--Total Amount: Rs. {{proposeAmountOfGroup | currencyFormatter}}-->
-                                        </div>
-                                    </div>
-                                </nb-accordion-item-header>
-                                <nb-accordion-item-body
-                                        *ngIf="customerInfo !== undefined && customerInfo.customerGroup !== undefined">
-                                    <app-customer-list-group #customerListGroupComponent
-                                                             (messageToEmit)="getTotalLoanAmount($event)"
-                                                             [customerInfoData]="customerInfo"></app-customer-list-group>
-                                </nb-accordion-item-body>
-                            </nb-accordion-item>
-                        </nb-accordion>
+<!--                <nb-card accent="primary" *ngIf="sbsGroupEnabled">-->
+<!--                    <nb-card-header>-->
+<!--                        Customer Groups-->
+<!--                        <div class="float-right" nbTooltip="{{totalGroupAmount | currencyFormatter}}">Total Group Limit-->
+<!--                            : {{customerInfo?.customerGroup?.groupLimit}}-->
+<!--                        </div>-->
+<!--                    </nb-card-header>-->
+<!--                    <nb-card-body>-->
+<!--                        <nb-accordion>-->
+<!--                            <nb-accordion-item>-->
+<!--                                <nb-accordion-item-header>-->
+<!--                                    <div class="row col-md-12">-->
+<!--                                        <div class="col-md-6">-->
+<!--                                            <span>Groups</span>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-6 d-flex justify-content-end">-->
+<!--                                            &lt;!&ndash;Total Amount: Rs. {{proposeAmountOfGroup | currencyFormatter}}&ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </nb-accordion-item-header>-->
+<!--                                <nb-accordion-item-body-->
+<!--                                        *ngIf="customerInfo !== undefined && customerInfo.customerGroup !== undefined">-->
+<!--                                    <app-customer-list-group #customerListGroupComponent-->
+<!--                                                             (messageToEmit)="getTotalLoanAmount($event)"-->
+<!--                                                             [customerInfoData]="customerInfo"></app-customer-list-group>-->
+<!--                                </nb-accordion-item-body>-->
+<!--                            </nb-accordion-item>-->
+<!--                        </nb-accordion>-->
+<!--                    </nb-card-body>-->
+<!--                </nb-card>-->
 
-
-                    </nb-card-body>
-
-                </nb-card>
-
-                <nb-card accent="primary" *ngIf="megaGroupEnabled">
-                    <nb-card-header>
-                        Customer Groups
-                    </nb-card-header>
-                    <nb-card-body>
-                        <nb-accordion>
-                            <nb-accordion-item #mGroupAccordion>
-                                <nb-accordion-item-header>
-                                    <div class="row col-md-12">
-                                        <div class="col-md-6">
-                                            <span>Customer Group</span>
-                                        </div>
-                                    </div>
-                                </nb-accordion-item-header>
-                                <nb-accordion-item-body>
-                                    <app-customer-group *ngIf="customerInfo && mGroupAccordion.expanded"
-                                                        (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-customer-group>
-                                </nb-accordion-item-body>
-                            </nb-accordion-item>
-                        </nb-accordion>
-
-
-                    </nb-card-body>
-
-                </nb-card>
-
+<!--                <nb-card accent="primary" *ngIf="megaGroupEnabled">-->
+<!--                    <nb-card-header>-->
+<!--                        Customer Groups-->
+<!--                    </nb-card-header>-->
+<!--                    <nb-card-body>-->
+<!--                        <nb-accordion>-->
+<!--                            <nb-accordion-item #mGroupAccordion>-->
+<!--                                <nb-accordion-item-header>-->
+<!--                                    <div class="row col-md-12">-->
+<!--                                        <div class="col-md-6">-->
+<!--                                            <span>Customer Group</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </nb-accordion-item-header>-->
+<!--                                <nb-accordion-item-body>-->
+<!--                                    <app-customer-group *ngIf="customerInfo && mGroupAccordion.expanded"-->
+<!--                                                        (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-customer-group>-->
+<!--                                </nb-accordion-item-body>-->
+<!--                            </nb-accordion-item>-->
+<!--                        </nb-accordion>-->
+<!--                    </nb-card-body>-->
+<!--                </nb-card>-->
             </div>
             <div class="col-md-4">
                 <nb-card accent="primary" style="height: 650px">
@@ -444,29 +437,29 @@
         </div>
 
         <!--        //cbs Group-->
-        <div class="row" *ngIf="productUtils.CBS_ENABLE">
-            <div class="col-md-12">
-                <app-cbs-view-customer [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-view-customer>
-            </div>
-        </div>
+<!--        <div class="row" *ngIf="productUtils.CBS_ENABLE">-->
+<!--            <div class="col-md-12">-->
+<!--                <app-cbs-view-customer [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-view-customer>-->
+<!--            </div>-->
+<!--        </div>-->
         <!--        //cbs Group-->
-        <div class="row  py-2" *ngIf="maker && !isEditable">
-            <div class="col-md-12 text-danger">
-                <sup>*</sup><strong style=" font-style: oblique;"> This Customer Loan is Under Progress So Information cannot be Edited.
-            </strong> </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <app-customer-loan-information
-                        (triggerCustomerRefresh)="refreshCustomerInfo()"
-                        *ngIf="customerInfo &&  isEditable"
-                        [customerInfoId]="customerInfoId"
-                        [isMicroCustomer]="customer?.isMicroCustomer"
-                        [customerInfo]="customerInfo"></app-customer-loan-information>
-                <app-customer-loan-information-view *ngIf=" !isEditable"
-                                                    [customerInfo]="customerInfo"></app-customer-loan-information-view>
-            </div>
-        </div>
+<!--        <div class="row  py-2" *ngIf="maker && !isEditable">-->
+<!--            <div class="col-md-12 text-danger">-->
+<!--                <sup>*</sup><strong style=" font-style: oblique;"> This Customer Loan is Under Progress So Information cannot be Edited.-->
+<!--            </strong> </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-12">-->
+<!--                <app-customer-loan-information-->
+<!--                        (triggerCustomerRefresh)="refreshCustomerInfo()"-->
+<!--                        *ngIf="customerInfo &&  isEditable"-->
+<!--                        [customerInfoId]="customerInfoId"-->
+<!--                        [isMicroCustomer]="customer?.isMicroCustomer"-->
+<!--                        [customerInfo]="customerInfo"></app-customer-loan-information>-->
+<!--                <app-customer-loan-information-view *ngIf=" !isEditable"-->
+<!--                                                    [customerInfo]="customerInfo"></app-customer-loan-information-view>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="row">
             <div class="col-md-12">
                 <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
