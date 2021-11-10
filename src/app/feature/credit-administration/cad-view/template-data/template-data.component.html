@@ -45,4 +45,7 @@
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.AUTO_LOAN_COMMERCIAL" [nbSpinner]="spinner">
         <app-auto-loan-commercial-template-data [customerApprovedDoc]="cadData"></app-auto-loan-commercial-template-data>
     </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL" [nbSpinner]="spinner">
+        <app-perosnal-overdraft-without-collateral-template-data [customerApprovedDoc]="cadData"></app-perosnal-overdraft-without-collateral-template-data>
+    </nb-card-body>
 </nb-card>

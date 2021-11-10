@@ -11,7 +11,8 @@ export enum NabilOfferLetterConst {
     PERSONAL_LOAN,
     HOME_LOAN,
     MORTAGE_LOAN,
-    AUTO_LOAN_COMMERCIAL
+    AUTO_LOAN_COMMERCIAL,
+    PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL
 }
 
 export namespace NabilOfferLetterConst {
@@ -41,6 +42,8 @@ export namespace NabilOfferLetterConst {
                 return 'AUTO LOAN COMMERCIAL ';
             case NabilOfferLetterConst.MORTAGE_LOAN:
                 return 'Mortage Loan';
+            case NabilOfferLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL:
+                return 'Personal overdraft without collateral';
         }
     }
 
