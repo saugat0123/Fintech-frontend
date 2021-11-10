@@ -63,8 +63,9 @@ export class DocumentComponent implements OnInit {
             console.log(error);
             if (error.status === 403) {
                 other.router.navigate(['/home/error']);
+            } else {
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Documents'));
             }
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Documents'));
         });
         other.service.getAllLoanCycle().subscribe((response: any) => {
             other.loanCycleList = response.detail;
