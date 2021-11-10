@@ -19,6 +19,7 @@ import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-num
 import {District} from '../../../../admin/modal/district';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
 
 @Component({
   selector: 'app-personal-overdraft-template-data',
@@ -59,6 +60,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   selectedSecurityVal;
   objectTranslate;
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
+  closed = false;
 
   constructor(private formBuilder: FormBuilder,
               private dialogService: NbDialogService,
@@ -72,7 +74,10 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
               private addressService: AddressService,
               private currencyFormatterPipe: CurrencyFormatterPipe,
-  ) { }
+              protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
+              private modalService: NgbModal,
+              )
+  { }
 
   ngOnInit() {
     this.buildForm();
@@ -196,6 +201,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = false;
+      this.closed = true;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -452,6 +458,24 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     const sourceResponse = await this.translateService.translateForm(this.oneForm);
     this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
     this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  dismiss(template){
+    this.modalService.dismissAll();
+  }
+
+  decline(template){
+    this.modalService.dismissAll();
+  }
+
+  accept(){
+    this.modalService.dismissAll();
+    this.dialogRefcad.close();
   }
 
 }

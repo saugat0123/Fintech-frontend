@@ -17,11 +17,6 @@
         <div class="col-md-4 mt-3" *ngIf="isLand || isBuilding">
             <b>Loan Data</b>
             <div class="form-group">
-                <label for="referenceNumber">Reference Number</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumber" type="text" id="referenceNumber">
-            </div>
-            <div class="form-group">
                 <label for="dateType">Date of Approval</label><br>
                 <nb-radio-group name="dateType" id="dateType" (valueChange)="dateOfApproval($event)" status="success"
                                 formControlName="dateType" class="d-inline-flex">
@@ -166,10 +161,6 @@
         </div>
         <div class="col-md-4 mt-3" *ngIf="isLand || isBuilding">
             <b>Nepali Translation</b>
-            <div class="form-group mt-4">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumberTrans" type="text" id="referenceNumberTrans" readonly>
-            </div>
             <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="dateOfApprovalTrans" type="text" id="dateOfApprovalTrans" readonly>
@@ -265,13 +256,6 @@
         </div>
         <div class="col-md-4 mt-3" *ngIf="isLand || isBuilding">
             <b>Correct Translation</b>
-            <div class="form-group mt-4">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumberCT" type="text" id="referenceNumberCT"/>
-                <span class="text-danger" *ngIf="submitted && form.referenceNumberCT.invalid">
-                    Reference number is required
-                </span>
-            </div>
             <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="dateOfApprovalCT" type="text" id="dateOfApprovalCT"/>

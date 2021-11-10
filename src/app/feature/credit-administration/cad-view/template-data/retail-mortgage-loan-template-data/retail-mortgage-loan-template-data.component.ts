@@ -11,7 +11,7 @@ import {OfferDocument} from "../../../model/OfferDocument";
 import {Attributes} from "../../../../../@core/model/attributes";
 import {ToastService} from "../../../../../@core/utils";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {NbDialogService} from "@nebular/theme";
+import {NbDialogRef, NbDialogService} from "@nebular/theme";
 import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
 import {CreditAdministrationService} from "../../../service/credit-administration.service";
 import {SmeComponent} from "../../../mega-offer-letter-template/mega-offer-letter/sme/sme.component";
@@ -23,6 +23,7 @@ import {MunicipalityVdc} from "../../../../admin/modal/municipality_VDC";
 import {CadDocStatus} from "../../../model/CadDocStatus";
 import {AddressService} from "../../../../../@core/service/baseservice/address.service";
 import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
 
 
 @Component({
@@ -62,6 +63,8 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   cadDocStatus = CadDocStatus.key();
   municipalityListForSecurities = [];
+  closed = false;
+  saved = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -75,6 +78,8 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private addressService: AddressService,
       private currencyFormatterPipe: CurrencyFormatterPipe,
+      private modalService: NgbModal,
+      protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
   ) { }
 
   get Form() {
@@ -242,6 +247,7 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
     this.setTemplatedCTData(this.translatedValues);
     this.spinner = false;
     this.btnDisable = false;
+    this.saved = true;
   }
 
   private setTemplatedCTData(data): void {
@@ -435,14 +441,34 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = true;
+      this.closed = true;
+      this.saved = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.btnDisable = true;
+      this.saved = true;
     });
   }
   onClose() {
     this.modelService.dismissAll();
+  }
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  dismiss(template){
+    this.modalService.dismissAll();
+  }
+
+  decline(template){
+    this.modalService.dismissAll();
+  }
+
+  accept(){
+    this.modalService.dismissAll();
+    this.dialogRefcad.close();
   }
 }
