@@ -58,4 +58,9 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(`${this.getApi()}/transfer-customer-other-branch`);
         return this.http.post(req.url, object, {headers: req.header});
     }
+
+    public uploadMultipleDocument(formData: FormData): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload-multiple-doc`);
+        return this.http.post(req.url, formData, {headers: req.header});
+    }
 }

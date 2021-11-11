@@ -50,6 +50,7 @@ import { CrgMicroComponent } from './crg-micro/crg-micro.component';
 import { SecurityTableComponent } from './security/security-initial-form/security-table/security-table.component';
 import { CreateDocumentComponent } from './security/security-initial-form/create-document/create-document.component';
 import { ObtainedDocumentComponent } from './obtained-document/obtained-document.component';
+import {MultiDocumentUploadTemplateComponent} from './multi-document-template/multi-document-template.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -85,6 +86,7 @@ const COMPONENTS = [
     FixAssetCollateralComponent,
     SecurityTableComponent,
     CreateDocumentComponent,
+    MultiDocumentUploadTemplateComponent
 ];
 
 

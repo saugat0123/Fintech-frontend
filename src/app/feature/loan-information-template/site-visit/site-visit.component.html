@@ -127,8 +127,18 @@
                                placeholder="Latitude">
                     </div>
                 </div>
-            </div>
 
+                <div class="col-md-12">
+                    <app-multi-document-template [customerInfo]="customerInfo" [docName]="siteVisitFormGroup?.get('currentResidentDetails')?.get('ownerName').value"
+                                                 (docPathEmitter)="documentPath($event)"
+                                                 [pathValue]="siteVisitFormGroup?.get('currentResidentDetails')?.get('documentPath').value"
+                                                 [docTitle]="currentTitle"
+                                                 [docFolderName]="docFolderName">
+                    </app-multi-document-template>
+                    <i class="pb-5">Note:Owner Name is required to upload file</i>
+                </div>
+            </div>
+            <hr>
             <div [hidden]="!businessSiteVisitForm" class="row mt-3">
                 <div *ngFor="let businessSite of siteVisitFormGroup.get('businessDetails')['controls']; let i = index"
                      formArrayName="businessDetails">
@@ -251,6 +261,17 @@
                                        name="businessSiteVisitLatitude" placeholder="Latitude"
                                        type="number">
                             </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <app-multi-document-template [customerInfo]="customerInfo" [docName]="businessSite?.get('nameOfThePersonContacted').value"
+                                                         (docPathEmitter)="businessDocPath($event, i)"
+                                                         [pathValue]="businessSite?.get('documentPath').value"
+                                                         [docTitle]="businessTitle"
+                                                         [docFolderName]="businessDocName">
+
+                            </app-multi-document-template>
+                            <i class="pb-5">Note:Owner Name is required to upload file</i>
                         </div>
                     </div>
                 </div>

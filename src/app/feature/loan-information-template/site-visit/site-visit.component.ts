@@ -28,6 +28,7 @@ export class SiteVisitComponent implements OnInit {
     @Input() formValue: SiteVisit;
     @Input() fromProfile: boolean;
     @Output() siteVisitDataEmitter = new EventEmitter();
+    @Input() customerInfo;
     calendarType = CalendarType.AD;
 
     @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
@@ -64,6 +65,10 @@ export class SiteVisitComponent implements OnInit {
     client = environment.client;
     clientName = Clients;
     breakException: any;
+    currentTitle = 'Current Site Visit';
+    businessTitle = 'Business Site Visit';
+    docFolderName = 'currentDoc';
+    businessDocName = 'businessDoc';
 
     constructor(private formBuilder: FormBuilder,
                 dateService: NbDateService<Date>,
@@ -124,6 +129,7 @@ export class SiteVisitComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.formValue)) {
             const stringFormData = this.formValue.data;
             this.formDataForEdit = JSON.parse(stringFormData);
+            console.log('formDataForEdit', this.formDataForEdit);
         }
         this.buildForm();
         this.previousData();
@@ -165,14 +171,16 @@ export class SiteVisitComponent implements OnInit {
                 staffRepresentativeName2: [this.formDataForEdit === undefined ? undefined :
                     (this.formDataForEdit.currentResidentDetails === undefined ? undefined
                         : this.formDataForEdit.currentResidentDetails.staffRepresentativeName2)],
-                findingComment: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-                    : this.formDataForEdit.currentResidentDetails.findingComment)],
+                findingComment: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined
+                    ? undefined : this.formDataForEdit.currentResidentDetails.findingComment)],
                 locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
                     : this.formDataForEdit.currentResidentDetails.locationPreview)],
-                currentSiteVisitLongitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-                    : this.formDataForEdit.currentResidentDetails.currentSiteVisitLongitude)],
-                currentSiteVisiLatitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-                    : this.formDataForEdit.currentResidentDetails.currentSiteVisiLatitude)],
+                currentSiteVisitLongitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails
+                    === undefined ? '' : this.formDataForEdit.currentResidentDetails.currentSiteVisitLongitude)],
+                currentSiteVisiLatitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails
+                    === undefined ? '' : this.formDataForEdit.currentResidentDetails.currentSiteVisiLatitude)],
+                documentPath: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.currentResidentDetails === undefined ? '' :
+                    this.formDataForEdit.currentResidentDetails.documentPath]
             }),
             businessDetails: this.formBuilder.array([]),
             currentAssetsDetails: this.formBuilder.array([])
@@ -537,7 +545,12 @@ export class SiteVisitComponent implements OnInit {
             this.siteVisitData = this.formValue;
         }
         this.overlay.show();
+        // console.log('docpath', this.siteVisitFormGroup.get('currentResidentDetails').get('documentPath'));
+        this.siteVisitData.docPath = JSON.stringify(this.siteVisitFormGroup.get('currentResidentDetails').get('documentPath').value);
+        // console.log('after', this.siteVisitData.docPath);
+        // const test = this.siteVisitFormGroup.get(['', i]).value
         this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
+        console.log('sitevisitData', this.siteVisitFormGroup.value);
         this.siteVisitDataEmitter.emit(this.siteVisitData.data);
     }
 
@@ -848,7 +861,8 @@ export class SiteVisitComponent implements OnInit {
             staffRepresentativeName2: [undefined],
             findingsAndComments: [undefined],
             businessSiteVisitLongitude: [undefined],
-            businessSiteVisitLatitude: [undefined]
+            businessSiteVisitLatitude: [undefined],
+            documentPath: [undefined]
         });
     }
 
@@ -995,6 +1009,7 @@ export class SiteVisitComponent implements OnInit {
                     findingsAndComments: [singleData.findingsAndComments],
                     locationPreview: [singleData.findingsAndComments],
                     mapAddress: [singleData.findingsAndComments],
+                    documentPath: [singleData.documentPath]
                 })
             );
         });
@@ -1122,6 +1137,14 @@ export class SiteVisitComponent implements OnInit {
                     formData.otherCurrentAssets.bankExposures : undefined, 0);
             }
         }
+    }
+
+    documentPath(path) {
+        this.siteVisitFormGroup.get('currentResidentDetails').get('documentPath').patchValue(path);
+    }
+
+    businessDocPath(path, i) {
+        this.siteVisitFormGroup.get(['businessDetails', i, 'documentPath']).patchValue(path);
     }
 
 }
