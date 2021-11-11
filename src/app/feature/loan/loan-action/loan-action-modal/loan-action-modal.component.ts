@@ -121,12 +121,12 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
-        let comment = this.formAction.value.comment;
+        const comment = this.formAction.value.comment;
 
-        let docAction = this.formAction.value.docAction;
-        let docActionMSG = this.formAction.value.docActionMsg;
+        const docAction = this.formAction.value.docAction;
+        const docActionMSG = this.formAction.value.docActionMsg;
         if (docActionMSG === 'Send Legal Doc') {
-            let sendDocToRemit = {
+            const sendDocToRemit = {
                 beneficiaryId: this.beneficiaryId,
                 legalDoc: JSON.stringify(this.legalDoc),
                 remarks: comment,
@@ -169,7 +169,7 @@ export class LoanActionModalComponent implements OnInit {
                 console.log('benefff id', this.beneficiaryId);
                 console.log('inside loan action modal');
                 if (docAction === 'SEND_BACK_TO_SENDER' || docAction === 'SEND_BACK_TO_AGENT') {
-                    let beneficiaryObj = {
+                    const beneficiaryObj = {
                         'beneficiaryId': this.beneficiaryId,
                         'status': docAction,
                         'remarks': this.formAction.value.comment
@@ -183,7 +183,7 @@ export class LoanActionModalComponent implements OnInit {
                         console.log(error);
                     });
                 } else if (this.isRemitLoan && docAction === 'APPROVED') {
-                    let beneficiaryObj = {
+                    const beneficiaryObj = {
                         'beneficiaryId': this.beneficiaryId,
                         'status': docAction,
                         'remarks': this.formAction.value.comment
@@ -198,7 +198,7 @@ export class LoanActionModalComponent implements OnInit {
                     });
 
                 } else if (docAction === 'REJECT') {
-                    let beneficiaryObj = {
+                    const beneficiaryObj = {
                         'beneficiaryId': this.beneficiaryId,
                         'status': 'REJECTED',
                         'remarks': this.formAction.value.comment
