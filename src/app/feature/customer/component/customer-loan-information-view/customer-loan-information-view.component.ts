@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {CustomerType} from '../../model/customerType';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -6,6 +6,7 @@ import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {ToastService} from '../../../../@core/utils';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 
 @Component({
   selector: 'app-customer-loan-information-view',
@@ -15,8 +16,10 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 export class CustomerLoanInformationViewComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   companyInfo = new CompanyInfo();
+  nbDialogRef: NbDialogRef<any>;
 
-  constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService, ) {
+  constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService,
+              private modalService: NbDialogService,) {
   }
 
   ngOnInit() {
@@ -34,6 +37,10 @@ export class CustomerLoanInformationViewComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
       });
     }
+  }
+
+  openModel(name: TemplateRef<any>) {
+    this.nbDialogRef = this.modalService.open(name, {closeOnBackdropClick: false, closeOnEsc: false});
   }
 
 }
