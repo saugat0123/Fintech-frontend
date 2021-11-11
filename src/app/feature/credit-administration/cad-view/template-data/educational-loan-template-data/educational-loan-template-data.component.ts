@@ -161,6 +161,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       tenureDepositReceiptNumber: [undefined],
       guarantorName: [undefined],
       dateofExpiry: [undefined],
+      dateofExpiryNepali: [undefined],
+      dateOfExpiryType: [undefined],
       // guaranteedAmountFigure: [undefined],
       // guaranteedAmountWords: [undefined],
       nameOfBranch: [undefined],
@@ -246,6 +248,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       accountNumberTransVal: [undefined],
       bankNameTransVal: [undefined],
       dateofExpiryTransVal: [undefined],
+      dateofExpiryNepaliTransVal: [undefined],
+      dateOfExpiryTypeTransVal: [undefined],
       securities: this.formBuilder.array([])
     });
     this.addDefaultSecurity();
@@ -575,6 +579,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedData.relationshipOfficerName);
     this.form.get('branchManagerTransVal').patchValue(this.translatedData.branchManager);
     this.form.get('ownersNameTransVal').patchValue(this.translatedData.ownersName);
+    this.form.get('dateOfExpiryTypeTransVal').patchValue(this.translatedData.dateOfExpiryType);
+    this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
+    this.form.get('dateofExpiryNepaliTransVal').patchValue(this.translatedData.dateofExpiryNepali);
     // this.form.get('wardNoTransVal').patchValue(this.translatedData.wardNo);
     // this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
     // this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);

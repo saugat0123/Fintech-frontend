@@ -112,6 +112,12 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       } else {
         this.dateTypeBS1 = true;
       }
+      const dateOfExpiry1 = this.initialInformation.dateOfExpiryType ? this.initialInformation.dateOfExpiryType.en : '';
+      if (dateOfExpiry1 === 'AD') {
+        this.dateTypeAD2 = true;
+      } else {
+        this.dateTypeBS2 = true;
+      }
       this.fieldFlag = true;
       // this.dateTypeAD = true;
       // this.dateTypeAD1 = true;
@@ -194,6 +200,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       dateOfApplicationNepali: [undefined],
       dateOfApplicationType: [undefined],
       dateofExpiry:[undefined],
+      dateofExpiryNepali: [undefined],
+      dateOfExpiryType: [undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
       fixedDepositReceiptAmountFigure: [undefined],
@@ -251,6 +259,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       dateOfApplicationNepaliTransVal: [undefined],
       dateOfApplicationTypeTransVal: [undefined],
       dateofExpiryTransVal:[undefined],
+      dateofExpiryNepaliTransVal: [undefined],
+      dateOfExpiryTypeTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
       fixedDepositReceiptAmountFigureTransVal: [undefined],
@@ -584,6 +594,16 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       const finalNepaliDate = this.form.get('dateOfApplicationNepali').value;
       this.form.get('dateOfApplicationNepaliTransVal').patchValue(finalNepaliDate.nDate);
     }
+
+    // Set Ct Value for Date of Expiry:
+    if (this.dateTypeAD2) {
+      const finalDateOfExpiry = this.form.get('dateofExpiry').value;
+      // tslint:disable-next-line:max-line-length
+      this.form.get('dateofExpiryTransVal').patchValue(this.engNepDatePipe.transform(this.datePipe.transform(finalDateOfExpiry), true));
+    } else {
+      const dateOfExpiryNepali = this.form.get('dateofExpiryNepali').value;
+      this.form.get('dateofExpiryNepaliTransVal').patchValue(dateOfExpiryNepali.nDate);
+    }
   }
 
   private clearConditionalValidation(): void {
@@ -617,7 +637,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.form.get('dateOfApplicationType').patchValue(this.initialInformation.dateOfApplicationType.en);
     if (this.initialInformation.dateOfApplicationType.en === 'AD') {
       this.form.get('dateOfApplication').patchValue(new Date(this.initialInformation.dateOfApplication.en));
-    } else {
+    }
+    if (this.initialInformation.dateOfApplicationType.en === 'BS') {
       const dateApplication = this.initialInformation.dateOfApplicationNepali ? this.initialInformation.dateOfApplicationNepali.en : '';
       this.form.get('dateOfApplicationNepali').patchValue(dateApplication);
     }
@@ -664,7 +685,16 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       this.form.get('bankName').patchValue(this.initialInformation.bankName.en);
     }
     if (this.selectedSecurityVal === 'FIXED_DEPOSIT') {
-      this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
+      // this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
+      this.form.get('dateOfExpiryType').patchValue(this.initialInformation.dateOfExpiryType.en);
+      // set value for the date of expiry
+      const expiryDateType = this.initialInformation.dateOfExpiryType ? this.initialInformation.dateOfExpiryType.en : '';
+      if (expiryDateType === 'AD') {
+        const newExpiryDate = this.initialInformation.dateofExpiry ? this.initialInformation.dateofExpiry.en : '';
+        this.form.get('dateofExpiry').patchValue(new Date(newExpiryDate));
+      } else {
+        this.form.get('dateofExpiryNepali').patchValue(this.initialInformation.dateofExpiryNepali.en);
+      }
     }
 
     // set ct value

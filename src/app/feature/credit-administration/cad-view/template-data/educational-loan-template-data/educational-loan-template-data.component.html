@@ -126,7 +126,7 @@
               <nb-radio-group name="dataOfApplication" formControlName="dateOfApplicationType">
                 <nb-radio (click)="setDateTypeBS1()" value="BS"><span style="margin-left:-60px">BS</span>
                 </nb-radio>
-                <nb-radio (click)="setDateTypeAD1()" style="margin-left: 60px;margin-top: -35px;">
+                <nb-radio (click)="setDateTypeAD1()" value="AD" style="margin-left: 60px;margin-top: -35px;">
                   AD
                 </nb-radio>
               </nb-radio-group>
@@ -599,10 +599,10 @@
           <td>Fixed Deposit Expiry Date</td>
           <td>
             <div class="row" style="margin-left: 5px; margin-top: -8px;">
-              <nb-radio-group name="dateofExpiry">
-                <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span>
+              <nb-radio-group name="dateofExpiry" formControlName="dateOfExpiryType">
+                <nb-radio (click)="setDateTypeBS2()" value="BS"><span style="margin-left:-60px">BS</span>
                 </nb-radio>
-                <nb-radio (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">
+                <nb-radio (click)="setDateTypeAD2()" value="AD" style="margin-left: 60px;margin-top: -35px;">
                   AD
                 </nb-radio>
               </nb-radio-group>
@@ -613,7 +613,7 @@
           <td>
           </td>
           <td>
-            <nepali-patro *ngIf="dateTypeBS2" formControlName="dateofExpiry" [responseType]="2"
+            <nepali-patro *ngIf="dateTypeBS2" formControlName="dateofExpiryNepali" [responseType]="2"
                           [displayNepali]="true">
             </nepali-patro>
             <input [nbDatepicker]="doe"

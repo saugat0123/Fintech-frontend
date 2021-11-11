@@ -85,8 +85,14 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
       } else {
         this.dateOfApplication = this.letter.dateOfApplicationNepali.en.nDate;
       }
-      if (!ObjectUtil.isEmpty(this.letter.dateofExpiry)) {
+      // if (!ObjectUtil.isEmpty(this.letter.dateofExpiry)) {
+      //   this.dateofExpiry = this.dateConversion(this.letter.dateofExpiry);
+      // }
+      const dateOfExpiryType = this.letter.dateOfExpiryType ? this.letter.dateOfExpiryType.en : '';
+      if (dateOfExpiryType === 'AD') {
         this.dateofExpiry = this.dateConversion(this.letter.dateofExpiry);
+      } else {
+        this.dateofExpiry = this.letter.dateofExpiryNepali ? this.letter.dateofExpiryNepali.en.nDate : '';
       }
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {

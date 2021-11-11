@@ -287,8 +287,14 @@ submit(): void {
             tempDateOfApplication = this.initialInfoPrint.dateOfApplicationNepali.en.nDate;
         }
         let tempDateOfExpiry;
-        if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateofExpiry)) {
+        // if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateofExpiry)) {
+        //     tempDateOfExpiry = this.dateConversion(this.initialInfoPrint.dateofExpiry);
+        // }
+        const dateOfExpiryType = this.initialInfoPrint.dateOfExpiryType ? this.initialInfoPrint.dateOfExpiryType.en : '';
+        if (dateOfExpiryType === 'AD') {
             tempDateOfExpiry = this.dateConversion(this.initialInfoPrint.dateofExpiry);
+        } else {
+            tempDateOfExpiry = this.initialInfoPrint.dateofExpiryNepali ? this.initialInfoPrint.dateofExpiryNepali.en.nDate : '';
         }
         this.retailProfessionalLoan.patchValue({
             nameOfCustomer: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',

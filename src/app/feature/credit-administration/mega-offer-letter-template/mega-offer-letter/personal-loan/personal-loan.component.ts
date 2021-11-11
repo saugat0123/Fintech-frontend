@@ -17,6 +17,8 @@ import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-num
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-personal-loan',
@@ -59,7 +61,9 @@ export class PersonalLoanComponent implements OnInit {
               private nepPercentWordPipe: NepaliPercentWordPipe,
               protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private ref: NbDialogRef<PersonalLoanComponent>,
-              private routerUtilsService: RouterUtilsService) {
+              private routerUtilsService: RouterUtilsService,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe) {
   }
 
   ngOnInit(): void {
@@ -161,6 +165,22 @@ export class PersonalLoanComponent implements OnInit {
     if (!ObjectUtil.isEmpty(guarantorNep.gurantedAmount)) {
       guaranteedAmount = guarantorNep.gurantedAmount.en;
     }
+    let approvalDate;
+    const approvalDateType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
+    if (approvalDateType === 'AD') {
+      const finalApprDate = this.initialInfoPrint.dateOfApproval ? this.datePipe.transform(this.initialInfoPrint.dateOfApproval.en) : '';
+      approvalDate = this.engNepDatePipe.transform(finalApprDate, true);
+    } else {
+      approvalDate = this.initialInfoPrint.dateOfApprovalNepali ? this.initialInfoPrint.dateOfApprovalNepali.en.nDate : '';
+    }
+    let applicationDate;
+    const applicationDateType = this.initialInfoPrint.dateofApplicationType ? this.initialInfoPrint.dateofApplicationType.en : '';
+    if (applicationDateType === 'AD') {
+      const finalAppDate = this.initialInfoPrint.dateofApplication ? this.datePipe.transform(this.initialInfoPrint.dateofApplication.en) : '';
+      applicationDate = this.engNepDatePipe.transform(finalAppDate, true);
+    } else {
+      applicationDate = this.initialInfoPrint.dateofApplicationNepali ? this.initialInfoPrint.dateofApplicationNepali.en.nDate : '';
+    }
     this.personalLoan.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
@@ -187,6 +207,8 @@ export class PersonalLoanComponent implements OnInit {
       sakshiMunicipality: this.tempData.sakshiMunicipality.ct ? this.tempData.sakshiMunicipality.ct : '',
       sakshiWardNum: this.tempData.sakshiWardNum.ct ? this.tempData.sakshiWardNum.ct : '',
       sakshiName: this.tempData.sakshiName.ct ? this.tempData.sakshiName.ct : '',*/
+      dateOfApproval: approvalDate ? approvalDate : '',
+      dateofApplication: applicationDate ? applicationDate : '',
     });
     // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
   }

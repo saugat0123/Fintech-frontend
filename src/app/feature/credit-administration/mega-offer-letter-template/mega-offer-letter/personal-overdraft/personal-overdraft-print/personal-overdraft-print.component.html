@@ -1,7 +1,8 @@
-<div class="row" id="{{offerLetterConst.PERSONAL_OVERDRAFT}}Print" xmlns="http://www.w3.org/1999/html">
+<div class="row nep" id="{{offerLetterConst.PERSONAL_OVERDRAFT}}Print" xmlns="http://www.w3.org/1999/html">
     <div class="text-center col-md-12">
         <h4 class="font-weight-bold" style="text-align: center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h4>
     </div>
+    <div class="nep">
     <div class="mb-2 col-md-12">
         <span class="font-weight-bold">
                      {{autoRefNumber ? autoRefNumber : '_______________________'}}
@@ -221,8 +222,9 @@
                     <tr>
                         <td></td>
                         <td>
-                            <p><strong>क. </strong> स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको
+                            <p *ngIf="!renewalVal"><strong>क. </strong> स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको
                                 पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ । </p>
+                            <p *ngIf="renewalVal"><strong>क. </strong>  यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितो बन्धक पारित गरिदिएको देहाय बमोजिमको घर/जग्गा :</p>
                             <p style="text-align: center"><strong> सुरक्षण विवरण </strong></p>
                             <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
                             <p>
@@ -246,7 +248,7 @@
                     </tr>
 
                 </table>
-                <table class="table table-borderless" style="margin-top: 100px">
+                <table class="table table-borderless" style="margin-top: 118px">
                     <tr>
                         <td>२.</td>
                         <td>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट
@@ -341,7 +343,7 @@
                             मात्र) को अधिविकर्ष सिमा राखिनेछ ।
                     </tr>
                 </table>
-                <table class="table table-borderless" style="margin-top: -10px">
+                <table class="table table-borderless" style="margin-top: -18px">
                     <tr>
                         <td>१०.</td>
                         <td>तपाईले बैंकलाई प्रदान गर्नु भएका स्विकृत कर्जासंग सम्बन्धित सम्पूर्ण सूचनाहरु ठीक
@@ -448,6 +450,9 @@
                         </td>
                     </tr>
                 </table>
+                <div *ngIf="renewalVal" class="col-md-12">
+                    <div style="margin-top: 35px;"></div>
+                </div>
                 <table class="table table-borderless">
                     <tr>
                         <td>१४</td>
@@ -579,6 +584,8 @@
                             प्रति पटक रु. ५०० का दरले शुल्क लाग्नेछ ।
                         </td>
                     </tr>
+                </table>
+                <table class="table table-borderless">
                     <tr>
                         <td>२७.</td>
                         <td> बैंकबाट प्राप्त गर्नुहुने अन्य सेवा सुविधा सम्बन्धी शुल्क दस्तुर तथा शर्तहरु यस बैंकको
@@ -853,6 +860,7 @@
                     </ul>
                 </div>
             </div>
+    </div>
     </div>
 </div>
 
