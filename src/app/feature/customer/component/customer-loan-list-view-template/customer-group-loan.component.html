@@ -45,7 +45,7 @@
                                 class="fa fa-trash"></em></a>&nbsp;
                                 <a nbTooltip="Video KYC"  class="text-danger" *ngIf="isLoaded && loan[i].loan.loanTag === loanTag.getKeyByValue(loanTag.REMIT_LOAN)"  (click)="addVideoKyc(model)">
                                     <em class="fa fa-camera"></em>
-                                </a>
+                                </a>&nbsp;
                               <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
                                   class="fa fa-trash"></em></a>&nbsp;
 

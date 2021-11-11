@@ -45,6 +45,7 @@ import {JointFormComponent} from './component/customer-form/joint-form/joint-for
 import {ChangeLoanComponent} from './component/change-loan/change-loan.component';
 import {VideoKycComponent} from '../video-kyc/video-kyc.component';
 import {VideoKycModule} from '../video-kyc/video-kyc.module';
+import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -99,7 +100,8 @@ const COMPONENTS = [
         FeatureModule,
         CbsGroupModule,
         MicroLoanModule,
-        VideoKycModule
+        VideoKycModule,
+      LoanInformationDetailViewModule
 
     ],
   entryComponents: [
