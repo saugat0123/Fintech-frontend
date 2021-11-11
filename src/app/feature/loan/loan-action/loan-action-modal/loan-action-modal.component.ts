@@ -48,12 +48,6 @@ export class LoanActionModalComponent implements OnInit {
     userList: Array<User> = new Array<User>();
     sendForwardBackwardList = [];
     roleId: number;
-    solUserList: Array<User> = new Array<User>();
-    showHideSolUser = false;
-    solNoUserMessage = 'No User Present in this Role';
-    solNoUserSelectedMessage = 'Please Select User For Sol';
-    isNoUserSol = false;
-    isNoUserSelectedSol = false;
     isEmptyUser = false;
     showUserList = true;
     ckeConfig = Editor.CK_CONFIG;
@@ -78,8 +72,10 @@ export class LoanActionModalComponent implements OnInit {
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
+        console.log('loan holder', this.customerLoanHolder);
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
-            this.isHSOVChecked(this.customerLoanHolder.isSol);
+            console.log('loan holder hsov', this.customerLoanHolder.isHSOV);
+            this.isHSOVChecked(this.customerLoanHolder.isHSOV);
         }
     }
 
@@ -211,11 +207,7 @@ export class LoanActionModalComponent implements OnInit {
                     }
                 }
             });
-
-
         }
-
-
     }
 
     private buildForm(): FormGroup {
@@ -228,10 +220,7 @@ export class LoanActionModalComponent implements OnInit {
             docActionMsg: [this.docActionMsg],
             comment: [undefined, Validators.required],
             documentStatus: [this.documentStatus],
-            isSol: [undefined],
             isHsov: [undefined],
-            solUser: [undefined],
-            selectedRoleForSol: [undefined]
         });
     }
 
