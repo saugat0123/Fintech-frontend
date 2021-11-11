@@ -267,16 +267,34 @@ submit(): void {
             totalLoanAmount = totalLoanAmount + val;
         });
         let dateOfApprovalTemp;
-        if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApproval)) {
+        const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
+        // if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApproval)) {
+        //     dateOfApprovalTemp = this.dateConversion(this.initialInfoPrint.dateOfApproval);
+        // }
+        if (dateOfApprovalType === 'AD') {
             dateOfApprovalTemp = this.dateConversion(this.initialInfoPrint.dateOfApproval);
+        } else {
+            dateOfApprovalTemp = this.initialInfoPrint.dateOfApprovalNepali.en.nDate;
         }
         let tempDateOfApplication;
-        if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApplication)) {
+        const dateOfApplicationType = this.initialInfoPrint.dateOfApplicationType ? this.initialInfoPrint.dateOfApplicationType.en : '';
+        // if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApplication)) {
+        //     tempDateOfApplication = this.dateConversion(this.initialInfoPrint.dateOfApplication);
+        // }
+        if (dateOfApplicationType === 'AD') {
             tempDateOfApplication = this.dateConversion(this.initialInfoPrint.dateOfApplication);
+        } else {
+            tempDateOfApplication = this.initialInfoPrint.dateOfApplicationNepali.en.nDate;
         }
         let tempDateOfExpiry;
-        if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateofExpiry)) {
+        // if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateofExpiry)) {
+        //     tempDateOfExpiry = this.dateConversion(this.initialInfoPrint.dateofExpiry);
+        // }
+        const dateOfExpiryType = this.initialInfoPrint.dateOfExpiryType ? this.initialInfoPrint.dateOfExpiryType.en : '';
+        if (dateOfExpiryType === 'AD') {
             tempDateOfExpiry = this.dateConversion(this.initialInfoPrint.dateofExpiry);
+        } else {
+            tempDateOfExpiry = this.initialInfoPrint.dateofExpiryNepali ? this.initialInfoPrint.dateofExpiryNepali.en.nDate : '';
         }
         this.retailProfessionalLoan.patchValue({
             nameOfCustomer: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',

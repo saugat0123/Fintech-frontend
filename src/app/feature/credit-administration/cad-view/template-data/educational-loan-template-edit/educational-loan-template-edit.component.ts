@@ -22,6 +22,8 @@ import {Attributes} from '../../../../../@core/model/attributes';
 import {RetailProfessionalLoanComponent} from '../../../mega-offer-letter-template/mega-offer-letter/retail-professional-loan/retail-professional-loan.component';
 import {SecurityDetails} from '../../../cad-document-template/nabil/securities-view/model/securities-details.model';
 import {Securities} from '../../../cad-document-template/nabil/securities-view/model/securities.model';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-educational-loan-template-edit',
@@ -81,6 +83,8 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       private toastService: ToastService,
       private addressService: AddressService,
       public  modalService: NgbActiveModal,
+      private datePipe: DatePipe,
+      private engNepDatePipe: EngNepDatePipe
   ) {
   }
 
@@ -96,10 +100,28 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     this.getAllDistrict();
     console.log(this.initialInformation);
     if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      const dateOfApproval1 = this.initialInformation.dateOfApprovalType ? this.initialInformation.dateOfApprovalType.en : '';
+      if (dateOfApproval1 === 'AD') {
+        this.dateTypeAD = true;
+      } else {
+        this.dateTypeBS = true;
+      }
+      const dateOfApplication1 = this.initialInformation.dateOfApplicationType ? this.initialInformation.dateOfApplicationType.en : '';
+      if (dateOfApplication1 === 'AD') {
+        this.dateTypeAD1 = true;
+      } else {
+        this.dateTypeBS1 = true;
+      }
+      const dateOfExpiry1 = this.initialInformation.dateOfExpiryType ? this.initialInformation.dateOfExpiryType.en : '';
+      if (dateOfExpiry1 === 'AD') {
+        this.dateTypeAD2 = true;
+      } else {
+        this.dateTypeBS2 = true;
+      }
       this.fieldFlag = true;
-      this.dateTypeAD = true;
-      this.dateTypeAD1 = true;
-      this.dateTypeAD2 = true;
+      // this.dateTypeAD = true;
+      // this.dateTypeAD1 = true;
+      // this.dateTypeAD2 = true;
       this.selectedSecurityVal = this.initialInformation.selectedSecurity.en;
       this.selectedCountryVal = this.initialInformation.selectedCountry.en;
       this.securityDetails = this.initialInformation.securityDetails;
@@ -171,9 +193,15 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       loanLimitChecked: [undefined],
 
       dateOfApproval: [undefined],
+      dateOfApprovalType: [undefined],
+      dateOfApprovalNepali: [undefined],
       //referenceNumber: [undefined],
       dateOfApplication: [undefined],
+      dateOfApplicationNepali: [undefined],
+      dateOfApplicationType: [undefined],
       dateofExpiry:[undefined],
+      dateofExpiryNepali: [undefined],
+      dateOfExpiryType: [undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
       fixedDepositReceiptAmountFigure: [undefined],
@@ -224,9 +252,15 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       //referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
+      dateOfApplicationNepaliTransVal: [undefined],
+      dateOfApplicationTypeTransVal: [undefined],
       dateofExpiryTransVal:[undefined],
+      dateofExpiryNepaliTransVal: [undefined],
+      dateOfExpiryTypeTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
       fixedDepositReceiptAmountFigureTransVal: [undefined],
@@ -542,6 +576,34 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       this.form.get('accountNumberTransVal').patchValue(data.accountNumber);
       this.form.get('bankNameTransVal').patchValue(data.bankName);
     }
+    if (this.dateTypeAD) {
+      const actualDateOfApproval = this.form.get('dateOfApproval').value;
+      // tslint:disable-next-line:max-line-length
+      this.form.get('dateOfApprovalTransVal').patchValue(this.engNepDatePipe.transform(this.datePipe.transform(actualDateOfApproval), true));
+    } else {
+      const actualDateOfNepali = this.form.get('dateOfApprovalNepali').value;
+      this.form.get('dateOfApprovalNepaliTransVal').patchValue(actualDateOfNepali.nDate);
+    }
+
+    // Set Ct Value for Date of Application:
+    if (this.dateTypeAD1) {
+      const finalDateOfApplication = this.form.get('dateOfApplication').value;
+      // tslint:disable-next-line:max-line-length
+      this.form.get('dateOfApplicationTransVal').patchValue(this.engNepDatePipe.transform(this.datePipe.transform(finalDateOfApplication), true));
+    } else {
+      const finalNepaliDate = this.form.get('dateOfApplicationNepali').value;
+      this.form.get('dateOfApplicationNepaliTransVal').patchValue(finalNepaliDate.nDate);
+    }
+
+    // Set Ct Value for Date of Expiry:
+    if (this.dateTypeAD2) {
+      const finalDateOfExpiry = this.form.get('dateofExpiry').value;
+      // tslint:disable-next-line:max-line-length
+      this.form.get('dateofExpiryTransVal').patchValue(this.engNepDatePipe.transform(this.datePipe.transform(finalDateOfExpiry), true));
+    } else {
+      const dateOfExpiryNepali = this.form.get('dateofExpiryNepali').value;
+      this.form.get('dateofExpiryNepaliTransVal').patchValue(dateOfExpiryNepali.nDate);
+    }
   }
 
   private clearConditionalValidation(): void {
@@ -561,9 +623,26 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
     // set en value
     this.form.get('selectedCountry').patchValue(this.initialInformation.selectedCountry.en);
     this.form.get('selectedSecurity').patchValue(this.initialInformation.selectedSecurity.en);
-    this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
+    // this.form.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
+    // Set Date of Approval
+    this.form.get('dateOfApprovalType').patchValue(this.initialInformation.dateOfApprovalType.en);
+    if (this.initialInformation.dateOfApprovalType.en === 'AD') {
+      this.form.get('dateOfApproval').patchValue(new Date(this.initialInformation.dateOfApproval.en));
+    } else {
+      const dateApproval = this.initialInformation.dateOfApprovalNepali ? this.initialInformation.dateOfApprovalNepali.en : '';
+      this.form.get('dateOfApprovalNepali').patchValue(dateApproval);
+    }
     //this.form.get('referenceNumber').patchValue(this.initialInformation.referenceNumber.en);
-    this.form.get('dateOfApplication').patchValue(this.initialInformation.dateOfApplication.en);
+    // Set Date Of Application:
+    this.form.get('dateOfApplicationType').patchValue(this.initialInformation.dateOfApplicationType.en);
+    if (this.initialInformation.dateOfApplicationType.en === 'AD') {
+      this.form.get('dateOfApplication').patchValue(new Date(this.initialInformation.dateOfApplication.en));
+    }
+    if (this.initialInformation.dateOfApplicationType.en === 'BS') {
+      const dateApplication = this.initialInformation.dateOfApplicationNepali ? this.initialInformation.dateOfApplicationNepali.en : '';
+      this.form.get('dateOfApplicationNepali').patchValue(dateApplication);
+    }
+    // this.form.get('dateOfApplication').patchValue(this.initialInformation.dateOfApplication.en);
     this.form.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
     this.form.get('fixedDepositReceiptAmountWords').patchValue(this.initialInformation.fixedDepositReceiptAmountWords.en);
     this.form.get('baseRate').patchValue(this.initialInformation.baseRate.en);
@@ -606,7 +685,16 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       this.form.get('bankName').patchValue(this.initialInformation.bankName.en);
     }
     if (this.selectedSecurityVal === 'FIXED_DEPOSIT') {
-      this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
+      // this.form.get('dateofExpiry').patchValue(this.initialInformation.dateofExpiry.en);
+      this.form.get('dateOfExpiryType').patchValue(this.initialInformation.dateOfExpiryType.en);
+      // set value for the date of expiry
+      const expiryDateType = this.initialInformation.dateOfExpiryType ? this.initialInformation.dateOfExpiryType.en : '';
+      if (expiryDateType === 'AD') {
+        const newExpiryDate = this.initialInformation.dateofExpiry ? this.initialInformation.dateofExpiry.en : '';
+        this.form.get('dateofExpiry').patchValue(new Date(newExpiryDate));
+      } else {
+        this.form.get('dateofExpiryNepali').patchValue(this.initialInformation.dateofExpiryNepali.en);
+      }
     }
 
     // set ct value

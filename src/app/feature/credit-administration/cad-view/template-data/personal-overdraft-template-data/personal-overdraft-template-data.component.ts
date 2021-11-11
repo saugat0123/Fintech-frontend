@@ -97,7 +97,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       renewalChecked: [undefined],
       // referenceNumber: [undefined],
       dateOfApproval: [undefined],
+      dateOfApprovalNepali: [undefined],
       dateofApplication: [undefined],
+      dateofApplicationNepali: [undefined],
       purposeOfLoan: [undefined],
       drawingPower: [undefined],
       baseRate: [undefined],
@@ -112,6 +114,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
+      dateOfApprovalType: [undefined],
+      dateofApplicationType: [undefined],
 
       // fortranslatedvalue
       selectedSecurityTransVal: [undefined],
@@ -119,7 +123,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       renewalCheckedTransVal: [undefined],
       // referenceNumberTransVal: [undefined, Validators.required],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
+      dateofApplicationNepaliTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       drawingPowerTransVal: [undefined],
       baseRateTransVal: [undefined],
@@ -134,7 +140,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined, Validators.required],
       nameofBranchManagerTransVal: [undefined, Validators.required],
-      securities: this.formBuilder.array([])
+      securities: this.formBuilder.array([]),
+      dateOfApprovalTypeTransVal: [undefined],
+      dateofApplicationTypeTransVal: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -258,7 +266,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     console.log('Data Value:', data);
     // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
+    this.form.get('dateOfApprovalNepaliTransVal').patchValue(this.translatedData.dateOfApprovalNepali);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
+    this.form.get('dateofApplicationNepaliTransVal').patchValue(this.translatedData.dateofApplicationNepali);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
     // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
