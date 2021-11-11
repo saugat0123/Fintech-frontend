@@ -17,6 +17,15 @@
                                    [(ngModel)]="loanConfig.name">
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><h6>Scheme Name in Nepali</h6></label>
+                            <input type="hidden" class="form-control" [(ngModel)]="loanConfig.id" name="id"
+                                   placeholder="id">
+                            <input type="text" class="form-control" name="nepaliName" required placeholder="गृह ऋण"
+                                   [(ngModel)]="loanConfig.nepaliName">
+                        </div>
+                    </div>
                     <div class="col-md-6 row">
                         <div class="col-md-12 form-group">
                             <label for="fundable"><h6>Loan Type</h6></label>
