@@ -139,7 +139,7 @@
                          type="text"
                          formControlName="monthlyPayment">
                   / - सम मासिक किस्ता (EMI BASIS) मा असुल उपर गरिने छ ।
-                  <input class="form-control-sm form-field nepaliFont font-size-normal"
+                  <input class="form-control-sm form-field nepaliFont uniFont"
                          type="text"
                          readonly
                          formControlName="yearlyInterest">
@@ -200,7 +200,7 @@
                            [value]="form.get('interestTempDiscountRate').value">
                     % =
                     <input
-                        class="form-control-sm form-field nepaliFont font-size-normal"
+                        class="form-control-sm form-field nepaliFont uniFont"
                         type="text"
                         readonly
                         formControlName="yearlyInterest">%
@@ -208,7 +208,7 @@
                   (Base Rate + Risk Premium - Temporary Discount = Interest Rate)<br>
                   कर्जाको अवधि कर्जा स्वीकृत भएको मितिबाट
                   <input
-                      class="form-control-sm form-field nepaliFont font-size-normal"
+                      class="form-control-sm form-field nepaliFont"
                       type="text"
                       readonly
                       [value]="form.get('loanLimitTime').value">वर्ष, भुक्तानीको आधारमा सो अवधि भित्र ।
@@ -438,12 +438,10 @@
                   <strong>श्री </strong>
                   <input class="form-control-sm form-field nepaliFont"
                          type="text"
-                         readonly
                          formControlName="shreeName1">
                   र
                   <input class="form-control-sm form-field nepaliFont"
                          type="text"
-                         readonly
                          formControlName="shreeName2">
                   को रु.
                   <input
