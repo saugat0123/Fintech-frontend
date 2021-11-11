@@ -11,19 +11,19 @@
                     बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२
                     स्थित
                     रजिष्टर्ड कार्यालय रहेको <strong>प्रोग्रेशिभ फाईनान्स लिमिटेडको</strong>
-                    <span [ngClass]="{'nepaliFont':printDocForm?.district!==null && printDocForm.district!==''}">
+                    <span [ngClass]="{'nepaliFont sizeFont':printDocForm?.district!==null && printDocForm.district!==''}">
             {{printDocForm?.district === null || printDocForm?.district === '' ? '________________' : printDocForm.district }}
           </span>
                     जिल्ला <span
-                        [ngClass]="{'nepaliFont':printDocForm?.municipality!==null && printDocForm.municipality!==''}">
+                        [ngClass]="{'nepaliFont sizeFont':printDocForm?.municipality!==null && printDocForm.municipality!==''}">
             {{printDocForm?.municipality === null || printDocForm?.municipality === '' ? '________________' : printDocForm.municipality }}
           </span>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा. वडा नं.<span
-                        [ngClass]="{'nepaliFont':printDocForm?.wadNo!==null && printDocForm.wadNo!==''}">
+                        [ngClass]="{'nepaliFont sizeFont':printDocForm?.wadNo!==null && printDocForm.wadNo!==''}">
             {{printDocForm?.wadNo === null || printDocForm?.wadNo === '' ? '________________' : printDocForm.wadNo }}
           </span>
                     स्थित <span
-                        [ngClass]="{'nepaliFont':printDocForm?.branchName!==null && printDocForm.branchName!==''}">
+                        [ngClass]="{'nepaliFont sizeFont':printDocForm?.branchName!==null && printDocForm.branchName!==''}">
             {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '________________' : printDocForm.branchName }}
           </span>
                     शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा <strong>“धनी वित्तीय संस्था”</strong> भनिएको)
@@ -274,9 +274,10 @@
             <br>
             <b>साक्षी :</b>
             <div class="row">
-                <div class="col-md-6">
-                    <p>१.नाम <span
-                            [ngClass]="{'nepaliFont':printDocForm?.name!==null && printDocForm.name!==''}">
+                <div class="col-md-12">
+                    <p>१. दस्तखत: .............................. <br>
+                        नाम <span
+                                [ngClass]="{'nepaliFont':printDocForm?.name!==null && printDocForm.name!==''}">
                                 {{printDocForm?.name === null || printDocForm?.name === '' ? '________________' : printDocForm.name }}
                               </span>
                         (ना.प्र.नं. <span
@@ -307,9 +308,12 @@
                                   </span>
                     </p>
                 </div>
-                <div class="col-md-6">
-                    <p>२.नाम <span
-                            [ngClass]="{'nepaliFont':printDocForm?.name1!==null && printDocForm.name1!==''}">
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>२.दस्तखत: .............................. <br>
+                        नाम <span
+                                [ngClass]="{'nepaliFont':printDocForm?.name1!==null && printDocForm.name1!==''}">
                                 {{printDocForm?.name1 === null || printDocForm?.name1 === '' ? '________________' : printDocForm.name1 }}
                               </span>
                         (ना.प्र.नं. <span
