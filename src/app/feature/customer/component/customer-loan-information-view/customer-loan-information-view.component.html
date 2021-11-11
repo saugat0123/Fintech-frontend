@@ -273,7 +273,7 @@
         </ng-template>
       </div>
 
-      <div class="col-md-4" *ngIf="customerInfo?.reportingInfoLevels">
+      <div class="col-md-4" *ngIf="customerInfo?.reportingInfoLevels.length>0">
         <nb-card class="col-md-11 py-2" #customerReporting>
           <a class="cursor info-label" (click)="openModel(customerComponentTemplate)">
             <div class="row col-md-12">
