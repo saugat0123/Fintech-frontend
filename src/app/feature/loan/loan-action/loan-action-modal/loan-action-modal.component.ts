@@ -148,16 +148,8 @@ export class LoanActionModalComponent implements OnInit {
                 return;
             }
             if (this.isMaker) {
-                const isSolSelected = this.formAction.get('isSol').value;
-                if (isSolSelected) {
-                    const selectedSolUser = this.formAction.get('solUser').value;
-                    if (ObjectUtil.isEmpty(selectedSolUser)) {
-                        this.isNoUserSelectedSol = true;
-                        return;
-                    }
-                }
+                console.log('hsov');
             }
-
             const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
                 context: {
                     toUser: this.formAction.get('toUser').value,
