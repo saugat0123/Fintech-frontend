@@ -17,6 +17,7 @@ import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-offer-letter-hire-purchase-and-auto-loan',
@@ -35,6 +36,7 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepaliData;
   loanAmountTemplate = new NepaliNumberAndWords();
+  nepDataPersonal = new NepDataPersonal();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -58,12 +60,20 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
 
   fillForm() {
     this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
+    let allGuarantors = '';
+    if (!ObjectUtil.isEmpty(this.nepaliData)) {
+      (this.nepaliData.guarantorDetails).forEach(guarantor => {
+        allGuarantors = allGuarantors + guarantor.name + ', ';
+      });
+      allGuarantors = allGuarantors.slice(0, -2);
+      allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');
       const customerAddress =
-          this.nepaliData.permanentMunicipality + ', ' +
+          this.nepaliData.permanentMunicipality + ' वडा नं. ' +
           this.nepaliData.permanentWard + ', ' +
           this.nepaliData.permanentDistrict;
       const customerTempAddress =
-          this.nepaliData.temporaryMunicipality + ', ' +
+          this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
           this.nepaliData.temporaryWard + ', ' +
           this.nepaliData.temporaryDistrict;
       this.form.patchValue({
@@ -78,7 +88,13 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
         signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
         signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
         signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        financeBranch: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
+        serviceCharge: this.nepDataPersonal.serviceFee ? this.nepDataPersonal.serviceFee : '',
+        loanLimitTime: this.nepDataPersonal.tenureOfLoanInYears ? this.nepDataPersonal.tenureOfLoanInYears : '',
+        shreeName1: allGuarantors ? allGuarantors : '',
+        shreeName2: allGuarantors ? allGuarantors : ''
       });
+    }
   }
 
   checkOfferLetter() {
@@ -260,7 +276,7 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       paFile: [undefined],
       date: [undefined],
       customerName: [undefined],
-      branchName: [undefined],
+      financeBranch: [undefined],
       customerAddress: [undefined],
       customerTempAddress: [undefined],
       customerCitizenshipAddress: [undefined],
@@ -268,7 +284,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       primaryCollaterals: this.formBuilder.array([]),
       additionalCollaterals: this.formBuilder.array([]),
       dhitoDate: [undefined],
-      yearDate: [undefined],
       currentDate: [undefined],
       marketPrice: [undefined],
       distestPrice: [undefined],
@@ -279,8 +294,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       amount3: [undefined],
       amountInWords3: [undefined],
       amount4: [undefined],
-      financeBranch: [undefined],
-      financeBranch1: [undefined],
       telephoneNumber: [undefined],
       currentAddress1: [undefined],
       customerMobileNum1: [undefined],

@@ -378,7 +378,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             amountInWords2: [undefined],
             amount3: [undefined],
             amountInWords3: [undefined],
-            
             financeBranch: [undefined],
             financeMunicipality: [undefined],
             financeWardNum: [undefined],
