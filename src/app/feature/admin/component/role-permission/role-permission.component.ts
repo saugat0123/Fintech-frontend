@@ -54,6 +54,10 @@ export class RolePermissionComponent implements OnInit {
 
         other.roleService.getActiveRoles().subscribe((response: any) => {
             other.roleList = response.detail;
+        }, error => {
+            if (error.status === 403) {
+                other.router.navigate(['home/error']);
+            }
         });
     }
 
@@ -156,7 +160,7 @@ export class RolePermissionComponent implements OnInit {
 
                 this.rolePerm = [];
                 this.spinner = false;
-                // this.roleChanged(this.roleId);
+                this.roleChanged(this.roleId);
                 this.isDisabled = false;
                 RolePermissionComponent.loadData(this);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role & Permission!'));

@@ -7,6 +7,7 @@ import {NotificationMasterType} from '../../../../@core/model/enum/NotificationM
 import {NotificationMasterService} from './notification-master.service';
 import {ToastService} from '../../../../@core/utils';
 import {Status} from '../../../../@core/Status';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-notification-master',
@@ -36,7 +37,8 @@ export class NotificationMasterComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private notificationMasterService: NotificationMasterService,
-      private toastService: ToastService
+      private toastService: ToastService,
+      private router: Router
   ) {
   }
 
@@ -61,7 +63,11 @@ export class NotificationMasterComponent implements OnInit {
       this.buildForm();
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load data!'));
+      if (error.status === 403) {
+        this.router.navigate(['/home/error']);
+      } else {
+        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load data!'));
+      }
     });
   }
 

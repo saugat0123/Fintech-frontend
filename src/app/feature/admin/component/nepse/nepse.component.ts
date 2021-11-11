@@ -10,6 +10,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {NepseService} from './nepse.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
 import {Status} from '../../../../@core/Status';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-nepse',
@@ -39,7 +40,8 @@ export class NepseComponent implements OnInit {
         private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private router: Router
     ) {
     }
 
@@ -53,7 +55,11 @@ export class NepseComponent implements OnInit {
 
             }, error => {
 
+            if (error.status === 403) {
+                other.router.navigate(['/home/error']);
+            } else {
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+            }
                 other.spinner = false;
             }
         );

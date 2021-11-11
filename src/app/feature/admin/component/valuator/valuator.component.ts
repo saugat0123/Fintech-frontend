@@ -19,6 +19,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {BranchService} from '../branch/branch.service';
 import {Branch} from '../../modal/branch';
 import {ValuatingField} from '../../modal/valuatingField';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-valuator',
@@ -57,7 +58,8 @@ export class ValuatorComponent implements OnInit {
         private modalService: NgbModal,
         private toastService: ToastService,
         private formBuilder: FormBuilder,
-        private branchService: BranchService
+        private branchService: BranchService,
+        private router: Router
     ) {
     }
 
@@ -73,8 +75,12 @@ export class ValuatorComponent implements OnInit {
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
             }, error => {
+            if (error.status === 403) {
+                other.router.navigate(['/home/error']);
+            } else {
                 console.error(error);
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+            }
                 other.spinner = false;
             }
         );

@@ -55,11 +55,14 @@ export class LoanConfigComponent implements OnInit {
                 other.spinner = false;
 
             }, error => {
-
+            if (error.status === 403) {
+                other.router.navigate(['/home/error']);
+            } else {
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data, Please Contact Support!'));
                 console.log(error);
+            }
 
-                other.spinner = false;
+            other.spinner = false;
             }
         );
 

@@ -16,6 +16,7 @@ import {Role} from "../../modal/role";
 import {LoanConfig} from "../../modal/loan-config";
 import {RoleService} from "../role-permission/role.service";
 import {LoanConfigService} from "../loan-config/loan-config.service";
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-approval-limit',
@@ -58,6 +59,7 @@ export class ApprovalLimitComponent implements OnInit {
         private formBuilder: FormBuilder,
         private roleService: RoleService,
         private loanConfigService: LoanConfigService,
+        private router: Router
     ) {
     }
 
@@ -68,9 +70,13 @@ export class ApprovalLimitComponent implements OnInit {
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
         }, error => {
-            console.log(error);
-            const alert = new Alert(AlertType.ERROR, error.error.message);
-            other.toastService.show(alert);
+            if (error.status === 403) {
+                other.router.navigate(['home/error']);
+            } else {
+                console.log(error);
+                const alert = new Alert(AlertType.ERROR, error.error.message);
+                other.toastService.show(alert);
+            }
             other.spinner = false;
         });
     }
