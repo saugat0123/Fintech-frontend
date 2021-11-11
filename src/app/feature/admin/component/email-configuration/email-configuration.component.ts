@@ -34,6 +34,10 @@ export class EmailConfigurationComponent implements OnInit {
                 this.notice = true;
                 this.buildForm();
             }
+        }, err => {
+            if (err.status === 403) {
+                this.router.navigate(['/home/error']);
+            }
         });
 
     }

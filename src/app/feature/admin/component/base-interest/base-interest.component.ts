@@ -8,6 +8,8 @@ import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BaseInterestFormComponent} from './base-interest-form/base-interest-form.component';
 import {Action} from '../../../../@core/Action';
+import {error} from 'protractor';
+import {Router} from '@angular/router';
 
 
 
@@ -25,7 +27,8 @@ export class BaseInterestComponent implements OnInit {
 
     constructor(private baseInterestService: BaseInterestService,
                 private toastService: ToastService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private router: Router) {
     }
 
     static loadData(other: BaseInterestComponent) {
@@ -34,8 +37,13 @@ export class BaseInterestComponent implements OnInit {
             other.listing = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
-        }, () => {
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+        }, (err) => {
+            if (err.status === 403) {
+                other.router.navigate(['/home/error']);
+            } else {
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+            }
+
             other.spinner = false;
         });
     }

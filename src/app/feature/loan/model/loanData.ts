@@ -35,8 +35,8 @@ import {CadDocument} from './cadDocument';
 import {User} from '../../admin/modal/user';
 import {Comments} from '../../admin/modal/comments';
 import {CrgMicro} from './CrgMicro';
-import {CustomerLoanDto} from './CustomerLoanDto';
 import {CollateralSiteVisitDto} from './collateralSiteVisitDto';
+import {CustomerLoanDto} from './customerLoanDto';
 
 
 export class LoanDataHolder extends BaseEntity {

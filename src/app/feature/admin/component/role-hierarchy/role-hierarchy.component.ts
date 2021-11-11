@@ -7,6 +7,8 @@ import {RoleService} from '../role-permission/role.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {error} from 'protractor';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-role-hierarchy',
@@ -29,7 +31,8 @@ export class RoleHierarchyComponent implements OnInit {
         private service: RoleHierarchyService,
         private roleService: RoleService,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private router: Router
     ) {
     }
 
@@ -39,6 +42,11 @@ export class RoleHierarchyComponent implements OnInit {
         this.service.getAll().subscribe((response: any) => {
             this.roleList = response.detail;
             this.length = this.roleList.length > 0;
+
+        }, err => {
+            if (err.status === 403) {
+                this.router.navigate(['home/error']);
+            }
 
         });
 

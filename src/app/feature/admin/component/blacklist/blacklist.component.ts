@@ -9,6 +9,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {DocType} from '../../modal/docType';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-blacklist',
@@ -28,7 +29,8 @@ export class BlacklistComponent implements OnInit {
   constructor(
       private modalService: NgbModal,
       private blackListService: BlacklistService,
-      private toastService: ToastService
+      private toastService: ToastService,
+      private router: Router
   ) { }
 
   static loadData(other: BlacklistComponent) {
@@ -40,7 +42,12 @@ export class BlacklistComponent implements OnInit {
 
         }, error => {
 
-          other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+          if (error.status === 403) {
+            other.router.navigate(['/home/error']);
+          } else {
+
+            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+          }
           other.spinner = false;
         }
     );

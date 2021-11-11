@@ -7,6 +7,7 @@ import {FiscalYearService} from '../../../service/fiscal-year.service';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-financial-config',
@@ -22,7 +23,9 @@ export class FinancialConfigComponent implements OnInit {
 
   constructor(private toastService: ToastService,
               private dialogService: NbDialogService,
-              private fiscalYearService: FiscalYearService) {
+              private fiscalYearService: FiscalYearService,
+              private router: Router
+              ) {
   }
 
   ngOnInit() {
@@ -35,7 +38,11 @@ export class FinancialConfigComponent implements OnInit {
       this.pageable = PaginationUtils.getPageable(response.detail);
       this.spinner = false;
     }, error => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'failed to load fiscal years'));
+      if (error.status === 403) {
+        this.router.navigate(['/home/error']);
+      } else {
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'failed to load fiscal years'));
+      }
       this.spinner = false;
     });
   }
