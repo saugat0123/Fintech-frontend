@@ -1,12 +1,13 @@
 <nb-card>
 <nb-card-header class="container-fluid" [nbSpinner]="spinner">
     <div class="row">
-        <div class="col-md-12" style="height: 125px;">
+        <div class="col-md-4" style="height: 125px;">
             <form [formGroup]="homeLoanForm">
+                <label><strong>Home Loan Case</strong></label>
                 <ng-select (change)="typeOfHomeLoan($event)"
                            [multiple]="false"
                            formControlName="homeLoanType"
-                           placeholder="Select Home Loan Type">
+                           placeholder="Select Case Type">
                     <ng-option *ngFor="let typeOfLoan of homeLoanType" [value]="typeOfLoan.value">{{typeOfLoan.value}}</ng-option>
                 </ng-select>
             </form>
