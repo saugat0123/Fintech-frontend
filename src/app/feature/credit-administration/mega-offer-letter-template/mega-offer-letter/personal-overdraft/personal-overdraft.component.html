@@ -20,20 +20,25 @@
                        placeholder=" सन्दर्भ नम्बर "
                        type="text"/>
                 <br>
-                <p *ngIf="initialInfoPrint.dateOfApproval.en.nDate === undefined; else dateOfApprovalNepali" class="text-left">
+                <p class="text-left">
                     मितिः <input class="form-field form-control-sm"
                                  formControlName="dateOfApproval"
-                                 [value]="initialInfoPrint.dateOfApproval.en === undefined ? '' : ((initialInfoPrint.dateOfApproval.en | date) | engNepDate: true)"
                                  type="text"/>
                 </p>
-                <ng-template #dateOfApprovalNepali>
-                    <p>
-                        मितिः <input class="form-field form-control-sm"
-                                     formControlName="dateOfApproval"
-                                     [value]="initialInfoPrint.dateOfApproval.en.nDate === undefined ? '' : initialInfoPrint.dateOfApproval.en.nDate"
-                                     type="text"/>
-                    </p>
-                </ng-template>
+<!--                <p *ngIf="initialInfoPrint.dateOfApproval.en.nDate === undefined; else dateOfApprovalNepali" class="text-left">-->
+<!--                    मितिः <input class="form-field form-control-sm"-->
+<!--                                 formControlName="dateOfApproval"-->
+<!--                                 [value]="initialInfoPrint.dateOfApproval.en === undefined ? '' : ((initialInfoPrint.dateOfApproval.en | date) | engNepDate: true)"-->
+<!--                                 type="text"/>-->
+<!--                </p>-->
+<!--                <ng-template #dateOfApprovalNepali>-->
+<!--                    <p>-->
+<!--                        मितिः <input class="form-field form-control-sm"-->
+<!--                                     formControlName="dateOfApproval"-->
+<!--                                     [value]="initialInfoPrint.dateOfApproval.en.nDate === undefined ? '' : initialInfoPrint.dateOfApproval.en.nDate"-->
+<!--                                     type="text"/>-->
+<!--                    </p>-->
+<!--                </ng-template>-->
                 <div class="mb-2">
                     <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else customerRelation"> श्री</span>
                     <ng-template #customerRelation>
@@ -65,23 +70,27 @@
                         <p>
                             महोदय, <br>
                             तपाईंले
-                        <span *ngIf="initialInfoPrint.dateofApplication.en.nDate === undefined; else dateofApplicationNepali" class="text-left">
+                        <span class="text-left">
                             मितिः <input class="form-field form-control-sm"
                                          formControlName="dateofApplication"
-                                         [value]="initialInfoPrint.dateofApplication.en === undefined ? '' : ((initialInfoPrint.dateofApplication.en | date) | engNepDate: true)"
                                          type="text"/>
                         </span>
-                        <ng-template #dateofApplicationNepali>
-                            <span>
-                                मितिः <input class="form-field form-control-sm"
-                                             formControlName="dateofApplication"
-                                             [value]="initialInfoPrint.dateofApplication.en.nDate === undefined ? '' : initialInfoPrint.dateofApplication.en.nDate"
-                                             type="text"/>
-                            </span>
-                        </ng-template>
+<!--                        <span *ngIf="initialInfoPrint.dateofApplication.en.nDate === undefined; else dateofApplicationNepali" class="text-left">-->
+<!--                            मितिः <input class="form-field form-control-sm"-->
+<!--                                         formControlName="dateofApplication"-->
+<!--                                         [value]="initialInfoPrint.dateofApplication.en === undefined ? '' : ((initialInfoPrint.dateofApplication.en | date) | engNepDate: true)"-->
+<!--                                         type="text"/>-->
+<!--                        </span>-->
+<!--                        <ng-template #dateofApplicationNepali>-->
+<!--                            <span>-->
+<!--                                मितिः <input class="form-field form-control-sm"-->
+<!--                                             formControlName="dateofApplication"-->
+<!--                                             [value]="initialInfoPrint.dateofApplication.en.nDate === undefined ? '' : initialInfoPrint.dateofApplication.en.nDate"-->
+<!--                                             type="text"/>-->
+<!--                            </span>-->
+<!--                        </ng-template>-->
                             मा व्यक्तिगत
                             अधिविकर्ष
-                            {{renewal}}
                             <span *ngIf="!renewal"> सुविधाको </span>
                             <span *ngIf="renewal">
                                सुविधा नविकरणको
@@ -262,7 +271,8 @@
                             <td></td>
                             <td>
 
-                                <p><strong>क. </strong>  स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ । </p>
+                                <p *ngIf="!renewal"><strong>क. </strong>  स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ । </p>
+                                <p *ngIf="renewal"><strong>क. </strong>  यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितो बन्धक पारित गरिदिएको देहाय बमोजिमको घर/जग्गा :</p>
                                 <p style="text-align: center"> <strong>सुरक्षण विवरण </strong></p>
                                 <div class="pb-4">
                                     <app-securities-view [securityDetails]="offerDocumentDetails?.securityDetails"></app-securities-view>
