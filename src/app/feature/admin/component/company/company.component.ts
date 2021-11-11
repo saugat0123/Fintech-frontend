@@ -9,6 +9,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {CompanyService} from './company.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-company',
@@ -38,7 +39,8 @@ export class CompanyComponent implements OnInit {
         private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private router: Router
     ) {
     }
 
@@ -49,8 +51,12 @@ export class CompanyComponent implements OnInit {
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
             }, error => {
+            if (error.status === 403) {
+                other.router.navigate(['/home/error']);
+            } else {
                 console.log(error);
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Company Data'));
+            }
             }
         );
     }
