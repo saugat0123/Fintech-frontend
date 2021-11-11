@@ -137,14 +137,17 @@ export class LoanDeedIndividualComponent implements OnInit {
 
 
     let approvedDate: any;
+    console.log('Loan Deed Data', this.offerDocumentDetails);
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval)) {
       // tslint:disable-next-line:max-line-length
-        approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
+      // approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
+      if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD' || this.offerDocumentDetails.dateOfApproval.en) {
+        // tslint:disable-next-line:max-line-length
+        approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+      } else {
+        approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
+      }
     }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateofApproval)) {
-      approvedDate = this.offerDocumentDetails.dateofApproval && this.offerDocumentDetails.dateofApproval.en.eDate ? this.offerDocumentDetails.dateofApproval.en.eDate : this.offerDocumentDetails.dateofApproval && this.offerDocumentDetails.dateofApproval.en ? this.offerDocumentDetails.dateofApproval.en : '';
-    }
-
     this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
 
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Educational Loan') {
@@ -339,18 +342,10 @@ export class LoanDeedIndividualComponent implements OnInit {
           this.expiryDate = initialInformation.dateofExpiryNepali.en;
         }
       }
-      if (docName === 'Educational Loan') {
-        if (initialInformation.selectedSecurity.en === 'LAND' || initialInformation.selectedSecurity.en === 'LAND_AND_BUILDING') {
-          this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
-              .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।');
-          this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।';
-        }
-        if (initialInformation.selectedSecurity.en === 'FIXED_DEPOSIT') {
-          console.log('Educatioanal expiry date:', initialInformation);
-          // this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
-          //     .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।');
-          // this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।';
-        }
+      if (docName === 'Educational Loan' && (initialInformation.selectedSecurity.en === 'LAND' || initialInformation.selectedSecurity.en === 'LAND_AND_BUILDING')) {
+        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+            .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।');
+        this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।';
       }
       if (docName === 'Home Loan') {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
