@@ -14,6 +14,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-loan-deed-corporate',
@@ -28,6 +29,7 @@ export class LoanDeedCorporateComponent implements OnInit {
   form: FormGroup;
   offerLetterConst = ProgressiveLegalDocConst;
   customerOfferLetter: CustomerOfferLetter;
+  nepDataPersonal: NepDataPersonal;
   initialInfoPrint;
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
@@ -65,21 +67,43 @@ export class LoanDeedCorporateComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
+      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+      /*console.log('nepData...', this.nepDataPersonal);
+      console.log('nepaliData...', this.nepaliData);*/
       this.form.patchValue({
-        grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-        parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
-        age: this.nepaliData.age ? this.nepaliData.age : '',
-        likhitDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-        likhitMunicipalty: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-        likhitWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        tempVDC: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
-        staDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-        tempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-        citizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-        date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-        cdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        mantralayaName1: this.nepaliData.ministryOfGovernmentOfNepal ? this.nepaliData.ministryOfGovernmentOfNepal : '',
+        bibhaga: this.nepaliData.department ? this.nepaliData.department : '',
+        regKaryalaya: this.nepaliData.companyRegistrarOfficeDistrict ? this.nepaliData.companyRegistrarOfficeDistrict : '',
+        yen: this.nepaliData.nameOfRegisteringAct ? this.nepaliData.nameOfRegisteringAct : '',
+        yen2: this.nepaliData.yearOfActEnactment ? this.nepaliData.yearOfActEnactment : '',
+        regDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        praliNo1: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
+        sewaKaryalaya: this.nepaliData.taxPayerServiceOffice ? this.nepaliData.taxPayerServiceOffice : '',
+        regDate2: this.nepaliData.panRegistrationDate ? this.nepaliData.panRegistrationDate : '',
+        panNo: this.nepaliData.panNo ? this.nepaliData.panNo : '',
+        pramadJilla: this.nepaliData.companyRegistrarOfficeDistrict ? this.nepaliData.companyRegistrarOfficeDistrict : '',
+        pramadMunicipallity: this.nepaliData.companyRegistrarOfficeVdcMun ? this.nepaliData.companyRegistrarOfficeVdcMun : '',
+        pramadWardNo: this.nepaliData.companyRegistrarOfficeWardNo ? this.nepaliData.companyRegistrarOfficeWardNo : '',
+        // regKaryalaya2: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        riniName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        grandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+        parentName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+        husbandWifeName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
+        likhitDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+        likhitMunicipalty: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
+        likhitWadNo: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+        tempVDC: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+        staDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        tempWadNo: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+        age: this.nepaliData.borrowerAge ? this.nepaliData.borrowerAge : '',
+        customerName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        citizenshipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+        date: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+        cdoOffice: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+        district: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
+        municipality: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
+        wadNo: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
+        branchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
       });
     }
   }
@@ -194,6 +218,7 @@ export class LoanDeedCorporateComponent implements OnInit {
       tempVDC: [undefined],
       tempWadNo: [undefined],
       age: [undefined],
+      date1: [undefined],
       customerName: [undefined],
       citizenshipNo: [undefined],
       date: [undefined],

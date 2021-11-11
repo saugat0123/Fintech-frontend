@@ -1,12 +1,12 @@
 <div class="row" id="print-section-{{offerLetterConst.LOAN_DEED_CORPORATE}}">
     <div class="col-md-12 viewFull">
         <form class="nepali">
-            <h6 class="text-center">बिषयः कर्जा तमसुक<br>
+            <h6 class="text-center"><strong>बिषयः कर्जा तमसुक</strong><br>
             </h6>
 
             <br>
             <div class="row">
-                <p>
+                <p style="line-height: 1.8">
                     लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन,
                     बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२
                     स्थित
@@ -89,7 +89,7 @@
                         [ngClass]="{'nepaliFont':printDocForm?.riniName!==null && printDocForm.riniName!==''}">
             {{printDocForm?.riniName === null || printDocForm?.riniName === '' ? '________________' : printDocForm.riniName }}
           </span>
-                    (जसलाई यसउप्रान्त यस लिखतमा ऋणी भनिएको छ)
+                    (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ)
                     का तर्फबाट अधिकार प्राप्त
                     संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि
                     <span
@@ -128,11 +128,7 @@
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.<span
                         [ngClass]="{'nepaliFont':printDocForm?.tempWadNo!==null && printDocForm.tempWadNo!==''}">
             {{printDocForm?.tempWadNo === null || printDocForm?.tempWadNo === '' ? '________________' : printDocForm.tempWadNo }}
-          </span>
-                    स्थित<span [ngClass]="{'nepaliFont':printDocForm?.sthit!==null && printDocForm.sthit!==''}">
-            {{printDocForm?.sthit === null || printDocForm?.sthit === '' ? '________________' : printDocForm.sthit }}
-          </span>
-
+          </span>,
                     बस्ने वर्ष <span [ngClass]="{'nepaliFont':printDocForm?.age!==null && printDocForm.age!==''}">
             {{printDocForm?.age === null || printDocForm?.age === '' ? '________________' : printDocForm.age }}
           </span>
@@ -154,8 +150,8 @@
           </span>)आगे म/हामी ऋणीको व्यापार/व्यवसाय सञ्चालन गर्न ऋण कर्जा तथा बैंकिङ्ग सुविधाहरुको आवश्यकता परी तपाई धनी
                     वित्तीय संस्थासंग
                     लिखित अनुरोध गरेकोमा तपाई धनी वित्तीय संस्थाले म/हामी ऋणीको नाममा जारी गरेको मिति
-                    <span [ngClass]="{'nepaliFont':printDocForm?.date!==null && printDocForm.date!==''}">
-            {{printDocForm?.date === null || printDocForm?.date === '' ? '________________' : printDocForm.date }}
+                    <span [ngClass]="{'nepaliFont':printDocForm?.date1!==null && printDocForm.date1!==''}">
+            {{printDocForm?.date1 === null || printDocForm?.date1 === '' ? '________________' : printDocForm.date1 }}
             </span>
                     को ऋण स्वीकृतीपत्र अनुसार स्वीकृत निम्नानुसारका ऋण कर्जा तथा बैंकिङ्ग सुविधाहरु सोही ऋण
                     स्वीकृतीपत्रमा उल्लिखित तरिका

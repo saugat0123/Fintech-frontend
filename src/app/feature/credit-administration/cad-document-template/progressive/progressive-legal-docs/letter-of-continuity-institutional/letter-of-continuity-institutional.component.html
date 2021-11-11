@@ -10,9 +10,10 @@
 
                 <strong class="text-left">
                     प्रोग्रेशिभ फाईनान्स लिमिटेड, <br>
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont sizeFont"
                            formControlName="branchName"
                            placeholder=""
+                           readonly
                            type="text"/>
                     शाखा।
                 </strong>
@@ -24,33 +25,44 @@
                     नेपाल सरकार, <input class="form-field form-control-sm nepaliFont"
                                         formControlName="nepalSarkar"
                                         placeholder=""
+                                        readonly
                                         type="text"/> कम्पनी रजिष्ट्रारको कार्यालय/वाणिज्य विभाग/उद्योग विभाग
                     <input class="form-field form-control-sm nepaliFont"
                            formControlName="udhyogBibhag"
+                           placeholder=""
+                           readonly
+                           type="text"/>
+                    <input class="form-field form-control-sm nepaliFont"
+                           formControlName="address"
                            placeholder=""
                            type="text"/>
                     मा प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं./ द.नं. <input
                         class="form-field form-control-sm nepaliFont"
                         formControlName="praliNo"
+                        readonly
                         placeholder=""
                         type="text"/>
                     अन्तर्गत मिति <input class="form-field form-control-sm nepaliFont"
                                          formControlName="underDate"
                                          placeholder=""
+                                         readonly
                                          type="text"/>
                     मा दर्ता भई आन्तरिक राजश्व कार्यालय/ करदाता सेवा केन्द्र <input
                         class="form-field form-control-sm nepaliFont"
                         formControlName="sewaKendra"
                         placeholder=""
+                        readonly
                         type="text"/>
                     मा स्थायी लेखा नम्बर (पान) दर्ता प्रमाणपत्र नं<input
                         class="form-field form-control-sm nepaliFont"
                         formControlName="certificateNo"
                         placeholder=""
+                        readonly
                         type="text"/>
                     अन्तर्गत मिति<input class="form-field form-control-sm nepaliFont"
                                         formControlName="regDate"
                                         placeholder=""
+                                        readonly
                                         type="text"/>
                     मा दर्ता भएको <input class="form-field form-control-sm nepaliFont"
                                          formControlName="registeredName"
@@ -59,19 +71,23 @@
                     स्थित<input class="form-field form-control-sm nepaliFont"
                                 formControlName="debtorName"
                                 placeholder=""
+                                readonly
                                 type="text"/>
                     (यसपछि ऋणी भनिएको छ) को तर्फवाट अख्तियार प्राप्त संचालक/प्रोपराइटर/प्रतिनिधि .<input
                         class="form-field form-control-sm nepaliFont"
                         formControlName="pratiNidhi"
                         placeholder=""
+                        readonly
                         type="text"/>
                     ले लिएको ऋण कर्जाको लागिगरि दिएको यसै साथ संलग्न प्रतिज्ञा पत्रमा उल्लेख भएको रु. <input
                         (change)="getNumAmountWord('belowAmount','belowAmountInWord')"
-                        class="form-field form-control-sm nepaliFont"
+                        class="form-field form-control-sm nepaliFont sizeFont"
                         formControlName="belowAmount"
+                        readonly
                         placeholder="" type="text"/>
-                    (अक्षेरुपी रु. <input class="form-field form-control-sm nepaliFont"
+                    (अक्षेरुपी रु. <input class="form-field form-control-sm nepaliFont sizeFont"
                                           formControlName="belowAmountInWord"
+                                          readonly
                                           placeholder=""
                                           type="text"/>)
                     र सो मा बैंक नियमानुसार लाग्ने व्याज समेतको रकम कलम तिर्न वुझाउन र पछि
@@ -98,29 +114,36 @@
                     दस्तखत गर्नेको नाम:-<input class="form-field form-control-sm nepaliFont"
                                                formControlName="signaturePersonName"
                                                placeholder=""
+                                               readonly
                                                type="text"/>
                     (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
                                      formControlName="signaturePersonCitizenshipNo"
                                      placeholder=""
+                                     readonly
                                      type="text"/>
                     मिति <input class="form-field form-control-sm nepaliFont"
                                 formControlName="signaturePersonCitizenshipIssueDate"
                                 placeholder=""
+                                readonly
                                 type="text"/> जि.प्र.का. <input class="form-field form-control-sm nepaliFont"
                                                                 formControlName="signaturePersonCDOoffice"
                                                                 placeholder=""
+                                                                readonly
                                                                 type="text"/>)<br>
                     स्थायी ठेगाना :—<input class="form-field form-control-sm nepaliFont"
                                            formControlName="signaturePersonPermanentDistrict"
                                            placeholder=""
+                                           readonly
                                            type="text"/>
                     जिल्ला <input class="form-field form-control-sm nepaliFont"
                                   formControlName="signaturePersonPermanentMuniciplity"
                                   placeholder=""
+                                  readonly
                                   type="text"/>
                     गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
                                              formControlName="signaturePersonPermanentWadNo"
                                              placeholder=""
+                                             readonly
                                              type="text"/>
                     (साबिक <input class="form-field form-control-sm nepaliFont"
                                   formControlName="sabikVDC"
@@ -134,14 +157,17 @@
                     हालको ठेगाना :- <input class="form-field form-control-sm nepaliFont"
                                            formControlName="signaturePersonTempDistrict"
                                            placeholder=""
+                                           readonly
                                            type="text"/>
                     जिल्ला<input class="form-field form-control-sm nepaliFont"
                                  formControlName="signaturePersonTempMunicipality"
                                  placeholder=""
+                                 readonly
                                  type="text"/>
                     गा.पा./न.पा.वडा नं.<input class="form-field form-control-sm nepaliFont"
                                               formControlName="signaturePersonTempWadNo"
                                               placeholder=""
+                                              readonly
                                               type="text"/>
                     <br>
 
@@ -152,16 +178,19 @@
                     वावु/आमाको नाम :— <input class="form-field form-control-sm nepaliFont"
                                              formControlName="buttonParentName"
                                              placeholder=""
+                                             readonly
                                              type="text"/>
                     <br>
                     वाजे/बजैको नाम :—<input class="form-field form-control-sm nepaliFont"
                                             formControlName="buttonGrandParentName"
                                             placeholder=""
+                                            readonly
                                             type="text"/>
                     <br>
                     पति/पत्निको नाम :— <input class="form-field form-control-sm nepaliFont"
                                               formControlName="buttonHusbandWifeName"
                                               placeholder=""
+                                              readonly
                                               type="text"/>
 
                 </p>

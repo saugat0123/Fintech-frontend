@@ -6,7 +6,7 @@
 
             <br>
             <div class="row">
-                <p>
+                <p style="line-height: 1.8">
                     लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन,
                     बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२
                     स्थित
@@ -43,7 +43,7 @@
                                                         formControlName="praliNo1"
                                                         type="text">मा
                     दर्ता भई करदता सेवा कार्यालय <input class="form-field nepaliFont form-control-sm"
-                                                        formControlName="sewaKaryalaya1"
+                                                        formControlName="sewaKaryalaya"
                                                         type="text">बाट
                     मिति <input class="form-field nepaliFont form-control-sm"
                                 formControlName="regDate2"
@@ -66,7 +66,7 @@
                     रजिष्टर्ड कार्यालय रहेको <input class="form-field nepaliFont form-control-sm"
                                                     formControlName="riniName"
                                                     type="text">
-                    (जसलाई यसउप्रान्त यस लिखतमा ऋणी भनिएको छ)
+                    (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ)
                     का  तर्फबाट अधिकार प्राप्त
                     संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि
                     <input class="form-field nepaliFont form-control-sm"
@@ -101,7 +101,7 @@
                     आगे म/हामी ऋणीको व्यापार/व्यवसाय सञ्चालन गर्न ऋण कर्जा तथा बैंकिङ्ग सुविधाहरुको आवश्यकता परी तपाई धनी वित्तीय संस्थासंग
                     लिखित अनुरोध गरेकोमा तपाई धनी वित्तीय संस्थाले म/हामी ऋणीको नाममा जारी गरेको मिति
                     <input class="form-control-sm form-field nepaliFont"
-                           formControlName="date" type="text">
+                           formControlName="date1" type="text">
                     को ऋण स्वीकृतीपत्र अनुसार स्वीकृत निम्नानुसारका ऋण कर्जा तथा बैंकिङ्ग सुविधाहरु सोही ऋण स्वीकृतीपत्रमा उल्लिखित तरिका
                     बमोजिम प्राप्त गर्ने गरी यो ऋण कर्जाको तमसुक गरी दिएको ठीक साँचो हो । तपाई धनी वित्तीय संस्थाबाट प्राप्त ऋणकर्जा तथा बैंकिङ्ग
                     सुविधाहरुमा लाग्ने व्याज, कमिशन, शूल्क आदि तल उल्लेखित स्वीकृत सम्बन्धित ऋण कर्जा तथा बैंकिङ्ग सुविधा खण्ड–खण्डमा उल्लेख भएको दर
@@ -214,16 +214,14 @@
                                     <th>
                                         <button (click)="addSecurity()" class="btn btn-primary btn-sm float-right "
                                                 size="tiny"
-                                                type="button">स्वीकृत थप्नुहोस्<i class="fas fa-plus"></i></button>
+                                                type="button">सम्पत्तीको विवरण थप्नुहोस्<i class="fas fa-plus"></i></button>
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody *ngFor="let guarantor of form.get('security')['controls']; let i=index"
                                        formArrayName="security">
                                 <tr [formGroupName]="i">
-                                    <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesSN"
-                                               value="{{i+1 | nepaliNumber}}"
-                                               type="text"></td>
+                                    <td>{{i+1 | nepaliNumber}}</td>
                                     <td><input class="form-field nepaliFont form-control"
                                                formControlName="SecuritiesSNBibaran"
                                                type="text"></td>
