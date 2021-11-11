@@ -4,8 +4,8 @@
   </nb-card-header>
   <nb-card-body>
     <div class="row col-md-12">
-      <div class="col-md-4">
-        <nb-card class="col-md-11 py-2" *ngIf="customerInfo?.cicl" #itemCicl>
+      <div class="col-md-4" *ngIf="customerInfo?.cicl">
+        <nb-card class="col-md-11 py-2" #itemCicl>
           <a class="cursor info-label" (click)="openModel(ciclComponentTemplate)">
             <div class="row col-md-12">
               <div class="col-md-8">
@@ -20,7 +20,9 @@
               CICL
               <a aria-label="Close" class="close cursor"
                  data-dismiss="modal" (click)="ref.close()">
-                <span aria-hidden="true">×</span></a>
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
             </nb-card-header>
             <nb-card-body>
               <app-cicl-view
@@ -29,10 +31,9 @@
           </nb-card>
         </ng-template>
       </div>
-    </div>
 
-    <div class="col-md-4">
-      <nb-card class="col-md-11 py-2" *ngIf="customerInfo?.insurance?.length>0" #itemInsurance>
+    <div class="col-md-4" *ngIf="customerInfo?.insurance?.length>0">
+      <nb-card class="col-md-11 py-2" #itemInsurance>
         <a class="cursor info-label" (click)="openModel(insuranceComponentTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -47,7 +48,9 @@
             INSURANCE
             <a aria-label="Close" class="close cursor"
                data-dismiss="modal" (click)="ref.close()">
-              <span aria-hidden="true">×</span></a>
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
           </nb-card-header>
           <nb-card-body>
             <app-insurance-view [insurance]="customerInfo?.insurance"></app-insurance-view>
@@ -56,8 +59,8 @@
       </ng-template>
     </div>
 
-    <div class="col-md-4">
-      <nb-card class="col-md-11 py-2" *ngIf="customerInfo?.financial" #itemFinancial>
+    <div class="col-md-4" *ngIf="customerInfo?.financial">
+      <nb-card class="col-md-11 py-2" #itemFinancial>
         <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -72,7 +75,9 @@
             FINANCIAL
             <a aria-label="Close" class="close cursor"
                data-dismiss="modal" (click)="ref.close()">
-              <span aria-hidden="true">×</span></a>
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
           </nb-card-header>
           <nb-card-body>
             <app-financial-view
@@ -84,34 +89,36 @@
       </ng-template>
     </div>
 
-<!--    <div class="col-md-4">-->
-<!--      <nb-card class="col-md-11 py-2" #guarantor *ngIf="customerInfo?.guarantors">-->
-<!--        <a class="cursor info-label" (click)="openModel(guarantorComponentTemplate)">-->
-<!--          <div class="row col-md-12">-->
-<!--            <div class="col-md-8">-->
-<!--              <nb-card-header>GUARANTOR</nb-card-header>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
-<!--      </nb-card>-->
-<!--      <ng-template #guarantorComponentTemplate let-data let-ref="dialogRef">-->
-<!--        <nb-card class="template-css">-->
-<!--          <nb-card-header>-->
-<!--            GUARANTOR-->
-<!--            <a aria-label="Close" class="close cursor"-->
-<!--               data-dismiss="modal" (click)="ref.close()">-->
-<!--              <span aria-hidden="true">×</span></a>-->
-<!--          </nb-card-header>-->
-<!--          <nb-card-body>-->
-<!--            <app-guarantor-view-->
-<!--                [guarantorData]="customerInfo?.guarantors"></app-guarantor-view>-->
-<!--          </nb-card-body>-->
-<!--        </nb-card>-->
-<!--      </ng-template>-->
-<!--    </div>-->
+    <div class="col-md-4" *ngIf="customerInfo?.guarantors">
+      <nb-card class="col-md-11 py-2" #guarantor>
+        <a class="cursor info-label" (click)="openModel(guarantorComponentTemplate)">
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <nb-card-header>GUARANTOR</nb-card-header>
+            </div>
+          </div>
+        </a>
+      </nb-card>
+      <ng-template #guarantorComponentTemplate let-data let-ref="dialogRef">
+        <nb-card class="template-css">
+          <nb-card-header>
+            GUARANTOR
+            <a aria-label="Close" class="close cursor"
+               data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+          </nb-card-header>
+          <nb-card-body>
+            <app-guarantor-view
+                [guarantorData]="customerInfo?.guarantors.guarantorList"></app-guarantor-view>
+          </nb-card-body>
+        </nb-card>
+      </ng-template>
+    </div>
 
-    <div class="col-md-4">
-      <nb-card class="col-md-11 py-2" #siteVisit *ngIf="customerInfo?.siteVisit">
+    <div class="col-md-4" *ngIf="customerInfo?.siteVisit">
+      <nb-card class="col-md-11 py-2" #siteVisit>
         <a class="cursor info-label" (click)="openModel(itemSiteVisitTemplate)">
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -126,7 +133,9 @@
             SITE VISIT
             <a aria-label="Close" class="close cursor"
                data-dismiss="modal" (click)="ref.close()">
-              <span aria-hidden="true">×</span></a>
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
           </nb-card-header>
           <nb-card-body>
             <app-site-visit-view
@@ -138,7 +147,65 @@
       </ng-template>
     </div>
 
-    <div class="col-md-4">
+      <div class="col-md-4" *ngIf="customerInfo?.incomeFromAccount">
+        <nb-card class="col-md-11 py-2" #incomeFromAccount>
+          <a class="cursor info-label" (click)="openModel(itemIncomeFromAccountTemplate)">
+            <div class="row col-md-12">
+              <div class="col-md-12">
+                <nb-card-header>INCOME FROM ACCOUNT</nb-card-header>
+              </div>
+            </div>
+          </a>
+        </nb-card>
+        <ng-template #itemIncomeFromAccountTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              INCOME FROM ACCOUNT
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-income-from-account-summery
+                  [formData]="customerInfo?.incomeFromAccount">
+
+              </app-income-from-account-summery>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+
+      <div class="col-md-4" *ngIf="customerInfo?.creditChecklist">
+        <nb-card class="col-md-11 py-2" #creditCheckList>
+          <a class="cursor info-label" (click)="openModel(itemCreditCheckListTemplate)">
+            <div class="row col-md-12">
+              <div class="col-md-8">
+                <nb-card-header>CREDIT CHECKLIST</nb-card-header>
+              </div>
+            </div>
+          </a>
+        </nb-card>
+        <ng-template #itemCreditCheckListTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              CREDIT CHECKLIST
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-credit-checklist-view
+                  [formData]="customerInfo?.creditChecklist">
+              </app-credit-checklist-view>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div class="col-md-4" *ngIf="customerInfo?.security">
       <nb-card class="col-md-11 py-2" #security>
         <a class="cursor info-label" (click)="openModel(securityComponentTemplate)">
           <div class="row col-md-12">
@@ -154,7 +221,9 @@
             SECURITY
             <a aria-label="Close" class="close cursor"
                data-dismiss="modal" (click)="ref.close()">
-              <span aria-hidden="true">×</span></a>
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
           </nb-card-header>
           <nb-card-body>
             <app-security-view
@@ -166,9 +235,9 @@
         </nb-card>
       </ng-template>
     </div>
-    <nb-accordion>
-
-      <!--<nb-accordion-item #itemCrgAlpha *ngIf="customerInfo?.creditRiskGradingAlpha">
+    </div>
+<!--    <nb-accordion>-->
+    <!--<nb-accordion-item #itemCrgAlpha *ngIf="customerInfo?.creditRiskGradingAlpha">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -202,6 +271,6 @@
       <!--                              [fromProfile]="false"></app-credit-grading>-->
       <!--        </nb-accordion-item-body>-->
       <!--      </nb-accordion-item>-->
-    </nb-accordion>
+<!--    </nb-accordion>-->
   </nb-card-body>
 </nb-card>
