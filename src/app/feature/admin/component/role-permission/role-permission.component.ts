@@ -54,6 +54,10 @@ export class RolePermissionComponent implements OnInit {
 
         other.roleService.getActiveRoles().subscribe((response: any) => {
             other.roleList = response.detail;
+        }, error => {
+            if (error.status === 403) {
+                other.router.navigate(['home/error']);
+            }
         });
     }
 

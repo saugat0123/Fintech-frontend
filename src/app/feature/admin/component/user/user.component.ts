@@ -21,6 +21,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {UserHistoryComponent} from './user-history/user-history.component';
 import {RoleType} from '../../modal/roleType';
 import {RoleAddComponent} from './role-add/role-add.component';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-user',
@@ -68,7 +69,8 @@ export class UserComponent implements OnInit {
         private toastService: ToastService,
         private formBuilder: FormBuilder,
         private branchService: BranchService,
-        private roleService: RoleService
+        private roleService: RoleService,
+        private router: Router
     ) {
     }
 
@@ -82,9 +84,11 @@ export class UserComponent implements OnInit {
             other.spinner = false;
 
         }, error => {
-
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
-
+            if (error.status === 403) {
+                other.router.navigate(['home/error']);
+            } else {
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+            }
             other.spinner = false;
         });
 

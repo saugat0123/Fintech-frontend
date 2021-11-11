@@ -104,6 +104,10 @@ export class BranchComponent implements OnInit {
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.branches = response.detail.branches;
+        }, error => {
+            if (error.status === 403) {
+                this.router.navigate(['home/error']);
+            }
         });
 
         this.location.getProvince().subscribe((response: any) => {
