@@ -58,7 +58,7 @@
         </nb-accordion-item-header>
         <nb-accordion-item-body>
           <app-guarantor-view *ngIf="guarantor.expanded"
-                              [guarantorData]="customerInfo?.guarantors"></app-guarantor-view>
+                              [guarantorData]="customerInfo?.guarantors.guarantorList"></app-guarantor-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
       <nb-accordion-item #siteVisit *ngIf="customerInfo?.siteVisit">
