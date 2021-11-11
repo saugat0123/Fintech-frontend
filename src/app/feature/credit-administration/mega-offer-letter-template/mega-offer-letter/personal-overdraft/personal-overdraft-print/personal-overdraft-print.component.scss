@@ -37,21 +37,16 @@ p{
 .hello > tr > td{
   border: 1px solid black !important;
 }
-
-.page-break {
-  page-break-after: auto !important;
-  @media print {
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-    .full-width {
-      width: 100%;
-    }
+@media print {
+  footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
-
-  .disclist > li {
-    list-style-type: disc;
+  .full-width{
+    width: 100%;
   }
+}
+.disclist > li{
+  list-style-type: disc;
 }
