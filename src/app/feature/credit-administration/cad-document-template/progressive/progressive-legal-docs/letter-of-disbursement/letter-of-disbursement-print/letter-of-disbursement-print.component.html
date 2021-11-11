@@ -13,7 +13,7 @@
             <strong> प्रोग्रेशिभ फाईनान्स लिमिटेड,</strong>
             <br>
             <strong>  <span
-                    [ngClass]="{'nepaliFont' : printDocForm?.BranchName !== null && printDocForm?.BranchName !== ''}">
+                    [ngClass]="{'nepaliFont sizefont' : printDocForm?.BranchName !== null && printDocForm?.BranchName !== ''}">
     {{printDocForm?.BranchName === null || printDocForm?.BranchName === '' ? '_________________' : printDocForm?.BranchName}}
 </span> शाखा।</strong>
             <br>
@@ -61,7 +61,7 @@
                         {{printDocForm?.clientName === null || printDocForm?.clientName === '' ? '_________________' : printDocForm?.clientName}}
                         </span>
                             <strong>(ना.प्र.न<span
-                                    [ngClass]="{'sizefont nepaliFont' : printDocForm?.naPraNaName !== null && printDocForm?.naPraNaName !== ''}">
+                                    [ngClass]="{'nepaliFont' : printDocForm?.naPraNaName !== null && printDocForm?.naPraNaName !== ''}">
                         {{printDocForm?.naPraNaName === null || printDocForm?.naPraNaName === '' ? '_______________' : printDocForm?.naPraNaName}}
                         </span>
                                 मिति<span
@@ -76,13 +76,13 @@
                     <tr>
                         <td style="text-align: right; vertical-align: top;width: 20%">स्थायी ठेगाना :-</td>
                         <td style="text-align: left"><span
-                                class="sizefont nepaliFont">{{printDocForm?.sincerlyPermanentAddress}}</span>
+                                class="nepaliFont">{{printDocForm?.sincerlyPermanentAddress}}</span>
                             जिल्ला <span
-                                    [ngClass]="{'sizefont nepaliFont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
+                                    [ngClass]="{'nepaliFont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
                         {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
                         </span>
                             गा.पा./न.पा.वडा नं<span
-                                    [ngClass]="{'sizefont nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
+                                    [ngClass]="{'nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
                         {{printDocForm?.jagaName === null || printDocForm?.jagaName === '' ? '________________' : printDocForm?.jagaName}}
                         </span>(साबिक
                             <span [ngClass]="{'nepaliFont' : printDocForm?.borrowerSabikVDC !== null && printDocForm?.borrowerSabikVDC !== ''}">
@@ -97,9 +97,9 @@
                     <tr>
                         <td style="text-align: right; vertical-align: top;width: 20%">हालको ठेगाना :-</td>
                         <td style="text-align: left"><span
-                                class="sizefont nepaliFont">{{printDocForm?.sincerlytempAddress}}</span>
+                                class="nepaliFont">{{printDocForm?.sincerlytempAddress}}</span>
                             जिल्ला <span
-                                    [ngClass]="{'sizefont nepaliFont' : printDocForm?.jillaName1 !== null && printDocForm?.jillaName1 !== ''}">
+                                    [ngClass]="{'nepaliFont' : printDocForm?.jillaName1 !== null && printDocForm?.jillaName1 !== ''}">
                         {{printDocForm?.jillaName1 === null || printDocForm?.jillaName1 === '' ? '________________' : printDocForm?.jillaName1}}
                         </span>गा.पा./न.पा.वडा नं
                             <span

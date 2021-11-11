@@ -20,6 +20,8 @@ import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summa
 import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
+import {CustomerType} from '../../../../../customer/model/customerType';
 
 @Component({
   selector: 'app-letter-of-disbursement',
@@ -34,6 +36,7 @@ export class LetterOfDisbursementComponent implements OnInit {
   spinner;
   offerLetterConst = ProgressiveLegalDocConst;
   customerOfferLetter: CustomerOfferLetter;
+  nepDataPersonal: NepDataPersonal;
   initialInfoPrint;
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
@@ -80,25 +83,47 @@ export class LetterOfDisbursementComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       // const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
-      this.form.patchValue({
-        clientName: this.nepaliData.name ? this.nepaliData.name : '',
-        // amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-        // amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-        sincerlyname: this.nepaliData.name ? this.nepaliData.name : '',
-        naPraNaName: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-        mitiName: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-        jiPrakaName: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-        sincerlyPermanentAddress: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-        jillaName: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-        jagaName: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        sincerlytempAddress: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-        jillaName1: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
-        jagaName1: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-        parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-        grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-        husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
-      });
+      const customerType = JSON.parse(this.cadData.loanHolder.customerType);
+      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+      console.log('nepalidata', this.nepaliData);
+      if (customerType === CustomerType.INDIVIDUAL) {
+        this.form.patchValue({
+          BranchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
+          clientName: this.nepaliData.name ? this.nepaliData.name : '',
+          sincerlyname: this.nepaliData.name ? this.nepaliData.name : '',
+          naPraNaName: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+          mitiName: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+          jiPrakaName: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+          sincerlyPermanentAddress: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+          jillaName: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+          jagaName: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+          sincerlytempAddress: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+          jillaName1: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+          jagaName1: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+          parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+          grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+          husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+        });
+      } else {
+        this.form.patchValue({
+          BranchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
+          clientName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+          sincerlyname: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+          naPraNaName: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+          mitiName: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+          // tslint:disable-next-line:max-line-length
+          jiPrakaName: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+          sincerlyPermanentAddress: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+          jillaName: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
+          jagaName: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+          sincerlytempAddress: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+          jillaName1: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+          jagaName1: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+          parentName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+          grandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+          husbandWifeName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
+        });
+      }
     }
     this.form.get('amount').patchValue(this.loanAmount.numberNepali);
     this.form.get('amountInWord').patchValue(this.loanAmount.nepaliWords);
