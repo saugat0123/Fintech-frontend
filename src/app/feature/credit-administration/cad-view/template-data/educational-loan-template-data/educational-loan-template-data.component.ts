@@ -23,6 +23,8 @@ import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-num
 import { key } from 'ionicons/icons';
 import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
 import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -79,6 +81,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private currencyFormatterPipe: CurrencyFormatterPipe,
       private modalService: NgbModal,
       protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
+      private datePipe: DatePipe,
+      private engNepDatePipe: EngNepDatePipe
       ) {
   }
 
@@ -129,8 +133,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanLimitChecked: [undefined],
 
       dateOfApproval: [undefined],
+      dateOfApprovalNepali: [undefined],
+      dateOfApprovalType: [undefined],
       //referenceNumber: [undefined],
       dateOfApplication: [undefined],
+      dateOfApplicationType: [undefined],
+      dateOfApplicationNepali: [undefined],
       purposeOfLoan: [undefined],
       amountInWords: [undefined],
       fixedDepositReceiptAmountFigure: [undefined],
@@ -153,6 +161,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       tenureDepositReceiptNumber: [undefined],
       guarantorName: [undefined],
       dateofExpiry: [undefined],
+      dateofExpiryNepali: [undefined],
+      dateOfExpiryType: [undefined],
       // guaranteedAmountFigure: [undefined],
       // guaranteedAmountWords: [undefined],
       nameOfBranch: [undefined],
@@ -184,8 +194,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       //referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
+      dateOfApplicationTypeTransVal: [undefined],
+      dateOfApplicationNepaliTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
       fixedDepositReceiptAmountFigureTransVal: [undefined],
@@ -234,6 +248,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       accountNumberTransVal: [undefined],
       bankNameTransVal: [undefined],
       dateofExpiryTransVal: [undefined],
+      dateofExpiryNepaliTransVal: [undefined],
+      dateOfExpiryTypeTransVal: [undefined],
       securities: this.formBuilder.array([])
     });
     this.addDefaultSecurity();
@@ -563,6 +579,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedData.relationshipOfficerName);
     this.form.get('branchManagerTransVal').patchValue(this.translatedData.branchManager);
     this.form.get('ownersNameTransVal').patchValue(this.translatedData.ownersName);
+    this.form.get('dateOfExpiryTypeTransVal').patchValue(this.translatedData.dateOfExpiryType);
+    this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
+    this.form.get('dateofExpiryNepaliTransVal').patchValue(this.translatedData.dateofExpiryNepali);
     // this.form.get('wardNoTransVal').patchValue(this.translatedData.wardNo);
     // this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
     // this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);

@@ -27,20 +27,11 @@
                                  formControlName="refNumber" placeholder="सन्दर्भ नम्बर" type="text"/>
                             </span>
                         </p><br>
-                        <p *ngIf="initialInfoPrint?.dateOfApproval?.en?.nDate === undefined; else dateOfApprovalNepali">
+                        <p>
                             मितिः <input class="form-field form-control-sm"
                                          formControlName="dateOfApproval"
-                                         [value]="initialInfoPrint?.dateOfApproval?.en === undefined ? '' : ((initialInfoPrint?.dateOfApproval?.en | date) | engNepDate: true)"
                                          type="text"/>
                         </p>
-                        <ng-template #dateOfApprovalNepali>
-                            <p>
-                                मितिः <input class="form-field form-control-sm"
-                                             formControlName="dateOfApproval"
-                                             [value]="initialInfoPrint?.dateOfApproval?.en.nDate === undefined ? '' : initialInfoPrint?.dateOfApproval?.en.nDate"
-                                             type="text"/>
-                            </p>
-                        </ng-template>
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -70,16 +61,9 @@
                         </p>
                         <p>
                             तपाईंले मिति
-                            <input *ngIf="initialInfoPrint?.dateofApplication?.en.nDate === undefined; else dateofApplicationNepali" class="form-field form-control-sm"
+                            <input class="form-field form-control-sm"
                                    formControlName="dateofApplication"
-                                   [value]="initialInfoPrint?.dateofApplication?.en === undefined ? '' : (initialInfoPrint?.dateofApplication?.en | date) | engNepDate: true"
                                    type="text"/>
-                            <ng-template #dateofApplicationNepali>
-                                <input class="form-field form-control-sm"
-                                       formControlName="dateofApplication"
-                                       [value]="initialInfoPrint?.dateofApplication?.en.nDate === undefined ? '' : initialInfoPrint?.dateofApplication?.en.nDate"
-                                       type="text"/>
-                            </ng-template>
                            मा व्यक्तिगत कर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस
                             बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं । </p>
                     </div>

@@ -226,7 +226,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       area2: [undefined],
       freeText: [undefined],
       totalPeople: [this.numberOfJointCustomer ? this.numberOfJointCustomer : ''],
-      purposeOfLoan: [(this.initialInformation.loanPurpose) ? (this.initialInformation.loanPurpose.ct) : (this.initialInformation ? this.initialInformation.purposeOfLoan.ct : undefined)],
+      purposeOfLoan: [(this.initialInformation.loanPurpose) ? (this.initialInformation.loanPurpose.ct) : (this.initialInformation.purposeOfLoan ? this.initialInformation.purposeOfLoan.ct : undefined)],
       loanDeedJoint: this.formBuilder.array([]),
     });
   }

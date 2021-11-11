@@ -46,6 +46,7 @@ export class SmeComponent implements OnInit {
   tempData;
   afterSave = false;
   selectedAutoLoan;
+  loanHolderInfo;
   selectedInterest;
   loanLimit;
   finalName;
