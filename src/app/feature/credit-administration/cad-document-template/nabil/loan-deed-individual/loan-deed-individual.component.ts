@@ -160,6 +160,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.educationInterestRate = this.offerDocumentDetails.yearlyFloatingInterestRate ? this.offerDocumentDetails.yearlyFloatingInterestRate.en : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Auto Loan') {
+      console.log('Auto Loan Data',this.initialInformation);
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
     }
@@ -338,10 +339,18 @@ export class LoanDeedIndividualComponent implements OnInit {
           this.expiryDate = initialInformation.dateofExpiryNepali.en;
         }
       }
-      if (docName === 'Educational Loan' && (initialInformation.selectedSecurity.en === 'LAND' || initialInformation.selectedSecurity.en === 'LAND_AND_BUILDING')) {
-        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
-            .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।');
-        this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।';
+      if (docName === 'Educational Loan') {
+        if (initialInformation.selectedSecurity.en === 'LAND' || initialInformation.selectedSecurity.en === 'LAND_AND_BUILDING') {
+          this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+              .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।');
+          this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।';
+        }
+        if (initialInformation.selectedSecurity.en === 'FIXED_DEPOSIT') {
+          console.log('Educatioanal expiry date:', initialInformation);
+          // this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+          //     .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।');
+          // this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।';
+        }
       }
       if (docName === 'Home Loan') {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])

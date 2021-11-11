@@ -359,6 +359,12 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           this.educationalTemplateData = educationalOfferData.interestRate.ct;
         }
       }
+      if (documentName === 'Auto Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyInterestRate.ct;
+        }
+      }
 
       // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
       //     === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];

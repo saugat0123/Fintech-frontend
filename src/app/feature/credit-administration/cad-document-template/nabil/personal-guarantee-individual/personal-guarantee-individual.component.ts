@@ -195,8 +195,10 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         }
         let approvedDate: any;
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
-            if (this.cadData.offerDocumentList[0].docName === 'Mortage Loan'){
+            if (this.cadData.offerDocumentList[0].docName === 'Mortage Loan') {
                 approvedDate = this.offerDocumentDetails.dateofApproval && this.offerDocumentDetails.dateofApproval.en.eDate ? this.offerDocumentDetails.dateofApproval.en.eDate : this.offerDocumentDetails.dateofApproval && this.offerDocumentDetails.dateofApproval.en ? this.offerDocumentDetails.dateofApproval.en : '';
+            } else if (this.cadData.offerDocumentList[0].docName === 'Auto Loan') {
+                approvedDate = (this.offerDocumentDetails.dateofApproval && this.offerDocumentDetails.dateofApproval.en) ? (this.offerDocumentDetails.dateofApproval.en) : ((this.offerDocumentDetails.loan.nepaliDateOfApproval && this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) ? (this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) : (''));
             } else {
                 approvedDate = (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate) ? (this.offerDocumentDetails.dateOfApproval.en.eDate) : (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en) ? (this.offerDocumentDetails.dateOfApproval.en) : ((this.offerDocumentDetails.loan.nepaliDateOfApproval && this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) ? (this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) : (''));
             }
