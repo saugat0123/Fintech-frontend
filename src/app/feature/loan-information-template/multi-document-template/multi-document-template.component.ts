@@ -66,9 +66,9 @@ export class MultiDocumentUploadTemplateComponent implements OnInit {
     link.click();
   }
 
-  deleteDocument(index): void {
-    this.loanService.deleteCustomerDocFromSystem(this.pathValueData[index]).subscribe((res: any) => {
-      this.pathValueData.splice(index, 1);
+  deleteDocument(path): void {
+    this.loanService.deleteCustomerDocFromSystem(path).subscribe((res: any) => {
+      this.pathValueData.splice(path, 1);
       this.docPathEmitter.emit(this.pathValueData);
     }, error => {
       this.toast.show(new Alert(AlertType.WARNING, 'Unable to delete document!'));
