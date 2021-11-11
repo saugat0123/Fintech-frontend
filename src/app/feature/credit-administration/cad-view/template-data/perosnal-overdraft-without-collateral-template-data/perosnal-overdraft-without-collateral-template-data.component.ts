@@ -20,6 +20,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Attributes} from '../../../../../@core/model/attributes';
 import {PersonalOverdraftWithoutCollateralComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-overdraft-without-collateral/personal-overdraft-without-collateral.component';
+import {CadOfferLetterConfigurationComponent} from '../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 
 @Component({
   selector: 'app-perosnal-overdraft-without-collateral-template-data',
@@ -59,6 +60,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
   fieldFlag = false;
   selectedSecurityVal;
   objectTranslate;
+  closed = false;
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
 
   constructor(private formBuilder: FormBuilder,
@@ -72,7 +74,9 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
               private toastService: ToastService,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
               private addressService: AddressService,
-              private currencyFormatterPipe: CurrencyFormatterPipe) { }
+              private currencyFormatterPipe: CurrencyFormatterPipe,
+              private modalService: NgbModal,
+              protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>) { }
 
   ngOnInit() {
     this.buildForm();
@@ -194,6 +198,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = false;
+      this.closed = true;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -451,5 +456,19 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     const sourceResponse = await this.translateService.translateForm(this.oneForm);
     this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
     this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+  dismiss(template) {
+    this.modalService.dismissAll();
+  }
+
+  decline(template) {
+    this.modalService.dismissAll();
+  }
+  accept() {
+    this.modalService.dismissAll();
+    this.dialogRefcad.close();
   }
 }
