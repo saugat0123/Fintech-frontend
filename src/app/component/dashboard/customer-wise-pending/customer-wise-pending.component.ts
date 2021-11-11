@@ -110,7 +110,6 @@ export class CustomerWisePendingComponent implements OnInit {
             (response: any) => {
                 other.spinner = false;
                 other.loanHolderLoanList = response.detail.content;
-                console.log('loan holder list pending', other.loanHolderLoanList);
                 other.loanHolderLoanListTemp = response.detail.content;
                 other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
                 other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));

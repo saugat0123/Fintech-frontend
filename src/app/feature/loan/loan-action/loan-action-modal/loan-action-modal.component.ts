@@ -75,13 +75,11 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('loan config id', this.loanConfigId);
-        console.log('is remit loan in modal', this.isRemitLoan);
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
-            this.isSolChecked(this.customerLoanHolder.isSol);
+            this.isHSOVChecked(this.customerLoanHolder.isSol);
         }
     }
 
@@ -123,18 +121,17 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
-        let comment = this.formAction.value.comment;
+        const comment = this.formAction.value.comment;
 
-        let docAction = this.formAction.value.docAction;
-        let docActionMSG = this.formAction.value.docActionMsg;
+        const docAction = this.formAction.value.docAction;
+        const docActionMSG = this.formAction.value.docActionMsg;
         if (docActionMSG === 'Send Legal Doc') {
-            let sendDocToRemit = {
+            const sendDocToRemit = {
                 beneficiaryId: this.beneficiaryId,
                 legalDoc: JSON.stringify(this.legalDoc),
                 remarks: comment,
                 status: this.docAction
             };
-            console.log('we sending legal doc to remit app', sendDocToRemit);
             this.loanFormService.sendLegalDocumentBackToSenderOrAgent(sendDocToRemit).subscribe((res) => {
                 this.nbDialogRef.close();
 
@@ -172,10 +169,10 @@ export class LoanActionModalComponent implements OnInit {
                 console.log('benefff id', this.beneficiaryId);
                 console.log('inside loan action modal');
                 if (docAction === 'SEND_BACK_TO_SENDER' || docAction === 'SEND_BACK_TO_AGENT') {
-                    let beneficiaryObj = {
-                        "beneficiaryId": this.beneficiaryId,
-                        "status": docAction,
-                        "remarks": this.formAction.value.comment
+                    const beneficiaryObj = {
+                        'beneficiaryId': this.beneficiaryId,
+                        'status': docAction,
+                        'remarks': this.formAction.value.comment
                     };
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
                         if (verified === true) {
@@ -186,11 +183,11 @@ export class LoanActionModalComponent implements OnInit {
                         console.log(error);
                     });
                 } else if (this.isRemitLoan && docAction === 'APPROVED') {
-                    let beneficiaryObj = {
-                        "beneficiaryId": this.beneficiaryId,
-                        "status": docAction,
-                        "remarks": this.formAction.value.comment
-                    }
+                    const beneficiaryObj = {
+                        'beneficiaryId': this.beneficiaryId,
+                        'status': docAction,
+                        'remarks': this.formAction.value.comment
+                    };
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
                         if (verified === true) {
                             this.postAction();
@@ -201,11 +198,11 @@ export class LoanActionModalComponent implements OnInit {
                     });
 
                 } else if (docAction === 'REJECT') {
-                    let beneficiaryObj = {
-                        "beneficiaryId": this.beneficiaryId,
-                        "status": "REJECTED",
-                        "remarks": this.formAction.value.comment
-                    }
+                    const beneficiaryObj = {
+                        'beneficiaryId': this.beneficiaryId,
+                        'status': 'REJECTED',
+                        'remarks': this.formAction.value.comment
+                    };
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
                         if (verified === true) {
                             this.postAction();
@@ -240,6 +237,7 @@ export class LoanActionModalComponent implements OnInit {
             comment: [undefined, Validators.required],
             documentStatus: [this.documentStatus],
             isSol: [undefined],
+            isHsov: [undefined],
             solUser: [undefined],
             selectedRoleForSol: [undefined]
         });
@@ -272,10 +270,6 @@ export class LoanActionModalComponent implements OnInit {
                 }// send backward to committee
 
         }
-    }
-
-    private sendBackToSenderOrAgent() {
-
     }
 
     private postAction() {
@@ -327,51 +321,12 @@ export class LoanActionModalComponent implements OnInit {
         });
     }
 
-    getSOlUSerList(role) {
-        this.formAction.patchValue({
-            solUser: [undefined]
-        });
-        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
-            this.solUserList = response.detail;
-            this.isNoUserSol = false;
-            if (this.solUserList.length === 1) {
-                this.formAction.patchValue({
-                    solUser: this.solUserList[0]
-                });
-            } else if (this.solUserList.length > 1) {
-                this.formAction.patchValue({
-                    solUser: this.solUserList[0]
-                });
-
-            } else if (this.solUserList.length === 0) {
-                this.isNoUserSol = true;
-            }
-        });
-
-    }
-
-    isSolChecked(event) {
+    isHSOVChecked(event) {
+        console.log('HSOV event', event);
         if (event) {
-            this.showHideSolUser = true;
             this.formAction.patchValue({
-                solUser: null,
-                isSol: true
+                isHsov: true
             });
-            if (this.customerLoanHolder.isSol) {
-                this.formAction.get('solUser').patchValue(ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser);
-                this.formAction.get('selectedRoleForSol').patchValue(ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser.role);
-            }
-            this.formAction.get('solUser').setValidators(Validators.required);
-            this.formAction.get('solUser').updateValueAndValidity();
-        } else {
-            this.showHideSolUser = false;
-            this.formAction.patchValue({
-                solUser: null,
-                isSol: false
-            });
-            this.formAction.get('solUser').setValidators([]);
-            this.formAction.get('solUser').clearValidators();
-            this.formAction.get('solUser').updateValueAndValidity();
         }
     }
 
