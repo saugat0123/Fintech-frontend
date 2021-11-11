@@ -871,7 +871,7 @@
                     <div class="left-content">
 
                         .........................................
-                        <p>
+                        <p style="text-align: right">
                             शाखा प्रबन्धक
                         </p>
                     </div>
@@ -879,7 +879,7 @@
 
                 <div class="row mt-3">
                     <div class="col-md d-flex justify-content-between">
-                        <div class="left-conten" style="margin-top: -2em">
+                        <div class="left-conten" style="margin-top: -2em; margin-left: 1em">
                             <span [ngClass]="{'font-weight-bold' : letter?.relationshipOfficerName.ct !== null && letter?.relationshipOfficerName.ct !== ''}">
                                     {{letter?.relationshipOfficerName.ct === null || letter?.relationshipOfficerName.ct === '' ? '___________' : letter?.relationshipOfficerName.ct}}
                                 </span>
@@ -889,7 +889,7 @@
                             </span>
 
                         </div>
-                        <div class="right-content" style="margin-top: -2em">
+                        <div class="right-content" style="margin-top: -2em; text-align: right;margin-right: 1em">
                             <span [ngClass]="{'font-weight-bold' : letter?.branchManager.ct !== null && letter?.branchManager.ct !== ''}">
                                 {{letter?.branchManager.ct === null || letter?.branchManager.ct === '' ? '___________' : letter?.branchManager.ct}}
                             </span>
