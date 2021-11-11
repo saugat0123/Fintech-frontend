@@ -86,8 +86,6 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
-      console.log('nepaliData...', this.nepaliData);
-      console.log('nepDataPersonal...', this.nepDataPersonal);
       this.form.patchValue({
         nepalSarkar: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         udhyogBibhag: this.nepaliData.department ? this.nepaliData.department : '',
