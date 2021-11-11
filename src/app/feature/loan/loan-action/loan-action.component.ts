@@ -58,6 +58,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        console.log('customer loan holder info in loan action component', this.customerLoanHolder);
         this.loanFormService.detail(this.id).subscribe((data) => {
             this.status = data.detail.documentStatus;
         });
