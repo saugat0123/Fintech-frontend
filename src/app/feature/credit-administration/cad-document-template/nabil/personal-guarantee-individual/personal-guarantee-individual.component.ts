@@ -197,7 +197,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
             // tslint:disable-next-line:max-line-length
             // approvedDate = (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate) ? (this.offerDocumentDetails.dateOfApproval.en.eDate) : (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en) ? (this.offerDocumentDetails.dateOfApproval.en) : ((this.offerDocumentDetails.loan.nepaliDateOfApproval && this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) ? (this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) : (''));
-            if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
+            if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD' || this.offerDocumentDetails.dateOfApproval.en) {
                 // tslint:disable-next-line:max-line-length
                 approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
             } else {
@@ -227,7 +227,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             temporaryVDCMunicipality: [undefined],
             temporaryward: [undefined],
             borrowerName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
-            loanPurpose: [(this.offerDocumentDetails.loanPurpose) ? (this.offerDocumentDetails.loanPurpose.ct) : ((this.offerDocumentDetails.purposeOfLoan && this.offerDocumentDetails) ? (this.offerDocumentDetails.purposeOfLoan.ct) : ((this.offerDocumentDetails.loan.purposeOfLoanCT) ? (this.offerDocumentDetails.loan.purposeOfLoanCT) : ('')))],
+            loanPurpose: [this.offerDocumentDetails.loanPurpose ? this.offerDocumentDetails.loanPurpose.ct : this.offerDocumentDetails.purposeOfLoan && this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : this.offerDocumentDetails.vehicleName ? (this.offerDocumentDetails.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद') : this.offerDocumentDetails.loan.purposeOfLoanCT ? this.offerDocumentDetails.loan.purposeOfLoanCT : ('')],
             dateOfApproval: [this.englishNepaliDatePipe.transform(approvedDate || '', true)  || ''],
             loanAmount: [undefined],
             loanAmountWords: [undefined],

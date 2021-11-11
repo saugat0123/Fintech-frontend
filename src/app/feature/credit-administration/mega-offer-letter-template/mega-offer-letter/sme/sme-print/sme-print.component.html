@@ -9,10 +9,10 @@
                 </span>
                 <p>
                     मितिः
-                    <span *ngIf="letter.dateofApproval.en.nDate; else dateofApprovalPrint"
-                          class="font-weight-bold">{{letter?.dateofApproval.en.nDate}}</span>
-                    <ng-template #dateofApprovalPrint>
-                        <span class=" font-weight-bold">{{(letter?.dateofApproval.en | date) | engNepDate: true}}</span>
+                    <span *ngIf="letter.dateOfApproval.en.nDate; else dateOfApprovalPrint"
+                          class="font-weight-bold">{{letter?.dateOfApproval.en.nDate}}</span>
+                    <ng-template #dateOfApprovalPrint>
+                        <span class=" font-weight-bold">{{(letter?.dateOfApproval.en | date) | engNepDate: true}}</span>
                     </ng-template>
                 </p>
             </div>
@@ -65,7 +65,7 @@
                             <span [ngClass]="{'font-weight-bold' : letter?.vehicleName.ct !== null && letter?.vehicleName.ct !== ''}">
                                 {{letter?.vehicleName.ct === null || letter?.vehicleName.ct === '' ? '___________' : letter?.vehicleName.ct}}
                             </span>
-                            नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लािग खरिद गर्ने प्रयोजनको निमित्त मात्र कर्जा
+                            नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद गर्ने प्रयोजनको निमित्त मात्र कर्जा
                             प्रयोग गर्न सकिनेछ ।
                         </td>
                     </tr>
