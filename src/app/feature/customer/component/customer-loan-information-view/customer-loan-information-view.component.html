@@ -240,6 +240,40 @@
           </nb-card>
         </ng-template>
       </div>
+
+      <div class="col-md-4" *ngIf="customerInfo?.reportingInfoLevels">
+        <nb-card class="col-md-11 py-2" #customerReporting>
+          <a class="cursor info-label" (click)="openModel(customerComponentTemplate)">
+            <div class="row col-md-12">
+              <div class="col-md-8">
+                <nb-card-header>Customer Reporting Information</nb-card-header>
+              </div>
+              <div class="col-md-4 d-flex justify-content-end">
+              <span style="color: green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              </div>
+            </div>
+          </a>
+        </nb-card>
+        <ng-template #customerComponentTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              Customer Reporting Information
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-report-summary
+                  [reportingInfoLevels]="customerInfo?.reportingInfoLevels">
+              </app-report-summary>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
       <div class="col-md-4" *ngIf="customerInfo?.security">
       <nb-card class="col-md-11 py-2" #security>
         <a class="cursor info-label" (click)="openModel(securityComponentTemplate)">
