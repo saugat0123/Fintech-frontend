@@ -379,12 +379,10 @@
       </div>
     </div>
   </form>
-  <div class="row mt-5 ml-0">
-    <div class="col-md-12 text-right">
-        <button [useExistingCss]="true" class="d-print-none" printSectionId="print-section"
-            nbButton size="small" status="info" outline ngxPrint>Print &nbsp;&nbsp;
-            <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>
+    <div class="col-md-12 text-right disable-print">
+        <button  nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
+                 ngxPrint printSectionId="{{offerLetterConst.LOAN_DEED_INDIVIDUAL}}Print">Print
         </button>
+        <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
     </div>
-  </div>
 </div>
