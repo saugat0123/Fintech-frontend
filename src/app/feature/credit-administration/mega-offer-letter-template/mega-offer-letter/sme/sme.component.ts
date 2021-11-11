@@ -85,7 +85,7 @@ export class SmeComponent implements OnInit {
       selectedInterest: [undefined],
       loanLimitChecked: [undefined],
       referenceNumber: [undefined],
-      dateofApproval: [undefined],
+      dateOfApproval: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
       dateofApplication: [undefined],
