@@ -137,18 +137,20 @@ export class LoanDeedIndividualComponent implements OnInit {
 
 
     let approvedDate: any;
+    this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
     console.log('Loan Deed Data', this.offerDocumentDetails);
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval)) {
       // tslint:disable-next-line:max-line-length
       // approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
-      if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD' || this.offerDocumentDetails.dateOfApproval.en) {
+      if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
         // tslint:disable-next-line:max-line-length
         approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+      } else if (this.docName === 'Auto Loan' && this.offerDocumentDetails.dateOfApproval.en.eDate) {
+        approvedDate = this.offerDocumentDetails.dateOfApproval.en.eDate;
       } else {
         approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
       }
     }
-    this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
 
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Educational Loan') {
         this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFeeFigure ? this.offerDocumentDetails.loanAdminFeeFigure.en : '';
