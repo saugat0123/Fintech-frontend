@@ -20,17 +20,17 @@
                                name="referenceNumber"
                                placeholder=" सन्दर्भ नम्बर "
                                type="text"/>
-                        <p *ngIf="tempData.dateofApproval.en.nDate === undefined; else dateofApprovalNepali" class="text-left">
+                        <p *ngIf="tempData.dateOfApproval.en.nDate === undefined; else dateOfApprovalNepali" class="text-left">
                             मितिः <input class="form-field form-control-sm"
-                                         formControlName="dateofApproval"
-                                         [value]="tempData.dateofApproval.en === undefined ? '' : ((tempData.dateofApproval.en | date) | engNepDate: true)"
+                                         formControlName="dateOfApproval"
+                                         [value]="tempData.dateOfApproval.en === undefined ? '' : ((tempData.dateOfApproval.en | date) | engNepDate: true)"
                                          type="text"/>
                         </p>
-                        <ng-template #dateofApprovalNepali>
+                        <ng-template #dateOfApprovalNepali>
                             <p>
                                 मितिः <input class="form-field form-control-sm"
-                                             formControlName="dateofApproval"
-                                             [value]="tempData.dateofApproval.en.nDate === undefined ? '' : tempData.dateofApproval.en.nDate"
+                                             formControlName="dateOfApproval"
+                                             [value]="tempData.dateOfApproval.en.nDate === undefined ? '' : tempData.dateOfApproval.en.nDate"
                                              type="text"/>
                             </p>
                         </ng-template>
@@ -98,7 +98,7 @@
                                                 class="form-field form-control-sm"
                                                 formControlName="vehicleName"
                                                 type="text"
-                                                />नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लािग खरिद गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
+                                                />नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
                                     </td>
                                 </tr>
                                 <tr>

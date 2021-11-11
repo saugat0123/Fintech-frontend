@@ -95,7 +95,7 @@ export class SmeTemplateDataComponent implements OnInit {
       selectedInterest: [undefined],
       loanLimitChecked: [undefined],
       // referenceNumber: [undefined],
-      dateofApproval: [undefined],
+      dateOfApproval: [undefined],
       dateofApplication: [undefined],
       vehicleName: [undefined],
       drawingPower: [undefined],
@@ -118,7 +118,7 @@ export class SmeTemplateDataComponent implements OnInit {
       selectedInterestTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       // referenceNumberTransVal: [undefined, Validators.required],
-      dateofApprovalTransVal: [undefined],
+      dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
       vehicleNameTransVal: [undefined, Validators.required],
       drawingPowerTransVal: [undefined, Validators.required],
@@ -147,7 +147,7 @@ export class SmeTemplateDataComponent implements OnInit {
   }
   private setTemplatedCTData(data): void {
     // this.form.get('referenceNumberTransVal').patchValue(this.podtranslatedData.referenceNumber);
-    this.form.get('dateofApprovalTransVal').patchValue(this.podtranslatedData.dateofApproval);
+    this.form.get('dateOfApprovalTransVal').patchValue(this.podtranslatedData.dateOfApproval);
     this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
     this.form.get('vehicleNameTransVal').patchValue(this.podtranslatedData.vehicleName);
     // this.form.get('baseRateTransVal').patchValue(this.podtranslatedData.baseRate);

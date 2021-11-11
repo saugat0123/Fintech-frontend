@@ -42,6 +42,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
   nepaliNumber = new NepaliNumberAndWords();
   guarantorsNepData = [];
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
+  docName: any;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -180,7 +181,8 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
   }
 
   taggedGuarantorsDetailsForm() {
-    let todayDate: any = this.englishNepaliDatePipe.transform(new Date(), true);
+      console.log('Personal guarantee data',this.offerDocumentDetails);
+      let todayDate: any = this.englishNepaliDatePipe.transform(new Date(), true);
     todayDate = todayDate.replace(',', '').split(' ');
     const daysInNumber = new Date().getDay();
 
@@ -194,17 +196,20 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
           return;
         }
         let approvedDate: any;
-        if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
-            // tslint:disable-next-line:max-line-length
-            // approvedDate = (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate) ? (this.offerDocumentDetails.dateOfApproval.en.eDate) : (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en) ? (this.offerDocumentDetails.dateOfApproval.en) : ((this.offerDocumentDetails.loan.nepaliDateOfApproval && this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) ? (this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) : (''));
-            if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
-                // tslint:disable-next-line:max-line-length
-                approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
-            } else {
-                // tslint:disable-next-line:max-line-length
-                approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
-            }
-        }
+        this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
+          if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
+              // tslint:disable-next-line:max-line-length
+              // approvedDate = (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate) ? (this.offerDocumentDetails.dateOfApproval.en.eDate) : (this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en) ? (this.offerDocumentDetails.dateOfApproval.en) : ((this.offerDocumentDetails.loan.nepaliDateOfApproval && this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) ? (this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate) : (''));
+              if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
+                  // tslint:disable-next-line:max-line-length
+                  approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+              } else if (this.docName === 'Auto Loan' && this.offerDocumentDetails.dateOfApproval.en.eDate) {
+                  approvedDate = this.offerDocumentDetails.dateOfApproval.en.eDate;
+              } else {
+                  // tslint:disable-next-line:max-line-length
+                  approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
+              }
+          }
         let citznIssuedDate: any;
         if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate)) {
             citznIssuedDate = individualGuarantorNepData.citizenIssuedDate && individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en ? individualGuarantorNepData.citizenIssuedDate.en : '';
@@ -227,7 +232,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             temporaryVDCMunicipality: [undefined],
             temporaryward: [undefined],
             borrowerName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
-            loanPurpose: [(this.offerDocumentDetails.purposeOfLoan && this.offerDocumentDetails) ? (this.offerDocumentDetails.purposeOfLoan.ct) : ((this.offerDocumentDetails.loan.purposeOfLoanCT) ? (this.offerDocumentDetails.loan.purposeOfLoanCT) : (''))],
+            loanPurpose: [this.offerDocumentDetails.loanPurpose ? this.offerDocumentDetails.loanPurpose.ct : this.offerDocumentDetails.purposeOfLoan && this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : this.offerDocumentDetails.vehicleName ? (this.offerDocumentDetails.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद') : this.offerDocumentDetails.loan.purposeOfLoanCT ? this.offerDocumentDetails.loan.purposeOfLoanCT : ('')],
             dateOfApproval: [this.englishNepaliDatePipe.transform(approvedDate || '', true)  || ''],
             loanAmount: [undefined],
             loanAmountWords: [undefined],
