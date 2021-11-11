@@ -37,7 +37,7 @@
       <div style="...">
         <p>
           ठेगाना :
-          <span [ngClass]="{'nepaliFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
+          <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
             {{printDocForm?.customerAddress === null || printDocForm?.customerAddress === '' ? '_________________' : printDocForm?.customerAddress}}
           </span>
         </p>
@@ -45,7 +45,7 @@
       <div style="...">
         <p>
           हालको ठेगाना :
-          <span [ngClass]="{'nepaliFont' : printDocForm?.customerTempAddress !== null && printDocForm?.customerTempAddress !== ''}">
+          <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerTempAddress !== null && printDocForm?.customerTempAddress !== ''}">
             {{printDocForm?.customerTempAddress === null || printDocForm?.customerTempAddress === '' ? '_________________' : printDocForm?.customerTempAddress}}
           </span>
         </p>
@@ -77,8 +77,8 @@
                                 {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
             </span>
             (उप्रान्त ऋणी भनिएको) ले श्री प्रोग्रेशिभ फाइनान्स लिमिटेड, शाखा कार्यालय,
-            <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
-                                {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
+            <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
+                                {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '_________________' : printDocForm?.financeBranch}}
             </span>
             (उप्रान्त फाइनान्स भनिएको) मा पेश गरेको कर्जा आवेदन उपर कारवाही हुदा देहाय
             वमोजिमको धितो सुरक्षणमा तपसिलमा उल्लेखित शर्त बन्देजहरु पालना गर्ने गरी कर्जा तथा सुविधा स्वीकृति गरिएको ब्यहोरा
@@ -92,8 +92,8 @@
             </span>
           (यस पछि “ऋणी” भनिएको)<br><br>
           १.२ &nbsp; श्री प्रोग्रेशिभ फाइनान्स लिमिटेड, शाखा कार्यालय,
-          <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
-              {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
+          <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
+              {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '_________________' : printDocForm?.financeBranch}}
             </span>
           (यसपछि “फाइनान्स” भनिएको) <br><br>
         </div>
@@ -113,11 +113,11 @@
                 <td><strong>कर्जा सिमा :</strong></td>
                 <td>
                   अधिकतम रु
-                  <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                  <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
                     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
                   </span>
                   /– (अक्षरेपी:
-                  <span [ngClass]="{'nepaliFont unicode-size uniFont' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
+                  <span [ngClass]="{'nepaliFont' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
                     {{printDocForm?.amountInWords === null || printDocForm?.amountInWords === '' ? '_________________' : printDocForm?.amountInWords}}
                   </span>
                   रुपैंया मात्र ।)
@@ -200,7 +200,7 @@
               </tr>
               <tr>
                 <td><strong>सेवा शुल्क</strong></td>
-                <td>स्वीकृत कर्जा रकमको
+                <td>स्वीकृत कर्जा रकमको &nbsp;
                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.serviceCharge !== null && printDocForm?.serviceCharge !== ''}">
                       {{printDocForm?.serviceCharge === null || printDocForm?.serviceCharge === '' ? '_________________' : printDocForm?.serviceCharge}}
                   </span>%
@@ -373,17 +373,19 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div style="margin-left: 35px">
-          २.१
-        </div>
-      </div>
-      <div class="row">
-        <div style="margin-left: 70px">
-          <div class="col-md-12" id="individual">
+      <table class="table table-borderless">
+        <div style="margin-left: 20px">
+          <tr>
+            <td>
+              २.१
+            </td>
+          </tr>
+          <tr *ngFor="let individualDetail of printDocForm?.individualDetails; index as i">
+            <td>
+             {{i + 1 | nepaliWord: 'unicode'}}
+            </td>
             <br>
-            <div *ngFor="let individualDetail of printDocForm?.individualDetails; index as i">
-              <p>{{i + 1 | nepaliWord: 'unicode'}}
+            <td>
                 <strong>श्री </strong>
                 <span [ngClass]="{'nepaliFont' : individualDetail?.shreeName1 !== null && individualDetail?.shreeName1 !== ''}">
                     {{individualDetail?.shreeName1 === null || individualDetail?.shreeName1 === '' ? '____________________' : individualDetail?.shreeName1}}
@@ -398,15 +400,14 @@
                   </span>
                 /–
                 (अक्षरेपी :
-                <span [ngClass]="{'nepaliFont uniFont' : individualDetail?.amountInWords1 !== null && individualDetail?.amountInWords1 !== ''}">
+                <span [ngClass]="{'nepaliFont' : individualDetail?.amountInWords1 !== null && individualDetail?.amountInWords1 !== ''}">
                     {{individualDetail?.amountInWords1 === null || individualDetail?.amountInWords1 === '' ? '____________________' : individualDetail?.amountInWords1}}
                   </span>
                 रुपैंया मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
-              </p>
-            </div>
-          </div>
+            </td>
+          </tr>
         </div>
-      </div>
+      </table>
       <table class="table table-borderless">
         <div style="margin-left: 20px">
           <tr>
@@ -416,7 +417,7 @@
                 {{printDocForm?.amount3 === null || printDocForm?.amount3 === '' ? '_________________' : printDocForm?.amount3}}
               </span>
               /-(अक्षरेपी :
-              <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.amountInWords3 !== null && printDocForm?.amountInWords3 !== ''}">
+              <span [ngClass]="{'nepaliFont' : printDocForm?.amountInWords3 !== null && printDocForm?.amountInWords3 !== ''}">
                 {{printDocForm?.amountInWords3 === null || printDocForm?.amountInWords3 === '' ? '_________________' : printDocForm?.amountInWords3}}
               </span>
               रुपैंया मात्र ।) को ऋणि तथा जमानी कर्ताले एक एक प्रति प्रतिज्ञापत्रमा
@@ -445,7 +446,7 @@
                 त्रैमासकोे अन्तमा असुलउपर गरिने छ । कर्जा समयमा भुक्तानी नभएको अवस्थामा वा यस कर्जा
                 स्वीकृतिपत्रमा उल्लेखित शर्त तथा वन्देजहरुको उल्लंघन भएमा वा स्वीकृत सीमा भन्दा वढी कर्जा उपभोग
                 गरेमा विना पूर्व सूचना यस कर्जा स्वीकृतिपत्रमा उल्लेखित व्याज दरमा कम्तीमा <strong>२</strong> प्रतिशत थप व्याज लगाई
-                असुल उपर गरिनेछ ।<br><br>
+                असुल उपर गरिनेछ ।<br>
               </li>
               <li>
                 आधार दर र स्वीकृत प्रिमियम दरको आधारमा ब्याजदरको निर्धारण गरिएको छ । आधार दर र स्वीकृत
@@ -457,7 +458,7 @@
                 सुविधाहरुमा फाईनान्सले त्रैमासिक रुपमा ब्याजदरको निर्धारण ÷ समायोजन गर्नेछ । तथापि ब्याजदरमा
                 अस्थाई रुपमा छुट दिई ब्याजदर कायम गरिएको हकमा भने आधार दर घटेपनि वा ०.५ प्रतिशतभन्दा कमले
                 बृद्घि भएता पनि अस्थाई छुट खारेज गरी आधार दर र स्वीकृत प्रिमियम दरको योगसम्म ब्याजदर समायोजन
-                गर्न फाईनान्स स्वतन्त्र रहनेछ ।<br><br>
+                गर्न फाईनान्स स्वतन्त्र रहनेछ ।<br>
               </li>
               <li>
                 आधारदरमा आएको परिवर्तनको कारणले हुने ब्याजदर समायोजन यसै कर्जा सम्झौतामा उल्लेखित शर्त
@@ -477,7 +478,7 @@
                       {{printDocForm?.amount4 === null || printDocForm?.amount4 === '' ? '_________________' : printDocForm?.amount4}}
                   </span>
             को भुक्तानी मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका कर्जा तथा
-            सुविधाहरु कुनै कारण देखाई वा <br>नदेखाई फाइनान्सले फिर्ता भुक्तानी माग गरेका वखत तत्कालै भुक्तानी गर्नु पर्नेछ ।<br>
+            सुविधाहरु कुनै कारण देखाई वा नदेखाई फाइनान्सले फिर्ता भुक्तानी माग गरेका वखत तत्कालै भुक्तानी गर्नु पर्नेछ ।<br>
           </td>
         </tr>
         <tr>
@@ -550,12 +551,12 @@
             (ख) फाइनान्समा धितो दिएको सम्पत्ति राम्रो चालु हालतमा राख्नु पर्ने छ ।<br>
             (ग) फाइनान्समा धितो राखिएको सम्पत्तिको सम्वन्धमा कुनै प्रकारको विवाद सिर्जना भएमा फाइनान्स र ऋणीको आफ्नै
             अधिकार सुनिश्चित गर्न ऋणीले सवै सावधानी अपनाउनु पर्ने छ ।<br>
-            (घ) ऋणीले कर्जा तमसुक लागाएत अन्य आबश्यक कानुनी लिखतमा दस्तखत गरी संस्थालाई बुझाउनु पर्ने छ ।
+            (घ) ऋणीले कर्जा तमसुक लागाएत अन्य आबश्यक कानुनी लिखतमा दस्तखत गरी संस्थालाई बुझाउनु पर्ने छ ।<br><br><br>
           </td>
         </tr>
         <tr>
           <td><strong>७.</strong></td>
-          <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong><br><br>
+          <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong><br>
             यसका अतिरिक्त ऋणी निम्न शर्त वन्देजहरु स्वीकार गर्दछ ।
           </td>
         </tr>
@@ -567,9 +568,9 @@
           <td>७.२</td>
           <td>
             फाइनान्सले पूर्व सूचना दिएर वा नदिई पनि कर्जा/सुविधालाई नियमित वनाई राख्न ऋणीको खाता खर्च गर्न सक्नेछ ।
-            यसका लागि ऋणीले आफ्नो खातामा <br>पर्याप्त रकम कायम राख्नु पर्नेछ । ऋणीको खातामा पर्याप्त रकम नभई कर्जा वा
-            सुविधाको किस्ता खिलाफी भएमा ऋणीले फाइनान्स नियमानुसार विलम्व <br>शुल्क तिर्नु पर्नेछ । बैंक जमानत वमोजिमको
-            रकम फाइनान्सले भुक्तानी गरेमा जमानीको रकम फाइनान्सले ऋणीको खातामा खर्च लेखी सोझै असुल उपर गर्ने <br>छ ।
+            यसका लागि ऋणीले आफ्नो खातामा पर्याप्त रकम कायम राख्नु पर्नेछ । ऋणीको खातामा पर्याप्त रकम नभई कर्जा वा
+            सुविधाको किस्ता खिलाफी भएमा ऋणीले फाइनान्स नियमानुसार विलम्व शुल्क तिर्नु पर्नेछ । बैंक जमानत वमोजिमको
+            रकम फाइनान्सले भुक्तानी गरेमा जमानीको रकम फाइनान्सले ऋणीको खातामा खर्च लेखी सोझै असुल उपर गर्ने छ ।
           </td>
         </tr>
         <tr>
@@ -603,12 +604,12 @@
           <td>७.७</td>
           <td>
             यो कर्जा सुबिधा स्वीकृति पत्रमा उल्लेखित कुनै पनि शर्त वन्देज ऋणीले उल्लंघन गरेको कारणले कुनै हानी नोक्सानी
-            वा क्षति भएमा ऋणी आफैले व्यहोर्नु पर्ने छ ।
+            वा क्षति भएमा ऋणी आफैले व्यहोर्नु पर्ने छ।
           </td>
         </tr>
         <tr>
           <td><strong>८.</strong></td>
-          <td><strong><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></strong><br><br>
+          <td><strong><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></strong><br>
             देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा किस्ता/कर्जा खिलाफी भएको मानिने छ ।
           </td>
         </tr>
@@ -616,7 +617,7 @@
           <td>८.१</td>
           <td>
             ऋणीले उपलव्ध गराएको कुनै पनि किसिमको विवरण, प्रतिनिधित्व, प्रतिवद्धता वा अन्य कुनै पत्राचार वा कर्जा आवेदन
-            वा उपलव्ध गराएको कुनै वित्तीय <br>विवरणहरु तात्वीक रुपमा असत्य, गलत वा झुट्ठा वा गलत सूचना प्रवाह हुने
+            वा उपलव्ध गराएको कुनै वित्तीय विवरणहरु तात्वीक रुपमा असत्य, गलत वा झुट्ठा वा गलत सूचना प्रवाह हुने
             खालको भएमा ।
           </td>
         </tr>
@@ -624,7 +625,7 @@
           <td>८.२</td>
           <td>
             ऋणीको हैसियत, कानूनी अस्तित्व वा कानूनी निकायको सम्वन्धमा वा ऋणीको आर्थिक अवस्था, प्रतिवद्धता वा दायित्व
-            वा वढोत्तरी कार्यक्रमहरु वा ऋणीको <br>पूंजीगत खर्चको सम्वन्धमा फाइनान्सलाई समयमा जानकारी नगराएमा वा लुकाउने
+            वा वढोत्तरी कार्यक्रमहरु वा ऋणीको पूंजीगत खर्चको सम्वन्धमा फाइनान्सलाई समयमा जानकारी नगराएमा वा लुकाउने
             प्रयास गरेमा ।
           </td>
         </tr>
@@ -644,7 +645,7 @@
           <td>८.५</td>
           <td>
             कुनै असाधारण परिस्थितिको सिर्जना भयो तर फाइनान्सको विचारमा त्यस्तो अवस्था शंकास्पद भई ऋणी यो कर्जा
-            सुबिधा स्वीकृतिपत्र वमोजिम पुरा गर्नु पर्ने <br>दायित्व पुरा गर्न असक्षम छ भन्ने लागेमा फाइनान्सको विचार अविवादित,
+            सुबिधा स्वीकृतिपत्र वमोजिम पुरा गर्नु पर्ने दायित्व पुरा गर्न असक्षम छ भन्ने लागेमा फाइनान्सको विचार अविवादित,
             अन्तिम र ऋणीको लागि वन्धनकारी हुनेछ ।
           </td>
         </tr>
@@ -665,7 +666,7 @@
           <td>८.८</td>
           <td>
             फाइनान्समा धितो रहेको सम्पत्तिको पुरै वा आंशिक भाग खारेज गर्न वा अरु कसैलाई दिन वा कुनै किसिमको चार्ज
-            सिर्जना गर्न वा कुनै कानूनी कारवाही गर्न <br>ऋणीले स्वीकृति दिएमा वा ऋणी आफैले वा कुनै अड्डा अदालतवाट
+            सिर्जना गर्न वा कुनै कानूनी कारवाही गर्न ऋणीले स्वीकृति दिएमा वा ऋणी आफैले वा कुनै अड्डा अदालतवाट
             लिक्वीडेटर वा अन्य लाभग्राही नियुक्त गरेमा ।
           </td>
         </tr>
@@ -673,47 +674,46 @@
           <td>८.९</td>
           <td>
             ऋणीको कुनै सम्पत्ति वा कारोवारको पुरै वा आंशिक अंश जफत भएमा वा जफत हुने भएमा वा ऋणीको कारोवार वा
-            सम्पत्ति कुनै सरकारी निकाय वा कुनै <br>अड्डा अदालत वा कुनै पक्ष वा व्यक्ति वा संस्थाले वन्द गरेमा वा निलम्वन गरेमा ।
+            सम्पत्ति कुनै सरकारी निकाय वा कुनै अड्डा अदालत वा कुनै पक्ष वा व्यक्ति वा संस्थाले वन्द गरेमा वा निलम्वन गरेमा ।
           </td>
         </tr>
         <tr>
           <td>८.१०</td>
           <td>
             ऋणीले अरु कसैवाट लिएको ऋण समयमा भुक्तानी गर्न नसकेमा फाइनान्सलाई देहायमा लेखिए वमोजिम गर्ने अधिकार
-            हुने छ ।<br><br>
+            हुने छ ।<br>
             (क) भुक्तानी गर्न बांकी रहको सवै कर्जा तथा सुविधा र सोमा लाग्ने व्याज सहितको सम्पूर्ण लेना रकम तत्कालै
-            भुक्तानी गर्नु पर्ने गरी घोषणा गर्न सक्नेछ ।<br><br>
-            (ख) यस कर्जा सुबिधा स्वीकृति पत्रको दफा ३ मा लेखिए वमोजिम व्याज लगाई असुउपर गर्न सक्ने छ ।<br><br>
+            भुक्तानी गर्नु पर्ने गरी घोषणा गर्न सक्नेछ ।<br>
+            (ख) यस कर्जा सुबिधा स्वीकृति पत्रको दफा ३ मा लेखिए वमोजिम व्याज लगाई असुउपर गर्न सक्ने छ ।<br>
             (ग) फाइनान्सलाई लेखिदिएको सवै धितो सुरक्षणहरु आफ्नो नियन्त्रणमा लिई लिलाम विक्री वा अन्य कुनै व्यवस्था गरी
-            सोवाट प्राप्त रकम कलम कर्जा<br> हिसावमा मिलान गर्न सस्क्ने छ । <br><br>
-            (घ) किस्ता/कर्जा खिलाफीको कारणले सिर्जित केही वा सवै अधिकारहरु समर्पण गर्न सक्नेछ ।<br><br>
+            सोवाट प्राप्त रकम कलम कर्जा हिसावमा मिलान गर्न सस्क्ने छ । <br>
+            (घ) किस्ता/कर्जा खिलाफीको कारणले सिर्जित केही वा सवै अधिकारहरु समर्पण गर्न सक्नेछ ।<br>
             (ङ) फाइनान्सले उपलव्ध गराएको एक वा सो भन्दा वढी बैंकिङ्ग सुविधाहरुमा भै रहेको शर्त वन्देजहरुमा परिवर्तन गर्न
-            सक्नेछ ।<br><br>
-            (च) कुनै सुविधासंग सम्वद्ध दायित्वको लागि नगद भुक्तानी माग गर्न सक्ने छ ।<br><br>
-            (छ) किस्ता/कर्जा खिलाफीको कारणले सिर्जित केही वा सवै अधिकारहरु समर्पण गर्न सक्नेछ ।<br><br>
+            सक्नेछ ।<br>
+            (च) कुनै सुविधासंग सम्वद्ध दायित्वको लागि नगद भुक्तानी माग गर्न सक्ने छ ।<br>
+            (छ) किस्ता/कर्जा खिलाफीको कारणले सिर्जित केही वा सवै अधिकारहरु समर्पण गर्न सक्नेछ ।<br>
             (ज) फाइनान्समा धितो सुरक्षण दिएको सम्पत्ति वाहेक ऋणी र जमानीकर्ता र निजका परिवारका सदस्यहरुको नाममा
-            रहेका अन्य सम्पुर्ण चल अचल <br> सम्पत्तिहरु रोक्का राख्न सक्नेछ ।<br><br>
-            (झ) ऋणीको बैंक खातामा जम्मा भएको सवै रकमहरु रोक्का राख्न सक्ने छ ।<br><br>
+            रहेका अन्य सम्पुर्ण चल अचल सम्पत्तिहरु रोक्का राख्न सक्नेछ ।<br>
+            (झ) ऋणीको बैंक खातामा जम्मा भएको सवै रकमहरु रोक्का राख्न सक्ने छ ।<br>
             (ञ) कर्जा तथा सुविधाको भुक्तानीको अवधि नाघेको मितिलाई नै ऋणीले अन्तिम सूचना प्राप्त गरेको अकाट्य प्रमाण
-            मानी बैंकिङ्ग कानून वमोजिम फाइनान्सले <br>असुली प्रकृया आरम्भ गर्न सक्नेछ ।<br><br>
+            मानी बैंकिङ्ग कानून वमोजिम फाइनान्सले असुली प्रकृया आरम्भ गर्न सक्नेछ ।<br>
             (ट) यो कर्जा सुबिधा स्वीकृति पत्रमा उल्लेख नभएको कुनै बैंकिङ्ग सुविधा ऋणीले फाइनान्सवाट उपभोग गरेको रहेछ र
-            सो सुविधाको किस्ता/कर्जा खिलाफी <br>भएको रहेछ भने सो समेत यसै कर्जा स्वीकृति पत्र वमोजिम प्रवाह भएसरह
-            मानिनेछ र सम्पूर्ण कर्जा सुविधा फिर्ता भुक्तानी माग गर्न र सम्पूर्ण कर्जा तथा सुविधा <br>तत्कालै भुक्तानी गराउन
+            सो सुविधाको किस्ता/कर्जा खिलाफी भएको रहेछ भने सो समेत यसै कर्जा स्वीकृति पत्र वमोजिम प्रवाह भएसरह
+            मानिनेछ र सम्पूर्ण कर्जा सुविधा फिर्ता भुक्तानी माग गर्न र सम्पूर्ण कर्जा तथा सुविधा तत्कालै भुक्तानी गराउन
             फाइनान्स पूर्ण रुपमा अधिकृत रहेको छ ।
           </td>
         </tr>
         <tr>
           <td><strong>९.</strong></td>
-          <td><strong><u>लागू हुने पूर्व शर्त</u></strong> <br><br>
+          <td><strong><u>लागू हुने पूर्व शर्त</u></strong> <br>
             यो कर्जा सुविधा प्राप्त गर्न, यस कर्जा सुविधाको लागि माथि दफा २ मा लेखिएको सम्पत्तिको रुपमा उपलव्ध गराउन र
             धितो सम्पत्तिका लिखतहरु लगायतका <br>कर्जा सुविधासंग सम्वन्धित कानूनी कागजपत्रमा सहीछाप गर्न, यो कर्जा
             स्वीकृतिपत्र स्वीकार गर्न र ऋणीको तर्फवाट यो कर्जा सुविधाको सञ्चालन गर्ने अधिकार <br>प्रत्यायोजन गरेको ऋणीको
             विधान, प्रवन्धपत्र तथा नियमावली वमोजिम विधिवत गठित सञ्चालक समिति/कार्यसमिति वा आवश्यकता अनुसार
             ऋणीको<br> साधारण सभावाट पारित निर्णय माईन्यूट, साझेदारी फर्मको हकमा सर्वसम्मत सम्झौता बमोजिम फाइनान्समा
             पेश गर्नु पर्ने छ ।
-            <br><br>
-            तपसिल वमोजिमका कानूनी कागजातहरुले समेत कर्जा तथा सुविधाहरुको सुरक्षण लिखतको काम गर्ने छन् ।<br>
             <br>
+            तपसिल वमोजिमका कानूनी कागजातहरुले समेत कर्जा तथा सुविधाहरुको सुरक्षण लिखतको काम गर्ने छन् ।<br>
             (क) कर्जा तमसुक ।<br>
             (ख) व्यक्तिगत जमानी तमसुक ।<br>
             (ग) प्रतिज्ञापत्र<br>
@@ -726,7 +726,7 @@
         <tr>
           <td><strong>१०.</strong></td>
           <td>
-            <strong><u>घोषणा (Declaration) : </u></strong>
+            <strong><u>घोषणा (Declaration) </u>: </strong>
             ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने कुराको विना शर्त घोषणा
             गर्दछ ।
           </td>
@@ -760,8 +760,8 @@
           <td>
             <strong><u>छुट (Waiver)</u></strong><br><br>
             कुनै खास अधिकार छोडेको लिखित सूचना ऋणीले प्राप्त नगरे सम्म यस कर्जा स्वीकृतिपत्र वमोजिम फाइनान्सलाई
-            प्राप्त अधिकारमा कुनै किसिमको छुट <br>प्रदान भएको मानिने छैन । फाइनान्सले एक पटक सवै वा केही अधिकारहरुको
-            प्रयोग गरेमा वा नगरेमा ती अधिकारहरु पुनः प्रयोग गर्न सक्नेछ ।<br><br><br><br><br><br><br><br><br><br><br><br>
+            प्राप्त अधिकारमा कुनै किसिमको छुट प्रदान भएको मानिने छैन । फाइनान्सले एक पटक सवै वा केही अधिकारहरुको
+            प्रयोग गरेमा वा नगरेमा ती अधिकारहरु पुनः प्रयोग गर्न सक्नेछ ।
           </td>
         </tr>
         <tr>
@@ -787,8 +787,8 @@
             <tr>
               <td> श्री प्रोग्रेशिभ फाइनान्स लिमिटेड,<br>
                 शाखा कार्यालय <br>
-                <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
-                      {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
+                <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
+                      {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '_________________' : printDocForm?.financeBranch}}
                 </span>
                 ।<br> <br>
                 टेलिफोन :
@@ -802,7 +802,7 @@
                       {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                 </span><br>
                 हालको ठेगाना :
-                <span [ngClass]="{'nepaliFont' : printDocForm?.customerTempAddress !== null && printDocForm?.customerTempAddress !== ''}">
+                <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerTempAddress !== null && printDocForm?.customerTempAddress !== ''}">
                       {{printDocForm?.customerTempAddress === null || printDocForm?.customerTempAddress === '' ? '_________________' : printDocForm?.customerTempAddress}}
                 </span><br><br>
                 मोबाइल नं.
@@ -852,7 +852,8 @@
           </div>
         </div>
       </div>
-      <br>
+      <br><br><br><br><br><br><br><br><br><br><br>
+      <br><br><br><br><br><br><br><br><br><br><br><br>
       <p>
         यस पत्रमा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु मलाई पूर्ण मन्जुर छ । उपरोक्त बमोजिम फाइनान्सबाट प्राप्त हुने ऋण कर्जा
         सुबिधा तथा अन्य दायित्व तिर्न बुझाउन मेरो <br>पूर्ण मन्जुरी रहेकोले यो कर्जा स्वीकृतिपत्रमा स्वीकृति जनाई सही छाप गरी
@@ -869,7 +870,7 @@
             </span><br><br>
             नागरिकता नं., मिति र कार्यालय:—
             <strong> (ना.प्र.नं </strong>
-            <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipNum !== null && printDocForm?.signatoryCitizenshipNum !== ''}">
+            <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.signatoryCitizenshipNum !== null && printDocForm?.signatoryCitizenshipNum !== ''}">
               {{printDocForm?.signatoryCitizenshipNum === null || printDocForm?.signatoryCitizenshipNum === '' ? '_________________' : printDocForm?.signatoryCitizenshipNum}}
             </span>
             <strong> मिति </strong>
@@ -877,12 +878,12 @@
               {{printDocForm?.signatoryCitizenshipIssueDate === null || printDocForm?.signatoryCitizenshipIssueDate === '' ? '_________________' : printDocForm?.signatoryCitizenshipIssueDate}}
             </span>
             <strong> जि.प्र.का. </strong>
-            <span [ngClass]="{'nepaliFont ' : printDocForm?.signatoryCitizenshipIssuePlace !== null && printDocForm?.signatoryCitizenshipIssuePlace !== ''}">
+            <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipIssuePlace !== null && printDocForm?.signatoryCitizenshipIssuePlace !== ''}">
               {{printDocForm?.signatoryCitizenshipIssuePlace === null || printDocForm?.signatoryCitizenshipIssuePlace === '' ? '_________________' : printDocForm?.signatoryCitizenshipIssuePlace}}
             </span>
             <strong> ) </strong><br><br>
             ऋणी वा अख्तियार प्राप्त व्यक्तिको ठेगाना :—
-            <span [ngClass]="{'nepaliFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
+            <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
               {{printDocForm?.customerAddress === null || printDocForm?.customerAddress === '' ? '_________________' : printDocForm?.customerAddress}}
             </span>
             <br><br>
