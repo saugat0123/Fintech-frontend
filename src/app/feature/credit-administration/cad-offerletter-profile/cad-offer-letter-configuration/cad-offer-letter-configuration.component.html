@@ -259,7 +259,7 @@
                                             formControlName="province"
                                             id="province">
                                         <option [ngValue]="null" hidden>प्रदेश</option>
-                                        <option *ngFor="let provinceVal of provinceList"
+                                        <option *ngFor="let provinceVal of permanentProvinceList"
                                                 [ngValue]="provinceVal">
                                             {{provinceVal.nepaliName}}
                                         </option>
@@ -367,7 +367,7 @@
                                             formControlName="temporaryProvince"
                                             id="temporaryProvince">
                                         <option [ngValue]="null" hidden>प्रदेश</option>
-                                        <option *ngFor="let provinceVal of provinceList"
+                                        <option *ngFor="let provinceVal of temporaryProvinceList"
                                                 [ngValue]="provinceVal">
                                             {{provinceVal.nepaliName}}
                                         </option>
