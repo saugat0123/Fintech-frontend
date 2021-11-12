@@ -271,7 +271,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
-    this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
   }
 
   getNumAmountWord(numLabel, wordLabel) {
