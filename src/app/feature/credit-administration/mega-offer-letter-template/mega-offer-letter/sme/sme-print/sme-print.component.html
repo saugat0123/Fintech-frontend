@@ -9,11 +9,7 @@
                 </span>
                 <p>
                     मितिः
-                    <span *ngIf="letter.dateOfApproval.en.nDate; else dateOfApprovalPrint"
-                          class="font-weight-bold">{{letter?.dateOfApproval.en.nDate}}</span>
-                    <ng-template #dateOfApprovalPrint>
-                        <span class=" font-weight-bold">{{(letter?.dateOfApproval.en | date) | engNepDate: true}}</span>
-                    </ng-template>
+                    <span class="font-weight-bold">{{approvalDate ? approvalDate : ''}}</span>
                 </p>
             </div>
             <div class="mb-2">
@@ -45,11 +41,7 @@
             </div>
             <div class="col-md-12"></div>
             <p>तपाईंले मिति
-                <span *ngIf="letter.dateofApplication.en.nDate; else dateofApplicationPrint"
-                      class="font-weight-bold">{{letter?.dateofApplication.en.nDate}}</span>
-                <ng-template #dateofApplicationPrint>
-                    <span class=" font-weight-bold">{{(letter?.dateofApplication.en | date) | engNepDate: true}}</span>
-                </ng-template>
+                <span class="font-weight-bold">{{applicationDate ? applicationDate : ''}}</span>
                 मा सवारी साधन कर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका
                 ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
             </p>
