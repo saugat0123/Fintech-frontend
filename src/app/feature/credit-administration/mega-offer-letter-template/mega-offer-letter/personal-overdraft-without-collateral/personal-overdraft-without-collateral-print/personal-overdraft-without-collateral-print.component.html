@@ -430,16 +430,16 @@
                             <tr>
                                 <td>२८. </td>
                                 <td>तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ।<br>
-                                    <div *ngIf="selectedSecurity === 'LAND' && !renewal" class="col-md-12">
+                                    <div>
                                         <p style="margin-left:100px;line-height: 1.9;">
                                             क.  रु. <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span> को प्रतिज्ञा पत्र ।<br>
-                                            ख. निरन्तरताको लिखत ।
+                                            ख. निरन्तरताको लिखत ।<br>
                                             ग. रु.  <span class=" font-weight-bold">
                                         {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                     </span> ऋण कर्जा तमसुक ।<br>
-                                            व्यक्तिगत अधिविकर्ष सुविधाको लागी निवेदन ।<br>
+                                            घ. श्री
                                             <span class=" font-weight-bold">
                                     {{this.finalName}}
                                 </span>
@@ -450,8 +450,8 @@
                                             (अक्षरेपी रु <span class=" font-weight-bold">
                                     {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}
                                 </span>
-                                            मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
-                                            ङ.  थाई लेखा नम्बरको प्रमाण पत्र ।<br>
+                                            मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।<br>
+                                            ङ.  स्थाई लेखा नम्बरको प्रमाण पत्र ।<br>
                                             च. ग्राहक स्वःघोषणा फारम ।<br>
                                             छ. बहूबैंकिङ्ग घोषणा पत्र ।<br>
                                             ज. ऋणीबाट गलमभचतबपष्लन भिततभच ।
