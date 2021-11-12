@@ -20,7 +20,7 @@
               <td class="text-left pl-1">{{data.date}}</td>
               <td><a [href]="data.meetingLink">{{data.meetingLink}}</a></td>
               <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
-              <td>{{data.recordedLink}}</td>
+              <td><a [href]="data.recordedLink" >{{data.recordedLink}}</a></td>
               <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button></td>
           </tr>
       </ng-container>
