@@ -16,14 +16,15 @@
                 <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
                 <ng-template #nameDetails>
                         <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
-                            श्रीमती
+                            सुश्री
                         </span>
                     <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
-                          सुश्री
+                        श्रीमती
                         </span>
                 </ng-template>
                 <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}">
                     {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}</span>
+                ज्यु,
             <div class="mb-2"> ठेगाना:
                 <span [ngClass]="{'font-weight-bold' : customerAddress !== null && customerAddress !== ''}">
                         {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}
