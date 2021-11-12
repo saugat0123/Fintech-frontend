@@ -197,13 +197,36 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addGuarantorField() {
         return this.formBuilder.group({
-            name: '',
-            guarantorAge: '',
-            issuedYear: '',
-            issuedPlace: '',
-            guarantorLegalDocumentAddress: '',
-            relationship: '',
-            citizenNumber: ''
+            name: [undefined],
+            guarantorAge: [undefined],
+            issuedYear: [undefined],
+            issuedPlace: [undefined],
+            guarantorLegalDocumentAddress: [undefined],
+            relationship: [undefined],
+            citizenNumber: [undefined],
+            guarantorMobileNumber: [undefined],
+            guarantorEmailAddress: [undefined],
+            guarantorGrandfatherName: [undefined],
+            guarantorFatherName: [undefined],
+            guarantorFatherInLawName: [undefined],
+            guarantorSpouseName: [undefined],
+            guarantorPermanentMunType: [0],
+            // tslint:disable-next-line:max-line-length
+            guarantorPermanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province) ? undefined : this.customer.province.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            guarantorPermanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district) ? undefined : this.customer.district.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            guarantorPermanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities) ? undefined : this.customer.municipalities.nepaliName : undefined],
+            guarantorPermanentWard:  [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.wardNumber) : undefined],
+            guarantorTemporaryMunType: [1],
+            // tslint:disable-next-line:max-line-length
+            guarantorTemporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            guarantorTemporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            guarantorTemporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) ? undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            guarantorTemporaryWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined]
         });
     }
 
@@ -236,7 +259,23 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 issuedPlace: [value.issuedPlace],
                 guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
                 relationship: [value.relationship],
-                citizenNumber: [value.citizenNumber]
+                citizenNumber: [value.citizenNumber],
+                guarantorMobileNumber: [value.guarantorMobileNumber],
+                guarantorEmailAddress: [value.guarantorEmailAddress],
+                guarantorGrandfatherName: [value.guarantorGrandfatherName],
+                guarantorFatherName: [value.guarantorFatherName],
+                guarantorFatherInLawName: [value.guarantorFatherInLawName],
+                guarantorSpouseName: [value.guarantorSpouseName],
+                guarantorPermanentMunType: [value.guarantorPermanentMunType],
+                guarantorPermanentProvince: [value.guarantorPermanentProvince],
+                guarantorPermanentDistrict: [value.guarantorPermanentDistrict],
+                guarantorPermanentMunicipality: [value.guarantorPermanentMunicipality],
+                guarantorPermanentWard: [value.guarantorPermanentWard],
+                guarantorTemporaryMunType: [value.guarantorTemporaryMunType],
+                guarantorTemporaryProvince: [value.guarantorTemporaryProvince],
+                guarantorTemporaryDistrict: [value.guarantorTemporaryDistrict],
+                temporaryMunicipality: [value.temporaryMunicipality],
+                guarantorTemporaryWard: [value.guarantorTemporaryWard]
             }));
         });
     }
