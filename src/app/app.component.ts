@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (environment.production) {
+        if (environment.production && environment.autoReload) {
             this.versionCheckService.initVersionCheck(environment.versionCheckUrl);
         }
     }
