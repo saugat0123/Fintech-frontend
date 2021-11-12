@@ -719,17 +719,6 @@
                                                 type="text"/>
                                     </div>
                                 </div>
-<!--                                <div class="col">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label class="title" for="guarantorAddress">ठेगाना</label>-->
-<!--                                        <input  class="form-control rounded nepaliFont"-->
-<!--                                                formControlName="guarantorLegalDocumentAddress"-->
-<!--                                                id="guarantorAddress"-->
-<!--                                                autocomplete="off"-->
-<!--                                                name="name" placeholder="ठेगाना"-->
-<!--                                                type="text"/>-->
-<!--                                    </div>-->
-<!--                                </div>-->
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorMobileNumber">मोबाइल नम्बर</label>
@@ -743,13 +732,14 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorEmailAddress">इमेल ठेगाना</label>
-                                        <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorEmailAddress"
-                                                id="guarantorEmailAddress"
-                                                autocomplete="off"
-                                                name="name" placeholder="इमेल ठेगाना"
-                                                type="email"/>
+                                        <label class="title" for="guarantorEmailAddress">
+                                            इमेल</label>
+                                        <input [ngClass]="{'is-invalid': submitted && configForm.email.errors}"
+                                               type="email"
+                                               placeholder="इमेल ठेगाना"
+                                               class="form-control rounded nepaliFont"
+                                               id="guarantorEmailAddress"
+                                               formControlName="guarantorEmailAddress"/>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -792,7 +782,7 @@
                                                 formControlName="guarantorSpouseName"
                                                 id="guarantorSpouseName"
                                                 autocomplete="off"
-                                                name="name" placeholder="पति/पत्नीको नाम"
+                                                name="name" placeholder="पति वा पत्नीको नाम"
                                                 type="text"/>
                                     </div>
                                 </div>
@@ -811,71 +801,66 @@
                                     <strong>स्थाई ठेगाना</strong>
                                     <div class="offset-10 col-md-2">
                                         <div class="form-group">
-                                            <select class="form-control" formControlName="guarantorPermanentMunType" id="guarantorPermanentMunType"
-                                                    [ngClass]="{'is-invalid': submitted && configForm.guarantorPermanentMunType.errors}">
-                                                <option value="0">नगरपालिका</option>
-                                                <option value="1">गा. बि. स.</option>
-                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorPermanentProvince">
-                                            प्रदेश </label>
-                                        <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorPermanentProvince"
-                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorPermanentProvince.errors}"
-                                                id="guarantorPermanentProvince"
-                                                name="guarantorPermanentProvince" placeholder="प्रदेश"
-                                                type="text"/>
-<!--                                        <label for="guarantorPermanentProvince">प्रदेश</label>-->
-<!--                                        <select (change)="getGuarantorDistricts(basicInfoControls.province.value)"-->
-<!--                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.province.errors}"-->
-<!--                                                class="custom-select"-->
-<!--                                                formControlName="guarantorPermanentProvince"-->
-<!--                                                id="guarantorPermanentProvince">-->
-<!--                                            <option [ngValue]="null" hidden>प्रदेश</option>-->
-<!--                                            <option *ngFor="let provinceVal of provinceList"-->
-<!--                                                    [ngValue]="provinceVal">-->
-<!--                                                {{provinceVal.name}}-->
-<!--                                            </option>-->
-<!--                                        </select>-->
-<!--                                        <div *ngIf="(submitted) && basicInfoControls.province.invalid"-->
-<!--                                             class="invalid-feedback">-->
-<!--                                            <div *ngIf="basicInfoControls.province.errors.required">-->
-<!--                                                Province is required-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
+                                        <label class="title" for="guarantorPermanentProvince">प्रदेश</label>
+                                            <select (change)="getDistricts(configForm.province.value)"
+                                                    [ngClass]="{'is-invalid': submitted && configForm.province.errors}"
+                                                    class="form-control"
+                                                    id="guarantorPermanentProvince"
+                                                    formControlName="guarantorPermanentProvince">
+                                                <option *ngFor="let province of provinceList" value="{{province.nepaliName}}">
+                                                    {{province.nepaliName}}
+                                                </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && configForm.province.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="configForm.province.errors.required">
+                                                Province is required
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorPermanentDistrict">जिल्ला</label>
-                                        <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorPermanentDistrict"
-                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorPermanentDistrict.errors}"
+                                        <select (change)="getMunicipalities(configForm?.district.value)"
+                                                [ngClass]="{'is-invalid': submitted && configForm.district.errors}"
+                                            class="form-control"
                                                 id="guarantorPermanentDistrict"
-                                                name="guarantorPermanentDistrict" placeholder="जिल्ला"
-                                                type="text"/>
+                                                formControlName="guarantorPermanentDistrict">
+                                            <option *ngFor="let district of districtList" value="{{district.nepaliName}}">
+                                                {{district.nepaliName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && configForm.district.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="configForm.district.errors.required">
+                                                District is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorPermanentMunicipality">{{configForm.guarantorPermanentMunType.value == 0
-                                            ? 'नगरपालिका' : 'गा. बि. स.'}}</label>
-                                        <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorPermanentMunicipality"
-                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorPermanentMunicipality.errors}"
-                                                id="guarantorPermanentMunicipality"
-                                                name="guarantorPermanentMunicipality" placeholder="{{configForm.guarantorPermanentMunType.value == 0
-                                    ? 'नगरपालिका' : 'गा= बि= स='}}"
-                                                type="text"/>
+                                        <label for="guarantorPermanentMunicipality">नगरपालिका/गा. बि. स.</label>
+                                        <select class="form-control" formControlName="guarantorPermanentMunicipality" id="guarantorPermanentMunicipality"
+                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorPermanentMunicipality.errors}">
+                                            <option value="0">नगरपालिका</option>
+                                            <option value="1">गा. बि. स.</option>
+                                        </select>
+                                        <div *ngIf="(submitted) && configForm.municipalitiesList.invalid"
+                                             class="invalid-feedback">
+                                            Municipality is required
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorPermanentWard">वडा नं=</label>
+                                        <label class="title" for="guarantorPermanentWard">वडा नं.</label>
                                         <input  class="form-control rounded nepaliFont"
                                                 formControlName="guarantorPermanentWard"
                                                 [ngClass]="{'is-invalid': submitted && configForm.permanentWardNo.errors}"
@@ -890,50 +875,62 @@
                                 <div class="col-md-12 text-center">
                                     <strong>अस्थायी ठेगाना</strong>
                                     <div class="offset-10 col-md-2">
-                                        <div class="form-group">
-                                            <select class="form-control" formControlName="guarantorTemporaryMunType" id="guarantorTemporaryMunType"
-                                                    [ngClass]="{'is-invalid': submitted && configForm.guarantorTemporaryMunType.errors}">
-                                                <option value="0">नगरपालिका</option>
-                                                <option value="1">गा. बि. स.</option>
-                                            </select>
+                                      <div class="form-group">
+                                 </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorTemporaryProvince">प्रदेश</label>
+                                        <select (change)="getTemporaryDistricts(configForm.province.value)"
+                                                [ngClass]="{'is-invalid': submitted && configForm.province.errors}"
+                                            class="form-control"
+                                                id="guarantorTemporaryProvince"
+                                                formControlName="guarantorTemporaryProvince">
+                                            <option *ngFor="let province of provinceList" value="{{province.nepaliName}}">
+                                                {{province.nepaliName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && configForm.province.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="configForm.province.errors.required">
+                                                Province is required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorTemporaryProvince">
-                                            प्रदेश </label>
-                                        <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorTemporaryProvince"
-                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorTemporaryProvince.errors}"
-                                                id="guarantorTemporaryProvince"
-                                                name="guarantorTemporaryProvince" placeholder="प्रदेश"
-                                                type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
                                         <label class="title" for="guarantorTemporaryDistrict">जिल्ला</label>
-                                        <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorTemporaryDistrict"
-                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorTemporaryDistrict.errors}"
+                                        <select (change)="getTemporaryMunicipalities(configForm?.district.value)"
+                                                [ngClass]="{'is-invalid': submitted && configForm.district.errors}"
+                                            class="form-control"
                                                 id="guarantorTemporaryDistrict"
-                                                name="guarantorTemporaryDistrict" placeholder="जिल्ला"
-                                                type="text"/>
+                                                formControlName="guarantorTemporaryDistrict">
+                                            <option *ngFor="let district of districtList" value="{{district.nepaliName}}">
+                                                {{district.nepaliName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && configForm.district.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="configForm.district.errors.required">
+                                                District is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorTemporaryMunicipality">
-                                            {{configForm.guarantorTemporaryMunType.value == 0 ? 'नगरपालिका' : 'गा. बि. स.'}}
-                                        </label>
-                                        <input  class="form-control rounded nepaliFont"
-                                                formControlName="temporaryMunicipality"
-                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorTemporaryMunicipality.errors}"
-                                                id="guarantorTemporaryMunicipality"
-                                                name="guarantorTemporaryMunicipality" placeholder="{{configForm.guarantorTemporaryMunType.value == 0
-                                    ? 'नगरपालिका' : 'गा= बि= स='}}"
-                                                type="text"/>
+                                        <label class="title" for="guarantorTemporaryMunicipality">नगरपालिका/गा. बि. स.</label>
+                                        <select class="form-control" formControlName="guarantorTemporaryMunicipality" id="guarantorTemporaryMunicipality"
+                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorTemporaryMunicipality.errors}">
+                                            <option value="0">नगरपालिका</option>
+                                            <option value="1">गा. बि. स.</option>
+                                        </select>
+                                        <div *ngIf="(submitted) && configForm.temporaryMunicipalities.invalid"
+                                             class="invalid-feedback">
+                                            Municipality is required
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -1022,7 +1019,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="title" for="branchWardNo">शाखा वडा नं.</label>
-                            <input [ngClass]="{'is-invalid': submitted && nepFormControls.branchWardNo.errors}"
+                            <input [ngClass]="{'is-invalid': submitted && configForm.branchWardNo.errors}"
                                    type="text"
                                    placeholder="शाखा वडा नं="
                                    id="branchWardNo"
@@ -1034,7 +1031,7 @@
                             <label class="title" for="telNo">
                                 टेलिफोन नम्बर</label>
                             <input type="text"
-                                   [ngClass]="{'is-invalid': submitted && nepFormControls.telNo.errors}"
+                                   [ngClass]="{'is-invalid': submitted && configForm.telNo.errors}"
                                    placeholder="टेलिफोन नम्बर"
                                    class="form-control form-control-sm nepaliFont"
                                    id="telNo"
@@ -1043,7 +1040,7 @@
                         <div class="form-group col-md-4">
                             <label class="title" for="faxNo">
                                 फ्याक्स नम्बर</label>
-                            <input [ngClass]="{'is-invalid': submitted && nepFormControls.faxNo.errors}"
+                            <input [ngClass]="{'is-invalid': submitted && configForm.faxNo.errors}"
                                    type="text"
                                    placeholder="फ्याक्स नम्बर"
                                    id="faxNo"
@@ -1052,7 +1049,7 @@
                         <div class="form-group col-md-4">
                             <label class="title" for="email">
                                 इमेल</label>
-                            <input [ngClass]="{'is-invalid': submitted && nepFormControls.email.errors}"
+                            <input [ngClass]="{'is-invalid': submitted && configForm.email.errors}"
                                    type="text"
                                    placeholder="Email"
                                    class="form-control form-control-sm"
