@@ -21,8 +21,14 @@
         </div>
     </nb-card-body>
     <nb-card-footer>
+        <button [disabled]="isPreviewBtnDisabled"
+                class="float-right" nbButton
+                (click)="openModel()"
+                status="primary" size="medium">
+            Preview
+        </button>
         <div class="row d-flex justify-content-end">
-            <button nbButton status="primary" size="tiny" (click)="onSubmit()" [disabled]="!btnDisable">Update</button>
+            <button nbButton status="primary" size="medium" (click)="onSubmit()" [disabled]="!btnDisable">Update</button>
         </div>
     </nb-card-footer>
 </nb-card>
