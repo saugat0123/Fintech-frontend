@@ -17,6 +17,10 @@ import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
+import {NepDataPersonal} from '../../model/nepDataPersonal';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
+import {BranchService} from '../../../admin/component/branch/branch.service';
+import {District} from '../../../admin/modal/district';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -40,6 +44,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     hideSaveBtn = false;
     client = environment.client;
     clientList = Clients;
+    nepDataPersonal = new NepDataPersonal();
+    branchList;
+    districtList;
+    branchMunVdc;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -47,6 +55,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 private toastService: ToastService,
                 private engToNepNumber: EngToNepaliNumberPipe,
                 public datepipe: DatePipe,
+                private addressService: AddressService,
+                private branchService: BranchService,
                 protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) {
     }
 
@@ -55,6 +65,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.addressService.getAllDistrict().subscribe((res: any) => {
+            this.districtList = res.detail;
+        });
+
+        this.branchService.getAll().subscribe((res: any) => {
+            this.branchList = res.detail;
+        });
+
+        /*this.addressService.getMunicipalityVDCByDistrict().subscribe((res: any) => {
+            this.branchMunVdc = res.detail;
+        });*/
+
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -125,7 +147,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             representativeName: [undefined],
             representativeCitizenshipNo: [undefined],
             representativeCitizenshipIssueDate: [undefined],
-            representativeCitizenshipIssuingAuthority: [undefined]
+            representativeCitizenshipIssuingAuthority: [undefined],
+            branchName: [undefined],
+            branchDistrict: [undefined],
+            branchMunVdc: [undefined],
+            branchWardNo: [undefined],
+            telNo: [undefined],
+            faxNo: [undefined],
+            email: [undefined],
         });
     }
 

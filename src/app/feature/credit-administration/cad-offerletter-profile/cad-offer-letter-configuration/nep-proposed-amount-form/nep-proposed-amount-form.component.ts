@@ -19,6 +19,7 @@ import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {NepDataPersonal} from '../../../model/nepDataPersonal';
 import {CustomerType} from '../../../../customer/model/customerType';
 import {Branch} from '../../../../admin/modal/branch';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 
 @Component({
     selector: 'app-nep-proposed-amount-form',
@@ -77,10 +78,13 @@ export class NepProposedAmountFormComponent implements OnInit {
             branchWardNo: [this.nepDataPersonal.branchWardNo, Validators.required],
             loanType: [this.nepDataPersonal.loanType, Validators.required],
             interestRate: [this.nepDataPersonal.interestRate, Validators.required],
-            serviceFee: [this.nepDataPersonal.serviceFee, Validators.required],
+            serviceFeePercent: [this.nepDataPersonal.serviceFeePercent, Validators.required],
+            serviceFeeAmount: [this.nepDataPersonal.serviceFeeAmount, Validators.required],
             tenureOfLoanInMonths: [this.nepDataPersonal.tenureOfLoanInMonths, Validators.required],
             tenureOfLoanInYears: [this.nepDataPersonal.tenureOfLoanInYears, Validators.required],
-            installmentAmount: [this.nepDataPersonal.installmentAmount, Validators.required]
+            installmentAmount: [this.nepDataPersonal.installmentAmount, Validators.required],
+            typeOfLoanInEnglish: [undefined],
+            purposeOfLoan: [undefined]
         });
     }
 
