@@ -18,9 +18,11 @@ import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApproved
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {Province} from '../../../admin/modal/province';
-import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
+import {NepDataPersonal} from '../../model/nepDataPersonal';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
+import {BranchService} from '../../../admin/component/branch/branch.service';
+import {District} from '../../../admin/modal/district';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -44,16 +46,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     hideSaveBtn = false;
     client = environment.client;
     clientList = Clients;
-    province: Province = new Province();
-    provinceList: Array<Province> = Array<Province>();
-    temporaryProvinceList: Array<Province> = Array<Province>();
-    district: District = new District();
-    districtList: Array<District> = Array<District>();
-    municipality: MunicipalityVdc = new MunicipalityVdc();
-    municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    temporaryDistrictList: Array<District> = Array<District>();
-    temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    allDistrict: Array<District> = Array<District>();
+    nepDataPersonal = new NepDataPersonal();
+    branchList;
+    districtList;
+    branchMunVdc;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -62,6 +58,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 private toastService: ToastService,
                 private engToNepNumber: EngToNepaliNumberPipe,
                 public datepipe: DatePipe,
+                private addressService: AddressService,
+                private branchService: BranchService,
                 protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) {
     }
 
@@ -70,8 +68,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getProvince();
-        this.getAllDistrict();
+        this.addressService.getAllDistrict().subscribe((res: any) => {
+            this.districtList = res.detail;
+        });
+
+        this.branchService.getAll().subscribe((res: any) => {
+            this.branchList = res.detail;
+        });
+
+        /*this.addressService.getMunicipalityVDCByDistrict().subscribe((res: any) => {
+            this.branchMunVdc = res.detail;
+        });*/
+
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -156,99 +164,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             representativeName: [undefined],
             representativeCitizenshipNo: [undefined],
             representativeCitizenshipIssueDate: [undefined],
-            representativeCitizenshipIssuingAuthority: [undefined]
+            representativeCitizenshipIssuingAuthority: [undefined],
+            branchName: [undefined],
+            branchDistrict: [undefined],
+            branchMunVdc: [undefined],
+            branchWardNo: [undefined],
+            telNo: [undefined],
+            faxNo: [undefined],
+            email: [undefined],
         });
     }
-
-    getDistricts(province: Province) {
-        this.commonLocation.getDistrictByProvince(province).subscribe(
-            (response: any) => {
-                this.districtList = response.detail;
-                this.districtList.sort((a, b) => a.name.localeCompare(b.name));
-                this.districtList.forEach(district => {
-                    if (!ObjectUtil.isEmpty(this.customer.district) && district.id === this.customer.district.id) {
-                        this.userConfigForm.controls.district.setValue(district);
-                        this.getMunicipalities(district);
-                    }
-                });
-            }
-        );
-    }
-
-    getMunicipalities(district: District) {
-        this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
-            (response: any) => {
-                this.municipalitiesList = response.detail;
-                this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-                this.municipalitiesList.forEach(municipality => {
-                    if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
-                        this.userConfigForm.controls.municipalities.setValue(municipality);
-                    }
-                });
-            }
-        );
-
-    }
-    private getAllDistrict() {
-        this.commonLocation.getAllDistrict().subscribe((response: any) => {
-            this.allDistrict = response.detail;
-            this.allDistrict.sort((a, b) => a.name.localeCompare(b.name));
-        });
-    }
-    getTemporaryDistricts(province: Province) {
-        this.commonLocation.getDistrictByProvince(province).subscribe(
-            (response: any) => {
-                this.temporaryDistrictList = response.detail;
-                this.temporaryDistrictList.sort((a, b) => a.name.localeCompare(b.name));
-                this.temporaryDistrictList.forEach(district => {
-                    if (!ObjectUtil.isEmpty(this.customer.temporaryDistrict) && district.id === this.customer.temporaryDistrict.id) {
-                        this.userConfigForm.controls.temporaryDistrict.patchValue(district);
-                        this.getTemporaryMunicipalities(district);
-                    }
-                });
-            }
-        );
-    }
-
-    getTemporaryMunicipalities(district: District) {
-        this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
-            (response: any) => {
-                this.temporaryMunicipalitiesList = response.detail;
-                this.temporaryMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-                this.temporaryMunicipalitiesList.forEach(municipality => {
-                    if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
-                        municipality.id === this.customer.temporaryMunicipalities.id) {
-                        this.userConfigForm.controls.temporaryMunicipalities.setValue(municipality);
-                    }
-                });
-            }
-        );
-
-    }
-    getProvince() {
-        this.commonLocation.getProvince().subscribe(
-            (response: any) => {
-                this.provinceList = response.detail;
-                this.provinceList.forEach((province: Province) => {
-                    if (this.customer !== undefined) {
-                        if (!ObjectUtil.isEmpty(this.customer.province)) {
-                            if (province.id === this.customer.province.id) {
-                                this.userConfigForm.controls.province.setValue(province);
-                                this.getDistricts(province);
-                            }
-                        }
-                        if (!ObjectUtil.isEmpty(this.customer.temporaryProvince)) {
-                            if (province.id === this.customer.temporaryProvince.id) {
-                                this.userConfigForm.controls.temporaryProvince.setValue(province);
-                                this.getTemporaryDistricts(province);
-                            }
-                        }
-                    }
-                });
-            }
-        );
-    }
-
     ageCalculation(startDate) {
         startDate = this.datepipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
         const stDate = new Date(startDate);
