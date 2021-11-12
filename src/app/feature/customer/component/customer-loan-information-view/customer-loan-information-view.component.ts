@@ -7,6 +7,8 @@ import {CompanyInfo} from '../../../admin/modal/company-info';
 import {ToastService} from '../../../../@core/utils';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
+import {FiscalYear} from '../../../admin/modal/FiscalYear';
 
 @Component({
   selector: 'app-customer-loan-information-view',
@@ -17,16 +19,20 @@ export class CustomerLoanInformationViewComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   companyInfo = new CompanyInfo();
   nbDialogRef: NbDialogRef<any>;
+  fiscalYearArray: Array<FiscalYear>;
+  @Input() isMicroCustomer: boolean;
 
   constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService,
-              private modalService: NbDialogService,) {
+              private modalService: NbDialogService, private  fiscalYearService: FiscalYearService) {
   }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.checkCustomerType();
     }
-
+    this. fiscalYearService.getAll().subscribe( res => {
+      this.fiscalYearArray = res.detail;
+    });
   }
 
   checkCustomerType() {
