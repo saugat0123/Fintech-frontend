@@ -50,7 +50,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     branchList;
     branchMunVdc;
     province: Province = new Province();
-    provinceList: Array<Province> = Array<Province>();
+    permanentProvinceList: Array<Province> = Array<Province>();
     temporaryProvinceList: Array<Province> = Array<Province>();
     district: District = new District();
     districtList: Array<District> = Array<District>();
@@ -72,12 +72,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) {
     }
 
-    ngOnInit() {
+   ngOnInit() {
         this.getProvince();
         this.getAllDistrict();
-        // this.branchService.getAll().subscribe((res: any) => {
-        //     this.branchList = res.detail;
-        // });
+        this.branchService.getAll().subscribe((res: any) => {
+            this.branchList = res.detail;
+        });
 
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
@@ -88,8 +88,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     getProvince() {
+        let provinces: Array<Province>;
         this.addressService.getProvince().subscribe((res: any) => {
-            this.provinceList = res.detail;
+             provinces = res.detail;
+            this.permanentProvinceList = provinces;
+            this.temporaryProvinceList = provinces;
         });
     }
     getDistricts(province: Province) {
