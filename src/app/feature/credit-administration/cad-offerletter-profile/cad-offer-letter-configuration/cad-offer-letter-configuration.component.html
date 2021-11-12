@@ -985,6 +985,12 @@
                                     <strong>स्थाई ठेगाना</strong>
                                     <div class="offset-10 col-md-2">
                                         <div class="form-group">
+                                            <select class="form-control" formControlName="representativeTemporaryMunType"
+                                                    id="guarantorPermanentMunType"
+                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentMunType.errors}">
+                                                <option value="0">नगरपालिका</option>
+                                                <option value="1">गा. बि. स.</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -996,7 +1002,7 @@
                                                     class="form-control"
                                                     id="guarantorPermanentProvince"
                                                     formControlName="guarantorPermanentProvince">
-                                                <option *ngFor="let province of provinceList" value="{{province.nepaliName}}">
+                                                <option *ngFor="let province of guarantorPermanentProvinceList" value="{{province.nepaliName}}">
                                                     {{province.nepaliName}}
                                                 </option>
                                         </select>
@@ -1059,8 +1065,14 @@
                                 <div class="col-md-12 text-center">
                                     <strong>अस्थायी ठेगाना</strong>
                                     <div class="offset-10 col-md-2">
-                                      <div class="form-group">
-                                 </div>
+                                        <div class="form-group">
+                                            <select class="form-control" formControlName="guarantorTemporaryMunType"
+                                                    id="guarantorTemporaryMunType"
+                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryMunType.errors}">
+                                                <option value="0">नगरपालिका</option>
+                                                <option value="1">गा. बि. स.</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -1071,7 +1083,7 @@
                                             class="form-control"
                                                 id="guarantorTemporaryProvince"
                                                 formControlName="guarantorTemporaryProvince">
-                                            <option *ngFor="let province of provinceList" value="{{province.nepaliName}}">
+                                            <option *ngFor="let province of guarantorTemporaryProvinceList" value="{{province.nepaliName}}">
                                                 {{province.nepaliName}}
                                             </option>
                                         </select>

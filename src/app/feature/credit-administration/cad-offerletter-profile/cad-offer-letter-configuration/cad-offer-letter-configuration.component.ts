@@ -59,7 +59,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     temporaryDistrictList: Array<District> = Array<District>();
     temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     allDistrict: Array<District> = Array<District>();
-
+    guarantorPermanentProvinceList: Array<Province> = Array<Province>();
+    guarantorTemporaryProvinceList: Array<Province> = Array<Province>();
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
                 private customerService: CustomerService,
@@ -74,9 +75,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     ngOnInit() {
         this.getProvince();
         this.getAllDistrict();
-        this.branchService.getAll().subscribe((res: any) => {
-            this.branchList = res.detail;
-        });
+        // this.branchService.getAll().subscribe((res: any) => {
+        //     this.branchList = res.detail;
+        // });
 
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
@@ -325,12 +326,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             guarantorFatherName: [undefined],
             guarantorFatherInLawName: [undefined],
             guarantorSpouseName: [undefined],
-            // guarantorPermanentMunType: [0],
+            guarantorPermanentMunType: [0],
             guarantorPermanentProvince: [undefined],
             guarantorPermanentDistrict: [undefined],
             guarantorPermanentMunicipality: [undefined],
             guarantorPermanentWard: [undefined],
-            // guarantorTemporaryMunType: [1],
+            guarantorTemporaryMunType: [1],
             guarantorTemporaryProvince: [undefined],
             guarantorTemporaryDistrict: [undefined],
             guarantorTemporaryMunicipality: [undefined],
