@@ -22,6 +22,7 @@ import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {NepDataPersonal} from '../../model/nepDataPersonal';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {BranchService} from '../../../admin/component/branch/branch.service';
+import {District} from '../../../admin/modal/district';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
