@@ -2,14 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../../@core/service/user.service';
 import {LoanFormService} from '../component/loan-form/service/loan-form.service';
 import {LoanActionService} from '../loan-action/service/loan-action.service';
-import {DmsLoanService} from '../component/loan-main-template/dms-loan-file/dms-loan-service';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
-import {ApprovalLimitService} from '../../admin/component/approvallimit/approval-limit.service';
 import {DateService} from '../../../@core/service/baseservice/date.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {DocumentService} from '../../admin/component/document/document.service';
-import {CombinedLoanService} from '../../service/combined-loan.service';
 import {ActionModel} from '../model/action';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {User} from '../../admin/modal/user';
@@ -48,22 +43,16 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
     loanSummaryActive = true;
     approvalSheetActive = false;
-    loanTag= LoanTag;
+    loanTag = LoanTag;
     isRemitLoan = false;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
                 private loanActionService: LoanActionService,
-                private dmsLoanService: DmsLoanService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private loanConfigService: LoanConfigService,
-                private approvalLimitService: ApprovalLimitService,
-                private dateService: DateService,
-                private modalService: NgbModal,
-                private documentService: DocumentService,
-                private customerLoanService: LoanFormService,
-                private combinedLoanService: CombinedLoanService) {
+                private dateService: DateService) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.loadSummary();
@@ -120,6 +109,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.closed = false;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
+            console.log('loan data holder api response', this.loanDataHolder);
             if (!ObjectUtil.isEmpty(this.loanDataHolder.remitCustomer)) {
                 this.beneficiaryId = this.loanDataHolder.remitCustomer.beneficiaryId;
             }
@@ -168,22 +158,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.closed = false;
             }
 
-            // await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
-            //     .subscribe((res: any) => {
-            //         if (res.detail === undefined) {
-            //             this.actionsList.approved = false;
-            //         } else {
-            //             if (this.loanDataHolder.proposal !== null
-            //                 && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
-            //                 this.actionsList.approved = false;
-            //             }
-            //         }
-            //     });
-            if (this.loanDataHolder.isSol) {
-                if (this.loanDataHolder.solUser.id !== this.user.id) {
-                    this.actionsList.approved = false;
-                }
+            if (this.loanDataHolder.isHSOV) {
+                this.loanDataHolder.isHSOV = this.loanDataHolder.isHSOV;
             }
+            console.log('check cond', this.loanDataHolder);
 
             this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
                 this.nepaliDate = nepDate.detail;
@@ -221,6 +199,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
             const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
             this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
         });
+        console.log('last one', this.loanDataHolder);
     }
 
     activeApprovalSheet() {
