@@ -181,7 +181,6 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
   }
 
   taggedGuarantorsDetailsForm() {
-      console.log('Personal guarantee data',this.offerDocumentDetails);
       let todayDate: any = this.englishNepaliDatePipe.transform(new Date(), true);
     todayDate = todayDate.replace(',', '').split(' ');
     const daysInNumber = new Date().getDay();
@@ -205,6 +204,8 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
                   approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
               } else if (this.docName === 'Mortage Loan' && this.offerDocumentDetails.dateofApproval.en.eDate) {
                   approvedDate = this.offerDocumentDetails.dateofApproval.en.eDate;
+              } else if (this.docName === 'Home Loan' && this.offerDocumentDetails.loan.dateOfApproval) {
+                  approvedDate = this.offerDocumentDetails.loan.dateOfApproval;
               } else {
                   // tslint:disable-next-line:max-line-length
                   approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';

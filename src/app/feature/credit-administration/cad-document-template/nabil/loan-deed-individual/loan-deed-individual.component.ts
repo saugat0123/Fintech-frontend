@@ -138,8 +138,6 @@ export class LoanDeedIndividualComponent implements OnInit {
 
     let approvedDate: any;
     this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
-    console.log('Loan Deed Data', this.offerDocumentDetails);
-    console.log('Loan Deed Document Name', this.docName);
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval)) {
       // tslint:disable-next-line:max-line-length
       // approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
@@ -148,6 +146,8 @@ export class LoanDeedIndividualComponent implements OnInit {
         approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
       } else if (this.docName === 'Mortage Loan' && this.offerDocumentDetails.dateofApproval.en.eDate) {
         approvedDate = this.offerDocumentDetails.dateofApproval.en.eDate;
+      } else if (this.docName === 'Home Loan' && this.offerDocumentDetails.loan.dateOfApproval) {
+        approvedDate = this.offerDocumentDetails.loan.dateOfApproval;
       } else {
         approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
       }
@@ -166,7 +166,6 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.educationInterestRate = this.offerDocumentDetails.yearlyFloatingInterestRate ? this.offerDocumentDetails.yearlyFloatingInterestRate.en : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Auto Loan') {
-      console.log('Auto Loan Data',this.initialInformation);
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
     }
