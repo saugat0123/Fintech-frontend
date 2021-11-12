@@ -57,7 +57,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
   offerLetterDocument: OfferDocument;
   cadDocStatus = CadDocStatus.key();
   submitted = false;
-  fieldFlag = false;
   selectedSecurityVal;
   objectTranslate;
   closed = false;
@@ -272,7 +271,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
-    this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -312,7 +310,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
   transferValue() {
     const security = this.form.get('selectedSecurity').value;
     if (!ObjectUtil.isEmpty(security)) {
-      this.fieldFlag = true;
       this.selectedSecurityVal = security;
     }
   }

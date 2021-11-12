@@ -145,9 +145,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
         // tslint:disable-next-line:max-line-length
         approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
-      } else if (this.docName === 'Auto Loan' && this.offerDocumentDetails.dateOfApproval.en.eDate) {
-        approvedDate = this.offerDocumentDetails.dateOfApproval.en.eDate;
-      } else {
+      }  else {
         approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
       }
     }

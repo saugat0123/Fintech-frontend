@@ -1,38 +1,43 @@
-<div [nbSpinner]="spinner">
-    <form [formGroup]="form">
-        <div class="row p-2">
-            <div class="col-md-4">
-                <label><strong>Select AUTO Loan Type </strong></label>
-                <nb-select
-                        fullWidth
-                        placeholder="AUTO_LOAN_TYPE"
-                        formControlName="selectedAutoLoan"
-                        (selectedChange)="transferValue()"
-                        status="info">
-                    <nb-option value="AUTO_LOAN_PERSONAL">AUTO LOAN PERSONAL</nb-option>
-                    <nb-option value="AUTO_LOAN_INSTITUTION">AUTO LOAN INSTITUTION </nb-option>
-                </nb-select>
+<nb-card [nbSpinner]="spinner" >
+    <nb-card-header>
+        <h3>Auto Loan Edit </h3>
+        <a class="d-flex justify-content-end cursor" (click)="nbDialogRef.close()" style="margin-top:-2em"><b>x</b></a>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row p-2">
+                <div class="col-md-4">
+                    <label><strong>Select AUTO Loan Type </strong></label>
+                    <nb-select
+                            fullWidth
+                            placeholder="AUTO_LOAN_TYPE"
+                            formControlName="selectedAutoLoan"
+                            (selectedChange)="transferValue()"
+                            status="info">
+                        <nb-option value="AUTO_LOAN_PERSONAL">AUTO LOAN PERSONAL</nb-option>
+                        <nb-option value="AUTO_LOAN_INSTITUTION">AUTO LOAN INSTITUTION </nb-option>
+                    </nb-select>
+                </div>
+                <div class="col-md-4"
+                     *ngIf="form.get('selectedAutoLoan').value === 'AUTO_LOAN_PERSONAL'">
+                    <label><strong>Interest Type</strong></label>
+                    <nb-select
+                            fullWidth
+                            placeholder="INTEREST_TYPE"
+                            formControlName="selectedInterest"
+                            (selectedChange)="transferValue()"
+                            status="info">
+                        <nb-option value="FIXED_INTEREST_RATE">Fixed Interest Rate</nb-option>
+                        <nb-option value="FLOATING_INTEREST_RATE">Floating Interest Rate</nb-option>
+                    </nb-select>
+                </div>
             </div>
-            <div class="col-md-4"
-                 *ngIf="form.get('selectedAutoLoan').value === 'AUTO_LOAN_PERSONAL'">
-                <label><strong>Interest Type</strong></label>
-                <nb-select
-                        fullWidth
-                        placeholder="INTEREST_TYPE"
-                        formControlName="selectedInterest"
-                        (selectedChange)="transferValue()"
-                        status="info">
-                    <nb-option value="FIXED_INTEREST_RATE">Fixed Interest Rate</nb-option>
-                    <nb-option value="FLOATING_INTEREST_RATE">Floating Interest Rate</nb-option>
-                </nb-select>
+            <div class="row pt-3 pl-2">
+                <div class="col-md-12 pt-3 pl-2">
+                    <nb-checkbox #limitCheck (checkedChange)="loanChecked(limitCheck.checked)" [checked]="loanLimit">
+                        <i>Customer has total loan amount above One Crore</i></nb-checkbox>
+                </div>
             </div>
-        </div>
-        <div class="row pt-3 pl-2">
-            <div class="col-md-12 pt-3 pl-2">
-                <nb-checkbox #limitCheck (checkedChange)="loanChecked(limitCheck.checked)" [checked]="loanLimit">
-                    <i>Customer has total loan amount above One Crore</i></nb-checkbox>
-            </div>
-        </div>
             <table
                     *ngIf="fieldFlag"
                     class="table table-borderless text-center sb-small table-sm">
@@ -42,22 +47,22 @@
                     <th>Nepali Translation</th>
                     <th>Correct Translation</th>
                 </tr>
-<!--                <tr>-->
-<!--                    <td>Reference Number</td>-->
-<!--                    <td><input type="text" class="form-control" formControlName="referenceNumber"-->
-<!--                               (input)="translateNumber('referenceNumber', 'referenceNumberTransVal')">-->
-<!--                    </td>-->
-<!--                    <td class="abc">{{podtranslatedData?.referenceNumber}}</td>-->
-<!--                    <td>-->
-<!--                        <input type="text" class="form-control"-->
-<!--                               [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"-->
-<!--                               formControlName="referenceNumberTransVal"/>-->
-<!--                        <div *ngIf="submitted && Form.referenceNumberTransVal.errors"-->
-<!--                             class="invalid-feedback">-->
-<!--                            <div *ngIf="Form.referenceNumberTransVal.errors.required">reference number is required</div>-->
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                </tr>-->
+                <!--                <tr>-->
+                <!--                    <td>Reference Number</td>-->
+                <!--                    <td><input type="text" class="form-control" formControlName="referenceNumber"-->
+                <!--                               (input)="translateNumber('referenceNumber', 'referenceNumberTransVal')">-->
+                <!--                    </td>-->
+                <!--                    <td class="abc">{{podtranslatedData?.referenceNumber}}</td>-->
+                <!--                    <td>-->
+                <!--                        <input type="text" class="form-control"-->
+                <!--                               [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"-->
+                <!--                               formControlName="referenceNumberTransVal"/>-->
+                <!--                        <div *ngIf="submitted && Form.referenceNumberTransVal.errors"-->
+                <!--                             class="invalid-feedback">-->
+                <!--                            <div *ngIf="Form.referenceNumberTransVal.errors.required">reference number is required</div>-->
+                <!--                        </div>-->
+                <!--                    </td>-->
+                <!--                </tr>-->
                 <tr>
                     <td> Date Of Approval</td>
                     <td>
@@ -354,26 +359,29 @@
                         </div>
                     </td>
                 </tr>
-<!--                <tr>-->
-<!--                    <td>Approval Staff Name</td>-->
-<!--                    <td>-->
-<!--                        <input type="text" class="form-control" formControlName="staffName">-->
-<!--                    </td>-->
-<!--                    <td class="abc">-->
-<!--                        {{podtranslatedData?.staffName}}-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <input type="text" class="form-control"-->
-<!--                               [ngClass]="{ 'is-invalid':submitted && Form.staffNameTransVal.errors }"-->
-<!--                               formControlName="staffNameTransVal"/>-->
-<!--                        <div *ngIf="submitted && Form.staffNameTransVal.errors"-->
-<!--                             class="invalid-feedback">-->
-<!--                            <div *ngIf="Form.staffNameTransVal.errors.required">Staff Name is required</div>-->
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                </tr>-->
+                <!--                <tr>-->
+                <!--                    <td>Approval Staff Name</td>-->
+                <!--                    <td>-->
+                <!--                        <input type="text" class="form-control" formControlName="staffName">-->
+                <!--                    </td>-->
+                <!--                    <td class="abc">-->
+                <!--                        {{podtranslatedData?.staffName}}-->
+                <!--                    </td>-->
+                <!--                    <td>-->
+                <!--                        <input type="text" class="form-control"-->
+                <!--                               [ngClass]="{ 'is-invalid':submitted && Form.staffNameTransVal.errors }"-->
+                <!--                               formControlName="staffNameTransVal"/>-->
+                <!--                        <div *ngIf="submitted && Form.staffNameTransVal.errors"-->
+                <!--                             class="invalid-feedback">-->
+                <!--                            <div *ngIf="Form.staffNameTransVal.errors.required">Staff Name is required</div>-->
+                <!--                        </div>-->
+                <!--                    </td>-->
+                <!--                </tr>-->
             </table>
-        <button class="float-right" nbButton size="medium" (click)="openCloseTemplate(confirm)" status="info" style="margin-right: 0.5em" [disabled]="!closed">
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <button class="float-right" nbButton size="small" (click)="openCloseTemplate(confirm)" status="info" style="margin-right: 0.5em" [disabled]="!closed">
             Close
         </button>
         <ng-template #confirm>
@@ -390,14 +398,13 @@
                 <button type="button" class="btn btn-primary" (click)="accept()">Yes</button>
             </div>
         </ng-template>
-        <button [disabled]="previewBtn" class="float-right" nbButton (click)="openModel()" status="primary" size="medium">Preview
+        <button [disabled]="previewBtn" class="float-right" nbButton (click)="openModel()" status="primary" size="small">Preview
         </button>
-        <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right"
+        <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right"
                 [disabled]="btnDisable">Save
         </button>
-        <button nbButton size="medium" class="float-right" (click)="translate()">
+        <button nbButton size="small" class="float-right" (click)="translate()">
             Translate
         </button>
-    </form>
-</div>
-
+    </nb-card-footer>
+</nb-card>

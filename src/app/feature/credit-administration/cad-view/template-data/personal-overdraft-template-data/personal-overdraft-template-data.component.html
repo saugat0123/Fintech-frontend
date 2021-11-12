@@ -372,10 +372,16 @@
                         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                             <td colspan="2"></td>
                             <td>
-                                <nb-radio-group name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc"
-                                                class="d-inline-flex">
-                                    <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
-                                </nb-radio-group>
+<!--                                <nb-radio-group name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc"-->
+<!--                                                class="d-inline-flex">-->
+<!--                                    <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>-->
+<!--                                </nb-radio-group>-->
+                                <select class="form-control" name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc">
+                                    <option value="null" hidden>Municipality or VDC</option>
+                                    <option value="Municipality">Municipality</option>
+                                    <option value="VDC">VDC</option>
+                                    <option value="Rural">Rural</option>
+                                </select>
                             </td>
                         </tr>
 
