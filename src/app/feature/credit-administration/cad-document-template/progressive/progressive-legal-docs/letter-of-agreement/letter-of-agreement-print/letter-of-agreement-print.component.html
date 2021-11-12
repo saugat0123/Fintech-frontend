@@ -11,15 +11,15 @@
           </div>
           <p>
               लिखितम्
-              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.perDistrict !== null && printDocForm?.perDistrict !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.perDistrict !== null && printDocForm?.perDistrict !== ''}">
                   {{printDocForm?.perDistrict === null || printDocForm?.perDistrict === '' ? '_________________' : printDocForm?.perDistrict}}
               </span>
               जिल्ला
-              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
                   {{printDocForm?.perMunicipality === null || printDocForm?.perMunicipality === '' ? '_________________' : printDocForm?.perMunicipality}}
               </span>
               न.पा./गा.वि.स. वडा नं.
-              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.perWardNo !== null && printDocForm?.perWardNo !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.perWardNo !== null && printDocForm?.perWardNo !== ''}">
                   {{printDocForm?.perWardNo === null || printDocForm?.perWardNo === '' ? '_________________' : printDocForm?.perWardNo}}
               </span>
               बस्ने
@@ -46,7 +46,7 @@
                   {{printDocForm?.tole === null || printDocForm?.tole === '' ? '_________________' : printDocForm?.tole}}
               </span>
               (टोल) स्थित प्रोग्रेशिभ फाइनान्स लि., शाखा कार्यालयको नाममा मालपोत कार्यालय
-              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.financeBranchName !== null && printDocForm?.financeBranchName !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.financeBranchName !== null && printDocForm?.financeBranchName !== ''}">
                   {{printDocForm?.financeBranchName === null || printDocForm?.financeBranchName === '' ? '_________________' : printDocForm?.financeBranchName}}
               </span>
               मार्फत
@@ -59,11 +59,11 @@
                   {{printDocForm?.financeRegistrationDate === null || printDocForm?.financeRegistrationDate === '' ? '_________________' : printDocForm?.financeRegistrationDate}}
               </span>मा
               पारित गरिदिएको सुरक्षणको लिखतको अधिनमा रही सो सुरक्षणको आधारमा
-              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.districtName !== null && printDocForm?.districtName !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.districtName !== null && printDocForm?.districtName !== ''}">
                   {{printDocForm?.districtName === null || printDocForm?.districtName === '' ? '_________________' : printDocForm?.districtName}}
               </span>
               जिल्ला
-              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.municipalityName !== null && printDocForm?.municipalityName !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.municipalityName !== null && printDocForm?.municipalityName !== ''}">
                   {{printDocForm?.municipalityName === null || printDocForm?.municipalityName === '' ? '_________________' : printDocForm?.municipalityName}}
               </span>
               गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.
@@ -76,11 +76,11 @@
               </span>
               फर्म/कम्पनी
               आफैले वा उल्लेखित व्यक्ति/फर्म/कम्पनीको अनुरोधमा अन्य व्यक्ति र वा फर्म/कम्पनीहरुले प्रोग्रेशिभ फाइनान्स लि. सँग रु.
-              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.loanAmount !== null && printDocForm?.loanAmount !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.loanAmount !== null && printDocForm?.loanAmount !== ''}">
                   {{printDocForm?.loanAmount === null || printDocForm?.loanAmount === '' ? '_________________' : printDocForm?.loanAmount}}
               </span>
               अक्षेरुपी रु.
-              <span style="font-size: 16px" [ngClass]="{'nepaliFont unicodeSize' : printDocForm?.loanAmountWords !== null && printDocForm?.loanAmountWords !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.loanAmountWords !== null && printDocForm?.loanAmountWords !== ''}">
                   {{printDocForm?.loanAmountWords === null || printDocForm?.loanAmountWords === '' ? '_________________' : printDocForm?.loanAmountWords}}
               </span>
               सम्मको बैंक जमानी पत्र जारी गर्न गराउन र वा विल्स परचेज/नेगोसिएशन सुविधा र वा स्थिर पूँजी कर्जा र वा

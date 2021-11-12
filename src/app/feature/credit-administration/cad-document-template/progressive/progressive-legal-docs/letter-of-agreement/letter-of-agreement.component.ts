@@ -83,7 +83,7 @@ export class LetterOfAgreementComponent implements OnInit {
         districtName: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
         municipalityName: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
         wardNo: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
-        /*companyName:*/
+        companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
       });
