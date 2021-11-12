@@ -764,6 +764,7 @@
                     <div class="col-md-12 row">
                         <div class="form-group col-md-3">
                             <label class="title" for="branchName">शाखाको नाम</label>
+                            <br>
                             <!--<input type="text"
                                    [ngClass]="{'is-invalid': submitted && nepFormControls.branchName.errors}"
                                    placeholder="शाखाको नाम"
@@ -773,6 +774,8 @@
                             <select class="form-control-sm form-field nepaliFont"
                                     id="branchName"
                                     formControlName="branchName">
+                                <option [ngValue]="null" hidden>
+                                    शाखा चयन गर्नुहोस्</option>
                                                    <option *ngFor="let branch of branchList" value="{{branch.nepaliName}}">
                                                        {{branch.nepaliName}}
                                                    </option>
@@ -789,6 +792,8 @@
                             <select class="form-control-sm form-field nepaliFont"
                                     id="branchDistrict"
                                     formControlName="branchDistrict">
+                                <option [ngValue]="null" hidden>
+                                    शाखा जिल्ला चयन गर्नुहोस्</option>
                                 <option *ngFor="let district of districtList" value="{{district.nepaliName}}">
                                     {{district.nepaliName}}
                                 </option>
@@ -806,6 +811,8 @@
                             <select class="form-control-sm form-field nepaliFont"
                                     id="branchMunVdc"
                                     formControlName="branchMunVdc">
+                                <option [ngValue]="null" hidden>
+                                    शाखा नगरपालिक ⁄ गाविस चयन गर्नुहोस्</option>
                                 <option *ngFor="let munVdc of branchMunVdc" value="{{munVdc.nepaliName}}">
                                     {{munVdc.nepaliName}}
                                 </option>
@@ -813,7 +820,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="title" for="branchWardNo">शाखा वडा नं.</label>
-                            <input [ngClass]="{'is-invalid': submitted && nepFormControls.branchWardNo.errors}"
+                            <input [ngClass]="{'is-invalid': submitted && configForm.branchWardNo.errors}"
                                    type="text"
                                    placeholder="शाखा वडा नं="
                                    id="branchWardNo"
@@ -822,33 +829,33 @@
                     </div>
                     <div class="col-md-12 row">
                         <div class="form-group col-md-4">
-                            <label class="title" for="telNo">
-                                टेलिफोन नम्बर</label>
+                            <label class="title" for="branchTelNo">
+                                शाखा टेलिफोन नम्बर</label>
                             <input type="text"
-                                   [ngClass]="{'is-invalid': submitted && nepFormControls.telNo.errors}"
-                                   placeholder="टेलिफोन नम्बर"
+                                   [ngClass]="{'is-invalid': submitted && configForm.branchTelNo.errors}"
+                                   placeholder="शाखा टेलिफोन नम्बर"
                                    class="form-control form-control-sm nepaliFont"
-                                   id="telNo"
-                                   formControlName="telNo"/>
+                                   id="branchTelNo"
+                                   formControlName="branchTelNo"/>
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="title" for="faxNo">
-                                फ्याक्स नम्बर</label>
-                            <input [ngClass]="{'is-invalid': submitted && nepFormControls.faxNo.errors}"
+                            <label class="title" for="branchFaxNo">
+                                शाखा फ्याक्स नम्बर</label>
+                            <input [ngClass]="{'is-invalid': submitted && configForm.branchFaxNo.errors}"
                                    type="text"
-                                   placeholder="फ्याक्स नम्बर"
-                                   id="faxNo"
-                                   class="form-control form-control-sm nepaliFont" formControlName="faxNo"/>
+                                   placeholder="शाखा फ्याक्स नम्बर"
+                                   id="branchFaxNo"
+                                   class="form-control form-control-sm nepaliFont" formControlName="branchFaxNo"/>
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="title" for="email">
-                                इमेल</label>
-                            <input [ngClass]="{'is-invalid': submitted && nepFormControls.email.errors}"
+                            <label class="title" for="branchEmail">
+                                शाखा इमेल</label>
+                            <input [ngClass]="{'is-invalid': submitted && configForm.branchEmail.errors}"
                                    type="text"
-                                   placeholder="Email"
+                                   placeholder="Branch Email"
                                    class="form-control form-control-sm"
-                                   id="email"
-                                   formControlName="email"/>
+                                   id="branchEmail"
+                                   formControlName="branchEmail"/>
                         </div>
                     </div>
                 </nb-tab>

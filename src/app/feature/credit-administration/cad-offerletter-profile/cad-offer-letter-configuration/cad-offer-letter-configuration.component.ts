@@ -20,7 +20,6 @@ import {Clients} from '../../../../../environments/Clients';
 import {NepDataPersonal} from '../../model/nepDataPersonal';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {BranchService} from '../../../admin/component/branch/branch.service';
-import {District} from '../../../admin/modal/district';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -152,9 +151,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             branchDistrict: [undefined],
             branchMunVdc: [undefined],
             branchWardNo: [undefined],
-            telNo: [undefined],
-            faxNo: [undefined],
-            email: [undefined],
+            branchTelNo: [undefined],
+            branchFaxNo: [undefined],
+            branchEmail: [undefined],
         });
     }
 
@@ -190,6 +189,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             return;
         }
         this.spinner = true;
+        this.nepDataPersonal.branchName = this.userConfigForm.get('branchName').value;
+        this.nepDataPersonal.branchDistrict = this.userConfigForm.get('branchDistrict').value;
+        this.nepDataPersonal.branchMunVdc = this.userConfigForm.get('branchMunVdc').value;
+        this.nepDataPersonal.branchWardNo = this.userConfigForm.get('branchWardNo').value;
         const data = JSON.stringify(this.userConfigForm.value);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
             this.customerInfoData = res.detail;
