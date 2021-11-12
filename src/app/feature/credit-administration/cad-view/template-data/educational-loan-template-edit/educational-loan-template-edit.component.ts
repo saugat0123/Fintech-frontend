@@ -56,7 +56,7 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
   dateTypeAD = false;
   dateTypeBS1 = false;
   dateTypeAD1 = false;
-  dateTypeBS2= false;
+  dateTypeBS2 = false;
   dateTypeAD2 = false;
   provinceList: Array<Province> = new Array<Province>();
   districtList: Array<District> = new Array<District>();
@@ -576,34 +576,16 @@ export class EducationalLoanTemplateEditComponent implements OnInit {
       this.form.get('accountNumberTransVal').patchValue(data.accountNumber);
       this.form.get('bankNameTransVal').patchValue(data.bankName);
     }
-    if (this.dateTypeAD) {
-      const actualDateOfApproval = this.form.get('dateOfApproval').value;
-      // tslint:disable-next-line:max-line-length
-      this.form.get('dateOfApprovalTransVal').patchValue(this.engNepDatePipe.transform(this.datePipe.transform(actualDateOfApproval), true));
-    } else {
-      const actualDateOfNepali = this.form.get('dateOfApprovalNepali').value;
-      this.form.get('dateOfApprovalNepaliTransVal').patchValue(actualDateOfNepali.nDate);
-    }
+    this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
+    this.form.get('dateOfApprovalNepaliTransVal').patchValue(this.translatedData.dateOfApprovalNepali);
 
     // Set Ct Value for Date of Application:
-    if (this.dateTypeAD1) {
-      const finalDateOfApplication = this.form.get('dateOfApplication').value;
-      // tslint:disable-next-line:max-line-length
-      this.form.get('dateOfApplicationTransVal').patchValue(this.engNepDatePipe.transform(this.datePipe.transform(finalDateOfApplication), true));
-    } else {
-      const finalNepaliDate = this.form.get('dateOfApplicationNepali').value;
-      this.form.get('dateOfApplicationNepaliTransVal').patchValue(finalNepaliDate.nDate);
-    }
+    this.form.get('dateOfApplicationTransVal').patchValue(this.translatedData.dateOfApplication);
+    this.form.get('dateOfApplicationNepaliTransVal').patchValue(this.translatedData.dateOfApplicationNepali);
 
     // Set Ct Value for Date of Expiry:
-    if (this.dateTypeAD2) {
-      const finalDateOfExpiry = this.form.get('dateofExpiry').value;
-      // tslint:disable-next-line:max-line-length
-      this.form.get('dateofExpiryTransVal').patchValue(this.engNepDatePipe.transform(this.datePipe.transform(finalDateOfExpiry), true));
-    } else {
-      const dateOfExpiryNepali = this.form.get('dateofExpiryNepali').value;
-      this.form.get('dateofExpiryNepaliTransVal').patchValue(dateOfExpiryNepali.nDate);
-    }
+    this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
+    this.form.get('dateofExpiryNepaliTransVal').patchValue(this.translatedData.dateofExpiryNepali);
   }
 
   private clearConditionalValidation(): void {

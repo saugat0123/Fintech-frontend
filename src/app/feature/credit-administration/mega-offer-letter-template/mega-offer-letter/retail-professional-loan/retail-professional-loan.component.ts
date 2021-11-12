@@ -271,30 +271,36 @@ submit(): void {
         // if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApproval)) {
         //     dateOfApprovalTemp = this.dateConversion(this.initialInfoPrint.dateOfApproval);
         // }
-        if (dateOfApprovalType === 'AD') {
+        if (dateOfApprovalType === 'AD' && !ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApproval)) {
             dateOfApprovalTemp = this.dateConversion(this.initialInfoPrint.dateOfApproval);
         } else {
-            dateOfApprovalTemp = this.initialInfoPrint.dateOfApprovalNepali.en.nDate;
+            dateOfApprovalTemp = this.initialInfoPrint.dateOfApproval ?
+                this.initialInfoPrint.dateOfApprovalNepali.en.nDate : '';
         }
         let tempDateOfApplication;
         const dateOfApplicationType = this.initialInfoPrint.dateOfApplicationType ? this.initialInfoPrint.dateOfApplicationType.en : '';
         // if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApplication)) {
         //     tempDateOfApplication = this.dateConversion(this.initialInfoPrint.dateOfApplication);
         // }
-        if (dateOfApplicationType === 'AD') {
+        if (dateOfApplicationType === 'AD' && !ObjectUtil.isEmpty(this.initialInfoPrint.dateOfApplication)) {
             tempDateOfApplication = this.dateConversion(this.initialInfoPrint.dateOfApplication);
         } else {
-            tempDateOfApplication = this.initialInfoPrint.dateOfApplicationNepali.en.nDate;
+            tempDateOfApplication = this.initialInfoPrint.dateOfApplicationNepali ?
+                this.initialInfoPrint.dateOfApplicationNepali.en.nDate : '';
         }
         let tempDateOfExpiry;
         // if (!ObjectUtil.isEmpty(this.initialInfoPrint.dateofExpiry)) {
         //     tempDateOfExpiry = this.dateConversion(this.initialInfoPrint.dateofExpiry);
         // }
-        const dateOfExpiryType = this.initialInfoPrint.dateOfExpiryType ? this.initialInfoPrint.dateOfExpiryType.en : '';
-        if (dateOfExpiryType === 'AD') {
-            tempDateOfExpiry = this.dateConversion(this.initialInfoPrint.dateofExpiry);
-        } else {
-            tempDateOfExpiry = this.initialInfoPrint.dateofExpiryNepali ? this.initialInfoPrint.dateofExpiryNepali.en.nDate : '';
+        if (this.selectedSecurity === 'FIXED_DEPOSIT') {
+            const dateOfExpiryType = this.initialInfoPrint.dateOfExpiryType ? this.initialInfoPrint.dateOfExpiryType.en : '';
+            if (dateOfExpiryType === 'AD' && !ObjectUtil.isEmpty(this.initialInfoPrint.dateofExpiry)) {
+                tempDateOfExpiry = this.dateConversion(this.initialInfoPrint.dateofExpiry);
+            } else {
+                tempDateOfExpiry = this.initialInfoPrint.dateofExpiryNepali ?
+                    this.initialInfoPrint.dateofExpiryNepali.en ? this.initialInfoPrint.dateofExpiryNepali.en.nDate : ''
+                    : '';
+            }
         }
         this.retailProfessionalLoan.patchValue({
             nameOfCustomer: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',

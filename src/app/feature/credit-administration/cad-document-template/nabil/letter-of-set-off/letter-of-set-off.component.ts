@@ -179,13 +179,15 @@ export class LetterOfSetOffComponent implements OnInit {
       this.setJointDetailsArr(this.selectiveArr);
     }
     this.checkOfferLetterData();
-    const selectedDateType = this.educationalTemplateData.dateOfApprovalType ? this.educationalTemplateData.dateOfApprovalType.en : '';
     let dateOfApproval;
-    if (selectedDateType === 'AD') {
-      const tempData = this.datePipe.transform(this.educationalTemplateData.dateOfApproval.en);
-      dateOfApproval = this.engToNepaliDate.transform(tempData, true);
-    } else {
-      dateOfApproval = this.educationalTemplateData.dateOfApprovalNepali.en.nDate;
+    if (!ObjectUtil.isEmpty(this.educationalTemplateData)) {
+      const selectedDateType = this.educationalTemplateData.dateOfApprovalType ? this.educationalTemplateData.dateOfApprovalType.en : '';
+      if (selectedDateType === 'AD') {
+        const tempData = this.datePipe.transform(this.educationalTemplateData.dateOfApproval.en);
+        dateOfApproval = this.engToNepaliDate.transform(tempData, true);
+      } else {
+        dateOfApproval = this.educationalTemplateData.dateOfApprovalNepali.en.nDate;
+      }
     }
     if (!ObjectUtil.isEmpty(this.initialInformation.accountNumber)) {
       this.letterOfSetOff.get('accountNo').patchValue(this.initialInformation.accountNumber.ct);
@@ -223,8 +225,9 @@ export class LetterOfSetOffComponent implements OnInit {
           numberOfPerson: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
           loanAmountFigure: finalAmount,
           loanAmountWord: loanAmountWord,
-          purposeOfLoan: this.educationalTemplateData.purposeOfLoan.ct ?
-              this.educationalTemplateData.purposeOfLoan.ct : this.educationalTemplateData.purposeOfLoan.np,
+          purposeOfLoan: this.educationalTemplateData ?
+              this.educationalTemplateData.purposeOfLoan ?
+                  this.educationalTemplateData.purposeOfLoan.ct : this.educationalTemplateData.purposeOfLoan.np : '',
           sanctionLetterIssuedDate: dateOfApproval ? dateOfApproval : '',
           // sanctionLetterIssuedDate: this.educationalTemplateData.sanctionLetterIssuedDate.ct ?
           //     this.educationalTemplateData.sanctionLetterIssuedDate.ct : this.educationalTemplateData.sanctionLetterIssuedDate.np,
