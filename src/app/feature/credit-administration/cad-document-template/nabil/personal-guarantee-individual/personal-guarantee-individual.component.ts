@@ -203,8 +203,6 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
               if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
                   // tslint:disable-next-line:max-line-length
                   approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
-              } else if (this.docName === 'Auto Loan' && this.offerDocumentDetails.dateOfApproval.en.eDate) {
-                  approvedDate = this.offerDocumentDetails.dateOfApproval.en.eDate;
               } else if (this.docName === 'Mortage Loan' && this.offerDocumentDetails.dateofApproval.en.eDate) {
                   approvedDate = this.offerDocumentDetails.dateofApproval.en.eDate;
               } else {

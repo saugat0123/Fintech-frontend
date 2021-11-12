@@ -1,62 +1,47 @@
-// import { Component, OnInit } from '@angular/core';
-//
-// @Component({
-//   selector: 'app-sme-template-data',
-//   templateUrl: './sme-template-data.component.html',
-//   styleUrls: ['./sme-template-data.component.scss']
-// })
-// export class SmeTemplateDataComponent implements OnInit {
-//
-//   constructor() { }
-//
-//   ngOnInit() {
-//   }
-//
-// }
-
 import {Component, Input, OnInit} from '@angular/core';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {OfferDocument} from '../../../model/OfferDocument';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
+import {Attributes} from '../../../../../@core/model/attributes';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {SmeComponent} from '../../../mega-offer-letter-template/mega-offer-letter/sme/sme.component';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
-import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
-import {Alert, AlertType} from "../../../../../@theme/model/Alert";
-import {CadDocStatus} from "../../../model/CadDocStatus";
-import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
-import {OfferDocument} from "../../../model/OfferDocument";
-import {Attributes} from "../../../../../@core/model/attributes";
-import {NbDialogRef, NbDialogService} from "@nebular/theme";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {CreditAdministrationService} from "../../../service/credit-administration.service";
-import {ToastService} from "../../../../../@core/utils";
-import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {CustomerApprovedLoanCadDocumentation} from "../../../model/customerApprovedLoanCadDocumentation";
-import {SmeComponent} from "../../../mega-offer-letter-template/mega-offer-letter/sme/sme.component";
-import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
-import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
+import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
+import {CreditAdministrationService} from '../../../service/credit-administration.service';
+import {ToastService} from '../../../../../@core/utils';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
-  selector: 'app-sme-template-data',
-  templateUrl: './sme-template-data.component.html',
-  styleUrls: ['./sme-template-data.component.scss']
+  selector: 'app-auto-loan-template-edit',
+  templateUrl: './auto-loan-template-edit.component.html',
+  styleUrls: ['./auto-loan-template-edit.component.scss']
 })
-export class SmeTemplateDataComponent implements OnInit {
+export class AutoLoanTemplateEditComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() initialInformation: any;
+  @Input() offerLetterId: number;
+  spinner = false;
   offerLetterTypes = [];
   offerLetterConst = NabilOfferLetterConst;
   offerLetterSelect;
   form: FormGroup;
   translatedValues: any = {};
-  spinner = false;
   previewBtn = true;
   btnDisable = true;
   loanLimit = false;
   existingOfferLetter = false;
   attributes;
   tdValues: any = {};
-  podtranslatedData: any ={};
+  podtranslatedData: any = {};
   offerLetterDocument: OfferDocument;
   dateTypeBS = false;
   dateTypeAD = false;
@@ -70,27 +55,47 @@ export class SmeTemplateDataComponent implements OnInit {
   selectedInterestVal;
   closed = false;
 
-
-  constructor(
-      private formBuilder: FormBuilder,
-      private dialogService: NbDialogService,
-      private modelService: NgbModal,
-      private nepToEngNumberPipe: NepaliToEngNumberPipe,
-      private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-      private translateService: SbTranslateService,
-      private administrationService: CreditAdministrationService,
-      private toastService: ToastService,
-      private engToNepaliNumberPipe: EngToNepaliNumberPipe,
-      private currencyFormatterPipe: CurrencyFormatterPipe,
-      protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
-      private modalService: NgbModal,
-      private datePipe: DatePipe,
-      private engNepDatePipe: EngNepDatePipe
-  ) {
-  }
+  constructor(public nbDialogRef: NbDialogRef<AutoLoanTemplateEditComponent>,
+              private formBuilder: FormBuilder,
+              private dialogService: NbDialogService,
+              private modelService: NgbModal,
+              private nepToEngNumberPipe: NepaliToEngNumberPipe,
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private translateService: SbTranslateService,
+              private administrationService: CreditAdministrationService,
+              private toastService: ToastService,
+              private engToNepaliNumberPipe: EngToNepaliNumberPipe,
+              private currencyFormatterPipe: CurrencyFormatterPipe,
+              private modalService: NgbModal,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.setDropDownValue('selectedAutoLoan', this.initialInformation.selectedAutoLoan.en);
+      this.selectedAutoLoanVal = this.initialInformation.selectedAutoLoan.en;
+      this.setDropDownValue('selectedInterest', this.initialInformation.selectedInterest.en);
+      this.selectedInterestVal = this.initialInformation.selectedInterest.en;
+      this.fieldFlag = true;
+      this.setEducationalLoanData();
+      const approvalDateType = this.initialInformation.dateOfApprovalType ?
+          this.initialInformation.dateOfApprovalType.en : '';
+      if (approvalDateType === 'AD') {
+        this.dateTypeAD = true;
+      }
+      if (approvalDateType === 'BS') {
+        this.dateTypeBS = true;
+      }
+      const applicationDateType = this.initialInformation.dateofApplicationType ?
+          this.initialInformation.dateofApplicationType.en : '';
+      if (applicationDateType === 'AD') {
+        this.dateTypeAD1 = true;
+      }
+      if (applicationDateType === 'BS') {
+        this.dateTypeBS1 = true;
+      }
+    }
   }
 
   buildForm() {
@@ -100,11 +105,11 @@ export class SmeTemplateDataComponent implements OnInit {
       loanLimitChecked: [undefined],
       // referenceNumber: [undefined],
       dateOfApproval: [undefined],
-      dateOfApprovalType: [undefined],
       dateOfApprovalNepali: [undefined],
+      dateOfApprovalType: [undefined],
       dateofApplication: [undefined],
-      dateofApplicationType: [undefined],
       dateofApplicationNepali: [undefined],
+      dateofApplicationType: [undefined],
       vehicleName: [undefined],
       drawingPower: [undefined],
       baseRate: [undefined],
@@ -121,7 +126,7 @@ export class SmeTemplateDataComponent implements OnInit {
       branchManager: [undefined],
       // staffName: [undefined],
 
-      //For translated data
+      // For translated data
       selectedAutoLoanTransVal: [undefined],
       selectedInterestTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
@@ -159,31 +164,32 @@ export class SmeTemplateDataComponent implements OnInit {
   }
   private setTemplatedCTData(data): void {
     // this.form.get('referenceNumberTransVal').patchValue(this.podtranslatedData.referenceNumber);
-    // this.form.get('dateOfApprovalTransVal').patchValue(this.podtranslatedData.dateOfApproval);
-    this.form.get('dateOfApprovalTypeTransVal').patchValue(this.form.get('dateOfApprovalType').value);
+    // set ct value of date of approval:
+   if (this.dateTypeAD) {
+     const approvalForm = !ObjectUtil.isEmpty(this.form.get('dateOfApproval').value) ?
+         this.form.get('dateOfApproval').value : '';
+     const convertApproval = approvalForm ?
+         this.engNepDatePipe.transform(this.datePipe.transform(approvalForm), true) : '';
+     this.form.get('dateOfApprovalTransVal').patchValue(convertApproval);
+   }
+   if (this.dateTypeBS) {
+     const nepaliApprovalForm = !ObjectUtil.isEmpty(this.form.get('dateOfApprovalNepali').value) ?
+         this.form.get('dateOfApprovalNepali').value : '';
+     this.form.get('dateOfApprovalTransVal').patchValue(nepaliApprovalForm.nDate);
+   }
+    this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
+    // set ct value of date of application:
     if (this.dateTypeAD) {
-      const approvalDate = this.form.get('dateOfApproval').value;
-      const convertApprovalDate = approvalDate ?
-          this.engNepDatePipe.transform(this.datePipe.transform(approvalDate), true) : '';
-      this.form.get('dateOfApprovalTransVal').patchValue(convertApprovalDate);
+      const applicationForm = !ObjectUtil.isEmpty(this.form.get('dateofApplication').value) ?
+          this.form.get('dateofApplication').value : '';
+      const convertApplication = applicationForm ?
+          this.engNepDatePipe.transform(this.datePipe.transform(applicationForm), true) : '';
+      this.form.get('dateofApplicationTransVal').patchValue(convertApplication);
     }
     if (this.dateTypeBS) {
-      const approvalDateNepali = !ObjectUtil.isEmpty(this.form.get('dateOfApprovalNepali').value) ?
-          this.form.get('dateOfApprovalNepali').value : '';
-      this.form.get('dateOfApprovalNepaliTransVal').patchValue(approvalDateNepali.nDate);
-    }
-    // this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
-    this.form.get('dateofApplicationTypeTransVal').patchValue(this.form.get('dateofApplicationType').value);
-    if (this.dateTypeAD) {
-      const applicationDate = this.form.get('dateofApplication').value;
-      const convertApplicationDate = applicationDate ?
-          this.engNepDatePipe.transform(this.datePipe.transform(applicationDate), true) : '';
-      this.form.get('dateofApplicationTransVal').patchValue(convertApplicationDate);
-    }
-    if (this.dateTypeBS) {
-      const applicationNepali = !ObjectUtil.isEmpty(this.form.get('dateofApplicationNepali').value) ?
+      const nepaliApplicationForm = !ObjectUtil.isEmpty(this.form.get('dateofApplicationNepali').value) ?
           this.form.get('dateofApplicationNepali').value : '';
-      this.form.get('dateofApplicationNepaliTransVal').patchValue(applicationNepali.nDate);
+      this.form.get('dateofApplicationTransVal').patchValue(nepaliApplicationForm.nDate);
     }
     this.form.get('vehicleNameTransVal').patchValue(this.podtranslatedData.vehicleName);
     // this.form.get('baseRateTransVal').patchValue(this.podtranslatedData.baseRate);
@@ -228,16 +234,16 @@ export class SmeTemplateDataComponent implements OnInit {
   }
 
   mappedData() {
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1) {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
+    Object.keys(this.form.controls).forEach(key => {
+      if (key.indexOf('TransVal') > -1) {
+        return;
+      }
+      this.attributes = new Attributes();
+      this.attributes.en = this.form.get(key).value;
+      this.attributes.np = this.tdValues[key];
+      this.attributes.ct = this.form.get(key + 'TransVal').value;
+      this.tdValues[key] = this.attributes;
+    });
   }
 
   get Form() {
@@ -246,7 +252,6 @@ export class SmeTemplateDataComponent implements OnInit {
 
   loanChecked(data) {
     this.loanLimit = data;
-    console.log('Loan Limit Checked?', this.loanLimit);
   }
 
   checkboxVal(event, formControlName) {
@@ -314,7 +319,6 @@ export class SmeTemplateDataComponent implements OnInit {
   }
 
   openModel() {
-    // this.modelService.open(modalName, {size: 'xl', centered: true});
     this.dialogService.open(SmeComponent, {
       closeOnBackdropClick: false,
       closeOnEsc: false,
@@ -367,11 +371,11 @@ export class SmeTemplateDataComponent implements OnInit {
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
-      this.podtranslatedData = {};
       this.deleteCTAndTransContorls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
+    this.podtranslatedData = {};
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.customerApprovedDoc = res.detail;
@@ -391,17 +395,85 @@ export class SmeTemplateDataComponent implements OnInit {
     this.modalService.open(template);
   }
 
-  dismiss(template){
+  dismiss(template) {
     this.modalService.dismissAll();
   }
 
-  decline(template){
+  decline(template) {
     this.modalService.dismissAll();
   }
 
-  accept(){
+  accept() {
     this.modalService.dismissAll();
-    this.dialogRefcad.close();
+    this.nbDialogRef.close();
   }
+
+  setDropDownValue(key, value) {
+    if (!ObjectUtil.isEmpty(value)) {
+      this.form.get(key).patchValue(value);
+    }
+  }
+
+  setEducationalLoanData(): void {
+    // Set EN values for educational loan data:
+    this.form.get('loanLimitChecked').patchValue(this.initialInformation.loanLimitChecked.en);
+    this.loanLimit = this.initialInformation.loanLimitChecked ? this.initialInformation.loanLimitChecked.en : '';
+    // set value of date of approval:
+    const dateTypeApproval = this.initialInformation.dateOfApprovalType ?
+        this.initialInformation.dateOfApprovalType.en : '';
+    this.form.get('dateOfApprovalType').patchValue(dateTypeApproval);
+    if (dateTypeApproval === 'AD') {
+      this.form.get('dateOfApproval').patchValue(new Date(this.initialInformation.dateOfApproval.en));
+    } else {
+      const dateTypeNepali = this.initialInformation.dateOfApprovalNepali ?
+          this.initialInformation.dateOfApprovalNepali.en : '';
+      this.form.get('dateOfApprovalNepali').patchValue(dateTypeNepali);
+    }
+    // set value of date of Application:
+    const dateTypeApp = this.initialInformation.dateofApplicationType ?
+        this.initialInformation.dateofApplicationType.en : '';
+    this.form.get('dateofApplicationType').patchValue(dateTypeApp);
+    if (dateTypeApp === 'AD') {
+      this.form.get('dateofApplication').patchValue(new Date(this.initialInformation.dateofApplication.en));
+    } else {
+      const appDateNepali = this.initialInformation.dateofApplicationNepali ?
+          this.initialInformation.dateofApplicationNepali.en : '';
+      this.form.get('dateofApplicationNepali').patchValue(appDateNepali);
+    }
+    // this.form.get('dateofApplication').patchValue(this.initialInformation.dateofApplication.en);
+    this.form.get('vehicleName').patchValue(this.initialInformation.vehicleName.en);
+    this.form.get('drawingPower').patchValue(this.initialInformation.drawingPower.en);
+    this.form.get('baseRate').patchValue(this.initialInformation.baseRate.en);
+    this.form.get('premiumRate').patchValue(this.initialInformation.premiumRate.en);
+    this.form.get('yearlyInterestRate').patchValue(this.initialInformation.yearlyInterestRate.en);
+    this.form.get('loanAdminFee').patchValue(this.initialInformation.loanAdminFee.en);
+    this.form.get('loanAdminFeeInWords').patchValue(this.initialInformation.loanAdminFeeInWords.en);
+    this.form.get('emiAmountInFigure').patchValue(this.initialInformation.emiAmountInFigure.en);
+    this.form.get('emiAmountInWords').patchValue(this.initialInformation.emiAmountInWords.en);
+    this.form.get('numberOfEmi').patchValue(this.initialInformation.numberOfEmi.en);
+    this.form.get('loanCommitmentFee').patchValue(this.initialInformation.loanCommitmentFee.en);
+    this.form.get('vendorName').patchValue(this.initialInformation.vendorName.en);
+    this.form.get('relationshipOfficerName').patchValue(this.initialInformation.relationshipOfficerName.en);
+    this.form.get('branchManager').patchValue(this.initialInformation.branchManager.en);
+
+    // Set CT Value for Template Data:
+    // this.form.get('loanLimitCheckedTransVal').patchValue(this.initialInformation.loanLimitChecked.ct);
+    // this.form.get('dateofApprovalTransVal').patchValue(this.initialInformation.dateofApproval.ct);
+    // this.form.get('dateofApplicationTransVal').patchValue(this.initialInformation.dateofApplication.ct);
+    this.form.get('vehicleNameTransVal').patchValue(this.initialInformation.vehicleName.ct);
+    this.form.get('drawingPowerTransVal').patchValue(this.initialInformation.drawingPower.ct);
+    this.form.get('baseRateTransVal').patchValue(this.initialInformation.baseRate.ct);
+    this.form.get('premiumRateTransVal').patchValue(this.initialInformation.premiumRate.ct);
+    this.form.get('yearlyInterestRateTransVal').patchValue(this.initialInformation.yearlyInterestRate.ct);
+    this.form.get('loanAdminFeeTransVal').patchValue(this.initialInformation.loanAdminFee.ct);
+    this.form.get('loanAdminFeeInWordsTransVal').patchValue(this.initialInformation.loanAdminFeeInWords.ct);
+    this.form.get('emiAmountInFigureTransVal').patchValue(this.initialInformation.emiAmountInFigure.ct);
+    this.form.get('emiAmountInWordsTransVal').patchValue(this.initialInformation.emiAmountInWords.ct);
+    this.form.get('numberOfEmiTransVal').patchValue(this.initialInformation.numberOfEmi.ct);
+    this.form.get('loanCommitmentFeeTransVal').patchValue(this.initialInformation.loanCommitmentFee.ct);
+    this.form.get('vendorNameTransVal').patchValue(this.initialInformation.vendorName.ct);
+    this.form.get('relationshipOfficerNameTransVal').patchValue(this.initialInformation.relationshipOfficerName.ct);
+    this.form.get('branchManagerTransVal').patchValue(this.initialInformation.branchManager.ct);
+  }
+
 }
-
