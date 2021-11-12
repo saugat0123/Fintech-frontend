@@ -21,6 +21,7 @@ export class CustomerInfoService extends BaseService<Object> {
     public videoKyc(obj): Observable<any> {
         console.log('obj here', obj);
         return this.http.post('https://mikha-api.laxmibank.com/loan_remit/schedule_meeting', obj);
+         // return this.http.post('https://coe.digiconnect.com.np/mikha/loan_remit/schedule_meeting', obj);
     }
 
     public saveLoanInfo(obj, customerInfoId, template): Observable<any> {

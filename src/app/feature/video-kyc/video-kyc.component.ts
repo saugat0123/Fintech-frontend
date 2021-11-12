@@ -10,7 +10,8 @@ import {ObjectUtil} from '../../@core/utils/ObjectUtil';
 import {Router} from '@angular/router';
 import {CustomerService} from '../admin/service/customer.service';
 import {LoanFormService} from '../loan/component/loan-form/service/loan-form.service';
-import {LoanTag} from '../loan/model/loanTag';
+import {LocalStorageUtil} from '../../@core/utils/local-storage-util';
+import {UserService} from '../admin/component/user/user.service';
 
 @Component({
   selector: 'app-video-kyc',
@@ -26,7 +27,10 @@ export class VideoKycComponent implements OnInit {
               private toast: NbToastrService,
               private router: Router,
               private customerService: CustomerService,
-              private loanService: LoanFormService) { }
+              private loanService: LoanFormService,
+              private userService: UserService
+
+  ) { }
   @Input() isModal;
   @Input() showBenificiary;
   @Input() showSender;
@@ -54,18 +58,24 @@ export class VideoKycComponent implements OnInit {
     },
     "existingCustomer": false,
     "metadata": "this is meta data",
-    "meetingDate": "2021-08-25",
-    "meetingTime": "12:20",
-    "purposeId": "000000001"
+    "meetingDate": "",
+    "meetingTime": "",
+    "purposeId": "000000002"
   };
   hideVideoKycSender = true;
   hideVideoKycBeneficiary = true;
   videoSpinner = false;
   breakException: any;
+  currentUserId = LocalStorageUtil.getStorage().userId;
+  currentUser: any;
   ngOnInit() {
     this.buildSenderForm();
     this.buildBenfFrom();
     this.checkActiveLink();
+    this.userService.getLoggedInUser().subscribe((response: any) => {
+      this.currentUser = response.detail;
+      console.log('this is response', response);
+    });
     this.agentDetails = JSON.parse(this.remitCustomer.agentData);
   }
   buildBenfFrom() {
@@ -131,7 +141,7 @@ checkActiveLink() {
       return;
     }
     this.senderDetails = JSON.parse(this.remitCustomer.senderData);
-    this.videoKycBody.agentEmail = this.agentDetails.email;
+    this.videoKycBody.agentEmail = this.currentUser.email;
     this.videoKycBody.customerInfo = {
       "address": this.senderDetails.senderAddress.temp_address,
       "email": this.senderDetails.senderIdentity.email_address,
@@ -163,7 +173,7 @@ checkLinkValidation(form: FormGroup) {
       return;
     }
     this.benfDetails = JSON.parse(this.remitCustomer.beneficiaryData);
-    this.videoKycBody.agentEmail = this.agentDetails.email;
+    this.videoKycBody.agentEmail = this.currentUser.email;
     this.videoKycBody.customerInfo = {
       "address": this.benfDetails.beneficiaryAddress.benef_temp_address1,
       "email": this.benfDetails.beneficiaryIdentity.benef_email_address,
@@ -172,6 +182,7 @@ checkLinkValidation(form: FormGroup) {
       "phone": this.benfDetails.beneficiaryIdentity.benef_phone_no,
       "title": "mr"
     };
+    console.log('video kyc body', this.videoKycBody);
     this.videoKycBody.meetingDate =  new DatePipe('en-US').transform(this.beneficiaryForm.get('date').value, 'dd/MM/yyyy');;
     this.videoKycBody.meetingTime = this.beneficiaryForm.get('time').value;
     this.customerInfoService.videoKyc(this.videoKycBody).subscribe(res => {
