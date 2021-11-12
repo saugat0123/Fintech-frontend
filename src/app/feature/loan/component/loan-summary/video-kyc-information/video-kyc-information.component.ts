@@ -42,6 +42,7 @@ export class VideoKycInformationComponent implements OnInit , OnChanges{
       if (d.id === data.id) {
         this.videoKyc[i].status = 'INACTIVE';
         this.videoKyc[i].recordedLink = 'https://mikha.laxmibank.com/call-history/view/' + data.id;
+        //  this.videoKyc[i].recordedLink = 'https://mikha.digiconnect.com.np/call-history/view/' + data.id;
         this.remitCustomer.videoKyc = JSON.stringify(this.videoKyc);
         this.remitService.saveRemitCustomer(this.remitCustomer).subscribe((response) => {
           this.remitCustomer = response.detail;
