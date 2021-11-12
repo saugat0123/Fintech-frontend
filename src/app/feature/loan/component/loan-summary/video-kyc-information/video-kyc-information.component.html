@@ -18,9 +18,9 @@
               <td>{{i+1}}</td>
               <td>{{data.time}}</td>
               <td class="text-left pl-1">{{data.date}}</td>
-              <td>{{data.meetingLink}}</td>
+              <td><a [href]="data.meetingLink"  target="_blank">{{data.meetingLink}}</a></td>
               <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
-              <td>{{data.recordedLink}}</td>
+              <td><a [href]="data.recordedLink"  target="_blank" >{{data.recordedLink}}</a></td>
               <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button></td>
           </tr>
       </ng-container>
@@ -31,9 +31,9 @@
                         <td>{{i+1}}</td>
                         <td>{{data.time}}</td>
                         <td class="text-left pl-1">{{data.date}}</td>
-                        <td>{{data.meetingLink}}</td>
+                        <td><a [href]="data.meetingLink"  target="_blank">{{data.meetingLink}}</a></td>
                         <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
-                        <td>{{data.recordedLink}}</td>
+                        <td><a [href]="data.recordedLink"  target="_blank">{{data.recordedLink}}</a></td>
                         <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button></td>
                     </ng-container>
                 </tr>
@@ -46,9 +46,9 @@
                     <td>{{i+1}}</td>
                     <td>{{data.time}}</td>
                     <td class="text-left pl-1">{{data.date}}</td>
-                    <td>{{data.meetingLink}}</td>
+                    <td><a [href]="data.meetingLink"  target="_blank">{{data.meetingLink}}</a></td>
                     <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
-                    <td>{{data.recordedLink}}</td>
+                    <td><a [href]="data.recordedLink"  target="_blank">{{data.recordedLink}}</a></td>
                     <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button></td>
                 </ng-container>
                      </tr>
