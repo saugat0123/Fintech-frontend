@@ -48,12 +48,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     clientList = Clients;
     nepDataPersonal = new NepDataPersonal();
     branchList;
-    districtList;
     branchMunVdc;
+    province: Province = new Province();
+    provinceList: Array<Province> = Array<Province>();
+    temporaryProvinceList: Array<Province> = Array<Province>();
+    district: District = new District();
+    districtList: Array<District> = Array<District>();
+    municipality: MunicipalityVdc = new MunicipalityVdc();
+    municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    temporaryDistrictList: Array<District> = Array<District>();
+    temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    allDistrict: Array<District> = Array<District>();
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
-                private commonLocation: AddressService,
                 private customerService: CustomerService,
                 private toastService: ToastService,
                 private engToNepNumber: EngToNepaliNumberPipe,
@@ -63,22 +71,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) {
     }
 
-    get configForm() {
-        return this.userConfigForm.controls;
-    }
-
     ngOnInit() {
-        this.addressService.getAllDistrict().subscribe((res: any) => {
-            this.districtList = res.detail;
+        this.getProvince();
+        this.getAllDistrict();
+        this.addressService.getProvince().subscribe((res: any) => {
+            this.provinceList = res.detail;
         });
-
         this.branchService.getAll().subscribe((res: any) => {
             this.branchList = res.detail;
         });
-
-        /*this.addressService.getMunicipalityVDCByDistrict().subscribe((res: any) => {
-            this.branchMunVdc = res.detail;
-        });*/
 
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
@@ -88,14 +89,79 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
     }
 
+    getProvince() {
+        this.addressService.getProvince().subscribe((res: any) => {
+            this.provinceList = res.detail;
+        });
+    }
+
+    getDistricts(province: Province) {
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.districtList = response.detail;
+                this.districtList.sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+    getMunicipalities(district: District) {
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.municipalitiesList = response.detail;
+                this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
+                this.municipalitiesList.forEach(municipality => {
+                    if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
+                        this.userConfigForm.controls.municipalities.setValue(municipality);
+                    }
+                });
+            }
+        );
+
+    }
+
+    getTemporaryDistricts(province: Province) {
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.temporaryDistrictList = response.detail;
+                this.temporaryDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+    getTemporaryMunicipalities(district: District) {
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.temporaryMunicipalitiesList = response.detail;
+                this.temporaryMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
+                this.temporaryMunicipalitiesList.forEach(municipality => {
+                    if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
+                        municipality.id === this.customer.temporaryMunicipalities.id) {
+                        this.userConfigForm.controls.temporaryMunicipalities.setValue(municipality);
+                    }
+                });
+            }
+        );
+
+    }
+
+    private getAllDistrict() {
+        this.addressService.getAllDistrict().subscribe((response: any) => {
+            this.allDistrict = response.detail;
+            this.allDistrict.sort((a, b) => a.name.localeCompare(b.name));
+        });
+    }
+
     buildForm() {
         this.userConfigForm = this.formBuilder.group({
             name: [undefined],
-            nameInEnglish : [undefined],
+            nameInEnglish: [undefined],
             gender: [undefined],
             // gender: [this.checkIsIndividual() ? this.gender(this.customerInfo.gender) : undefined],
             fatherName: [undefined],
             grandFatherName: [undefined],
+            grandMotherName: [undefined],
+            motherName: [undefined],
+            accountNo: [undefined],
             relationMedium: [undefined],
             husbandName: [undefined],
             fatherInLawName: [undefined],
@@ -104,14 +170,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             // age: [this.checkIsIndividual() ? this.ageCalculation(this.customer.dob) : undefined],
             age: [undefined],
             // tslint:disable-next-line:max-line-length
-            // permanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province) ? undefined : this.customer.province.nepaliName : undefined],
-            permanentProvince: [undefined],
+            province: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province) ? undefined : this.customer.province.nepaliName : undefined],
+            // province: [undefined],
             // tslint:disable-next-line:max-line-length
-            // permanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district) ? undefined : this.customer.district.nepaliName : undefined],
-            permanentDistrict: [undefined],
+            district: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district) ? undefined : this.customer.district.nepaliName : undefined],
+            // district: [undefined],
             // tslint:disable-next-line:max-line-length
-            // permanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities) ? undefined : this.customer.municipalities.nepaliName : undefined],
-            permanentMunicipality: [undefined],
+            municipalities: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities) ? undefined : this.customer.municipalities.nepaliName : undefined],
+            // municipalities: [undefined],
             permanentMunType: [0],
             // tslint:disable-next-line:max-line-length
             // temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
@@ -126,8 +192,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             temporaryDistrict: [undefined],
             // tslint:disable-next-line:max-line-length
-            temporaryMunicipality: [undefined],
-            permanentWard: [undefined],
+            temporaryMunicipalities: [undefined],
+            wardNumber: [undefined],
+            customerEmail: [undefined],
+            contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
+                Validators.max(9999999999), Validators.min(1000000000)]],
             temporaryWard: [undefined],
             temporaryMunType: [1],
             guarantorDetails: this.formBuilder.array([]),
@@ -174,6 +243,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             email: [undefined],
         });
     }
+
     ageCalculation(startDate) {
         startDate = this.datepipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
         const stDate = new Date(startDate);
@@ -183,9 +253,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         const yr = Math.abs(Math.round(diff / 365.25));
         return this.engToNepNumber.transform(yr.toString());
     }
+
     get basicInfoControls() {
         return this.userConfigForm.controls;
     }
+
     gender(val) {
         if (val === 'MALE') {
             return 1;

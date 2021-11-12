@@ -19,7 +19,7 @@
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="name"
                                            id="name"
-                                           [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.name.errors}"
                                            name="name" placeholder="ग्राहकको नाम"
                                            type="text"/>
                                 </div>
@@ -30,7 +30,7 @@
                                     <input class="form-control rounded"
                                            formControlName="nameInEnglish"
                                            id="nameInEnglish"
-                                           [ngClass]="{'is-invalid': submitted && configForm.nameInEnglish.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.nameInEnglish.errors}"
                                            name="nameInEnglish" placeholder="Customer Name"
                                            type="text"/>
                                 </div>
@@ -41,7 +41,7 @@
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="age"
                                            id="age"
-                                           [ngClass]="{'is-invalid': submitted && configForm.age.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.age.errors}"
                                            name="age" placeholder="जन्म मिती"
                                            type="text"/>
                                 </div>
@@ -54,7 +54,7 @@
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="citizenshipNo"
                                            id="citizenshipNo"
-                                           [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.citizenshipNo.errors}"
                                            name="citizenshipNo" placeholder="नगरिकता न="
                                            type="text"/>
                                 </div>
@@ -65,7 +65,7 @@
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="citizenshipIssueDate"
                                            id="citizenshipIssueDate"
-                                           [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.citizenshipIssueDate.errors}"
                                            name="citizenshipIssueDate" placeholder="नगरिकता मिति"
                                            type="text"/>
                                 </div>
@@ -77,7 +77,7 @@
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="citizenshipIssueDistrict"
                                            id="citizenshipIssueDistrict"
-                                           [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDistrict.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.citizenshipIssueDistrict.errors}"
                                            name="citizenshipIssueDistrict" placeholder="नगरिकता जिल्ला"
                                            type="text"/>
                                 </div>
@@ -88,19 +88,19 @@
                                 <div class="form-group">
                                     <label class="title" for="gender">लिङ्ग</label>
                                     <select class="form-control" formControlName="gender" id="gender"
-                                            [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
+                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.gender.errors}">
                                         <option [value]="null" hidden>Select Gender</option>
                                         <option value="0">महिला</option>
                                         <option value="1">पुरुष</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col" *ngIf="configForm?.gender?.value == 0">
+                            <div class="col" *ngIf="basicInfoControls?.gender?.value == 0">
                                 <div class="form-group">
                                     <label class="relationMedium" for="relationMedium">
                                         सम्बन्धको माध्यम</label>
                                     <select class="form-control" formControlName="relationMedium" id="relationMedium"
-                                            [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
+                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.relationMedium.errors}">
                                         <option [value]="null" hidden>Select Relation Medium</option>
                                         <option value="0">पैत्रिक नाताबाट</option>
                                         <option value="1">मैत्रिक नाताबाट</option>
@@ -110,72 +110,72 @@
                         </div>
                         <div class="row">
                             <div class="col"
-                                 [hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">
+                                 [hidden]="!(basicInfoControls?.gender?.value == 1) && basicInfoControls?.relationMedium?.value == 1">
                                 <div class="form-group">
                                     <label class="title" for="fatherName">पिताको नाम</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="fatherName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.fatherName.errors}"
                                            id="fatherName"
                                            name="fatherName" placeholder="पिताको नाम"
                                            type="text"/>
                                 </div>
                             </div>
                             <div class="col"
-                                 [hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">
+                                 [hidden]="!(basicInfoControls?.gender?.value == 1) && basicInfoControls?.relationMedium?.value == 1">
                                 <div class="form-group">
-                                    <label class="title" for="MotherName">आमाको नाम</label>
+                                    <label class="title" for="motherName">आमाको नाम</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="motherName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.motherName.errors}"
                                            id="motherName"
                                            name="motherName" placeholder="आमाको नाम"
                                            type="text"/>
                                 </div>
                             </div>
                             <div class="col"
-                                 [hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">
+                                 [hidden]="!(basicInfoControls?.gender?.value == 1) && basicInfoControls?.relationMedium?.value == 1">
                                 <div class="form-group">
                                     <label class="title" for="grandFatherName">हजुरबुबाको नाम</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="grandFatherName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.grandFatherName.errors}"
                                            id="grandFatherName"
                                            name="grandFatherName" placeholder="हजुरबुबाको नाम"
                                            type="text"/>
                                 </div>
                             </div>
                             <div class="col"
-                                 [hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">
+                                 [hidden]="!(basicInfoControls?.gender?.value == 1) && basicInfoControls?.relationMedium?.value == 1">
                                 <div class="form-group">
                                     <label class="title" for="grandMotherName">हजुरआमाको नाम</label>
                                     <input class="form-control rounded nepaliFont"
-                                           formControlName="grandFatherName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.grandMotherName.errors}"
+                                           formControlName="grandMotherName"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.grandMotherName.errors}"
                                            id="grandMotherName"
                                            name="grandMotherName" placeholder="हजुरआमाको नाम"
                                            type="text"/>
                                 </div>
                             </div>
                             <div class="col"
-                                 [hidden]="configForm?.relationMedium?.value == 0">
+                                 [hidden]="basicInfoControls?.relationMedium?.value == 0">
                                 <div class="form-group">
                                     <label class="title" for="husbandName">पति/पत्नीको नाम</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="husbandName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.husbandName.errors}"
                                            id="husbandName"
                                            name="husbandName" placeholder="पति वा पत्नीको नाम"
                                            type="text"/>
                                 </div>
                             </div>
                             <div class="col"
-                                 [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">
+                                 [hidden]="basicInfoControls?.gender?.value == 1 || basicInfoControls?.relationMedium?.value == 0">
                                 <div class="form-group">
                                     <label class="title" for="fatherInLawName">ससुराको नाम</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="fatherInLawName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.fatherInLawName.errors}"
                                            id="fatherInLawName"
                                            name="fatherInLawName" placeholder="ससुराको नाम"
                                            type="text"/>
@@ -199,7 +199,8 @@
                                     <label for="contactNumber"><strong>मोबाइल नं.</strong></label>
                                     <input
                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber.errors }"
-                                            class="form-control rounded nepaliFont" formControlName="contactNumber" id="contactNumber"
+                                            class="form-control rounded nepaliFont" formControlName="contactNumber"
+                                            id="contactNumber"
                                             name="contactNumber"
                                             placeholder="मोबाइल नं="
                                             type="text">
@@ -216,13 +217,16 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="email"><strong>इमेल</strong></label>
-                                    <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.email.errors }"
-                                           class="form-control" formControlName="email" id="email" name="email"
+                                    <label for="customerEmail"><strong>इमेल</strong></label>
+                                    <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerEmail.errors }"
+                                           class="form-control" formControlName="customerEmail" id="customerEmail"
+                                           name="customerEmail"
                                            placeholder="eg. xyz@abc.com"
-                                           type="email">
-                                    <div *ngIf="(submitted) && basicInfoControls.email.invalid" class="invalid-feedback">
-                                        <div *ngIf="basicInfoControls.email.errors.email">Valid email address has form
+                                           type="customerEmail">
+                                    <div *ngIf="(submitted) && basicInfoControls.customerEmail.invalid"
+                                         class="invalid-feedback">
+                                        <div *ngIf="basicInfoControls.customerEmail.errors.customerEmail">Valid email
+                                            address has form
                                             xyz@abc.com
                                         </div>
                                     </div>
@@ -237,7 +241,7 @@
                                     <div class="form-group">
                                         <select class="form-control" formControlName="permanentMunType"
                                                 id="permanentMunType"
-                                                [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">
+                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.permanentMunType.errors}">
                                             <option value="0">नगरपालिका</option>
                                             <option value="1">गा. बि. स.</option>
                                         </select>
@@ -293,26 +297,48 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="title"
-                                           for="permanentMunicipality">{{configForm.permanentMunType.value == 0
+                                           for="municipalities">{{basicInfoControls.permanentMunType.value == 0
                                         ? 'नगरपालिका' : 'गा. बि. स.'}}</label>
-                                    <input class="form-control rounded nepaliFont"
+                                    <!--<input class="form-control rounded nepaliFont"
                                            formControlName="permanentMunicipality"
-                                           [ngClass]="{'is-invalid': submitted && configForm.permanentMunicipality.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.permanentMunicipality.errors}"
                                            id="permanentMunicipality"
-                                           name="permanentMunicipality" placeholder="{{configForm.permanentMunType.value == 0
+                                           name="permanentMunicipality" placeholder="{{basicInfoControls.permanentMunType.value == 0
                                     ? 'नगरपालिका' : 'गा= बि= स='}}"
-                                           type="text"/>
+                                           type="text"/>-->
+                                    <select
+                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.municipalities.errors}"
+                                            class="custom-select"
+                                            formControlName="municipalities"
+                                            id="municipalities"
+                                            name="municipalities">
+                                        <option [ngValue]="null" hidden>नगरपालिका</option>
+                                        <option *ngFor="let municipalityVal of municipalitiesList"
+                                                [ngValue]="municipalityVal">
+                                            {{municipalityVal.nepaliName}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="(submitted) && basicInfoControls.municipalities.invalid"
+                                         class="invalid-feedback">
+                                        Municipality is required
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label class="title" for="permanentWard">वडा नं.</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="permanentWard"
-                                           [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
-                                           id="permanentWard"
-                                           name="permanentWard" placeholder="वडा नं="
-                                           type="text"/>
+                                    <label class="title" for="wardNumber">वडा नं.</label>
+                                    <input
+                                            [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }"
+                                            class="form-control rounded nepaliFont" formControlName="wardNumber"
+                                            id="wardNumber"
+                                            name="wardNumber" placeholder="वडा नं="
+                                            type="text">
+                                    <div *ngIf="(submitted) && basicInfoControls.wardNumber.invalid"
+                                         class="invalid-feedback">
+                                        <div *ngIf="basicInfoControls.wardNumber.errors.required">
+                                            Ward Number is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -324,7 +350,7 @@
                                     <div class="form-group">
                                         <select class="form-control" formControlName="temporaryMunType"
                                                 id="temporaryMunType"
-                                                [ngClass]="{'is-invalid': submitted && configForm.temporaryMunType.errors}">
+                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryMunType.errors}">
                                             <option value="0">नगरपालिका</option>
                                             <option value="1">गा. बि. स.</option>
                                         </select>
@@ -335,48 +361,85 @@
                                 <div class="form-group">
                                     <label class="title" for="temporaryProvince">
                                         प्रदेश </label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="temporaryProvince"
-                                           [ngClass]="{'is-invalid': submitted && configForm.temporaryProvince.errors}"
-                                           id="temporaryProvince"
-                                           name="temporaryProvince" placeholder="प्रदेश"
-                                           type="text"/>
+                                    <select (change)="getTemporaryDistricts(basicInfoControls.temporaryProvince.value)"
+                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryProvince.errors}"
+                                            class="custom-select"
+                                            formControlName="temporaryProvince"
+                                            id="temporaryProvince">
+                                        <option [ngValue]="null" hidden>प्रदेश</option>
+                                        <option *ngFor="let provinceVal of provinceList"
+                                                [ngValue]="provinceVal">
+                                            {{provinceVal.nepaliName}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="(submitted) && basicInfoControls.temporaryProvince.invalid"
+                                         class="invalid-feedback">
+                                        <div *ngIf="basicInfoControls.temporaryProvince.errors.required">
+                                            Province is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label class="title" for="temporaryDistrict">जिल्ला</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="temporaryDistrict"
-                                           [ngClass]="{'is-invalid': submitted && configForm.temporaryDistrict.errors}"
-                                           id="temporaryDistrict"
-                                           name="temporaryDistrict" placeholder="जिल्ला"
-                                           type="text"/>
+                                    <select (change)="getTemporaryMunicipalities(basicInfoControls?.temporaryDistrict?.value)"
+                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryDistrict.errors}"
+                                            class="custom-select"
+                                            formControlName="temporaryDistrict"
+                                            id="temporaryDistrict">
+                                        <option [ngValue]="null" hidden>जिल्ला</option>
+                                        <option *ngFor="let districtVal of temporaryDistrictList"
+                                                [ngValue]="districtVal">
+                                            {{districtVal.nepaliName}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="(submitted) &&  basicInfoControls.temporaryDistrict.invalid"
+                                         class="invalid-feedback">
+                                        <div *ngIf="basicInfoControls.temporaryDistrict.errors.required">
+                                            District is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label class="title" for="temporaryMunicipality">
-                                        {{configForm.temporaryMunType.value == 0 ? 'नगरपालिका' : 'गा. बि. स.'}}
+                                    <label class="title" for="temporaryMunicipalities">
+                                        {{basicInfoControls.temporaryMunType.value == 0 ? 'नगरपालिका' : 'गा. बि. स.'}}
                                     </label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="temporaryMunicipality"
-                                           [ngClass]="{'is-invalid': submitted && configForm.temporaryMunicipality.errors}"
-                                           id="temporaryMunicipality"
-                                           name="temporaryMunicipality" placeholder="{{configForm.temporaryMunType.value == 0
-                                    ? 'नगरपालिका' : 'गा= बि= स='}}"
-                                           type="text"/>
+                                    <select
+                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryMunicipalities.errors}"
+                                            class="custom-select"
+                                            formControlName="temporaryMunicipalities"
+                                            id="temporaryMunicipalities"
+                                            name="temporaryMunicipalities">
+                                        <option [ngValue]="null" hidden>नगरपालिका</option>
+                                        <option *ngFor="let municipalityVal of temporaryMunicipalitiesList"
+                                                [ngValue]="municipalityVal">
+                                            {{municipalityVal.nepaliName}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="(submitted) && basicInfoControls.temporaryMunicipalities.invalid"
+                                         class="invalid-feedback">
+                                        Municipality is required
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label class="title" for="temporaryWard">वडा नं.</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="temporaryWard"
-                                           [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
-                                           id="temporaryWard"
-                                           name="temporaryWard" placeholder="वडा नं="
-                                           type="text"/>
+                                    <input
+                                            [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryWard.errors }"
+                                            class="form-control rounded nepaliFont" formControlName="temporaryWard"
+                                            id="temporaryWard"
+                                            name="temporaryWard" placeholder="वडा नं="
+                                            type="text">
+                                    <div *ngIf="(submitted) && basicInfoControls.temporaryWard.invalid"
+                                         class="invalid-feedback">
+                                        <div *ngIf="basicInfoControls.temporaryWard.errors.required">
+                                            Ward Number is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -389,7 +452,7 @@
                                         कम्पनीको नाम </label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="companyName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.companyName.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.companyName.errors}"
                                            id="companyName"
                                            name="companyName" placeholder="कम्पनीको नाम"
                                            type="text"/>
@@ -406,7 +469,7 @@
                                     कम्पनीको जिल्ला </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="companyDistrict"
-                                       [ngClass]="{'is-invalid': submitted && configForm.companyDistrict.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.companyDistrict.errors}"
                                        id="companyDistrict"
                                        name="companyDistrict" placeholder="कम्पनीको जिल्ला"
                                        type="text"/>
@@ -416,7 +479,7 @@
                                     कम्पनीको म.न.पा. ⁄ उ.म.न.पा. ⁄ न.पा. ⁄ गा.बि.स. </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="companyVdcMun"
-                                       [ngClass]="{'is-invalid': submitted && configForm.companyVdcMun.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.companyVdcMun.errors}"
                                        id="companyVdcMun"
                                        name="companyVdcMun"
                                        placeholder="कम्पनीको म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स="
@@ -427,7 +490,7 @@
                                     कम्पनीको वडा नं. </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="companyWardNo"
-                                       [ngClass]="{'is-invalid': submitted && configForm.companyWardNo.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.companyWardNo.errors}"
                                        id="companyWardNo"
                                        name="companyWardNo" placeholder="कम्पनीको  वडा नं="
                                        type="text"/>
@@ -443,7 +506,7 @@
                                     नेपाल सरकारको मन्त्रालय </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="ministryOfGovernmentOfNepal"
-                                       [ngClass]="{'is-invalid': submitted && configForm.ministryOfGovernmentOfNepal.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.ministryOfGovernmentOfNepal.errors}"
                                        id="ministryOfGovernmentOfNepal"
                                        name="ministryOfGovernmentOfNepal" placeholder="नेपाल सरकारको मन्त्रालय"
                                        type="text"/>
@@ -453,7 +516,7 @@
                                     विभाग </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="department"
-                                       [ngClass]="{'is-invalid': submitted && configForm.department.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.department.errors}"
                                        id="department"
                                        name="department" placeholder="विभाग"
                                        type="text"/>
@@ -470,7 +533,7 @@
                                     कम्पनी रजिस्ट्रार कार्यालयको जिल्ला </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="companyRegistrarOfficeDistrict"
-                                       [ngClass]="{'is-invalid': submitted && configForm.companyRegistrarOfficeDistrict.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.companyRegistrarOfficeDistrict.errors}"
                                        id="companyRegistrarOfficeDistrict"
                                        name="companyRegistrarOfficeDistrict"
                                        placeholder="कम्पनी रजिस्ट्रार कार्यालयको जिल्ला"
@@ -481,7 +544,7 @@
                                     कम्पनी रजिस्ट्रार कार्यालयको म.न.पा. ⁄ उ.म.न.पा. ⁄ न.पा. ⁄ गा.बि.स. </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="companyRegistrarOfficeVdcMun"
-                                       [ngClass]="{'is-invalid': submitted && configForm.companyRegistrarOfficeVdcMun.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.companyRegistrarOfficeVdcMun.errors}"
                                        id="companyRegistrarOfficeVdcMun"
                                        name="companyRegistrarOfficeVdcMun"
                                        placeholder="कम्पनी रजिस्ट्रार कार्यालयको म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स="
@@ -492,7 +555,7 @@
                                     कम्पनी रजिस्ट्रार कार्यालयको वडा नं. </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="companyRegistrarOfficeWardNo"
-                                       [ngClass]="{'is-invalid': submitted && configForm.companyRegistrarOfficeWardNo.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.companyRegistrarOfficeWardNo.errors}"
                                        id="companyRegistrarOfficeWardNo"
                                        name="companyRegistrarOfficeWardNo"
                                        placeholder="कम्पनी रजिस्ट्रार कार्यालयको वडा नं="
@@ -505,7 +568,7 @@
                                     दर्ता ऐनको नाम </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="nameOfRegisteringAct"
-                                       [ngClass]="{'is-invalid': submitted && configForm.nameOfRegisteringAct.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.nameOfRegisteringAct.errors}"
                                        id="nameOfRegisteringAct"
                                        name="nameOfRegisteringAct" placeholder="दर्ता ऐनको नाम"
                                        type="text"/>
@@ -515,7 +578,7 @@
                                     ऐन लागू भएको वर्ष </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="yearOfActEnactment"
-                                       [ngClass]="{'is-invalid': submitted && configForm.yearOfActEnactment.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.yearOfActEnactment.errors}"
                                        id="yearOfActEnactment"
                                        name="yearOfActEnactment" placeholder="ऐन लागू भएको वर्ष"
                                        type="text"/>
@@ -527,7 +590,7 @@
                                     दर्ता मिति </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="registrationDate"
-                                       [ngClass]="{'is-invalid': submitted && configForm.registrationDate.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.registrationDate.errors}"
                                        id="registrationDate"
                                        name="registrationDate" placeholder="दर्ता मिति"
                                        type="text"/>
@@ -537,7 +600,7 @@
                                     कम्पनी दर्ता नं. </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="companyRegistrationNo"
-                                       [ngClass]="{'is-invalid': submitted && configForm.companyRegistrationNo.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.companyRegistrationNo.errors}"
                                        id="companyRegistrationNo"
                                        name="companyRegistrationNo" placeholder="कम्पनी दर्ता नं="
                                        type="text"/>
@@ -549,7 +612,7 @@
                                     करदाता सेवा कार्यालय </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="taxPayerServiceOffice"
-                                       [ngClass]="{'is-invalid': submitted && configForm.taxPayerServiceOffice.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.taxPayerServiceOffice.errors}"
                                        id="taxPayerServiceOffice"
                                        name="taxPayerServiceOffice" placeholder="करदाता सेवा कार्यालय"
                                        type="text"/>
@@ -559,7 +622,7 @@
                                     प्यान दर्ता मिति </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="panRegistrationDate"
-                                       [ngClass]="{'is-invalid': submitted && configForm.panRegistrationDate.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.panRegistrationDate.errors}"
                                        id="panRegistrationDate"
                                        name="panRegistrationDate" placeholder="प्यान दर्ता मिति"
                                        type="text"/>
@@ -569,7 +632,7 @@
                                     प्यान नं. </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="panNo"
-                                       [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.panNo.errors}"
                                        id="panNo"
                                        name="panNo" placeholder="प्यान नं="
                                        type="text"/>
@@ -584,7 +647,7 @@
                                     <label class="title" for="representativeGrandFatherName">हजुरबुबाको नाम</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="representativeGrandFatherName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.representativeGrandFatherName.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeGrandFatherName.errors}"
                                            id="representativeGrandFatherName"
                                            name="representativeGrandFatherName" placeholder="हजुरबुबाको नाम"
                                            type="text"/>
@@ -595,7 +658,7 @@
                                     <label class="title" for="representativeFatherName">पिताको नाम</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="representativeFatherName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.representativeFatherName.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeFatherName.errors}"
                                            id="representativeFatherName"
                                            name="representativeFatherName" placeholder="पिताको नाम"
                                            type="text"/>
@@ -606,7 +669,7 @@
                                     <label class="title" for="representativeHusbandWifeName">पतिको/पत्नी नाम</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="representativeHusbandWifeName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.representativeHusbandWifeName.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeHusbandWifeName.errors}"
                                            id="representativeHusbandWifeName"
                                            name="representativeHusbandWifeName" placeholder="पतिको÷पत्नी नाम"
                                            type="text"/>
@@ -618,7 +681,7 @@
                                 <div class="form-group">
                                     <select class="form-control" formControlName="representativePermanentMunType"
                                             id="representativePermanentMunType"
-                                            [ngClass]="{'is-invalid': submitted && configForm.representativePermanentMunType.errors}">
+                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.representativePermanentMunType.errors}">
                                         <option value="0">नगरपालिका</option>
                                         <option value="1">गा. बि. स.</option>
                                     </select>
@@ -630,7 +693,7 @@
                                         जिल्ला</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="representativePermanentDistrict"
-                                           [ngClass]="{'is-invalid': submitted && configForm.representativePermanentDistrict.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.representativePermanentDistrict.errors}"
                                            id="representativePermanentDistrict"
                                            name="representativePermanentDistrict"
                                            placeholder="प्रतिनिधिको स्थायी जिल्ला"
@@ -640,13 +703,13 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="title"
-                                           for="representativePermanentMunicipality">{{configForm.representativePermanentMunType.value == 0
+                                           for="representativePermanentMunicipality">{{basicInfoControls.representativePermanentMunType.value == 0
                                         ? 'प्रतिनिधिको स्थायी नगरपालिका' : 'प्रतिनिधिको स्थायी गा. बि. स.'}}</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="representativePermanentMunicipality"
-                                           [ngClass]="{'is-invalid': submitted && configForm.representativePermanentMunicipality.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.representativePermanentMunicipality.errors}"
                                            id="representativePermanentMunicipality"
-                                           name="representativePermanentMunicipality" placeholder="{{configForm.representativePermanentMunType.value == 0
+                                           name="representativePermanentMunicipality" placeholder="{{basicInfoControls.representativePermanentMunType.value == 0
                                     ? 'प्रतिनिधिको स्थायी नगरपालिका' : 'प्रतिनिधिको स्थायी गा= बि= स='}}"
                                            type="text"/>
                                 </div>
@@ -657,7 +720,7 @@
                                         नं.</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="representativePermanentWard"
-                                           [ngClass]="{'is-invalid': submitted && configForm.representativePermanentWard.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.representativePermanentWard.errors}"
                                            id="representativePermanentWard"
                                            name="representativePermanentWard" placeholder="प्रतिनिधिको स्थायी वडा नं="
                                            type="text"/>
@@ -669,7 +732,7 @@
                                 <div class="form-group">
                                     <select class="form-control" formControlName="representativeTemporaryMunType"
                                             id="representativeTemporaryMunType"
-                                            [ngClass]="{'is-invalid': submitted && configForm.representativeTemporaryMunType.errors}">
+                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeTemporaryMunType.errors}">
                                         <option value="0">नगरपालिका</option>
                                         <option value="1">गा. बि. स.</option>
                                     </select>
@@ -681,7 +744,7 @@
                                         जिल्ला</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="representativeTemporaryDistrict"
-                                           [ngClass]="{'is-invalid': submitted && configForm.representativeTemporaryDistrict.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeTemporaryDistrict.errors}"
                                            id="representativeTemporaryDistrict"
                                            name="representativeTemporaryDistrict"
                                            placeholder="प्रतिनिधिको अस्थायी जिल्ला"
@@ -691,13 +754,13 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="title"
-                                           for="representativeTemporaryMunicipality">{{configForm.representativeTemporaryMunType.value == 0
+                                           for="representativeTemporaryMunicipality">{{basicInfoControls.representativeTemporaryMunType.value == 0
                                         ? 'प्रतिनिधिको अस्थायी नगरपालिका' : 'प्रतिनिधिको अस्थायी गा. बि. स.'}}</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="representativeTemporaryMunicipality"
-                                           [ngClass]="{'is-invalid': submitted && configForm.representativeTemporaryMunicipality.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeTemporaryMunicipality.errors}"
                                            id="representativeTemporaryMunicipality"
-                                           name="representativeTemporaryMunicipality" placeholder="{{configForm.representativeTemporaryMunType.value == 0
+                                           name="representativeTemporaryMunicipality" placeholder="{{basicInfoControls.representativeTemporaryMunType.value == 0
                                     ? 'प्रतिनिधिको अस्थायी नगरपालिका' : 'प्रतिनिधिको अस्थायी गा= बि= स='}}"
                                            type="text"/>
                                 </div>
@@ -708,7 +771,7 @@
                                         नं.</label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="representativeTemporaryWard"
-                                           [ngClass]="{'is-invalid': submitted && configForm.representativeTemporaryWard.errors}"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeTemporaryWard.errors}"
                                            id="representativeTemporaryWard"
                                            name="representativeTemporaryWard" placeholder="प्रतिनिधिको अस्थायी वडा नं="
                                            type="text"/>
@@ -721,7 +784,7 @@
                                     उधारकर्ताको उमेर</label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="borrowerAge"
-                                       [ngClass]="{'is-invalid': submitted && configForm.borrowerAge.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.borrowerAge.errors}"
                                        id="borrowerAge"
                                        name="borrowerAge" placeholder="उधारकर्ताको उमेर"
                                        type="text"/>
@@ -731,7 +794,7 @@
                                     प्रतिनिधिको नाम </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="representativeName"
-                                       [ngClass]="{'is-invalid': submitted && configForm.representativeName.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeName.errors}"
                                        id="representativeName"
                                        name="representativeName" placeholder="प्रतिनिधिको नाम"
                                        type="text"/>
@@ -743,7 +806,7 @@
                                     प्रतिनिधिको नगरिकता नम्बर </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="representativeCitizenshipNo"
-                                       [ngClass]="{'is-invalid': submitted && configForm.representativeCitizenshipNo.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeCitizenshipNo.errors}"
                                        id="representativeCitizenshipNo"
                                        name="representativeCitizenshipNo" placeholder="प्रतिनिधिको नगरिकता नम्बर"
                                        type="text"/>
@@ -753,7 +816,7 @@
                                     प्रतिनिधि नागरिकता जारी मिति </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="representativeCitizenshipIssueDate"
-                                       [ngClass]="{'is-invalid': submitted && configForm.representativeCitizenshipIssueDate.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeCitizenshipIssueDate.errors}"
                                        id="representativeCitizenshipIssueDate"
                                        name="representativeCitizenshipIssueDate"
                                        placeholder="प्रतिनिधि नागरिकता जारी मिति"
@@ -764,7 +827,7 @@
                                     प्रतिनिधि नागरिकता जारी गर्ने प्राधिकरण </label>
                                 <input class="form-control rounded nepaliFont"
                                        formControlName="representativeCitizenshipIssuingAuthority"
-                                       [ngClass]="{'is-invalid': submitted && configForm.representativeCitizenshipIssuingAuthority.errors}"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.representativeCitizenshipIssuingAuthority.errors}"
                                        id="representativeCitizenshipIssuingAuthority"
                                        name="representativeCitizenshipIssuingAuthority"
                                        placeholder="प्रतिनिधि नागरिकता जारी गर्ने प्राधिकरण"
@@ -876,13 +939,13 @@
 
                     </app-nep-proposed-amount-form>
                 </nb-tab>
-                <nb-tab tabId="3"  tabTitle="Collateral Details">
+                <nb-tab tabId="3" tabTitle="Collateral Details">
 
                 </nb-tab>
-                <nb-tab tabId="4"  tabTitle="Collateral Owner Details">
+                <nb-tab tabId="4" tabTitle="Collateral Owner Details">
 
                 </nb-tab>
-                <nb-tab tabId="5"  tabTitle="Branch Details">
+                <nb-tab tabId="5" tabTitle="Branch Details">
                     <div class="col-md-12 row">
                         <div class="form-group col-md-3">
                             <label class="title" for="branchName">शाखाको नाम</label>
@@ -895,10 +958,10 @@
                             <select class="form-control-sm form-field nepaliFont"
                                     id="branchName"
                                     formControlName="branchName">
-                                                   <option *ngFor="let branch of branchList" value="{{branch.nepaliName}}">
-                                                       {{branch.nepaliName}}
-                                                   </option>
-                                               </select>
+                                <option *ngFor="let branch of branchList" value="{{branch.nepaliName}}">
+                                    {{branch.nepaliName}}
+                                </option>
+                            </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="title" for="branchDistrict">
