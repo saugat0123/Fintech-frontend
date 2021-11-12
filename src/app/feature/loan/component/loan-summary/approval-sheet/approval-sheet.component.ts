@@ -101,6 +101,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     navigationSubscription;
     securitySummary = false;
     securityData: Object;
+    approvedSecurityData: Object;
     siteVisitData: Object;
     checkGuarantorData = false;
     offerLetterDocuments: {
@@ -159,6 +160,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     obtainableDocuments = Array<ObtainableDoc>();
     otherObtainableDocuments = Array<string>();
     megaGroupEnabled = environment.MEGA_GROUP;
+    initialSecurity = false;
+    approvedSecurity = false;
 
     constructor(
         private userService: UserService,
@@ -200,6 +203,12 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         if (this.loanDataHolder.loanCategory === 'INSTITUTION') {
             this.companyInfo = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
         }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
+            this.initialSecurity = true;
+        }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+            this.approvedSecurity = true;
+        }
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
         this.loadSummary();
         this.checkDocUploadConfig();
@@ -229,6 +238,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         // Setting Security data--
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
             this.securityData = JSON.parse(this.loanDataHolder.security.data);
+            this.securitySummary = true;
+        }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+            this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
             this.securitySummary = true;
         }
 

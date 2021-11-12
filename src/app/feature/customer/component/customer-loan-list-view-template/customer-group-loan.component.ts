@@ -377,6 +377,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   displaySecurityDetails() {
     if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
     const securityData = JSON.parse(this.customerInfo.security.data);
+    const approvedSecurityData = JSON.parse(this.customerInfo.security.approvedData);
     if (!ObjectUtil.isEmpty(securityData)) {
     if (!ObjectUtil.isEmpty(this.customerInfo.security) && securityData.selectedArray.length > 0) {
       this.displaySecurity = true;
@@ -388,6 +389,17 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       this.displaySecurity = false;
       }
     }
+      if (!ObjectUtil.isEmpty(approvedSecurityData)) {
+        if (!ObjectUtil.isEmpty(this.customerInfo.security) && approvedSecurityData.selectedArray.length > 0) {
+          this.displaySecurity = true;
+          if (approvedSecurityData.selectedArray.length === 1 &&
+              approvedSecurityData.selectedArray.includes('OtherSecurity')) {
+            this.displaySecurity = false;
+          }
+        } else {
+          this.displaySecurity = false;
+        }
+      }
   } else {
       this.displaySecurity = false;
     }

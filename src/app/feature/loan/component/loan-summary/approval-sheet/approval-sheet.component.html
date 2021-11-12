@@ -481,11 +481,16 @@
             <hr>
 
             <!-- Start Security Details-->
-            <app-security-summary *ngIf="securitySummary"
+            <app-security-summary *ngIf="securitySummary && initialSecurity"
                                   [formData]="securityData"
                                   [shareSecurity]="shareSecurityData"
                                   [loanCategory]="loanDataHolder?.loanCategory"
                                   [approveSheet]="approveSheet"></app-security-summary>
+            <app-security-approved-summary *ngIf="securitySummary && approvedSecurity"
+                    [formData]="approvedSecurityData"
+                    [shareSecurity]="shareSecurityData"
+                    [loanCategory]="loanDataHolder?.loanCategory"
+                    [approveSheet]="approveSheet"></app-security-approved-summary>
             <!-- End Security Details-->
             <hr>
 

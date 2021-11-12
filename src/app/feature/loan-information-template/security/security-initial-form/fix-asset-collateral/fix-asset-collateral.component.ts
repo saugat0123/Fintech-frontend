@@ -102,7 +102,8 @@ export class FixAssetCollateralComponent implements OnInit {
         }
         this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
             .subscribe((response: any) => {
-            this.collateralSiteVisits = response.detail;
+            const siteVisits = response.detail;
+                this.collateralSiteVisits = siteVisits.filter((f) => ObjectUtil.isEmpty(f.isApproved) && !f.isApproved);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
@@ -116,11 +117,7 @@ export class FixAssetCollateralComponent implements OnInit {
         this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
             .subscribe((response: any) => {
                 const siteVisits = response.detail;
-                siteVisits.forEach((collateralSiteVisit: CollateralSiteVisit) => {
-                    if (!ObjectUtil.isEmpty(collateralSiteVisit.isApproved) && collateralSiteVisit.isApproved) {
-                        this.approvedCollateralSiteVisits = response.detail;
-                    }
-                });
+                this.approvedCollateralSiteVisits = siteVisits.filter((f) => !ObjectUtil.isEmpty(f.isApproved) && f.isApproved);
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, `No approved site visit present for security ${securityName}`));
