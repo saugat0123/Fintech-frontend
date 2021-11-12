@@ -15,6 +15,7 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-letter-of-agreement',
@@ -35,6 +36,7 @@ export class LetterOfAgreementComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  nepDataPersonal = new NepDataPersonal();
 
   constructor(private dialogRef: NbDialogRef<LetterOfAgreementComponent>,
               private formBuilder: FormBuilder,
@@ -64,9 +66,23 @@ export class LetterOfAgreementComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
+      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        perDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        perMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        perWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        grandFatherName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        // loanHolderAge:
+        loanHolderName: this.nepaliData.name ? this.nepaliData.name : '',
+        // tole:
+        financeBranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        // financeRegistrationDate:
+        districtName: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
+        municipalityName: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
+        wardNo: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
+        /*companyName:
+        loanAmount:*/
       });
     }
   }
