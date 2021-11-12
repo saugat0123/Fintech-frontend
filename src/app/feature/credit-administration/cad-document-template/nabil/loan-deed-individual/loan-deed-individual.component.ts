@@ -147,6 +147,8 @@ export class LoanDeedIndividualComponent implements OnInit {
         approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
       } else if (this.docName === 'Auto Loan' && this.offerDocumentDetails.dateOfApproval.en.eDate) {
         approvedDate = this.offerDocumentDetails.dateOfApproval.en.eDate;
+      } else if (this.docName === 'Mortage Loan' && this.offerDocumentDetails.dateofApproval.en.eDate) {
+        approvedDate = this.offerDocumentDetails.dateofApproval.en.eDate;
       } else {
         approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
       }
@@ -231,7 +233,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       area2: [undefined],
       freeText: [undefined],
       totalPeople: [this.numberOfJointCustomer ? this.numberOfJointCustomer : ''],
-      purposeOfLoan: [(this.initialInformation.loanPurpose) ? (this.initialInformation.loanPurpose.ct) : (this.initialInformation.purposeOfLoan ? this.initialInformation.purposeOfLoan.ct : (this.initialInformation.vehicleName ? (this.initialInformation.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद गर्ने') : ('')))],
+      purposeOfLoan: [(this.initialInformation.loanPurpose) ? (this.initialInformation.loanPurpose.ct) : this.initialInformation.purposeOfLoan ? this.initialInformation.purposeOfLoan.ct : this.initialInformation.vehicleName ? (this.initialInformation.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद गर्ने') : this.offerDocumentDetails.loan.purposeOfLoanCT ? this.offerDocumentDetails.loan.purposeOfLoanCT : ('')],
       loanDeedJoint: this.formBuilder.array([]),
     });
   }
