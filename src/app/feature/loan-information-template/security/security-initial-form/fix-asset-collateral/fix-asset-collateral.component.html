@@ -9,6 +9,14 @@
     </nb-card-header>
     <nb-card-body>
         <div class="row">
+            <div class="col-md-4" *ngIf="readMode;else defaultTemp">
+                <span><strong>Select Last Site Visit Date</strong></span>
+                <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastApprovedSiteVisitDetail()">
+                    <option [ngValue]="null" hidden>Select Date</option>
+                    <option *ngFor="let siteVisit of approvedCollateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
+                </select>
+            </div>
+            <ng-template #defaultTemp>
             <div class="col-md-4">
                 <span><strong>Select Last Site Visit Date</strong></span>
                 <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastSiteVisitDetail()">
@@ -16,6 +24,7 @@
                     <option *ngFor="let siteVisit of collateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
                 </select>
             </div>
+            </ng-template>
             <div class="col-md-4 mt-4" *ngIf="isSiteVisitPresent">
                 <button *ngIf="!readMode" nbButton size="tiny" status="primary" (click)="openModel(confirmModel, 'single')">Delete One<i class="fa fa-trash"></i></button><br>
                 <button *ngIf="!readMode" nbButton size="tiny" status="primary" class="mt-1" (click)="openModel(confirmModel, 'all')">Delete All<i class="fa fa-trash"></i></button>

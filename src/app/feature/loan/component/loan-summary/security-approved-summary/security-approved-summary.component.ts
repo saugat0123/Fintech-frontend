@@ -48,7 +48,7 @@ export class SecurityApprovedSummaryComponent implements OnInit {
   bondSecurity = false;
   leaseAssignment: any;
   @Input() securityId: number;
-  @Input() collateralSiteVisitDetail = [];
+  @Input() collateralSiteVisitDetail: Array<CollateralSiteVisit>;
   @Input() isCollateralSiteVisit;
   @Input() nepaliDate;
   @Input() siteVisitDocuments: Array<SiteVisitDocument>;
@@ -189,7 +189,9 @@ export class SecurityApprovedSummaryComponent implements OnInit {
       this.isPresentGuarantor = true;
     }
     if (!ObjectUtil.isEmpty(this.collateralData) && this.docStatus.toString() === 'APPROVED') {
-      this.collateralSiteVisits = this.collateralData;
+      this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
+          .subscribe((response: any) => {
+            this.collateralSiteVisits = response.detail;
       const arr = [];
       this.collateralSiteVisits.forEach(f => {
         if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
@@ -202,11 +204,12 @@ export class SecurityApprovedSummaryComponent implements OnInit {
       this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
 
       this.collateralSiteVisits.filter(item => {
-        this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+        if (!ObjectUtil.isEmpty(item.isApproved) && item.isApproved) {
+          this.isCollateralSiteVisitPresent = true;
+          this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+        }
       });
-      if (this.collateralData.length > 0) {
-        this.isCollateralSiteVisitPresent = true;
-      }
+    });
     } else {
       if (!ObjectUtil.isEmpty(this.securityId)) {
         this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
@@ -223,11 +226,11 @@ export class SecurityApprovedSummaryComponent implements OnInit {
               // filter for only printable document
               this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
               this.collateralSiteVisits.filter(item => {
-                this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                if (!ObjectUtil.isEmpty(item.isApproved) && item.isApproved) {
+                  this.isCollateralSiteVisitPresent = true;
+                  this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                }
               });
-              if (response.detail.length > 0) {
-                this.isCollateralSiteVisitPresent = true;
-              }
               this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
             });
       }

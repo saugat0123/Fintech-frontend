@@ -185,8 +185,10 @@ export class SecurityApprovedViewComponent implements OnInit {
       this.collateralSiteVisits = this.collateralData;
       const doc = [];
       this.collateralSiteVisits.forEach(f => {
-        if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-          doc.push(f.siteVisitDocuments);
+        if (!ObjectUtil.isEmpty(f.isApproved) && f.isApproved) {
+          if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
+            doc.push(f.siteVisitDocuments);
+          }
         }
       });
       // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
@@ -195,11 +197,11 @@ export class SecurityApprovedViewComponent implements OnInit {
       this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
 
       this.collateralSiteVisits.filter(item => {
-        this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+        if (!ObjectUtil.isEmpty(item.isApproved) && item.isApproved) {
+          this.isCollateralSiteVisit = true;
+          this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+        }
       });
-      if (this.collateralData.length > 0) {
-        this.isCollateralSiteVisit = true;
-      }
     } else {
       if (this.securityId !== undefined) {
         this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
@@ -207,8 +209,10 @@ export class SecurityApprovedViewComponent implements OnInit {
               this.collateralSiteVisits = response.detail;
               const arr = [];
               this.collateralSiteVisits.forEach(f => {
-                if (f.siteVisitDocuments.length > 0) {
-                  arr.push(f.siteVisitDocuments);
+                if (!ObjectUtil.isEmpty(f.isApproved) && f.isApproved) {
+                  if (f.siteVisitDocuments.length > 0) {
+                    arr.push(f.siteVisitDocuments);
+                  }
                 }
               });
               // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
@@ -217,11 +221,11 @@ export class SecurityApprovedViewComponent implements OnInit {
               this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
 
               this.collateralSiteVisits.filter(item => {
-                this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                if (!ObjectUtil.isEmpty(item.isApproved) && item.isApproved) {
+                  this.isCollateralSiteVisit = true;
+                  this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                }
               });
-              if (response.detail.length > 0) {
-                this.isCollateralSiteVisit = true;
-              }
               this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
             });
       }
