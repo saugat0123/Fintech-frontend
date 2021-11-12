@@ -11,32 +11,16 @@
           </div>
           <p>
               लिखितम्
-              <span [ngClass]="{'nepaliFont' : printDocForm?.perDistrict !== null && printDocForm?.perDistrict !== ''}">
+              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.perDistrict !== null && printDocForm?.perDistrict !== ''}">
                   {{printDocForm?.perDistrict === null || printDocForm?.perDistrict === '' ? '_________________' : printDocForm?.perDistrict}}
               </span>
               जिल्ला
-              <span [ngClass]="{'nepaliFont' : printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
+              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
                   {{printDocForm?.perMunicipality === null || printDocForm?.perMunicipality === '' ? '_________________' : printDocForm?.perMunicipality}}
               </span>
               न.पा./गा.वि.स. वडा नं.
-              <span [ngClass]="{'nepaliFont' : printDocForm?.perWardNo !== null && printDocForm?.perWardNo !== ''}">
+              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.perWardNo !== null && printDocForm?.perWardNo !== ''}">
                   {{printDocForm?.perWardNo === null || printDocForm?.perWardNo === '' ? '_________________' : printDocForm?.perWardNo}}
-              </span>
-              भै हाल
-              <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryDistrict !== null && printDocForm?.temporaryDistrict !== ''}">
-                  {{printDocForm?.temporaryDistrict === null || printDocForm?.temporaryDistrict === '' ? '_________________' : printDocForm?.temporaryDistrict}}
-              </span>
-              जिल्ला
-              <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryMunicipalityVDC !== null && printDocForm?.temporaryMunicipalityVDC !== ''}">
-                  {{printDocForm?.temporaryMunicipalityVDC === null || printDocForm?.temporaryMunicipalityVDC === '' ? '_________________' : printDocForm?.temporaryMunicipalityVDC}}
-              </span>
-              न.पा./गा.वि.स. वडा नं.
-              <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryWardNo !== null && printDocForm?.temporaryWardNo !== ''}">
-                  {{printDocForm?.temporaryWardNo === null || printDocForm?.temporaryWardNo === '' ? '_________________' : printDocForm?.temporaryWardNo}}
-              </span>
-              , स्थित
-              <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryAddress !== null && printDocForm?.temporaryAddress !== ''}">
-                  {{printDocForm?.temporaryAddress === null || printDocForm?.temporaryAddress === '' ? '_________________' : printDocForm?.temporaryAddress}}
               </span>
               बस्ने
               <span [ngClass]="{'nepaliFont' : printDocForm?.grandFatherName !== null && printDocForm?.grandFatherName !== ''}">
@@ -58,12 +42,12 @@
               <span [ngClass]="{'nepaliFont' : printDocForm?.financeWardNo !== null && printDocForm?.financeWardNo !== ''}">
                   {{printDocForm?.financeWardNo === null || printDocForm?.financeWardNo === '' ? '_________________' : printDocForm?.financeWardNo}}
               </span>
-              ,<span [ngClass]="{'nepaliFont' : printDocForm?.financeWardNo !== null && printDocForm?.financeWardNo !== ''}">
-                  {{printDocForm?.financeWardNo === null || printDocForm?.financeWardNo === '' ? '_________________' : printDocForm?.financeWardNo}}
+              ,<span [ngClass]="{'nepaliFont' : printDocForm?.tole !== null && printDocForm?.tole !== ''}">
+                  {{printDocForm?.tole === null || printDocForm?.tole === '' ? '_________________' : printDocForm?.tole}}
               </span>
               (टोल) स्थित प्रोग्रेशिभ फाइनान्स लि., शाखा कार्यालयको नाममा मालपोत कार्यालय
-              <span [ngClass]="{'nepaliFont' : printDocForm?.tole !== null && printDocForm?.tole !== ''}">
-                  {{printDocForm?.tole === null || printDocForm?.tole === '' ? '_________________' : printDocForm?.tole}}
+              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.financeBranchName !== null && printDocForm?.financeBranchName !== ''}">
+                  {{printDocForm?.financeBranchName === null || printDocForm?.financeBranchName === '' ? '_________________' : printDocForm?.financeBranchName}}
               </span>
               मार्फत
               रजिस्ट्रेशन नं.
@@ -75,28 +59,28 @@
                   {{printDocForm?.financeRegistrationDate === null || printDocForm?.financeRegistrationDate === '' ? '_________________' : printDocForm?.financeRegistrationDate}}
               </span>मा
               पारित गरिदिएको सुरक्षणको लिखतको अधिनमा रही सो सुरक्षणको आधारमा
-              <span [ngClass]="{'nepaliFont' : printDocForm?.districtName !== null && printDocForm?.districtName !== ''}">
+              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.districtName !== null && printDocForm?.districtName !== ''}">
                   {{printDocForm?.districtName === null || printDocForm?.districtName === '' ? '_________________' : printDocForm?.districtName}}
               </span>
               जिल्ला
-              <span [ngClass]="{'nepaliFont' : printDocForm?.municipalityName !== null && printDocForm?.municipalityName !== ''}">
+              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.municipalityName !== null && printDocForm?.municipalityName !== ''}">
                   {{printDocForm?.municipalityName === null || printDocForm?.municipalityName === '' ? '_________________' : printDocForm?.municipalityName}}
               </span>
               गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.
               <span [ngClass]="{'nepaliFont' : printDocForm?.wardNo !== null && printDocForm?.wardNo !== ''}">
                   {{printDocForm?.wardNo === null || printDocForm?.wardNo === '' ? '_________________' : printDocForm?.wardNo}}
               </span>
-               स्थित/बस्ने
+               स्थित बस्ने
               <span [ngClass]="{'nepaliFont' : printDocForm?.companyName !== null && printDocForm?.companyName !== ''}">
                   {{printDocForm?.companyName === null || printDocForm?.companyName === '' ? '_________________' : printDocForm?.companyName}}
               </span>
               फर्म/कम्पनी
               आफैले वा उल्लेखित व्यक्ति/फर्म/कम्पनीको अनुरोधमा अन्य व्यक्ति र वा फर्म/कम्पनीहरुले प्रोग्रेशिभ फाइनान्स लि. सँग रु.
-              <span [ngClass]="{'nepaliFont' : printDocForm?.loanAmount !== null && printDocForm?.loanAmount !== ''}">
+              <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.loanAmount !== null && printDocForm?.loanAmount !== ''}">
                   {{printDocForm?.loanAmount === null || printDocForm?.loanAmount === '' ? '_________________' : printDocForm?.loanAmount}}
               </span>
               अक्षेरुपी रु.
-              <span [ngClass]="{'nepaliFont unicodeSize' : printDocForm?.loanAmountWords !== null && printDocForm?.loanAmountWords !== ''}">
+              <span style="font-size: 16px" [ngClass]="{'nepaliFont unicodeSize' : printDocForm?.loanAmountWords !== null && printDocForm?.loanAmountWords !== ''}">
                   {{printDocForm?.loanAmountWords === null || printDocForm?.loanAmountWords === '' ? '_________________' : printDocForm?.loanAmountWords}}
               </span>
               सम्मको बैंक जमानी पत्र जारी गर्न गराउन र वा विल्स परचेज/नेगोसिएशन सुविधा र वा स्थिर पूँजी कर्जा र वा

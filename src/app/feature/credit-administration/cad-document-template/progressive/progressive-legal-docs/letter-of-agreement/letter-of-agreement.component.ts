@@ -67,22 +67,25 @@ export class LetterOfAgreementComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+      const loanAmount = JSON.parse(this.cadData.nepData);
       this.form.patchValue({
         perDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
         perMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
         perWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
         grandFatherName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
         fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-        // loanHolderAge:
+        loanHolderAge: this.nepaliData.age ? this.nepaliData.age : '',
         loanHolderName: this.nepaliData.name ? this.nepaliData.name : '',
+        financeWardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
         // tole:
         financeBranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
         // financeRegistrationDate:
         districtName: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
         municipalityName: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
         wardNo: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
-        /*companyName:
-        loanAmount:*/
+        /*companyName:*/
+        loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
       });
     }
   }
