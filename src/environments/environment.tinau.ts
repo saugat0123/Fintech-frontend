@@ -13,5 +13,7 @@ export const environment = {
   microLoan: false,
   SBS_GROUP: false,
   MEGA_GROUP: false,
-  summaryType: SummaryType.GENERAL
+  summaryType: SummaryType.GENERAL,
+  versionCheckUrl: 'http://localhost:84/version.json',
+  autoReload: true
 };
