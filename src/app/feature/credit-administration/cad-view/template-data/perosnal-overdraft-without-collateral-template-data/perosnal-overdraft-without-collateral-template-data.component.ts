@@ -57,7 +57,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
   offerLetterDocument: OfferDocument;
   cadDocStatus = CadDocStatus.key();
   submitted = false;
-  fieldFlag = false;
   selectedSecurityVal;
   objectTranslate;
   closed = false;
@@ -312,7 +311,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
   transferValue() {
     const security = this.form.get('selectedSecurity').value;
     if (!ObjectUtil.isEmpty(security)) {
-      this.fieldFlag = true;
       this.selectedSecurityVal = security;
     }
   }
