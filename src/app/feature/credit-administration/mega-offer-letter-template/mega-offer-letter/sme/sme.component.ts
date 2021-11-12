@@ -145,7 +145,6 @@ export class SmeComponent implements OnInit {
       let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length-1].nepData);
       this.finalName =  this.allguarantorNames + " र " + temp1.guarantorName.ct;
     }
-    console.log('Guarantor Name:', this.finalName);
   }
 
   checkOfferLetterData() {

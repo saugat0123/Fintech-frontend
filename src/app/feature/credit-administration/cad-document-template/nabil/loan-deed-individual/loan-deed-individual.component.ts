@@ -144,12 +144,16 @@ export class LoanDeedIndividualComponent implements OnInit {
       if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
         // tslint:disable-next-line:max-line-length
         approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
-      } else if (this.docName === 'Mortage Loan' && this.offerDocumentDetails.dateofApproval.en.eDate) {
-        approvedDate = this.offerDocumentDetails.dateofApproval.en.eDate;
-      } else if (this.docName === 'Home Loan' && this.offerDocumentDetails.loan.dateOfApproval) {
-        approvedDate = this.offerDocumentDetails.loan.dateOfApproval;
       } else {
         approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
+      }
+    }
+    if (this.docName === 'Home Loan') {
+      if (this.offerDocumentDetails.loan.dateType === 'AD') {
+        approvedDate = this.offerDocumentDetails.loan.dateOfApproval ? this.offerDocumentDetails.loan.dateOfApproval : '';
+      }
+      if (this.offerDocumentDetails.loan.dateType === 'BS') {
+        approvedDate = this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate;
       }
     }
 

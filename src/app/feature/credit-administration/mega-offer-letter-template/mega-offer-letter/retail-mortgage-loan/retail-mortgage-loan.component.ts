@@ -20,6 +20,8 @@ import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatte
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
+import {DatePipe} from "@angular/common";
+import {EngNepDatePipe} from "nepali-patro";
 
 @Component({
     selector: 'app-retail-mortgage-loan',
@@ -68,7 +70,9 @@ export class RetailMortgageLoanComponent implements OnInit {
                 private currencyFormatPipe: CurrencyFormatterPipe,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
                 private nepPercentWordPipe: NepaliPercentWordPipe,
-                private ref: NbDialogRef<RetailMortgageLoanComponent>
+                private ref: NbDialogRef<RetailMortgageLoanComponent>,
+                private datePipe: DatePipe,
+                private engNepDatePipe: EngNepDatePipe
 ) {
     }
 
@@ -83,9 +87,6 @@ export class RetailMortgageLoanComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
         }
-        console.log('Selected Data:',this.cadOfferLetterApprovedDoc);
-        console.log('All Data:',this.tempData);
-        console.log('Loan Holder initial data:',this.loanHolderInfo);
         this.checkOfferLetterData();
         this.guarantorDetails();
     }
@@ -95,7 +96,7 @@ export class RetailMortgageLoanComponent implements OnInit {
             selectedSecurity: [undefined],
             loanLimitChecked: [undefined],
             referenceNumber: [undefined],
-            dateofApproval: [undefined],
+            dateOfApproval: [undefined],
             customerName: [undefined],
             customerAddress: [undefined],
             dateofApplication: [undefined],
@@ -194,6 +195,34 @@ export class RetailMortgageLoanComponent implements OnInit {
         if (this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo) {
             autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
         }
+        let apprDate;
+        const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ?
+            this.initialInfoPrint.dateOfApprovalType.en : '';
+        if (dateOfApprovalType === 'AD') {
+            const tempApprDate = this.initialInfoPrint.dateOfApproval ?
+                this.engNepDatePipe.transform(this.datePipe.transform(this.initialInfoPrint.dateOfApproval.en), true) :
+                '';
+            apprDate = tempApprDate ? tempApprDate : '';
+        } else {
+            const tempApprNepali = this.initialInfoPrint.dateOfApprovalNepali ?
+                this.initialInfoPrint.dateOfApprovalNepali.en.nDate : '';
+            apprDate = tempApprNepali ? tempApprNepali : '';
+        }
+
+        // For Date of application
+        let applicationDate;
+        const dateOfApplicationType = this.initialInfoPrint.dateofApplicationType ?
+            this.initialInfoPrint.dateofApplicationType.en : '';
+        if (dateOfApplicationType === 'AD') {
+            const tempAppDate = this.initialInfoPrint.dateofApplication ?
+                this.engNepDatePipe.transform(this.datePipe.transform(this.initialInfoPrint.dateofApplication.en), true) :
+                '';
+            applicationDate = tempAppDate ? tempAppDate : '';
+        } else {
+            const tempAppNep = this.initialInfoPrint.dateofApplicationNepali ?
+                this.initialInfoPrint.dateofApplicationNepali.en.nDate : '';
+            applicationDate = tempAppNep ? tempAppNep : '';
+        }
         this.form.patchValue({
             referenceNumber: autoRefNumber ? autoRefNumber : '',
             customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
@@ -215,6 +244,8 @@ export class RetailMortgageLoanComponent implements OnInit {
             insuranceAmount: this.tempData.insuranceAmount.ct ? this.tempData.insuranceAmount.ct : '',
             relationshipOfficerName: this.tempData.relationshipOfficerName.ct ? this.tempData.relationshipOfficerName.ct : '',
             branchManager: this.tempData.branchManagerName.ct ? this.tempData.branchManagerName.ct : '',
+            dateOfApproval: apprDate ? apprDate : '',
+            dateofApplication: applicationDate ? applicationDate : '',
         });
     }
 
