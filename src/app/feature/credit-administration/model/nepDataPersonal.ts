@@ -6,6 +6,8 @@ export class NepDataPersonal {
     loanType: string;
     interestRate: string;
     serviceFee: string;
+    serviceFeePercent: string;
+    serviceFeeAmount: string;
     tenureOfLoanInMonths: string;
     tenureOfLoanInYears: string;
     installmentAmount: string;
