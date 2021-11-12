@@ -33,7 +33,6 @@ export class CustomerLoanInformationViewComponent implements OnInit {
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
     });
-    console.log('customer',this.isMicroCustomer);
   }
 
   checkCustomerType() {
