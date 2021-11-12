@@ -476,7 +476,8 @@
                         [isMicroCustomer]="customer?.isMicroCustomer"
                         [customerInfo]="customerInfo"></app-customer-loan-information>
                 <app-customer-loan-information-view *ngIf=" !isEditable"
-                                                    [customerInfo]="customerInfo"></app-customer-loan-information-view>
+                                                    [customerInfo]="customerInfo"
+                                                    [isMicroCustomer]="customer?.isMicroCustomer"></app-customer-loan-information-view>
             </div>
         </div>
         <div class="row">
