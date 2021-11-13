@@ -4,17 +4,18 @@
   </nb-card-header>
 
   <nb-card-body>
-    <div class="row col-md-12">
+    <div class="row">
 
       <div class="col-md-4">
+        <div class="row">
         <nb-card class="col-md-11 py-2" #itemSiteVisit>
         <a class="cursor info-label" (click)="openModel(itemSiteVisitTemplate)">
-          <div class="row col-md-12 cursor">
+          <div class="row cursor">
 
             <div class="col-md-8">
-              <nb-card-header>
+              <p class="custom-font">
                 SITE VISIT
-              </nb-card-header>
+              </p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.siteVisit" style="color:green" title="Status : Saved">
@@ -27,6 +28,7 @@
           </div>
         </a>
       </nb-card>
+        </div>
       <ng-template #itemSiteVisitTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
@@ -49,11 +51,12 @@
 
 
       <div class="col-md-4">
+        <div class="row">
         <nb-card class="col-md-11 py-2" #ciclComponent>
         <a class="cursor info-label" (click)="openModel(ciclComponentTemplate)">
-          <div class="row col-md-12">
+          <div class="row">
             <div class="col-md-8">
-              <nb-card-header>CICL</nb-card-header>
+              <p class="custom-font">CICL</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.cicl" style="color:green" title="Status : Saved">
@@ -66,6 +69,7 @@
           </div>
         </a>
       </nb-card>
+        </div>
       <ng-template #ciclComponentTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
@@ -86,16 +90,17 @@
       </div>
 
 
-      <div class="col-md-4">
-        <nb-card class="col-md-11 py-2" #itemFinancial *ngIf="!isMicroCustomer">
+      <div class="col-md-4" *ngIf="!isMicroCustomer">
+        <div class="row">
+        <nb-card class="col-md-11 py-2" #itemFinancial>
         <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
-          <div class="row col-md-12">
+          <div class="row">
             <div class="col-md-8">
-              <nb-card-header>
+              <p class="custom-font">
                 <span
                   *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
               <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
-              </nb-card-header>
+              </p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.financial" style="color:green" title="Status : Saved">
@@ -108,6 +113,7 @@
           </div>
         </a>
       </nb-card>
+        </div>
       <ng-template #itemFinancialTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
@@ -132,15 +138,17 @@
       </ng-template>
       </div>
 
-
-      <nb-card class="col-md-4 py-2" #loanPortfolio
-               *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+<div class="col-md-4" *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+      <div class="row">
+        <nb-card class="col-md-11 py-2" #loanPortfolio>
         <a class="cursor info-label" (click)="openModel(borrowerLoanPortfolioComponentTemplate)">
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>LOAN PORTFOLIO OF BORROWERS</span>
+          <div class="row">
+            <div class="col-md-10">
+              <p class="custom-font">
+                <span>LOAN PORTFOLIO OF BORROWERS</span>
+              </p>
             </div>
-            <div class="col-md-4 d-flex justify-content-end">
+            <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
@@ -151,6 +159,7 @@
           </div>
         </a>
       </nb-card>
+      </div>
       <ng-template #borrowerLoanPortfolioComponentTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
@@ -171,14 +180,17 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+</div>
 
-
-      <nb-card class="col-md-4 py-2" #borrowerFinancialHighlight
-               *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+      <div class="col-md-4" *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+      <div class="row">
+        <nb-card class="col-md-11 py-2" #borrowerFinancialHighlight>
         <a class="cursor info-label" (click)="openModel(borrowerFinancialHighlightTemplate)">
-          <div class="row col-md-12">
+          <div class="row">
             <div class="col-md-8">
-              <span class="text-capitalize">FINANCIAL HIGHLIGHTS OF BORROWERS</span>
+              <p class="custom-font">
+                <span class="text-capitalize">FINANCIAL HIGHLIGHTS OF BORROWERS</span>
+              </p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="microBorrowerFinancial" style="color:green" title="Status : Saved">
@@ -191,6 +203,7 @@
           </div>
         </a>
       </nb-card>
+      </div>
       <ng-template #borrowerFinancialHighlightTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
@@ -211,17 +224,22 @@
           </nb-card-body>
         </nb-card>
       </ng-template>
+      </div>
 
 
 
       <!--      //remaining-->
-      <nb-card class="col-md-4 py-2" #microCrgParamsComponent *ngIf="otherMicroDetailsVisibility">
-        <a class="cursor info-label">
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span class="text-capitalize">Other details (Mandatory for Micro CRG)</span>
+      <div class="col-md-4" *ngIf="otherMicroDetailsVisibility">
+      <div class="row">
+        <nb-card class="col-md-11 py-2" #microCrgParamsComponent>
+        <a class="cursor info-label" (click)="openModel(microCrgParamsComponentTemplate)">
+          <div class="row">
+            <div class="col-md-10">
+              <p class="custom-font">
+                <span class="text-capitalize">Other details (Mandatory for Micro CRG)</span>
+                </p>
             </div>
-            <div class="col-md-4 d-flex justify-content-end">
+            <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="microCrgParams" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
@@ -232,22 +250,38 @@
           </div>
         </a>
       </nb-card>
-      <ng-template #microCrgParamsComponentTemplate>
+      </div>
+      <ng-template #microCrgParamsComponentTemplate let-data let-ref="dialogRef">
+        <nb-card class="template-css">
+          <nb-card-header>
+            Other details (Mandatory for Micro CRG)
+            <a aria-label="Close" class="close cursor"
+               data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+          </nb-card-header>
+          <nb-card-body>
         <app-micro-crg-params #microCrgParamsComponent
 
                               (dataEmitter)="saveMicroCrgParams($event)"
                               [fromProfile]="true"
                               [microCrgParams]="customerInfo?.microOtherParameters"
         ></app-micro-crg-params>
+          </nb-card-body>
+        </nb-card>
       </ng-template>
+      </div>
 
-
-      <nb-card class="col-md-4 py-2" #marketingActivitiesAccordian
-               *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
-        <a class="cursor info-label">
-          <div class="row col-md-12">
+      <div class="col-md-4"  *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+      <div class="row">
+        <nb-card class="col-md-11 py-2" #marketingActivitiesAccordian>
+        <a class="cursor info-label" (click)="openModel(marketingComponentTemplate)">
+          <div class="row">
             <div class="col-md-8">
-              <span>MARKETING ACTIVITIES</span>
+              <p class="custom-font">
+                <span>MARKETING ACTIVITIES</span>
+              </p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">
@@ -260,21 +294,36 @@
           </div>
         </a>
       </nb-card>
-      <ng-template>
+      </div>
+        <ng-template #marketingComponentTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              MARKETING ACTIVITIES
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
         <app-marketing-activities
-
             (dataEmitter)="saveMarketingActivities($event)"
             [fromProfile]="true"
-            [marketingActivitiesData]="customerInfo?.marketingActivities"
-        ></app-marketing-activities>
+            [marketingActivitiesData]="customerInfo?.marketingActivities"></app-marketing-activities>
+            </nb-card-body>
+          </nb-card>
       </ng-template>
+      </div>
 
-      <nb-card class="col-md-4 py-2" #baselRiskAccordion
-               *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
-        <a class="cursor info-label">
-          <div class="row col-md-12">
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
+      <div class="row">
+        <nb-card class="col-md-11 py-2" #baselRiskAccordion>
+        <a class="cursor info-label" (click)="openModel(baselComponentTemplate)">
+          <div class="row">
             <div class="col-md-8">
-              <span class="text-uppercase">BASEL wise Risk Weighted Exposure</span>
+              <p class="custom-font">
+                <span class="text-uppercase">BASEL wise Risk Weighted Exposure</span>
+              </p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="microBaselRiskExposure" style="color:green" title="Status : Saved">
@@ -287,19 +336,34 @@
           </div>
         </a>
       </nb-card>
-      <ng-template>
+      </div>
+        <ng-template #baselComponentTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              BASEL wise Risk Weighted Exposure
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
         <app-basel-risk-exposure
             [formData]="customerInfo?.microBaselRiskExposure"
 
             (baselRiskExposureEmitter)="saveBaselRiskExposure($event)"></app-basel-risk-exposure>
+            </nb-card-body>
+          </nb-card>
       </ng-template>
+      </div>
 
       <div class="col-md-4">
+        <div class="row">
         <nb-card class="col-md-11 py-2" #itemIncomeFromAccount>
         <a class="cursor info-label" (click)="openModel(inccomeFromAccountComponentTemplate)">
-          <div class="row col-md-12">
+          <div class="row">
             <div class="col-md-10">
-              <nb-card-header>INCOME FROM ACCOUNT</nb-card-header>
+              <p class="custom-font">INCOME FROM ACCOUNT</p>
             </div>
             <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="customerInfo?.incomeFromAccount" style="color:green"
@@ -313,6 +377,7 @@
           </div>
         </a>
       </nb-card>
+        </div>
       <ng-template #inccomeFromAccountComponentTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
@@ -335,15 +400,18 @@
       </div>
 
 
-      <nb-card class="col-md-4 py-2" #itemNetTradingAssets
-               *ngIf="customerInfo?.customerType === 'INSTITUTION' || isMicroCustomer">
-        <a class="cursor info-label">
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)'
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' || isMicroCustomer">
+      <div class="row">
+        <nb-card class="col-md-11 py-2" #itemNetTradingAssets>
+        <a class="cursor info-label" (click)="openModel(netComponentTemplate)">
+          <div class="row">
+            <div class="col-md-10">
+              <p class="custom-font">
+                <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)'
                   : 'NET TRADING ASSETS (NTA)'}}</span>
+              </p>
             </div>
-            <div class="col-md-4 d-flex justify-content-end">
+            <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="customerInfo?.netTradingAssets" style="color:green"
                     title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
@@ -355,7 +423,19 @@
           </div>
         </a>
       </nb-card>
-      <ng-template>
+      </div>
+        <ng-template #netComponentTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+                <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)'
+                    : 'NET TRADING ASSETS (NTA)'}}</span>
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
         <ng-container
             *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
           <app-nta-mega
@@ -374,15 +454,19 @@
               [netTradingAssetsData]="netTradingAssets">
           </app-net-trading-assets>
         </ng-template>
+            </nb-card-body>
+          </nb-card>
       </ng-template>
+      </div>
 
 
       <div class="col-md-4">
+        <div class="row">
         <nb-card class="col-md-11 py-2" #itemSecurity>
         <a class="cursor info-label" (click)="openModel(securityComponentTemplate)">
-          <div class="row col-md-12">
+          <div class="row">
             <div class="col-md-8">
-              <nb-card-header>SECURITY</nb-card-header>
+              <p class="custom-font">SECURITY</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.security !== null" style="color:green"
@@ -397,6 +481,7 @@
           </div>
         </a>
       </nb-card>
+        </div>
       <ng-template #securityComponentTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
@@ -422,11 +507,12 @@
 
 
       <div class="col-md-4">
+        <div class="row">
         <nb-card class="col-md-11 py-2" #itemGuarantor>
         <a class="cursor info-label" (click)="openModel(guarantorComponentTemplate)">
-          <div class="row col-md-12">
+          <div class="row">
             <div class="col-md-8">
-              <nb-card-header>GUARANTOR</nb-card-header>
+              <p class="custom-font">GUARANTOR</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.guarantors !== null" style="color:green"
@@ -441,6 +527,7 @@
           </div>
         </a>
       </nb-card>
+        </div>
       <ng-template #guarantorComponentTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
@@ -464,11 +551,12 @@
       </div>
 
       <div class="col-md-4">
+        <div class="row">
         <nb-card class="col-md-11 py-2" #itemInsurance>
         <a class="cursor info-label" (click)="openModel(insuranceComponentTemplate)">
-          <div class="row col-md-12">
+          <div class="row">
             <div class="col-md-8">
-              <nb-card-header>INSURANCE</nb-card-header>
+              <p class="custom-font">INSURANCE</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="insurance?.length>0" style="color:green" title="Status : Saved">
@@ -481,6 +569,7 @@
           </div>
         </a>
       </nb-card>
+        </div>
       <ng-template #insuranceComponentTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
@@ -557,11 +646,12 @@
       <!--     </div> -->
       <!--  DEFAULT CRG-->
       <div class="col-md-4">
+        <div class="row">
         <nb-card class="col-md-11 py-2" #itemloanChecklist>
         <a class="cursor info-label" (click)="openModel(creditCheckComponentTemplate)">
-          <div class="row col-md-12">
+          <div class="row">
             <div class="col-md-8">
-              <nb-card-header>CREDIT CHECKLIST</nb-card-header>
+              <p class="custom-font">CREDIT CHECKLIST</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="creditChecklistGeneral" style="color:green" title="Status : Saved">
@@ -574,6 +664,7 @@
           </div>
         </a>
       </nb-card>
+        </div>
       <ng-template #creditCheckComponentTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
@@ -597,14 +688,17 @@
       </ng-template>
       </div>
 
-      <nb-card class="col-md-4 py-2" #synopsisAccordion
-               *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
-        <a class="cursor info-label">
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span class="text-uppercase">Synopsis of Creditworthiness</span>
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
+      <div class="row">
+        <nb-card class="col-md-11 py-2" #synopsisAccordion>
+        <a class="cursor info-label" (click)="openModel(synopsisComponentTemplate)">
+          <div class="row">
+            <div class="col-md-10">
+              <p class="custom-font">
+                <span class="text-uppercase">Synopsis of Creditworthiness</span>
+              </p>
             </div>
-            <div class="col-md-4 d-flex justify-content-end">
+            <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="microLoanSynopsis" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
@@ -615,20 +709,35 @@
           </div>
         </a>
       </nb-card>
-      <ng-template>
+      </div>
+        <ng-template #synopsisComponentTemplate let-data let-ref="dialogRef">-->
+          <nb-card class="template-css">
+            <nb-card-header>
+              Synopsis of Creditworthiness
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                                <span style="color: red" (click)="ref.close()">
+                          <em class="fas fa-times-circle px-2"></em>
+                        </span></a>
+            </nb-card-header>
+            <nb-card-body>
         <app-micro-synopsis
             (creditworthinessEmitter)="saveSynopsisCreditworthiness($event)"
 
             [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>
+            </nb-card-body>
+          </nb-card>
       </ng-template>
+      </div>
 
       <div class="col-md-4">
+        <div class="row">
         <nb-card class="col-md-11 py-2" #reportingInfoLevelAccordion
                *ngIf="client !== clientName?.SHINE_RESUNGA">
         <a class="cursor info-label" (click)="openModel(customerComponentTemplate)">
-          <div class="row col-md-12">
-            <div class="col-md-8 text-center">
-              <nb-card-header>CUSTOMER REPORTING INFORMATION</nb-card-header>
+          <div class="row">
+            <div class="col-md-8">
+              <p class="custom-font">CUSTOMER REPORTING INFORMATION</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span style="color: green" title="Status : Saved">
@@ -643,6 +752,7 @@
           </div>
         </a>
       </nb-card>
+        </div>
       <ng-template #customerComponentTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
