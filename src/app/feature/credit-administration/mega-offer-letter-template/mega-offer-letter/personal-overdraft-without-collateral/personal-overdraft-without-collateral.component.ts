@@ -19,6 +19,7 @@ import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-wo
 import {EngNepDatePipe} from 'nepali-patro';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-personal-overdraft-without-collateral',
@@ -68,7 +69,9 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepPercentWordPipe: NepaliPercentWordPipe,
               private ref: NbDialogRef<PersonalOverdraftWithoutCollateralComponent>,
-              private engToNepaliDate: EngNepDatePipe) { }
+              private engToNepaliDate: EngNepDatePipe,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
     console.log('Offer Letter Details ', this.cadOfferLetterApprovedDoc);
@@ -191,6 +194,34 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
+    let apprDate;
+    const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ?
+        this.initialInfoPrint.dateOfApprovalType.en : '';
+    if (dateOfApprovalType === 'AD') {
+      const tempApprDate = this.initialInfoPrint.dateOfApproval ?
+          this.engNepDatePipe.transform(this.datePipe.transform(this.initialInfoPrint.dateOfApproval.en), true) :
+          '';
+      apprDate = tempApprDate ? tempApprDate : '';
+    } else {
+      const tempApprNepali = this.initialInfoPrint.dateOfApprovalNepali ?
+          this.initialInfoPrint.dateOfApprovalNepali.en.nDate : '';
+      apprDate = tempApprNepali ? tempApprNepali : '';
+    }
+
+    // For Date of application
+    let applicationDate;
+    const dateOfApplicationType = this.initialInfoPrint.dateofApplicationType ?
+        this.initialInfoPrint.dateofApplicationType.en : '';
+    if (dateOfApplicationType === 'AD') {
+      const tempAppDate = this.initialInfoPrint.dateofApplication ?
+          this.engNepDatePipe.transform(this.datePipe.transform(this.initialInfoPrint.dateofApplication.en), true) :
+          '';
+      applicationDate = tempAppDate ? tempAppDate : '';
+    } else {
+      const tempAppNep = this.initialInfoPrint.dateofApplicationNepali ?
+          this.initialInfoPrint.dateofApplicationNepali.en.nDate : '';
+      applicationDate = tempAppNep ? tempAppNep : '';
+    }
     this.form.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
@@ -211,6 +242,8 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
       nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
       branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
+      dateOfApproval: apprDate ? apprDate : '',
+      dateofApplication: applicationDate ? applicationDate : '',
     });
   }
   submit(): void {
