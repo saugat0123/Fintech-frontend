@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {ToastService} from '../../@core/utils';
+import {Alert, AlertType} from '../../@theme/model/Alert';
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +10,8 @@ export class VersionCheckService {
     // this will be replaced by actual hash post-build.js
     private currentHash = '{{POST_BUILD_ENTERS_HASH_HERE}}';
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private toastService: ToastService) {
     }
 
     /**
@@ -37,8 +40,11 @@ export class VersionCheckService {
 
                     // If new version, do something
                     if (hashChanged) {
-                        alert('New version is released. Browser will be refreshed!');
-                        window.location.reload();
+                        this.toastService.show(new Alert(AlertType.WARNING,
+                            'New version is released. Browser will refresh automatically in 5 seconds!'));
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 5000);
                     }
                     // store the new hash so we wouldn't trigger versionChange again
                     // only necessary in case you did not force refresh
