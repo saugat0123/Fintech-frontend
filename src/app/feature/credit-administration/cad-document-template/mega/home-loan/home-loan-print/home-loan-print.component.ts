@@ -57,6 +57,7 @@ export class HomeLoanPrintComponent implements OnInit {
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      console.log('loan type', this.tempData.loanType);
       this.customerAddress =  this.loanHolderInfo.permanentMunicipality.ct + '-' +
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct +
           ' ,' + this.loanHolderInfo.permanentProvince.ct;

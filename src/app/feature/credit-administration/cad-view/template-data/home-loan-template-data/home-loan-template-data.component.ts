@@ -12,7 +12,7 @@ import {HomeLandAndBuildingComponent} from '../home-loan-type/home-land-and-buil
 import {HomeLoanComponent} from '../../../cad-document-template/mega/home-loan/home-loan.component';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-home-loan-template-data',
@@ -77,7 +77,6 @@ export class HomeLoanTemplateDataComponent implements OnInit {
         this.isPurchaseLoan = value === HomeLoanType.PURCHASE.valueOf();
         this.isTakeOverLoan = value === HomeLoanType.TAKE_OVER.valueOf();
     }
-
     openModel() {
         this.dialogService.open(HomeLoanComponent, {
             closeOnBackdropClick: false,
