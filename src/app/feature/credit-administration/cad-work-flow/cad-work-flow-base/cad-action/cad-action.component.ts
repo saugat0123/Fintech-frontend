@@ -129,6 +129,10 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.inMyBucket = true;
         }
         try {
+            console.log('this is file', this.cadOfferLetterApprovedDoc.previousList[0]);
+            if (this.cadOfferLetterApprovedDoc.previousList[0].fromRole.roleType === RoleType.APPROVAL) {
+                this.cadOfferLetterApprovedDoc.previousList.splice(0, 1);
+            }
             this.cadOfferLetterApprovedDoc.previousList.forEach((data) => {
                 if (!ObjectUtil.isEmpty(data.toUser)) {
                     if (data.toUser.id.toString() === this.currentUserId && data.fromRole.roleType !== 'CAD_ADMIN') {
@@ -143,7 +147,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                 }
             });
         } catch (e) {
-
+            console.log('error', e);
         }
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
             this.isMaker = true;
@@ -325,7 +329,6 @@ export class CadActionComponent implements OnInit, OnChanges {
         //     return;
         // }
         this.returnToRm = returnToMaker;
-        console.log('return to rm', this.returnToRm);
         this.selectedTemplate = template;
         this.popUpTitle = val;
         this.userList = [];
