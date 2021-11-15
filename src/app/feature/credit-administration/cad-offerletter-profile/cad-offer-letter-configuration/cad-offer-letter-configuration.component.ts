@@ -36,7 +36,7 @@ import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {OneFormGuarantors} from '../../model/oneFormGuarantors';
 import {CurrencyFormatterPipe} from '../../../../@core/pipe/currency-formatter.pipe';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -1388,10 +1388,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     async translateGuarantorData(index) {
+        this.spinner = true;
         const alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
         if (alluarantors.length > 0) {
             let guarantorsDetails: any = [];
             guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
+            this.spinner = false;
             this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
             this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
             this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).patchValue(guarantorsDetails.citizenNumber ? guarantorsDetails.citizenNumber : '');
@@ -1553,13 +1555,23 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             });
         } else {
             this.addressSameAsAbove = false;
-            // this.userConfigForm.patchValue({
-            //   temporaryProvince: undefined,
-            //   temporaryDistrict: undefined,
-            //   temporaryMunicipality: undefined,
-            //   temporaryWard: undefined,
-            //   tempMunicipalitiesOrVdc: undefined
-            // });
+            this.userConfigForm.patchValue({
+              temporaryProvince: undefined,
+              temporaryProvinceTrans: undefined,
+              temporaryProvinceCT: undefined,
+              temporaryDistrict: undefined,
+              temporaryDistrictTrans: undefined,
+              temporaryDistrictCT: undefined,
+              temporaryMunicipality: undefined,
+              temporaryMunicipalityTrans: undefined,
+              temporaryMunicipalityCT: undefined,
+              temporaryWard: undefined,
+              temporaryWardTrans: undefined,
+              temporaryWardCT: undefined,
+              tempMunicipalitiesOrVdc: undefined,
+              tempMunicipalitiesOrVdcTrans: undefined,
+              tempMunicipalitiesOrVdcCT: undefined,
+            });
         }
     }
 
@@ -1722,6 +1734,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get(['guarantorDetails', i, 'temporaryWard']).patchValue(null);
             this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdc']).patchValue(null);
             this.userConfigForm.get(['guarantorDetails', i, 'temporaryWardCT']).patchValue(null);
+
+            // Clear Trans Value:
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvinceTrans']).patchValue(null);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrictTrans']).patchValue(null);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipalityTrans']).patchValue(null);
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdcTrans']).patchValue(null);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryWardTrans']).patchValue(null);
+
+            // Clear CT Value:
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvinceCT']).patchValue(null);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrictCT']).patchValue(null);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipalityCT']).patchValue(null);
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdcCT']).patchValue(null);
         }
     }
 
