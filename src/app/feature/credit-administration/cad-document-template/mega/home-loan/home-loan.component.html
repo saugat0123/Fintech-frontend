@@ -75,8 +75,17 @@
                                 </td>
                                 <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
                                 <td>
-                                    <strong>आवास कर्जाः</strong> भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
-
+                                    <strong>आवास कर्जाः</strong>
+                                    {{tempData?.loanType === homeLoanType.CONSTRUCTION ? 'भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।':
+                                    tempData?.loanType === homeLoanType.PURCHASE ? '________________________' + 'खरीद गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।': ''}}
+                                    <ng-container *ngIf="tempData.loanType === homeLoanType.TAKE_OVER">
+                                        <input class="form-field form-control-sm"
+                                               formControlName="nameOfBank"
+                                               name="nameOfBank"
+                                               placeholder=""
+                                               type="text"/>
+                                        <span> बैकको कर्जा चुक्ता गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । </span>
+                                    </ng-container>
                                 </td>
                             </tr>
                             <tr>
