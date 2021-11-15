@@ -48,6 +48,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     status: any;
     docStatus = DocStatus;
+
     constructor(
         private alertService: AlertService,
         private toastService: ToastService,
@@ -78,6 +79,11 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        console.log('changes', changes);
+        if (!ObjectUtil.isEmpty(changes.customerLoanHolder)) {
+            this.customerLoanHolder = changes.customerLoanHolder.currentValue;
+            console.log('after change', this.customerLoanHolder);
+        }
         if (!ObjectUtil.isEmpty(changes.loanFlags)) {
             if (changes.loanFlags.currentValue) {
                 this.loanFlags = this.loanFlags.filter((l) =>
@@ -99,7 +105,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     branchId: this.branchId,
                     docAction: DocAction.value(DocAction.BACKWARD),
                     docActionMsg: 'Returned',
-                    documentStatus: DocStatus.PENDING
+                    documentStatus: DocStatus.PENDING,
+                    customerLoanHolder: this.customerLoanHolder
                 };
                 break;
             case 'backwardCommittee':
@@ -112,6 +119,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     docActionMsg: 'Returned Back To Committee',
                     documentStatus: DocStatus.PENDING,
                     branchId: this.branchId,
+                    customerLoanHolder: this.customerLoanHolder,
                     toRole: {id: Number(LocalStorageUtil.getStorage().roleId)}
                 };
                 break;
@@ -144,6 +152,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 context = {
                     popUpTitle: 'Approve',
                     isForward: false,
+                    customerLoanHolder: this.customerLoanHolder,
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
                     docAction: 'APPROVED',
@@ -163,6 +172,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     docActionMsg: 'Rejected',
                     documentStatus: DocStatus.REJECTED,
                     isRemitLoan: this.isRemitLoan,
+                    customerLoanHolder: this.customerLoanHolder,
                     beneficiaryId: this.beneficiaryId
                 };
                 break;

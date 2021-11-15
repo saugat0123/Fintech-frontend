@@ -72,10 +72,10 @@ export class LoanActionModalComponent implements OnInit {
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
-        console.log('loan holder', this.customerLoanHolder);
+        console.log('loan holder in modal', this.customerLoanHolder);
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
-            console.log('loan holder hsov', this.customerLoanHolder.isHSOV);
-            this.isHSOVChecked(this.customerLoanHolder.isHSOV);
+            console.log('loan holder hsov', this.customerLoanHolder.isHsov);
+            this.isHSOVChecked(this.customerLoanHolder.isHsov);
         }
     }
 

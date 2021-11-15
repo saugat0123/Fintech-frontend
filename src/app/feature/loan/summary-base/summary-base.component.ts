@@ -55,12 +55,14 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 private dateService: DateService) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
+                console.log('load nagivation');
                 this.loadSummary();
             }
         });
     }
 
     ngOnInit() {
+        console.log('init', this.loanDataHolder);
     }
 
     ngOnDestroy(): void {
@@ -101,6 +103,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
     getLoanDataHolder() {
+        console.log('gett', this.loanDataHolder);
         this.actionsList.approved = false;
         this.actionsList.sendForward = false;
         this.actionsList.edit = false;
@@ -158,14 +161,11 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.closed = false;
             }
 
-            if (this.loanDataHolder.isHSOV) {
-                this.loanDataHolder.isHSOV = this.loanDataHolder.isHSOV;
-            }
-            console.log('check cond', this.loanDataHolder);
-
             this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
                 this.nepaliDate = nepDate.detail;
             });
+
+            console.log('check cond', this.loanDataHolder);
 
             // check deferred docs
             let deferredDocs: Document[];
@@ -191,12 +191,15 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 default:
                     deferredDocs = [];
             }
+            console.log('deffered docs', deferredDocs);
             if (!ObjectUtil.isEmpty(deferredDocs)) {
                 deferredDocs = deferredDocs.filter((d) => (
                     !ObjectUtil.isEmpty(d.checkType) && d.checkType === EnumUtils.getEnum(DocumentCheckType, DocumentCheckType.DEFERRAL)
                 ));
             }
+            console.log('second last', this.loanDataHolder);
             const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
+            console.log('lll', this.loanDataHolder);
             this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
         });
         console.log('last one', this.loanDataHolder);
