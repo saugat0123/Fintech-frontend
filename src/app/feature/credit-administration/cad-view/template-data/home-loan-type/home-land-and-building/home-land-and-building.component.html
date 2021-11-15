@@ -1,16 +1,16 @@
 <div class="container-fluid" [nbSpinner]="spinner">
     <div [formGroup]="landBuildingForm" class="row">
-        <div class="col-md-12">
-            <label for="type" class="font-weight-bold">Chose Type</label>
+        <div class="col-md-10" style="margin-left: 10px">
+            <label for="type" class="font-weight-bold">Security Type</label>
             <ng-select (change)="landBuildingType($event)"
                        [multiple]="false"
                        id="type"
                        formControlName="landBuildingType"
-                       placeholder="Select Home Loan Type">
+                       placeholder="Select Security Type">
                 <ng-option *ngFor="let landBuildingType of type" [value]="landBuildingType.value">{{landBuildingType.value}}</ng-option>
             </ng-select>
         </div>
-        <div class="col-md-12 pt-3 pl-2">
+        <div class="col-md-12 pt-3 pl-2" style="margin-left: 20px">
             <nb-checkbox #limitCheck (checkedChange)="loanChecked(limitCheck.checked)" [checked]="loanLimit">
                 <i>Customer has total loan amount above One Crore</i></nb-checkbox>
         </div>
@@ -123,7 +123,7 @@
                        formControlName="kittaNumber" type="text" id="kittaNumber">
             </div>
             <div class="form-group">
-                <label for="beneficiaryName">Beneficiary Name</label>
+                <label for="beneficiaryName">Account Beneficiary Name</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="beneficiaryName" type="text" id="beneficiaryName">
             </div>

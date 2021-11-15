@@ -17,25 +17,16 @@
                            name="referenceNumber"
                            placeholder=" सन्दर्भ नम्बर "
                            type="text"/>
-                    <p *ngIf="tempData.dateofApproval.en.nDate === undefined; else dateofApprovalNepali" class="text-left">
+                    <p class="text-left">
                         मितिः <input class="form-field form-control-sm"
-                                     formControlName="dateofApproval"
-                                     [value]="tempData.dateofApproval.en === undefined ? '' : ((tempData.dateofApproval.en | date) | engNepDate: true)"
+                                     formControlName="dateOfApproval"
                                      type="text"/>
                     </p>
-                    <ng-template #dateofApprovalNepali>
-                        <p>
-                            मितिः <input class="form-field form-control-sm"
-                                         formControlName="dateofApproval"
-                                         [value]="tempData.dateofApproval.en.nDate === undefined ? '' : tempData.dateofApproval.en.nDate"
-                                         type="text"/>
-                        </p>
-                    </ng-template>
                 </div>
                 <div class="mb-2">
                     श्री <input class="form-field form-control-sm"
                                                    formControlName="customerName"
-                                                   type="text">
+                                                   type="text">ज्यु,
                 </div>
 
                 <div class="mb-2">
@@ -48,20 +39,9 @@
                 <div class="mb-1">
                     <p> महोदय, <br>
                         तपाईंले मिति
-                        <span *ngIf="tempData.dateofApplication.en.nDate === undefined; else dateofApplicationNepali" class="text-left">
                             मिति सन: <input class="form-field form-control-sm"
                                             formControlName="dateofApplication"
-                                            [value]="tempData.dateofApplication.en === undefined ? '' : ((tempData.dateofApplication.en | date) | engNepDate: true)"
                                             type="text"/>
-                        </span>
-                        <ng-template #dateofApplicationNepali>
-                            <span>
-                                मिति सन:<input class="form-field form-control-sm"
-                                               formControlName="dateofApplication"
-                                               [value]="tempData.dateofApplication.en.nDate === undefined ? '' : tempData.dateofApplication.en.nDate"
-                                               type="text"/>
-                            </span>
-                        </ng-template>
                         मा धितो कर्जाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय
                         बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
                     </p>

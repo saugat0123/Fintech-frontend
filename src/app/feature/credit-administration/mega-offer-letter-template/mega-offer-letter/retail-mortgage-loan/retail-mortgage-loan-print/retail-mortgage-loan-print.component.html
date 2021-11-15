@@ -8,18 +8,14 @@
                 </span>
         <p>
             मितिः
-            <span *ngIf="letter.dateofApproval.en.nDate; else dateofApprovalPrint"
-                  class="font-weight-bold">{{letter?.dateofApproval.en.nDate}}</span>
-            <ng-template #dateofApprovalPrint>
-                <span class=" font-weight-bold">{{(letter?.dateofApproval.en | date) | engNepDate: true}}</span>
-            </ng-template>
+            <span class="font-weight-bold">{{approvalDate ? approvalDate : ''}}</span>
         </p>
     </div>
     <div class="mb-2 col-md-12">
         श्री
         <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
                     {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}
-                </span>
+                </span>ज्यु,
     </div>
 
     <div class="mb-2 col-md-12">
@@ -34,11 +30,7 @@
     <div class="mb-1 col-md-12">
         <p> महोदय, <br>
             तपाईंले मिति
-            <span *ngIf="letter.dateofApplication.en.nDate; else dateofApplicationPrint"
-                  class="font-weight-bold">{{letter?.dateofApplication.en.nDate}}</span>
-            <ng-template #dateofApplicationPrint>
-                <span class=" font-weight-bold">{{(letter?.dateofApplication.en | date) | engNepDate: true}}</span>
-            </ng-template>
+            <span class="font-weight-bold">{{applicationDate ? applicationDate : ''}}</span>
             मा धितो कर्जाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय
             बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
         </p>

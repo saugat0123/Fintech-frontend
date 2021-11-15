@@ -138,17 +138,22 @@ export class LoanDeedIndividualComponent implements OnInit {
 
     let approvedDate: any;
     this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
-    console.log('Loan Deed Data', this.offerDocumentDetails);
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval)) {
       // tslint:disable-next-line:max-line-length
       // approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
       if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
         // tslint:disable-next-line:max-line-length
         approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
-      } else if (this.docName === 'Auto Loan' && this.offerDocumentDetails.dateOfApproval.en.eDate) {
-        approvedDate = this.offerDocumentDetails.dateOfApproval.en.eDate;
       } else {
         approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
+      }
+    }
+    if (this.docName === 'Home Loan') {
+      if (this.offerDocumentDetails.loan.dateType === 'AD') {
+        approvedDate = this.offerDocumentDetails.loan.dateOfApproval ? this.offerDocumentDetails.loan.dateOfApproval : '';
+      }
+      if (this.offerDocumentDetails.loan.dateType === 'BS') {
+        approvedDate = this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate;
       }
     }
 
@@ -165,7 +170,6 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.educationInterestRate = this.offerDocumentDetails.yearlyFloatingInterestRate ? this.offerDocumentDetails.yearlyFloatingInterestRate.en : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Auto Loan') {
-      console.log('Auto Loan Data',this.initialInformation);
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
     }
@@ -231,7 +235,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       area2: [undefined],
       freeText: [undefined],
       totalPeople: [this.numberOfJointCustomer ? this.numberOfJointCustomer : ''],
-      purposeOfLoan: [(this.initialInformation.loanPurpose) ? (this.initialInformation.loanPurpose.ct) : (this.initialInformation.purposeOfLoan ? this.initialInformation.purposeOfLoan.ct : (this.initialInformation.vehicleName ? (this.initialInformation.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद गर्ने') : ('')))],
+      purposeOfLoan: [(this.initialInformation.loanPurpose) ? (this.initialInformation.loanPurpose.ct) : this.initialInformation.purposeOfLoan ? this.initialInformation.purposeOfLoan.ct : this.initialInformation.vehicleName ? (this.initialInformation.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद गर्ने') : this.offerDocumentDetails.loan.purposeOfLoanCT ? this.offerDocumentDetails.loan.purposeOfLoanCT : ('')],
       loanDeedJoint: this.formBuilder.array([]),
     });
   }

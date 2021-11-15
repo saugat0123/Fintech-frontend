@@ -24,6 +24,8 @@ import {CadDocStatus} from "../../../model/CadDocStatus";
 import {AddressService} from "../../../../../@core/service/baseservice/address.service";
 import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
 import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
+import {DatePipe} from "@angular/common";
+import {EngNepDatePipe} from "nepali-patro";
 
 
 @Component({
@@ -80,6 +82,8 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       private currencyFormatterPipe: CurrencyFormatterPipe,
       private modalService: NgbModal,
       protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
+      private datePipe: DatePipe,
+      private engNepDatePipe: EngNepDatePipe
   ) { }
 
   get Form() {
@@ -123,8 +127,12 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       selectedSecurity: [undefined],
       loanLimitChecked: [undefined],
       // referenceNumber: [undefined],
-      dateofApproval: [undefined],
+      dateOfApproval: [undefined],
+      dateOfApprovalType: [undefined],
+      dateOfApprovalNepali: [undefined],
       dateofApplication: [undefined],
+      dateofApplicationType: [undefined],
+      dateofApplicationNepali: [undefined],
       loanPurpose: [undefined],
       drawingPower: [undefined],
       baseRate: [undefined],
@@ -145,8 +153,12 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       // referenceNumberTransVal: [undefined, Validators.required],
-      dateofApprovalTransVal: [undefined],
+      dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
+      dateofApplicationNepaliTransVal: [undefined],
+      dateofApplicationTypeTransVal: [undefined],
       loanPurposeTransVal: [undefined, Validators.required],
       drawingPowerTransVal: [undefined, Validators.required],
       baseRateTransVal: [undefined],
@@ -251,8 +263,31 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
   }
 
   private setTemplatedCTData(data): void {
-    this.form.get('dateofApprovalTransVal').patchValue(this.translatedValues.dateofApproval);
-    this.form.get('dateofApplicationTransVal').patchValue(this.translatedValues.dateofApplication);
+    this.form.get('dateOfApprovalTypeTransVal').patchValue(this.form.get('dateOfApprovalType').value);
+    if (this.dateTypeAD) {
+      const approvalDate = this.form.get('dateOfApproval').value;
+      const convertApprovalDate = approvalDate ?
+          this.engNepDatePipe.transform(this.datePipe.transform(approvalDate), true) : '';
+      this.form.get('dateOfApprovalTransVal').patchValue(convertApprovalDate);
+    }
+    if (this.dateTypeBS) {
+      const approvalDateNepali = !ObjectUtil.isEmpty(this.form.get('dateOfApprovalNepali').value) ?
+          this.form.get('dateOfApprovalNepali').value : '';
+      this.form.get('dateOfApprovalNepaliTransVal').patchValue(approvalDateNepali.nDate);
+    }
+    // this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
+    this.form.get('dateofApplicationTypeTransVal').patchValue(this.form.get('dateofApplicationType').value);
+    if (this.dateTypeAD) {
+      const applicationDate = this.form.get('dateofApplication').value;
+      const convertApplicationDate = applicationDate ?
+          this.engNepDatePipe.transform(this.datePipe.transform(applicationDate), true) : '';
+      this.form.get('dateofApplicationTransVal').patchValue(convertApplicationDate);
+    }
+    if (this.dateTypeBS) {
+      const applicationNepali = !ObjectUtil.isEmpty(this.form.get('dateofApplicationNepali').value) ?
+          this.form.get('dateofApplicationNepali').value : '';
+      this.form.get('dateofApplicationNepaliTransVal').patchValue(applicationNepali.nDate);
+    }
     this.form.get('loanPurposeTransVal').patchValue(this.translatedValues.loanPurpose);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedValues.relationshipOfficerName);
     this.form.get('branchManagerNameTransVal').patchValue(this.translatedValues.branchManagerName);
