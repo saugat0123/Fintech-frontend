@@ -418,7 +418,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           });
         }
     );
-
   }
 
   getGuarantorTemporaryDistricts(province: Province) {
