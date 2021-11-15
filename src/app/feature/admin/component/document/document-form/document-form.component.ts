@@ -44,7 +44,7 @@ export class DocumentFormComponent implements OnInit {
         {
           id: [this.model.id === undefined ? '' : this.model.id],
           name: [this.model.displayName === undefined ? '' : this.model.displayName,
-            [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
+            [Validators.required]],
           checkType: [ObjectUtil.setUndefinedIfNull(this.model.checkType)],
           containsTemplate: [ObjectUtil.isEmpty(this.model.containsTemplate) ? false : this.model.containsTemplate],
         }

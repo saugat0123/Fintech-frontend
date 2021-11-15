@@ -100,7 +100,6 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
       this.interestLimit = this.formDataForEdit['interestRate'];
-      this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
           ? new Date(this.formValue.dateOfExpiry) : undefined);
       this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);

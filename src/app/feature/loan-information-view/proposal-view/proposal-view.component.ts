@@ -71,32 +71,27 @@ export class ProposalViewComponent implements OnInit {
   }
 
   public getTotal(key: string): number {
-    if (!ObjectUtil.isEmpty(this.proposalData.data)) {
-      const filteredList = this.customerFundedLoanList.filter(l => l.proposal.data !== null);
+      const filteredList = this.customerAllLoanList.filter(l => l.proposal.data !== null);
       const tempList = filteredList
           .filter(l => JSON.parse(l.proposal.data)[key]);
       const total = tempList
           .map(l => JSON.parse(l.proposal.data)[key])
           .reduce((a, b) => a + b, 0);
       return this.isNumber(total);
-    } else {
-      return this.loanDataHolder.proposal.proposedLimit;
-    }
   }
 
   public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
-    if (!ObjectUtil.isEmpty(this.proposalData.data)) {
       this.fundedAndNonfundedList(loanList);
-      if (this.customerFundedLoanList.length > 0) {
-        const filteredList = this.customerFundedLoanList.filter(l => l.proposal.data !== null);
         let numb;
         if (funded) {
+          const filteredList = this.customerFundedLoanList.filter(l => l.proposal.data !== null);
           const tempList = filteredList
               .filter(l => JSON.parse(l.proposal.data)[key]);
           numb = tempList
               .map(l => JSON.parse(l.proposal.data)[key])
               .reduce((a, b) => a + b, 0);
         } else {
+          const filteredList = this.customerNonFundedLoanList.filter(l => l.proposal.data != null);
           const tempList = filteredList
               .filter(l => JSON.parse(l.proposal.data)[key]);
           numb = tempList
@@ -105,12 +100,6 @@ export class ProposalViewComponent implements OnInit {
         }
 
         return this.isNumber(numb);
-      } else {
-        return this.loanDataHolder.proposal.proposedLimit;
-      }
-    } else {
-      return 0;
-    }
   }
 
   fundedAndNonfundedList(loanList: LoanDataHolder[]) {

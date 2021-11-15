@@ -79,8 +79,8 @@ export class ProposalSummaryComponent implements OnInit {
     }
 
     public getTotal(key: string): number {
-        if (this.check(this.customerAllLoanList)  === false) {
-            const tempList = this.customerAllLoanList
+        const filteredList = this.customerAllLoanList.filter(l => l.proposal.data !== null);
+            const tempList = filteredList
                 .filter(l => JSON.parse(l.proposal.data)[key]);
             let total = tempList
                 .map(l => JSON.parse(l.proposal.data)[key])
@@ -91,32 +91,14 @@ export class ProposalSummaryComponent implements OnInit {
                 });
             }
             return this.isNumber(total);
-        } else {
-            return this.isNumber(0);
-        }
-    }
-
-    public check(list: any): boolean {
-        let flag = false;
-        try {
-            list.forEach((data, i) => {
-                if (ObjectUtil.isEmpty(data.proposal.data)) {
-                    flag = true;
-                    throw  this.breakException;
-                }
-            });
-        } catch (e) {
-
-        }
-        return flag;
     }
 
     public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
         this.fundedAndNonfundedList(loanList);
         let numb;
         if (funded) {
-            if (this.check(this.customerFundedLoanList) === false) {
-                const tempList = this.customerFundedLoanList
+            const filteredList = this.customerFundedLoanList.filter(l => l.proposal.data !==null);
+                const tempList = filteredList
                     .filter(l => JSON.parse(l.proposal.data)[key]);
                 numb = tempList
                     .map(l => JSON.parse(l.proposal.data)[key])
@@ -128,9 +110,9 @@ export class ProposalSummaryComponent implements OnInit {
                         numb = numb + JSON.parse(cdl.proposal.data)[key];
                     });
                 }
-            }
         } else {
-            const tempList = this.customerNonFundedLoanList
+            const filteredList = this.customerNonFundedLoanList.filter(l => l.proposal.data !==null);
+            const tempList = filteredList
                 .filter(l => JSON.parse(l.proposal.data)[key]);
             numb = tempList
                 .map(l => JSON.parse(l.proposal.data)[key])

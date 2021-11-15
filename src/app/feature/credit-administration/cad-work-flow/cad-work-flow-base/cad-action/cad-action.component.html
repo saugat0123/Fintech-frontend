@@ -3,7 +3,7 @@
         <div class="clearfix" *ngIf="!isOpened">
             <div class="float-left">
                 <button nbButton size="small" status="primary" [nbTooltip]="backwardToolTip"
-                      [disabled]="isBackwardDisabled || approvedLoan || !inMyBucket"  (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
+                      [disabled]="isBackwardDisabled || approvedLoan || !inMyBucket || (cadOfferLetterApprovedDoc.cadCurrentStage.fromRole.roleType === roleType.APPROVAL && cadOfferLetterApprovedDoc.cadCurrentStage.docAction.toLowerCase() === 'assigned')"  (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
                 </button>
                 <button nbButton size="small" outline status="success" shape="rectangle"
                         *ngIf="(!isMaker && showHideReturnToRm) && !approvedLoan && inMyBucket" (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',true)">RETURN TO

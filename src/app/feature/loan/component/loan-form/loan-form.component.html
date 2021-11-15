@@ -86,7 +86,7 @@
 
         <span class="d-flex justify-content-end">{{currentNepDate}}</span>
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body [nbSpinner]="loading" nbSpinnerSize="giant"  nbSpinnerMessage="Please Wait....">
         <section *ngIf="loanDocument && templateList">
             <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
                 <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
@@ -140,13 +140,13 @@
                                             [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
                     </ng-template>
 
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">
-                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
-                        <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma
-                                                       [fromProfile]="true"
-                                                       [loanConfigId]="id"
-                                                       [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>
-                    </ng-template>
+<!--                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">-->
+<!--                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>-->
+<!--                        <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma-->
+<!--                                                       [fromProfile]="true"-->
+<!--                                                       [loanConfigId]="id"-->
+<!--                                                       [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>-->
+<!--                    </ng-template>-->
 
                     <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
                         <div class="py-4">
