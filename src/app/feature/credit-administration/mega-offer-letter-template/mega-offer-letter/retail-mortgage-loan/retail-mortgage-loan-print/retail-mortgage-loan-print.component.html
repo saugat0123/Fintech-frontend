@@ -8,11 +8,7 @@
                 </span>
         <p>
             मितिः
-            <span *ngIf="letter.dateofApproval.en.nDate; else dateofApprovalPrint"
-                  class="font-weight-bold">{{letter?.dateofApproval.en.nDate}}</span>
-            <ng-template #dateofApprovalPrint>
-                <span class=" font-weight-bold">{{(letter?.dateofApproval.en | date) | engNepDate: true}}</span>
-            </ng-template>
+            <span class="font-weight-bold">{{approvalDate ? approvalDate : ''}}</span>
         </p>
     </div>
     <div class="mb-2 col-md-12">
@@ -34,11 +30,7 @@
     <div class="mb-1 col-md-12">
         <p> महोदय, <br>
             तपाईंले मिति
-            <span *ngIf="letter.dateofApplication.en.nDate; else dateofApplicationPrint"
-                  class="font-weight-bold">{{letter?.dateofApplication.en.nDate}}</span>
-            <ng-template #dateofApplicationPrint>
-                <span class=" font-weight-bold">{{(letter?.dateofApplication.en | date) | engNepDate: true}}</span>
-            </ng-template>
+            <span class="font-weight-bold">{{applicationDate ? applicationDate : ''}}</span>
             मा धितो कर्जाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय
             बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
         </p>
@@ -148,7 +140,7 @@
                                 <li>कर्जा सूचना केन्द्र लिमिटेडबाट सुचना
                                     प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट प्राप्त गरिने साख सूचना, घर/जग्गाको
                                     मूल्यांकन, रजिष्ट्रेशन, ब्लु प्रिन्ट तथा ट्रेश नक्सा
-                                    लिँदा लाग्ने शुल्क, सुरक्षित कारोबार रजिष्ट्रेशन तथा अन्य आवश्यक सूचना प्राप्त
+                                    लिंदा लाग्ने शुल्क, सुरक्षित कारोबार रजिष्ट्रेशन तथा अन्य आवश्यक सूचना प्राप्त
                                     गर्न र आधिकारिक निकायमा रजिष्ट्रेशन गर्न लाग्ने
                                     शुल्क तथा कुनै पनि खर्च, आदि बास्तबिक रकम ऋणी स्वयंले नै तिर्न बुझाउनु पर्नेछ ।
                                     उक्त रकम तपाईको खातामा खर्च जनाई कटृा
@@ -249,23 +241,23 @@
                     </div>
                 </td>
             </tr>
-            <tr *ngFor="let data of guarantorData; let i = index;">
-                <td>{{i + 2 | nepaliWord}}.</td>
+            <tr>
+                <td>ख. </td>
                 <td>
                     श्री
                     <span class=" font-weight-bold">
-                    {{guarantorParse(data.nepData, 'guarantorName')}}
+                    {{this.finalName}}
                 </span>
                     ले रु
                     <span class="font-weight-bold">
-                    {{guarantorParse(data.nepData, 'gurantedAmount')}}
+                    {{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
                 </span>
                     /-(अक्षरेपि
                     रु.
                     <span class="font-weight-bold">
-                    {{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}
+                    {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                 </span>
-                    मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                    मात्र) बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                 </td>
             </tr>
         </table>
@@ -393,7 +385,7 @@
             </tr>
             <tr>
                 <td>१०.</td>
-                <td>कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साञचो छन र अन्यथा भएमा
+                <td>कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साँचो छन र अन्यथा भएमा
                     तपाईं जिम्मेवार हुनुहुनेछ ।
                 </td>
             </tr>
@@ -760,7 +752,7 @@
                 <td> म/हामीलाई पूर्व जानकारी सहित वा जानकारी बेगर कुनै वा सम्पूर्ण ऋणकर्जा सिमा जुनसुकै समयमा
                     रद्ध
                     गर्न त्यस बैंकको
-                    अधिकार रहने कुरामा मेरो/हाम्रो स्वीकृति छ । बैंकले माग गर्नासाथ सम्पूर्ण बँकि रकम, उपार्जित
+                    अधिकार रहने कुरामा मेरो/हाम्रो स्वीकृति छ । बैंकले माग गर्नासाथ सम्पूर्ण बाँकि रकम, उपार्जित
                     ब्याज र शुल्कहरु
                     समेत भुक्तानी गर्न म/हामी जिम्मेवारी लिन्छु/छौं ।
                 </td>
@@ -779,16 +771,15 @@
                 </td>
             </tr>
             <tr>
-                <td *ngIf="!loanLimit">६.</td>
-                <td *ngIf="loanLimit">५.</td>
+                <td>{{!loanLimit ? '६.' : '५.'}}</td>
                 <td>यस नबिल बैंक लिमिटेडका संस्थापक, सञ्चालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो भन्दा
                     माथिल्लो
                     स्तरका कर्मचारीहरु,
-                    चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सँग
+                    चुक्ता पुँजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक सँग
                     मेरो/हाम्रो, कम्पनीको
                     हकमा संस्थापक शेयरधनीहरु र सञ्चालकहरुको समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको एकाघरको
                     पारिवारिक सम्बन्ध नभएको
-                    र निजहरु सञग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं ।
+                    र निजहरु सँग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं ।
                 </td>
             </tr>
         </table>
