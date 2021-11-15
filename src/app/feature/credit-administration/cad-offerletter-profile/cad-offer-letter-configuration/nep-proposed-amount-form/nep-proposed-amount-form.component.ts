@@ -120,9 +120,11 @@ export class NepProposedAmountFormComponent implements OnInit {
         }
         this.spinner = true;
         this.nepaliNumber.initDate = this.nepForm.get('initDate').value;
+        this.nepaliNumber.loanApprovalNo = this.nepForm.get('loanApprovalNo').value;
         this.nepDataPersonal.loanType = this.nepForm.get('loanType').value;
         this.nepDataPersonal.interestRate = this.nepForm.get('interestRate').value;
-        this.nepDataPersonal.serviceFee = this.nepForm.get('serviceFee').value;
+        this.nepDataPersonal.serviceFeePercent = this.nepForm.get('serviceFeePercent').value;
+        this.nepDataPersonal.serviceFeeAmount = this.nepForm.get('serviceFeeAmount').value;
         this.nepDataPersonal.tenureOfLoanInMonths = this.nepForm.get('tenureOfLoanInMonths').value;
         this.nepDataPersonal.tenureOfLoanInYears = this.nepForm.get('tenureOfLoanInYears').value;
         this.nepDataPersonal.installmentAmount = this.nepForm.get('installmentAmount').value;
