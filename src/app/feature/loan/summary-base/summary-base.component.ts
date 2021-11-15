@@ -158,11 +158,6 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.closed = false;
             }
 
-            if (this.loanDataHolder.isHSOV) {
-                this.loanDataHolder.isHSOV = this.loanDataHolder.isHSOV;
-            }
-            console.log('check cond', this.loanDataHolder);
-
             this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
                 this.nepaliDate = nepDate.detail;
             });

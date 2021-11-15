@@ -112,6 +112,8 @@ export class LoanActionModalComponent implements OnInit {
                     this.formAction.updateValueAndValidity();
                 }
                 this.spinner = false;
+            }, err => {
+                this.spinner = false;
             });
         });
     }
