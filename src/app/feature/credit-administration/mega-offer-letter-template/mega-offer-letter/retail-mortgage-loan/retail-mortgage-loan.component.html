@@ -17,20 +17,11 @@
                            name="referenceNumber"
                            placeholder=" सन्दर्भ नम्बर "
                            type="text"/>
-                    <p *ngIf="tempData.dateofApproval.en.nDate === undefined; else dateofApprovalNepali" class="text-left">
+                    <p class="text-left">
                         मितिः <input class="form-field form-control-sm"
-                                     formControlName="dateofApproval"
-                                     [value]="tempData.dateofApproval.en === undefined ? '' : ((tempData.dateofApproval.en | date) | engNepDate: true)"
+                                     formControlName="dateOfApproval"
                                      type="text"/>
                     </p>
-                    <ng-template #dateofApprovalNepali>
-                        <p>
-                            मितिः <input class="form-field form-control-sm"
-                                         formControlName="dateofApproval"
-                                         [value]="tempData.dateofApproval.en.nDate === undefined ? '' : tempData.dateofApproval.en.nDate"
-                                         type="text"/>
-                        </p>
-                    </ng-template>
                 </div>
                 <div class="mb-2">
                     श्री <input class="form-field form-control-sm"
@@ -48,20 +39,9 @@
                 <div class="mb-1">
                     <p> महोदय, <br>
                         तपाईंले मिति
-                        <span *ngIf="tempData.dateofApplication.en.nDate === undefined; else dateofApplicationNepali" class="text-left">
                             मिति सन: <input class="form-field form-control-sm"
                                             formControlName="dateofApplication"
-                                            [value]="tempData.dateofApplication.en === undefined ? '' : ((tempData.dateofApplication.en | date) | engNepDate: true)"
                                             type="text"/>
-                        </span>
-                        <ng-template #dateofApplicationNepali>
-                            <span>
-                                मिति सन:<input class="form-field form-control-sm"
-                                               formControlName="dateofApplication"
-                                               [value]="tempData.dateofApplication.en.nDate === undefined ? '' : tempData.dateofApplication.en.nDate"
-                                               type="text"/>
-                            </span>
-                        </ng-template>
                         मा धितो कर्जाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय
                         बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
                     </p>
@@ -287,23 +267,23 @@
                             </div>
                         </td>
                     </tr>
-                    <tr *ngFor="let data of guarantorData; let i = index;">
-                        <td>{{i + 2 | nepaliWord}}.</td>
+                    <tr>
+                        <td>ख. </td>
                         <td>
                             श्री
                             <input class="form-field form-control-sm col-3"
                                    formControlName="guarantorName"
-                                   [value]="guarantorParse(data.nepData, 'guarantorName')"
+                                   [value]="this.finalName"
                                    type="text"/>
                             ले रु
                             <input class="form-field form-control-sm"
                                    formControlName="guaranteedAmountInFigure"
-                                   [value]="guarantorParse(data.nepData, 'gurantedAmount')"
+                                   [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                    type="text"/>
                             /-(अक्षरेपि
                             रु. <input class="form-field form-control-sm longInput uniSize"
                                        formControlName="guaranteedAmountInWord"
-                                       [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))"
+                                       [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))"
                                        type="text"/>
                             मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                         </td>

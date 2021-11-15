@@ -21,6 +21,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Attributes} from '../../../../../@core/model/attributes';
 import {PersonalOverdraftWithoutCollateralComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-overdraft-without-collateral/personal-overdraft-without-collateral.component';
 import {CadOfferLetterConfigurationComponent} from '../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
+import {DatePipe} from "@angular/common";
+import {EngNepDatePipe} from "nepali-patro";
 
 @Component({
   selector: 'app-perosnal-overdraft-without-collateral-template-data',
@@ -75,7 +77,9 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
               private addressService: AddressService,
               private currencyFormatterPipe: CurrencyFormatterPipe,
               private modalService: NgbModal,
-              protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>) { }
+              protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -93,7 +97,11 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       renewalChecked: [undefined],
       referenceNumber: [undefined],
       dateOfApproval: [undefined],
+      dateOfApprovalType: [undefined],
+      dateOfApprovalNepali: [undefined],
       dateofApplication: [undefined],
+      dateofApplicationType: [undefined],
+      dateofApplicationNepali: [undefined],
       purposeOfLoan: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
@@ -115,7 +123,11 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       renewalCheckedTransVal: [undefined],
       referenceNumberTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
+      dateofApplicationNepaliTransVal: [undefined],
+      dateofApplicationTypeTransVal: [undefined],
       purposeOfLoanTransVal: [undefined],
       baseRateTransVal: [undefined],
       premiumRateTransVal: [undefined],
@@ -251,10 +263,32 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     this.spinner = false;
   }
   private setTemplatedCTData(data): void {
-    console.log('Data Value:', data);
     // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
-    this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
-    this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
+    this.form.get('dateOfApprovalTypeTransVal').patchValue(this.form.get('dateOfApprovalType').value);
+    if (this.dateTypeAD) {
+      const approvalDate = this.form.get('dateOfApproval').value;
+      const convertApprovalDate = approvalDate ?
+          this.engNepDatePipe.transform(this.datePipe.transform(approvalDate), true) : '';
+      this.form.get('dateOfApprovalTransVal').patchValue(convertApprovalDate);
+    }
+    if (this.dateTypeBS) {
+      const approvalDateNepali = !ObjectUtil.isEmpty(this.form.get('dateOfApprovalNepali').value) ?
+          this.form.get('dateOfApprovalNepali').value : '';
+      this.form.get('dateOfApprovalNepaliTransVal').patchValue(approvalDateNepali.nDate);
+    }
+    // this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
+    this.form.get('dateofApplicationTypeTransVal').patchValue(this.form.get('dateofApplicationType').value);
+    if (this.dateTypeAD) {
+      const applicationDate = this.form.get('dateofApplication').value;
+      const convertApplicationDate = applicationDate ?
+          this.engNepDatePipe.transform(this.datePipe.transform(applicationDate), true) : '';
+      this.form.get('dateofApplicationTransVal').patchValue(convertApplicationDate);
+    }
+    if (this.dateTypeBS) {
+      const applicationNepali = !ObjectUtil.isEmpty(this.form.get('dateofApplicationNepali').value) ?
+          this.form.get('dateofApplicationNepali').value : '';
+      this.form.get('dateofApplicationNepaliTransVal').patchValue(applicationNepali.nDate);
+    }
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
     // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);

@@ -8,6 +8,7 @@ import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-forma
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {DatePipe} from "@angular/common";
 import {EngNepDatePipe} from "nepali-patro";
+import {HomeLoanType} from '../../../../cad-view/cad-constant/home-loan-type';
 
 @Component({
   selector: 'app-home-loan-print',
@@ -36,6 +37,7 @@ export class HomeLoanPrintComponent implements OnInit {
   autoRefNumber;
   dateOfApproval;
   dateOfApplication;
+  homeLoanType = HomeLoanType;
 
   constructor(public engToNepNumberPipe: EngToNepaliNumberPipe,
               public currencyFormatPipe: CurrencyFormatterPipe,
@@ -57,6 +59,7 @@ export class HomeLoanPrintComponent implements OnInit {
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      console.log('loan type', this.tempData.loanType);
       this.customerAddress =  this.loanHolderInfo.permanentMunicipality.ct + '-' +
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct +
           ' ,' + this.loanHolderInfo.permanentProvince.ct;
