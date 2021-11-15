@@ -21,6 +21,8 @@ import {Attributes} from '../../../../../@core/model/attributes';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {RetailMortgageLoanComponent} from '../../../mega-offer-letter-template/mega-offer-letter/retail-mortgage-loan/retail-mortgage-loan.component';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {Securities} from '../../../cad-document-template/nabil/securities-view/model/securities.model';
+import {SecurityDetails} from '../../../cad-document-template/nabil/securities-view/model/securities-details.model';
 
 @Component({
   selector: 'app-retail-mortage-loan-template-data-edit',
@@ -30,7 +32,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() offerDocumentList;
-  @Input() initialInformation;
+  @Input() initialInformation : any;
   offerLetterTypes = [];
   offerLetterConst = NabilOfferLetterConst;
   offerLetterSelect;
@@ -61,6 +63,10 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   cadDocStatus = CadDocStatus.key();
   municipalityListForSecurities = [];
+  applicationDate: any;
+  signatureDate: any;
+  securityDetails: SecurityDetails[];
+  securities: Securities[];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -84,10 +90,31 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   ngOnInit() {
     this.dateTypeAD = true;
     this.dateTypeAD1 = true;
-    console.log(this.initialInformation, 'aako kuro');
+    this.dateTypeAD2 = true;
+    if (this.initialInformation.dateofApplication.en.eDate === undefined) {
+      this.applicationDate = this.initialInformation.dateofApplication.en;
+    } else {
+      this.applicationDate = this.initialInformation.dateofApplication.en.eDate;
+    }
+
+    if (this.initialInformation.signatureDate.en.eDate === undefined) {
+      this.signatureDate = this.initialInformation.signatureDate.en;
+    } else {
+      this.signatureDate = this.initialInformation.signatureDate.en.eDate;
+    }
+    this.securityDetails = this.initialInformation.securityDetails;
+    if (!ObjectUtil.isEmpty(this.initialInformation.securityDetails)) {
+      this.securityDetails.forEach((security) => {
+        this.securities = security.securities;
+      });
+    } else {
+      this.addDefaultSecurity();
+    }
+    console.log(this.applicationDate, 'date');
     this.buildmortgage();
     this.getAllProvince();
     this.getAllDistrict();
+    this.setSecurityData();
   }
 
   public getAllProvince(): void {
@@ -117,26 +144,44 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   }
   buildmortgage() {
     this.form = this.formBuilder.group({
-      selectedSecurity: [this.initialInformation.selectedSecurity.en],
+      selectedSecurity: [ObjectUtil.isEmpty(this.initialInformation.selectedSecurity) ? undefined :
+          this.initialInformation.selectedSecurity.en],
       loanLimitChecked: [undefined],
       // referenceNumber: [undefined],
-      dateofApproval: [this.initialInformation.dateofApproval.en],
-      dateofApplication: [this.initialInformation.dateofApplication.en.eDate],
-      loanPurpose: [this.initialInformation.loanPurpose.en],
-      drawingPower: [this.initialInformation.drawingPower.en],
-      baseRate: [this.initialInformation.baseRate.en],
-      premiumRate: [this.initialInformation.premiumRate.en],
-      interestRate: [this.initialInformation.interestRate.en],
-      loanAdminFeeInFigure: [undefined],
-      loanAdminFeeInWords: [undefined],
-      emiInFigure: [undefined],
-      emiInWords: [undefined],
-      loanPeriod: [undefined],
-      loanCommitmentFee: [undefined],
-      insuranceAmount: [undefined],
-      relationshipOfficerName: [undefined],
-      branchManagerName: [undefined],
-      signatureDate: [undefined],
+      dateofApproval: [ObjectUtil.isEmpty(this.initialInformation.dateofApproval) ? undefined :
+          this.initialInformation.dateofApproval.en],
+      dateofApplication: [ObjectUtil.isEmpty(this.applicationDate) ? undefined :
+          this.applicationDate],
+      loanPurpose: [ObjectUtil.isEmpty(this.initialInformation.loanPurpose) ? undefined :
+          this.initialInformation.loanPurpose.en],
+      drawingPower: [ObjectUtil.isEmpty(this.initialInformation.drawingPower) ? undefined :
+          this.initialInformation.drawingPower.en],
+      baseRate: [ObjectUtil.isEmpty(this.initialInformation.baseRate) ? undefined :
+          this.initialInformation.baseRate.en],
+      premiumRate: [ObjectUtil.isEmpty(this.initialInformation.premiumRate) ? undefined :
+          this.initialInformation.premiumRate.en],
+      interestRate: [ObjectUtil.isEmpty(this.initialInformation.interestRate) ? undefined :
+          this.initialInformation.interestRate.en],
+      loanAdminFeeInFigure: [ObjectUtil.isEmpty(this.initialInformation.loanAdminFeeInFigure) ? undefined :
+      this.initialInformation.loanAdminFeeInFigure.en],
+      loanAdminFeeInWords: [ObjectUtil.isEmpty(this.initialInformation.loanAdminFeeInWords) ? undefined :
+      this.initialInformation.loanAdminFeeInWords.en],
+      emiInFigure: [ObjectUtil.isEmpty(this.initialInformation.emiInFigure) ? undefined :
+          this.initialInformation.emiInFigure.en],
+      emiInWords: [ObjectUtil.isEmpty(this.initialInformation.emiInWords) ? undefined :
+      this.initialInformation.emiInWords.en],
+      loanPeriod: [ObjectUtil.isEmpty(this.initialInformation.loanPeriod) ? undefined :
+      this.initialInformation.loanPeriod.en],
+      loanCommitmentFee: [ObjectUtil.isEmpty(this.initialInformation.loanCommitmentFee) ? undefined :
+      this.initialInformation.loanCommitmentFee.en],
+      insuranceAmount: [ObjectUtil.isEmpty(this.initialInformation.insuranceAmount) ? undefined :
+          this.initialInformation.insuranceAmount.en],
+      relationshipOfficerName: [ObjectUtil.isEmpty(this.initialInformation.relationshipOfficerName)
+      ? undefined : this.initialInformation.relationshipOfficerName.en],
+      branchManagerName: [ObjectUtil.isEmpty(this.initialInformation.branchManagerName)
+      ? undefined : this.initialInformation.branchManagerName.en],
+      signatureDate: [ObjectUtil.isEmpty(this.signatureDate) ? undefined :
+         this.signatureDate],
 
       //For Translated Value
       selectedSecurityTransVal: [undefined],
@@ -144,24 +189,37 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
       // referenceNumberTransVal: [undefined, Validators.required],
       dateofApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
-      loanPurposeTransVal: [undefined, Validators.required],
-      drawingPowerTransVal: [undefined, Validators.required],
-      baseRateTransVal: [undefined],
-      premiumRateTransVal: [undefined],
-      interestRateTransVal: [undefined],
-      loanAdminFeeInFigureTransVal: [undefined, Validators.required],
-      loanAdminFeeInWordsTransVal: [undefined],
-      emiInFigureTransVal: [undefined, Validators.required],
-      emiInWordsTransVal: [undefined],
-      loanPeriodTransVal: [undefined, Validators.required],
-      loanCommitmentFeeTransVal: [undefined, Validators.required],
-      insuranceAmountTransVal: [undefined],
-      relationshipOfficerNameTransVal: [undefined, Validators.required],
-      branchManagerNameTransVal: [undefined, Validators.required],
+      loanPurposeTransVal: [ObjectUtil.isEmpty(this.initialInformation.loanPurpose) ? undefined :
+          this.initialInformation.loanPurpose.ct, Validators.required],
+      drawingPowerTransVal: [ObjectUtil.isEmpty(this.initialInformation.drawingPower) ? undefined :
+          this.initialInformation.drawingPower.ct, Validators.required],
+      baseRateTransVal: [ObjectUtil.isEmpty(this.initialInformation.baseRate) ? undefined :
+          this.initialInformation.baseRate.ct],
+      premiumRateTransVal: [ObjectUtil.isEmpty(this.initialInformation.premiumRate) ? undefined :
+          this.initialInformation.premiumRate.ct],
+      interestRateTransVal: [ObjectUtil.isEmpty(this.initialInformation.interestRate) ? undefined :
+          this.initialInformation.interestRate.ct],
+      loanAdminFeeInFigureTransVal: [ObjectUtil.isEmpty(this.initialInformation.loanAdminFeeInFigure) ? undefined :
+          this.initialInformation.loanAdminFeeInFigure.ct, Validators.required],
+      loanAdminFeeInWordsTransVal: [ObjectUtil.isEmpty(this.initialInformation.loanAdminFeeInWords) ? undefined :
+          this.initialInformation.loanAdminFeeInWords.ct],
+      emiInFigureTransVal: [ObjectUtil.isEmpty(this.initialInformation.emiInFigure) ? undefined :
+          this.initialInformation.emiInFigure.ct, Validators.required],
+      emiInWordsTransVal: [ObjectUtil.isEmpty(this.initialInformation.emiInWords) ? undefined :
+          this.initialInformation.emiInWords.ct],
+      loanPeriodTransVal: [ObjectUtil.isEmpty(this.initialInformation.loanPeriod) ? undefined :
+          this.initialInformation.loanPeriod.ct, Validators.required],
+      loanCommitmentFeeTransVal: [ObjectUtil.isEmpty(this.initialInformation.loanCommitmentFee) ? undefined :
+          this.initialInformation.loanCommitmentFee.ct, Validators.required],
+      insuranceAmountTransVal: [ObjectUtil.isEmpty(this.initialInformation.insuranceAmount) ? undefined :
+          this.initialInformation.insuranceAmount.ct],
+      relationshipOfficerNameTransVal: [ObjectUtil.isEmpty(this.initialInformation.relationshipOfficerName)
+          ? undefined : this.initialInformation.relationshipOfficerName.ct, Validators.required],
+      branchManagerNameTransVal: [ObjectUtil.isEmpty(this.initialInformation.branchManagerName)
+          ? undefined : this.initialInformation.branchManagerName.ct, Validators.required],
       signatureDateTransVal: [undefined],
       securities: this.formBuilder.array([]),
     });
-    this.addDefaultSecurity();
   }
 
   initSecuritiesForm() {
@@ -300,20 +358,6 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
     }
   }
 
-  mappedData() {
-    Object.keys(this.form.controls).forEach(key => {
-      console.log('key: ', key);
-      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
-        return;
-      }
-      this.attributes = new Attributes();
-      this.attributes.en = this.form.get(key).value;
-      this.attributes.np = this.tdValues[key];
-      this.attributes.ct = this.form.get(key + 'TransVal').value;
-      this.tdValues[key] = this.attributes;
-    });
-  }
-
   loanChecked(data) {
     this.loanLimit = data;
     console.log('Loan Limit Checked?', this.loanLimit);
@@ -382,6 +426,7 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   }
 
   submit() {
+
     this.submitted = true;
     const securityDetails = [{
       securityType: this.form.get('selectedSecurity').value,
@@ -410,8 +455,9 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.MORTAGE_LOAN).toString()) {
           this.mappedData();
-          offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+          this.tdValues['securityDetails'] = securityDetails;
           this.translatedValues = {};
+          offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
         }
       });
     } else {
@@ -421,11 +467,14 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
         if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
           return;
         }
+
         this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
+          this.attributes.en = this.form.get(key).value;
+          this.attributes.np = this.tdValues[key];
+          this.attributes.ct = this.form.get(key + 'TransVal').value;
+          this.tdValues[key] = this.attributes;
+
+
       });
       this.tdValues['securityDetails'] = securityDetails;
       this.translatedValues = {};
@@ -445,6 +494,76 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
       this.spinner = false;
       this.btnDisable = true;
     });
+  }
+
+  public loanMunicipalityByDistrictIdForEdit(data,  index?): void {
+    const district = new District();
+    district.id = data;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalityListForSecurities[index] = response.detail;
+          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+
+        }
+    );
+  }
+
+  public setSecurityData(): void {
+    const securitiesControl = this.form.get('securities') as FormArray;
+    this.securities.forEach((data: Securities, index) => {
+      this.loanMunicipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
+      securitiesControl.push(
+          this.formBuilder.group({
+            securityOwnersName: [data.securityOwnersName],
+            securityOwnersNameTransVal: [data.securityOwnersNameCT],
+            securityOwnersNameCT: [data.securityOwnersNameCT],
+            securityOwnersDistrict: [data.securityOwnersDistrict],
+            securityOwnersDistrictTransVal: [data.securityOwnersDistrictCT],
+            securityOwnersDistrictCT: [data.securityOwnersDistrictCT],
+            securityOwnersMunicipalityOrVdc: [data.securityOwnersMunicipalityOrVdc],
+            securityOwnersMunicipality: [data.securityOwnersMunicipality],
+            securityOwnersMunicipalityTransVal: [data.securityOwnersMunicipalityCT],
+            securityOwnersMunicipalityCT: [data.securityOwnersMunicipalityCT],
+            securityOwnersWardNo: [data.securityOwnersWardNo],
+            securityOwnersWardNoTransVal: [data.securityOwnersWardNoCT],
+            securityOwnersWardNoCT: [data.securityOwnersWardNoCT],
+            securityOwnersSeatNo: [data.securityOwnersSeatNo],
+            securityOwnersSeatNoTransVal: [data.securityOwnersSeatNoCT],
+            securityOwnersSeatNoCT: [data.securityOwnersSeatNoCT],
+            securityOwnersKittaNo: [data.securityOwnersKittaNo],
+            securityOwnersKittaNoTransVal: [data.securityOwnersKittaNoCT],
+            securityOwnersKittaNoCT: [data.securityOwnersKittaNoCT],
+            securityOwnersLandArea: [data.securityOwnersLandArea],
+            securityOwnersLandAreaTransVal: [data.securityOwnersLandAreaCT],
+            securityOwnersLandAreaCT: [data.securityOwnersLandAreaCT],
+          })
+      );
+    });
+  }
+
+  mappedData() {
+    Object.keys(this.form.controls).forEach(key => {
+      console.log('key: ', key);
+      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+        return;
+      }
+      this.attributes = new Attributes();
+      if (!ObjectUtil.isEmpty(this.translatedValues)) {
+        this.attributes.en = this.form.get(key).value;
+        this.attributes.np = this.form.get(key + 'TransVal').value;
+        this.attributes.ct = this.form.get(key + 'TransVal').value;
+        this.tdValues[key] = this.attributes;
+      } else {
+        this.attributes.en = this.form.get(key).value;
+        this.attributes.np = this.tdValues[key];
+        this.attributes.ct = this.form.get(key + 'TransVal').value;
+        this.tdValues[key] = this.attributes;
+      }
+    });
+  }
+
+  compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
 }

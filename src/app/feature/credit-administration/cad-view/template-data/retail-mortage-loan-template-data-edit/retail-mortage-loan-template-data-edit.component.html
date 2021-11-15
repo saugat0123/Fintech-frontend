@@ -99,7 +99,8 @@
                         <td>Loan Purpose</td>
                         <td><input type="text" class="form-control" formControlName="loanPurpose">
                         </td>
-                        <td class="abc">{{translatedValues?.loanPurpose}}</td>
+                        <td class="abc">{{translatedValues?.loanPurpose ? translatedValues?.loanPurpose :
+                            initialInformation?.loanPurpose?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.loanPurposeTransVal.errors }"
@@ -115,7 +116,8 @@
                         <td><input type="text" class="form-control" formControlName="drawingPower"
                                    (input)="translateNumber1('drawingPower', 'drawingPowerTransVal')">
                         </td>
-                        <td class="abc">{{translatedValues?.drawingPower}}</td>
+                        <td class="abc">{{translatedValues?.drawingPower ? translatedValues?.drawingPower :
+                            initialInformation?.drawingPower?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.drawingPowerTransVal.errors }"
@@ -131,7 +133,7 @@
                         <td><input type="text" class="form-control" formControlName="baseRate"
                                    (input)="calInterestRate(); translateNumber1('baseRate', 'baseRateTransVal')">
                         </td>
-                        <td class="abc">{{translatedValues?.baseRate}}</td>
+                        <td class="abc">{{translatedValues?.baseRate ? translatedValues?.baseRate : initialInformation?.baseRate?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.baseRateTransVal.errors }"
@@ -147,7 +149,8 @@
                         <td><input type="text" class="form-control" formControlName="premiumRate"
                                    (input)="calInterestRate(); translateNumber1('premiumRate', 'premiumRateTransVal')">
                         </td>
-                        <td class="abc">{{translatedValues?.premiumRate}}</td>
+                        <td class="abc">{{translatedValues?.premiumRate ? translatedValues?.premiumRate :
+                            initialInformation?.premiumRate?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.premiumRateTransVal.errors }"
@@ -163,7 +166,8 @@
                         <td><input type="text" class="form-control" formControlName="interestRate"
                                    (input)="translateNumber1('interestRate', 'interestRateTransVal')">
                         </td>
-                        <td class="abc">{{translatedValues?.interestRate}}</td>
+                        <td class="abc">{{translatedValues?.interestRate ? translatedValues?.interestRate :
+                            initialInformation?.interestRate?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.interestRateTransVal.errors }"
@@ -179,7 +183,8 @@
                         <td><input type="text" class="form-control" formControlName="loanAdminFeeInFigure"
                                    (input)="getNumAmountWord('loanAdminFeeInFigure', 'loanAdminFeeInWords');translateNumber('loanAdminFeeInFigure', 'loanAdminFeeInFigureTransVal')">
                         </td>
-                        <td class="abc">{{translatedValues?.loanAdminFeeInFigure}}</td>
+                        <td class="abc">{{translatedValues?.loanAdminFeeInFigure ? translatedValues?.loanAdminFeeInFigure :
+                            initialInformation?.loanAdminFeeInFigure?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeInFigureTransVal.errors }"
@@ -194,7 +199,8 @@
                         <td>Loan Admin Fee in Words</td>
                         <td><input type="text" class="form-control" formControlName="loanAdminFeeInWords">
                         </td>
-                        <td class="abc">{{translatedValues?.loanAdminFeeInWords}}</td>
+                        <td class="abc">{{translatedValues?.loanAdminFeeInWords ? translatedValues?.loanAdminFeeInWords :
+                            initialInformation?.loanAdminFeeInWords?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeInWordsTransVal.errors }"
@@ -210,7 +216,8 @@
                         <td><input type="text" class="form-control" formControlName="emiInFigure"
                                    (input)="getNumAmountWord('emiInFigure', 'emiInWords');translateNumber('emiInFigure', 'emiInFigureTransVal')">
                         </td>
-                        <td class="abc">{{translatedValues?.emiInFigure}}</td>
+                        <td class="abc">{{translatedValues?.emiInFigure ? translatedValues?.emiInFigure :
+                            initialInformation?.emiInFigure?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.emiInFigureTransVal.errors }"
@@ -225,7 +232,8 @@
                         <td>EMI Amount in Words</td>
                         <td><input type="text" class="form-control" formControlName="emiInWords">
                         </td>
-                        <td class="abc">{{translatedValues?.emiInWords}}</td>
+                        <td class="abc">{{translatedValues?.emiInWords ? translatedValues?.emiInWords :
+                            initialInformation?.emiInWords?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.emiInWordsTransVal.errors }"
@@ -241,7 +249,8 @@
                         <td><input type="text" class="form-control" formControlName="loanPeriod"
                                    (input)="translateNumber1('loanPeriod', 'loanPeriodTransVal')">
                         </td>
-                        <td class="abc">{{translatedValues?.loanPeriod}}</td>
+                        <td class="abc">{{translatedValues?.loanPeriod ? translatedValues?.loanPeriod :
+                            initialInformation?.loanPeriod?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.loanPeriodTransVal.errors }"
@@ -257,7 +266,8 @@
                         <td><input type="text" class="form-control" formControlName="loanCommitmentFee"
                                    (input)="translateNumber('loanCommitmentFee', 'loanCommitmentFeeTransVal')">
                         </td>
-                        <td class="abc">{{translatedValues?.loanCommitmentFee}}</td>
+                        <td class="abc">{{translatedValues?.loanCommitmentFee ? translatedValues?.loanCommitmentFee :
+                            initialInformation?.loanCommitmentFee?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.loanCommitmentFeeTransVal.errors }"
@@ -273,7 +283,8 @@
                         <td><input type="text" class="form-control" formControlName="insuranceAmount"
                                    (input)="translateNumber('insuranceAmount', 'insuranceAmountTransVal')">
                         </td>
-                        <td class="abc">{{translatedValues?.insuranceAmount}}</td>
+                        <td class="abc">{{translatedValues?.insuranceAmount ? translatedValues?.insuranceAmount :
+                            initialInformation?.insuranceAmount?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.insuranceAmountTransVal.errors }"
@@ -288,7 +299,8 @@
                         <td>Relationship Officer Name</td>
                         <td><input type="text" class="form-control" formControlName="relationshipOfficerName">
                         </td>
-                        <td class="abc">{{translatedValues?.relationshipOfficerName}}</td>
+                        <td class="abc">{{translatedValues?.relationshipOfficerName ? translatedValues?.relationshipOfficerName :
+                            initialInformation?.relationshipOfficerName?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.relationshipOfficerNameTransVal.errors }"
@@ -303,7 +315,8 @@
                         <td>Branch Manager Name</td>
                         <td><input type="text" class="form-control" formControlName="branchManagerName">
                         </td>
-                        <td class="abc">{{translatedValues?.branchManagerName}}</td>
+                        <td class="abc">{{translatedValues?.branchManagerName ? translatedValues?.branchManagerName :
+                            initialInformation?.branchManagerName?.np}}</td>
                         <td>
                             <input type="text" class="form-control"
                                    [ngClass]="{ 'is-invalid':submitted && Form.branchManagerNameTransVal.errors }"
@@ -320,7 +333,7 @@
                             <div class="row" style="margin-left: 5px; margin-top: -8px;">
                                 <nb-radio-group name="signatureDate">
                                     <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span></nb-radio>
-                                    <nb-radio (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">AD
+                                    <nb-radio [checked]="true" (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">AD
                                     </nb-radio>
                                 </nb-radio-group>
                             </div>
@@ -394,7 +407,11 @@
                                 <tr>
                                     <td colspan="2">District (जिल्ला)</td>
                                     <td>
-                                        <select (change)="getMunicipalityByDistrict(form.get(['securities', i, 'securityOwnersDistrict'])?.value?.id, $event, i); setDefaultNepaliResponse('securities', 'securityOwnersDistrict', i, 'securityOwnersDistrictTransVal')" formControlName="securityOwnersDistrict" class="custom-select" id="securityOwnersDistrict{{i}}" name="securityOwnersDistrict{{i}}">
+                                        <select (change)="getMunicipalityByDistrict(form.get(['securities', i, 'securityOwnersDistrict'])?.value?.id, $event, i); setDefaultNepaliResponse('securities', 'securityOwnersDistrict', i, 'securityOwnersDistrictTransVal')"
+                                                formControlName="securityOwnersDistrict"
+                                                class="custom-select" id="securityOwnersDistrict{{i}}"
+                                                name="securityOwnersDistrict{{i}}"
+                                                [compareWith]="compareFn">
                                             <option [ngValue]="null" hidden>District</option>
                                             <option *ngFor="let district of allDistrictList"
                                                     [ngValue]="district">{{district.name}} || {{district.nepaliName}}</option>
@@ -424,7 +441,8 @@
                                         <select class="custom-select" (change)="setDefaultNepaliResponse('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTransVal')"
                                                 formControlName="securityOwnersMunicipality"
                                                 id="securityOwnersMunicipality{{i}}"
-                                                name="securityOwnersMunicipality{{i}}">
+                                                name="securityOwnersMunicipality{{i}}"
+                                                [compareWith]="compareFn">
                                             <option [ngValue]="null" hidden>Municipality</option>
                                             <option *ngFor="let municipalityVal of municipalityListForSecurities[i]"
                                                     [ngValue]="municipalityVal">
