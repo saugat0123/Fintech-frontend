@@ -62,9 +62,15 @@ export class LetterOfInstallmentsComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        branchName : this.nepaliData.branchName ? this.nepaliData.branchName: '',
+        karjaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        //timePeriod :
+        kistaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        //mahina :
       });
     }
   }
