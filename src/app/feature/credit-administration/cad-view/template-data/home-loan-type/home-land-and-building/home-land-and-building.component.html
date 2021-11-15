@@ -45,10 +45,10 @@
                     </nepali-patro>
                 </div>
                 <input *ngIf="ADApplication" nbInput fullWidth status="success" shape="semi-round"
-                       [nbDatepicker]="approvalDate"
+                       [nbDatepicker]="applicationDate"
                        placeholder="Select Date"
                        formControlName="dateOfApplication" id="applicationDate">
-                <nb-datepicker #approvalDate></nb-datepicker>
+                <nb-datepicker #applicationDate></nb-datepicker>
             </div>
             <div class="form-group">
                 <label for="purposeOfLoan">Purpose of Loan</label>
@@ -74,6 +74,11 @@
                 <label for="interestRate">Interest Rate (%)</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="interestRate" type="number" id="interestRate">
+            </div>
+            <div *ngIf="isTakeOver" class="form-group">
+                <label for="interestRate">Name Of Bank</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="nameOfBank" type="text" id="nameOfBank">
             </div>
             <div class="form-group">
                 <label for="loanAdminFeeInFigure">Loan Admin Fees in Figure</label>
@@ -188,6 +193,10 @@
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="interestRateTrans" type="text" id="interestRateTrans" readonly>
+            </div>
+            <div *ngIf="isTakeOver" class="form-group mt-small">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="nameOfBankTrans" type="text" id="nameOfBankTrans" readonly>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
@@ -310,6 +319,14 @@
                         Interest rate is required
                 </span>
             </div>
+            <div *ngIf="isTakeOver" class="form-group mt-small">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="nameOfBankCT" type="text" id="nameOfBankCT">
+                <span *ngIf="submitted && form.nameOfBankCT.invalid"
+                      class="text-danger">
+                        Name of Bank is required
+                </span>
+            </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="loanAdminFeeInFigureCT" type="text" id="loanAdminFeeInFigureCT">
@@ -384,8 +401,8 @@
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="beneficiaryNameTrans" type="text" id="beneficiaryNameCT">
-                <span *ngIf="submitted && form.beneficiaryNameTrans.invalid"
+                       formControlName="beneficiaryNameCT" type="text" id="beneficiaryNameCT">
+                <span *ngIf="submitted && form.beneficiaryNameCT.invalid"
                       class="text-danger">
                         Beneficiary Name is required
                 </span>

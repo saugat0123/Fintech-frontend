@@ -56,7 +56,9 @@
                         <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः {{landbuilding}}</strong></td>
                         <td>
                             <strong>आवास कर्जाः</strong>
-                           भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
+                            {{tempData?.loanType === homeLoanType.CONSTRUCTION ? ' भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ':
+                            tempData?.loanType === homeLoanType.PURCHASE ? '________________________' + ' खरीद गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ':
+                            tempData?.loan?.nameOfBankCT ? tempData?.loan?.nameOfBankCT + ' बैंकको कर्जा चुक्ता गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ' : ''}}
 
                         </td>
                     </tr>

@@ -382,6 +382,12 @@ export class ConstructionLoanEditComponent implements OnInit {
 
   private setConstructionFormValue(): void {
     this.constructionLoanForm.patchValue(this.formValue);
+    if (this.formValue.dateType === 'AD') {
+      this.constructionLoanForm.get('dateOfApproval').patchValue(new Date(this.formValue.dateOfApproval));
+    }
+    if (this.formValue.applicationDateType === 'AD') {
+      this.constructionLoanForm.get('dateOfApplication').patchValue(new Date(this.formValue.dateOfApplication));
+    }
   }
   calInterestRate() {
     const baseRate = this.constructionLoanForm.get('baseRate').value;

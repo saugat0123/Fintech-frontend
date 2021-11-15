@@ -22,6 +22,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {DatePipe} from "@angular/common";
 import {EngNepDatePipe} from "nepali-patro";
+import {HomeLoanType} from '../../../cad-view/cad-constant/home-loan-type';
 
 @Component({
   selector: 'app-home-loan',
@@ -56,6 +57,7 @@ export class HomeLoanComponent implements OnInit {
   loanLimit;
   afterSave = false;
   landbuilding;
+  homeLoanType = HomeLoanType;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -150,6 +152,7 @@ export class HomeLoanComponent implements OnInit {
       guarantorAmountinWord: [undefined],
       dateofSignature: [undefined],
       municipalityVDC: [undefined],
+      nameOfBank: [undefined],
     });
   }
   setLoanConfigData(data: any) {
@@ -290,6 +293,7 @@ export class HomeLoanComponent implements OnInit {
       seatNumber: this.tempData.loan.seatNumberCT ? this.tempData.loan.seatNumberCT : '',
       relationshipofficerName: this.tempData.loan.nameOfRelationshipOfficerCT ? this.tempData.loan.nameOfRelationshipOfficerCT : '',
       branchManager: this.tempData.loan.nameOfBranchManagerCT ? this.tempData.loan.nameOfBranchManagerCT : '',
+      nameOfBank: this.tempData.loan.nameOfBankCT ? this.tempData.loan.nameOfBankCT : '',
     });
   }
   calcYearlyRate() {
