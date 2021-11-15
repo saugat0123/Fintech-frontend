@@ -15,6 +15,7 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-letter-of-installments',
@@ -33,6 +34,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: Document;
   nepaliData;
+  nepDataPersonal: any;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -46,6 +48,9 @@ export class LetterOfInstallmentsComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadData.nepDataPersonal)) {
+      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+    }
     this.fillForm();
   }
 
@@ -69,7 +74,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
         branchName : this.nepaliData.branchName ? this.nepaliData.branchName: '',
         karjaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
         //timePeriod :
-        kistaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
         //mahina :
       });
     }
@@ -145,9 +150,10 @@ export class LetterOfInstallmentsComponent implements OnInit {
       witnessCDOoffice1: [undefined],
       witnessIssuedPlace1: [undefined],
       witnessMunicipality1: [undefined],
-      witnessWardNo1: [undefined]
+      witnessWardNo1: [undefined],
+     installmentAmount: [undefined],
 
-    });
+  });
   }
   addGuarantor(): void {
     const formArray = this.form.get('guarantorData') as FormArray;
