@@ -181,14 +181,16 @@ button {
 }
 
 @page {
+  padding: 20px auto 20px  auto!important;
   size: A4 !important;
-  margin: 17mm !important;
+  margin: 200px auto 100px auto !important;
 }
 
 @media print {
   @page {
+    padding: 20px auto 20px  auto!important;
     size: A4 !important;
-    margin: 17mm !important;
+    margin: 200px auto 100px auto !important;
   }
   .pageBreak {
     page-break-before: always !important;
