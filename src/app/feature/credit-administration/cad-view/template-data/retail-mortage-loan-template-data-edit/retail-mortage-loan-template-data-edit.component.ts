@@ -23,6 +23,8 @@ import {RetailMortgageLoanComponent} from '../../../mega-offer-letter-template/m
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {Securities} from '../../../cad-document-template/nabil/securities-view/model/securities.model';
 import {SecurityDetails} from '../../../cad-document-template/nabil/securities-view/model/securities-details.model';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-retail-mortage-loan-template-data-edit',
@@ -67,6 +69,7 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   signatureDate: any;
   securityDetails: SecurityDetails[];
   securities: Securities[];
+  dateofApproval: any;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -80,7 +83,9 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private addressService: AddressService,
       private currencyFormatterPipe: CurrencyFormatterPipe,
-      public dialogueService: NbDialogRef<RetailMortageLoanTemplateDataEditComponent>
+      public dialogueService: NbDialogRef<RetailMortageLoanTemplateDataEditComponent>,
+      private datePipe: DatePipe,
+      private engNepDatePipe: EngNepDatePipe
   ) { }
 
   get Form() {
@@ -88,20 +93,7 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dateTypeAD = true;
-    this.dateTypeAD1 = true;
-    this.dateTypeAD2 = true;
-    if (this.initialInformation.dateofApplication.en.eDate === undefined) {
-      this.applicationDate = this.initialInformation.dateofApplication.en;
-    } else {
-      this.applicationDate = this.initialInformation.dateofApplication.en.eDate;
-    }
-
-    if (this.initialInformation.signatureDate.en.eDate === undefined) {
-      this.signatureDate = this.initialInformation.signatureDate.en;
-    } else {
-      this.signatureDate = this.initialInformation.signatureDate.en.eDate;
-    }
+    this.setDateFlag();
     this.securityDetails = this.initialInformation.securityDetails;
     if (!ObjectUtil.isEmpty(this.initialInformation.securityDetails)) {
       this.securityDetails.forEach((security) => {
@@ -110,7 +102,6 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
     } else {
       this.addDefaultSecurity();
     }
-    console.log(this.applicationDate, 'date');
     this.buildmortgage();
     this.getAllProvince();
     this.getAllDistrict();
@@ -148,10 +139,18 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
           this.initialInformation.selectedSecurity.en],
       loanLimitChecked: [undefined],
       // referenceNumber: [undefined],
-      dateofApproval: [ObjectUtil.isEmpty(this.initialInformation.dateofApproval) ? undefined :
-          this.initialInformation.dateofApproval.en],
-      dateofApplication: [ObjectUtil.isEmpty(this.applicationDate) ? undefined :
-          this.applicationDate],
+      dateOfApproval: [ObjectUtil.isEmpty(this.initialInformation.dateOfApproval) ? undefined :
+          this.initialInformation.dateOfApproval.en],
+      dateOfApprovalType: [ObjectUtil.isEmpty(this.initialInformation.dateOfApprovalType) ? undefined :
+          this.initialInformation.dateOfApprovalType.en],
+      dateOfApprovalNepali: [ObjectUtil.isEmpty(this.initialInformation.dateOfApprovalNepali) ? undefined :
+      this.initialInformation.dateOfApprovalNepali.en],
+      dateofApplication: [ObjectUtil.isEmpty(this.initialInformation.dateofApplication) ? undefined :
+          this.initialInformation.dateofApplication.en],
+      dateofApplicationType: [ObjectUtil.isEmpty(this.initialInformation.dateofApplicationType) ? undefined :
+          this.initialInformation.dateofApplicationType.en],
+      dateofApplicationNepali: [ObjectUtil.isEmpty(this.initialInformation.dateofApplicationNepali) ? undefined :
+          this.initialInformation.dateofApplicationNepali.en],
       loanPurpose: [ObjectUtil.isEmpty(this.initialInformation.loanPurpose) ? undefined :
           this.initialInformation.loanPurpose.en],
       drawingPower: [ObjectUtil.isEmpty(this.initialInformation.drawingPower) ? undefined :
@@ -180,15 +179,18 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
       ? undefined : this.initialInformation.relationshipOfficerName.en],
       branchManagerName: [ObjectUtil.isEmpty(this.initialInformation.branchManagerName)
       ? undefined : this.initialInformation.branchManagerName.en],
-      signatureDate: [ObjectUtil.isEmpty(this.signatureDate) ? undefined :
-         this.signatureDate],
+
 
       //For Translated Value
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       // referenceNumberTransVal: [undefined, Validators.required],
-      dateofApprovalTransVal: [undefined],
+      dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
+      dateOfApprovalTypeTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
+      dateofApplicationNepaliTransVal: [undefined],
+      dateofApplicationTypeTransVal: [undefined],
       loanPurposeTransVal: [ObjectUtil.isEmpty(this.initialInformation.loanPurpose) ? undefined :
           this.initialInformation.loanPurpose.ct, Validators.required],
       drawingPowerTransVal: [ObjectUtil.isEmpty(this.initialInformation.drawingPower) ? undefined :
@@ -217,7 +219,6 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
           ? undefined : this.initialInformation.relationshipOfficerName.ct, Validators.required],
       branchManagerNameTransVal: [ObjectUtil.isEmpty(this.initialInformation.branchManagerName)
           ? undefined : this.initialInformation.branchManagerName.ct, Validators.required],
-      signatureDateTransVal: [undefined],
       securities: this.formBuilder.array([]),
     });
   }
@@ -305,11 +306,32 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   }
 
   private setTemplatedCTData(data): void {
-    this.form.get('dateofApprovalTransVal').patchValue(this.translatedValues.dateofApproval);
-    this.form.get('dateofApplicationTransVal').patchValue(this.translatedValues.dateofApplication);
+    this.form.get('dateOfApprovalTypeTransVal').patchValue(this.form.get('dateOfApprovalType').value);
+    if (this.dateTypeAD) {
+      const approvalDate = this.form.get('dateOfApproval').value;
+      const convertApprovalDate = approvalDate ?
+          this.engNepDatePipe.transform(this.datePipe.transform(approvalDate), true) : '';
+      this.form.get('dateOfApprovalTransVal').patchValue(convertApprovalDate);
+    }
+    if (this.dateTypeBS) {
+      const approvalDateNepali = !ObjectUtil.isEmpty(this.form.get('dateOfApprovalNepali').value) ?
+          this.form.get('dateOfApprovalNepali').value : '';
+      this.form.get('dateOfApprovalNepaliTransVal').patchValue(approvalDateNepali.nDate);
+    }
+    // this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
+    this.form.get('dateofApplicationTypeTransVal').patchValue(this.form.get('dateofApplicationType').value);
+    if (this.dateTypeAD) {
+      const applicationDate = this.form.get('dateofApplication').value;
+      const convertApplicationDate = applicationDate ?
+          this.engNepDatePipe.transform(this.datePipe.transform(applicationDate), true) : '';
+      this.form.get('dateofApplicationTransVal').patchValue(convertApplicationDate);
+    }
+    if (this.dateTypeBS) {
+      const applicationNepali = !ObjectUtil.isEmpty(this.form.get('dateofApplicationNepali').value) ?
+          this.form.get('dateofApplicationNepali').value : '';
+      this.form.get('dateofApplicationNepaliTransVal').patchValue(applicationNepali.nDate);
+    }
     this.form.get('loanPurposeTransVal').patchValue(this.translatedValues.loanPurpose);
-    this.form.get('loanAdminFeeInWordsTransVal').patchValue(this.translatedValues.loanAdminFeeInWords);
-    this.form.get('emiInWordsTransVal').patchValue(this.translatedValues.emiInWords);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedValues.relationshipOfficerName);
     this.form.get('branchManagerNameTransVal').patchValue(this.translatedValues.branchManagerName);
     this.form.get('signatureDateTransVal').patchValue(this.translatedValues.signatureDate);
@@ -511,6 +533,7 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   public setSecurityData(): void {
     const securitiesControl = this.form.get('securities') as FormArray;
     this.securities.forEach((data: Securities, index) => {
+      console.log(data.securityOwnersMunicipalityOrVdc, 'munOrVDc');
       this.loanMunicipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
       securitiesControl.push(
           this.formBuilder.group({
@@ -564,6 +587,25 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
 
   compareFn(c1: any, c2: any): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+
+  setDateFlag(): void{
+    if (this.initialInformation.dateOfApprovalType.en === 'BS') {
+      this.dateTypeBS = true;
+    } else {
+      this.dateTypeAD = true;
+    }
+
+    if (this.initialInformation.dateofApplicationType.en === 'BS') {
+      this.dateTypeBS1 = true;
+    } else {
+      this.dateTypeAD1 = true;
+    }
+
+    if(this.initialInformation.loanLimitChecked.en === true){
+      this.loanLimit = true;
+    }
+
   }
 
 }

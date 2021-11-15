@@ -27,32 +27,23 @@
                                  formControlName="refNumber" placeholder="सन्दर्भ नम्बर" type="text"/>
                             </span>
                         </p><br>
-                        <p *ngIf="initialInfoPrint?.dateOfApproval?.en?.nDate === undefined; else dateOfApprovalNepali">
+                        <p>
                             मितिः <input class="form-field form-control-sm"
                                          formControlName="dateOfApproval"
-                                         [value]="initialInfoPrint?.dateOfApproval?.en === undefined ? '' : ((initialInfoPrint?.dateOfApproval?.en | date) | engNepDate: true)"
                                          type="text"/>
                         </p>
-                        <ng-template #dateOfApprovalNepali>
-                            <p>
-                                मितिः <input class="form-field form-control-sm"
-                                             formControlName="dateOfApproval"
-                                             [value]="initialInfoPrint?.dateOfApproval?.en.nDate === undefined ? '' : initialInfoPrint?.dateOfApproval?.en.nDate"
-                                             type="text"/>
-                            </p>
-                        </ng-template>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <p>
-                            <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
-                            <ng-template #nameDetails>
-                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
-                                    श्रीमती
+                            <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else firstRelation"> श्री</span>
+                            <ng-template #firstRelation>
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && ( loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1 )">
+                                    सुश्री
                                 </span>
-                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
-                                  सुश्री
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && ( loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0 )">
+                                  श्रीमती
                                 </span>
                             </ng-template>
                             <input class="form-field form-control-sm " name="customerName" formControlName="customerName" placeholder="नाम" type="text"/>ज्यू,
@@ -70,16 +61,9 @@
                         </p>
                         <p>
                             तपाईंले मिति
-                            <input *ngIf="initialInfoPrint?.dateofApplication?.en.nDate === undefined; else dateofApplicationNepali" class="form-field form-control-sm"
+                            <input class="form-field form-control-sm"
                                    formControlName="dateofApplication"
-                                   [value]="initialInfoPrint?.dateofApplication?.en === undefined ? '' : (initialInfoPrint?.dateofApplication?.en | date) | engNepDate: true"
                                    type="text"/>
-                            <ng-template #dateofApplicationNepali>
-                                <input class="form-field form-control-sm"
-                                       formControlName="dateofApplication"
-                                       [value]="initialInfoPrint?.dateofApplication?.en.nDate === undefined ? '' : initialInfoPrint?.dateofApplication?.en.nDate"
-                                       type="text"/>
-                            </ng-template>
                            मा व्यक्तिगत कर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस
                             बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं । </p>
                     </div>
@@ -124,7 +108,7 @@
                             </strong>
                         </td>
                         <td>
-                            प्रकाशित आधार दर (Base Rate)
+                            त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                             <input class="form-field form-control-sm "
                                    name="baseRate"
                                    formControlName="baseRate"
@@ -138,7 +122,7 @@
                                    placeholder="प्रीमियम दर"
                                    type="text"
                                    (input)="calculateData('baseRate', 'premiumRate')"/>
-                            प्रतिशत व्याज दर प्रिमियम (Interest Rate Premium) हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                            प्रतिशत व्याज दर प्रिमियम (Interest Rate Premium) हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
                             <input class="form-field form-control-sm "
                                    name="yearlyFloatingInterestRate"
                                    formControlName="yearlyFloatingInterestRate"
@@ -193,7 +177,7 @@
                             मासिक किस्ताहरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                             <p>
                                 <strong>द्रष्टब्यः</strong>
-                                कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अञग्रेजी पात्रोको प्रत्येक २० तारिखका दिन
+                                कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी पात्रोको प्रत्येक २० तारिखका दिन
                             किस्ताको भुक्तानी मिति हुनेछ ।
                             </p>
                         </td>
@@ -268,19 +252,19 @@
                         <td>२.</td>
                         <td>
                             हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक
-                            वेव साईट (Website) तथा राष्ट्रियस्तरको पत्रिकामा आधार दर (Base Rate) प्रकाशित गरिनेछ। यसरी हरेक त्रैमास
-                            समाप्त भएपछि प्रकाशित हुने पछिल्लो आधार दर (Base Rate) मा माथि उल्लेख भए बमोजिम ब्याज दर
+                            वेव साईट (Website) तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) प्रकाशित गरिनेछ। यसरी हरेक त्रैमास
+                            समाप्त भएपछि प्रकाशित हुने पछिल्लो त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा माथि उल्लेख भए बमोजिम ब्याज दर
                             प्रिमियम (Interest Rate: Premium) थप गरी त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ ।
                         </td>
                     </tr>
                     <tr>
                         <td>३.</td>
-                        <td>बैंकको आधार दर (Base Rate)मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर बैंकको
-                            आधिकारिक वेब साईट (Website) मा प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तको प्रकाशन गरीने आधार दर
-                            (Base Rate)मा जतिले परिवर्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु अर्थात श्रावण, कार्तिक, माघ र बैशाखको
+                        <td>बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर बैंकको
+                            आधिकारिक वेब साईट (Website) मा प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तको प्रकाशन गरीने त्रैमासिक औसत आधार दर
+                            (Quarterly Average Base Rate)मा जतिले परिवर्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु अर्थात श्रावण, कार्तिक, माघ र बैशाखको
                             पहिलो दिनबाट ब्याज दर समायोजन तथा संसोधन गरीनेछ ।
                             <p>
-                            बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated Monthly Installment )मा
+                            बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated Monthly Installment )मा
                             भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा किस्ता भुक्तानी तालिकामा परीवर्तन गरिने छैन । परिवर्तनशिल ब्याज
                             दरको कारण अन्तिम किस्ता भुक्तानी मितिमा यदी कुनै साँवा/ब्याज बाँकी रहन गएमा उक्त रकम समेत अन्तिम किस्ता भुक्तानी मितिमा सम्पुर्ण
                                 बाँकी बक्यौता कर्जा साँवा  ब्याज रकम चुक्ता भुक्तान गर्नुपर्नेछ ।
@@ -371,7 +355,7 @@
                     <tr>
                         <td>१०.</td>
                         <td>
-                            <p>क. तपाईंको कर्जा वापतको ब्याज भुक्तानी अञग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट कट्टा गरिनेछ ।
+                            <p>क. तपाईंको कर्जा वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट कट्टा गरिनेछ ।
                             </p>
                             <p> ख. भुक्तानी मितिको दिन साँवा  र/वा ब्याज भुक्तानीका लागि तपाईंको खातामा पर्याप्त रकम हुनुपर्नेछ र
                                 सोही खातामा खर्च जनाई साँवा , ब्याज वा सोको किस्ता असुल गरिनेछ ।
@@ -412,7 +396,7 @@
                             घोषणा गरेमा र/वा यदि सक्षम निकायबाट ऋणीलाई विघटन (Liquidation) गर्ने प्रकृया चालेमा र/वा यदि ऋणीले फौजदारी कसुरजन्य
                             काम कारवाही गरेमा र/वा ऋणीले बैंक बिरुद्ध कुनै न्यायिक वा अर्ध न्यायिक निकायमा मुद्धा दायर गरेमा त्यसलाई बैंकले ऋणकर्जाको
                             दायित्व भुक्तानी गर्न असक्षम (Default) भएको रुपमा लिनेछ । यसरी ऋणकर्जाको दायित्व भुक्तानी गर्न असक्षम भएको अवस्थामा
-                            बैंकको लेना असुलीका लागि विना कुनै पूर्र्व सूचना तपाईंको तस्बिर सहितको ऋण चुक्ता गर्न सार्वजनिक सूचना प्रकाशन गर्ने एवं नेपाल
+                            बैंकको लेना असुलीका लागि विना कुनै पूर्ब सूचना तपाईंको तस्बिर सहितको ऋण चुक्ता गर्न सार्वजनिक सूचना प्रकाशन गर्ने एवं नेपाल
                             राष्ट्र बैंकको निर्देशन बमोजिम तपाईंको नाम कालो सूचीमा समावेश गर्ने लगायतका कानूनी कार्य गर्ने बैंकको अधिकार सुरक्षित रहनेछ ।
                             ऋणकर्जा भुक्तानी गर्न असक्षम भएमा बैंकको नियम विनियम बमोजिम हर्जाना ब्याज लाग्नेछ ।
                         </td>
@@ -443,9 +427,9 @@
                                             ब्याज रकम निर्धारीत समय आषाढ, आश्विन, पौष, चैत्र मसान्त भित्रमा वा ऋण स्विकृत पत्रमा उल्लेख
                                             भए अनुसार भुक्तानी गर्नु पर्नेछ । यदि निर्धारित मितिमा कुनै ऋणकर्जा शिर्षकमा व्याज भुक्तानी नभई विलम्ब
                                             हुन गएमा विलम्ब भएको अवधिका लागि बक्यौता व्याज रकममा जुन ऋणकर्जा शिर्षकमा बक्यौता व्याज रहेको
-                                            हो सोही ऋणकर्जामा बक्यौता अवधिमा निर्धारीत व्याजदर (आधार दर + ब्याज दर प्रिमियम) मा २ प्रतिशत
+                                            हो सोही ऋणकर्जामा बक्यौता अवधिमा निर्धारीत व्याजदर (त्रैमासिक औसत आधार दर + ब्याज दर प्रिमियम) मा २ प्रतिशत
                                             हर्जाना थप गरी वा बैंकले समय समयमा तोकेको दरले थप हर्जाना व्याज लाग्नेछ । बैंकले निर्धारण गरेको
-                                            ब्याजदर प्रिमियम (Interest Rate: Premium)  र आधार दर (Base Rate) बैंकको आधिकारिक वेब
+                                            ब्याजदर प्रिमियम (Interest Rate: Premium)  र त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) बैंकको आधिकारिक वेब
                                             साईट (Website) वा समय समयमा बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना
                                             अनुसार कायम रहने छ ।
                                         </p>
@@ -638,10 +622,10 @@
                                 घ. 	ब्याज, किस्ता तथा अन्य शुल्कहरु असुल गर्न
                                 <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
                                 <ng-template #nameDetails>
-                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && ( loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
                                     श्रीमती
                                 </span>
-                                    <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                                    <span *ngIf="loanHolderInfo?.relationMedium !== undefined && ( loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
                                   सुश्री
                                 </span>
                                 </ng-template>

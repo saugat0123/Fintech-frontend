@@ -50,21 +50,23 @@ import {CoreModule} from '../../../../@core/core.module';
         NbSpinnerModule,
         CoreModule
     ],
-  exports: [
-    AssignmentOfReceivableComponent,
-    DeedHypoOfMachineryComponent,
-    HypoOfStockComponent,
-    ManjurinamaForCompanyComponent,
-    PersonalGuaranteeJointBorrowerComponent,
-    PersonalGuaranteePersonToPersonComponent,
-    PromissoryNoteSingleBorrowerComponent,
-    TrustReceiptNepaliLimitComponent,
-    LoanDeedMultipleComponent,
-    LoanDeedSingleComponent,
-    PromissoryNoteJointComponent,
-    HomeLoanComponent,
-    AutoLoanCommercialComponent
-  ],
+    exports: [
+        AssignmentOfReceivableComponent,
+        DeedHypoOfMachineryComponent,
+        HypoOfStockComponent,
+        ManjurinamaForCompanyComponent,
+        PersonalGuaranteeJointBorrowerComponent,
+        PersonalGuaranteePersonToPersonComponent,
+        PromissoryNoteSingleBorrowerComponent,
+        TrustReceiptNepaliLimitComponent,
+        LoanDeedMultipleComponent,
+        LoanDeedSingleComponent,
+        PromissoryNoteJointComponent,
+        HomeLoanComponent,
+        AutoLoanCommercialComponent,
+        HomeLoanPrintComponent,
+        AutoLoanCommercialPrintComponent
+    ],
   entryComponents: [DeedHypoOfMachineryComponent,
     HomeLoanComponent,
   ]

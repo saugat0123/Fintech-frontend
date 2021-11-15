@@ -9,13 +9,12 @@
                 <ng-option *ngFor="let landBuildingType of type" [value]="landBuildingType.value">{{landBuildingType.value}}</ng-option>
             </ng-select>
         </div>
+        <div class="col-md-12 pt-3 pl-2">
+            <nb-checkbox #limitCheck (checkedChange)="loanChecked(limitCheck.checked)" [checked]="formValue.loanLimitChecked">
+                <i>Customer has total loan amount above One Crore</i></nb-checkbox>
+        </div>
         <div class="col-md-4 mt-3" *ngIf="isLand || isBuilding">
             <b>Loan Data</b>
-            <div class="form-group">
-                <label for="referenceNumber">Reference Number</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumber" type="text" id="referenceNumber">
-            </div>
             <div class="form-group">
                 <label for="dateType">Date of Approval</label><br>
                 <nb-radio-group name="dateType" id="dateType" (valueChange)="dateOfApproval($event)" status="success"
@@ -119,6 +118,11 @@
                        formControlName="kittaNumber" type="text" id="kittaNumber">
             </div>
             <div class="form-group">
+                <label for="beneficiaryName">Account Beneficiary Name</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="beneficiaryName" type="text" id="beneficiaryName">
+            </div>
+            <div class="form-group">
                 <label for="areas">Areas</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="areas" type="text" id="areas">
@@ -152,10 +156,6 @@
         </div>
         <div class="col-md-4 mt-3" *ngIf="isLand || isBuilding">
             <b>Nepali Translation</b>
-            <div class="form-group mt-4">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumberTrans" type="text" id="referenceNumberTrans" readonly>
-            </div>
             <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="dateOfApprovalTrans" type="text" id="dateOfApprovalTrans" readonly>
@@ -247,13 +247,6 @@
         </div>
         <div class="col-md-4 mt-3" *ngIf="isLand || isBuilding">
             <b>Correct Translation</b>
-            <div class="form-group mt-4">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumberCT" type="text" id="referenceNumberCT"/>
-                <span class="text-danger" *ngIf="submitted && form.referenceNumberCT.invalid">
-                    Reference number is required
-                </span>
-            </div>
             <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="dateOfApprovalCT" type="text" id="dateOfApprovalCT"/>

@@ -13,7 +13,7 @@
                             {{letterData?.loanamountinFigure === null || letterData?.loanamountinFigure === '' ? '___________' : letterData?.loanamountinFigure}}</span>।<br>
                         (अक्षरेपी <span
                             [ngClass]="{'nepaliFont outside' : letterData?.loanamountinWords !== null && letterData?.loanamountinWords !== ''}">
-                            {{letterData?.loanamountinWords === null || letterData?.loanamountinWords === '' ? '___________' : letterData?.loanamountinWords}}</span>)
+                            {{letterData?.loanamountinWords === null || letterData?.loanamountinWords === '' ? '___________' : letterData?.loanamountinWords}}</span>मात्र)
                     </table>
                     <br>
                     <p>लिखितम् <span
@@ -44,7 +44,7 @@
 
                         (ना.प्र.नं. <span
                                 class="outside">
-                            {{letterData?.citizenshipNo === null || letterData?.citizenshipNo === '' ? '___________' : letterData?.citizenshipNo}}</span>।
+                            {{letterData?.citizenshipNo === null || letterData?.citizenshipNo === '' ? '___________' : letterData?.citizenshipNo}}</span>
                         मिति <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.dateofIssue !== null && letterData?.dateofIssue !== ''}">
                             {{letterData?.dateofIssue === null || letterData?.dateofIssue === '' ? '___________' : letterData?.dateofIssue}}</span>
@@ -171,7 +171,6 @@
                         न.पा.गा.वि.स. वडा नं <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.sakshiWardNo!== null && letterData?.sakshiWardNo!== ''}">
                             {{letterData?.sakshiWardNo === null || letterData?.sakshiWardNo === '' ? '___________' : letterData?.sakshiWardNo}}</span>
-                        ।
                         बस्ने बर्ष <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.sakshiAge!== null && letterData?.sakshiAge!== ''}">
                             {{letterData?.sakshiAge === null || letterData?.sakshiAge === '' ? '___________' : letterData?.sakshiAge}}</span>
@@ -189,7 +188,7 @@
                             {{letterData?.sakshiVdc1 === null || letterData?.sakshiVdc1 === '' ? '___________' : letterData?.sakshiVdc1}}</span>
                         न.पा.गा.वि.स. वडा नं
                         <span [ngClass]="{'nepaliFont outside' : letterData?.sakshiWardNo1!== null && letterData?.sakshiWardNo1!== ''}">
-                            {{letterData?.sakshiWardNo1 === null || letterData?.sakshiWardNo1 === '' ? '___________' : letterData?.sakshiWardNo1}}</span>।
+                            {{letterData?.sakshiWardNo1 === null || letterData?.sakshiWardNo1 === '' ? '___________' : letterData?.sakshiWardNo1}}</span>
                         बस्ने बर्ष <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.sakshiAge1!== null && letterData?.sakshiAge1!== ''}">
                             {{letterData?.sakshiAge1 === null || letterData?.sakshiAge1 === '' ? '___________' : letterData?.sakshiAge1}}</span>

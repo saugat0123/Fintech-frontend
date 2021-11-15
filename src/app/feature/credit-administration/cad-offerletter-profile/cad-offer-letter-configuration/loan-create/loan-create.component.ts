@@ -10,6 +10,9 @@ import {CadOneformService} from '../../../service/cad-oneform.service';
 import { Attributes } from '../../../../../@core/model/attributes';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {NbDialogRef, NbDialogService} from "@nebular/theme";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { CadOfferLetterConfigurationComponent } from '../cad-offer-letter-configuration.component';
 
 @Component({
   selector: 'app-loan-create',
@@ -39,6 +42,9 @@ export class LoanCreateComponent implements OnInit {
       private cadOneFormService: CadOneformService,
       private engToNepaliNumberPipe: EngToNepaliNumberPipe,
       private currencyFormatterPipe: CurrencyFormatterPipe,
+      private dialogService: NbDialogService,
+      private modalService: NgbModal,
+      protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
   ) {
   }
 
@@ -166,5 +172,22 @@ export class LoanCreateComponent implements OnInit {
         this.currencyFormatterPipe.transform(this.form.get(['loanDetails', index, 'proposedAmount']).value));
     this.form.get(['loanDetails', index, 'proposedAmountTrans']).patchValue(proposedAmount);
     this.form.get(['loanDetails', index, 'proposedAmountCT']).patchValue(proposedAmount);
+  }
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  dismiss(template){
+    this.modalService.dismissAll();
+  }
+
+  decline(template){
+    this.modalService.dismissAll();
+  }
+
+  accept(){
+    this.modalService.dismissAll();
+    this.dialogRef.close();
   }
 }

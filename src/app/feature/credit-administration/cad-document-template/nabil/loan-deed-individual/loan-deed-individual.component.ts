@@ -20,6 +20,10 @@ import { CurrencyFormatterPipe } from '../../../../../@core/pipe/currency-format
 import { NepaliNumberAndWords } from '../../../model/nepaliNumberAndWords';
 import {OfferDocument} from '../../../model/OfferDocument';
 import {utcDay} from 'd3';
+import {CustomerType} from '../../../../customer/model/customerType';
+import {CustomerSubType} from '../../../../customer/model/customerSubType';
+import {CustomerService} from '../../../../customer/service/customer.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-loan-deed-individual',
@@ -41,6 +45,14 @@ export class LoanDeedIndividualComponent implements OnInit {
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   initialInformation: any;
   expiryDate: string;
+  customerType = CustomerType;
+  clientType;
+  customerSubType = CustomerSubType;
+  spinner = false;
+  docName: any;
+  jointInfoData;
+  selectiveArr = [];
+  numberOfJointCustomer;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,10 +64,11 @@ export class LoanDeedIndividualComponent implements OnInit {
     private englishNepaliDatePipe: EngNepDatePipe,
     private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
     private currencyFormatPipe: CurrencyFormatterPipe,
+    private customerService: CustomerService,
+    public datePipe: DatePipe
   ) {}
 
-  ngOnInit() {
-    console.log('This is cad Approved doc ', this.cadData);
+  async ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadData)) {
       this.cadData.offerDocumentList.forEach((offerDocument: OfferDocument) => {
         this.initialInformation = JSON.parse(offerDocument.initialInformation);
@@ -78,12 +91,13 @@ export class LoanDeedIndividualComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.loanHolderNepData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.clientType = this.cadData.loanHolder['customerSubType'];
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
         this.offerDocumentDetails = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
     }
     this.calulation();
-    this.buildForm();
+    await this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList.length > 0)) {
       this.setLoanExpiryDate();
     }
@@ -98,10 +112,11 @@ export class LoanDeedIndividualComponent implements OnInit {
     }
   }
 
-  buildForm() {
+  async buildForm() {
     this.loanDeedIndividual = this.formBuilder.group({
       loanDeedIndividuals: this.formBuilder.array([]),
     });
+    await this.getJointInfoData();
     this.addIndividualLoandeedForm();
   }
 
@@ -122,9 +137,24 @@ export class LoanDeedIndividualComponent implements OnInit {
 
 
     let approvedDate: any;
+    this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval)) {
       // tslint:disable-next-line:max-line-length
-        approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
+      // approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
+      if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
+        // tslint:disable-next-line:max-line-length
+        approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+      } else {
+        approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
+      }
+    }
+    if (this.docName === 'Home Loan') {
+      if (this.offerDocumentDetails.loan.dateType === 'AD') {
+        approvedDate = this.offerDocumentDetails.loan.dateOfApproval ? this.offerDocumentDetails.loan.dateOfApproval : '';
+      }
+      if (this.offerDocumentDetails.loan.dateType === 'BS') {
+        approvedDate = this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate;
+      }
     }
 
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Educational Loan') {
@@ -142,6 +172,10 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Auto Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Mortage Loan') {
+      this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFeeInFigure ? this.offerDocumentDetails.loanAdminFeeInFigure.en : '';
+      this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
     }
     return this.formBuilder.group({
       branchName: [
@@ -200,14 +234,32 @@ export class LoanDeedIndividualComponent implements OnInit {
       plotNo2: [undefined],
       area2: [undefined],
       freeText: [undefined],
-      purposeOfLoan: [this.initialInformation ? this.initialInformation.purposeOfLoan.ct : undefined],
+      totalPeople: [this.numberOfJointCustomer ? this.numberOfJointCustomer : ''],
+      purposeOfLoan: [(this.initialInformation.loanPurpose) ? (this.initialInformation.loanPurpose.ct) : this.initialInformation.purposeOfLoan ? this.initialInformation.purposeOfLoan.ct : this.initialInformation.vehicleName ? (this.initialInformation.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद गर्ने') : this.offerDocumentDetails.loan.purposeOfLoanCT ? this.offerDocumentDetails.loan.purposeOfLoanCT : ('')],
+      loanDeedJoint: this.formBuilder.array([]),
     });
   }
-
   addIndividualLoandeedForm() {
+    this.numberOfJointCustomer = this.engToNepNumberPipe.transform('1');
     (this.loanDeedIndividual.get('loanDeedIndividuals') as FormArray).push(
       this.initIndividualLoandeed()
     );
+    this.addIndividualJointData();
+  }
+
+  addIndividualJointData() {
+    if (!ObjectUtil.isEmpty(this.jointInfoData)) {
+      length = this.jointInfoData.length;
+      this.jointInfoData.forEach(value => {
+        if (!ObjectUtil.isEmpty(value.nepData)) {
+          const nep = JSON.parse(value.nepData);
+          this.selectiveArr.push(nep);
+        }
+      });
+      this.numberOfJointCustomer = this.engToNepNumberPipe.transform((this.jointInfoData.length).toString());
+      this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'totalPeople']).patchValue(this.numberOfJointCustomer);
+      this.setJointDetailsArr(this.selectiveArr);
+    }
   }
 
   convertNepaliNumberAmount(value) {
@@ -311,6 +363,66 @@ export class LoanDeedIndividualComponent implements OnInit {
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.numberOfEmi.ct + ' महिना सम्म ।');
         this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.numberOfEmi.ct + ' महिना सम्म ।';
       }
+      if (docName === 'Mortage Loan') {
+        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+            .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriod.ct + ' महिना सम्म ।');
+        this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriod.ct + ' महिना सम्म ।';
+      }
+    });
+  }
+
+  async getJointInfoData() {
+    if (this.cadData.loanHolder.customerType === this.customerType.INDIVIDUAL
+        && this.clientType === this.customerSubType.JOINT.toUpperCase()) {
+      const associateId = this.cadData.loanHolder.associateId;
+      this.spinner = true;
+      await this.customerService.getJointInfoDetails(associateId).toPromise().then((res: any) => {
+        this.jointInfoData = JSON.parse(res.detail.jointInfo);
+        this.spinner = false;
+      }, error => {
+        console.log(error);
+        this.spinner = false;
+      });
+    }
+  }
+
+  setJointDetailsArr(data) {
+    const formArray = (this.loanDeedIndividual.get(['loanDeedIndividuals', 0 , 'loanDeedJoint']) as FormArray);
+    if (ObjectUtil.isEmpty(data)) {
+      return;
+    }
+    data.forEach(value => {
+      const nepData = value;
+      let age;
+      if (!ObjectUtil.isEmpty(nepData.dob) && !ObjectUtil.isEmpty(nepData.dob.en.eDate)) {
+        const calAge = AgeCalculation.calculateAge(nepData.dob.en.eDate);
+        age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(nepData.dob.en.eDate).toString());
+      } else {
+        age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(nepData.dob.en).toString());
+      }
+      let citizenshipIssuedDate;
+      if (!ObjectUtil.isEmpty(nepData.citizenshipIssueDate.en.nDate)) {
+        citizenshipIssuedDate = nepData.citizenshipIssueDate.en.nDate;
+      } else {
+        const convertedDate = this.datePipe.transform(nepData.citizenshipIssueDate.en);
+        citizenshipIssuedDate = this.englishNepaliDatePipe.transform(convertedDate, true);
+      }
+      formArray.push(this.formBuilder.group({
+        nameofGrandFatherJoint : [nepData.grandFatherName ?
+            nepData.grandFatherName.ct :
+            nepData.fatherInLawName ? nepData.fatherInLawName.ct : ''],
+        nameofFatherJoint : [ nepData.fatherName ?
+            nepData.fatherName.ct :
+            nepData.husbandName ? nepData.husbandName.ct : ''],
+        districtJoint : [nepData.permanentDistrict.ct],
+        vdcJoint : [nepData.permanentMunicipality.ct],
+        wardNoJoint : [nepData.permanentWard.np || nepData.permanentWard.ct],
+        ageJoint : [age ? age : ''],
+        nameofPersonJoint : [nepData.name.np || nepData.name.ct],
+        citizenshipNoJoint : [nepData.citizenNumber.np || nepData.citizenNumber.ct],
+        dateofIssueJoint : [citizenshipIssuedDate ? citizenshipIssuedDate : ''],
+        nameofIssuedDistrictJoint : [nepData.citizenshipIssueDistrict.en.nepaliName],
+      }));
     });
   }
 }

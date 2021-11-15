@@ -81,7 +81,7 @@
                             <p>No Content Found</p>
                         </div>
                         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                        <td>{{allList.name}}</td>
+                        <td>{{allList.name}} ({{allList.nepaliName}})</td>
                         <td>
                             <div *ngIf="allList.isFundable ; else nonFundable">Fundable</div>
                             <ng-template #nonFundable>Non-Fundable</ng-template>

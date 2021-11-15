@@ -185,7 +185,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           loanamountinWords: loanAmountWord,
           age: age ? age : '',
           totalPeople: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
-          interest: this.educationalTemplateData && this.educationalTemplateData.ct ? this.educationalTemplateData.ct : '',
+          interest: (this.educationalTemplateData && this.educationalTemplateData.ct) ? (this.educationalTemplateData.ct) : ((this.educationalTemplateData) ? (this.educationalTemplateData) : ('')),
         }
     );
   }
@@ -328,6 +328,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
         documentName = document.docName;
         this.offerLetterDocument = document;
       });
+      console.log('Document Name:', documentName);
       if (documentName === 'Educational Loan') {
         if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
@@ -346,6 +347,25 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           this.educationalTemplateData = educationalOfferData.yearlyFloatingInterestRate;
         }
       }
+      if (documentName === 'Home Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.loan.interestRateCT;
+        }
+      }
+      if (documentName === 'Mortage Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate.ct;
+        }
+      }
+      if (documentName === 'Auto Loan') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyInterestRate.ct;
+        }
+      }
+
       // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
       //     === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
       // if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {

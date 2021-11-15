@@ -1,35 +1,32 @@
 <div class="container-fluid" [nbSpinner]="spinner">
     <div [formGroup]="landBuildingForm" class="row">
-        <div class="col-md-12">
-            <label for="type" class="font-weight-bold">Chose Type</label>
+        <div class="col-md-10" style="margin-left: 10px">
+            <label for="type" class="font-weight-bold">Security Type</label>
             <ng-select (change)="landBuildingType($event)"
                        [multiple]="false"
                        id="type"
                        formControlName="landBuildingType"
-                       placeholder="Select Home Loan Type">
+                       placeholder="Select Security Type">
                 <ng-option *ngFor="let landBuildingType of type" [value]="landBuildingType.value">{{landBuildingType.value}}</ng-option>
             </ng-select>
         </div>
-        <div class="col-md-12 pt-3 pl-2">
+        <div class="col-md-12 pt-3 pl-2" style="margin-left: 20px">
             <nb-checkbox #limitCheck (checkedChange)="loanChecked(limitCheck.checked)" [checked]="loanLimit">
                 <i>Customer has total loan amount above One Crore</i></nb-checkbox>
         </div>
         <div class="col-md-4 mt-3" *ngIf="isLand || isBuilding">
             <b>Loan Data</b>
             <div class="form-group">
-                <label for="referenceNumber">Reference Number</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumber" type="text" id="referenceNumber">
-            </div>
-            <div class="form-group">
                 <label for="dateType">Date of Approval</label><br>
                 <nb-radio-group name="dateType" id="dateType" (valueChange)="dateOfApproval($event)" status="success"
                                 formControlName="dateType" class="d-inline-flex">
                     <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                 </nb-radio-group>
-                <nepali-patro *ngIf="BSApproval" formControlName="nepaliDateOfApproval" [responseType]="2"
-                              [displayNepali]="true">
-                </nepali-patro>
+                <div *ngIf="BSApproval" style="margin-bottom: -50px;">
+                    <nepali-patro *ngIf="BSApproval" formControlName="nepaliDateOfApproval" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                </div>
                 <input *ngIf="ADApproval" nbInput fullWidth status="success" shape="semi-round"
                        [nbDatepicker]="approvalDate"
                        placeholder="Select Date"
@@ -42,9 +39,11 @@
                                 formControlName="applicationDateType" class="d-inline-flex">
                     <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                 </nb-radio-group>
-                <nepali-patro *ngIf="BSApplication" formControlName="nepaliDateOfApplication" [responseType]="2"
-                              [displayNepali]="true">
-                </nepali-patro>
+                <div *ngIf="BSApplication" style="margin-bottom: -50px;">
+                    <nepali-patro *ngIf="BSApplication" formControlName="nepaliDateOfApplication" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                </div>
                 <input *ngIf="ADApplication" nbInput fullWidth status="success" shape="semi-round"
                        [nbDatepicker]="approvalDate"
                        placeholder="Select Date"
@@ -124,7 +123,7 @@
                        formControlName="kittaNumber" type="text" id="kittaNumber">
             </div>
             <div class="form-group">
-                <label for="beneficiaryName">Beneficiary Name</label>
+                <label for="beneficiaryName">Account Beneficiary Name</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="beneficiaryName" type="text" id="beneficiaryName">
             </div>
@@ -162,10 +161,6 @@
         </div>
         <div class="col-md-4 mt-3" *ngIf="isLand || isBuilding">
             <b>Nepali Translation</b>
-            <div class="form-group mt-4">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumberTrans" type="text" id="referenceNumberTrans" readonly>
-            </div>
             <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="dateOfApprovalTrans" type="text" id="dateOfApprovalTrans" readonly>
@@ -261,13 +256,6 @@
         </div>
         <div class="col-md-4 mt-3" *ngIf="isLand || isBuilding">
             <b>Correct Translation</b>
-            <div class="form-group mt-4">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumberCT" type="text" id="referenceNumberCT"/>
-                <span class="text-danger" *ngIf="submitted && form.referenceNumberCT.invalid">
-                    Reference number is required
-                </span>
-            </div>
             <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="dateOfApprovalCT" type="text" id="dateOfApprovalCT"/>

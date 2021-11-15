@@ -6,6 +6,8 @@ import {NabilOfferLetterConst} from "../../../../nabil-offer-letter-const";
 import {NepaliCurrencyWordPipe} from "../../../../../../@core/pipe/nepali-currency-word.pipe";
 import {EngToNepaliNumberPipe} from "../../../../../../@core/pipe/eng-to-nepali-number.pipe";
 import {CurrencyFormatterPipe} from "../../../../../../@core/pipe/currency-formatter.pipe";
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-sme-print',
@@ -19,6 +21,7 @@ export class SmePrintComponent implements OnInit {
   @Input() autoLoanType;
   @Input() interest;
   @Input() loanLimit;
+  @Input() preview = false;
   loanHolderInfo;
   guarantorName;
   guarantorData;
@@ -35,10 +38,14 @@ export class SmePrintComponent implements OnInit {
   guarantorAmount: number = 0;
   autoRefNumber;
   autoReferenceNumber;
+  approvalDate;
+  applicationDate;
 
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
-              public currencyFormatPipe: CurrencyFormatterPipe) { }
+              public currencyFormatPipe: CurrencyFormatterPipe,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
     this.selectedInterest = this.interest;
@@ -67,6 +74,32 @@ export class SmePrintComponent implements OnInit {
     this.guarantorDetails();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
+    const dateOfApprovalType = this.letter.dateOfApprovalType ?
+        this.letter.dateOfApprovalType.en : '';
+    if (dateOfApprovalType === 'AD') {
+      const tempApprDate = this.letter.dateOfApproval ?
+          this.engNepDatePipe.transform(this.datePipe.transform(this.letter.dateOfApproval.en), true) :
+          '';
+      this.approvalDate = tempApprDate ? tempApprDate : '';
+    } else {
+      const tempApprNepali = this.letter.dateOfApprovalNepali ?
+          this.letter.dateOfApprovalNepali.en.nDate : '';
+      this.approvalDate = tempApprNepali ? tempApprNepali : '';
+    }
+
+    // For Date of application
+    const dateOfApplicationType = this.letter.dateofApplicationType ?
+        this.letter.dateofApplicationType.en : '';
+    if (dateOfApplicationType === 'AD') {
+      const tempAppDate = this.letter.dateofApplication ?
+          this.engNepDatePipe.transform(this.datePipe.transform(this.letter.dateofApplication.en), true) :
+          '';
+      this.applicationDate = tempAppDate ? tempAppDate : '';
+    } else {
+      const tempAppNep = this.letter.dateofApplicationNepali ?
+          this.letter.dateofApplicationNepali.en.nDate : '';
+      this.applicationDate = tempAppNep ? tempAppNep : '';
     }
   }
 

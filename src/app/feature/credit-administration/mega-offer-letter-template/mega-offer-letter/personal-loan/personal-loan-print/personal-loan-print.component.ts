@@ -5,6 +5,8 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-personal-loan-print',
@@ -16,6 +18,7 @@ export class PersonalLoanPrintComponent implements OnInit {
   @Input() letter: any;
   @Input() offerData;
   @Input() loanLimit;
+  @Input() preview = false;
   loanHolderInfo;
   offerLetterConst = MegaOfferLetterConst;
   customerAddress;
@@ -29,10 +32,14 @@ export class PersonalLoanPrintComponent implements OnInit {
   guarantorAmount;
   guarantorAmountNepali;
   finalName;
+  approvalDate;
+  applicationDate;
 
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
-              public currencyFormatPipe: CurrencyFormatterPipe) {
+              public currencyFormatPipe: CurrencyFormatterPipe,
+              private datePipe: DatePipe,
+              private engNepDatePipe: EngNepDatePipe) {
   }
 
   ngOnInit() {
@@ -58,7 +65,20 @@ export class PersonalLoanPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(guarantorNep.gurantedAmount)) {
       this.guarantorAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(guarantorNep.gurantedAmount.en));
     }
-    console.log('Loan Holder Information', this.loanHolderInfo);
+    const approvalType = this.letter.dateOfApprovalType ? this.letter.dateOfApprovalType.en : '';
+    if (approvalType === 'AD') {
+      const finalApprDate = this.letter.dateOfApproval ? this.datePipe.transform(this.letter.dateOfApproval.en) : '';
+      this.approvalDate = this.engNepDatePipe.transform(finalApprDate, true);
+    } else {
+      this.approvalDate = this.letter.dateOfApprovalNepali ? this.letter.dateOfApprovalNepali.en.nDate : '';
+    }
+    const applicationType = this.letter.dateofApplicationType ? this.letter.dateofApplicationType.en : '';
+    if (applicationType === 'AD') {
+      const finalAppDate = this.letter.dateofApplication ? this.datePipe.transform(this.letter.dateofApplication.en) : '';
+      this.applicationDate = this.engNepDatePipe.transform(finalAppDate, true);
+    } else {
+      this.applicationDate = this.letter.dateofApplicationNepali ? this.letter.dateofApplicationNepali.en.nDate : '';
+    }
   }
 
   guarantorDetails() {

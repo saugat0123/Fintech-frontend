@@ -21,6 +21,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   @Input() security;
   @Input() embassy;
   @Input() offerData;
+  @Input() preview = false;
   loanHolderInfo;
   offerLetterConst = NabilOfferLetterConst;
   proTermLoanSelected = false;
@@ -72,14 +73,28 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
         this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
       }
       this.branchName = this.loanHolderInfo.branch.ct;
-      if (!ObjectUtil.isEmpty(this.letter.dateOfApproval)) {
+      const dateOfApprovalType = this.letter.dateOfApprovalType ? this.letter.dateOfApprovalType.en : '';
+      if (dateOfApprovalType === 'AD') {
         this.dateOfApproval = this.dateConversion(this.letter.dateOfApproval);
+      } else {
+        this.dateOfApproval = this.letter.dateOfApprovalNepali ? this.letter.dateOfApprovalNepali.en.nDate : '';
       }
-      if (!ObjectUtil.isEmpty(this.letter.dateOfApplication)) {
+      const dateOfApplicationType = this.letter.dateOfApplicationType ? this.letter.dateOfApplicationType.en : '';
+      if (dateOfApplicationType === 'AD') {
         this.dateOfApplication = this.dateConversion(this.letter.dateOfApplication);
+      } else {
+        this.dateOfApplication = this.letter.dateOfApplicationNepali.en.nDate;
       }
-      if (!ObjectUtil.isEmpty(this.letter.dateofExpiry)) {
-        this.dateofExpiry = this.dateConversion(this.letter.dateofExpiry);
+      // if (!ObjectUtil.isEmpty(this.letter.dateofExpiry)) {
+      //   this.dateofExpiry = this.dateConversion(this.letter.dateofExpiry);
+      // }
+      if (this.selectedSecurity === 'FIXED_DEPOSIT') {
+        const dateOfExpiryType = this.letter.dateOfExpiryType ? this.letter.dateOfExpiryType.en : '';
+        if (dateOfExpiryType === 'AD') {
+          this.dateofExpiry = this.dateConversion(this.letter.dateofExpiry);
+        } else {
+          this.dateofExpiry = this.letter.dateofExpiryNepali ? this.letter.dateofExpiryNepali.en.nDate : '';
+        }
       }
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {

@@ -179,14 +179,14 @@ export class LetterOfSetOffComponent implements OnInit {
       this.setJointDetailsArr(this.selectiveArr);
     }
     this.checkOfferLetterData();
-    const tempApprDate = this.educationalTemplateData.dateOfApproval ? this.educationalTemplateData.dateOfApproval.en : '';
     let dateOfApproval;
-    if (!ObjectUtil.isEmpty(tempApprDate)) {
-      if (!ObjectUtil.isEmpty(tempApprDate.nDate)) {
-        dateOfApproval = tempApprDate.nDate;
-      } else  {
-        const tempData = this.datePipe.transform(tempApprDate);
+    if (!ObjectUtil.isEmpty(this.educationalTemplateData)) {
+      const selectedDateType = this.educationalTemplateData.dateOfApprovalType ? this.educationalTemplateData.dateOfApprovalType.en : '';
+      if (selectedDateType === 'AD') {
+        const tempData = this.datePipe.transform(this.educationalTemplateData.dateOfApproval.en);
         dateOfApproval = this.engToNepaliDate.transform(tempData, true);
+      } else {
+        dateOfApproval = this.educationalTemplateData.dateOfApprovalNepali.en.nDate;
       }
     }
     if (!ObjectUtil.isEmpty(this.initialInformation.accountNumber)) {
@@ -225,8 +225,9 @@ export class LetterOfSetOffComponent implements OnInit {
           numberOfPerson: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
           loanAmountFigure: finalAmount,
           loanAmountWord: loanAmountWord,
-          purposeOfLoan: this.educationalTemplateData.purposeOfLoan.ct ?
-              this.educationalTemplateData.purposeOfLoan.ct : this.educationalTemplateData.purposeOfLoan.np,
+          purposeOfLoan: this.educationalTemplateData ?
+              this.educationalTemplateData.purposeOfLoan ?
+                  this.educationalTemplateData.purposeOfLoan.ct : this.educationalTemplateData.purposeOfLoan.np : '',
           sanctionLetterIssuedDate: dateOfApproval ? dateOfApproval : '',
           // sanctionLetterIssuedDate: this.educationalTemplateData.sanctionLetterIssuedDate.ct ?
           //     this.educationalTemplateData.sanctionLetterIssuedDate.ct : this.educationalTemplateData.sanctionLetterIssuedDate.np,

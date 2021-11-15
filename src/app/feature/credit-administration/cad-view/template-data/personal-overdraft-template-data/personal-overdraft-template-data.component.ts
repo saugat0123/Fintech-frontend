@@ -19,6 +19,7 @@ import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-num
 import {District} from '../../../../admin/modal/district';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
 
 @Component({
   selector: 'app-personal-overdraft-template-data',
@@ -59,6 +60,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   selectedSecurityVal;
   objectTranslate;
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
+  closed = false;
 
   constructor(private formBuilder: FormBuilder,
               private dialogService: NbDialogService,
@@ -72,7 +74,10 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
               private addressService: AddressService,
               private currencyFormatterPipe: CurrencyFormatterPipe,
-  ) { }
+              protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
+              private modalService: NgbModal,
+              )
+  { }
 
   ngOnInit() {
     this.buildForm();
@@ -92,8 +97,11 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       renewalChecked: [undefined],
       // referenceNumber: [undefined],
       dateOfApproval: [undefined],
+      dateOfApprovalNepali: [undefined],
       dateofApplication: [undefined],
+      dateofApplicationNepali: [undefined],
       purposeOfLoan: [undefined],
+      drawingPower: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
       yearlyInterestRate: [undefined],
@@ -106,6 +114,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
+      dateOfApprovalType: [undefined],
+      dateofApplicationType: [undefined],
 
       // fortranslatedvalue
       selectedSecurityTransVal: [undefined],
@@ -113,8 +123,11 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       renewalCheckedTransVal: [undefined],
       // referenceNumberTransVal: [undefined, Validators.required],
       dateOfApprovalTransVal: [undefined],
+      dateOfApprovalNepaliTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
+      dateofApplicationNepaliTransVal: [undefined],
       purposeOfLoanTransVal: [undefined, Validators.required],
+      drawingPowerTransVal: [undefined],
       baseRateTransVal: [undefined],
       premiumRateTransVal: [undefined],
       yearlyInterestRateTransVal: [undefined],
@@ -127,7 +140,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined, Validators.required],
       nameofBranchManagerTransVal: [undefined, Validators.required],
-      securities: this.formBuilder.array([])
+      securities: this.formBuilder.array([]),
+      dateOfApprovalTypeTransVal: [undefined],
+      dateofApplicationTypeTransVal: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -194,6 +209,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = false;
+      this.closed = true;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -250,13 +266,15 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     console.log('Data Value:', data);
     // this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
+    this.form.get('dateOfApprovalNepaliTransVal').patchValue(this.translatedData.dateOfApprovalNepali);
     this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
+    this.form.get('dateofApplicationNepaliTransVal').patchValue(this.translatedData.dateofApplicationNepali);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     // this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
     // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
     // this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
     // this.form.get('loanadminFeeTransVal').patchValue(this.translatedData.loanadminFee);
-    this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
+    // this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
     // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
     this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
     this.form.get('dateofExpiryNepaliTransVal').patchValue(this.translatedData.dateofExpiry);
@@ -450,6 +468,24 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     const sourceResponse = await this.translateService.translateForm(this.oneForm);
     this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
     this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  dismiss(template){
+    this.modalService.dismissAll();
+  }
+
+  decline(template){
+    this.modalService.dismissAll();
+  }
+
+  accept(){
+    this.modalService.dismissAll();
+    this.dialogRefcad.close();
   }
 
 }

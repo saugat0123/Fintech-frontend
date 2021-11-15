@@ -75,7 +75,18 @@
                                     name="ward"
                                     formControlName="ward" placeholder="वार्ड" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'ward']).value}}</strong></span>
-                                बस्ने श्री
+                                बस्ने
+                                <span *ngIf="loanHolderNepData?.gender?.en === 'MALE'; else relationOfCustomer">
+                                    श्री
+                                </span>
+                                <ng-template #relationOfCustomer>
+                                    <span *ngIf="loanHolderNepData?.relationMedium && loanHolderNepData?.relationMedium?.en === '1'">
+                                        सुश्री
+                                    </span>
+                                    <span *ngIf="loanHolderNepData?.relationMedium && loanHolderNepData?.relationMedium?.en === '0'">
+                                        श्रीमती
+                                    </span>
+                                </ng-template>
                                 <input class="form-field form-control-sm d-print-none"
                                     name="borrowerName"
                                     formControlName="borrowerName" placeholder="ऋण लिनेको नाम" type="text"/>
@@ -93,7 +104,7 @@
                                     name="dateOfApproval"
                                     formControlName="dateOfApproval" placeholder="स्वीकृति जारी मिति" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'dateOfApproval']).value}}</strong></span>
-                                को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग
+                                को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैंकिङ्ग
                                 सुविधाहरु जम्मा रु.
                                 <input class="form-field form-control-sm d-print-none"
                                     name="loanAmount"
@@ -109,25 +120,25 @@
                                     placeholder="ऋण रकम"
                                     value="{{nepaliNumber.nepaliWords}}"
                                     type="text"/>
-                                    <span class="print-only"><strong>{{nepaliNumber.nepaliWords}}</strong></span>
+                                    <span class="print-only"><strong>{{nepaliNumber.nepaliWords}}</strong></span>)
                                 तथा भविष्यमा उल्लिखित
                                 ऋणसिमा समय समयमा नविकरण गरी थप प्राप्त गरेमा सो समेतको सुरक्षण वापत तपाई धनी बैंकबाट
                                 माथवर/हैसियतवाल
                                 व्यक्तिको व्यक्तिगत जमानत समेत माग भएको हुंदा उल्लिखित ऋणीले <strong>मलाई/हामीलाई</strong>
                                 जमानत वसी दिनुहोस भनी अनुरोध
-                                गरी तपाईं धनी बैंकमा उपस्थित गराएको तथा तपाई धनीु बैंकबाट समेत निज ऋणीले प्राप्त गरेको/गर्ने
-                                उल्लिखित ऋणकर्जा तथा बैंकिंग सुविधाहरु वापत धनी बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम
+                                गरी तपाईं धनी बैंकमा उपस्थित गराएको तथा तपाई धनी बैंकबाट समेत निज ऋणीले प्राप्त गरेको/गर्ने
+                                उल्लिखित ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु वापत धनी बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम
                                 व्यक्तिगत रुपमा तिर्ने बुझाउने गरी व्यक्तिगत जमानत दिन <strong>तपाईं/हरुको</strong> मंजुरी छ,छैन भनी सोधनी
                                 हुंदा सोमा <strong>मेरो/हाम्रो</strong> चित्त बुझेकोले देहायका <strong>तपसिल खण्ड क</strong> मा उल्लिखित शर्त वन्देजहरुको
                                 अधिनमा रही तपाईं धनी बैंकको पक्षमा आफ्नो राजीखुसिले यो व्यक्तिगत जमानतको लिखत <strong>गरिदिंए/दियौं</strong>
                                 । निज ऋणीले तपाईं धनी बैंकबाट यसअघि प्राप्त गरेको उपयोग गरेको तथा यस उप्रान्त प्राप्त गर्ने
-                                उपयोग गर्ने विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु वापत तपाईं धनी बैंकलाई समय सयममा किस्ता
+                                उपयोग गर्ने विभिन्न ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु वापत तपाईं धनी बैंकलाई समय सयममा किस्ता
                                 किस्तामा तिर्नु बुझाउनु पर्ने सांवा व्याज कमिसन फि शुल्क आदी नतिरी नबुझाई ऋणकर्जा सुविधा
                                 सम्वन्धि शर्त बन्देजहरु उलंघन गरेको भनी तपाईं धनी बैंकले <strong>म/हामी</strong> जमानत दिने उपर दावी लिएमा सो
                                 दावी लिएको मितिले ७ (सात) दिनभित्र <strong>म/हामी</strong> स्वयं तपाई धनी बैंकमा उपस्थित भई सोधखोज गरी सो रकम
                                 कलम चुक्ता भुक्तान <strong>गर्नेछु/छौं</strong> । सो समयभित्र चुक्ता भुक्तान नगरेमा वा तिर्न बुझाउन आलटाल गरी
                                 बांकि राखेमा वा धिङन्याई गरेमा प्रचलित कानून तथा तपाई धनी बैंकको नियमानुसार <strong>म/हामी</strong> जमानत
-                                दिनेलाई ऋणी सरह कारवाही गरी <strong>मेरो/हाम्रो</strong> घरघरानाको्र चलअचल जायजेथाबाट तपाई धनी बैंकको लेना
+                                दिनेलाई ऋणी सरह कारवाही गरी <strong>मेरो/हाम्रो</strong> घरघरानाको चलअचल जायजेथाबाट तपाई धनी बैंकको लेना
                                 रकम असूल उपर गरी लिनुहोला । पछि एकाले लिए खाएको रकम कलम <strong>मैले/हामीले</strong> तिर्नु बुझाउनु पर्ने
                                 होईन भनी कहिं कतै कुनै उजुर वाजुर गर्ने <strong>छैन/छैनौं</strong>, गरे यसै लिखतले बदर गराई लिनु होला भनी
                                 <strong>मेरो/हाम्रो</strong> मनोमान राजिखुसिले देहायका साक्षिहरुको रोहवरमा यो व्यक्तिगत जमानतको लिखतमा
@@ -143,7 +154,7 @@
                                     शर्तवन्देजहरुः
                                 </strong>
                             </p>
-                            <table class="table table-borderless" style="border-collapse: collapse">
+                            <table class="table table-borderless" style="border-collapse: collapse; line-height: 1.9">
                                 <tr>
                                     <td>
                                         १)
@@ -172,7 +183,7 @@
                                         २)
                                     </td>
                                     <td>
-                                        ऋणीले प्राप्त गरेको ऋणकर्जा तथा बैकिंग सुविधाहरु वापत धनी बैंकलाई समय समयमा
+                                        ऋणीले प्राप्त गरेको ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु वापत धनी बैंकलाई समय समयमा
                                         तिर्नु बुझाउनु पर्ने सांवा व्याज फि कमीसन आदी रकम तिर्ने बुझाउने सम्बन्धमा
                                         जमानतदिनेको दायित्व मूख्य ऋणी (Principal Debtor) सरह प्राथमीक दायित्व (Primary Liability)
                                         को रुपमा रहनेछ र सो तिर्न बुझाउन बांकि रकम कलम धनी बैंकले सोझै
@@ -272,7 +283,7 @@
                                         ११)
                                     </td>
                                     <td>
-                                        धनी बैंकबाट स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु ऋणीले आफ्नो आवश्यकत्ता
+                                        धनी बैंकबाट स्विकृत विभिन्न ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु ऋणीले आफ्नो आवश्यकत्ता
                                         अनुसार समय समयमा उपयोग गर्न, तिर्न बुझाउन, पुनः उपयोग गर्न सक्नेछ र त्यसरी तिरे
                                         बुझाएको, पुनः उपयोग गरेको वा आंशिक चुक्ता भुक्तानी गरेको आधारमा जमानत दिने आफ्नो
                                         दायित्वबाट मुक्त हुने छैन । ऋणीले सो ऋणकर्जा सुविधा वापत धनी बैंकलाई चुक्ता भुक्तान
@@ -366,6 +377,24 @@
                             <div class="col-md-12">
                                 <table class="table table-borderless">
                                     <tr>
+                                        <td colspan="2">
+                                            <div style="width: 9em;float: left;border: 1px solid black;height: 9em;margin-left: 5em">
+                                                <p style="text-align: center;margin-top:80%">दा.</p>
+                                            </div>
+                                            <div class="d-print-none" style="width: 9em;float: right;border: 1px solid black;height: 9em;margin-right:60%;">
+                                                <p style="text-align: center;margin-top:80%">बा.</p>
+                                            </div>
+                                            <div class="print-only" style="width: 9em;float: right;border: 1px solid black;height: 9em;margin-right:45%;">
+                                                <p style="text-align: center;margin-top:80%">बा.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                                हस्ताक्षर:
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>
                                             १.
                                         </td>
@@ -458,11 +487,6 @@
                                                     formControlName="guarantorTemporaryWard" placeholder="वडा नं" type="text"/>
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorTemporaryWard']).value}}</strong></span>
                                             </p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
                                             <p>
                                                 ना.प्र.नं.
                                                 <input class="form-field form-control-sm d-print-none"
@@ -498,6 +522,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            <br/>
                             <div>
                                 <p style="text-align:center">
                                     ईति सम्वत् &nbsp;&nbsp;

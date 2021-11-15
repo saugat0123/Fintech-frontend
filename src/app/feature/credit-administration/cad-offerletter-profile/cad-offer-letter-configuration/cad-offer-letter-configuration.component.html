@@ -2,11 +2,11 @@
          [nbSpinner]="spinner"
          nbSpinnerStatus="primary"
          nbSpinnerSize="giant">
-  <nb-card-header>
-    <a (click)="closeModal()" aria-label="Close" class="close cursor"
-       data-dismiss="modal">
-      <span aria-hidden="true">×</span></a>
-  </nb-card-header>
+<!--  <nb-card-header>-->
+<!--    <a (click)="closeModal()" aria-label="Close" class="close cursor"-->
+<!--       data-dismiss="modal">-->
+<!--      <span aria-hidden="true">×</span></a>-->
+<!--  </nb-card-header>-->
   <nb-card-body>
     <form [formGroup]="userConfigForm">
       <nb-tabset (changeTab)="onChangeTab($event)">
@@ -1435,7 +1435,7 @@
                     <td><label class="title">Contact No</label></td>
                     <td><input class="form-control "
                                formControlName="contactNo"
-
+                               (change)="translateJointCustomerSectionNumberField('jointCustomerDetails', 'contactNo', i, 'contactNoTrans')"
                                name="contactNo" placeholder="Contact No"
                                type="number"/>
                     </td>
@@ -1704,6 +1704,7 @@
                     <td>
                       <input class="form-control "
                              formControlName="panNo"
+                             (change)="translateJointCustomerSectionNumberField('jointCustomerDetails', 'panNo', i, 'panNoTrans')"
                              name="panNo" placeholder="PAN No" type="text"/>
                     </td>
                     <td><input class="form-control" type="text"
@@ -1739,14 +1740,14 @@
                     <td><label class="title">Province</label></td>
                     <td>
                       <select #element
-                              (change)="getJointCustomerDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'permanentProvince'])?.value?.id, $event, i)"
+                              (change)="getJointCustomerPermanentDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'permanentProvince'])?.value?.id, $event, i)"
                               [compareWith]="compareFn"
-                              class="custom-select"
+                              class="custom-select" id="jointCustomerPermanentProvince{{i}}" name="jointCustomerPermanentProvince{{i}}"
                               formControlName="permanentProvince"
                       >
                         <option [ngValue]="null" hidden>Province</option>
                         <option *ngFor="let provinceVal of provinceList"
-                                [ngValue]="provinceVal.name">
+                                [ngValue]="provinceVal">
                           {{provinceVal.name}} || {{provinceVal.nepaliName}}
                         </option>
                       </select>
@@ -1755,25 +1756,23 @@
                     <td>
                       <input class="form-control" formControlName="permanentProvinceTrans"
                              [readOnly]="!this['permanentProvinceTransCheck']"
-                             type="text"
-                             [value]="jointCustomerAddressTranslatedValue?.permanentProvince"/>
+                             type="text"/>
                     </td>
                     <td>
-                      <input class="form-control" formControlName="permanentProvinceCT" type="text"
-                             [value]="jointCustomerAddressTranslatedValue?.permanentProvince"/>
+                      <input class="form-control" formControlName="permanentProvinceCT" type="text"/>
                     </td>
                   </tr>
                   <tr>
                     <td><label class="title">District</label></td>
                     <td><select
-                        (change)="getJointCustomerMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'permanentDistrict']).value?.id, $event, i)"
+                        (change)="getJointCustomerPermanentMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'permanentDistrict']).value?.id, $event, i)"
                         [compareWith]="compareFn"
-                        class="custom-select"
+                        class="custom-select" id="jointCustomerPermanentDistrict{{i}}" name="jointCustomerPermanentDistrict{{i}}"
                         formControlName="permanentDistrict"
                     >
                       <option [ngValue]="null" hidden>District</option>
-                      <option *ngFor="let districtVal of districts"
-                              [ngValue]="districtVal.name">
+                      <option *ngFor="let districtVal of jointCustomerPermanentDistrictList[i]"
+                              [ngValue]="districtVal">
                         {{districtVal.name}} || {{districtVal.nepaliName}}
                       </option>
                     </select>
@@ -1781,12 +1780,10 @@
                     <td>
                       <input class="form-control" formControlName="permanentDistrictTrans"
                              [readOnly]="!this['permanentDistrictTransCheck']"
-                             type="text"
-                             [value]="jointCustomerAddressTranslatedValue?.permanentDistrict"/>
+                             type="text"/>
                     </td>
                     <td>
-                      <input class="form-control" formControlName="permanentDistrictCT" type="text"
-                             [value]="jointCustomerAddressTranslatedValue?.permanentDistrict"/>
+                      <input class="form-control" formControlName="permanentDistrictCT" type="text"/>
                     </td>
                   </tr>
                   <tr>
@@ -1802,11 +1799,11 @@
                                   [value]="vdcOption.values()">{{option.label}}</nb-radio>
                       </nb-radio-group>
                       <select [compareWith]="compareFn"
-                              class="custom-select"
+                              class="custom-select" id="jointCustomerPermanentMunicipality{{i}}" name="jointCustomerPermanentMunicipality{{i}}"
                               formControlName="permanentMunicipality"
 
                               name="municipality">
-                        <option *ngFor="let municipalityVal of municipalities"
+                        <option *ngFor="let municipalityVal of jointCustomerPermanentMunicipalities[i]"
                                 [ngValue]="municipalityVal">
                           {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                         </option>
@@ -1815,13 +1812,11 @@
                     <td>
                       <input class="form-control" formControlName="permanentMunicipalityTrans"
                              [readOnly]="!this['permanentMunicipalityTransCheck']"
-                             type="text"
-                             [value]="jointCustomerAddressTranslatedValue?.permanentMunicipality"/>
+                             type="text"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="permanentMunicipalityCT"
-                             type="text"
-                             [value]="jointCustomerAddressTranslatedValue?.permanentMunicipality"/>
+                             type="text"/>
                     </td>
                   </tr>
                   <tr>
@@ -1831,9 +1826,9 @@
                     <td>
                       <input class="form-control "
                              formControlName="permanentWard"
-
-                             name="permanentMunicipality" placeholder="Ward No"
-                             type="number"/>
+                             (change)="translateJointCustomerSectionNumberField('jointCustomerDetails', 'permanentWard', i, 'permanentWardTrans')"
+                             name="permanentWard" placeholder="Ward No"
+                             type="text"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="permanentWardTrans"
@@ -1869,9 +1864,9 @@
                     <td><label class="title">Province</label></td>
                     <td>
                       <select
-                          (change)="getJointCustomerDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryProvince'])?.value?.id , $event, i)"
+                          (change)="getJointCustomerTemporaryDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryProvince'])?.value?.id , $event, i)"
                           [compareWith]="compareFn"
-                          class="custom-select"
+                          class="custom-select" id="jointCustomerTemporaryProvince{{i}}" name="jointCustomerTemporaryProvince{{i}}"
                           formControlName="temporaryProvince">
                         <option [ngValue]="null" hidden>Province</option>
                         <option *ngFor="let provinceVal of tempProvinceList"
@@ -1895,13 +1890,13 @@
                     <td><label class="title">District</label></td>
                     <td>
                       <select
-                          (change)="getJointCustomerMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryDistrict'])?.value?.id, $event, i)"
+                          (change)="getJointCustomerTemporaryMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryDistrict'])?.value?.id, $event, i)"
                           [compareWith]="compareFn"
-                          class="custom-select"
+                          class="custom-select" id="jointCustomerTemporaryDistrict{{i}}" name="jointCustomerTemporaryDistrict{{i}}"
                           formControlName="temporaryDistrict"
                       >
                         <option [ngValue]="null" hidden>District</option>
-                        <option *ngFor="let districtVal of districts"
+                        <option *ngFor="let districtVal of jointCustomerTemporaryDistrictList[i]"
                                 [ngValue]="districtVal">
                           {{districtVal.name}} || {{districtVal.nepaliName}}
                         </option>
@@ -1932,9 +1927,8 @@
                       <select [compareWith]="compareFn"
                               class="custom-select"
                               formControlName="temporaryMunicipality"
-
-                              name="municipality">
-                        <option *ngFor="let municipalityVal of municipalities"
+                              id="jointCustomerTemporaryMunicipality{{i}}" name="jointCustomerTemporaryMunicipality{{i}}">
+                        <option *ngFor="let municipalityVal of jointCustomerTemporaryMunicipalities[i]"
                                 [ngValue]="municipalityVal">
                           {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                         </option>
@@ -1958,9 +1952,9 @@
                     <td>
                       <input class="form-control "
                              formControlName="temporaryWard"
-                             (input)="translateNumberInFA('temporaryWard', i)"
+                             (change)="translateJointCustomerSectionNumberField('jointCustomerDetails', 'temporaryWard', i, 'temporaryWardTrans')"
                              name="temporaryWard" placeholder="Ward No"
-                             type="number"/>
+                             type="text"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="temporaryWardTrans"
@@ -2567,6 +2561,23 @@
           <a class="float-right" nbButton (click)="saveCustomer()">
             {{hideLoan === true ? 'Save' : 'Save & Next'}}
           </a>
+          <button class="float-right" nbButton (click)="openCloseTemplate(confirm)" status="info" style="margin-right: 0.5em">
+            Close
+          </button>
+          <ng-template #confirm>
+            <div class="modal-header" style="padding-left: 90%">
+              <a (click)="dismiss(confirm)" aria-label="Close" class="close pull-right cursor">
+                <span aria-hidden="true">&times;</span>
+              </a>
+            </div>
+            <div class="modal-body" style="text-align:center; font-size: 18px">
+              Are you sure you want to close ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" (click)="decline(confirm)">No</button>
+              <button type="button" class="btn btn-primary" (click)="accept()">Yes</button>
+            </div>
+          </ng-template>
         </nb-tab>
         <nb-tab *ngIf="!hideLoan" tabId="2" tabTitle="Loan Details" [active]="activeLoanTab" [disabled]="!activeLoanTab">
           <app-loan-create [data]="responseData" *ngIf="responseData"

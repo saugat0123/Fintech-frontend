@@ -29,7 +29,7 @@
                                                         placeholder=" ऋण रकम"
                                                         type="text"/>
                                        <span class="print-only font-weight-bold">{{form.get('loanamountinWords').value ? form.get('loanamountinWords').value : "_____________________"}}</span>
-                                       )
+                                       मात्र)
                                    </td>
                                 </table>
                             </div>
@@ -129,7 +129,7 @@
                                                    placeholder=""
                                                    type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('citizenshipNo').value ? form.get('citizenshipNo').value : "________________"}}</span>
-                                । मिति <input
+                                मिति <input
                                         class="form-field disable-print form-control-sm"
                                         name="dateofIssue"
                                         formControlName="dateofIssue"
@@ -307,7 +307,7 @@
                                                   type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('totalPeople').value ? form.get('totalPeople').value : "_____________________"}}</span>
                                 जना आगे,
-                                तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग गरेका बखत तपाईलाई वा तपाईले निर्देशन दिएको
+                                तपाई श्री नविल बैंक लिमिटेडको भुक्तानी माग गरेका बखत तपाईलाई वा तपाईले निर्देशन दिएको
                                 वा अह्राएको ब्यक्ति/संस्थालाई रु.<input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
                                         class="form-field disable-print form-control-sm nepaliFont"
                                                                         name="loanamountinFigure"
@@ -343,7 +343,7 @@
 
                                 लाई
                                 <span *ngIf="cadData?.loanHolder['customerSubType'] === (customerSubType.JOINT | uppercase)">दियौं</span>
-                                <span *ngIf="cadData?.loanHolder['customerSubType'] !== (customerSubType.JOINT | uppercase)">दिएं</span> ।
+                                <span *ngIf="cadData?.loanHolder['customerSubType'] !== (customerSubType.JOINT | uppercase)">दिएँ</span> ।
                             </p>
 
                             <p class="text-center"><b>प्रतिज्ञा गर्ने व्यक्तिको</b><br>
@@ -430,7 +430,6 @@
                                        placeholder="वार्ड नं"
                                        type="text"/>
                                 <span class="print-only font-weight-bold nepaliFont">{{form.get('sakshiWardNo').value ? form.get('sakshiWardNo').value : "======================="}}</span>
-                                ।
                                 बस्ने बर्ष <input class="form-field disable-print form-control-sm nepaliFont"
                                                   name="sakshiAge"
                                                   formControlName="sakshiAge"
@@ -465,7 +464,6 @@
                                        placeholder="वार्ड नं"
                                        type="text"/>
                                 <span class="print-only font-weight-bold nepaliFont">{{form.get('sakshiWardNo').value ? form.get('sakshiWardNo').value : "======================="}}</span>
-                                ।
                                 बस्ने बर्ष <input class="form-field disable-print form-control-sm nepaliFont"
                                                   name="sakshiAge"
                                                   formControlName="sakshiAge1"

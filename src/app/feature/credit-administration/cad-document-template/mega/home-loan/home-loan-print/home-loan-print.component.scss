@@ -1,15 +1,14 @@
-.logo-container {
-  display: flex;
-  width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
-  margin: 10px 50px;
+*{
+  line-height: 1.9em;
 }
+
 .nepali {
   font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 50px;
-}table {
+}
+table {
    text-align: justify !important;
    line-height: 1.9;
  }
@@ -58,9 +57,7 @@ p{
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 70px;
 }
 @page {
   size: A4;
-  margin: 17mm 17mm 17mm 17mm;
 }
