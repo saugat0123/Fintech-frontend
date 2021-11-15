@@ -16,6 +16,7 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-mortgage-deed',
@@ -34,6 +35,7 @@ export class MortgageDeedComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  nepDataPersonal = new NepDataPersonal();
 
   constructor(private dialogRef: NbDialogRef<MortgageDeedComponent>,
               private formBuilder: FormBuilder,
@@ -71,7 +73,10 @@ export class MortgageDeedComponent implements OnInit {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        cityName: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+        jillaName: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+        wodaNum: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+        jillaName2: this.nepaliData.branchName ? this.nepaliData.branchName : '',
       });
     }
   }
