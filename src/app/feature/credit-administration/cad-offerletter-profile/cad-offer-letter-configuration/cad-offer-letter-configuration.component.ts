@@ -48,7 +48,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     clientList = Clients;
     nepDataPersonal = new NepDataPersonal();
     branchList;
-    branchMunVdc;
     province: Province = new Province();
     permanentProvinceList: Array<Province> = Array<Province>();
     temporaryProvinceList: Array<Province> = Array<Province>();
@@ -59,37 +58,39 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     temporaryDistrictList: Array<District> = Array<District>();
     temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     allDistrict: Array<District> = Array<District>();
+    nepData;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
                 private customerService: CustomerService,
                 private toastService: ToastService,
                 private engToNepNumber: EngToNepaliNumberPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
                 public datepipe: DatePipe,
                 private addressService: AddressService,
                 private branchService: BranchService,
                 protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) {
     }
 
-   ngOnInit() {
+    ngOnInit() {
         this.getProvince();
         this.getAllDistrict();
         this.branchService.getAll().subscribe((res: any) => {
             this.branchList = res.detail;
         });
 
+       this.addressService.getAllDistrict().subscribe((res: any) => {
+           this.districtList = res.detail;
+       });
+
         this.buildForm();
-        if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
-            const data = JSON.parse(this.customerInfo.nepData);
-            this.userConfigForm.patchValue(data);
-            this.setGuarantors(data.guarantorDetails);
-        }
+        this.patchAddressObject();
     }
 
     getProvince() {
         let provinces: Array<Province>;
         this.addressService.getProvince().subscribe((res: any) => {
-             provinces = res.detail;
+            provinces = res.detail;
             this.permanentProvinceList = provinces;
             this.temporaryProvinceList = provinces;
         });
@@ -170,13 +171,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             // age: [this.checkIsIndividual() ? this.ageCalculation(this.customer.dob) : undefined],
             age: [undefined],
             // tslint:disable-next-line:max-line-length
-            province: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province) ? undefined : this.customer.province.nepaliName : undefined],
+            permanentProvince: [undefined],
             // province: [undefined],
             // tslint:disable-next-line:max-line-length
-            district: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district) ? undefined : this.customer.district.nepaliName : undefined],
+            permanentDistrict: [undefined],
             // district: [undefined],
             // tslint:disable-next-line:max-line-length
-            municipalities: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities) ? undefined : this.customer.municipalities.nepaliName : undefined],
+            permanentMunicipalities: [undefined],
             // municipalities: [undefined],
             permanentMunType: [0],
             // tslint:disable-next-line:max-line-length
@@ -193,7 +194,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             temporaryDistrict: [undefined],
             // tslint:disable-next-line:max-line-length
             temporaryMunicipalities: [undefined],
-            wardNumber: [undefined],
+            permanentWard: [undefined],
             customerEmail: [undefined],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
                 Validators.max(9999999999), Validators.min(1000000000)]],
@@ -238,9 +239,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             branchDistrict: [undefined],
             branchMunVdc: [undefined],
             branchWardNo: [undefined],
-            telNo: [undefined],
-            faxNo: [undefined],
-            email: [undefined],
+            branchTelNo: [undefined],
+            branchFaxNo: [undefined],
+            branchEmail: [undefined],
         });
     }
 
@@ -280,6 +281,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             return;
         }
         this.spinner = true;
+        this.nepDataPersonal.branchName = this.userConfigForm.get('branchName').value;
+        this.nepDataPersonal.branchDistrict = this.userConfigForm.get('branchDistrict').value;
+        this.nepDataPersonal.branchMunVdc = this.userConfigForm.get('branchMunVdc').value;
+        this.nepDataPersonal.branchWardNo = this.userConfigForm.get('branchWardNo').value;
         const data = JSON.stringify(this.userConfigForm.value);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
             this.customerInfoData = res.detail;
@@ -360,7 +365,41 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
     }
 
+    patchAddressObject(): void {
+        if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
+            const data = JSON.parse(this.customerInfo.nepData);
+            this.userConfigForm.patchValue(data);
+            this.userConfigForm.get('permanentProvince').patchValue(data.permanentProvince);
+            this.getDistricts(data.permanentProvince);
+            this.userConfigForm.get('permanentDistrict').patchValue(data.permanentDistrict);
+            this.getMunicipalities(data.permanentDistrict);
+            this.userConfigForm.get('permanentMunicipalities').patchValue(data.permanentMunicipalities);
+            this.userConfigForm.get('temporaryProvince').patchValue(data.temporaryProvince);
+            this.getTemporaryDistricts(data.temporaryProvince);
+            this.userConfigForm.get('temporaryDistrict').patchValue(data.temporaryDistrict);
+            this.getTemporaryMunicipalities(data.temporaryDistrict);
+            this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
+            this.setGuarantors(data.guarantorDetails);
+        }
+    }
+
+
+
     reloadPage() {
         window.location.reload();
+    }
+
+    getBranchDetails(event) {
+        this.branchList.forEach(singleData => {
+            if (event === singleData.nepaliName) {
+                const branchWardNo = this.engToNepNumberPipe.transform(singleData.wardNumber);
+                this.userConfigForm.get('branchWardNo').patchValue(branchWardNo);
+                const branchDistrictName = singleData.district.nepaliName;
+                this.userConfigForm.get('branchDistrict').patchValue(branchDistrictName);
+                const branchMunVdcName = singleData.municipalityVdc.nepaliName;
+                this.userConfigForm.get('branchMunVdc').patchValue(branchMunVdcName);
+            }
+        }
+        );
     }
 }
