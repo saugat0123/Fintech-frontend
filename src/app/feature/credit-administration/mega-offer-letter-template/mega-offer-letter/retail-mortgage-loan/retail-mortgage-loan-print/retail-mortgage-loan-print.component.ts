@@ -37,6 +37,8 @@ export class RetailMortgageLoanPrintComponent implements OnInit {
     autoRefNum;
     approvalDate;
     applicationDate;
+    guarantorNames: Array<String> = [];
+    allguarantorNames;
 
     constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -98,6 +100,7 @@ export class RetailMortgageLoanPrintComponent implements OnInit {
                 this.letter.dateofApplicationNepali.en.nDate : '';
             this.applicationDate = tempAppNep ? tempAppNep : '';
         }
+        this.guarantorDetails();
     }
     guarantorParse(nepData, key, trans?) {
         const data = JSON.parse(nepData);
@@ -105,6 +108,32 @@ export class RetailMortgageLoanPrintComponent implements OnInit {
             return data[key].ct;
         } else {
             return data[key].en;
+        }
+    }
+
+    guarantorDetails() {
+        if (this.guarantorData.length === 1) {
+            let temp = JSON.parse(this.guarantorData[0].nepData);
+            this.finalName =  temp.guarantorName.ct;
+        } else if (this.guarantorData.length === 2) {
+            for (let i = 0; i < this.guarantorData.length; i++) {
+                let temp = JSON.parse(this.guarantorData[i].nepData);
+                this.guarantorNames.push(temp.guarantorName.ct);
+                // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+            }
+            // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+            this.allguarantorNames = this.guarantorNames.join(' र ');
+            this.finalName = this.allguarantorNames;
+        } else {
+            for (let i = 0; i < this.guarantorData.length - 1 ; i++) {
+                let temp = JSON.parse(this.guarantorData[i].nepData);
+                this.guarantorNames.push(temp.guarantorName.ct);
+                // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+            }
+            // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+            this.allguarantorNames = this.guarantorNames.join(' , ');
+            let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
+            this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
         }
     }
 }
