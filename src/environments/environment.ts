@@ -22,10 +22,10 @@ export const environment = {
   LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
   LOCAL_STORAGE_NAME: 'SBSolutionsLAS',
   enablePreAddingAccountNumber: true,
-  disableCrgAlpha: false,
-  disableCrgLambda: false,
+  disableCrgAlpha: false,//individual
+  disableCrgLambda: false,// institutional
   disableApprovalSheet: false,
-  microLoan: true,
+  microLoan: false,
   SBS_GROUP: false,
   MEGA_GROUP: true,
   versionCheckUrl: 'http://localhost:84/version.json',

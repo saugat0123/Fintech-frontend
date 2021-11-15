@@ -51,7 +51,7 @@ export class LoanActionModalComponent implements OnInit {
     isEmptyUser = false;
     showUserList = true;
     ckeConfig = Editor.CK_CONFIG;
-
+    spinner = false;
     // selectedRoleForSol:Role = undefined;
 
     constructor(
@@ -72,14 +72,13 @@ export class LoanActionModalComponent implements OnInit {
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
-        console.log('loan holder', this.customerLoanHolder);
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
-            console.log('loan holder hsov', this.customerLoanHolder.isHSOV);
             this.isHSOVChecked(this.customerLoanHolder.isHSOV);
         }
     }
 
     public getUserList(role) {
+        this.spinner = true;
         this.isEmptyUser = false;
         this.showUserList = true;
         this.roleService.detail(role.id).subscribe((res: any) => {
@@ -112,6 +111,7 @@ export class LoanActionModalComponent implements OnInit {
                     this.formAction.get('toUser').setValidators(Validators.required);
                     this.formAction.updateValueAndValidity();
                 }
+                this.spinner = false;
             });
         });
     }

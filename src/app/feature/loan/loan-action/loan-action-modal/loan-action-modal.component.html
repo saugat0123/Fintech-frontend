@@ -1,4 +1,4 @@
-<nb-card class="col-md-6" ngDraggable [ngResizable]="true">
+<nb-card class="col-md-6" ngDraggable [ngResizable]="true" [nbSpinner]="spinner" nbSpinnerSize="giant" >
         <nb-card-header>
             <strong>{{popUpTitle}}</strong>
             <button (click)="nbDialogRef.close()" aria-label="Close"
