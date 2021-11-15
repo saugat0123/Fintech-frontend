@@ -361,6 +361,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     setGuarantors(guarantorDetails: any) {
+      console.log('guarantorDetails: ', guarantorDetails);
         const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
         if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
@@ -396,8 +397,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 guarantorTemporaryWard: [value.guarantorTemporaryWard]
             }));
         });
+        console.log('guarantor address: ', this.userConfigForm.get('guarantorDetails').value);
     }
-  getGuarantorDistricts(province: Province) {
+  getGuarantorDistricts(province) {
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.guarantorPermanentDistrictList = response.detail;
@@ -406,21 +408,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     );
   }
 
-  getGuarantorMunicipalities(district: District) {
+  getGuarantorMunicipalities(district) {
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
+          console.log('this.guarantorList: ', this.guarantorList);
           this.guarantorPerMunicipalitiesList = response.detail;
           this.guarantorPerMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
           this.guarantorPerMunicipalitiesList.forEach(municipality => {
-            if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
-              this.userConfigForm.controls.municipalities.setValue(municipality);
+            if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalities === municipality)) && municipality.id === this.guarantorList.filter(value => value.municipalities === municipality)[0].id) {
+              this.userConfigForm.controls.guarantorPerMunicipalitiesList.setValue(municipality);
             }
           });
         }
     );
   }
 
-  getGuarantorTemporaryDistricts(province: Province) {
+  getGuarantorTemporaryDistricts(province) {
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.guarantorTemporaryDistrictList = response.detail;
@@ -429,7 +432,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     );
   }
 
-  getGuarantorTemporaryMunicipalities(district: District) {
+  getGuarantorTemporaryMunicipalities(district) {
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
           this.guarantorTemMunicipalitiesList = response.detail;
@@ -437,13 +440,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.guarantorTemMunicipalitiesList.forEach(municipality => {
             if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
                 municipality.id === this.customer.temporaryMunicipalities.id) {
-              this.userConfigForm.controls.temporaryMunicipalities.setValue(municipality);
+              this.userConfigForm.controls.guarantorTemMunicipalitiesList.setValue(municipality);
             }
           });
         }
     );
 
   }
+  compareFn(c1: any, c2: any): boolean { return c1 && c2 ? c1.id === c2.id : c1 === c2; }
     reloadPage() {
         window.location.reload();
     }
