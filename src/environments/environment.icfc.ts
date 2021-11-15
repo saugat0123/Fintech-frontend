@@ -14,5 +14,6 @@ export const environment = {
     SBS_GROUP: false,
     MEGA_GROUP: true,
     summaryType: SummaryType.ALPHA,
-    versionCheckUrl: 'http://localhost:84/version.json'
+    versionCheckUrl: 'http://localhost:84/version.json',
+    autoReload: true
 };
