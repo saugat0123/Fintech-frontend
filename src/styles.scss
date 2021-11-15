@@ -180,21 +180,9 @@ button {
   }
 }
 
-@page {
-  margin-top: 200px !important;
-    margin-bottom: 100px !important;
-    margin-right: 100px !important;
-    margin-left: 100px !important;
-    padding-top: 20px !important;
-    padding-bottom: 20px !important;
-}
-
 @media print {
   @page {
-    margin-top: 200px !important;
-    margin-bottom: 100px !important;
-    margin-right: 100px !important;
-    margin-left: 100px !important;
+    margin: 200px 100px 100px !important;
     padding-top: 20px !important;
     padding-bottom: 20px !important;
   }
