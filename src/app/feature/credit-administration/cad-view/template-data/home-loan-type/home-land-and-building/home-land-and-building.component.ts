@@ -17,6 +17,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter();
   @Input() submitted;
   @Input() spinner;
+  @Input() isTakeOver: boolean;
   landBuildingForm: FormGroup;
   translateFormGroup: FormGroup;
   isLand = false;
@@ -63,6 +64,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       baseRate: [undefined],
       premiumRate: [undefined],
       interestRate: [undefined],
+      nameOfBank: [undefined],
       loanAdminFeeInFigure: [undefined],
       loanAdminFeeInWord: [undefined],
       emiInFigure: [undefined],
@@ -87,6 +89,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       baseRateTrans: [undefined],
       premiumRateTrans: [undefined],
       interestRateTrans: [undefined],
+      nameOfBankTrans: [undefined],
       beneficiaryNameTrans: [undefined],
       loanAdminFeeInFigureTrans: [undefined],
       loanAdminFeeInWordTrans: [undefined],
@@ -112,6 +115,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
       interestRateCT: [undefined, Validators.required],
+      nameOfBankCT: [undefined, Validators.required],
       beneficiaryNameCT: [undefined, Validators.required],
       loanAdminFeeInFigureCT: [undefined, Validators.required],
       loanAdminFeeInWordCT: [undefined, Validators.required],
@@ -267,6 +271,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       nameOfRelationshipOfficer: this.landBuildingForm.get('nameOfRelationshipOfficer').value,
       nameOfBranchManager: this.landBuildingForm.get('nameOfBranchManager').value,
       beneficiaryName: this.landBuildingForm.get('beneficiaryName').value,
+      nameOfBank: this.landBuildingForm.get('nameOfBank').value,
     });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
     this.landBuildingForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
@@ -283,6 +288,12 @@ export class HomeLandAndBuildingComponent implements OnInit {
     this.landBuildingForm.get('beneficiaryNameTrans').patchValue(this.translatedValue.beneficiaryName);
     this.landBuildingForm.get('loanLimitCheckedCT').patchValue(this.translatedValue.loanLimitChecked);
     this.landBuildingForm.get('loanLimitCheckedTrans').patchValue(this.translatedValue.loanLimitChecked);
+    this.landBuildingForm.get('nameOfBankTrans').patchValue(this.translatedValue.nameOfBank);
+    this.landBuildingForm.get('nameOfBankCT').patchValue(this.translatedValue.nameOfBank);
+    if (!this.isTakeOver) {
+      this.landBuildingForm.get('nameOfBankCT').clearValidators();
+      this.landBuildingForm.get('nameOfBankCT').updateValueAndValidity();
+    }
     this.spinner = false;
   }
 

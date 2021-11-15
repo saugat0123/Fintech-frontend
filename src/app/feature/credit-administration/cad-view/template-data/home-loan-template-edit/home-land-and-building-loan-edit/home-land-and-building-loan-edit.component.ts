@@ -17,6 +17,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
   @Input() submitted;
   @Input() spinner;
   @Input() formValue: any;
+  @Input() isTakeOver: boolean;
   landBuildingForm: FormGroup;
   translateFormGroup: FormGroup;
   isLand = false;
@@ -59,6 +60,12 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
 
   private setLandBuildingForm(): void {
     this.landBuildingForm.patchValue(this.formValue);
+    if (this.formValue.dateType === 'AD') {
+      this.landBuildingForm.get('dateOfApproval').patchValue(new Date(this.formValue.dateOfApproval));
+    }
+    if (this.formValue.applicationDateType === 'AD') {
+      this.landBuildingForm.get('dateOfApplication').patchValue(new Date(this.formValue.dateOfApplication));
+    }
   }
 
   private setDateOfApproval() {
@@ -86,6 +93,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       baseRate: [undefined],
       premiumRate: [undefined],
       interestRate: [undefined],
+      nameOfBank: [undefined],
       loanAdminFeeInFigure: [undefined],
       loanAdminFeeInWord: [undefined],
       emiInFigure: [undefined],
@@ -101,6 +109,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       insuranceAmountInWord: [undefined],
       nameOfRelationshipOfficer: [undefined],
       nameOfBranchManager: [undefined],
+      beneficiaryName: [undefined],
       // trans
       loanLimitCheckedTrans: [false],
       dateOfApprovalTrans: [undefined],
@@ -110,6 +119,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       baseRateTrans: [undefined],
       premiumRateTrans: [undefined],
       interestRateTrans: [undefined],
+      nameOfBankTrans: [undefined],
       loanAdminFeeInFigureTrans: [undefined],
       loanAdminFeeInWordTrans: [undefined],
       emiInFigureTrans: [undefined],
@@ -125,11 +135,13 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       insuranceAmountInWordTrans: [undefined],
       nameOfRelationshipOfficerTrans: [undefined],
       nameOfBranchManagerTrans: [undefined],
+      beneficiaryNameTrans: [undefined],
       // CT
       loanLimitCheckedCT: [false],
       dateOfApprovalCT: [undefined, Validators.required],
       dateOfApplicationCT: [undefined, Validators.required],
       purposeOfLoanCT: [undefined, Validators.required],
+      nameOfBankCT: [undefined, Validators.required],
       drawingPowerCT: [undefined, Validators.required],
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
@@ -149,6 +161,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       insuranceAmountInWordCT: [undefined, Validators.required],
       nameOfRelationshipOfficerCT: [undefined, Validators.required],
       nameOfBranchManagerCT: [undefined, Validators.required],
+      beneficiaryNameCT: [undefined, Validators.required],
     });
   }
 
@@ -286,6 +299,8 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       landLocation: this.landBuildingForm.get('landLocation').value,
       nameOfRelationshipOfficer: this.landBuildingForm.get('nameOfRelationshipOfficer').value,
       nameOfBranchManager: this.landBuildingForm.get('nameOfBranchManager').value,
+      beneficiaryName: this.landBuildingForm.get('beneficiaryName').value,
+      nameOfBank: this.landBuildingForm.get('nameOfBank').value,
     });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
     this.landBuildingForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
@@ -299,7 +314,15 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
     this.landBuildingForm.get('nameOfBranchManagerTrans').patchValue(this.translatedValue.nameOfBranchManager);
     this.landBuildingForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
     this.landBuildingForm.get('loanLimitCheckedCT').patchValue(this.translatedValue.loanLimitChecked);
+    this.landBuildingForm.get('beneficiaryNameTrans').patchValue(this.translatedValue.beneficiaryName);
+    this.landBuildingForm.get('beneficiaryNameCT').patchValue(this.translatedValue.beneficiaryName);
     this.landBuildingForm.get('loanLimitCheckedTrans').patchValue(this.translatedValue.loanLimitChecked);
+    this.landBuildingForm.get('nameOfBankTrans').patchValue(this.translatedValue.nameOfBank);
+    this.landBuildingForm.get('nameOfBankCT').patchValue(this.translatedValue.nameOfBank);
+    if (!this.isTakeOver) {
+      this.landBuildingForm.get('nameOfBankCT').clearValidators();
+      this.landBuildingForm.get('nameOfBankCT').updateValueAndValidity();
+    }
     this.eventEmitter.emit(true);
   }
 
