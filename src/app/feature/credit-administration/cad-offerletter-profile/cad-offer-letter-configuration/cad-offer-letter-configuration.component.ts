@@ -58,6 +58,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     temporaryDistrictList: Array<District> = Array<District>();
     temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     allDistrict: Array<District> = Array<District>();
+    nepData;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -71,7 +72,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) {
     }
 
-   ngOnInit() {
+    ngOnInit() {
         this.getProvince();
         this.getAllDistrict();
         this.branchService.getAll().subscribe((res: any) => {
@@ -83,17 +84,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
        });
 
         this.buildForm();
-        if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
-            const data = JSON.parse(this.customerInfo.nepData);
-            this.userConfigForm.patchValue(data);
-            this.setGuarantors(data.guarantorDetails);
-        }
+        this.patchAddressObject();
     }
 
     getProvince() {
         let provinces: Array<Province>;
         this.addressService.getProvince().subscribe((res: any) => {
-             provinces = res.detail;
+            provinces = res.detail;
             this.permanentProvinceList = provinces;
             this.temporaryProvinceList = provinces;
         });
@@ -174,13 +171,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             // age: [this.checkIsIndividual() ? this.ageCalculation(this.customer.dob) : undefined],
             age: [undefined],
             // tslint:disable-next-line:max-line-length
-            province: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province) ? undefined : this.customer.province.nepaliName : undefined],
+            permanentProvince: [undefined],
             // province: [undefined],
             // tslint:disable-next-line:max-line-length
-            district: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district) ? undefined : this.customer.district.nepaliName : undefined],
+            permanentDistrict: [undefined],
             // district: [undefined],
             // tslint:disable-next-line:max-line-length
-            municipalities: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities) ? undefined : this.customer.municipalities.nepaliName : undefined],
+            permanentMunicipalities: [undefined],
             // municipalities: [undefined],
             permanentMunType: [0],
             // tslint:disable-next-line:max-line-length
@@ -197,7 +194,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             temporaryDistrict: [undefined],
             // tslint:disable-next-line:max-line-length
             temporaryMunicipalities: [undefined],
-            wardNumber: [undefined],
+            permanentWard: [undefined],
             customerEmail: [undefined],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
                 Validators.max(9999999999), Validators.min(1000000000)]],
@@ -367,6 +364,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }));
         });
     }
+
+    patchAddressObject(): void {
+        if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
+            const data = JSON.parse(this.customerInfo.nepData);
+            this.userConfigForm.patchValue(data);
+            this.userConfigForm.get('permanentProvince').patchValue(data.permanentProvince);
+            this.getDistricts(data.permanentProvince);
+            this.userConfigForm.get('permanentDistrict').patchValue(data.permanentDistrict);
+            this.getMunicipalities(data.permanentDistrict);
+            this.userConfigForm.get('permanentMunicipalities').patchValue(data.permanentMunicipalities);
+            this.userConfigForm.get('temporaryProvince').patchValue(data.temporaryProvince);
+            this.getTemporaryDistricts(data.temporaryProvince);
+            this.userConfigForm.get('temporaryDistrict').patchValue(data.temporaryDistrict);
+            this.getTemporaryMunicipalities(data.temporaryDistrict);
+            this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
+            this.setGuarantors(data.guarantorDetails);
+        }
+    }
+
+
 
     reloadPage() {
         window.location.reload();
