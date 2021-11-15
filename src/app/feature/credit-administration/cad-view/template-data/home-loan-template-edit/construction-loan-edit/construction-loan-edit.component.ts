@@ -1,11 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
-import {DatePipe} from '@angular/common';
+import {DatePipe, TitleCasePipe} from '@angular/common';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../../@core/utils';
 
 @Component({
   selector: 'app-construction-loan-edit',
@@ -32,6 +34,8 @@ export class ConstructionLoanEditComponent implements OnInit {
               private datePipe: DatePipe,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
               private nepaliToEngNumberPipe: NepaliToEngNumberPipe,
+              private titleCasePipe: TitleCasePipe,
+              private toastService: ToastService,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
 
   get form() {
@@ -75,10 +79,10 @@ export class ConstructionLoanEditComponent implements OnInit {
       drawingPowerCT: [undefined, Validators.required],
       drawingPowerTrans: [undefined],
       loanAmountInFigure: [undefined],
-      loanAmountInFigureCT: [undefined, Validators.required],
+      loanAmountInFigureCT: [undefined],
       loanAmountInFigureTrans: [undefined],
       loanAmountInWord: [undefined],
-      loanAmountInWordCT: [undefined, Validators.required],
+      loanAmountInWordCT: [undefined],
       loanAmountInWordTrans: [undefined],
       baseRate: [undefined],
       baseRateCT: [undefined, Validators.required],
@@ -150,7 +154,7 @@ export class ConstructionLoanEditComponent implements OnInit {
       insuranceAmountInWordCT: [undefined, Validators.required],
       insuranceAmountInWordTrans: [undefined],
       freeTextRequired: [undefined],
-      freeTextRequiredCT: [undefined, Validators.required],
+      freeTextRequiredCT: [undefined],
       freeTextRequiredTrans: [undefined],
       nameOfRelationshipOfficer: [undefined],
       nameOfRelationshipOfficerCT: [undefined, Validators.required],
@@ -159,7 +163,7 @@ export class ConstructionLoanEditComponent implements OnInit {
       nameOfBranchManagerCT: [undefined, Validators.required],
       nameOfBranchManagerTrans: [undefined],
       approvalStaffName: [undefined],
-      approvalStaffNameCT: [undefined, Validators.required],
+      approvalStaffNameCT: [undefined],
       approvalStaffNameTrans: [undefined],
     });
   }
@@ -373,6 +377,14 @@ export class ConstructionLoanEditComponent implements OnInit {
 
     this.eventEmitter.emit(true);
     this.spinner = false;
+    const invalidControls = [];
+    const formControl = this.constructionLoanForm.controls;
+    for (const controlsName in formControl) {
+      if (formControl[controlsName].invalid) {
+        invalidControls.push(this.titleCasePipe.transform(controlsName).replace('ct', '').replace('trans', ''));
+      }
+    }
+    console.log('Invalid Controls', invalidControls);
   }
 
   public getNumAmountWord(numLabel, wordLabel): void {
