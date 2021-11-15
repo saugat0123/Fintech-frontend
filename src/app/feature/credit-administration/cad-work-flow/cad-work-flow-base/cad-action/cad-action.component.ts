@@ -129,7 +129,6 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.inMyBucket = true;
         }
         try {
-            console.log('this is file', this.cadOfferLetterApprovedDoc.previousList[0]);
             if (this.cadOfferLetterApprovedDoc.previousList[0].fromRole.roleType === RoleType.APPROVAL) {
                 this.cadOfferLetterApprovedDoc.previousList.splice(0, 1);
             }
@@ -147,7 +146,6 @@ export class CadActionComponent implements OnInit, OnChanges {
                 }
             });
         } catch (e) {
-            console.log('error', e);
         }
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
             this.isMaker = true;
