@@ -86,7 +86,7 @@
 
         <span class="d-flex justify-content-end">{{currentNepDate}}</span>
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body [nbSpinner]="loading" nbSpinnerSize="giant"  nbSpinnerMessage="Please Wait....">
         <section *ngIf="loanDocument && templateList">
             <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
                 <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
