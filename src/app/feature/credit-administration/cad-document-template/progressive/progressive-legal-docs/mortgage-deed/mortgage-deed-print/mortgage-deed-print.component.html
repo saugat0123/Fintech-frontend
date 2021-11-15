@@ -55,8 +55,8 @@
             <span [ngClass]="{'nepaliFont':printDocForm?.dhitoName!==null && printDocForm?.dhitoName!==''}" >
             {{printDocForm?.dhitoName===null||printDocForm?.dhitoName===''?'________________':printDocForm.dhitoName }}
           </span>
-            (जसलाई यस उप्रान्त यस लिखतमा “धितो सुरक्षणकर्ता” भनिएको) आगे <span [ngClass]="{'nepaliFont':printDocForm?.aageChreditor!==null && printDocForm.aageChreditor!==''}" >
-            {{printDocForm?.aageChreditor===null||printDocForm?.aageChreditor===''?'________________':printDocForm.aageChreditor }}
+            (जसलाई यस उप्रान्त यस लिखतमा “धितो सुरक्षणकर्ता” भनिएको) आगे <span [ngClass]="{'nepaliFont':printDocForm?.customerName!==null && printDocForm.customerName!==''}" >
+            {{printDocForm?.customerName===null||printDocForm?.customerName===''?'________________':printDocForm.customerName }}
           </span>
             (जसलाई यस उप्रान्त यस लिखतमा “ऋणी” भनिएको) को नाममा जम्मा स्वीकृत भएको स्वीकृत भई उपभोग
             गर्ने
@@ -263,12 +263,12 @@
               <th>नाम थर (Progressive Finance Ltd )<span>{{printDocForm?.creditorNameEnglish5}}</span><br>
                 (<span>{{printDocForm?.jillaName2}}</span>BRANCH)
               </th>
-              <th>दर्ता मिति : २०५१/०६/१४
+              <th>दर्ता मिति : <span class="nepaliFont">{{printDocForm?.dartaDate3}}</span>
               </th>
               <th>वित्तीय संस्थाको छाप</th>
             </tr>
             <tr>
-              <td>दर्ता नं. : ९८/०५१/०५२
+              <td>दर्ता नं. : <span class="nepaliFont">{{printDocForm?.dartaNo3}}</span>
               </td>
               <td>दर्ता गर्ने कार्यालय: कम्पनी रजिष्ट्रारको कार्यालय
               </td>
@@ -277,9 +277,9 @@
             </tr>
 
             <tr>
-              <td>स्थायी लेखादर्ता (पान) नं. : ५०००५५३०४
+              <td>स्थायी लेखादर्ता (पान) नं. : <span class="nepaliFont">{{printDocForm?.panNo}}</span>
               </td>
-              <td>दर्ता मिति: २०५७/०२/३०
+              <td>दर्ता मिति: <span class="nepaliFont">{{printDocForm?.dartaDate4}}</span>
               </td>
               <td>दर्ता गर्ने कार्यालय :- आन्तरिक राजश्व कार्यालय,
               </td>
