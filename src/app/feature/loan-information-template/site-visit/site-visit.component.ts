@@ -67,8 +67,8 @@ export class SiteVisitComponent implements OnInit {
     breakException: any;
     currentTitle = 'Current Site Visit';
     businessTitle = 'Business Site Visit';
-    docFolderName = 'currentDoc';
-    businessDocName = 'businessDoc';
+    docFolderName = 'Current_Resident_Document';
+    businessDocName = 'Business_Document';
 
     constructor(private formBuilder: FormBuilder,
                 dateService: NbDateService<Date>,
