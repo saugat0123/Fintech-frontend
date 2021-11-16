@@ -181,7 +181,7 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
       ? undefined : this.initialInformation.branchManagerName.en],
 
 
-      //For Translated Value
+      // For Translated Value
       selectedSecurityTransVal: [undefined],
       loanLimitCheckedTransVal: [undefined],
       // referenceNumberTransVal: [undefined, Validators.required],
@@ -334,7 +334,6 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
     this.form.get('loanPurposeTransVal').patchValue(this.translatedValues.loanPurpose);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedValues.relationshipOfficerName);
     this.form.get('branchManagerNameTransVal').patchValue(this.translatedValues.branchManagerName);
-    this.form.get('signatureDateTransVal').patchValue(this.translatedValues.signatureDate);
     this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
   }
@@ -533,7 +532,6 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   public setSecurityData(): void {
     const securitiesControl = this.form.get('securities') as FormArray;
     this.securities.forEach((data: Securities, index) => {
-      console.log(data.securityOwnersMunicipalityOrVdc, 'munOrVDc');
       this.loanMunicipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
       securitiesControl.push(
           this.formBuilder.group({
