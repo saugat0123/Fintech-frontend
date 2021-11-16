@@ -47,6 +47,7 @@ export class HomeLoanPrintComponent implements OnInit {
               private engNepDatePipe: EngNepDatePipe,) { }
 
   ngOnInit() {
+    console.log(this.letter);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.nepaliBranchNAme = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
       let totalLoanAmount = 0;
