@@ -236,7 +236,7 @@ export class SmeComponent implements OnInit {
       emiAmountInWords: this.tempData.emiAmountInWords.ct ? this.tempData.emiAmountInWords.ct : '',
       numberOfEmi: this.tempData.numberOfEmi.ct ? this.tempData.numberOfEmi.ct : '',
       loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
-      branchName: this.smeLoanHolderInfo.branch.ct ? this.smeLoanHolderInfo.branch.ct : '',
+      branchName: this.smeLoanHolderInfo.branch ? this.smeLoanHolderInfo.branch.ct : '',
       vendorName: this.tempData.vendorName.ct ? this.tempData.vendorName.ct : '',
       relationshipOfficerName: this.tempData.relationshipOfficerName.ct ? this.tempData.relationshipOfficerName.ct : '',
       branchManager: this.tempData.branchManager.ct ? this.tempData.branchManager.ct : '',
