@@ -384,7 +384,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 guarantorTemporaryWard: [value.guarantorTemporaryWard]
             }));
         });
-        // console.log('guarantor address: ', this.userConfigForm.get('guarantorDetails').value);
     }
   getGuarantorDistricts(province) {
     this.addressService.getDistrictByProvince(province).subscribe(
