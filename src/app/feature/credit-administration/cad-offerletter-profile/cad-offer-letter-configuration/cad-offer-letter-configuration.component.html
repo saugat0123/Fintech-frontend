@@ -997,7 +997,7 @@
                                         <label class="title" for="guarantorPermanentProvince">प्रदेश</label>
                                             <select (change)="getGuarantorDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentProvince']).value)"
                                                     [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentProvince.errors}"
-                                                    class="form-control" [compareWith]="compareFn"
+                                                    class="form-control"
                                                     id="guarantorPermanentProvince"
                                                     formControlName="guarantorPermanentProvince">
                                             <option [ngValue]="null" hidden>प्रदेश</option>
