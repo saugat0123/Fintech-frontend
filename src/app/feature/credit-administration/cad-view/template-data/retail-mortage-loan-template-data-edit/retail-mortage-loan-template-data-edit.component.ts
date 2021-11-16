@@ -532,7 +532,6 @@ export class RetailMortageLoanTemplateDataEditComponent implements OnInit {
   public setSecurityData(): void {
     const securitiesControl = this.form.get('securities') as FormArray;
     this.securities.forEach((data: Securities, index) => {
-      console.log(data.securityOwnersMunicipalityOrVdc, 'munOrVDc');
       this.loanMunicipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
       securitiesControl.push(
           this.formBuilder.group({
