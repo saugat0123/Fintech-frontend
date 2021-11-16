@@ -51,7 +51,7 @@ export class LoanActionModalComponent implements OnInit {
     isEmptyUser = false;
     showUserList = true;
     ckeConfig = Editor.CK_CONFIG;
-
+    spinner = false;
     // selectedRoleForSol:Role = undefined;
 
     constructor(
@@ -80,6 +80,7 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public getUserList(role) {
+        this.spinner = true;
         this.isEmptyUser = false;
         this.showUserList = true;
         this.roleService.detail(role.id).subscribe((res: any) => {
@@ -112,6 +113,9 @@ export class LoanActionModalComponent implements OnInit {
                     this.formAction.get('toUser').setValidators(Validators.required);
                     this.formAction.updateValueAndValidity();
                 }
+                this.spinner = false;
+            }, err => {
+                this.spinner = false;
             });
         });
     }
