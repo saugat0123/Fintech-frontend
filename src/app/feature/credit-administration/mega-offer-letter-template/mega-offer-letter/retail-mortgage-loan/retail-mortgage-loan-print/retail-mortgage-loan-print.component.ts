@@ -39,6 +39,7 @@ export class RetailMortgageLoanPrintComponent implements OnInit {
     applicationDate;
     guarantorNames: Array<String> = [];
     allguarantorNames;
+    nepaliBranchName;
 
     constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -50,6 +51,7 @@ export class RetailMortgageLoanPrintComponent implements OnInit {
         this.selectedSecurity = this.security;
         this.loanLimitVal = this.loanLimit;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.nepaliBranchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
             let totalLoanAmount = 0;
             this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
                 const val = value.proposal.proposedLimit;

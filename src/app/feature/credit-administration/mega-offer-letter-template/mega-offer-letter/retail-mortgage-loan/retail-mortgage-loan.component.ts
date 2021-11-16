@@ -57,6 +57,7 @@ export class RetailMortgageLoanComponent implements OnInit {
     guarantorNames: Array<String> = [];
     allguarantorNames;
     guarantorAmount: number = 0;
+    branchName;
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
@@ -79,6 +80,7 @@ export class RetailMortgageLoanComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
         }
