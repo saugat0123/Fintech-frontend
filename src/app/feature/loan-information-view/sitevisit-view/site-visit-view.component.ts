@@ -15,6 +15,7 @@ import {ToastService} from '../../../@core/utils';
 })
 export class SiteVisitViewComponent implements OnInit {
     @Input() siteVisit: any;
+    @Input() loanDataHolder;
     currentResidentSummary = false;
     businessSiteVisitSummary = false;
     fixedAssetCollateralSummary = false;
@@ -32,7 +33,6 @@ export class SiteVisitViewComponent implements OnInit {
     formData: any;
 
     ngOnInit() {
-        console.log('siteVisit', this.siteVisit);
         if (!ObjectUtil.isEmpty(this.siteVisit)) {
             this.formData = JSON.parse(this.siteVisit.data);
             console.log('formData', this.formData);
@@ -50,7 +50,6 @@ export class SiteVisitViewComponent implements OnInit {
                     this.currentAssetsInspectionSummary = true;
             }
             this.siteVisitDoc = JSON.parse(this.siteVisit.docPath);
-            console.log('siteVisitDoc', this.siteVisitDoc);
         }
     }
 

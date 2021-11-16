@@ -127,6 +127,7 @@
 
 <!-- Start SiteVisit Details-->
 <app-site-visit-view *ngIf="loanHolder?.siteVisit"
+                     [loanDataHolder]="loanDataHolder"
                      [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
 <!-- End SiteVisit Details-->
 

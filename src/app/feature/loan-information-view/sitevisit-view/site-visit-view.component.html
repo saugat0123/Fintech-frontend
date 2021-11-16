@@ -171,7 +171,7 @@
         <th class="sn">S.No</th>
         <th>Document Under</th>
         <th>Document Name</th>
-        <th>Preview</th>
+        <th *ngIf="loanDataHolder?.documentStatus?.toString() !== 'APPROVED'">Preview</th>
         <th>Download</th>
     </tr>
     </tbody>
@@ -180,14 +180,21 @@
         <td>{{i + 1}}</td>
         <td class="text-left pl-1">{{doc?.documentOf}}</td>
         <td class="text-left pl-1">{{doc?.name}}</td>
-        <td>
+        <td *ngIf="loanDataHolder?.documentStatus?.toString() !== 'APPROVED'">
             <i (click)="preview(doc?.path, doc?.name)"
                class="fas fa-eye"></i>
         </td>
         <td>
-            <i (click)="downloadDocument(doc?.path, doc?.name)"
-               aria-hidden="true" class="fa fa-download"
-               style="cursor: pointer"></i>
+            <ng-container *ngIf="loanDataHolder?.documentStatus?.toString() !== 'APPROVED' || !loanDataHolder?.zipPath">
+                <i (click)="downloadDocument(doc?.path, doc?.name)"
+                   aria-hidden="true" class="fa fa-download"
+                   style="cursor: pointer"></i>
+            </ng-container>
+            <ng-container *ngIf="loanDataHolder?.documentStatus?.toString() === 'APPROVED' || loanDataHolder?.zipPath">
+                <i (click)="downloadDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
+                   aria-hidden="true" class="fa fa-download"
+                   style="cursor: pointer"></i>
+            </ng-container>
         </td>
     </tr>
     </tbody>
