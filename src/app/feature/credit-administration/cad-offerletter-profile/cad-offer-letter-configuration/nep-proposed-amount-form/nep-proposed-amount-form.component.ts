@@ -72,10 +72,6 @@ export class NepProposedAmountFormComponent implements OnInit {
             nepaliNumber: [this.nepaliNumber.numberNepali],
             engNumber: [this.nepaliNumber.engNumber, Validators.required],
             initDate: [this.nepaliNumber.initDate, Validators.required],
-            branchName: [ObjectUtil.isEmpty(this.branch) ? undefined : this.branch.nepaliName, Validators.required],
-            branchDistrict: [ObjectUtil.isEmpty(this.branch) && ObjectUtil.isEmpty(this.branch.district) ? undefined : this.branch.district.nepaliName, Validators.required],
-            branchMunVdc: [ObjectUtil.isEmpty(this.branch) && ObjectUtil.isEmpty(this.branch.municipalityVdc) ? undefined : this.branch.municipalityVdc.nepaliName, Validators.required],
-            branchWardNo: [this.nepDataPersonal.branchWardNo, Validators.required],
             loanType: [this.nepDataPersonal.loanType, Validators.required],
             interestRate: [this.nepDataPersonal.interestRate, Validators.required],
             serviceFeePercent: [this.nepDataPersonal.serviceFeePercent, Validators.required],
@@ -83,8 +79,16 @@ export class NepProposedAmountFormComponent implements OnInit {
             tenureOfLoanInMonths: [this.nepDataPersonal.tenureOfLoanInMonths, Validators.required],
             tenureOfLoanInYears: [this.nepDataPersonal.tenureOfLoanInYears, Validators.required],
             installmentAmount: [this.nepDataPersonal.installmentAmount, Validators.required],
-            typeOfLoanInEnglish: [undefined],
-            purposeOfLoan: [undefined]
+            typeOfLoanInEnglish: [this.nepDataPersonal.typeOfLoanInEnglish, Validators.required],
+            purposeOfLoan: [this.nepDataPersonal.purposeOfLoan, Validators.required],
+            loanApprovalNo: [this.nepaliNumber.loanApprovalNo, Validators.required],
+            baseRate: [this.nepDataPersonal.baseRate, Validators.required],
+            premium: [this.nepDataPersonal.premium, Validators.required],
+            discount: [this.nepDataPersonal.discount, Validators.required],
+            cibCharges: [this.nepDataPersonal.cibCharges, Validators.required],
+            interestInstallmentPaymentFrequency: [this.nepDataPersonal.interestInstallmentPaymentFrequency, Validators.required],
+            loanMaturityDateBS: [this.nepDataPersonal.loanMaturityDateBS, Validators.required],
+            loanMaturityDateAD: [this.nepDataPersonal.loanMaturityDateAD, Validators.required],
         });
     }
 
@@ -116,16 +120,23 @@ export class NepProposedAmountFormComponent implements OnInit {
         }
         this.spinner = true;
         this.nepaliNumber.initDate = this.nepForm.get('initDate').value;
-        this.nepDataPersonal.branchName = this.nepForm.get('branchName').value;
-        this.nepDataPersonal.branchDistrict = this.nepForm.get('branchDistrict').value;
-        this.nepDataPersonal.branchMunVdc = this.nepForm.get('branchMunVdc').value;
-        this.nepDataPersonal.branchWardNo = this.nepForm.get('branchWardNo').value;
+        this.nepaliNumber.loanApprovalNo = this.nepForm.get('loanApprovalNo').value;
         this.nepDataPersonal.loanType = this.nepForm.get('loanType').value;
         this.nepDataPersonal.interestRate = this.nepForm.get('interestRate').value;
-        this.nepDataPersonal.serviceFee = this.nepForm.get('serviceFee').value;
+        this.nepDataPersonal.serviceFeePercent = this.nepForm.get('serviceFeePercent').value;
+        this.nepDataPersonal.serviceFeeAmount = this.nepForm.get('serviceFeeAmount').value;
         this.nepDataPersonal.tenureOfLoanInMonths = this.nepForm.get('tenureOfLoanInMonths').value;
         this.nepDataPersonal.tenureOfLoanInYears = this.nepForm.get('tenureOfLoanInYears').value;
         this.nepDataPersonal.installmentAmount = this.nepForm.get('installmentAmount').value;
+        this.nepDataPersonal.typeOfLoanInEnglish = this.nepForm.get('typeOfLoanInEnglish').value;
+        this.nepDataPersonal.purposeOfLoan = this.nepForm.get('purposeOfLoan').value;
+        this.nepDataPersonal.baseRate = this.nepForm.get('baseRate').value;
+        this.nepDataPersonal.premium = this.nepForm.get('premium').value;
+        this.nepDataPersonal.discount = this.nepForm.get('discount').value;
+        this.nepDataPersonal.cibCharges = this.nepForm.get('cibCharges').value;
+        this.nepDataPersonal.interestInstallmentPaymentFrequency = this.nepForm.get('interestInstallmentPaymentFrequency').value;
+        this.nepDataPersonal.loanMaturityDateBS = this.nepForm.get('loanMaturityDateBS').value;
+        this.nepDataPersonal.loanMaturityDateAD = this.nepForm.get('loanMaturityDateAD').value;
         this.cadData.nepData = JSON.stringify(this.nepaliNumber);
         this.cadData.nepDataPersonal = JSON.stringify(this.nepDataPersonal);
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
