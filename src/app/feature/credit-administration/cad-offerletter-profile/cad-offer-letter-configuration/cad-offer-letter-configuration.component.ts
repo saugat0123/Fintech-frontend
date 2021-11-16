@@ -23,6 +23,8 @@ import {NepDataPersonal} from '../../model/nepDataPersonal';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {BranchService} from '../../../admin/component/branch/branch.service';
 import {District} from '../../../admin/modal/district';
+import {Collateral} from '../../../loan/model/collateral';
+import {CollateralDetail} from '../../../loan/model/collateralDetail';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -35,10 +37,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Input() customerInfo: CustomerInfoData;
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() guarantorDetail: GuarantorDetail;
+    @Input() collateralDetail: CollateralDetail;
     @Input() customer: Customer;
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
     guarantorList: Array<Guarantor>;
+    collateralList: Array<Collateral>;
     userConfigForm: FormGroup;
     spinner = false;
     submitted = false;
@@ -181,6 +185,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             temporaryWard: [undefined],
             temporaryMunType: [1],
             guarantorDetails: this.formBuilder.array([]),
+            collateralDetails: this.formBuilder.array([]),
             citizenshipIssueDistrict: [undefined],
             citizenshipIssueDate: [undefined],
             companyName: [undefined],
@@ -261,10 +266,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             return;
         }
         this.spinner = true;
-        this.nepDataPersonal.branchName = this.userConfigForm.get('branchName').value;
-        this.nepDataPersonal.branchDistrict = this.userConfigForm.get('branchDistrict').value;
-        this.nepDataPersonal.branchMunVdc = this.userConfigForm.get('branchMunVdc').value;
-        this.nepDataPersonal.branchWardNo = this.userConfigForm.get('branchWardNo').value;
         const data = JSON.stringify(this.userConfigForm.value);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
             this.customerInfoData = res.detail;
@@ -299,6 +300,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         (this.userConfigForm.get('guarantorDetails') as FormArray).push(this.addGuarantorField());
     }
 
+    addCollateral() {
+        (this.userConfigForm.get('collateralDetails') as FormArray).push(this.addCollateralField());
+    }
+
     addGuarantorField() {
         return this.formBuilder.group({
             name: '',
@@ -311,8 +316,35 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
     }
 
+    addCollateralField() {
+        return this.formBuilder.group({
+            collateralName: '',
+            collateralFatherName: '',
+            collateralGrandFatherName: '',
+            collateralProvince: '',
+            collateralDistrict: '',
+            collateralMunVdc: '',
+            collateralWardNo: '',
+            collateralTemporaryProvince: '',
+            collateralTemporaryDistrict: '',
+            collateralTemporaryMunVdc: '',
+            collateralTemporaryWardNo: '',
+            plotNo: '',
+            areaOfCollateral: '',
+            seatNo: '',
+            valuationDate: '',
+            valuatorName: '',
+            fairMarketValue: '',
+            distressValue: '',
+        });
+    }
+
     removeAtIndex(i: any) {
         (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+    }
+
+    removeAtIndexCollateral(i: any) {
+        (this.userConfigForm.get('collateralDetails') as FormArray).removeAt(i);
     }
 
     onChangeTab(event) {
@@ -345,6 +377,39 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
     }
 
+    setCollaterals(collateralDetails: any) {
+        const formArray = this.userConfigForm.get('collateralDetails') as FormArray;
+        if (!ObjectUtil.isEmpty(this.customerInfo.collaterals)) {
+            if (!ObjectUtil.isEmpty(this.customerInfo.collaterals.collateralList)) {
+                const collateralList = this.customerInfo.collaterals.collateralList;
+                this.collateralList = collateralList;
+            }
+        }
+
+        collateralDetails.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                collateralName: [value.collateralName],
+                collateralFatherName: [value.collateralFatherName],
+                collateralGrandFatherName: [value.collateralGrandFatherName],
+                collateralProvince: [value.collateralProvince],
+                collateralDistrict: [value.collateralDistrict],
+                collateralMunVdc: [value.collateralMunVdc],
+                collateralWardNo: [value.collateralWardNo],
+                collateralTemporaryProvince: [value.collateralTemporaryProvince],
+                collateralTemporaryDistrict: [value.collateralTemporaryDistrict],
+                collateralTemporaryMunVdc: [value.collateralTemporaryMunVdc],
+                collateralTemporaryWardNo: [value.collateralTemporaryWardNo],
+                plotNo: [value.plotNo],
+                areaOfCollateral: [value.areaOfCollateral],
+                seatNo: [value.seatNo],
+                valuationDate: [value.valuationDate],
+                valuatorName: [value.valuatorName],
+                fairMarketValue: [value.fairMarketValue],
+                distressValue: [value.distressValue],
+            }));
+        });
+    }
+
     patchAddressObject(): void {
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -360,10 +425,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.getTemporaryMunicipalities(data.temporaryDistrict);
             this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
             this.setGuarantors(data.guarantorDetails);
+            this.setCollaterals(data.collateralDetails);
         }
     }
-
-
 
     reloadPage() {
         window.location.reload();
