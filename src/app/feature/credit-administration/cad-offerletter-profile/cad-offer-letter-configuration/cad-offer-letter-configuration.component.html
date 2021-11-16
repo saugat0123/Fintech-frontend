@@ -1017,7 +1017,7 @@
                                     <div class="form-group">
                                         <label class="title" for="guarantorPermanentDistrict">जिल्ला</label>
                                         <select (change)="getGuarantorMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict']).value)"
-                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentDistrict.errors}" [compareWith]="compareFn"
+                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentDistrict.errors}"
                                                 class="custom-select"
                                                 formControlName="guarantorPermanentDistrict"
                                                 id="guarantorPermanentDistrict">

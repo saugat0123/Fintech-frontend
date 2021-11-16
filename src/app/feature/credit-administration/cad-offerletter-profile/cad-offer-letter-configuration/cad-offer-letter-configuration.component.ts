@@ -394,7 +394,46 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
     );
   }
+    getGuarantorMunicipalities(district) {
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                console.log('this.guarantorList: ', this.guarantorList);
+                this.guarantorPerMunicipalitiesList = response.detail;
+                this.guarantorPerMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
+                this.guarantorPerMunicipalitiesList.forEach(municipality => {
+                    if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalities === municipality))
+                        && municipality.id === this.guarantorList.filter(value => value.municipalities === municipality)[0].id) {
+                        this.userConfigForm.controls.guarantorPerMunicipalitiesList.setValue(municipality);
+                    }
+                });
+            }
+        );
+    }
 
+    getGuarantorTemporaryDistricts(province) {
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.guarantorTemporaryDistrictList = response.detail;
+                this.guarantorTemporaryDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+    getGuarantorTemporaryMunicipalities(district) {
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.guarantorTemMunicipalitiesList = response.detail;
+                this.guarantorTemMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
+                this.guarantorTemMunicipalitiesList.forEach(municipality => {
+                    if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalitiesTemporary === municipality))
+                        && municipality.id === this.guarantorList.filter(value => value.municipalitiesTemporary === municipality)[0].id) {
+                        this.userConfigForm.controls.guarantorTemMunicipalitiesList.setValue(municipality);
+                    }
+                });
+            }
+        );
+
+    }
     patchAddressObject(): void {
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -410,61 +449,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get('temporaryDistrict').patchValue(data.temporaryDistrict);
             this.getTemporaryMunicipalities(data.temporaryDistrict);
             this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
-            this.userConfigForm.get('guarantorPermanentProvince').patchValue(data.guarantorPermanentProvince);
-            this.getDistricts(data.guarantorPermanentProvince);
-            this.userConfigForm.get('guarantorPermanentDistrict').patchValue(data.guarantorPermanentDistrict);
-            this.getMunicipalities(data.guarantorPermanentDistrict);
-            this.userConfigForm.get('guarantorPermanentMunicipality').patchValue(data.guarantorPermanentMunicipality);
-            this.userConfigForm.get('guarantorTemporaryProvince').patchValue(data.guarantorTemporaryProvince);
-            this.getTemporaryDistricts(data.guarantorTemporaryProvince);
-            this.userConfigForm.get('guarantorTemporaryDistrict').patchValue(data.guarantorTemporaryDistrict);
-            this.getTemporaryMunicipalities(data.guarantorTemporaryDistrict);
-            this.userConfigForm.get('guarantorTemporaryMunicipality').patchValue(data.guarantorTemporaryMunicipality);
+            this.userConfigForm.get('guarantorPermanentProvince').patchValue(data.guarantorDetails.guarantorPermanentProvince);
+            this.getGuarantorDistricts(data.guarantorDetails.guarantorPermanentProvince);
+            this.userConfigForm.get('guarantorPermanentDistrict').patchValue(data.guarantorDetails.guarantorPermanentDistrict);
+            this.getGuarantorMunicipalities(data.guarantorDetails.guarantorPermanentDistrict);
+            this.userConfigForm.get('guarantorPermanentMunicipality').patchValue(data.guarantorDetails.guarantorPermanentMunicipality);
+            this.userConfigForm.get('guarantorTemporaryProvince').patchValue(data.guarantorDetails.guarantorTemporaryProvince);
+            this.getGuarantorTemporaryDistricts(data.guarantorDetails.guarantorTemporaryProvince);
+            this.userConfigForm.get('guarantorTemporaryDistrict').patchValue(data.guarantorDetails.guarantorTemporaryDistrict);
+            this.getGuarantorTemporaryMunicipalities(data.guarantorDetails.guarantorTemporaryDistrict);
+            this.userConfigForm.get('guarantorTemporaryMunicipality').patchValue(data.guarantorDetails.guarantorTemporaryMunicipality);
         }
     }
-
-
-
-  getGuarantorMunicipalities(district) {
-    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-        (response: any) => {
-          console.log('this.guarantorList: ', this.guarantorList);
-          this.guarantorPerMunicipalitiesList = response.detail;
-          this.guarantorPerMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-          this.guarantorPerMunicipalitiesList.forEach(municipality => {
-            if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalities === municipality))
-                    && municipality.id === this.guarantorList.filter(value => value.municipalities === municipality)[0].id) {
-              this.userConfigForm.controls.guarantorPerMunicipalitiesList.setValue(municipality);
-            }
-          });
-        }
-    );
-  }
-
-  getGuarantorTemporaryDistricts(province) {
-    this.addressService.getDistrictByProvince(province).subscribe(
-        (response: any) => {
-          this.guarantorTemporaryDistrictList = response.detail;
-          this.guarantorTemporaryDistrictList.sort((a, b) => a.name.localeCompare(b.name));
-        }
-    );
-  }
-
-  getGuarantorTemporaryMunicipalities(district) {
-    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-        (response: any) => {
-          this.guarantorTemMunicipalitiesList = response.detail;
-          this.guarantorTemMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-          this.guarantorTemMunicipalitiesList.forEach(municipality => {
-                if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalitiesTemporary === municipality))
-                    && municipality.id === this.guarantorList.filter(value => value.municipalitiesTemporary === municipality)[0].id) {
-              this.userConfigForm.controls.guarantorTemMunicipalitiesList.setValue(municipality);
-            }
-          });
-        }
-    );
-
-  }
     reloadPage() {
         window.location.reload();
     }
