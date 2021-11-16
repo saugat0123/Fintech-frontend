@@ -38,6 +38,7 @@ export class HomeLoanPrintComponent implements OnInit {
   dateOfApproval;
   dateOfApplication;
   homeLoanType = HomeLoanType;
+  nepaliBranchNAme;
 
   constructor(public engToNepNumberPipe: EngToNepaliNumberPipe,
               public currencyFormatPipe: CurrencyFormatterPipe,
@@ -47,6 +48,7 @@ export class HomeLoanPrintComponent implements OnInit {
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+      this.nepaliBranchNAme = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
       let totalLoanAmount = 0;
       this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
         const val = value.proposal.proposedLimit;
