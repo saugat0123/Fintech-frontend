@@ -48,7 +48,7 @@ export class SmePrintComponent implements OnInit {
               private engNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
-    this.selectedInterest = this.interest;
+    this.selectedInterest = this.letter.selectedInterest ? this.letter.selectedInterest.en : '';
     this.loanLimitVal = this.loanLimit;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;

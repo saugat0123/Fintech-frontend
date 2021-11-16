@@ -2,7 +2,7 @@
     <nb-card [nbSpinner]="spinner"
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
-             nbSpinnerMessage="Saving Sme offer letter.....">
+             nbSpinnerMessage="Saving Auto Loan offer letter.....">
         <nb-card-header *ngIf="preview">
             <a (click)="close()" aria-label="Close" class="close cursor pull-right"
                data-dismiss="modal">
@@ -75,7 +75,7 @@
                                 </tr>
                                 <tbody>
                                 <tr>
-                                    <td>१.कर्जा प्रकार/प्रयोजनः </td>
+                                    <td> कर्जा प्रकार/प्रयोजनः </td>
                                     <td><b>सवारी साधन कर्जाः </b>
                                         <input
                                                 class="form-field form-control-sm"
@@ -265,7 +265,7 @@
                             </table>
                             <table class="table table-borderless col-md-12">
                                 <tr>
-                                    <th colspan="2"><strong><u>सुरक्षण विवरणः</u></strong></th>
+                                    <th colspan="2"><strong>१. <u>सुरक्षण विवरणः</u></strong></th>
                                 </tr>
                                 <tr>
                                     <td>
@@ -461,7 +461,11 @@
                                     </td>
                                     <td>
                                         बिमालेख(हरु) खरिद/नविकरण गर्न हाम्रो बैंकान्सुरेन्स ईकाई
-                                        (Bancassurance Unit) ललितपुरमा सम्पर्क गर्न सक्नुहुनेछ ।
+                                        (Bancassurance Unit)
+                                        <input class="form-field form-control-sm"
+                                               formControlName="branchName"
+                                               placeholder="शाखाको नाम"
+                                               type="text"/>मा सम्पर्क गर्न सक्नुहुनेछ ।
                                     </td>
                                 </tr>
                                 <tr>
@@ -477,9 +481,8 @@
                                         <input class="form-field form-control-sm"
                                                formControlName="branchName"
                                                placeholder="शाखाको नाम"
-                                               type="text"/> शाखामा खोल्नु भएको चल्ती खातामा ऋणकर्जा प्रवाह गरिनेछ र तपाईंले
-                                        निर्देश गरे बमोजिम आधिकारीक विक्रेता शाखामा खोल्नु भएको चल्ती खातामा ऋणकर्जा प्रवाह
-                                        गरिनेछ र <strong>तपाईंले निर्देश गरे बमोजिम</strong> आधिकारीक विक्रेता
+                                               type="text"/> शाखामा खोल्नु भएको चल्ती खातामा ऋणकर्जा प्रवाह गरिनेछ
+                                        र <strong>तपाईंले निर्देश गरे बमोजिम</strong> आधिकारीक विक्रेता
                                         <input class="form form-field form-control-sm"
                                                formControlName="vendorName"
                                                placeholder="विक्रेताको नाम"
@@ -852,7 +855,7 @@
                                                          placeholder=" ऋण रकम "
                                                          type="text"/> को ऋणकर्जा तमसुक ।
                                             <br>
-                                            घ. बहायर पर्चेज सम्झौता ।<br>
+                                            घ. हायर पर्चेज सम्झौता ।<br>
                                             ङ. तेश्रो पक्ष दायित्व सहित बैंकिङ शर्त सहितको सवारी साधनको विस्तृत बिमालेख ।
                                             <br>
                                             च. बैंकको नाममा सवारी साधन दर्ता (बैंकको नाममा ब्लु बुक) ।
