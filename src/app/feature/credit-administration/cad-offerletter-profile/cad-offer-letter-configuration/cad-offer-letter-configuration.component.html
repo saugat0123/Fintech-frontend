@@ -840,7 +840,7 @@
                         </div>
                     </div>
                 </nb-tab>
-                <nb-tab tabId="1" tabTitle="ग्यारेन्टर विवरण">
+                <nb-tab tabId="1" tabTitle="Guarantor Details">
                     <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
                          class="form-group" formArrayName="guarantorDetails">
                         <div [formGroupName]="i">
@@ -881,7 +881,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorIssueDate">जारी मिति</label>
+                                        <label class="title" for="guarantorIssueDate">नगरिकता जारी मिति</label>
                                         <input
                                                 class="form-control rounded nepaliFont"
                                                 formControlName="issuedYear"
@@ -895,7 +895,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
+                                        <label class="title" for="guarantorIssueDistrict">नगरिकता जारी जिल्ला</label>
                                         <input class="form-control rounded nepaliFont"
                                                formControlName="issuedPlace"
                                                id="guarantorIssueDistrict"
@@ -906,12 +906,68 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorAddress">ठेगाना</label>
+                                        <label class="title" for="guarantorMobileNumber">मोबाइल नम्बर</label>
                                         <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorLegalDocumentAddress"
-                                               id="guarantorAddress"
+                                               formControlName="guarantorMobileNumber"
+                                               id="guarantorMobileNumber"
                                                autocomplete="off"
-                                               name="name" placeholder="ठेगाना"
+                                               name="name" placeholder="मोबाइल नम्बर"
+                                                type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorEmailAddress">
+                                            इमेल</label>
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.email.errors}"
+                                               type="email"
+                                               placeholder="इमेल ठेगाना"
+                                               class="form-control rounded nepaliFont"
+                                               id="guarantorEmailAddress"
+                                               formControlName="guarantorEmailAddress"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorGrandfatherName">हजुरबुबाको नाम</label>
+                                        <input  class="form-control rounded nepaliFont"
+                                                formControlName="guarantorGrandfatherName"
+                                                id="guarantorGrandfatherName"
+                                                autocomplete="off"
+                                                name="name" placeholder="हजुरबुबाको नाम"
+                                                type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorFatherName">बुवाको नाम</label>
+                                        <input  class="form-control rounded nepaliFont"
+                                                formControlName="guarantorFatherName"
+                                                id="guarantorFatherName"
+                                                autocomplete="off"
+                                                name="name" placeholder="बुवाको नाम"
+                                                type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorFatherInLawName">ससुराको नाम</label>
+                                        <input  class="form-control rounded nepaliFont"
+                                                formControlName="guarantorFatherInLawName"
+                                                id="guarantorFatherInLawName"
+                                                autocomplete="off"
+                                                name="name" placeholder="ससुराको नाम"
+                                                type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorSpouseName">पति/पत्नीको नाम</label>
+                                        <input  class="form-control rounded nepaliFont"
+                                                formControlName="guarantorSpouseName"
+                                                id="guarantorSpouseName"
+                                                autocomplete="off"
+                                                name="name" placeholder="पति÷पत्नीको नाम"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -924,6 +980,189 @@
                                             <option *ngFor="let relationship of relationshipList"
                                                     [value]="relationship.value">{{relationship?.value}}</option>
                                         </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <strong>स्थाई ठेगाना</strong>
+                                    <div class="offset-10 col-md-2">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorPermanentProvince">प्रदेश</label>
+                                            <select (change)="getGuarantorDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentProvince']).value)"
+                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentProvince.errors}"
+                                                    class="form-control"
+                                                    id="guarantorPermanentProvince"
+                                                    formControlName="guarantorPermanentProvince">
+                                            <option [ngValue]="null" hidden>प्रदेश</option>
+                                            <option *ngFor="let provinceVal of permanentProvinceList"
+                                                    [ngValue]="provinceVal"> {{provinceVal.nepaliName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && basicInfoControls.guarantorPermanentProvince.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorPermanentProvince.errors.required">
+                                                Province is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorPermanentDistrict">जिल्ला</label>
+                                        <select (change)="getGuarantorMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict']).value)"
+                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentDistrict.errors}"
+                                                class="custom-select"
+                                                formControlName="guarantorPermanentDistrict"
+                                                id="guarantorPermanentDistrict">
+                                            <option [ngValue]="null" hidden>जिल्ला</option>
+                                            <option *ngFor="let districtVal of guarantorPermanentDistrictList"
+                                                    [ngValue]="districtVal">
+                                                {{districtVal.nepaliName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && basicInfoControls.guarantorPermanentDistrict.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorPermanentDistrict.errors.required">
+                                                District is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <select class="form-control" formControlName="guarantorPermanentMunType"
+                                                id="guarantorPermanentMunType"
+                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentMunType.errors}">
+                                            <option [ngValue]="null" hidden>नगरपालिका</option>
+                                            <option value="0">नगरपालिका</option>
+                                            <option value="1">गा. बि. स.</option>
+                                        </select>
+                                        <select
+                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentMunicipality.errors}"
+                                            class="custom-select"
+                                            formControlName="guarantorPermanentMunicipality"
+                                            id="guarantorPermanentMunicipality"
+                                            name="guarantorPermanentMunicipality">
+                                            <option [ngValue]="null" hidden>नगरपालिका</option>
+                                            <option *ngFor="let municipalityVal of guarantorPerMunicipalitiesList"
+                                                    [ngValue]="municipalityVal">
+                                                {{municipalityVal.nepaliName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && basicInfoControls.guarantorPermanentMunicipality.invalid"
+                                             class="invalid-feedback">
+                                            Municipality is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorPermanentWard">वडा नं.</label>
+                                        <input  class="form-control rounded nepaliFont"
+                                                formControlName="guarantorPermanentWard"
+                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.permanentWardNo.errors}"
+                                                id="guarantorPermanentWard"
+                                                name="guarantorPermanentWard" placeholder="वडा नं="
+                                                type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <strong>अस्थायी ठेगाना</strong>
+                                    <div class="offset-10 col-md-2">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorTemporaryProvince">प्रदेश</label>
+                                        <select (change)="getGuarantorTemporaryDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryProvince']).value)"
+                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryProvince.errors}"
+                                            class="form-control"
+                                                id="guarantorTemporaryProvince"
+                                                formControlName="guarantorTemporaryProvince">
+                                            <option [ngValue]="null" hidden>प्रदेश</option>
+                                            <option *ngFor="let provinceVal of temporaryProvinceList"
+                                                    [ngValue]="provinceVal">
+                                                {{provinceVal.nepaliName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && basicInfoControls.guarantorTemporaryProvince.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorTemporaryProvince.errors.required">
+                                                Province is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorTemporaryDistrict">जिल्ला</label>
+                                        <select (change)="getGuarantorTemporaryMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict']).value)"
+                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryDistrict.errors}"
+                                                class="custom-select"
+                                                formControlName="guarantorTemporaryDistrict"
+                                                id="guarantorTemporaryDistrict">
+                                            <option [ngValue]="null" hidden>जिल्ला</option>
+                                            <option *ngFor="let districtVal of guarantorTemporaryDistrictList"
+                                                    [ngValue]="districtVal">
+                                                {{districtVal.nepaliName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && basicInfoControls.guarantorTemporaryDistrict.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorTemporaryDistrict.errors.required">
+                                                District is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <select class="form-control" formControlName="guarantorTemporaryMunType"
+                                                id="guarantorTemporaryMunType"
+                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryMunType.errors}">
+                                            <option [ngValue]="null" hidden>नगरपालिका</option>
+                                            <option value="0">नगरपालिका</option>
+                                            <option value="1">गा. बि. स.</option>
+                                        </select>
+                                        <select
+                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryMunicipalities.errors}"
+                                            class="custom-select"
+                                            formControlName="guarantorTemporaryMunicipality"
+                                            id="guarantorTemporaryMunicipality"
+                                            name="guarantorTemporaryMunicipality">
+                                            <option [ngValue]="null" hidden>नगरपालिका</option>
+                                            <option *ngFor="let municipalityVal of guarantorTemMunicipalitiesList"
+                                                    [ngValue]="municipalityVal">
+                                                {{municipalityVal.nepaliName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && basicInfoControls.temporaryMunicipalities.invalid"
+                                             class="invalid-feedback">
+                                            Municipality is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorTemporaryWard">वडा नं.</label>
+                                        <input  class="form-control rounded nepaliFont"
+                                                formControlName="guarantorTemporaryWard"
+                                                [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryWard.errors}"
+                                                id="guarantorTemporaryWard"
+                                                name="guarantorTemporaryWard" placeholder="वडा नं="
+                                                type="text"/>
                                     </div>
                                 </div>
                             </div>
@@ -940,7 +1179,6 @@
                 </nb-tab>
                 <nb-tab tabId="2" tabTitle="Loan Details">
                     <app-nep-proposed-amount-form [cadData]="cadData" [customerInfo]="customerInfo">
-
                     </app-nep-proposed-amount-form>
                 </nb-tab>
                 <nb-tab tabId="3" tabTitle="Collateral Details">
@@ -1169,7 +1407,6 @@
                     <button class="btn tbn-sm btn-flat btn-primary" (click)="addCollateral()">Add Collateral Details</button>
                 </nb-tab>
                 <nb-tab tabId="4" tabTitle="Collateral Owner Details">
-
                 </nb-tab>
                 <nb-tab tabId="5" tabTitle="Branch Details">
                     <div class="col-md-12 row">
@@ -1225,6 +1462,8 @@
                             <label class="title" for="branchTelNo">
                                 शाखा टेलिफोन नम्बर</label>
                             <input type="text"
+                                   [ngClass]="{'is-invalid': submitted && basicInfoControls.telNo.errors}"
+                                   placeholder="टेलिफोन नम्बर"
                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.branchTelNo.errors}"
                                    placeholder="शाखा टेलिफोन नम्बर"
                                    class="form-control form-control-sm nepaliFont"
@@ -1232,6 +1471,9 @@
                                    formControlName="branchTelNo"/>
                         </div>
                         <div class="form-group col-md-4">
+                            <label class="title" for="branchFaxNo">
+                                फ्याक्स नम्बर</label>
+                            <input [ngClass]="{'is-invalid': submitted && basicInfoControls.faxNo.errors}">
                             <label class="title" for="branchFaxNo">
                                 शाखा फ्याक्स नम्बर</label>
                             <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchFaxNo.errors}"
@@ -1241,6 +1483,9 @@
                                    class="form-control form-control-sm nepaliFont" formControlName="branchFaxNo"/>
                         </div>
                         <div class="form-group col-md-4">
+                            <label class="title" for="branchEmail">
+                                इमेल</label>
+                            <input [ngClass]="{'is-invalid': submitted && basicInfoControls.email.errors}">
                             <label class="title" for="branchEmail">
                                 शाखा इमेल</label>
                             <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchEmail.errors}"
