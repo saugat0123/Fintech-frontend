@@ -740,6 +740,7 @@
 <!--                            [value]="option.value">{{option.label}}</nb-radio>-->
 <!--                </nb-radio-group>-->
                 <select required="true" class="form-control" formControlName="municipalityOrVdc"
+                        (ngModelChange)="vdcFields($event, 'isVdcSelected')"
                 >
                   <option value="null" hidden>Municipality or VDC</option>
                   <option value="Municipality">Municipality</option>
@@ -748,7 +749,7 @@
                 </select>
 
                 <select
-                        *ngIf="configForm.municipalityOrVdc.value"
+                        *ngIf="configForm.municipalityOrVdc.value && !(isVdcSelected)"
                         class="custom-select"
                     [compareWith]="compareFn"
                     [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
@@ -760,6 +761,8 @@
                     {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </option>
                 </select>
+                <input *ngIf="configForm.municipalityOrVdc.value && isVdcSelected" class="form-control"
+                       name="permanentMunicipality" formControlName="permanentMunicipality" placeholder="VDC Name" type="text"/>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="permanentMunicipalityTrans" type="text"></td>
@@ -904,6 +907,7 @@
 <!--                </ng-select>-->
 
                 <select required="true" class="form-control" formControlName="temporaryMunicipalityOrVdc"
+                        (ngModelChange)="vdcFields($event, 'isVdcTempSelected')"
                         name="temporaryMunicipalityOrVdc"
                 >
                   <option value="null" hidden>Municipality or VDC</option>
@@ -913,7 +917,7 @@
                 </select>
 
                 <select
-                        *ngIf="configForm.temporaryMunicipalityOrVdc.value"
+                        *ngIf="configForm.temporaryMunicipalityOrVdc.value && !(isVdcTempSelected)"
                         class="custom-select"
                         [compareWith]="compareFn"
                         formControlName="temporaryMunicipality"
@@ -925,6 +929,8 @@
                     {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </option>
                 </select>
+                <input *ngIf="configForm.temporaryMunicipalityOrVdc.value && isVdcTempSelected" class="form-control"
+                       name="temporaryMunicipality" formControlName="temporaryMunicipality" placeholder="VDC Name" type="text"/>
 
               </td>
               <td><input disabled readonly class="form-control"

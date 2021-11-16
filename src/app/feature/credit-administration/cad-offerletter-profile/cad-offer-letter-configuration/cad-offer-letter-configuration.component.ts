@@ -127,6 +127,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantorProvienceList = [];
     guarantorDistrict = [];
     guarantorMunicipalities = [];
+    isVdcSelected = false;
+    isVdcTempSelected = false;
 
     constructor(private formBuilder: FormBuilder,
                 private titleCasePipe: TitleCasePipe,
@@ -2177,10 +2179,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 undefined : this.userConfigForm.get('permanentDistrict').value.nepaliName,
             permanentDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrict').value) ?
                 undefined : this.userConfigForm.get('permanentDistrict').value.nepaliName,
-            permanentMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ?
-                undefined : this.userConfigForm.get('permanentMunicipality').value.nepaliName,
-            permanentMunicipalityTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ?
-                undefined : this.userConfigForm.get('permanentMunicipality').value.nepaliName,
+            permanentMunicipalityCT: this.isVdcSelected ? this.translatedValues.permanentMunicipality
+                : ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ?
+                    undefined : this.userConfigForm.get('permanentMunicipality').value.nepaliName,
+            permanentMunicipalityTrans: this.isVdcSelected ? this.translatedValues.permanentMunicipality
+            : ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ?
+                    undefined : this.userConfigForm.get('permanentMunicipality').value.nepaliName,
             temporaryProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ?
                 undefined : this.userConfigForm.get('temporaryProvince').value.nepaliName,
             temporaryProvinceTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ?
@@ -2189,10 +2193,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 undefined : this.userConfigForm.get('temporaryDistrict').value.nepaliName,
             temporaryDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ?
                 undefined : this.userConfigForm.get('temporaryDistrict').value.nepaliName,
-            temporaryMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
-                undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
-            temporaryMunicipalityTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
-                undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
+            temporaryMunicipalityCT: this.isVdcTempSelected ? this.translatedValues.temporaryMunicipality
+            : ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
+                    undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
+            temporaryMunicipalityTrans: this.isVdcTempSelected ? this.translatedValues.temporaryMunicipality
+                : ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
+                    undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
             citizenshipIssueDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ?
                 undefined : this.userConfigForm.get('citizenshipIssueDistrict').value,
             citizenshipIssueDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ?
@@ -2416,6 +2422,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     accept(){
         this.modalService.dismissAll();
         this.dialogRef.close();
+    }
+
+    vdcFields(event, flagName) {
+        if (!ObjectUtil.isEmpty(event) && event === 'VDC') {
+            this[flagName] = true;
+        } else {
+            this[flagName] = false;
+        }
     }
 
 }
