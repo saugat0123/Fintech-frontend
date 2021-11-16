@@ -48,7 +48,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     clientList = Clients;
     nepDataPersonal = new NepDataPersonal();
     branchList;
-    branchMunVdc;
     province: Province = new Province();
     permanentProvinceList: Array<Province> = Array<Province>();
     temporaryProvinceList: Array<Province> = Array<Province>();
@@ -66,6 +65,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 private customerService: CustomerService,
                 private toastService: ToastService,
                 private engToNepNumber: EngToNepaliNumberPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
                 public datepipe: DatePipe,
                 private addressService: AddressService,
                 private branchService: BranchService,
@@ -78,6 +78,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.branchService.getAll().subscribe((res: any) => {
             this.branchList = res.detail;
         });
+
+       this.addressService.getAllDistrict().subscribe((res: any) => {
+           this.districtList = res.detail;
+       });
 
         this.buildForm();
         this.patchAddressObject();
@@ -215,9 +219,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             branchDistrict: [undefined],
             branchMunVdc: [undefined],
             branchWardNo: [undefined],
-            telNo: [undefined],
-            faxNo: [undefined],
-            email: [undefined],
+            branchTelNo: [undefined],
+            branchFaxNo: [undefined],
+            branchEmail: [undefined],
         });
     }
 
@@ -257,6 +261,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             return;
         }
         this.spinner = true;
+        this.nepDataPersonal.branchName = this.userConfigForm.get('branchName').value;
+        this.nepDataPersonal.branchDistrict = this.userConfigForm.get('branchDistrict').value;
+        this.nepDataPersonal.branchMunVdc = this.userConfigForm.get('branchMunVdc').value;
+        this.nepDataPersonal.branchWardNo = this.userConfigForm.get('branchWardNo').value;
         const data = JSON.stringify(this.userConfigForm.value);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
             this.customerInfoData = res.detail;
@@ -359,5 +367,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     reloadPage() {
         window.location.reload();
+    }
+
+    getBranchDetails(event) {
+        this.branchList.forEach(singleData => {
+            if (event === singleData.nepaliName) {
+                const branchWardNo = this.engToNepNumberPipe.transform(singleData.wardNumber);
+                this.userConfigForm.get('branchWardNo').patchValue(branchWardNo);
+                const branchDistrictName = singleData.district.nepaliName;
+                this.userConfigForm.get('branchDistrict').patchValue(branchDistrictName);
+                const branchMunVdcName = singleData.municipalityVdc.nepaliName;
+                this.userConfigForm.get('branchMunVdc').patchValue(branchMunVdcName);
+            }
+        }
+        );
     }
 }
