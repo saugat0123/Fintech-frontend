@@ -403,7 +403,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 guarantorTemporaryWard: [value.guarantorTemporaryWard]
             }));
         });
-        console.log('guarantor address: ', this.userConfigForm.get('guarantorDetails').value);
+        // console.log('guarantor address: ', this.userConfigForm.get('guarantorDetails').value);
     }
   getGuarantorDistricts(province) {
     this.addressService.getDistrictByProvince(province).subscribe(
@@ -428,6 +428,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get('temporaryDistrict').patchValue(data.temporaryDistrict);
             this.getTemporaryMunicipalities(data.temporaryDistrict);
             this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
+            this.userConfigForm.get('guarantorPermanentProvince').patchValue(data.guarantorPermanentProvince);
+            this.getDistricts(data.guarantorPermanentProvince);
+            this.userConfigForm.get('guarantorPermanentDistrict').patchValue(data.guarantorPermanentDistrict);
+            this.getMunicipalities(data.guarantorPermanentDistrict);
+            this.userConfigForm.get('guarantorPermanentMunicipality').patchValue(data.guarantorPermanentMunicipality);
+            this.userConfigForm.get('guarantorTemporaryProvince').patchValue(data.guarantorTemporaryProvince);
+            this.getTemporaryDistricts(data.guarantorTemporaryProvince);
+            this.userConfigForm.get('guarantorTemporaryDistrict').patchValue(data.guarantorTemporaryDistrict);
+            this.getTemporaryMunicipalities(data.guarantorTemporaryDistrict);
+            this.userConfigForm.get('guarantorTemporaryMunicipality').patchValue(data.guarantorTemporaryMunicipality);
             this.setGuarantors(data.guarantorDetails);
         }
     }
@@ -441,7 +451,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.guarantorPerMunicipalitiesList = response.detail;
           this.guarantorPerMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
           this.guarantorPerMunicipalitiesList.forEach(municipality => {
-            if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalities === municipality)) && municipality.id === this.guarantorList.filter(value => value.municipalities === municipality)[0].id) {
+            if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalities === municipality))
+                    && municipality.id === this.guarantorList.filter(value => value.municipalities === municipality)[0].id) {
               this.userConfigForm.controls.guarantorPerMunicipalitiesList.setValue(municipality);
             }
           });
@@ -464,8 +475,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.guarantorTemMunicipalitiesList = response.detail;
           this.guarantorTemMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
           this.guarantorTemMunicipalitiesList.forEach(municipality => {
-            if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
-                municipality.id === this.customer.temporaryMunicipalities.id) {
+                if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalitiesTemporary === municipality))
+                    && municipality.id === this.guarantorList.filter(value => value.municipalitiesTemporary === municipality)[0].id) {
               this.userConfigForm.controls.guarantorTemMunicipalitiesList.setValue(municipality);
             }
           });
