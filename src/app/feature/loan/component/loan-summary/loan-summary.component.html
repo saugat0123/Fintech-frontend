@@ -864,7 +864,7 @@
                                                     [customerAllLoanList]="customerAllLoanList"
                                                     [proposalData]="proposalData"></app-proposal-justification-summary>
             </div>
-            <app-security-summary *ngIf="securitySummary && initialSecurity"
+            <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
                                   [collateralSiteVisitDetail]="collateralSiteVisitDetail"
                                   [securityId]="securityId"
@@ -873,15 +873,15 @@
                                   [collateralData]="loanDataHolder?.collateralSiteVisits"
                                   [docStatus]="loanDataHolder?.documentStatus"
                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-summary>
-            <app-security-approved-summary *ngIf="securitySummary && approvedSecurity"
-                    [formData]="approvedSecurityData" [shareSecurity]="shareSecurityData"
-                    [collateralSiteVisitDetail]="collateralSiteVisitDetail"
-                    [securityId]="securityId"
-                    [siteVisitDocuments]="siteVisitDocuments"
-                    [isCollateralSiteVisit]="isCollateralSiteVisit"
-                    [collateralData]="loanDataHolder?.collateralSiteVisits"
-                    [docStatus]="loanDataHolder?.documentStatus"
-                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-summary>
+<!--            <app-security-approved-summary *ngIf="securitySummary && approvedSecurity && loanDataHolder?.documentStatus.toString() === 'APPROVED'"-->
+<!--                    [formData]="approvedSecurityData" [shareSecurity]="shareSecurityData"-->
+<!--                    [collateralSiteVisitDetail]="collateralSiteVisitDetail"-->
+<!--                    [securityId]="securityId"-->
+<!--                    [siteVisitDocuments]="siteVisitDocuments"-->
+<!--                    [isCollateralSiteVisit]="isCollateralSiteVisit"-->
+<!--                    [collateralData]="loanDataHolder?.collateralSiteVisits"-->
+<!--                    [docStatus]="loanDataHolder?.documentStatus"-->
+<!--                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-summary>-->
 
             <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
