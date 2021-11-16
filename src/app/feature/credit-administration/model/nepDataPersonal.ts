@@ -25,4 +25,20 @@ export class NepDataPersonal {
     interestInstallmentPaymentFrequency: string;
     loanMaturityDateBS: string;
     loanMaturityDateAD: string;
+    collateralOwner: string;
+    collateralFatherName: string;
+    collateralGrandFatherName: string;
+    collateralOwnerDistrict: string;
+    collateralOwnerMunVdc: string;
+    collateralOwnerWardNo: string;
+    collateralOwnerTemporaryDistrict: string;
+    collateralOwnerTemporaryMunVdc: string;
+    collateralOwnerTemporaryWardNo: string;
+    plotNo: string;
+    areaOfCollateral: string;
+    seatNo: string;
+    valuationDate: string;
+    valuatorName: string;
+    fairMarketValue: string;
+    distressValue: string;
 }
