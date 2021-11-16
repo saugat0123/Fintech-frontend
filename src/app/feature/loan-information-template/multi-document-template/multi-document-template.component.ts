@@ -21,7 +21,6 @@ export class MultiDocumentUploadTemplateComponent implements OnInit {
     @Input() docTitle;
     @Input() docFolderName;
     @Input() heading;
-    checked = false;
     pathValueData;
     documentName: string;
     index: number;
@@ -35,7 +34,6 @@ export class MultiDocumentUploadTemplateComponent implements OnInit {
 
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.pathValue)) {
-            this.checked = true;
             this.pathValueData = (this.pathValue).toString().split(',');
         }
     }
@@ -58,7 +56,6 @@ export class MultiDocumentUploadTemplateComponent implements OnInit {
         formData.append('uploadedDoc', (this.pathValueData === undefined ? '' : this.pathValueData));
         this.customerInfoService.uploadMultipleDocument(formData).subscribe((res: any) => {
             this.docPathEmitter.emit(res.detail);
-            this.checked = true;
             this.pathValueData = res.detail;
         }, error => this.toast.show(new Alert(AlertType.WARNING, 'Please read the note to Upload the Document')));
     }
@@ -75,12 +72,11 @@ export class MultiDocumentUploadTemplateComponent implements OnInit {
         this.loanService.deleteCustomerDocFromSystem(path).subscribe((res: any) => {
             this.pathValueData.splice(index, 1);
             this.docPathEmitter.emit(this.pathValueData);
+            this.onClose();
         }, error => {
+            this.onClose();
             this.toast.show(new Alert(AlertType.WARNING, 'Unable to delete document!'));
         });
-        if (this.pathValueData.length < 1) {
-            this.checked = false;
-        }
     }
 
     onClose() {

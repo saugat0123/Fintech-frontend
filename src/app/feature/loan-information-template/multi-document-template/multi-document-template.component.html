@@ -6,9 +6,9 @@
                 <th>S.N</th>
                 <th>Document</th>
                 <th>Upload</th>
-                <th *ngIf="checked">Preview</th>
+                <th>Preview</th>
                 <th>Status</th>
-                <th *ngIf="checked">Action</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -21,28 +21,28 @@
                            name="files"
                            multiple
                            type="file" (click)="setNull.value = null"></td>
-                <td>
-                    <span *ngIf="!checked" style="color:red"><i class="fas fa-times-circle"></i></span>
-                </td>
-                <ng-container *ngIf="checked">
-                    <td></td>
-                    <td></td>
-                </ng-container>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             <ng-container>
                 <tr *ngFor="let multiPath of pathValueData; let i = index;">
-                    <td>1.{{i + 1}}</td>
-                    <td colspan="2">{{multiPath.substring(multiPath.lastIndexOf('/') + 1, multiPath.length)}}</td>
-                    <td *ngIf="checked">
+                    <td *ngIf="multiPath">
+                        1.{{i + 1}}
+                    </td>
+                    <td colspan="2" *ngIf="multiPath">
+                        {{multiPath.substring(multiPath.lastIndexOf('/') + 1, multiPath.length)}}
+                    </td>
+                    <td *ngIf="multiPath">
                         <i (click)="previewDoc(multiPath)" class="fas fa-eye"></i>
                     </td>
                     <td>
-                    <span *ngIf="checked" style="color:limegreen">
+                    <span *ngIf="multiPath" style="color:limegreen">
                         <i class="fas fa-check-circle"></i>
                     </span>
                     </td>
                     <td class="cursor">
-                    <span *ngIf="checked">
+                    <span *ngIf="multiPath">
                         <i (click)="openModel(confirmation, multiPath, i)" class="fas fa-trash"></i>
                     </span>
                     </td>

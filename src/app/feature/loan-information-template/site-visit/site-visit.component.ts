@@ -545,12 +545,7 @@ export class SiteVisitComponent implements OnInit {
             this.siteVisitData = this.formValue;
         }
         this.overlay.show();
-        // console.log('docpath', this.siteVisitFormGroup.get('currentResidentDetails').get('documentPath'));
-        this.siteVisitData.docPath = JSON.stringify(this.siteVisitFormGroup.get('currentResidentDetails').get('documentPath').value);
-        // console.log('after', this.siteVisitData.docPath);
-        // const test = this.siteVisitFormGroup.get(['', i]).value
         this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
-        console.log('sitevisitData', this.siteVisitFormGroup.value);
         this.siteVisitDataEmitter.emit(this.siteVisitData.data);
     }
 
