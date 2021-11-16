@@ -51,7 +51,6 @@
                     <thead><tr><th colspan="3" class="text-center">स्वीकृत ऋणकर्जा सुविधाहरुको बिबरण</th></tr></thead>
                     <tbody>
                     <tr>
-                        <td rowspan="8"><strong>१.</strong></td>
                         <td style="width: 18%;"><strong>कर्जा प्रकार/ प्रयोजनः</strong></td>
                         <td><b>सवारी साधन कर्जाः </b>
                             <span [ngClass]="{'font-weight-bold' : letter?.vehicleName.ct !== null && letter?.vehicleName.ct !== ''}">
@@ -422,7 +421,7 @@
                         </td>
                         <td>
                             बिमालेख(हरु) खरिद/नविकरण गर्न हाम्रो बैंकान्सुरेन्स ईकाई
-                            (Bancassurance Unit) ललितपुरमा सम्पर्क गर्न सक्नुहुनेछ ।
+                            (Bancassurance Unit) <span>{{branchName}}</span>मा सम्पर्क गर्न सक्नुहुनेछ ।
                         </td>
                     </tr>
                     <tr>
@@ -436,13 +435,12 @@
                             आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
                             तपाईंको आवश्यकत्ता र निवेदन बमोजिम सवारी साधन कर्जा तपाईंले यस नबिल बैंक लिमिटेडको,
                             <span class=" font-weight-bold">{{branchName}}</span>
-                            शाखामा खोल्नु भएको चल्ती खातामा ऋणकर्जा प्रवाह गरिनेछ र तपाईंले
-                            निर्देश गरे बमोजिम आधिकारीक विक्रेता शाखामा खोल्नु भएको चल्ती खातामा ऋणकर्जा प्रवाह
-                            गरिनेछ र <strong>तपाईंले निर्देश गरे बमोजिम</strong> आधिकारीक विक्रेता
+                            शाखामा खोल्नु भएको चल्ती खातामा ऋणकर्जा प्रवाह गरिनेछ
+                            र <strong>तपाईंले निर्देश गरे बमोजिम</strong> आधिकारीक विक्रेता
                             <span [ngClass]="{'font-weight-bold' : letter?.vendorName.ct !== null && letter?.vendorName.ct !== ''}">
                                 {{letter?.vendorName.ct === null || letter?.vendorName.ct === '' ? '___________' : letter?.vendorName.ct}}
                             </span>
-                            अथवा यसको प्रतिनिधिलाई रु
+                            अथवा यसको प्रतिनिधिलाई
                             रु.
                             <span class=" font-weight-bold">
                                     {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
@@ -811,7 +809,7 @@
                                 </span>
                                 को ऋणकर्जा तमसुक ।
                                 <br>
-                                घ. बहायर पर्चेज सम्झौता ।<br>
+                                घ. हायर पर्चेज सम्झौता ।<br>
                                 ङ. तेश्रो पक्ष दायित्व सहित बैंकिङ शर्त सहितको सवारी साधनको विस्तृत बिमालेख ।
                                 <br>
                                 च. बैंकको नाममा सवारी साधन दर्ता (बैंकको नाममा ब्लु बुक) ।
