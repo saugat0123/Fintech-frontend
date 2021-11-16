@@ -15,7 +15,6 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-promissory-note',
@@ -34,7 +33,7 @@ export class PromissoryNoteComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  nepDataPersonal = new NepDataPersonal();
+
   constructor(private dialogRef: NbDialogRef<PromissoryNoteComponent>,
               private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -70,7 +69,7 @@ export class PromissoryNoteComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+
       this.form.patchValue({
         grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
         fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
@@ -98,10 +97,8 @@ export class PromissoryNoteComponent implements OnInit {
         sincerlyTemporaryWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
         sincerlyParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
         sincerlyGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-        husbandName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
         amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         amountInNumber: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-        branchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
       });
     }
   }
@@ -150,6 +147,7 @@ export class PromissoryNoteComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      address: [undefined],
       grandParentName: [undefined],
       fatherName: [undefined],
       motherName: [undefined],
