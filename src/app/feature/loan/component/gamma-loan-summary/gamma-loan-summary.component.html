@@ -822,7 +822,7 @@
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
                                 </ng-container>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString() === 'APPROVED' || loanDataHolder?.zipPath">
+                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString() === 'APPROVED' && loanDataHolder?.zipPath">
                                     <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
