@@ -96,18 +96,34 @@ export class CustomerWiseLoanPullComponent implements OnInit {
         other.loanForCombine = [];
         other.loanHolderLoanList = [];
         other.catalogueService.search.committee = 'true';
-        other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
-            other.loanHolderLoanList = response.detail.content;
-            other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
-            other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));
+        if (LocalStorageUtil.getStorage().roleType.toLowerCase() === 'committee') {
+            other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
+                other.loanHolderLoanList = response.detail.content;
+                other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
+                other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));
 
-            other.pageable = PaginationUtils.getPageable(response.detail);
-            other.spinner = false;
-        }, error => {
-            console.error(error);
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
-            other.spinner = false;
-        });
+                other.pageable = PaginationUtils.getPageable(response.detail);
+                other.spinner = false;
+            }, error => {
+                console.error(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
+                other.spinner = false;
+            });
+        } else {
+            other.catalogueService.search.documentStatus = DocStatus.value(DocStatus.HSOV_PENDING);
+            other.loanFormService.getHsovPull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
+                other.loanHolderLoanList = response.detail.content;
+                console.log('this is the response', other.loanHolderLoanList);
+                other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
+                other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));
+                other.pageable = PaginationUtils.getPageable(response.detail);
+                other.spinner = false;
+            }, error => {
+                console.error(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
+                other.spinner = false;
+            });
+        }
     }
 
     ngOnInit() {
@@ -375,6 +391,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
     public getLoansData(datas) {
         const finalOp = [];
         const inputArray: Array<Map<number, Array<LoanDataHolder>>> = datas;
+        console.log('this is input array', inputArray);
         inputArray.forEach(data => {
             let loanData = new LoanDataHolder();
             let name = '';

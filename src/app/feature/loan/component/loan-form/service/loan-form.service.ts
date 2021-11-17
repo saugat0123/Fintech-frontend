@@ -216,4 +216,9 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
     protected getRemitApi(): string {
         return ApiConfig.REMIT_WEB;
     }
+    public getHsovPull(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
+        const api = `${this.getApi()}/hsov-pull?page=${page}&size=${size}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
 }
