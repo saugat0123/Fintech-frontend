@@ -34,6 +34,7 @@ export class AllDocumentViewComponent implements OnInit {
   affiliatedId;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
+  siteVisitDoc = [];
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -61,6 +62,13 @@ export class AllDocumentViewComponent implements OnInit {
             this.minOneInsuranceDoc = true;
           }
         });
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+        if (this.loanDataHolder.siteVisit.docPath) {
+         this.siteVisitDoc = JSON.parse(this.loanDataHolder.siteVisit.docPath);
+        }
       }
     }
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -120,9 +128,21 @@ export class AllDocumentViewComponent implements OnInit {
       for (const doc of insuranceDocument) {
         docPaths.push(doc.policyDocumentPath);
       }
+      // Collateral Document
       const siteVisitDocument = this.siteVisitDocument;
-      for (const doc of siteVisitDocument) {
-        docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+      if (!ObjectUtil.isEmpty(siteVisitDocument)) {
+        for (const doc of siteVisitDocument) {
+          docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+        }
+      }
+      // Site Visit Document
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit.docPath)) {
+          const siteVisit = JSON.parse(this.loanDataHolder.siteVisit.docPath);
+          for (const doc of siteVisit) {
+            docPaths.push(doc.path);
+          }
+        }
       }
     } else {
       docPaths.push(this.loanDataHolder.zipPath);
