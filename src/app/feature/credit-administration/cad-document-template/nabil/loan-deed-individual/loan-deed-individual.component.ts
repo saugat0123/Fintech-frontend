@@ -101,6 +101,7 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList.length > 0)) {
       this.setLoanExpiryDate();
     }
+    console.log('Offer Document Details',this.offerDocumentDetails);
   }
 
   calulation() {
@@ -176,6 +177,10 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Mortage Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFeeInFigure ? this.offerDocumentDetails.loanAdminFeeInFigure.en : '';
       this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Home Loan') {
+      this.offerLetterAdminFee = this.offerDocumentDetails.loan.loanAdminFeeInFigure ? this.offerDocumentDetails.loan.loanAdminFeeInFigure : '';
+      this.educationInterestRate = this.offerDocumentDetails.loan.interestRate ? this.offerDocumentDetails.loan.interestRate : '';
     }
     return this.formBuilder.group({
       branchName: [

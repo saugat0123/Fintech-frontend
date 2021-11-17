@@ -321,6 +321,18 @@
            <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>
          </div>
        </ng-container>
+          <div class="mt-5"
+               *ngIf="offerDocumentDetails?.selectedAutoLoan?.en === 'AUTO_LOAN_PERSONAL'">
+              <p class="text-center"><b>तपसिल</b></p>
+              <br/>
+              <p style="padding-left: 1.6em;line-height: 2.8;">
+                  १. गाडी नं. __________________________________
+                  <br/>
+                  २. इन्जीन नं. _________________________________
+                  <br/>
+                  ३. च्यासीस नं. ________________________________
+              </p>
+          </div>
         <div class="text-left mt-3">
           <p class="font-weight-bold">
             साक्षीः
