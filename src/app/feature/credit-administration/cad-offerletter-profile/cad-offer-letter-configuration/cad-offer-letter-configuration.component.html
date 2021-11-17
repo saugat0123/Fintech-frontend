@@ -1000,7 +1000,6 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentProvince.errors}"
                                                    id="guarantorPermanentProvince"
                                                    formControlName="guarantorPermanentProvince">
-                                            <ng-option [value]="null" hidden>प्रदेश</ng-option>
                                             <ng-option *ngFor="let provinceVal of permanentProvinceList"
                                                        [value]="provinceVal"> {{provinceVal.nepaliName}}
                                             </ng-option>
@@ -1021,7 +1020,6 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentDistrict.errors}"
                                                    formControlName="guarantorPermanentDistrict"
                                                    id="guarantorPermanentDistrict">
-                                            <ng-option [value]="null" hidden>जिल्ला</ng-option>
                                             <ng-option *ngFor="let districtVal of guarantorPermanentDistrictList"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
@@ -1089,7 +1087,6 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryProvince.errors}"
                                                    id="guarantorTemporaryProvince"
                                                    formControlName="guarantorTemporaryProvince">
-                                            <ng-option [value]="null" hidden>प्रदेश</ng-option>
                                             <ng-option *ngFor="let provinceVal of temporaryProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
@@ -1111,7 +1108,6 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryDistrict.errors}"
                                                    formControlName="guarantorTemporaryDistrict"
                                                    id="guarantorTemporaryDistrict">
-                                            <ng-option [value]="null" hidden>जिल्ला</ng-option>
                                             <ng-option *ngFor="let districtVal of guarantorTemporaryDistrictList"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
