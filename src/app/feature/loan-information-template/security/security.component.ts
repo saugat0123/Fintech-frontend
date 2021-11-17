@@ -293,8 +293,6 @@ export class SecurityComponent implements OnInit {
             securityCoverageAutoCommercial: this.securityForm.get('securityCoverageAutoCommercial').value,
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
-        this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
-        this.securityData.totalDistressAmount = this.calculateDistressValue(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
         if (!ObjectUtil.isEmpty(this.approvedSecurityValue)) {
             this.securityData.approvedData = JSON.stringify(this.approvedSecurityValue);
@@ -349,68 +347,6 @@ export class SecurityComponent implements OnInit {
         this.securityDataEmitter.emit(this.securityData);
     }
 
-    calculateTotalSecurity(securityData): number {
-        let totalSecurityAmount = 0;
-        securityData.selectedArray.forEach(selectedSecurity => {
-            switch (selectedSecurity) {
-                case 'LandSecurity':
-                    const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
-                    for (let i = 0; i < landDetailsArray.length; i++) {
-                            totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
-                    }
-                    break;
-                case 'VehicleSecurity':
-                    const vehicleDetailsArray = securityData.initialForm.vehicleDetails as Array<any>;
-                    for (let i = 0; i < vehicleDetailsArray.length; i++) {
-                        totalSecurityAmount += Number(vehicleDetailsArray[i].valuationAmount);
-                    }
-                    break;
-                case 'ApartmentSecurity':
-                    const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
-                    for (let i = 0; i < buildingDetailsArray.length; i++) {
-                            totalSecurityAmount += Number(buildingDetailsArray[i].buildingFairMarketValue);
-                    }
-                    break;
-                case 'PlantSecurity':
-                    const plantDetailsArray = securityData.initialForm.plantDetails as Array<any>;
-                    for (let i = 0; i < plantDetailsArray.length; i++) {
-                        totalSecurityAmount += Number(plantDetailsArray[i].quotation);
-                    }
-                    break;
-
-                case 'Land and Building Security':
-                    const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
-                    for (let i = 0; i < landBuildingArray.length; i++) {
-                            totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
-                    }
-                    break;
-                case 'FixedDeposit':
-                    const fixedDepositArray = securityData.initialForm.fixedDepositDetails as Array<any>;
-                    for (let i = 0; i < fixedDepositArray.length; i++) {
-                        totalSecurityAmount += Number(fixedDepositArray[i].amount);
-                    }
-                    break;
-                case 'ShareSecurity':
-                    const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
-                    shareSecurity.forEach(value => {
-                        totalSecurityAmount += value.total;
-                    });
-                    break;
-                case 'BondSecurity':
-                    const bondSecurityArray = securityData.initialForm.bondSecurity as Array<any>;
-                    for (let i = 0; i < bondSecurityArray.length; i++) {
-                        totalSecurityAmount += Number(bondSecurityArray[i].bondValue);
-                    }
-                    break;
-
-                default:
-                    totalSecurityAmount += 0;
-                    break;
-            }
-        });
-        return totalSecurityAmount;
-    }
-
     controlValidation(controlNames: string[], validate) {
         controlNames.forEach(s => {
             if (validate) {
@@ -443,68 +379,5 @@ export class SecurityComponent implements OnInit {
                 this.controlValidation(['securityCoverageAutoCommercial'], true);
                 break;
         }
-    }
-
-    calculateDistressValue(securityData): number {
-        let totalDistressAmount = 0;
-        securityData.selectedArray.forEach(selectedSecurity => {
-            switch (selectedSecurity) {
-                case 'LandSecurity':
-                    const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
-                    for (let i = 0; i < landDetailsArray.length; i++) {
-                        totalDistressAmount += Number(landDetailsArray[i].distressValue);
-                    }
-                    break;
-                case 'ApartmentSecurity':
-                    const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
-                    for (let i = 0; i < buildingDetailsArray.length; i++) {
-                        totalDistressAmount += Number(buildingDetailsArray[i].buildingDistressValue);
-                    }
-                    break;
-                case 'Land and Building Security':
-                    const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
-                    for (let i = 0; i < landBuildingArray.length; i++) {
-                        totalDistressAmount += Number(landBuildingArray[i].distressValue);
-                    }
-                    break;
-
-                case 'ShareSecurity':
-                    const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
-                    shareSecurity.forEach(value => {
-                        totalDistressAmount += value.total;
-                    });
-                    break;
-                case 'VehicleSecurity':
-                    const vehicleDetailsArray = securityData.initialForm.vehicleDetails as Array<any>;
-                    for (let i = 0; i < vehicleDetailsArray.length; i++) {
-                        totalDistressAmount += Number(vehicleDetailsArray[i].valuationAmount);
-                    }
-                    break;
-                case 'BondSecurity':
-                    const bondSecurityArray = securityData.initialForm.bondSecurity as Array<any>;
-                    for (let i = 0; i < bondSecurityArray.length; i++) {
-                        totalDistressAmount += Number(bondSecurityArray[i].bondValue);
-                    }
-                    break;
-
-                case 'FixedDeposit':
-                    const fixedDepositArray = securityData.initialForm.fixedDepositDetails as Array<any>;
-                    for (let i = 0; i < fixedDepositArray.length; i++) {
-                        totalDistressAmount += Number(fixedDepositArray[i].amount);
-                    }
-                    break;
-                case 'PlantSecurity':
-                    const plantDetailsArray = securityData.initialForm.plantDetails as Array<any>;
-                    for (let i = 0; i < plantDetailsArray.length; i++) {
-                        totalDistressAmount += Number(plantDetailsArray[i].quotation);
-                    }
-                    break;
-
-                default:
-                    totalDistressAmount += 0;
-                    break;
-            }
-        });
-        return totalDistressAmount;
     }
 }
