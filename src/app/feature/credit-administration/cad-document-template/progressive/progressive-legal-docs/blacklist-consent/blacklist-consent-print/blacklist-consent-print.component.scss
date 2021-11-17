@@ -1,6 +1,7 @@
 @import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-legal-docs/progressive-legal-docs.component";
 
 #Sincerely {
+  line-height: 1.9em;
   margin-left: 100px;
 }
 @media print {
@@ -21,7 +22,7 @@
 
 #signature,
 #signature2{
-  margin-left: 800px;
+  margin-left: 400px;
 }
 
 .guaranter {
