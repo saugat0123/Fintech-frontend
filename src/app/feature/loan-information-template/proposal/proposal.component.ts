@@ -93,6 +93,7 @@ export class ProposalComponent implements OnInit {
     this.checkLoanTypeAndBuildForm();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.formDataForEdit = JSON.parse(this.formValue.data);
+      console.log('formDataForEdit', this.formDataForEdit);
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
       if (this.proposalForm.get('subsidyLoanType').value === 'Others') {
@@ -108,7 +109,6 @@ export class ProposalComponent implements OnInit {
       this.existInterestLimit = this.formDataForEdit['existInterestRate'];
       if (!ObjectUtil.isEmpty(this.formValue.groupExposure)) {
         this.groupExposureData = JSON.parse(this.formValue.groupExposure);
-        this.proposalForm.patchValue(this.groupExposureData);
         this.setGroupExposureData(this.groupExposureData);
       }
     } else {
@@ -172,8 +172,8 @@ export class ProposalComponent implements OnInit {
     .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
     this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
     this.checkInstallmentAmount();
-    this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
-        .patchValue(Number(value)));
+    // this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
+    //     .patchValue(Number(value)));
   }
 
   buildForm() {
@@ -252,7 +252,6 @@ export class ProposalComponent implements OnInit {
   }
 
   setValidatorForPrepaymentField () {
-    console.log('clientName', this.clientName);
     if ((this.client !== this.clientName.SHINE_RESUNGA) && ((this.loanNatureSelected && this.fundableNonFundableSelcted &&
         this.isFundable && this.isTerminating) || this.isVehicle || this.isShare || this.isGeneral)) {
       this.proposalForm.get('prepaymentCharge').setValidators([Validators.required, Validators.max(100), Validators.min(0)]);
