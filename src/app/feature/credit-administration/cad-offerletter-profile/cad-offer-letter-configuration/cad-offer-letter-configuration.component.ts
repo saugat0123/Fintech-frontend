@@ -624,10 +624,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get('guarantorTemporaryMunicipality').patchValue(data.guarantorDetails.guarantorTemporaryMunicipality);
             // tslint:disable-next-line:max-line-length
             this.userConfigForm.get('collateralOwnerPermanentProvince').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
-            this.getGuarantorTemporaryDistricts(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
+            this.getCollateralOwnerDistricts(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
             // tslint:disable-next-line:max-line-length
             this.userConfigForm.get('collateralOwnerPermanentDistrict').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
-            this.getGuarantorTemporaryMunicipalities(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
+            this.getCollateralOwnerMunicipalities(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
             // tslint:disable-next-line:max-line-length
             this.userConfigForm.get('collateralOwnerPermanentMunicipalities').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentMunicipalities);
         }
