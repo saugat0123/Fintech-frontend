@@ -38,15 +38,19 @@ export class HomeLoanPrintComponent implements OnInit {
   dateOfApproval;
   dateOfApplication;
   homeLoanType = HomeLoanType;
+  nepaliBranchNAme;
+  selectedSecurity;
 
   constructor(public engToNepNumberPipe: EngToNepaliNumberPipe,
               public currencyFormatPipe: CurrencyFormatterPipe,
               public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private datePipe: DatePipe,
-              private engNepDatePipe: EngNepDatePipe,) { }
+              private engNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
+    console.log(this.letter);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+      this.nepaliBranchNAme = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
       let totalLoanAmount = 0;
       this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
         const val = value.proposal.proposedLimit;
@@ -77,6 +81,7 @@ export class HomeLoanPrintComponent implements OnInit {
       } else {
         this.dateOfApplication = this.letter.loan.dateOfApplicationCT;
       }
+      this.selectedSecurity = this.letter.loan ? this.letter.loan.landBuildingType : '';
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       // tslint:disable-next-line:max-line-length

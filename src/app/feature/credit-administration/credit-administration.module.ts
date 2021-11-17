@@ -90,6 +90,7 @@ import { ConstructionLoanEditComponent } from './cad-view/template-data/home-loa
 import { HomeLandAndBuildingLoanEditComponent } from './cad-view/template-data/home-loan-template-edit/home-land-and-building-loan-edit/home-land-and-building-loan-edit.component';
 import { PerosnalOverdraftWithoutCollateralTemplateDataComponent } from './cad-view/template-data/perosnal-overdraft-without-collateral-template-data/perosnal-overdraft-without-collateral-template-data.component';
 import { AutoLoanTemplateEditComponent } from './cad-view/template-data/auto-loan-template-edit/auto-loan-template-edit.component';
+import { RetailMortageLoanTemplateDataEditComponent } from './cad-view/template-data/retail-mortage-loan-template-data-edit/retail-mortage-loan-template-data-edit.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -168,6 +169,7 @@ import { AutoLoanTemplateEditComponent } from './cad-view/template-data/auto-loa
     HomeLoanTemplateEditComponent,
     ConstructionLoanEditComponent,
     HomeLandAndBuildingLoanEditComponent,
+    RetailMortageLoanTemplateDataEditComponent,
     PerosnalOverdraftWithoutCollateralTemplateDataComponent,
     AutoLoanTemplateEditComponent],
   imports: [
@@ -202,7 +204,7 @@ import { AutoLoanTemplateEditComponent } from './cad-view/template-data/auto-loa
     CadFileSetupComponent,
     ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent,
     EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent, PersonalOverdraftTemplateDataEditComponent,
-    HomeLoanTemplateEditComponent,
+  HomeLoanTemplateEditComponent, RetailMortageLoanTemplateDataEditComponent,
     AutoLoanTemplateEditComponent],
   exports: [CadFileSetupComponent, FilterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
