@@ -71,47 +71,18 @@ export class HirePurchaseDeedComponent implements OnInit {
         branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
         grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
         parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-        customerDistrict: this.nepaliData.district ? this.nepaliData.district : '',
-        customerMunicipality: this.nepaliData.municipalities ? this.nepaliData.municipalities : '',
-        customerWadNo: this.nepaliData.wardNumber ? this.nepaliData.wardNumber : '',
-        // sabikVDC: this.nepaliData.name ? this.nepaliData.name : '', ?????
-        // sabikWadNo: this.nepaliData.name ? this.nepaliData.name : '', ?????
+        husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+        customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        customerMunicipality: this.nepaliData.permanentMunicipalities ? this.nepaliData.permanentMunicipalities : '',
+        customerWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        sabikVDC: this.nepaliData.permanentMunicipalities ? this.nepaliData.permanentMunicipalities : '',
+        sabikWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
         tempMunicipality: this.nepaliData.temporaryMunicipalities ? this.nepaliData.temporaryMunicipalities : '',
         tempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-        // age: this.nepaliData.name ? this.nepaliData.name : '',????
-        // customerName: this.nepaliData.name ? this.nepaliData.name : '',????
+        age: this.nepaliData.age ? this.nepaliData.age : '',
+        customerName: this.nepaliData.name ? this.nepaliData.name : '',
         customerCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-        // date: this.nepaliData.name ? this.nepaliData.name : '',????
-        // cdoOffice: this.nepaliData.name ? this.nepaliData.name : '',??????
-        // matralayaName: this.nepaliData. ? this.nepaliData. : '',
-        // biBhagCompany: this.nepaliData. ? this.nepaliData. : '',
-        // regOffice: this.nepaliData. ? this.nepaliData. : '',
-        // act: this.nepaliData. ? this.nepaliData. : '',
-        // under: this.nepaliData. ? this.nepaliData. : '',
-        // underDate: this.nepaliData. ? this.nepaliData. : '',
-        // praliNo: this.nepaliData. ? this.nepaliData. : '',
-        // serviceOffice: this.nepaliData. ? this.nepaliData. : '',
-        // serviceDate: this.nepaliData. ? this.nepaliData. : '',
-        // certificateNo: this.nepaliData. ? this.nepaliData. : '',
-        // certifiedDistrict: this.nepaliData. ? this.nepaliData. : '',
-        // certifiedMunicipality: this.nepaliData. ? this.nepaliData. : '',
-        // certifiedWadNo: this.nepaliData. ? this.nepaliData. : '',
-        // secRegOffice: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiGrandParent: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiParent: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiHusbandWifeName: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiDistrict: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiMunicipality: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiWadNo: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiTempDistrict: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiTempMunicipality: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiTempWadNo: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiAge: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiName: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiCitizenshipNo: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiDate: this.nepaliData. ? this.nepaliData. : '',
-        // pratinidhiCDOoffice: this.nepaliData. ? this.nepaliData. : '',
-
+        date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
     });
     }
   }
