@@ -1000,7 +1000,6 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentProvince.errors}"
                                                    id="guarantorPermanentProvince"
                                                    formControlName="guarantorPermanentProvince">
-                                            <ng-option [value]="null" hidden>प्रदेश</ng-option>
                                             <ng-option *ngFor="let provinceVal of permanentProvinceList"
                                                        [value]="provinceVal"> {{provinceVal.nepaliName}}
                                             </ng-option>
@@ -1021,7 +1020,6 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentDistrict.errors}"
                                                    formControlName="guarantorPermanentDistrict"
                                                    id="guarantorPermanentDistrict">
-                                            <ng-option [value]="null" hidden>जिल्ला</ng-option>
                                             <ng-option *ngFor="let districtVal of guarantorPermanentDistrictList"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
@@ -1089,7 +1087,6 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryProvince.errors}"
                                                    id="guarantorTemporaryProvince"
                                                    formControlName="guarantorTemporaryProvince">
-                                            <ng-option [value]="null" hidden>प्रदेश</ng-option>
                                             <ng-option *ngFor="let provinceVal of temporaryProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
@@ -1111,7 +1108,6 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryDistrict.errors}"
                                                    formControlName="guarantorTemporaryDistrict"
                                                    id="guarantorTemporaryDistrict">
-                                            <ng-option [value]="null" hidden>जिल्ला</ng-option>
                                             <ng-option *ngFor="let districtVal of guarantorTemporaryDistrictList"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
@@ -1586,11 +1582,10 @@
                                             प्रदेश </label>
                                         <ng-select
                                                 bindLabel="nepaliName"
-                                                (change)="getCollateralOwnerDistricts(basicInfoControls.collateralOwnerPermanentProvince.value)"
+                                                (change)="getCollateralOwnerDistricts(userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentProvince']).value)"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralOwnerPermanentProvince.errors}"
                                                 formControlName="collateralOwnerPermanentProvince"
                                                 id="collateralOwnerPermanentProvince">
-                                            <ng-option [value]="null" hidden>प्रदेश</ng-option>
                                             <ng-option *ngFor="let provinceVal of collateralPermanentProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
@@ -1609,11 +1604,10 @@
                                         <label class="title" for="collateralOwnerPermanentDistrict">जिल्ला</label>
                                         <ng-select
                                                 bindLabel="nepaliName"
-                                                (change)="getCollateralOwnerMunicipalities(basicInfoControls?.collateralOwnerPermanentDistrict.value)"
+                                                (change)="getCollateralOwnerMunicipalities(userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentDistrict']).value)"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralOwnerPermanentDistrict.errors}"
                                                 formControlName="collateralOwnerPermanentDistrict"
                                                 id="collateralOwnerPermanentDistrict">
-                                            <ng-option [value]="null" hidden>जिल्ला</ng-option>
                                             <ng-option *ngFor="let districtVal of collateralPermanentDistrictList"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
@@ -1637,7 +1631,6 @@
                                                 formControlName="collateralOwnerPermanentMunicipalities"
                                                 id="collateralOwnerPermanentMunicipalities"
                                                 name="collateralOwnerPermanentMunicipalities">
-                                            <ng-option [value]="null" hidden>नगरपालिका</ng-option>
                                             <ng-option
                                                     *ngFor="let municipalityVal of collateralPermanentMunicipalitiesList"
                                                     [value]="municipalityVal">
