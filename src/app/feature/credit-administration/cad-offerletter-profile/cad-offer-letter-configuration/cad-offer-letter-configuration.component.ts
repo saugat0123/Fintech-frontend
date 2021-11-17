@@ -533,9 +533,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }));
         });
     }
+
     addCollateralOwner() {
         (this.userConfigForm.get('collateralOwnerDetails') as FormArray).push(this.addCollateralOwnerField());
     }
+
     addCollateralOwnerField() {
         return this.formBuilder.group({
             collateralOwnerName: '',
@@ -557,6 +559,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             collateralOwnerPermanentWard: '',
         });
     }
+
     removeAtIndexCollateralOwner(i: any) {
         (this.userConfigForm.get('collateralOwnerDetails') as FormArray).removeAt(i);
     }
@@ -619,10 +622,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get('guarantorTemporaryDistrict').patchValue(data.guarantorDetails.guarantorTemporaryDistrict);
             this.getGuarantorTemporaryMunicipalities(data.guarantorDetails.guarantorTemporaryDistrict);
             this.userConfigForm.get('guarantorTemporaryMunicipality').patchValue(data.guarantorDetails.guarantorTemporaryMunicipality);
+            // tslint:disable-next-line:max-line-length
             this.userConfigForm.get('collateralOwnerPermanentProvince').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
             this.getGuarantorTemporaryDistricts(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
+            // tslint:disable-next-line:max-line-length
             this.userConfigForm.get('collateralOwnerPermanentDistrict').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
             this.getGuarantorTemporaryMunicipalities(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
+            // tslint:disable-next-line:max-line-length
             this.userConfigForm.get('collateralOwnerPermanentMunicipalities').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentMunicipalities);
         }
     }
