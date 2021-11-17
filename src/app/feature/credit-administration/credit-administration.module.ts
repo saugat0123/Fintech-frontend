@@ -56,8 +56,6 @@ import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-an
 import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/excel-offer-letter-template.module';
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
 import {IcfcModule} from './cad-document-template/icfc/icfc.module';
-import { CollateralOwnerDetailsFormComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/collateral-owner-details-form/collateral-owner-details-form.component';
-
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -101,8 +99,7 @@ import { CollateralOwnerDetailsFormComponent } from './cad-offerletter-profile/c
         AdditionalExposureComponent,
         CadOfferLetterConfigurationComponent,
         NepProposedAmountFormComponent,
-        CadFileSetupComponent,
-        CollateralOwnerDetailsFormComponent],
+        CadFileSetupComponent],
     imports: [
         ThemeModule,
         CommonModule,
