@@ -57,7 +57,6 @@ import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/exce
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
 import {IcfcModule} from './cad-document-template/icfc/icfc.module';
 
-
 @NgModule({
     declarations: [UnassignedLoanComponent,
         AssignPopUpComponent,
