@@ -35,7 +35,6 @@ export class SiteVisitViewComponent implements OnInit {
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.siteVisit)) {
             this.formData = JSON.parse(this.siteVisit.data);
-            console.log('formData', this.formData);
             switch (this.formData['checkboxSelected']) {
                 case 'currentResidentFormChecked' :
                     this.currentResidentSummary = true;
