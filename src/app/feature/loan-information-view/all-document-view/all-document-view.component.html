@@ -38,14 +38,51 @@
       </table>
     </div>
   </div>
+
+<div class="row" *ngIf="minOneSiteVisit">
+  <div class="col-md-12">
+    <p><strong>Site Visit Document</strong></p>
+    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+      <thead>
+      <tr class="text-white sb-bg-dark">
+        <th class="sn">S.No</th>
+        <th>Document Under</th>
+        <th>Document Name</th>
+        <th *ngIf="loanDataHolder?.documentStatus?.toString() !== 'APPROVED'">Preview</th>
+        <th>Download</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let doc of siteVisitDoc; let i = index">
+        <td>{{i + 1}}</td>
+        <td class="text-left pl-1">{{doc?.documentOf}}</td>
+        <td class="text-left pl-1">{{doc?.name}}</td>
+        <td *ngIf="loanDataHolder?.documentStatus?.toString() !== 'APPROVED'">
+          <i (click)="previewOfferLetterDocument(doc?.path, doc?.name)"
+             class="fas fa-eye"></i>
+        </td>
+        <td>
+          <ng-container *ngIf="loanDataHolder?.documentStatus?.toString() !== 'APPROVED' || !loanDataHolder?.zipPath">
+            <i (click)="downloadCustomerDocument(doc?.path, doc?.name)"
+               aria-hidden="true" class="fa fa-download"
+               style="cursor: pointer"></i>
+          </ng-container>
+          <ng-container *ngIf="loanDataHolder?.documentStatus?.toString() === 'APPROVED' || loanDataHolder?.zipPath">
+            <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
+               aria-hidden="true" class="fa fa-download"
+               style="cursor: pointer"></i>
+          </ng-container>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
   <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row">
     <div class="col-md-12">
+      <p><strong>Customer General Document</strong></p>
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
-
-        <tr class="text-white sb-bg-dark" >
-          <th colspan="4">            Customer General Document
-          </th>
-        </tr>
         <tr class="text-white sb-bg-dark">
           <th class="sn">SN</th>
           <th>Document</th>

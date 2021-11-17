@@ -49,35 +49,7 @@ export class SiteVisitViewComponent implements OnInit {
                 case 'currentAssetsInspectionFormChecked' :
                     this.currentAssetsInspectionSummary = true;
             }
-            this.siteVisitDoc = JSON.parse(this.siteVisit.docPath);
         }
-    }
-
-    preview(url: string, name: string): void {
-        const link = document.createElement('a');
-        link.target = '_blank';
-        link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
-        link.download = name;
-        link.setAttribute('visibility', 'hidden');
-        link.click();
-    }
-
-    downloadDocument(documentPath, documentName) {
-        this.dmsLoanService.downloadDocument(documentPath).subscribe(
-            (response: any) => {
-                const downloadUrl = window.URL.createObjectURL(response);
-                const link = document.createElement('a');
-                link.href = downloadUrl;
-                const toArray = documentPath.split('.');
-                const extension = toArray[toArray.length - 1];
-                link.download = documentName + '.' + extension;
-                link.click();
-            },
-            error => {
-                console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'File not Found'));
-            }
-        );
     }
 
 }

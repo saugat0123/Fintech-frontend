@@ -188,6 +188,8 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   summaryTypeName = SummaryType;
   companyInfo: any;
   loanSummary = 'loanSummary';
+  siteVisitDoc = [];
+  minOneSiteVisit = false;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -438,6 +440,15 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
         }
       });
     }
+
+    // getting site visit document
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+      if (this.loanDataHolder.siteVisit.docPath) {
+        this.siteVisitDoc = JSON.parse(this.loanDataHolder.siteVisit.docPath);
+        this.minOneSiteVisit = true;
+      }
+    }
+
     // getting fiscal years
     this.getFiscalYears();
   }

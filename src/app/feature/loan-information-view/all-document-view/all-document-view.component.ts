@@ -34,6 +34,8 @@ export class AllDocumentViewComponent implements OnInit {
   affiliatedId;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
+  siteVisitDoc = [];
+  minOneSiteVisit = false;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -61,6 +63,14 @@ export class AllDocumentViewComponent implements OnInit {
             this.minOneInsuranceDoc = true;
           }
         });
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+        if (this.loanDataHolder.siteVisit.docPath) {
+         this.siteVisitDoc = JSON.parse(this.loanDataHolder.siteVisit.docPath);
+         this.minOneSiteVisit = true;
+        }
       }
     }
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;

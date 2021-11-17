@@ -186,6 +186,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     siteVisitDocuments: Array<SiteVisitDocument>;
     obtainableDocuments = Array<ObtainableDoc>();
     otherObtainableDocuments = Array<string>();
+    siteVisitDoc = [];
+    minOneSiteVisit = false;
+
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -230,7 +233,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     if (splitData !== '') {
                         this.otherObtainableDocuments.push(splitData);
                     }
-                    console.log(this.otherObtainableDocuments);
                 });
             }
            });
@@ -450,6 +452,14 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     });
                 }
             });
+        }
+
+        // getting site visit document
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+            if (this.loanDataHolder.siteVisit.docPath) {
+                this.siteVisitDoc = JSON.parse(this.loanDataHolder.siteVisit.docPath);
+                this.minOneSiteVisit = true;
+            }
         }
         // getting fiscal years
         this.getFiscalYears();
