@@ -58,6 +58,7 @@ export class HomeLoanComponent implements OnInit {
   afterSave = false;
   landbuilding;
   homeLoanType = HomeLoanType;
+  nepaliBranchName;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -76,6 +77,7 @@ export class HomeLoanComponent implements OnInit {
   ngOnInit() {
     this.buildPersonal();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+      this.nepaliBranchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       console.log('this.tempData', this.tempData);
@@ -153,6 +155,7 @@ export class HomeLoanComponent implements OnInit {
       dateofSignature: [undefined],
       municipalityVDC: [undefined],
       nameOfBank: [undefined],
+      moratoriumPeriodInMonth: [undefined]
     });
   }
   setLoanConfigData(data: any) {
@@ -294,6 +297,7 @@ export class HomeLoanComponent implements OnInit {
       relationshipofficerName: this.tempData.loan.nameOfRelationshipOfficerCT ? this.tempData.loan.nameOfRelationshipOfficerCT : '',
       branchManager: this.tempData.loan.nameOfBranchManagerCT ? this.tempData.loan.nameOfBranchManagerCT : '',
       nameOfBank: this.tempData.loan.nameOfBankCT ? this.tempData.loan.nameOfBankCT : '',
+      moratoriumPeriodInMonth: this.tempData.loan.moratoriumPeriodInMonthCT ? this.tempData.loan.moratoriumPeriodInMonthCT : ''
     });
   }
   calcYearlyRate() {
