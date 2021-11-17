@@ -157,12 +157,14 @@
             {{letter?.loan.loanPeriodInMonthsCT === null || letter?.loan.loanPeriodInMonthsCT === '' ? '___________' : letter?.loan.loanPeriodInMonthsCT}}</span>
 
                             सम मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु पर्नेछ। <br>
+                            <ng-container *ngIf="tempData?.loanType !== homeLoanType?.PURCHASE">
                             <strong><u>द्रष्टब्यः </u></strong>
                             <span [ngClass]="{'font-weight-bold' : letter?.loan.moratoriumPeriodInMonthCT!== null && letter?.loan.moratoriumPeriodInMonthCT!== ''}">
             {{letter?.loan.moratoriumPeriodInMonthCT === null || letter?.loan.moratoriumPeriodInMonthCT === '' ? '___________' : letter?.loan.moratoriumPeriodInMonthCT}}</span>
 
                             महिनाको ऋण भुक्तानी स्थगन अवधि (Moratorium Period) पछिको महिना देखि अंग्रेजी पात्रोको प्रत्येक २० तारिखका दिन
                             किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले मासिक रुपमा ब्याज भुक्तानी गर्नुपर्नेछ।
+                            </ng-container>
                         </td>
                     </tr>
                     <tr>
@@ -636,8 +638,8 @@
                         <p>
                             च. बहुबैंकिङ्ग घोषणा पत्र प्राप्त।
                         </p>
-                        <p>
-                            छ. बैकर्स शर्त सहितको कम्तीमा रु.
+                        <p *ngIf="selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION">
+                            छ. बैकर्स शर्त सहितको कम्तीमा
                             रु.    <span [ngClass]="{'font-weight-bold' : letter?.loan.insuranceAmountInFigureCT!== null && letter?.loan.insuranceAmountInFigureCT!== ''}">
             {{letter?.loan.insuranceAmountInFigureCT === null || letter?.loan.insuranceAmountInFigureCT === '' ? '___________' : letter?.loan.insuranceAmountInFigureCT}}</span>/-
                             (अक्षेरेपी रु.    <span [ngClass]="{'font-weight-bold' : letter?.loan.insuranceAmountInWordCT!== null && letter?.loan.insuranceAmountInWordCT!== ''}">
@@ -645,7 +647,8 @@
                              मात्र) को भवनको विमालेख।
                         </p>
                         <p>
-                            ज.	श्री <span class=" font-weight-bold">
+                            {{selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION ?
+                            'ज' : 'छ'}}. श्री <span class=" font-weight-bold">
                             {{this.finalName}}
                 </span>
                             को बैकको पक्षमा रु.
@@ -661,7 +664,8 @@
                 </tr>
             </table>
             <p *ngIf="offerData?.supportedInformation" style="margin-top: -2.8em;margin-left: 3.8em;">
-                झ. <span class="nepaliFont"
+                {{selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION?
+                'झ' : 'ज'}}. <span class="nepaliFont"
                          style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
             </p><br>
 
