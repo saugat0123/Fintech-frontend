@@ -193,7 +193,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       temporaryWard: [undefined],
       temporaryMunType: [1],
       guarantorDetails: this.formBuilder.array([]),
-      collateralDetails: this.formBuilder.array([]),citizenshipIssueDistrict: [undefined],
+      collateralDetails: this.formBuilder.array([]), citizenshipIssueDistrict: [undefined],
       citizenshipIssueDate: [undefined],
       companyName: [undefined],
       companyDistrict: [undefined],
