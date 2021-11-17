@@ -19,7 +19,6 @@ import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {NepDataPersonal} from '../../../model/nepDataPersonal';
 import {CustomerType} from '../../../../customer/model/customerType';
 import {Branch} from '../../../../admin/modal/branch';
-import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 
 @Component({
     selector: 'app-nep-proposed-amount-form',
