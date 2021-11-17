@@ -1,6 +1,6 @@
 <nb-card [nbSpinner]="spinner">
-    <nb-card-body>
-        <Form [formGroup]="userConfigForm">
+    <nb-card-body *ngFor="let collateralOwner of userConfigForm.get('collateralOwnerDetail')['controls']; let i = index;">
+        <Form [formGroup]="i">
             <div class="row">
                 <div class="col">
                     <div class="form-group">
@@ -171,7 +171,7 @@
                             प्रदेश </label>
                         <ng-select
                                 bindLabel="nepaliName"
-                                (change)="getDistricts(basicInfoControls.collateralOwnerPermanentProvince.value)"
+                                (change)="getCollateralOwnerDistricts(basicInfoControls.collateralOwnerPermanentProvince.value)"
                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralOwnerPermanentProvince.errors}"
                                 formControlName="collateralOwnerPermanentProvince"
                                 id="collateralOwnerPermanentProvince">
@@ -194,7 +194,7 @@
                         <label class="title" for="collateralOwnerPermanentDistrict">जिल्ला</label>
                         <ng-select
                                 bindLabel="nepaliName"
-                                (change)="getMunicipalities(basicInfoControls?.collateralOwnerPermanentDistrict.value)"
+                                (change)="getCollateralOwnerMunicipalities(basicInfoControls?.collateralOwnerPermanentDistrict.value)"
                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralOwnerPermanentDistrict.errors}"
                                 formControlName="collateralOwnerPermanentDistrict"
                                 id="collateralOwnerPermanentDistrict">
@@ -253,6 +253,21 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <button class="btn btn-danger float-right" (click)="removeAtIndexCollateralOwner(i)"
+                        style="position: static">
+                    <em class="fa fa-trash" style="color: white;"></em>
+                </button>
+            </div>
         </Form>
     </nb-card-body>
+    <button class="btn tbn-sm btn-flat btn-primary" (click)="addCollateralOwner()">Add Collateral Details
+    </button>
+    <nb-card-footer>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="float-right" nbButton (click)="save()" [disabled]="spinner">save</button>
+            </div>
+        </div>
+    </nb-card-footer>
 </nb-card>
