@@ -2,7 +2,7 @@
     <nb-card-body>
         <Form [formGroup]="nepForm">
             <div class="col-md-12 row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label class="title" for="engNumber">प्रस्तावित रकम</label>
                     <input type="number"
                            [ngClass]="{'is-invalid': submitted && nepFormControls.engNumber.errors}"
@@ -11,13 +11,23 @@
                            id="engNumber"
                            formControlName="engNumber"/>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label class="title" for="initDate">ऋण स्वीकृति मिति</label>
                     <input [ngClass]="{'is-invalid': submitted && nepFormControls.initDate.errors}"
                            type="text"
                            placeholder="ऋण स्वीकृति मिति"
                            id="initDate"
                            class="form-control form-control-sm nepaliFont" formControlName="initDate"/>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="title" for="loanApprovalNo">
+                        ऋण स्वीकृति नम्बर</label>
+                    <input type="text"
+                           [ngClass]="{'is-invalid': submitted && nepFormControls.loanApprovalNo.errors}"
+                           placeholder="ऋण स्वीकृति नम्बर"
+                           class="form-control form-control-sm nepaliFont"
+                           id="loanApprovalNo"
+                           formControlName="loanApprovalNo"/>
                 </div>
             </div>
             <hr>
@@ -37,26 +47,18 @@
                                formControlName="loanType"/>
                     </div>
                     <div class="form-group col-md-4">
-                        <label class="title" for="interestRate">
-                            ब्याजदर</label>
-                        <input [ngClass]="{'is-invalid': submitted && nepFormControls.interestRate.errors}"
-                               type="text"
-                               placeholder="ब्याजदर"
-                               id="interestRate"
-                               class="form-control form-control-sm nepaliFont" formControlName="interestRate"/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label class="title" for="serviceFeePercent">
-                            सेवा शुल्क प्रतिशत</label>
-                        <input [ngClass]="{'is-invalid': submitted && nepFormControls.serviceFeePercent.errors}"
-                               type="text"
-                               placeholder="सेवा शुल्क प्रतिशत"
-                               id="serviceFeePercent"
-                               class="form-control form-control-sm nepaliFont" formControlName="serviceFeePercent"/>
+                        <label class="title" for="typeOfLoan">
+                            Type of Loan</label>
+                        <input type="text"
+                               [ngClass]="{'is-invalid': submitted && nepFormControls.typeOfLoan.errors}"
+                               placeholder="Type of Loan"
+                               class="form-control form-control-sm"
+                               id="typeOfLoan"
+                               formControlName="typeOfLoanInEnglish"/>
                     </div>
                 </div>
                 <div class="col-md-12 row">
-                        <div class="form-group col-md-4">
+                    <div class="form-group col-md-4">
                             <label class="title" for="tenureOfLoan" id="tenureOfLoan">
                                 ऋणको अवधि</label>
                             <input type="text"
@@ -66,7 +68,7 @@
                                    id="tenureOfLoanInMonths"
                                    formControlName="tenureOfLoanInMonths"/>
                         </div>
-                        <div class="form-group col-md-4 mt-2">
+                    <div class="form-group col-md-4 mt-2">
                             <label class="title"></label>
                             <input [ngClass]="{'is-invalid': submitted && nepFormControls.tenureOfLoanInYears.errors}"
                                    type="text"
@@ -84,35 +86,27 @@
                     </div>
                 </div>
                 <div class="col-md-12 row">
-                        <div class="form-group col-md-4">
-                            <label class="title" for="typeOfLoan">
-                                Type of Loan</label>
-                            <input type="text"
-                                   [ngClass]="{'is-invalid': submitted && nepFormControls.typeOfLoan.errors}"
-                                   placeholder="Type of Loan"
-                                   class="form-control form-control-sm"
-                                   id="typeOfLoan"
-                                   formControlName="typeOfLoanInEnglish"/>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="title" for="purposeOfLoan">Purpose Of Loan</label>
+                    <div class="form-group col-md-4">
+                            <label class="title" for="purposeOfLoan">
+                                ऋणको उद्देश्य</label>
                             <input [ngClass]="{'is-invalid': submitted && nepFormControls.purposeOfLoan.errors}"
                                    type="text"
-                                   placeholder="Purpose of Loan"
+                                   placeholder="ऋणको उद्देश्य"
                                    id="purposeOfLoan"
-                                   class="form-control form-control-sm" formControlName="purposeOfLoan"/>
+                                   class="form-control form-control-sm nepaliFont" formControlName="purposeOfLoan"/>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label class="title" for="serviceFeeAmount">सेवा शुल्क रकम</label>
-                            <input [ngClass]="{'is-invalid': submitted && nepFormControls.serviceFeeAmount.errors}"
-                                   type="text"
-                                   placeholder="सेवा शुल्क रकम"
-                                   id="serviceFeeAmount"
-                                   class="form-control form-control-sm nepaliFont" formControlName="serviceFeeAmount"/>
-                        </div>
+                    <div class="form-group col-md-4">
+                        <label class="title" for="interestRate">
+                            ब्याजदर</label>
+                        <input [ngClass]="{'is-invalid': submitted && nepFormControls.interestRate.errors}"
+                               type="text"
+                               placeholder="ब्याजदर"
+                               id="interestRate"
+                               class="form-control form-control-sm nepaliFont" formControlName="interestRate"/>
                     </div>
+                </div>
                 <div class="col-md-12 row">
-                        <div class="form-group col-md-4">
+                    <div class="form-group col-md-4">
                             <label class="title" for="baseRate">
                                 आधार दर</label>
                             <input type="text"
@@ -122,7 +116,7 @@
                                    id="baseRate"
                                    formControlName="baseRate"/>
                         </div>
-                        <div class="form-group col-md-4">
+                    <div class="form-group col-md-4">
                             <label class="title" for="premium">प्रिमियम</label>
                             <input [ngClass]="{'is-invalid': submitted && nepFormControls.premium.errors}"
                                    type="text"
@@ -130,7 +124,7 @@
                                    id="premium"
                                    class="form-control form-control-sm nepaliFont" formControlName="premium"/>
                         </div>
-                        <div class="form-group col-md-4">
+                    <div class="form-group col-md-4">
                             <label class="title" for="discount">छुट</label>
                             <input [ngClass]="{'is-invalid': submitted && nepFormControls.discount.errors}"
                                    type="text"
@@ -138,33 +132,60 @@
                                    id="discount"
                                    class="form-control form-control-sm nepaliFont" formControlName="discount"/>
                         </div>
-                    </div>
+                </div>
                 <div class="col-md-12 row">
                     <div class="form-group col-md-4">
-                        <label class="title" for="loanApprovalNo">
-                            ऋण स्वीकृति नम्बर</label>
+                        <label class="title" for="serviceFeePercent">
+                            सेवा शुल्क प्रतिशत</label>
+                        <input [ngClass]="{'is-invalid': submitted && nepFormControls.serviceFeePercent.errors}"
+                               type="text"
+                               placeholder="सेवा शुल्क प्रतिशत"
+                               id="serviceFeePercent"
+                               class="form-control form-control-sm nepaliFont" formControlName="serviceFeePercent"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="title" for="serviceFeeAmount">सेवा शुल्क रकम</label>
+                        <input [ngClass]="{'is-invalid': submitted && nepFormControls.serviceFeeAmount.errors}"
+                               type="text"
+                               placeholder="सेवा शुल्क रकम"
+                               id="serviceFeeAmount"
+                               class="form-control form-control-sm nepaliFont" formControlName="serviceFeeAmount"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="title" for="cibCharges">सी.आई.बि. शुल्क</label>
+                        <input [ngClass]="{'is-invalid': submitted && nepFormControls.cibCharges.errors}"
+                               type="text"
+                               placeholder="सी=आई=बि= शुल्क"
+                               id="cibCharges"
+                               class="form-control form-control-sm nepaliFont" formControlName="cibCharges"/>
+                    </div>
+                </div>
+                <div class="col-md-12 row">
+                    <div class="form-group col-md-4">
+                        <label class="title" for="interestInstallmentPaymentFrequency">ब्याज किस्ता भुक्तानी आवृत्ति</label>
+                        <input [ngClass]="{'is-invalid': submitted && nepFormControls.interestInstallmentPaymentFrequency.errors}"
+                               type="text"
+                               placeholder="ब्याज किस्ता भुक्तानी आवृत्ति"
+                               id="interestInstallmentPaymentFrequency"
+                               class="form-control form-control-sm nepaliFont" formControlName="interestInstallmentPaymentFrequency"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="title" for="loanMaturityDateBS">
+                            ऋण परिपक्वता मिति (वि.सं.)</label>
                         <input type="text"
-                               [ngClass]="{'is-invalid': submitted && nepFormControls.loanApprovalNo.errors}"
-                               placeholder="ऋण स्वीकृति नम्बर"
+                               [ngClass]="{'is-invalid': submitted && nepFormControls.loanMaturityDateBS.errors}"
+                               placeholder="ऋण परिपक्वता मिति -वि=सं=_"
                                class="form-control form-control-sm nepaliFont"
-                               id="loanApprovalNo"
-                               formControlName="loanApprovalNo"/>
+                               id="loanMaturityDateBS"
+                               formControlName="loanMaturityDateBS"/>
                     </div>
                     <div class="form-group col-md-4">
-                        <label class="title" for="premium">सी. बि शुल्क</label>
-                        <input [ngClass]="{'is-invalid': submitted && nepFormControls.premium.errors}"
+                        <label class="title" for="loanMaturityDateAD">ऋण परिपक्वता मिति (ई.सं.)</label>
+                        <input [ngClass]="{'is-invalid': submitted && nepFormControls.loanMaturityDateAD.errors}"
                                type="text"
-                               placeholder="प्रिमियम"
-                               id="premium"
-                               class="form-control form-control-sm nepaliFont" formControlName="premium"/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label class="title" for="discount">छुट</label>
-                        <input [ngClass]="{'is-invalid': submitted && nepFormControls.discount.errors}"
-                               type="text"
-                               placeholder="छुट"
-                               id="discount"
-                               class="form-control form-control-sm nepaliFont" formControlName="discount"/>
+                               placeholder="ऋण परिपक्वता मिति -ई=सं=_"
+                               id="loanMaturityDateAD"
+                               class="form-control form-control-sm nepaliFont" formControlName="loanMaturityDateAD"/>
                     </div>
                 </div>
             </div>
