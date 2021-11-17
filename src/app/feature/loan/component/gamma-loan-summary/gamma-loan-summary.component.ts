@@ -691,8 +691,10 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
       }
       // Collateral Site Visit Document
       const siteVisitDocument = this.siteVisitDocuments;
-      for (const doc of siteVisitDocument) {
-        docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+      if (!ObjectUtil.isEmpty(siteVisitDocument)) {
+        for (const doc of siteVisitDocument) {
+          docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+        }
       }
       // Site Visit Document
       if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
