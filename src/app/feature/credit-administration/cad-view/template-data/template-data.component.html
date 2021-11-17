@@ -48,4 +48,10 @@
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL" [nbSpinner]="spinner">
         <app-perosnal-overdraft-without-collateral-template-data [customerApprovedDoc]="cadData"></app-perosnal-overdraft-without-collateral-template-data>
     </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.KISAN_KARJA_SUBSIDY" [nbSpinner]="spinner">
+        <app-kisan-karja-subsidy></app-kisan-karja-subsidy>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.UDYAMSIL_KARJA_SUBSIDY" [nbSpinner]="spinner">
+        <app-udyamsil-karja-subsidy></app-udyamsil-karja-subsidy>
+    </nb-card-body>
 </nb-card>

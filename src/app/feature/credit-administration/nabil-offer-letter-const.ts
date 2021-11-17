@@ -12,7 +12,9 @@ export enum NabilOfferLetterConst {
     HOME_LOAN,
     MORTAGE_LOAN,
     AUTO_LOAN_COMMERCIAL,
-    PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL
+    PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL,
+    KISAN_KARJA_SUBSIDY,
+    UDYAMSIL_KARJA_SUBSIDY,
 }
 
 export namespace NabilOfferLetterConst {
@@ -44,6 +46,10 @@ export namespace NabilOfferLetterConst {
                 return 'Mortage Loan';
             case NabilOfferLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL:
                 return 'Personal overdraft without collateral';
+            case NabilOfferLetterConst.KISAN_KARJA_SUBSIDY:
+                return 'Kisan Karja Subsidy';
+            case NabilOfferLetterConst.UDYAMSIL_KARJA_SUBSIDY:
+                return 'Udyamsil Karja Subsidy';
         }
     }
 
