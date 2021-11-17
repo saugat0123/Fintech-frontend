@@ -13,7 +13,7 @@
             <form [formGroup]="form">
                 <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
                 <p class="text-left"></p>
-                ऋणकर्जा संख्याः <input class="form-field form-control-sm col-3"
+                <input class="form-field form-control-sm col-3"
                        formControlName="referenceNumber"
                        name="referenceNumber"
                        placeholder=" सन्दर्भ नम्बर "
@@ -32,7 +32,16 @@
                                      type="text"/>
                     </p>
                 </ng-template>
-                <div class="mb-2"> श्रीमान्/श्रीमती
+                <div class="mb-2">
+                    <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+                    <ng-template #nameDetails>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                            श्रीमती
+                        </span>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                          सुश्री
+                        </span>
+                    </ng-template>
                     <input class="form-field form-control-sm"
                            formControlName="customerName"
                            name="customerName"
@@ -75,7 +84,7 @@
                         <tr style="text-align:center">
                         </tr>
                         <tr>
-                            <td rowspan="6">
+                            <td rowspan="5">
                                 <strong>१.</strong>
                             </td>
                             <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
@@ -93,8 +102,8 @@
                         </tr>
                         <tr>
                             <td><strong> रकम </strong></td>
-                            <td>
-                                रु.<input (input)="getNumAmountWord('loanAmountPl', 'loanAmountPlInWords')"
+                            <td>रु.
+                                <input (input)="getNumAmountWord('loanAmountPl', 'loanAmountPlInWords')"
                                           class="form-field form-control-sm"
                                           formControlName="loanAmountPl"
                                           name="loanAmountPl"
@@ -132,13 +141,41 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>सेवा शुल्कः </strong></td>
-                            <td>कुल ऋणकर्जा रकमको <input class="form-field form-control-sm"
-                                                         formControlName="loanAdminFeeinFigure"
-                                                         name="loanAdminFeeinFigure"
-                                                         placeholder=" "
-                                                         type="text"/> प्रतिशतका दरले अग्रिम रुपमा तिर्नुबुझाउनु पर्नेछ ।
+                            <td><strong>ऋण प्रशासनिक शुल्क </strong></td>
+                            <td> <ul class="disclist">
+                                <li>ऋण प्रशासनिक शुल्क बापत रु
+                                    <input (input)="getNumAmountWord('loanAdminFeeinFigureOd', 'loanAdminFeeinWordsOd')"
+                                           class="form-field form-control-sm"
+                                           formControlName="loanAdminFeeinFigureOd"
+                                           name="loanAdminFeeinFigureOd"
+                                           placeholder=" रकम "
+                                           type="text"/> ।
+                                    (अक्षरेपी रु <input class="form-field form-control-sm"
+                                                        formControlName="loanAdminFeeinWordsOd"
+                                                        name="loanAdminFeeinWordsOd"
+                                                        placeholder=" रकम "
+                                                        type="text"/>मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
+                                    कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट
+                                    प्राप्त गरिने साख सूचना, घर/जग्गाको मुल्याड्ढन,
+                                    रजिष्ट्रेशन, ब्लु प्रिन्ट तथा टेश नक्सा लिँदा लाग्ने शुल्क, सुरक्षित कारोबार
+                                    रजिष्टेशन तथा अन्य आवश्यक सूचना प्राप्त गर्न र
+                                    आधिकारिक निकायमा रजिष्ट्रेशन गर्न लाग्ने शुल्क तथा कुनै पनि खर्च, आदि बास्तबिक
+                                    रकम ऋणी स्वयंले नै तिर्न बुझाउनु पर्नेछ ।
+                                    उक्त रकम तपाईको खातामा खर्च जनाई कटृा गरी भुक्तानी गरिनेछ ।
+                                </li>
+                                <li>तपाई ऋणी तथा तपाई सञग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे
+                                    बापत प्रति सूचना रु २,००० शुल्क
+                                    लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ ।
+                                </li>
+                                <li>बिमा बापतको शुल्क वा धितो मूल्यांकन/पूर्नमुल्यांकन शुल्क बापतको बास्तबिक रकम
+                                    तपाईं ऋणी स्वयंले नै तिर्नु बुझाउनु पर्नेछ ।
+                                    सो सेवा सम्बन्धी कुनै वक्यौता रहि सम्बन्धीत पक्षले बैंक समक्ष माग गरेमा बैंकले
+                                    तपाईलाई पूर्व सूचना नदिई तपाईको खातामा खर्च
+                                    जनाई सम्बन्धीत पक्षलाई भुक्तानी दिन सक्नेछ ।
+                                </li>
+                            </ul>
                             </td>
+                        </tr>
 
                         <tr>
                             <td><strong> चुक्ता भुक्तानीः </strong></td>
@@ -162,49 +199,6 @@
                                 बुझाउनु पर्ने छ ।
                             </td>
                         </tr>
-                        <tr>
-                            <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः </strong></td>
-                            <td>
-                                स्वीकृत अधिविकर्ष तथा नविकरणीय प्रकृतिका कर्जाको तथा निश्चित अवधि वा भुक्तानी तालिका
-                                बमोजिम भुक्तानी
-                                हुने प्रकृतिका आवधिक वा दीर्घकालिन कर्जाको किस्ता तालिका भन्दा अगावैे ऋणकर्जा अग्रिम
-                                भुक्तानी भएमा र/वा
-                                अन्य कुनै बैंक तथा वित्तीय संस्थाबाट ऋणकर्जा स्वीकृत गरी यस बैंकको ऋण कर्जा भुक्तान
-                                गरिएमा यसरी अग्रिम
-                                भुक्तानी गरिने ऋणकर्जा रकममा हालका लागि देहाय बमोजिम<strong> अग्रिम भुक्तानी शुल्क र/वा
-                                स्वाप (Swap) शुल्क</strong>
-                                लाग्नेछ तर उल्लिखित दरहरु समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम परिवर्तन भई
-                                थप/घट हुनसक्नेछन ।<br>
-                                <table>
-                                    <tr>
-                                        <td> अग्रिम भुक्तानी समय अवधि</td>
-                                        <td> अग्रिम भुक्तानी शुल्क दर</td>
-                                    </tr>
-                                    <tr>
-                                        <td> कर्जा प्रवाह भएको मितिले २ वर्ष भित्र</td>
-                                        <td> अग्रिम भुक्तानी रकमको ०.७५ %</td>
-                                    </tr>
-                                    <tr>
-                                        <td> २ वर्ष देखि ५ वर्ष भित्र</td>
-                                        <td> अग्रिम भुक्तानी रकमको ०.३७५ %</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td> ५ वर्ष भन्दा पछि</td>
-                                        <td> अग्रिम भुक्तानी रकमको ०.१५ %</td>
-                                    </tr>
-                                </table>
-                                <p style="font-style: italic">
-                                    नेपाल राष्ट्र बैंकको निर्देशन बमोजिम रु ५० लाखसम्मको सीमा कायम भएको
-                                    जुनसुकै प्रकारको कर्जा भुक्तानी गर्दा अग्रिम भुक्तानी शूल्क लाग्ने
-                                    छैन । सो सीमाभन्दा बढीको कर्जाको हकमा कर्जा लिंदा बखत तोकिएको शर्त
-                                    वा ब्याजदर थप/परिवर्तन भएको कारण अग्रिम रुपमा कर्जा चुक्ता गर्न
-                                    चाहेमा त्यस्तो अग्रिम भुक्तानी गरे बापत कुनै किसिमको शुल्क लिइने छैन
-                                    । तर उल्लिखित सिमा समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम
-                                    परिवर्तन भई थप/घट भएमा सोहिबमोजिम अग्रिम भुक्तानी शुल्क दर
-                                    कार्यान्वयन गरिनेछ ।
-                                </p>
-                            </td>
                         <tr>
                         <td rowspan="7">
                             <strong>२.</strong>
@@ -362,6 +356,7 @@
                                                  type="text"/>
                                     मा हुनेछ ।</td>
                             </ng-template>
+
                         </tr>
                     </table>
                     <table class="table table-borderless col-md-12">

@@ -4,9 +4,9 @@
         <form>
             <h4 class="text-center font-weight-bold"><u> ऋणकर्जा सुविधा स्वीकृति पत्र </u></h4>
             <p class="text-left"></p>
-            ऋणकर्जा संख्याः <span [ngClass]="{'font-weight-bold' : letter?.referenceNumber.ct !== null && letter?.referenceNumber.ct !== ''}">
-                {{letter?.referenceNumber.ct === null || letter?.referenceNumber.ct === '' ? '___________' : letter?.referenceNumber.ct}}
-            </span>
+            <span class="font-weight-bold">
+                     {{autoRefNumber ? autoRefNumber : '_______________________'}}
+                </span>
             <br>
             <p>
                 मितिः
@@ -16,15 +16,22 @@
                     <span class=" font-weight-bold">{{(letter?.dateofApproval.en | date) | engNepDate: true}}</span>
                 </ng-template>
             </p>
-            <div class="mb-2"> श्रीमान्/श्रीमती
-                <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
-                    {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}
+                <div class="mb-2">
+                    <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+                    <ng-template #nameDetails>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                            श्रीमती
+                        </span>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                          सुश्री
+                        </span>
+                    </ng-template>
+                    <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}">
+                    {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}</span>
+                    <div class="mb-1"> ठेगाना:
+                        <span [ngClass]="{'font-weight-bold' : customerAddress !== null && customerAddress !== ''}">
+                    {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}
                 </span>
-                <div class="mb-1"> ठेगाना:
-                    <span [ngClass]="{'font-weight-bold' : customerAddress !== null && customerAddress !== ''}">
-                        {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}
-                    </span>
-                </div>
                 <p style="text-align: center"><strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong></p>
                 <br>
                 <br>
@@ -118,49 +125,6 @@
                             बुझाउनु पर्ने छ ।
                         </td>
                     </tr>
-                    <tr>
-                        <td><strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः </strong></td>
-                        <td>
-                            स्वीकृत अधिविकर्ष तथा नविकरणीय प्रकृतिका कर्जाको तथा निश्चित अवधि वा भुक्तानी तालिका
-                            बमोजिम भुक्तानी
-                            हुने प्रकृतिका आवधिक वा दीर्घकालिन कर्जाको किस्ता तालिका भन्दा अगावैे ऋणकर्जा अग्रिम
-                            भुक्तानी भएमा र/वा
-                            अन्य कुनै बैंक तथा वित्तीय संस्थाबाट ऋणकर्जा स्वीकृत गरी यस बैंकको ऋण कर्जा भुक्तान
-                            गरिएमा यसरी अग्रिम
-                            भुक्तानी गरिने ऋणकर्जा रकममा हालका लागि देहाय बमोजिम<strong> अग्रिम भुक्तानी शुल्क र/वा
-                            स्वाप (Swap) शुल्क</strong>
-                            लाग्नेछ तर उल्लिखित दरहरु समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम परिवर्तन भई
-                            थप/घट हुनसक्नेछन ।<br>
-                            <table>
-                                <tr>
-                                    <td> अग्रिम भुक्तानी समय अवधि</td>
-                                    <td> अग्रिम भुक्तानी शुल्क दर</td>
-                                </tr>
-                                <tr>
-                                    <td> कर्जा प्रवाह भएको मितिले २ वर्ष भित्र</td>
-                                    <td> अग्रिम भुक्तानी रकमको ०.७५ %</td>
-                                </tr>
-                                <tr>
-                                    <td> २ वर्ष देखि ५ वर्ष भित्र</td>
-                                    <td> अग्रिम भुक्तानी रकमको ०.३७५ %</td>
-                                </tr>
-
-                                <tr>
-                                    <td> ५ वर्ष भन्दा पछि</td>
-                                    <td> अग्रिम भुक्तानी रकमको ०.१५ %</td>
-                                </tr>
-                            </table>
-                            <p style="font-style: italic">
-                                नेपाल राष्ट्र बैंकको निर्देशन बमोजिम रु ५० लाखसम्मको सीमा कायम भएको
-                                जुनसुकै प्रकारको कर्जा भुक्तानी गर्दा अग्रिम भुक्तानी शूल्क लाग्ने
-                                छैन । सो सीमाभन्दा बढीको कर्जाको हकमा कर्जा लिंदा बखत तोकिएको शर्त
-                                वा ब्याजदर थप/परिवर्तन भएको कारण अग्रिम रुपमा कर्जा चुक्ता गर्न
-                                चाहेमा त्यस्तो अग्रिम भुक्तानी गरे बापत कुनै किसिमको शुल्क लिइने छैन
-                                । तर उल्लिखित सिमा समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम
-                                परिवर्तन भई थप/घट भएमा सोहिबमोजिम अग्रिम भुक्तानी शुल्क दर
-                                कार्यान्वयन गरिनेछ ।
-                            </p>
-                        </td>
                     <tr>
                         <td><strong>कर्जा प्रकार/ प्रयोजनः </strong></td>
                         <td>व्यक्तिगत अधिविकर्षः

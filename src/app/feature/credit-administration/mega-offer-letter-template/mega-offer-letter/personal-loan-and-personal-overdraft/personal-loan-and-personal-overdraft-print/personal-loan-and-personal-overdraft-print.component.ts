@@ -22,6 +22,7 @@ export class PersonalLoanAndPersonalOverdraftPrintComponent implements OnInit {
   proposedAmount;
   guarantorName;
   branchName;
+  autoRefNumber;
   guarantorData;
   guarantorNames: Array<String> = [];
   allguarantorNames;
