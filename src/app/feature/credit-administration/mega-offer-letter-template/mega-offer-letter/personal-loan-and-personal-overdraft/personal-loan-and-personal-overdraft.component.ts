@@ -205,6 +205,10 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             const val = value.proposal.proposedLimit;
             totalLoanAmount = totalLoanAmount + val;
         });
+        let autoRefNumber;
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+            autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+        }
         this.form.patchValue({
             customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
             customerAddress: customerAddress ? customerAddress : '',
@@ -214,7 +218,7 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             loanAmountPlInWords: this.tempData.loanAmountPlInWords.ct ? this.tempData.loanAmountPlInWords.ct : '',
             loanAmountOd: this.tempData.loanAmountOd.ct ? this.tempData.loanAmountOd.ct : '',
             loanAmountOdInWords: this.tempData.loanAmountOdInWords.ct ? this.tempData.loanAmountOdInWords.ct : '',
-            referenceNumber: this.tempData.referenceNumber.ct ? this.tempData.referenceNumber.ct : '',
+            referenceNumber: autoRefNumber ? autoRefNumber : '',
             purposeofLoan: this.tempData.purposeofLoan.ct ? this.tempData.purposeofLoan.ct : '',
             purposeofLoanOd: this.tempData.purposeofLoanOd.ct ? this.tempData.purposeofLoanOd.ct : '',
             baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
