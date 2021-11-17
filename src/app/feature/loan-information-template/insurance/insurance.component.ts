@@ -54,7 +54,6 @@ export class InsuranceComponent implements OnInit {
         this.form = this.formBuilder.group({formArray: this.formBuilder.array([])});
     }
     addFormData(data: Insurance) {
-        console.log('data', data);
         return this.formBuilder.group({id: [ObjectUtil.setUndefinedIfNull(data.id)],
                 version: [ObjectUtil.setUndefinedIfNull(data.version)],
                 company: [ObjectUtil.setUndefinedIfNull(data.company)],
