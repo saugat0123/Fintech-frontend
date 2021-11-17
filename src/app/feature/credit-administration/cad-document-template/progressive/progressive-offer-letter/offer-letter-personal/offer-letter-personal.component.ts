@@ -336,32 +336,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             temporaryWardNum: [undefined],
             temporaryDistrict: [undefined],
 
-            // loanTypeNepali: [undefined],
-            // loanTypeEnglish: [undefined],
-            // amount: [undefined],
-            // amountInWords: [undefined],
-            // loanPurpose: [undefined],
-            // interestRate: [undefined],
-            // interestRepayMonths: [undefined],
-            // interestBaseRate: [undefined],
-            // interestPremiumRate: [undefined],
-            // interestTempDiscountRate: [undefined],
-            // interestFinalRate: [undefined],
-            // loanLimitPercent: [undefined],
-            // loanLimitAmount: [undefined]
-        // loanInstallmentAmount: [undefined],
-            // interestRepayPlan: [undefined],
-            // loanLimitYearAD: [undefined],
-            // loanLimitYearBS: [undefined],
-            // loanLimitMonths: [undefined],
-            //
-            // pratibadhataAmount: [undefined],
-            // pratibadhataAdditionalAmount: [undefined],
-            // pratibadhataRate: [undefined],
-            // pratibadhataYearlyRate: [undefined],
-            //
-            // sthantarandRate: [undefined],
-
             securityDetails: this.formBuilder.array([]),
 
             dhitoDate: [undefined],
