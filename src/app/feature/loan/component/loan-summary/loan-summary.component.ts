@@ -187,7 +187,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     obtainableDocuments = Array<ObtainableDoc>();
     otherObtainableDocuments = Array<string>();
     siteVisitDoc = [];
-    minOneSiteVisit = false;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -458,7 +457,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
             if (this.loanDataHolder.siteVisit.docPath) {
                 this.siteVisitDoc = JSON.parse(this.loanDataHolder.siteVisit.docPath);
-                this.minOneSiteVisit = true;
             }
         }
         // getting fiscal years

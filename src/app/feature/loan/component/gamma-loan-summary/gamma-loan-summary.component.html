@@ -749,13 +749,13 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12 disable-print">
+                <div class="col-md-12">
                     <span>
                         <b>{{(loanCategory === 'INDIVIDUAL')  ? '19. ' : '20. '}}All Documents</b>
-                        <button class="float-right sb-small sb-bg-dark text-white"
+                        <button class="float-right sb-small sb-bg-dark text-white disable-print"
                                 *ngIf="loanDataHolder?.customerDocument?.length > 0 && (loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath)"
                                 (click)=getDocPath()> Download All Document</button>
-                        <button class="float-right sb-small sb-bg-dark text-white"
+                        <button class="float-right sb-small sb-bg-dark text-white disable-print"
                                 *ngIf="loanDataHolder?.customerDocument?.length > 0 && loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath"
                                 (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"> Download All Document</button>
                     </span>
@@ -794,7 +794,7 @@
                 </div>
             </div>
 
-            <div class="row disable-print" *ngIf="minOneSiteVisit">
+            <div class="row disable-print" *ngIf="siteVisitDoc.length > 0">
                 <div class="col-md-12">
                     <p><strong>Site Visit Document</strong></p>
                     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
@@ -975,7 +975,7 @@
                     </div>
                 </div>
 
-                <div class="row" *ngIf="minOneSiteVisit">
+                <div class="row" *ngIf="siteVisitDoc.length > 0">
                     <div class="col-md-12">
                         <p><strong>Site Visit Document</strong></p>
                         <table class="table table-condensed table-bordered table-sm sb-small text-center">

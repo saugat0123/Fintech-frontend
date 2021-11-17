@@ -1004,7 +1004,7 @@
                 </div>
             </div>
 
-            <div class="row disable-print" *ngIf="minOneSiteVisit">
+            <div class="row disable-print" *ngIf="siteVisitDoc.length > 0">
                 <div class="col-md-12">
                     <p><strong>Site Visit Document</strong></p>
                     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
@@ -1184,7 +1184,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="row" *ngIf="minOneSiteVisit">
+                <div class="row" *ngIf="siteVisitDoc.length > 0">
                     <div class="col-md-12">
                         <p><strong>Site Visit Document</strong></p>
                         <table class="table table-condensed table-bordered table-sm sb-small text-center">

@@ -35,7 +35,6 @@ export class AllDocumentViewComponent implements OnInit {
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
   siteVisitDoc = [];
-  minOneSiteVisit = false;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -69,7 +68,6 @@ export class AllDocumentViewComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
         if (this.loanDataHolder.siteVisit.docPath) {
          this.siteVisitDoc = JSON.parse(this.loanDataHolder.siteVisit.docPath);
-         this.minOneSiteVisit = true;
         }
       }
     }

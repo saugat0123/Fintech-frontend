@@ -189,7 +189,6 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   companyInfo: any;
   loanSummary = 'loanSummary';
   siteVisitDoc = [];
-  minOneSiteVisit = false;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -445,7 +444,6 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
       if (this.loanDataHolder.siteVisit.docPath) {
         this.siteVisitDoc = JSON.parse(this.loanDataHolder.siteVisit.docPath);
-        this.minOneSiteVisit = true;
       }
     }
 
