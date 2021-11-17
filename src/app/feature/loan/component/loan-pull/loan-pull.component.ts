@@ -76,16 +76,30 @@ export class LoanPullComponent implements OnInit {
 
     static loadData(other: LoanPullComponent) {
         other.catalogueService.search.committee = 'true';
-        other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
-            other.loanDataHolderList = response.detail.content;
-            other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
-            other.pageable = PaginationUtils.getPageable(response.detail);
-            other.spinner = false;
-        }, error => {
-            console.error(error);
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
-            other.spinner = false;
-        });
+        if (LocalStorageUtil.getStorage().roleType.toLowerCase() === 'committee') {
+            other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
+                other.loanDataHolderList = response.detail.content;
+                other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
+                other.pageable = PaginationUtils.getPageable(response.detail);
+                other.spinner = false;
+            }, error => {
+                console.error(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
+                other.spinner = false;
+            });
+        } else {
+            other.catalogueService.search.documentStatus = DocStatus.value(DocStatus.HSOV_PENDING);
+            other.loanFormService.getHsovPull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
+                other.loanDataHolderList = response.detail.content;
+                other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
+                other.pageable = PaginationUtils.getPageable(response.detail);
+                other.spinner = false;
+            }, error => {
+                console.error(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
+                other.spinner = false;
+            });
+        }
     }
 
     ngOnInit() {
