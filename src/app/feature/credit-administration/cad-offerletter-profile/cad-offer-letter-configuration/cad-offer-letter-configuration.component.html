@@ -995,16 +995,16 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorPermanentProvince">प्रदेश</label>
-                                        <select (change)="getGuarantorDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentProvince']).value)"
+                                        <ng-select bindLabel="nepaliName"
+                                            (change)="getGuarantorDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentProvince']).value)"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentProvince.errors}"
-                                                class="form-control"
                                                 id="guarantorPermanentProvince"
                                                 formControlName="guarantorPermanentProvince">
-                                            <option [ngValue]="null" hidden>प्रदेश</option>
-                                            <option *ngFor="let provinceVal of permanentProvinceList"
-                                                    [ngValue]="provinceVal"> {{provinceVal.nepaliName}}
-                                            </option>
-                                        </select>
+                                            <ng-option [value]="null" hidden>प्रदेश</ng-option>
+                                            <ng-option *ngFor="let provinceVal of permanentProvinceList"
+                                                    [value]="provinceVal"> {{provinceVal.nepaliName}}
+                                            </ng-option>
+                                        </ng-select>
                                         <div *ngIf="(submitted) && basicInfoControls.guarantorPermanentProvince.invalid"
                                              class="invalid-feedback">
                                             <div *ngIf="basicInfoControls.guarantorPermanentProvince.errors.required">
@@ -1016,17 +1016,17 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorPermanentDistrict">जिल्ला</label>
-                                        <select (change)="getGuarantorMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict']).value)"
+                                        <ng-select bindLabel="nepaliName"
+                                                (change)="getGuarantorMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict']).value)"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentDistrict.errors}"
-                                                class="custom-select"
                                                 formControlName="guarantorPermanentDistrict"
                                                 id="guarantorPermanentDistrict">
-                                            <option [ngValue]="null" hidden>जिल्ला</option>
-                                            <option *ngFor="let districtVal of guarantorPermanentDistrictList"
-                                                    [ngValue]="districtVal">
+                                            <ng-option [value]="null" hidden>जिल्ला</ng-option>
+                                            <ng-option *ngFor="let districtVal of guarantorPermanentDistrictList"
+                                                    [value]="districtVal">
                                                 {{districtVal.nepaliName}}
-                                            </option>
-                                        </select>
+                                            </ng-option>
+                                        </ng-select>
                                         <div *ngIf="(submitted) && basicInfoControls.guarantorPermanentDistrict.invalid"
                                              class="invalid-feedback">
                                             <div *ngIf="basicInfoControls.guarantorPermanentDistrict.errors.required">
@@ -1040,22 +1040,20 @@
                                         <select class="form-control" formControlName="guarantorPermanentMunType"
                                                 id="guarantorPermanentMunType"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentMunType.errors}">
-                                            <option [ngValue]="null" hidden>नगरपालिका</option>
+                                            <option [value]="null" hidden>नगरपालिका</option>
                                             <option value="0">नगरपालिका</option>
                                             <option value="1">गा. बि. स.</option>
                                         </select>
-                                        <select
+                                        <ng-select bindLabel="nepaliName"
                                             [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentMunicipality.errors}"
-                                            class="custom-select"
                                             formControlName="guarantorPermanentMunicipality"
                                             id="guarantorPermanentMunicipality"
                                             name="guarantorPermanentMunicipality">
-                                            <option [ngValue]="null" hidden>नगरपालिका</option>
-                                            <option *ngFor="let municipalityVal of guarantorPerMunicipalitiesList"
-                                                    [ngValue]="municipalityVal">
+                                            <ng-option *ngFor="let municipalityVal of guarantorPerMunicipalitiesList"
+                                                    [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
-                                            </option>
-                                        </select>
+                                            </ng-option>
+                                        </ng-select>
                                         <div *ngIf="(submitted) && basicInfoControls.guarantorPermanentMunicipality.invalid"
                                              class="invalid-feedback">
                                             Municipality is required
@@ -1086,17 +1084,16 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorTemporaryProvince">प्रदेश</label>
-                                        <select (change)="getGuarantorTemporaryDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryProvince']).value)"
+                                        <ng-select bindLabel="nepaliName" (change)="getGuarantorTemporaryDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryProvince']).value)"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryProvince.errors}"
-                                                class="form-control"
                                                 id="guarantorTemporaryProvince"
                                                 formControlName="guarantorTemporaryProvince">
-                                            <option [ngValue]="null" hidden>प्रदेश</option>
-                                            <option *ngFor="let provinceVal of temporaryProvinceList"
-                                                    [ngValue]="provinceVal">
+                                            <ng-option [value]="null" hidden>प्रदेश</ng-option>
+                                            <ng-option *ngFor="let provinceVal of temporaryProvinceList"
+                                                    [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
-                                            </option>
-                                        </select>
+                                            </ng-option>
+                                        </ng-select>
                                         <div *ngIf="(submitted) && basicInfoControls.guarantorTemporaryProvince.invalid"
                                              class="invalid-feedback">
                                             <div *ngIf="basicInfoControls.guarantorTemporaryProvince.errors.required">
@@ -1108,17 +1105,16 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorTemporaryDistrict">जिल्ला</label>
-                                        <select (change)="getGuarantorTemporaryMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict']).value)"
+                                        <ng-select bindLabel="nepaliName" (change)="getGuarantorTemporaryMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict']).value)"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryDistrict.errors}"
-                                                class="custom-select"
                                                 formControlName="guarantorTemporaryDistrict"
                                                 id="guarantorTemporaryDistrict">
-                                            <option [ngValue]="null" hidden>जिल्ला</option>
-                                            <option *ngFor="let districtVal of guarantorTemporaryDistrictList"
-                                                    [ngValue]="districtVal">
+                                            <ng-option [value]="null" hidden>जिल्ला</ng-option>
+                                            <ng-option *ngFor="let districtVal of guarantorTemporaryDistrictList"
+                                                    [value]="districtVal">
                                                 {{districtVal.nepaliName}}
-                                            </option>
-                                        </select>
+                                            </ng-option>
+                                        </ng-select>
                                         <div *ngIf="(submitted) && basicInfoControls.guarantorTemporaryDistrict.invalid"
                                              class="invalid-feedback">
                                             <div *ngIf="basicInfoControls.guarantorTemporaryDistrict.errors.required">
@@ -1132,22 +1128,20 @@
                                         <select class="form-control" formControlName="guarantorTemporaryMunType"
                                                 id="guarantorTemporaryMunType"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryMunType.errors}">
-                                            <option [ngValue]="null" hidden>नगरपालिका</option>
+                                            <option [value]="null" hidden>नगरपालिका</option>
                                             <option value="0">नगरपालिका</option>
                                             <option value="1">गा. बि. स.</option>
                                         </select>
-                                        <select
+                                        <ng-select bindLabel="nepaliName"
                                             [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryMunicipalities.errors}"
-                                            class="custom-select"
                                             formControlName="guarantorTemporaryMunicipality"
                                             id="guarantorTemporaryMunicipality"
                                             name="guarantorTemporaryMunicipality">
-                                            <option [ngValue]="null" hidden>नगरपालिका</option>
-                                            <option *ngFor="let municipalityVal of guarantorTemMunicipalitiesList"
-                                                    [ngValue]="municipalityVal">
+                                            <ng-option *ngFor="let municipalityVal of guarantorTemMunicipalitiesList"
+                                                    [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
-                                            </option>
-                                        </select>
+                                            </ng-option>
+                                        </ng-select>
                                         <div *ngIf="(submitted) && basicInfoControls.temporaryMunicipalities.invalid"
                                              class="invalid-feedback">
                                             Municipality is required
