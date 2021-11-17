@@ -252,8 +252,9 @@ export class ProposalComponent implements OnInit {
   }
 
   setValidatorForPrepaymentField () {
-    if ((this.loanNatureSelected && this.fundableNonFundableSelcted &&
-        this.isFundable && this.isTerminating) || this.isVehicle || this.isShare || this.isGeneral) {
+    console.log('clientName', this.clientName);
+    if ((this.client !== this.clientName.SHINE_RESUNGA) && ((this.loanNatureSelected && this.fundableNonFundableSelcted &&
+        this.isFundable && this.isTerminating) || this.isVehicle || this.isShare || this.isGeneral)) {
       this.proposalForm.get('prepaymentCharge').setValidators([Validators.required, Validators.max(100), Validators.min(0)]);
     } else {
       this.proposalForm.get('prepaymentCharge').clearValidators();
@@ -452,21 +453,24 @@ export class ProposalComponent implements OnInit {
     let interestAmount = 0;
     const rate = Number(this.proposalForm.get('interestRate').value) / 100;
     const proposedAmount = this.proposalForm.get('proposedLimit').value;
-    const tenure = this.proposalForm.get('tenureDurationInMonths').value / 12;
-    const calculatedInterestAmount = this.proposalForm.get('interestAmount').value;
+    const tenure = this.proposalForm.get('tenureDurationInMonths').value;
     if (proposedAmount) {
       switch (repaymentMode) {
         case 'MONTHLY':
-          interestAmount = (proposedAmount * rate * tenure) / 12;
-          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 12;
+          interestAmount = (proposedAmount * rate) / 12;
+          principleAmount = (proposedAmount / tenure);
           break;
         case 'QUARTERLY':
-          interestAmount = (proposedAmount * rate * tenure) / 4;
-          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 4;
+          interestAmount = ((proposedAmount * rate) / 12) * 3;
+          principleAmount = (proposedAmount / tenure) * 3;
           break;
         case 'SEMI-ANNUALLY' :
-          interestAmount = (proposedAmount * rate * tenure) / 2;
-          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 2;
+          interestAmount = ((proposedAmount * rate) / 12) * 6;
+          principleAmount = (proposedAmount / tenure) * 6;
+          break;
+        case 'ANNUALLY':
+          interestAmount = (proposedAmount * rate);
+          principleAmount = (proposedAmount / tenure) * 12;
           break;
         case 'AT MATURITY':
           principleAmount = proposedAmount;
