@@ -186,6 +186,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     siteVisitDocuments: Array<SiteVisitDocument>;
     obtainableDocuments = Array<ObtainableDoc>();
     otherObtainableDocuments = Array<string>();
+    siteVisitDoc = [];
+
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -230,7 +232,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     if (splitData !== '') {
                         this.otherObtainableDocuments.push(splitData);
                     }
-                    console.log(this.otherObtainableDocuments);
                 });
             }
            });
@@ -450,6 +451,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     });
                 }
             });
+        }
+
+        // getting site visit document
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+            if (this.loanDataHolder.siteVisit.docPath) {
+                this.siteVisitDoc = JSON.parse(this.loanDataHolder.siteVisit.docPath);
+            }
         }
         // getting fiscal years
         this.getFiscalYears();
@@ -681,9 +689,21 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             for (const doc of insuranceDocument) {
                 docPaths.push(doc.policyDocumentPath);
             }
+            // Collateral Document
             const siteVisitDocument = this.siteVisitDocuments;
-            for (const doc of siteVisitDocument) {
-                docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+            if (!ObjectUtil.isEmpty(siteVisitDocument)) {
+                for (const doc of siteVisitDocument) {
+                    docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+                }
+            }
+            // Site Visit Document
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+                if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit.docPath)) {
+                    const siteVisit = JSON.parse(this.loanDataHolder.siteVisit.docPath);
+                    for (const doc of siteVisit) {
+                        docPaths.push(doc.path);
+                    }
+                }
             }
         } else {
             docPaths.push(this.loanDataHolder.zipPath);
