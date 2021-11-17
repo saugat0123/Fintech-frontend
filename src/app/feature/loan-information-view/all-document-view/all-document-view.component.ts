@@ -120,9 +120,19 @@ export class AllDocumentViewComponent implements OnInit {
       for (const doc of insuranceDocument) {
         docPaths.push(doc.policyDocumentPath);
       }
+      // Collateral Document
       const siteVisitDocument = this.siteVisitDocument;
       for (const doc of siteVisitDocument) {
         docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+      }
+      // Site Visit Document
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit.docPath)) {
+          const siteVisit = JSON.parse(this.loanDataHolder.siteVisit.docPath);
+          for (const doc of siteVisit) {
+            docPaths.push(doc.path);
+          }
+        }
       }
     } else {
       docPaths.push(this.loanDataHolder.zipPath);
