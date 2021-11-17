@@ -29,6 +29,9 @@ import { LetterVehicleIndividualPrintComponent } from './letter-vehicle-individu
 import { PromissoryNoteCompanyPrintComponent } from './promissory-note-company/promissory-note-company-print/promissory-note-company-print.component';
 import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-proprietorship/personal-gaurantee-proprietorship.component';
 import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/mega-offer-letter-template.module';
+import { NabilSmeComponent } from './nabil-sme/nabil-sme.component';
+import { KisanKarjaSubsidyComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
+import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
 
 
 @NgModule({
@@ -47,7 +50,7 @@ import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/
         LoanDeedPartnershipComponent,
         PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent, LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent],
+        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -72,7 +75,9 @@ import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/
         LoanDeedPartnershipPrintComponent,
         LetterVehicleThirdpartyCompanyComponent,
         LetterVehicleThirdpartyCompanyPrintComponent,
-        PersonalGuaranteeProprietorshipComponent
+        PersonalGuaranteeProprietorshipComponent,
+        KisanKarjaSubsidyComponent,
+        UdyamsilKarjaSubsidyComponent
     ],
     imports: [
         CommonModule,
