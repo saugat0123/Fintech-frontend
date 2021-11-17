@@ -37,7 +37,7 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label class="title" for="age">जन्म मिती </label>
+                                    <label class="title" for="age">जन्म मिति </label>
                                     <input class="form-control rounded nepaliFont"
                                            formControlName="age"
                                            id="age"
@@ -165,7 +165,7 @@
                                            formControlName="husbandName"
                                            [ngClass]="{'is-invalid': submitted && basicInfoControls.husbandName.errors}"
                                            id="husbandName"
-                                           name="husbandName" placeholder="पति वा पत्नीको नाम"
+                                           name="husbandName" placeholder="पति÷पत्नीको नाम"
                                            type="text"/>
                                 </div>
                             </div>
@@ -261,7 +261,7 @@
                                             id="permanentProvince">
                                         <ng-option [value]="null" hidden>प्रदेश</ng-option>
                                         <ng-option *ngFor="let provinceVal of permanentProvinceList"
-                                                [value]="provinceVal">
+                                                   [value]="provinceVal">
                                             {{provinceVal.nepaliName}}
                                         </ng-option>
                                     </ng-select>
@@ -284,7 +284,7 @@
                                             id="permanentDistrict">
                                         <ng-option [value]="null" hidden>जिल्ला</ng-option>
                                         <ng-option *ngFor="let districtVal of districtList"
-                                                [value]="districtVal">
+                                                   [value]="districtVal">
                                             {{districtVal.nepaliName}}
                                         </ng-option>
                                     </ng-select>
@@ -316,7 +316,7 @@
                                             name="permanentMunicipalities">
                                         <ng-option [value]="null" hidden>नगरपालिका</ng-option>
                                         <ng-option *ngFor="let municipalityVal of municipalitiesList"
-                                                [value]="municipalityVal">
+                                                   [value]="municipalityVal">
                                             {{municipalityVal.nepaliName}}
                                         </ng-option>
                                     </ng-select>
@@ -371,7 +371,7 @@
                                             id="temporaryProvince">
                                         <ng-option [value]="null" hidden>प्रदेश</ng-option>
                                         <ng-option *ngFor="let provinceVal of temporaryProvinceList"
-                                                [value]="provinceVal">
+                                                   [value]="provinceVal">
                                             {{provinceVal.nepaliName}}
                                         </ng-option>
                                     </ng-select>
@@ -394,7 +394,7 @@
                                             id="temporaryDistrict">
                                         <ng-option [value]="null" hidden>जिल्ला</ng-option>
                                         <ng-option *ngFor="let districtVal of temporaryDistrictList"
-                                                [value]="districtVal">
+                                                   [value]="districtVal">
                                             {{districtVal.nepaliName}}
                                         </ng-option>
                                     </ng-select>
@@ -419,7 +419,7 @@
                                             name="temporaryMunicipalities">
                                         <ng-option [value]="null" hidden>नगरपालिका</ng-option>
                                         <ng-option *ngFor="let municipalityVal of temporaryMunicipalitiesList"
-                                                [value]="municipalityVal">
+                                                   [value]="municipalityVal">
                                             {{municipalityVal.nepaliName}}
                                         </ng-option>
                                     </ng-select>
@@ -1054,7 +1054,10 @@
                     </div>-->
                 </nb-tab>
                 <nb-tab tabId="4" tabTitle="Collateral Owner Details">
+                    <app-collateral-owner-details-form>
 
+                    </app-collateral-owner-details-form>
+                    <hr>
                 </nb-tab>
                 <nb-tab tabId="5" tabTitle="Branch Details">
                     <div class="col-md-12 row">
@@ -1071,11 +1074,12 @@
                                     id="branchName" #branch1
                                     formControlName="branchName" (ngModelChange)="getBranchDetails(branch1.value)">
                                 <option [ngValue]="null" hidden>
-                                    शाखा चयन गर्नुहोस्</option>
-                                                   <option *ngFor="let branch of branchList" value="{{branch.nepaliName}}">
-                                                       {{branch.nepaliName}}
-                                                   </option>
-                                               </select>
+                                    शाखा चयन गर्नुहोस्
+                                </option>
+                                <option *ngFor="let branch of branchList" value="{{branch.nepaliName}}">
+                                    {{branch.nepaliName}}
+                                </option>
+                            </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="title" for="branchDistrict">
