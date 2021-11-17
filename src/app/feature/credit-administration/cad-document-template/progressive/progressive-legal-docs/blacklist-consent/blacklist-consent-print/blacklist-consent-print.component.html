@@ -47,7 +47,7 @@
                         )
 
                         <br>
-                        ठेगाना :-स्थायी <span [ngClass]="{'nepaliFont': printDocForm?.sincerlyPermanentDistrict!==null && printDocForm?.sincerlyPermanentDistrict!==''}">
+                        स्थायी ठेगाना :- <span [ngClass]="{'nepaliFont': printDocForm?.sincerlyPermanentDistrict!==null && printDocForm?.sincerlyPermanentDistrict!==''}">
                         {{printDocForm?.sincerlyPermanentDistrict===null || printDocForm?.sincerlyPermanentDistrict ===''?'___________________':printDocForm?.sincerlyPermanentDistrict}}
                     </span>
                         जिल्ला <span [ngClass]="{'nepaliFont': printDocForm?.sincerlyPermanentMunicipality!==null && printDocForm?.sincerlyPermanentMunicipality!==''}">
@@ -131,7 +131,7 @@
                         {{printDocForm?.jamanatRegCDO===null || printDocForm?.jamanatRegCDO ===''?'___________________':printDocForm?.jamanatRegCDO}}
                     </span> )
                     <br>
-                    ठेगाना :—स्थायी <span [ngClass]="{'nepaliFont': printDocForm?.jamanatPermanentAddress!==null && printDocForm?.jamanatPermanentAddress!==''}">
+                        स्थायी ठेगाना :—<span [ngClass]="{'nepaliFont': printDocForm?.jamanatPermanentAddress!==null && printDocForm?.jamanatPermanentAddress!==''}">
                         {{printDocForm?.jamanatPermanentAddress===null || printDocForm?.jamanatPermanentAddress ===''?'___________________':printDocForm?.jamanatPermanentAddress}}
                     </span>
                     जिल्ला <span [ngClass]="{'nepaliFont': printDocForm?.jamanatDistrict!==null && printDocForm?.jamanatDistrict!==''}">
@@ -182,6 +182,7 @@
                     </div>
                 </div>
                     <br>
+            <p class="page-break"></p>
                     <div>
                         <strong class="text-left">साक्षी :</strong>
                         <!--<div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
@@ -308,31 +309,33 @@
                     <br>
             <br>
             <div class="text-center">
-            <strong>ईति सम्बत २०७</strong><span [ngClass]="{nepaliFont:printDocForm.itiSambatYear!==null && printDocForm.itiSambatYear!==null}" >
+                <strong>ईति सम्बत २०७</strong> <span [ngClass]="{'nepaliFont':printDocForm.ItisambatYear!==null && printDocForm.ItisambatYear!==null}" >
 
-                       {{printDocForm.itiSambatYear===null || printDocForm.itiSambatYear===''?'_______________':printDocForm.itiSambatYear}}
-
-                   </span>
-            <strong>साल</strong> <span [ngClass]="{'nepaliFont':printDocForm.itiSambatMonth!==null && printDocForm.itiSambatMonth!==null}" >
-
-                       {{printDocForm.itiSambatMonth===null || printDocForm.itiSambatMonth===''?'_______________':printDocForm.itiSambatMonth}}
+                       {{printDocForm.ItisambatYear===null || printDocForm.ItisambatYear===''?'_______________':printDocForm.ItisambatYear}}
 
                    </span>
-            <strong>महिना</strong> <span [ngClass]="{'nepaliFont':printDocForm.itiSambatDay!==null && printDocForm.itiSambatDay!==null}" >
+                <strong>साल</strong><span [ngClass]="{'nepaliFont':printDocForm.ItisambatMonth!==null && printDocForm.ItisambatMonth!==null}" >
 
-                       {{printDocForm.itiSambatDay===null || printDocForm.itiSambatDay===''?'_______________':printDocForm.itiSambatDay}}
-
-                   </span>
-            <strong>गते</strong> <span [ngClass]="{'nepaliFont':printDocForm.itiSambatTime!==null && printDocForm.itiSambatTime!==null}" >
-
-                       {{printDocForm.itiSambatTime===null || printDocForm.itiSambatTime===''?'_______________':printDocForm.itiSambatTime}}
+                       {{printDocForm.ItisambatMonth===null || printDocForm.ItisambatMonth===''?'_______________':printDocForm.ItisambatMonth}}
 
                    </span>
-            <strong>रोज शुभम्</strong> <span [ngClass]="{'nepaliFont':printDocForm.itiSambatRojSubham!==null && printDocForm.itiSambatRojSubham!==null}" >
+                <strong>महिना</strong> <span [ngClass]="{'nepaliFont':printDocForm.ItisambatDay!==null && printDocForm.ItisambatDay!==null}" >
 
-                       {{printDocForm.itiSambatRojSubham===null || printDocForm.itiSambatRojSubham===''?'_______________':printDocForm.itiSambatRojSubham}}
-                   </span>।
-                <br>
+                       {{printDocForm.ItisambatDay===null || printDocForm.ItisambatDay===''?'_______________':printDocForm.ItisambatDay}}
+
+                   </span>
+                <strong>गते</strong><span [ngClass]="{'nepaliFont':printDocForm.ItisambatTime!==null && printDocForm.ItisambatTime!==null}" >
+
+                       {{printDocForm.ItisambatTime===null || printDocForm.ItisambatTime===''?'_______________':printDocForm.ItisambatTime}}
+
+                   </span>
+                <strong>रोज शुभम्</strong> <span [ngClass]="{'nepaliFont':printDocForm.ItisambatRojSubham!==null && printDocForm.ItisambatRojSubham!==null}" >
+
+                       {{printDocForm.ItisambatRojSubham===null || printDocForm.ItisambatRojSubham===''?'_______________':printDocForm.ItisambatRojSubham}}
+
+                   </span>
+
+
             </div>
         </form>
     </div>

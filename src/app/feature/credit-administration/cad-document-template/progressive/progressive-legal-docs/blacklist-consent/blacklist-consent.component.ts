@@ -15,6 +15,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-blacklist-consent',
@@ -32,7 +33,8 @@ export class BlacklistConsentComponent implements OnInit {
   initialInfoPrint;
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
-  nepaliData;
+  @Input() nepaliData;
+  nepDataPersonal = new NepDataPersonal();
 
   constructor(private dialogRef: NbDialogRef<BlacklistConsentComponent>,
               private formBuilder: FormBuilder,
@@ -48,31 +50,44 @@ export class BlacklistConsentComponent implements OnInit {
     this.buildForm();
     this.fillForm();
   }
-
   fillForm() {
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(singleCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.form.patchValue(this.initialInfoPrint);
-          if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
-            this.setGuarantorDetails(initialInfo.guarantorDetails);
-          }
-        }
+    this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+    this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+    let allGuarantors = '';
+    if (!ObjectUtil.isEmpty(this.nepaliData)) {
+      (this.nepaliData.guarantorDetails).forEach(guarantor => {
+        allGuarantors = allGuarantors + guarantor.name + ', ';
       });
-    }
-
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
-      this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
-      });
-    }
-
-
-  }
+      allGuarantors = allGuarantors.slice(0, -2);
+      allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, 'र');
+  const customerAddress =
+      this.nepaliData.permanentMunicipality + ' वडा नं. ' +
+      this.nepaliData.permanentWard + ', ' +
+      this.nepaliData.permanentDistrict;
+  const customerTempAddress =
+      this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
+      this.nepaliData.temporaryWard + ', ' +
+      this.nepaliData.temporaryDistrict;
+  this.form.patchValue({
+    jamanatName: customerAddress ? customerAddress : '',
+  customerTempAddress: customerTempAddress ? customerTempAddress : '',
+    sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
+    sincerlyCitizenshipNo : this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+    sincerlyDate : this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+    sincerlyCDOoffice : this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+    sincerlyPermanentDistrict : this.nepaliData.district ? this.nepaliData.district : '',
+    sincerlyPermanentMunicipality : this.nepaliData.municipalities ? this.nepaliData.municipalities : '',
+    sincerlyPermanentWadNo : this.nepaliData.wardNumber ? this.nepaliData.wardNumber : '',
+    sincerlyTemporaryDistrict : this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+    sincerlyTemporaryVDCname : this.nepaliData.temporaryMunicipalities ? this.nepaliData.temporaryMunicipalities : '',
+    sincerlyTemporaryWadNo : this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+    sincerlyParentName : this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+    sincerlyGrandParentName : this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+  shreeName1: allGuarantors ? allGuarantors : '',
+  shreeName2: allGuarantors ? allGuarantors : ''
+});
+}
+}
 
 
   setGuarantorDetails(data) {
