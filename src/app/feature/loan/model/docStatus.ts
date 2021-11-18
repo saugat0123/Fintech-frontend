@@ -10,8 +10,7 @@ export enum DocStatus {
     INITIAL,
     SEND_BACK_TO_SENDER,
     SEND_BACK_TO_AGENT,
-    HSOV_PENDING
-}
+    HSOV_PENDING}
 
 export namespace DocStatus {
 
