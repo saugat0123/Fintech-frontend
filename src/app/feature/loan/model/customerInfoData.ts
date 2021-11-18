@@ -76,4 +76,5 @@ export class CustomerInfoData {
     previousSecurity: PreviousSecurity;
     data: string;
     remitCustomer : any;
+    loanHolder: any;
 }

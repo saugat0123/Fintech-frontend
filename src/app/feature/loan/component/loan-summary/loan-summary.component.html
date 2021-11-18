@@ -487,8 +487,8 @@
                                     ({{info?.citizenshipIssuedDate | engNepDate: false}})
                                 </td>
                                 <td class="pl-1">{{info?.citizenshipIssuedPlace || 'NA'}}</td>
-                                <td class="pl-1">{{info?.gender.toLowerCase()}}</td>
-                                <td class="pl-1">{{info?.maritalStatus.toLowerCase()}}</td>
+                                <td class="pl-1">{{info?.gender?.toLowerCase()}}</td>
+                                <td class="pl-1">{{info?.maritalStatus?.toLowerCase()}}</td>
                             </tr>
                             <tr class="text-white sb-bg-dark">
                                 <th>Mobile Number</th>
@@ -717,7 +717,7 @@
 <!--            </tr>-->
 <!--        </table>-->
         <div class="row">
-         <ng-container *ngIf="individual && !isJointInfo; else bankingRelationship; " >
+         <ng-container *ngIf="!isJointInfo; else bankingRelationship; " >
              <div class="col-md-12">
                  <p><strong>Banking Relationship</strong></p>
                  <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
@@ -726,7 +726,7 @@
                          <th>Net Worth</th>
                      </tr>
                      <tr>
-                         <td class="text-left pl-1">{{loanDataHolder.loanHolder?.bankingRelationship ? (loanDataHolder.loanHolder.bankingRelationship | jsonParse): 'N/A'}}</td>
+                         <td class="text-left pl-1">{{loanDataHolder.loanHolder?.bankingRelationship ? individual? (loanDataHolder.loanHolder.bankingRelationship | jsonParse): (loanDataHolder.loanHolder.bankingRelationship | jsonParse)?.bankingRelationship: 'N/A'}}</td>
                          <td class="text-right pr-1">Rs. {{(loanDataHolder.customerInfo?.netWorth)? (loanDataHolder?.customerInfo.netWorth |currencyFormatter):'N/A'}}</td>
                      </tr>
                  </table>
