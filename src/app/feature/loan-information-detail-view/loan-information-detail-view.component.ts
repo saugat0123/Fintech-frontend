@@ -156,6 +156,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
     loanHandler(index: number, length: number, label: string) {
         if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+                if (this.loanDataHolder.isHsov) {
+                    return 'HSOV BY:';
+                }
                 return 'APPROVED BY:';
             } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
                 return 'REJECTED BY:';
