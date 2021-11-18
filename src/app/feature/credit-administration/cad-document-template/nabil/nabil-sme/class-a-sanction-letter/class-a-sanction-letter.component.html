@@ -158,13 +158,13 @@
                                     <strong> निक्षेप मौज्दातमा आधारीत अधिविकर्ष कर्जा  </strong>
 <!--                                    (Overdraft Facility against Fixed Deposit(For OD-->
 <!--                                    loan against Fixed Deposit)/ Lien onDeposit Account-->
-<!--                                    (For OD loan against deposit Account))-->
+<!--                                    (For OD loan against deposit Account))--><br>
                                     <strong> सीमाः रु  <input class="form-field form-control-sm"
                                                                        formControlName="loanAmountInFigure"
                                                                        type="text"/> ।–(अक्षरेपी रु
                                         <input class="form-field form-control-sm"
                                                formControlName="loanAmountInWords"
-                                               type="text"/> मात्र)
+                                               type="text"/> मात्र)<br>
                                         सुरक्षणः
                                     </strong> नबिल <!--If TD is of Nabil Bank /Free Text If FD is of other Bank (input hallna)-->
                                     बैंकद्धारा जारी गरिएको <input class="form-field form-control-sm"
@@ -173,6 +173,30 @@
                                     हरुको नाममा रहेको कम्तिमा रु <input class="form-field form-control-sm"
                                                                         formControlName="tdAmount"
                                                                         type="text"/>
+                                    (बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन
+                                    गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <!-- गरिदिइएको if new letter of set-off to be obtained / गरिन
+                                    is existing letter of set-off is continued --> मोजरापत्र (Letter of Set-off) |<br>
+                                    <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power): </strong> <!-- मुद्धती रसिदको for loan against TD /
+                                    खातामा रोक्का राखिएका for loan against deposit --> मौज्दातको <input class="form-field form-control-sm"
+                                                                                                        formControlName="drawingPower"
+                                                                                                        type="text"/>
+                                    प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।<br>
+                                    <strong> ब्याज दरः  </strong> <!-- कुपन दर coupon rate financing / base rate financing
+                                    प्रकाशित आधार दर (Base Rate)--> <input class="form-field form-control-sm"
+                                                                           formControlName="baseRate"
+                                                                           type="text"/> +
+                                    <input class="form-field form-control-sm"
+                                           formControlName="premium"
+                                           type="text"/> प्रतिशत ब्याजदर प्रिमियम (Interest Rate Premium) हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर
+                                    (Floating Interest Rate) बार्षिक <input class="form-field form-control-sm"
+                                                                            formControlName="interestRate"
+                                                                            type="text"/> % का दर निर्धारण गरीएकोछ । साथै भविष्यमा कुपन दर वा
+                                    आधार दर मध्ये बढि भएको दरमा माथि उल्लेख भए बमोजिमको ब्याज दर प्रिमियम थप गरि त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ र
+                                    सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तमा र ऋणकर्जा चुक्ता भुक्तान हञुदाका बखत
+                                    तिर्नु बुझाउनु पर्नेछ ।<br>
+                                    <strong> कर्जा अवधि समाप्तिप  ुनरावलोकन मितिःकर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
+
+
                                 </td>
                             </tr>
 
