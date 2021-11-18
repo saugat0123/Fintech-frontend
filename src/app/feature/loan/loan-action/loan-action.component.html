@@ -18,8 +18,8 @@
 <!--    <i class="col-md-1 fa fa-check"></i>-->
   </button>
 
-  <button (click)="loanAction('forward')" *ngIf="!catalogueStatus"
-          [disabled]="!actionsList.sendForward || currentUser === 'hsov'"
+  <button (click)="loanAction('forward')" *ngIf="!catalogueStatus && currentUser !== 'hsov'"
+          [disabled]="!actionsList.sendForward"
           [ngStyle]="{ 'filter' : (actionsList.sendForward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info">
     SEND FORWARD
@@ -50,8 +50,8 @@
     <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
   </button>
 
-  <button (click)="loanAction('backwardCommittee')" *ngIf="committeeRole && !catalogueStatus"
-          [disabled]="!actionsList.sendBackward || currentUser === 'hsov'"
+  <button (click)="loanAction('backwardCommittee')" *ngIf="(committeeRole && !catalogueStatus) &&  currentUser !== 'hsov'"
+          [disabled]="!actionsList.sendBackward"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info"
           style="color:white;">
