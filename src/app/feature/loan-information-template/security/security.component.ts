@@ -26,6 +26,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {NepsePriceInfo} from '../../admin/modal/NepsePriceInfo';
+import {TemplateName} from '../../customer/model/templateName';
 
 @Component({
     selector: 'app-security',
@@ -48,6 +49,7 @@ export class SecurityComponent implements OnInit {
     securityForm: FormGroup;
     initialSecurityValue: Object;
     approvedSecurityValue: Object;
+    approvedShareSecurityValue: Object;
     securityValueForEdit;
     province: Province = new Province();
     provinceList: Array<Province> = new Array<Province>();
@@ -96,6 +98,7 @@ export class SecurityComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('share security data', this.shareSecurity);
         this.activatedRoute.queryParams.subscribe(queryParams => {
             if (CustomerType.INDIVIDUAL === CustomerType[queryParams.customerType]) {
                 this.isBusinessLoan = false;
@@ -104,11 +107,11 @@ export class SecurityComponent implements OnInit {
         this.buildForm();
         this.buildCrgSecurityForm();
         this.getProvince();
-        console.log(this.securityValue);
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;
             this.approvedSecurityValue = JSON.parse(this.securityValue.approvedData);
+            this.approvedShareSecurityValue = JSON.parse(this.shareSecurity.approvedData);
             this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
             this.securityId = this.securityValue.id;
@@ -304,7 +307,11 @@ export class SecurityComponent implements OnInit {
             }
         });
         if (this.shareSecuritySelected) {
+            this.securityData.templateName = TemplateName.SHARE_SECURITY;
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
+            if (!ObjectUtil.isEmpty(this.approvedShareSecurityValue)) {
+                this.shareSecurityData.approvedData = JSON.stringify(this.approvedShareSecurityValue);
+            }
             this.securityData.share = this.shareSecurityData;
             if (!ObjectUtil.isEmpty(this.initialSecurity.nepsePriceInfo)) {
                 const nepsePriceInfo = new NepsePriceInfo();

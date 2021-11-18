@@ -166,7 +166,7 @@ export class SecurityApprovedViewComponent implements OnInit {
       });
     }
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
-      this.shareSecurity = JSON.parse(this.shareSecurityData.data);
+      this.shareSecurity = JSON.parse(this.shareSecurityData.approvedData);
     } else {
       this.shareSelected = false;
     }

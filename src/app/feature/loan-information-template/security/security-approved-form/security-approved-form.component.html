@@ -1,6 +1,7 @@
 <div *ngIf="formDataForEdit !== undefined" class="row col-md-12">
     <app-security-table [formDataForEdit]="this.approvedData['initialForm']"
                         [selectedArray]="this.approvedData['selectedArray']"
+                        [shareSecurity]="shareSecurity"
                         [readMode]="true"></app-security-table>
 </div>
 <div class="form-group" [nbSpinner]="spinner">

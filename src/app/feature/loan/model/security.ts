@@ -14,4 +14,5 @@ export class Security {
     nepsePriceInfo: NepsePriceInfo;
     totalDistressAmount: number;
     approvedData: string;
+    templateName: string;
 }

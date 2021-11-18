@@ -45,6 +45,7 @@ export class SecurityApprovedFormComponent implements OnInit {
   @Input() shareSecurity;
   @Input() customerSecurityId;
   @Input() approvedData: string;
+  @Input() approvedShareData: string;
   @Input() disable;
 
   @ViewChildren('ownerKycApplicable')
@@ -340,8 +341,8 @@ export class SecurityApprovedFormComponent implements OnInit {
       sharePriceDate: [undefined],
       avgDaysForPrice: undefined,
     });
-    if (!ObjectUtil.isEmpty(this.shareSecurity)) {
-      this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);
+    if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
+      this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.approvedData)['securityOffered']);
     }
   }
 
@@ -1517,26 +1518,28 @@ export class SecurityApprovedFormComponent implements OnInit {
   }
 
   private setShareSecurityDetails(details) {
+    if (!ObjectUtil.isEmpty(details.approvedData)) {
     const shareDetails = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
-    const shareFields = (JSON.parse(details.data))['shareSecurityDetails'];
-    shareFields.forEach(share => {
-      shareDetails.push(
-          this.formBuilder.group({
-            companyName: [share.companyName],
-            companyCode: [share.companyCode],
-            shareType: [share.shareType],
-            totalShareUnit: [share.totalShareUnit],
-            amountPerUnit: [share.amountPerUnit],
-            total: [share.total],
-            consideredValue: [share.consideredValue],
-            priceEarningRatio: [share.priceEarningRatio],
-            priceBookValue: [share.priceBookValue],
-            dividendYeild: [share.dividendYeild],
-            dividendPayoutRatio: [share.dividendPayoutRatio],
-            ratioAsPerAuitedFinancial: [share.ratioAsPerAuitedFinancial],
-          })
-      );
-    });
+    const shareFields = (JSON.parse(details.approvedData))['shareSecurityDetails'];
+      shareFields.forEach(share => {
+        shareDetails.push(
+            this.formBuilder.group({
+              companyName: [share.companyName],
+              companyCode: [share.companyCode],
+              shareType: [share.shareType],
+              totalShareUnit: [share.totalShareUnit],
+              amountPerUnit: [share.amountPerUnit],
+              total: [share.total],
+              consideredValue: [share.consideredValue],
+              priceEarningRatio: [share.priceEarningRatio],
+              priceBookValue: [share.priceBookValue],
+              dividendYeild: [share.dividendYeild],
+              dividendPayoutRatio: [share.dividendPayoutRatio],
+              ratioAsPerAuitedFinancial: [share.ratioAsPerAuitedFinancial],
+            })
+        );
+      });
+    }
   }
 
   shareSecurityFormGroup(): FormGroup {
