@@ -11,6 +11,7 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
   @Input() offerData;
   @Input() cadOfferLetterApprovedDoc;
   @Input() letter;
+  loanHolderInfo;
 
   constructor() { }
 
