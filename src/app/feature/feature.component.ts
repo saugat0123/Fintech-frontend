@@ -37,7 +37,7 @@ export class FeatureComponent implements OnInit {
     this.items = this.menuService.getMenus().subscribe(res => {
           this.menus = [...res.detail];
           const storage = LocalStorageUtil.getStorage();
-            if (storage.roleType === RoleType[RoleType.COMMITTEE] || (storage.roleType.toLowerCase() === RoleType.APPROVAL.toLowerCase() && storage.roleName.toLowerCase() === 'hsov')) {
+          if (storage.roleType === RoleType[RoleType.COMMITTEE]) {
             const tempMenu = {
               id: null,
               title: 'Pull',

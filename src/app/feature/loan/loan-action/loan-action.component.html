@@ -19,7 +19,7 @@
   </button>
 
   <button (click)="loanAction('forward')" *ngIf="!catalogueStatus"
-          [disabled]="!actionsList.sendForward"
+          [disabled]="!actionsList.sendForward || currentUser === 'hsov'"
           [ngStyle]="{ 'filter' : (actionsList.sendForward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info">
     SEND FORWARD
@@ -51,7 +51,7 @@
   </button>
 
   <button (click)="loanAction('backwardCommittee')" *ngIf="committeeRole && !catalogueStatus"
-          [disabled]="!actionsList.sendBackward"
+          [disabled]="!actionsList.sendBackward || currentUser === 'hsov'"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info"
           style="color:white;">

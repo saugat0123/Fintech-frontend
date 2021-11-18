@@ -96,7 +96,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
         other.loanForCombine = [];
         other.loanHolderLoanList = [];
         other.catalogueService.search.committee = 'true';
-        if (LocalStorageUtil.getStorage().roleType.toLowerCase() === 'committee') {
+        if (LocalStorageUtil.getStorage().roleType.toLowerCase() === 'committee' && LocalStorageUtil.getStorage().roleName.toLowerCase() !== 'hsov') {
             other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.loanHolderLoanList = response.detail.content;
                 other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
