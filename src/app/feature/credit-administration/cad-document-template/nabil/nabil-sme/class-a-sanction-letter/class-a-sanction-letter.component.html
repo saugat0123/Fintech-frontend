@@ -1,0 +1,211 @@
+<div class="text-justify nep">
+    <nb-card [nbSpinner]="spinner"
+             nbSpinnerStatus="primary"
+             nbSpinnerSize="large"
+             nbSpinnerMessage="class a sanction letter....."
+             id="{{offerLetterConst.CLASS_A_SECTION_LETTER}}">
+        <nb-card-header *ngIf="preview">
+            <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </nb-card-header>
+
+        <nb-card-body>
+            <form [formGroup]="form" style="padding-left:20px; padding-right:20px; line-height: 1.9">
+                <p> स्वीकृती पत्र नं.</p>
+                <h6 class="text-center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h6>
+                <p class="text-left">
+                    मितिः <input class="form-field form-control-sm"
+                                 formControlName="sanctioLetterDate"
+                                 type="text"/>
+                </p>
+                <br>
+
+                <div class="mb-2">
+                    <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else customerRelation"> श्री</span>
+                    <ng-template #customerRelation>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
+                            सुश्री
+                        </span>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
+                          श्रीमती
+                        </span> |
+                    </ng-template>
+                    <input class="form-field form-control-sm"
+                           formControlName="nameOfBorrower"
+                           name="nameOfBorrower"
+                           placeholder="{{loanHolderInfo?.name}}"
+                           type="text"/>
+                    <div class="mb-1"> ठेगाना:
+                        <input class="form-field form-control-sm"
+                               formControlName="addressOfBorrower"
+                               name="addressOfBorrower"
+                               placeholder="ठेगाना"
+                               type="text"/>
+                    </div>
+                    <br>
+
+                    <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
+                    <br>
+
+                    <div class="mb-1">
+                        <p>
+                            महोदय, <br>
+                            तपाईंले
+                            <span class="text-left">
+                                मितिः <input class="form-field form-control-sm"
+                                         formControlName="requestLetterDate"
+                                         type="text"/>
+                            </span>
+                            मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका
+                            ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
+                        </p>
+                    </div>
+                    <br>
+
+                    <strong> षयः ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</strong>
+                    <br>
+
+                    <div class="mb-1">
+                        <p>
+                            महोदय, <br>
+                            तपाईंले यस बैंकको मिति वि.सं.
+                            <span class="text-left">
+                                <input class="form-field form-control-sm"
+                                             formControlName="previousSanctionLetterDate"
+                                             type="text"/>
+                            </span>
+                            को ऋणस्वीकृति पत्रानुसार उपभोग गर्दै आउनु भएको ऋणकर्जामा हाल ऋणकर्जा सुविधा/हरु
+                            नबिकरण/पुनरावलोकन का लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                            <span class="text-left">
+                                <input class="form-field form-control-sm"
+                                       formControlName="requestLetterDate"
+                                       type="text"/>
+                            </span>
+                            को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय बमोजिमका
+                            ऋणकर्जा सुविधाहरु नबिकरण/पुनरावलोकन गरेको ब्यहोरा अनुरोध गर्दछौं ।
+                        </p>
+                    </div>
+                    <br>
+
+                    <strong> बिषयः थप÷अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण÷पुनरावलोकन बारे । </strong>
+                    <br>
+
+                    <div class="mb-1">
+                        <p>
+                            महोदय,<br>
+                            तपाईंले यस बैंकको मिति वि.सं.
+                            <span class="text-left">
+                                <input class="form-field form-control-sm"
+                                       formControlName="previousSanctionLetterDate"
+                                       type="text"/>
+                            </span>
+                            को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधा÷हरु उपभोग गर्दै आउनु
+                            भएकोमा हाल थप÷अतिरिक्त ऋणकर्जा सुविधा सहित नबिकरण÷पुनरावलोकनका लागि
+                            यस बैंकमा दिनु भएको मिति वि.सं.
+                            <span class="text-left">
+                                <input class="form-field form-control-sm"
+                                       formControlName="requestLetterDate"
+                                       type="text"/>
+                            </span>
+                            को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने
+                            गरी थप÷अतिरिक्त ऋणकर्जा सुविधाहरु सहित देहाय बमोजिमका ऋणकर्जा सुविधाहरु
+                            स्वीकृत÷नविकरण÷पुनरावलोकन गरेको ब्यहोरा अनुरोध गर्दछौं ।
+                        </p>
+                    </div>
+                    <br>
+
+                    <strong> बिबिषयः थप÷अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
+                    <br>
+
+                    <div class="mb-1">
+                        <p>
+                            महोदय,<br>
+                            तपाईंले यस बैंकको मिति वि.सं.
+                            <span class="text-left">
+                                <input class="form-field form-control-sm"
+                                       formControlName="previousSanctionLetterDate"
+                                       type="text"/>
+                            </span>
+                            को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु
+                            भएकोमा हाल थप÷अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति वि.स
+                            <span class="text-left">
+                                <input class="form-field form-control-sm"
+                                       formControlName="requestLetterDate"
+                                       type="text"/>
+                            </span>
+                            को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी
+                            देहाय बमोजिमका थप÷अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
+                        </p>
+                    </div>
+                    <br>
+
+                    FREE TEXT
+                    <br>
+
+                    <span class="text-left">
+                    <strong> स्वीकृत ऋणकर्जा सुविधाहरुको विवरण  </strong>
+                    </span>
+                    <br>
+
+                    <div class="row from-group">
+                        <table class="table table-bordered">
+                            <tr style="text-align: center">
+                                <td>
+                                    क)
+                                </td>
+                                <td>
+                                    <strong> निक्षेप मौज्दातमा आधारीत अधिविकर्ष कर्जा  </strong>
+<!--                                    (Overdraft Facility against Fixed Deposit(For OD-->
+<!--                                    loan against Fixed Deposit)/ Lien onDeposit Account-->
+<!--                                    (For OD loan against deposit Account))-->
+                                    <strong> सीमाः रु  <input class="form-field form-control-sm"
+                                                                       formControlName="loanAmountInFigure"
+                                                                       type="text"/> ।–(अक्षरेपी रु
+                                        <input class="form-field form-control-sm"
+                                               formControlName="loanAmountInWords"
+                                               type="text"/> मात्र)
+                                        सुरक्षणः
+                                    </strong> नबिल <!--If TD is of Nabil Bank /Free Text If FD is of other Bank (input hallna)-->
+                                    बैंकद्धारा जारी गरिएको <input class="form-field form-control-sm"
+                                                                  formControlName="nameOfTdHolder"
+                                                                  type="text"/>
+                                    हरुको नाममा रहेको कम्तिमा रु <input class="form-field form-control-sm"
+                                                                        formControlName="tdAmount"
+                                                                        type="text"/>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button nbButton status="success" (click)="submit()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </nb-card-body>
+        <nb-card-footer class="mb-3">
+            <button nbButton
+                    [disabled]="!initialInfoPrint"
+                    status="info"
+                    class="mb-4 float-right"
+                    [useExistingCss]="true"
+                    ngxPrint printSectionId="{{offerLetterConst.PERSONAL_OVERDRAFT}}Print">Print
+            </button>
+        </nb-card-footer>
+    </nb-card>
+</div>
+<app-personal-overdraft-print *ngIf="initialInfoPrint"
+                              [letter]="initialInfoPrint"
+                              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                              [security]="this.selectedSecurity"
+                              [renewal]="this.renewal"
+                              [offerData] = offerLetterData
+                              [loanLimit]="this.loanLimit"
+                              hidden></app-personal-overdraft-print>
