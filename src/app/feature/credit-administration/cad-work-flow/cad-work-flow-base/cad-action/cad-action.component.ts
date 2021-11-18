@@ -129,7 +129,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.inMyBucket = true;
         }
         try {
-            if (this.cadOfferLetterApprovedDoc.previousList[0].fromRole.roleType === RoleType.APPROVAL) {
+            if (this.cadOfferLetterApprovedDoc.previousList[0].fromRole.roleType === RoleType.APPROVAL || this.cadOfferLetterApprovedDoc.previousList[0].fromRole.roleType === RoleType.COMMITTEE) {
                 this.cadOfferLetterApprovedDoc.previousList.splice(0, 1);
             }
             this.cadOfferLetterApprovedDoc.previousList.forEach((data) => {

@@ -48,6 +48,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     status: any;
     docStatus = DocStatus;
+    currentUser = LocalStorageUtil.getStorage().roleName.toLowerCase();
 
     constructor(
         private alertService: AlertService,
@@ -149,18 +150,35 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
                     return;
                 }
-                context = {
-                    popUpTitle: 'Approve',
-                    isForward: false,
-                    customerLoanHolder: this.customerLoanHolder,
-                    loanConfigId: this.loanConfigId,
-                    customerLoanId: this.id,
-                    docAction: 'APPROVED',
-                    docActionMsg: 'Approved',
-                    documentStatus: DocStatus.APPROVED,
-                    isRemitLoan: this.isRemitLoan,
-                    beneficiaryId: this.beneficiaryId
-                };
+                if (this.customerLoanHolder.isHsov && LocalStorageUtil.getStorage().roleName.toLowerCase() !== 'hsov') {
+                    context = {
+                        popUpTitle: 'Approve',
+                        isForward: false,
+                        customerLoanHolder: this.customerLoanHolder,
+                        loanConfigId: this.loanConfigId,
+                        customerLoanId: this.id,
+                        docAction: 'HSOV_PENINDG',
+                        docActionMsg: 'Hsov Pending',
+                        documentStatus: DocStatus.HSOV_PENDING,
+                        isRemitLoan: this.isRemitLoan,
+                        beneficiaryId: this.beneficiaryId
+                    };
+                } else {
+                    context = {
+                        popUpTitle: 'Approve',
+                        isForward: false,
+                        customerLoanHolder: this.customerLoanHolder,
+                        loanConfigId: this.loanConfigId,
+                        customerLoanId: this.id,
+                        docAction: 'APPROVED',
+                        docActionMsg: 'Approved',
+                        documentStatus: DocStatus.APPROVED,
+                        isRemitLoan: this.isRemitLoan,
+                        beneficiaryId: this.beneficiaryId
+                    };
+
+                }
+
                 break;
             case 'reject':
                 context = {
