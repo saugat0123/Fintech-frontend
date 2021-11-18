@@ -26,7 +26,7 @@
                           (siteVisitDataEmitter)="saveSiteVisit($event)"
                           *ngIf="itemSiteVisit.expanded"
                           [formValue]="customerInfo?.siteVisit"
-                          [fromProfile]="true"></app-site-visit>
+                          [fromProfile]="true" [customerInfo]="customerInfo"></app-site-visit>
         </nb-accordion-item-body>
       </nb-accordion-item>
       <nb-accordion-item #ciclComponent>

@@ -188,6 +188,7 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   summaryTypeName = SummaryType;
   companyInfo: any;
   loanSummary = 'loanSummary';
+  siteVisitDoc = [];
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -438,6 +439,14 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
         }
       });
     }
+
+    // getting site visit document
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+      if (this.loanDataHolder.siteVisit.docPath) {
+        this.siteVisitDoc = JSON.parse(this.loanDataHolder.siteVisit.docPath);
+      }
+    }
+
     // getting fiscal years
     this.getFiscalYears();
   }
@@ -680,9 +689,21 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
       for (const doc of insuranceDocument) {
         docPaths.push(doc.policyDocumentPath);
       }
+      // Collateral Site Visit Document
       const siteVisitDocument = this.siteVisitDocuments;
-      for (const doc of siteVisitDocument) {
-        docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+      if (!ObjectUtil.isEmpty(siteVisitDocument)) {
+        for (const doc of siteVisitDocument) {
+          docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+        }
+      }
+      // Site Visit Document
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit.docPath)) {
+          const siteVisit = JSON.parse(this.loanDataHolder.siteVisit.docPath);
+          for (const doc of siteVisit) {
+            docPaths.push(doc.path);
+          }
+        }
       }
     } else {
       docPaths.push(this.loanDataHolder.zipPath);
