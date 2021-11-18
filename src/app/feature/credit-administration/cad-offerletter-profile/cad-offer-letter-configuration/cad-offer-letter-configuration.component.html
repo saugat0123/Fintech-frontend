@@ -1729,8 +1729,6 @@
                             <label class="title" for="branchTelNo">
                                 शाखा टेलिफोन नम्बर</label>
                             <input type="text"
-                                   [ngClass]="{'is-invalid': submitted && basicInfoControls.telNo.errors}"
-                                   placeholder="टेलिफोन नम्बर"
                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.branchTelNo.errors}"
                                    placeholder="शाखा टेलिफोन नम्बर"
                                    class="form-control form-control-sm nepaliFont"
@@ -1738,9 +1736,6 @@
                                    formControlName="branchTelNo"/>
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="title" for="branchFaxNo">
-                                फ्याक्स नम्बर</label>
-                            <input [ngClass]="{'is-invalid': submitted && basicInfoControls.faxNo.errors}">
                             <label class="title" for="branchFaxNo">
                                 शाखा फ्याक्स नम्बर</label>
                             <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchFaxNo.errors}"
@@ -1750,9 +1745,6 @@
                                    class="form-control form-control-sm nepaliFont" formControlName="branchFaxNo"/>
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="title" for="branchEmail">
-                                इमेल</label>
-                            <input [ngClass]="{'is-invalid': submitted && basicInfoControls.email.errors}">
                             <label class="title" for="branchEmail">
                                 शाखा इमेल</label>
                             <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchEmail.errors}"

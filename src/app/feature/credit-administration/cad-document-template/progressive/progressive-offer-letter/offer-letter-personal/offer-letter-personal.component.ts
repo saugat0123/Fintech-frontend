@@ -98,28 +98,69 @@ export class OfferLetterPersonalComponent implements OnInit {
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
                 customerAddress: customerAddress ? customerAddress : '',
                 customerTemporaryAddress: customerTempAddress ? customerTempAddress : '',
-                customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+                customerMunicipality: JSON.stringify(this.nepaliData.permanentMunicipalities.nepaliName) ? JSON.stringify(this.nepaliData.permanentMunicipalities.nepaliName) : '',
                 customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-                customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+                customerDistrict: JSON.stringify(this.nepaliData.permanentDistrict.nepaliName) ? JSON.stringify(this.nepaliData.permanentDistrict.nepaliName) : '',
                 signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
                 signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
                 signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
                 signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
                 signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-                temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+                temporaryMunicipality: JSON.stringify(this.nepaliData.temporaryMunicipalities.nepaliName) ? JSON.stringify(this.nepaliData.temporaryMunicipalities.nepaliName) : '',
                 temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-                temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+                temporaryDistrict: JSON.stringify(this.nepaliData.temporaryDistrict.nepaliName) ? JSON.stringify(this.nepaliData.temporaryDistrict.nepaliName) : '',
                 shreeName1: allGuarantors ? allGuarantors : '',
                 financeBranch: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
                 financeMunicipality: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
-                financeWardNo: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
+                financeWardNum: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
                 financeDistrict: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
+                financeTelephoneNum: this.nepDataPersonal.branchTelNo ? this.nepDataPersonal.branchTelNo : '',
+                financeFaxNum: this.nepDataPersonal.branchFaxNo ? this.nepDataPersonal.branchFaxNo : '',
+                financeEmail: this.nepDataPersonal.branchEmail ? this.nepDataPersonal.branchEmail : '',
+                customerEmail: this.nepaliData.customerEmail ? this.nepaliData.customerEmail : '',
+                customerMobile: this.nepaliData.contactNumber ? this.nepaliData.contactNumber : '',
+                valuationDate: this.nepDataPersonal.valuationDate ? this.nepDataPersonal.valuationDate : '',
+                valuatorName: this.nepDataPersonal.valuatorName ? this.nepDataPersonal.valuatorName : '',
+                fairMarketValue: this.nepDataPersonal.fairMarketValue ? this.nepDataPersonal.fairMarketValue : '',
+                distressValue: this.nepDataPersonal.distressValue ? this.nepDataPersonal.distressValue : '',
+                loanApprovalDate: this.loanAmountTemplate.initDate ? this.loanAmountTemplate.initDate : '',
+                loanApprovalNo: this.loanAmountTemplate.loanApprovalNo ? this.loanAmountTemplate.loanApprovalNo : '',
             });
             this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
 
         }
+        const collateralAddress =
+            this.nepDataPersonal.collateralMunVdc + ' j8f g+= ' +
+            this.nepDataPersonal.collateralWardNo + ' , ' +
+            this.nepDataPersonal.collateralDistrict;
         this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
         this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmountTemplate.nepaliWords);
+        this.form.get(['loanFacilityTable', 0, 'loanPurpose']).patchValue(this.nepDataPersonal.purposeOfLoan);
+        this.form.get(['loanFacilityTable', 0, 'interestFinalRate']).patchValue(this.nepDataPersonal.interestRate);
+        this.form.get(['loanFacilityTable', 0, 'interestBaseRate']).patchValue(this.nepDataPersonal.baseRate);
+        this.form.get(['loanFacilityTable', 0, 'interestPremiumRate']).patchValue(this.nepDataPersonal.premium);
+        this.form.get(['loanFacilityTable', 0, 'interestTempDiscountRate']).patchValue(this.nepDataPersonal.discount);
+        this.form.get(['loanFacilityTable', 0, 'serviceFeePercent']).patchValue(this.nepDataPersonal.serviceFeePercent);
+        this.form.get(['loanFacilityTable', 0, 'serviceFeeAmount']).patchValue(this.nepDataPersonal.serviceFeeAmount);
+        this.form.get(['loanFacilityTable', 0, 'cibCharges']).patchValue(this.nepDataPersonal.cibCharges);
+        this.form.get(['loanFacilityTable', 0, 'interestInstallmentPaymentFrequency']).patchValue(this.nepDataPersonal.interestInstallmentPaymentFrequency);
+        this.form.get(['loanFacilityTable', 0, 'loanMaturityDateAD']).patchValue(this.nepDataPersonal.loanMaturityDateAD);
+        this.form.get(['loanFacilityTable', 0, 'loanMaturityDateBS']).patchValue(this.nepDataPersonal.loanMaturityDateBS);
+        this.form.get(['loanFacilityTable', 0, 'tenureOfLoanInMonths']).patchValue(this.nepDataPersonal.tenureOfLoanInMonths);
+        this.form.get(['loanFacilityTable', 0, 'loanTypeNepali']).patchValue(this.nepDataPersonal.loanType);
+        this.form.get(['loanFacilityTable', 0, 'loanTypeEnglish']).patchValue(this.nepDataPersonal.typeOfLoanInEnglish);
+
+            this.form.get(['securityDetails', 0, 'name']).patchValue(this.nepDataPersonal.collateralName);
+            this.form.get(['securityDetails', 0, 'parentName']).patchValue(this.nepDataPersonal.collateralFatherName);
+            this.form.get(['securityDetails', 0, 'grandParentName']).patchValue(this.nepDataPersonal.collateralGrandFatherName);
+            this.form.get(['securityDetails', 0, 'address']).patchValue(collateralAddress);
+            this.form.get(['securityDetails', 0, 'jaggaDistrict']).patchValue(this.nepDataPersonal.collateralDistrict);
+            this.form.get(['securityDetails', 0, 'jaggaWard']).patchValue(this.nepDataPersonal.collateralMunVdc);
+            this.form.get(['securityDetails', 0, 'hal']).patchValue(this.nepDataPersonal.collateralTemporaryMunVdc);
+            this.form.get(['securityDetails', 0, 'jaggaKittaNum']).patchValue(this.nepDataPersonal.plotNo);
+            this.form.get(['securityDetails', 0, 'jaggaArea']).patchValue(this.nepDataPersonal.areaOfCollateral);
+            this.form.get(['securityDetails', 0, 'jaggaSiNum']).patchValue(this.nepDataPersonal.seatNo);
+
 
     }
 
@@ -249,8 +290,8 @@ export class OfferLetterPersonalComponent implements OnInit {
                 name: [value.name],
                 officeType: [value.officeType],
                 branchName: [value.branchName],
-                secondLetterDate: [value.secondLetterDate],
-                secondPatraNo: [value.secondLetterDate],
+                loanApprovalDate: [value.loanApprovalDate],
+                loanApprovalNo: [value.loanApprovalNo],
                 loanHolderName: [value.loanHolderName],
                 guarantorDistrict: [value.guarantorDistrict],
                 municipalityName: [value.municipalityName],
@@ -285,8 +326,8 @@ export class OfferLetterPersonalComponent implements OnInit {
             guarantorLegalDocumentAddress: [undefined],
             officeType: [undefined],
             branchName: [undefined],
-            secondLetterDate: [undefined],
-            secondPatraNo: [undefined],
+            loanApprovalDate: [undefined],
+            loanApprovalNo: [undefined],
             loanHolderName: [undefined],
             guarantorDistrict: [undefined],
             municipalityName: [undefined],
@@ -338,10 +379,10 @@ export class OfferLetterPersonalComponent implements OnInit {
 
             securityDetails: this.formBuilder.array([]),
 
-            dhitoDate: [undefined],
-            dhitoAuditor: [undefined],
-            dhitoAmount: [undefined],
-            dhitoDistress: [undefined],
+            valuationDate: [undefined],
+            valuatorName: [undefined],
+            fairMarketValue: [undefined],
+            distressValue: [undefined],
             dhitoLekhi: [undefined],
 
             shreeName1: [undefined],
@@ -401,8 +442,8 @@ export class OfferLetterPersonalComponent implements OnInit {
             docRoj: [undefined],
             officeType: [undefined],
             branchName: [undefined],
-            secondLetterDate: [undefined],
-            secondPatraNo: [undefined],
+            loanApprovalDate: [undefined],
+            loanApprovalNo: [undefined],
             loanHolderName: [undefined],
             guarantorDistrict: [undefined],
             municipalityName: [undefined],
@@ -435,13 +476,13 @@ export class OfferLetterPersonalComponent implements OnInit {
             interestPremiumRate: [undefined],
             interestTempDiscountRate: [undefined],
             interestFinalRate: [undefined],
-            loanLimitPercent: [undefined],
-            loanLimitAmount: [undefined],
-            loanInstallmentAmount: [undefined],
-            interestRepayPlan: [undefined],
-            loanLimitYearAD: [undefined],
-            loanLimitYearBS: [undefined],
-            loanLimitMonths: [undefined],
+            serviceFeePercent: [undefined],
+            serviceFeeAmount: [undefined],
+            cibCharges: [undefined],
+            interestInstallmentPaymentFrequency: [undefined],
+            loanMaturityDateAD: [undefined],
+            loanMaturityDateBS: [undefined],
+            tenureOfLoanInMonths: [undefined],
 
             pratibadhataAmount: [undefined],
             pratibadhataAdditionalAmount: [undefined],
@@ -480,13 +521,13 @@ export class OfferLetterPersonalComponent implements OnInit {
                 interestPremiumRate: [value.interestPremiumRate],
                 interestTempDiscountRate: [value.interestTempDiscountRate],
                 interestFinalRate: [value.interestFinalRate],
-                loanLimitPercent: [value.loanLimitPercent],
-                loanLimitAmount: [value.loanLimitAmount],
-                loanInstallmentAmount: [value.loanInstallmentAmount],
-                interestRepayPlan: [value.interestRepayPlan],
-                loanLimitYearAD: [value.loanLimitYearAD],
-                loanLimitYearBS: [value.loanLimitYearBS],
-                loanLimitMonths: [value.loanLimitMonths],
+                serviceFeePercent: [value.serviceFeePercent],
+                serviceFeeAmount: [value.serviceFeeAmount],
+                cibCharges: [value.cibCharges],
+                interestInstallmentPaymentFrequency: [value.interestInstallmentPaymentFrequency],
+                loanMaturityDateAD: [value.loanMaturityDateAD],
+                loanMaturityDateBS: [value.loanMaturityDateBS],
+                tenureOfLoanInMonths: [value.tenureOfLoanInMonths],
                 pratibadhataAmount: [value.pratibadhataAmount],
                 pratibadhataAdditionalAmount: [value.pratibadhataAdditionalAmount],
                 pratibadhataRate: [value.pratibadhataRate],
@@ -508,28 +549,28 @@ export class OfferLetterPersonalComponent implements OnInit {
         this.form.get(['loanFacilityTable', index, wordLabel]).patchValue(returnVal);
     }
 
-    calcYearlyRate(base, premium, discount, target, index) {
+    /*calcYearlyRate(base, premium, discount, target, index) {
         const baseRate = this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', index, base]).value);
         const premiumRate = this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', index, premium]).value);
         const discountRate = this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', index, discount]).value);
         const addRate = parseFloat(baseRate) + parseFloat(premiumRate) - parseFloat(discountRate);
         const finalValue = this.engToNepaliNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
         this.form.get(['loanFacilityTable', index, target]).patchValue(finalValue);
-    }
+    }*/
 
-    updateServiceCharge(i) {
+    /*updateServiceCharge(i) {
         const amount1 = this.form.get(['loanFacilityTable', i, 'amount']).value;
-        const loanLimitPercent1 = this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value;
+        const serviceFeePercent1 = this.form.get(['loanFacilityTable', i, 'serviceFeePercent']).value;
         let amount = 0;
-        const loanLimitPercent = Number(this.nepToEngNumberPipe.transform(loanLimitPercent1) / 100);
+        const serviceFeePercent = Number(this.nepToEngNumberPipe.transform(serviceFeePercent1) / 100);
 
         if (i > 0) {
             amount = Number(this.nepToEngNumberPipe.transform(amount1));
         } else {
             amount = this.loanAmountTemplate.engNumber;
        }
-        let value = Number(loanLimitPercent * amount).toFixed(2);
+        let value = Number(serviceFeePercent * amount).toFixed(2);
         value = this.engToNepNumberPipe.transform(value.toString());
-        this.form.get(['loanFacilityTable', i, 'loanLimitAmount']).patchValue(value);
-    }
+        this.form.get(['loanFacilityTable', i, 'serviceFeeAmount']).patchValue(value);
+    }*/
 }
