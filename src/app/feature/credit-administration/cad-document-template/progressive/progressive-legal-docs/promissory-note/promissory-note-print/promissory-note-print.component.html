@@ -28,7 +28,7 @@
           {{printDocForm.municipality === null || printDocForm.municipality === '' ? '_______________' : printDocForm?.municipality}}
         </span>
                     गा.पा./न.पा./म.न.पा.वडा नं. <span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.wadNo!==null && printDocForm?.wadNo!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.wadNo!==null && printDocForm?.wadNo!==''}">
           {{printDocForm.wadNo === null || printDocForm.wadNo === '' ? '_______________' : printDocForm?.wadNo}}
         </span>
                     स्थायी ठेगाना भई
@@ -41,15 +41,10 @@
           {{printDocForm.tempMunicipality === null || printDocForm.tempMunicipality === '' ? '_______________' : printDocForm?.tempMunicipality}}
         </span>
                     गा.पा./न.पा./म.न.पा. वडा न. <span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.tempWadNo!==null && printDocForm?.tempWadNo!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.tempWadNo!==null && printDocForm?.tempWadNo!==''}">
           {{printDocForm.tempWadNo === null || printDocForm.tempWadNo === '' ? '_______________' : printDocForm?.tempWadNo}}
-        </span>
-
-                    स्थित <span [ngClass]="{'nepaliFont':printDocForm?.address!==null && printDocForm?.address!==''}">
-          {{printDocForm.address === null || printDocForm.address === '' ? '_______________' : printDocForm?.address}}
-        </span>
-
-                    बस्ने बर्ष <span [ngClass]="{'nepaliFont uniFont':printDocForm?.age!==null && printDocForm?.age!==''}">
+        </span>,
+                    बस्ने बर्ष <span [ngClass]="{'nepaliFont':printDocForm?.age!==null && printDocForm?.age!==''}">
           {{printDocForm.age === null || printDocForm.age === '' ? '_______________' : printDocForm?.age}}
         </span>को
                     <span [ngClass]="{'nepaliFont':printDocForm?.customerName!==null && printDocForm?.customerName!==''}">
@@ -67,7 +62,7 @@
           {{printDocForm.cdoOffice === null || printDocForm.cdoOffice === '' ? '_______________' : printDocForm?.cdoOffice}}
         </span>)</b>
                     ले यस <strong> प्रोग्रेशिभ फाईनान्स लिमिटेड</strong> <span
-                        [ngClass]="{'nepaliFont':printDocForm?.branchName!==null && printDocForm?.branchName!==''}">
+                        [ngClass]="{'nepaliFont uniFont':printDocForm?.branchName!==null && printDocForm?.branchName!==''}">
           {{printDocForm.branchName === null || printDocForm.branchName === '' ? '_______________' : printDocForm?.branchName}}
         </span>
                     शाखा कार्यालयबाट लिएको कूल ऋण कर्जा रकम रु.<span
@@ -115,7 +110,7 @@
           {{printDocForm.sincerlyPermanentMunicipality === null || printDocForm.sincerlyPermanentMunicipality === '' ? '_______________' : printDocForm?.sincerlyPermanentMunicipality}}
         </span>
                     गा.पा./न.पा.वडा नं. <span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyPermanentWadNo!==null && printDocForm?.sincerlyPermanentWadNo!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.sincerlyPermanentWadNo!==null && printDocForm?.sincerlyPermanentWadNo!==''}">
           {{printDocForm.sincerlyPermanentWadNo === null || printDocForm.sincerlyPermanentWadNo === '' ? '_______________' : printDocForm?.sincerlyPermanentWadNo}}
         </span>
                     <br>
@@ -128,7 +123,7 @@
           {{printDocForm.sincerlyTemporaryVDCname === null || printDocForm.sincerlyTemporaryVDCname === '' ? '_______________' : printDocForm?.sincerlyTemporaryVDCname}}
         </span>
                     गा.पा./न.पा.वडा नं. <span
-                        [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyTemporaryWadNo!==null && printDocForm?.sincerlyTemporaryWadNo!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.sincerlyTemporaryWadNo!==null && printDocForm?.sincerlyTemporaryWadNo!==''}">
           {{printDocForm.sincerlyTemporaryWadNo === null || printDocForm.sincerlyTemporaryWadNo === '' ? '_______________' : printDocForm?.sincerlyTemporaryWadNo}}
         </span>
 
