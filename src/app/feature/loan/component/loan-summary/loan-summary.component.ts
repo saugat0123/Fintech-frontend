@@ -184,7 +184,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    refId: number;
     securityId: number;
     siteVisitDocuments: Array<SiteVisitDocument>;
-    isRemitLoan : boolean = false;
+    isRemitLoan = false;
     beneficiary;
     dbr;
     individual;
@@ -542,6 +542,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     loanHandler(index: number, length: number, label: string) {
         if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+                if (this.loanDataHolder.isHsov) {
+                    return 'HSOV BY:';
+                }
                 return 'APPROVED BY:';
             } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
                 return 'REJECTED BY:';
