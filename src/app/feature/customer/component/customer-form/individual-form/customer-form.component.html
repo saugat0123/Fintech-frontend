@@ -799,83 +799,29 @@
                        <div>
                            <nb-card class="card-height">
                                <nb-card-header>
-                                   <label for="cibReport"><h6>Banking Relationship</h6></label>
+                                   <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
                                </nb-card-header>
                                <nb-card-body>
                                    <div class="form-group">
-                                       <label for="cibReport">CIB Report Obtained</label>
                                        <nb-radio-group class="d-contents form-control"
-                                                       formControlName="cibReport" id="cibReport"
-                                       name="cibReport">
-                                              <nb-radio
-                                                      value="true">
-                                                  Yes
-                                              </nb-radio>
-                                              <nb-radio
-                                                      value="false">
-                                                  No
-                                              </nb-radio>
-                                       </nb-radio-group>
-
-                                       <label for="bfi">Any existing Credit Relationship with other BFIs?</label>
-                                       <nb-radio-group class="d-contents form-control"
-                                                       formControlName="bfi" id="bfi"
-                                                       name="bfi"  >
-                                           <nb-radio
-                                                   value="true" (valueChange)="show($event)">
-                                               Yes
-                                           </nb-radio>
-                                           <nb-radio
-                                                   value="false" (valueChange)="show($event)">
-                                               No
+                                                       formControlName="bankingRelationship"
+                                                       id="bankingRelationship"
+                                                       name="bankingRelationship"
+                                                       [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.bankingRelationship.errors }">
+                                           <nb-radio *ngFor="let elem of bankingRelationshipList"
+                                                     [value]="elem?.value" >{{elem?.value}}
                                            </nb-radio>
                                        </nb-radio-group>
-                                       <label for="creditRelationship">Any credit relationship with Laxmi Bank?(Including Group)</label>
-                                       <nb-radio-group class="d-contents form-control"
-                                                       formControlName="creditRelationship" id="creditRelationship"
-                                                       name="creditRelationship">
-                                           <nb-radio
-                                                   value="true">
-                                               Yes
-                                           </nb-radio>
-                                           <nb-radio
-                                                   value="false">
-                                               No
-                                           </nb-radio>
-                                       </nb-radio-group>
-<!--                                       <nb-radio-group class="d-contents form-control"-->
-<!--                                                       formControlName="bankingRelationship"-->
-<!--                                                       id="bankingRelationship"-->
-<!--                                                       name="bankingRelationship"-->
-<!--                                                       [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.bankingRelationship.errors }">-->
-<!--                                           <nb-radio *ngFor="let elem of bankingRelationshipList"-->
-<!--                                                     [value]="elem" >{{elem}}-->
-<!--                                           </nb-radio>-->
-<!--                                       </nb-radio-group>-->
-<!--                                       <div *ngIf="submitted && basicInfoControls.bankingRelationship.errors"-->
-<!--                                            class="invalid-feedback">-->
-<!--                                           <div *ngIf="basicInfoControls.bankingRelationship.errors.required">-->
-<!--                                               Banking relation is required-->
-<!--                                           </div>-->
-<!--                                       </div>-->
+                                       <div *ngIf="submitted && basicInfoControls.bankingRelationship.errors"
+                                            class="invalid-feedback">
+                                           <div *ngIf="basicInfoControls.bankingRelationship.errors.required">
+                                               Banking relation is required
+                                           </div>
+                                       </div>
                                    </div>
                                </nb-card-body>
                            </nb-card>
                        </div>
-                   <div class="col-md-12" *ngIf="stayHidden">
-                       <div class="form-group">
-                           <label><strong>Remarks</strong></label>
-                           <ckeditor id="remarks" formControlName="remarks" name="remarks" type="text"
-                                     [config]="ckeConfig"
-                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeRisk.errors}"></ckeditor>
-                           <div *ngIf="(submitted) && basicInfoControls.incomeRisk.invalid"
-                                class="text-danger">
-                               <div *ngIf="basicInfoControls.incomeRisk.errors.required">
-                                   Income Risk is required
-                               </div>
-                           </div>
-                       </div>
-                   </div>
 
                    <div class="col-4">
                            <label><strong>Net worth</strong></label>

@@ -61,6 +61,7 @@ export class CustomerLoanApplyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner = true;
     this.isMicroCustomer = this.customerInfo.isMicroCustomer;
     this.sliceLoan();
     this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
@@ -72,6 +73,11 @@ export class CustomerLoanApplyComponent implements OnInit {
       this.nonMicroLoanList = this.loanList.filter((f) => {
         return f.loanTag !== 'MICRO_LOAN';
       });
+      this.spinner = false;
+    }, (err) => {
+      this.spinner = false;
+      this.toastService.show(new Alert(AlertType.DANGER, '!!OPPS Something Went Wrong'));
+      this.activeModal.dismiss();
     });
     this.customerLoanService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
       this.customerGroupLoanList = res.detail;
