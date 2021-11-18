@@ -397,7 +397,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
             grandFatherName: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.grandFatherName],
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber],
-            contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
+            contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [
                 Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [this.customer.landLineNumber === undefined ? undefined : this.customer.landLineNumber],
             email: [this.customer.email === undefined ? undefined : this.customer.email],
@@ -449,7 +449,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
             gender: [this.gender === null ? undefined :
                 this.gender, Validators.required],
             maritalStatus: [this.maritalStatus === null ? undefined :
-                this.maritalStatus, Validators.required],
+                this.maritalStatus],
             customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
                 this.customerLegalDocumentAddress],
             sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress]
@@ -479,7 +479,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
         this.relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
                 customerRelation: [{value: customerRelation, disabled: false}],
-                customerRelativeName: [undefined, Validators.required],
+                customerRelativeName: [undefined],
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
@@ -497,8 +497,8 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 // Increase index number with increase in static relatives---
                 relativesData.push(this.formBuilder.group({
                     customerRelation: (index > 1) ? [(customerRelative)] :
-                        [({value: customerRelative, disabled: false}), Validators.required],
-                    customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
+                        [({value: customerRelative, disabled: false})],
+                    customerRelativeName: [singleRelatives.customerRelativeName],
                     version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
                     citizenshipNumber: [singleRelatives.citizenshipNumber],
                     citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],

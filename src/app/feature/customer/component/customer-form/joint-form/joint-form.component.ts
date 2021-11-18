@@ -133,13 +133,13 @@ export class JointFormComponent implements OnInit {
           this.formBuilder.group({
             customerName: [jointDetail.customerName, Validators.required],
             customerCode: [jointDetail.customerCode],
-            province: [jointDetail.province, Validators.required],
-            district: [jointDetail.district, Validators.required],
-            municipalities: [jointDetail.municipalities, Validators.required],
+            province: [jointDetail.province],
+            district: [jointDetail.district, ],
+            municipalities: [jointDetail.municipalities, ],
             permanentAddressLine1: [jointDetail.permanentAddressLine1],
             permanentAddressLine2: [jointDetail.permanentAddressLine2],
-            wardNumber: [jointDetail.wardNumber, Validators.required],
-            contactNumber: [jointDetail.contactNumber, [Validators.required,
+            wardNumber: [jointDetail.wardNumber, ],
+            contactNumber: [jointDetail.contactNumber, [,
               Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [jointDetail.landLineNumber],
             email: [jointDetail.email, Validators.email],
@@ -150,20 +150,20 @@ export class JointFormComponent implements OnInit {
             citizenshipIssuedDate: [new Date(jointDetail.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
             dob: [ObjectUtil.isEmpty(jointDetail.dob) ?
                 undefined : new Date(jointDetail.dob), [Validators.required, DateValidator.isValidBefore]],
-            occupation: [jointDetail.occupation, [Validators.required]],
+            occupation: [jointDetail.occupation, []],
             otherOccupation: [jointDetail.otherOccupation],
-            incomeSource: [jointDetail.incomeSource, [Validators.required]],
+            incomeSource: [jointDetail.incomeSource, []],
             otherIncome: [jointDetail.otherIncome],
             panNumber: [jointDetail.panNumber, [Validators.max(999999999), Validators.min(100000000)]],
-            temporaryProvince: [jointDetail.temporaryProvince, Validators.required],
-            temporaryDistrict: [jointDetail.temporaryDistrict, Validators.required],
-            temporaryMunicipalities: [jointDetail.temporaryMunicipalities, Validators.required],
+            temporaryProvince: [jointDetail.temporaryProvince, ],
+            temporaryDistrict: [jointDetail.temporaryDistrict, ],
+            temporaryMunicipalities: [jointDetail.temporaryMunicipalities, ],
             temporaryAddressLine1: [jointDetail.temporaryAddressLine1],
             temporaryAddressLine2: [jointDetail.temporaryAddressLine2],
-            temporaryWardNumber: [jointDetail.temporaryWardNumber, Validators.required],
+            temporaryWardNumber: [jointDetail.temporaryWardNumber, ],
             gender: [jointDetail.gender, Validators.required],
-            maritalStatus: [jointDetail.maritalStatus, Validators.required],
-            customerLegalDocumentAddress: [jointDetail.customerLegalDocumentAddress, Validators.required],
+            maritalStatus: [jointDetail.maritalStatus, ],
+            customerLegalDocumentAddress: [jointDetail.customerLegalDocumentAddress, ],
             relationCheck: [jointDetail.relationCheck],
             introduction: [jointDetail.introduction],
             incomeRisk: [jointDetail.incomeRisk],
@@ -394,12 +394,12 @@ export class JointFormComponent implements OnInit {
     this.basicJointInfo = this.formBuilder.group({
       clientType: [undefined],
       subsectorDetail: [undefined],
-      introduction: [undefined, Validators.required],
-      incomeRisk: [undefined, Validators.required],
-      securityRisk: [undefined, Validators.required],
-      successionRisk: [undefined, Validators.required],
-      bankingRelationship: [undefined, Validators.required],
-      netWorth: [undefined, Validators.required],
+      introduction: [undefined],
+      incomeRisk: [undefined],
+      securityRisk: [undefined],
+      successionRisk: [undefined],
+      bankingRelationship: [undefined],
+      netWorth: [undefined],
       jointCustomerInfo: this.formBuilder.array([])
     });
   }
@@ -408,13 +408,13 @@ export class JointFormComponent implements OnInit {
     return this.formBuilder.group({
       customerName: [undefined, Validators.required],
       customerCode: [undefined],
-      province: [undefined, Validators.required],
-      district: [undefined, Validators.required],
-      municipalities: [undefined, Validators.required],
+      province: [undefined, ],
+      district: [undefined, ],
+      municipalities: [undefined, ],
       permanentAddressLine1: [undefined],
       permanentAddressLine2: [undefined],
-      wardNumber: [undefined, Validators.required],
-      contactNumber: [undefined, [Validators.required, Validators.max(9999999999), Validators.min(1000000000)]],
+      wardNumber: [undefined, ],
+      contactNumber: [undefined, [Validators.max(9999999999), Validators.min(1000000000)]],
       landLineNumber: [undefined],
       email: [undefined, Validators.email],
       // initial Relation Date not used in ui
@@ -423,20 +423,20 @@ export class JointFormComponent implements OnInit {
       citizenshipIssuedDate: [undefined, [Validators.required, DateValidator.isValidBefore]],
       dob: [ObjectUtil.isEmpty(this.customer.dob) ? undefined :
           new Date(this.customer.dob), [Validators.required, DateValidator.isValidBefore]],
-      occupation: [undefined, [Validators.required]],
+      occupation: [undefined, []],
       otherOccupation: [undefined],
-      incomeSource: [undefined, [Validators.required]],
+      incomeSource: [undefined, []],
       otherIncome: [undefined],
       panNumber: [undefined, [Validators.max(999999999), Validators.min(100000000)]],
-      temporaryProvince: [undefined, Validators.required],
-      temporaryDistrict: [undefined, Validators.required],
-      temporaryMunicipalities: [undefined, Validators.required],
+      temporaryProvince: [undefined, ],
+      temporaryDistrict: [undefined, ],
+      temporaryMunicipalities: [undefined, ],
       temporaryAddressLine1: [undefined],
       temporaryAddressLine2: [undefined],
-      temporaryWardNumber: [undefined, Validators.required],
+      temporaryWardNumber: [undefined],
       gender: [undefined, Validators.required],
-      maritalStatus: [undefined, Validators.required],
-      customerLegalDocumentAddress: [undefined, Validators.required],
+      maritalStatus: [undefined, ],
+      customerLegalDocumentAddress: [undefined, ],
       customerRelation1: [undefined],
       customerRelativeName1: [undefined],
             citizenshipNumber1: [undefined],
@@ -499,10 +499,10 @@ export class JointFormComponent implements OnInit {
     const isOtherSelected = this.basicJointInfo.get(['jointCustomerInfo', index, 'occupation']).value.includes('Other');
     if (isOtherSelected) {
       this.tempFlag.showOtherOccupation = true;
-      this.basicJointInfo.get(['jointCustomerInfo', index, 'otherOccupation']).setValidators(Validators.required);
+      // this.basicJointInfo.get(['jointCustomerInfo', index, 'otherOccupation']).setValidators(Validators.required);
     } else {
       this.tempFlag.showOtherOccupation = false;
-      this.basicJointInfo.get(['jointCustomerInfo', index, 'otherOccupation']).setValidators(null);
+      // this.basicJointInfo.get(['jointCustomerInfo', index, 'otherOccupation']).setValidators(null);
     }
     this.basicJointInfo.get(['jointCustomerInfo', index, 'otherOccupation']).updateValueAndValidity();
     const houseWifeSelected = !this.basicJointInfo.get(['jointCustomerInfo', index, 'occupation']).value.includes('House Wife') ?
@@ -512,7 +512,7 @@ export class JointFormComponent implements OnInit {
       this.basicJointInfo.get(['jointCustomerInfo', index, 'incomeSource']).clearValidators();
     }  else {
       this.tempFlag.hideIncomeSource = false;
-      this.basicJointInfo.get(['jointCustomerInfo', index, 'incomeSource']).setValidators(Validators.required);
+      // this.basicJointInfo.get(['jointCustomerInfo', index, 'incomeSource']).setValidators(Validators.required);
     }
     this.basicJointInfo.get(['jointCustomerInfo', index, 'incomeSource']).updateValueAndValidity();
 
@@ -522,10 +522,10 @@ export class JointFormComponent implements OnInit {
     const isOtherSourceSelected = this.basicJointInfo.get(['jointCustomerInfo', index, 'incomeSource']).value.includes('Other');
     if (isOtherSourceSelected) {
       this.tempFlag.showOtherIncomeSource = true;
-      this.basicJointInfo.get(['jointCustomerInfo', index, 'otherIncome']).setValidators(Validators.required);
+      // this.basicJointInfo.get(['jointCustomerInfo', index, 'otherIncome']).setValidators(Validators.required);
     } else {
       this.tempFlag.showOtherIncomeSource = false;
-      this.basicJointInfo.get(['jointCustomerInfo', index, 'otherIncome']).setValidators(null);
+      // this.basicJointInfo.get(['jointCustomerInfo', index, 'otherIncome']).setValidators(null);
     }
     this.basicJointInfo.get(['jointCustomerInfo', index, 'otherIncome']).updateValueAndValidity();
   }
@@ -593,8 +593,8 @@ export class JointFormComponent implements OnInit {
 
     setRelation(): FormGroup {
         return this.formBuilder.group({
-            customerRelation: [undefined, Validators.required],
-            customerRelativeName: [undefined, Validators.compose([Validators.required])],
+            customerRelation: [undefined],
+            customerRelativeName: [undefined],
             citizenshipNumber: [undefined],
             citizenshipIssuedPlace: [undefined],
             citizenshipIssuedDate: [undefined],
