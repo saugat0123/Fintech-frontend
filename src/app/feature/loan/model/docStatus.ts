@@ -43,6 +43,8 @@ export namespace DocStatus {
             return 'SEND_BACK_TO_SENDER';
         } else if (docStatus === DocStatus.SEND_BACK_TO_AGENT) {
             return 'SEND_BACK_TO_AGENT';
+        } else if (docStatus === DocStatus.HSOV_PENDING) {
+            return 'HSOV_PENDING';
         }
     }
 }
