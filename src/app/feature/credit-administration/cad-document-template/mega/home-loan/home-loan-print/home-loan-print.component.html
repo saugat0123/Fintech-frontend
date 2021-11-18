@@ -236,23 +236,9 @@
                     <td>
                         <section style="margin-left: 60px;">
                         <p><strong>क. </strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको नाममा देहाय बमोजिमका घरजग्गा धितोबन्धक पारित गरि दिनु पर्नेछ। </p>
-                            <section style="margin-left: 30px;">
-                        <p> धनी      <span [ngClass]="{'font-weight-bold' : letter?.loan.nameOfLandOwnerCT!== null && letter?.loan.nameOfLandOwnerCT!== ''}">
-            {{letter?.loan.nameOfLandOwnerCT === null || letter?.loan.nameOfLandOwnerCT === '' ? '___________' : letter?.loan.nameOfLandOwnerCT}}</span>
+                            <p>
+                                <app-securities-view [securityDetails]="offerDocumentDetails?.loan?.securityDetails"></app-securities-view>
                             </p>
-                        <p> स्थान     <span [ngClass]="{'font-weight-bold' : letter?.loan.landLocationCT!== null && letter?.loan.landLocationCT!== ''}">
-            {{letter?.loan.landLocationCT === null || letter?.loan.landLocationCT === '' ? '___________' : letter?.loan.landLocationCT}}</span>
-                            </p>
-                        <p> कित्ता नं.    <span [ngClass]="{'font-weight-bold' : letter?.loan.kittaNumberCT!== null && letter?.loan.kittaNumberCT!== ''}">
-            {{letter?.loan.kittaNumberCT === null || letter?.loan.kittaNumberCT === '' ? '___________' : letter?.loan.kittaNumberCT}}</span>
-                            </p>
-                        <p> क्षेत्रफल    <span [ngClass]="{'font-weight-bold' : letter?.loan.areasCT!== null && letter?.loan.areasCT!== ''}">
-            {{letter?.loan.areasCT === null || letter?.loan.areasCT === '' ? '___________' : letter?.loan.areasCT}}</span>
-                      </p>
-                        <p> सिट नं.    <span [ngClass]="{'font-weight-bold' : letter?.loan.seatNumberCT!== null && letter?.loan.seatNumberCT!== ''}">
-            {{letter?.loan.seatNumberCT === null || letter?.loan.seatNumberCT === '' ? '___________' : letter?.loan.seatNumberCT}}</span>
-                            </p>
-                            </section>
                         </section>
                     </td>
                 </tr>
