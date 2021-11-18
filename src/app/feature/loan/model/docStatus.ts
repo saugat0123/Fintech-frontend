@@ -9,8 +9,8 @@ export enum DocStatus {
     UNDER_REVIEW,
     INITIAL,
     SEND_BACK_TO_SENDER,
-    SEND_BACK_TO_AGENT
-}
+    SEND_BACK_TO_AGENT,
+    HSOV_PENDING}
 
 export namespace DocStatus {
 
