@@ -692,51 +692,67 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="individual && !isJointInfo && loanData.loanHolder.bankingRelationship!==null; else banking">
+            <ng-container>
 <div class="row  mt-1">
     <div class="col-md-12">
-        <p><strong>Banking Relationship</strong></p>
-        <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
-            <tr  class="text-white sb-bg-dark">
-                <th colspan="2">Banking Relationship</th>
-            </tr>
-            <tr>
-                <td class="text-center pl-1">CIB Report Obtained</td>
-                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).cibReport ==='true'?'Yes':'No' : 'N/A' }}</td>
-            </tr>
-            <tr>
-                <td class="text-center pl-1">Any existing Credit Relationship with other BFIs?</td>
-                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship |jsonParse).bfi ==='true'?'Yes':'No' : 'N/A' }}</td>
-            </tr>
-            <tr *ngIf="(loanData.loanHolder.bankingRelationship | jsonParse).bfi === 'false'">
-                <td class="text-center pl-1">Remarks</td>
-                <td class="text-center pl-1" [innerHTML]="(loanData?.loanHolder.bankingRelationship) ? ((loanData?.loanHolder.bankingRelationship | jsonParse).remarks | safeHtml) : 'N/A'"></td>
-            </tr>
-            <tr>
-                <td class="text-center pl-1">Any credit relationship with Laxmi Bank?(Including Group)</td>
-                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>
-            </tr>
-        </table>
+<!--        <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">-->
+<!--            <tr  class="text-white sb-bg-dark">-->
+<!--                <th colspan="2">Banking Relationship</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-center pl-1">CIB Report Obtained</td>-->
+<!--                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).cibReport ==='true'?'Yes':'No' : 'N/A' }}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-center pl-1">Any existing Credit Relationship with other BFIs?</td>-->
+<!--                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship |jsonParse).bfi ==='true'?'Yes':'No' : 'N/A' }}</td>-->
+<!--            </tr>-->
+<!--            <tr *ngIf="(loanData.loanHolder.bankingRelationship | jsonParse).bfi === 'false'">-->
+<!--                <td class="text-center pl-1">Remarks</td>-->
+<!--                <td class="text-center pl-1" [innerHTML]="(loanData?.loanHolder.bankingRelationship) ? ((loanData?.loanHolder.bankingRelationship | jsonParse).remarks | safeHtml) : 'N/A'"></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-center pl-1">Any credit relationship with Laxmi Bank?(Including Group)</td>-->
+<!--                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>-->
+<!--            </tr>-->
+<!--        </table>-->
+        <div class="row">
+         <ng-container *ngIf="individual && !isJointInfo; else bankingRelationship; " >
+             <div class="col-md-12">
+                 <p><strong>Banking Relationship</strong></p>
+                 <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
+                     <tr class="text-white sb-bg-dark">
+                         <th>Banking Relationship</th>
+                         <th>Net Worth</th>
+                     </tr>
+                     <tr>
+                         <td class="text-left pl-1">{{loanDataHolder.loanHolder?.bankingRelationship ? (loanDataHolder.loanHolder.bankingRelationship | jsonParse): 'N/A'}}</td>
+                         <td class="text-right pr-1">Rs. {{(loanDataHolder.customerInfo?.netWorth)? (loanDataHolder?.customerInfo.netWorth |currencyFormatter):'N/A'}}</td>
+                     </tr>
+                 </table>
+             </div>
+         </ng-container>
+            <ng-template #bankingRelationship>
+                <div class="col-md-12">
+                    <p><strong>Banking Relationship</strong></p>
+                    <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
+                        <tr class="text-white sb-bg-dark">
+                            <th>Banking Relationship</th>
+                            <th>Net Worth</th>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1">{{riskInfo?.bankingRelationship ? riskInfo.bankingRelationship: 'N/A'}}</td>
+                            <td class="text-right pr-1">Rs. {{(riskInfo?.netWorth)? (riskInfo?.netWorth |currencyFormatter):'N/A'}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </ng-template>
+        </div>
+
     </div>
 </div>
             </ng-container>
-            <ng-template #banking>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p><strong>Banking Relationship</strong></p>
-                        <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
-                            <tr class="text-white sb-bg-dark">
-                                <th>Banking Relationship</th>
-                                <th>Net Worth</th>
-                            </tr>
-                            <tr>
-                                <td class="text-left pl-1">{{riskInfo?.bankingRelationship ? riskInfo.bankingRelationship: 'N/A'}}</td>
-                                <td class="text-right pr-1">Rs. {{(riskInfo?.netWorth)? (riskInfo?.netWorth |currencyFormatter):'N/A'}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </ng-template>
+
             <div class="row mt-1">
                 <div class = "col-md-12" *ngIf="isRemitLoan">
                     <p><b> Financial/ Repayment Ability: Primary Source of Income</b></p>

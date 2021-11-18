@@ -25,6 +25,7 @@ import {environment, environment as env} from '../../../../../../environments/en
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
+import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 
 @Component({
     selector: 'app-customer-form',
@@ -101,8 +102,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         showOtherIncomeSource: false,
         hideIncomeSource: false
     };
-// bankingRelationshipList = BankingRelationship.enumObject();
-//      bankingRelationshipList = ['CIB Report Obtained', 'Any existing Credit Relationship with other BFIs?', 'Any credit relationship with Laxmi Bank?(Including Group)'];
+bankingRelationshipList = BankingRelationship.enumObject();
     subSector = [];
     clientType: any;
     relationArray: RelationshipList = new RelationshipList();
@@ -116,7 +116,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     clientName = Clients;
     ckeConfig = Editor.CK_CONFIG;
     private relation = ['Grand Father', 'Father'];
-    stayHidden = false;
 
     ngOnInit() {
         this.getProvince();
@@ -151,15 +150,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         } else {
             this.createRelativesArray();
         }
-        if (!ObjectUtil.isEmpty(this.customer.bankingRelationship)) {
-            if (JSON.parse(this.customer.bankingRelationship) instanceof Object) {
-                const banking = JSON.parse(this.customer.bankingRelationship);
-                if (banking.bfi === 'false') {
-                    this.stayHidden = true;
-                }
-                this.basicInfo.patchValue(banking);
-            }
-        }
          this.sameAddress = this.customer.sameAddress;
     }
 
@@ -179,7 +169,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
-                age: [undefined, Validators.required],
+                age: [undefined],
                 version: [0]
             })
         );
@@ -343,18 +333,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
                     /** banking relation setting data from child **/
                     // possibly can have more field in banking relationship
-                    if (this.basicInfo.get('bfi').value === 'true') {
-                        this.toastService.show(new Alert(AlertType.WARNING, 'This Customer Is Not Eligible To apply Loan'));
-                        this.spinner = false;
-                        return;
-                    }
-                    const bakingRelation = {
-                        'cibReport': this.basicInfo.get('cibReport').value,
-                        'bfi': this.basicInfo.get('bfi').value,
-                        'creditRelationship': this.basicInfo.get('creditRelationship').value,
-                        'remarks': this.basicInfo.get('remarks').value
-                    };
-                    this.customer.bankingRelationship = JSON.stringify(bakingRelation);
+                    this.customer.bankingRelationship = JSON.stringify(this.basicInfo.get('bankingRelationship').value);
                     this.customer.netWorth = this.basicInfo.get('netWorth').value;
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
@@ -406,9 +385,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.basicInfo = this.formBuilder.group({
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
             customerCode: [this.customer.customerCode === undefined ? undefined : this.customer.customerCode],
-            province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
-            district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
-            municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
+            province: [this.customer.province === null ? undefined : this.customer.province],
+            district: [this.customer.district === null ? undefined : this.customer.district],
+            municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities],
             permanentAddressLine1: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.permanentAddressLine1],
             permanentAddressLine2: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
@@ -417,11 +396,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.individualJsonData.fatherName],
             grandFatherName: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.grandFatherName],
-            wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
+            wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
                 Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [this.customer.landLineNumber === undefined ? undefined : this.customer.landLineNumber],
-            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.email],
+            email: [this.customer.email === undefined ? undefined : this.customer.email],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],
@@ -433,51 +412,47 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 new Date(this.customer.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
             dob: [ObjectUtil.isEmpty(this.customer.dob) ? undefined :
                 new Date(this.customer.dob), [Validators.required, DateValidator.isValidBefore]],
-            occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation, [Validators.required]],
+            occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation],
             version: [this.customer.version === undefined ? undefined : this.customer.version],
             otherOccupation: [this.customer.otherOccupation === undefined ? undefined : this.customer.otherOccupation],
-            incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
+            incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource],
             otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
             panNumber: [this.customer.panNumber === undefined ? undefined : this.customer.panNumber,
                 [Validators.max(999999999), Validators.min(100000000)]],
             customerRelatives: this.formBuilder.array([]),
-            introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
+            introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction],
             securityRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.securityRisk],
             incomeRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.incomeRisk],
             successionRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.successionRisk],
-            // bankingRelationship: [this.customer.bankingRelationship === undefined ?
-            //     undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : [Validators.required]],
+            bankingRelationship: [this.customer.bankingRelationship === undefined ?
+                undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : []],
             netWorth: [this.customer.netWorth === undefined ?
                 undefined : this.customer.netWorth,
-                this.crgLambdaDisabled ? undefined : [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                this.crgLambdaDisabled ? undefined : [ Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             subsectorDetail: [this.customer.subsectorDetail === undefined ? undefined : this.customer.subsectorDetail],
             clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType, Validators.required],
             temporaryProvince: [this.customer.temporaryProvince === null ? undefined :
-                this.customer.temporaryProvince, Validators.required],
+                this.customer.temporaryProvince],
             temporaryDistrict: [this.customer.temporaryDistrict === null ? undefined :
-                this.customer.temporaryDistrict, Validators.required],
+                this.customer.temporaryDistrict],
             temporaryMunicipalities: [this.customer.temporaryMunicipalities === null ? undefined :
-                this.customer.temporaryMunicipalities, Validators.required],
+                this.customer.temporaryMunicipalities],
             temporaryAddressLine1: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.temporaryAddressLine1],
             temporaryAddressLine2: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.temporaryAddressLine2],
             temporaryWardNumber: [this.customer.temporaryWardNumber === null ? undefined :
-                this.customer.temporaryWardNumber, Validators.required],
+                this.customer.temporaryWardNumber],
             gender: [this.gender === null ? undefined :
                 this.gender, Validators.required],
             maritalStatus: [this.maritalStatus === null ? undefined :
                 this.maritalStatus, Validators.required],
             customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
-                this.customerLegalDocumentAddress, Validators.required],
-            cibReport: [undefined],
-            bfi: [undefined],
-            creditRelationship: [undefined],
-            remarks: [undefined],
-            sameAddress: [ObjectUtil.isEmpty(this.customer.sameAddress) ? undefined : this.customer.sameAddress]
+                this.customerLegalDocumentAddress],
+            sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress]
         });
 
         this.onCustomerTypeChange(this.microCustomer);
@@ -529,7 +504,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                     citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
                         undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
-                    age: [singleRelatives.age, Validators.required],
+                    age: [singleRelatives.age],
                 }));
             });
 
@@ -591,16 +566,15 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     occupationChange() {
         let isOtherSelected;
         if (!ObjectUtil.isEmpty(this.basicInfo.get('occupation').value)) {
-            console.log('this is occupation', this.basicInfo.get('occupation').value);
             isOtherSelected = this.basicInfo.get('occupation').value.includes('Other');
         }
         if (isOtherSelected) {
             this.tempFlag.showOtherOccupation = true;
-            this.basicInfo.get('otherOccupation').setValidators(Validators.required);
+            // this.basicInfo.get('otherOccupation').setValidators(Validators.required);
         } else {
             this.tempFlag.showOtherOccupation = false;
             this.basicInfo.get('otherOccupation').setValue(null);
-            this.basicInfo.get('otherOccupation').setValidators(null);
+            // this.basicInfo.get('otherOccupation').setValidators(null);
         }
         this.basicInfo.get('otherOccupation').updateValueAndValidity();
         const houseWifeSelected = !this.basicInfo.get('occupation').value ? false : !this.basicInfo.get('occupation').value.includes('House Wife') ?
@@ -610,7 +584,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.basicInfo.get('incomeSource').clearValidators();
         } else {
             this.tempFlag.hideIncomeSource = false;
-            this.basicInfo.get('incomeSource').setValidators(Validators.required);
+            // this.basicInfo.get('incomeSource').setValidators(Validators.required);
         }
         this.basicInfo.get('incomeSource').updateValueAndValidity();
 
@@ -628,11 +602,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         const isOtherSourceSelected = this.basicInfo.get('incomeSource').value.includes('Other');
         if (isOtherSourceSelected) {
             this.tempFlag.showOtherIncomeSource = true;
-            this.basicInfo.get('otherIncome').setValidators(Validators.required);
+            // this.basicInfo.get('otherIncome').setValidators(Validators.required);
         } else {
             this.tempFlag.showOtherIncomeSource = false;
             this.basicInfo.get('otherIncome').setValue(null);
-            this.basicInfo.get('otherIncome').setValidators(null);
+            // this.basicInfo.get('otherIncome').setValidators(null);
         }
         this.basicInfo.get('otherIncome').updateValueAndValidity();
     }
@@ -678,10 +652,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.basicInfo.controls.occupation.patchValue(occupation.multipleOccupation);
             this.basicInfo.controls.otherOccupation.patchValue(occupation.otherOccupation);
         }
-        // if (!ObjectUtil.isEmpty(this.bankingRelationshipInput)) {
-        //     this.basicInfo.controls.bankingRelationship.patchValue(JSON.parse(this.bankingRelationshipInput));
-        //
-        // }
+        if (!ObjectUtil.isEmpty(this.bankingRelationshipInput)) {
+            this.basicInfo.controls.bankingRelationship.patchValue(JSON.parse(this.bankingRelationshipInput));
+
+        }
         if (!ObjectUtil.isEmpty(this.subSectorDetailCodeInput)) {
             this.basicInfo.controls.subsectorDetail.patchValue(this.subSectorDetailCodeInput);
 
@@ -733,7 +707,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 'netWorth'], false);
         } else {
             this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk',
-                'netWorth'], true);
+                'netWorth'], false);
         }
         const clientTypeControl = this.basicInfo.get('clientType');
         if (check) {
@@ -743,14 +717,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             // this.clientType = this.clientType.filter(v => v !== 'MICRO');
             clientTypeControl.patchValue(this.customer.clientType === undefined ? undefined : this.customer.clientType);
             clientTypeControl.enable();
-        }
-    }
-
-    show(event) {
-        if (event === 'true') {
-            this.stayHidden = false;
-        } else {
-            this.stayHidden = true;
         }
     }
 }

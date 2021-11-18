@@ -219,6 +219,8 @@ export class LoanFormComponent implements OnInit {
     loanHolder = new CustomerInfoData();
     loanTypeKeyValue = LoanType;
     loanType;
+    spinners = true;
+
 
 
     constructor(
@@ -243,7 +245,6 @@ export class LoanFormComponent implements OnInit {
         protected riskQuestionService: RiskGradingService
     ) {
     }
-
     ngOnInit() {
         this.docStatusForMaker();
         this.buildPriorityForm();
@@ -460,7 +461,9 @@ export class LoanFormComponent implements OnInit {
                     });
                 }
                 this.pushProposalTemplateToLast();
+                this.spinners = false;
             }, error => {
+                this.spinners = false;
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Error while checking for available CRG-GAMMA questions!'));
                 this.removeCrgGammaFromTemplateList();
