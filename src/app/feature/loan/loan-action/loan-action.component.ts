@@ -48,6 +48,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     status: any;
     docStatus = DocStatus;
+    currentUser = LocalStorageUtil.getStorage().roleName.toLowerCase();
 
     constructor(
         private alertService: AlertService,
@@ -149,7 +150,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
                     return;
                 }
-                if (this.customerLoanHolder.isHsov) {
+                if (this.customerLoanHolder.isHsov && LocalStorageUtil.getStorage().roleName.toLowerCase() !== 'hsov') {
                     context = {
                         popUpTitle: 'Approve',
                         isForward: false,
