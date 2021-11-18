@@ -71,7 +71,6 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
 
     buildPersonal() {
         this.form = this.formBuilder.group({
-            referenceNumber: [undefined],
             dateofApproval: [undefined],
             dateofApplication: [undefined],
             loanAmountPl: [undefined],
@@ -98,7 +97,6 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             relationshipofficerName: [undefined],
             branchManager: [undefined],
             // translated value
-            referenceNumberTransVal: [undefined, Validators.required],
             dateofApprovalTransVal: [undefined],
             dateofApplicationTransVal: [undefined],
             loanAmountPlTransVal: [undefined],
@@ -136,7 +134,6 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         this.btnDisable = false;
     }
     private setTemplatedCTData(): void {
-        // this.form.get('referenceNumberTransVal').patchValue(this.podtranslatedData.referenceNumber);
         this.form.get('dateofApprovalTransVal').patchValue(this.podtranslatedData.dateofApproval);
         this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
         this.form.get('purposeofLoanTransVal').patchValue(this.podtranslatedData.purposeofLoan);
