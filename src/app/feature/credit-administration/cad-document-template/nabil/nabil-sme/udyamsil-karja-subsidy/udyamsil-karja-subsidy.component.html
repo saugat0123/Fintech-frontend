@@ -4,10 +4,12 @@
              nbSpinnerSize="large"
              nbSpinnerMessage="udyamsil karja....."
              id="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}">
-        <nb-card-header *ngIf="preview">
-            <a (click)="close()" aria-label="Close" class="close cursor pull-right"
-               data-dismiss="modal">
-                <span aria-hidden="true">×</span></a>
+        <nb-card-header>
+            <div class="col-md-12 text-right">
+                <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+                   data-dismiss="modal">
+                    <span aria-hidden="true">×</span></a>
+            </div>
         </nb-card-header>
 
         <nb-card-body>
@@ -1285,7 +1287,11 @@
         </nb-card-body>
         <nb-card-footer>
             <div class="col-md-12 text-right disable-print">
-                <button  nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
+                <button  nbButton
+                         [disabled]="!initialInfoPrint"
+                         status="info"
+                         class="mb-4 float-right"
+                         [useExistingCss]="true"
                          ngxPrint printSectionId="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}Print">Print
                 </button>
                 <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>

@@ -9,7 +9,7 @@ import {FormGroup} from '@angular/forms';
 })
 export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
   @Input() offerData;
-  @Input() cadOfferLetterApprovedDoc;
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() letter;
   loanHolderInfo;
 
