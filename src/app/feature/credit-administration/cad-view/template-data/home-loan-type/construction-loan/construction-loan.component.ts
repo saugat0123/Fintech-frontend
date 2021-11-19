@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
 import {DatePipe} from '@angular/common';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
@@ -8,6 +8,8 @@ import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {OutputEmitter} from '@angular/compiler/src/output/abstract_emitter';
 import {CurrencyFormatterPipe} from "../../../../../../@core/pipe/currency-formatter.pipe";
+import {District} from "../../../../../admin/modal/district";
+import {AddressService} from "../../../../../../@core/service/baseservice/address.service";
 
 @Component({
   selector: 'app-construction-loan',
@@ -27,13 +29,17 @@ export class ConstructionLoanComponent implements OnInit {
   BSApplication = false;
   translatedValue: any;
   loanLimit = false;
+  oneForm: FormGroup;
+  municipalityListForSecurities = [];
+  allDistrictList: Array<District> = new Array<District>();
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
               private datePipe: DatePipe,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
               private nepaliToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-              private currencyFormatterPipe: CurrencyFormatterPipe) { }
+              private currencyFormatterPipe: CurrencyFormatterPipe,
+              private addressService: AddressService) { }
 
   get form() {
     return this.constructionLoanForm.controls;
@@ -41,6 +47,14 @@ export class ConstructionLoanComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.addDefaultSecurity();
+    this.getAllDistrict();
+  }
+
+  public getAllDistrict(): void {
+    this.addressService.getAllDistrict().subscribe((response: any) => {
+      this.allDistrictList = response.detail;
+    });
   }
 
   private buildForm(): FormGroup {
@@ -117,21 +131,6 @@ export class ConstructionLoanComponent implements OnInit {
       thirdInstallmentAmount: [undefined],
       thirdInstallmentAmountCT: [undefined, Validators.required],
       thirdInstallmentAmountTrans: [undefined],
-      nameOfLandOwner: [undefined],
-      nameOfLandOwnerCT: [undefined, Validators.required],
-      nameOfLandOwnerTrans: [undefined],
-      landLocation: [undefined],
-      landLocationCT: [undefined, Validators.required],
-      landLocationTrans: [undefined],
-      kittaNumber: [undefined],
-      kittaNumberCT: [undefined, Validators.required],
-      kittaNumberTrans: [undefined],
-      area: [undefined],
-      areaCT: [undefined, Validators.required],
-      areaTrans: [undefined],
-      seatNumber: [undefined],
-      seatNumberCT: [undefined, Validators.required],
-      seatNumberTrans: [undefined],
       insuranceAmountInFigure: [undefined],
       insuranceAmountInFigureCT: [undefined, Validators.required],
       insuranceAmountInFigureTrans: [undefined],
@@ -144,6 +143,7 @@ export class ConstructionLoanComponent implements OnInit {
       nameOfBranchManager: [undefined],
       nameOfBranchManagerCT: [undefined, Validators.required],
       nameOfBranchManagerTrans: [undefined],
+      securities: this.formBuilder.array([]),
     });
   }
 
@@ -295,32 +295,15 @@ export class ConstructionLoanComponent implements OnInit {
     }
 
 
-
-
     // translated by google api
     this.translateFormGroup = this.formBuilder.group({
       purposeOfLoan: this.constructionLoanForm.get('purposeOfLoan').value,
-      nameOfLandOwner: this.constructionLoanForm.get('nameOfLandOwner').value,
-      landLocation: this.constructionLoanForm.get('landLocation').value,
       nameOfRelationshipOfficer: this.constructionLoanForm.get('nameOfRelationshipOfficer').value,
       nameOfBranchManager: this.constructionLoanForm.get('nameOfBranchManager').value,
-      kittaNumber: this.constructionLoanForm.get('kittaNumber').value,
-      area: this.constructionLoanForm.get('area').value,
-      seatNumber: this.constructionLoanForm.get('seatNumber').value,
-    });
+      });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
-    this.constructionLoanForm.get('kittaNumberTrans').patchValue(this.translatedValue.kittaNumber);
-    this.constructionLoanForm.get('kittaNumberCT').patchValue(this.translatedValue.kittaNumber);
-    this.constructionLoanForm.get('areaTrans').patchValue(this.translatedValue.area);
-    this.constructionLoanForm.get('areaCT').patchValue(this.translatedValue.area);
-    this.constructionLoanForm.get('seatNumberTrans').patchValue(this.translatedValue.seatNumber);
-    this.constructionLoanForm.get('seatNumberCT').patchValue(this.translatedValue.seatNumber);
     this.constructionLoanForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
     this.constructionLoanForm.get('purposeOfLoanCT').patchValue(this.translatedValue.purposeOfLoan);
-    this.constructionLoanForm.get('nameOfLandOwnerTrans').patchValue(this.translatedValue.nameOfLandOwner);
-    this.constructionLoanForm.get('nameOfLandOwnerCT').patchValue(this.translatedValue.nameOfLandOwner);
-    this.constructionLoanForm.get('landLocationTrans').patchValue(this.translatedValue.landLocation);
-    this.constructionLoanForm.get('landLocationCT').patchValue(this.translatedValue.landLocation);
     this.constructionLoanForm.get('nameOfRelationshipOfficerTrans').patchValue(this.translatedValue.nameOfRelationshipOfficer);
     this.constructionLoanForm.get('nameOfRelationshipOfficerCT').patchValue(this.translatedValue.nameOfRelationshipOfficer);
     this.constructionLoanForm.get('nameOfBranchManagerTrans').patchValue(this.translatedValue.nameOfBranchManager);
@@ -344,5 +327,95 @@ export class ConstructionLoanComponent implements OnInit {
     const premiumRate = this.constructionLoanForm.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.constructionLoanForm.get('interestRate').patchValue(sum);
+  }
+
+  private initSecuritiesForm(): FormGroup {
+    return this.formBuilder.group({
+      securityOwnersName: [undefined],
+      securityOwnersNameTransVal: [{value: undefined, disabled: true}],
+      securityOwnersNameCT: [undefined],
+
+      securityOwnersDistrict: [undefined],
+      securityOwnersDistrictTransVal: [{value: undefined, disabled: true}],
+      securityOwnersDistrictCT: [undefined],
+
+      securityOwnersMunicipalityOrVdc: [undefined],
+
+      securityOwnersMunicipality: [undefined],
+      securityOwnersMunicipalityTransVal: [{value: undefined, disabled: true}],
+      securityOwnersMunicipalityCT: [undefined],
+
+      securityOwnersWardNo: [undefined],
+      securityOwnersWardNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersWardNoCT: [undefined],
+
+      securityOwnersSeatNo: [undefined],
+      securityOwnersSeatNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersSeatNoCT: [undefined],
+
+      securityOwnersKittaNo: [undefined],
+      securityOwnersKittaNoTransVal: [{value: undefined, disabled: true}],
+      securityOwnersKittaNoCT: [undefined],
+
+      securityOwnersLandArea: [undefined],
+      securityOwnersLandAreaTransVal: [{value: undefined, disabled: true}],
+      securityOwnersLandAreaCT: [undefined],
+    });
+  }
+
+  public addDefaultSecurity(): void {
+    (this.constructionLoanForm.get('securities') as FormArray).push(
+        this.initSecuritiesForm()
+    );
+  }
+
+  public removeIndividualSecurities(i): void {
+    (this.constructionLoanForm.get('securities') as FormArray).removeAt(i);
+  }
+
+  public translateSecuritiDetailsNumberFields(arrName, source, index, target): void {
+    const translatedNepaliNum = this.engToNepaliNumberPipe
+        .transform(String(this.constructionLoanForm.get([String(arrName), index, String(source)]).value));
+    this.constructionLoanForm.get([String(arrName), index, String(target)]).patchValue(translatedNepaliNum);
+    this.constructionLoanForm.get([String(arrName), index, String(source + 'CT')]).patchValue(translatedNepaliNum);
+  }
+
+  async onChangeTranslateSecurity(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.constructionLoanForm.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.constructionLoanForm.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.constructionLoanForm.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+  }
+
+  public setDefaultNepaliResponse(arrName, source, index, target): void {
+    this.constructionLoanForm.get([String(arrName), index, String(target)])
+        .patchValue(this.constructionLoanForm.get([String(arrName), index, String(source)]).value.nepaliName);
+    this.constructionLoanForm.get([String(arrName), index, String(source + 'CT')])
+        .patchValue(this.constructionLoanForm.get([String(arrName), index, String(source)]).value.nepaliName);
+  }
+
+  public getMunicipalityByDistrict(data, event, index): void {
+    const district = new District();
+    district.id = data;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalityListForSecurities[index] = response.detail;
+          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.constructionLoanForm.get(['securities', index, 'securityOwnersMunicipalityOrVdc']).patchValue(null);
+          }
+        }
+    );
+  }
+
+  async onChangeSecurityOwnersName(arrName, source, index, target) {
+    this.oneForm = this.formBuilder.group({
+      securityOwnersName: this.constructionLoanForm.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.oneForm);
+    this.constructionLoanForm.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
+    this.constructionLoanForm.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
   }
 }
