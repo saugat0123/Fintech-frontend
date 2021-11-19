@@ -36,7 +36,8 @@ import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {OneFormGuarantors} from '../../model/oneFormGuarantors';
 import {CurrencyFormatterPipe} from '../../../../@core/pipe/currency-formatter.pipe';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {validate} from 'codelyzer/walkerFactory/walkerFn';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -127,6 +128,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantorProvienceList = [];
     guarantorDistrict = [];
     guarantorMunicipalities = [];
+    ownerPermanentDistricts = [];
+    ownerPermanentMunicipality = [];
+    ownerTemporaryDistricts = [];
+    ownerTemporaryMunicipality = [];
+
 
     constructor(private formBuilder: FormBuilder,
                 private titleCasePipe: TitleCasePipe,
@@ -360,8 +366,31 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             issuedDate: [undefined],
             issuedDateCT: [undefined],
             issuedDateTrans: [undefined],
+            actName: [undefined],
+            actNameCT: [undefined],
+            actNameTrans: [undefined],
+            actYear: [undefined],
+            actYearCT: [undefined],
+            actYearTrans: [undefined],
+            radioActYearDate: [undefined],
+            authorizedBodyName: [undefined],
+            authorizedBodyNameCT: [undefined],
+            authorizedBodyNameTrans: [undefined],
+            registeredWith: [undefined],
+            registeredWithCT: [undefined],
+            registeredWithTrans: [undefined],
+            issuingDistrict: [undefined],
+            issuingDistrictCT: [undefined],
+            issuingDistrictTrans: [undefined],
+            registeredStreetTole: [undefined],
+            registeredStreetToleTrans: [undefined],
+            registeredStreetToleCT: [undefined],
+            currentStreetTole: [undefined],
+            currentStreetToleTrans: [undefined],
+            currentStreetToleCT: [undefined],
             jointCustomerDetails: this.formBuilder.array([]),
             guarantorDetails: this.formBuilder.array([]),
+            ownerDetails: this.formBuilder.array([])
         });
     }
 
@@ -672,7 +701,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             nepData.temporaryMunicipality ? nepData.temporaryMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value : '';
             nepData.temporaryWard ? nepData.temporaryWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value : '';
 
-            //english value
+            // english value
             nepData.guarantorName ? nepData.guarantorName.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorName']).value : '';
             nepData.issuedPlace ? nepData.issuedPlace.en = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value : '';
 
@@ -698,7 +727,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             nepData.guarantorTemporaryMunicipalityOrVdc ? nepData.guarantorTemporaryMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value : '';
 
 
-            //translated data
+            // translated data
             nepData.guarantorName ? nepData.guarantorName.np = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).value : '';
             nepData.issuedPlace ? nepData.issuedPlace.np = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).value : '';
 
@@ -1054,9 +1083,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
     }
 
+
+
     removeAtIndex(i: any) {
         (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
         this.translatedGuarantorDetails.splice(i, 1);
+    }
+
+    removeOwnerDetailAtIndex(i: any) {
+        (this.userConfigForm.get('ownerDetails') as FormArray).removeAt(i);
+    }
+
+    translateOwnerData(i: any) {
+
     }
 
     onChangeTab(event) {
@@ -2401,19 +2440,187 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     }
 
+
+    addOwnerDetailsField() {
+        return this.formBuilder.group({
+            ownerName: [undefined],
+            ownerNameTrans: [undefined],
+            ownerNameCT: [undefined],
+            ownerDob: [undefined],
+            ownerDobTrans: [undefined],
+            ownerDobCT: [undefined],
+            ownerEmail: [undefined],
+            ownerEmailTrans: [undefined],
+            ownerEmailCT: [undefined],
+            ownerContactNo: [undefined],
+            ownerContactNoTrans: [undefined],
+            ownerContactNoCT: [undefined],
+            ownerGender: [undefined],
+            ownerGenderTrans: [undefined],
+            ownerGenderCT: [undefined],
+            ownerMaritalStatus: [undefined],
+            ownerMaritalStatusTrans: [undefined],
+            ownerMaritalStatusCT: [undefined],
+            ownerCitizenshipNo: [undefined],
+            ownerCitizenshipNoTrans: [undefined],
+            ownerCitizenshipNoCT: [undefined],
+            ownerCitizenshipIssuedDistrict: [undefined],
+            ownerCitizenshipIssuedDistrictTrans: [undefined],
+            ownerCitizenshipIssuedDistrictCT: [undefined, Validators.required],
+            ownerCitizenshipIssuedDate: [undefined],
+            ownerCitizenshipIssuedDateTrans: [undefined],
+            ownerCitizenshipIssuedDateCT: [undefined],
+            radioOwnerCitizenshipIssuedDate: [undefined],
+            radioOwnerCitizenshipIssuedDateTrans: [undefined],
+            radioOwnerCitizenshipIssuedDateCT: [undefined],
+            ownerPanNo: [undefined],
+            ownerPanNoTrans: [undefined],
+            ownerPanNoCT: [undefined],
+            ownerSharePercentage: [undefined],
+            ownerSharePercentageTrans: [undefined],
+            ownerSharePercentageCT: [undefined],
+            radioOwnerDob: [undefined],
+            radioOwnerDobTrans: [undefined],
+            radioOwnerDobCT: [undefined],
+
+            // Relations Details
+
+            ownerFatherName: [undefined],
+            ownerFatherNameCT: [undefined],
+            ownerFatherNameTrans: [undefined],
+            ownerGrandFatherName: [undefined],
+            ownerGrandFatherNameTrans: [undefined],
+            ownerGrandFatherNameCT: [undefined],
+            ownerFatherInLawName: [undefined],
+            ownerFatherInLawNameTrans: [undefined],
+            ownerFatherInLawNameCT: [undefined],
+            ownerHusbandName: [undefined],
+            ownerHusbandNameTrans: [undefined],
+            ownerHusbandNameCT: [undefined],
+            ownerRelationMedium: [undefined],
+            ownerRelationMediumTrans: [undefined],
+            ownerRelationMediumCT: [undefined],
+            ownerDobDateType: [undefined],
+            ownerDobDateTypeTrans: [undefined],
+            ownerDobDateTypeCT: [undefined],
+
+
+        //    address Details
+                // for permanent
+            ownerPermanentProvince: [undefined],
+            ownerPermanentProvinceTrans: [undefined],
+            ownerPermanentProvinceCT: [undefined],
+            ownerPermanentDistrict: [undefined],
+            ownerPermanentDistrictTrans: [undefined],
+            ownerPermanentDistrictCT: [undefined],
+            ownerPermanentMunicipality: [undefined],
+            ownerPermanentMunicipalityTrans: [undefined],
+            ownerPermanentMunicipalityCT: [undefined],
+            ownerPermanentWardNo: [undefined],
+            ownerPermanentWardNoTrans: [undefined],
+            ownerPermanentWardNoCT: [undefined],
+            ownerPermanentStreetTole: [undefined],
+            ownerPermanentStreetToleTrans: [undefined],
+            ownerPermanentStreetToleCT: [undefined],
+
+        //    for temporary
+
+            ownerTemporaryProvince: [undefined],
+            ownerTemporaryProvinceTrans: [undefined],
+            ownerTemporaryProvinceCT: [undefined],
+            ownerTemporaryDistrict: [undefined],
+            ownerTemporaryDistrictTrans: [undefined],
+            ownerTemporaryDistrictCT: [undefined],
+            ownerTemporaryMunicipality: [undefined],
+            ownerTemporaryMunicipalityTrans: [undefined],
+            ownerTemporaryMunicipalityCT: [undefined],
+            ownerTemporaryWardNo: [undefined],
+            ownerTemporaryWardNoTrans: [undefined],
+            ownerTemporaryWardNoCT: [undefined],
+            ownerTemporaryStreetTole: [undefined],
+            ownerTemporaryStreetToleTrans: [undefined],
+            ownerTemporaryStreetToleCT: [undefined],
+
+        // address flag
+
+            ownerPermanentAddressRadio: [undefined],
+            ownerPermanentAddressRadioTrans: [undefined],
+            ownerPermanentAddressRadioCT: [undefined],
+            ownerTemporaryAddressRadio: [undefined],
+            ownerTemporaryAddressRadioTrans: [undefined],
+            ownerTemporaryAddressRadioCT: [undefined],
+
+            isSameTemporaryAndPermanent: [undefined]
+
+        });
+    }
+
+
+    addOwnerDetails() {
+        (this.userConfigForm.get('ownerDetails') as FormArray).push(this.addOwnerDetailsField());
+    }
+
+    getDistrictsByIdForOwner(provinceId: number, event, i: any) {
+        const province = new Province();
+        province.id = provinceId;
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.ownerPermanentDistricts[i] = response.detail;
+                this.ownerPermanentDistricts[i].sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+    getMunicipalitiesByIdForOwner(districtId: number, event,i: any) {
+        const district = new District();
+        district.id = districtId;
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.ownerPermanentMunicipality[i] = response.detail;
+                this.ownerPermanentMunicipality[i].sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+    getDistrictsByIdForOwnerTemp(provinceId: number, event, i: any) {
+        const province = new Province();
+        province.id = provinceId;
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.ownerTemporaryDistricts[i] = response.detail;
+                this.ownerTemporaryDistricts[i].sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+    getMunicipalitiesByIdForOwnerTemp(districtId: number, event,i: any) {
+        const district = new District();
+        district.id = districtId;
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.ownerTemporaryMunicipality[i] = response.detail;
+                this.ownerTemporaryMunicipality[i].sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+    setOwnerAddressSameAsPermanent(event, i){
+
+    }
+
     openCloseTemplate(template) {
         this.modalService.open(template);
     }
 
-    dismiss(template){
+    dismiss(template) {
         this.modalService.dismissAll();
     }
 
-    decline(template){
+    decline(template) {
         this.modalService.dismissAll();
     }
 
-    accept(){
+    accept() {
         this.modalService.dismissAll();
         this.dialogRef.close();
     }
