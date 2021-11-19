@@ -268,6 +268,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             branchTelNo: [undefined],
             branchFaxNo: [undefined],
             branchEmail: [undefined],
+            valuationDate: [undefined],
+            valuatorName: [undefined],
+            fairMarketValue: [undefined],
+            distressValue: [undefined],
         });
     }
 
@@ -390,10 +394,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             plotNo: '',
             areaOfCollateral: '',
             seatNo: '',
-            valuationDate: '',
-            valuatorName: '',
-            fairMarketValue: '',
-            distressValue: '',
         });
     }
 
@@ -526,10 +526,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 plotNo: [value.plotNo],
                 areaOfCollateral: [value.areaOfCollateral],
                 seatNo: [value.seatNo],
-                valuationDate: [value.valuationDate],
-                valuatorName: [value.valuatorName],
-                fairMarketValue: [value.fairMarketValue],
-                distressValue: [value.distressValue],
             }));
         });
     }

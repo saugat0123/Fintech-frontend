@@ -922,7 +922,7 @@
                                         <input [ngClass]="{'is-invalid': submitted && basicInfoControls.email.errors}"
                                                type="email"
                                                placeholder="इमेल ठेगाना"
-                                               class="form-control rounded nepaliFont"
+                                               class="form-control rounded"
                                                id="guarantorEmailAddress"
                                                formControlName="guarantorEmailAddress"/>
                                     </div>
@@ -1346,57 +1346,57 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="valuationDate">मूल्याङ्कन मिति</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="valuationDate"
-                                               id="valuationDate"
-                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.valuationDate.errors}"
-                                               name="valuationDate" placeholder="मूल्याङ्कन मिति"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="valuatorName">मूल्याङ्कनकर्ताको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="valuatorName"
-                                               id="valuatorName"
-                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.valuatorName.errors}"
-                                               name="valuatorName" placeholder="मूल्याङ्कनकर्ताको नाम"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="fairMarketValue">उचित बजार मूल्य</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="fairMarketValue"
-                                               id="fairMarketValue"
-                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.fairMarketValue.errors}"
-                                               name="fairMarketValue" placeholder="उचित बजार मूल्य"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="distressValue">संकट मूल्य</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="distressValue"
-                                               id="distressValue"
-                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.distressValue.errors}"
-                                               name="distressValue" placeholder="संकट मूल्य"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                            </div>
                             <div>
                                 <button class="btn btn-danger float-right" (click)="removeAtIndexCollateral(i)"
                                         style="position: static">
                                     <em class="fa fa-trash" style="color: white;"></em>
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="title" for="valuationDate">मूल्याङ्कन मिति</label>
+                                <input class="form-control rounded nepaliFont"
+                                       formControlName="valuationDate"
+                                       id="valuationDate"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.valuationDate.errors}"
+                                       name="valuationDate" placeholder="मूल्याङ्कन मिति"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="title" for="valuatorName">मूल्याङ्कनकर्ताको नाम</label>
+                                <input class="form-control rounded nepaliFont"
+                                       formControlName="valuatorName"
+                                       id="valuatorName"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.valuatorName.errors}"
+                                       name="valuatorName" placeholder="मूल्याङ्कनकर्ताको नाम"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="title" for="fairMarketValue">उचित बजार मूल्य</label>
+                                <input class="form-control rounded nepaliFont"
+                                       formControlName="fairMarketValue"
+                                       id="fairMarketValue"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.fairMarketValue.errors}"
+                                       name="fairMarketValue" placeholder="उचित बजार मूल्य"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="title" for="distressValue">संकट मूल्य</label>
+                                <input class="form-control rounded nepaliFont"
+                                       formControlName="distressValue"
+                                       id="distressValue"
+                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.distressValue.errors}"
+                                       name="distressValue" placeholder="संकट मूल्य"
+                                       type="text"/>
                             </div>
                         </div>
                     </div>

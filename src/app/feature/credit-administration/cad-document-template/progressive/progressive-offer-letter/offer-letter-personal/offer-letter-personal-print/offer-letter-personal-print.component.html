@@ -206,15 +206,15 @@
                                 <td><strong>सेवा शुल्क</strong></td>
                                 <td>कर्जा सिमाको
 
-                                    <span [ngClass]="{'nepaliFont unicode-size3' : loanFacilityData?.loanLimitPercent !== null && loanFacilityData?.loanLimitPercent !== ''}">
-                                        {{loanFacilityData?.loanLimitPercent === null || loanFacilityData?.loanLimitPercent === '' ? '_________________' : loanFacilityData?.loanLimitPercent}}
+                                    <span [ngClass]="{'nepaliFont unicode-size3' : loanFacilityData?.serviceFeePercent !== null && loanFacilityData?.serviceFeePercent !== ''}">
+                                        {{loanFacilityData?.serviceFeePercent === null || loanFacilityData?.serviceFeePercent === '' ? '_________________' : loanFacilityData?.serviceFeePercent}}
                                     </span>
 
                                     प्रतिशतले
                                     हुनआउने रकम रु.
 
-                                    <span [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.loanLimitAmount !== null && loanFacilityData?.loanLimitAmount !== ''}">
-                                        {{loanFacilityData?.loanLimitAmount === null || loanFacilityData?.loanLimitAmount === '' ? '_________________' : loanFacilityData?.loanLimitAmount}}
+                                    <span [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.serviceFeePercent !== null && loanFacilityData?.serviceFeePercent !== ''}">
+                                        {{loanFacilityData?.serviceFeePercent === null || loanFacilityData?.serviceFeePercent === '' ? '_________________' : loanFacilityData?.serviceFeePercent}}
                                     </span>
 
                                     /–
@@ -223,8 +223,8 @@
                             <tr>
                                 <td><strong>कर्जा सूचना शुल्क</strong></td>
                                 <td>रु.
-                                    <span [ngClass]="{'nepaliFont unicode-size3' : loanFacilityData?.loanInstallmentAmount !== null && loanFacilityData?.loanInstallmentAmount !== ''}">
-                                        {{loanFacilityData?.loanInstallmentAmount === null || loanFacilityData?.loanInstallmentAmount === '' ? '_________________' : loanFacilityData?.loanInstallmentAmount}}
+                                    <span [ngClass]="{'nepaliFont unicode-size3' : loanFacilityData?.cibCharges !== null && loanFacilityData?.cibCharges !== ''}">
+                                        {{loanFacilityData?.cibCharges === null || loanFacilityData?.cibCharges === '' ? '_________________' : loanFacilityData?.cibCharges}}
                                     </span>
                                     /–
                                 </td>
@@ -232,8 +232,8 @@
                             <tr class="page-break">
                                 <td><strong> व्याज किस्ता तिर्ने</strong></td>
                                 <td>
-                                    <span [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.interestRepayPlan !== null && loanFacilityData?.interestRepayPlan !== ''}">
-                                        {{loanFacilityData?.interestRepayPlan === null || loanFacilityData?.interestRepayPlan === '' ? '_________________' : loanFacilityData?.interestRepayPlan}}
+                                    <span [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.interestInstallmentPaymentFrequency !== null && loanFacilityData?.interestInstallmentPaymentFrequency !== ''}">
+                                        {{loanFacilityData?.interestInstallmentPaymentFrequency === null || loanFacilityData?.interestInstallmentPaymentFrequency === '' ? '_________________' : loanFacilityData?.interestInstallmentPaymentFrequency}}
                                     </span>
                                 </td>
                             </tr>
@@ -241,18 +241,18 @@
                                 <td><strong> कर्जाको अवधि
                                 </strong></td>
                                 <td> ई.सं
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.loanLimitYearAD !== null && loanFacilityData?.loanLimitYearAD !== ''}">
-                                        {{loanFacilityData?.loanLimitYearAD === null || loanFacilityData?.loanLimitYearAD === '' ? '_________________' : loanFacilityData?.loanLimitYearAD}}
+                                    <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.loanMaturityDateAD !== null && loanFacilityData?.loanMaturityDateAD !== ''}">
+                                        {{loanFacilityData?.loanMaturityDateAD === null || loanFacilityData?.loanMaturityDateAD === '' ? '_________________' : loanFacilityData?.loanMaturityDateAD}}
                                     </span>
                                     /
                                     वि.सं.
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.loanLimitYearBS !== null && loanFacilityData?.loanLimitYearBS !== ''}">
-                                        {{loanFacilityData?.loanLimitYearBS === null || loanFacilityData?.loanLimitYearBS === '' ? '_________________' : loanFacilityData?.loanLimitYearBS}}
+                                    <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.loanMaturityDateBS !== null && loanFacilityData?.loanMaturityDateBS !== ''}">
+                                        {{loanFacilityData?.loanMaturityDateBS === null || loanFacilityData?.loanMaturityDateBS === '' ? '_________________' : loanFacilityData?.loanMaturityDateBS}}
                                     </span>
 
                                     सम्म जम्मा
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.loanLimitMonths !== null && loanFacilityData?.loanLimitMonths !== ''}">
-                                        {{loanFacilityData?.loanLimitMonths === null || loanFacilityData?.loanLimitMonths === '' ? '_______' : loanFacilityData?.loanLimitMonths}}
+                                    <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.tenureOfLoanInMonths !== null && loanFacilityData?.tenureOfLoanInMonths !== ''}">
+                                        {{loanFacilityData?.tenureOfLoanInMonths === null || loanFacilityData?.tenureOfLoanInMonths === '' ? '_______' : loanFacilityData?.tenureOfLoanInMonths}}
                                     </span>
                                     महिना सम्म
                                 </td>

@@ -194,7 +194,10 @@
 
                                                     <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
-                                                           readonly
+                                                           (change)="calcYearlyRate('interestBaseRate',
+                                               'interestPremiumRate',
+                                               'interestTempDiscountRate',
+                                               'interestFinalRate', i)"
                                                            formControlName="interestBaseRate">
 
                                                     प्रतिशत
@@ -204,7 +207,10 @@
 
                                                     <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
-                                                           readonly
+                                                           (change)="calcYearlyRate('interestBaseRate',
+                                               'interestPremiumRate',
+                                               'interestTempDiscountRate',
+                                               'interestFinalRate', i)"
                                                            formControlName="interestPremiumRate">
 
                                                     प्रतिशत
@@ -214,7 +220,10 @@
 
                                                     <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
-                                                           readonly
+                                                           (change)="calcYearlyRate('interestBaseRate',
+                                               'interestPremiumRate',
+                                               'interestTempDiscountRate',
+                                               'interestFinalRate', i)"
                                                            formControlName="interestTempDiscountRate">
                                                     प्रतिशत
                                                 </p>
@@ -254,6 +263,8 @@
                                             <td>कर्जा सिमाको
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
+                                                       (change)="
+                                                       updateServiceCharge(i)"
                                                        formControlName="serviceFeePercent">
 
                                                 प्रतिशतले
@@ -471,22 +482,26 @@
                                         धितोको मिति
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
+                                               readonly
                                                formControlName="valuationDate">
 
                                         मा
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
+                                               readonly
                                                formControlName="valuatorName">
 
                                         बाट मुल्याङ्कित फेयस मार्केट मुल्य रु.
                                         <input
                                                 class="form-control-sm form-field nepaliFont"
                                                 type="text"
+                                                readonly
                                                 formControlName="fairMarketValue">
 
                                         र डिस्ट्रेस मुल्य रु.
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
+                                               readonly
                                                formControlName="distressValue">
 
                                         को जग्गा तथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण
@@ -528,12 +543,15 @@
                                     <td>रु.
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
+                                               readonly
                                                (input)="getNumAmountWord('amount3','amountInWords3')"
+                                               [value]="form.get(['loanFacilityTable', 0, 'amount']).value"
                                                formControlName="amount3">
                                         /-(अक्षरेपी:
                                         <input class="form-control-lg form-field nepaliFont font-size-normal"
                                                readonly
                                                type="text"
+                                               [value]="form.get(['loanFacilityTable', 0, 'amountInWords']).value"
                                                formControlName="amountInWords3">
                                         मात्र ।) को ऋणि तथा जमानी कर्ताले
                                         एक एकप्रति प्रतिज्ञापत्रमा सहीछाप गरी फाइनान्सलाई उपलव्ध गराउनु पर्नेछ ।
@@ -1039,16 +1057,19 @@
                                                 टेलिफोन :
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
+                                                       readonly
                                                        formControlName="financeTelephoneNum">
                                                 <br>
                                                 फ्याक्स नं.
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
+                                                       readonly
                                                        formControlName="financeFaxNum">
                                                 <br>
                                                 ईमेल ठेगाना:
                                                 <input class="form-control-sm form-field"
                                                        type="text"
+                                                       readonly
                                                        formControlName="financeEmail">
                                                 <br>
                                             </td>
@@ -1092,11 +1113,13 @@
                                                 ईमेल ठेगाना:
                                                 <input class="form-control-sm form-field"
                                                        type="text"
+                                                       readonly
                                                        formControlName="customerEmail">
                                                 <br>
                                                 मोबाइल नं.
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
+                                                       readonly
                                                        [value]="form.get('customerMobile').value">
                                                 <br>
                                             </td>
@@ -1415,10 +1438,12 @@
                                                 ठेगानाः
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
+                                                       readonly
                                                        formControlName="guarantorDistrict">
                                                 <strong> जिल्ला,</strong>
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
+                                                       readonly
                                                        formControlName="municipalityName">
                                                 <strong>
                                                     न.पा/म.न.पा
@@ -1426,6 +1451,7 @@
                                                 </strong>
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
+                                                       readonly
                                                        formControlName="guarantorWardNo"
                                                        size="2">
                                             </p>
@@ -1434,17 +1460,22 @@
                                             ऋणीसंगको सम्बन्धः <strong>जमानत कर्ता/ (अन्य भएमा उल्लेख गर्ने)</strong> <input
                                                 class="form-control-sm form-field nepaliFont"
                                                 type="text"
+                                                readonly
                                                 formControlName="guarantorRelation">
                                         </li>
                                         <li>
-                                            ससुराको नामः <strong>श्री</strong> <input class="form-control-sm form-field nepaliFont"
-                                                                     type="text"
-                                                                     formControlName="fatherInLawName">
+                                            ससुराको नामः <strong>श्री</strong>
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   type="text"
+                                                   readonly
+                                                   formControlName="fatherInLawName">
                                         </li>
                                         <li>
-                                            पति/पत्नीको नामः <strong>श्री</strong> <input class="form-control-sm form-field nepaliFont"
-                                                                         type="text"
-                                                                         formControlName="spouseOrFatherName">
+                                            पति/पत्नीको नामः <strong>श्री</strong>
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   type="text"
+                                                   readonly
+                                                   formControlName="spouseOrFatherName">
                                         </li>
                                         <li>
                                             सम्पर्क फोन/मोवाइल नंः <input class="form-control-sm form-field nepaliFont"
@@ -1455,11 +1486,13 @@
                                         <li>
                                             सम्पर्क ईमेल ठेगानाः <input class="form-control-sm form-field"
                                                                         type="text"
+                                                                        readonly
                                                                         formControlName="guarantorEmail">
                                         </li>
                                         <li>
                                             मितिः <input class="form-control-sm form-field nepaliFont"
                                                          type="text"
+                                                         readonly
                                                          value="{{form.get('date').value}}"
                                                          formControlName="guarantorDate">
                                             <span style="margin-left: 250px">दस्तखतः ...................</span>
