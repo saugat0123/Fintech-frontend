@@ -287,12 +287,11 @@ export class CustomerLoanInformationComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(data)) {
             this.security.data = data.data;
-            this.security.totalSecurityAmount = data.totalSecurityAmount;
             this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
                 .subscribe(() => {
                     this.overlay.hide();
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
-                    if (!ObjectUtil.isEmpty(data.share)) {
+                    if (!ObjectUtil.isEmpty(data.share.data) && this.security.templateName === TemplateName.SHARE_SECURITY) {
                         this.saveShare(data);
                     } else {
                         this.triggerCustomerRefresh.emit(true);

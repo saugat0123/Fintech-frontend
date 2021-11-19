@@ -9,6 +9,14 @@
     </nb-card-header>
     <nb-card-body>
         <div class="row">
+            <div class="col-md-4" *ngIf="readMode;else defaultTemp">
+                <span><strong>Select Last Site Visit Date</strong></span>
+                <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastApprovedSiteVisitDetail()">
+                    <option [ngValue]="null" hidden>Select Date</option>
+                    <option *ngFor="let siteVisit of approvedCollateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
+                </select>
+            </div>
+            <ng-template #defaultTemp>
             <div class="col-md-4">
                 <span><strong>Select Last Site Visit Date</strong></span>
                 <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastSiteVisitDetail()">
@@ -16,9 +24,10 @@
                     <option *ngFor="let siteVisit of collateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
                 </select>
             </div>
+            </ng-template>
             <div class="col-md-4 mt-4" *ngIf="isSiteVisitPresent">
-                <button nbButton size="tiny" status="primary" (click)="openModel(confirmModel, 'single')">Delete One<i class="fa fa-trash"></i></button><br>
-                <button nbButton size="tiny" status="primary" class="mt-1" (click)="openModel(confirmModel, 'all')">Delete All<i class="fa fa-trash"></i></button>
+                <button *ngIf="!readMode" nbButton size="tiny" status="primary" (click)="openModel(confirmModel, 'single')">Delete One<i class="fa fa-trash"></i></button><br>
+                <button *ngIf="!readMode" nbButton size="tiny" status="primary" class="mt-1" (click)="openModel(confirmModel, 'all')">Delete All<i class="fa fa-trash"></i></button>
             </div>
         </div>
         <div class="row">
@@ -506,12 +515,12 @@
                                                    placeholder="Staff Representative Name 2" type="text">
                                         </div>
                                         <div class="col-md-1 pt-4" *ngIf="i>0">
-                                            <input class="align-self-end btn btn-sm btn-danger btn-primary"
+                                            <input *ngIf="!readMode" class="align-self-end btn btn-sm btn-danger btn-primary"
                                                    (click)="deleteStaff(i)" type="button" value="Delete"/>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-right">
+                                <div class="text-right" *ngIf="!readMode">
                                     <button class="btn btn-sm btn-flat btn-primary" (click)="addStaffs()">Add Staff
                                     </button>
                                 </div>
@@ -546,7 +555,7 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-12">
-                <strong>Site Visit Map Document</strong><button nbButton size="tiny" status="success"
+                <strong>Site Visit Map Document</strong><button *ngIf="!readMode" nbButton size="tiny" status="success"
                  (click)="openDocumentCreateModal(null)">
                 <i class="fa fa-plus"></i>
             </button>
@@ -577,7 +586,7 @@
                                 </span>
                         </td>
                         <ng-template #templateRef>
-                            <span (click)="openDocumentCreateModal(i)"><a class="fa fa-edit cursor ml-1"></a></span>
+                            <span *ngIf="!readMode" (click)="openDocumentCreateModal(i)"><a class="fa fa-edit cursor ml-1"></a></span>
                         </ng-template>
                     </tr>
                     </tbody>
@@ -585,7 +594,7 @@
             </div>
         </div>
     </nb-card-body>
-    <nb-card-footer>
+    <nb-card-footer *ngIf="!readMode">
         <button nbButton type="button" (click)="onSubmit()" class="float-right">Save</button>
     </nb-card-footer>
 </nb-card>

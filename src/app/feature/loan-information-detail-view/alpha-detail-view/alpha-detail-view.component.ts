@@ -53,6 +53,8 @@ export class AlphaDetailViewComponent implements OnInit {
   customerId: number;
   @Output() documents = new EventEmitter();
   siteVisitDocuments: Array<SiteVisitDocument>;
+  initialSecurity = false;
+  approvedSecurity = false;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -99,6 +101,13 @@ export class AlphaDetailViewComponent implements OnInit {
         this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
         this.isJointCustomer = true;
       }
+    }
+
+    if (!ObjectUtil.isEmpty(this.loanHolder.security.data)) {
+      this.initialSecurity = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
+      this.approvedSecurity = true;
     }
   }
 

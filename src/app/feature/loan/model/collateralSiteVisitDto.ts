@@ -5,4 +5,5 @@ export class CollateralSiteVisitDto {
     securityName: string;
     siteVisitJsonData: string;
     siteVisitDocuments: Array<SiteVisitDocument>;
+    isApproved: boolean;
 }

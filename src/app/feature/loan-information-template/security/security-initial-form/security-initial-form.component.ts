@@ -47,6 +47,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() shareSecurity;
     @Input() customerSecurityId;
     securityEmitValue: string;
+    @Input() approvedData: string;
 
     @ViewChildren('ownerKycApplicable')
     ownerKycApplicable: QueryList<OwnerKycApplicableComponent>;
@@ -169,7 +170,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
 
     ngOnInit() {
-
         this.getRoleList();
         this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
@@ -188,7 +188,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
-        if (this.formData !== undefined) {
+        if (!ObjectUtil.isEmpty(this.formData)) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
@@ -238,8 +238,11 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addAssignment();
             this.addMoreBondSecurity();
         }
-
-        if (ObjectUtil.isEmpty(this.shareSecurity)) {
+        if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
+            this.shareSecurityData.id = this.shareSecurity.id;
+            this.shareSecurityData.version = this.shareSecurity.version;
+        }
+        if (ObjectUtil.isEmpty(this.shareSecurity.data)) {
             this.addShareSecurity();
         } else {
             this.shareSecurityData.id = this.shareSecurity.id;
@@ -342,7 +345,7 @@ export class SecurityInitialFormComponent implements OnInit {
             sharePriceDate: [undefined],
             avgDaysForPrice: undefined,
         });
-        if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+        if (!ObjectUtil.isEmpty(this.shareSecurity.data)) {
             this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);
         }
     }
@@ -1832,26 +1835,28 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     private setShareSecurityDetails(details) {
-        const shareDetails = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
-        const shareFields = (JSON.parse(details.data))['shareSecurityDetails'];
-        shareFields.forEach(share => {
-            shareDetails.push(
-                this.formBuilder.group({
-                    companyName: [share.companyName],
-                    companyCode: [share.companyCode],
-                    shareType: [share.shareType],
-                    totalShareUnit: [share.totalShareUnit],
-                    amountPerUnit: [share.amountPerUnit],
-                    total: [share.total],
-                    consideredValue: [share.consideredValue],
-                    priceEarningRatio: [share.priceEarningRatio],
-                    priceBookValue: [share.priceBookValue],
-                    dividendYeild: [share.dividendYeild],
-                    dividendPayoutRatio: [share.dividendPayoutRatio],
-                    ratioAsPerAuitedFinancial: [share.ratioAsPerAuitedFinancial],
-                })
-            );
-        });
+        if (!ObjectUtil.isEmpty(details.data)) {
+            const shareDetails = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+            const shareFields = (JSON.parse(details.data))['shareSecurityDetails'];
+            shareFields.forEach(share => {
+                shareDetails.push(
+                    this.formBuilder.group({
+                        companyName: [share.companyName],
+                        companyCode: [share.companyCode],
+                        shareType: [share.shareType],
+                        totalShareUnit: [share.totalShareUnit],
+                        amountPerUnit: [share.amountPerUnit],
+                        total: [share.total],
+                        consideredValue: [share.consideredValue],
+                        priceEarningRatio: [share.priceEarningRatio],
+                        priceBookValue: [share.priceBookValue],
+                        dividendYeild: [share.dividendYeild],
+                        dividendPayoutRatio: [share.dividendPayoutRatio],
+                        ratioAsPerAuitedFinancial: [share.ratioAsPerAuitedFinancial],
+                    })
+                );
+            });
+        }
     }
 
     shareSecurityFormGroup(): FormGroup {

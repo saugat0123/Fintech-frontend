@@ -69,6 +69,7 @@ export class SecuritySummaryComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('this.formData', this.formData);
         if (this.formData['selectedArray'] !== undefined) {
             // land security
             this.formData['selectedArray'].filter(f => {

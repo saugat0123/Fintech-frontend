@@ -36,6 +36,7 @@ import { CommentsSummaryComponent } from './comments-summary/comments-summary.co
 import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import {SignatureSectionComponent} from './signature-section/signature-section.component';
+import { SecurityApprovedSummaryComponent } from './security-approved-summary/security-approved-summary.component';
 
 
 
@@ -59,7 +60,8 @@ const COMPONENTS = [
     ProposalTermsAndConditionSummeryComponent,
     // ApprovalSheetComponent,
     RoleHierarchyChainComponent,
-    NtaMegaSummaryComponent
+    NtaMegaSummaryComponent,
+    SecurityApprovedSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
@@ -101,7 +103,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         RoleHierarchyChainComponent,
         CompanyInfoSummaryComponent,
         ApprovalSheetDocumentListComponent,
-        SignatureSectionComponent
+        SignatureSectionComponent,
+        SecurityApprovedSummaryComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

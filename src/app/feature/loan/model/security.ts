@@ -13,4 +13,6 @@ export class Security {
     totalSecurityAmount: number;
     nepsePriceInfo: NepsePriceInfo;
     totalDistressAmount: number;
+    approvedData: string;
+    templateName: string;
 }

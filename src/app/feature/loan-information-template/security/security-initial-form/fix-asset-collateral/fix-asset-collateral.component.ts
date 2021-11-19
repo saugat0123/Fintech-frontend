@@ -31,6 +31,7 @@ export class FixAssetCollateralComponent implements OnInit {
     @Input() securityId: number;
     @Input() security: string;
     @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
+    @Input() readMode;
     customerType: string;
     customerId: number;
     submitted = false;
@@ -42,6 +43,7 @@ export class FixAssetCollateralComponent implements OnInit {
     districts: Array<District> = new Array<District>();
     municipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
     collateralSiteVisits: Array<CollateralSiteVisit>;
+    approvedCollateralSiteVisits: Array<CollateralSiteVisit>;
     collateralSiteVisit: CollateralSiteVisit = new CollateralSiteVisit();
     collateralData: any;
     selectedSiteVisit: any;
@@ -82,6 +84,9 @@ export class FixAssetCollateralComponent implements OnInit {
         this.getCollateralBySecurityName(this.security);
         this.addStaffs();
         this.getCustomerTypeAndId();
+        if (this.readMode) {
+            this.getApprovedCollateralBySecurityName(this.security);
+        }
     }
 
     getCustomerTypeAndId() {
@@ -97,11 +102,26 @@ export class FixAssetCollateralComponent implements OnInit {
         }
         this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
             .subscribe((response: any) => {
-            this.collateralSiteVisits = response.detail;
+            const siteVisits = response.detail;
+                this.collateralSiteVisits = siteVisits.filter((f) => ObjectUtil.isEmpty(f.isApproved) && !f.isApproved);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
         });
+    }
+
+    getApprovedCollateralBySecurityName(securityName) {
+        if (this.securityId === undefined) {
+            return;
+        }
+        this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
+            .subscribe((response: any) => {
+                const siteVisits = response.detail;
+                this.approvedCollateralSiteVisits = siteVisits.filter((f) => !ObjectUtil.isEmpty(f.isApproved) && f.isApproved);
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, `No approved site visit present for security ${securityName}`));
+            });
     }
 
     getLastSiteVisitDetail() {
@@ -120,6 +140,27 @@ export class FixAssetCollateralComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
         });
     }
+
+    getLastApprovedSiteVisitDetail() {
+        this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
+            .subscribe((response: any) => {
+                const siteVisitData = response.detail;
+                if (!ObjectUtil.isEmpty(siteVisitData.isApproved) && siteVisitData.isApproved) {
+                    this.collateralSiteVisit = siteVisitData;
+                    this.isSiteVisitPresent = true;
+                    this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
+                    this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
+                    this.getDistrictsById(this.collateralData.province.id, null);
+                    this.getMunicipalitiesById(this.collateralData.district.id, null);
+                    this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
+                    this.setStaffDetail(this.collateralData);
+                }
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
+            });
+    }
+
     getDistrictsById(provinceId: number, event) {
         const province = new Province();
         province.id = provinceId;

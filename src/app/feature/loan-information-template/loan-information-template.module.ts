@@ -51,6 +51,7 @@ import { CreateDocumentComponent } from './security/security-initial-form/create
 import { ObtainedDocumentComponent } from './obtained-document/obtained-document.component';
 import { OutstandingUpdateComponent } from './outstanding-update/outstanding-update.component';
 import {AngularEmojisModule} from 'angular-emojis';
+import { SecurityApprovedFormComponent } from './security/security-approved-form/security-approved-form.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -92,7 +93,8 @@ const COMPONENTS = [
   declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
       CrgMicroComponent,
       ObtainedDocumentComponent,
-      OutstandingUpdateComponent],
+      OutstandingUpdateComponent,
+      SecurityApprovedFormComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, ObtainedDocumentComponent, OutstandingUpdateComponent],
     entryComponents: [...COMPONENTS],
     imports: [
