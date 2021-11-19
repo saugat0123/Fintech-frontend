@@ -114,9 +114,12 @@
         <app-hypo-of-stock *ngSwitchCase="cadTemplate.HYPO_OF_STOCK" [cadData]="cadData"
                            [documentId]="documentId"
                            [customerLoanId]="customerLoanId"></app-hypo-of-stock>
-        <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY" [cadData]="cadData"
-                               [documentId]="documentId"
-                               [customerLoanId]="customerLoanId"></app-loan-deed-company>
+<!--        <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY" [cadData]="cadData"-->
+<!--                               [documentId]="documentId"-->
+<!--                               [customerLoanId]="customerLoanId"></app-loan-deed-company>-->
+        <app-loan-deed-institutional *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY" [cadData]="cadData"
+                                     [documentId]="documentId"
+                                     [customerLoanId]="customerLoanId"></app-loan-deed-institutional>
         <app-manjurinama-for-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_COMPANY"
                                      [cadData]="cadData" [documentId]="documentId"
                                      [customerLoanId]="customerLoanId"></app-manjurinama-for-company>
