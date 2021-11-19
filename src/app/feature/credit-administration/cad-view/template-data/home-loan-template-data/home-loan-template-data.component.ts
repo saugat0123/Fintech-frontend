@@ -106,6 +106,10 @@ export class HomeLoanTemplateDataComponent implements OnInit {
             this.spinner = false;
             return;
         }
+        const securityDetails = [{
+            securities: homeLoan.get('securities').value,
+        }];
+        homeLoan.value['securityDetails'] = securityDetails;
         this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
         const offerDocument = new OfferDocument();
         offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN);

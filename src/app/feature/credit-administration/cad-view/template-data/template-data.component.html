@@ -52,7 +52,7 @@
         <app-kisan-karja-subsidy></app-kisan-karja-subsidy>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.UDYAMSIL_KARJA_SUBSIDY" [nbSpinner]="spinner">
-        <app-udyamsil-karja-subsidy></app-udyamsil-karja-subsidy>
+        <app-udhyamsil-karja-subsidy-template-data [customerApprovedDoc]="cadData"></app-udhyamsil-karja-subsidy-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.DDSL_WITHOUT_SUBSIDY" [nbSpinner]="spinner">
         <app-ddsl-without-subsidy></app-ddsl-without-subsidy>

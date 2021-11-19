@@ -89,6 +89,9 @@ import { DdslWithoutSubsidyComponent } from './nabil-sme/ddsl-without-subsidy/dd
         CKEditorModule,
         NbSpinnerModule,
         MegaOfferLetterTemplateModule,
+    ],
+    entryComponents: [
+        UdyamsilKarjaSubsidyComponent
     ]
 })
 export class NabilModule {
