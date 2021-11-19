@@ -505,7 +505,7 @@
                 ८.
               </td>
               <td>
-                <p *ngIf="selectedSecurity !== 'FIXED_DEPOSIT'; else landDataNo8">
+                <p *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landDataNo8">
                   क. तपाईंको कर्जा वापतको ब्याज भुक्तानी नेपाली पात्रो बमोजिम प्रत्येक आषाढ,
                   आश्विन, पौष र चैत्र मसान्तमा तपाईंको खाताबाट कट्टा गरिनेछ ।
                 </p>
@@ -609,7 +609,7 @@
                   अस्ट्रेलियन हाइ कमिसनले
                 </ng-container>
                 <ng-template #embassyName>
-                  <span>{{nameOfEmbassy}}</span> ले
+                  <span>{{nameOfEmbassy}}</span>ले
                 </ng-template>
                 भिसा अस्विकार गरेमा वा उल्लिखित विश्व
                 विद्यालयले विद्यार्थी भर्ना

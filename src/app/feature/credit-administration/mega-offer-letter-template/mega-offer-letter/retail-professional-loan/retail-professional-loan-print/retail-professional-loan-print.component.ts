@@ -58,7 +58,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
     this.selectedSecurity = !ObjectUtil.isEmpty(this.security) ?
         this.security : this.letter.selectedSecurity ? this.letter.selectedSecurity.en : '';
     this.nameOfEmbassy = !ObjectUtil.isEmpty(this.embassy) ? this.embassy :
-        !ObjectUtil.isEmpty(this.letter.nameOfEmbassy) ? this.letter.nameOfEmbassy.ct : '';
+        !ObjectUtil.isEmpty(this.letter.embassyName) ? this.letter.embassyName.ct : '';
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;
       this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {

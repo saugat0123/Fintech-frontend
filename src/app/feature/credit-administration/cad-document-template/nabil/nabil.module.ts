@@ -90,6 +90,9 @@ import { UdyamsilKarjaSubsidyPrintComponent } from './nabil-sme/udyamsil-karja-s
         NbSpinnerModule,
         MegaOfferLetterTemplateModule,
         NbCardModule,
+    ],
+    entryComponents: [
+        UdyamsilKarjaSubsidyComponent
     ]
 })
 export class NabilModule {
