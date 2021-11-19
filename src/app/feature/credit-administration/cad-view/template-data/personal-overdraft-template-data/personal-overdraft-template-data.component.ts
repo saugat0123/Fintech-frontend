@@ -53,6 +53,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   dateTypeAD1 = false;
   dateTypeBS2 = false;
   dateTypeAD2 = false;
+  dateTypeBS3 = false;
+  dateTypeAD3 = false;
   offerLetterDocument: OfferDocument;
   cadDocStatus = CadDocStatus.key();
   submitted = false;
@@ -116,6 +118,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       nameofBranchManager: [undefined],
       dateOfApprovalType: [undefined],
       dateofApplicationType: [undefined],
+      mortgageDeedDate: [undefined],
+      mortgageDeedDateNepali: [undefined],
+      mortgageDeedDateType: [undefined],
 
       // fortranslatedvalue
       selectedSecurityTransVal: [undefined],
@@ -143,6 +148,9 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       securities: this.formBuilder.array([]),
       dateOfApprovalTypeTransVal: [undefined],
       dateofApplicationTypeTransVal: [undefined],
+      mortgageDeedDateTransVal: [undefined],
+      mortgageDeedDateNepaliTransVal: [undefined],
+      mortgageDeedDateTypeTransVal: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -280,6 +288,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     this.form.get('dateofExpiryNepaliTransVal').patchValue(this.translatedData.dateofExpiry);
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
+    this.form.get('mortgageDeedDateTransVal').patchValue(this.translatedData.mortgageDeedDate);
+    this.form.get('mortgageDeedDateNepaliTransVal').patchValue(this.translatedData.mortgageDeedDateNepali);
     // this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
     // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
@@ -359,6 +369,16 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   setDateTypeAD2() {
     this.dateTypeBS2 = false;
     this.dateTypeAD2 = true;
+  }
+
+  setDateTypeBS3() {
+    this.dateTypeBS3 = true;
+    this.dateTypeAD3 = false;
+  }
+
+  setDateTypeAD3() {
+    this.dateTypeBS3 = false;
+    this.dateTypeAD3 = true;
   }
 
   public calInterestRate(): void {
