@@ -286,32 +286,10 @@
                         <tr>
                             <td>
                                 <p><strong>क. </strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको नाममा देहाय बमोजिमका घरजग्गा धितोबन्धक पारित गरि दिनु पर्नेछ। </p>
-                                <p> धनी :   <input class="form-field form-control-sm"
-                                                  formControlName="ownerName"
-                                                  name="ownerName"
-                                                  placeholder=" "
-                                                  type="text"/> </p>
-                                <p> स्थान : <input class="form-field form-control-sm"
-                                                  formControlName="ownersAddress"
-                                                  name="ownersAddress"
-                                                  placeholder=" "
-                                                  type="text"/> </p>
-                                <p> कित्ता नं. : <input class="form-field form-control-sm"
-                                                       formControlName="propertyPlotNumber"
-                                                       name="propertyPlotNumber"
-                                                       placeholder=" "
-                                                       type="text"/> </p>
-                                <p> क्षेत्रफल : <input class="form-field form-control-sm"
-                                                      formControlName="propertyArea"
-                                                      name="propertyArea"
-                                                      placeholder=" "
-                                                      type="text"/> </p>
-                                <p> सिट नं. : <input class="form-field form-control-sm"
-                                                      formControlName="seatNumber"
-                                                      name="seatNumber"
-                                                      placeholder=" "
-                                                      type="text"/> </p>
-
+                                <div class="pb-4">
+                                    <app-securities-view
+                                            [securityDetails]="offerDocumentDetails?.loan?.securityDetails"></app-securities-view>
+                                </div>
                                 <p> <strong>ख. </strong>श्री <input class="form-field form-control-sm"
                                                                       formControlName="guarantorName"
                                                                     [value]="this.finalName"
