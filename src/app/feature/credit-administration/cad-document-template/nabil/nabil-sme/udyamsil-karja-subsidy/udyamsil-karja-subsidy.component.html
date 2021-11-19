@@ -2,7 +2,7 @@
     <nb-card [nbSpinner]="spinner"
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
-             nbSpinnerMessage="udyamsil karja....."
+             nbSpinnerMessage="UDYAMSIL KARJA LOADING....."
              id="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}">
         <nb-card-header>
             <div class="col-md-12 text-right">
@@ -1286,13 +1286,12 @@
             </form>
         </nb-card-body>
         <nb-card-footer>
-            <div class="col-md-12 text-right disable-print">
+            <div class="col-md-12 text-right">
                 <button  nbButton
-                         [disabled]="!initialInfoPrint"
                          status="info"
                          class="mb-4 float-right"
                          [useExistingCss]="true"
-                         ngxPrint printSectionId="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}Print">Print
+                         ngxPrint printSectionId="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}">Print
                 </button>
                 <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
             </div>
