@@ -120,6 +120,7 @@ buildPersonal() {
     loanLimitChecked: [undefined],
     renewalChecked: [undefined],
     additionalGuarantorDetails: [undefined],
+    mortgageDeedDate: [undefined],
   });
 }
   setLoanConfigData(data: any) {
@@ -209,6 +210,16 @@ buildPersonal() {
       const templateDateApplication = this.initialInfoPrint.dateofApplicationNepali ? this.initialInfoPrint.dateofApplicationNepali.en : '';
       finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
     }
+    //Mortgage Deed Date:
+    const mortgageDeedDateType = this.initialInfoPrint.mortgageDeedDateType ? this.initialInfoPrint.mortgageDeedDateType.en : '';
+    let finalMortgageDeedDate;
+    if (mortgageDeedDateType === 'AD') {
+      const templateMortgageDeedDate = this.initialInfoPrint.mortgageDeedDate ? this.initialInfoPrint.mortgageDeedDate.en : '';
+      finalMortgageDeedDate = this.engToNepaliDate.transform(this.datePipe.transform(templateMortgageDeedDate), true);
+    } else {
+      const templateMortgageDeedDate = this.initialInfoPrint.mortgageDeedDateNepali ? this.initialInfoPrint.mortgageDeedDateNepali.en : '';
+      finalMortgageDeedDate = templateMortgageDeedDate ? templateMortgageDeedDate.nDate : '';
+    }
     this.form.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
@@ -231,6 +242,7 @@ buildPersonal() {
       insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
       dateOfApproval : finalDateOfApproval ? finalDateOfApproval : '',
       dateofApplication : finalDateOfApplication ? finalDateOfApplication : '',
+      mortgageDeedDate: finalMortgageDeedDate ? finalMortgageDeedDate : '',
     });
   }
   submit(): void {

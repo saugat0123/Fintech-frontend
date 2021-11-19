@@ -321,6 +321,23 @@
            <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>
          </div>
        </ng-container>
+          <ng-container *ngIf="offerDocumentDetails?.loanType !== undefined">
+              <div class="mt-5" *ngIf="offerDocumentDetails?.loanType === 'CONSTRUCTION' || offerDocumentDetails?.loanType === 'TAKE OVER' || offerDocumentDetails?.loanType === 'PURCHASE'">
+                  <p class="text-center"><b>तपसिल</b></p>
+                  <br />
+                  <p>
+                      उपरोक्त ऋणकर्जा तथा बैंकिङ्ग सुविधाको सुरक्षण वापत देहाय बमोजिमको
+                      घरजग्गा तपाई धनी बैंकको नाममा धितोबन्धक लेखिदिई सम्बन्धित मालपोत
+                      कार्यालयमा रजिष्ट्रेशन समेत पारित गरिदिएको छु।
+                  </p>
+                  <br />
+                  <app-securities-view [securityDetails]="offerDocumentDetails?.loan?.securityDetails"></app-securities-view>
+              </div>
+<!--              <div class="free-txt mt-5" *ngIf="offerDocumentDetails?.selectedSecurity?.en === 'FIXED_DEPOSIT'">-->
+<!--                  <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 nepaliFont form-control d-print-none"></textarea>-->
+<!--                  <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>-->
+<!--              </div>-->
+          </ng-container>
           <div class="mt-5"
                *ngIf="offerDocumentDetails?.selectedAutoLoan?.en === 'AUTO_LOAN_PERSONAL'">
               <p class="text-center"><b>तपसिल</b></p>
