@@ -27,6 +27,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   selectedArray = [];
+  afterSave = false;
   kisanKarjaSubsidy: FormGroup;
   spinner = false;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
@@ -36,6 +37,9 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   initialInfoPrint;
   loanHolderInfo;
   tempData;
+  selectedSecurity;
+  loanLimit;
+  renewal;
   offerDocumentDetails;
   offerLetterData;
   guarantorData;
@@ -156,10 +160,10 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString())[0];
+          === this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
         this.offerLetterDocument = new OfferDocument();
-        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         console.log('Selected Security Details:', initialInfo);
@@ -186,64 +190,42 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   get Form() {
     return this.kisanKarjaSubsidy.controls;
   }
-  submit() {
-    /*const securityDetails = [{
-      securities: this.kisanKarjaSubsidy.get('securities').value
-    }];*/
-    let flag = true;
-    if (
-        !ObjectUtil.isEmpty(this.cadData) &&
-        !ObjectUtil.isEmpty(this.cadData.cadFileList)
-    ) {
-      this.cadData.cadFileList.forEach((individualCadFile) => {
-        if (
-            individualCadFile.customerLoanId === this.customerLoanId &&
-            individualCadFile.cadDocument.id === this.documentId
-        ) {
-          flag = false;
-          individualCadFile.initialInformation = JSON.stringify(
-              this.kisanKarjaSubsidy.value
-          );
+  submit(): void {
+    this.spinner = true;
+    this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+
+    this.kisanKarjaSubsidy.get('selectedSecurity').patchValue(this.selectedSecurity);
+    this.kisanKarjaSubsidy.get('loanLimitChecked').patchValue(this.loanLimit);
+    this.kisanKarjaSubsidy.get('renewalChecked').patchValue(this.renewal);
+
+    if (this.existingOfferLetter) {
+      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY)
+            .toString()) {
+          offerLetterPath.supportedInformation = this.kisanKarjaSubsidy.get('additionalGuarantorDetails').value;
         }
       });
-      if (flag) {
-        const cadFile = new CadFile();
-        const document = new Document();
-        cadFile.initialInformation = JSON.stringify(
-            this.kisanKarjaSubsidy.value
-        );
-        this.initialInfoPrint = cadFile.initialInformation;
-        document.id = this.documentId;
-        cadFile.cadDocument = document;
-        cadFile.customerLoanId = this.customerLoanId;
-        this.cadData.cadFileList.push(cadFile);
-      }
     } else {
-      const cadFile = new CadFile();
-      const document = new Document();
-      cadFile.initialInformation = JSON.stringify(
-          this.kisanKarjaSubsidy.value
-      );
-      this.initialInfoPrint = cadFile.initialInformation;
-      document.id = this.documentId;
-      cadFile.cadDocument = document;
-      cadFile.customerLoanId = this.customerLoanId;
-      this.cadData.cadFileList.push(cadFile);
+      const offerDocument = new OfferDocument();
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
+      offerDocument.initialInformation = JSON.stringify(this.kisanKarjaSubsidy.value);
+      offerDocument.supportedInformation = this.kisanKarjaSubsidy.get('additionalGuarantorDetails').value;
+      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(
-        () => {
-          this.toastService.show(
-              new Alert(AlertType.SUCCESS, 'Successfully saved ')
-          );
-          this.dialogRef.close();
-          this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-        },
-        (error) => {
-          console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
-          this.dialogRef.close();
-        }
-    );
+    this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.spinner = false;
+      this.dialogRef.close();
+      this.afterSave = true;
+      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.spinner = false;
+      this.dialogRef.close();
+      this.afterSave = false;
+      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+    });
   }
 }
