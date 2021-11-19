@@ -57,6 +57,8 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
   dateTypeAD1 = false;
   dateTypeBS2 = false;
   dateTypeAD2 = false;
+  dateTypeBS3 = false;
+  dateTypeAD3 = false;
   offerLetterDocument: OfferDocument;
   cadDocStatus = CadDocStatus.key();
   submitted = false;
@@ -103,6 +105,12 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
         this.dateTypeAD1 = true;
       } else {
         this.dateTypeBS1 = true;
+      }
+      const mortgageDeedDateType1 = this.initialInformation.mortgageDeedDateType ? this.initialInformation.mortgageDeedDateType.en : '';
+      if (mortgageDeedDateType1 === 'AD') {
+        this.dateTypeAD3 = true;
+      } else {
+        this.dateTypeBS3 = true;
       }
       this.fieldFlag = true;
       // this.dateTypeAD = true;
@@ -152,6 +160,9 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
+      mortgageDeedDate: [undefined],
+      mortgageDeedDateNepali: [undefined],
+      mortgageDeedDateType: [undefined],
 
       // fortranslatedvalue
       selectedSecurityTransVal: [undefined],
@@ -181,6 +192,9 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       dateOfApprovalTypeTransVal: [undefined],
       dateofApplicationType: [undefined],
       dateofApplicationTypeTransVal: [undefined],
+      mortgageDeedDateTransVal: [undefined],
+      mortgageDeedDateNepaliTransVal: [undefined],
+      mortgageDeedDateTypeTransVal: [undefined],
     });
   }
 
@@ -289,6 +303,11 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
     } else {
       this.form.get('dateofApplicationNepaliTransVal').patchValue(this.translatedData.dateofApplicationNepali);
     }
+    if (this.dateTypeAD3) {
+      this.form.get('mortgageDeedDateTransVal').patchValue(this.translatedData.mortgageDeedDate);
+    } else {
+      this.form.get('mortgageDeedDateNepaliTransVal').patchValue(this.translatedData.mortgageDeedDateNepali);
+    }
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     this.form.get('drawingPowerTransVal').patchValue(this.translatedData.drawingPower);
     this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
@@ -376,6 +395,16 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
   setDateTypeAD2() {
     this.dateTypeBS2 = false;
     this.dateTypeAD2 = true;
+  }
+
+  setDateTypeBS3() {
+    this.dateTypeBS3 = true;
+    this.dateTypeAD3 = false;
+  }
+
+  setDateTypeAD3() {
+    this.dateTypeBS3 = false;
+    this.dateTypeAD3 = true;
   }
 
   public calInterestRate(): void {
@@ -517,6 +546,12 @@ export class PersonalOverdraftTemplateDataEditComponent implements OnInit {
       this.form.get('dateofApplication').patchValue(new Date(this.initialInformation.dateofApplication.en));
     } else {
       this.form.get('dateofApplicationNepali').patchValue(this.initialInformation.dateofApplicationNepali.en);
+    }
+    this.form.get('mortgageDeedDateType').patchValue(this.initialInformation.mortgageDeedDateType.en);
+    if (this.initialInformation.mortgageDeedDateType.en === 'AD') {
+      this.form.get('mortgageDeedDate').patchValue(new Date(this.initialInformation.mortgageDeedDate.en));
+    } else {
+      this.form.get('mortgageDeedDateNepali').patchValue(this.initialInformation.mortgageDeedDateNepali.en);
     }
     this.form.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
     this.form.get('drawingPower').patchValue(this.initialInformation.drawingPower.en);
