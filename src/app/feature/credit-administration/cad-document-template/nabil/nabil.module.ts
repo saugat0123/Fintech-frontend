@@ -32,6 +32,7 @@ import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/
 import { NabilSmeComponent } from './nabil-sme/nabil-sme.component';
 import { KisanKarjaSubsidyComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
 import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
+import { DdslWithoutSubsidyComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsid
         LoanDeedPartnershipComponent,
         PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent, LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent],
+        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, DdslWithoutSubsidyComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -77,7 +78,8 @@ import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsid
         LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeProprietorshipComponent,
         KisanKarjaSubsidyComponent,
-        UdyamsilKarjaSubsidyComponent
+        UdyamsilKarjaSubsidyComponent,
+        DdslWithoutSubsidyComponent
     ],
     imports: [
         CommonModule,
