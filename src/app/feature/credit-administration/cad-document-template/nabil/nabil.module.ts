@@ -87,6 +87,9 @@ import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsid
         CKEditorModule,
         NbSpinnerModule,
         MegaOfferLetterTemplateModule,
+    ],
+    entryComponents: [
+        UdyamsilKarjaSubsidyComponent
     ]
 })
 export class NabilModule {
