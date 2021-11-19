@@ -22,9 +22,11 @@ export class PersonalLoanAndPersonalOverdraftPrintComponent implements OnInit {
   proposedAmount;
   guarantorName;
   branchName;
+  autoRefNumber;
   guarantorData;
   guarantorNames: Array<String> = [];
   allguarantorNames;
+  approvalDate;
   guarantorAmount: number = 0;
   finalName;
   @Input() preview = false;
@@ -53,6 +55,9 @@ export class PersonalLoanAndPersonalOverdraftPrintComponent implements OnInit {
       console.log('Letter Information',this.letter);
       console.log('Initial Information',this.loanHolderInfo);
       this.guarantorDetails();
+      if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+        this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+      }
     }
   }
 

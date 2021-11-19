@@ -267,6 +267,7 @@ export class HomeLoanComponent implements OnInit {
     } else {
       tempDateOfApplication = this.initialInfoPrint.loan.dateOfApplicationCT;
     }
+    this.selectedSecurity = this.tempData.loan.landBuildingType ? this.tempData.loan.landBuildingType : '';
     this.form.patchValue({
       dateofApproval: dateOfApprovalTemp ? dateOfApprovalTemp : '',
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',

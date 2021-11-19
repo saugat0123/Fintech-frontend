@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
@@ -54,9 +53,12 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   }
 
   ngOnInit() {
-        this.selectedCountry = this.country;
-        this.selectedSecurity = this.security;
-        this.nameOfEmbassy = this.embassy;
+    this.selectedCountry = !ObjectUtil.isEmpty(this.country) ? this.country :
+        this.letter.selectedCountry ? this.letter.selectedCountry.en : '';
+    this.selectedSecurity = !ObjectUtil.isEmpty(this.security) ?
+        this.security : this.letter.selectedSecurity ? this.letter.selectedSecurity.en : '';
+    this.nameOfEmbassy = !ObjectUtil.isEmpty(this.embassy) ? this.embassy :
+        !ObjectUtil.isEmpty(this.letter.embassyName) ? this.letter.embassyName.ct : '';
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;
       this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {

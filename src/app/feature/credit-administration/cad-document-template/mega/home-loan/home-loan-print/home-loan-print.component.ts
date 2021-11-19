@@ -39,12 +39,13 @@ export class HomeLoanPrintComponent implements OnInit {
   dateOfApplication;
   homeLoanType = HomeLoanType;
   nepaliBranchNAme;
+  selectedSecurity;
 
   constructor(public engToNepNumberPipe: EngToNepaliNumberPipe,
               public currencyFormatPipe: CurrencyFormatterPipe,
               public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private datePipe: DatePipe,
-              private engNepDatePipe: EngNepDatePipe,) { }
+              private engNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
     console.log(this.letter);
@@ -80,6 +81,7 @@ export class HomeLoanPrintComponent implements OnInit {
       } else {
         this.dateOfApplication = this.letter.loan.dateOfApplicationCT;
       }
+      this.selectedSecurity = this.letter.loan ? this.letter.loan.landBuildingType : '';
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       // tslint:disable-next-line:max-line-length
