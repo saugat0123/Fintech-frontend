@@ -56,6 +56,7 @@
                         </nb-radio-group>
                     </div>
                 </td>
+            </tr>
             <tr>
                 <td>
                 </td>
@@ -302,6 +303,36 @@
                          class="invalid-feedback">
                         <div *ngIf="Form.insuranceAmountinFigureTransVal.errors.required">Insurance Amount is required</div>
                     </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Mortgage Deed Date</td>
+                <td>
+                    <div class="row" style="margin-left: 5px; margin-top: -8px;">
+                        <nb-radio-group name="mortgageDeedDate" formControlName="mortgageDeedDateType">
+                            <nb-radio (click)="setDateTypeBS3()" value="BS"><span style="margin-left:-60px">BS</span></nb-radio>
+                            <nb-radio (click)="setDateTypeAD3()" value="AD" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <nepali-patro *ngIf="dateTypeBS3" formControlName="mortgageDeedDateNepali" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                    <input [nbDatepicker]="mdd"
+                           *ngIf="dateTypeAD3"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="mortgageDeedDate"
+                           id="mortgageDeedDate"
+                           name="mortgageDeedDate"
+                           placeholder="Mortgage Deed Date"
+                           type="text">
+                    <nb-datepicker #mdd></nb-datepicker>
                 </td>
             </tr>
         </table>
