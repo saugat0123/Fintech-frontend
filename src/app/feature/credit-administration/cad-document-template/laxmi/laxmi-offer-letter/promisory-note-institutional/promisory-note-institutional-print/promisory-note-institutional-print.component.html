@@ -1,0 +1,134 @@
+<div class="row" id="print-section-{{cadCheckListEnum.PROMISSORY_NOTE_COMPANY}}">
+    <div class="col-md-12 viewFull text-justify">
+        <div class="text-justify nepali">
+            <div id="body">
+                <p>
+                    श्री लक्ष्मी बैंक लि.,
+                    <br>
+                    शाखा कार्यालय, <span class="nepaliFont">{{printDocForm.branch}}</span>।
+                </p>
+                <p class="text-center"><b> विषय:— प्रतिज्ञा पत्र <br>
+                    <u>(PROMISSORY NOTE INSTITUTION)</u></b></p>
+
+                लिखितम् नेपाल सरकार,<span
+                    [ngClass]="printDocForm?.governmentOffice?'nepaliFont':''">{{printDocForm?.governmentOffice ? printDocForm?.governmentOffice : '______________'}}</span>मन्त्रालय,
+                <span [ngClass]="printDocForm?.governmentBranch?'nepaliFont':''">{{printDocForm?.governmentBranch ? printDocForm?.governmentBranch : '______________'}}</span>को
+                कार्यालय कम्पनी दर्ताको प्रमाण पत्र दर्ता नं.
+                <span [ngClass]="printDocForm?.refNo?'nepaliFont':''">{{printDocForm?.refNo ? printDocForm?.refNo : '______________'}}</span>
+                मिति <span
+                    [ngClass]="printDocForm?.year?'nepaliFont':''">{{printDocForm?.year ? printDocForm?.year : '______________'}}</span>
+                /
+                <span [ngClass]="printDocForm?.month?'nepaliFont':''">{{printDocForm?.month ? printDocForm?.month : '______________'}}</span>
+                /
+                <span [ngClass]="printDocForm?.day?'nepaliFont':''">{{printDocForm?.day ? printDocForm?.day : '______________'}}</span>
+                मा दर्ता भई <span
+                    [ngClass]="printDocForm?.officeDistrict?'nepaliFont':''">{{printDocForm?.officeDistrict ? printDocForm?.officeDistrict : '______________'}}</span>
+                जिल्ला
+                <span [ngClass]="printDocForm?.officeMunicipality?'nepaliFont':''">{{printDocForm?.officeMunicipality ? printDocForm?.officeMunicipality : '______________'}}</span>
+                महानगरपालिका वडा नं <span
+                    [ngClass]="printDocForm?.officeWadNo?'nepaliFont':''">{{printDocForm?.officeWadNo ? printDocForm?.officeWadNo : '______________'}}</span>
+                मा रजिष्टर्ड ठेगाना रहेको नेपाल सरकार अर्थ मन्त्रालय आन्तरिक राजश्व विभाग आन्तरिक राजश्व कार्यालय <span
+                    [ngClass]="printDocForm?.taxOffice?'nepaliFont':''">{{printDocForm?.taxOffice ? printDocForm?.taxOffice : '______________'}}</span>
+                मा स्थायी लेखा नं. <span
+                    [ngClass]="printDocForm?.lekhaNo?'nepaliFont':''">{{printDocForm?.lekhaNo ? printDocForm?.lekhaNo : '______________'}}</span>
+                मिति <span
+                    [ngClass]="printDocForm?.issuedyear?'nepaliFont':''">{{printDocForm?.issuedYear ? printDocForm?.issuedYear : '______________'}}</span>
+                /
+                <span [ngClass]="printDocForm?.issuedMonth?'nepaliFont':''">{{printDocForm?.issuedMonth ? printDocForm?.issuedMonth : '______________'}}</span>
+                /
+                <span [ngClass]="printDocForm?.issuedDay?'nepaliFont':''">{{printDocForm?.issuedDay ? printDocForm?.issuedDay : '______________'}}</span>
+                मा दर्ता रहेको <span
+                    [ngClass]="printDocForm?.companyName?'nepaliFont':''">{{printDocForm?.companyName ? printDocForm?.companyName : '______________'}}</span>
+                (यसपछि ऋणी भनिएको छ) को तर्फबाट अधिकार प्राप्त व्यक्ति <span
+                    [ngClass]="printDocForm?.grandFatherName?'nepaliFont':''">{{printDocForm?.grandFatherName ? printDocForm?.grandFatherName : '______________'}}</span>
+                को नाति, <span
+                    [ngClass]="printDocForm?.fatherName?'nepaliFont':''">{{printDocForm?.fatherName ? printDocForm?.fatherName : '______________'}}</span>
+                को छोरा <span
+                    [ngClass]="printDocForm?.customerDistrict?'nepaliFont':''">{{printDocForm?.customerDistrict ? printDocForm?.customerDistrict : '______________'}}</span>
+                जिल्ला <span
+                    [ngClass]="printDocForm?.refNo?'nepaliFont':''">{{printDocForm?.customerMunicipality ? printDocForm?.customerMunicipality : '______________'}}</span>
+                महानगरपालिका वडा नं. <span
+                    [ngClass]="printDocForm?.customerWadNo?'nepaliFont':''">{{printDocForm?.customerWadNo ? printDocForm?.customerWadNo : '______________'}}</span>
+                भई हाल <span
+                    [ngClass]="printDocForm?.currentAddress?'nepaliFont':''">{{printDocForm?.currentAddress ? printDocForm?.currentAddress : '______________'}}</span>
+                ठेगाना बस्ने बर्ष <span
+                    [ngClass]="printDocForm?.customerAge?'nepaliFont':''">{{printDocForm?.customerAge ? printDocForm?.customerAge : '______________'}}</span>
+                को <span
+                    [ngClass]="printDocForm?.customerName?'nepaliFont':''">{{printDocForm?.customerName ? printDocForm?.customerName : '______________'}}</span>
+                (नागरिकता नं. <span
+                    [ngClass]="printDocForm?.customerCitizenship?'nepaliFont':''">{{printDocForm?.customerCitizenship ? printDocForm?.customerCitizenship : '______________'}}</span>/
+                <span [ngClass]="printDocForm?.customerCitizenShipDistrict?'nepaliFont':''">{{printDocForm?.customerCitizenShipDistrict ? printDocForm?.customerCitizenShipDistrict : '______________'}}</span>
+                जिल्ला प्रशासन कार्यालय
+                <span [ngClass]="printDocForm?.customerCitizenIssuedYear?'nepaliFont':''">{{printDocForm?.customerCitizenIssuedYear ? printDocForm?.customerCitizenIssuedYear : '______________'}}</span>/
+                <span [ngClass]="printDocForm?.customerCitizenIssuedMonth?'nepaliFont':''">{{printDocForm?.customerCitizenIssuedMonth ? printDocForm?.customerCitizenIssuedMonth : '______________'}}</span>/
+                <span [ngClass]="printDocForm?.customerCitizenIssuedDay?'nepaliFont':''">{{printDocForm?.customerCitizenIssuedDay ? printDocForm?.customerCitizenIssuedDay : '______________'}}</span>
+                )
+                आगे तपाई लक्ष्मी बैंक लिमिटेडले भुक्तानी माग गरेका वखत तपाईलाई अथवा तपाईले निर्देशन दिएको वा अह्राएका
+                व्यक्ति/संस्थालाई रु. <span class="nepaliFont"><b>{{printDocForm.proposedAmount}}</b></span>।–
+                (अक्षरेपी रुपैयाँ <span><b>{{printDocForm.amountInWords}}</b></span> मात्र) र भुक्तानी माग गरेको मिति सम्मको
+                सोमा बैंक नियमानुसार लाग्ने व्याज समेतको रकम कलम तिर्न
+                वुझाउन प्रतिज्ञा र कबुल गरी यो प्रतिज्ञापत्र को लिखत गरी तपाई लक्ष्मी बैंक लिमिटेडलाई दिए ।'
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12 text-center">
+                            <b>भवदीय</b>
+                        </div>
+                        <div>
+                            <div class="clearfix mb-4">
+                                <div class="signature-area float-left text-center"></div>
+                            </div>
+                        <div class="float-right">
+                            अख्तियार प्राप्त व्यक्तिको सहिः ..........................<br>
+                            अख्तियार प्राप्त व्यक्तिको नामः <span>{{printDocForm.akhtiyar}}</span><br>
+                            अख्तियार प्राप्त व्यक्तिको ठेगानाः <span>{{printDocForm.akhtiyarDistrict}}</span> जिल्ला <span>{{printDocForm.akhtiyarMunicipality}}</span> वडा नं. <span>{{printDocForm.akhtiyarWardNo}}</span> भई हाल सोही
+                            ठेगाना
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                इति सम्बत <span
+                    [ngClass]="printDocForm.itiSambatYear?'nepaliFont':''">{{printDocForm.itiSambatYear ? printDocForm.itiSambatYear : '_________________'}}</span>
+                साल
+                <span [ngClass]="printDocForm.itiSambatMonth?'nepaliFont':''">{{printDocForm.itiSambatMonth ? printDocForm.itiSambatMonth : '_________________'}}</span>
+                महिना
+                <span [ngClass]="printDocForm.itiSambatDay?'nepaliFont':''">{{printDocForm.itiSambatDay ? printDocForm.itiSambatDay : '_________________'}}</span>
+                गते रोज
+                <span [ngClass]="printDocForm.roj?'nepaliFont':''">{{printDocForm.roj ? printDocForm.roj : '_________________'}}</span>शुभम्.__________।
+                <div class="col-md-12 viewFull text-center" id="witness">
+                    <b>साक्षी</b>
+                    <br>
+                    १.<span
+                        [ngClass]="printDocForm.district?'nepaliFont':''">{{(printDocForm.district ? printDocForm.district : '__________')}}</span>
+                    जिल्ला, <span
+                        [ngClass]="printDocForm.municipality?'nepaliFont':''">{{(printDocForm.municipality ? printDocForm.municipality : '______________')}}</span>
+                    गा.पा./न.पा. वडा नं <span
+                        [ngClass]="printDocForm.wardNum?'nepaliFont':''">{{(printDocForm.wardNum ? printDocForm.wardNum : '______________')}}</span>
+                    बस्ने बर्ष <span
+                        [ngClass]="printDocForm.age?'nepaliFont':''">{{(printDocForm.age ? printDocForm.age : '______________')}}</span>
+                    को <span
+                        [ngClass]="printDocForm.sakshiName?'nepaliFont':''">{{(printDocForm.sakshiName ? printDocForm.sakshiName : '______________')}}</span>
+                    <br>
+                    २.<span
+                        [ngClass]="printDocForm.districtTwo?'nepaliFont':''">{{(printDocForm.districtTwo ? printDocForm.districtTwo : '__________')}}</span>
+                    जिल्ला, <span
+                        [ngClass]="printDocForm.municipalityTwo?'nepaliFont':''">{{(printDocForm.municipalityTwo ? printDocForm.municipalityTwo : '______________')}}</span>
+                    गा.पा./न.पा. वडा नं <span
+                        [ngClass]="printDocForm.wardNumTwo?'nepaliFont':''">{{(printDocForm.wardNumTwo ? printDocForm.wardNumTwo : '______________')}}</span>
+                    बस्ने बर्ष <span
+                        [ngClass]="printDocForm.ageTwo?'nepaliFont':''">{{(printDocForm.ageTwo ? printDocForm.ageTwo : '______________')}}</span>
+                    को <span
+                        [ngClass]="printDocForm.sakshiNameTwo?'nepaliFont':''">{{(printDocForm.sakshiNameTwo ? printDocForm.sakshiNameTwo : '______________')}}</span>
+                    <br>
+                    <b>सनाखत साक्षी</b>ः उपरोक्त कारणीले मेरो सामुन्नेमा सहि छाप गरेको ठिक हो भनी सहि गर्ने धनी बैंकको
+                    <span [ngClass]="printDocForm.role?'nepaliFont':''">{{printDocForm.role ? printDocForm.role : '__________'}}</span>
+                    पदमा कार्यरत <span
+                        [ngClass]="printDocForm.roleName?'nepaliFont':''">{{printDocForm.roleName ? printDocForm.roleName : '____________'}}</span>
+                    ।
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
