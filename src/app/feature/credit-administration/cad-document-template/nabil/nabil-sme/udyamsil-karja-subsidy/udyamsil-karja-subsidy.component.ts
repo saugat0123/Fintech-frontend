@@ -231,26 +231,6 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
     }
     this.UdyamsilKarjaSubsidy.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
-      customerAddress: customerAddress ? customerAddress : '',
-      loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-      loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
-      // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
-      referenceNumber: autoRefNumber ? autoRefNumber : '',
-      purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
-      drawingPower: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
-      loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
-      baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
-      premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
-      yearlyInterestRate: this.tempData.yearlyInterestRate.ct ? this.tempData.yearlyInterestRate.ct : '',
-      loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
-      loanadminFeeWords: this.tempData.loanadminFeeWords.ct ? this.tempData.loanadminFeeWords.ct : '',
-      nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
-      relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
-      nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
-      branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
-      insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
-      dateOfApproval : finalDateOfApproval ? finalDateOfApproval : '',
-      dateofApplication : finalDateOfApplication ? finalDateOfApplication : '',
     });
   }
   submit(): void {
@@ -263,14 +243,14 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT)
+        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.UDYAMSIL_KARJA_SUBSIDY)
             .toString()) {
           offerLetterPath.supportedInformation = this.UdyamsilKarjaSubsidy.get('additionalGuarantorDetails').value;
         }
       });
     } else {
       const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.UDYAMSIL_KARJA_SUBSIDY);
       offerDocument.initialInformation = JSON.stringify(this.UdyamsilKarjaSubsidy.value);
       offerDocument.supportedInformation = this.UdyamsilKarjaSubsidy.get('additionalGuarantorDetails').value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
