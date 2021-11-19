@@ -1,7 +1,7 @@
-<div [nbSpinner]="spinner" class="row" id="loan-deed-institutional">
+<div [nbSpinner]="spinner" class="row">
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
-      <p><strong><u>कर्जा तमसुक</u></strong></p>
+    <p><strong><u>कर्जा तमसुक</u></strong></p>
       <p>लिखितम लिखत गराई लिने धनीको नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला, काठमाण्डौ
         महानगरपालिका वडा नं.१ हात्तिसार स्थित केन्द्रिय कार्यालय भएको <strong>लक्ष्मी बैंक लिमिटेडको</strong> जिल्ला
         <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
@@ -44,11 +44,11 @@
                formControlName="customerDistrict">जिल्ला
         <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
                formControlName="customerMetropolitan"> महानगरपालिका वडा नं.
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+        <input type="text" class="nepaliFont form-field form-control-sm fontSize"
                formControlName="customerWardNo"> भई हाल
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+        <input type="text" class="nepaliFont form-field form-control-sm fontSize"
                formControlName="customerTemporaryAddress"> ठेगाना बस्ने वर्ष
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+        <input type="text" class="nepaliFont form-field form-control-sm fontSize"
                formControlName="customerAge"> को
         <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
                formControlName="customerName">
@@ -65,10 +65,12 @@
                formControlName="customeName"> को कर्जा स्वीकृतीपत्र/प्रस्तावपत्रमा उल्लेखित शर्त कबुलियत बमोजिम
         तोकिएको उद्देश्यमा उपयोग गर्ने गरी जम्मा कर्जा/कर्जा सुविधा <strong>रु
         <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-               formControlName="loanAmount">/–
+               readonly
+               formControlName="rupees">/–
         (अक्षरेपी रुपैयाँ
-        <input type="text" class="form-field form-control-sm nepaliFont disable-print"
-               (change)="con($event)" formControlName="loanAmountInWord">लाख मात्र)</strong> कर्जा लिए खाएको ठिक साँचो हो । उक्त कर्जा एकै पटक वा पटक पटक प्राप्त गरेको एवं भविश्यमा
+        <input type="text" class="form-field form-control-sm nepaliFont fontSize"
+               readonly
+               formControlName="amount">लाख मात्र)</strong> कर्जा लिए खाएको ठिक साँचो हो । उक्त कर्जा एकै पटक वा पटक पटक प्राप्त गरेको एवं भविश्यमा
           ऋण कर्जा तथा सुविधा पुनरावलोकन वा नविकरण गरी जारी हुने स्वीकृतिपत्र (अफर लेटर) मा उल्लेख भएका शर्त कबुलियत
           अनुसारको थप ऋण कर्जा तथा बैंकिङ्ग सुविधा र/वा भविष्यमा ऋणीले प्राप्त गर्ने ऋण तथा विभिन्न सुविधाहरु र यो ऋण प्राप्त
           गर्नु अगाडि अन्य कुनै बैंकिङ्ग सुविधा प्राप्त गरेको भए सो समेत र ऋणीले अन्य कुनै व्यक्ति, फर्म वा कम्पनीलाई जमानत दिई
@@ -122,45 +124,45 @@
         <strong><u>साक्षी</u></strong>
         <div>
           १. जिल्ला
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="witnessDistrict1">
           गा.पा./न.पा
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="witnessMunicipality1">
           वडा नं
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="witnessWardNum1">
           बस्ने बर्ष
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="witnessAge1">
           को
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="witnessName1">
         </div>
         <br>
         <div>
           २. जिल्ला
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="witnessDistrict2">
           गा.पा./न.पा
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="witnessMunicipality2">
           वडा नं
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="witnessWardNum2">
           बस्ने बर्ष
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="witnessAge2">
           को
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="witnessName2">
         </div>
         <br>
         <div>
           सनाखत साक्षी : धनी बैंकमा
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="shanakhatWitnessPosition"> पदमा कार्यरत
-          <input type="text" class="form-field form-control-sm nepaliFont disable-print"
+          <input type="text" class="form-field form-control-sm nepaliFont"
                  formControlName="shanakhatWitnessName">
         </div>
       </div>
@@ -173,7 +175,7 @@
     <button class="btn btn-primary d-print-none"
             [useExistingCss]="true"
             [disabled]="!initialInfoPrint"
-            printSectionId="print-section-{{cadCheckListEnum.PROMISSORY_NOTE_SINGLE_BORROWER}}"
+            printSectionId="print-section-{{cadCheckListEnum.LOAN_DEED_COMPANY}}"
             ngxPrint>print
     </button>
   </div>
