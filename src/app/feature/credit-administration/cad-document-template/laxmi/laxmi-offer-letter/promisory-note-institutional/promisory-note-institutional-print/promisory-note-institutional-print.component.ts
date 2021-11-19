@@ -16,7 +16,6 @@ export class PromisoryNoteInstitutionalPrintComponent implements OnInit {
   ) { }
   cadCheckListEnum = CadCheckListTemplateEnum;
   ngOnInit() {
-    console.log('this is printdoc', this.printDocForm);
     this.printDocForm = JSON.parse(this.printDocForm);
     this.printDocForm.amountInWords = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglish.transform(this.printDocForm.proposedAmount));
     console.log(this.printDocForm);

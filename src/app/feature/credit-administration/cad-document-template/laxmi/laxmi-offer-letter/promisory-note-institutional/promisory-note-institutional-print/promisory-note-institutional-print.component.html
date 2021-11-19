@@ -8,7 +8,7 @@
                     शाखा कार्यालय, <span class="nepaliFont">{{printDocForm.branch}}</span>।
                 </p>
                 <p class="text-center"><b> विषय:— प्रतिज्ञा पत्र <br>
-                    <u>(PROMISSORY NOTE INSTITUTION)</u></b></p>
+                    <u>(PROMISSORY NOTE)</u></b></p>
 
                 लिखितम् नेपाल सरकार,<span
                     [ngClass]="printDocForm?.governmentOffice?'nepaliFont':''">{{printDocForm?.governmentOffice ? printDocForm?.governmentOffice : '______________'}}</span>मन्त्रालय,
@@ -74,15 +74,15 @@
                             <b>भवदीय</b>
                         </div>
                         <div>
-                            <div class="clearfix mb-4">
+                            <div class="clearfix mb-2">
                                 <div class="signature-area float-left text-center"></div>
+                                <div class="float-right">
+                                    अख्तियार प्राप्त व्यक्तिको सहिः ..........................<br>
+                                    अख्तियार प्राप्त व्यक्तिको नामः <span>{{printDocForm.akhtiyar}}</span><br>
+                                    अख्तियार प्राप्त व्यक्तिको ठेगानाः <span>{{printDocForm.akhtiyarDistrict}}</span> जिल्ला <span>{{printDocForm.akhtiyarMunicipality}}</span> वडा नं. <span>{{printDocForm.akhtiyarWardNo}}</span> भई हाल सोही
+                                    ठेगाना
+                                </div>
                             </div>
-                        <div class="float-right">
-                            अख्तियार प्राप्त व्यक्तिको सहिः ..........................<br>
-                            अख्तियार प्राप्त व्यक्तिको नामः <span>{{printDocForm.akhtiyar}}</span><br>
-                            अख्तियार प्राप्त व्यक्तिको ठेगानाः <span>{{printDocForm.akhtiyarDistrict}}</span> जिल्ला <span>{{printDocForm.akhtiyarMunicipality}}</span> वडा नं. <span>{{printDocForm.akhtiyarWardNo}}</span> भई हाल सोही
-                            ठेगाना
-                        </div>
                         </div>
                     </div>
                 </div>

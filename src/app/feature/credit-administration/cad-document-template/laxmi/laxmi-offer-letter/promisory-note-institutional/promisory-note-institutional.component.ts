@@ -50,7 +50,6 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('this is data', this.cadData);
         this.buildForm();
         this.amount = this.cadData.assignedLoan[0].proposal.proposedLimit;
         this.customerInfo = this.cadData.assignedLoan[0].customerInfo;

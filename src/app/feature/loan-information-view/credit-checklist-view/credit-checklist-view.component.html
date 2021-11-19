@@ -1055,7 +1055,463 @@
                     </tr>
                     </tbody>
                 </table>
+                    <h6 *ngIf="customerType.toLowerCase() === 'institution'">Environment and Social Risk Management - Exclusion and Critical Sector Checklist</h6>
+                    <table *ngIf="customerType.toLowerCase() === 'institution'" class="table table-bordered text-center table-responsive-md table-sm sb-small">
+                        <thead>
+                        <tr  *ngIf="fromProfile">
+                            <th></th>
+                            <th></th>
+                            <th colspan="3">
+                            </th>
 
+                        </tr>
+                        <tr class="text-white sb-bg-dark">
+                            <th>SN.</th>
+                            <th>Particulars</th>
+                            <th colspan="3">Remarks (Y/N)</th>
+                        </tr>
+                        <tr>
+                            <th>A</th>
+                            <th>Exclusion Checklist</th>
+                            <th colspan="3"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Core business function of the borrower is: </td>
+                            <td><b>Yes</b></td>
+                            <td colspan="2"><b>Remarks</b></td>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td>
+                                Production or trade in any product or activity deemed illegal under host country laws or regulations or international conventions
+                                and agreements, or subject to international bans, such as pharmaceuticals, pesticides/herbicides, ozone depleting substances, PCB's,
+                                wildlife or products regulated under the Convention on International Trade in Endangered Species (CITES).
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="cites" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.cites}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="citesRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.citesRemarks}}</td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td>
+                                Fishing with the use of explosives or cyanide
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="fishing" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.fishing}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="fishingRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.fishingRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td>
+                                Operations impacting UNESCO World Heritage Site or other cultural heritage in Nepal
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="unesco" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.unesco}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="unescoRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td  colspan="2" *ngIf="!fromProfile">{{dataForEdit?.unescoRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td>
+                                Illegal logging, and logging operations or conversion of land for plantation use in primary tropical moist forests
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="logging" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.logging}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="loggingRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.loggingRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td>
+                                Production or activities involving forced labour/ child labour or resulting in violation of human rights or human trafficking
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="humanRight" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.humanRight}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="humanRightRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.humanRightRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td>
+                                Production or activities that impinge on the lands owned, or claimed under adjudication, by Indigenous Peoples, without full documented consent of such peoples
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="productionActivities" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.productionActivities}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="productionActivitiesRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td  colspan="2" *ngIf="!fromProfile">{{dataForEdit?.productionActivitiesRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td>
+                                Production or activities that impinge on the lands owned, or claimed under adjudication, by Indigenous Peoples, without full documented consent of such peoples
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="ifc" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.ifc}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="ifcRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.ifcRemarks}}</td>
+
+                        </tr>
+                        <tr><td colspan="5">
+                            Production or trade in, without due approval:
+                        </td></tr>
+                        <tr>
+                            <td>1.</td>
+                            <td colspan="4">
+                                Explosives and gunpowder, chemical weapons
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td colspan="4">
+                                Products from marijuana plants
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td colspan="4">
+                                Lotteries
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td colspan="4">
+                                Nuclear power plants
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td colspan="4">
+                                Coal-fired power plants
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td colspan="4">
+                                Mining of gold, silver, diamond and other precious stones
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td colspan="4">
+                                Hunted animals
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td [colSpan]="fromProfile?'2':'3'">
+                                License from the Industrial and Investment Promotion Board (“Board”) shall be obtained in order to establish the following industries:
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="liscenceBoard" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.liscenceBoard}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="liscenceBoardRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.liscenceBoardRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td colspan="4">
+                                Arms and ammunitions manufacture
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td colspan="4">
+                                Explosive materials manufacture
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td colspan="4">
+                                Security Printing, Currency Printing
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td colspan="4">
+                                Tobacco products manufacture
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td colspan="4">
+                                Liquor manufacture
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td colspan="4">
+                                Mining (medium and large industries)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td colspan="4">
+                                Radio and telecommunication equipment manufacture
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8.</td>
+                            <td colspan="4">
+                                Mining of precious materials and petroleum
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>9.</td>
+                            <td colspan="4">
+                                Others as prescribed by prevailing law
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                Industries requiring license from the Board as per prevailing law on foreign investment and technology transfer.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1"><b>B</b></td>
+                            <td colspan="4">
+                                Critical Sector Checklist
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <b>Core business function of the borrower is:</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td>
+                                Washing, dyeing and finishing units of Ready Made Garment (RMG) sector
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="washing" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.washing}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="washingRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.washingRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td>
+                                Steel re-rolling mills in small scale
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="steel" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.steel}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="steelRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.steelRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td>
+                                Brick kilns
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="bricks" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.bricks}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="bricksRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.bricksRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td>
+                                Tanning, dressing and dyeing of leather and fur
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="tanning" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.tanning}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="tanningRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.tanningRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td>
+                                Manufacturing of pesticides, agrochemical and nitrogen
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="nitrogen" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.nitrogen}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="nitrogenRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.nitrogenRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td>
+                                Manufacturing of Chemicals and chemicals products
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="chemicals" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.chemicals}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="chemicalsRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.chemicalsRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td>
+                                Manufacturing of rubber and plastic products
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="plastic" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.plastic}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="plasticRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.plasticRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>8.</td>
+                            <td>
+                                Manufacturing of batteries and accumulators
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="batteries" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.batteries}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="batteriesRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.batteriesRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>9.</td>
+                            <td>
+                                Manufacturing of papers and processing of paper pulp
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="papers" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.papers}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="papersRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.papersRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>10.</td>
+                            <td>
+                                Foundries in small scale
+                            </td>
+                            <ng-container *ngIf="fromProfile">
+
+                                <td *ngFor="let option of optionListRegulatory"><input
+                                        [value]="option" formControlName="smallScale" type="radio"></td>
+                            </ng-container>
+                            <td *ngIf="!fromProfile">{{dataForEdit?.smallScale}}</td>
+
+                            <td *ngIf="fromProfile"><input class="form-control" formControlName="smallScaleRemarks"
+                                                           placeholder="Remarks"></td>
+                            <td colspan="2" *ngIf="!fromProfile">{{dataForEdit?.smallScaleRemarks}}</td>
+
+                        </tr>
+                        <tr>
+                            <td><i>Note:</i></td>
+                            <td colspan="4"><i>A. Remarks to any of the business function of the borrower is “Yes”, shall fall under “Exclusion List”</i></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5"><i>A. Remarks to any of the business function of the borrower is “Yes”, shall fall under “Exclusion List”</i></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
 
             </form>
