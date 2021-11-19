@@ -54,8 +54,8 @@ export class ConstructionLoanEditComponent implements OnInit {
 
   ngOnInit() {
     console.log('formValue', this.formValue);
-    this.buildForm();
     this.getAllDistrict();
+    this.buildForm();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.setConstructionFormValue();
       this.setDateOfApplication();
