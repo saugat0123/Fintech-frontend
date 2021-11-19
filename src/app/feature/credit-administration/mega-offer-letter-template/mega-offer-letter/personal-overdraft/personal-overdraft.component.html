@@ -579,7 +579,17 @@
                             </tr>
                             <tr>
                                 <td>३०. </td>
-                                <td>तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ।<br>
+                                <td><span *ngIf="!renewal">तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ।</span>
+                                    <span *ngIf="renewal">यस अघिको ऋण स्विकृती पत्रको आधारमा सम्पादन वा कार्यान्वयन
+                                        गर्नु भएको सम्पूर्ण कर्जा सम्बन्धी कागजातहरु र बैंकको नाममा मिति
+                                        <input class="form-field form-control-sm"
+                                               formControlName="mortgageDeedDate"
+                                               type="text"/>
+                                        मा पारित गरिदिएको धितोबन्धक तमसुक यस नविकृत/थपिएको कर्जा सुविधाको हकमा समेत यथावत
+                                        क्रियाशिल रहनेछन् । यसका अतिरिक्त तपाईले स्वयम् बैंकमा उपस्थित भई देहाय बमोजिमका कर्जा
+                                        सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ ।
+                                    </span>
+                                    <br>
                                     <div *ngIf="selectedSecurity === 'LAND' && !renewal" class="col-md-12">
                                         <p style="margin-left:100px;line-height: 1.9;">
                                         क.  रु. <input class="form-field form-control-sm"
@@ -694,10 +704,28 @@
                                     </div>
                                     <br>
                                     <div *ngIf="renewal" class="col-md-12">
-                                        <p style="line-height: 1.9;margin-left:100px"> क.	व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।<br>
-                                            ख. 	निरन्तरताको लिखत ।<br>
-                                            ग. 	बहुबैंकिङ्ग घोषणा पत्र ।<br>
-                                            घ.  ग्राहक स्वघोषणा फारम ।
+                                        <p style="line-height: 1.9;margin-left:100px">
+                                            क.	व्यक्तिगत अधिविकर्ष कर्जा नविकरणका लागि निवेदन ।<br/>
+                                            ख. 	निरन्तरताको लिखत ।<br/>
+                                            ग. 	बहुबैंकिङ्ग घोषणा पत्र ।<br/>
+                                            घ.  ग्राहक स्वघोषणा फारम । <br/>
+                                            ङ.  श्री
+                                            <input class="form-field form-control-sm col-3"
+                                                   formControlName="guarantorName"
+                                                   [value]="this.finalName"
+                                                   type="text"/>
+                                            को बैकको पक्षमा रु
+                                            <input class="form-field form-control-sm"
+                                                   formControlName="guaranteedamountinFigure"
+                                                   [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                                   type="text"/>
+                                            (अक्षरेपी रु <input class="form-field form-control-sm"
+                                                                formControlName="guaranteedamountinWords"
+                                                                name="guaranteedamountinWords"
+                                                                placeholder=" रकम "
+                                                                [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
+                                                                type="text"/>
+                                            मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                         </p>
                                     </div>
                                 </td>
@@ -814,7 +842,7 @@
                     status="info"
                     class="mb-4 float-right"
                     [useExistingCss]="true"
-                    ngxPrint printSectionId="{{offerLetterConst.PERSONAL_OVERDRAFT}}Print">Print
+                    ngxPrint printSectionId="print-section">Print
             </button>
         </nb-card-footer>
     </nb-card>

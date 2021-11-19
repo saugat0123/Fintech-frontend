@@ -91,6 +91,8 @@ import { HomeLandAndBuildingLoanEditComponent } from './cad-view/template-data/h
 import { PerosnalOverdraftWithoutCollateralTemplateDataComponent } from './cad-view/template-data/perosnal-overdraft-without-collateral-template-data/perosnal-overdraft-without-collateral-template-data.component';
 import { AutoLoanTemplateEditComponent } from './cad-view/template-data/auto-loan-template-edit/auto-loan-template-edit.component';
 import { RetailMortageLoanTemplateDataEditComponent } from './cad-view/template-data/retail-mortage-loan-template-data-edit/retail-mortage-loan-template-data-edit.component';
+import { UdhyamsilKarjaSubsidyTemplateDataComponent } from './cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-data/udhyamsil-karja-subsidy-template-data.component';
+import { UdhyamsilKarjaSubsidyTemplateEditComponent } from './cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-edit/udhyamsil-karja-subsidy-template-edit.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -171,7 +173,9 @@ import { RetailMortageLoanTemplateDataEditComponent } from './cad-view/template-
     HomeLandAndBuildingLoanEditComponent,
     RetailMortageLoanTemplateDataEditComponent,
     PerosnalOverdraftWithoutCollateralTemplateDataComponent,
-    AutoLoanTemplateEditComponent],
+    AutoLoanTemplateEditComponent,
+    UdhyamsilKarjaSubsidyTemplateDataComponent,
+    UdhyamsilKarjaSubsidyTemplateEditComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -205,7 +209,7 @@ import { RetailMortageLoanTemplateDataEditComponent } from './cad-view/template-
     ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent,
     EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent, PersonalOverdraftTemplateDataEditComponent,
   HomeLoanTemplateEditComponent, RetailMortageLoanTemplateDataEditComponent,
-    AutoLoanTemplateEditComponent],
+    AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent],
   exports: [CadFileSetupComponent, FilterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })
