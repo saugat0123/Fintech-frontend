@@ -10,6 +10,7 @@ import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
 export class DdslWithoutSubsidyComponent implements OnInit {
   form = FormGroup;
   offerLetterConst = NabilOfferLetterConst;
+  initialInfoPrint;
   constructor(
       private formBuilder: FormBuilder
   ) { }
