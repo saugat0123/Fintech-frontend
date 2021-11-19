@@ -147,10 +147,68 @@ export class CreditChecklistGeneralComponent implements OnInit {
       valuatorRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.valuatorRemark)],
       borrower: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.borrower)],
       borrowerRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.borrowerRemark)],
+      cites: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.cites)],
+      citesRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.citesRemarks)],
+      fishing: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.fishing)],
+      fishingRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.fishingRemarks)],
+      unesco: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.unesco)],
+      unescoRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.unescoRemarks)],
+      logging: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.logging)],
+      loggingRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.loggingRemarks)],
+      humanRight: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.humanRight)],
+      humanRightRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.humanRightRemarks)],
+      productionActivities: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.productionActivities)],
+      productionActivitiesRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.productionActivitiesRemarks)],
+      ifc: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.ifc)],
+      ifcRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.ifcRemarks)],
+      liscenceBoard: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.liscenceBoard)],
+      liscenceBoardRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.liscenceBoardRemarks)],
+      washing: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.washing)],
+      washingRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.washingRemarks)],
+      steel: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.steel)],
+      steelRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.steelRemarks)],
+      bricks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.bricks)],
+      bricksRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.bricksRemarks)],
+      tanning: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.tanning)],
+      tanningRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.tanningRemarks)],
+      nitrogen: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.nitrogen)],
+      nitrogenRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.nitrogenRemarks)],
+      chemicals: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.chemicals)],
+      chemicalsRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.chemicalsRemarks)],
+      plastic: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.plastic)],
+      plasticRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.plasticRemarks)],
+      batteries: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.batteries)],
+      batteriesRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.batteriesRemarks)],
+      papers: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.papers)],
+      papersRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.papersRemarks)],
+      smallScale: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.smallScale)],
+      smallScaleRemarks: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.smallScaleRemarks)],
 
     });
   }
 
+  environmentYesToAll() {
+    this.formGroupCheckList.patchValue({
+      cites: 'Yes',
+      fishing: 'Yes',
+      unesco: 'Yes',
+      logging: 'Yes',
+      humanRight: 'Yes',
+      productionActivities: 'Yes',
+      ifc: 'Yes',
+      liscenceBoard: 'Yes',
+      washing: 'Yes',
+      steel: 'Yes',
+      bricks: 'Yes',
+      tanning: 'Yes',
+      nitrogen: 'Yes',
+      chemicals: 'Yes',
+      plastic: 'Yes',
+      batteries: 'Yes',
+      papers: 'Yes',
+      smallScale: 'Yes'
+    });
+  }
   creditGeneralYesToAll() {
     this.formGroupCheckList.get('permit').patchValue('Yes');
     this.formGroupCheckList.get('clearance').patchValue('Yes');

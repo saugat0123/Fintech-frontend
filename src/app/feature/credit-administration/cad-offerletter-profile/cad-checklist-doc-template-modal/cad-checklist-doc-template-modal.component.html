@@ -158,9 +158,14 @@
         <app-loan-deed-multiple *ngSwitchCase="cadTemplate.LOAN_DEED_MULTIPLE" [cadData]="cadData"
                                 [documentId]="documentId"
                                 [customerLoanId]="customerLoanId"></app-loan-deed-multiple>
-        <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"
-                                     [cadData]="cadData" [documentId]="documentId"
-                                     [customerLoanId]="customerLoanId"></app-promissory-note-company>
+<!--        <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"-->
+<!--                                     [cadData]="cadData" [documentId]="documentId"-->
+<!--                                     [customerLoanId]="customerLoanId"></app-promissory-note-company>-->
+        <app-promisory-note-institutional
+                *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"
+                [cadData]="cadData" [documentId]="documentId"
+                [customerLoanId]="customerLoanId"
+        ></app-promisory-note-institutional>
         <app-promissory-note-joint *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_JOINT"
                                    [cadData]="cadData" [documentId]="documentId"
                                    [customerLoanId]="customerLoanId"
