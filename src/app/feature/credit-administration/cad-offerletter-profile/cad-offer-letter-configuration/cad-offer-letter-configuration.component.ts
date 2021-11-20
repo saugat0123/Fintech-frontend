@@ -73,6 +73,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     collateralPermanentProvinceList: Array<Province> = Array<Province>();
     collateralPermanentDistrictList: Array<District> = Array<District>();
     collateralPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    collateralTemporaryProvinceList: Array<Province> = Array<Province>();
+    collateralTemporaryDistrictList: Array<District> = Array<District>();
+    collateralTemporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    collateralOwnerPermanentProvinceList: Array<Province> = Array<Province>();
+    collateralOwnerPermanentDistrictList: Array<District> = Array<District>();
+    collateralOwnerPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     nepData;
 
     constructor(private formBuilder: FormBuilder,
@@ -110,7 +116,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.temporaryProvinceList = provinces;
             this.guarantorPermanentProvinceList = provinces;
             this.guarantorTemporaryProvinceList = provinces;
+            this.collateralOwnerPermanentProvinceList = provinces;
             this.collateralPermanentProvinceList = provinces;
+            this.collateralTemporaryProvinceList = provinces;
         });
     }
 
@@ -166,8 +174,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     getCollateralOwnerDistricts(province: Province) {
         this.addressService.getDistrictByProvince(province).subscribe(
             (response: any) => {
-                this.collateralPermanentDistrictList = response.detail;
-                this.collateralPermanentDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+                this.collateralOwnerPermanentDistrictList = response.detail;
+                this.collateralOwnerPermanentDistrictList.sort((a, b) => a.name.localeCompare(b.name));
             }
         );
     }
@@ -175,19 +183,71 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     getCollateralOwnerMunicipalities(district: District) {
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                this.collateralPermanentMunicipalitiesList = response.detail;
-                this.collateralPermanentMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-                this.collateralPermanentMunicipalitiesList.forEach(municipality => {
+                this.collateralOwnerPermanentMunicipalitiesList = response.detail;
+                this.collateralOwnerPermanentMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
+                this.collateralOwnerPermanentMunicipalitiesList.forEach(municipality => {
                     // tslint:disable-next-line:max-line-length
                     if (!ObjectUtil.isEmpty(this.collateralOwnerList.filter(value => value.collateralOwnerPermanentMunicipalities === municipality))
                         // tslint:disable-next-line:max-line-length
                         && municipality.id === this.collateralOwnerList.filter(value => value.collateralOwnerPermanentMunicipalities === municipality)[0].id) {
-                        this.userConfigForm.controls.collateralPermanentMunicipalitiesList.setValue(municipality);
+                        this.userConfigForm.controls.collateralOwnerPermanentMunicipalitiesList.setValue(municipality);
                     }
                 });
             }
         );
 
+    }
+
+    getCollateralDistricts(province: Province) {
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.collateralPermanentDistrictList = response.detail;
+                this.collateralPermanentDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+    getCollateralMunicipalities(district: District) {
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.collateralPermanentMunicipalitiesList = response.detail;
+                this.collateralPermanentMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
+                this.collateralPermanentMunicipalitiesList.forEach(municipality => {
+                    // tslint:disable-next-line:max-line-length
+                    if (!ObjectUtil.isEmpty(this.collateralList.filter(value => value.collateralMunVdc === municipality))
+                        // tslint:disable-next-line:max-line-length
+                        && municipality.id === this.collateralList.filter(value => value.collateralMunVdc === municipality)[0].id) {
+                        this.userConfigForm.controls.collateralPermanentMunicipalitiesList.setValue(municipality);
+                    }
+                });
+            }
+        );
+    }
+
+    getCollateralTemporaryDistricts(province: Province) {
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.collateralTemporaryDistrictList = response.detail;
+                this.collateralTemporaryDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+    getCollateralTemporaryMunicipalities(district: District) {
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.collateralTemporaryMunicipalitiesList = response.detail;
+                this.collateralTemporaryMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
+                this.collateralTemporaryMunicipalitiesList.forEach(municipality => {
+                    // tslint:disable-next-line:max-line-length
+                    if (!ObjectUtil.isEmpty(this.collateralList.filter(value => value.collateralTemporaryMunVdc === municipality))
+                        // tslint:disable-next-line:max-line-length
+                        && municipality.id === this.collateralList.filter(value => value.collateralTemporaryMunVdc === municipality)[0].id) {
+                        this.userConfigForm.controls.collateralTemporaryMunicipalitiesList.setValue(municipality);
+                    }
+                });
+            }
+        );
     }
 
     private getAllDistrict() {
@@ -226,7 +286,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             temporaryWard: [undefined],
             temporaryMunType: [1],
             guarantorDetails: this.formBuilder.array([]),
-            collateralDetails: this.formBuilder.array([]), citizenshipIssueDistrict: [undefined],
+            collateralDetails: this.formBuilder.array([]),
+            citizenshipIssueDistrict: [undefined],
             collateralOwnerDetails: this.formBuilder.array([]),
             citizenshipIssueDate: [undefined],
             companyName: [undefined],
@@ -626,6 +687,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.getCollateralOwnerMunicipalities(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
             // tslint:disable-next-line:max-line-length
             this.userConfigForm.get('collateralOwnerPermanentMunicipalities').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentMunicipalities);
+            this.userConfigForm.get('collateralProvince').patchValue(data.collateralDetails.collateralProvince);
+            this.getCollateralDistricts(data.collateralDetails.collateralProvince);
+            this.userConfigForm.get('collateralDistrict').patchValue(data.collateralDetails.collateralDistrict);
+            this.getCollateralMunicipalities(data.collateralDetails.collateralDistrict);
+            this.userConfigForm.get('collateralMunVdc').patchValue(data.collateralDetails.collateralMunVdc);
+            this.userConfigForm.get('collateralTemporaryProvince').patchValue(data.collateralDetails.collateralTemporaryProvince);
+            this.getCollateralTemporaryDistricts(data.collateralDetails.collateralTemporaryProvince);
+            this.userConfigForm.get('collateralTemporaryDistrict').patchValue(data.collateralDetails.collateralTemporaryDistrict);
+            this.getCollateralTemporaryMunicipalities(data.collateralDetails.collateralTemporaryDistrict);
+            this.userConfigForm.get('collateralTemporaryMunVdc').patchValue(data.collateralDetails.collateralTemporaryMunVdc);
+
         }
     }
 

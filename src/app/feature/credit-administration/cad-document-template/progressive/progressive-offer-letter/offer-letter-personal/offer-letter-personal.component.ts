@@ -206,10 +206,6 @@ export class OfferLetterPersonalComponent implements OnInit {
 
     setSecurityDetails(data) {
         console.log('data', data);
-        const collateralAddress =
-            this.nepaliData.collateralMunVdc + ' j8f g+= ' +
-            this.nepaliData.collateralWardNo + ' , ' +
-            this.nepaliData.collateralDistrict;
         const formArray = this.form.get('securityDetails') as FormArray;
         if (data.length === 0) {
             this.addEmptySecurityDetail();
@@ -220,10 +216,12 @@ export class OfferLetterPersonalComponent implements OnInit {
                 name: [value.collateralName],
                 parentName: [value.collateralFatherName],
                 grandParentName: [value.collateralGrandFatherName],
-                address: collateralAddress,
-                jaggaDistrict: [value.collateralDistrict],
-                jaggaWard: [value.collateralMunVdc],
-                hal: [value.collateralTemporaryMunVdc],
+                address: [value.collateralMunVdc.nepaliName] + ' j8f g+= ' +
+                    [value.collateralWardNo] + ' , ' +
+                    [value.collateralDistrict.nepaliName],
+                jaggaDistrict: [value.collateralDistrict.nepaliName],
+                jaggaWard: [value.collateralMunVdc.nepaliName],
+                hal: [value.collateralTemporaryMunVdc.nepaliName],
                 jaggaKittaNum: [value.plotNo],
                 jaggaArea: [value.areaOfCollateral],
                 jaggaSiNum: [value.seatNo],
