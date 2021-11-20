@@ -340,14 +340,24 @@
           </ng-container>
           <div class="mt-5"
                *ngIf="offerDocumentDetails?.selectedAutoLoan?.en === 'AUTO_LOAN_PERSONAL'">
-              <p class="text-center"><b>तपसिल</b></p>
+              <p class="text-center" style="margin-top: -2em;"><b>तपसिल</b></p>
               <br/>
-              <p style="padding-left: 1.6em;line-height: 2.8;">
-                  १. गाडी नं. __________________________________
+              <p style="margin-top: -2em;">
+                  उपरोक्त ऋणकर्जाको सुरक्षण बापत निम्न बमोजिमको सवारी साधन तपांई धनी बैंकको नाममा नामसारी गरीदिएको
+                  छु/छौं ।
+              </p>
+              <p><strong>
+                  सवारी साधनको विवरण :
+              </strong>
+              </p>
+              <p style="padding-left: 1.6em;line-height: 2em;margin-top: -1em">
+                  १. सवारी साधनकाे प्रकार: _________________________
                   <br/>
                   २. इन्जीन नं. _________________________________
                   <br/>
                   ३. च्यासीस नं. ________________________________
+                  <br/>
+                  ४. गाडी नं. __________________________________
               </p>
           </div>
         <div class="text-left mt-3">
@@ -412,6 +422,6 @@
         <button  nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
                  ngxPrint printSectionId="print-section">Print
         </button>
-        <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
+<!--        <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>-->
     </div>
 </div>
