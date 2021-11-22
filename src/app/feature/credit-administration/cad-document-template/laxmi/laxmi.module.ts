@@ -25,6 +25,7 @@ import {PromisoryNoteInstitutionalPrintComponent} from './laxmi-offer-letter/pro
 import {LoanDeedInstitutionalComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional.component';
 import {LoanDeedInstitutionalPrintComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional-print/loan-deed-institutional-print.component';
 import {PersonalGuaranteeInstitutionalComponent} from './laxmi-offer-letter/personal-guarantee-institutional/personal-guarantee-institutional.component';
+import { PersonalGuaranteeInstitutionalPrintComponent } from './laxmi-offer-letter/personal-guarantee-institutional/personal-guarantee-institutional-print/personal-guarantee-institutional-print.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import {PersonalGuaranteeInstitutionalComponent} from './laxmi-offer-letter/pers
         PromisoryNoteInstitutionalPrintComponent,
         LoanDeedInstitutionalComponent,
         LoanDeedInstitutionalPrintComponent,
-        PersonalGuaranteeInstitutionalComponent],
+        PersonalGuaranteeInstitutionalComponent,
+        PersonalGuaranteeInstitutionalPrintComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -63,7 +65,8 @@ import {PersonalGuaranteeInstitutionalComponent} from './laxmi-offer-letter/pers
         SelfDeclarationComponent,
         NrbKycComponent,
         LoanDeedInstitutionalComponent,
-        PromisoryNoteInstitutionalComponent
+        PromisoryNoteInstitutionalComponent,
+        PersonalGuaranteeInstitutionalComponent
     ],
     entryComponents: [
         LaxmiOfferLetterComponent
