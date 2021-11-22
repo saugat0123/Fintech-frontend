@@ -16,5 +16,6 @@ export enum CadCheckListTemplateEnum {
   SELF_DECLARATION = '1020',
   NRB_KYC = '2021',
   HYPOTHECATION_OVER_STOCK_AND_RECEIVABLE = '2071',
+  CONSENT_OF_HAKWALA = '2072',
 
 }

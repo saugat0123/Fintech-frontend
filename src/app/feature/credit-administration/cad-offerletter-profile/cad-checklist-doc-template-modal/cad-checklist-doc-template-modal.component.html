@@ -147,6 +147,12 @@
         [documentId]="documentId"
         [customerLoanId]="customerLoanId"
         ></app-hypothecation-over-stock-and-receivable-current-assets>
+        <app-consent-of-hakwala
+                *ngSwitchCase="cadTemplate.CONSENT_OF_HAKWALA"
+                [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId"
+        ></app-consent-of-hakwala>
 <!--        <app-promissory-note-single-borrower-->
 <!--            *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_SINGLE_BORROWER" [cadData]="cadData"-->
 <!--            [documentId]="documentId" [customerLoanId]="customerLoanId"-->

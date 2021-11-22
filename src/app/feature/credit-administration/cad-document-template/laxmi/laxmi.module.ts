@@ -28,6 +28,7 @@ import {PersonalGuaranteeInstitutionalComponent} from './laxmi-offer-letter/pers
 import { PersonalGuaranteeInstitutionalPrintComponent } from './laxmi-offer-letter/personal-guarantee-institutional/personal-guarantee-institutional-print/personal-guarantee-institutional-print.component';
 import { PersonalGuaranteeIndividualComponent } from './laxmi-offer-letter/personal-guarantee-individual/personal-guarantee-individual.component';
 import { HypothecationOverStockAndReceivableCurrentAssetsComponent } from './laxmi-offer-letter/hypothecation-over-stock-and-receivable-current-assets/hypothecation-over-stock-and-receivable-current-assets.component';
+import { ConsentOfHakwalaComponent } from './laxmi-offer-letter/consent-of-hakwala/consent-of-hakwala.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { HypothecationOverStockAndReceivableCurrentAssetsComponent } from './lax
         PersonalGuaranteeInstitutionalComponent,
         PersonalGuaranteeInstitutionalPrintComponent,
         PersonalGuaranteeIndividualComponent,
-        HypothecationOverStockAndReceivableCurrentAssetsComponent],
+        HypothecationOverStockAndReceivableCurrentAssetsComponent,
+        ConsentOfHakwalaComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -72,7 +74,8 @@ import { HypothecationOverStockAndReceivableCurrentAssetsComponent } from './lax
         PromisoryNoteInstitutionalComponent,
         PersonalGuaranteeInstitutionalComponent,
         PersonalGuaranteeIndividualComponent,
-        HypothecationOverStockAndReceivableCurrentAssetsComponent
+        HypothecationOverStockAndReceivableCurrentAssetsComponent,
+        ConsentOfHakwalaComponent
     ],
     entryComponents: [
         LaxmiOfferLetterComponent
