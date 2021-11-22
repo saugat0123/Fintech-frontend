@@ -246,7 +246,7 @@
               <th class="px-2">अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="this.cadData.offerDocumentList[0].docName !== 'Personal loan and personal overdraft'">
             <tr *ngFor="let loan of cadData?.assignedLoan">
               <td class="px-2">
                 <p>{{ loan?.loan?.nepaliName || loan?.loan?.name }}</p>
@@ -277,6 +277,73 @@
                   type="text"
                 />
               </td>
+            </tr>
+            <tbody *ngIf="this.cadData.offerDocumentList[0].docName === 'Personal loan and personal overdraft'">
+            <tr>
+                <td class="px-2">
+                    <p>{{ cadData?.assignedLoan[0]?.loan?.nepaliName || cadData?.assignedLoan[0]?.loan?.name }}</p>
+                </td>
+                <td class="px-2">
+                    <p>{{ this.offerDocumentDetails.loanAmountPl.ct }}</p>
+                </td>
+                <td class="px-2">
+                    <span>
+                        {{ this.offerDocumentDetails.yearlyInterestRate.ct }}% /
+                        {{ this.offerDocumentDetails.loanAdminFeeinFigure.ct }}%
+                    </span>
+<!--                    <span>&nbsp;-->
+<!--                  <span *ngIf="docName !== 'Personal Loan'">रु </span>-->
+<!--                        {{ offerLetterAdminFee ? convertNepaliNumber(offerLetterAdminFee) : '___________'}}-->
+<!--                </span>-->
+<!--                    <span> % </span>-->
+                </td>
+                <td class="px-2">
+                    <span class="print-only">{{expiryDate}}</span>
+                    <input
+                            class="
+                    form-field form-control-sm
+                    d-print-none
+                    disable-print
+                    col-9
+                  "
+                            formControlName="expiryDate"
+                            placeholder=""
+                            type="text"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td class="px-2">
+                    <p>{{ cadData?.assignedLoan[0]?.loan?.nepaliName || cadData?.assignedLoan[0]?.loan?.name }}</p>
+                </td>
+                <td class="px-2">
+                    <p>{{ this.offerDocumentDetails.loanAmountOd.ct }}</p>
+                </td>
+                <td class="px-2">
+                    <span>
+                        {{ this.offerDocumentDetails.yearlyInterestRateOd.ct }}% /
+                       रु.  {{ this.offerDocumentDetails.loanAdminFeeinFigureOd.ct }}
+                    </span>
+                    <!--                    <span>&nbsp;-->
+                    <!--                  <span *ngIf="docName !== 'Personal Loan'">रु </span>-->
+                    <!--                        {{ offerLetterAdminFee ? convertNepaliNumber(offerLetterAdminFee) : '___________'}}-->
+                    <!--                </span>-->
+                    <!--                    <span> % </span>-->
+                </td>
+                <td class="px-2">
+                    <span class="print-only">{{expiryDateOd}}</span>
+                    <input
+                            class="
+                    form-field form-control-sm
+                    d-print-none
+                    disable-print
+                    col-9
+                  "
+                            formControlName="expiryDateOd"
+                            placeholder=""
+                            type="text"
+                    />
+                </td>
             </tr>
           </tbody>
         </table>

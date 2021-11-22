@@ -453,7 +453,7 @@
                                                     name="guarantorPermanentMunicipality"
                                                     formControlName="guarantorPermanentMunicipality" placeholder="गा.वि.स. वा नगर" type="text"/>
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorPermanentMunicipality']).value}}</strong></span>
-                                                <span *ngIf="guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc && guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc?.en === vdcOption[0].value; else guarantorVdcMunicipality">
+                                                <span *ngIf="guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc && guarantorsNepData[i].guarantorPermanentMunicipalityOrVdc?.en === '0'; else guarantorVdcMunicipality">
                                                     नगरपालिका,
                                                 </span>
                                                 <ng-template #guarantorVdcMunicipality>
@@ -476,7 +476,7 @@
                                                     name="guarantorTemporaryMunicipality"
                                                     formControlName="guarantorTemporaryMunicipality" placeholder="गा.वि.स. वा नगर" type="text"/>
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorTemporaryMunicipality']).value}}</strong></span>
-                                                <span *ngIf="guarantorsNepData[i].guarantorTemporaryMunicipalityOrVdc && guarantorsNepData[i].guarantorTemporaryMunicipalityOrVdc.en === vdcOption[0].value; else tempVdcMunicipality">
+                                                <span *ngIf="guarantorsNepData[i].guarantorTemporaryMunicipalityOrVdc && guarantorsNepData[i].guarantorTemporaryMunicipalityOrVdc.en === '0'; else tempVdcMunicipality">
                                                     नगरपालिका,
                                                 </span>
                                                 <ng-template #tempVdcMunicipality>

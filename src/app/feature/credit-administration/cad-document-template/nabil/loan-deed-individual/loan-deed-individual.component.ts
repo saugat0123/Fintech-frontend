@@ -54,6 +54,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   selectiveArr = [];
   numberOfJointCustomer;
   purposeOfLoan: any;
+  expiryDateOd: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -70,6 +71,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    console.log('Cad Data:', this.cadData);
     if (!ObjectUtil.isEmpty(this.cadData)) {
       this.cadData.offerDocumentList.forEach((offerDocument: OfferDocument) => {
         this.initialInformation = JSON.parse(offerDocument.initialInformation);
@@ -141,14 +143,14 @@ export class LoanDeedIndividualComponent implements OnInit {
 
     let approvedDate: any;
     this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval)) {
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && (!ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval) || !ObjectUtil.isEmpty(this.offerDocumentDetails.dateofApproval))) {
       // tslint:disable-next-line:max-line-length
       // approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
-      if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
+      if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD' || (this.offerDocumentDetails.dateofApprovalType ? this.offerDocumentDetails.dateofApprovalType.en : '') === 'AD') {
         // tslint:disable-next-line:max-line-length
-        approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+        approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : this.offerDocumentDetails.dateofApproval ? this.offerDocumentDetails.dateofApproval.en : '';
       } else {
-        approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : '';
+        approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : this.offerDocumentDetails.dateofApprovalNepali ? this.offerDocumentDetails.dateofApprovalNepali.en.eDate : '';
       }
     }
     if (this.docName === 'Home Loan') {
@@ -194,6 +196,9 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.offerLetterAdminFee = this.offerDocumentDetails.serviceCharge ? this.offerDocumentDetails.serviceCharge.en : '';
       this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
     }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Personal loan and personal overdraft') {
+      this.purposeOfLoan = this.offerDocumentDetails.purposeofLoan.ct ? this.offerDocumentDetails.purposeofLoan.ct : '';
+    }
     return this.formBuilder.group({
       branchName: [
         this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : '',
@@ -228,6 +233,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       loanAmount: [undefined],
       Interest: [undefined],
       expiryDate: [undefined],
+      expiryDateOd: [undefined],
       totalLoanAmount: [this.nepaliNumber.numberNepali],
       totalLoanAmountWord: ['रु. ' + this.nepaliNumber.nepaliWords],
       propertyOwnerName: [undefined],
@@ -401,6 +407,21 @@ export class LoanDeedIndividualComponent implements OnInit {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + tempTenureOfLoan + ' महिना सम्म ।');
         this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + tempTenureOfLoan + ' महिना सम्म ।';
+      }
+      if (docName === 'Personal loan and personal overdraft') {
+        if (initialInformation.loanExpiryDateType.en === 'AD') {
+          this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDateOd'])
+              .patchValue(this.englishNepaliDatePipe.transform(initialInformation.loanExpiryDate.en, true));
+          this.expiryDateOd = this.englishNepaliDatePipe.transform(initialInformation.loanExpiryDate.en, true);
+        } else {
+          this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDateOd'])
+              .patchValue(initialInformation.loanExpiryDateNepali.en.nDate);
+          this.expiryDateOd = initialInformation.loanExpiryDateNepali.en.nDate;
+        }
+        const tempExpiryDate = initialInformation.loanPeriodInMonth ? initialInformation.loanPeriodInMonth.ct : '';
+        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+            .patchValue('मासिक किस्ता सूरु भएको मितिले ' + tempExpiryDate + ' महिना सम्म ।');
+        this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + tempExpiryDate + ' महिना सम्म ।';
       }
     });
   }

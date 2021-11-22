@@ -294,7 +294,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
     // this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
     // this.form.get('loanadminFeeTransVal').patchValue(this.translatedData.loanadminFee);
-    this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
     // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
     this.form.get('nameOfCompanyTransVal').patchValue(this.translatedData.nameOfCompany);
     this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
