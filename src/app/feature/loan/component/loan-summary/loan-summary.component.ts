@@ -505,22 +505,28 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
 
         // setting share-secuirty data--
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.data)) {
-            this.shareSecuritySummary = true;
-            this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.data)) {
+                this.shareSecuritySummary = true;
+                this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
+            }
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData)) {
-            this.shareSecuritySummary = true;
-            this.approvedSecurityAsProposed = false;
-            this.approvedShareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
-        }
-        if (ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.data) &&
-            !ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData)) {
-            const selectedArray = this.securityData['selectedArray'];
-            if (selectedArray.indexOf('ShareSecurity') !== -1) {
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData)) {
                 this.shareSecuritySummary = true;
                 this.approvedSecurityAsProposed = false;
-                this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
+                this.approvedShareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
+            }
+        }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
+            if (ObjectUtil.isEmpty(ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.data) &&
+                !ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData))) {
+                const selectedArray = this.securityData['selectedArray'];
+                if (selectedArray.indexOf('ShareSecurity') !== -1) {
+                    this.shareSecuritySummary = true;
+                    this.approvedSecurityAsProposed = false;
+                    this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
+                }
             }
         }
         this.loanCategory = this.loanDataHolder.loanCategory;

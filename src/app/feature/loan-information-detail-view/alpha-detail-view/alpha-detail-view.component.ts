@@ -105,7 +105,7 @@ export class AlphaDetailViewComponent implements OnInit {
       }
     }
 
-    if (!ObjectUtil.isEmpty(this.loanHolder.security.data)) {
+    if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.initialSecurity = true;
     }
     if (!ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
@@ -116,13 +116,14 @@ export class AlphaDetailViewComponent implements OnInit {
       this.approvedSecurity = true;
       this.approveSecurityAsProposed = true;
     }
-    if (ObjectUtil.isEmpty(this.loanHolder.shareSecurity.data) &&
-        !ObjectUtil.isEmpty(this.loanHolder.shareSecurity.approvedData)) {
-      const data = JSON.parse(this.loanHolder.security.approvedData);
-      const selectedArray = data.selectedArray;
-      if (selectedArray.indexOf('ShareSecurity') !== -1) {
-        this.approvedSecurity = true;
-        this.approveSecurityAsProposed = false;
+    if (!ObjectUtil.isEmpty(this.loanHolder.shareSecurity)) {
+      if (ObjectUtil.isEmpty(this.loanHolder.shareSecurity.data) && !ObjectUtil.isEmpty(this.loanHolder.shareSecurity.approvedData)) {
+        const data = JSON.parse(this.loanHolder.security.approvedData);
+        const selectedArray = data.selectedArray;
+        if (selectedArray.indexOf('ShareSecurity') !== -1) {
+          this.approvedSecurity = true;
+          this.approveSecurityAsProposed = true;
+        }
       }
     }
   }

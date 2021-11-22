@@ -341,8 +341,10 @@ export class SecurityApprovedFormComponent implements OnInit {
       sharePriceDate: [undefined],
       avgDaysForPrice: undefined,
     });
-    if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
-      this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.approvedData)['securityOffered']);
+    if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+      if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
+        this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.approvedData)['securityOffered']);
+      }
     }
   }
 
