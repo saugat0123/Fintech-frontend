@@ -15,5 +15,6 @@ export enum CadCheckListTemplateEnum {
   PROMISSORY_NOTE_JOINT = '1013',
   SELF_DECLARATION = '1020',
   NRB_KYC = '2021',
+  MORTGAGE_DEED = '2070',
 
 }
