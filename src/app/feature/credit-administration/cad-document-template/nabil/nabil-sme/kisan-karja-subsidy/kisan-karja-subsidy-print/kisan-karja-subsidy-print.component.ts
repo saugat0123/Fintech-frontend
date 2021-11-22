@@ -12,6 +12,7 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
   offerLetterConst = NabilOfferLetterConst;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() letterData;
+  @Input() preview;
   @Input() offerData;
   autoRefNumber;
 

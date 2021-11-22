@@ -92,7 +92,8 @@ import {ThemeModule} from '../../../../@theme/theme.module';
         ThemeModule,
     ],
     entryComponents: [
-        UdyamsilKarjaSubsidyComponent
+        UdyamsilKarjaSubsidyComponent,
+        KisanKarjaSubsidyComponent
     ]
 })
 export class NabilModule {

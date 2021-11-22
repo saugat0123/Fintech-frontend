@@ -30,9 +30,9 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   afterSave = false;
   kisanKarjaSubsidy: FormGroup;
   spinner = false;
-  @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
+  @Input() preview;
   @Input() customerLoanId: number;
   initialInfoPrint;
   loanHolderInfo;
@@ -58,7 +58,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
 
   ngOnInit() {
     this.buildPersonal();
-    /*if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
@@ -66,7 +66,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
-    }*/
+    }
   }
   buildPersonal() {
     this.kisanKarjaSubsidy = this.formBuilder.group({
@@ -97,9 +97,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       area: [undefined],
       nameOfPersonalGuarantor: [undefined],
       rateNrbCircular: [undefined],
-      extraFinancialClause: [undefined],
-      additionalOthersClause: [undefined],
-      extraSecurityDocumentParts: [undefined],
       relationshipOfficerName: [undefined],
       branchName: [undefined],
       branchManager: [undefined],
@@ -110,7 +107,13 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       freeText2 : [undefined],
       freeText3 : [undefined],
       freeText4 : [undefined],
-      freeText5 : [undefined]
+      freeText5 : [undefined],
+      extraFinancialClause: [undefined],
+      additionalOthersClause: [undefined],
+      extraSecurityDocumentParts: [undefined],
+      ////////////
+      additionalGuarantorDetails : [undefined],
+      additionalDetails : [undefined],
     });
   }
   // setSwikriti(data) {
@@ -166,23 +169,20 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        console.log('Selected Security Details:', initialInfo);
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
-          this.offerLetterData = this.offerLetterDocument;
-          this.kisanKarjaSubsidy.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
-        }
-        this.initialInfoPrint = initialInfo;
-        this.existingOfferLetter = true;
-        this.selectedArray = initialInfo.loanTypeSelectedArray;
-        /*this.fillForm();*/
-        this.initialInfoPrint = initialInfo;
-        if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
-          // tslint:disable-next-line:max-line-length
-          this.kisanKarjaSubsidy.get('dateofExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateofExpiry.en, true));
-        } else {
-          this.kisanKarjaSubsidy.get('dateofExpiry').patchValue(this.initialInfoPrint.dateofExpiryNepali.en);
-        }
+      if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
+        this.offerLetterData = this.offerLetterDocument;
+        this.kisanKarjaSubsidy.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
       }
+      if (!ObjectUtil.isEmpty(this.offerLetterDocument.pointInformation)) {
+        this.offerLetterData = this.offerLetterDocument;
+        this.kisanKarjaSubsidy.get('additionalDetails').patchValue(this.offerLetterData.pointInformation);
+      }
+      this.initialInfoPrint = initialInfo;
+      this.loanLimit = this.tempData.loan.loanLimitChecked;
+      this.existingOfferLetter = true;
+      this.initialInfoPrint = initialInfo;
+      /*this.fillForm();*/
+    }
     } /*else {
       this.fillForm();
     }*/
@@ -194,15 +194,16 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
-    this.kisanKarjaSubsidy.get('selectedSecurity').patchValue(this.selectedSecurity);
+    /*this.kisanKarjaSubsidy.get('selectedSecurity').patchValue(this.selectedSecurity);
     this.kisanKarjaSubsidy.get('loanLimitChecked').patchValue(this.loanLimit);
-    this.kisanKarjaSubsidy.get('renewalChecked').patchValue(this.renewal);
+    this.kisanKarjaSubsidy.get('renewalChecked').patchValue(this.renewal);*/
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY)
-            .toString()) {
+        if (offerLetterPath.docName.toString() ===
+            this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN).toString()) {
           offerLetterPath.supportedInformation = this.kisanKarjaSubsidy.get('additionalGuarantorDetails').value;
+          offerLetterPath.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
         }
       });
     } else {
@@ -210,6 +211,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
       offerDocument.initialInformation = JSON.stringify(this.kisanKarjaSubsidy.value);
       offerDocument.supportedInformation = this.kisanKarjaSubsidy.get('additionalGuarantorDetails').value;
+      offerDocument.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
