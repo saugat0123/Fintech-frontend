@@ -238,11 +238,13 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addAssignment();
             this.addMoreBondSecurity();
         }
-        if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
-            this.shareSecurityData.id = this.shareSecurity.id;
-            this.shareSecurityData.version = this.shareSecurity.version;
+        if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+            if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
+                this.shareSecurityData.id = this.shareSecurity.id;
+                this.shareSecurityData.version = this.shareSecurity.version;
+            }
         }
-        if (ObjectUtil.isEmpty(this.shareSecurity.data)) {
+        if (ObjectUtil.isEmpty(this.shareSecurity)) {
             this.addShareSecurity();
         } else {
             this.shareSecurityData.id = this.shareSecurity.id;
@@ -345,8 +347,10 @@ export class SecurityInitialFormComponent implements OnInit {
             sharePriceDate: [undefined],
             avgDaysForPrice: undefined,
         });
-        if (!ObjectUtil.isEmpty(this.shareSecurity.data)) {
-            this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);
+        if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+            if (!ObjectUtil.isEmpty(this.shareSecurity.data)) {
+                this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);
+            }
         }
     }
 
