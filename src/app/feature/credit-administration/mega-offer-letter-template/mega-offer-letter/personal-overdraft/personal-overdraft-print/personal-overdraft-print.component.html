@@ -233,34 +233,6 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>ऋण प्रतिबद्धता शुल्क </strong>
-                                </td>
-                                <td>
-                                    <p class="text-justify">
-                                        अल्पकालिन तथा चालु पुँजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा
-                                        सुविधाका हकमा स्वीकृत कर्जा सिमाको औसत ६० प्रतिशत भन्दा कम उपयोग
-                                        भएमा कम उपयोग भएको औसत कर्जा रकमको
-                                        <span
-                                        [ngClass]="{
-                                            'font-weight-bold':
-                                            letter?.loanCommitmentFee.ct !== null &&
-                                            letter?.loanCommitmentFee.ct !== ''
-                                        }"
-                                        >
-                                        {{
-                                            letter?.loanCommitmentFee.ct === null ||
-                                            letter?.loanCommitmentFee.ct === ""
-                                            ? "___________"
-                                            : letter?.loanCommitmentFee.ct
-                                        }}
-                                        </span>
-                                        प्रतिशतका दरले प्रतिबद्धता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा वा
-                                        बैंकले मागेको समयमा तिर्नु बुझाउनु पर्ने छ ।
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
                                     <strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः </strong>
                                 </td>
                                 <td>
@@ -328,7 +300,7 @@
             <div class="service-contions mt-5">
                 <div class="row">
                     <div class="col-sm-12">
-                        <ol class="conditions-list orderd-list">
+                        <ol class="conditions-list orderd-list" style="padding-left: 1.8em">
                             <li>
                                 <strong>सम्पूर्ण कर्जाका लागि सुरक्षण विवरण :</strong>
 
@@ -669,8 +641,20 @@
                                 दिन भित्र उपयोग गरिसक्नु पर्नेछ ।
                             </li>
                             <li>
-                                <p>
+                                <p *ngIf="!renewalVal">
                                     तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ।
+                                </p>
+                                <p *ngIf="renewalVal">
+                                    यस अघिको ऋण स्विकृती पत्रको आधारमा सम्पादन वा कार्यान्वयन
+                                    गर्नु भएको सम्पूर्ण कर्जा सम्बन्धी कागजातहरु र बैंकको नाममा मिति
+                                    <span>
+                                        <strong>
+                                            {{ finalMortgageDeedDate }}
+                                        </strong>
+                                    </span>
+                                    मा पारित गरिदिएको धितोबन्धक तमसुक यस नविकृत/थपिएको कर्जा सुविधाको हकमा समेत यथावत
+                                    क्रियाशिल रहनेछन् । यसका अतिरिक्त तपाईले स्वयम् बैंकमा उपस्थित भई देहाय बमोजिमका कर्जा
+                                    सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ ।
                                 </p>
                                 <!-- start -->
                                 <div class="row" *ngIf="selectedSecurity === 'LAND' && !renewalVal">
@@ -879,6 +863,31 @@
                                         </p>
                                         <p class="m-0">
                                             घ) ग्राहक स्वघोषणा फारम ।
+                                        </p>
+                                        <p class="m-0">
+                                            ङ) श्री
+                                            <span class="font-weight-bold">
+                                            {{ this.finalName }}
+                                            </span>
+                                            को बैकको पक्षमा रु
+                                            <span class="font-weight-bold">
+                                            {{
+                                                guarantorParse(guarantorData[0].nepData, "gurantedAmount")
+                                                }}
+                                            </span>
+                                            /-(अक्षरेपी रु
+                                            <span class="font-weight-bold">
+                                            {{
+                                                nepaliCurrencyWordPipe.transform(
+                                                    guarantorParse(
+                                                        guarantorData[0].nepData,
+                                                        "gurantedAmount",
+                                                        "en"
+                                                    )
+                                                )
+                                                }}
+                                            </span>
+                                            मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                         </p>
                                     </div>
                                 </div>

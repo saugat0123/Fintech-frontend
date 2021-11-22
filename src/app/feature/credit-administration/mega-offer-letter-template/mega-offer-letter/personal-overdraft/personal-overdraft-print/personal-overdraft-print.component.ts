@@ -41,6 +41,7 @@ export class PersonalOverdraftPrintComponent implements OnInit {
   finalName;
   finalDateOfApproval;
   finalDateOfApplication;
+  finalMortgageDeedDate;
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
                public currencyFormatPipe: CurrencyFormatterPipe,
@@ -91,6 +92,15 @@ export class PersonalOverdraftPrintComponent implements OnInit {
     } else {
       const templateDateApplication = this.letter.dateofApplicationNepali ? this.letter.dateofApplicationNepali.en : '';
       this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
+    }
+    //Mortgage Deed Date:
+    const mortgageDeedDateType = this.letter.mortgageDeedDateType ? this.letter.mortgageDeedDateType.en : '';
+    if (mortgageDeedDateType === 'AD') {
+      const templateMortgageDeedDate = this.letter.mortgageDeedDate ? this.letter.mortgageDeedDate.en : '';
+      this.finalMortgageDeedDate = this.engToNepaliDate.transform(this.datePipe.transform(templateMortgageDeedDate), true);
+    } else {
+      const templateMortgageDeedDate = this.letter.mortgageDeedDateNepali ? this.letter.mortgageDeedDateNepali.en : '';
+      this.finalMortgageDeedDate = templateMortgageDeedDate ? templateMortgageDeedDate.nDate : '';
     }
     this.guarantorDetails();
   }

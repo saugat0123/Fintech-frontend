@@ -182,6 +182,10 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.offerLetterAdminFee = this.offerDocumentDetails.loan.loanAdminFeeInFigure ? this.offerDocumentDetails.loan.loanAdminFeeInFigure : '';
       this.educationInterestRate = this.offerDocumentDetails.loan.interestRate ? this.offerDocumentDetails.loan.interestRate : '';
     }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+      this.offerLetterAdminFee = this.offerDocumentDetails.serviceCharge ? this.offerDocumentDetails.serviceCharge.en : '';
+      this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
+    }
     return this.formBuilder.group({
       branchName: [
         this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : '',
@@ -372,6 +376,12 @@ export class LoanDeedIndividualComponent implements OnInit {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriod.ct + ' महिना सम्म ।');
         this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriod.ct + ' महिना सम्म ।';
+      }
+      if (docName === 'Udyamsil Karja Subsidy') {
+        const tempTenureOfLoan = initialInformation.totalTenureOfLoan ? initialInformation.totalTenureOfLoan.ct : '';
+        this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+            .patchValue('मासिक किस्ता सूरु भएको मितिले ' + tempTenureOfLoan + ' महिना सम्म ।');
+        this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + tempTenureOfLoan + ' महिना सम्म ।';
       }
     });
   }

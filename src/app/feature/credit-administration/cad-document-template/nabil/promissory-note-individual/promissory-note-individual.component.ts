@@ -365,6 +365,13 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           this.educationalTemplateData = educationalOfferData.yearlyInterestRate.ct;
         }
       }
+      if (documentName === 'Udyamsil Karja Subsidy') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate ?
+              educationalOfferData.interestRate.ct : '';
+        }
+      }
 
       // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
       //     === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
