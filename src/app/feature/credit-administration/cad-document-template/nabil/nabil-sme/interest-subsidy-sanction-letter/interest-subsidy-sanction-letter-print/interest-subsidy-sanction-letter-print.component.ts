@@ -1,21 +1,19 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
-import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {NabilOfferLetterConst} from "../../../../nabil-offer-letter-const";
-import {NepaliCurrencyWordPipe} from "../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {EngToNepaliNumberPipe} from "../../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {CurrencyFormatterPipe} from "../../../../../../@core/pipe/currency-formatter.pipe";
+import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
+import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
+import {NepaliCurrencyWordPipe} from '../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
+import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 
 @Component({
-  selector: 'app-personal-overdraft-print',
-  templateUrl: './personal-overdraft-print.component.html',
-  styleUrls: ['./personal-overdraft-print.component.scss']
+  selector: 'app-interest-subsidy-sanction-letter-print',
+  templateUrl: './interest-subsidy-sanction-letter-print.component.html',
+  styleUrls: ['./interest-subsidy-sanction-letter-print.component.scss']
 })
-
-export class PersonalOverdraftPrintComponent implements OnInit {
+export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() letter: any;
   @Input() security: any;
@@ -41,13 +39,12 @@ export class PersonalOverdraftPrintComponent implements OnInit {
   finalName;
   finalDateOfApproval;
   finalDateOfApplication;
-  finalMortgageDeedDate;
-  constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-               public engToNepNumberPipe: EngToNepaliNumberPipe,
-               public currencyFormatPipe: CurrencyFormatterPipe,
-               private engToNepaliDate: EngNepDatePipe,
-               private datePipe: DatePipe) {
-  }
+
+  constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              public engToNepNumberPipe: EngToNepaliNumberPipe,
+              public currencyFormatPipe: CurrencyFormatterPipe,
+              private engToNepaliDate: EngNepDatePipe,
+              private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.selectedSecurity = this.security;
@@ -93,18 +90,8 @@ export class PersonalOverdraftPrintComponent implements OnInit {
       const templateDateApplication = this.letter.dateofApplicationNepali ? this.letter.dateofApplicationNepali.en : '';
       this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
     }
-    //Mortgage Deed Date:
-    const mortgageDeedDateType = this.letter.mortgageDeedDateType ? this.letter.mortgageDeedDateType.en : '';
-    if (mortgageDeedDateType === 'AD') {
-      const templateMortgageDeedDate = this.letter.mortgageDeedDate ? this.letter.mortgageDeedDate.en : '';
-      this.finalMortgageDeedDate = this.engToNepaliDate.transform(this.datePipe.transform(templateMortgageDeedDate), true);
-    } else {
-      const templateMortgageDeedDate = this.letter.mortgageDeedDateNepali ? this.letter.mortgageDeedDateNepali.en : '';
-      this.finalMortgageDeedDate = templateMortgageDeedDate ? templateMortgageDeedDate.nDate : '';
-    }
     this.guarantorDetails();
   }
-
   guarantorParse(nepData, key, trans?) {
     const data = JSON.parse(nepData);
     if (ObjectUtil.isEmpty(trans)) {
@@ -113,33 +100,31 @@ export class PersonalOverdraftPrintComponent implements OnInit {
       return data[key].en;
     }
   }
-  guarantorDetails(){
-    if (this.guarantorData.length == 1){
+  guarantorDetails() {
+    if (this.guarantorData.length == 1) {
       let temp = JSON.parse(this.guarantorData[0].nepData);
       this.finalName =  temp.guarantorName.ct;
     }
-    else if(this.guarantorData.length == 2){
-      for (let i = 0; i < this.guarantorData.length; i++){
+    else if(this.guarantorData.length == 2) {
+      for (let i = 0; i < this.guarantorData.length; i++) {
         let temp = JSON.parse(this.guarantorData[i].nepData);
         this.guarantorNames.push(temp.guarantorName.ct);
         // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
       }
       // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-      this.allguarantorNames = this.guarantorNames.join(" र ");
+      this.allguarantorNames = this.guarantorNames.join(' र ');
       this.finalName = this.allguarantorNames;
-    }
-    else{
-      for (let i = 0; i < this.guarantorData.length-1; i++){
+    } else {
+      for (let i = 0; i < this.guarantorData.length - 1; i++) {
         let temp = JSON.parse(this.guarantorData[i].nepData);
         this.guarantorNames.push(temp.guarantorName.ct);
         // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
       }
       // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-      this.allguarantorNames = this.guarantorNames.join(" , ");
-      let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length-1].nepData);
-      this.finalName =  this.allguarantorNames + " र " + temp1.guarantorName.ct;
+      this.allguarantorNames = this.guarantorNames.join(' , ');
+      let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
+      this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
     }
   }
 
 }
-
