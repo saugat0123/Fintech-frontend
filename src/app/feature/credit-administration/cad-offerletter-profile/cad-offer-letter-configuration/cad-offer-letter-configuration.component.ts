@@ -23,6 +23,9 @@ import {NepDataPersonal} from '../../model/nepDataPersonal';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {BranchService} from '../../../admin/component/branch/branch.service';
 import {District} from '../../../admin/modal/district';
+import {Collateral} from '../../../loan/model/collateral';
+import {CollateralDetail} from '../../../loan/model/collateralDetail';
+import {CollateralOwner} from '../../../loan/model/collateralOwner';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -39,6 +42,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
     guarantorList: Array<Guarantor>;
+    collateralList: Array<Collateral>;
+    collateralOwnerList: Array<CollateralOwner>;
     userConfigForm: FormGroup;
     spinner = false;
     submitted = false;
@@ -64,6 +69,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantorTemporaryDistrictList: Array<District> = Array<District>();
     guarantorPerMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     guarantorTemMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    collateralPermanentProvinceList: Array<Province> = Array<Province>();
+    collateralPermanentDistrictList: Array<District> = Array<District>();
+    collateralPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     nepData;
 
     constructor(private formBuilder: FormBuilder,
@@ -85,9 +93,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.branchList = res.detail;
         });
 
-       this.addressService.getAllDistrict().subscribe((res: any) => {
-           this.districtList = res.detail;
-       });
+        this.addressService.getAllDistrict().subscribe((res: any) => {
+            this.districtList = res.detail;
+        });
 
         this.buildForm();
         this.patchAddressObject();
@@ -101,6 +109,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.temporaryProvinceList = provinces;
             this.guarantorPermanentProvinceList = provinces;
             this.guarantorTemporaryProvinceList = provinces;
+            this.collateralPermanentProvinceList = provinces;
         });
     }
 
@@ -153,6 +162,33 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     }
 
+    getCollateralOwnerDistricts(province: Province) {
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.collateralPermanentDistrictList = response.detail;
+                this.collateralPermanentDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+    getCollateralOwnerMunicipalities(district: District) {
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.collateralPermanentMunicipalitiesList = response.detail;
+                this.collateralPermanentMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
+                this.collateralPermanentMunicipalitiesList.forEach(municipality => {
+                    // tslint:disable-next-line:max-line-length
+                    if (!ObjectUtil.isEmpty(this.collateralOwnerList.filter(value => value.collateralOwnerPermanentMunicipalities === municipality))
+                        // tslint:disable-next-line:max-line-length
+                        && municipality.id === this.collateralOwnerList.filter(value => value.collateralOwnerPermanentMunicipalities === municipality)[0].id) {
+                        this.userConfigForm.controls.collateralPermanentMunicipalitiesList.setValue(municipality);
+                    }
+                });
+            }
+        );
+
+    }
+
     private getAllDistrict() {
         this.addressService.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
@@ -189,7 +225,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             temporaryWard: [undefined],
             temporaryMunType: [1],
             guarantorDetails: this.formBuilder.array([]),
-            citizenshipIssueDistrict: [undefined],
+            citizenshipIssueDistrict: [undefined],collateralOwnerDetails: this.formBuilder.array([]),
             citizenshipIssueDate: [undefined],
             companyName: [undefined],
             companyDistrict: [undefined],
@@ -269,10 +305,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             return;
         }
         this.spinner = true;
-        this.nepDataPersonal.branchName = this.userConfigForm.get('branchName').value;
-        this.nepDataPersonal.branchDistrict = this.userConfigForm.get('branchDistrict').value;
-        this.nepDataPersonal.branchMunVdc = this.userConfigForm.get('branchMunVdc').value;
-        this.nepDataPersonal.branchWardNo = this.userConfigForm.get('branchWardNo').value;
+
         const data = JSON.stringify(this.userConfigForm.value);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
             this.customerInfoData = res.detail;
@@ -348,7 +381,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     setGuarantors(guarantorDetails: any) {
-      console.log('guarantorDetails: ', guarantorDetails);
+        console.log('guarantorDetails: ', guarantorDetails);
         const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
         if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
@@ -385,7 +418,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }));
         });
     }
-  getGuarantorDistricts(province) {
+
+    getGuarantorDistricts(province) {
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.guarantorPermanentDistrictList = response.detail;
@@ -431,13 +465,108 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 });
             }
         );
-
     }
+
+    setCollaterals(collateralDetails: any) {
+        const formArray = this.userConfigForm.get('collateralDetails') as FormArray;
+        if (!ObjectUtil.isEmpty(this.customerInfo.collaterals)) {
+            if (!ObjectUtil.isEmpty(this.customerInfo.collaterals.collateralList)) {
+                const collateralList = this.customerInfo.collaterals.collateralList;
+                this.collateralList = collateralList;
+            }
+        }
+
+        collateralDetails.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                collateralName: [value.collateralName],
+                collateralFatherName: [value.collateralFatherName],
+                collateralGrandFatherName: [value.collateralGrandFatherName],
+                collateralProvince: [value.collateralProvince],
+                collateralDistrict: [value.collateralDistrict],
+                collateralMunVdc: [value.collateralMunVdc],
+                collateralWardNo: [value.collateralWardNo],
+                collateralTemporaryProvince: [value.collateralTemporaryProvince],
+                collateralTemporaryDistrict: [value.collateralTemporaryDistrict],
+                collateralTemporaryMunVdc: [value.collateralTemporaryMunVdc],
+                collateralTemporaryWardNo: [value.collateralTemporaryWardNo],
+                plotNo: [value.plotNo],
+                areaOfCollateral: [value.areaOfCollateral],
+                seatNo: [value.seatNo],
+                valuationDate: [value.valuationDate],
+                valuatorName: [value.valuatorName],
+                fairMarketValue: [value.fairMarketValue],
+                distressValue: [value.distressValue],
+            }));
+        });
+    }
+
+    addCollateralOwner() {
+        (this.userConfigForm.get('collateralOwnerDetails') as FormArray).push(this.addCollateralOwnerField());
+    }
+
+    addCollateralOwnerField() {
+        return this.formBuilder.group({
+            collateralOwnerName: '',
+            collateralOwnerNameInEnglish: '',
+            collateralOwnerDOB: '',
+            collateralOwnerCitizenshipNo: '',
+            collateralOwnerCitizenshipIssueDate: '',
+            collateralOwnerCitizenshipIssueDistrict: '',
+            collateralOwnerGender: '',
+            collateralOwnerRelationMedium: '',
+            collateralOwnerFatherName: '',
+            collateralOwnerMotherName: '',
+            collateralOwnerGrandFatherName: '',
+            collateralOwnerGrandMotherName: '',
+            collateralOwnerSpouse: '',
+            collateralOwnerPermanentProvince: '',
+            collateralOwnerPermanentDistrict: '',
+            collateralOwnerPermanentMunicipalities: '',
+            collateralOwnerPermanentWard: '',
+        });
+    }
+
+    removeAtIndexCollateralOwner(i: any) {
+        (this.userConfigForm.get('collateralOwnerDetails') as FormArray).removeAt(i);
+    }
+
+    setCollateralOwner(collateralOwnerDetails: any) {
+        const formArray = this.userConfigForm.get('collateralOwnerDetails') as FormArray;
+        if (!ObjectUtil.isEmpty(this.customerInfo.collaterals)) {
+            if (!ObjectUtil.isEmpty(this.customerInfo.collaterals.collateralOwnerList)) {
+                const collateralOwnerList = this.customerInfo.collaterals.collateralOwnerList;
+                this.collateralOwnerList = collateralOwnerList;
+            }
+        }
+        collateralOwnerDetails.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                collateralOwnerName: [value.collateralOwnerName],
+                collateralOwnerNameInEnglish: [value.collateralOwnerNameInEnglish],
+                collateralOwnerDOB: [value.collateralOwnerDOB],
+                collateralOwnerCitizenshipNo: [value.collateralOwnerCitizenshipNo],
+                collateralOwnerCitizenshipIssueDate: [value.collateralOwnerCitizenshipIssueDate],
+                collateralOwnerCitizenshipIssueDistrict: [value.collateralOwnerCitizenshipIssueDistrict],
+                collateralOwnerGender: [value.collateralOwnerGender],
+                collateralOwnerRelationMedium: [value.collateralOwnerRelationMedium],
+                collateralOwnerFatherName: [value.collateralOwnerFatherName],
+                collateralOwnerMotherName: [value.collateralOwnerMotherName],
+                collateralOwnerGrandFatherName: [value.collateralOwnerGrandFatherName],
+                collateralOwnerGrandMotherName: [value.collateralOwnerGrandMotherName],
+                collateralOwnerSpouse: [value.collateralOwnerSpouse],
+                collateralOwnerPermanentProvince: [value.collateralOwnerPermanentProvince],
+                collateralOwnerPermanentDistrict: [value.collateralOwnerPermanentDistrict],
+                collateralOwnerPermanentMunicipalities: [value.collateralOwnerPermanentMunicipalities],
+                collateralOwnerPermanentWard: [value.collateralOwnerPermanentWard],
+            }));
+        });
+    }
+
     patchAddressObject(): void {
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
-            this.setGuarantors(data.guarantorDetails);
+            this.setCollaterals(data.collateralDetails);
+            this.setCollateralOwner(data.collateralOwnerDetails);
             this.userConfigForm.get('permanentProvince').patchValue(data.permanentProvince);
             this.getDistricts(data.permanentProvince);
             this.userConfigForm.get('permanentDistrict').patchValue(data.permanentDistrict);
@@ -448,6 +577,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get('temporaryDistrict').patchValue(data.temporaryDistrict);
             this.getTemporaryMunicipalities(data.temporaryDistrict);
             this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
+            this.setGuarantors(data.guarantorDetails);
             this.userConfigForm.get('guarantorPermanentProvince').patchValue(data.guarantorDetails.guarantorPermanentProvince);
             this.getGuarantorDistricts(data.guarantorDetails.guarantorPermanentProvince);
             this.userConfigForm.get('guarantorPermanentDistrict').patchValue(data.guarantorDetails.guarantorPermanentDistrict);
@@ -458,23 +588,32 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get('guarantorTemporaryDistrict').patchValue(data.guarantorDetails.guarantorTemporaryDistrict);
             this.getGuarantorTemporaryMunicipalities(data.guarantorDetails.guarantorTemporaryDistrict);
             this.userConfigForm.get('guarantorTemporaryMunicipality').patchValue(data.guarantorDetails.guarantorTemporaryMunicipality);
+            // tslint:disable-next-line:max-line-length
+            this.userConfigForm.get('collateralOwnerPermanentProvince').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
+            this.getCollateralOwnerDistricts(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
+            // tslint:disable-next-line:max-line-length
+            this.userConfigForm.get('collateralOwnerPermanentDistrict').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
+            this.getCollateralOwnerMunicipalities(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
+            // tslint:disable-next-line:max-line-length
+            this.userConfigForm.get('collateralOwnerPermanentMunicipalities').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentMunicipalities);
         }
     }
+
     reloadPage() {
         window.location.reload();
     }
 
     getBranchDetails(event) {
         this.branchList.forEach(singleData => {
-            if (event === singleData.nepaliName) {
-                const branchWardNo = this.engToNepNumberPipe.transform(singleData.wardNumber);
-                this.userConfigForm.get('branchWardNo').patchValue(branchWardNo);
-                const branchDistrictName = singleData.district.nepaliName;
-                this.userConfigForm.get('branchDistrict').patchValue(branchDistrictName);
-                const branchMunVdcName = singleData.municipalityVdc.nepaliName;
-                this.userConfigForm.get('branchMunVdc').patchValue(branchMunVdcName);
+                if (event === singleData.nepaliName) {
+                    const branchWardNo = this.engToNepNumberPipe.transform(singleData.wardNumber);
+                    this.userConfigForm.get('branchWardNo').patchValue(branchWardNo);
+                    const branchDistrictName = singleData.district.nepaliName;
+                    this.userConfigForm.get('branchDistrict').patchValue(branchDistrictName);
+                    const branchMunVdcName = singleData.municipalityVdc.nepaliName;
+                    this.userConfigForm.get('branchMunVdc').patchValue(branchMunVdcName);
+                }
             }
-        }
         );
     }
 }
