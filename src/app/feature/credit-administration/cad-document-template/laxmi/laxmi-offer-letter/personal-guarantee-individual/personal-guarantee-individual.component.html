@@ -114,7 +114,7 @@
                 को कर्जा स्वीकृतीपत्र/प्रस्तावपत्रमा उल्लेखित शर्त कबुलियत बमोजिम प्रदान गर्ने/यस अघि समय समयमा प्रदान
                 गरेको/गर्दै आएको र साथै भविष्यमा प्रदान गर्ने जम्मा
                 रु. <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="proposedAmount">
+                           (change)="con($event)"       formControlName="proposedAmount">
                 <span class="print-only nepaliFont"><b>{{form.get('proposedAmount').value ? form.get('proposedAmount').value : '========='}}</b></span>/–
                 (अक्षरेपी रुपैयाँ <input type="text" class="nepaliFont disable-print form-control-sm form-field"
                                          formControlName="amountInWords">

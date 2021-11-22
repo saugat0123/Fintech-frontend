@@ -193,4 +193,9 @@ onSubmit() {
       });
     }
   }
+  con(e) {
+    this.form.patchValue({
+      amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(e.target.value))
+    });
+  }
 }

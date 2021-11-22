@@ -141,6 +141,12 @@
             *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_PERSON_TO_PERSON" [cadData]="cadData"
             [documentId]="documentId"
             [customerLoanId]="customerLoanId"></app-personal-guarantee-individual>
+        <app-hypothecation-over-stock-and-receivable-current-assets
+        *ngSwitchCase="cadTemplate.HYPOTHECATION_OVER_STOCK_AND_RECEIVABLE"
+        [cadData]="cadData"
+        [documentId]="documentId"
+        [customerLoanId]="customerLoanId"
+        ></app-hypothecation-over-stock-and-receivable-current-assets>
 <!--        <app-promissory-note-single-borrower-->
 <!--            *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_SINGLE_BORROWER" [cadData]="cadData"-->
 <!--            [documentId]="documentId" [customerLoanId]="customerLoanId"-->
