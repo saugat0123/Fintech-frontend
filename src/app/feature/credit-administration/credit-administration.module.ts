@@ -92,6 +92,8 @@ import { PerosnalOverdraftWithoutCollateralTemplateDataComponent } from './cad-v
 import { AutoLoanTemplateEditComponent } from './cad-view/template-data/auto-loan-template-edit/auto-loan-template-edit.component';
 import { RetailMortageLoanTemplateDataEditComponent } from './cad-view/template-data/retail-mortage-loan-template-data-edit/retail-mortage-loan-template-data-edit.component';
 import { UdhyamsilKarjaSubsidyTemplateDataComponent } from './cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-data/udhyamsil-karja-subsidy-template-data.component';
+import { UdhyamsilKarjaSubsidyTemplateEditComponent } from './cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-edit/udhyamsil-karja-subsidy-template-edit.component';
+import {InterestSubsidySanctionLetterComponent} from './cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -173,7 +175,8 @@ import { UdhyamsilKarjaSubsidyTemplateDataComponent } from './cad-view/template-
     RetailMortageLoanTemplateDataEditComponent,
     PerosnalOverdraftWithoutCollateralTemplateDataComponent,
     AutoLoanTemplateEditComponent,
-    UdhyamsilKarjaSubsidyTemplateDataComponent],
+    UdhyamsilKarjaSubsidyTemplateDataComponent,
+    UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -207,8 +210,8 @@ import { UdhyamsilKarjaSubsidyTemplateDataComponent } from './cad-view/template-
     ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent,
     EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent, PersonalOverdraftTemplateDataEditComponent,
   HomeLoanTemplateEditComponent, RetailMortageLoanTemplateDataEditComponent,
-    AutoLoanTemplateEditComponent],
-  exports: [CadFileSetupComponent, FilterComponent],
+    AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent],
+  exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })
 export class CreditAdministrationModule {
