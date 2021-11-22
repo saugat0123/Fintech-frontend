@@ -92,6 +92,7 @@ import { PerosnalOverdraftWithoutCollateralTemplateDataComponent } from './cad-v
 import { AutoLoanTemplateEditComponent } from './cad-view/template-data/auto-loan-template-edit/auto-loan-template-edit.component';
 import { RetailMortageLoanTemplateDataEditComponent } from './cad-view/template-data/retail-mortage-loan-template-data-edit/retail-mortage-loan-template-data-edit.component';
 import { UdhyamsilKarjaSubsidyTemplateDataComponent } from './cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-data/udhyamsil-karja-subsidy-template-data.component';
+import { DdslWithoutSubsidyTemplateDataComponent } from './cad-view/template-data/nabil-sme-template-data/ddsl-without-subsidy/ddsl-without-subsidy-template-data/ddsl-without-subsidy-template-data.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -173,7 +174,8 @@ import { UdhyamsilKarjaSubsidyTemplateDataComponent } from './cad-view/template-
     RetailMortageLoanTemplateDataEditComponent,
     PerosnalOverdraftWithoutCollateralTemplateDataComponent,
     AutoLoanTemplateEditComponent,
-    UdhyamsilKarjaSubsidyTemplateDataComponent],
+    UdhyamsilKarjaSubsidyTemplateDataComponent,
+    DdslWithoutSubsidyTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,

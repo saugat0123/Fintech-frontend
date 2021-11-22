@@ -1,0 +1,166 @@
+<nb-card>
+    <form [nbSpinner]="spinner" [formGroup]="ddslFormGroup">
+        <nb-card-header class="container-fluid">
+            <div class="row p-4">
+                <div class="col-md-4">
+                    <label><strong>Loan Options</strong></label>
+                    <ng-select (ngModelChange)="transferValue($event)"
+                               [multiple]="false"
+                               formControlName="loanOption"
+                               placeholder="Select Case Type">
+                        <ng-option *ngFor="let customerLoanOption of customerLoanOptions"
+                                   [value]="customerLoanOption.value">{{customerLoanOption.value}}</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </nb-card-header>
+        <nb-card-body *ngIf="isLoanOptionSelected" class="container-fluid">
+            <div class="row pt-3 pl-4 pr-4">
+                <div class="col-md-4">
+                    <div class="col-md-12 mb-2 text-center">
+                        <h5>LOAN DATA</h5>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOfApprovalType">Sanction letter Date</label><br>
+                        <nb-radio-group (valueChange)="sanctionLetterDate($event)" class="d-inline-flex"
+                                        formControlName="dateOfApprovalType" id="dateOfApprovalType"
+                                        name="dateOfApprovalType" status="success">
+                            <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="BSSanctionLetterDate" style="margin-bottom: -50px;">
+                            <nepali-patro *ngIf="BSSanctionLetterDate" [displayNepali]="true" [responseType]="2"
+                                          formControlName="dateOfApprovalNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="ADSanctionLetterDate" [nbDatepicker]="sanctionDate"
+                               formControlName="dateOfApproval" fullWidth
+                               id="dateOfApproval"
+                               nbInput
+                               placeholder="Select Date" status="success">
+                        <nb-datepicker #sanctionDate></nb-datepicker>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOfApplicationType">Date of Application</label><br>
+                        <nb-radio-group (valueChange)="dateOfApplication($event)" class="d-inline-flex"
+                                        formControlName="dateOfApplicationType" id="dateOfApplicationType"
+                                        name="dateOfApplicationType" status="success">
+                            <nb-radio *ngFor="let dateTy of dateType"
+                                      [value]="dateTy.value">{{dateTy.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="BSApplication" style="margin-bottom: -50px;">
+                            <nepali-patro *ngIf="BSApplication" [displayNepali]="true"
+                                          [responseType]="2"
+                                          formControlName="dateOfApplicationNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="ADApplication" [nbDatepicker]="applicationDate"
+                               formControlName="dateOfApplication" fullWidth
+                               id="dateOfApplication"
+                               nbInput
+                               placeholder="Select Application Date" status="success">
+                        <nb-datepicker #applicationDate></nb-datepicker>
+                    </div>
+                    <div class="form-group" *ngIf="!isCustomerNew">
+                        <label for="previousSanctionType">Previous Sanction Letter Date</label><br>
+                        <nb-radio-group (valueChange)="previousSanctionDate($event)" class="d-inline-flex"
+                                        formControlName="previousSanctionType" id="previousSanctionType"
+                                        name="previousSanctionType" status="success">
+                            <nb-radio *ngFor="let previousType of dateType"
+                                      [value]="previousType.value">{{previousType.key}}</nb-radio>
+                        </nb-radio-group>
+                        <div *ngIf="BSPrevious" style="margin-bottom: -50px;">
+                            <nepali-patro *ngIf="BSPrevious" [displayNepali]="true"
+                                          [responseType]="2"
+                                          formControlName="previousSanctionDateNepali">
+                            </nepali-patro>
+                        </div>
+                        <input *ngIf="ADPrevious" [nbDatepicker]="previousDate" formControlName="previousSanctionDate"
+                               fullWidth
+                               id="previousSanctionDate"
+                               nbInput
+                               placeholder="Select Previous Date" status="success">
+                        <nb-datepicker #previousDate></nb-datepicker>
+                    </div>
+                    <div class="form-group">
+                        <label for="purposeOfLoan">Purpose of Loan</label>
+                        <input class="form-control" formControlName="purposeOfLoan" fullWidth id="purposeOfLoan"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="loanAmountFigure">Loan Amount Figure</label>
+                        <input (input)="getNumAmountWord('loanAmountFigure', 'loanAmountFigureWords')"
+                               class="form-control" formControlName="loanAmountFigure" fullWidth
+                               id="loanAmountFigure"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="loanAmountFigureWords">Loan Amount In Words</label>
+                        <input class="form-control" formControlName="loanAmountFigureWords" fullWidth
+                               id="loanAmountFigureWords"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="marginInPercentage">Margin In Percentage</label>
+                        <input class="form-control" formControlName="marginInPercentage" fullWidth
+                               id="marginInPercentage"
+                               nbInput status="success" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="baseRate">Base Rate</label>
+                        <input (input)="calInterestRate()" class="form-control" formControlName="baseRate" fullWidth
+                               id="baseRate" nbInput status="success" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="premiumRate">Premium Rate</label>
+                        <input (input)="calInterestRate()" class="form-control" formControlName="premiumRate" fullWidth
+                               id="premiumRate" nbInput status="success" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="interestRate">Interest Rate (%)</label>
+                        <input class="form-control" formControlName="interestRate" fullWidth id="interestRate"
+                               nbInput status="success" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceCharge">Service Charge</label>
+                        <input class="form-control" formControlName="serviceCharge" fullWidth id="serviceCharge"
+                               nbInput status="success" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="totalTenureOfLoan">Total Tenure Of Loan (%)</label>
+                        <input class="form-control" formControlName="totalTenureOfLoan" fullWidth id="totalTenureOfLoan"
+                               nbInput status="success" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="commitmentFee">Total Commitment Fee (%)</label>
+                        <input class="form-control" formControlName="commitmentFee" fullWidth id="commitmentFee"
+                               nbInput status="success" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="nameOfStaff">Name of ARO/RO/RM/ARM</label>
+                        <input class="form-control" formControlName="nameOfStaff" fullWidth id="nameOfStaff"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="nameOfBranchManager">Name of Branch Manager</label>
+                        <input class="form-control" formControlName="nameOfBranchManager" fullWidth
+                               id="nameOfBranchManager"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="EMIAmountFigure">EMI Amount Figure</label>
+                        <input (input)="getNumAmountWord('EMIAmountFigure', 'EMIAmountWord')"
+                               class="form-control" formControlName="EMIAmountFigure" fullWidth
+                               id="EMIAmountFigure"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="EMIAmountWord">EMI Amount In Words</label>
+                        <input class="form-control" formControlName="EMIAmountWord" fullWidth
+                               id="EMIAmountWord"
+                               nbInput status="success" type="text">
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
+    </form>
+</nb-card>
