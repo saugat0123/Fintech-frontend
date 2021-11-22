@@ -1,7 +1,7 @@
 export enum LaxmiOfferLetterConst {
     LETTER_OF_COMMITMENT,
     PERSONAL_GUARANTEE,
-    OFFER_LETTER
+    OFFER_LETTER,
 }
 
 export namespace LaxmiOfferLetterConst {
