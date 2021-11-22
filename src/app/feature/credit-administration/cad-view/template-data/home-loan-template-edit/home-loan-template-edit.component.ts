@@ -107,6 +107,10 @@ export class HomeLoanTemplateEditComponent implements OnInit {
       this.spinner = false;
       return;
     }
+    const securityDetails = [{
+      securities: homeLoan.get('securities').value,
+    }];
+    homeLoan.value['securityDetails'] = securityDetails;
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
     this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
       if (offerLetterPath.docName.toString() ===
