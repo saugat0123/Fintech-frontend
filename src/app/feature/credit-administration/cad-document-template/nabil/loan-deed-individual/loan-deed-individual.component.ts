@@ -53,6 +53,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   jointInfoData;
   selectiveArr = [];
   numberOfJointCustomer;
+  purposeOfLoan: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -102,6 +103,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.setLoanExpiryDate();
     }
     console.log('Offer Document Details',this.offerDocumentDetails);
+    console.log('Initial Information',this.initialInformation);
   }
 
   calulation() {
@@ -161,26 +163,32 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Educational Loan') {
         this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFeeFigure ? this.offerDocumentDetails.loanAdminFeeFigure.en : '';
         this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
+        this.purposeOfLoan = this.offerDocumentDetails.purposeOfLoan.ct ? this.offerDocumentDetails.purposeOfLoan.ct : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Personal Overdraft') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanadminFee ? this.offerDocumentDetails.loanadminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
+      this.purposeOfLoan = this.offerDocumentDetails.purposeOfLoan.ct ? this.offerDocumentDetails.purposeOfLoan.ct : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Personal Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyFloatingInterestRate ? this.offerDocumentDetails.yearlyFloatingInterestRate.en : '';
+      this.purposeOfLoan = this.offerDocumentDetails.purposeOfLoan.ct ? this.offerDocumentDetails.purposeOfLoan.ct : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Auto Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
+      this.purposeOfLoan = this.offerDocumentDetails.vehicleName ? this.offerDocumentDetails.vehicleName.ct + 'नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद गर्ने' : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Mortage Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFeeInFigure ? this.offerDocumentDetails.loanAdminFeeInFigure.en : '';
       this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
+      this.purposeOfLoan = this.offerDocumentDetails.loanPurpose ? this.offerDocumentDetails.loanPurpose.ct : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Home Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loan.loanAdminFeeInFigure ? this.offerDocumentDetails.loan.loanAdminFeeInFigure : '';
       this.educationInterestRate = this.offerDocumentDetails.loan.interestRate ? this.offerDocumentDetails.loan.interestRate : '';
+      this.purposeOfLoan = this.offerDocumentDetails.loan.purposeOfLoanCT ? this.offerDocumentDetails.loan.purposeOfLoanCT : '';
     }
     return this.formBuilder.group({
       branchName: [
@@ -240,7 +248,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       area2: [undefined],
       freeText: [undefined],
       totalPeople: [this.numberOfJointCustomer ? this.numberOfJointCustomer : ''],
-      purposeOfLoan: [(this.initialInformation.loanPurpose) ? (this.initialInformation.loanPurpose.ct) : this.initialInformation.purposeOfLoan ? this.initialInformation.purposeOfLoan.ct : this.initialInformation.vehicleName ? (this.initialInformation.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद गर्ने') : this.offerDocumentDetails.loan.purposeOfLoanCT ? this.offerDocumentDetails.loan.purposeOfLoanCT : ('')],
+      purposeOfLoan: [this.purposeOfLoan ? this.purposeOfLoan : ''],
       loanDeedJoint: this.formBuilder.array([]),
     });
   }
@@ -357,6 +365,17 @@ export class LoanDeedIndividualComponent implements OnInit {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।');
         this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonths.ct + ' महिना सम्म ।';
+      }
+      if (docName === 'Educational Loan' && (initialInformation.selectedSecurity.en === 'FIXED_DEPOSIT')) {
+        if (initialInformation.dateOfExpiryType.en === 'AD') {
+          this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+              .patchValue(this.englishNepaliDatePipe.transform(initialInformation.dateofExpiry.en, true));
+          this.expiryDate = this.englishNepaliDatePipe.transform(initialInformation.dateofExpiry.en, true);
+        } else {
+          this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+              .patchValue(initialInformation.dateofExpiryNepali.en.nDate);
+          this.expiryDate = initialInformation.dateofExpiryNepali.en.nDate;
+        }
       }
       if (docName === 'Home Loan') {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
