@@ -10,11 +10,7 @@
             <br>
             <p>
                 मितिः
-                <span *ngIf="letter.dateofApproval.en.nDate; else dateofApprovalPrint"
-                      class="font-weight-bold">{{letter?.dateofApproval.en.nDate}}</span>
-                <ng-template #dateofApprovalPrint>
-                    <span class=" font-weight-bold">{{(letter?.dateofApproval.en | date) | engNepDate: true}}</span>
-                </ng-template>
+                <span class="font-weight-bold">{{approvalDate ? approvalDate : ''}}</span>
             </p>
                 <div class="mb-2">
                     <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
@@ -38,11 +34,7 @@
                 <div class="mb-1">
                     <p> महोदय, <br>
                         तपाईंले
-                        <span *ngIf="letter.dateofApplication.en.nDate; else dateofApplicationPrint"
-                              class="font-weight-bold">{{letter?.dateofApplication.en.nDate}}</span>
-                        <ng-template #dateofApplicationPrint>
-                            <span class=" font-weight-bold">{{(letter?.dateofApplication.en | date) | engNepDate: true}}</span>
-                        </ng-template>
+                        <span class="font-weight-bold">{{applicationDate ? applicationDate : ''}}</span>
                         मा व्यक्तिगत कर्जा र व्यक्तिगत अधिविकर्ष सुविधाका
                         लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका
                         शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -144,7 +136,11 @@
                             <span [ngClass]="{'font-weight-bold' : letter?.emiInWords.ct !== null && letter?.emiInWords.ct !== ''}">
                                 {{letter?.emiInWords.ct === null || letter?.emiInWords.ct === '' ? '___________' : letter?.emiInWords.ct}}
                             </span>
-                            मात्र) का दरले ६० मासिक किस्ताहरुमा चुक्ता
+                            मात्र) का दरले
+                            <span [ngClass]="{'font-weight-bold' : letter?.loanPeriodInMonth.ct !== null && letter?.loanPeriodInMonth.ct !== ''}">
+                                {{letter?.loanPeriodInMonth.ct === null || letter?.loanPeriodInMonth.ct === '' ? '___________' : letter?.loanPeriodInMonth.ct}}
+                            </span>
+                            मासिक किस्ताहरुमा चुक्ता
                             भुक्तानी गर्नु पर्नेछ । तर ब्याजदरमा समय समयमा परिवर्तन भएमा सोही बमोजिम बैंकले
                             निर्धारण गरेको भुक्तानी तालिका अनुसारका किस्ताहरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                         </td>
@@ -283,11 +279,7 @@
                         <td><strong>कर्जा अवधि समाप्ती/पूनरावलोकन मितिः</strong></td>
                         <td>
                             मितिः
-                            <span *ngIf="letter.loanExpiryDate.en.nDate; else loanExpiryDatePrint"
-                                  class="font-weight-bold">{{letter?.loanExpiryDate.en.nDate}}</span>
-                            <ng-template #loanExpiryDatePrint>
-                                <span class=" font-weight-bold">{{(letter?.loanExpiryDate.en | date) | engNepDate: true}}</span>
-                            </ng-template>
+                            <span class="font-weight-bold">{{ expiryDate ? expiryDate : ''}}</span>
                             मा हुनेछ ।
                         </td>
                     </tr>

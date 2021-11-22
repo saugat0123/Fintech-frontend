@@ -18,20 +18,11 @@
                        name="referenceNumber"
                        placeholder=" सन्दर्भ नम्बर "
                        type="text"/>
-                <p *ngIf="initialInfoPrint.dateofApproval.en.nDate === undefined; else dateofApprovalNepali" class="text-left">
-                    मितिः <input class="form-field form-control-sm"
+                <p>
+                        मितिः <input class="form-field form-control-sm"
                                  formControlName="dateofApproval"
-                                 [value]="initialInfoPrint.dateofApproval.en === undefined ? '' : ((initialInfoPrint.dateofApproval.en | date) | engNepDate: true)"
                                  type="text"/>
                 </p>
-                <ng-template #dateofApprovalNepali>
-                    <p>
-                        मितिः <input class="form-field form-control-sm"
-                                     formControlName="dateofApproval"
-                                     [value]="initialInfoPrint.dateofApproval.en.nDate === undefined ? '' : initialInfoPrint.dateofApproval.en.nDate"
-                                     type="text"/>
-                    </p>
-                </ng-template>
                 <div class="mb-2">
                     <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
                     <ng-template #nameDetails>
@@ -59,20 +50,9 @@
                     <div class="mb-1">
                         <p> महोदय, <br>
                             तपाईंले
-                            <span *ngIf="initialInfoPrint.dateofApplication.en.nDate === undefined; else dateofApplicationNepali" class="text-left">
                             मितिः <input class="form-field form-control-sm"
                                          formControlName="dateofApplication"
-                                         [value]="initialInfoPrint.dateofApplication.en === undefined ? '' : ((initialInfoPrint.dateofApplication.en | date) | engNepDate: true)"
                                          type="text"/>
-                        </span>
-                            <ng-template #dateofApplicationNepali>
-                            <span>
-                                मितिः <input class="form-field form-control-sm"
-                                             formControlName="dateofApplication"
-                                             [value]="initialInfoPrint.dateofApplication.en.nDate === undefined ? '' : initialInfoPrint.dateofApplication.en.nDate"
-                                             type="text"/>
-                            </span>
-                            </ng-template>
                             मा व्यक्तिगत कर्जा र व्यक्तिगत अधिविकर्ष सुविधाका
                             लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका
                             शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -191,7 +171,13 @@
                                                     formControlName="emiInWords"
                                                     name="emiInWords"
                                                     placeholder=" "
-                                                    type="text"/> मात्र) का दरले ६० मासिक किस्ताहरुमा चुक्ता
+                                                    type="text"/> मात्र) का दरले
+                                <input class="form-field form-control-sm"
+                                       formControlName="loanPeriodInMonth"
+                                       name="loanPeriodInMonth"
+                                       placeholder=" "
+                                       type="text"/>
+                                मासिक किस्ताहरुमा चुक्ता
                                 भुक्तानी गर्नु पर्नेछ । तर ब्याजदरमा समय समयमा परिवर्तन भएमा सोही बमोजिम बैंकले
                                 निर्धारण गरेको भुक्तानी तालिका अनुसारका किस्ताहरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                             </td>
@@ -338,22 +324,12 @@
                         </tr>
                         <tr>
                             <td><strong>कर्जा अवधि समाप्ती/पूनरावलोकन मितिः</strong></td>
-                            <td *ngIf="initialInfoPrint.loanExpiryDate.en.nDate === undefined; else loanExpiryDateNepali" class="text-left">
-                                मितिः
+                            <td>                                मितिः
                                 <input class="form-field form-control-sm"
                                        formControlName="loanExpiryDate"
-                                       [value]="initialInfoPrint.loanExpiryDate.en === undefined ? '' : ((initialInfoPrint.loanExpiryDate.en | date) | engNepDate: true)"
                                        type="text"/>
-                                मा हुनेछ ।</td>
-                            <ng-template #loanExpiryDateNepali>
-                                <td>
-                                    मितिः <input class="form-field form-control-sm"
-                                                 formControlName="loanExpiryDate"
-                                                 [value]="initialInfoPrint.loanExpiryDate.en.nDate === undefined ? '' : initialInfoPrint.loanExpiryDate.en.nDate"
-                                                 type="text"/>
-                                    मा हुनेछ ।</td>
-                            </ng-template>
-
+                                मा हुनेछ ।
+                            </td>
                         </tr>
                     </table>
                     <table class="table table-borderless col-md-12">
