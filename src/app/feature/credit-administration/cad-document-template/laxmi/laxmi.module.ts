@@ -2,31 +2,52 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LaxmiOfferLetterComponent} from './laxmi-offer-letter/laxmi-offer-letter.component';
 import {NbCardModule, NbRadioModule, NbSpinnerModule} from '@nebular/theme';
-import { LetterOfCommitmentComponent } from './laxmi-offer-letter/letter-of-commitment/letter-of-commitment.component';
-import { PersonalGuaranteeComponent } from './laxmi-offer-letter/personal-guarantee/personal-guarantee.component';
-import { OfferLetterComponent } from './laxmi-offer-letter/offer-letter/offer-letter.component';
+import {LetterOfCommitmentComponent} from './laxmi-offer-letter/letter-of-commitment/letter-of-commitment.component';
+import {PersonalGuaranteeComponent} from './laxmi-offer-letter/personal-guarantee/personal-guarantee.component';
+import {OfferLetterComponent} from './laxmi-offer-letter/offer-letter/offer-letter.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgxPrintModule} from 'ngx-print';
-import { LetterOfCommitmentPrintComponent } from './laxmi-offer-letter/letter-of-commitment/letter-of-commitment-print/letter-of-commitment-print.component';
-import { OfferLetterPrintComponent } from './laxmi-offer-letter/offer-letter/offer-letter-print/offer-letter-print.component';
+import {LetterOfCommitmentPrintComponent} from './laxmi-offer-letter/letter-of-commitment/letter-of-commitment-print/letter-of-commitment-print.component';
+import {OfferLetterPrintComponent} from './laxmi-offer-letter/offer-letter/offer-letter-print/offer-letter-print.component';
 import {CoreModule} from '../../../../@core/core.module';
-import { PersonalGuaranteePrintComponent } from './laxmi-offer-letter/personal-guarantee/personal-guarantee-print/personal-guarantee-print.component';
+import {PersonalGuaranteePrintComponent} from './laxmi-offer-letter/personal-guarantee/personal-guarantee-print/personal-guarantee-print.component';
 
-import { LoanDeedIndividualComponent } from './laxmi-offer-letter/loan-deed-individual/loan-deed-individual.component';
-import { LoanDeedIndividualPrintComponent } from './laxmi-offer-letter/loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
-import { PromisoryNoteIndividualComponent } from './laxmi-offer-letter/promisory-note-individual/promisory-note-individual.component';
-import { PromisoryNoteIndividualPrintComponent } from './laxmi-offer-letter/promisory-note-individual/promisory-note-individual-print/promisory-note-individual-print.component';
-import { SelfDeclarationComponent } from './laxmi-offer-letter/self-declaration/self-declaration.component';
-import { SelfDeclarationPrintComponent } from './laxmi-offer-letter/self-declaration/self-declaration-print/self-declaration-print.component';
-import { NrbKycComponent } from './laxmi-offer-letter/nrb-kyc/nrb-kyc.component';
-import { NrbKycPrintComponent } from './laxmi-offer-letter/nrb-kyc/nrb-kyc-print/nrb-kyc-print.component';
-import { PromisoryNoteInstitutionalComponent } from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional.component';
-import { PromisoryNoteInstitutionalPrintComponent } from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
-import { PersonalGuaranteeInstitutionalComponent } from './laxmi-offer-letter/personal-guarantee-institutional/personal-guarantee-institutional.component';
+import {LoanDeedIndividualComponent} from './laxmi-offer-letter/loan-deed-individual/loan-deed-individual.component';
+import {LoanDeedIndividualPrintComponent} from './laxmi-offer-letter/loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
+import {PromisoryNoteIndividualComponent} from './laxmi-offer-letter/promisory-note-individual/promisory-note-individual.component';
+import {PromisoryNoteIndividualPrintComponent} from './laxmi-offer-letter/promisory-note-individual/promisory-note-individual-print/promisory-note-individual-print.component';
+import {SelfDeclarationComponent} from './laxmi-offer-letter/self-declaration/self-declaration.component';
+import {SelfDeclarationPrintComponent} from './laxmi-offer-letter/self-declaration/self-declaration-print/self-declaration-print.component';
+import {NrbKycComponent} from './laxmi-offer-letter/nrb-kyc/nrb-kyc.component';
+import {NrbKycPrintComponent} from './laxmi-offer-letter/nrb-kyc/nrb-kyc-print/nrb-kyc-print.component';
+import {PromisoryNoteInstitutionalComponent} from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional.component';
+import {PromisoryNoteInstitutionalPrintComponent} from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
+import {LoanDeedInstitutionalComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional.component';
+import {LoanDeedInstitutionalPrintComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional-print/loan-deed-institutional-print.component';
+import {PersonalGuaranteeInstitutionalComponent} from './laxmi-offer-letter/personal-guarantee-institutional/personal-guarantee-institutional.component';
 
 
 @NgModule({
-    declarations: [LaxmiOfferLetterComponent, LetterOfCommitmentComponent, PersonalGuaranteeComponent, OfferLetterComponent, LetterOfCommitmentPrintComponent, OfferLetterPrintComponent, PersonalGuaranteePrintComponent, LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromisoryNoteIndividualComponent, PromisoryNoteIndividualPrintComponent, SelfDeclarationComponent, SelfDeclarationPrintComponent, NrbKycComponent, NrbKycPrintComponent, PromisoryNoteInstitutionalComponent, PromisoryNoteInstitutionalPrintComponent, PersonalGuaranteeInstitutionalComponent],
+    declarations: [LaxmiOfferLetterComponent,
+        LetterOfCommitmentComponent,
+        PersonalGuaranteeComponent,
+        OfferLetterComponent,
+        LetterOfCommitmentPrintComponent,
+        OfferLetterPrintComponent,
+        PersonalGuaranteePrintComponent,
+        LoanDeedIndividualComponent,
+        LoanDeedIndividualPrintComponent,
+        PromisoryNoteIndividualComponent,
+        PromisoryNoteIndividualPrintComponent,
+        SelfDeclarationComponent,
+        SelfDeclarationPrintComponent,
+        NrbKycComponent,
+        NrbKycPrintComponent,
+        PromisoryNoteInstitutionalComponent,
+        PromisoryNoteInstitutionalPrintComponent,
+        LoanDeedInstitutionalComponent,
+        LoanDeedInstitutionalPrintComponent,
+        PersonalGuaranteeInstitutionalComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -41,6 +62,7 @@ import { PersonalGuaranteeInstitutionalComponent } from './laxmi-offer-letter/pe
         PromisoryNoteIndividualComponent,
         SelfDeclarationComponent,
         NrbKycComponent,
+        LoanDeedInstitutionalComponent,
         PromisoryNoteInstitutionalComponent
     ],
     entryComponents: [
