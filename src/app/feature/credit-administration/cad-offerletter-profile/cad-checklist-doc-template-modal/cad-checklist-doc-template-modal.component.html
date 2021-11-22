@@ -133,10 +133,14 @@
             *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_JOINT_BORROWER" [cadData]="cadData"
             [documentId]="documentId"
             [customerLoanId]="customerLoanId"></app-personal-guarantee-joint-borrower>
-        <app-personal-guarantee-person-to-person
+<!--        <app-personal-guarantee-person-to-person-->
+<!--            *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_PERSON_TO_PERSON" [cadData]="cadData"-->
+<!--            [documentId]="documentId"-->
+<!--            [customerLoanId]="customerLoanId"></app-personal-guarantee-person-to-person> -->
+        <app-personal-guarantee-individual
             *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_PERSON_TO_PERSON" [cadData]="cadData"
             [documentId]="documentId"
-            [customerLoanId]="customerLoanId"></app-personal-guarantee-person-to-person>
+            [customerLoanId]="customerLoanId"></app-personal-guarantee-individual>
 <!--        <app-promissory-note-single-borrower-->
 <!--            *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_SINGLE_BORROWER" [cadData]="cadData"-->
 <!--            [documentId]="documentId" [customerLoanId]="customerLoanId"-->
