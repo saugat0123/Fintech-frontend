@@ -110,10 +110,10 @@ export class OfferLetterPersonalComponent implements OnInit {
                 temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
                 temporaryDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
                 shreeName1: allGuarantors ? allGuarantors : '',
-                financeBranch: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
-                financeMunicipality: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
-                financeWardNum: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
-                financeDistrict: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
+                financeBranch: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+                financeMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+                financeWardNum: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+                financeDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
                 financeTelephoneNum: this.nepaliData.branchTelNo ? this.nepaliData.branchTelNo : '',
                 financeFaxNum: this.nepaliData.branchFaxNo ? this.nepaliData.branchFaxNo : '',
                 financeEmail: this.nepaliData.branchEmail ? this.nepaliData.branchEmail : '',
@@ -126,8 +126,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             });
             this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
             this.setSecurityDetails(this.nepaliData.collateralDetails);
-            console.log('security details', this.nepaliData.collateralDetails);
-
         }
 
         this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
@@ -200,9 +198,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.dialogRef.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         });
-
     }
-
 
     setSecurityDetails(data) {
         console.log('data', data);

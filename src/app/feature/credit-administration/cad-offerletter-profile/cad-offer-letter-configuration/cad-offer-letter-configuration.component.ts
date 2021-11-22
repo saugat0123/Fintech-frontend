@@ -195,7 +195,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 });
             }
         );
-
     }
 
     getCollateralDistricts(province: Province) {

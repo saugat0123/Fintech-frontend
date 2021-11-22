@@ -45,7 +45,6 @@
                                     {{printDocForm?.customerMobile === null || printDocForm?.customerMobile === '' ? '_________________' : printDocForm?.customerMobile}}
                                 </span>
                             </p>
-
                         </div>
                         <div class="col-md-6">
                             <p class="text-right">
@@ -56,7 +55,6 @@
                             </p>
                         </div>
                     </div>
-
                     <h6 class="text-center">
                         <u><strong>व्यक्तिगत तथा गोप्य</strong></u>
                     </h6>
@@ -69,7 +67,6 @@
                         </p>
                         <p>
                             तपाई
-
                             <span [ngClass]="{'nepaliFont unicode-size3' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                                     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                                 </span>
@@ -298,12 +295,10 @@
                         </table>
                         <div *ngIf="printDocForm?.loanFacilityTable.length >= 3" class="page-break"></div>
                         <table class="table table-borderless bodyParagraphTable">
-                            <thead>
                             <tr>
                                 <th>२.</th>
                                 <th><u>धितो सुरक्षण विवरण (Security Detail):</u></th>
                             </tr>
-                            </thead>
                             <tr>
                                 <td>ऋणीले लिने वा लिएको तथा भविष्यमा लिने सम्पूर्ण कर्जा तथा सुविधाहरु
                                     निम्न वमोजिमको
@@ -1233,11 +1228,11 @@
                                     <li>
                                         <p>
                                             ठेगानाः
-                                            <span [ngClass]="{'nepaliFont' : guarantor?.guarantorDistrict !== null && guarantor?.guarantorDistrict !== ''}">
+                                            <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorDistrict !== null && guarantor?.guarantorDistrict !== ''}">
                                                 {{guarantor?.guarantorDistrict === null || guarantor?.guarantorDistrict === '' ? '_________________' : guarantor?.guarantorDistrict}}
                                             </span>
                                             <strong> जिल्ला,</strong>
-                                            <span [ngClass]="{'nepaliFont' : guarantor?.municipalityName !== null && guarantor?.municipalityName !== ''}">
+                                            <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.municipalityName !== null && guarantor?.municipalityName !== ''}">
                                                 {{guarantor?.municipalityName === null || guarantor?.municipalityName === '' ? '_________________' : guarantor?.municipalityName}}
                                             </span>
                                             <strong>
