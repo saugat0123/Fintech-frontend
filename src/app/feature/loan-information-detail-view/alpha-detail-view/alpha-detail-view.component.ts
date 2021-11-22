@@ -15,6 +15,7 @@ import {CombinedLoan} from '../../loan/model/combined-loan';
 import {ObtainableDoc} from '../../loan-information-template/obtained-document/obtainableDoc';
 import {ActivatedRoute} from '@angular/router';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {Security} from '../../loan/model/security';
 
 @Component({
   selector: 'app-alpha-detail-view',
@@ -55,6 +56,7 @@ export class AlphaDetailViewComponent implements OnInit {
   siteVisitDocuments: Array<SiteVisitDocument>;
   initialSecurity = false;
   approvedSecurity = false;
+  approveSecurityAsProposed = false;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -108,6 +110,20 @@ export class AlphaDetailViewComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
       this.approvedSecurity = true;
+    }
+    if (ObjectUtil.isEmpty(this.loanHolder.security.data) &&
+        !ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
+      this.approvedSecurity = true;
+      this.approveSecurityAsProposed = true;
+    }
+    if (ObjectUtil.isEmpty(this.loanHolder.shareSecurity.data) &&
+        !ObjectUtil.isEmpty(this.loanHolder.shareSecurity.approvedData)) {
+      const data = JSON.parse(this.loanHolder.security.approvedData);
+      const selectedArray = data.selectedArray;
+      if (selectedArray.indexOf('ShareSecurity') !== -1) {
+        this.approvedSecurity = true;
+        this.approveSecurityAsProposed = false;
+      }
     }
   }
 

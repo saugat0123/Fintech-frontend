@@ -64,6 +64,7 @@ export class SecuritySummaryComponent implements OnInit {
     isPrintable = 'YES';
     @Input() docStatus;
     @Output() downloadSiteVisitDocument = new EventEmitter();
+    @Input() isApproveSecurity;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }

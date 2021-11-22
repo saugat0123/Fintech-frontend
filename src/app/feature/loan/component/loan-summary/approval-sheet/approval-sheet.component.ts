@@ -102,6 +102,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     securitySummary = false;
     securityData: Object;
     approvedSecurityData: Object;
+    approvedShareSecurityData: Object;
     siteVisitData: Object;
     checkGuarantorData = false;
     offerLetterDocuments: {
@@ -162,6 +163,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     megaGroupEnabled = environment.MEGA_GROUP;
     initialSecurity = false;
     approvedSecurity = false;
+    approvedSecurityAsProposed = false;
 
     constructor(
         private userService: UserService,
@@ -243,6 +245,12 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
             this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
             this.securitySummary = true;
+        }
+        if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
+            !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+            this.approvedSecurity = true;
+            this.approvedSecurityAsProposed = false;
+            this.securityData = JSON.parse(this.loanDataHolder.security.approvedData);
         }
 
         if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
@@ -344,6 +352,19 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
             this.shareSecuritySummary = true;
             this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
+        }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData)) {
+            this.shareSecuritySummary = true;
+            this.approvedShareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
+        }
+        if (ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.data) &&
+            !ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData)) {
+            const data = JSON.parse(this.loanDataHolder.security.approvedData);
+            const selectedArray = data.selectedArray;
+            if (selectedArray.indexOf('ShareSecurity') !== -1) {
+                this.approvedSecurity = true;
+                this.approvedSecurityAsProposed = false;
+            }
         }
         this.loanCategory = this.loanDataHolder.loanCategory;
         this.currentIndex = this.loanDataHolder.previousList.length;

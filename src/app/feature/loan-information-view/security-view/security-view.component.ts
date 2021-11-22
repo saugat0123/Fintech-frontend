@@ -71,6 +71,10 @@ export class SecurityViewComponent implements OnInit {
     this.random = Math.floor(Math.random() * 100) + 1;
     this.url = ApiConfig.URL;
     this.securityData = JSON.parse(this.security.data);
+    if (ObjectUtil.isEmpty(this.securityData) && !ObjectUtil.isEmpty(this.security.approvedData)) {
+      console.log('inside approved data');
+      this.securityData = JSON.parse(this.security.approvedData);
+    }
     if (this.securityData['selectedArray'] !== undefined) {
       // land security
       this.securityData['selectedArray'].filter(f => {
@@ -167,6 +171,9 @@ export class SecurityViewComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
       this.shareSecurity = JSON.parse(this.shareSecurityData.data);
+      if (ObjectUtil.isEmpty(this.shareSecurity) && !ObjectUtil.isEmpty(this.shareSecurityData.approvedData)) {
+        this.shareSecurity = JSON.parse(this.shareSecurityData.approvedData);
+      }
     } else {
       this.shareSelected = false;
     }

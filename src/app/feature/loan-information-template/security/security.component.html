@@ -1,4 +1,4 @@
-<h2>Existing Security</h2>
+<h2>Proposed Security</h2>
 <div class="row">
     <div class="col-md-12 text-right">
         <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
@@ -223,7 +223,7 @@
     </div>
     <hr><br>
     <div *ngIf="approvedSecurityValue !== null && approvedSecurityValue !== undefined">
-    <h1>Proposed Security</h1>
+    <h1>Existing Security</h1>
     <div class="form-group">
         <app-security-approved-form [calendarType]="calendarType"
                                     [formData]="initialSecurityValue"
