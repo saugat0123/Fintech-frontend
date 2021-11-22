@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormGroup} from '@angular/forms';
+import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 
 @Component({
   selector: 'app-udyamsil-karja-subsidy-print',
@@ -9,9 +10,10 @@ import {FormGroup} from '@angular/forms';
 })
 export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
   @Input() offerData;
-  @Input() cadOfferLetterApprovedDoc;
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() letter;
   loanHolderInfo;
+  offerLetterConst = NabilOfferLetterConst;
 
   constructor() { }
 

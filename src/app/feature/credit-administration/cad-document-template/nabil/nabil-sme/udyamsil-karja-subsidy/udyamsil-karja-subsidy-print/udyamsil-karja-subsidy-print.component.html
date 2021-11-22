@@ -1,5 +1,5 @@
 <nb-card style="height:90vh; overflow-y :scroll">
-    <div class="udyamsil-karja-subsidy" id="print-section">
+    <div class="udyamsil-karja-subsidy" id="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}">
         <p> स्वीकृती पत्र नं.
             <span [ngClass]="{'font-weight-bold': loanHolderInfo?.referenceNumber !== null && loanHolderInfo?.referenceNumber !== ''}">
                     {{loanHolderInfo?.referenceNumber === null || loanHolderInfo?.referenceNumber === "" ? "___________" : loanHolderInfo?.referenceNumber.ct}}
@@ -14,6 +14,7 @@
         </p>
 
         <div class="mb-2">
+
             <div class="mb-1">श्री/श्रीमती/सुश्री
                 <span [ngClass]="{'font-weight-bold': loanHolderInfo?.loanHoldersName !== null && loanHolderInfo?.loanHoldersName !== ''}">
                     {{loanHolderInfo?.loanHoldersName === null || loanHolderInfo?.loanHoldersName === "" ? "___________" : loanHolderInfo?.loanHoldersName}}
@@ -67,7 +68,7 @@
             <div class="row form-group">
                 <table class="table table-bordered">
                     <tr>
-                        <td style="width: 15%"><strong>कर्जा प्रकार: </strong>
+                        <td class="widthBox"><strong>कर्जा प्रकार: </strong>
                         </td>
                         <td>
                             <strong>
