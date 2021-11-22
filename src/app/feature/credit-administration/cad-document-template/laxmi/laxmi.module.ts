@@ -22,10 +22,11 @@ import { NrbKycComponent } from './laxmi-offer-letter/nrb-kyc/nrb-kyc.component'
 import { NrbKycPrintComponent } from './laxmi-offer-letter/nrb-kyc/nrb-kyc-print/nrb-kyc-print.component';
 import { PromisoryNoteInstitutionalComponent } from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional.component';
 import { PromisoryNoteInstitutionalPrintComponent } from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
+import { PersonalGuaranteeInstitutionalComponent } from './laxmi-offer-letter/personal-guarantee-institutional/personal-guarantee-institutional.component';
 
 
 @NgModule({
-    declarations: [LaxmiOfferLetterComponent, LetterOfCommitmentComponent, PersonalGuaranteeComponent, OfferLetterComponent, LetterOfCommitmentPrintComponent, OfferLetterPrintComponent, PersonalGuaranteePrintComponent, LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromisoryNoteIndividualComponent, PromisoryNoteIndividualPrintComponent, SelfDeclarationComponent, SelfDeclarationPrintComponent, NrbKycComponent, NrbKycPrintComponent, PromisoryNoteInstitutionalComponent, PromisoryNoteInstitutionalPrintComponent],
+    declarations: [LaxmiOfferLetterComponent, LetterOfCommitmentComponent, PersonalGuaranteeComponent, OfferLetterComponent, LetterOfCommitmentPrintComponent, OfferLetterPrintComponent, PersonalGuaranteePrintComponent, LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromisoryNoteIndividualComponent, PromisoryNoteIndividualPrintComponent, SelfDeclarationComponent, SelfDeclarationPrintComponent, NrbKycComponent, NrbKycPrintComponent, PromisoryNoteInstitutionalComponent, PromisoryNoteInstitutionalPrintComponent, PersonalGuaranteeInstitutionalComponent],
     imports: [
         CommonModule,
         NbCardModule,
