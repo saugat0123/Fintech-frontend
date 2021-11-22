@@ -123,6 +123,10 @@ onSubmit() {
   buildForm() {
     this.form = this.formBuilder.group({
       branch: [undefined],
+      branchDistrict: [undefined],
+      branchMunicipality: [undefined],
+      branchWadNo: [undefined],
+      branchAddress: [undefined],
       grandFatherName: [undefined],
       fatherName: [undefined],
       district: [undefined],

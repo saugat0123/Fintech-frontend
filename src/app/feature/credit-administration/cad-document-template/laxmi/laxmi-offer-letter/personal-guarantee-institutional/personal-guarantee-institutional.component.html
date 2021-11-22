@@ -2,8 +2,12 @@
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form" class="text-justify nepali">
             <p class="text-center"><b> विषय:— <u>व्यक्तिगत जमानतको लिखत</u></b></p>
-            <p>लिखितम् जमानीको लिखत गराई लिनेका नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. ०१
-            हात्तिसार स्थित लक्ष्मी बैक लिमिटेड, <input type="text" class="nepaliFont form-control-sm form-field"
+            <p>लिखितम् जमानीको लिखत गराई लिनेका नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित <input type="text" class="nepaliFont form-control-sm form-field"
+                                                                                                       formControlName="branchDistrict"> जिल्ला, <input type="text" class="nepaliFont form-control-sm form-field"
+                                                                                                                                                        formControlName="branchMunicipality"> महानगरपालिका वडा नं. <input type="text" class="nepaliFont form-control-sm form-field"
+                                                                                                                                                                                                                          formControlName="branchWadNo">
+                <input type="text" class="nepaliFont form-control-sm form-field"
+                       formControlName="branchAddress"> स्थित लक्ष्मी बैक लिमिटेड, <input type="text" class="nepaliFont form-control-sm form-field"
                                                         formControlName="branch"> शाखा (जसलाई यसपछि धनी बैंक भनिएको छ) जमानीको लिखत गरी दिनेका नाम <input type="text" class="nepaliFont form-control-sm form-field"
                                                                                                                                                           formControlName="grandFatherName">
             को नाति, <input type="text" class="nepaliFont form-control-sm form-field"
