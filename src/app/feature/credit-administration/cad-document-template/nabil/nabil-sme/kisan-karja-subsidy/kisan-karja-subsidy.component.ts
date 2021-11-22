@@ -112,7 +112,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       additionalOthersClause: [undefined],
       extraSecurityDocumentParts: [undefined],
       ////////////
-      additionalGuarantorDetails : [undefined],
+      /*additionalGuarantorDetails : [undefined],*/
       additionalDetails : [undefined],
     });
   }
@@ -169,10 +169,10 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
+     /* if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
         this.offerLetterData = this.offerLetterDocument;
         this.kisanKarjaSubsidy.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
-      }
+      }*/
       if (!ObjectUtil.isEmpty(this.offerLetterDocument.pointInformation)) {
         this.offerLetterData = this.offerLetterDocument;
         this.kisanKarjaSubsidy.get('additionalDetails').patchValue(this.offerLetterData.pointInformation);
@@ -202,7 +202,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN).toString()) {
-          offerLetterPath.supportedInformation = this.kisanKarjaSubsidy.get('additionalGuarantorDetails').value;
+          /*offerLetterPath.supportedInformation = this.kisanKarjaSubsidy.get('additionalGuarantorDetails').value;*/
           offerLetterPath.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
         }
       });
@@ -210,7 +210,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
       offerDocument.initialInformation = JSON.stringify(this.kisanKarjaSubsidy.value);
-      offerDocument.supportedInformation = this.kisanKarjaSubsidy.get('additionalGuarantorDetails').value;
+      /*offerDocument.supportedInformation = this.kisanKarjaSubsidy.get('additionalGuarantorDetails').value;*/
       offerDocument.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
