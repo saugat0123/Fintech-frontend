@@ -133,7 +133,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     ownerTemporaryDistricts = [];
     ownerTemporaryMunicipality = [];
 
-
     constructor(private formBuilder: FormBuilder,
                 private titleCasePipe: TitleCasePipe,
                 private loanConfigService: LoanConfigService,
@@ -366,6 +365,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             issuedDate: [undefined],
             issuedDateCT: [undefined],
             issuedDateTrans: [undefined],
+
+
             actName: [undefined],
             actNameCT: [undefined],
             actNameTrans: [undefined],
@@ -373,6 +374,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             actYearCT: [undefined],
             actYearTrans: [undefined],
             radioActYearDate: [undefined],
+            radioActYearDateTrans: [undefined],
+            radioActYearDateCT: [undefined],
             authorizedBodyName: [undefined],
             authorizedBodyNameCT: [undefined],
             authorizedBodyNameTrans: [undefined],
@@ -449,7 +452,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             return;
         }
         const clientType = this.userConfigForm.get('clientType').value;
-
+        if (this.customerType === 'INSTITUTION') {
+           this.oneFormCustomer.companyJsonData = JSON.stringify(this.userConfigForm.get('ownerDetails').value);
+        }
         this.oneFormCustomer.customerCode = this.userConfigForm.get('customerCode').value;
         this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
         this.oneFormCustomer.companyName = this.userConfigForm.get('name').value;
@@ -529,7 +534,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 return;
             }
 
-            if (key === 'guarantorDetails' || key === 'jointCustomerDetails') {
+            if (key === 'guarantorDetails' || key === 'jointCustomerDetails' || key === 'ownerDetails') {
                 return;
             }
 
@@ -1084,7 +1089,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
 
-
     removeAtIndex(i: any) {
         (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
         this.translatedGuarantorDetails.splice(i, 1);
@@ -1094,9 +1098,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         (this.userConfigForm.get('ownerDetails') as FormArray).removeAt(i);
     }
 
-    translateOwnerData(i: any) {
 
-    }
 
     onChangeTab(event) {
         this.hideSaveBtn = false;
@@ -1214,6 +1216,28 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     async translate() {
         this.spinner = true;
         this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+        this.userConfigForm.patchValue({
+            actNameCT: [this.translatedValues.actName ? this.translatedValues.actName : ''],
+            actNameTrans: [this.translatedValues.actName ? this.translatedValues.actName : ''],
+            actYearCT: [ObjectUtil.isEmpty(this.userConfigForm.get('actYear').value) ? undefined :
+                ObjectUtil.isEmpty(this.userConfigForm.get('actYear').value)],
+            actYearTrans: [ObjectUtil.isEmpty(this.userConfigForm.get('actYear').value) ? undefined :
+                ObjectUtil.isEmpty(this.userConfigForm.get('actYear').value)],
+            radioActYearDate: [ObjectUtil.isEmpty(this.userConfigForm.get('radioActYearDate').value) ? undefined :
+                ObjectUtil.isEmpty(this.userConfigForm.get('radioActYearDate').value)],
+            authorizedBodyNameCT: [this.translatedValues.authorizedBodyName ? this.translatedValues.authorizedBodyName : ''],
+            authorizedBodyNameTrans: [this.translatedValues.authorizedBodyName ? this.translatedValues.authorizedBodyName : ''],
+            registeredWithCT: [this.translatedValues.registeredWith ? this.translatedValues.registeredWith : ''],
+            registeredWithTrans: [this.translatedValues.registeredWith ? this.translatedValues.registeredWith : ''],
+            issuingDistrictCT: [ObjectUtil.isEmpty(this.userConfigForm.get('issuingDistrict').value) ? undefined :
+                ObjectUtil.isEmpty(this.userConfigForm.get('issuingDistrict').value.nepaliName)],
+            issuingDistrictTrans: [ObjectUtil.isEmpty(this.userConfigForm.get('issuingDistrict').value) ? undefined :
+                ObjectUtil.isEmpty(this.userConfigForm.get('issuingDistrict').value.nepaliName)],
+            registeredStreetToleTrans:[this.translatedValues.registeredStreetTole ? this.translatedValues.registeredStreetTole : ''],
+            registeredStreetToleCT: [this.translatedValues.registeredStreetTole ? this.translatedValues.registeredStreetTole : ''],
+            currentStreetToleTrans: [this.translatedValues.currentStreetTole ? this.translatedValues.currentStreetTole : ''],
+            currentStreetToleCT: [this.translatedValues.currentStreetTole ? this.translatedValues.currentStreetTole : ''],
+        });
         this.spinner = false;
         this.objectTranslateForm.patchValue({
             branch: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? null :
@@ -1384,6 +1408,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
         }
     }
+
 
     /**
      * set individual guarantor nepData Details
@@ -1595,21 +1620,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         } else {
             this.addressSameAsAbove = false;
             this.userConfigForm.patchValue({
-              temporaryProvince: undefined,
-              temporaryProvinceTrans: undefined,
-              temporaryProvinceCT: undefined,
-              temporaryDistrict: undefined,
-              temporaryDistrictTrans: undefined,
-              temporaryDistrictCT: undefined,
-              temporaryMunicipality: undefined,
-              temporaryMunicipalityTrans: undefined,
-              temporaryMunicipalityCT: undefined,
-              temporaryWard: undefined,
-              temporaryWardTrans: undefined,
-              temporaryWardCT: undefined,
-              tempMunicipalitiesOrVdc: undefined,
-              tempMunicipalitiesOrVdcTrans: undefined,
-              tempMunicipalitiesOrVdcCT: undefined,
+                temporaryProvince: undefined,
+                temporaryProvinceTrans: undefined,
+                temporaryProvinceCT: undefined,
+                temporaryDistrict: undefined,
+                temporaryDistrictTrans: undefined,
+                temporaryDistrictCT: undefined,
+                temporaryMunicipality: undefined,
+                temporaryMunicipalityTrans: undefined,
+                temporaryMunicipalityCT: undefined,
+                temporaryWard: undefined,
+                temporaryWardTrans: undefined,
+                temporaryWardCT: undefined,
+                tempMunicipalitiesOrVdc: undefined,
+                tempMunicipalitiesOrVdcTrans: undefined,
+                tempMunicipalitiesOrVdcCT: undefined,
             });
         }
     }
@@ -2466,7 +2491,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             ownerCitizenshipNoCT: [undefined],
             ownerCitizenshipIssuedDistrict: [undefined],
             ownerCitizenshipIssuedDistrictTrans: [undefined],
-            ownerCitizenshipIssuedDistrictCT: [undefined, Validators.required],
+            ownerCitizenshipIssuedDistrictCT: [undefined],
             ownerCitizenshipIssuedDate: [undefined],
             ownerCitizenshipIssuedDateTrans: [undefined],
             ownerCitizenshipIssuedDateCT: [undefined],
@@ -2482,6 +2507,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             radioOwnerDob: [undefined],
             radioOwnerDobTrans: [undefined],
             radioOwnerDobCT: [undefined],
+            nepData: [undefined],
 
             // Relations Details
 
@@ -2505,8 +2531,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             ownerDobDateTypeCT: [undefined],
 
 
-        //    address Details
-                // for permanent
+            //    address Details
+            // for permanent
             ownerPermanentProvince: [undefined],
             ownerPermanentProvinceTrans: [undefined],
             ownerPermanentProvinceCT: [undefined],
@@ -2523,7 +2549,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             ownerPermanentStreetToleTrans: [undefined],
             ownerPermanentStreetToleCT: [undefined],
 
-        //    for temporary
+            //    for temporary
 
             ownerTemporaryProvince: [undefined],
             ownerTemporaryProvinceTrans: [undefined],
@@ -2541,7 +2567,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             ownerTemporaryStreetToleTrans: [undefined],
             ownerTemporaryStreetToleCT: [undefined],
 
-        // address flag
+            // address flag
 
             ownerPermanentAddressRadio: [undefined],
             ownerPermanentAddressRadioTrans: [undefined],
@@ -2550,7 +2576,88 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             ownerTemporaryAddressRadioTrans: [undefined],
             ownerTemporaryAddressRadioCT: [undefined],
 
-            isSameTemporaryAndPermanent: [undefined]
+            isSameTemporaryAndPermanent: [undefined],
+
+            //    Nationality-Indian
+
+            //    Embassy Certificate
+
+            ownerNationality: [undefined],
+            ownerNationalityTrans: [undefined],
+            ownerNationalityCT: [undefined],
+            indianOwnerDetailOption: [undefined],
+            indianOwnerDetailOptionTrans: [undefined],
+            indianOwnerDetailOptionCT: [undefined],
+            indianEmbassyNo: [undefined],
+            indianEmbassyNoTrans: [undefined],
+            indianEmbassyNoCT: [undefined],
+            indianEmbassyIssuedDate: [undefined],
+            indianEmbassyIssuedDateTrans: [undefined],
+            indianEmbassyIssuedDateCT: [undefined],
+            indianEmbassyIssuedFrom: [undefined],
+            indianEmbassyIssuedFromTrans: [undefined],
+            indianEmbassyIssuedFromCT: [undefined],
+            indianEmbassyIssuedDateOption: [undefined],
+            indianEmbassyIssuedDateOptionTrans: [undefined],
+            indianEmbassyIssuedDateOptionCT: [undefined],
+
+            // Passport
+
+            indianOwnerPassportNo: [undefined],
+            indianOwnerPassportNoTrans: [undefined],
+            indianOwnerPassportNoCT: [undefined],
+            indianOwnerPassportIssuedDate: [undefined],
+            indianOwnerPassportIssuedDateTrans: [undefined],
+            indianOwnerPassportIssuedDateCT: [undefined],
+            indianOwnerPassportIssuedDateOption: [undefined],
+            indianOwnerPassportIssuedDateOptionTrans: [undefined],
+            indianOwnerPassportIssuedDateOptionCT: [undefined],
+            indianOwnerPassportValidityDate: [undefined],
+            indianOwnerPassportValidityDateTrans: [undefined],
+            indianOwnerPassportValidityDateCT: [undefined],
+            indianOwnerPassportValidityDateOption: [undefined],
+            indianOwnerPassportValidityDateOptionTrans: [undefined],
+            indianOwnerPassportValidityDateOptionCT: [undefined],
+            indianOwnerPassportIssuedFrom: [undefined],
+            indianOwnerPassportIssuedFromTrans: [undefined],
+            indianOwnerPassportIssuedFromCT: [undefined],
+
+            // Adhar Card
+
+            indianOwnerAdharCardNo: [undefined],
+            indianOwnerAdharCardNoTrans: [undefined],
+            indianOwnerAdharCardNoCT: [undefined],
+            indianOwnerAdharCardIssuedDate: [undefined],
+            indianOwnerAdharCardIssuedDateTrans: [undefined],
+            indianOwnerAdharCardIssuedDateCT: [undefined],
+            indianOwnerAdharCardIssuedDateOption: [undefined],
+            indianOwnerAdharCardIssuedDateOptionTrans: [undefined],
+            indianOwnerAdharCardIssuedDateOptionCT: [undefined],
+            indianOwnerAdharCardIssuedFrom: [undefined],
+            indianOwnerAdharCardIssuedFromTrans: [undefined],
+            indianOwnerAdharCardIssuedFromCT: [undefined],
+
+            //    for other than indian
+
+            otherOwnerPassportNo: [undefined],
+            otherOwnerPassportNoTrans: [undefined],
+            otherOwnerPassportNoCT: [undefined],
+            otherOwnerPassportIssuedDate: [undefined],
+            otherOwnerPassportIssuedDateTrans: [undefined],
+            otherOwnerPassportIssuedDateCT: [undefined],
+            otherOwnerPassportIssuedDateOption: [undefined],
+            otherOwnerPassportIssuedDateOptionTrans: [undefined],
+            otherOwnerPassportIssuedDateOptionCT: [undefined],
+            otherOwnerPassportValidityDate: [undefined],
+            otherOwnerPassportValidityDateTrans: [undefined],
+            otherOwnerPassportValidityDateCT: [undefined],
+            otherOwnerPassportValidityDateOption: [undefined],
+            otherOwnerPassportValidityDateOptionTrans: [undefined],
+            otherOwnerPassportValidityDateOptionCT: [undefined],
+            otherOwnerPassportIssuedFrom: [undefined],
+            otherOwnerPassportIssuedFromTrans: [undefined],
+            otherOwnerPassportIssuedFromCT: [undefined],
+
 
         });
     }
@@ -2571,7 +2678,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         );
     }
 
-    getMunicipalitiesByIdForOwner(districtId: number, event,i: any) {
+    getMunicipalitiesByIdForOwner(districtId: number, event, i: any) {
         const district = new District();
         district.id = districtId;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
@@ -2593,7 +2700,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         );
     }
 
-    getMunicipalitiesByIdForOwnerTemp(districtId: number, event,i: any) {
+    getMunicipalitiesByIdForOwnerTemp(districtId: number, event, i: any) {
         const district = new District();
         district.id = districtId;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
@@ -2604,7 +2711,206 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         );
     }
 
-    setOwnerAddressSameAsPermanent(event, i){
+    async translateOwnerData(i: any) {
+        const allOwnerData = this.userConfigForm.get('ownerDetails') as FormArray;
+        if (allOwnerData.length > 0) {
+            let ownerTranslatedData :any = [];
+            this.spinner = true;
+            ownerTranslatedData = await this.translateService.translateForm(this.userConfigForm, 'ownerDetails', i);
+
+            // patch translated value
+           const ownerForm = this.userConfigForm.get(['ownerDetails',i]).patchValue({
+                ownerNameTrans: [ownerTranslatedData.ownerName ? ownerTranslatedData.ownerName : ''],
+                ownerNameCT: [ownerTranslatedData.ownerName ? ownerTranslatedData.ownerName : ''],
+                ownerDobTrans: [this.userConfigForm.get(['ownerDetails',i, 'ownerDob']).value],
+                ownerDobCT: [this.userConfigForm.get(['ownerDetails',i, 'ownerDob']).value],
+                ownerEmailTrans: [ownerTranslatedData.ownerEmail ? ownerTranslatedData.ownerEmail : ''],
+                ownerEmailCT: [ownerTranslatedData.ownerEmail ? ownerTranslatedData.ownerEmail : ''],
+                ownerContactNoTrans: [ownerTranslatedData.ownerContactNo ? ownerTranslatedData.ownerContactNo : ''],
+                ownerContactNoCT: [ownerTranslatedData.ownerContactNo ? ownerTranslatedData.ownerContactNo : ''],
+                ownerGenderTrans: [ownerTranslatedData.ownerGender ? ownerTranslatedData.ownerGender : ''],
+                ownerGenderCT: [ownerTranslatedData.ownerGender ? ownerTranslatedData.ownerGender : ''],
+                ownerMaritalStatusTrans: [ownerTranslatedData.ownerMaritalStatus ? ownerTranslatedData.ownerMaritalStatus : ''],
+                ownerMaritalStatusCT: [ownerTranslatedData.ownerMaritalStatus ? ownerTranslatedData.ownerMaritalStatus : ''],
+                ownerCitizenshipNoTrans: [ownerTranslatedData.ownerCitizenshipNo ? ownerTranslatedData.ownerCitizenshipNo : ''],
+                ownerCitizenshipNoCT: [ownerTranslatedData.ownerCitizenshipNo ? ownerTranslatedData.ownerCitizenshipNo : ''],
+                ownerCitizenshipIssuedDistrictTrans: [this.userConfigForm.get(['ownerDetails',i, 'ownerCitizenshipIssuedDistrict']).value],
+                ownerCitizenshipIssuedDistrictCT: [this.userConfigForm.get(['ownerDetails',i, 'ownerCitizenshipIssuedDistrict']).value],
+                ownerCitizenshipIssuedDateTrans: [this.userConfigForm.get(['ownerDetails',i, 'ownerCitizenshipIssuedDate']).value],
+                ownerCitizenshipIssuedDateCT:[this.userConfigForm.get(['ownerDetails',i, 'ownerCitizenshipIssuedDate']).value],
+                radioOwnerCitizenshipIssuedDateTrans: [ownerTranslatedData.radioOwnerCitizenshipIssuedDate ? ownerTranslatedData.radioOwnerCitizenshipIssuedDate : ''],
+                radioOwnerCitizenshipIssuedDateCT: [ownerTranslatedData.radioOwnerCitizenshipIssuedDate ? ownerTranslatedData.radioOwnerCitizenshipIssuedDate : ''],
+                ownerPanNoTrans: [ownerTranslatedData.ownerPanNo ? ownerTranslatedData.ownerPanNo : ''],
+                ownerPanNoCT: [ownerTranslatedData.ownerPanNo ? ownerTranslatedData.ownerPanNo : ''],
+                ownerSharePercentageTrans: [ownerTranslatedData.ownerSharePercentage ? ownerTranslatedData.ownerSharePercentage : ''],
+                ownerSharePercentageCT: [ownerTranslatedData.ownerSharePercentage ? ownerTranslatedData.ownerSharePercentage : ''],
+                radioOwnerDobTrans: [ownerTranslatedData.radioOwnerDob ? ownerTranslatedData.radioOwnerDob : ''],
+                radioOwnerDobCT: [ownerTranslatedData.radioOwnerDob ? ownerTranslatedData.radioOwnerDob : ''],
+
+                // Relations Details
+
+                ownerFatherNameCT: [ownerTranslatedData.ownerFatherName ? ownerTranslatedData.ownerFatherName : ''],
+                ownerFatherNameTrans: [ownerTranslatedData.ownerFatherName ? ownerTranslatedData.ownerFatherName : ''],
+                ownerGrandFatherNameTrans: [ownerTranslatedData.ownerGrandFatherName ? ownerTranslatedData.ownerGrandFatherName : ''],
+                ownerGrandFatherNameCT: [ownerTranslatedData.ownerGrandFatherName ? ownerTranslatedData.ownerGrandFatherName : ''],
+                ownerFatherInLawNameTrans: [ownerTranslatedData.ownerFatherInLawName ? ownerTranslatedData.ownerFatherInLawName : ''],
+                ownerFatherInLawNameCT: [ownerTranslatedData.ownerFatherInLawName ? ownerTranslatedData.ownerFatherInLawName : ''],
+                ownerHusbandNameTrans: [ownerTranslatedData.ownerHusbandName ? ownerTranslatedData.ownerHusbandName : ''],
+                ownerHusbandNameCT: [ownerTranslatedData.ownerHusbandName ? ownerTranslatedData.ownerHusbandName : ''],
+                ownerRelationMediumTrans: [ownerTranslatedData.ownerRelationMedium ? ownerTranslatedData.ownerRelationMedium : ''],
+                ownerRelationMediumCT: [ownerTranslatedData.ownerRelationMedium ? ownerTranslatedData.ownerRelationMedium : ''],
+                ownerDobDateTypeTrans: [ownerTranslatedData.ownerDobDateType ? ownerTranslatedData.ownerDobDateType : ''],
+                ownerDobDateTypeCT: [ownerTranslatedData.ownerDobDateType ? ownerTranslatedData.ownerDobDateType : ''],
+
+
+                //    address Details
+                // for permanent
+                ownerPermanentProvinceTrans: [ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentProvince']).value) ? undefined :
+                    this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentProvince']).value.nepaliName],
+                ownerPermanentProvinceCT: [ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentProvince']).value) ? undefined :
+                    this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentProvince']).value.nepaliName],
+                ownerPermanentDistrictTrans: [ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentDistrict']).value) ?
+                    undefined : this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentDistrict']).value.nepaliName],
+                ownerPermanentDistrictCT: [ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentDistrict']).value) ?
+                    undefined : this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentDistrict']).value.nepaliName],
+                ownerPermanentMunicipalityTrans: [ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentMunicipality']).value) ? undefined :
+                    this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentMunicipality']).value.nepaliName],
+                ownerPermanentMunicipalityCT:[ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentMunicipality']).value) ? undefined :
+                    this.userConfigForm.get(['ownerDetails',i, 'ownerPermanentMunicipality']).value.nepaliName],
+                ownerPermanentWardNoTrans: [ownerTranslatedData.ownerPermanentWardNo ? ownerTranslatedData.ownerPermanentWardNo : ''],
+                ownerPermanentWardNoCT: [ownerTranslatedData.ownerPermanentWardNo ? ownerTranslatedData.ownerPermanentWardNo : ''],
+                ownerPermanentStreetToleTrans: [ownerTranslatedData.ownerPermanentStreetTole ? ownerTranslatedData.ownerPermanentStreetTole : ''],
+                ownerPermanentStreetToleCT: [ownerTranslatedData.ownerPermanentStreetTole ? ownerTranslatedData.ownerPermanentStreetTole : ''],
+
+                //    for temporary
+
+                ownerTemporaryProvinceTrans: [ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryProvince']).value) ? undefined :
+                    this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryProvince']).value.nepaliName],
+                ownerTemporaryProvinceCT: [ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryProvince']).value) ? undefined :
+                    this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryProvince']).value.nepaliName],
+                ownerTemporaryDistrictTrans: [ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryDistrict']).value) ? undefined :
+                    this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryDistrict']).value.nepaliName],
+                ownerTemporaryDistrictCT:[ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryDistrict']).value) ? undefined :
+                    this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryDistrict']).value.nepaliName],
+                ownerTemporaryMunicipalityTrans: [ ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryMunicipality']).value) ? undefined :
+                    this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryMunicipality']).value.nepaliName],
+                ownerTemporaryMunicipalityCT: [ ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryMunicipality']).value) ? undefined :
+                    this.userConfigForm.get(['ownerDetails',i, 'ownerTemporaryMunicipality']).value.nepaliName],
+
+                ownerTemporaryWardNoTrans:[ownerTranslatedData.ownerTemporaryWardNo ? ownerTranslatedData.ownerTemporaryWardNo : ''],
+                ownerTemporaryWardNoCT: [ownerTranslatedData.ownerTemporaryWardNo ? ownerTranslatedData.ownerTemporaryWardNo : ''],
+                ownerTemporaryStreetToleTrans: [ownerTranslatedData.ownerTemporaryStreetTole ? ownerTranslatedData.ownerTemporaryStreetTole : ''],
+                ownerTemporaryStreetToleCT: [ownerTranslatedData.ownerTemporaryStreetTole ? ownerTranslatedData.ownerTemporaryStreetTole : ''],
+
+                // address flag
+
+                ownerPermanentAddressRadioTrans: [ownerTranslatedData.ownerPermanentAddressRadio ? ownerTranslatedData.ownerPermanentAddressRadio : ''],
+                ownerPermanentAddressRadioCT:[ownerTranslatedData.ownerPermanentAddressRadio ? ownerTranslatedData.ownerPermanentAddressRadio : ''],
+                ownerTemporaryAddressRadioTrans: [ownerTranslatedData.ownerTemporaryAddressRadio ? ownerTranslatedData.ownerTemporaryAddressRadio : ''],
+                ownerTemporaryAddressRadioCT: [ownerTranslatedData.ownerTemporaryAddressRadio ? ownerTranslatedData.ownerTemporaryAddressRadio : ''],
+                // isSameTemporaryAndPermanent: [[ownerTranslatedData.isSameTemporaryAndPermanent ? ownerTranslatedData.isSameTemporaryAndPermanent : '']],
+
+                //    Nationality-Indian
+
+                //    Embassy Certificate
+
+                ownerNationalityTrans: [ownerTranslatedData.ownerNationality ? ownerTranslatedData.ownerNationality : ''],
+                ownerNationalityCT: [ownerTranslatedData.ownerNationality ? ownerTranslatedData.ownerNationality : ''],
+                indianOwnerDetailOptionTrans: [ownerTranslatedData.indianOwnerDetailOption ? ownerTranslatedData.indianOwnerDetailOption : ''],
+                indianOwnerDetailOptionCT: [ownerTranslatedData.indianOwnerDetailOption ? ownerTranslatedData.indianOwnerDetailOption : ''],
+                indianEmbassyNoTrans: [ownerTranslatedData.indianEmbassyNo ? ownerTranslatedData.indianEmbassyNo : ''],
+                indianEmbassyNoCT: [ownerTranslatedData.indianEmbassyNo ? ownerTranslatedData.indianEmbassyNo : ''],
+                indianEmbassyIssuedDateTrans: [this.userConfigForm.get(['ownerDetails',i, 'indianEmbassyIssuedDate']).value],
+                indianEmbassyIssuedDateCT: [this.userConfigForm.get(['ownerDetails',i, 'indianEmbassyIssuedDate']).value],
+                indianEmbassyIssuedFromTrans: [ownerTranslatedData.indianEmbassyIssuedFrom ? ownerTranslatedData.indianEmbassyIssuedFrom : ''],
+                indianEmbassyIssuedFromCT: [ownerTranslatedData.indianEmbassyIssuedFrom ? ownerTranslatedData.indianEmbassyIssuedFrom : ''],
+                indianEmbassyIssuedDateOptionTrans:[ownerTranslatedData.indianEmbassyIssuedDateOption ? ownerTranslatedData.indianEmbassyIssuedDateOption : ''],
+                indianEmbassyIssuedDateOptionCT: [ownerTranslatedData.indianEmbassyIssuedDateOption ? ownerTranslatedData.indianEmbassyIssuedDateOption : ''],
+
+                // Passport
+
+                indianOwnerPassportNoTrans: [ownerTranslatedData.indianOwnerPassportNo ? ownerTranslatedData.indianOwnerPassportNo : ''],
+                indianOwnerPassportNoCT: [ownerTranslatedData.indianOwnerPassportNo ? ownerTranslatedData.indianOwnerPassportNo : ''],
+                indianOwnerPassportIssuedDateTrans: [this.userConfigForm.get(['ownerDetails',i, 'indianOwnerPassportIssuedDate']).value],
+                indianOwnerPassportIssuedDateCT:[this.userConfigForm.get(['ownerDetails',i, 'indianOwnerPassportIssuedDate']).value],
+                indianOwnerPassportIssuedDateOptionTrans: [ownerTranslatedData.indianOwnerPassportIssuedDateOption ? ownerTranslatedData.indianOwnerPassportIssuedDateOption : ''],
+                indianOwnerPassportIssuedDateOptionCT: [ownerTranslatedData.indianOwnerPassportIssuedDateOption ? ownerTranslatedData.indianOwnerPassportIssuedDateOption : ''],
+                indianOwnerPassportValidityDateTrans: [this.userConfigForm.get(['ownerDetails',i, 'indianOwnerPassportValidityDate']).value],
+                indianOwnerPassportValidityDateCT:[this.userConfigForm.get(['ownerDetails',i, 'indianOwnerPassportValidityDate']).value],
+                indianOwnerPassportValidityDateOptionTrans: [ownerTranslatedData.indianOwnerPassportValidityDateOption ? ownerTranslatedData.indianOwnerPassportValidityDateOption : ''],
+                indianOwnerPassportValidityDateOptionCT: [ownerTranslatedData.indianOwnerPassportValidityDateOption ? ownerTranslatedData.indianOwnerPassportValidityDateOption : ''],
+                indianOwnerPassportIssuedFromTrans: [ownerTranslatedData.indianOwnerPassportIssuedFrom ? ownerTranslatedData.indianOwnerPassportIssuedFrom : ''],
+                indianOwnerPassportIssuedFromCT: [ownerTranslatedData.indianOwnerPassportIssuedFrom ? ownerTranslatedData.indianOwnerPassportIssuedFrom : ''],
+
+                // Adhar Card
+
+                indianOwnerAdharCardNoTrans: [ownerTranslatedData.indianOwnerAdharCardNo ? ownerTranslatedData.indianOwnerAdharCardNo : ''],
+                indianOwnerAdharCardNoCT: [ownerTranslatedData.indianOwnerAdharCardNo ? ownerTranslatedData.indianOwnerAdharCardNo : ''],
+                indianOwnerAdharCardIssuedDateTrans: [this.userConfigForm.get(['ownerDetails',i, 'indianOwnerAdharCardIssuedDate']).value],
+                indianOwnerAdharCardIssuedDateCT: [this.userConfigForm.get(['ownerDetails',i, 'indianOwnerAdharCardIssuedDate']).value],
+                indianOwnerAdharCardIssuedDateOptionTrans:[ownerTranslatedData.indianOwnerAdharCardIssuedDateOption ? ownerTranslatedData.indianOwnerAdharCardIssuedDateOption : ''],
+                indianOwnerAdharCardIssuedDateOptionCT: [ownerTranslatedData.indianOwnerAdharCardIssuedDateOption ? ownerTranslatedData.indianOwnerAdharCardIssuedDateOption : ''],
+                indianOwnerAdharCardIssuedFromTrans: [ownerTranslatedData.indianOwnerAdharCardIssuedFrom ? ownerTranslatedData.indianOwnerAdharCardIssuedFrom : ''],
+                indianOwnerAdharCardIssuedFromCT: [ownerTranslatedData.indianOwnerAdharCardIssuedFrom ? ownerTranslatedData.indianOwnerAdharCardIssuedFrom : ''],
+
+                //    for other than indian
+
+                otherOwnerPassportNoTrans: [ownerTranslatedData.otherOwnerPassportNo ? ownerTranslatedData.otherOwnerPassportNo : ''],
+                otherOwnerPassportNoCT: [ownerTranslatedData.otherOwnerPassportNo ? ownerTranslatedData.otherOwnerPassportNo : ''],
+                otherOwnerPassportIssuedDateTrans: [this.userConfigForm.get(['ownerDetails',i, 'otherOwnerPassportIssuedDate']).value],
+                otherOwnerPassportIssuedDateCT: [this.userConfigForm.get(['ownerDetails',i, 'otherOwnerPassportIssuedDate']).value],
+                otherOwnerPassportIssuedDateOptionTrans: [ownerTranslatedData.otherOwnerPassportIssuedDateOption ? ownerTranslatedData.otherOwnerPassportIssuedDateOption : ''],
+                otherOwnerPassportIssuedDateOptionCT: [ownerTranslatedData.otherOwnerPassportIssuedDateOption ? ownerTranslatedData.otherOwnerPassportIssuedDateOption : ''],
+                otherOwnerPassportValidityDateTrans: [this.userConfigForm.get(['ownerDetails',i, 'otherOwnerPassportValidityDate']).value],
+                otherOwnerPassportValidityDateCT: [this.userConfigForm.get(['ownerDetails',i, 'otherOwnerPassportValidityDate']).value],
+                otherOwnerPassportValidityDateOptionTrans: [ownerTranslatedData.otherOwnerPassportValidityDateOption ? ownerTranslatedData.otherOwnerPassportValidityDateOption : ''],
+                otherOwnerPassportValidityDateOptionCT:[ownerTranslatedData.otherOwnerPassportValidityDateOption ? ownerTranslatedData.otherOwnerPassportValidityDateOption : ''],
+                otherOwnerPassportIssuedFromTrans: [ownerTranslatedData.otherOwnerPassportIssuedFrom ? ownerTranslatedData.otherOwnerPassportIssuedFrom : ''],
+                otherOwnerPassportIssuedFromCT: [ownerTranslatedData.otherOwnerPassportIssuedFrom ? ownerTranslatedData.otherOwnerPassportIssuedFrom : ''],
+
+            });
+
+
+            // translate ownerDetails
+            const formArrayDataArrays: FormArray = this.userConfigForm.get(`ownerDetails`) as FormArray;
+            let c: any;
+            c = formArrayDataArrays.controls;
+            const newArr = {};
+            // for (let i = 0; i < a.length; i++) {
+            const individualOwnerData = c[i] as FormGroup;
+            Object.keys(individualOwnerData.controls).forEach(key => {
+                if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualOwnerData.get(key).value
+                    || key.indexOf('id') > -1 || key.indexOf('nepData')) {
+                    return;
+                }
+
+                // if(this.actionType === 'Edit'){
+                //  if( key.indexOf('citizenIssuedDate') > -1
+                //  || key.indexOf('guarantorPermanentMunicipalityOrVdc') > -1 || key.indexOf('guarantorTemporaryMunicipalityOrVdc') > -1
+                //  || key.indexOf('radioCitizenIssuedDate') > -1){
+                //    return;
+                //   }
+                // }
+
+                this.attributes = new Attributes();
+                this.attributes.en = individualOwnerData.get(key).value;
+                this.attributes.np = individualOwnerData.get(key + 'Trans').value;
+                this.attributes.ct = individualOwnerData.get(key + 'CT').value;
+                newArr[key] = this.attributes;
+
+                this.userConfigForm.get(['ownerDetails',i,'nepData']).patchValue(JSON.stringify(newArr));
+            });
+
+            console.log(newArr);
+            // end guarantorDetails
+            console.log(ownerTranslatedData, 'tdata');
+            console.log( [this.userConfigForm.get(['ownerDetails',i, 'ownerDob']).value]);
+            this.spinner = false;
+        }
+
+    }
+
+    setOwnerAddressSameAsPermanent(event, i) {
 
     }
 
