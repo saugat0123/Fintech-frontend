@@ -38,6 +38,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Input() customerInfo: CustomerInfoData;
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() guarantorDetail: GuarantorDetail;
+    @Input() collateralDetail: CollateralDetail;
     @Input() customer: Customer;
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
@@ -225,7 +226,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             temporaryWard: [undefined],
             temporaryMunType: [1],
             guarantorDetails: this.formBuilder.array([]),
-            citizenshipIssueDistrict: [undefined],collateralOwnerDetails: this.formBuilder.array([]),
+            collateralDetails: this.formBuilder.array([]), citizenshipIssueDistrict: [undefined],
+            collateralOwnerDetails: this.formBuilder.array([]),
             citizenshipIssueDate: [undefined],
             companyName: [undefined],
             companyDistrict: [undefined],
@@ -340,6 +342,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         (this.userConfigForm.get('guarantorDetails') as FormArray).push(this.addGuarantorField());
     }
 
+    addCollateral() {
+        (this.userConfigForm.get('collateralDetails') as FormArray).push(this.addCollateralField());
+    }
+
     addGuarantorField() {
         return this.formBuilder.group({
             name: [undefined],
@@ -368,8 +374,35 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
     }
 
+    addCollateralField() {
+        return this.formBuilder.group({
+            collateralName: '',
+            collateralFatherName: '',
+            collateralGrandFatherName: '',
+            collateralProvince: '',
+            collateralDistrict: '',
+            collateralMunVdc: '',
+            collateralWardNo: '',
+            collateralTemporaryProvince: '',
+            collateralTemporaryDistrict: '',
+            collateralTemporaryMunVdc: '',
+            collateralTemporaryWardNo: '',
+            plotNo: '',
+            areaOfCollateral: '',
+            seatNo: '',
+            valuationDate: '',
+            valuatorName: '',
+            fairMarketValue: '',
+            distressValue: '',
+        });
+    }
+
     removeAtIndex(i: any) {
         (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+    }
+
+    removeAtIndexCollateral(i: any) {
+        (this.userConfigForm.get('collateralDetails') as FormArray).removeAt(i);
     }
 
     onChangeTab(event) {
@@ -420,13 +453,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     getGuarantorDistricts(province) {
-    this.addressService.getDistrictByProvince(province).subscribe(
-        (response: any) => {
-          this.guarantorPermanentDistrictList = response.detail;
-          this.guarantorPermanentDistrictList.sort((a, b) => a.name.localeCompare(b.name));
-        }
-    );
-  }
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.guarantorPermanentDistrictList = response.detail;
+                this.guarantorPermanentDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
     getGuarantorMunicipalities(district) {
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
