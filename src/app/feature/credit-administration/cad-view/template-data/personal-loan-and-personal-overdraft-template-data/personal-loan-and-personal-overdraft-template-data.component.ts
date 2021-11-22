@@ -5,7 +5,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
-import { NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {OfferDocument} from '../../../model/OfferDocument';
 import {Attributes} from '../../../../../@core/model/attributes';
@@ -17,6 +17,7 @@ import {PersonalLoanAndPersonalOverdraftComponent} from '../../../mega-offer-let
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component";
 
 
 @Component({
@@ -50,6 +51,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     dateTypeAD3 = false;
     previewBtn = true;
     submitted = false;
+    closed = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -62,6 +64,8 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         private toastService: ToastService,
         private engToNepaliNumberPipe: EngToNepaliNumberPipe,
         private currencyFormatterPipe: CurrencyFormatterPipe,
+        protected dialogRefcad: NbDialogRef<CadOfferLetterConfigurationComponent>,
+        private modalService: NgbModal,
     ) {
     }
 
@@ -328,12 +332,30 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             this.spinner = false;
             this.previewBtn = false;
             this.btnDisable = true;
+            this.closed = true;
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.spinner = false;
             this.btnDisable = true;
         });
+    }
+
+    openCloseTemplate(template) {
+        this.modalService.open(template);
+    }
+
+    dismiss(template){
+        this.modalService.dismissAll();
+    }
+
+    decline(template){
+        this.modalService.dismissAll();
+    }
+
+    accept(){
+        this.modalService.dismissAll();
+        this.dialogRefcad.close();
     }
 }
 
