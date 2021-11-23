@@ -8,7 +8,7 @@
     </nb-card-footer>
   </nb-card>
 </ng-template>
-<div class="d-flex {{catalogueStatus === true ? 'float-right' : 'justify-content-center'}}">
+<div class="d-flex {{catalogueStatus === true ? 'float-right' : 'justify-content-center'}}" *ngIf="status !== docStatus.value(docStatus.HSOV_PENDING)">
 <ng-container *ngIf="status !== docStatus.value(docStatus.SEND_BACK_TO_AGENT) && status!== docStatus.value(docStatus.SEND_BACK_TO_SENDER)">
   <button (click)="loanAction('approve')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.approved"
