@@ -32,6 +32,7 @@ import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/
 import { NabilSmeComponent } from './nabil-sme/nabil-sme.component';
 import { KisanKarjaSubsidyComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
 import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
+import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
 
 
 @NgModule({
@@ -88,7 +89,8 @@ import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsid
         MegaOfferLetterTemplateModule,
     ],
     entryComponents: [
-        UdyamsilKarjaSubsidyComponent
+        UdyamsilKarjaSubsidyComponent,
+        InterestSubsidySanctionLetterComponent,
     ]
 })
 export class NabilModule {
