@@ -15,7 +15,6 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-promissory-note',
@@ -34,7 +33,7 @@ export class PromissoryNoteComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  nepDataPersonal = new NepDataPersonal();
+
   constructor(private dialogRef: NbDialogRef<PromissoryNoteComponent>,
               private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -70,17 +69,16 @@ export class PromissoryNoteComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+
       this.form.patchValue({
         grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
         fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
         motherName: this.nepaliData.motherName ? this.nepaliData.motherName : '',
-        husbandName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
-        districtName: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
-        municipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+        districtName: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        municipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
         wadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        temporaryDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
-        tempMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+        temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+        tempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
         tempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
         age: this.nepaliData.age ? this.nepaliData.age : '',
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
@@ -91,37 +89,21 @@ export class PromissoryNoteComponent implements OnInit {
         sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
         sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
         sincerlyCDOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-        sincerlyPermanentDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
-        sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+        sincerlyPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
         sincerlyPermanentWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        sincerlyTemporaryDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
-        sincerlyTemporaryVDCname: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+        sincerlyTemporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+        sincerlyTemporaryVDCname: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
         sincerlyTemporaryWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
         sincerlyParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
         sincerlyGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
         amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         amountInNumber: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-        branchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
       });
     }
   }
 
-  // patchAddressObject(): void {
-  //   if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-  //     const data = JSON.parse(this.cadData.loanHolder.nepData);
-  //     this.form.patchValue(data);
-  //     this.form.get('permanentProvince').patchValue(data.permanentProvince);
-  //     this.form(data.permanentProvince);
-  //     this.form.get('permanentDistrict').patchValue(data.permanentDistrict);
-  //     this.form(data.permanentDistrict);
-  //     this.form.get('permanentMunicipalities').patchValue(data.permanentMunicipalities);
-  //     this.form.get('temporaryProvince').patchValue(data.temporaryProvince);
-  //     this.form(data.temporaryProvince);
-  //     this.form.get('temporaryDistrict').patchValue(data.temporaryDistrict);
-  //     this.form(data.temporaryDistrict);
-  //     this.form.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
-  //   }
-  // }
+
   onSubmit(): void {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
