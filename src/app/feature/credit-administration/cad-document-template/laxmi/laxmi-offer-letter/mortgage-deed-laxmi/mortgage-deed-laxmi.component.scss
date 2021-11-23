@@ -46,7 +46,6 @@
   }
 }
 
-
 .form-field {
   background: yellow;
   margin: 0px 5px;
@@ -76,6 +75,17 @@ input::-webkit-input-placeholder {
   max-height: 186px;
 }
 
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
 @page {
   size: A4;
   margin: 17mm 17mm 17mm 17mm;
@@ -83,13 +93,4 @@ input::-webkit-input-placeholder {
 
 .page-break {
   page-break-after: always;
-}
-.signature-areas {
-  display: block;
-  background-color: transparent;
-  border: 1px solid #3c3c3c;
-  max-width: 191px;
-  width: 191px;
-  height: 186px;
-  max-height: 186px;
 }

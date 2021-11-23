@@ -78,9 +78,9 @@ export class MortgageDeedLaxmiComponent implements OnInit {
       branchName: [undefined],
       lekhidiekoNaam: [undefined],
       borrowerName: [undefined],
-      AcceptanceNumber: [undefined],
+      acceptanceNumber: [undefined],
       date: [undefined],
-      amount: [undefined],
+      proposedAmount: [undefined],
       amountInWord: [undefined],
       nepaliName: [undefined],
       englishName: [undefined],
@@ -159,8 +159,11 @@ export class MortgageDeedLaxmiComponent implements OnInit {
       area1: [undefined],
       mohiName: [undefined],
       toward: [undefined],
-      purchasedLandHouse: [undefined],
-      soldLandHouse: [undefined],
+      purchasedLand: [undefined],
+      purchasedHouse: [undefined],
+      soldLand: [undefined],
+      soldHouse: [undefined],
+      apology: [undefined],
     });
   }
 
