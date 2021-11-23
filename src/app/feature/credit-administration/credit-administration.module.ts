@@ -95,7 +95,7 @@ import { UdhyamsilKarjaSubsidyTemplateDataComponent } from './cad-view/template-
 import { UdhyamsilKarjaSubsidyTemplateEditComponent } from './cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-edit/udhyamsil-karja-subsidy-template-edit.component';
 import {InterestSubsidySanctionLetterComponent} from './cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
 import {InterestSubsidySanctionLetterPrintComponent} from './cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-print/interest-subsidy-sanction-letter-print.component';
-import { PersonalOverdraftWithoutCollateralTemplateEditComponent } from './cad-view/template-data/auto-loan-commercial-template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component';
+import { PersonalOverdraftWithoutCollateralTemplateEditComponent } from './cad-view/template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
