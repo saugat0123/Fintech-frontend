@@ -26,7 +26,7 @@
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.keySupplier.errors }"
                           formControlName="keySupplier" id="keySupplier"
                           name="keySupplier" [config]="ckeConfig"
-                          type="text"></ckedito r>
+                          type="text"></ckeditor>
                 <div *ngIf="submitted && form.keySupplier?.errors "
                      class="text-danger">
                     <div *ngIf="form.keySupplier?.errors.required">
