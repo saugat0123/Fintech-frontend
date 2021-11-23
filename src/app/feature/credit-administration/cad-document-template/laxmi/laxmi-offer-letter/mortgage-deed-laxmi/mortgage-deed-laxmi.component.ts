@@ -149,6 +149,18 @@ export class MortgageDeedLaxmiComponent implements OnInit {
       acceptanceDesignation1: [undefined],
       acceptanceDesignation2: [undefined],
       mobileNumber: [undefined],
+      municipality: [undefined],
+      wordNo: [undefined],
+      seatNo: [undefined],
+      kittaNo: [undefined],
+      khande: [undefined],
+      absence: [undefined],
+      area: [undefined],
+      area1: [undefined],
+      mohiName: [undefined],
+      toward: [undefined],
+      purchasedLandHouse: [undefined],
+      soldLandHouse: [undefined],
     });
   }
 
