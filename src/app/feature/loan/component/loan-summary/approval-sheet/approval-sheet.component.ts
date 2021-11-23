@@ -205,11 +205,15 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         if (this.loanDataHolder.loanCategory === 'INSTITUTION') {
             this.companyInfo = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
-            this.initialSecurity = true;
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
+                this.initialSecurity = true;
+            }
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-            this.approvedSecurity = true;
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+                this.approvedSecurity = true;
+            }
         }
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
         this.loadSummary();
@@ -242,15 +246,19 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
             this.securityData = JSON.parse(this.loanDataHolder.security.data);
             this.securitySummary = true;
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-            this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
-            this.securitySummary = true;
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+                this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
+                this.securitySummary = true;
+            }
         }
-        if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
-            !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-            this.approvedSecurity = true;
-            this.approvedSecurityAsProposed = true;
-            this.securityData = JSON.parse(this.loanDataHolder.security.approvedData);
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
+                !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+                this.approvedSecurity = true;
+                this.approvedSecurityAsProposed = true;
+                this.securityData = JSON.parse(this.loanDataHolder.security.approvedData);
+            }
         }
 
         if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
