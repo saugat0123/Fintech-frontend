@@ -138,6 +138,10 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     });
   }
 
+  get Form() {
+    return this.form.controls;
+  }
+
   submit() {
     this.submitted = true;
     const securityDetails = [{
@@ -225,9 +229,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       this.attributes.ct = this.form.get(key + 'TransVal').value;
       this.tdValues[key] = this.attributes;
     });
-  }
-  get Form() {
-    return this.form.controls;
   }
 
   openModel() {

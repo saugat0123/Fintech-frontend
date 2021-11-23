@@ -86,7 +86,6 @@
                 <td class="abc">{{translatedData?.purposeOfLoan}}</td>
                 <td>
                     <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.purposeOfLoanTransVal.errors }"
                            formControlName="purposeOfLoanTransVal"/>
                     <div *ngIf="submitted && Form.purposeOfLoanTransVal.errors"
                          class="invalid-feedback">
@@ -295,10 +294,4 @@
         <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right" [disabled]="!btnDisable">Save</button>
     </form>
 </div>
-
-
-
-
-
-
-
+</nb-card>
