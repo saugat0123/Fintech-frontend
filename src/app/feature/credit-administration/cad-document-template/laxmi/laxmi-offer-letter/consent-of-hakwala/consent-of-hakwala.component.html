@@ -1,0 +1,326 @@
+<div [nbSpinner]="spinner" nbSpinnerSize="giant" class="row"
+     id="print-section-{{offerLetterConst.CONSENT_OF_HAKWALA}}">
+    <div class="col-md-12 viewFull">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form" class="text-justify nepali">
+            <p class="text-center"><b> धितो दिने जग्गा/घरजग्गा धनीको हकवालाहरुको मञ्जुरीनामाको लिखत</b></p>
+            <p>
+                लिखितम मञ्जुरीनामाको लिखत गरी दिने हामी तपसिलमा उल्लेखित व्यक्तिहरु आगे त्यस लक्ष्मी बैंक लिमिटेडबाट ऋणी
+                श्री <input type="text"
+                            class="nepaliFont disable-print form-control-sm form-field"
+                            formControlName="customerName">
+                <span class=" print-only nepaliFont"><b>{{form.get('customerName').value ? form.get('customerName').value : '========='}}</b></span>
+                ले लिने/लिएको
+                कर्जाको सुरक्षणको लागि मेरो/हाम्रो समेत हक लाग्ने तपसिलमा उल्लेखित जग्गा/घरजग्गा धितो बन्धक राख्न तपाईको
+                समेत मन्जुरीनामाको कागजात आवश्यक
+                परेकोले मन्जुरीको कागजमा सही छाप गरी दिनु होस भनी जग्गा/घरजग्गा धनीले अनुरोध गरेकोमा मेरो/हाम्रो चित्त
+                वुझ्यो । लक्ष्मी बैंकवाट उल्लेखित
+                ऋणीको नाममा प्रवाह हुने/भएको कर्जाको लागि मेरो/हाम्रो समेत हक लाग्ने तपसिल वमोजिमको जग्गा/घरजग्गा धितो
+                राखी कर्जा सुविधा प्रदान गरेमा
+                वा उपभोग गरेमा मेरो/हाम्रो पूर्ण मञ्जुरी छ । ऋणीले उपभोग गरेको कर्जा एकै पटक वा पटक– पटक वा सोही धितोमा
+                थप कर्जा वा थप कर्जाको
+                लागि पुनः धितो लिखत पास गरेमा वा उपभोग गरि रहेको कर्जा पटक–पटक नविकरण गरेमा वा कर्जाको शिर्षक परिवर्तन
+                गरेमा धितो दिएकोमा समेत
+                कर्जा पूर्ण रुपमा कर्जा चुक्ता नभए सम्म कर्जाको सुरक्षण वापत धितो दिएकोमा मेरो/हाम्रो मन्जुरी छ । ऋणीले
+                उपभोग गरेको कर्जा चुक्ता नगरी बैंकले
+                लिलाम विक्रि वा अन्य जुनसुकै व्यवस्था गरी मलाई/हामीलाई थाहा जानकारी दिई वा नदिई आफनो कर्जा असुली गरेमा
+                समेत मेरो/हाम्रो मन्जुरी छ,
+                पछि मेरो/हाम्रो समेत हकलाग्ने सम्पत्ति धितो बन्धक गरिदिएकोमा वा लिलाम विक्रि गरेकोमा मेरो/हाम्रो मञ्जुरी
+                छैन, उल्लेखित सम्पत्तिवाट मेरो/हाम्रो
+                हक जानु पन होइन भन्ने समेतको कहीं कतै कुनै उजुर बाजुर गर्ने छैन । गरेमा यसै लिखतले बदर होस भनी
+                मेरो/हाम्रो मनोमान खुशीराजीसंग आफ्नै
+                घर बैठकमा वसी यो मञ्जुरीनामाको लिखत लेखि सहिछाप गरी जग्गा/घरजग्गा धनी मार्फत श्री लक्ष्मी बैंक
+                लिमिटेडलाई वुझायां ।
+            </p>
+            <p class="text-center"><b>तपसील</b></p>
+            <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+                <thead>
+                <tr class="sb-bg-dark">
+                    <th>जिल्ला</th>
+                    <th>न.पा./गा.पा.</th>
+                    <th>वडा नं.</th>
+                    <th>कित्ता नं.</th>
+                    <th>क्षेत्रफल</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="height:20px;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr style="height:20px;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr style="height:20px;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr style="height:20px;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <b>धितो दिने जायजेथाको विवरण</b><br>
+            <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+            <tbody>
+            <tr>
+                <td>१.</td>
+                <td>
+                    मन्जुरी दिनेको नामः<input type="text"
+                                              class="nepaliFont disable-print form-control-sm form-field"
+                                              formControlName="acceptorName">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorName').value ? form.get('acceptorName').value : '========='}}</b></span>
+<br>
+                    ठेगानाः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorAddress">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorAddress').value ? form.get('acceptorAddress').value : '========='}}</b></span>
+<br>
+                    ना.प्र.नं.
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorCitizenshipNo">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorCitizenshipNo').value ? form.get('acceptorCitizenshipNo').value : '========='}}</b></span>
+<br>
+                    मितिः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptanceDate">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptanceDate').value ? form.get('acceptanceDate').value : '========='}}</b></span>
+<br>
+                    जिल्ला प्रशासन कार्यालयः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorIssuedOffice">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorIssuedOffice').value ? form.get('acceptorIssuedOffice').value : '========='}}</b></span>
+<br>
+                    जग्गाधनीसंगको नाता
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorRelation">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorRelation').value ? form.get('acceptorRelation').value : '========='}}</b></span>
+
+                </td>
+                <td>
+                    <br>दस्तखत
+                </td>
+                <td>
+                    दायाँ
+                </td>
+                <td>
+                    बायाँ
+                </td>
+            </tr>
+            <tr>
+                <td>२.</td>
+                <td>
+                    मन्जुरी दिनेको नामः<input type="text"
+                                              class="nepaliFont disable-print form-control-sm form-field"
+                                              formControlName="acceptorNameTwo">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorNameTwo').value ? form.get('acceptorNameTwo').value : '========='}}</b></span>
+                    <br>
+                    ठेगानाः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorAddressTwo">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorAddressTwo').value ? form.get('acceptorAddressTwo').value : '========='}}</b></span>
+                    <br>
+                    ना.प्र.नं.
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorCitizenshipNoTwo">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorCitizenshipNoTwo').value ? form.get('acceptorCitizenshipNoTwo').value : '========='}}</b></span>
+                    <br>
+                    मितिः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptanceDateTwo">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptanceDateTwo').value ? form.get('acceptanceDateTwo').value : '========='}}</b></span>
+                    <br>
+                    जिल्ला प्रशासन कार्यालयः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorIssuedOfficeTwo">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorIssuedOfficeTwo').value ? form.get('acceptorIssuedOfficeTwo').value : '========='}}</b></span>
+                    <br>
+                    जग्गाधनीसंगको नाता
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorRelationTwo">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorRelationTwo').value ? form.get('acceptorRelationTwo').value : '========='}}</b></span>
+
+                </td>
+                <td>
+                    <br>दस्तखत
+                </td>
+                <td>
+                    दायाँ
+                </td>
+                <td>
+                    बायाँ
+                </td>
+            </tr>
+            <tr>
+                <td>३.</td>
+                <td>
+                    मन्जुरी दिनेको नामः<input type="text"
+                                              class="nepaliFont disable-print form-control-sm form-field"
+                                              formControlName="acceptorNameThree">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorNameThree').value ? form.get('acceptorNameThree').value : '========='}}</b></span>
+                    <br>
+                    ठेगानाः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorAddressThree">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorAddressThree').value ? form.get('acceptorAddressThree').value : '========='}}</b></span>
+                    <br>
+                    ना.प्र.नं.
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorCitizenshipNoThree">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorCitizenshipNoThree').value ? form.get('acceptorCitizenshipNoThree').value : '========='}}</b></span>
+                    <br>
+                    मितिः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptanceDateThree">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptanceDateThree').value ? form.get('acceptanceDateThree').value : '========='}}</b></span>
+                    <br>
+                    जिल्ला प्रशासन कार्यालयः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorIssuedOfficeThree">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorIssuedOfficeThree').value ? form.get('acceptorIssuedOfficeThree').value : '========='}}</b></span>
+                    <br>
+                    जग्गाधनीसंगको नाता
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorRelationThree">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorRelationThree').value ? form.get('acceptorRelationThree').value : '========='}}</b></span>
+
+                </td>
+                <td>
+                    <br>दस्तखत
+                </td>
+                <td>
+                    दायाँ
+                </td>
+                <td>
+                    बायाँ
+                </td>
+            </tr>
+            <tr>
+                <td>४.</td>
+                <td>
+                    मन्जुरी दिनेको नामः<input type="text"
+                                              class="nepaliFont disable-print form-control-sm form-field"
+                                              formControlName="acceptorNameFour">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorNameFour').value ? form.get('acceptorNameFour').value : '========='}}</b></span>
+                    <br>
+                    ठेगानाः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorAddressFour">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorAddressFour').value ? form.get('acceptorAddressFour').value : '========='}}</b></span>
+                    <br>
+                    ना.प्र.नं.
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorCitizenshipNoFour">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorCitizenshipNoFour').value ? form.get('acceptorCitizenshipNoFour').value : '========='}}</b></span>
+                    <br>
+                    मितिः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptanceDateFour">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptanceDateFour').value ? form.get('acceptanceDateFour').value : '========='}}</b></span>
+                    <br>
+                    जिल्ला प्रशासन कार्यालयः
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorIssuedOfficeFour">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorIssuedOfficeFour').value ? form.get('acceptorIssuedOfficeFour').value : '========='}}</b></span>
+                    <br>
+                    जग्गाधनीसंगको नाता
+                    <input type="text"
+                           class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="acceptorRelationFour">
+                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorRelationFour').value ? form.get('acceptorRelationFour').value : '========='}}</b></span>
+
+                </td>
+                <td>
+                    <br>दस्तखत
+                </td>
+                <td>
+                    दायाँ
+                </td>
+                <td>
+                    बायाँ
+                </td>
+            </tr>
+            </tbody>
+            </table>
+         <br>
+            <b>सनाखत तथा घोषणाः</b> माथी मन्जुरी जनाउने वाहेक धितो दिएको सम्पति उपर दावी गर्ने अन्य अंशियार तथा हकवालाहरु छैन
+            । यसमा सहिछाप गर्ने कारणीहरुले मेरो सामुन्नेमा सहि छाप गरेका हुन । यसमा लेखिएको व्यहोरा सत्य हो, झुठा ठहरेमा
+            कानून बमोजिम सहुला बुझाउला भनी सनाखत सही गरिदिने तथा धितो लेखिदिने जग्गा/घरजग्गा धनीको नाम
+            <input type="text"
+                   class="nepaliFont disable-print form-control-sm form-field"
+                   formControlName="ownerName">
+            <span class=" print-only nepaliFont"><b>{{form.get('ownerName').value ? form.get('ownerName').value : '========='}}</b></span>
+           <br>
+            <b>लिखत सनाखत गर्ने जग्गा/घरजग्गाधनीको दस्तखतः</b>
+            <br>
+            ईति संवत् <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                              formControlName="itiSambatYear">
+            <span class="print-only nepaliFont"><b>{{form.get('itiSambatYear').value ? form.get('itiSambatYear').value : '========='}}</b></span>
+
+            साल
+            <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                    formControlName="itiSambatMonth">
+            <span class="print-only nepaliFont"><b>{{form.get('itiSambatMonth').value ? form.get('itiSambatMonth').value : '========='}}</b></span>
+
+            महिना<input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                         formControlName="itiSambatDay">
+            <span class="print-only nepaliFont"><b>{{form.get('itiSambatDay').value ? form.get('itiSambatDay').value : '========='}}</b></span>
+
+            गते रोज<input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="roj">
+            <span class="print-only nepaliFont"><b>{{form.get('roj').value ? form.get('roj').value : '========='}}</b></span>
+
+            शुभम् ________________________।
+
+            <div>
+                <button type="submit"
+                        class="btn btn-primary float-right disable-print"
+                        nbButton
+                        status="success"
+                        [disabled]="spinner">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{offerLetterConst.CONSENT_OF_HAKWALA}}"
+                ngxPrint>print
+        </button>
+    </div>
+</div>
+
+
