@@ -85,27 +85,27 @@
                                    </div>
                                </div>
 
-
-                               </div>
-                           </div>
-
-                           <div class="row">
-
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="companyName"><strong>Company Name</strong></label>
                                        <input
-                                           [ngClass]="{ 'is-invalid':submitted && form.companyName.errors }"
-                                           class="form-control rounded"
-                                           formControlName="companyName"
-                                           id="companyName" placeholder="Enter company name"
-                                           type="text"/>
+                                               [ngClass]="{ 'is-invalid':submitted && form.companyName.errors }"
+                                               class="form-control rounded"
+                                               formControlName="companyName"
+                                               id="companyName" placeholder="Enter company name"
+                                               type="text"/>
                                        <div *ngIf="submitted && form.companyName.errors"
                                             class="invalid-feedback">
                                            <div *ngIf="form.companyName.errors.required">Name is required</div>
                                        </div>
                                    </div>
                                </div>
+
+                               </div>
+                           </div>
+
+                           <div class="row">
+
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="companyEstablishmentDate"><strong>Establishment Date</strong></label>
@@ -129,29 +129,6 @@
                                        </div>
                                    </div>
                                </div>
-
-                               <div class="col-md-4" *ngIf="client === clientName?.SHINE_RESUNGA">
-                                   <div class="form-group rounded">
-                                       <label for="addressLegalDocument"><strong>Address as Per Legal Document</strong></label>
-                                       <div class="input-group mb-3">
-                                           <input [ngClass]="{ 'is-invalid':submitted && form.addressLegalDocument.errors }"
-                                                  class="form-control rounded"
-                                                  formControlName="addressLegalDocument"
-                                                  id="addressLegalDocument"
-                                                  min="0" placeholder="Enter legal Document Address"
-                                                  type="text"/>
-                                           <div *ngIf="submitted && form.addressLegalDocument.errors "
-                                                class="invalid-feedback">
-                                               <div *ngIf="form.addressLegalDocument.errors.required">
-                                                   Address as per legal document is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-
-                           </div>
-                           <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="issuePlace"><strong>Issue Place</strong></label>
@@ -175,12 +152,12 @@
                                    <div class="form-group">
                                        <label for="email"><strong>Email</strong></label>
                                        <input
-                                           [ngClass]="{ 'is-invalid':submitted && form.email?.errors }"
-                                           class="form-control rounded"
-                                           formControlName="email"
-                                           id="email"
-                                           placeholder="abc@gmail.com"
-                                           type="text"/>
+                                               [ngClass]="{ 'is-invalid':submitted && form.email?.errors }"
+                                               class="form-control rounded"
+                                               formControlName="email"
+                                               id="email"
+                                               placeholder="abc@gmail.com"
+                                               type="text"/>
                                        <div *ngIf="submitted && form.email?.errors "
                                             class="invalid-feedback">
                                            <div *ngIf="form.email?.errors.email">
@@ -189,6 +166,28 @@
                                        </div>
                                    </div>
                                </div>
+<!--                               <div class="col-md-4" *ngIf="client === clientName?.SHINE_RESUNGA">-->
+<!--                                   <div class="form-group rounded">-->
+<!--                                       <label for="addressLegalDocument"><strong>Address as Per Legal Document</strong></label>-->
+<!--                                       <div class="input-group mb-3">-->
+<!--                                           <input [ngClass]="{ 'is-invalid':submitted && form.addressLegalDocument.errors }"-->
+<!--                                                  class="form-control rounded"-->
+<!--                                                  formControlName="addressLegalDocument"-->
+<!--                                                  id="addressLegalDocument"-->
+<!--                                                  min="0" placeholder="Enter legal Document Address"-->
+<!--                                                  type="text"/>-->
+<!--                                           <div *ngIf="submitted && form.addressLegalDocument.errors "-->
+<!--                                                class="invalid-feedback">-->
+<!--                                               <div *ngIf="form.addressLegalDocument.errors.required">-->
+<!--                                                   Address as per legal document is required-->
+<!--                                               </div>-->
+<!--                                           </div>-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+
+                           </div>
+                           <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="contactNum"><strong>Mobile Number</strong></label>
@@ -211,17 +210,15 @@
                                        </div>
                                    </div>
                                </div>
-                           </div>
-                           <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="landLineNumber"><strong>LandLine Number</strong></label>
                                        <input
-                                           class="form-control rounded"
-                                           formControlName="landLineNumber"
-                                           id="landLineNumber"
-                                           placeholder="Enter LandLine no!"
-                                           type="text"/>
+                                               class="form-control rounded"
+                                               formControlName="landLineNumber"
+                                               id="landLineNumber"
+                                               placeholder="Enter LandLine no!"
+                                               type="text"/>
                                    </div>
                                </div>
                                <div class="col-md-4">
@@ -241,6 +238,8 @@
                                        </div>
                                    </div>
                                </div>
+                           </div>
+                           <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="businessType"><strong>Major products/Service</strong></label>
@@ -556,7 +555,7 @@
                                    <label for="panRegistrationOffice"><strong>PAN Registration Office</strong></label>
                                    <input  id="panRegistrationOffice" formControlName="panRegistrationOffice"
                                            name="panRegistrationOffice" type="text" class="form-control"
-                                           placeholder="PAN/VAT Registration Office"
+                                           placeholder="PAN Registration Office"
                                            [ngClass]="{ 'is-invalid': (submitted) && form.panRegistrationOffice.errors }">
                                    <div *ngIf="(submitted) && form.panRegistrationOffice.invalid"
                                         class="invalid-feedback">
@@ -571,7 +570,7 @@
                                    <label for="panRegistrationDate"><strong>PAN Registration Date</strong></label>
                                    <input *ngIf="calendarType === 'AD'" id="panRegistrationDate" formControlName="panRegistrationDate"
                                           [nbDatepicker]="panRegistrationDate" name="panRegistrationDate"
-                                          class="form-control" placeholder="PAN/VAT Registration Date"
+                                          class="form-control" placeholder="PAN Registration Date"
                                           [ngClass]="{ 'is-invalid':submitted && form.panRegistrationDate.errors}">
                                    <input formControlName="panRegistrationDate" *ngIf="calendarType === 'BS'" hidden>
 
@@ -581,7 +580,7 @@
                                    <div *ngIf="submitted && form.panRegistrationDate.errors" class="small text-danger">
                                        <div *ngIf="form.panRegistrationDate.errors.required ||
                                 form.panRegistrationDate.errors.beforeToday">
-                                           PAN/VAT Registration Date is required
+                                           PAN Registration Date is required
                                        </div>
                                    </div>
                                </div>
@@ -598,7 +597,7 @@
                                               formControlName="vatNo"
                                               id="vatNo"
                                               placeholder="Enter Vat"
-                                              type="text" (input)="checkPanNumberNumber(vatNumber.value)"/>
+                                              type="text"/>
                                        <div *ngIf="submitted && form.vatNo.errors"
                                             class="invalid-feedback">
                                            <div *ngIf="form.vatNo.errors.required">
@@ -633,14 +632,14 @@
                                <div class="form-group">
                                    <label for="vatRegistrationDate"><strong>VAT Registration Date</strong></label>
                                    <input *ngIf="calendarType === 'AD'" id="vatRegistrationDate" formControlName="vatRegistrationDate"
-                                          [nbDatepicker]="panRegistrationDate" name="vatRegistrationDate"
+                                          [nbDatepicker]="vatRegistration" name="vatRegistrationDate"
                                           class="form-control" placeholder="VAT Registration Date"
                                           [ngClass]="{ 'is-invalid':submitted && form.vatRegistrationDate.errors}">
                                    <input formControlName="vatRegistrationDate" *ngIf="calendarType === 'BS'" hidden>
 
                                    <app-calendar [ePreDate]="companyInfoFormGroup.get('vatRegistrationDate').value" *ngIf="calendarType === 'BS'"
                                                  (messageToEmit)="companyInfoFormGroup.get('vatRegistrationDate').patchValue($event?.eDate)"></app-calendar>
-                                   <nb-datepicker #panRegistrationDate></nb-datepicker>
+                                   <nb-datepicker #vatRegistration></nb-datepicker>
                                    <div *ngIf="submitted && form.vatRegistrationDate.errors" class="small text-danger">
                                        <div *ngIf="form.vatRegistrationDate.errors.required ||
                                 form.vatRegistrationDate.errors.beforeToday">
@@ -1001,14 +1000,14 @@
                            <div class="col-md-12">
                                <div class="form-group">
                                    <label for="businessManagementRisk"><strong>Business/Management Risk & Mitigation</strong></label>
-                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.technicalAspect.errors }"
+                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.businessManagementRisk.errors }"
                                              formControlName="businessManagementRisk" id="businessManagementRisk"
                                              name="businessManagementRisk" [config]="ckeConfig"
                                              type="text"></ckeditor>
 
-                                   <div *ngIf="submitted && form.technicalAspect?.errors "
+                                   <div *ngIf="submitted && form.businessManagementRisk?.errors "
                                         class="invalid-feedback">
-                                       <div *ngIf="form.technicalAspect?.errors.required">
+                                       <div *ngIf="form.businessManagementRisk?.errors.required">
                                            Business/Management Risk & Mitigation is required
                                        </div>
                                    </div>
