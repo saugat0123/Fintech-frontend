@@ -2473,13 +2473,13 @@
                     </div>
                     <div class="col-md-8">
                       <nepali-patro *ngIf="ownerCitizenshipIssuedDate.value ==='BS'"
-                                    formControlName="radioOwnerCitizenshipIssuedDate" [responseType]="2"
+                                    formControlName="ownerCitizenshipIssuedDate" [responseType]="2"
                                     [displayNepali]="true">
                       </nepali-patro>
                       <input [nbDatepicker]="ownerCitizenshipDate"
                              *ngIf="ownerCitizenshipIssuedDate.value ==='AD'"
                              class="form-control form-control-sm-error rounded"
-                             formControlName="radioOwnerCitizenshipIssuedDate"
+                             formControlName="ownerCitizenshipIssuedDate"
                              name="radioOwnerCitizenshipIssuedDate"
                              placeholder="Select Date"
                              type="text">
