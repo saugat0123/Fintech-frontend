@@ -76,7 +76,11 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     buildPersonal() {
         this.form = this.formBuilder.group({
             dateofApproval: [undefined],
+            dateofApprovalNepali: [undefined],
+            dateofApprovalType: [undefined],
             dateofApplication: [undefined],
+            dateofApplicationNepali: [undefined],
+            dateofApplicationType: [undefined],
             loanAmountPl: [undefined],
             loanAmountPlInWords: [undefined],
             loanAmountOd: [undefined],
@@ -96,13 +100,20 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             emiInFigure: [undefined],
             emiInWords: [undefined],
             loanExpiryDate: [undefined],
+            loanExpiryDateType: [undefined],
+            loanExpiryDateNepali: [undefined],
             accountNumber: [undefined],
             nameofCompanyCustomerWorking: [undefined],
             relationshipofficerName: [undefined],
             branchManager: [undefined],
+            loanPeriodInMonth: [undefined],
             // translated value
             dateofApprovalTransVal: [undefined],
+            dateofApprovalNepaliTransVal: [undefined],
+            dateofApprovalTypeTransVal: [undefined],
             dateofApplicationTransVal: [undefined],
+            dateofApplicationNepaliTransVal: [undefined],
+            dateofApplicationTypeTransVal: [undefined],
             loanAmountPlTransVal: [undefined],
             loanAmountPlInWordsTransVal: [undefined],
             loanAmountOdTransVal: [undefined],
@@ -122,10 +133,13 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             emiInFigureTransVal: [undefined, Validators.required],
             emiInWordsTransVal: [undefined],
             loanExpiryDateTransVal: [undefined],
+            loanExpiryDateTypeTransVal: [undefined],
+            loanExpiryDateNepaliTransVal: [undefined],
             accountNumberTransVal: [undefined, Validators.required],
             nameofCompanyCustomerWorkingTransVal: [undefined, Validators.required],
             relationshipofficerNameTransVal: [undefined, Validators.required],
             branchManagerTransVal: [undefined, Validators.required],
+            loanPeriodInMonthTransVal: [undefined],
         });
     }
 
@@ -139,13 +153,13 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     }
     private setTemplatedCTData(): void {
         this.form.get('dateofApprovalTransVal').patchValue(this.podtranslatedData.dateofApproval);
+        this.form.get('dateofApprovalNepaliTransVal').patchValue(this.podtranslatedData.dateofApprovalNepali);
         this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
+        this.form.get('dateofApplicationNepaliTransVal').patchValue(this.podtranslatedData.dateofApplicationNepali);
         this.form.get('purposeofLoanTransVal').patchValue(this.podtranslatedData.purposeofLoan);
         this.form.get('purposeofLoanOdTransVal').patchValue(this.podtranslatedData.purposeofLoanOd);
-        this.form.get('loanAdminFeeinWordsTransVal').patchValue(this.podtranslatedData.loanAdminFeeinWords);
-        this.form.get('loanAdminFeeinWordsOdTransVal').patchValue(this.podtranslatedData.loanAdminFeeinWordsOd);
-        this.form.get('emiInWordsTransVal').patchValue(this.podtranslatedData.emiInWords);
         this.form.get('loanExpiryDateTransVal').patchValue(this.podtranslatedData.loanExpiryDate);
+        this.form.get('loanExpiryDateNepaliTransVal').patchValue(this.podtranslatedData.loanExpiryDateNepali);
         this.form.get('nameofCompanyCustomerWorkingTransVal').patchValue(this.podtranslatedData.nameofCompanyCustomerWorking);
         this.form.get('relationshipofficerNameTransVal').patchValue(this.podtranslatedData.relationshipofficerName);
         this.form.get('branchManagerTransVal').patchValue(this.podtranslatedData.branchManager);
