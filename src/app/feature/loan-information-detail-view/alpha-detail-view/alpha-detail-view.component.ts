@@ -108,14 +108,19 @@ export class AlphaDetailViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.initialSecurity = true;
     }
-    if (!ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
-      this.approvedSecurity = true;
+    if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
+      if (!ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
+        this.approvedSecurity = true;
+      }
     }
-    if (ObjectUtil.isEmpty(this.loanHolder.security.data) &&
-        !ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
-      this.approvedSecurity = true;
-      this.approveSecurityAsProposed = true;
+    if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
+      if (ObjectUtil.isEmpty(this.loanHolder.security.data) &&
+          !ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
+        this.approvedSecurity = true;
+        this.approveSecurityAsProposed = true;
+      }
     }
+
     if (!ObjectUtil.isEmpty(this.loanHolder.shareSecurity)) {
       if (ObjectUtil.isEmpty(this.loanHolder.shareSecurity.data) && !ObjectUtil.isEmpty(this.loanHolder.shareSecurity.approvedData)) {
         const data = JSON.parse(this.loanHolder.security.approvedData);
