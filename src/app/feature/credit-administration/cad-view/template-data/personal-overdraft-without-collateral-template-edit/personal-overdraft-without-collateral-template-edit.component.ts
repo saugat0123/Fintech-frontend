@@ -61,7 +61,7 @@ export class PersonalOverdraftWithoutCollateralTemplateEditComponent implements 
   constructor( private formBuilder: FormBuilder,
                private dialogService: NbDialogService,
                private modelService: NgbModal,
-               private ngDialogRef: NbDialogRef<PersonalOverdraftWithoutCollateralTemplateEditComponent>,
+               public ngDialogRef: NbDialogRef<PersonalOverdraftWithoutCollateralTemplateEditComponent>,
                private nepToEngNumberPipe: NepaliToEngNumberPipe,
                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                private translateService: SbTranslateService,
@@ -102,6 +102,10 @@ export class PersonalOverdraftWithoutCollateralTemplateEditComponent implements 
       // this.dateTypeAD1 = true;
       this.setTemplateData();
     }
+  }
+
+  get Form() {
+    return this.form.controls;
   }
 
   buildForm() {
