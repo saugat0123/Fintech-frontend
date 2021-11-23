@@ -164,10 +164,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
-
-       const js =
-           JSON.parse('{"ownerName":{"en":"Name","np":["???"],"ct":["???"]},"ownerDob":{"en":"2021-11-02T18:15:00.000Z","np":["2021-11-02T18:15:00.000Z"],"ct":["2021-11-02T18:15:00.000Z"]},"ownerEmail":{"en":"Email","np":["????"],"ct":["????"]},"ownerContactNo":{"en":"Contact No\\t","np":["?????? ?????"],"ct":["?????? ?????"]},"ownerGender":{"en":"MALE","np":["MALE"],"ct":["MALE"]},"ownerMaritalStatus":{"en":"YES","np":["??"],"ct":["??"]},"ownerCitizenshipNo":{"en":"434","np":["???"],"ct":["???"]},"ownerCitizenshipIssuedDistrict":{"en":"?????????","np":["?????????"],"ct":["?????????"]},"radioOwnerCitizenshipIssuedDate":{"en":"2021-11-10T18:15:00.000Z","np":["??????? ???????? ??, ???? ??:??:?? GMT+???? (????? ???)"],"ct":["??????? ???????? ??, ???? ??:??:?? GMT+???? (????? ???)"]},"ownerPanNo":{"en":"443","np":["???"],"ct":["???"]},"ownerSharePercentage":{"en":"fdf","np":["fdf"],"ct":["fdf"]},"ownerFatherName":{"en":"Father Name","np":["?????? ???"],"ct":["?????? ???"]},"ownerDobDateType":{"en":"AD","np":["AD"],"ct":["AD"]},"ownerPermanentProvince":{"en":{"id":3,"name":"Bagmati","nepaliName":"???????"},"np":["???????"],"ct":["???????"]},"ownerPermanentDistrict":{"en":{"id":33,"name":"Dhading","nepaliName":"????? "},"np":["????? "],"ct":["????? "]},"ownerPermanentMunicipality":{"en":{"id":367,"name":"Galchhi","nepaliName":"?????","municipalityType":null},"np":["?????"],"ct":["?????"]},"ownerPermanentWardNo":{"en":43,"np":["??"],"ct":["??"]},"ownerPermanentStreetTole":{"en":"fdf","np":["fdf"],"ct":["fdf"]},"ownerTemporaryProvince":{"en":{"id":4,"name":"Gandaki","nepaliName":"??????"},"np":["??????"],"ct":["??????"]},"ownerTemporaryDistrict":{"en":{"id":40,"name":"Kaski","nepaliName":"?????? "},"np":["?????? "],"ct":["?????? "]},"ownerTemporaryMunicipality":{"en":{"id":438,"name":"Madi","nepaliName":"????","municipalityType":null},"np":["????"],"ct":["????"]},"ownerTemporaryWardNo":{"en":434,"np":["???"],"ct":["???"]},"ownerTemporaryStreetTole":{"en":"fdfd","np":["fdfd"],"ct":["fdfd"]},"ownerPermanentAddressRadio":{"en":"0","np":["?"],"ct":["?"]},"ownerTemporaryAddressRadio":{"en":"1","np":["?"],"ct":["?"]},"ownerNationality":{"en":"Nepali","np":["??????"],"ct":["??????"]}}');
-        console.log(js.ownerEmail.ct[0]);
         if (this.activeLoanTab) {
             this.responseData = this.loanHolder;
         }
@@ -220,11 +216,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }
         }
 
-        this.patchOwnerDetails();
+
         this.patchValue();
         this.patchNepData();
         this.patchIndividualData();
+        this.patchOwnerDetails();
         this.editedTransData();
+
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
@@ -517,7 +515,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.oneFormCustomer.jointInfo = JSON.stringify(jointInfoArr);
         }
         this.oneFormCustomer.customerSubType = this.customerType === CustomerType.INDIVIDUAL ? this.customerSubType : this.institutionSubType;
-        if (this.actionType === 'Edit') {
+        if (this.actionType === 'Edit' && this.customerType === CustomerType.INDIVIDUAL) {
             this.userConfigForm.patchValue({
                 permanentProvinceCT: this.userConfigForm.get('permanentProvince').value.nepaliName,
                 permanentDistrictCT: this.userConfigForm.get('permanentDistrict').value.nepaliName,
@@ -1970,7 +1968,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     patchValue(): void {
-
+        this.userConfigForm.get('issuedDate').patchValue(JSON.parse(this.loanHolder.nepData).issuedDate.en);
+        this.userConfigForm.get('citizenshipIssueDate').patchValue(JSON.parse(this.loanHolder.nepData).citizenshipIssueDate.en);
         if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
             this.userConfigForm.get('dobDateType').patchValue(JSON.parse(this.loanHolder.nepData).dobDateType.en);
             this.userConfigForm.get('issuedDate').patchValue(JSON.parse(this.loanHolder.nepData).issuedDate.en);
@@ -2083,7 +2082,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
         if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
             const nepData = (JSON.parse(this.loanHolder.nepData));
-            if (!ObjectUtil.isEmpty(nepData.radioActYearDate)) {
+            if (this.customerType === CustomerType.INSTITUTION && !ObjectUtil.isEmpty(nepData.radioActYearDate)) {
                 if (nepData.radioActYearDate.np === 'AD') {
                     this.institutionalActYear = nepData.actYear.en;
                 } else {
@@ -2699,7 +2698,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     patchOwnerDetails() {
-        if (this.customerType === 'INSTITUTION') {
+        if (this.customerType === CustomerType.INSTITUTION) {
             console.log(this.oneFormCustomer, 'oneForm');
             const nepData = JSON.parse(this.oneFormCustomer.companyJsonData);
             console.log(nepData);
@@ -2830,78 +2829,78 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                        ownerNationality: [data.ownerNationality ? data.ownerNationality : '' ],
                        ownerNationalityTrans: [data.ownerNationalityTrans ? data.ownerNationalityTrans[0] : '' ],
                        ownerNationalityCT: [data.ownerNationalityCT ? data.ownerNationalityCT[0] : '' ],
-                       indianOwnerDetailOption: [undefined],
-                       indianOwnerDetailOptionTrans: [undefined],
-                       indianOwnerDetailOptionCT: [undefined],
-                       indianEmbassyNo: [undefined],
-                       indianEmbassyNoTrans: [undefined],
-                       indianEmbassyNoCT: [undefined],
-                       indianEmbassyIssuedDate: [undefined],
-                       indianEmbassyIssuedDateTrans: [undefined],
-                       indianEmbassyIssuedDateCT: [undefined],
-                       indianEmbassyIssuedFrom: [undefined],
-                       indianEmbassyIssuedFromTrans: [undefined],
-                       indianEmbassyIssuedFromCT: [undefined],
-                       indianEmbassyIssuedDateOption: [undefined],
-                       indianEmbassyIssuedDateOptionTrans: [undefined],
-                       indianEmbassyIssuedDateOptionCT: [undefined],
+                       indianOwnerDetailOption: [data.indianOwnerDetailOption ? data.indianOwnerDetailOption : '' ],
+                       indianOwnerDetailOptionTrans: [data.indianOwnerDetailOptionTrans ? data.indianOwnerDetailOptionTrans[0] : '' ],
+                       indianOwnerDetailOptionCT: [data.indianOwnerDetailOptionCT ? data.indianOwnerDetailOptionCT[0] : '' ],
+                       indianEmbassyNo: [data.indianEmbassyNo ? data.indianEmbassyNo : '' ],
+                       indianEmbassyNoTrans: [data.indianEmbassyNoTrans ? data.indianEmbassyNoTrans[0] : '' ],
+                       indianEmbassyNoCT: [data.indianEmbassyNoCT ? data.indianEmbassyNoCT[0] : '' ],
+                       indianEmbassyIssuedDate: [data.indianEmbassyIssuedDate ? data.indianEmbassyIssuedDate : '' ],
+                       indianEmbassyIssuedDateTrans: [data.indianEmbassyIssuedDateTrans ? data.indianEmbassyIssuedDateTrans[0] : '' ],
+                       indianEmbassyIssuedDateCT:[data.indianEmbassyIssuedDateCT ? data.indianEmbassyIssuedDateCT[0] : '' ],
+                       indianEmbassyIssuedFrom: [data.indianEmbassyIssuedFrom ? data.indianEmbassyIssuedFrom : '' ],
+                       indianEmbassyIssuedFromTrans: [data.indianEmbassyIssuedFromTrans ? data.indianEmbassyIssuedFromTrans[0] : '' ],
+                       indianEmbassyIssuedFromCT: [data.indianEmbassyIssuedFromCT ? data.indianEmbassyIssuedFromCT[0] : '' ],
+                       indianEmbassyIssuedDateOption: [data.indianEmbassyIssuedDateOption ? data.indianEmbassyIssuedDateOption : '' ],
+                       indianEmbassyIssuedDateOptionTrans: [data.indianEmbassyIssuedDateOptionTrans ? data.indianEmbassyIssuedDateOptionTrans[0] : '' ],
+                       indianEmbassyIssuedDateOptionCT: [data.indianEmbassyIssuedDateOptionCT ? data.indianEmbassyIssuedDateOptionCT[0] : '' ],
 
                        // Passport
 
-                       indianOwnerPassportNo: [undefined],
-                       indianOwnerPassportNoTrans: [undefined],
-                       indianOwnerPassportNoCT: [undefined],
-                       indianOwnerPassportIssuedDate: [undefined],
-                       indianOwnerPassportIssuedDateTrans: [undefined],
-                       indianOwnerPassportIssuedDateCT: [undefined],
-                       indianOwnerPassportIssuedDateOption: [undefined],
-                       indianOwnerPassportIssuedDateOptionTrans: [undefined],
-                       indianOwnerPassportIssuedDateOptionCT: [undefined],
-                       indianOwnerPassportValidityDate: [undefined],
-                       indianOwnerPassportValidityDateTrans: [undefined],
-                       indianOwnerPassportValidityDateCT: [undefined],
-                       indianOwnerPassportValidityDateOption: [undefined],
-                       indianOwnerPassportValidityDateOptionTrans: [undefined],
-                       indianOwnerPassportValidityDateOptionCT: [undefined],
-                       indianOwnerPassportIssuedFrom: [undefined],
-                       indianOwnerPassportIssuedFromTrans: [undefined],
-                       indianOwnerPassportIssuedFromCT: [undefined],
+                       indianOwnerPassportNo: [data.indianOwnerPassportNo ? data.indianOwnerPassportNo : '' ],
+                       indianOwnerPassportNoTrans: [data.indianOwnerPassportNoTrans ? data.indianOwnerPassportNoTrans[0] : '' ],
+                       indianOwnerPassportNoCT: [data.indianOwnerPassportNoCT ? data.indianOwnerPassportNoCT[0] : '' ],
+                       indianOwnerPassportIssuedDate: [data.indianOwnerPassportIssuedDate ? data.indianOwnerPassportIssuedDate : '' ],
+                       indianOwnerPassportIssuedDateTrans: [data.indianOwnerPassportIssuedDateTrans ? data.indianOwnerPassportIssuedDateTrans[0] : '' ],
+                       indianOwnerPassportIssuedDateCT: [data.indianOwnerPassportIssuedDateCT ? data.indianOwnerPassportIssuedDateCT[0] : '' ],
+                       indianOwnerPassportIssuedDateOption: [data.indianOwnerPassportIssuedDateOption ? data.indianOwnerPassportIssuedDateOption : '' ],
+                       indianOwnerPassportIssuedDateOptionTrans: [data.indianOwnerPassportIssuedDateOption ? data.indianOwnerPassportIssuedDateOption[0] : '' ],
+                       indianOwnerPassportIssuedDateOptionCT: [data.indianOwnerPassportIssuedDateOptionCT ? data.indianOwnerPassportIssuedDateOptionCT[0] : '' ],
+                       indianOwnerPassportValidityDate: [data.indianOwnerPassportValidityDate ? data.indianOwnerPassportValidityDate : '' ],
+                       indianOwnerPassportValidityDateTrans: [data.indianOwnerPassportValidityDateTrans ? data.indianOwnerPassportValidityDateTrans[0] : '' ],
+                       indianOwnerPassportValidityDateCT: [data.indianOwnerPassportValidityDateCT ? data.indianOwnerPassportValidityDateCT[0] : '' ],
+                       indianOwnerPassportValidityDateOption: [data.indianOwnerPassportValidityDateOption ? data.indianOwnerPassportValidityDateOption : '' ],
+                       indianOwnerPassportValidityDateOptionTrans: [data.indianOwnerPassportValidityDateOptionTrans ? data.indianOwnerPassportValidityDateOptionTrans[0] : '' ],
+                       indianOwnerPassportValidityDateOptionCT: [data.indianOwnerPassportValidityDateOptionCT ? data.indianOwnerPassportValidityDateOptionCT[0] : '' ],
+                       indianOwnerPassportIssuedFrom: [data.indianOwnerPassportIssuedFrom ? data.indianOwnerPassportIssuedFrom : '' ],
+                       indianOwnerPassportIssuedFromTrans: [data.indianOwnerPassportIssuedFromTrans ? data.indianOwnerPassportIssuedFromTrans[0] : '' ],
+                       indianOwnerPassportIssuedFromCT: [data.indianOwnerPassportIssuedFromCT ? data.indianOwnerPassportIssuedFromCT[0] : '' ],
 
                        // Adhar Card
 
-                       indianOwnerAdharCardNo: [undefined],
-                       indianOwnerAdharCardNoTrans: [undefined],
-                       indianOwnerAdharCardNoCT: [undefined],
-                       indianOwnerAdharCardIssuedDate: [undefined],
-                       indianOwnerAdharCardIssuedDateTrans: [undefined],
-                       indianOwnerAdharCardIssuedDateCT: [undefined],
-                       indianOwnerAdharCardIssuedDateOption: [undefined],
-                       indianOwnerAdharCardIssuedDateOptionTrans: [undefined],
-                       indianOwnerAdharCardIssuedDateOptionCT: [undefined],
-                       indianOwnerAdharCardIssuedFrom: [undefined],
-                       indianOwnerAdharCardIssuedFromTrans: [undefined],
-                       indianOwnerAdharCardIssuedFromCT: [undefined],
+                       indianOwnerAdharCardNo: [data.indianOwnerAdharCardNo ? data.indianOwnerAdharCardNo : '' ],
+                       indianOwnerAdharCardNoTrans: [data.indianOwnerAdharCardNoTrans ? data.indianOwnerAdharCardNoTrans[0] : '' ],
+                       indianOwnerAdharCardNoCT: [data.indianOwnerAdharCardNoCT ? data.indianOwnerAdharCardNoCT[0] : '' ],
+                       indianOwnerAdharCardIssuedDate: [data.indianOwnerAdharCardIssuedDate ? data.indianOwnerAdharCardIssuedDate : '' ],
+                       indianOwnerAdharCardIssuedDateTrans: [data.indianOwnerAdharCardIssuedDateTrans ? data.indianOwnerAdharCardIssuedDateTrans[0] : '' ],
+                       indianOwnerAdharCardIssuedDateCT: [data.indianOwnerAdharCardIssuedDateCT ? data.indianOwnerAdharCardIssuedDateCT[0] : '' ],
+                       indianOwnerAdharCardIssuedDateOption: [data.indianOwnerAdharCardIssuedDateOption ? data.indianOwnerAdharCardIssuedDateOption : '' ],
+                       indianOwnerAdharCardIssuedDateOptionTrans: [data.indianOwnerAdharCardIssuedDateOptionTrans ? data.indianOwnerAdharCardIssuedDateOptionTrans[0] : '' ],
+                       indianOwnerAdharCardIssuedDateOptionCT: [data.indianOwnerAdharCardIssuedDateOptionCT ? data.indianOwnerAdharCardIssuedDateOptionCT[0] : '' ],
+                       indianOwnerAdharCardIssuedFrom: [data.indianOwnerAdharCardIssuedFrom ? data.indianOwnerAdharCardIssuedFrom : '' ],
+                       indianOwnerAdharCardIssuedFromTrans: [data.indianOwnerAdharCardIssuedFromTrans ? data.indianOwnerAdharCardIssuedFromTrans[0] : '' ],
+                       indianOwnerAdharCardIssuedFromCT: [data.indianOwnerAdharCardIssuedFromCT ? data.indianOwnerAdharCardIssuedFromCT[0] : '' ],
 
                        //    for other than indian
 
-                       otherOwnerPassportNo: [undefined],
-                       otherOwnerPassportNoTrans: [undefined],
-                       otherOwnerPassportNoCT: [undefined],
-                       otherOwnerPassportIssuedDate: [undefined],
-                       otherOwnerPassportIssuedDateTrans: [undefined],
-                       otherOwnerPassportIssuedDateCT: [undefined],
-                       otherOwnerPassportIssuedDateOption: [undefined],
-                       otherOwnerPassportIssuedDateOptionTrans: [undefined],
-                       otherOwnerPassportIssuedDateOptionCT: [undefined],
-                       otherOwnerPassportValidityDate: [undefined],
-                       otherOwnerPassportValidityDateTrans: [undefined],
-                       otherOwnerPassportValidityDateCT: [undefined],
-                       otherOwnerPassportValidityDateOption: [undefined],
-                       otherOwnerPassportValidityDateOptionTrans: [undefined],
-                       otherOwnerPassportValidityDateOptionCT: [undefined],
-                       otherOwnerPassportIssuedFrom: [undefined],
-                       otherOwnerPassportIssuedFromTrans: [undefined],
-                       otherOwnerPassportIssuedFromCT: [undefined],
+                       otherOwnerPassportNo: [data.otherOwnerPassportNo ? data.otherOwnerPassportNo : '' ],
+                       otherOwnerPassportNoTrans: [data.otherOwnerPassportNoTrans ? data.otherOwnerPassportNoTrans[0] : '' ],
+                       otherOwnerPassportNoCT: [data.otherOwnerPassportNoCT ? data.otherOwnerPassportNoCT[0] : '' ],
+                       otherOwnerPassportIssuedDate: [data.otherOwnerPassportIssuedDate ? data.iotherOwnerPassportIssuedDate : '' ],
+                       otherOwnerPassportIssuedDateTrans: [data.otherOwnerPassportIssuedDateTrans ? data.otherOwnerPassportIssuedDateTrans[0] : '' ],
+                       otherOwnerPassportIssuedDateCT: [data.otherOwnerPassportIssuedDateCT ? data.otherOwnerPassportIssuedDateCT[0] : '' ],
+                       otherOwnerPassportIssuedDateOption: [data.otherOwnerPassportIssuedDateOption ? data.otherOwnerPassportIssuedDateOption : '' ],
+                       otherOwnerPassportIssuedDateOptionTrans: [data.otherOwnerPassportIssuedDateOptionTrans ? data.otherOwnerPassportIssuedDateOptionTrans[0] : '' ],
+                       otherOwnerPassportIssuedDateOptionCT: [data.otherOwnerPassportIssuedDateOptionCT ? data.otherOwnerPassportIssuedDateOptionCT[0] : '' ],
+                       otherOwnerPassportValidityDate: [data.otherOwnerPassportValidityDate ? data.otherOwnerPassportValidityDate : '' ],
+                       otherOwnerPassportValidityDateTrans: [data.otherOwnerPassportValidityDateTrans ? data.otherOwnerPassportValidityDateTrans[0] : '' ],
+                       otherOwnerPassportValidityDateCT: [data.otherOwnerPassportValidityDateCT ? data.otherOwnerPassportValidityDateCT[0] : '' ],
+                       otherOwnerPassportValidityDateOption: [data.otherOwnerPassportValidityDateOption ? data.otherOwnerPassportValidityDateOption: '' ],
+                       otherOwnerPassportValidityDateOptionTrans: [data.otherOwnerPassportValidityDateOptionTrans ? data.otherOwnerPassportValidityDateOptionTrans[0] : '' ],
+                       otherOwnerPassportValidityDateOptionCT: [data.otherOwnerPassportValidityDateOptionCT ? data.otherOwnerPassportValidityDateOptionCT[0] : '' ],
+                       otherOwnerPassportIssuedFrom: [data.otherOwnerPassportIssuedFrom ? data.otherOwnerPassportIssuedFrom : '' ],
+                       otherOwnerPassportIssuedFromTrans: [data.otherOwnerPassportIssuedFromTrans ? data.otherOwnerPassportIssuedFromTrans[0] : '' ],
+                       otherOwnerPassportIssuedFromCT: [data.otherOwnerPassportIssuedFromCT ? data.otherOwnerPassportIssuedFromCT[0] : '' ],
                    })
                );
            });
