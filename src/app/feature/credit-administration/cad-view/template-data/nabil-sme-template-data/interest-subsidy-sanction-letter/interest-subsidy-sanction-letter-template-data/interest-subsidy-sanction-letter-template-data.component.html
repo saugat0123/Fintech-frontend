@@ -12,7 +12,18 @@
                                    [value]="customerLoanOption.value">{{customerLoanOption.value}}</ng-option>
                     </ng-select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
+                    <label><strong>Loan Sub Type</strong></label>
+                    <ng-select
+                            (change)="checkSelectedValue()"
+                            formControlName="loanSubType"
+                            fullWidth
+                            placeholder="Loan Sub Type">
+                        <ng-option *ngFor="let loansubType of loanSubTypeList"
+                                   [value]="loansubType">{{loansubType.eData + ' || ' + loansubType.nData}}</ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-md-4 pt-4">
                     <label><strong>Repayment Type</strong></label>
                     <ng-select
                             formControlName="repaymentType"
@@ -22,7 +33,7 @@
                         <ng-option value="OTHERS">OTHERS</ng-option>
                     </ng-select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 pt-4">
                     <label><strong>Security Type</strong></label>
                     <ng-select
                             (change)="checkSelectedValue()"
@@ -507,7 +518,7 @@
             </div>
             <hr>
             <!-- FIRST SECTION FOR SECURITY DETAILS -->
-            <div class="row">
+            <div class="row" *ngIf="showSecurity">
                 <div class="col-md-12 pr-4">
                     <button (click)="addDefaultSecurity()" class="float-right" nbButton size="tiny" status="primary">Add
                         Securities
@@ -516,7 +527,7 @@
             </div>
             <div *ngFor="let securityData of interestSubsidy.get('securities')['controls']; let i = index; "
                  class="row p-4" formArrayName="securities">
-                <ng-container [formGroupName]="i">
+                <ng-container [formGroupName]="i" *ngIf="showSecurity">
                     <div class="col-md-12">
                         <h5>{{i + 1}}. Security Details</h5>
                     </div>
@@ -750,7 +761,7 @@
                     status="info" style="margin-right: 0.5em">
                 Close
             </button>
-            <button [disabled]="!isPreview" class="float-right" nbButton size="small"
+            <button (click)="openPreviewModal()" [disabled]="!isPreview" class="float-right" nbButton size="small"
                     status="primary">
                 Preview
             </button>

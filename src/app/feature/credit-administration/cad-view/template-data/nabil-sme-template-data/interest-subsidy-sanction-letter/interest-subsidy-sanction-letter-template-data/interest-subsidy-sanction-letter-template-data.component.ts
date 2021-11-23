@@ -20,6 +20,7 @@ import {ToastService} from '../../../../../../../@core/utils';
 import {OfferDocument} from '../../../../../model/OfferDocument';
 import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
+import {InterestSubsidySanctionLetterComponent} from '../../../../../cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
 
 @Component({
     selector: 'app-interest-subsidy-sanction-letter-template-data',
@@ -36,6 +37,15 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         {value: 'LAND & BUILDING'}, {value: 'FIXED ASSETS'},
         {value: 'STOCK'}, {value: 'ASSETS PLANTS MACHINERY & OTHER EQUIPMENTS'},
         {value: 'LIVE STOCKS ANIMALS'}];
+    loanSubTypeList = [
+        {nData: 'ब्यापारिक कृषि तथा पशुपंछी कर्जा', eData: 'Commercial Agro and Livestock Loan'},
+        {nData: 'शिक्षित युवा स्वरोजगार कर्जा', eData: 'Educated Youth and Self Employeed Loan '},
+        {nData: 'उच्च र/वा प्राविधिक तथा व्यवसायिक शिक्षा कर्जा', eData: 'Higher and Techno-Vocational Education Loan'},
+        {nData: 'विपन्न, दलित तथा पिछडिएको वर्ग÷ समुदाय व्यवसाय विकाश कर्र्जा', eData: 'Loan to under-priviledged Caste/Community/Marginalized Communities'},
+        {nData: 'भुकम्प पीडितहरुको निजी आवास निर्माण कर्जा', eData: 'Personal Home Construction loan for Earthquake Affected People'},
+        {nData: 'महिलाफरा प्रबर्तित लघु उद्यमशीलता कर्जा', eData: 'Women Run Micro enterprise Loan'},
+        {nData: 'बैदेशिक रोजगारीबाट फर्केका युवा परियोजना कर्जा ', eData: 'Project loan for Youths returning from Foreign Employment'},
+    ];
     isCustomerNew = false;
     interestSubsidy: FormGroup;
     isInterestSubsidy = false;
@@ -61,6 +71,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
     offerLetterDocument: OfferDocument;
     offerLetterConst = NabilOfferLetterConst;
     cusLoanType = CustomerLoanOptions;
+    showSecurity = false;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -114,6 +125,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             circularRate: [undefined],
             nameOfStaff: [undefined],
             nameOfBranchManager: [undefined],
+            loanSubType: [undefined],
             // FOR TRANSLATION FIELDS:
             loanOptionTrans: [undefined],
             repaymentTypeTrans: [undefined],
@@ -139,6 +151,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             circularRateTrans: [undefined],
             nameOfStaffTrans: [undefined],
             nameOfBranchManagerTrans: [undefined],
+            loanSubTypeTrans: [undefined],
             // FOR CORRECTION TRANSLATION:
             loanOptionCT: [undefined],
             repaymentTypeCT: [undefined],
@@ -164,6 +177,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             circularRateCT: [undefined, Validators.required],
             nameOfStaffCT: [undefined, Validators.required],
             nameOfBranchManagerCT: [undefined, Validators.required],
+            loanSubTypeCT: [undefined],
             securities: this.formBuilder.array([]),
         });
         this.addDefaultSecurity();
@@ -187,7 +201,14 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
     checkSelectedValue() {
         const tempLoanOption = this.interestSubsidy.get('loanOption').value;
         const securityOptions = this.interestSubsidy.get('securityType').value;
-        this.isLoanOptionSelected = !ObjectUtil.isEmpty(tempLoanOption) && !ObjectUtil.isEmpty(securityOptions);
+        const selectedLoanSubType = this.interestSubsidy.get('loanSubType').value;
+        this.isLoanOptionSelected = !ObjectUtil.isEmpty(tempLoanOption) &&
+            !ObjectUtil.isEmpty(securityOptions) && !ObjectUtil.isEmpty(selectedLoanSubType);
+        if (securityOptions === 'LAND' || securityOptions === 'LAND & BUILDING') {
+            this.showSecurity = true;
+        } else {
+            this.showSecurity = false;
+        }
     }
 
     public dateOfApproval(value): void {
@@ -387,6 +408,12 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         }
         this.translateNumber('circularRate', 'circularRateTrans');
 
+        // Set Translated Data of Loan sub type:
+        const tempSubTypeVal = this.interestSubsidy.get('loanSubType').value;
+        if (!ObjectUtil.isEmpty(tempSubTypeVal)) {
+            this.interestSubsidy.get('loanSubTypeTrans').patchValue(tempSubTypeVal.nData);
+        }
+
         // TRANSLATING THE VALUES:
         this.translateFormGroup = this.formBuilder.group({
             purposeOfLoan: this.interestSubsidy.get('purposeOfLoan').value,
@@ -525,6 +552,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         this.interestSubsidy.get('circularRateCT').patchValue(this.interestSubsidy.get('circularRateTrans').value);
         this.interestSubsidy.get('nameOfStaffCT').patchValue(this.interestSubsidy.get('nameOfStaffTrans').value);
         this.interestSubsidy.get('nameOfBranchManagerCT').patchValue(this.interestSubsidy.get('nameOfBranchManagerTrans').value);
+        this.interestSubsidy.get('loanSubTypeCT').patchValue(this.interestSubsidy.get('loanSubTypeTrans').value);
     }
 
     clearSecurityMunType(controlName, index, formArrayName) {
@@ -623,6 +651,18 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             this.isPreview = false;
             this.saveEnable = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+        });
+    }
+
+    openPreviewModal() {
+        this.dialogService.open(InterestSubsidySanctionLetterComponent, {
+            closeOnBackdropClick: false,
+            hasBackdrop: false,
+            hasScroll: true,
+            dialogClass: 'modal-full',
+            context: {
+                cadOfferLetterApprovedDoc: this.customerApprovedDoc
+            }
         });
     }
 
