@@ -798,6 +798,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
   }
 // Set Template Data:
   setKisanLoanTemplateData() {
+    console.log('intialinfo:', this.initialInformation);
     // SET EN VALUE OF FORM
     this.kisanKarjaSubsidy.get('loanOption').patchValue(this.initialInformation.loanOption.en);
     this.kisanKarjaSubsidy.get('repaymentType').patchValue(this.initialInformation.repaymentType.en);
