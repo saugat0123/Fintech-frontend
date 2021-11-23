@@ -16,6 +16,7 @@ export enum NabilOfferLetterConst {
     KISAN_KARJA_SUBSIDY,
     UDYAMSIL_KARJA_SUBSIDY,
     INTEREST_SUBSIDY_SANCTION_LETTER,
+    CLASS_A_SANCTION_LETTER
 }
 
 export namespace NabilOfferLetterConst {
@@ -53,6 +54,8 @@ export namespace NabilOfferLetterConst {
                 return 'Udyamsil Karja Subsidy';
             case NabilOfferLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER:
                 return 'Interest subsidy sanction letter';
+            case NabilOfferLetterConst.CLASS_A_SANCTION_LETTER:
+                return 'Class A Sanction letter';
         }
     }
 

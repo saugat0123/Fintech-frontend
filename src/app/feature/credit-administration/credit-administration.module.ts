@@ -95,6 +95,10 @@ import { UdhyamsilKarjaSubsidyTemplateDataComponent } from './cad-view/template-
 import { UdhyamsilKarjaSubsidyTemplateEditComponent } from './cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-edit/udhyamsil-karja-subsidy-template-edit.component';
 import {InterestSubsidySanctionLetterComponent} from './cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
 import {InterestSubsidySanctionLetterPrintComponent} from './cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-print/interest-subsidy-sanction-letter-print.component';
+import {ClassASanctionLetterComponent} from './cad-document-template/nabil/nabil-sme/class-a-sanction-letter/class-a-sanction-letter.component';
+import {ClassASanctionLetterPrintComponent} from './cad-document-template/nabil/nabil-sme/class-a-sanction-letter/class-a-sanction-letter-print/class-a-sanction-letter-print.component';
+
+
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -177,7 +181,8 @@ import {InterestSubsidySanctionLetterPrintComponent} from './cad-document-templa
         PerosnalOverdraftWithoutCollateralTemplateDataComponent,
         AutoLoanTemplateEditComponent,
         UdhyamsilKarjaSubsidyTemplateDataComponent,
-        UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent, InterestSubsidySanctionLetterPrintComponent],
+        UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent, InterestSubsidySanctionLetterPrintComponent,
+        ClassASanctionLetterComponent, ClassASanctionLetterPrintComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -209,10 +214,11 @@ import {InterestSubsidySanctionLetterPrintComponent} from './cad-document-templa
     CadOfferLetterConfigurationComponent,
     CadFileSetupComponent,
     ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent,
+      // tslint:disable-next-line:max-line-length
     EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent, PersonalOverdraftTemplateDataEditComponent,
   HomeLoanTemplateEditComponent, RetailMortageLoanTemplateDataEditComponent,
     AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent],
-  exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent],
+  exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent, ClassASanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })
 export class CreditAdministrationModule {

@@ -58,6 +58,6 @@
         <app-interest-subsidy-sanction-letter [cadOfferLetterApprovedDoc]="cadData"></app-interest-subsidy-sanction-letter>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.CLASS_A_SANCTION_LETTER" [nbSpinner]="spinner">
-        <app-class-a-sanction-letter></app-class-a-sanction-letter>
+        <app-class-a-sanction-letter [cadOfferLetterApprovedDoc]="cadData"></app-class-a-sanction-letter>
     </nb-card-body>
 </nb-card>

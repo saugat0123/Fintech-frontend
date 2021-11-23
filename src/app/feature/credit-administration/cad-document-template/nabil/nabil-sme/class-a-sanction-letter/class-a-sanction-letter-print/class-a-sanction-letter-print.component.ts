@@ -38,6 +38,7 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
   finalName;
   finalDateOfApproval;
   finalDateOfApplication;
+  dateofExpiryPrint: any;
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
                public currencyFormatPipe: CurrencyFormatterPipe,
