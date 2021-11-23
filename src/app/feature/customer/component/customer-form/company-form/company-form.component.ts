@@ -387,9 +387,6 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? 'Inland Revenue Department' :
                 this.companyInfo.legalStatus.panRegistrationOffice, Validators.required],
 
-            registrationNo: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? '' :
-                this.companyInfo.legalStatus.registrationNo, Validators.required],
             regIssuedPlace: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? '' :
                 this.companyInfo.legalStatus.regIssuedPlace, Validators.required],

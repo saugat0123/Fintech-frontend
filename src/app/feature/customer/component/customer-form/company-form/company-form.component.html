@@ -129,26 +129,6 @@
                                        </div>
                                    </div>
                                </div>
-                               <div class="col-md-4">
-                                   <div class="form-group rounded">
-                                       <label for="registrationNumber"><strong>Registration Number</strong></label>
-                                       <div class="input-group mb-3">
-                                           <input #regNumber
-                                               [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors }"
-                                               class="form-control rounded"
-                                               formControlName="registrationNumber"
-                                               id="registrationNumber"
-                                               min="0" placeholder="Enter registration number"
-                                               type="text"/>
-                                           <div *ngIf="submitted && form.registrationNumber.errors "
-                                                class="invalid-feedback">
-                                               <div *ngIf="form.registrationNumber.errors.required">
-                                                   Registration number is required.
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
 
                                <div class="col-md-4" *ngIf="client === clientName?.SHINE_RESUNGA">
                                    <div class="form-group rounded">
@@ -672,16 +652,21 @@
                        </div>
                        <div class="row">
                            <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="registrationNo"><strong>Registration No.</strong></label>
-                                   <input  id="registrationNo" formControlName="registrationNo"
-                                           name="registrationNo" type="text" class="form-control"
-                                           placeholder="Registration Number"
-                                           [ngClass]="{ 'is-invalid': (submitted) && form.registrationNo.errors }">
-                                   <div *ngIf="(submitted) && form.registrationNo.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.registrationNo.errors.required">
-                                           Registration Number is required
+                               <div class="form-group rounded">
+                                   <label for="registrationNumber"><strong>Registration Number</strong></label>
+                                   <div class="input-group mb-3">
+                                       <input #regNumber
+                                              [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors }"
+                                              class="form-control rounded"
+                                              formControlName="registrationNumber"
+                                              id="registrationNumber"
+                                              min="0" placeholder="Enter registration number"
+                                              type="text"/>
+                                       <div *ngIf="submitted && form.registrationNumber.errors "
+                                            class="invalid-feedback">
+                                           <div *ngIf="form.registrationNumber.errors.required">
+                                               Registration number is required.
+                                           </div>
                                        </div>
                                    </div>
                                </div>
