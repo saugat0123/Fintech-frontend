@@ -56,7 +56,8 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
         PersonalGuaranteeInstitutionalPrintComponent,
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
-        ConsentOfHakwalaComponent],
+        ConsentOfHakwalaComponent,
+        MortgageDeedLaxmiComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -77,6 +78,7 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
         ConsentOfHakwalaComponent,
+        MortgageDeedLaxmiComponent
     ],
     entryComponents: [
         LaxmiOfferLetterComponent
