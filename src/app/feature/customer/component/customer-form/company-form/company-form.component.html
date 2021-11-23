@@ -1472,6 +1472,10 @@
                            </div>
                        </div>
                        <hr>
+                       <!--market scenario-->
+                       <app-market-scenario [hidden]="microCustomerType == 'DIRECT'"
+                                            [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>
+                       <hr>
                        <!--10. SWOT Analysis-->
                   <ng-container *ngIf="microCustomerType != 'DIRECT'">
                       <div class="box-header with-border">
@@ -1614,10 +1618,6 @@
                             </div>
                         </div>
                     </ng-container>
-                       <hr>
-                       <!--market scenario-->
-                       <app-market-scenario [hidden]="microCustomerType == 'DIRECT'"
-                                            [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>
                        <hr>
                        <div class="row">
                            <div class="col-md-12" *ngIf="microCustomerType != 'DIRECT'">
