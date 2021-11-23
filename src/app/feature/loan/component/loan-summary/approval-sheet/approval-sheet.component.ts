@@ -243,21 +243,23 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
 
         // Setting Security data--
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            this.securityData = JSON.parse(this.loanDataHolder.security.data);
-            this.securitySummary = true;
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
+                this.securityData = JSON.parse(this.loanDataHolder.security.data);
+                this.securitySummary = true;
+            }
         }
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
                 this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
-                this.securitySummary = true;
+                this.approvedSecurity = true;
             }
         }
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
             if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
                 !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
                 this.approvedSecurity = true;
-                this.approvedSecurityAsProposed = true;
-                this.securityData = JSON.parse(this.loanDataHolder.security.approvedData);
+                this.approvedSecurityAsProposed = false;
+                this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
             }
         }
 

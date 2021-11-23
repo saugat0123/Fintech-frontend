@@ -65,12 +65,14 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() docStatus;
     @Output() downloadSiteVisitDocument = new EventEmitter();
     @Input() isApproveSecurity;
+    isSecurityPresent = false;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
 
     ngOnInit() {
         if (this.formData['selectedArray'] !== undefined) {
+            this.isSecurityPresent = true;
             // land security
             this.formData['selectedArray'].filter(f => {
                 if (f.indexOf('LandSecurity') !== -1) {

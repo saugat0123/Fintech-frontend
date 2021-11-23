@@ -367,6 +367,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.securityId = this.loanDataHolder.security.id;
             if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
                 this.securityData = JSON.parse(this.loanDataHolder.security.data);
+                this.securitySummary = true;
             }
             if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
                 this.approvedSecurity = true;
@@ -375,10 +376,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
             if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
                 !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-                this.approvedSecurityAsProposed = true;
-                this.securityData = JSON.parse(this.loanDataHolder.security.approvedData);
+                this.approvedSecurityAsProposed = false;
+                this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
+                this.approvedSecurity = true;
             }
-            this.securitySummary = true;
         }
 
         if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {

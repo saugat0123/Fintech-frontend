@@ -63,6 +63,7 @@ export class SecurityApprovedViewComponent implements OnInit {
   bondSecurity = false;
   totalBondSecurityValue = 0;
   @Output() downloadSiteVisitDocument = new EventEmitter();
+  isSecurityPresent = false;
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
@@ -72,6 +73,7 @@ export class SecurityApprovedViewComponent implements OnInit {
     this.url = ApiConfig.URL;
     this.securityData = JSON.parse(this.security.approvedData);
     if (this.securityData['selectedArray'] !== undefined) {
+      this.isSecurityPresent = true;
       // land security
       this.securityData['selectedArray'].filter(f => {
         if (f.indexOf('LandSecurity') !== -1) {

@@ -106,7 +106,9 @@ export class AlphaDetailViewComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
-      this.initialSecurity = true;
+      if (!ObjectUtil.isEmpty(this.loanHolder.security.data)) {
+        this.initialSecurity = true;
+      }
     }
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       if (!ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
@@ -117,7 +119,7 @@ export class AlphaDetailViewComponent implements OnInit {
       if (ObjectUtil.isEmpty(this.loanHolder.security.data) &&
           !ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
         this.approvedSecurity = true;
-        this.approveSecurityAsProposed = true;
+        this.approveSecurityAsProposed = false;
       }
     }
 
