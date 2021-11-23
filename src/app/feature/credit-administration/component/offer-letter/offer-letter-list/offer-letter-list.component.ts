@@ -30,6 +30,7 @@ import {RetailMortageLoanTemplateDataEditComponent} from '../../../cad-view/temp
 import {AutoLoanTemplateEditComponent} from '../../../cad-view/template-data/auto-loan-template-edit/auto-loan-template-edit.component';
 import {UdhyamsilKarjaSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-edit/udhyamsil-karja-subsidy-template-edit.component';
 import {PersonalOverdraftWithoutCollateralTemplateEditComponent} from "../../../cad-view/template-data/auto-loan-commercial-template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component";
+import {KisanKarjaSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/kisan-karja-subsidy/kisan-karja-subsidy-template-edit/kisan-karja-subsidy-template-edit.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -271,6 +272,16 @@ export class OfferLetterListComponent implements OnInit {
                   });
                 } else if (this.docName === 'Udyamsil Karja Subsidy') {
                   this.dialogService.open(UdhyamsilKarjaSubsidyTemplateEditComponent, {
+                    context: {
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === 'Kisan Karja Subsidy') {
+                  this.dialogService.open(KisanKarjaSubsidyTemplateEditComponent, {
                     context: {
                       customerApprovedDoc: this.cadOfferLetterApprovedDoc,
                       offerDocumentList: this.offerDocumentList,
