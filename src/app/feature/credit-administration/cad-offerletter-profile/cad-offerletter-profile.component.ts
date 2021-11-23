@@ -41,6 +41,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     initialInfoPrint: any;
     offerLetterData: any;
     nbDialogServiceRef;
+    selectedSecurity: any;
+    renewal: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -132,12 +134,19 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 this.offerLetterDocument.docName = documentName;
             } else {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+                console.log('initialInformation:', initialInfo);
                 if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
                     this.offerLetterData = this.offerLetterDocument;
                     // this.personalLoan.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
                 }
                 if ('loanLimitChecked' in initialInfo) {
                     this.loanLimit = initialInfo.loanLimitChecked.en;
+                }
+                if ('selectedSecurity' in initialInfo) {
+                    this.selectedSecurity = initialInfo.selectedSecurity.en;
+                }
+                if ('renewalChecked'in initialInfo) {
+                    this.renewal = initialInfo.renewalChecked.en;
                 }
                 this.initialInfoPrint = initialInfo;
                 // this.selectedArray = initialInfo.loanTypeSelectedArray;

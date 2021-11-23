@@ -566,6 +566,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <select class="form-control" formControlName="securityOwnersMunicipalityOrVdc"
+                                            (ngModelChange)="clearSecurityMunType('securityOwnersMunicipality', i, 'securities')"
                                             name="securityOwnersMunicipalityOrVdc">
                                         <option hidden value="null">Municipality or VDC</option>
                                         <option value="Municipality">Municipality</option>
@@ -573,7 +574,17 @@
                                         <option value="Rural">Rural</option>
                                     </select>
                                 </div>
-                                <div class="col-md-8" *ngIf="udhyamsilKarja.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value">
+
+                                <div class="col-md-8" *ngIf="udhyamsilKarja.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value  &&
+                                    udhyamsilKarja.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value === 'VDC'">
+                                    <input class="form-control" formControlName="securityOwnersMunicipality" fullWidth
+                                           (input)="onChangeTranslateSecurity('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                           id="securityOwnersVDC"
+                                           nbInput status="success" type="text">
+                                </div>
+
+                                <div class="col-md-8" *ngIf="udhyamsilKarja.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value
+                                    && udhyamsilKarja.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value !== 'VDC'">
                                     <select (change)="setDefaultNepaliResponse('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
                                             class="custom-select"
                                             formControlName="securityOwnersMunicipality"

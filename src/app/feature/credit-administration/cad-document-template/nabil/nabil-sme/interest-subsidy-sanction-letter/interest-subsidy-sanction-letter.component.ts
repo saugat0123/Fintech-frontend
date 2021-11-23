@@ -1,32 +1,32 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
-import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
-import {OfferDocument} from '../../../model/OfferDocument';
-import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
-import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
+import {OfferDocument} from '../../../../model/OfferDocument';
+import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {Router} from '@angular/router';
-import {ToastService} from '../../../../../@core/utils';
-import {CreditAdministrationService} from '../../../service/credit-administration.service';
-import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {ToastService} from '../../../../../../@core/utils';
+import {CreditAdministrationService} from '../../../../service/credit-administration.service';
+import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {NbDialogRef} from '@nebular/theme';
-import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
-import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
-import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
-import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
+import {CadOfferLetterModalComponent} from '../../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliPercentWordPipe} from '../../../../../../@core/pipe/nepali-percent-word.pipe';
 import {EngNepDatePipe} from 'nepali-patro';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {DatePipe} from "@angular/common";
+import {DatePipe} from '@angular/common';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-personal-overdraft-without-collateral',
-  templateUrl: './personal-overdraft-without-collateral.component.html',
-  styleUrls: ['./personal-overdraft-without-collateral.component.scss']
+  selector: 'app-interest-subsidy-sanction-letter',
+  templateUrl: './interest-subsidy-sanction-letter.component.html',
+  styleUrls: ['./interest-subsidy-sanction-letter.component.scss']
 })
-export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
+export class InterestSubsidySanctionLetterComponent implements OnInit {
   form: FormGroup;
   // todo replace enum constant string compare
   spinner = false;
@@ -41,6 +41,11 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
   ckeConfig = NepaliEditor.CK_CONFIG;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() preview;
+  @Input() letter: any;
+  @Input() security: any;
+  @Input() renewal: any;
+  @Input() offerData;
+  @Input() loanLimit;
   guarantorData;
   nepData;
   external = [];
@@ -49,12 +54,10 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
   offerLetterData;
   afterSave = false;
   selectedSecurity;
-  loanLimit;
-  renewal;
   offerDocumentDetails;
   guarantorNames: Array<String> = [];
   allguarantorNames;
-  guarantorAmount = 0;
+  guarantorAmount: number = 0;
   finalName;
 
   constructor(private formBuilder: FormBuilder,
@@ -68,14 +71,13 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepPercentWordPipe: NepaliPercentWordPipe,
-              private ref: NbDialogRef<PersonalOverdraftWithoutCollateralComponent>,
+              private ref: NbDialogRef<InterestSubsidySanctionLetterComponent>,
               private engToNepaliDate: EngNepDatePipe,
-              private datePipe: DatePipe,
-              private engNepDatePipe: EngNepDatePipe) { }
+              public datePipe: DatePipe) {
+  }
 
   ngOnInit() {
-    console.log('Offer Letter Details ', this.cadOfferLetterApprovedDoc);
-    this.buildPersonal();
+    this.buildSanction();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -84,45 +86,36 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
-    console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
-    console.log('All Data:', this.tempData);
-    console.log('Loan Holder initial data:', this.loanHolderInfo);
     this.checkOfferLetterData();
     this.guarantorDetails();
   }
-  buildPersonal() {
+
+  buildSanction() {
     this.form = this.formBuilder.group({
       referenceNumber: [undefined],
       dateOfApproval: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
-      nameOfCompany: [undefined],
       dateofApplication: [undefined],
-      loanCommitmentFee: [undefined],
-      loanAmountinFigure: [undefined],
+      previousSanctionLetter: [undefined],
+      requestLetterDate: [undefined],
+      loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
-      purposeOfLoan: [undefined],
+      marginInPercentage: [undefined],
       baseRate: [undefined],
-      premiumRate: [undefined],
-      yearlyInterestRate: [undefined],
-      loanadminFee: [undefined],
-      loanadminFeeWords: [undefined],
-      dateofExpiry: [undefined],
-      nameofBranch: [undefined],
-      nameofBranchManager: [undefined],
-      guarantorName: [undefined],
-      guaranteedamountinFigure: [undefined],
-      guaranteedamountinWords: [undefined],
-      insuranceAmountinFigure: [undefined],
-      relationshipofficerName: [undefined],
-      branchName: [undefined],
-      district: [undefined],
-      wardNum: [undefined],
-      witnessName: [undefined],
-      selectedSecurity: [undefined],
-      loanLimitChecked: [undefined],
-      renewalChecked: [undefined],
+      totalAmountInWords: [undefined],
+      totalAmountInFigure: [undefined],
       additionalGuarantorDetails: [undefined],
+      premiumRate: [undefined],
+      totalInterestRate: [undefined],
+      totalTenureOfLoan: [undefined],
+      ratePerNrb: [undefined],
+      branchName: [undefined],
+      amountInFigure: [undefined],
+      guarantorsName: [undefined],
+      relationshipofficerName: [undefined],
+      nameofBranchManager: [undefined],
+      preparationPerson: [undefined],
     });
   }
   setLoanConfigData(data: any) {
@@ -146,13 +139,12 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
     });
   }
   checkOfferLetterData() {
-    console.log(this.initialInfoPrint);
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL).toString())[0];
+          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
         this.offerLetterDocument = new OfferDocument();
-        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL);
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         console.log('Selected Security Details:', initialInfo);
@@ -173,7 +165,6 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
         } else {
           this.form.get('dateofExpiry').patchValue(this.initialInfoPrint.dateofExpiryNepali.en);
         }
-        console.log(this.initialInfoPrint);
       }
     } else {
       this.fillForm();
@@ -194,33 +185,25 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
-    let apprDate;
-    const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ?
-        this.initialInfoPrint.dateOfApprovalType.en : '';
+    // For date of Approval
+    const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
+    let finalDateOfApproval;
     if (dateOfApprovalType === 'AD') {
-      const tempApprDate = this.initialInfoPrint.dateOfApproval ?
-          this.engNepDatePipe.transform(this.datePipe.transform(this.initialInfoPrint.dateOfApproval.en), true) :
-          '';
-      apprDate = tempApprDate ? tempApprDate : '';
+      const templateDateApproval = this.initialInfoPrint.dateOfApproval ? this.initialInfoPrint.dateOfApproval.en : '';
+      finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
     } else {
-      const tempApprNepali = this.initialInfoPrint.dateOfApprovalNepali ?
-          this.initialInfoPrint.dateOfApprovalNepali.en.nDate : '';
-      apprDate = tempApprNepali ? tempApprNepali : '';
+      const templateDateApproval = this.initialInfoPrint.dateOfApprovalNepali ? this.initialInfoPrint.dateOfApprovalNepali.en : '';
+      finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
     }
-
-    // For Date of application
-    let applicationDate;
-    const dateOfApplicationType = this.initialInfoPrint.dateofApplicationType ?
-        this.initialInfoPrint.dateofApplicationType.en : '';
-    if (dateOfApplicationType === 'AD') {
-      const tempAppDate = this.initialInfoPrint.dateofApplication ?
-          this.engNepDatePipe.transform(this.datePipe.transform(this.initialInfoPrint.dateofApplication.en), true) :
-          '';
-      applicationDate = tempAppDate ? tempAppDate : '';
+    // For Date of Application:
+    const dateOfApplication = this.initialInfoPrint.dateofApplicationType ? this.initialInfoPrint.dateofApplicationType.en : '';
+    let finalDateOfApplication;
+    if (dateOfApplication === 'AD') {
+      const templateDateApplication = this.initialInfoPrint.dateofApplication ? this.initialInfoPrint.dateofApplication.en : '';
+      finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
     } else {
-      const tempAppNep = this.initialInfoPrint.dateofApplicationNepali ?
-          this.initialInfoPrint.dateofApplicationNepali.en.nDate : '';
-      applicationDate = tempAppNep ? tempAppNep : '';
+      const templateDateApplication = this.initialInfoPrint.dateofApplicationNepali ? this.initialInfoPrint.dateofApplicationNepali.en : '';
+      finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
     }
     this.form.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
@@ -229,21 +212,21 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
       referenceNumber: autoRefNumber ? autoRefNumber : '',
-      purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
-      loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
-      nameOfCompany: this.tempData.nameOfCompany.ct ? this.tempData.nameOfCompany.ct : '',
+      // purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
+      // drawingPower: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
+      // loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
       yearlyInterestRate: this.tempData.yearlyInterestRate.ct ? this.tempData.yearlyInterestRate.ct : '',
-      loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
-      loanadminFeeWords: this.tempData.loanadminFeeWords.ct ? this.tempData.loanadminFeeWords.ct : '',
-      nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+      // loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
+      // loanadminFeeWords: this.tempData.loanadminFeeWords.ct ? this.tempData.loanadminFeeWords.ct : '',
+      // nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
       nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
       branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
-      insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
-      dateOfApproval: apprDate ? apprDate : '',
-      dateofApplication: applicationDate ? applicationDate : '',
+      // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
+      dateOfApproval : finalDateOfApproval ? finalDateOfApproval : '',
+      dateofApplication : finalDateOfApplication ? finalDateOfApplication : '',
     });
   }
   submit(): void {
@@ -256,14 +239,14 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL)
+        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT)
             .toString()) {
           offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
         }
       });
     } else {
       const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL);
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
       offerDocument.supportedInformation = this.form.get('additionalGuarantorDetails').value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
@@ -313,12 +296,11 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
       console.log(exp);
     }
   }
-  guarantorDetails() {
-    if (this.guarantorData.length === 1) {
+  guarantorDetails(){
+    if (this.guarantorData.length == 1) {
       let temp = JSON.parse(this.guarantorData[0].nepData);
       this.finalName =  temp.guarantorName.ct;
-    }
-    else if(this.guarantorData.length === 2) {
+    } else if (this.guarantorData.length == 2) {
       for (let i = 0; i < this.guarantorData.length; i++){
         let temp = JSON.parse(this.guarantorData[i].nepData);
         this.guarantorNames.push(temp.guarantorName.ct);
@@ -327,7 +309,7 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
       this.finalName = this.allguarantorNames;
     }
     else {
-      for (let i = 0; i < this.guarantorData.length - 1; i++){
+      for (let i = 0; i < this.guarantorData.length - 1; i++) {
         let temp = JSON.parse(this.guarantorData[i].nepData);
         this.guarantorNames.push(temp.guarantorName.ct);
       }
@@ -336,8 +318,4 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
       this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
     }
   }
-
-
-
-
 }

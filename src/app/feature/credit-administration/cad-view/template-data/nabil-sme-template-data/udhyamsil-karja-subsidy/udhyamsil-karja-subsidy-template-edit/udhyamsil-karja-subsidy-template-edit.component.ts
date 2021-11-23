@@ -728,6 +728,13 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
         this.udhyamsilKarja.get(controlName + 'CT').setValue(null);
     }
 
+    clearSecurityMunType(controlName, index, formArrayName) {
+        const tempVal = this.udhyamsilKarja.get([formArrayName, index, 'securityOwnersMunicipalityOrVdc']).value;
+        if (tempVal === 'VDC') {
+            this.udhyamsilKarja.get([formArrayName, index, controlName]).setValue(null);
+        }
+    }
+
     // Set Template Data:
     setUdhyamsilLoanTemplateData() {
         // SET EN VALUE OF FORM

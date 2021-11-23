@@ -716,7 +716,7 @@
                                 <p>
                                     च. बहुबैंकिङ्ग घोषणा पत्र प्राप्त।
                                 </p>
-                                <p *ngIf="selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION">
+                                <p *ngIf="selectedSecurity === 'LAND & BUILDING'">
                                     छ. बैकर्स शर्त सहितको कम्तीमा रु.
                                     रु. <input class="form-field form-control-sm"
                                                formControlName="insuranceAmount"
@@ -730,7 +730,7 @@
                                               type="text"/> मात्र) को भवनको विमालेख।
                                 </p>
                                 <p>
-                                    {{selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION ?
+                                    {{selectedSecurity === 'LAND & BUILDING' ?
                                     'ज' : 'छ'}}. श्री
                                     <input class="form-field form-control-sm"
                                            formControlName="guarantorName"
@@ -759,7 +759,7 @@
                         </tr>
                     </table>
                     <div class="row col-md-12" style="margin-left: 3em;margin-top: -2em;">
-                        {{selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION ?
+                        {{selectedSecurity === 'LAND & BUILDING' ?
                         'झ' : 'ज'}} <textarea id="additionalGuarantorDetails"
                               class="form-control customFont nepaliFont"
                               rows="5"

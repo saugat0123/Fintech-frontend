@@ -54,4 +54,7 @@
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.UDYAMSIL_KARJA_SUBSIDY" [nbSpinner]="spinner">
         <app-udhyamsil-karja-subsidy-template-data [customerApprovedDoc]="cadData"></app-udhyamsil-karja-subsidy-template-data>
     </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER" [nbSpinner]="spinner">
+        <app-interest-subsidy-sanction-letter-template-data [customerApprovedDoc]="cadData"></app-interest-subsidy-sanction-letter-template-data>
+    </nb-card-body>
 </nb-card>
