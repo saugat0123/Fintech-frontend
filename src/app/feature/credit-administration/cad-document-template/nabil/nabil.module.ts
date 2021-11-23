@@ -34,6 +34,7 @@ import { KisanKarjaSubsidyComponent } from './nabil-sme/kisan-karja-subsidy/kisa
 import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
 import { KisanKarjaSubsidyPrintComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy-print/kisan-karja-subsidy-print.component';
 import {ThemeModule} from '../../../../@theme/theme.module';
+import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import {ThemeModule} from '../../../../@theme/theme.module';
     ],
     entryComponents: [
         UdyamsilKarjaSubsidyComponent,
-        KisanKarjaSubsidyComponent
+        KisanKarjaSubsidyComponent,
+        InterestSubsidySanctionLetterComponent,
     ]
 })
 export class NabilModule {

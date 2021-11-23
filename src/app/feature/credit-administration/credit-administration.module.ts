@@ -98,6 +98,7 @@ import {InterestSubsidySanctionLetterComponent} from './cad-document-template/na
 import {InterestSubsidySanctionLetterPrintComponent} from './cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-print/interest-subsidy-sanction-letter-print.component';
 import { PersonalOverdraftWithoutCollateralTemplateEditComponent } from './cad-view/template-data/auto-loan-commercial-template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component';
 import { KisanKarjaSubsidyTemplateEditComponent } from './cad-view/template-data/nabil-sme-template-data/kisan-karja-subsidy/kisan-karja-subsidy-template-edit/kisan-karja-subsidy-template-edit.component';
+import { InterestSubsidySanctionLetterTemplateDataComponent } from './cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-data/interest-subsidy-sanction-letter-template-data.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -181,7 +182,8 @@ import { KisanKarjaSubsidyTemplateEditComponent } from './cad-view/template-data
         AutoLoanTemplateEditComponent,
       KisanKarjaSubsidyTemplateDataComponent,
         UdhyamsilKarjaSubsidyTemplateDataComponent,
-        UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent, InterestSubsidySanctionLetterPrintComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent],
+        UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent, InterestSubsidySanctionLetterPrintComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
+        InterestSubsidySanctionLetterTemplateDataComponent, KisanKarjaSubsidyTemplateEditComponent],
   imports: [
     ThemeModule,
     CommonModule,
