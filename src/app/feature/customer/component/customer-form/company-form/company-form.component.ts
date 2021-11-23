@@ -51,12 +51,10 @@ import {CommonAddressComponent} from '../../../../common-address/common-address.
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
-import {mic} from 'ionicons/icons';
 import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -389,10 +387,31 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? 'Inland Revenue Department' :
                 this.companyInfo.legalStatus.panRegistrationOffice, Validators.required],
 
+            registrationNo: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? '' :
+                this.companyInfo.legalStatus.registrationNo, Validators.required],
+            regIssuedPlace: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? '' :
+                this.companyInfo.legalStatus.regIssuedPlace, Validators.required],
+
             panRegistrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus.panRegistrationDate)) ? undefined :
                 new Date(this.companyInfo.legalStatus.panRegistrationDate), [Validators.required, DateValidator.isValidBefore]],
+
+            vatNo:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.vatNo)) ? undefined :
+                    this.companyInfo.vatNo, [Validators.required, WhiteSpaceValidation.cannotContainSpace,
+                    Validators.maxLength(9), Validators.minLength(9)]],
+            vatRegistrationOffice: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? 'Inland Revenue Department' :
+                this.companyInfo.legalStatus.vatRegistrationOffice, Validators.required],
+            vatRegistrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus.vatRegistrationDate)) ? undefined :
+                new Date(this.companyInfo.legalStatus.vatRegistrationDate), [Validators.required, DateValidator.isValidBefore]],
+
 
             registrationExpiryDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
@@ -495,6 +514,10 @@ export class CompanyFormComponent implements OnInit {
                     new Date(this.additionalFieldData.licenseIssuedDate)],
                 licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseIssuePlace],
+                licenseNo: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                    this.additionalFieldData.licenseNo],
+                issuerOfLiscence: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                    this.additionalFieldData.issuerOfLiscence],
                 additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.additionalInfoRemark],
             }),
