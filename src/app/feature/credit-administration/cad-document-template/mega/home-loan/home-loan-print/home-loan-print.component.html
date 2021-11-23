@@ -624,7 +624,7 @@
                         <p>
                             च. बहुबैंकिङ्ग घोषणा पत्र प्राप्त।
                         </p>
-                        <p *ngIf="selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION">
+                        <p *ngIf="selectedSecurity === 'LAND & BUILDING'">
                             छ. बैकर्स शर्त सहितको कम्तीमा
                             रु.    <span [ngClass]="{'font-weight-bold' : letter?.loan.insuranceAmountInFigureCT!== null && letter?.loan.insuranceAmountInFigureCT!== ''}">
             {{letter?.loan.insuranceAmountInFigureCT === null || letter?.loan.insuranceAmountInFigureCT === '' ? '___________' : letter?.loan.insuranceAmountInFigureCT}}</span>/-
@@ -633,7 +633,7 @@
                              मात्र) को भवनको विमालेख।
                         </p>
                         <p>
-                            {{selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION ?
+                            {{selectedSecurity === 'LAND & BUILDING' ?
                             'ज' : 'छ'}}. श्री <span class=" font-weight-bold">
                             {{this.finalName}}
                 </span>
@@ -650,7 +650,7 @@
                 </tr>
             </table>
             <p *ngIf="offerData?.supportedInformation" style="margin-top: -2.8em;margin-left: 3.8em;">
-                {{selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION?
+                {{selectedSecurity === 'LAND & BUILDING' ?
                 'झ' : 'ज'}}. <span class="nepaliFont"
                          style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
             </p><br>
