@@ -35,6 +35,8 @@ import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsid
 import { KisanKarjaSubsidyPrintComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy-print/kisan-karja-subsidy-print.component';
 import {ThemeModule} from '../../../../@theme/theme.module';
 import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
+import { DdslWithoutSubsidyComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
+import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy-print/ddsl-without-subsidy-print.component';
 
 
 @NgModule({
@@ -52,7 +54,7 @@ import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsi
         LoanDeedPartnershipComponent,
        LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, KisanKarjaSubsidyPrintComponent],
+        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -80,7 +82,9 @@ import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsi
         PersonalGuaranteeProprietorshipComponent,
         KisanKarjaSubsidyComponent,
         UdyamsilKarjaSubsidyComponent,
-        KisanKarjaSubsidyPrintComponent
+        KisanKarjaSubsidyPrintComponent,
+        DdslWithoutSubsidyComponent,
+        DdslWithoutSubsidyPrintComponent
     ],
     imports: [
         CommonModule,

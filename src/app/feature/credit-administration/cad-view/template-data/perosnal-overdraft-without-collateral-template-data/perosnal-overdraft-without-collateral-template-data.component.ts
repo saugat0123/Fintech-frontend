@@ -32,8 +32,6 @@ import {EngNepDatePipe} from "nepali-patro";
 export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  municipalityListForSecurities = [];
-  allDistrictList: Array<District> = new Array<District>();
   oneForm: FormGroup;
   offerLetterTypes = [];
   offerLetterConst = NabilOfferLetterConst;
@@ -83,13 +81,8 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
 
   ngOnInit() {
     this.buildForm();
-    this.getAllDistrict();
   }
-  public getAllDistrict(): void {
-    this.addressService.getAllDistrict().subscribe((response: any) => {
-      this.allDistrictList = response.detail;
-    });
-  }
+
   buildForm() {
     this.form = this.formBuilder.group({
       selectedSecurity: [undefined],
@@ -143,6 +136,10 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       nameOfCompanyTransVal: [undefined],
       nameofBranchManagerTransVal: [undefined],
     });
+  }
+
+  get Form() {
+    return this.form.controls;
   }
 
   submit() {
@@ -232,9 +229,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       this.attributes.ct = this.form.get(key + 'TransVal').value;
       this.tdValues[key] = this.attributes;
     });
-  }
-  get Form() {
-    return this.form.controls;
   }
 
   openModel() {
