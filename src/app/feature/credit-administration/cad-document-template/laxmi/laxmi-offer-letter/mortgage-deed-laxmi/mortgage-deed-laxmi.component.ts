@@ -31,7 +31,7 @@ export class MortgageDeedLaxmiComponent implements OnInit {
   initialInfoPrint;
   cadCheckListEnum = CadCheckListTemplateEnum;
   nepaliData;
-  amount;
+  proposedAmount;
   customerInfo;
 
   constructor(private formBuilder: FormBuilder,
@@ -47,13 +47,14 @@ export class MortgageDeedLaxmiComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.amount = this.cadData.assignedLoan[0].proposal.proposedLimit;
+    this.proposedAmount = this.cadData.assignedLoan[0].proposal.proposedLimit;
+    this.customerInfo = this.cadData.assignedLoan[0].customerInfo;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.initialInfoPrint = singleCadFile.initialInformation;
-          if (!ObjectUtil.isEmpty( JSON.parse(singleCadFile.initialInformation).rupees)) {
-            this.amount = JSON.parse(singleCadFile.initialInformation).rupees;
+          if (!ObjectUtil.isEmpty(JSON.parse(singleCadFile.initialInformation).proposedAmount)) {
+            this.proposedAmount = JSON.parse(singleCadFile.initialInformation).proposedAmount;
           }
         }
       });
@@ -61,14 +62,7 @@ export class MortgageDeedLaxmiComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
-      this.mortgageForm.patchValue(JSON.parse(this.initialInfoPrint));
-      this.mortgageForm.patchValue({
-        amount: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount))
-      });
-    } else {
-      // this.fillForm();
-    }
+    this.checkInitialData();
   }
 
   buildForm() {
@@ -81,7 +75,7 @@ export class MortgageDeedLaxmiComponent implements OnInit {
       acceptanceNumber: [undefined],
       date: [undefined],
       proposedAmount: [undefined],
-      amountInWord: [undefined],
+      amountInWords: [undefined],
       nepaliName: [undefined],
       englishName: [undefined],
       dateOfBirth: [undefined],
@@ -205,6 +199,45 @@ export class MortgageDeedLaxmiComponent implements OnInit {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
+    });
+  }
+
+  checkInitialData() {
+    if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
+      this.mortgageForm.patchValue(JSON.parse(this.initialInfoPrint));
+      this.mortgageForm.patchValue({
+        amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.proposedAmount))
+      });
+    } else {
+      this.fillNepaliData();
+      this.mortgageForm.patchValue({
+        proposedAmount: this.nepaliNumber.transform(this.proposedAmount, 'preeti'),
+        amountInWords: this.nepaliCurrencyWordPipe.transform(this.proposedAmount)
+      });
+    }
+  }
+  fillNepaliData() {
+    if (!ObjectUtil.isEmpty(this.nepaliData)) {
+      this.mortgageForm.patchValue({
+        grandFatherName: this.nepaliData.grandFatherName,
+        fatherName: this.nepaliData.fatherName,
+        customerName: this.nepaliData.name,
+        // husbandName: this.nepaliData.husbandName,
+        customerCitizenship: this.nepaliNumber.transform(this.customerInfo.citizenshipNumber, 'preeti'),
+        customerCitizenshipDistrict: this.nepaliData.citizenshipIssueDistrict,
+        customerDistrict: this.nepaliData.permanentDistrict,
+        customerMunicipality: this.nepaliData.permanentMunicipality,
+        customerWadNo: this.nepaliData.permanentWard,
+        currentAddress: `${this.nepaliData.temporaryDistrict} ,${this.nepaliData.temporaryMunicipality}, ${this.nepaliData.temporaryWard}`,
+        rupees: this.nepaliNumber.transform(this.proposedAmount, 'preeti'),
+        amount: this.nepaliCurrencyWordPipe.transform(this.proposedAmount)
+      });
+    }
+  }
+
+  con(e) {
+    this.mortgageForm.patchValue({
+      amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(e.target.value))
     });
   }
 

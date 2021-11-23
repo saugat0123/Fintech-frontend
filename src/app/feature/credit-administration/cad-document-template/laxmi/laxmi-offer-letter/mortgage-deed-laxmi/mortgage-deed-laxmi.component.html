@@ -33,12 +33,12 @@
             <span class="nepaliFont print-only"><b>{{mortgageForm?.get('date').value ? mortgageForm?.get('date').value : '========='}}</b></span>
             को शर्त कबुलियत अनुसार प्राप्त गर्ने कर्जा रकम रु.
             <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                    formControlName="proposedAmount">
+                    formControlName="proposedAmount" (change)="con($event)">
             <span class="nepaliFont print-only"><b>{{mortgageForm?.get('proposedAmount').value ? mortgageForm?.get('proposedAmount').value : '========='}}</b></span>
             (<strong>अक्षरेपी रुपैयाँ </strong>
             <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                    formControlName="amountInWord">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('amountInWord').value ? mortgageForm?.get('amountInWord').value : '========='}}</b></span> <strong> मात्र</strong>)
+                    formControlName="amountInWords">
+            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('amountInWords').value ? mortgageForm?.get('amountInWords').value : '========='}}</b></span> <strong> मात्र</strong>)
             को सुरक्षण बापत धितो बन्धक लेखिदिन आज यस बैंकमा उपस्थित हुन आएकोमा उक्त बमोजिम धितो बन्धक लेखिदिन मन्जुर छ छैन भनी धनी बैंकबाट सोधनी गरेकोमा म/हामी धितो सुरक्षणकर्ताको चित्त बुझ्यो उक्त बमोजिम पटक पटक वा एकै पटक गरी
             र नविकरण गर्नु परेमा बैंकले पटक पटक नविकरण समेत गर्न सक्ने गरी लेखिए बमोजिम ऋणीले प्राप्त गर्ने/गरेको ऋण तथा बैंकिंग सुविधाहरुको सुरक्षण वापत म/हामी धितो सुरक्षणकर्ताको नाममा दर्ता भई आफैले भोगचलन गरि आएको अरु कसैलाई कुनै व्यहोराबाट धितो बन्धक वा राजिनामा वा अन्य कुनै लिखत गरि हक छाडी नदिएको सम्बन्धित मालपोत
             कार्यालयको लगतमा दर्ता रहेको तपसिलमा उल्लेखित जायजेथा र सोमा हाल भएको वा भविष्यमा निर्माण हुने आवासीय तथा व्यापारिक घर, भवन, टहरा, पर्खाल, परियोजना, उद्योग र सोमा हाल भएको वा पछि स्थापना गरेको जडित मिल मेशिनरी, पार्ट पुर्जा, विद्युत लाईन, खानेपानी, जडित विद्युतीय उपकरण, स्थापना तथा संचालनमा रहेको उद्योग,
