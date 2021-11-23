@@ -78,7 +78,8 @@ import {ThemeModule} from '../../../../@theme/theme.module';
         LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeProprietorshipComponent,
         KisanKarjaSubsidyComponent,
-        UdyamsilKarjaSubsidyComponent
+        UdyamsilKarjaSubsidyComponent,
+        KisanKarjaSubsidyPrintComponent
     ],
     imports: [
         CommonModule,

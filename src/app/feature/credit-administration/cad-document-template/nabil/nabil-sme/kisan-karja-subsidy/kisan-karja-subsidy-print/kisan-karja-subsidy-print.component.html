@@ -820,3 +820,11 @@
         </div>
     </nb-card-body>
 </nb-card>
+<button  nbButton status="info"
+         class="d-print-none float-right"
+         *ngIf="preview" [useExistingCss]="true"
+         status="info" outline
+         ngxPrint printSectionId="{{offerLetterConst.KISAN_KARJA_SUBSIDY}}Print" #printButton>
+    Print
+    <nb-icon icon="printer-outline"></nb-icon>
+</button>
