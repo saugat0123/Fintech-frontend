@@ -18,6 +18,8 @@ import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-wo
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {EngNepDatePipe} from "nepali-patro";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-personal-loan-and-personal-overdraft',
@@ -60,8 +62,9 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepPercentWordPipe: NepaliPercentWordPipe,
-              private ref: NbDialogRef<PersonalLoanAndPersonalOverdraftComponent>
-  ) { }
+              private ref: NbDialogRef<PersonalLoanAndPersonalOverdraftComponent>,
+              private engToNepaliDate: EngNepDatePipe,
+              public datePipe: DatePipe  ) { }
 
     ngOnInit() {
         console.log(this.cadOfferLetterApprovedDoc, 'asa');
@@ -87,7 +90,7 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             purposeofLoan: [undefined],
             purposeofLoanOd: [undefined],
             loanAmountinFigure: [undefined],
-            loanAmountinWords: [undefined],
+            loanAmountInWords: [undefined],
             loanAmountPl: [undefined],
             loanAmountPlInWords: [undefined],
             loanAmountOd: [undefined],
@@ -117,6 +120,7 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             branchName: [undefined],
             additionalGuarantorDetails: [undefined],
             staffName: [undefined],
+            loanPeriodInMonth: [undefined],
         });
     }
 
@@ -209,11 +213,41 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
             autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
         }
+        // For date of Approval
+        const dateOfApprovalType = this.initialInfoPrint.dateofApprovalType ? this.initialInfoPrint.dateofApprovalType.en : '';
+        let finalDateOfApproval;
+        if (dateOfApprovalType === 'AD') {
+            const templateDateApproval = this.initialInfoPrint.dateofApproval ? this.initialInfoPrint.dateofApproval.en : '';
+            finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
+        } else {
+            const templateDateApproval = this.initialInfoPrint.dateofApprovalNepali ? this.initialInfoPrint.dateofApprovalNepali.en : '';
+            finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
+        }
+        // For Date of Application:
+        const dateOfApplication = this.initialInfoPrint.dateofApplicationType ? this.initialInfoPrint.dateofApplicationType.en : '';
+        let finalDateOfApplication;
+        if (dateOfApplication === 'AD') {
+            const templateDateApplication = this.initialInfoPrint.dateofApplication ? this.initialInfoPrint.dateofApplication.en : '';
+            finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+        } else {
+            const templateDateApplication = this.initialInfoPrint.dateofApplicationNepali ? this.initialInfoPrint.dateofApplicationNepali.en : '';
+            finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
+        }
+        // For Expiry Date:
+        const dateOfExpiry = this.initialInfoPrint.loanExpiryDateType ? this.initialInfoPrint.loanExpiryDateType.en : '';
+        let finalDateOfExpiry;
+        if (dateOfExpiry === 'AD') {
+            const templateDateExpiry = this.initialInfoPrint.loanExpiryDate ? this.initialInfoPrint.loanExpiryDate.en : '';
+            finalDateOfExpiry = this.engToNepaliDate.transform(this.datePipe.transform(templateDateExpiry), true);
+        } else {
+            const templateDateExpiry = this.initialInfoPrint.loanExpiryDateNepali ? this.initialInfoPrint.loanExpiryDateNepali.en : '';
+            finalDateOfExpiry = templateDateExpiry ? templateDateExpiry.nDate : '';
+        }
         this.form.patchValue({
             customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
             customerAddress: customerAddress ? customerAddress : '',
             loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-            loanAmountinWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+            loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
             loanAmountPl: this.tempData.loanAmountPl.ct ? this.tempData.loanAmountPl.ct : '',
             loanAmountPlInWords: this.tempData.loanAmountPlInWords.ct ? this.tempData.loanAmountPlInWords.ct : '',
             loanAmountOd: this.tempData.loanAmountOd.ct ? this.tempData.loanAmountOd.ct : '',
@@ -240,6 +274,10 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
             managerName: this.tempData.branchManager.ct ? this.tempData.branchManager.ct : '',
             branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+            dateofApproval: finalDateOfApproval ? finalDateOfApproval : '',
+            loanExpiryDate: finalDateOfApplication ? finalDateOfApplication : '',
+            dateofApplication: finalDateOfExpiry ? finalDateOfExpiry : '',
+            loanPeriodInMonth: this.tempData.loanPeriodInMonth.ct ? this.tempData.loanPeriodInMonth.ct : '',
         });
     }
 

@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {PromissoryNoteIndividualPrintComponent} from './promissory-note-individual/promissory-note-individual-print/promissory-note-individual-print.component';
 import {NgxPrintModule} from 'ngx-print';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
-import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
+import {NbButtonModule, NbSpinnerModule} from '@nebular/theme';
 import {LetterOfSetOffComponent} from './letter-of-set-off/letter-of-set-off.component';
 import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
 import {LoanDeedPartnershipComponent} from './loan-deed-partnership/loan-deed-partnership.component';
@@ -32,8 +32,6 @@ import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/
 import { NabilSmeComponent } from './nabil-sme/nabil-sme.component';
 import { KisanKarjaSubsidyComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
 import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
-import { ClassASanctionLetterComponent } from './nabil-sme/class-a-sanction-letter/class-a-sanction-letter.component';
-import { ClassASanctionLetterPrintComponent } from './nabil-sme/class-a-sanction-letter/class-a-sanction-letter-print/class-a-sanction-letter-print.component';
 
 
 @NgModule({
@@ -41,18 +39,17 @@ import { ClassASanctionLetterPrintComponent } from './nabil-sme/class-a-sanction
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
-        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, PersonalGuaranteePartnershipComponent,
+         LoanDeedIndividualPrintComponent, PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent, PersonalGuaranteePartnershipComponent,
         PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
-        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent,
         LetterVehicleIndividualComponent, LetterVehicleIndividualPrintComponent,
-        LoanDeedIndividualPrintComponent, PromissoryNoteProprietorshipComponent, PromissoryNoteProprietorshipPrintComponent,
+         PromissoryNoteProprietorshipComponent, PromissoryNoteProprietorshipPrintComponent,
         PromissoryNotePartnershipComponent, PromissoryNotePartnershipPrintComponent,
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent,
         LoanDeedPartnershipComponent,
-        PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent, LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
-        PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, LoanDeedPartnershipPrintComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, ClassASanctionLetterComponent, ClassASanctionLetterPrintComponent],
+       LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
+        PersonalGuaranteeIndividualPrintComponent,
+        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -79,9 +76,7 @@ import { ClassASanctionLetterPrintComponent } from './nabil-sme/class-a-sanction
         LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeProprietorshipComponent,
         KisanKarjaSubsidyComponent,
-        UdyamsilKarjaSubsidyComponent,
-        ClassASanctionLetterComponent,
-        ClassASanctionLetterPrintComponent
+        UdyamsilKarjaSubsidyComponent
     ],
     imports: [
         CommonModule,
@@ -91,7 +86,9 @@ import { ClassASanctionLetterPrintComponent } from './nabil-sme/class-a-sanction
         CKEditorModule,
         NbSpinnerModule,
         MegaOfferLetterTemplateModule,
-        NbCardModule,
+    ],
+    entryComponents: [
+        UdyamsilKarjaSubsidyComponent
     ]
 })
 export class NabilModule {

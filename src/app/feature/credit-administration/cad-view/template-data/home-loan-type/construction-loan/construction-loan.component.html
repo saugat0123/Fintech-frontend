@@ -132,31 +132,31 @@
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="thirdInstallmentAmount" type="number" id="thirdInstallmentAmount">
             </div>
-            <div class="form-group">
-                <label for="nameOfLandOwner">Name of Land Owner</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="nameOfLandOwner" type="text" id="nameOfLandOwner">
-            </div>
-            <div class="form-group">
-                <label for="landLocation">Land Location</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="landLocation" type="text" id="landLocation">
-            </div>
-            <div class="form-group">
-                <label for="kittaNumber">Kitta Number</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="kittaNumber" type="text" id="kittaNumber">
-            </div>
-            <div class="form-group">
-                <label for="area">Area</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="area" type="text" id="area">
-            </div>
-            <div class="form-group">
-                <label for="seatNumber">Seat Number</label>
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="seatNumber" type="text" id="seatNumber">
-            </div>
+<!--            <div class="form-group">-->
+<!--                <label for="nameOfLandOwner">Name of Land Owner</label>-->
+<!--                <input nbInput fullWidth status="success" shape="semi-round"-->
+<!--                       formControlName="nameOfLandOwner" type="text" id="nameOfLandOwner">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="landLocation">Land Location</label>-->
+<!--                <input nbInput fullWidth status="success" shape="semi-round"-->
+<!--                       formControlName="landLocation" type="text" id="landLocation">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="kittaNumber">Kitta Number</label>-->
+<!--                <input nbInput fullWidth status="success" shape="semi-round"-->
+<!--                       formControlName="kittaNumber" type="text" id="kittaNumber">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="area">Area</label>-->
+<!--                <input nbInput fullWidth status="success" shape="semi-round"-->
+<!--                       formControlName="area" type="text" id="area">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="seatNumber">Seat Number</label>-->
+<!--                <input nbInput fullWidth status="success" shape="semi-round"-->
+<!--                       formControlName="seatNumber" type="text" id="seatNumber">-->
+<!--            </div>-->
             <div class="form-group">
                 <label for="insuranceAmountInFigure">Insurance amount in figure</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
@@ -260,26 +260,6 @@
             <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="thirdInstallmentAmountTrans" type="text" id="thirdInstallmentAmountTrans" readonly>
-            </div>
-            <div class="form-group mt-medium">
-                <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="nameOfLandOwnerTrans" type="text" id="nameOfLandOwnerTrans" readonly>
-            </div>
-            <div class="form-group mt-medium">
-                <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="landLocationTrans" type="text" id="landLocationTrans" readonly>
-            </div>
-            <div class="form-group mt-medium">
-                <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="kittaNumberTrans" type="text" id="kittaNumberTrans" readonly>
-            </div>
-            <div class="form-group mt-small">
-                <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="areaTrans" type="text" id="areaTrans" readonly>
-            </div>
-            <div class="form-group mt-small">
-                <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="seatNumberTrans" type="text" id="seatNumberTrans" readonly>
             </div>
             <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
@@ -462,46 +442,6 @@
             </div>
             <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="nameOfLandOwnerCT" type="text" id="nameOfLandOwnerCT">
-                <span *ngIf="submitted && form.nameOfLandOwnerCT.invalid"
-                     class="text-danger">
-                        Name of land owner is required
-                </span>
-            </div>
-            <div class="form-group mt-small-2">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="landLocationCT" type="text" id="landLocationCT">
-                <span *ngIf="submitted && form.landLocationCT.invalid"
-                     class="text-danger">
-                        Land location is required
-                </span>
-            </div>
-            <div class="form-group mt-small-2">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="kittaNumberCT" type="text" id="kittaNumberCT">
-                <span *ngIf="submitted && form.kittaNumberCT.invalid"
-                     class="text-danger">
-                        Kitta number is required
-                </span>
-            </div>
-            <div class="form-group mt-small-2">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="areaCT" type="text" id="areaCT">
-                <span *ngIf="submitted && form.areaCT.invalid"
-                     class="text-danger">
-                        Area is required
-                </span>
-            </div>
-            <div class="form-group mt-small-2">
-                <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="seatNumberCT" type="text" id="seatNumberCT">
-                <span *ngIf="submitted && form.seatNumberCT.invalid"
-                     class="text-danger">
-                        Seat number is required
-                </span>
-            </div>
-            <div class="form-group mt-small-2">
-                <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="insuranceAmountInFigureCT" type="text" id="insuranceAmountInFigureCT">
                 <span *ngIf="submitted && form.insuranceAmountInFigureCT.invalid"
                      class="text-danger">
@@ -533,8 +473,171 @@
                 </span>
             </div>
         </div>
+        <div class="row pt-5 pl-2" style="margin-left: 40%">
+            <div class="col-md-12">
+                <button nbButton size="small" status="info" outline class="float-right" (click)="setTranslatedValue()">
+                    Translate Template Details
+                </button>
+            </div>
+        </div>
+        <hr style="width: 100%;margin-left: 1%"/>
+        <div class="securities-sections" style="width: 95%;margin-left: 2em;">
+            <div class="row security pt-3 pl-2">
+                <div class="col-md-12">
+                    <h6>Security Details</h6>
+                </div>
+            </div>
+            <div class="row pt-3 pl-2">
+                <div class="col-md-12">
+                    <button nbButton status="primary" class="float-right" size="tiny" (click)="addDefaultSecurity()">Add
+                        Securities
+                    </button>
+                </div>
+            </div>
+            <div class="row pt-3 pl-2">
+                <div class="col-sm-12">
+                    <table class="table table-borderless text-center sb-small table-sm"
+                           *ngFor="let security of constructionLoanForm.get('securities')['controls']; let i = index" formArrayName="securities">
+                        <tbody [formGroupName]="i">
+                        <tr>
+                            <td>
+                                <label class="title">
+                                    <strong>
+                                        {{i + 1}}. Security Details
+                                    </strong>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Property Owners Name (धनीको नाम थर)</td>
+                            <td><input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersName" (change)="onChangeSecurityOwnersName('securities', 'securityOwnersName', i, 'securityOwnersNameTransVal')" /></td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" readonly class="form-control customcolor" formControlName="securityOwnersNameTransVal"/>
+                            </td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersNameCT"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">District (जिल्ला)</td>
+                            <td>
+                                <select style="border-bottom: 1px solid green;border-radius: 12px;" (change)="getMunicipalityByDistrict(constructionLoanForm.get(['securities', i, 'securityOwnersDistrict'])?.value?.id, $event, i); setDefaultNepaliResponse('securities', 'securityOwnersDistrict', i, 'securityOwnersDistrictTransVal')" formControlName="securityOwnersDistrict" class="custom-select" id="securityOwnersDistrict{{i}}" name="securityOwnersDistrict{{i}}">
+                                    <option [ngValue]="null" hidden>District</option>
+                                    <option *ngFor="let district of allDistrictList"
+                                            [ngValue]="district">{{district.name}} || {{district.nepaliName}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" readonly class="form-control customcolor" formControlName="securityOwnersDistrictTransVal"/>
+                            </td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersDistrictCT"/>
+                            </td>
+                        </tr>
+                        <br>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td>
+                                <!--                                <nb-radio-group name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc"-->
+                                <!--                                                class="d-inline-flex">-->
+                                <!--                                    <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>-->
+                                <!--                                </nb-radio-group>-->
+                                <select style="border-bottom: 1px solid green;border-radius: 12px;" class="form-control" name="securityOwnersMunicipalityOrVdc" formControlName="securityOwnersMunicipalityOrVdc">
+                                    <option value="null" hidden>Municipality or VDC</option>
+                                    <option value="Municipality">Municipality</option>
+                                    <option value="VDC">VDC</option>
+                                    <option value="Rural">Rural</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">Municipality (नगर/गा.वि.स.)</td>
+                            <td>
+                                <select class="custom-select" (change)="setDefaultNepaliResponse('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTransVal')"
+                                        formControlName="securityOwnersMunicipality"
+                                        id="securityOwnersMunicipality{{i}}"
+                                        name="securityOwnersMunicipality{{i}}"
+                                        style="border-bottom: 1px solid green;border-radius: 12px;">
+                                    <option [ngValue]="null" hidden>Municipality</option>
+                                    <option *ngFor="let municipalityVal of municipalityListForSecurities[i]"
+                                            [ngValue]="municipalityVal">
+                                        {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" readonly class="form-control customcolor" formControlName="securityOwnersMunicipalityTransVal" />
+                            </td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersMunicipalityCT"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">Ward No (वडा नं.)</td>
+                            <td><input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersWardNo"
+                                       (input)="translateSecuritiDetailsNumberFields('securities', 'securityOwnersWardNo', i, 'securityOwnersWardNoTransVal')"/></td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" readonly class="form-control customcolor" formControlName="securityOwnersWardNoTransVal" />
+                            </td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersWardNoCT"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">Sheet No (सिट नं.)</td>
+                            <td><input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersSeatNo"
+                                       (change)="onChangeTranslateSecurity('securities', 'securityOwnersSeatNo', i, 'securityOwnersSeatNoTransVal')"/></td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" readonly class="form-control customcolor" formControlName="securityOwnersSeatNoTransVal" />
+                            </td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersSeatNoCT"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">Kitta No (कित्ता नं.)</td>
+                            <td><input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersKittaNo"
+                                       (input)="onChangeTranslateSecurity('securities', 'securityOwnersKittaNo', i, 'securityOwnersKittaNoTransVal')"/></td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" readonly class="form-control customcolor" formControlName="securityOwnersKittaNoTransVal"/>
+                            </td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersKittaNoCT"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">Land Area (क्षेत्रफल)</td>
+                            <td><input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersLandArea"
+                                       (input)="onChangeTranslateSecurity('securities', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTransVal')" /></td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" readonly class="form-control customcolor" formControlName="securityOwnersLandAreaTransVal"/>
+                            </td>
+                            <td>
+                                <input nbInput fullWidth status="success" shape="semi-round" type="text" class="form-control" formControlName="securityOwnersLandAreaCT"/>
+                            </td>
+                        </tr>
+                        <br>
+                        <tr>
+                            <td *ngIf="constructionLoanForm.get('securities')['length'] > 1" colspan="2"
+                                class="text-left">
+                                <button nbButton status="danger" size="tiny" (click)="removeIndividualSecurities(i)"
+                                        style="position: static">
+                                    <em class="fa fa-trash" style="color: white;"></em>
+                                </button>
+                            </td>
+                        </tr>
+                        <br>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<div class="row d-flex justify-content-center">
-    <button nbButton status="info" size="tiny" (click)="setTranslatedValue()">Translate</button>
-</div>
+
