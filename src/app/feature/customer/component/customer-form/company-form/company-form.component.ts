@@ -501,6 +501,10 @@ export class CompanyFormComponent implements OnInit {
             // company background
             companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.companyBackground, Validators.required],
+            businessManagementRisk: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.businessManagementRisk, Validators.required],
+            BusinessIndustryOutlook: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.BusinessIndustryOutlook, Validators.required],
 
             // additional company detail
             additionalCompanyInfo: this.formBuilder.group({

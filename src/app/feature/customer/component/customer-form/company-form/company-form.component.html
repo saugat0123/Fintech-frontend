@@ -1012,6 +1012,41 @@
                            </div>
                        </div>
                        <hr>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="businessManagementRisk"><strong>Business/Management Risk & Mitigation</strong></label>
+                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.technicalAspect.errors }"
+                                             formControlName="businessManagementRisk" id="businessManagementRisk"
+                                             name="businessManagementRisk" [config]="ckeConfig"
+                                             type="text"></ckeditor>
+
+                                   <div *ngIf="submitted && form.technicalAspect?.errors "
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.technicalAspect?.errors.required">
+                                           Business/Management Risk & Mitigation is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="marketRisk"><strong>Industry outlook </strong></label>
+                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.BusinessIndustryOutlook.errors }"
+                                             formControlName="BusinessIndustryOutlook" id="marketRisk"
+                                             name="marketRisk" [config]="ckeConfig"
+                                             type="text"></ckeditor>
+                                   <div *ngIf="submitted && form.BusinessIndustryOutlook?.errors "
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.BusinessIndustryOutlook?.errors.required">
+                                           Industry outlook  is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                        <!--sister concern starts-->
                        <ng-container *ngIf="microCustomerType != 'DIRECT'">
                            <div>
