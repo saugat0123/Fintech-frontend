@@ -528,7 +528,7 @@
                                             ङ.  स्थाई लेखा नम्बरको प्रमाण पत्र ।<br>
                                             च.	ग्राहक स्वःघोषणा फारम ।<br>
                                             छ.	बहूबैंकिङ्ग घोषणा पत्र ।<br>
-                                            ज. ऋणीबाट गलमभचतबपष्लन भिततभच ।
+                                            ज. ऋणीबाट undertaking letter ।
                                         </p><br>
                                         <div class="row col-md-12" style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
                                             झ.
@@ -640,7 +640,8 @@
             </form>
         </nb-card-body>
         <nb-card-footer class="mb-3">
-            <button [disabled]="!initialInfoPrint" nbButton status="info" [useExistingCss]="true"
+            <button style="float: right"
+                    [disabled]="!initialInfoPrint" nbButton status="info" [useExistingCss]="true"
                     class="mb-4"
                     ngxPrint printSectionId="{{offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL}}Print">Print
             </button>

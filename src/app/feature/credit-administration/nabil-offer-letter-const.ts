@@ -15,6 +15,7 @@ export enum NabilOfferLetterConst {
     PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL,
     KISAN_KARJA_SUBSIDY,
     UDYAMSIL_KARJA_SUBSIDY,
+    INTEREST_SUBSIDY_SANCTION_LETTER,
     DDSL_WITHOUT_SUBSIDY
 }
 
@@ -51,6 +52,8 @@ export namespace NabilOfferLetterConst {
                 return 'Kisan Karja Subsidy';
             case NabilOfferLetterConst.UDYAMSIL_KARJA_SUBSIDY:
                 return 'Udyamsil Karja Subsidy';
+            case NabilOfferLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER:
+                return 'Interest subsidy sanction letter';
             case NabilOfferLetterConst.DDSL_WITHOUT_SUBSIDY:
                 return 'DDSL Without Subsidy';
         }
