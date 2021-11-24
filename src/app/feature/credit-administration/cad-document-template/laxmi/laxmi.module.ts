@@ -58,7 +58,7 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
         ConsentOfHakwalaComponent,
-        CorporateGuranteeComponent],
+        CorporateGuranteeComponent,
         ConsentOfHakwalaComponent,
         MortgageDeedLaxmiComponent],
     imports: [
@@ -81,7 +81,7 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
         ConsentOfHakwalaComponent,
-        CorporateGuranteeComponent
+        CorporateGuranteeComponent,
         ConsentOfHakwalaComponent,
         MortgageDeedLaxmiComponent
     ],
