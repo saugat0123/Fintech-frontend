@@ -144,10 +144,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
 
   submit() {
     this.submitted = true;
-    const securityDetails = [{
-      securityType: this.form.get('selectedSecurity').value,
-      securities: this.form.get('securities').value,
-    }];
     if (this.selectedSecurityVal === 'LAND') {
       this.clearConditionalValidation();
     }
@@ -183,7 +179,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL);
       Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
           return;
         }
         this.attributes = new Attributes();
@@ -192,7 +188,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
-      this.tdValues['securityDetails'] = securityDetails;
       this.translatedData = {};
       this.deleteCTAndTransContorls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
@@ -220,7 +215,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
 
   mappedData() {
     Object.keys(this.form.controls).forEach(key => {
-      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
         return;
       }
       this.attributes = new Attributes();
@@ -293,7 +288,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
     // this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
-    // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
+    this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
   }
