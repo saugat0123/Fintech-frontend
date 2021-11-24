@@ -372,7 +372,8 @@
         </div>
 
        <ng-container *ngIf="offerDocumentDetails?.selectedSecurity !== undefined">
-         <div class="mt-5" *ngIf="offerDocumentDetails?.selectedSecurity?.en === 'LAND_AND_BUILDING' || offerDocumentDetails?.selectedSecurity?.en === 'LAND'">
+         <div *ngIf="offerDocumentDetails?.selectedSecurity?.en === 'LAND_AND_BUILDING' || offerDocumentDetails?.selectedSecurity?.en === 'LAND' || offerDocumentDetails?.selectedSecurity?.en === 'LAND_ONLY'"
+              class="mt-5">
            <p class="text-center"><b>तपसिल</b></p>
            <br />
            <p>
