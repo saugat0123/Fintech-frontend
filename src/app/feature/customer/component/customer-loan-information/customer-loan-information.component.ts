@@ -231,7 +231,7 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.commentsData = this.customerInfo.data;
             const jsonSec = JSON.parse(this.commentsData);
             const secParseJson = JSON.parse(jsonSec.data);
-            if (!ObjectUtil.isEmpty(secParseJson.previousComments) || !ObjectUtil.isEmpty(secParseJson.previousComments)) {
+            if (!ObjectUtil.isEmpty(secParseJson)) {
                 this.checkedPreviousComments = true;
             }
         }

@@ -1,60 +1,82 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Comments} from '../../admin/modal/comments';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
-import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
-  selector: 'app-comments',
-  templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.scss']
+    selector: 'app-comments',
+    templateUrl: './comments.component.html',
+    styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent implements OnInit {
-  @Input() commentsDataResponse: Comments;
-  @Output() commentsDataEmitter = new EventEmitter();
-  @Input() fromProfile;
-  @Input() commentData: any;
-  commentsDataObject = new Comments();
-  commentsAccordionFormGroup: FormGroup;
-  submitted = false;
-  comments;
-  auditor;
-  constructor(private formBuilder: FormBuilder) { }
-
-  ngOnInit() {
-    this.buildForm();
-    if (!ObjectUtil.isEmpty(this.commentData)) {
-      const commentsForEdit = JSON.parse(this.commentData);
-      this.setFormData(commentsForEdit.data);
+    @Input() commentsDataResponse: Comments;
+    @Output() commentsDataEmitter = new EventEmitter();
+    @Input() fromProfile;
+    @Input() commentData: any;
+    @Input() view;
+    commentsDataObject = new Comments();
+    commentsAccordionFormGroup: FormGroup;
+    submitted = false;
+    comments;
+    auditor;
+    data;
+    constructor(private formBuilder: FormBuilder) {
     }
 
-  }
-  buildForm() {
-  this.commentsAccordionFormGroup = this. formBuilder.group({
-    previousComments: [undefined],
-    auditorComments: [undefined],
-    securityDetails: [undefined],
-  });
-  }
+    ngOnInit() {
+        this.buildForm();
+        if (!ObjectUtil.isEmpty(this.commentData)) {
+            const commentsForEdit = JSON.parse(this.commentData);
+            this.setFormData(commentsForEdit.data);
+            console.log('this is data', commentsForEdit.data);
+            this.data = JSON.parse(commentsForEdit.data);
+            console.log('this is data', this.data);
 
-  public setFormData(formData): void {
-    if (!ObjectUtil.isEmpty(formData)) {
-      const parseData = JSON.parse(formData);
-      this.commentsAccordionFormGroup.patchValue(parseData);
+        }
+
     }
-  }
 
-  submitForm() {
-    this.submitted = true;
-    if (!ObjectUtil.isEmpty(this.commentsDataResponse)) {
-      this.commentsDataObject = this.commentsDataResponse;
+    buildForm() {
+        this.commentsAccordionFormGroup = this.formBuilder.group({
+            // previousComments: [undefined],
+            // auditorComments: [undefined],
+            nrbFiscalYear: [undefined],
+            nrbCommentDetails: [undefined],
+            nrbCorrectiveAction: [undefined],
+            nrbFiscalYearTwo: [undefined],
+            nrbCommentDetailsTwo: [undefined],
+            nrbCorrectiveActionTwo: [undefined],
+            externalFiscalYear: [undefined],
+            externalCommentDetails: [undefined],
+            externalCorrectiveAction: [undefined],
+            externalFiscalYearTwo: [undefined],
+            externalCommentDetailsTwo: [undefined],
+            externalCorrectiveActionTwo: [undefined],
+            internalFiscalYear: [undefined],
+            internalCommentDetails: [undefined],
+            internalCorrectiveAction: [undefined],
+            internalFiscalYearTwo: [undefined],
+            internalCommentDetailsTwo: [undefined],
+            internalCorrectiveActionTwo: [undefined],
+            securityDetails: [undefined],
+        });
     }
-    this.commentsDataObject.data = JSON.stringify(this.commentsAccordionFormGroup.value);
-    this.commentsDataEmitter.emit(this.commentsDataObject);
-  }
 
+    public setFormData(formData): void {
+        if (!ObjectUtil.isEmpty(formData)) {
+            const parseData = JSON.parse(formData);
+            this.commentsAccordionFormGroup.patchValue(parseData);
+        }
+    }
+
+    submitForm() {
+        this.submitted = true;
+        if (!ObjectUtil.isEmpty(this.commentsDataResponse)) {
+            this.commentsDataObject = this.commentsDataResponse;
+        }
+        this.commentsDataObject.data = JSON.stringify(this.commentsAccordionFormGroup.value);
+        this.commentsDataEmitter.emit(this.commentsDataObject);
+    }
 
 
 }
