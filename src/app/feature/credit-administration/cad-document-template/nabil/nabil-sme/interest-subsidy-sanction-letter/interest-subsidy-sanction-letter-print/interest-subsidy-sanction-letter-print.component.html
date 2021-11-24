@@ -83,9 +83,9 @@
                     </p>
                     <p class="lh-40 text-justify">
                         तपाईंले यस बैंकको मिति वि.सं
-                        <span [ngClass]="{'font-weight-bold': letter?.dateofApplication.ct !== null && letter?.dateofApplication.ct !== ''}">
-                                            {{letter?.dateofApplication.ct === null || letter?.dateofApplication.ct === "" ? "___________" : letter?.dateofApplication.ct}}
-                                        </span>
+                        <span class="font-weight-bold">
+                            {{ finalDateOfApplication }}
+                        </span>
                         को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा
                         सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु
                         भएको मिति वि.सं <span> {{!renewalVal ? 'सुविधाको' : 'सुविधा नविकरणको'}} </span> को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका
@@ -164,8 +164,8 @@
                                         </span>प्रतिशत
                                 व्याज दर प्रिमियम (Interest Rate Premium)
                                 हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
-                                बार्षिक <span [ngClass]="{'font-weight-bold': letter?.yearlyInterestRate.ct !== null && letter?.yearlyInterestRate.ct !== ''}">
-                                            {{letter?.yearlyInterestRate.ct === null || letter?.yearlyInterestRate.ct === "" ? "___________" : letter?.yearlyInterestRate.ct}}
+                                बार्षिक <span [ngClass]="{'font-weight-bold': letter?.interestRate.ct !== null && letter?.interestRate.ct !== ''}">
+                                            {{letter?.interestRate.ct === null || letter?.interestRate.ct === "" ? "___________" : letter?.interestRate.ct}}
                                         </span>। का दरले निर्धारण गरीएकोछ । सो निर्धारित ब्याज
                                 दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर घटाई कायम हुन आउने रकम
                                 ऋणीले ब्याज स्वरुप मासिक तिर्नु बुझाउनु पर्नेछ ।
@@ -292,15 +292,16 @@
                             </li>
                             <li>
                                 <strong> व्यक्तिगत जमानत</strong>(Personal Guarantee)<br>
-                                रु.<span class="font-weight-bold">{{ guarantorParse(guarantorData[0].nepData, "gurantedAmount") }}
-                                    </span>
+                                रु.<span class="font-weight-bold">
+                                                {{ engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                                            </span>
                                 /-(अक्षरेपि रु.
-                                <span class="font-weight-bold uniSize">{{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, "gurantedAmount", "words"))}}
-                                    </span> मात्र)
+                                <span class="unicodeResize">{{ nepaliCurrencyWordPipe.transform(proposedAmount) }} मात्र)
                                 बराबरको <span class="font-weight-bold">
                                       {{ this.finalName }}
                                     </span>
                                 ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
+                                </span>
                             </li>
                         </ol>
                     </div>
@@ -454,14 +455,14 @@
                                     ऋणकर्जाको लागि उक्त ऋणकर्जाको सुरक्षण गर्दा लाग्ने सुरक्षण शुल्क
                                     वापतको रकम ऋणी स्वयमलेनै
                                     तिर्नु व्यहोर्नु पर्नेछ ।
-                                    उक्त सुरक्षण शुल्क वापत हाल बार्षिक  <span [ngClass]="{'font-weight-bold': letter?.ratePerNrb.ct !== null && letter?.ratePerNrb.ct !== ''}">
-                                            {{letter?.ratePerNrb.ct === null || letter?.ratePerNrb.ct === "" ? "___________" : letter?.ratePerNrb.ct}}
+                                    उक्त सुरक्षण शुल्क वापत हाल बार्षिक  <span [ngClass]="{'font-weight-bold': letter?.circularRate.ct !== null && letter?.circularRate.ct !== ''}">
+                                            {{letter?.circularRate.ct === null || letter?.circularRate.ct === "" ? "___________" : letter?.circularRate.ct}}
                                         </span>। प्रतिशतका दरले हुन आउने
                                     रकम अर्धबार्षिक रुपमा प्रत्येक श्रावण र माघ महिनाको ३ गते भित्रै
                                     तिर्नुबुझाउनु पर्नेछ । उक्त
                                     शुल्क बापत ऋणीले पौष र आषाढ
-                                    मसान्तमा तिर्न बाँकी रहेको साँवा र ब्याज रकमको <span [ngClass]="{'font-weight-bold': letter?.ratePerNrb.ct !== null && letter?.ratePerNrb.ct !== ''}">
-                                            {{letter?.ratePerNrb.ct === null || letter?.ratePerNrb.ct === "" ? "___________" : letter?.ratePerNrb.ct}}
+                                    मसान्तमा तिर्न बाँकी रहेको साँवा र ब्याज रकमको <span [ngClass]="{'font-weight-bold': letter?.circularRate.ct !== null && letter?.circularRate.ct !== ''}">
+                                            {{letter?.circularRate.ct === null || letter?.circularRate.ct === "" ? "___________" : letter?.circularRate.ct}}
                                         </span> ।प्रतिशतका दरले हुन
                                     आउने रकम ऋणीले यस बैंकमा रहेको चल्ती खातामा जम्मा गर्नुपर्नेछ । सो
                                     सुरक्षण शुल्क दर यदी
@@ -994,11 +995,7 @@
                         पेश गर्नुपर्नेछ ।
                     </li>
                     <li> रु.<span class="font-weight-bold">
-                                            {{
-                        engToNepNumberPipe.transform(
-                            currencyFormatPipe.transform(proposedAmount)
-                        )
-                        }}
+                                                {{ engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                             </span> मात्र )(बराबरको प्रतिज्ञा पत्र (Promissory
                         Note)
                     </li>
@@ -1085,8 +1082,8 @@
                             सहायक सम्पर्क अधिकृत
                         </p>
                         <p>
-                          <span [ngClass]="{'nepaliFont num' : letter?.relationshipofficerName!== null && letter?.relationshipofficerName!== ''}">
-            {{letter?.relationshipofficerName === null || letter?.relationshipofficerName === '' ? '___________' : letter?.relationshipofficerName}}</span>
+                          <span [ngClass]="{'nepaliFont num' : letter?.nameOfBranchManager!== null && letter?.nameOfBranchManager!== ''}">
+            {{letter?.nameOfBranchManager === null || letter?.nameOfBranchManager === '' ? '___________' : letter?.nameOfBranchManager}}</span>
                         </p>
                         <p>
                           <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">

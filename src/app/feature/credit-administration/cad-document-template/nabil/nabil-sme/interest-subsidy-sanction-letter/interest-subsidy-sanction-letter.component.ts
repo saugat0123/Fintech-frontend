@@ -45,7 +45,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   @Input() security: any;
   @Input() renewal: any;
   @Input() offerData;
-  @Input() loanLimit;
+  // @Input() loanLimit;
   guarantorData;
   nepData;
   external = [];
@@ -53,11 +53,10 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   tempData;
   offerLetterData;
   afterSave = false;
-  selectedSecurity;
+  // selectedSecurity;
   offerDocumentDetails;
   guarantorNames: Array<String> = [];
   allguarantorNames;
-  guarantorAmount: number = 0;
   finalName;
 
   constructor(private formBuilder: FormBuilder,
@@ -77,6 +76,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('Offer Letter Details for Home Loan', this.cadOfferLetterApprovedDoc);
     this.buildSanction();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -86,6 +86,9 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
+    console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
+    console.log('All Data:', this.tempData);
+    console.log('Loan Holder initial data:', this.loanHolderInfo);
     this.checkOfferLetterData();
     this.guarantorDetails();
   }
@@ -102,6 +105,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
       marginInPercentage: [undefined],
+      totalLimitFigure: [undefined],
+      totalLimitWords:[undefined],
       baseRate: [undefined],
       totalAmountInWords: [undefined],
       totalAmountInFigure: [undefined],
@@ -114,7 +119,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       amountInFigure: [undefined],
       guarantorsName: [undefined],
       relationshipofficerName: [undefined],
-      nameofBranchManager: [undefined],
+      nameOfBranchManager: [undefined],
       preparationPerson: [undefined],
     });
   }
@@ -141,10 +146,10 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString())[0];
+          === this.offerLetterConst.value(this.offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
         this.offerLetterDocument = new OfferDocument();
-        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         console.log('Selected Security Details:', initialInfo);
@@ -152,9 +157,9 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
           this.offerLetterData = this.offerLetterDocument;
           this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
-        this.selectedSecurity = initialInfo.selectedSecurity.en;
-        this.loanLimit = initialInfo.loanLimitChecked.en;
-        this.renewal = initialInfo.renewalChecked.en;
+        // this.selectedSecurity = initialInfo.selectedSecurity.en;
+        // this.loanLimit = initialInfo.loanLimitChecked.en;
+        // this.renewal = initialInfo.renewalChecked.en;
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
@@ -171,6 +176,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     }
   }
   fillForm() {
+    console.log('FIll Form works');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
     const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
@@ -208,24 +214,29 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     this.form.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
-      loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
       referenceNumber: autoRefNumber ? autoRefNumber : '',
       // purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
       // drawingPower: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
       // loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
+      dateOfApproval: finalDateOfApproval ? finalDateOfApproval : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
-      yearlyInterestRate: this.tempData.yearlyInterestRate.ct ? this.tempData.yearlyInterestRate.ct : '',
+      previousSanctionLetter: this.tempData.previousSanctionType.ct ? this.tempData.previousSanctionType.ct : '',
+      totalInterestRate: this.tempData.interestRate.ct ? this.tempData.interestRate.ct : '',
+      marginInPercentage: this.tempData.marginInPercentage.ct ? this.tempData.marginInPercentage.ct : '',
+      totalLimitFigure: this.tempData.totalLimitFigure.ct ? this.tempData.totalLimitFigure.ct : '',
+      totalLimitWords: this.tempData.totalLimitWords.ct ? this.tempData.totalLimitWords.ct : '',
+      totalTenureOfLoan: this.tempData.totalTenureOfLoan.ct ? this.tempData.totalTenureOfLoan.ct : '',
       // loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
       // loanadminFeeWords: this.tempData.loanadminFeeWords.ct ? this.tempData.loanadminFeeWords.ct : '',
       // nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
-      relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
-      nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
+      // relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
+      nameOfBranchManager: this.tempData.nameOfBranchManager.ct ? this.tempData.nameOfBranchManager.ct : '',
       branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
       // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
-      dateOfApproval : finalDateOfApproval ? finalDateOfApproval : '',
       dateofApplication : finalDateOfApplication ? finalDateOfApplication : '',
     });
   }
@@ -233,20 +244,20 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
-    this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
-    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
+    // this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
+    // this.form.get('loanLimitChecked').patchValue(this.loanLimit);
     this.form.get('renewalChecked').patchValue(this.renewal);
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT)
+        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER)
             .toString()) {
           offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
         }
       });
     } else {
       const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
       offerDocument.supportedInformation = this.form.get('additionalGuarantorDetails').value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
@@ -296,19 +307,18 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       console.log(exp);
     }
   }
-  guarantorDetails(){
-    if (this.guarantorData.length == 1) {
+  guarantorDetails() {
+    if (this.guarantorData.length === 1) {
       let temp = JSON.parse(this.guarantorData[0].nepData);
       this.finalName =  temp.guarantorName.ct;
-    } else if (this.guarantorData.length == 2) {
+    } else if (this.guarantorData.length === 2) {
       for (let i = 0; i < this.guarantorData.length; i++){
         let temp = JSON.parse(this.guarantorData[i].nepData);
         this.guarantorNames.push(temp.guarantorName.ct);
       }
       this.allguarantorNames = this.guarantorNames.join(' र ');
       this.finalName = this.allguarantorNames;
-    }
-    else {
+    } else {
       for (let i = 0; i < this.guarantorData.length - 1; i++) {
         let temp = JSON.parse(this.guarantorData[i].nepData);
         this.guarantorNames.push(temp.guarantorName.ct);

@@ -334,7 +334,7 @@
                                     <strong> व्यक्तिगत जमानत</strong>(Personal Guarantee)<br>
                                     रु.<input class="form-field form-control-sm"
                                               formControlName="totalAmountInFigure"
-                                              name="totalAmountInApprovedCpr"
+                                              name="totalAmountInFigure"
                                               placeholder=" "
                                               type="text"/>(अक्षरेपी रु.<input class="form-field form-control-sm"
                                                                                formControlName="totalAmountInWords"
@@ -412,15 +412,15 @@
                                     <ol class="conditions-list orderd-list">
                                         <strong>कर्जा उपयोग सीमाः</strong>
                                         <li>माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
-                                            <input (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
+                                            <input (input)="getNumAmountWord('totalLimitFigure', 'totalLimitWords')"
                                                    class="form-field form-control-sm"
-                                                   formControlName="loanAmountInFigure"
-                                                   name="loanAmountInFigure"
+                                                   formControlName="totalLimitFigure"
+                                                   name="totalLimitFigure"
                                                    placeholder="ऋण रकम"
                                                    type="text"/>
                                             ( अक्षेरुपी रु.<input class="form-field form-control-sm"
-                                                                  formControlName="loanAmountInWords"
-                                                                  name="loanAmountInWords"
+                                                                  formControlName="totalLimitWords"
+                                                                  name="totalLimitWords"
                                                                   placeholder="अक्षेरुपी "
                                                                   type="text"/> मात्र ) भन्दा बढी हुनु हुनेछैन ।
                                         </li>
@@ -1165,8 +1165,8 @@
                                             </p>
                                             <p>
                                                 <input class="form-field form-control-sm nepaliFont"
-                                                       name="nameofBranchManager"
-                                                       formControlName="nameofBranchManager"
+                                                       name="nameOfBranchManager"
+                                                       formControlName="nameOfBranchManager"
                                                        placeholder="शाखा प्रबन्धक वा पर्यवेक्षकको नाम"
                                                        type="text"/>
                                             </p>
@@ -1359,8 +1359,6 @@
 <app-interest-subsidy-sanction-letter-print *ngIf="initialInfoPrint"
                               [letter]="initialInfoPrint"
                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                              [security]="this.selectedSecurity"
                               [renewal]="this.renewal"
                               [offerData]=offerLetterData
-                              [loanLimit]="this.loanLimit"
                               hidden></app-interest-subsidy-sanction-letter-print>
