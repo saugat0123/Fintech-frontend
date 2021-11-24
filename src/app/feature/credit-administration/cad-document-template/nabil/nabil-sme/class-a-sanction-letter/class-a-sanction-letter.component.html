@@ -337,8 +337,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <br> <!-- Free text Box with including table-->
-
+                    <br><div class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
+                        <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="3"
+                                style="width: inherit;margin-left:-7em;margin-top: -1em"
+                                name="additionalGuarantorDetails"
+                                formControlName="additionalDetail">
+                                        </textarea>
+                </div><br>
                     <div class="col-md-12">
                         <p> <strong> कर्जा उपयोग सीमाः </strong> </p>
                         <p>
@@ -588,15 +595,13 @@
                             </li>
                         </ol>
                     </div>
-                    <br>
-                    <div class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -1.5em;">
+                    <div class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
                         <textarea
-                                id="additionalGuarantorDetails"
                                 class="form-control customFont nepaliFont"
-                                rows="5"
-                                style="width: inherit;margin-left:4px;margin-top: 9px"
+                                rows="3"
+                                style="width: inherit;margin-left:-5em;margin-top: -2em"
                                 name="additionalGuarantorDetails"
-                                formControlName="additionalGuarantorDetails">
+                                formControlName="additionalGuarantorDetail">
                                         </textarea>
                     </div>
                     <div class="col-md-12">
@@ -633,18 +638,41 @@
 
                     <div class="cold-md-12">
                         <p><strong> कागजपत्रहरु </strong></p>
+                        <ol class="conditions-list order-list">
                         ऋणीले बैंकको <input class="form-field form-control-sm"
                                             formControlName="branchName"
                                             type="text"/> शाखामा सम्पर्क राखी देहाय बमोजिमका कर्जा सम्बन्धी कागजपत्रहरु सहीछाप गर्नु पर्नेछ ।
                         साथै माथि उल्लिखित कर्जा सुविधाहरु प्रवाह गर्नको लागि आवश्यक निवेदन तथा अन्य कागजातहरु बैंकमा पेश गर्नुपर्नेछ ।
-                        शेयरधनी तथा संचालकको निर्णय (Board Resolution)
-                        आधिकारीक हस्ताक्षरवालाबाट हस्ताक्षरित प्रतित पत्र र आवश्यक ने.रा.बैं.को बि. बि. नि. आवेदन फाराम ।
-                        काउण्टर जमानी सम्बन्धी सम्झौता (General Counter Guarantee)स्वीकृत सुविधाहरु र अवधी समाप्त हुने/भएका मुद्धति रसिदहरु स्वतः नविकरणका
+                            <li>
+                                शेयरधनी तथा संचालकको निर्णय (Board Resolution)
+                            </li>
+                            <li>
+                                आधिकारीक हस्ताक्षरवालाबाट हस्ताक्षरित प्रतित पत्र र आवश्यक ने.रा.बैं.को बि. बि. नि. आवेदन फाराम ।
+                            </li>
+                        <li>
+                            काउण्टर जमानी सम्बन्धी सम्झौता (General Counter Guarantee)स्वीकृत सुविधाहरु र अवधी समाप्त हुने/भएका मुद्धति रसिदहरु स्वतः नविकरणका
                         लागि मुद्धति रसिद धनीहरुको मंजुरीनामा (Consent Letter from benecificary of FD holding for auto renewal)
+                        </li>
 <!--                        Applicable for Guarantee-->
-                        श्री ...........................द्धारा श्री ....................को नाममा जारी गरिएको सक्कल	मुद्धती रसिदहरु लागायत अन्य कागजात(Applicable for od)
-                        (Fixed Deposit Receipts)
-<!--                        Applicable of Loan against TD-->
+                       <li>
+                           श्री ...........................द्धारा श्री ....................को नाममा जारी गरिएको सक्कल	मुद्धती रसिदहरु लागायत अन्य कागजात(Applicable for od)
+                           लागायत अन्य कागजात (Fixed Deposit Receipts)
+                       </li>
+                            <!--                        Applicable of Loan against TD-->
+                            <li>
+                                मोजरा पत्र (Letter of set off)
+                            </li>
+                            <li class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
+                                <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="3"
+                                style="width: inherit;margin-left:-6em;margin-top: 2em"
+                                name="additionalGuarantorDetails"
+                                formControlName="additionalGuarantorDetails">
+                                        </textarea>
+
+                            </li>
+                        </ol>
                     </div>
                     <br>
 

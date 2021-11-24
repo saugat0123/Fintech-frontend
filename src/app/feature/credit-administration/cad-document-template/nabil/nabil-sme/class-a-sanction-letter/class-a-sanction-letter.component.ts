@@ -107,6 +107,8 @@ export class ClassASanctionLetterComponent implements OnInit {
       baseRate: [undefined],
       interestRate: [undefined],
       expiryDate: [undefined],
+      additionalGuarantorDetails: [undefined],
+      additionalGuarantorDetail:[undefined],
       nameOfTD: [undefined],
       accountNumber: [undefined],
       minimumCommissionAmount: [undefined],
