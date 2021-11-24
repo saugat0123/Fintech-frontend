@@ -98,6 +98,7 @@ import {InterestSubsidySanctionLetterComponent} from './cad-document-template/na
 import {InterestSubsidySanctionLetterPrintComponent} from './cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-print/interest-subsidy-sanction-letter-print.component';
 import { InterestSubsidySanctionLetterTemplateDataComponent } from './cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-data/interest-subsidy-sanction-letter-template-data.component';
 import { PersonalOverdraftWithoutCollateralTemplateEditComponent } from './cad-view/template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component';
+import { InterestSubsidySanctionLetterTemplateEditComponent } from './cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-edit/interest-subsidy-sanction-letter-template-edit.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -182,7 +183,8 @@ import { PersonalOverdraftWithoutCollateralTemplateEditComponent } from './cad-v
         UdhyamsilKarjaSubsidyTemplateDataComponent,
         DdslWithoutSubsidyTemplateDataComponent,
     UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent, InterestSubsidySanctionLetterPrintComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
-        InterestSubsidySanctionLetterTemplateDataComponent],
+        InterestSubsidySanctionLetterTemplateDataComponent,
+        InterestSubsidySanctionLetterTemplateEditComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -216,7 +218,8 @@ import { PersonalOverdraftWithoutCollateralTemplateEditComponent } from './cad-v
     ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent,
     EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent, PersonalOverdraftTemplateDataEditComponent,
   HomeLoanTemplateEditComponent, RetailMortageLoanTemplateDataEditComponent,
-    AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent],
+    AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
+    InterestSubsidySanctionLetterTemplateEditComponent],
   exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })
