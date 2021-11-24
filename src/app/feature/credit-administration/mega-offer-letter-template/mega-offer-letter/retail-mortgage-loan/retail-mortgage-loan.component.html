@@ -23,8 +23,16 @@
                                      type="text"/>
                     </p>
                 </div>
-                <div class="mb-2">
-                    श्री <input class="form-field form-control-sm"
+                <div class="mb-2"><span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</span>
+                    <ng-template #nameDetails>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                            श्रीमती
+                        </span>
+                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                          सुश्री
+                        </span>
+                    </ng-template>
+                    <input class="form-field form-control-sm"
                                                    formControlName="customerName"
                                                    type="text">ज्यु,
                 </div>
