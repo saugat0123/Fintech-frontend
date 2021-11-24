@@ -190,7 +190,7 @@ export class SecurityApprovedSummaryComponent implements OnInit {
     if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
       this.isPresentGuarantor = true;
     }
-    if (!ObjectUtil.isEmpty(this.collateralData) && this.docStatus.toString() === 'APPROVED') {
+    if (this.docStatus.toString() === 'APPROVED') {
       this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
           .subscribe((response: any) => {
             this.collateralSiteVisits = response.detail;
@@ -211,6 +211,7 @@ export class SecurityApprovedSummaryComponent implements OnInit {
           this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
         }
       });
+      this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
     });
     } else {
       if (!ObjectUtil.isEmpty(this.securityId)) {

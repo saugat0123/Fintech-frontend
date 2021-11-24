@@ -51,7 +51,6 @@ export class SecurityViewComponent implements OnInit {
   @Input() securityId: number;
   collateralSiteVisits: Array<CollateralSiteVisit> = [];
   siteVisitJson = [];
-  isCollateralSiteVisit = false;
   siteVisitDocuments: Array<SiteVisitDocument>;
   url: string;
   separator = '/';
@@ -64,6 +63,7 @@ export class SecurityViewComponent implements OnInit {
   totalBondSecurityValue = 0;
   @Output() downloadSiteVisitDocument = new EventEmitter();
   isSecurityPresent = false;
+  isCollateralSiteVisitPresent = false;
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
@@ -185,26 +185,29 @@ export class SecurityViewComponent implements OnInit {
     if (this.bondSecurity) {
       this.calculateTotalBondSecurityAmount();
     }
+    if (this.docStatus.toString() === 'APPROVED') {
+      this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
+          .subscribe((response: any) => {
+            this.collateralSiteVisits = response.detail;
+            const arr = [];
+            this.collateralSiteVisits.forEach(f => {
+              if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
+                arr.push(f.siteVisitDocuments);
+              }
+            });
+            // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+            const docArray = flatten(arr);
+            // filter for only printable document
+            this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
 
-    if (!ObjectUtil.isEmpty(this.collateralData) && this.docStatus.toString() === 'APPROVED') {
-      this.collateralSiteVisits = this.collateralData;
-      const doc = [];
-      this.collateralSiteVisits.forEach(f => {
-        if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-          doc.push(f.siteVisitDocuments);
-        }
-      });
-      // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-      const docArray = flatten(doc);
-      // filter for only printable document
-      this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
-
-      this.collateralSiteVisits.filter(item => {
-        this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-      });
-      if (this.collateralData.length > 0) {
-        this.isCollateralSiteVisit = true;
-      }
+            this.collateralSiteVisits.filter(item => {
+              if (!ObjectUtil.isEmpty(item.isApproved) && item.isApproved) {
+                this.isCollateralSiteVisitPresent = true;
+                this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+              }
+            });
+            this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
+          });
     } else {
       if (this.securityId !== undefined) {
         this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
@@ -225,7 +228,7 @@ export class SecurityViewComponent implements OnInit {
                 this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
               });
               if (response.detail.length > 0) {
-                this.isCollateralSiteVisit = true;
+                this.isCollateralSiteVisitPresent = true;
               }
               this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
             });

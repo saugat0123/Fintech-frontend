@@ -122,10 +122,12 @@
 <app-security-view *ngIf="initialSecurity" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
+                   [docStatus]="loanDataHolder?.documentStatus"
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
 <app-security-approved-view *ngIf="approvedSecurity && !approveSecurityAsProposed" [security]="loanHolder?.security"
-                            [shareSecurityData]="loanHolder?.shareSecurity"
+                            [shareSecurityData]="loanDataHolder?.shareSecurity"
                             [securityId]="securityId"
+                            [docStatus]="loanHolder?.documentStatus"
                             (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-view>
 <!-- End Security Details-->
 
