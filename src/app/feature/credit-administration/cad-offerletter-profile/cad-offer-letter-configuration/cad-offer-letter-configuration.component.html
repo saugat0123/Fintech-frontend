@@ -922,7 +922,7 @@
                                         <input [ngClass]="{'is-invalid': submitted && basicInfoControls.email.errors}"
                                                type="email"
                                                placeholder="इमेल ठेगाना"
-                                               class="form-control rounded nepaliFont"
+                                               class="form-control rounded"
                                                id="guarantorEmailAddress"
                                                formControlName="guarantorEmailAddress"/>
                                     </div>
@@ -1035,7 +1035,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <select class="form-control" formControlName="guarantorPermanentMunType"
+                                        <select class="form-control box" formControlName="guarantorPermanentMunType"
                                                 id="guarantorPermanentMunType"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentMunType.errors}">
                                             <option [value]="null" hidden>नगरपालिका</option>
@@ -1123,7 +1123,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <select class="form-control" formControlName="guarantorTemporaryMunType"
+                                        <select class="form-control box" formControlName="guarantorTemporaryMunType"
                                                 id="guarantorTemporaryMunType"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryMunType.errors}">
                                             <option [value]="null" hidden>नगरपालिका</option>
