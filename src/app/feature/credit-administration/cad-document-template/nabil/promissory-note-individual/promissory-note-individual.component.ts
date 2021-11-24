@@ -372,6 +372,21 @@ export class PromissoryNoteIndividualComponent implements OnInit {
               educationalOfferData.interestRate.ct : '';
         }
       }
+      if (documentName === 'Personal overdraft without collateral') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyInterestRate ?
+              educationalOfferData.yearlyInterestRate.ct : '';
+        }
+      }
+      if (documentName === 'Personal loan and personal overdraft') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          console.log('Educational Data (Promissory note)', educationalOfferData);
+          // this.educationalTemplateData = educationalOfferData.yearlyInterestRate ?
+          //     educationalOfferData.yearlyInterestRate.ct : '';
+        }
+      }
 
       // this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
       //     === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
