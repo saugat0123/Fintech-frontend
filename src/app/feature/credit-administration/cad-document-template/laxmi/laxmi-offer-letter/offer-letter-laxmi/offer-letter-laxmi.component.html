@@ -1,3 +1,187 @@
+<div [nbSpinner]="spinner" class="row" id="print-section-{{cadCheckListEnum.OFFER_LETTER_LAXMI}}">
+    <form (ngSubmit)="submit()" [formGroup]="offerLetterForm" class="text-justify nepali">
+        <strong>७. लागू हुने पूर्व शर्त (Condition Precedent) :</strong>
+
+        <table class="table table-responsive table-sm sb-small">
+            <tr>
+                <td class="text-left pl-1">१</td>
+                <td class="text-left pl-1">यो कर्जा स्वीकृती प्रस्तावपत्रमा जुनसुकै व्यहोरा लेखिएको भएतापति बैंकले कर्जा तथा सुविधा स्वीकृती गर्दाको परिस्थितिको विपरित अन्य परिस्थिति सिर्जना भएमा यो कर्जा स्वीकृती पत्रमा ऋणीले स्वीकृती जनाउनु भन्दा
+                    अगावै बैंकले कर्जा सुविधाको प्रस्तावपत्र फिर्ता वा रद्द गर्न सक्नेछ ।</td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">२</td>
+                <td class="text-left pl-1">यो कर्जा प्रस्तावपत्र/स्वीकृतीपत्रमा उल्लेखित कुनै शर्त तथा व्यवस्था प्रचलित कानून बमोजिम अमान्य वा बदर घोषित भएमा सो वाहेकका अन्य शर्त तथा व्यवस्थाहरु यथावत कायम रहनेछ ।</td>
+            </tr>
+        </table>
+
+        <br>
+
+        <strong>८. घोषणा (Representations):</strong> <br>
+
+        ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने कुराको विना शर्त घोषणा गर्दछ :
+
+        <table class="table table-responsive table-sm sb-small">
+            <tr>
+                <td class="text-left pl-1">१</td>
+                <td class="text-left pl-1">सवै कारोवारी लिखतहरु कानूनी रुपमा वन्धनकारी हुनेछन् ।</td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">२</td>
+                <td class="text-left pl-1">हालसम्म कुनै किसिमको ऋण खिलाफीको अवस्था रहेको छैन ।</td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">३</td>
+                <td class="text-left pl-1">
+                    ऋणी वा जमानतकर्ता माथि कुनै पनि मुद्दा मामिला चलिरहेको वा मुद्दा लागेको अवस्था विद्यमान छैन । साथै, कुनै कानून, इजाजतपत्र, कम्पनीको प्रबन्धपत्र, नियमावली, निति निर्देशनको बर्खिलाप भए गरेको छैन ।
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">४</td>
+                <td class="text-left pl-1">
+                    ऋणीले उपलव्ध गराएको कुनै पनि किसिमको विवरण, प्रतिवद्धता वा अन्य कुनै पत्राचार वा कर्जा आवेदन वा उपलव्ध गराएको कुनै वित्तीय विवरणहरु तात्विक रुपमा असत्य, गलत वा झुट्ठा वा गलत सूचना प्रवाह हुने किसिमको नभएको विना शर्त घोषणा गर्दछ ।
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">५</td>
+                <td class="text-left pl-1">
+                    <strong>छुट (Waiver)</strong> : कुनै खास अधिकार छोडेको लिखित सूचना ऋणीले प्राप्त नगरे सम्म यस कर्जा स्वीकृतिपत्र वमोजिम बैंकलाई प्राप्त अधिकार बैंकले कुनै किसिमवाट त्याग गरेको मानिने छैन । बैंकले एक पटक सवै वा केही
+                    अधिकारहरुको प्रयोग गरेमा बैंकले ती अधिकारहरु पुनः प्रयोग गर्न सक्नेछ ।
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">६</td>
+                <td class="text-left pl-1">
+                    <strong>क्षेत्राधिकार र लागू हुने कानून (Jurisdiction)</strong> यो कर्जा स्वीकृतिपत्रको सम्वन्धमा प्रचलित नेपाल कानून आकर्षित हुनेछ ।
+                    यस सम्वन्धमा उत्पन्न विवादका विषयमा न्यायिक निरोपणका लागि नेपालको सम्वन्धित अड्डा अदालत वा न्यायाधिकरणको क्षेत्राधिकार लागु हुनेछ ।
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">७</td>
+                <td class="text-left pl-1">
+                    जानकारी गराउने सम्बन्धि मन्जुरी (Consent of Disclosure): प्रचलित कानून बमोजिमको सरकारी कार्यालय/संस्था/आयोग/न्यायिक निकाय/अर्ध न्यायिक निकाय/अधिकारप्राप्त अधिकारीबाट ऋणीको बैंकिङ्ग सम्बन्धि विवरण/कर्जा सम्बन्धि विवरण÷धितो सुरक्षण
+                    सम्बन्धि विवरण/कर्जामा संलग्न व्यक्ति सम्बन्धि विवरण/ऋणीको संलग्नता देखिने कारोवार तथा संस्था सम्बन्धि विवरण इत्यादी माग भएमा बैंकले सो विवरण उपलब्ध गराउन सक्ने अधिकार ऋणीले यसै स्वीकृतीपत्र मार्फत बैंकलाई प्रदान गर्दछ । यस्तो विवरण बैंकले
+                    उपलब्ध गराएको कारणले हुने कारवाही प्रति बैंक जवाफदेही हुने छैन ।
+                </td>
+            </tr>
+        </table>
+        <br>
+        <strong>९. स्वीकारोक्ति (Acceptance) :</strong>
+
+        <table class="table table-responsive table-sm sb-small">
+            <tr>
+                <td class="text-left pl-1">१</td>
+                <td class="text-left pl-1">
+                    यो कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्रमा उल्लेखित सम्पूर्ण शर्तहरु म/हामीले रोम्रोसंग पढी वाची सोको मतलव र परिणाम समेत बुझि बैंकको कर्जा प्रस्तावलाई स्वीकार गर्न मन्जुर गर्दछु । यो कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्रमा उल्लेखित सम्पूर्ण शर्त तथा
+                    बन्देजहरुको पालना गर्न मन्जुर गर्दछु/गर्दछौ । पालना नगरेमा वा उल्लंघन गरेमा यसमा लेखिए बमोजिम वा प्रचलित कानून बमोजिम कारवाही गरेमा मेरो/हाम्रो मन्जुरी रहेको छ ।
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">२</td>
+                <td class="text-left pl-1">
+                    म/हामी ले यस बैंकमा कर्जा लिने क्रममा पेश गरेको सम्पूर्ण लिखत प्रमाणहरु तथा धितो सुरक्षणहरु ठिक दुरुस्त छ फरक ठहरे कानुन अनुसार म/हामी स्वंयमले व्यहोर्ने छु/छौ । बैंकबाट प्राप्त हुने ऋण कर्जा तथा अन्य दायित्व तिर्न बुझाउन मेरो/हाम्रो पूर्ण
+                    मन्जुरी रहेकोले यो कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्रमा स्वीकृति जनाई सही छाप गरी तपाई बैंकलाई दियौ र यसै बमोजिमको एक प्रति बुझिलियौ ।
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">३</td>
+                <td class="text-left pl-1">
+                    <strong>सूचना :</strong> बैंक तथा ऋणीले एक अर्कालाई कुनै पनि सूचना आदान गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी आदान प्रदान गर्न सकिनेछ । साथै सो ठेगानामा गरिएको पत्राचारलाई आधिकारिक ठेगानामा पत्राचार गरेको मानिनेछ ।
+                </td>
+            </tr>
+        </table>
+        <br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-responsive table-sm sb-small">
+                    <tr>
+                        <td class="text-left pl-1">
+                            बैंक <br>
+                            लक्ष्मी बैंक लिमिटेड, <br>
+                            प्रधान कार्यालय हात्तिसार, काठमाण्डौ । <br>
+                            पोष्ट वक्स नं. १९५९३, काठमाण्डौ नेपाल । <br>
+                            मार्फत <br>
+                            लक्ष्मी बैंक लिमिटेड, शाखा कार्यालय,
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="branchName">
+                            <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('branchName').value ? offerLetterForm?.get('branchName').value : '========='}}</b> </span> <br>
+                            टेलिफोन नं. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                               formControlName="telephoneNumber">
+                            <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('telephoneNumber').value ? offerLetterForm?.get('telephoneNumber').value : '========='}}</b> </span>
+                            <br>
+                            फ्याक्स नं.	<input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                  formControlName="faxNumber">
+                            <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('faxNumber').value ? offerLetterForm?.get('faxNumber').value : '========='}}</b> </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <table class="table table-bordered table-responsive table-sm sb-small">
+                    <tr>
+                        <td class="text-left pl-1">
+                            ऋणी <br>
+                            श्री <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                        formControlName="borrowerName">
+                            <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('borrowerName').value ? offerLetterForm?.get('borrowerName').value : '========='}}</b> </span><br>
+                            ठेगाना : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="address">
+                                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('address').value ? offerLetterForm?.get('address').value : '========='}}</b></span><br> <br>
+                            सम्पर्क टेलिफोन/मोवाइल नं. : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                                formControlName="contactNumber">
+                                    <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('contactNumber').value ? offerLetterForm?.get('contactNumber').value : '========='}}</b></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <br>
+
+        बैंकको तर्फवाट
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                       formControlName="signature3">
+                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('empoweredName').value ? offerLetterForm?.get('empoweredName').value : '========='}}</b> </span> <br>
+                नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                             formControlName="name3">
+                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('name3').value ? offerLetterForm?.get('name3').value : '========='}}</b></span> <br>
+                पद : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                            formControlName="designation3">
+                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('designation3').value ? offerLetterForm?.get('designation3').value : '========='}}</b></span> <br>
+                लक्ष्मी बैंक लि.
+            </div>
+            <div>
+                <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                       formControlName="signature2">
+                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('signature2').value ? offerLetterForm?.get('signature2').value : '========='}}</b></span>
+                <br>
+                नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                             formControlName="name2">
+                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('name2').value ? offerLetterForm?.get('name2').value : '========='}}</b></span>
+                <br>
+                पद : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                            formControlName="designation2">
+                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('designation2').value ? offerLetterForm?.get('designation2').value : '========='}}</b></span>
+                <br>
+                लक्ष्मी बैंक लि.
+            </div>
+        </div>
+
+        ऋणी/ऋणीको तर्फवाट अधिकारप्राप्त व्यक्तिको नाम :
+        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+               formControlName="empoweredName">
+        <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('empoweredName').value ? offerLetterForm?.get('empoweredName').value : '========='}}</b></span>
+        <br>
+        दस्तखत : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                        formControlName="signature1">
+        <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('signature1').value ? offerLetterForm?.get('signature1').value : '========='}}</b></span>
+    </form>
+</div>
+
+
 रेफ नं.: कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्र/............./............./................
 मिति :— ......................................
 श्री .........................
@@ -328,7 +512,7 @@
     </tr>
 
 
-    	धितो मुल्यांकन शुल्क ९ख्बगिबतष्यल ँभभ०	धितो अथवा सुरक्षण बापत प्रदान गरिने वा गरिएको चल अचल सम्पतिको मूल्याकंन गर्दा लागेको सम्पूर्ण खर्च ऋणी स्वयंले ब्यहोर्नु पर्नेछ ।
+    धितो मुल्यांकन शुल्क ९ख्बगिबतष्यल ँभभ०	धितो अथवा सुरक्षण बापत प्रदान गरिने वा गरिएको चल अचल सम्पतिको मूल्याकंन गर्दा लागेको सम्पूर्ण खर्च ऋणी स्वयंले ब्यहोर्नु पर्नेछ ।
     ६	हर्जाना व्याज ९एभलब िक्ष्लतभचभकत०	कर्जा समयमा भुक्तानी नभएमा वा किस्ता खिलाफी भएको अवस्थामा वा यस कर्जा स्वीकृतिपत्रमा उल्लेखित शर्त तथा वन्देजहरुको पालना नगरेमा वा उल्लंघन गरेमा वा स्वीकृत सिमा भन्दा वढी कर्जा उपभोग गरेमा विना पूर्व सूचना तिर्न बाकि ब्याज तथा सावाँमा यस कर्जा स्वीकृतीपत्रमा उल्लेखित व्याज दरमा माथि उल्लेख भएको ब्याजदरमा २ प्रतिशत थप हर्जना व्याज लगाई असुल उपर गरिनेछ ।
     ७	अतिरिक्त व्याज सम्बन्धि व्यवस्था
     ९ब्ममष्तष्यलब िक्ष्लतभचभकत०	ऋणीले कर्जा तथा सुविधाको नियमित किस्ता वा भुक्तानी तोकिएको तालिका वा समय भित्र नतिरी तिर्नुपर्ने किस्ता वा भुक्तानीको नियमित समयावधी ९० दिनले नघाएमा ऋणीलाई लगाइएको प्रचलित प्रिमियम दरमा १ प्रतिशत अतिरिक्त व्याज थप गरी असुल उपर गर्न सकिनेछ ।
@@ -383,3 +567,4 @@
 ९	प्रतितपत्र सुविधा उपयोगको आधारमा ......... प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
 १०	ग्यारेण्टी सुविधा उपयोगको आधारमा ........ प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
 
+<br>
