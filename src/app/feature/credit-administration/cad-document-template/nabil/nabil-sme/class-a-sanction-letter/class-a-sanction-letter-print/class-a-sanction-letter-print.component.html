@@ -127,7 +127,12 @@
                     </div>
                     <br>
 
-                    <!-- FREE TEXT -->
+                    <!-- <li><span class="nepaliFont"
+                      style=" font-size: 24px;
+                            margin-top: -0.35em;
+                              margin-left: 0.3em;">
+                         {{ offerData?.supportedInformation }}
+                        </span></li> -->
                     <br>
 
                     <span class="text-left">
@@ -328,7 +333,12 @@
                             </tbody>
                         </table>
                     </div>
-                    <br> <!-- Free text Box with including table-->
+                    <br><li><span class="nepaliFont"
+                      style=" font-size: 24px;
+                            margin-top: -0.35em;
+                              margin-left: 0.3em;">
+                         {{ offerData?.supportedInformation }}
+                        </span></li>
 
                     <div class="col-md-12">
                         <p> <strong> कर्जा उपयोग सीमाः </strong> </p>
@@ -662,8 +672,8 @@
 
                             .........................................
                             <p>
-                                 <span [ngClass]="{'nepaliFont num' : letter?.relationshipofficerName!== null && letter?.relationshipofficerName!== ''}">
-                            {{letter?.relationshipofficerName === null || letter?.relationshipofficerName === '' ? '___________' : letter?.relationshipofficerName}}</span>
+                                 <span [ngClass]="{'nepaliFont num' : letter?.nameOfBranchManager!== null && letter?.nameOfBranchManager!== ''}">
+                            {{letter?.nameOfBranchManager === null || letter?.nameOfBranchManager === '' ? '___________' : letter?.nameOfBranchManager}}</span>
                                 नबिल बैंक लि. <br>
                                 <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
             {{letter?.branchName === null || letter?.branchName === '' ? '___________' : letter?.branchName}}</span>

@@ -51,7 +51,7 @@
                             महोदय, <br>
                             तपाईंले
                             <span class="text-left">
-                                मितिः <input class="form-field form-control-sm"
+                                मिति वि.सं. <input class="form-field form-control-sm"
                                          formControlName="requestLetterDate"
                                          type="text"/>
                             </span>
@@ -112,10 +112,8 @@
                         </p>
                     </div>
                     <br>
-
                     <strong> बिबिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
                     <br>
-
                     <div class="mb-1">
                         <p>
                             महोदय,<br>
@@ -137,8 +135,15 @@
                         </p>
                     </div>
                     <br>
-
-                    <!-- FREE TEXT -->
+                    <!-- <div class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
+                        <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="3"
+                                style="width: inherit;margin-left:-5em;margin-top: -2em"
+                                name="additionalGuarantorDetails"
+                                formControlName="additionalGuarantorDetail">
+                                        </textarea>
+                    </div> -->
                     <br><br>
                     <span class="text-left">
                     <strong> स्वीकृत ऋणकर्जा सुविधाहरुको विवरण  </strong>
@@ -207,8 +212,8 @@
                                                 type="text"/> ।
                                     (अक्षरेपी रु <input class="form-field form-control-sm"
                                                     formControlName="loanAmountInWords"
-                                                    type="text"/> मात्र)
-                                    सुरक्षणः </strong> बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee)
+                                                    type="text"/> मात्र)<br>
+                                    सुरक्षणः </strong> बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee)<br>
                                     <strong> धरौटी: </strong> <!-- नगद १००% धरौती स्वरुप रहनेछ (In case 100% cash margin)
                                     / नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती(In case 10% cash margin and Lien on TD/current
                                     ac/ saving ac ) --> स्वरुप नबिल बैंकमा रहेको श्री <input class="form-field form-control-sm"
@@ -221,7 +226,7 @@
                                     <strong> कमिसनः</strong> प्रति <!-- त्रैमास (Id commission is quarterly)/ वार्षिक (If commission is yearly) [RATE]-->
                                     % का दरले वा कम्तिमा रु <input class="form-field form-control-sm"
                                                                    formControlName="minimumCommissionAmount"
-                                                                   type="text"/>  । लाग्नेछ ।
+                                                                   type="text"/>  । लाग्नेछ ।<br>
                                     <strong> सुविधा समाप्ति/पुनरावलोकन मितिः<input class="form-field form-control-sm"
                                                                           formControlName="expiryDate"
                                                                           type="text"/>
@@ -239,7 +244,7 @@
                                                     formControlName="loanAmountInFigure"
                                                     type="text"/> ।–(अक्षरेपी रु <input class="form-field form-control-sm"
                                                                                         formControlName="loanAmountInWords"
-                                                                                        type="text"/> मात्र)
+                                                                                        type="text"/> मात्र)<br>
                                     </strong>
                                     <strong> सुरक्षणः </strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित पत्र मूल्यको ११०% बिमालेख सहित सम्बन्धित
                                     प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
@@ -695,8 +700,8 @@
                             .........................................
                             <p>
                                 <input class="form-field form-control-sm"
-                                       formControlName="nameOfRm"
-                                       name="nameOfRm"
+                                       formControlName="relationshipOfficerName"
+                                       name="relationshipOfficerName"
                                        style="width: 200px"
                                        value="सम्पर्क अधिकृत"
                                        type="text"/>

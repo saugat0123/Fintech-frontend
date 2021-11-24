@@ -117,8 +117,9 @@ export class ClassASanctionLetterComponent implements OnInit {
       totalLimitInFigure: [undefined],
       serviceChargeInFigure: [undefined],
       serviceChargeInWords: [undefined],
-      nameOfRm: [undefined],
+      relationshipOfficerName: [undefined],
       branchName: [undefined],
+      additionalDetail:[undefined],
       nameOfBranchManager: [undefined],
       date: [undefined],
     });
@@ -126,10 +127,10 @@ export class ClassASanctionLetterComponent implements OnInit {
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString())[0];
+          === this.offerLetterConst.value(this.offerLetterConst.CLASS_A_SANCTION_LETTER).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
         this.offerLetterDocument = new OfferDocument();
-        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A_SANCTION_LETTER);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         console.log('Selected Security Details:', initialInfo);
