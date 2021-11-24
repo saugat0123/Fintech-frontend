@@ -5,60 +5,80 @@
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
             <b><h6 class="text-center">प्रतिज्ञापत्र<br>
                 (PROMISSORY NOTE)</h6></b>
-
             <br>
             <div class="row">
                 <p>
-                    लिखितम <input class="form-field nepaliFont form-control-sm"
-                                  formControlName="grandParentName"
-                                  type="text">को
-
-                    नाति/नातिनि <input class="form-field nepaliFont form-control-sm"
-                                      formControlName="fatherName"
-                                      type="text">को
-                    छोरा/छोरी <input class="form-field nepaliFont form-control-sm"
-                                    formControlName="husbandName"
-                                    type="text">को
-                    पति/पत्नी <input class="form-field nepaliFont form-control-sm"
-                                    formControlName="districtName"
-                                    type="text">
-                    जिल्ला <input class="form-field nepaliFont form-control-sm" formControlName="municipality"
-                                 type="text">
-                    गा.पा./न.पा./म.न.पा. वडा नं. <input class="form-field nepaliFont form-control-sm"
-                                                       formControlName="wadNo" type="text">
-                    स्थायी ठेगाना भई
-                    हाल <input class="form-field nepaliFont form-control-sm"
-                              formControlName="temporaryDistrict"
-                              type="text">
-                    जिल्ला <input class="form-field nepaliFont form-control-sm"
-                                 formControlName="tempMunicipality"
-                                 type="text">
-                    गा.पा./न.पा./म.न.पा. वडा नं. <input class="form-field nepaliFont form-control-sm"
-                                                       formControlName="tempWadNo" type="text">
-                    स्थित <input class="form-field nepaliFont form-control-sm"
-                                formControlName="address" type="text">
-                    बस्ने बर्ष <input class="form-field nepaliFont form-control-sm" formControlName="age"
-                                     type="text">को
-                     <input class="form-field nepaliFont form-control-sm" formControlName="customerName"
+                    लिखितम
+                    <input class="form-field nepaliFont form-control-sm"
+                           formControlName="grandParentName"
+                           readonly
+                           type="text">को
+                    नाति/नातिनि
+                    <input class="form-field nepaliFont form-control-sm"
+                           readonly
+                           formControlName="fatherName"
+                           type="text">को
+                    छोरा/छोरी
+                    <input class="form-field nepaliFont form-control-sm"
+                           formControlName="husbandName"
+                           readonly
+                           type="text">को
+                    पति/पत्नी
+                    <input class="form-field nepaliFont form-control-sm sizeFont"
+                           formControlName="districtName"
+                           readonly
                            type="text">
-                    <b>(ना.प्र.न. <input class="form-field nepaliFont form-control-sm"
-                                        formControlName="citizenShipNo"
-                                        type="text">
+                    जिल्ला
+                    <input class="form-field nepaliFont form-control-sm sizeFont"
+                           formControlName="municipality"
+                           readonly
+                           type="text">
+                    गा.पा./न.पा./म.न.पा. वडा नं.
+                    <input class="form-field nepaliFont form-control-sm sizeFont"
+                           formControlName="wadNo"
+                           readonly
+                           type="text">
+                    स्थायी ठेगाना भई
+                    हाल
+                    <input class="form-field nepaliFont form-control-sm sizeFont"
+                           formControlName="temporaryDistrict"
+                           type="text">
+                    जिल्ला
+                    <input class="form-field nepaliFont form-control-sm sizeFont"
+                           formControlName="tempMunicipality"
+                           readonly
+                           type="text">
+                    गा.पा./न.पा./म.न.पा. वडा नं.
+                    <input class="form-field nepaliFont form-control-sm sizeFont"
+                           formControlName="tempWadNo"
+                           readonly
+                           type="text">,
+                    बस्ने बर्ष
+                    <input class="form-field nepaliFont form-control-sm sizeFont" formControlName="age"
+                           type="text">को
+                    <input class="form-field nepaliFont form-control-sm" formControlName="customerName"
+                           type="text">
+                    <b>(ना.प्र.न. <input class="form-field nepaliFont form-control-sm sizeFont"
+                                         formControlName="citizenShipNo"
+                                         type="text">
                         मिति <input class="form-field nepaliFont form-control-sm" formControlName="date"
                                     type="text">
                         जि.प्र.का. <input class="form-field nepaliFont form-control-sm"
                                           formControlName="cdoOffice"
                                           type="text">)</b> ले
-                    यस <strong> प्रोग्रेशिभ फाईनान्स लिमिटेड</strong><input class="form-field nepaliFont form-control-sm"
-                                                          formControlName="branchName" type="text">
+                    यस <strong> प्रोग्रेशिभ फाईनान्स लिमिटेड</strong>
+                    <input class="form-field nepaliFont form-control-sm sizeFont"
+                           formControlName="branchName"
+                           readonly
+                           type="text">
                     शाखा कार्यालयबाट लिएको कूल ऋण कर्जा रकम रु. <input
-                        (change)="getNumAmountWord('amount','amountInNumber')"
-                        class="form-field nepaliFont form-control-sm"
-                        formControlName="amount"
-                        type="text">/–
-                    (अक्षेरुपी. <input class="form-field  nepaliFont sizefont form-control-sm"
-                                      formControlName="amountInNumber" readonly
-                                      type="text">)
+                    (change)="getNumAmountWord('amount','amountInNumber')"
+                    class="form-field nepaliFont form-control-sm sizeFont"
+                    formControlName="amount"
+                    type="text">/–
+                    (अक्षेरुपी. <input class="form-field  nepaliFont sizeFont form-control-sm"
+                                       formControlName="amountInNumber" readonly
+                                       type="text">)
                     र सोमा वित्तीय संस्थाको नियमानुसार लाग्ने ब्याज समेत भुक्तानीमाग गरेका वखत तपाई धनीवित्तीय
                     संस्थालाई
                     अथवा तपाईले निर्देशन दिएको वाअह्राएको व्यक्ति/संस्थालाई तुरुन्ततिर्न बुझाउन प्रतिज्ञा र
@@ -74,34 +94,34 @@
                     दस्तखत गर्नेको नाम :- <input class="form-field nepaliFont form-control-sm"
                                                  formControlName="sincerlyName"
                                                  type="text">
-                    <b>(ना.प्र.नं. <input class="form-field nepaliFont form-control-sm"
-                                         formControlName="sincerlyCitizenshipNo"
-                                         type="text">
+                    <b>(ना.प्र.नं. <input class="form-field nepaliFont form-control-sm sizeFont"
+                                          formControlName="sincerlyCitizenshipNo"
+                                          type="text">
                         मिति <input class="form-field nepaliFont form-control-sm" formControlName="sincerlyDate"
                                     type="text">
                         जि.प्र.का. <input class="form-field nepaliFont form-control-sm"
                                           formControlName="sincerlyCDOoffice"
                                           type="text">)</b>
                     <br>
-                    स्थायी ठेगाना :- <input class="form-field nepaliFont form-control-sm"
+                    स्थायी ठेगाना :- <input class="form-field nepaliFont form-control-sm sizeFont"
                                             formControlName="sincerlyPermanentDistrict"
                                             type="text">
-                    जिल्ला <input class="form-field nepaliFont form-control-sm"
+                    जिल्ला <input class="form-field nepaliFont form-control-sm sizeFont"
                                   formControlName="sincerlyPermanentMunicipality"
                                   type="text">
-                    गा.पा./न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm"
-                                              formControlName="sincerlyPermanentWadNo"
-                                              type="text">
+                    गा.पा./न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm sizeFont"
+                                               formControlName="sincerlyPermanentWadNo"
+                                               type="text">
                     <br>
-                    हालको ठेगाना <input class="form-field nepaliFont form-control-sm"
+                    हालको ठेगाना <input class="form-field nepaliFont form-control-sm sizeFont"
                                         formControlName="sincerlyTemporaryDistrict"
                                         type="text">
-                    जिल्ला <input class="form-field nepaliFont form-control-sm"
+                    जिल्ला <input class="form-field nepaliFont form-control-sm sizeFont"
                                   formControlName="sincerlyTemporaryVDCname"
                                   type="text">
-                    गा.पा./न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm"
-                                              formControlName="sincerlyTemporaryWadNo"
-                                              type="text">
+                    गा.पा./न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm sizeFont"
+                                               formControlName="sincerlyTemporaryWadNo"
+                                               type="text">
 
                 </p>
                 <p class="text-left">
@@ -110,12 +130,12 @@
                                              type="text">
                     <br>
                     वाजे/बजैको नाम : <input class="form-field nepaliFont form-control-sm"
-                                           formControlName="sincerlyGrandParentName"
-                                           type="text">
+                                            formControlName="sincerlyGrandParentName"
+                                            type="text">
                     <br>
                     पति/पत्निको नाम : <input class="form-field nepaliFont form-control-sm"
-                                            formControlName="sincerlyHusbandWifeName"
-                                            type="text">
+                                             formControlName="sincerlyHusbandWifeName"
+                                             type="text">
 
                 </p>
             </div>
@@ -224,10 +244,10 @@
                                     formControlName="issuedYear"
                                     placeholder=""
                                     type="text"/> जि.प्र.का. <input
-                                class="form-field form-control-sm nepaliFont"
-                                formControlName="guarantorCDOoffice"
-                                placeholder=""
-                                type="text"/>)
+                            class="form-field form-control-sm nepaliFont"
+                            formControlName="guarantorCDOoffice"
+                            placeholder=""
+                            type="text"/>)
                     </td>
                 </tr>
                 <tr>
@@ -235,10 +255,10 @@
                     <td class="text-left"><input class="form-field form-control-sm nepaliFont "
                                                  formControlName="guarantorDistrict"
                                                  placeholder="" type="text"/>जिल्ला <input
-                            class="form-field form-control-sm nepaliFont"
-                            formControlName="guarantorMunicipality"
-                            placeholder=""
-                            type="text"/>
+                        class="form-field form-control-sm nepaliFont"
+                        formControlName="guarantorMunicipality"
+                        placeholder=""
+                        type="text"/>
                         गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
                                                  formControlName="guarantorWadNo"
                                                  placeholder=""
@@ -268,10 +288,10 @@
                                     formControlName="issuedYear1"
                                     placeholder=""
                                     type="text"/> जि.प्र.का. <input
-                                class="form-field form-control-sm nepaliFont"
-                                formControlName="guarantorCDOoffice1"
-                                placeholder=""
-                                type="text"/>)
+                            class="form-field form-control-sm nepaliFont"
+                            formControlName="guarantorCDOoffice1"
+                            placeholder=""
+                            type="text"/>)
                     </td>
                 </tr>
                 <tr>
@@ -279,10 +299,10 @@
                     <td class="text-left"><input class="form-field form-control-sm nepaliFont "
                                                  formControlName="guarantorDistrict1"
                                                  placeholder="" type="text"/>जिल्ला <input
-                            class="form-field form-control-sm nepaliFont"
-                            formControlName="guarantorMunicipality1"
-                            placeholder=""
-                            type="text"/>
+                        class="form-field form-control-sm nepaliFont"
+                        formControlName="guarantorMunicipality1"
+                        placeholder=""
+                        type="text"/>
                         गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
                                                  formControlName="guarantorWadNo1"
                                                  placeholder=""
