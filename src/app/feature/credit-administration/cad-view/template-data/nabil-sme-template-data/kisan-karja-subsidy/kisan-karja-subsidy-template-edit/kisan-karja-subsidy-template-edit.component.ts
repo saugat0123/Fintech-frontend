@@ -628,7 +628,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       const convertNextReviewDate = !ObjectUtil.isEmpty(transNextReviewDate) ? this.engNepDatePipe.transform(transNextReviewDate, true) : '';
       this.kisanKarjaSubsidy.get('nextReviewDateCT').patchValue(convertNextReviewDate);
     }
-    if (this.BSApplication) {
+    if (this.BSReview) {
       this.kisanKarjaSubsidy.get('nextReviewDateNepaliCT').patchValue(this.kisanKarjaSubsidy.get('nextReviewDateNepaliTrans').value);
     }
 
