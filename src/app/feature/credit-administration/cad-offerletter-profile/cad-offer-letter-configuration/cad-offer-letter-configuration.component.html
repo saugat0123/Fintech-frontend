@@ -999,7 +999,7 @@
                                                    (change)="getGuarantorDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentProvince']).value)"
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentProvince.errors}"
                                                    id="guarantorPermanentProvince"
-                                                   formControlName="guarantorPermanentProvince">
+                                                   formControlName="guarantorPermanentProvince" placeholder="प्रदेश">
                                             <ng-option *ngFor="let provinceVal of permanentProvinceList"
                                                        [value]="provinceVal"> {{provinceVal.nepaliName}}
                                             </ng-option>
@@ -1019,7 +1019,7 @@
                                                    (change)="getGuarantorMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict']).value)"
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentDistrict.errors}"
                                                    formControlName="guarantorPermanentDistrict"
-                                                   id="guarantorPermanentDistrict">
+                                                   id="guarantorPermanentDistrict" placeholder="जिल्ला">
                                             <ng-option *ngFor="let districtVal of guarantorPermanentDistrictList"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
@@ -1038,7 +1038,7 @@
                                         <select class="form-control box" formControlName="guarantorPermanentMunType"
                                                 id="guarantorPermanentMunType"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentMunType.errors}">
-                                            <option [value]="null" hidden>नगरपालिका</option>
+                                            <option [value]="null" hidden>नगरपालिका/गा. बि. स</option>
                                             <option value="0">नगरपालिका</option>
                                             <option value="1">गा. बि. स.</option>
                                         </select>
@@ -1046,7 +1046,7 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentMunicipality.errors}"
                                                    formControlName="guarantorPermanentMunicipality"
                                                    id="guarantorPermanentMunicipality"
-                                                   name="guarantorPermanentMunicipality">
+                                                   name="guarantorPermanentMunicipality" placeholder="नगरपालिका÷गा. बि. स">
                                             <ng-option *ngFor="let municipalityVal of guarantorPerMunicipalitiesList"
                                                        [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
@@ -1086,7 +1086,7 @@
                                                    (change)="getGuarantorTemporaryDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryProvince']).value)"
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryProvince.errors}"
                                                    id="guarantorTemporaryProvince"
-                                                   formControlName="guarantorTemporaryProvince">
+                                                   formControlName="guarantorTemporaryProvince" placeholder="प्रदेश">
                                             <ng-option *ngFor="let provinceVal of temporaryProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
@@ -1107,7 +1107,7 @@
                                                    (change)="getGuarantorTemporaryMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict']).value)"
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryDistrict.errors}"
                                                    formControlName="guarantorTemporaryDistrict"
-                                                   id="guarantorTemporaryDistrict">
+                                                   id="guarantorTemporaryDistrict" placeholder="जिल्ला">
                                             <ng-option *ngFor="let districtVal of guarantorTemporaryDistrictList"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
@@ -1126,7 +1126,7 @@
                                         <select class="form-control box" formControlName="guarantorTemporaryMunType"
                                                 id="guarantorTemporaryMunType"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryMunType.errors}">
-                                            <option [value]="null" hidden>नगरपालिका</option>
+                                            <option [value]="null" hidden>नगरपालिका/गा. बि. स.</option>
                                             <option value="0">नगरपालिका</option>
                                             <option value="1">गा. बि. स.</option>
                                         </select>
@@ -1134,7 +1134,7 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryMunicipalities.errors}"
                                                    formControlName="guarantorTemporaryMunicipality"
                                                    id="guarantorTemporaryMunicipality"
-                                                   name="guarantorTemporaryMunicipality">
+                                                   name="guarantorTemporaryMunicipality" placeholder="नगरपालिका÷गा. बि. स">
                                             <ng-option *ngFor="let municipalityVal of guarantorTemMunicipalitiesList"
                                                        [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
