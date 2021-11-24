@@ -1000,7 +1000,7 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentProvince.errors}"
                                                    id="guarantorPermanentProvince"
                                                    formControlName="guarantorPermanentProvince">
-                                            <ng-option *ngFor="let provinceVal of permanentProvinceList"
+                                            <ng-option *ngFor="let provinceVal of guarantorPermanentProvinceList"
                                                        [value]="provinceVal"> {{provinceVal.nepaliName}}
                                             </ng-option>
                                         </ng-select>
@@ -1087,7 +1087,7 @@
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryProvince.errors}"
                                                    id="guarantorTemporaryProvince"
                                                    formControlName="guarantorTemporaryProvince">
-                                            <ng-option *ngFor="let provinceVal of temporaryProvinceList"
+                                            <ng-option *ngFor="let provinceVal of guarantorTemporaryProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
                                             </ng-option>
