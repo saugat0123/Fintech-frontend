@@ -995,7 +995,7 @@
                       <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'" [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>
                        <hr>
                        <div>
-                           <h5>7. Company Background</h5>
+                           <h5>6. Company Background</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
@@ -1052,7 +1052,7 @@
                        <!--sister concern starts-->
                        <ng-container *ngIf="microCustomerType != 'DIRECT'">
                            <div>
-                               <h5>7.1. Sister Concern</h5>
+                               <h5>6.1. Sister Concern</h5>
                            </div>
                            <div class="row">
                                <div class="col-md-6">
@@ -1072,7 +1072,7 @@
                        </ng-container>
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title title">8. Management Team</h5>
+                           <h5 class="box-title title">7. Management Team</h5>
                        </div>
                        <div *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index" class="border-bottom border-dark m-4"
                             formArrayName="managementTeams">
@@ -1171,7 +1171,7 @@
 
                        <!--Information of Proprietor/Shareholder/Partner-->
                        <div class="box-header with-border">
-                           <h5 class="box-title">9. Information of Proprietor/Shareholder/Partner
+                           <h5 class="box-title">8. Information of Proprietor/Shareholder/Partner
                                with holder %</h5>
                        </div>
                        <div *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index" class="border-bottom border-dark m-4"
@@ -1489,7 +1489,7 @@
 
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title">11. Succession Risk & Mitigation</h5>
+                           <h5 class="box-title">9. Succession Risk & Mitigation</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
@@ -1516,7 +1516,7 @@
                        <!--10. SWOT Analysis-->
                   <ng-container *ngIf="microCustomerType != 'DIRECT'">
                       <div class="box-header with-border">
-                          <h5 class="box-title">10. SWOT Analysis</h5>
+                          <h5 class="box-title">11. SWOT Analysis</h5>
                       </div>
                       <div class="row">
                           <div class="col-md-6">
@@ -1659,7 +1659,7 @@
                        <div class="row">
                            <div class="col-md-12" *ngIf="microCustomerType != 'DIRECT'">
                                <div class="form-group">
-                                   <h5 class="box-title">15. Group’s
+                                   <h5 class="box-title">14. Group’s
                                        background</h5>
                                    <ckeditor
                                        rows="4"
@@ -1676,7 +1676,7 @@
                            </div>
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <h5 class="box-title">16.Legal review
+                                   <h5 class="box-title">15.Legal review
                                        Remarks</h5>
                                    <input
                                        [ngClass]="{ 'is-invalid': (submitted) && form.legalReviewRemark.errors }"
@@ -1696,7 +1696,7 @@
                        <!--  Business Given -->
                        <hr>
                        <ng-container  *ngIf="!srdbAffiliatedId" class="box-header with-border">
-                           <h5 class="box-title">17. Business given</h5>
+                           <h5 class="box-title">16. Business given</h5>
                            <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">
                                <tr class="sb-bg-secondary text-white">
                                    <th>Particular</th>
@@ -1825,7 +1825,7 @@
                        </app-banking-relation>
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title">9. Business & Industry</h5>
+                           <h5 class="box-title">17. Business & Industry</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-6 form-group">
