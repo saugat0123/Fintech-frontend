@@ -9,6 +9,7 @@ import {SummaryType} from '../../SummaryType';
 import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {flatten} from '@angular/compiler';
+import {LoanDataHolder} from '../../../model/loanData';
 
 @Component({
   selector: 'app-security-approved-summary',
@@ -52,6 +53,7 @@ export class SecurityApprovedSummaryComponent implements OnInit {
   @Input() isCollateralSiteVisit;
   @Input() nepaliDate;
   @Input() siteVisitDocuments: Array<SiteVisitDocument>;
+  collateralSiteVisitByLoan: Array<SiteVisitDocument>;
   isCollateralSiteVisitPresent = false;
   collateralSiteVisits: Array<CollateralSiteVisit> = [];
   siteVisitJson = [];
@@ -191,28 +193,26 @@ export class SecurityApprovedSummaryComponent implements OnInit {
       this.isPresentGuarantor = true;
     }
     if (this.docStatus.toString() === 'APPROVED') {
-      this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
-          .subscribe((response: any) => {
-            this.collateralSiteVisits = response.detail;
-      const arr = [];
-      this.collateralSiteVisits.forEach(f => {
-        if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-          arr.push(f.siteVisitDocuments);
-        }
-      });
-      // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-      const docArray = flatten(arr);
-      // filter for only printable document
-      this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+      if (!ObjectUtil.isEmpty(this.collateralData)) {
+        this.collateralSiteVisits = this.collateralData;
+        const arr = [];
+        this.collateralSiteVisits.forEach(f => {
+          if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
+            arr.push(f.siteVisitDocuments);
+          }
+        });
+        // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+        const docArray = flatten(arr);
+        // filter for only printable document
+        this.collateralSiteVisitByLoan = docArray.filter(f => f.isPrintable === this.isPrintable);
 
-      this.collateralSiteVisits.filter(item => {
-        if (!ObjectUtil.isEmpty(item.isApproved) && item.isApproved) {
-          this.isCollateralSiteVisitPresent = true;
+        this.collateralSiteVisits.filter(item => {
           this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+        });
+        if (this.collateralData.length > 0) {
+          this.isCollateralSiteVisitPresent = true;
         }
-      });
-      this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
-    });
+      }
     } else {
       if (!ObjectUtil.isEmpty(this.securityId)) {
         this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
@@ -227,14 +227,14 @@ export class SecurityApprovedSummaryComponent implements OnInit {
               // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
               const docArray = flatten(arr);
               // filter for only printable document
-              this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+              this.collateralSiteVisitByLoan = docArray.filter(f => f.isPrintable === this.isPrintable);
               this.collateralSiteVisits.filter(item => {
-                if (!ObjectUtil.isEmpty(item.isApproved) && item.isApproved) {
-                  this.isCollateralSiteVisitPresent = true;
-                  this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-                }
+                this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
               });
-              this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
+              if (response.detail.length > 0) {
+                this.isCollateralSiteVisitPresent = true;
+              }
+              this.downloadSiteVisitDocument.emit(this.collateralSiteVisitByLoan);
             });
       }
     }
