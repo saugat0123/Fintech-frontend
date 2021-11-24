@@ -30,6 +30,7 @@ import { PersonalGuaranteeIndividualComponent } from './laxmi-offer-letter/perso
 import { HypothecationOverStockAndReceivableCurrentAssetsComponent } from './laxmi-offer-letter/hypothecation-over-stock-and-receivable-current-assets/hypothecation-over-stock-and-receivable-current-assets.component';
 import { ConsentOfHakwalaComponent } from './laxmi-offer-letter/consent-of-hakwala/consent-of-hakwala.component';
 import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-laxmi/mortgage-deed-laxmi.component';
+import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-laxmi/offer-letter-laxmi.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
         ConsentOfHakwalaComponent,
-        MortgageDeedLaxmiComponent],
+        MortgageDeedLaxmiComponent,
+        OfferLetterLaxmiComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -78,7 +80,8 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
         ConsentOfHakwalaComponent,
-        MortgageDeedLaxmiComponent
+        MortgageDeedLaxmiComponent,
+        OfferLetterLaxmiComponent
     ],
     entryComponents: [
         LaxmiOfferLetterComponent

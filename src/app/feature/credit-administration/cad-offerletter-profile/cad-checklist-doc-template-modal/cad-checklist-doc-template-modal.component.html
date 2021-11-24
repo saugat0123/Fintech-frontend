@@ -199,6 +199,7 @@
                                  [cadData]="cadData"
                                  [documentId]="documentId"
                                  [customerLoanId]="customerLoanId"></app-mortgage-deed-laxmi>
+        <app-offer-letter-laxmi *ngSwitchCase="cadTemplate.OFFER_LETTER_LAXMI"></app-offer-letter-laxmi>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
