@@ -213,30 +213,6 @@ export class SecurityApprovedSummaryComponent implements OnInit {
           this.isCollateralSiteVisitPresent = true;
         }
       }
-    } else {
-      if (!ObjectUtil.isEmpty(this.securityId)) {
-        this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
-            .subscribe((response: any) => {
-              this.collateralSiteVisits = response.detail;
-              const arr = [];
-              this.collateralSiteVisits.forEach(f => {
-                if (f.siteVisitDocuments.length > 0) {
-                  arr.push(f.siteVisitDocuments);
-                }
-              });
-              // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-              const docArray = flatten(arr);
-              // filter for only printable document
-              this.collateralSiteVisitByLoan = docArray.filter(f => f.isPrintable === this.isPrintable);
-              this.collateralSiteVisits.filter(item => {
-                this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-              });
-              if (response.detail.length > 0) {
-                this.isCollateralSiteVisitPresent = true;
-              }
-              this.downloadSiteVisitDocument.emit(this.collateralSiteVisitByLoan);
-            });
-      }
     }
     if (this.bondSecurity) {
       this.calculateTotalBondSecurityAmount();
