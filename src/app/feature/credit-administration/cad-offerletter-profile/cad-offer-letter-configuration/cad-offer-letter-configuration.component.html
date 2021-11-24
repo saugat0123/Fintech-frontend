@@ -1138,19 +1138,8 @@
                 </select>
 
               </td>
-              <td><input disabled readonly class="form-control"
-                         formControlName="registeredMunTypeTrans" type="text"></td>
               <td>
-                <input class="form-control"
-                       [ngClass]="{ 'is-invalid':submitted && configForm.registeredMunTypeCT.errors }"
-                       formControlName="registeredMunTypeCT" type="text"
-                />
-                <div *ngIf="submitted && configForm.registeredMunTypeCT.errors"
-                     class="invalid-feedback">
-                  <div *ngIf="configForm.registeredMunTypeCT.errors.required">Municipality is
-                    required
-                  </div>
-                </div>
+              <td>
               </td>
             </tr>
             <tr>
@@ -1325,20 +1314,8 @@
                 </select>
               </td>
 
-              <td><input disabled readonly class="form-control"
-                         formControlName="currentMunTypeTrans" type="text"></td>
+              <td></td>
               <td>
-                <input class="form-control"
-                       [ngClass]="{ 'is-invalid':submitted && configForm.currentMunTypeCT.errors }"
-                       formControlName="currentMunTypeCT" type="text"
-
-                />
-                <div *ngIf="submitted && configForm.currentMunTypeCT.errors"
-                     class="invalid-feedback">
-                  <div *ngIf="configForm.currentMunTypeCT.errors.required">Municipality is
-                    required
-                  </div>
-                </div>
               </td>
             </tr>
             <tr>
@@ -2443,8 +2420,8 @@
                 <td>
                   <ng-select
                           formControlName="ownerCitizenshipIssuedDistrict"
-                          id="ownerCitizenshipIssueDistrict"
-                         placeholder="Select district">
+                          id="ownerCitizenshipIssuedDistrict"
+                         [placeholder]="!userConfigForm.get(['ownerDetails', i, 'ownerCitizenshipIssuedDistrict']).value ? 'Select District' : null">
                     <ng-option *ngFor="let issuedDistrict of allDistrictList"
                                [value]="issuedDistrict.nepaliName">{{issuedDistrict.name}}
                       || {{issuedDistrict.nepaliName}} </ng-option>
