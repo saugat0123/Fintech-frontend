@@ -30,6 +30,8 @@ import {RetailMortageLoanTemplateDataEditComponent} from '../../../cad-view/temp
 import {AutoLoanTemplateEditComponent} from '../../../cad-view/template-data/auto-loan-template-edit/auto-loan-template-edit.component';
 import {UdhyamsilKarjaSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-edit/udhyamsil-karja-subsidy-template-edit.component';
 import {PersonalOverdraftWithoutCollateralTemplateEditComponent} from "../../../cad-view/template-data/auto-loan-commercial-template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component";
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {InterestSubsidySanctionLetterTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-edit/interest-subsidy-sanction-letter-template-edit.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -54,6 +56,7 @@ export class OfferLetterListComponent implements OnInit {
   user: User = new User();
   roleType = RoleType;
   asc = false;
+  offerLetterName = NabilOfferLetterConst;
 
   constructor(private service: CreditAdministrationService,
               private router: Router,
@@ -281,6 +284,16 @@ export class OfferLetterListComponent implements OnInit {
                   });
                 } else if (this.docName === 'Personal overdraft without collateral') {
                   this.dialogService.open(PersonalOverdraftWithoutCollateralTemplateEditComponent, {
+                    context: {
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === this.offerLetterName.value(this.offerLetterName.INTEREST_SUBSIDY_SANCTION_LETTER)) {
+                  this.dialogService.open(InterestSubsidySanctionLetterTemplateEditComponent, {
                     context: {
                       customerApprovedDoc: this.cadOfferLetterApprovedDoc,
                       offerDocumentList: this.offerDocumentList,
