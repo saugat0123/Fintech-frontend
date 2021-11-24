@@ -2,33 +2,36 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerLoanOptions} from '../../../../cad-constant/customer-loan-options';
-import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
+import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
+import {OfferDocument} from '../../../../../model/OfferDocument';
 import {NepaliCurrencyWordPipe} from '../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../@core/pipe/currency-formatter.pipe';
-import {Attributes} from '../../../../../../../@core/model/attributes';
 import {SbTranslateService} from '../../../../../../../@core/service/sbtranslate.service';
 import {DatePipe, TitleCasePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
-import {District} from '../../../../../../admin/modal/district';
 import {AddressService} from '../../../../../../../@core/service/baseservice/address.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../../../@core/utils';
-import {OfferDocument} from '../../../../../model/OfferDocument';
-import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 import {CreditAdministrationService} from '../../../../../service/credit-administration.service';
 import {CadDocStatus} from '../../../../../model/CadDocStatus';
+import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
+import {Attributes} from '../../../../../../../@core/model/attributes';
+import {District} from '../../../../../../admin/modal/district';
+import {UdyamsilKarjaSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
+import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {DdslWithoutSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
 
 @Component({
-    selector: 'app-ddsl-without-subsidy-template-data',
-    templateUrl: './ddsl-without-subsidy-template-data.component.html',
-    styleUrls: ['./ddsl-without-subsidy-template-data.component.scss']
+    selector: 'app-ddsl-without-subsidy-template-edit',
+    templateUrl: './ddsl-without-subsidy-template-edit.component.html',
+    styleUrls: ['./ddsl-without-subsidy-template-edit.component.scss']
 })
-export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
+export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @Input() offerDocumentList: Array<OfferDocument>;
+    @Input() initialInformation: any;
     ddslFormGroup: FormGroup;
     spinner = false;
     customerLoanOptions: Array<String> = new Array<String>();
@@ -58,22 +61,22 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     allDistrictList = [];
     offerLetterConst = NabilOfferLetterConst;
     offerLetterDocument: OfferDocument;
+    securities;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-        private engToNepaliNumberPipe: EngToNepaliNumberPipe,
-        private currencyFormatterPipe: CurrencyFormatterPipe,
-        private translatedService: SbTranslateService,
-        private datePipe: DatePipe,
-        private engNepDatePipe: EngNepDatePipe,
-        private addressService: AddressService,
-        private modalService: NgbModal,
-        private dialogRef: NbDialogRef<DdslWithoutSubsidyTemplateDataComponent>,
-        private dialogService: NbDialogService,
-        private toastService: ToastService,
-        private titleCasePipe: TitleCasePipe,
-        private administrationService: CreditAdministrationService,
+    constructor(private formBuilder: FormBuilder,
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private engToNepaliNumberPipe: EngToNepaliNumberPipe,
+                private currencyFormatterPipe: CurrencyFormatterPipe,
+                private translatedService: SbTranslateService,
+                private datePipe: DatePipe,
+                private engNepDatePipe: EngNepDatePipe,
+                private addressService: AddressService,
+                private modalService: NgbModal,
+                private dialogRef: NbDialogRef<DdslWithoutSubsidyTemplateEditComponent>,
+                private dialogService: NbDialogService,
+                private toastService: ToastService,
+                private titleCasePipe: TitleCasePipe,
+                private administrationService: CreditAdministrationService,
     ) {
     }
 
@@ -83,6 +86,43 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         this.getAllDistrict();
         // getting key from cad doc status:
         this.cadDocStatus = CadDocStatus.key();
+        if (!ObjectUtil.isEmpty(this.initialInformation)) {
+            this.isLoanOptionSelected = true;
+            const loanType = this.initialInformation.loanOption ?
+                this.initialInformation.loanOption.en : '';
+            if (loanType === this.loanOptions.NEW) {
+                this.isCustomerNew = true;
+            }
+            // For Date Flag:
+            const tempApprovalType = this.initialInformation.sanctionLetterDateType ?
+                this.initialInformation.sanctionLetterDateType.en : '';
+            if (tempApprovalType === 'AD') {
+                this.ADSanctionLetterDate = true;
+            }
+            if (tempApprovalType === 'BS') {
+                this.BSSanctionLetterDate = true;
+            }
+
+            const tempApplicationType = this.initialInformation.dateOfApplicationType ?
+                this.initialInformation.dateOfApplicationType.en : '';
+            if (tempApplicationType === 'AD') {
+                this.ADApplication = true;
+            }
+            if (tempApplicationType === 'BS') {
+                this.BSApplication = true;
+            }
+
+            /* For Date of Previous Date*/
+            const tempPrevDate = this.initialInformation.previousSanctionType ?
+                this.initialInformation.previousSanctionType.en : '';
+            if (tempPrevDate === 'AD') {
+                this.ADPrevious = true;
+            }
+            if (tempPrevDate === 'BS') {
+                this.BSPrevious = true;
+            }
+            this.setDDSLTemplateData();
+        }
     }
 
     buildForm() {
@@ -118,7 +158,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             // FIELDS FOR TRANSLATED FIELDS (TRANS):
             loanOptionTrans: [undefined],
             securityTypeTrans: [undefined],
-            repaymentTypeTrans: [undefined],
             sanctionLetterDateTypeTrans: [undefined],
             sanctionLetterDateNepaliTrans: [undefined],
             sanctionLetterDateTrans: [undefined],
@@ -147,7 +186,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             // FIELDS FOR CT VALUES:
             loanOptionCT: [undefined],
             securityTypeCT: [undefined],
-            repaymentTypeCT: [undefined],
             sanctionLetterDateTypeCT: [undefined],
             sanctionLetterDateNepaliCT: [undefined, Validators.required],
             sanctionLetterDateCT: [undefined, Validators.required],
@@ -174,7 +212,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             EMIAmountWordCT: [undefined, Validators.required],
             totalInstallmentFigureCT: [undefined, Validators.required],
         });
-        this.addDefaultSecurity();
     }
 
     get FormControls() {
@@ -517,11 +554,29 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         );
     }
 
+    public municipalityByDistrictIdForEdit(data, index?): void {
+        const district = new District();
+        district.id = data;
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.municipalityListForSecurities[index] = response.detail;
+                this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+
+            }
+        );
+    }
+
     clearSecurityMunType(controlName, index, formArrayName) {
         const tempVal = this.ddslFormGroup.get([formArrayName, index, 'securityOwnersMunicipalityOrVdc']).value;
         if (tempVal === 'VDC') {
             this.ddslFormGroup.get([formArrayName, index, controlName]).setValue(null);
         }
+    }
+    /* Clear Form */
+    clearForm(controlName) {
+        this.ddslFormGroup.get(controlName).setValue(null);
+        this.ddslFormGroup.get(controlName + 'Trans').setValue(null);
+        this.ddslFormGroup.get(controlName + 'CT').setValue(null);
     }
 
     setDefaultNepaliResponse(arrName, source, index, target) {
@@ -552,6 +607,10 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
 
     accept() {
         this.modalService.dismissAll();
+        this.dialogRef.close();
+    }
+
+    public close(): void {
         this.dialogRef.close();
     }
 
@@ -649,5 +708,162 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             this.saveEnable = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
         });
+    }
+
+    setDDSLTemplateData() {
+        // SET EN VALUE OF FORM
+        this.ddslFormGroup.get('loanOption').patchValue(this.initialInformation.loanOption.en);
+        this.ddslFormGroup.get('securityType').patchValue(this.initialInformation.securityType.en);
+        // SET FIELD FOR DATE OF APPROVAL
+        this.ddslFormGroup.get('sanctionLetterDateType').patchValue(this.initialInformation.sanctionLetterDateType.en);
+        if (this.initialInformation.sanctionLetterDateType.en === 'AD') {
+            this.ddslFormGroup.get('sanctionLetterDate').patchValue(new Date(this.initialInformation.sanctionLetterDate.en));
+        } else {
+            const tempApprovalNep = !ObjectUtil.isEmpty(this.initialInformation.sanctionLetterDateNepali) ?
+                this.initialInformation.sanctionLetterDateNepali.en : '';
+            this.ddslFormGroup.get('sanctionLetterDateNepali').patchValue(tempApprovalNep);
+        }
+
+        // SET FIELD FOR DATE OF APPLICATION:
+        this.ddslFormGroup.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
+        const appDate = !ObjectUtil.isEmpty(this.initialInformation.dateOfApplicationType) ?
+            this.initialInformation.dateOfApplicationType.en : '';
+        this.ddslFormGroup.get('dateOfApplicationType').patchValue(appDate);
+        if (appDate === 'AD') {
+            const tempAppEng = this.initialInformation.dateOfApplication ? this.initialInformation.dateOfApplication.en : '';
+            this.ddslFormGroup.get('dateOfApplication').patchValue(new Date(tempAppEng));
+        } else {
+            const tempAppNep = this.initialInformation.dateOfApplicationNepali ?
+                this.initialInformation.dateOfApplicationNepali.en : '';
+            this.ddslFormGroup.get('dateOfApplicationNepali').patchValue(tempAppNep);
+        }
+
+        // SET DATE FOR DATE OF PREVIOUS SANCTION LETTER DATE:
+        if (!this.isCustomerNew) {
+            this.ddslFormGroup.get('previousSanctionType').patchValue(this.initialInformation.previousSanctionType.en);
+            const prevSancType = this.initialInformation.previousSanctionType ?
+                this.initialInformation.previousSanctionType.en : '';
+            if (prevSancType === 'AD') {
+                const tempPrevDate = this.initialInformation.previousSanctionDate ?
+                    this.initialInformation.previousSanctionDate.en : '';
+                this.ddslFormGroup.get('previousSanctionDate').patchValue(new Date(tempPrevDate));
+            } else {
+                const tempPrevNep = this.initialInformation.previousSanctionDateNepali ?
+                    this.initialInformation.previousSanctionDateNepali.en : '';
+                this.ddslFormGroup.get('previousSanctionDateNepali').patchValue(tempPrevNep);
+            }
+        }
+
+        // Patch value for other remaining fields:
+        this.ddslFormGroup.get('loanAmountFigure').patchValue(this.initialInformation.loanAmountFigure.en);
+        this.ddslFormGroup.get('loanAmountFigureWords').patchValue(this.initialInformation.loanAmountFigureWords.en);
+        this.ddslFormGroup.get('marginInPercentage').patchValue(this.initialInformation.marginInPercentage.en);
+        this.ddslFormGroup.get('baseRate').patchValue(this.initialInformation.baseRate.en);
+        this.ddslFormGroup.get('premiumRate').patchValue(this.initialInformation.premiumRate.en);
+        this.ddslFormGroup.get('interestRate').patchValue(this.initialInformation.interestRate.en);
+        this.ddslFormGroup.get('serviceCharge').patchValue(this.initialInformation.serviceCharge.en);
+        this.ddslFormGroup.get('totalTenureOfLoan').patchValue(this.initialInformation.totalTenureOfLoan.en);
+        this.ddslFormGroup.get('totalInstallmentFigure').patchValue(this.initialInformation.totalInstallmentFigure.en);
+        this.ddslFormGroup.get('commitmentFee').patchValue(this.initialInformation.commitmentFee.en);
+        this.ddslFormGroup.get('nameOfStaff').patchValue(this.initialInformation.nameOfStaff.en);
+        this.ddslFormGroup.get('nameOfFacility').patchValue(this.initialInformation.nameOfFacility.en);
+        this.ddslFormGroup.get('nameOfBranchManager').patchValue(this.initialInformation.nameOfBranchManager.en);
+        this.ddslFormGroup.get('EMIAmountFigure').patchValue(this.initialInformation.EMIAmountFigure.en);
+        this.ddslFormGroup.get('EMIAmountWord').patchValue(this.initialInformation.EMIAmountWord.en);
+
+        /* Set Translated Value of Form*/
+        this.setTransData();
+
+        /* Set CT VALUE of Form */
+        this.ddslFormGroup.get('sanctionLetterDateCT').patchValue(this.initialInformation.sanctionLetterDate.ct);
+        this.ddslFormGroup.get('sanctionLetterDateNepaliCT').patchValue(this.initialInformation.sanctionLetterDateNepali.ct);
+        this.ddslFormGroup.get('dateOfApplicationCT').patchValue(this.initialInformation.dateOfApplication.ct);
+        this.ddslFormGroup.get('dateOfApplicationNepaliCT').patchValue(this.initialInformation.dateOfApplicationNepali.ct);
+        this.ddslFormGroup.get('previousSanctionDateCT').patchValue(this.initialInformation.previousSanctionDate.ct);
+        this.ddslFormGroup.get('previousSanctionDateNepaliCT').patchValue(this.initialInformation.previousSanctionDateNepali.ct);
+        this.ddslFormGroup.get('purposeOfLoanCT').patchValue(this.initialInformation.purposeOfLoan.ct);
+        this.ddslFormGroup.get('loanAmountFigureCT').patchValue(this.initialInformation.loanAmountFigure.ct);
+        this.ddslFormGroup.get('loanAmountFigureWordsCT').patchValue(this.initialInformation.loanAmountFigureWords.ct);
+        this.ddslFormGroup.get('marginInPercentageCT').patchValue(this.initialInformation.marginInPercentage.ct);
+        this.ddslFormGroup.get('baseRateCT').patchValue(this.initialInformation.baseRate.ct);
+        this.ddslFormGroup.get('premiumRateCT').patchValue(this.initialInformation.premiumRate.ct);
+        this.ddslFormGroup.get('interestRateCT').patchValue(this.initialInformation.interestRate.ct);
+        this.ddslFormGroup.get('serviceChargeCT').patchValue(this.initialInformation.serviceCharge.ct);
+        this.ddslFormGroup.get('totalTenureOfLoanCT').patchValue(this.initialInformation.totalTenureOfLoan.ct);
+        this.ddslFormGroup.get('totalInstallmentFigureCT').patchValue(this.initialInformation.totalInstallmentFigure.ct);
+        this.ddslFormGroup.get('commitmentFeeCT').patchValue(this.initialInformation.commitmentFee.ct);
+        this.ddslFormGroup.get('nameOfStaffCT').patchValue(this.initialInformation.nameOfStaff.ct);
+        this.ddslFormGroup.get('nameOfFacilityCT').patchValue(this.initialInformation.nameOfFacility.ct);
+        this.ddslFormGroup.get('nameOfBranchManagerCT').patchValue(this.initialInformation.nameOfBranchManager.ct);
+        this.ddslFormGroup.get('EMIAmountFigureCT').patchValue(this.initialInformation.EMIAmountFigure.ct);
+        this.ddslFormGroup.get('EMIAmountWordCT').patchValue(this.initialInformation.EMIAmountWord.ct);
+        // Retrieving Security Details:
+        if (!ObjectUtil.isEmpty(this.initialInformation.securities)) {
+            this.securities = this.initialInformation.securities;
+            this.setSecurityData();
+        } else {
+            this.addDefaultSecurity();
+        }
+    }
+
+    setTransData() {
+        this.ddslFormGroup.get('sanctionLetterDateTrans').patchValue(this.initialInformation.sanctionLetterDate.np);
+        this.ddslFormGroup.get('sanctionLetterDateNepaliTrans').patchValue(this.initialInformation.sanctionLetterDateNepali.np);
+        this.ddslFormGroup.get('dateOfApplicationTrans').patchValue(this.initialInformation.dateOfApplication.np);
+        this.ddslFormGroup.get('dateOfApplicationNepaliTrans').patchValue(this.initialInformation.dateOfApplicationNepali.np);
+        this.ddslFormGroup.get('previousSanctionDateTrans').patchValue(this.initialInformation.previousSanctionDate.np);
+        this.ddslFormGroup.get('previousSanctionDateNepaliTrans').patchValue(this.initialInformation.previousSanctionDateNepali.np);
+        this.ddslFormGroup.get('purposeOfLoanTrans').patchValue(this.initialInformation.purposeOfLoan.np);
+        this.ddslFormGroup.get('loanAmountFigureTrans').patchValue(this.initialInformation.loanAmountFigure.np);
+        this.ddslFormGroup.get('loanAmountFigureWordsTrans').patchValue(this.initialInformation.loanAmountFigureWords.np);
+        this.ddslFormGroup.get('marginInPercentageTrans').patchValue(this.initialInformation.marginInPercentage.np);
+        this.ddslFormGroup.get('baseRateTrans').patchValue(this.initialInformation.baseRate.np);
+        this.ddslFormGroup.get('premiumRateTrans').patchValue(this.initialInformation.premiumRate.np);
+        this.ddslFormGroup.get('interestRateTrans').patchValue(this.initialInformation.interestRate.np);
+        this.ddslFormGroup.get('serviceChargeTrans').patchValue(this.initialInformation.serviceCharge.np);
+        this.ddslFormGroup.get('totalTenureOfLoanTrans').patchValue(this.initialInformation.totalTenureOfLoan.np);
+        this.ddslFormGroup.get('totalInstallmentFigureTrans').patchValue(this.initialInformation.totalInstallmentFigure.np);
+        this.ddslFormGroup.get('commitmentFeeTrans').patchValue(this.initialInformation.commitmentFee.np);
+        this.ddslFormGroup.get('nameOfStaffTrans').patchValue(this.initialInformation.nameOfStaff.np);
+        this.ddslFormGroup.get('nameOfFacilityTrans').patchValue(this.initialInformation.nameOfFacility.np);
+        this.ddslFormGroup.get('nameOfBranchManagerTrans').patchValue(this.initialInformation.nameOfBranchManager.np);
+        this.ddslFormGroup.get('EMIAmountFigureTrans').patchValue(this.initialInformation.EMIAmountFigure.np);
+        this.ddslFormGroup.get('EMIAmountWordTrans').patchValue(this.initialInformation.EMIAmountWord.np);
+    }
+
+    setSecurityData(): void {
+        const securityForm = this.ddslFormGroup.get('securities') as FormArray;
+        this.securities.forEach((data, index) => {
+            this.municipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
+            securityForm.push(
+                this.formBuilder.group({
+                    securityOwnersName: [data.securityOwnersName],
+                    securityOwnersMunicipalityOrVdc: [data.securityOwnersMunicipalityOrVdc],
+                    securityOwnersMunicipality: [data.securityOwnersMunicipality],
+                    securityOwnersDistrict: [data.securityOwnersDistrict],
+                    securityOwnersWardNo: [data.securityOwnersWardNo],
+                    securityOwnersPlotNo: [data.securityOwnersPlotNo],
+                    securityOwnersLandArea: [data.securityOwnersLandArea],
+                    securityOwnersSheetNo: [data.securityOwnersSheetNo],
+                    securityOwnersNameTrans: [data.securityOwnersNameTrans],
+                    securityOwnersDistrictTrans: [data.securityOwnersDistrictTrans],
+                    securityOwnersMunicipalityTrans: [data.securityOwnersMunicipalityTrans],
+                    securityOwnersWardNoTrans: [data.securityOwnersWardNoTrans],
+                    securityOwnersPlotNoTrans: [data.securityOwnersPlotNoTrans],
+                    securityOwnersLandAreaTrans: [data.securityOwnersLandAreaTrans],
+                    securityOwnersSheetNoTrans: [data.securityOwnersSheetNoTrans],
+                    securityOwnersNameCT: [data.securityOwnersNameCT],
+                    securityOwnersDistrictCT: [data.securityOwnersDistrictCT],
+                    securityOwnersMunicipalityCT: [data.securityOwnersMunicipalityCT],
+                    securityOwnersWardNoCT: [data.securityOwnersWardNoCT],
+                    securityOwnersPlotNoCT: [data.securityOwnersPlotNoCT],
+                    securityOwnersLandAreaCT: [data.securityOwnersLandAreaCT],
+                    securityOwnersSheetNoCT: [data.securityOwnersSheetNoCT],
+                })
+            );
+        });
+    }
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 }
