@@ -123,11 +123,13 @@
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
                    [docStatus]="loanDataHolder?.documentStatus"
+                   [collateralData]="loanDataHolder?.collateralSiteVisits"
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
 <app-security-approved-view *ngIf="approvedSecurity && !approveSecurityAsProposed" [security]="loanHolder?.security"
                             [shareSecurityData]="loanDataHolder?.shareSecurity"
                             [securityId]="securityId"
                             [docStatus]="loanDataHolder?.documentStatus"
+                            [collateralData]="loanDataHolder?.collateralSiteVisits"
                             (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-view>
 <!-- End Security Details-->
 
