@@ -1,34 +1,36 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
-import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
+import {OfferDocument} from '../../../../../model/OfferDocument';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
+import {CustomerLoanOptions} from '../../../../cad-constant/customer-loan-options';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NepaliCurrencyWordPipe} from '../../../../../../../@core/pipe/nepali-currency-word.pipe';
-import {CustomerLoanOptions} from '../../../../cad-constant/customer-loan-options';
 import {CurrencyFormatterPipe} from '../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {DatePipe, TitleCasePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
 import {SbTranslateService} from '../../../../../../../@core/service/sbtranslate.service';
-import {District} from '../../../../../../admin/modal/district';
 import {AddressService} from '../../../../../../../@core/service/baseservice/address.service';
-import {CadDocStatus} from '../../../../../model/CadDocStatus';
-import {Attributes} from '../../../../../../../@core/model/attributes';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CreditAdministrationService} from '../../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../../@core/utils';
-import {OfferDocument} from '../../../../../model/OfferDocument';
-import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
+import {CadDocStatus} from '../../../../../model/CadDocStatus';
+import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
+import {District} from '../../../../../../admin/modal/district';
+import {Attributes} from '../../../../../../../@core/model/attributes';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {InterestSubsidySanctionLetterComponent} from '../../../../../cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
 
 @Component({
-    selector: 'app-interest-subsidy-sanction-letter-template-data',
-    templateUrl: './interest-subsidy-sanction-letter-template-data.component.html',
-    styleUrls: ['./interest-subsidy-sanction-letter-template-data.component.scss']
+    selector: 'app-interest-subsidy-sanction-letter-template-edit',
+    templateUrl: './interest-subsidy-sanction-letter-template-edit.component.html',
+    styleUrls: ['./interest-subsidy-sanction-letter-template-edit.component.scss']
 })
-export class InterestSubsidySanctionLetterTemplateDataComponent implements OnInit {
+export class InterestSubsidySanctionLetterTemplateEditComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @Input() offerDocumentList: Array<OfferDocument>;
+    @Input() initialInformation: any;
     loanOptions: Array<String> = new Array<String>();
     spinner = false;
     dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
@@ -41,7 +43,10 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         {nData: 'ब्यापारिक कृषि तथा पशुपंछी कर्जा', eData: 'Commercial Agro and Livestock Loan'},
         {nData: 'शिक्षित युवा स्वरोजगार कर्जा', eData: 'Educated Youth and Self Employeed Loan '},
         {nData: 'उच्च र/वा प्राविधिक तथा व्यवसायिक शिक्षा कर्जा', eData: 'Higher and Techno-Vocational Education Loan'},
-        {nData: 'विपन्न, दलित तथा पिछडिएको वर्ग / समुदाय व्यवसाय विकाश कर्र्जा', eData: 'Loan to under-priviledged Caste/Community/Marginalized Communities'},
+        {
+            nData: 'विपन्न, दलित तथा पिछडिएको वर्ग / समुदाय व्यवसाय विकाश कर्र्जा',
+            eData: 'Loan to under-priviledged Caste/Community/Marginalized Communities'
+        },
         {nData: 'भुकम्प पीडितहरुको निजी आवास निर्माण कर्जा', eData: 'Personal Home Construction loan for Earthquake Affected People'},
         {nData: 'महिलाफरा प्रबर्तित लघु उद्यमशीलता कर्जा', eData: 'Women Run Micro enterprise Loan'},
         {nData: 'बैदेशिक रोजगारीबाट फर्केका युवा परियोजना कर्जा ', eData: 'Project loan for Youths returning from Foreign Employment'},
@@ -72,7 +77,8 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
     offerLetterConst = NabilOfferLetterConst;
     cusLoanType = CustomerLoanOptions;
     showSecurity = false;
-
+    securities;
+    tempLoanSubType;
 
     constructor(private formBuilder: FormBuilder,
                 private dialogService: NbDialogService,
@@ -84,7 +90,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
                 private translatedService: SbTranslateService,
                 private addressService: AddressService,
                 private modalService: NgbModal,
-                private dialogRef: NbDialogRef<InterestSubsidySanctionLetterTemplateDataComponent>,
+                private dialogRef: NbDialogRef<InterestSubsidySanctionLetterTemplateEditComponent>,
                 private titleCasePipe: TitleCasePipe,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService) {
@@ -96,9 +102,44 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         this.buildForm();
         this.getAllProvince();
         this.getAllDistrict();
-        this.ADApproval = true;
-        this.ADApplication = true;
         this.cadDocStatus = CadDocStatus.key();
+        if (!ObjectUtil.isEmpty(this.initialInformation)) {
+            this.isLoanOptionSelected = true;
+            const loanSelectedType = this.initialInformation.loanOption ?
+                this.initialInformation.loanOption.en : '';
+            if (loanSelectedType === this.cusLoanType.NEW) {
+                this.isCustomerNew = true;
+            }
+            // FOR DATE FLAG:
+            const tempApprovalFlag = this.initialInformation.dateOfApprovalType ?
+                this.initialInformation.dateOfApprovalType.en : '';
+            if (tempApprovalFlag === 'AD') {
+                this.ADApproval = true;
+            }
+            if (tempApprovalFlag === 'BS') {
+                this.BSApproval = true;
+            }
+
+            const tempApplicationFlag = this.initialInformation.dateOfApplicationType ?
+                this.initialInformation.dateOfApplicationType.en : '';
+            if (tempApplicationFlag === 'AD') {
+                this.ADApplication = true;
+            }
+            if (tempApplicationFlag === 'BS') {
+                this.BSApplication = true;
+            }
+
+            const tempPreviousFlag = this.initialInformation.previousSanctionType ?
+                this.initialInformation.previousSanctionType.en : '';
+            if (tempPreviousFlag === 'AD') {
+                this.ADPrevious = true;
+            }
+            if (tempPreviousFlag === 'BS') {
+                this.BSPrevious = true;
+            }
+            // SET TEMPLATE DATA:
+            this.setInterestSubsidyTemplateData();
+        }
     }
 
     buildForm() {
@@ -107,13 +148,13 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             repaymentType: [undefined],
             interestSubsidy: [undefined],
             securityType: [undefined],
-            dateOfApprovalType: ['AD'],
+            dateOfApprovalType: [undefined],
             dateOfApproval: [undefined],
             dateOfApprovalNepali: [undefined],
-            dateOfApplicationType: ['AD'],
+            dateOfApplicationType: [undefined],
             dateOfApplication: [undefined],
             dateOfApplicationNepali: [undefined],
-            previousSanctionType: ['AD'],
+            previousSanctionType: [undefined],
             previousSanctionDate: [undefined],
             previousSanctionDateNepali: [undefined],
             purposeOfLoan: [undefined],
@@ -182,12 +223,10 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             loanSubTypeCT: [undefined],
             securities: this.formBuilder.array([]),
         });
-        this.addDefaultSecurity();
     }
 
     transferValue(val) {
         this.isCustomerNew = val === 'NEW';
-        this.ADPrevious = !this.isCustomerNew;
     }
 
     interestSubsidyCheck(data) {
@@ -431,6 +470,16 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         this.setGoogleTranslatedValues(this.translatedValues);
         this.setCtValue();
         this.mapTranslatedData();
+        // For Loan Sub type values in Edit Condition:
+        const tempSelectedSubType = !ObjectUtil.isEmpty(this.tdVal.loanSubType) ?
+            this.tdVal.loanSubType.en : '';
+        if (!ObjectUtil.isEmpty(tempSelectedSubType)) {
+            if (ObjectUtil.isEmpty(tempSelectedSubType.eData)) {
+                this.tdVal.loanSubType.en = this.tempLoanSubType;
+                this.tdVal.loanSubType.np = this.tempLoanSubType.nData;
+                this.tdVal.loanSubType.ct = this.tempLoanSubType.nData;
+            }
+        }
         this.spinner = false;
         this.saveEnable = true;
     }
@@ -470,6 +519,10 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
 
     accept() {
         this.modalService.dismissAll();
+        this.dialogRef.close();
+    }
+
+    public close(): void {
         this.dialogRef.close();
     }
 
@@ -668,5 +721,208 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             }
         });
     }
+
+    public municipalityByDistrictIdForEdit(data, index?): void {
+        const district = new District();
+        district.id = data;
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.municipalityListForSecurities[index] = response.detail;
+                this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+
+            }
+        );
+    }
+
+    /* SET INTEREST SUBSIDY OFFER LETTER DATA */
+    setInterestSubsidyTemplateData() {
+        // SET EN VALUE OF OFFER LETTER:
+        this.interestSubsidy.get('loanOption').patchValue(this.initialInformation.loanOption.en);
+        this.interestSubsidy.get('repaymentType').patchValue(this.initialInformation.repaymentType.en);
+        const tempInterestSubsidy = this.initialInformation.interestSubsidy ?
+            this.initialInformation.interestSubsidy.en : '';
+        if (!ObjectUtil.isEmpty(tempInterestSubsidy)) {
+            this.isInterestSubsidy = true;
+            this.interestSubsidy.get('interestSubsidy').patchValue(tempInterestSubsidy);
+        }
+        // Set Security Type
+        const tempSecurityType = this.initialInformation.securityType ?
+            this.initialInformation.securityType.en : '';
+        if (tempSecurityType === 'LAND' || tempSecurityType === 'LAND & BUILDING') {
+            this.showSecurity = true;
+        } else {
+            this.showSecurity = false;
+        }
+        this.interestSubsidy.get('securityType').patchValue(tempSecurityType);
+        // SET DATE OF APPROVAL IN FORM:
+        this.interestSubsidy.get('dateOfApprovalType').patchValue(this.initialInformation.dateOfApprovalType.en);
+        const approvalType = this.initialInformation.dateOfApprovalType ?
+            this.initialInformation.dateOfApprovalType.en : '';
+        if (approvalType === 'AD') {
+            const tempEngApprovalDate = this.initialInformation.dateOfApproval ?
+                this.initialInformation.dateOfApproval.en : '';
+            this.interestSubsidy.get('dateOfApproval').patchValue(new Date(tempEngApprovalDate));
+        } else {
+            const tempNepApprovalDate = this.initialInformation.dateOfApprovalNepali ?
+                this.initialInformation.dateOfApprovalNepali.en : '';
+            this.interestSubsidy.get('dateOfApprovalNepali').patchValue(tempNepApprovalDate);
+        }
+
+        // SET DATE OF APPLICATION IN FORM:
+        const applicationDateType = this.initialInformation.dateOfApplicationType ?
+            this.initialInformation.dateOfApplicationType.en : '';
+        this.interestSubsidy.get('dateOfApplicationType').patchValue(applicationDateType);
+        if (applicationDateType === 'AD') {
+            const tempEngAppDate = this.initialInformation.dateOfApplication ?
+                this.initialInformation.dateOfApplication.en : '';
+            this.interestSubsidy.get('dateOfApplication').patchValue(new Date(tempEngAppDate));
+        } else {
+            const tempNepAppDate = this.initialInformation.dateOfApplicationNepali ?
+                this.initialInformation.dateOfApplicationNepali.en : '';
+            this.interestSubsidy.get('dateOfApplicationNepali').patchValue(tempNepAppDate);
+        }
+
+        // SET DATE OF APPLICATION IN FORM:
+        const previousSancType = this.initialInformation.previousSanctionType ?
+            this.initialInformation.previousSanctionType.en : '';
+        this.interestSubsidy.get('previousSanctionType').patchValue(previousSancType);
+        if (previousSancType === 'AD') {
+            const tempPrevSancDate = this.initialInformation.previousSanctionDate ?
+                this.initialInformation.previousSanctionDate.en : '';
+            this.interestSubsidy.get('previousSanctionDate').patchValue(new Date(tempPrevSancDate));
+        } else {
+            const tempNepPrevSancDate = this.initialInformation.previousSanctionDateNepali ?
+                this.initialInformation.previousSanctionDateNepali.en : '';
+            this.interestSubsidy.get('previousSanctionDateNepali').patchValue(tempNepPrevSancDate);
+        }
+        // SET VALUES FOR THE REST OF THE FIELDS
+        // this.interestSubsidy.get('dateOfApproval').patchValue(this.initialInformation.dateOfApproval.en);
+        // this.interestSubsidy.get('dateOfApprovalNepali').patchValue(this.initialInformation.dateOfApprovalNepali.en);
+        // this.interestSubsidy.get('dateOfApplicationType').patchValue(this.initialInformation.dateOfApplicationType.en);
+        // this.interestSubsidy.get('dateOfApplication').patchValue(this.initialInformation.dateOfApplication.en);
+        // this.interestSubsidy.get('dateOfApplicationNepali').patchValue(this.initialInformation.dateOfApplicationNepali.en);
+        // this.interestSubsidy.get('previousSanctionType').patchValue(this.initialInformation.previousSanctionType.en);
+        // this.interestSubsidy.get('previousSanctionDate').patchValue(this.initialInformation.previousSanctionDate.en);
+        // this.interestSubsidy.get('previousSanctionDateNepali').patchValue(this.initialInformation.previousSanctionDateNepali.en);
+        this.interestSubsidy.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
+        this.interestSubsidy.get('marginInPercentage').patchValue(this.initialInformation.marginInPercentage.en);
+        this.interestSubsidy.get('baseRate').patchValue(this.initialInformation.baseRate.en);
+        this.interestSubsidy.get('premiumRate').patchValue(this.initialInformation.premiumRate.en);
+        this.interestSubsidy.get('interestRate').patchValue(this.initialInformation.interestRate.en);
+        this.interestSubsidy.get('totalTenureOfLoan').patchValue(this.initialInformation.totalTenureOfLoan.en);
+        this.interestSubsidy.get('totalLimitFigure').patchValue(this.initialInformation.totalLimitFigure.en);
+        this.interestSubsidy.get('totalLimitWords').patchValue(this.initialInformation.totalLimitWords.en);
+        this.interestSubsidy.get('circularRate').patchValue(this.initialInformation.circularRate.en);
+        this.interestSubsidy.get('nameOfStaff').patchValue(this.initialInformation.nameOfStaff.en);
+        this.interestSubsidy.get('nameOfBranchManager').patchValue(this.initialInformation.nameOfBranchManager.en);
+        this.tempLoanSubType = this.initialInformation.loanSubType ?
+            this.initialInformation.loanSubType.en : '';
+        this.interestSubsidy.get('loanSubType').patchValue(
+            this.initialInformation.loanSubType.en.eData
+            + ' || ' + this.initialInformation.loanSubType.en.nData
+        );
+
+        // SET TRANSLATED VALUE OF OFFER LETTER:
+        this.interestSubsidy.get('loanOptionTrans').patchValue(this.initialInformation.loanOption.np);
+        this.interestSubsidy.get('repaymentTypeTrans').patchValue(this.initialInformation.repaymentType.np);
+        this.interestSubsidy.get('interestSubsidyTrans').patchValue(this.initialInformation.interestSubsidy.np);
+        this.interestSubsidy.get('securityTypeTrans').patchValue(this.initialInformation.securityType.np);
+        this.interestSubsidy.get('dateOfApprovalTypeTrans').patchValue(this.initialInformation.dateOfApprovalType.np);
+        this.interestSubsidy.get('dateOfApprovalTrans').patchValue(this.initialInformation.dateOfApproval.np);
+        this.interestSubsidy.get('dateOfApprovalNepaliTrans').patchValue(this.initialInformation.dateOfApprovalNepali.np);
+        this.interestSubsidy.get('dateOfApplicationTypeTrans').patchValue(this.initialInformation.dateOfApplicationType.np);
+        this.interestSubsidy.get('dateOfApplicationTrans').patchValue(this.initialInformation.dateOfApplication.np);
+        this.interestSubsidy.get('dateOfApplicationNepaliTrans').patchValue(this.initialInformation.dateOfApplicationNepali.np);
+        this.interestSubsidy.get('previousSanctionTypeTrans').patchValue(this.initialInformation.previousSanctionType.np);
+        this.interestSubsidy.get('previousSanctionDateTrans').patchValue(this.initialInformation.previousSanctionDate.np);
+        this.interestSubsidy.get('previousSanctionDateNepaliTrans').patchValue(this.initialInformation.previousSanctionDateNepali.np);
+        this.interestSubsidy.get('purposeOfLoanTrans').patchValue(this.initialInformation.purposeOfLoan.np);
+        this.interestSubsidy.get('marginInPercentageTrans').patchValue(this.initialInformation.marginInPercentage.np);
+        this.interestSubsidy.get('baseRateTrans').patchValue(this.initialInformation.baseRate.np);
+        this.interestSubsidy.get('premiumRateTrans').patchValue(this.initialInformation.premiumRate.np);
+        this.interestSubsidy.get('interestRateTrans').patchValue(this.initialInformation.interestRate.np);
+        this.interestSubsidy.get('totalTenureOfLoanTrans').patchValue(this.initialInformation.totalTenureOfLoan.np);
+        this.interestSubsidy.get('totalLimitFigureTrans').patchValue(this.initialInformation.totalLimitFigure.np);
+        this.interestSubsidy.get('totalLimitWordsTrans').patchValue(this.initialInformation.totalLimitWords.np);
+        this.interestSubsidy.get('circularRateTrans').patchValue(this.initialInformation.circularRate.np);
+        this.interestSubsidy.get('nameOfStaffTrans').patchValue(this.initialInformation.nameOfStaff.np);
+        this.interestSubsidy.get('nameOfBranchManagerTrans').patchValue(this.initialInformation.nameOfBranchManager.np);
+        this.interestSubsidy.get('loanSubTypeTrans').patchValue(this.initialInformation.loanSubType.np);
+
+        // SET CT VALUE OF OFFER LETTER:
+        this.interestSubsidy.get('loanOptionCT').patchValue(this.initialInformation.loanOption.ct);
+        this.interestSubsidy.get('repaymentTypeCT').patchValue(this.initialInformation.repaymentType.ct);
+        this.interestSubsidy.get('interestSubsidyCT').patchValue(this.initialInformation.interestSubsidy.ct);
+        this.interestSubsidy.get('securityTypeCT').patchValue(this.initialInformation.securityType.ct);
+        this.interestSubsidy.get('dateOfApprovalTypeCT').patchValue(this.initialInformation.dateOfApprovalType.ct);
+        this.interestSubsidy.get('dateOfApprovalCT').patchValue(this.initialInformation.dateOfApproval.ct);
+        this.interestSubsidy.get('dateOfApprovalNepaliCT').patchValue(this.initialInformation.dateOfApprovalNepali.ct);
+        this.interestSubsidy.get('dateOfApplicationTypeCT').patchValue(this.initialInformation.dateOfApplicationType.ct);
+        this.interestSubsidy.get('dateOfApplicationCT').patchValue(this.initialInformation.dateOfApplication.ct);
+        this.interestSubsidy.get('dateOfApplicationNepaliCT').patchValue(this.initialInformation.dateOfApplicationNepali.ct);
+        this.interestSubsidy.get('previousSanctionTypeCT').patchValue(this.initialInformation.previousSanctionType.ct);
+        this.interestSubsidy.get('previousSanctionDateCT').patchValue(this.initialInformation.previousSanctionDate.ct);
+        this.interestSubsidy.get('previousSanctionDateNepaliCT').patchValue(this.initialInformation.previousSanctionDateNepali.ct);
+        this.interestSubsidy.get('purposeOfLoanCT').patchValue(this.initialInformation.purposeOfLoan.ct);
+        this.interestSubsidy.get('marginInPercentageCT').patchValue(this.initialInformation.marginInPercentage.ct);
+        this.interestSubsidy.get('baseRateCT').patchValue(this.initialInformation.baseRate.ct);
+        this.interestSubsidy.get('premiumRateCT').patchValue(this.initialInformation.premiumRate.ct);
+        this.interestSubsidy.get('interestRateCT').patchValue(this.initialInformation.interestRate.ct);
+        this.interestSubsidy.get('totalTenureOfLoanCT').patchValue(this.initialInformation.totalTenureOfLoan.ct);
+        this.interestSubsidy.get('totalLimitFigureCT').patchValue(this.initialInformation.totalLimitFigure.ct);
+        this.interestSubsidy.get('totalLimitWordsCT').patchValue(this.initialInformation.totalLimitWords.ct);
+        this.interestSubsidy.get('circularRateCT').patchValue(this.initialInformation.circularRate.ct);
+        this.interestSubsidy.get('nameOfStaffCT').patchValue(this.initialInformation.nameOfStaff.ct);
+        this.interestSubsidy.get('nameOfBranchManagerCT').patchValue(this.initialInformation.nameOfBranchManager.ct);
+        this.interestSubsidy.get('loanSubTypeCT').patchValue(this.initialInformation.loanSubType.ct);
+
+        // SETTING SECURITY DETAILS:
+        if (!ObjectUtil.isEmpty(this.initialInformation.securities)) {
+            this.securities = this.initialInformation.securities;
+            this.setSecurityData();
+        }
+    }
+
+    setSecurityData(): void {
+        const securityFormArr = this.interestSubsidy.get('securities') as FormArray;
+        this.securities.forEach((val, index) => {
+            if (!ObjectUtil.isEmpty(val.securityOwnersDistrict)) {
+                this.municipalityByDistrictIdForEdit(val.securityOwnersDistrict.id, index);
+            }
+            securityFormArr.push(
+                this.formBuilder.group({
+                    securityOwnersName: [val.securityOwnersName],
+                    securityOwnersMunicipalityOrVdc: [val.securityOwnersMunicipalityOrVdc],
+                    securityOwnersMunicipality: [val.securityOwnersMunicipality],
+                    securityOwnersDistrict: [val.securityOwnersDistrict],
+                    securityOwnersWardNo: [val.securityOwnersWardNo],
+                    securityOwnersPlotNo: [val.securityOwnersPlotNo],
+                    securityOwnersLandArea: [val.securityOwnersLandArea],
+                    securityOwnersSheetNo: [val.securityOwnersSheetNo],
+                    // TRANSLATION FIELD OF SECURITY:
+                    securityOwnersNameTrans: [val.securityOwnersNameTrans],
+                    securityOwnersDistrictTrans: [val.securityOwnersDistrictTrans],
+                    securityOwnersMunicipalityTrans: [val.securityOwnersMunicipalityTrans],
+                    securityOwnersWardNoTrans: [val.securityOwnersWardNoTrans],
+                    securityOwnersPlotNoTrans: [val.securityOwnersPlotNoTrans],
+                    securityOwnersLandAreaTrans: [val.securityOwnersLandAreaTrans],
+                    securityOwnersSheetNoTrans: [val.securityOwnersSheetNoTrans],
+                    // CT FIELDS OF SECURITY
+                    securityOwnersNameCT: [val.securityOwnersNameCT],
+                    securityOwnersDistrictCT: [val.securityOwnersDistrictCT],
+                    securityOwnersMunicipalityCT: [val.securityOwnersMunicipalityCT],
+                    securityOwnersWardNoCT: [val.securityOwnersWardNoCT],
+                    securityOwnersPlotNoCT: [val.securityOwnersPlotNoCT],
+                    securityOwnersLandAreaCT: [val.securityOwnersLandAreaCT],
+                    securityOwnersSheetNoCT: [val.securityOwnersSheetNoCT],
+                })
+            );
+        });
+    }
+
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
+    }
+
 
 }
