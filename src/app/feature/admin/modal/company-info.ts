@@ -47,4 +47,6 @@ export class CompanyInfo {
     shareholderKycList: Array<ShareholderKyc>;
     isMicroCustomer: boolean;
     microCustomerType: string;
+    vatNo: string;
+    accountNo: string;
 }

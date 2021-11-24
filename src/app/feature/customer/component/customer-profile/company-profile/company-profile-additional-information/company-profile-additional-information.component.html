@@ -8,6 +8,12 @@
 
     <div class="row">
         <div class="col-md-7">
+            <span> <strong>Registration Number :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.registrationNumber}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
             <span> <strong>Registered Office :</strong></span></div>
         <div class="col-md-5">{{registeredOffice[companyInfo?.legalStatus?.registeredOffice]}}</div>
     </div>
@@ -26,16 +32,37 @@
 
     <div class="row">
         <div class="col-md-7">
-            <span> <strong>PAN/VAT Reg. Office :</strong></span></div>
+            <span> <strong>PAN No. :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.panNumber}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>PAN Reg. Office :</strong></span></div>
         <div class="col-md-5">{{companyInfo?.legalStatus?.panRegistrationOffice || 'NA'}}</div>
     </div>
 
     <div class="row">
         <div class="col-md-7">
-            <span> <strong>PAN/VAT Reg. Date :</strong></span></div>
+            <span> <strong>PAN Reg. Date :</strong></span></div>
         <div class="col-md-5">{{companyInfo?.legalStatus?.panRegistrationDate | date}}</div>
     </div>
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>VAT No. :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.vatNo}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>VAT Reg. Date :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.legalStatus?.vatRegistrationDate | date}}</div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>VAT Reg. Office :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.legalStatus?.vatRegistrationOffice || 'NA'}}</div>
+    </div>
     <div class="row">
         <div class="col-md-7">
             <span> <strong>Reg. Expiry Date :</strong></span></div>

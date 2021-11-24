@@ -109,7 +109,6 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.closed = false;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
-            console.log('loan data holder api response', this.loanDataHolder);
             if (!ObjectUtil.isEmpty(this.loanDataHolder.remitCustomer)) {
                 this.beneficiaryId = this.loanDataHolder.remitCustomer.beneficiaryId;
             }
@@ -194,7 +193,6 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
             const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
             this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
         });
-        console.log('last one', this.loanDataHolder);
     }
 
     activeApprovalSheet() {

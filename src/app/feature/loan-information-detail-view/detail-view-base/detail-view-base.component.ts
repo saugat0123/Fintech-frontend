@@ -19,7 +19,7 @@ import {SiteVisitDocument} from '../../loan-information-template/security/securi
   styleUrls: ['./detail-view-base.component.scss']
 })
 export class DetailViewBaseComponent implements OnInit {
-  @Input() loanDataHolder;
+  @Input() loanDataHolder: LoanDataHolder;
   @Input() loanHolder;
   @Input() calendarType;
   @Input() loanId;

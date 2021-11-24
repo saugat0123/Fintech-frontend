@@ -39,6 +39,7 @@ export class MarketScenarioComponent implements OnInit {
             technicalAspect: [undefined],
             securityRisk: [undefined],
             financialAndCashFlowRisk: [undefined],
+            groupBackground: [undefined],
         });
     }
 

@@ -83,9 +83,18 @@
                      [fiscalYears]="fiscalYearArray"
                      [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
 </ng-template>
-<div *ngIf="client === clientName?.LAXMI">
-    <app-comments-summary
-            [formData]="dataFromComments"></app-comments-summary>
+<div *ngIf="loanDataHolder?.loanCategory.toLowerCase() === 'institution' && loanDataHolder.loanHolder?.data  !==null">
+    <div class="col-md-12">
+        <p><strong>Comments</strong>
+        </p>
+    </div>
+    <app-comments
+            [commentData]="loanDataHolder.loanHolder?.data"
+            [fromProfile]="true"
+            [view]="true">
+    </app-comments>
+<!--    <app-comments-summary-->
+<!--            [formData]="dataFromComments"></app-comments-summary>-->
     <app-previous-security-summary *ngIf="previousSecuritySummary"
                                    [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
 </div>
