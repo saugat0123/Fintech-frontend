@@ -1,5 +1,5 @@
 <div>
-    <h5>14. Market Scenario</h5>
+    <h5>10. Customer Background</h5>
 </div>
 <div [formGroup]="marketScenarioForm">
     <div class="row">
@@ -20,7 +20,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="form-group">
                 <label for="keySupplier"><strong>Key Suppliers</strong></label>
@@ -55,7 +54,7 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <label for="competitorsOverview"><strong>Competitors Overview</strong></label>
+                <label for="competitorsOverview"><strong>Pricing & Competitors Overview</strong></label>
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.competitorsOverview.errors }"
                           formControlName="competitorsOverview" id="competitorsOverview"
                           name="competitorsOverview" [config]="ckeConfig"
@@ -63,7 +62,7 @@
                 <div *ngIf="submitted && form.competitorsOverview?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.competitorsOverview?.errors.required">
-                        Competitors Overview is required
+                        Pricing & Competitors Overview is required
                     </div>
                 </div>
             </div>
@@ -71,7 +70,7 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <label for="marketRisk"><strong>Industry/Market Risk & Mitigation</strong></label>
+                <label for="marketRisk"><strong>Business Objectives</strong></label>
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.BusinessIndustryOutlook.errors }"
                           formControlName="BusinessIndustryOutlook" id="marketRisk"
                           name="marketRisk" [config]="ckeConfig"
@@ -79,7 +78,7 @@
                 <div *ngIf="submitted && form.BusinessIndustryOutlook?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.BusinessIndustryOutlook?.errors.required">
-                        Industry/Market Risk & Mitigation is required
+                        Business Objectives is required
                     </div>
                 </div>
             </div>
@@ -101,7 +100,7 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="managementRisk"><strong>Business/Management Risk & Mitigation</strong></label>
+                <label for="managementRisk"><strong>Manufacturing Process, capacity, future plan </strong></label>
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.technicalAspect.errors }"
                           formControlName="technicalAspect" id="managementRisk"
                           name="managementRisk" [config]="ckeConfig"
@@ -110,14 +109,14 @@
                 <div *ngIf="submitted && form.technicalAspect?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.technicalAspect?.errors.required">
-                        Business/Management Risk & Mitigation is required
+                        Manufacturing Process, capacity, future plan is required
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="securityRisk"><strong>Security Risk & Mitigation</strong></label>
+                <label for="securityRisk"><strong>Raw Materials</strong></label>
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.securityRisk.errors }"
                           formControlName="securityRisk" id="securityRisk"
                           name="securityRisk" [config]="ckeConfig"
@@ -125,14 +124,14 @@
                 <div *ngIf="submitted && form.securityRisk?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.securityRisk?.errors.required">
-                        Security Risk & Mitigation is required
+                        Raw Materials is required
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="financialAndCashFlowRisk"><strong>Financial and Cash Flow Risk & Mitigation</strong></label>
+                <label for="financialAndCashFlowRisk"><strong>Market demand of product/service</strong></label>
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.financialAndCashFlowRisk.errors }"
                           formControlName="financialAndCashFlowRisk" id="financialAndCashFlowRisk"
                           name="financialAndCashFlowRisk" [config]="ckeConfig"
@@ -140,7 +139,22 @@
                 <div *ngIf="submitted && form.financialAndCashFlowRisk?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.financialAndCashFlowRisk?.errors.required">
-                        Financial and Cash Flow Risk & Mitigation is required
+                        Market demand of product/service is required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="financialAndCashFlowRisk"><strong>Group's Background and associated companies</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.groupBackground.errors }"
+                          formControlName="groupBackground" id="groupBackground"
+                          name="groupBackground" [config]="ckeConfig"
+                          type="text"></ckeditor>
+                <div *ngIf="submitted && form.groupBackground?.errors "
+                     class="invalid-feedback">
+                    <div *ngIf="form.groupBackground?.errors.required">
+                        Group's Background and associated companies is required
                     </div>
                 </div>
             </div>

@@ -72,9 +72,7 @@ export class LoanActionModalComponent implements OnInit {
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
-        console.log('loan holder in modal', this.customerLoanHolder);
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
-            console.log('loan holder hsov', this.customerLoanHolder.isHsov);
             this.isHSOVChecked(this.customerLoanHolder.isHsov);
         }
     }
@@ -135,7 +133,6 @@ export class LoanActionModalComponent implements OnInit {
             this.loanFormService.sendLegalDocumentBackToSenderOrAgent(sendDocToRemit).subscribe((res) => {
                 this.nbDialogRef.close();
 
-                console.log('response', res);
             }, error => {
                 this.nbDialogRef.close();
 
@@ -147,9 +144,6 @@ export class LoanActionModalComponent implements OnInit {
             if (this.formAction.invalid) {
                 return;
             }
-            if (this.isMaker) {
-                console.log('hsov');
-            }
             const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
                 context: {
                     toUser: this.formAction.get('toUser').value,
@@ -158,8 +152,6 @@ export class LoanActionModalComponent implements OnInit {
                 }
             });
             dialogRef.onClose.subscribe((verified: boolean) => {
-                console.log('benefff id', this.beneficiaryId);
-                console.log('inside loan action modal');
                 if (docAction === 'SEND_BACK_TO_SENDER' || docAction === 'SEND_BACK_TO_AGENT') {
                     const beneficiaryObj = {
                         'beneficiaryId': this.beneficiaryId,
@@ -307,7 +299,6 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     isHSOVChecked(event) {
-        console.log('HSOV event', event);
         if (event) {
             this.formAction.patchValue({
                 isHsov: true

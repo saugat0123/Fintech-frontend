@@ -13,6 +13,7 @@
                 <th>Registration Number</th>
                 <th>Issue Place</th>
                 <th>PAN</th>
+                <th>VAT</th>
                 <th>Business Type</th>
                 <th *ngIf="client === clientName?.SHINE_RESUNGA">Address as per Legal Document</th>
             </tr>
@@ -25,6 +26,7 @@
                 <td class="text-right pr-1">{{formValue?.registrationNumber}}</td>
                 <td class="text-left pl-1">{{formValue?.issuePlace}}</td>
                 <td class="text-right pr1">{{formValue?.panNumber}}</td>
+                <td class="text-right pr1">{{formValue?.vatNo}}</td>
                 <td class="text-left pl-1">{{formValue?.businessType}}</td>
                 <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{companyJsonData?.addressLegalDocument}}</td>
             </tr>
@@ -74,11 +76,26 @@
                 <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | date}} {{additionalInfoJsonData?.licenseExpiryDate | engNepDate: false}}</td>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuePlace}}</td>
             </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Remarks</th>
-            </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="additionalInfoJsonData?.additionalInfoRemark | safeHtml"></td>
+                <td colspan="5">
+                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <td colspan="4">License Number</td>
+                            <td colspan="4">Issuer Of License</td>
+                            <td colspan="4">Remarks</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="4">{{additionalInfoJsonData.licenseNo}}</td>
+                            <td colspan="4">{{additionalInfoJsonData.issuerOfLiscence}}</td>
+                            <td colspan="4" [innerHTML]="additionalInfoJsonData?.additionalInfoRemark | safeHtml"></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -86,15 +103,16 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="7">Legal Status</th>
+                <th colspan="12">Legal Status</th>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Corporate Structure</th>
                 <th>Registered Office</th>
                 <th>Registered Under Act</th>
                 <th>Registration Date(AD/BS)</th>
-                <th>PAN/VAT Registration Office</th>
-                <th>PAN/VAT Registration Date(AD/BS)</th>
+                <th>Registration Issued Place</th>
+                <th>PAN Registration Office</th>
+                <th>PAN Registration Date(AD/BS)</th>
                 <th>Registration Expiry Date(AD/BS)</th>
             </tr>
             </thead>
@@ -104,9 +122,26 @@
                 <td class="text-left pl-1">{{registeredOffice[formValue?.legalStatus?.registeredOffice]}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.registeredUnderAct}}</td>
                 <td class="text-right pr-1">{{formValue?.legalStatus?.registrationDate | date}} ({{formValue?.legalStatus?.registrationDate | engNepDate: false}})</td>
+                <td class="text-right pr-1">{{formValue?.legalStatus?.regIssuedPlace}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationOffice}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate | date}} ({{formValue?.legalStatus?.panRegistrationDate |engNepDate: false}})</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | date}} ({{formValue?.legalStatus?.registrationExpiryDate | engNepDate: false}})</td>
+            </tr>
+            <tr>
+                <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <thead>
+                    <tr class="sb-bg-dark text-white">
+                        <th>Vat Registration Date</th>
+                        <th>Vat Registration Office</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{formValue?.legalStatus?.vatRegistrationDate | date}} ({{formValue?.legalStatus?.vatRegistrationDate |engNepDate: false}})</td>
+                        <td>{{formValue.legalStatus.vatRegistrationOffice}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </tr>
             </tbody>
         </table>
@@ -125,7 +160,7 @@
                     <th *ngIf="formValue?.capital?.fixedCapital > 0">Fixed Capital</th>
                     <th *ngIf="formValue?.capital?.workingCapital > 0">Working Capital</th>
                 </ng-container>
-                <th>Number Of Shareholder</th>
+<!--                <th>Number Of Shareholder</th>-->
             </tr>
             </thead>
             <tbody>
@@ -138,7 +173,7 @@
                     <td class="text-right pr-1" *ngIf="formValue?.capital?.fixedCapital > 0">Rs. {{formValue?.capital?.fixedCapital}}</td>
                     <td class="text-right pr-1" *ngIf="formValue?.capital?.workingCapital > 0">Rs. {{formValue?.capital?.workingCapital}}</td>
                 </ng-container>
-                <td class="text-right pr-1">{{formValue?.capital?.numberOfShareholder}}</td>
+<!--                <td class="text-right pr-1">{{formValue?.capital?.numberOfShareholder}}</td>-->
             </tr>
             </tbody>
         </table>
@@ -195,18 +230,6 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th>Sister Concern</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">{{companyJsonData?.sisterConcern}}</td>
-            </tr>
-            </thead>
-        </table>
-
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
                 <th colspan="8">Other Details</th>
             </tr>
             <tr class="text-white sb-bg-dark">
@@ -234,11 +257,34 @@
 
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Sister Concern</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.sisterConcern}}</td>
+            </tr>
+            </thead>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th>Company Background</th>
             </tr>
             <tr>
                 <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Business/Management Risk & Mitigation</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.businessManagementRisk | safeHtml"></span></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Business Industry Outlook</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.BusinessIndustryOutlook | safeHtml"></span></td>
             </tr>
         </table>
 
@@ -395,6 +441,73 @@
         </table>-->
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th>Customer Background</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Market demand of product/service</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketDemandService'].toUpperCase()"></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Key Suppliers</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Key Buyers</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Pricing & Competitors Overview</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview']"></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Business Objectives</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook']"></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Marketing Strategies</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies']"></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Manufacturing Process, capacity, future plan </th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect']"></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Raw Materials</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk']"></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Market demand of product/service</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Group's Background and associated companies</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['groupBackground']"></td>
+            </tr>
+        </table>
+
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th colspan="4">SWOT Analysis</th>
@@ -445,66 +558,6 @@
             <tr>
                 <td class="text-left pl-1">{{companyJsonData?.rawMaterialSourcing}}</td>
                 <td class="text-left pl-1">{{companyJsonData?.rawMaterialAvailability}}</td>
-            </tr>
-        </table>
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th>Market Scenario</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Market demand of product/service</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketDemandService']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Key Suppliers</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Key Buyers</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Competitors Overview</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Industry/Market Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Marketing Strategies</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Business/Management Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Security Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Financial and Cash Flow Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
             </tr>
         </table>
         <table
