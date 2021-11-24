@@ -20,10 +20,12 @@ import {SelfDeclarationComponent} from './laxmi-offer-letter/self-declaration/se
 import {SelfDeclarationPrintComponent} from './laxmi-offer-letter/self-declaration/self-declaration-print/self-declaration-print.component';
 import {NrbKycComponent} from './laxmi-offer-letter/nrb-kyc/nrb-kyc.component';
 import {NrbKycPrintComponent} from './laxmi-offer-letter/nrb-kyc/nrb-kyc-print/nrb-kyc-print.component';
+// tslint:disable-next-line:max-line-length
 import {PromisoryNoteInstitutionalComponent} from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional.component';
 import {PromisoryNoteInstitutionalPrintComponent} from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
 import {LoanDeedInstitutionalComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional.component';
 import {LoanDeedInstitutionalPrintComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional-print/loan-deed-institutional-print.component';
+import { CorporateGuranteeComponent } from './laxmi-offer-letter/corporate-guarantee/corporate-gurantee.component';
 import {PersonalGuaranteeInstitutionalComponent} from './laxmi-offer-letter/personal-guarantee-institutional/personal-guarantee-institutional.component';
 import { PersonalGuaranteeInstitutionalPrintComponent } from './laxmi-offer-letter/personal-guarantee-institutional/personal-guarantee-institutional-print/personal-guarantee-institutional-print.component';
 import { PersonalGuaranteeIndividualComponent } from './laxmi-offer-letter/personal-guarantee-individual/personal-guarantee-individual.component';
@@ -57,6 +59,7 @@ import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-lax
         PersonalGuaranteeInstitutionalPrintComponent,
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
+        CorporateGuranteeComponent,
         ConsentOfHakwalaComponent,
         MortgageDeedLaxmiComponent,
         OfferLetterLaxmiComponent],
@@ -79,6 +82,7 @@ import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-lax
         PersonalGuaranteeInstitutionalComponent,
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
+        CorporateGuranteeComponent,
         ConsentOfHakwalaComponent,
         MortgageDeedLaxmiComponent,
         OfferLetterLaxmiComponent

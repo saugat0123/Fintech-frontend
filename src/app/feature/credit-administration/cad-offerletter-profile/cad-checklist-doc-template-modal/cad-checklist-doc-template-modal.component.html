@@ -129,6 +129,10 @@
         <app-personal-guarantee-institutional *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_COMPANY"
                                         [cadData]="cadData" [documentId]="documentId"
                                         [customerLoanId]="customerLoanId"></app-personal-guarantee-institutional>
+
+        <app-corporate-gurantee *ngSwitchCase="cadTemplate.CORPORATE_GUARANTEE"
+                                [cadData]="cadData" [documentId]="documentId"
+                                [customerLoanId]="customerLoanId"></app-corporate-gurantee>
         <app-personal-guarantee-joint-borrower
             *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_JOINT_BORROWER" [cadData]="cadData"
             [documentId]="documentId"
