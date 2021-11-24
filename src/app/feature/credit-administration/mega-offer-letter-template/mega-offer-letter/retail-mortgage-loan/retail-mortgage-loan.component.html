@@ -658,18 +658,15 @@
                                 को धितोबन्धक तमसुक ।<br>
                                 ङ. मूल्याङकन प्रतिवेदन ।<br>
                                 च. बहुबैकिङ्ग  घोषणा पत्र ।<br>
-                                छ. भवनको निर्माण सम्पन्न प्रमाणपत्र ।
-                            </p>
-                            <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" >
-                                {{ 8 | nepaliWord}}.
-                                बैंकर्स शर्त सहितको रु.
+                            <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" style="margin-top: -1em">
+                                छ. भवनको निर्माण सम्पन्न प्रमाणपत्र ।<br/>
+                                ज. बैंकर्स शर्त सहितको रु.
                                 <input class="form-fields form-control-sm"
                                                                formControlName="insuranceAmount"
                                                                name="insuranceAmount"
                                                                placeholder="बीमा रकम"
                                                                type="text"/>
                                 को भवनको विमालेख ।
-
                             </p>
                             <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING'; else guarantorLand" style="margin-top: 1em">
                                 <p>
@@ -694,7 +691,7 @@
                             </div>
                             <ng-template #guarantorLand style="margin-top: 1em">
                                 <p>
-                                    ज.
+                                    छ.
                                     श्री
                                     <input class="form-field form-control-sm col-3"
                                            formControlName="guarantorName"
@@ -713,8 +710,17 @@
                                     मात्र)बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ति बिवरण दिनु पर्नेछ ।
                                 </p>
                             </ng-template>
-                            <div class="row col-md-12" style="margin-top: 1.5em">
-                                झ. <textarea
+                            <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" class="row col-md-12" style="margin-top: 1.5em">
+                                ञ. <textarea
+                                    class="form-control customFont nepaliFont"
+                                    rows="5"
+                                    style="width:inherit;margin-left:2%"
+                                    name="additionalGuarantorDetails"
+                                    formControlName="additionalGuarantorDetails">
+                                        </textarea>
+                            </div>
+                            <div *ngIf="selectedSecurity !== 'LAND_AND_BUILDING'" class="row col-md-12" style="margin-top: 1.5em">
+                                ज. <textarea
                                     class="form-control customFont nepaliFont"
                                     rows="5"
                                     style="width:inherit;margin-left:2%"

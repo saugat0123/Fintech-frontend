@@ -55,7 +55,10 @@
         <app-udhyamsil-karja-subsidy-template-data [customerApprovedDoc]="cadData"></app-udhyamsil-karja-subsidy-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER" [nbSpinner]="spinner">
-        <app-interest-subsidy-sanction-letter [cadOfferLetterApprovedDoc]="cadData"></app-interest-subsidy-sanction-letter>
+        <app-interest-subsidy-sanction-letter-template-data [customerApprovedDoc]="cadData"></app-interest-subsidy-sanction-letter-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.DDSL_WITHOUT_SUBSIDY" [nbSpinner]="spinner">
+        <app-ddsl-without-subsidy-template-data [customerApprovedDoc]="cadData"></app-ddsl-without-subsidy-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.CLASS_A_SANCTION_LETTER" [nbSpinner]="spinner">
         <app-class-a-sanction-letter [cadOfferLetterApprovedDoc]="cadData"></app-class-a-sanction-letter>

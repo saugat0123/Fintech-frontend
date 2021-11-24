@@ -87,7 +87,8 @@ const COMPONENTS = [
         PersonalOverdraftPrintComponent,
         PersonalLoanAndPersonalOverdraftPrintComponent,
         RetailMortgageLoanPrintComponent,
-        PersonalOverdraftWithoutCollateralComponent
+        PersonalOverdraftWithoutCollateralComponent,
+        PersonalOverdraftWithoutCollateralPrintComponent
     ],
     imports: [
         ThemeModule,

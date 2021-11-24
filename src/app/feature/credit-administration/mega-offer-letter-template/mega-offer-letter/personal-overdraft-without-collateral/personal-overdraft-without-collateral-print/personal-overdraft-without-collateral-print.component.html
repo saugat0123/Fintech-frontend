@@ -454,7 +454,7 @@
                                             ङ.  स्थाई लेखा नम्बरको प्रमाण पत्र ।<br>
                                             च. ग्राहक स्वःघोषणा फारम ।<br>
                                             छ. बहूबैंकिङ्ग घोषणा पत्र ।<br>
-                                            ज. ऋणीबाट गलमभचतबपष्लन भिततभच ।
+                                            ज. ऋणीबाट undertaking letter ।
                                         </p>
                                         <br>
                                         <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12"
@@ -575,3 +575,5 @@
                 </div>
     </div>
 </div>
+<button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+         ngxPrint printSectionId="{{offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL}}Print" #printButton>Print</button>

@@ -496,6 +496,16 @@
                   [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                   [letter]="initialInfoPrint"
                   [preview]="true"></app-auto-loan-commercial-print>
+          <app-personal-overdraft-without-collateral-print
+              *ngSwitchCase="offerLetterConst.value(offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL)"
+              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+              [letter]="initialInfoPrint"
+              [security]="this.selectedSecurity"
+              [renewal]="this.renewal"
+              [offerData] = offerLetterData
+              [loanLimit]="this.loanLimit"
+              [preview]="true">
+          </app-personal-overdraft-without-collateral-print>
         </nb-card-body>
     </nb-card>
 </ng-template>
