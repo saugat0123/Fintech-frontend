@@ -24,15 +24,11 @@ export class CommentsComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('this is data', this.commentData);
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.commentData)) {
             const commentsForEdit = JSON.parse(this.commentData);
             this.setFormData(commentsForEdit.data);
-            console.log('this is data', commentsForEdit.data);
             this.data = JSON.parse(commentsForEdit.data);
-            console.log('this is data', this.data);
-
         }
 
     }
