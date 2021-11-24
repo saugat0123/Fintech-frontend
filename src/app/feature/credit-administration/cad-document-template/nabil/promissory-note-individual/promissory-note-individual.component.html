@@ -372,7 +372,7 @@
                                                     type="text"/>
                                         <span class="print-only font-weight-bold">{{form.get(['nameofPerson']).value ? form.get('nameofPerson').value : "_____________________"}}</span>
                                     </div>
-                                    <table class="table table-hover table-bordered" style="width: 95%">
+                                    <table class="table table-hover table-bordered" style="width: 50%">
                                         <tr>
                                             <th colspan="2" style="text-align: center">औठाछाप</th>
                                         </tr>
@@ -396,7 +396,7 @@
                                                         type="text"/>
                                             <span class="print-only font-weight-bold">{{form.get(['signatureData', i, 'loanHolderNameJoint']).value ? form.get(['signatureData', i, 'loanHolderNameJoint']).value : "_____________________"}}</span>
                                         </div>
-                                        <table class="table table-hover table-bordered" style="width: 95%">
+                                        <table class="table table-hover table-bordered" style="width: 50%">
                                             <tr>
                                                 <th colspan="2" style="text-align: center">औठाछाप</th>
                                             </tr>
@@ -488,9 +488,8 @@
                             </p>
 
                         </div>
-                        <br/>
 
-                        <div class="pageBreak"></div>
+                        <div *ngIf="this.cadData.offerDocumentList[0].docName === 'Personal loan and personal overdraft'" class="pageBreak"></div>
 
 <!--                        For personal Overdraft-->
                         <div *ngIf="this.cadData.offerDocumentList[0].docName === 'Personal loan and personal overdraft'"><br>
@@ -805,7 +804,7 @@
                                                     type="text"/>
                                         <span class="print-only font-weight-bold">{{form.get(['nameofPerson']).value ? form.get('nameofPerson').value : "_____________________"}}</span>
                                     </div>
-                                    <table class="table table-hover table-bordered" style="width: 95%">
+                                    <table class="table table-hover table-bordered" style="width: 50%">
                                         <tr>
                                             <th colspan="2" style="text-align: center">औठाछाप</th>
                                         </tr>
@@ -829,7 +828,7 @@
                                                         type="text"/>
                                             <span class="print-only font-weight-bold">{{form.get(['signatureData', i, 'loanHolderNameJoint']).value ? form.get(['signatureData', i, 'loanHolderNameJoint']).value : "_____________________"}}</span>
                                         </div>
-                                        <table class="table table-hover table-bordered" style="width: 95%">
+                                        <table class="table table-hover table-bordered" style="width: 50%">
                                             <tr>
                                                 <th colspan="2" style="text-align: center">औठाछाप</th>
                                             </tr>
