@@ -29,7 +29,7 @@ import {HomeLoanTemplateEditComponent} from '../../../cad-view/template-data/hom
 import {RetailMortageLoanTemplateDataEditComponent} from '../../../cad-view/template-data/retail-mortage-loan-template-data-edit/retail-mortage-loan-template-data-edit.component';
 import {AutoLoanTemplateEditComponent} from '../../../cad-view/template-data/auto-loan-template-edit/auto-loan-template-edit.component';
 import {UdhyamsilKarjaSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-edit/udhyamsil-karja-subsidy-template-edit.component';
-import {PersonalOverdraftWithoutCollateralTemplateEditComponent} from "../../../cad-view/template-data/auto-loan-commercial-template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component";
+import {PersonalOverdraftWithoutCollateralTemplateEditComponent} from "../../../cad-view/template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component";
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {InterestSubsidySanctionLetterTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-edit/interest-subsidy-sanction-letter-template-edit.component';
 

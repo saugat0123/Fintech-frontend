@@ -76,8 +76,15 @@
                                 <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः</strong></td>
                                 <td>
                                     <strong>आवास कर्जाः</strong>
-                                    {{tempData?.loanType === homeLoanType.CONSTRUCTION ? 'भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।':
-                                    tempData?.loanType === homeLoanType.PURCHASE ? '________________________' + 'खरीद गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।': ''}}
+                                    {{tempData?.loanType === homeLoanType.CONSTRUCTION ? 'भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।': ''}}
+                                    <ng-container *ngIf="tempData.loanType === homeLoanType.PURCHASE">
+                                        <input class="form-field form-control-sm"
+                                               formControlName="purposeOfLoan"
+                                               name="purposeOfLoan"
+                                               placeholder=""
+                                               type="text"/>
+                                        <span> प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । </span>
+                                    </ng-container>
                                     <ng-container *ngIf="tempData.loanType === homeLoanType.TAKE_OVER">
                                         <input class="form-field form-control-sm"
                                                formControlName="nameOfBank"
@@ -209,7 +216,7 @@
                                            placeholder=""
                                            type="text"/>
                                     सम मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु पर्नेछ। <br>
-                                    <ng-container *ngIf="tempData?.loanType !== homeLoanType.PURCHASE">
+                                    <ng-container *ngIf="tempData?.loanType === homeLoanType.CONSTRUCTION">
                                         <strong><u>द्रष्टब्यः </u></strong>
                                         <input class="form-field form-control-sm"
                                                formControlName="moratoriumPeriodInMonth"
@@ -383,7 +390,7 @@
 
                         <tr *ngIf="this.tempData.loanType === 'CONSTRUCTION'">
                             <td>९. </td>
-                            <td> धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
+                            <td> धितोबन्धक तमसुक बाहेक, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
                                 <input class="form-field form-control-sm"
                                        formControlName="branchName"
                                        name="branchName"
@@ -468,10 +475,10 @@
                     </textarea>
                                 </div>
                         </tr>
-                        <tr *ngIf="landbuilding === 'LAND & BUILDING' || landbuilding === 'LAND'">
+                        <tr *ngIf="this.tempData.loanType === 'PURCHASE' || this.tempData.loanType === 'TAKE OVER'">
                             <td>९. </td>
                             <td>
-                                धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
+                                धितोबन्धक तमसुक {{tempData.loanType === homeLoanType.PURCHASE ? 'बाहेक' : ''}}, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
                                 तपाईंको यस नबिल बैंक लिमिटेडको, <input class="form-field form-control-sm"
                                                                        formControlName="branchName"
                                                                        name="branchName"

@@ -57,7 +57,7 @@
                         <td>
                             <strong>आवास कर्जाः</strong>
                             {{tempData?.loanType === homeLoanType.CONSTRUCTION ? ' भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ':
-                            tempData?.loanType === homeLoanType.PURCHASE ? '________________________' + ' खरीद गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ':
+                            (tempData?.loanType === homeLoanType.PURCHASE && tempData?.loan?.purposeOfLoanCT) ? tempData?.loan?.purposeOfLoanCT + ' प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ':
                             tempData?.loan?.nameOfBankCT ? tempData?.loan?.nameOfBankCT + ' बैंकको कर्जा चुक्ता गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ' : ''}}
 
                         </td>
@@ -157,7 +157,7 @@
             {{letter?.loan.loanPeriodInMonthsCT === null || letter?.loan.loanPeriodInMonthsCT === '' ? '___________' : letter?.loan.loanPeriodInMonthsCT}}</span>
 
                             सम मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु पर्नेछ। <br>
-                            <ng-container *ngIf="tempData?.loanType !== homeLoanType?.PURCHASE">
+                            <ng-container *ngIf="tempData?.loanType === homeLoanType?.CONSTRUCTION">
                             <strong><u>द्रष्टब्यः </u></strong>
                             <span [ngClass]="{'font-weight-bold' : letter?.loan.moratoriumPeriodInMonthCT!== null && letter?.loan.moratoriumPeriodInMonthCT!== ''}">
             {{letter?.loan.moratoriumPeriodInMonthCT === null || letter?.loan.moratoriumPeriodInMonthCT === '' ? '___________' : letter?.loan.moratoriumPeriodInMonthCT}}</span>
@@ -333,7 +333,7 @@
 
                 <tr *ngIf="this.tempData.loanType === 'CONSTRUCTION'">
                     <td>९. </td>
-                    <td> धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
+                    <td> धितोबन्धक तमसुक बाहेक, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
                         <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
             {{loanHolderInfo?.branch.ct === null || loanHolderInfo?.branch.ct === '' ? '___________' : loanHolderInfo?.branch.ct}}</span>
                       शाखामा रहेको खातामा निम्न तरीकाले कर्जा प्रवाह गरिनेछ। <br>
@@ -395,7 +395,7 @@
                 <tr *ngIf="this.tempData.loanType === 'PURCHASE' || this.tempData.loanType === 'TAKE OVER'">
                     <td>९. </td>
                     <td>
-                        धितोबन्धक तमसुक, तहाञको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
+                        धितोबन्धक तमसुक {{tempData.loanType === homeLoanType.PURCHASE ? 'बाहेक' : ''}}, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
                         तपाईंको यस नबिल बैंक लिमिटेडको, <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
             {{loanHolderInfo?.branch.ct === null || loanHolderInfo?.branch.ct === '' ? '___________' : loanHolderInfo?.branch.ct}}</span> शाखामा रहेको चल्ती
                         खातामा रु  <span class=" font-weight-bold">
