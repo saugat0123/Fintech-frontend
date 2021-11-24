@@ -588,9 +588,10 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.commentsDataResponse, this.customerInfoId, TemplateName.COMMENTS)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Comments!'));
-            this.commentsFromAccount.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
+            this.nbDialogRef.close();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Comments)!'));
         });

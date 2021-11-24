@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ElementRef} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -7,6 +7,7 @@ import {RepaymentTrackCurrentBank} from '../../admin/modal/crg/RepaymentTrackCur
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
+import {CompanyInfo} from '../../admin/modal/company-info';
 
 @Component({
   selector: 'app-income-from-account',
@@ -17,6 +18,7 @@ export class IncomeFromAccountComponent implements OnInit {
   @Input() incomeFromAccountDataResponse: IncomeFromAccount;
   @Input() fromProfile;
   @Output() incomeFromAccountDataEmitter = new EventEmitter();
+  @Input() companyInfo: CompanyInfo;
   incomeDataObject = new IncomeFromAccount();
   incomeFormGroup: FormGroup;
   submitted = false;
@@ -55,6 +57,11 @@ export class IncomeFromAccountComponent implements OnInit {
       } else {
         this.incomeFormGroup.get('accountTransactionForm').disable();
       }
+    }
+    if (!this.isNewCustomer && !ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
+          this.incomeFormGroup.patchValue({
+          accountNo: this.companyInfo.accountNo
+          });
     }
   }
 

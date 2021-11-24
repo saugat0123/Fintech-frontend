@@ -281,6 +281,25 @@
                                        </div>
                                    </div>
                                </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="accountNo"><strong>Account Number</strong></label>
+
+                                       <input
+                                               [ngClass]="{'is-invalid':submitted &&  form.accountNo.errors}"
+                                               formControlName="accountNo"
+                                               class="form-control"
+                                               id="accountNo"
+                                               placeholder="Enter Account Number"/>
+
+                                       <div *ngIf="submitted && form.accountNo?.errors "
+                                            class="text-danger small">
+                                           <div *ngIf="form.accountNo?.errors.required">
+                                               Account Number is required.
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
                            </div>
                        <div formGroupName="additionalCompanyInfo">
                            <div class="row">

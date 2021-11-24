@@ -48,4 +48,5 @@ export class CompanyInfo {
     isMicroCustomer: boolean;
     microCustomerType: string;
     vatNo: string;
+    accountNo: string;
 }

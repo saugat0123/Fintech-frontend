@@ -408,7 +408,10 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus.vatRegistrationDate)) ? undefined :
                 new Date(this.companyInfo.legalStatus.vatRegistrationDate)],
 
-
+            accountNo:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.accountNo)) ? undefined :
+                    this.companyInfo.accountNo],
             registrationExpiryDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registrationExpiryDate)) ? undefined :
@@ -931,6 +934,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         this.companyInfo.panNumber = this.companyInfoFormGroup.get('companyPAN').value;
         this.companyInfo.vatNo = this.companyInfoFormGroup.get('vatNo').value;
+        this.companyInfo.accountNo = this.companyInfoFormGroup.get('accountNo').value;
         this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
         this.companyInfo.businessType = this.companyInfoFormGroup.get('businessType').value;
         this.companyInfo.version = this.companyInfoFormGroup.get('companyInfoVersion').value;
