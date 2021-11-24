@@ -24,10 +24,11 @@ import { PromisoryNoteInstitutionalComponent } from './laxmi-offer-letter/promis
 import { PromisoryNoteInstitutionalPrintComponent } from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
 import {LoanDeedInstitutionalComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional.component';
 import {LoanDeedInstitutionalPrintComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional-print/loan-deed-institutional-print.component';
+import { HypothecationChargeOverFixedAssetsComponent } from './laxmi-offer-letter/hypothecation-charge-over-fixed-assets/hypothecation-charge-over-fixed-assets.component';
 
 
 @NgModule({
-    declarations: [LaxmiOfferLetterComponent, LetterOfCommitmentComponent, PersonalGuaranteeComponent, OfferLetterComponent, LetterOfCommitmentPrintComponent, OfferLetterPrintComponent, PersonalGuaranteePrintComponent, LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromisoryNoteIndividualComponent, PromisoryNoteIndividualPrintComponent, SelfDeclarationComponent, SelfDeclarationPrintComponent, NrbKycComponent, NrbKycPrintComponent, PromisoryNoteInstitutionalComponent, PromisoryNoteInstitutionalPrintComponent, LoanDeedInstitutionalComponent, LoanDeedInstitutionalPrintComponent],
+    declarations: [LaxmiOfferLetterComponent, LetterOfCommitmentComponent, PersonalGuaranteeComponent, OfferLetterComponent, LetterOfCommitmentPrintComponent, OfferLetterPrintComponent, PersonalGuaranteePrintComponent, LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromisoryNoteIndividualComponent, PromisoryNoteIndividualPrintComponent, SelfDeclarationComponent, SelfDeclarationPrintComponent, NrbKycComponent, NrbKycPrintComponent, PromisoryNoteInstitutionalComponent, PromisoryNoteInstitutionalPrintComponent, LoanDeedInstitutionalComponent, LoanDeedInstitutionalPrintComponent, HypothecationChargeOverFixedAssetsComponent],
     imports: [
         CommonModule,
         NbCardModule,
