@@ -673,16 +673,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.getTemporaryMunicipalities(data.temporaryDistrict);
             this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
             this.setGuarantors(data.guarantorDetails);
-            this.userConfigForm.get('guarantorPermanentProvince').patchValue(data.guarantorDetails.guarantorPermanentProvince);
-            this.getGuarantorDistricts(data.guarantorDetails.guarantorPermanentProvince);
-            this.userConfigForm.get('guarantorPermanentDistrict').patchValue(data.guarantorDetails.guarantorPermanentDistrict);
-            this.getGuarantorMunicipalities(data.guarantorDetails.guarantorPermanentDistrict);
-            this.userConfigForm.get('guarantorPermanentMunicipality').patchValue(data.guarantorDetails.guarantorPermanentMunicipality);
-            this.userConfigForm.get('guarantorTemporaryProvince').patchValue(data.guarantorDetails.guarantorTemporaryProvince);
-            this.getGuarantorTemporaryDistricts(data.guarantorDetails.guarantorTemporaryProvince);
-            this.userConfigForm.get('guarantorTemporaryDistrict').patchValue(data.guarantorDetails.guarantorTemporaryDistrict);
-            this.getGuarantorTemporaryMunicipalities(data.guarantorDetails.guarantorTemporaryDistrict);
-            this.userConfigForm.get('guarantorTemporaryMunicipality').patchValue(data.guarantorDetails.guarantorTemporaryMunicipality);
             // tslint:disable-next-line:max-line-length
             this.userConfigForm.get('collateralOwnerPermanentProvince').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
             this.getCollateralOwnerDistricts(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
