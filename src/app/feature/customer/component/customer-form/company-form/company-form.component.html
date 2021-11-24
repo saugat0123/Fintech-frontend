@@ -84,7 +84,31 @@
                                        </div>
                                    </div>
                                </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="accountNo"><strong>Account Number</strong></label>
 
+                                       <input
+                                               [ngClass]="{'is-invalid':submitted &&  form.accountNo.errors}"
+                                               formControlName="accountNo"
+                                               class="form-control"
+                                               id="accountNo"
+                                               placeholder="Enter Account Number"/>
+
+                                       <div *ngIf="submitted && form.accountNo?.errors "
+                                            class="text-danger small">
+                                           <div *ngIf="form.accountNo?.errors.required">
+                                               Account Number is required.
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+
+
+                               </div>
+                           </div>
+
+                           <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="companyName"><strong>Company Name</strong></label>
@@ -100,12 +124,6 @@
                                        </div>
                                    </div>
                                </div>
-
-                               </div>
-                           </div>
-
-                           <div class="row">
-
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="companyEstablishmentDate"><strong>Establishment Date</strong></label>
@@ -148,24 +166,6 @@
                                        </div>
                                    </div>
                                </div>
-                               <div class="col-md-4">
-                                   <div class="form-group">
-                                       <label for="email"><strong>Email</strong></label>
-                                       <input
-                                               [ngClass]="{ 'is-invalid':submitted && form.email?.errors }"
-                                               class="form-control rounded"
-                                               formControlName="email"
-                                               id="email"
-                                               placeholder="abc@gmail.com"
-                                               type="text"/>
-                                       <div *ngIf="submitted && form.email?.errors "
-                                            class="invalid-feedback">
-                                           <div *ngIf="form.email?.errors.email">
-                                               Email Address is required
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
 <!--                               <div class="col-md-4" *ngIf="client === clientName?.SHINE_RESUNGA">-->
 <!--                                   <div class="form-group rounded">-->
 <!--                                       <label for="addressLegalDocument"><strong>Address as Per Legal Document</strong></label>-->
@@ -188,6 +188,24 @@
 
                            </div>
                            <div class="row">
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="email"><strong>Email</strong></label>
+                                       <input
+                                               [ngClass]="{ 'is-invalid':submitted && form.email?.errors }"
+                                               class="form-control rounded"
+                                               formControlName="email"
+                                               id="email"
+                                               placeholder="abc@gmail.com"
+                                               type="text"/>
+                                       <div *ngIf="submitted && form.email?.errors "
+                                            class="invalid-feedback">
+                                           <div *ngIf="form.email?.errors.email">
+                                               Email Address is required
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="contactNum"><strong>Mobile Number</strong></label>
@@ -221,6 +239,8 @@
                                                type="text"/>
                                    </div>
                                </div>
+                           </div>
+                           <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="businessType"><strong>Business Type</strong></label>
@@ -238,8 +258,6 @@
                                        </div>
                                    </div>
                                </div>
-                           </div>
-                           <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="businessType"><strong>Major products/Service</strong></label>
@@ -277,25 +295,6 @@
                                             class="small text-danger">
                                            <div *ngIf="form.relationshipSince?.errors.beforeToday">
                                                Relationship Since value should be past date
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="col-md-4">
-                                   <div class="form-group">
-                                       <label for="accountNo"><strong>Account Number</strong></label>
-
-                                       <input
-                                               [ngClass]="{'is-invalid':submitted &&  form.accountNo.errors}"
-                                               formControlName="accountNo"
-                                               class="form-control"
-                                               id="accountNo"
-                                               placeholder="Enter Account Number"/>
-
-                                       <div *ngIf="submitted && form.accountNo?.errors "
-                                            class="text-danger small">
-                                           <div *ngIf="form.accountNo?.errors.required">
-                                               Account Number is required.
                                            </div>
                                        </div>
                                    </div>
