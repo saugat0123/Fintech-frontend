@@ -1,13 +1,18 @@
-<nb-card>
-    <form [nbSpinner]="spinner" [formGroup]="ddslFormGroup">
-        <nb-card-header class="container-fluid">
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header>
+        <h3>Edit DDSL Without Subsidy Data </h3>
+        <div class="row d-flex justify-content-end px-2 cursor text-dark font-weight-bold">
+            <a (click)="close()" style="margin-top:-2em">x</a>
+        </div>
+    </nb-card-header>
+    <nb-card-body class="container-fluid">
+        <form [formGroup]="ddslFormGroup" [nbSpinner]="spinner">
             <div class="row p-4">
                 <div class="col-md-4">
                     <label><strong>Loan Options</strong></label>
                     <ng-select (ngModelChange)="transferValue($event)"
                                [multiple]="false"
-                               formControlName="loanOption"
-                               placeholder="Select Case Type">
+                               formControlName="loanOption">
                         <ng-option *ngFor="let customerLoanOption of customerLoanOptions"
                                    [value]="customerLoanOption.value">{{customerLoanOption.value}}</ng-option>
                     </ng-select>
@@ -17,7 +22,6 @@
                     <ng-select
                             formControlName="securityType"
                             fullWidth
-                            placeholder="Security Type"
                             (selectionchange)="securityValue()"
                             status="info">
                         <ng-option value="LAND">LAND</ng-option>
@@ -27,9 +31,7 @@
                     </ng-select>
                 </div>
             </div>
-        </nb-card-header>
-        <nb-card-body *ngIf="isLoanOptionSelected" class="container-fluid">
-            <div class="row pt-3 pl-4 pr-4">
+            <div *ngIf="isLoanOptionSelected" class="row pt-3 pl-4 pr-4">
                 <div class="col-md-4">
                     <div class="col-md-12 mb-2 text-center">
                         <h5>LOAN DATA</h5>
@@ -432,10 +434,10 @@
                     </div>
                     <div class="form-group">
                         <label for="loanAmountFigureWordsCT">Loan Amount In Words CT</label>
-                        <input class="form-control" formControlName="loanAmountFigureWordsCT" fullWidth
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.loanAmountFigureWordsCT.errors }"
+                               class="form-control" formControlName="loanAmountFigureWordsCT" fullWidth
                                id="loanAmountFigureWordsCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.loanAmountFigureWordsCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.loanAmountFigureWordsCT.invalid" class="text-danger">
                             Loan Amount In Words is required
@@ -443,10 +445,10 @@
                     </div>
                     <div class="form-group">
                         <label for="marginInPercentageCT">Margin In Percentage CT</label>
-                        <input class="form-control" formControlName="marginInPercentageCT" fullWidth
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.marginInPercentageCT.errors }"
+                               class="form-control" formControlName="marginInPercentageCT" fullWidth
                                id="marginInPercentageCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.marginInPercentageCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.marginInPercentageCT.invalid" class="text-danger">
                             Margin In Percentage is required
@@ -454,9 +456,9 @@
                     </div>
                     <div class="form-group">
                         <label for="baseRateCT">Base Rate CT</label>
-                        <input class="form-control" formControlName="baseRateCT" fullWidth id="baseRateCT"
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.baseRateCT.errors }"
+                               class="form-control" formControlName="baseRateCT" fullWidth id="baseRateCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.baseRateCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.baseRateCT.invalid" class="text-danger">
                             Base Rate is required
@@ -464,9 +466,9 @@
                     </div>
                     <div class="form-group">
                         <label for="premiumRateCT">Premium Rate CT</label>
-                        <input class="form-control" formControlName="premiumRateCT" fullWidth id="premiumRateCT"
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.premiumRateCT.errors }"
+                               class="form-control" formControlName="premiumRateCT" fullWidth id="premiumRateCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.premiumRateCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.premiumRateCT.invalid" class="text-danger">
                             Premium Rate is required
@@ -474,9 +476,9 @@
                     </div>
                     <div class="form-group">
                         <label for="interestRateCT">Interest Rate (%) CT</label>
-                        <input class="form-control" formControlName="interestRateCT" fullWidth id="interestRateCT"
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.interestRateCT.errors }"
+                               class="form-control" formControlName="interestRateCT" fullWidth id="interestRateCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.interestRateCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.interestRateCT.invalid" class="text-danger">
                             Interest Rate is required
@@ -484,9 +486,9 @@
                     </div>
                     <div class="form-group">
                         <label for="nameOfFacilityCT">Name of Facility CT</label>
-                        <input class="form-control" formControlName="nameOfFacilityCT" fullWidth id="nameOfFacilityCT"
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfFacilityCT.errors }"
+                               class="form-control" formControlName="nameOfFacilityCT" fullWidth id="nameOfFacilityCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfFacilityCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.nameOfFacilityCT.invalid" class="text-danger">
                             Name of Facility is required
@@ -504,10 +506,10 @@
                     </div>
                     <div class="form-group">
                         <label for="totalTenureOfLoanCT">Total Tenure of Loan In Year CT</label>
-                        <input class="form-control" formControlName="totalTenureOfLoanCT" fullWidth
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.totalTenureOfLoanCT.errors }"
+                               class="form-control" formControlName="totalTenureOfLoanCT" fullWidth
                                id="totalTenureOfLoanCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.totalTenureOfLoanCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.totalTenureOfLoanCT.invalid" class="text-danger">
                             Total Tenure of Loan is required
@@ -515,9 +517,9 @@
                     </div>
                     <div class="form-group">
                         <label for="commitmentFeeCT">Total Commitment Fee (%) CT</label>
-                        <input class="form-control" formControlName="commitmentFeeCT" fullWidth id="commitmentFeeCT"
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.commitmentFeeCT.errors }"
+                               class="form-control" formControlName="commitmentFeeCT" fullWidth id="commitmentFeeCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.commitmentFeeCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.commitmentFeeCT.invalid" class="text-danger">
                             Total Commitment Fee is required
@@ -525,9 +527,9 @@
                     </div>
                     <div class="form-group">
                         <label for="nameOfStaffCT">Name of ARO/RO/RM/ARM CT</label>
-                        <input class="form-control" formControlName="nameOfStaffCT" fullWidth id="nameOfStaffCT"
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfStaffCT.errors }"
+                               class="form-control" formControlName="nameOfStaffCT" fullWidth id="nameOfStaffCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfStaffCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.nameOfStaffCT.invalid" class="text-danger">
                             >Name of ARO is required
@@ -535,10 +537,10 @@
                     </div>
                     <div class="form-group">
                         <label for="nameOfBranchManagerCT">Name Of Branch Manager CT</label>
-                        <input class="form-control" formControlName="nameOfBranchManagerCT" fullWidth
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfBranchManagerCT.errors }"
+                               class="form-control" formControlName="nameOfBranchManagerCT" fullWidth
                                id="nameOfBranchManagerCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfBranchManagerCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.nameOfBranchManagerCT.invalid" class="text-danger">
                             Name Of Branch Manager is required
@@ -546,9 +548,10 @@
                     </div>
                     <div class="form-group">
                         <label for="EMIAmountFigureCT">EMI Amount Figure CT</label>
-                        <input class="form-control" formControlName="EMIAmountFigureCT" fullWidth id="EMIAmountFigureCT"
-                               nbInput status="success"
+                        <input (input)="getNumAmountWord('EMIAmountFigure', 'EMIAmountWord')"
                                [ngClass]="{ 'is-invalid':submitted && FormControls.EMIAmountFigureCT.errors }"
+                               class="form-control" formControlName="EMIAmountFigureCT" fullWidth id="EMIAmountFigureCT"
+                               nbInput status="success"
                                type="text">
                         <span *ngIf="submitted && FormControls.EMIAmountFigureCT.invalid" class="text-danger">
                             EMI Amount in Figure
@@ -556,9 +559,9 @@
                     </div>
                     <div class="form-group">
                         <label for="EMIAmountWordCT">EMI Amount In Word CT</label>
-                        <input class="form-control" formControlName="EMIAmountWordCT" fullWidth id="EMIAmountWordCT"
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.EMIAmountWordCT.errors }"
+                               class="form-control" formControlName="EMIAmountWordCT" fullWidth id="EMIAmountWordCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.EMIAmountWordCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.EMIAmountWordCT.invalid" class="text-danger">
                             EMI Amount In Word is required
@@ -566,10 +569,10 @@
                     </div>
                     <div class="form-group">
                         <label for="totalInstallmentFigureCT">Total No. of Installments CT</label>
-                        <input class="form-control" formControlName="totalInstallmentFigureCT" fullWidth
+                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.totalInstallmentFigureCT.errors }"
+                               class="form-control" formControlName="totalInstallmentFigureCT" fullWidth
                                id="totalInstallmentFigureCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.totalInstallmentFigureCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.totalInstallmentFigureCT.invalid" class="text-danger">
                             Total No. of Installments is required
@@ -613,6 +616,7 @@
                                 <label for="securityOwnersDistrict{{i}}">District (जिल्ला)</label>
                                 <select (change)="getMunicipalityByDistrict(ddslFormGroup.get(['securities', i, 'securityOwnersDistrict'])?.value?.id, $event, i); setDefaultNepaliResponse('securities', 'securityOwnersDistrict', i, 'securityOwnersDistrictTrans')"
                                         class="custom-select"
+                                        [compareWith]="compareFn"
                                         formControlName="securityOwnersDistrict" id="securityOwnersDistrict{{i}}"
                                         name="securityOwnersDistrict{{i}}">
                                     <option [ngValue]="null" hidden>District</option>
@@ -637,9 +641,9 @@
 
                                     <div class="col-md-8" *ngIf="ddslFormGroup.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value  &&
                                     ddslFormGroup.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value === 'VDC'">
-                                        <input class="form-control" formControlName="securityOwnersMunicipality"
+                                        <input (input)="onChangeTranslateSecurity('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                               class="form-control" formControlName="securityOwnersMunicipality"
                                                fullWidth
-                                               (input)="onChangeTranslateSecurity('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
                                                id="securityOwnersVDC"
                                                nbInput status="success" type="text">
                                     </div>
@@ -649,6 +653,7 @@
                                         <select (change)="setDefaultNepaliResponse('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
                                                 class="custom-select"
                                                 formControlName="securityOwnersMunicipality"
+                                                [compareWith]="compareFn"
                                                 id="securityOwnersMunicipality{{i}}"
                                                 name="securityOwnersMunicipality{{i}}">
                                             <option [ngValue]="null" hidden>Municipality</option>
@@ -811,27 +816,27 @@
                     <hr *ngIf="ddslFormGroup.get('securities')['length'] > 1">
                 </div>
             </div>
-        </nb-card-body>
-        <nb-card-footer>
-            <div class="row d-flex justify-content-end">
-                <div class="col-md-12 text-right pr-4">
-                    <button (click)="openCloseTemplate(confirm)" [disabled]="!closeEnable" class="float-right" nbButton
-                            size="small"
-                            status="info" style="margin-right: 0.5em">
-                        Close
-                    </button>
-                    <button nbButton status="primary" class="float-right" size="small" [disabled]="!isPreview"
-                            (click)="openModal()">
-                        Preview
-                    </button>
-                    <button nbButton status="success" (click)="save()" size="small" type="submit"
-                            [disabled]="!saveEnable">
-                        Save
-                    </button>
-                </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row d-flex justify-content-end">
+            <div class="col-md-12 text-right pr-4">
+                <button (click)="openCloseTemplate(confirm)" [disabled]="!closeEnable" class="float-right" nbButton
+                        size="small"
+                        status="info" style="margin-right: 0.5em">
+                    Close
+                </button>
+                <button nbButton status="primary" class="float-right" size="small" [disabled]="!isPreview"
+                        (click)="openModal()">
+                    Preview
+                </button>
+                <button nbButton status="success" (click)="save()" size="small" type="submit"
+                        [disabled]="!saveEnable">
+                    Save
+                </button>
             </div>
-        </nb-card-footer>
-    </form>
+        </div>
+    </nb-card-footer>
 </nb-card>
 <ng-template #confirm>
     <div class="modal-header" style="padding-left: 90%">
