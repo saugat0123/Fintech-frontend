@@ -199,6 +199,11 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Personal loan and personal overdraft') {
       this.purposeOfLoan = this.offerDocumentDetails.purposeofLoan.ct ? this.offerDocumentDetails.purposeofLoan.ct : '';
     }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Personal overdraft without collateral') {
+      this.purposeOfLoan = this.offerDocumentDetails.purposeOfLoan.ct ? this.offerDocumentDetails.purposeOfLoan.ct : '';
+      this.offerLetterAdminFee = this.offerDocumentDetails.loanadminFee ? this.offerDocumentDetails.loanadminFee.en : '';
+      this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
+    }
     return this.formBuilder.group({
       branchName: [
         this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : '',
@@ -355,6 +360,7 @@ export class LoanDeedIndividualComponent implements OnInit {
     this.cadData.offerDocumentList.forEach((offerDocument: OfferDocument, index: number) => {
       const initialInformation = JSON.parse(offerDocument.initialInformation);
       const docName = offerDocument.docName;
+      console.log('Initial Information:', initialInformation);
       if (docName === 'Personal Loan') {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonth.ct + ' महिना सम्म ।');
@@ -422,6 +428,17 @@ export class LoanDeedIndividualComponent implements OnInit {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + tempExpiryDate + ' महिना सम्म ।');
         this.expiryDate = 'मासिक किस्ता सूरु भएको मितिले ' + tempExpiryDate + ' महिना सम्म ।';
+      }
+      if (docName === 'Personal overdraft without collateral') {
+        if (initialInformation.dateOfExpiryType.en === 'AD') {
+          this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+              .patchValue(this.englishNepaliDatePipe.transform(initialInformation.dateofExpiry.en, true));
+          this.expiryDate = this.englishNepaliDatePipe.transform(initialInformation.dateofExpiry.en, true);
+        } else {
+          this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
+              .patchValue(initialInformation.dateofExpiryNepali.en);
+          this.expiryDate = initialInformation.dateofExpiryNepali.en;
+        }
       }
     });
   }
