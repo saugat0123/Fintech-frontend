@@ -30,6 +30,7 @@ import {RetailMortageLoanTemplateDataEditComponent} from '../../../cad-view/temp
 import {AutoLoanTemplateEditComponent} from '../../../cad-view/template-data/auto-loan-template-edit/auto-loan-template-edit.component';
 import {UdhyamsilKarjaSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-edit/udhyamsil-karja-subsidy-template-edit.component';
 import {PersonalOverdraftWithoutCollateralTemplateEditComponent} from "../../../cad-view/template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component";
+import {DdslWithoutSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/ddsl-without-subsidy/ddsl-without-subsidy-template-edit/ddsl-without-subsidy-template-edit.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -281,6 +282,16 @@ export class OfferLetterListComponent implements OnInit {
                   });
                 } else if (this.docName === 'Personal overdraft without collateral') {
                   this.dialogService.open(PersonalOverdraftWithoutCollateralTemplateEditComponent, {
+                    context: {
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === 'DDSL Without Subsidy') {
+                  this.dialogService.open(DdslWithoutSubsidyTemplateEditComponent, {
                     context: {
                       customerApprovedDoc: this.cadOfferLetterApprovedDoc,
                       offerDocumentList: this.offerDocumentList,
