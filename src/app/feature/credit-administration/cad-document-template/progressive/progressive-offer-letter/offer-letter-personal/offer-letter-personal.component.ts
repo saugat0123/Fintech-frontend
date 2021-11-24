@@ -201,7 +201,6 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     setSecurityDetails(data) {
-        console.log('data', data);
         const formArray = this.form.get('securityDetails') as FormArray;
         if (data.length === 0) {
             this.addEmptySecurityDetail();
@@ -212,7 +211,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 name: [value.collateralName],
                 parentName: [value.collateralFatherName],
                 grandParentName: [value.collateralGrandFatherName],
-                address: [value.collateralMunVdc.nepaliName] + ' j8f g+= ' +
+                address: [value.collateralMunVdc.nepaliName] + ', j8f g+= '
                     [value.collateralWardNo] + ' , ' +
                     [value.collateralDistrict.nepaliName],
                 jaggaDistrict: [value.collateralDistrict.nepaliName],

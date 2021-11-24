@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
@@ -26,6 +26,7 @@ import {District} from '../../../admin/modal/district';
 import {Collateral} from '../../../loan/model/collateral';
 import {CollateralDetail} from '../../../loan/model/collateralDetail';
 import {CollateralOwner} from '../../../loan/model/collateralOwner';
+import {NepProposedAmountFormComponent} from './nep-proposed-amount-form/nep-proposed-amount-form.component';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -80,6 +81,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     collateralOwnerPermanentDistrictList: Array<District> = Array<District>();
     collateralOwnerPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     nepData;
+    loanDetailsValue;
+
+    @ViewChild('loanDetails', {static: true})
+    loanDetails: NepProposedAmountFormComponent;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -370,8 +375,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (this.userConfigForm.invalid) {
             return;
         }
-        this.spinner = true;
-
+        if (this.loanDetails.nepForm.invalid) {
+            return;
+        }
+        this.loanDetails.save();
         const data = JSON.stringify(this.userConfigForm.value);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
             this.customerInfoData = res.detail;
@@ -474,7 +481,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     setGuarantors(guarantorDetails: any) {
-        console.log('guarantorDetails: ', guarantorDetails);
         const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
         if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
@@ -524,7 +530,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     getGuarantorMunicipalities(district) {
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                console.log('this.guarantorList: ', this.guarantorList);
                 this.guarantorPerMunicipalitiesList = response.detail;
                 this.guarantorPerMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
                 this.guarantorPerMunicipalitiesList.forEach(municipality => {
@@ -696,7 +701,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get('collateralTemporaryDistrict').patchValue(data.collateralDetails.collateralTemporaryDistrict);
             this.getCollateralTemporaryMunicipalities(data.collateralDetails.collateralTemporaryDistrict);
             this.userConfigForm.get('collateralTemporaryMunVdc').patchValue(data.collateralDetails.collateralTemporaryMunVdc);
-
         }
     }
 
@@ -717,4 +721,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }
         );
     }
+
+    proposedData(event) {
+        this.loanDetailsValue = event;
+    }
+
 }
