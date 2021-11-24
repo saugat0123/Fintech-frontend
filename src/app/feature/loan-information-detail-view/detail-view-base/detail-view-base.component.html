@@ -83,7 +83,7 @@
                      [fiscalYears]="fiscalYearArray"
                      [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
 </ng-template>
-<div *ngIf="client === clientName?.LAXMI">
+<div *ngIf="loanDataHolder?.loanCategory.toLowerCase() === 'institution'">
     <div class="col-md-12">
         <p><strong>Comments</strong>
         </p>
