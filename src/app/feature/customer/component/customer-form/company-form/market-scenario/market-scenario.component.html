@@ -3,23 +3,23 @@
 </div>
 <div [formGroup]="marketScenarioForm">
     <div class="row">
-<!--        <div class="col-md-12">-->
-<!--            <div class="form-group">-->
-<!--                <label for="marketDemandService"><strong>Market demand of product/service</strong></label> <br>-->
-<!--                <nb-radio-group class="close d-inline-flex float-left" formControlName="marketDemandService"-->
-<!--                                name="marketDemandService" id="marketDemandService">-->
-<!--                    <nb-radio value="lowDemand">Low Demand</nb-radio>-->
-<!--                    <nb-radio value="moderateDemand">Moderate Demand</nb-radio>-->
-<!--                    <nb-radio value="highDemand">High Demand</nb-radio>-->
-<!--                </nb-radio-group>-->
-<!--                <div *ngIf="submitted && form.marketDemandService?.errors "-->
-<!--                     class="small text-danger">-->
-<!--                    <div *ngIf="form.marketDemandService?.errors.required">-->
-<!--                        Market Demand Service is required-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="marketDemandService"><strong>Market demand of product/service</strong></label> <br>
+                <nb-radio-group class="close d-inline-flex float-left" formControlName="marketDemandService"
+                                name="marketDemandService" id="marketDemandService">
+                    <nb-radio value="lowDemand">Low Demand</nb-radio>
+                    <nb-radio value="moderateDemand">Moderate Demand</nb-radio>
+                    <nb-radio value="highDemand">High Demand</nb-radio>
+                </nb-radio-group>
+                <div *ngIf="submitted && form.marketDemandService?.errors "
+                     class="small text-danger">
+                    <div *ngIf="form.marketDemandService?.errors.required">
+                        Market Demand Service is required
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="keySupplier"><strong>Key Suppliers</strong></label>
