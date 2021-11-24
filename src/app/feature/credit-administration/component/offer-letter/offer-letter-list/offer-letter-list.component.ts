@@ -32,6 +32,7 @@ import {UdhyamsilKarjaSubsidyTemplateEditComponent} from '../../../cad-view/temp
 import {PersonalOverdraftWithoutCollateralTemplateEditComponent} from "../../../cad-view/template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component";
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {InterestSubsidySanctionLetterTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-edit/interest-subsidy-sanction-letter-template-edit.component';
+import {DdslWithoutSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/ddsl-without-subsidy/ddsl-without-subsidy-template-edit/ddsl-without-subsidy-template-edit.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -294,6 +295,16 @@ export class OfferLetterListComponent implements OnInit {
                   });
                 } else if (this.docName === this.offerLetterName.value(this.offerLetterName.INTEREST_SUBSIDY_SANCTION_LETTER)) {
                   this.dialogService.open(InterestSubsidySanctionLetterTemplateEditComponent, {
+                    context: {
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === 'DDSL Without Subsidy') {
+                  this.dialogService.open(DdslWithoutSubsidyTemplateEditComponent, {
                     context: {
                       customerApprovedDoc: this.cadOfferLetterApprovedDoc,
                       offerDocumentList: this.offerDocumentList,

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
+import {NbDialogRef} from '@nebular/theme';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
   selector: 'app-ddsl-without-subsidy',
@@ -8,11 +10,20 @@ import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
   styleUrls: ['./ddsl-without-subsidy.component.scss']
 })
 export class DdslWithoutSubsidyComponent implements OnInit {
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() preview;
+  @Input() ddslData: any;
+  @Input() renewal: any;
+  @Input() loanLimit;
   form = FormGroup;
   offerLetterConst = NabilOfferLetterConst;
   initialInfoPrint;
+  spinner = false;
+  selectedSecurity;
+  offerLetterData;
   constructor(
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private dialogRef: NbDialogRef<DdslWithoutSubsidyComponent>,
   ) { }
 
   ngOnInit() {
@@ -83,5 +94,10 @@ export class DdslWithoutSubsidyComponent implements OnInit {
       karmachariName: [undefined],
     });
   }
+
+  close() {
+    this.dialogRef.close();
+  }
+
   submit() {}
 }
