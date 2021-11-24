@@ -184,7 +184,6 @@ import { DdslWithoutSubsidyTemplateEditComponent} from './cad-view/template-data
         UdhyamsilKarjaSubsidyTemplateDataComponent,
         DdslWithoutSubsidyTemplateDataComponent,
     UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent, InterestSubsidySanctionLetterPrintComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
-        InterestSubsidySanctionLetterTemplateDataComponent,
         InterestSubsidySanctionLetterTemplateEditComponent,
         InterestSubsidySanctionLetterTemplateDataComponent,
         DdslWithoutSubsidyTemplateEditComponent],
