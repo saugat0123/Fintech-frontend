@@ -24,6 +24,7 @@ import {PromisoryNoteInstitutionalComponent} from './laxmi-offer-letter/promisor
 import {PromisoryNoteInstitutionalPrintComponent} from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
 import {LoanDeedInstitutionalComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional.component';
 import {LoanDeedInstitutionalPrintComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional-print/loan-deed-institutional-print.component';
+import { CorporateGuranteeComponent } from './laxmi-offer-letter/corporate-guarantee/corporate-gurantee.component';
 import {PersonalGuaranteeInstitutionalComponent} from './laxmi-offer-letter/personal-guarantee-institutional/personal-guarantee-institutional.component';
 import { PersonalGuaranteeInstitutionalPrintComponent } from './laxmi-offer-letter/personal-guarantee-institutional/personal-guarantee-institutional-print/personal-guarantee-institutional-print.component';
 import { PersonalGuaranteeIndividualComponent } from './laxmi-offer-letter/personal-guarantee-individual/personal-guarantee-individual.component';
@@ -57,6 +58,8 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
         ConsentOfHakwalaComponent,
+        CorporateGuranteeComponent],
+        ConsentOfHakwalaComponent,
         MortgageDeedLaxmiComponent],
     imports: [
         CommonModule,
@@ -77,6 +80,8 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
         PersonalGuaranteeInstitutionalComponent,
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
+        ConsentOfHakwalaComponent,
+        CorporateGuranteeComponent
         ConsentOfHakwalaComponent,
         MortgageDeedLaxmiComponent
     ],
