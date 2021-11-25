@@ -109,9 +109,9 @@ export class IncomeFromAccountComponent implements OnInit {
       otherChargesLastReview: [undefined],
       otherChargesDuringReview1: [undefined],
       otherChargesNextReview: [undefined],
-      grossLastReview: [undefined],
-      grossDuringReview: [undefined],
-      grossNextReview: [undefined],
+      grossLastReview: [0],
+      grossDuringReview: [0],
+      grossNextReview: [0],
       overDraftLastReview: [undefined],
       overDraftDuringReview: [undefined],
       overDraftNextReview: [undefined],
@@ -121,16 +121,16 @@ export class IncomeFromAccountComponent implements OnInit {
       demandLastReview: [undefined],
       demandDuringReview: [undefined],
       demandNextReview: [undefined],
-      totalLastReview: [undefined],
-      totalDuringReview: [undefined],
-      totalNextReview: [undefined],
+      totalLastReview: [0],
+      totalDuringReview: [0],
+      totalNextReview: [0],
       interestIncome: [undefined],
       costBaseRate: [undefined],
-      netInterestSurplus: [undefined],
+      netInterestSurplus: [0],
       feeCommission: [undefined],
       otherIncome: [undefined],
       capitalCost: [undefined],
-      economicProfit: [undefined],
+      economicProfit: [0],
       economicProfitPercentage: [undefined],
     });
   }
@@ -230,8 +230,6 @@ export class IncomeFromAccountComponent implements OnInit {
             this.incomeFormGroup.get('feeCommissionNextReview').value +
             this.incomeFormGroup.get('otherChargesNextReview').value +
             Number(this.incomeFormGroup.get('grossNextReview').value)).toFixed(2);
-    console.log('gross123',  Number(this.incomeFormGroup.get('grossNextReview').value));
-    console.log('total', totalNextReview);
     this.incomeFormGroup.get('totalNextReview').patchValue(totalNextReview);
   }
 
@@ -244,7 +242,6 @@ export class IncomeFromAccountComponent implements OnInit {
             this.incomeFormGroup.get('feeCommissionLastReview').value +
             this.incomeFormGroup.get('otherChargesLastReview').value +
             Number(this.incomeFormGroup.get('grossLastReview').value)).toFixed(2);
-    console.log('totalLastReview', totalLastReview);
     this.incomeFormGroup.get('totalLastReview').patchValue(totalLastReview);
   }
 
@@ -254,7 +251,6 @@ export class IncomeFromAccountComponent implements OnInit {
         (this.incomeFormGroup.get('demandLastReview').value +
         this.incomeFormGroup.get('trLoanLastReview').value +
         this.incomeFormGroup.get('overDraftLastReview').value).toFixed(2);
-    console.log('totalGrossLastReview', totalGrossLastReview);
     this.incomeFormGroup.get('grossLastReview').patchValue(totalGrossLastReview);
     this.calculateTotalLastReview();
   }
@@ -264,10 +260,9 @@ export class IncomeFromAccountComponent implements OnInit {
     totalGrossNextReview =
         (this.incomeFormGroup.get('overDraftNextReview').value +
         this.incomeFormGroup.get('trLoanNextReview').value +
-        this.incomeFormGroup.get('demandNextReview').value.toFixed(2));
-    console.log('totalGrossNextReview', totalGrossNextReview.toFixed(2));
-    this.incomeFormGroup.get('grossNextReview').patchValue(totalGrossNextReview.toFixed(2));
-    this.calculateTotalLastReview();
+        this.incomeFormGroup.get('demandNextReview').value).toFixed(2);
+    this.incomeFormGroup.get('grossNextReview').patchValue(totalGrossNextReview);
+    this.calculateTotalNextReview();
   }
 
   calculateGrossDuringReview() {
@@ -276,7 +271,6 @@ export class IncomeFromAccountComponent implements OnInit {
         (this.incomeFormGroup.get('overDraftDuringReview').value +
         this.incomeFormGroup.get('trLoanDuringReview').value +
         this.incomeFormGroup.get('demandDuringReview').value).toFixed(2);
-    console.log('totalGrossDuringReView', totalGrossDuringReView);
     this.incomeFormGroup.get('grossDuringReview').patchValue(totalGrossDuringReView);
     this.calculateTotalDuringReview();
   }
