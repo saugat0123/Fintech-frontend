@@ -32,9 +32,9 @@ export class BankingRelationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.buildForm();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.bankingRelation = JSON.parse(this.formValue);
-      this.buildForm();
       if (!ObjectUtil.isEmpty(this.bankingRelation.accountTransactionForm)) {
         this.bankingRelationForm.get('accountTransactionForm').patchValue(JSON.parse(this.bankingRelation.accountTransactionForm));
       }

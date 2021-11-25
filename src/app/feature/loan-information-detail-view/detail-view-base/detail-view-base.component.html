@@ -83,7 +83,7 @@
                      [fiscalYears]="fiscalYearArray"
                      [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
 </ng-template>
-<app-income-from-account-view *ngIf="bankingRelation?.accountTransactionForm !== null" [individual]="isIndividual"
+<app-income-from-account-view *ngIf="!isIndividual" [individual]="isIndividual"
                               [data]="(bankingRelation)"></app-income-from-account-view>
 <div *ngIf="loanDataHolder?.loanCategory.toLowerCase() === 'institution' && loanDataHolder.loanHolder?.data  !==null">
     <div class="col-md-12">

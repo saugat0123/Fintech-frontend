@@ -63,7 +63,7 @@ export class IncomeFromAccountComponent implements OnInit {
         this.incomeFormGroup.get('accountTransactionForm').disable();
       }
     }
-    if (!this.isNewCustomer && !ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
+    if (!this.isNewCustomer && !ObjectUtil.isEmpty(this.companyInfo)) {
           this.incomeFormGroup.patchValue({
           accountNo: this.companyInfo.accountNo
           });
