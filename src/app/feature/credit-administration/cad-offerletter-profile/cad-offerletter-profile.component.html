@@ -511,6 +511,12 @@
               [loanLimit]="this.loanLimit"
               [preview]="true">
           </app-personal-overdraft-without-collateral-print>
+          <app-kisan-karja-subsidy-print  *ngSwitchCase="offerLetterConst.value(offerLetterConst.KISAN_KARJA_SUBSIDY)"
+                                         [letterData]="initialInfoPrint"
+                                         [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                         [offerData] = offerLetterData
+                                          [preview]="true">
+          </app-kisan-karja-subsidy-print>
         </nb-card-body>
     </nb-card>
 </ng-template>
