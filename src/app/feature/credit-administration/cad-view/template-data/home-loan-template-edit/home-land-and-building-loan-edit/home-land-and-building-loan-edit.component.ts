@@ -22,6 +22,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
   @Input() spinner;
   @Input() formValue: any;
   @Input() isTakeOver: boolean;
+  @Input() isPurchase: boolean;
   landBuildingForm: FormGroup;
   translateFormGroup: FormGroup;
   isLand = false;
@@ -114,7 +115,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       nepaliDateOfApproval: [undefined],
       nepaliDateOfApplication: [undefined],
       dateOfApplication: [undefined],
-      // purposeOfLoan: [undefined],
+      purposeOfLoan: [undefined],
       drawingPower: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
@@ -135,7 +136,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       loanLimitCheckedTrans: [false],
       dateOfApprovalTrans: [undefined],
       dateOfApplicationTrans: [undefined],
-      // purposeOfLoanTrans: [undefined],
+      purposeOfLoanTrans: [undefined],
       drawingPowerTrans: [undefined],
       baseRateTrans: [undefined],
       premiumRateTrans: [undefined],
@@ -156,7 +157,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       loanLimitCheckedCT: [false],
       dateOfApprovalCT: [undefined, Validators.required],
       dateOfApplicationCT: [undefined, Validators.required],
-      // purposeOfLoanCT: [undefined, Validators.required],
+      purposeOfLoanCT: [undefined, Validators.required],
       nameOfBankCT: [undefined, Validators.required],
       drawingPowerCT: [undefined, Validators.required],
       baseRateCT: [undefined, Validators.required],
@@ -286,15 +287,15 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
 
     // translated by google api
     this.translateFormGroup = this.formBuilder.group({
-      // purposeOfLoan: this.landBuildingForm.get('purposeOfLoan').value,
+      purposeOfLoan: this.landBuildingForm.get('purposeOfLoan').value,
       nameOfRelationshipOfficer: this.landBuildingForm.get('nameOfRelationshipOfficer').value,
       nameOfBranchManager: this.landBuildingForm.get('nameOfBranchManager').value,
       beneficiaryName: this.landBuildingForm.get('beneficiaryName').value,
       nameOfBank: this.landBuildingForm.get('nameOfBank').value,
     });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
-    // this.landBuildingForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
-    // this.landBuildingForm.get('purposeOfLoanCT').patchValue(this.translatedValue.purposeOfLoan);
+    this.landBuildingForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
+    this.landBuildingForm.get('purposeOfLoanCT').patchValue(this.translatedValue.purposeOfLoan);
     this.landBuildingForm.get('nameOfRelationshipOfficerTrans').patchValue(this.translatedValue.nameOfRelationshipOfficer);
     this.landBuildingForm.get('nameOfRelationshipOfficerCT').patchValue(this.translatedValue.nameOfRelationshipOfficer);
     this.landBuildingForm.get('nameOfBranchManagerTrans').patchValue(this.translatedValue.nameOfBranchManager);
@@ -309,11 +310,14 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       this.landBuildingForm.get('nameOfBankCT').clearValidators();
       this.landBuildingForm.get('nameOfBankCT').updateValueAndValidity();
     }
-    if (this.isBuilding) {
+    if (!this.isBuilding) {
       this.landBuildingForm.get('insuranceAmountInFigureCT').clearValidators();
       this.landBuildingForm.get('insuranceAmountInFigureCT').updateValueAndValidity();
       this.landBuildingForm.get('insuranceAmountInWordCT').clearValidators();
       this.landBuildingForm.get('insuranceAmountInWordCT').updateValueAndValidity();
+    }
+    if (!this.isPurchase) {
+      this.changeValidation('purposeOfLoanCT', false);
     }
     this.eventEmitter.emit(true);
   }
@@ -397,6 +401,15 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
           }
         }
     );
+  }
+
+  changeValidation(control, validate) {
+    if (validate) {
+      this.landBuildingForm.get(control).setValidators(Validators.required);
+    } else {
+      this.landBuildingForm.get(control).clearValidators();
+    }
+    this.landBuildingForm.get(control).updateValueAndValidity();
   }
 
   public setDefaultNepaliResponse(arrName, source, index, target): void {

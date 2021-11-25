@@ -6,9 +6,9 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {DatePipe} from '@angular/common';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
-import {CurrencyFormatterPipe} from "../../../../../../@core/pipe/currency-formatter.pipe";
-import {District} from "../../../../../admin/modal/district";
-import {AddressService} from "../../../../../../@core/service/baseservice/address.service";
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {District} from '../../../../../admin/modal/district';
+import {AddressService} from '../../../../../../@core/service/baseservice/address.service';
 
 @Component({
   selector: 'app-home-land-and-building',
@@ -20,6 +20,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
   @Input() submitted;
   @Input() spinner;
   @Input() isTakeOver: boolean;
+  @Input() isPurchase: boolean;
   landBuildingForm: FormGroup;
   translateFormGroup: FormGroup;
   isLand = false;
@@ -72,7 +73,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       nepaliDateOfApproval: [undefined],
       nepaliDateOfApplication: [undefined],
       dateOfApplication: [undefined],
-      // purposeOfLoan: [undefined],
+      purposeOfLoan: [undefined],
       beneficiaryName: [undefined],
       drawingPower: [undefined],
       baseRate: [undefined],
@@ -93,7 +94,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       loanLimitCheckedTrans: [undefined],
       dateOfApprovalTrans: [undefined],
       dateOfApplicationTrans: [undefined],
-      // purposeOfLoanTrans: [undefined],
+      purposeOfLoanTrans: [undefined],
       drawingPowerTrans: [undefined],
       baseRateTrans: [undefined],
       premiumRateTrans: [undefined],
@@ -114,7 +115,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
       loanLimitCheckedCT: [undefined],
       dateOfApprovalCT: [undefined, Validators.required],
       dateOfApplicationCT: [undefined, Validators.required],
-      // purposeOfLoanCT: [undefined, Validators.required],
+      purposeOfLoanCT: [undefined, Validators.required],
       drawingPowerCT: [undefined, Validators.required],
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
@@ -245,15 +246,15 @@ export class HomeLandAndBuildingComponent implements OnInit {
 
     // translated by google api
     this.translateFormGroup = this.formBuilder.group({
-      // purposeOfLoan: this.landBuildingForm.get('purposeOfLoan').value,
+      purposeOfLoan: this.landBuildingForm.get('purposeOfLoan').value,
       nameOfRelationshipOfficer: this.landBuildingForm.get('nameOfRelationshipOfficer').value,
       nameOfBranchManager: this.landBuildingForm.get('nameOfBranchManager').value,
       beneficiaryName: this.landBuildingForm.get('beneficiaryName').value,
       nameOfBank: this.landBuildingForm.get('nameOfBank').value,
     });
     this.translatedValue = await this.translateService.translateForm(this.translateFormGroup);
-    // this.landBuildingForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
-    // this.landBuildingForm.get('purposeOfLoanCT').patchValue(this.translatedValue.purposeOfLoan);
+    this.landBuildingForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
+    this.landBuildingForm.get('purposeOfLoanCT').patchValue(this.translatedValue.purposeOfLoan);
     this.landBuildingForm.get('nameOfRelationshipOfficerTrans').patchValue(this.translatedValue.nameOfRelationshipOfficer);
     this.landBuildingForm.get('nameOfRelationshipOfficerCT').patchValue(this.translatedValue.nameOfRelationshipOfficer);
     this.landBuildingForm.get('nameOfBranchManagerTrans').patchValue(this.translatedValue.nameOfBranchManager);
@@ -273,6 +274,11 @@ export class HomeLandAndBuildingComponent implements OnInit {
       this.landBuildingForm.get('insuranceAmountInFigureCT').updateValueAndValidity();
       this.landBuildingForm.get('insuranceAmountInWordCT').clearValidators();
       this.landBuildingForm.get('insuranceAmountInWordCT').updateValueAndValidity();
+    }
+    if (this.isPurchase) {
+      this.changeValidation('purposeOfLoanCT', true);
+    } else {
+      this.changeValidation('purposeOfLoanCT', false);
     }
     this.spinner = false;
   }
@@ -323,6 +329,15 @@ export class HomeLandAndBuildingComponent implements OnInit {
       securityOwnersLandAreaTransVal: [{value: undefined, disabled: true}],
       securityOwnersLandAreaCT: [undefined],
     });
+  }
+
+  changeValidation(control, validate: boolean) {
+    if (validate) {
+      this.landBuildingForm.get(control).setValidators(Validators.required);
+    } else {
+      this.landBuildingForm.get(control).clearValidators();
+    }
+    this.landBuildingForm.get(control).updateValueAndValidity();
   }
 
   public addDefaultSecurity(): void {
