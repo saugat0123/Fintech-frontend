@@ -6,9 +6,9 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {DatePipe} from '@angular/common';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {SbTranslateService} from '../../../../../../@core/service/sbtranslate.service';
-import {CurrencyFormatterPipe} from "../../../../../../@core/pipe/currency-formatter.pipe";
-import {District} from "../../../../../admin/modal/district";
-import {AddressService} from "../../../../../../@core/service/baseservice/address.service";
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {District} from '../../../../../admin/modal/district';
+import {AddressService} from '../../../../../../@core/service/baseservice/address.service';
 
 @Component({
   selector: 'app-home-land-and-building',
@@ -20,6 +20,7 @@ export class HomeLandAndBuildingComponent implements OnInit {
   @Input() submitted;
   @Input() spinner;
   @Input() isTakeOver: boolean;
+  @Input() isPurchase: boolean;
   landBuildingForm: FormGroup;
   translateFormGroup: FormGroup;
   isLand = false;
@@ -268,6 +269,19 @@ export class HomeLandAndBuildingComponent implements OnInit {
       this.landBuildingForm.get('nameOfBankCT').clearValidators();
       this.landBuildingForm.get('nameOfBankCT').updateValueAndValidity();
     }
+    if (this.isLand) {
+      this.landBuildingForm.get('insuranceAmountInFigureCT').clearValidators();
+      this.landBuildingForm.get('insuranceAmountInFigureCT').updateValueAndValidity();
+      this.landBuildingForm.get('insuranceAmountInWordCT').clearValidators();
+      this.landBuildingForm.get('insuranceAmountInWordCT').updateValueAndValidity();
+    }
+    if (this.isPurchase) {
+      this.changeValidation('purposeOfLoanCT', true);
+      this.changeValidation('beneficiaryNameCT', true);
+    } else {
+      this.changeValidation('purposeOfLoanCT', false);
+      this.changeValidation('beneficiaryNameCT', false);
+    }
     this.spinner = false;
   }
 
@@ -317,6 +331,15 @@ export class HomeLandAndBuildingComponent implements OnInit {
       securityOwnersLandAreaTransVal: [{value: undefined, disabled: true}],
       securityOwnersLandAreaCT: [undefined],
     });
+  }
+
+  changeValidation(control, validate: boolean) {
+    if (validate) {
+      this.landBuildingForm.get(control).setValidators(Validators.required);
+    } else {
+      this.landBuildingForm.get(control).clearValidators();
+    }
+    this.landBuildingForm.get(control).updateValueAndValidity();
   }
 
   public addDefaultSecurity(): void {

@@ -462,6 +462,7 @@
                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                          [letter]="initialInfoPrint"
                          [loanLimit]="this.loanLimit"
+                         [interest]="this.selectedInterest"
                          [preview]="true"
                          [offerData]="offerLetterData"></app-sme-print>
           <app-personal-overdraft-print
@@ -469,6 +470,9 @@
                   [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                   [letter]="initialInfoPrint"
                   [loanLimit]="this.loanLimit"
+                  [security]="this.selectedSecurity"
+                  [renewal]="this.renewal"
+                  [offerData] = offerLetterData
                   [preview]="true"
                   [offerData]="offerLetterData"></app-personal-overdraft-print>
           <app-personal-loan-and-personal-overdraft-print

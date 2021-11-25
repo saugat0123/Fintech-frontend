@@ -55,6 +55,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   numberOfJointCustomer;
   purposeOfLoan: any;
   expiryDateOd: string;
+  offerLoanType;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -187,10 +188,13 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
       this.purposeOfLoan = this.offerDocumentDetails.loanPurpose ? this.offerDocumentDetails.loanPurpose.ct : '';
     }
+    let bankName;
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Home Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loan.loanAdminFeeInFigure ? this.offerDocumentDetails.loan.loanAdminFeeInFigure : '';
       this.educationInterestRate = this.offerDocumentDetails.loan.interestRate ? this.offerDocumentDetails.loan.interestRate : '';
       this.purposeOfLoan = this.offerDocumentDetails.loan.purposeOfLoanCT ? this.offerDocumentDetails.loan.purposeOfLoanCT : '';
+      this.offerLoanType = this.offerDocumentDetails.loanType ? this.offerDocumentDetails.loanType : '';
+      bankName = this.offerDocumentDetails.loan.nameOfBankCT ? this.offerDocumentDetails.loan.nameOfBankCT : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
       this.offerLetterAdminFee = this.offerDocumentDetails.serviceCharge ? this.offerDocumentDetails.serviceCharge.en : '';
@@ -265,6 +269,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       totalPeople: [this.numberOfJointCustomer ? this.numberOfJointCustomer : ''],
       purposeOfLoan: [this.purposeOfLoan ? this.purposeOfLoan : ''],
       loanDeedJoint: this.formBuilder.array([]),
+      nameOfBank: [bankName ? bankName : ''],
     });
   }
   addIndividualLoandeedForm() {
