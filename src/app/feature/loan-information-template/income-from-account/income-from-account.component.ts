@@ -27,7 +27,7 @@ export class IncomeFromAccountComponent implements OnInit {
   pattern = Pattern;
   repaymentTrack = RepaymentTrackCurrentBank.enumObject();
   srdbAffiliatedId = false;
-
+  individual = false;
   disabledLambda = environment.disableCrgLambda;
   disabledAlpha = environment.disableCrgAlpha;
 
@@ -47,6 +47,11 @@ export class IncomeFromAccountComponent implements OnInit {
   ngOnInit() {
     if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
       this.srdbAffiliatedId = true;
+    }
+    if (ObjectUtil.isEmpty(this.companyInfo)) {
+      this.individual = true;
+    } else {
+      this.incomeFormGroup.get('accountTransactionForm').disable();
     }
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {

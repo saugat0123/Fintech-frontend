@@ -49,6 +49,96 @@
             </div>
         </nb-card-body>
     </nb-card>
+    <div class="form-group">
+        <nb-card>
+            <nb-card-header>
+                <div class="row d-flex justify-content-center">
+                    <h6>Account History</h6>
+                </div>
+                <nb-checkbox #chek formControlName="newCustomerChecked"
+                             (checkedChange)="onAdditionalFieldSelect(chek.checked)" [checked]="formControl.newCustomerChecked.value">
+                    <strong>New Customer</strong>
+                </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body *ngIf="!chek?.checked">
+                <div formGroupName="accountTransactionForm">
+                    <div class="col-md-12" >
+                        <table class="table table-bordered table-responsive-md table-hover text-center sb-small table-sm">
+                            <thead>
+                            <tr class="sb-bg-secondary text-white">
+                                <th>Particular</th>
+                                <th>Total Number</th>
+                                <th>Total Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Credit Transaction in Account</td>
+                                <td>
+                                    <input class="text-center form-control"
+                                           formControlName="creditTransactionNumber"
+                                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.creditTransactionNumber?.invalid }"
+                                           appDecimalNumber>
+                                    <div *ngIf="(submitted) && transactionForm?.creditTransactionNumber?.invalid"
+                                         class="invalid-feedback">
+                                        <span>Invalid Credit Transaction Number.</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input class="text-center form-control"
+                                           formControlName="creditTransactionValue"
+                                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.creditTransactionValue?.invalid}" appDecimalNumber>
+                                    <div *ngIf="(submitted) && transactionForm?.creditTransactionValue?.invalid"
+                                         class="invalid-feedback">
+                                        <span>Invalid Credit Transaction Value.</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Debit Transaction in Account</td>
+                                <td>
+                                    <input class="text-center form-control"
+                                           formControlName="debitTransactionNumber"
+                                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.debitTransactionNumber?.invalid }" appDecimalNumber>
+                                    <div *ngIf="(submitted) && transactionForm?.debitTransactionNumber?.invalid"
+                                         class="invalid-feedback">
+                                        <span>Invalid Debit Transaction Number.</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input class="text-center form-control"
+                                           formControlName="debitTransactionValue"
+                                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.debitTransactionValue?.invalid }" appDecimalNumber>
+                                    <div *ngIf="(submitted) && transactionForm?.debitTransactionValue?.invalid"
+                                         class="invalid-feedback">
+                                        <span>Invalid Debit Transaction Value.</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col" *ngIf="!disabledAlpha && !disabledLambda">
+                        <label for="repaymentTrackWithCurrentBank">
+                            <strong>Repayment track in our bank</strong></label><strong
+                            class="text-danger">*</strong>
+                        <select id="repaymentTrackWithCurrentBank" class="form-control text-center"
+                                formControlName="repaymentTrackWithCurrentBank"
+                                [ngClass]="{'is-invalid': submitted && transactionForm?.repaymentTrackWithCurrentBank.invalid}">
+                            <option [ngValue]="null" hidden selected>--Select Repayment Track--</option>
+                            <option *ngFor="let m of repaymentTrack"
+                                    [value]="m?.value">{{m?.value}}</option>
+                        </select>
+                        <div *ngIf="(submitted) && transactionForm?.repaymentTrackWithCurrentBank.invalid"
+                             class="invalid-feedback">
+                            Repayment Track is Required
+                        </div>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+
     <nb-card>
         <nb-card-header>
             <label><h6>Repayment History</h6></label></nb-card-header>

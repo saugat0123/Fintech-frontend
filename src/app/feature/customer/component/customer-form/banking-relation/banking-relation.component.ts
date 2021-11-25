@@ -5,6 +5,9 @@ import {RelationshipWithBank} from '../../../../admin/modal/relationship-with-ba
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {AccountTurnover} from '../../../../admin/modal/account-turnover';
 import {RepaymentHistory} from '../../../../admin/modal/repayment-history';
+import {Pattern} from '../../../../../@core/utils/constants/pattern';
+import {environment} from '../../../../../../environments/environment';
+import {RepaymentTrackCurrentBank} from '../../../../admin/modal/crg/RepaymentTrackCurrentBank';
 
 @Component({
   selector: 'app-banking-relation',
@@ -20,6 +23,10 @@ export class BankingRelationComponent implements OnInit {
   accountTurnoverList = AccountTurnover.enumObject();
   repaymentHistoryList = RepaymentHistory.enumObject();
   submitted = false;
+  isNewCustomer = false;
+  disabledLambda = environment.disableCrgLambda;
+  disabledAlpha = environment.disableCrgAlpha;
+  repaymentTrack = RepaymentTrackCurrentBank.enumObject();
 
   constructor(private formBuilder: FormBuilder) {
   }
@@ -27,8 +34,11 @@ export class BankingRelationComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.bankingRelation = JSON.parse(this.formValue);
+      this.buildForm();
+      if (!ObjectUtil.isEmpty(this.bankingRelation.accountTransactionForm)) {
+        this.bankingRelationForm.get('accountTransactionForm').patchValue(JSON.parse(this.bankingRelation.accountTransactionForm));
+      }
     }
-    this.buildForm();
   }
 
   buildForm() {
@@ -39,6 +49,9 @@ export class BankingRelationComponent implements OnInit {
           this.bankingRelation.accountTurnover, Validators.required],
       repaymentHistory: [ObjectUtil.isEmpty(this.bankingRelation) ? undefined :
           this.bankingRelation.repaymentHistory, Validators.required],
+      newCustomerChecked: [ObjectUtil.isEmpty(this.bankingRelation) ? undefined :
+          this.bankingRelation.newCustomerChecked],
+      accountTransactionForm: this.buildAccountTransactionForm()
     });
   }
 
@@ -49,10 +62,31 @@ export class BankingRelationComponent implements OnInit {
     this.bankingRelation.bankingRelationship = this.bankingRelationForm.get('bankingRelationship').value;
     this.bankingRelation.accountTurnover = this.bankingRelationForm.get('accountTurnover').value;
     this.bankingRelation.repaymentHistory = this.bankingRelationForm.get('repaymentHistory').value;
+    this.bankingRelation.accountTransactionForm = JSON.stringify(this.bankingRelationForm.get('accountTransactionForm').value);
   }
 
   get formControl() {
     return this.bankingRelationForm.controls;
+  }
+  get transactionForm() {
+    return this.bankingRelationForm.controls.accountTransactionForm['controls'];
+  }
+  onAdditionalFieldSelect(chk) {
+    if (chk) {
+      this.bankingRelationForm.get('accountTransactionForm').disable();
+    } else {
+      this.bankingRelationForm.get('accountTransactionForm').enable();
+    }
+    this.isNewCustomer = chk;
+  }
+  buildAccountTransactionForm() {
+    return this.formBuilder.group({
+      creditTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+      creditTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+      debitTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+      debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+      repaymentTrackWithCurrentBank: [undefined, !this.disabledLambda && !this.disabledAlpha ? Validators.required : undefined]
+    });
   }
 
 }

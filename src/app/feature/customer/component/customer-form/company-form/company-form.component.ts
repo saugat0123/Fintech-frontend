@@ -1037,6 +1037,7 @@ export class CompanyFormComponent implements OnInit {
             /** banking relation setting data from child **/
             this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
 
+
             /** business and industry */
             this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
             this.businessAndIndustry.supplier = this.companyInfoFormGroup.get('supplier').value;
