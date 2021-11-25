@@ -11,6 +11,7 @@ import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 export class KisanKarjaSubsidyPrintComponent implements OnInit {
   offerLetterConst = NabilOfferLetterConst;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() letter: any;
   @Input() letterData;
   @Input() preview;
   @Input() offerData;
@@ -20,7 +21,6 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
 
   ngOnInit() {
     console.log('This is offer data:', this.offerData);
-
     console.log('This is letter data:', this.letterData);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;

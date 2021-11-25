@@ -17,6 +17,7 @@ import {CadOfferLetterModalComponent} from '../../../../cad-offerletter-profile/
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {EngNepDatePipe} from 'nepali-patro';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-kisan-karja-subsidy',
@@ -36,14 +37,16 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   @Input() customerLoanId: number;
   initialInfoPrint;
   loanHolderInfo;
+  branchName;
   tempData;
-  selectedSecurity;
+  // selectedSecurity;
   loanLimit;
   renewal;
   offerDocumentDetails;
   offerLetterData;
   guarantorData;
   offerLetterConst = NabilOfferLetterConst;
+  freeTextVal: any = {};
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -54,11 +57,12 @@ export class KisanKarjaSubsidyComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
               private engToNepaliDate: EngNepDatePipe,
+              public datePipe: DatePipe
   ) { }
 
-  ngOnInit() {
-    this.buildPersonal();
+  ngOnInit() {  this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+      this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
@@ -67,17 +71,21 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
+    this.checkOfferLetterData();
+    /*this.guarantorDetails();*/
   }
-  buildPersonal() {
+  buildForm() {
     this.kisanKarjaSubsidy = this.formBuilder.group({
       referenceNumber: [undefined],
       // securities: this.formBuilder.array([]),
+      security: this.formBuilder.array([]),
+      freeTextVal : [undefined],
       dateOfApproval: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
-      dateofApplication: [undefined],
+      dateOfApplication: [undefined],
       prevSanctionLetterDate: [undefined],
-      reqLetterDate: [undefined],
+      nextReviewDate: [undefined],
       typeOfLoan: [undefined],
       loanAmountinFigure : [undefined],
       loanAmountInWords : [undefined],
@@ -88,7 +96,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       yearlyInterestRate: [undefined],
       swekritiLoan: [undefined],
       totalTenureOfLoan: [undefined],
-      nextReviewDate: [undefined],
       landOwnerName: [undefined],
       district: [undefined],
       vdcMunci: [undefined],
@@ -103,35 +110,18 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       applicantName: [undefined],
       commitmentFee : [undefined],
       executionDate : [undefined],
-      freeText1 : [undefined],
-      freeText2 : [undefined],
-      freeText3 : [undefined],
-      freeText4 : [undefined],
-      freeText5 : [undefined],
-      extraFinancialClause: [undefined],
-      additionalOthersClause: [undefined],
-      extraSecurityDocumentParts: [undefined],
-      ////////////
-      /*additionalGuarantorDetails : [undefined],*/
-      additionalDetails : [undefined],
+      // TEST:
+      firstAdditionalDetails: [undefined],
+      secondAdditionalDetails: [undefined],
+      thirdAdditionalDetails: [undefined],
+      fourthAdditionalDetails: [undefined],
+      fifthAdditionalDetails: [undefined],
+      sixthAdditionalDetails: [undefined],
+      seventhAdditionalDetails: [undefined],
+      eighthAdditionalDetails: [undefined],
     });
   }
-  // setSwikriti(data) {
-  //   const formArray = this.kisanKarjaSubsidy.get('swikritiBibaran') as FormArray;
-  //   (this.kisanKarjaSubsidy.get('swikritiBibaran') as FormArray).clear();
-  //   if (data.length === 0) {
-  //     this.addSwikriti();
-  //     return;
-  //   }
-  //   data.forEach((value) => {
-  //     formArray.push(this.formBuilder.group({
-  //       approvedSubidhakisim: [value.approvedSubidhakisim],
-  //       approvedAmount: [value.approvedAmount],
-  //       approvedCommision: [value.approvedCommision],
-  //       approvedLoanTime: [value.approvedLoanTime],
-  //     }));
-  //   });
-  // }
+
   calcYearlyRate() {
     const baseRate = this.nepToEngNumberPipe.transform(this.kisanKarjaSubsidy.get('baseRate').value);
     const premiumRate = this.nepToEngNumberPipe.transform(this.kisanKarjaSubsidy.get('premiumRate').value);
@@ -145,21 +135,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     this.kisanKarjaSubsidy.get(wordLabel).patchValue(returnVal);
   }
 
-  /*  public addDefaultSecurity(): void {
-      (this.kisanKarjaSubsidy.get('securities') as FormArray).push(
-          this.initSecuritiesForm()
-      );
-    }
-
-    public removeIndividualSecurities(i): void {
-      (this.kisanKarjaSubsidy.get('securities') as FormArray).removeAt(i);
-    }
-    initSecuritiesForm(): FormGroup {
-    return this.formBuilder.group({
-      freeText: [undefined],
-    });
-  }*/
-
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
@@ -169,23 +144,99 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-     /* if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
-        this.offerLetterData = this.offerLetterDocument;
-        this.kisanKarjaSubsidy.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
-      }*/
       if (!ObjectUtil.isEmpty(this.offerLetterDocument.pointInformation)) {
         this.offerLetterData = this.offerLetterDocument;
-        this.kisanKarjaSubsidy.get('additionalDetails').patchValue(this.offerLetterData.pointInformation);
+       /* this.kisanKarjaSubsidy.get(this.freeTextVal.firstText).patchValue(this.offerLetterData.supportedInformation);*/
       }
-      this.initialInfoPrint = initialInfo;
-      this.loanLimit = this.tempData.loan.loanLimitChecked;
-      this.existingOfferLetter = true;
-      this.initialInfoPrint = initialInfo;
-      /*this.fillForm();*/
-    }
-    } /*else {
+        // this.selectedSecurity = initialInfo.selectedSecurity.en;
+        // this.loanLimit = initialInfo.loanLimitChecked.en;
+        // this.renewal = initialInfo.renewalChecked.en;
+        this.initialInfoPrint = initialInfo;
+        this.existingOfferLetter = true;
+        this.selectedArray = initialInfo.loanTypeSelectedArray;
+        this.initialInfoPrint = initialInfo;
+        this.fillForm();
+        if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
+          // tslint:disable-next-line:max-line-length
+          this.kisanKarjaSubsidy.get('dateofExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateofExpiry.en, true));
+        } else {
+          this.kisanKarjaSubsidy.get('dateofExpiry').patchValue(this.initialInfoPrint.dateofExpiryNepali.en);
+        }
+      }
+    } else {
       this.fillForm();
-    }*/
+    }
+  }
+  fillForm() {
+    const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
+    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
+        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+    const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
+    let totalLoanAmount = 0;
+    this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
+      const val = value.proposal.proposedLimit;
+      totalLoanAmount = totalLoanAmount + val;
+    });
+    let autoRefNumber;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
+    // For date of Approval
+    const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
+    let finalDateOfApproval;
+    if (dateOfApprovalType === 'AD') {
+      const templateDateApproval = this.initialInfoPrint.dateOfApproval ? this.initialInfoPrint.dateOfApproval.en : '';
+      finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
+    } else {
+      const templateDateApproval = this.initialInfoPrint.dateOfApprovalNepali ? this.initialInfoPrint.dateOfApprovalNepali.en : '';
+      finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
+    }
+    // For Date of Application:
+    const dateOfApplication = this.initialInfoPrint.dateOfApplicationType ? this.initialInfoPrint.dateOfApplicationType.en : '';
+    let finaldateOfApplication;
+    if (dateOfApplication === 'AD') {
+      const templateDateApplication = this.initialInfoPrint.dateOfApplication ? this.initialInfoPrint.dateOfApplication.en : '';
+      finaldateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+    } else {
+      const templateDateApplication = this.initialInfoPrint.dateOfApplicationNepali ? this.initialInfoPrint.dateOfApplicationNepali.en : '';
+      finaldateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
+    }
+    // For NEXT REVIEW DATE
+    const nextReviewDateType = this.initialInfoPrint.nextReviewDateType ? this.initialInfoPrint.nextReviewDateType.en : '';
+    let finalNextReviewDate;
+    if (nextReviewDateType === 'AD') {
+      const templateNextReviewDate = this.initialInfoPrint.nextReviewDate ? this.initialInfoPrint.nextReviewDate.en : '';
+      finalNextReviewDate = this.engToNepaliDate.transform(this.datePipe.transform(templateNextReviewDate), true);
+    } else {
+      const templateNextReviewDate = this.initialInfoPrint.nextReviewDateNepali ? this.initialInfoPrint.dateOfApprovalNepali.en : '';
+      finalDateOfApproval = templateNextReviewDate ? templateNextReviewDate.nDate : '';
+    }
+    console.log('Free Text value:', this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+    this.kisanKarjaSubsidy.patchValue({
+      customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
+      customerAddress: customerAddress ? customerAddress : '',
+      loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+      // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
+      referenceNumber: autoRefNumber ? autoRefNumber : '',
+      // purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
+      // drawingPower: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
+      // loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
+      baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
+      premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
+      // yearlyInterestRate: this.tempData.yearlyInterestRate.ct ? this.tempData.yearlyInterestRate.ct : '',
+      // loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
+      // loanadminFeeWords: this.tempData.loanadminFeeWords.ct ? this.tempData.loanadminFeeWords.ct : '',
+      // nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+      // relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
+      nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
+      branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+      // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
+      dateOfApproval : finalDateOfApproval ? finalDateOfApproval : '',
+      dateOfApplication : finaldateOfApplication ? finaldateOfApplication : '',
+      nextReviewDate : finalNextReviewDate ? finalNextReviewDate : '',
+    });
   }
   get Form() {
     return this.kisanKarjaSubsidy.controls;
@@ -193,27 +244,30 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   submit(): void {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
-
-    /*this.kisanKarjaSubsidy.get('selectedSecurity').patchValue(this.selectedSecurity);
-    this.kisanKarjaSubsidy.get('loanLimitChecked').patchValue(this.loanLimit);
-    this.kisanKarjaSubsidy.get('renewalChecked').patchValue(this.renewal);*/
+    /*this.kisanKarjaSubsidy.get('loanLimitChecked').patchValue(this.loanLimit);*/
+    // this.kisanKarjaSubsidy.get('selectedSecurity').patchValue(this.selectedSecurity);
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.HOME_LOAN).toString()) {
-          /*offerLetterPath.supportedInformation = this.kisanKarjaSubsidy.get('additionalGuarantorDetails').value;*/
-          offerLetterPath.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
+            this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY).toString()) {
+            this.setFreeText();
+            offerLetterPath.supportedInformation = JSON.stringify(this.freeTextVal);
+          // offerLetterPath.supportedInformation = this.kisanKarjaSubsidy.get(this.freeTextVal.firstText).value;
+            // offerLetterPath.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
       offerDocument.initialInformation = JSON.stringify(this.kisanKarjaSubsidy.value);
-      /*offerDocument.supportedInformation = this.kisanKarjaSubsidy.get('additionalGuarantorDetails').value;*/
-      offerDocument.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
+      this.setFreeText();
+      offerDocument.supportedInformation = JSON.stringify(this.freeTextVal);
+      // offerDocument.supportedInformation = this.kisanKarjaSubsidy.get(this.freeTextVal).value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
+
+    console.log('cad dATA', this.cadOfferLetterApprovedDoc);
 
     this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
@@ -229,5 +283,19 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       this.afterSave = false;
       this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
+  }
+
+  setFreeText() {
+    console.log('Set free text');
+    this.freeTextVal = {
+      firstText: this.kisanKarjaSubsidy.get('firstAdditionalDetails').value,
+      secondText: this.kisanKarjaSubsidy.get('secondAdditionalDetails').value,
+      thirdText: this.kisanKarjaSubsidy.get('thirdAdditionalDetails').value,
+      fourthText: this.kisanKarjaSubsidy.get('fourthAdditionalDetails').value,
+      fifthText: this.kisanKarjaSubsidy.get('fifthAdditionalDetails').value,
+      sixthText: this.kisanKarjaSubsidy.get('sixthAdditionalDetails').value,
+      seventhText: this.kisanKarjaSubsidy.get('seventhAdditionalDetails').value,
+      eighthText: this.kisanKarjaSubsidy.get('eighthAdditionalDetails').value,
+    };
   }
 }
