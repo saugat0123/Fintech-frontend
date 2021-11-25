@@ -86,6 +86,8 @@ export class BankingRelationComponent implements OnInit {
       debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
       repaymentTrackWithCurrentBank: [undefined, !this.disabledLambda && !this.disabledAlpha ? Validators.required : undefined],
       remarks: [undefined],
+      creditEntries: [undefined],
+      creditEntriesValue: [undefined],
 
     });
   }

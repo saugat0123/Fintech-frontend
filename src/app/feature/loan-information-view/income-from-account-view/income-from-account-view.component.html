@@ -38,6 +38,15 @@
                 </td>
             </tr>
             <tr *ngIf="!individual">
+                <td class="sb-bg-secondary text-white text-left pl-1">Credit entries as percentage of sales</td>
+                <td class="text-left pl-1">
+                    {{data?.accountTransactionForm?.creditEntries}}
+                </td>
+                <td class="text-left pl-1">
+                    {{data?.accountTransactionForm?.creditEntriesValue}}
+                </td>
+            </tr>
+            <tr *ngIf="!individual">
                 <td class="sb-bg-secondary text-white text-left pl-1">Remarks</td>
                 <td colspan="2" class="text-left pl-1">
                     {{data?.accountTransactionForm?.remarks}}
