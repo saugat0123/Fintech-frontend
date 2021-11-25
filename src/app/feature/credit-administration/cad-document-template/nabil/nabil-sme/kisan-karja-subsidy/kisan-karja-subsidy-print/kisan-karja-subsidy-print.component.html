@@ -14,11 +14,11 @@
             </p>
             <div class="mb-2">
                 <p>श्री/श्रीमती/सुश्री </p>
-                <span [ngClass]="{'nepaliFont outside' : letter?.customerName !== null && letter?.customerName !== ''}">
-                                {{letter?.customerName === null || letter?.customerName === '' ? '___________' : letter?.customerName }}</span>
+                <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}">
+                    {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}</span> ज्यु,
                 <div class="mb-1"> ठेगाना:
-                    <span [ngClass]="{'nepaliFont outside' : letter?.customerAddress !== null && letter?.customerAddress !== ''}">
-                                {{letter?.customerAddress === null || letter?.customerAddress === '' ? '___________' : letter?.customerAddress }}</span>
+                    <span [ngClass]="{'nepaliFont outside' : this.customerAddress !== null && this.customerAddress !== ''}">
+                                {{this.customerAddress === null || this.customerAddress === '' ? '___________' : this.customerAddress }}</span>
                     <br><br>
                 </div>
                 <!--            For New Customer-->
@@ -127,8 +127,8 @@
                                 आवधिक कर्जाको हकमा संलग्न अनुमानित भुक्तानी तालिका बमोजिम चुक्ता भुक्तानी गर्नु पर्नेछ ।
                                 साथै अल्पकालिन कर्जाको हकमा देहाय बामोजिम हुनेछ ।<br>
                                 क. अल्पकालिन कर्जा १:
-                                <span  [ngClass]="{'nepaliFont outside' : letter?.firstAdditionalDetails!== null && letter?.firstAdditionalDetails!== ''}">
-                                {{letter?.firstAdditionalDetails === null || letter?.firstAdditionalDetails === '' ? '_________________________________' : letter?.firstAdditionalDetails}}</span><br>
+                                <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.firstText!== null && this.freeInformation.firstText!== ''}">
+                                {{this.freeInformation.firstText === null || this.freeInformation.firstText === '' ? '_________________________________' : this.freeInformation.firstText}}</span><br>
                                 ख. अल्पकालिन कर्जा २:
                                 <span [ngClass]="{'nepaliFont outside' : letter?.secondAdditionalDetails!== null && letter?.secondAdditionalDetails!== ''}">
                                 {{letter?.secondAdditionalDetails === null || letter?.secondAdditionalDetails === '' ? '_________________________________' : letter?.secondAdditionalDetails}}</span><br>

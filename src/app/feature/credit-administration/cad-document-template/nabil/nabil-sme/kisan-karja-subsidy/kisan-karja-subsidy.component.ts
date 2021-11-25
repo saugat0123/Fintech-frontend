@@ -47,6 +47,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   guarantorData;
   offerLetterConst = NabilOfferLetterConst;
   freeTextVal: any = {};
+  freeInformation: any;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -65,6 +66,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      console.log('::::::::::::::', this.tempData);
     }
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
@@ -156,12 +158,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         this.selectedArray = initialInfo.loanTypeSelectedArray;
         this.initialInfoPrint = initialInfo;
         this.fillForm();
-        if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
-          // tslint:disable-next-line:max-line-length
-          this.kisanKarjaSubsidy.get('dateofExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateofExpiry.en, true));
-        } else {
-          this.kisanKarjaSubsidy.get('dateofExpiry').patchValue(this.initialInfoPrint.dateofExpiryNepali.en);
-        }
       }
     } else {
       this.fillForm();
@@ -186,56 +182,63 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
     let finalDateOfApproval;
     if (dateOfApprovalType === 'AD') {
-      const templateDateApproval = this.initialInfoPrint.dateOfApproval ? this.initialInfoPrint.dateOfApproval.en : '';
-      finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
+      finalDateOfApproval = this.tempData.dateOfApproval ? this.tempData.dateOfApproval.ct : '';
     } else {
-      const templateDateApproval = this.initialInfoPrint.dateOfApprovalNepali ? this.initialInfoPrint.dateOfApprovalNepali.en : '';
-      finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
+      finalDateOfApproval = this.tempData.dateOfApprovalNepali ? this.tempData.dateOfApprovalNepali.ct : '';
     }
     // For Date of Application:
     const dateOfApplication = this.initialInfoPrint.dateOfApplicationType ? this.initialInfoPrint.dateOfApplicationType.en : '';
     let finaldateOfApplication;
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.initialInfoPrint.dateOfApplication ? this.initialInfoPrint.dateOfApplication.en : '';
-      finaldateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+      finaldateOfApplication = this.tempData.dateOfApplication ? this.tempData.dateOfApplication.ct : '';
     } else {
-      const templateDateApplication = this.initialInfoPrint.dateOfApplicationNepali ? this.initialInfoPrint.dateOfApplicationNepali.en : '';
-      finaldateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
+      finaldateOfApplication = this.tempData.dateOfApplicationNepali ? this.tempData.dateOfApplicationNepali.ct : '';
     }
     // For NEXT REVIEW DATE
     const nextReviewDateType = this.initialInfoPrint.nextReviewDateType ? this.initialInfoPrint.nextReviewDateType.en : '';
     let finalNextReviewDate;
     if (nextReviewDateType === 'AD') {
-      const templateNextReviewDate = this.initialInfoPrint.nextReviewDate ? this.initialInfoPrint.nextReviewDate.en : '';
-      finalNextReviewDate = this.engToNepaliDate.transform(this.datePipe.transform(templateNextReviewDate), true);
+      finalNextReviewDate = this.tempData.nextReviewDate ? this.tempData.nextReviewDate.ct : '';
     } else {
-      const templateNextReviewDate = this.initialInfoPrint.nextReviewDateNepali ? this.initialInfoPrint.dateOfApprovalNepali.en : '';
-      finalDateOfApproval = templateNextReviewDate ? templateNextReviewDate.nDate : '';
+      finalNextReviewDate = this.tempData.nextReviewDateNepali ? this.tempData.nextReviewDateNepali.ct : '';
+    }
+    // For PREVIOUS SANCTION DATE
+    // tslint:disable-next-line:max-line-length
+    const prevSanctionLetterDateType = this.tempData.previousSanctionType ? this.tempData.previousSanctionType.en : '';
+    let finalprevSanctionLetterDate;
+    if (nextReviewDateType === 'AD') {
+      finalprevSanctionLetterDate = this.tempData.previousSanctionDate ? this.tempData.previousSanctionDate.ct : '';
+    } else {
+      finalprevSanctionLetterDate = this.tempData.previousSanctionDateNepali ? this.tempData.previousSanctionDateNepali.ct : '';
     }
     console.log('Free Text value:', this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+    this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+    console.log('Free : ', this.freeInformation);
     this.kisanKarjaSubsidy.patchValue({
-      customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
+      customerName: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
       referenceNumber: autoRefNumber ? autoRefNumber : '',
-      // purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
-      // drawingPower: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
-      // loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
-      baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
-      premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
-      // yearlyInterestRate: this.tempData.yearlyInterestRate.ct ? this.tempData.yearlyInterestRate.ct : '',
-      // loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
-      // loanadminFeeWords: this.tempData.loanadminFeeWords.ct ? this.tempData.loanadminFeeWords.ct : '',
-      // nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
-      // relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
-      nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
-      branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+      purposeOfLoan: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
+      drawingPower: this.tempData.drawingPower ? this.tempData.drawingPower.ct : '',
+      loanCommitmentFee: this.tempData.loanCommitmentFee ? this.tempData.loanCommitmentFee.ct : '',
+      baseRate: this.tempData.baseRate ? this.tempData.baseRate.ct : '',
+      premiumRate: this.tempData.premiumRate ? this.tempData.premiumRate.ct : '',
+      yearlyInterestRate: this.tempData.interestRate ? this.tempData.interestRate.ct : '',
+      loanadminFee: this.tempData.loanadminFee ? this.tempData.loanadminFee.ct : '',
+      loanadminFeeWords: this.tempData.loanadminFeeWords ? this.tempData.loanadminFeeWords.ct : '',
+      nameofBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
+      relationshipofficerName: this.tempData.relationshipofficerName ? this.tempData.relationshipofficerName.ct : '',
+      nameofBranchManager: this.tempData.nameofBranchManager ? this.tempData.nameofBranchManager.ct : '',
+      branchName : this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
       // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
       dateOfApproval : finalDateOfApproval ? finalDateOfApproval : '',
       dateOfApplication : finaldateOfApplication ? finaldateOfApplication : '',
       nextReviewDate : finalNextReviewDate ? finalNextReviewDate : '',
+      prevSanctionLetterDate : finalprevSanctionLetterDate ? finalprevSanctionLetterDate : '',
+      firstAdditionalDetails : this.freeInformation.firstText,
     });
   }
   get Form() {
