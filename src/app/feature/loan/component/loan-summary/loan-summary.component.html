@@ -717,7 +717,7 @@
 <!--            </tr>-->
 <!--        </table>-->
         <div class="row">
-         <ng-container *ngIf="!isJointInfo; else bankingRelationship; " >
+         <ng-container *ngIf="!isJointInfo && individual; else bankingRelationship; " >
              <div class="col-md-12">
                  <p><strong>Banking Relationship</strong></p>
                  <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
@@ -733,19 +733,42 @@
              </div>
          </ng-container>
             <ng-template #bankingRelationship>
-                <div class="col-md-12">
-                    <p><strong>Banking Relationship</strong></p>
-                    <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
+                <ng-container *ngIf="individual; else institutional;">
+                    <div class="col-md-12">
+                        <p><strong>Banking Relationship</strong></p>
+                        <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
+                            <tr class="text-white sb-bg-dark">
+                                <th>Banking Relationship</th>
+                                <th>Net Worth</th>
+                            </tr>
+                            <tr>
+                                <td class="text-left pl-1">{{riskInfo?.bankingRelationship ? riskInfo.bankingRelationship: 'N/A'}}</td>
+                                <td class="text-right pr-1">Rs. {{(riskInfo?.netWorth)? (riskInfo?.netWorth |currencyFormatter):'N/A'}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </ng-container>
+                <ng-template #institutional>
+                    <table
+                            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <tr class="text-white sb-bg-dark">
-                            <th>Banking Relationship</th>
-                            <th>Net Worth</th>
+                            <th colspan="2">Company Relationship with Bank</th>
                         </tr>
                         <tr>
-                            <td class="text-left pl-1">{{riskInfo?.bankingRelationship ? riskInfo.bankingRelationship: 'N/A'}}</td>
-                            <td class="text-right pr-1">Rs. {{(riskInfo?.netWorth)? (riskInfo?.netWorth |currencyFormatter):'N/A'}}</td>
+                            <th class="text-white sb-bg-dark">Banking Relationship</th>
+                            <td class="text-left pl-1">{{bankingRelation?.bankingRelationship}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-white sb-bg-dark">Account Turnover
+                            </th>
+                            <td class="text-left pl-1">{{bankingRelation?.accountTurnover}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-white sb-bg-dark">Repayment History</th>
+                            <td class="text-left pl-1">{{bankingRelation?.repaymentHistory}}</td>
                         </tr>
                     </table>
-                </div>
+                </ng-template>
             </ng-template>
         </div>
 
@@ -1130,9 +1153,18 @@
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
             <br>
-            <div *ngIf="client === clientName?.LAXMI">
-                <app-comments-summary *ngIf="commentsSummary"
-                                             [formData]="dataFromComments"></app-comments-summary>
+            <div *ngIf="loanCategory === 'INSTITUTION' && loanData?.loanHolder.data !== null" >
+                <div class="col-md-12">
+                    <p><strong>Comments</strong>
+                    </p>
+                </div>
+                <app-comments
+                    [commentData]="loanData.loanHolder?.data"
+                    [fromProfile]="true"
+                    [view]="true">
+                </app-comments>
+<!--                <app-comments-summary *ngIf="commentsSummary"-->
+<!--                                             [formData]="dataFromComments"></app-comments-summary>-->
                 <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
             </div>
 

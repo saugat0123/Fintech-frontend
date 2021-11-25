@@ -60,7 +60,6 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        console.log('customer loan holder info in loan action component', this.customerLoanHolder);
         this.loanFormService.detail(this.id).subscribe((data) => {
             this.status = data.detail.documentStatus;
         });
@@ -80,10 +79,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log('changes', changes);
         if (!ObjectUtil.isEmpty(changes.customerLoanHolder)) {
             this.customerLoanHolder = changes.customerLoanHolder.currentValue;
-            console.log('after change', this.customerLoanHolder);
         }
         if (!ObjectUtil.isEmpty(changes.loanFlags)) {
             if (changes.loanFlags.currentValue) {

@@ -43,7 +43,6 @@ import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hiera
 import {DOCUMENT} from '@angular/common';
 // tslint:disable-next-line:max-line-length
 import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
-import {flatten} from '@angular/compiler';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
@@ -191,6 +190,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     individualJsonData;
     riskInfo;
     senderDetails;
+    bankingRelation;
 
 
     constructor(
@@ -224,8 +224,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        console.log('this is ', this.loanData);
         this.isRemitLoan = this.loanConfig.loanTag === 'REMIT_LOAN';
-        console.log('this is loan data holder', this.loanData.loanHolder.bankingRelationship);
         this.loanDataHolder = this.loanData;
         this.individual  = this.loanDataHolder.customerInfo;
         if (!ObjectUtil.isEmpty(this.individual)) {
@@ -250,6 +250,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.senderDetails = JSON.parse(this.loanDataHolder.remitCustomer.senderData);
         }
         this.calculateEmiEqiAmount();
+        if (!ObjectUtil.isEmpty(this.loanData.loanHolder.bankingRelationship)) {
+            this.bankingRelation = JSON.parse(this.loanData.loanHolder.bankingRelationship);
+        }
     }
 
     ngOnDestroy(): void {

@@ -36,15 +36,44 @@
           <td><b>PAN Number</b></td>
           <td>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 {{companyInfo?.panNumber}}
                 <span class="float-right">
               |
             </span>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <b>Date(AD/BS)</b>: {{companyInfo?.legalStatus?.panRegistrationDate | date}} ({{companyInfo?.legalStatus?.panRegistrationDate |engNepDate: false}})
+                <span class="float-right">
+              |
+            </span>
               </div>
+             <div class="col-md-4">
+               <b>Registered Office</b>: {{companyInfo?.legalStatus.panRegistrationOffice}}
+             </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1"></td>
+          <td><b>VAT Number</b></td>
+          <td>
+            <div class="row">
+              <div class="col-md-4">
+                {{companyInfo?.vatNo}}
+                <span class="float-right">
+              |
+            </span>
+              </div>
+              <div class="col-md-4">
+                <b>Date(AD/BS)</b>: {{companyInfo?.legalStatus?.vatRegistrationDate | date}} ({{companyInfo?.legalStatus?.vatRegistrationDate |engNepDate: false}})
+                <span class="float-right">
+              |
+            </span>
+              </div>
+             <div class="col-md-4">
+               <b>Registered Office</b>: {{companyInfo?.legalStatus.vatRegistrationOffice}}
+             </div>
             </div>
           </td>
         </tr>
@@ -151,6 +180,10 @@
         <tr>
           <td><b>SubSector</b></td>
           <td>{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
+        </tr>
+        <tr>
+          <td><b>Account Number</b></td>
+          <td>{{companyInfo?.accountNo || 'N/A'}}</td>
         </tr>
 
 <!--        Obligor Code for SRDB only-->
