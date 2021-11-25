@@ -50,11 +50,11 @@
                        formControlName="dateOfApplication" id="applicationDate">
                 <nb-datepicker #applicationDate></nb-datepicker>
             </div>
-<!--            <div class="form-group">-->
-<!--                <label for="purposeOfLoan">Purpose of Loan</label>-->
-<!--                <input nbInput fullWidth status="success" shape="semi-round"-->
-<!--                       formControlName="purposeOfLoan" type="text" id="purposeOfLoan">-->
-<!--            </div>-->
+            <div class="form-group" *ngIf="isPurchase">
+                <label for="purposeOfLoan">Purpose of Loan</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="purposeOfLoan" type="text" id="purposeOfLoan">
+            </div>
             <div class="form-group">
                 <label for="drawingPower">Drawing Power (% of Distress Value)</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
@@ -149,10 +149,10 @@
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="dateOfApplicationTrans" type="text" id="dateOfApplicationTrans" readonly>
             </div>
-<!--            <div class="form-group mt-medium">-->
-<!--                <input nbInput fullWidth status="success" shape="semi-round"-->
-<!--                       formControlName="purposeOfLoanTrans" type="text" id="purposeOfLoanTrans" readonly>-->
-<!--            </div>-->
+            <div class="form-group mt-medium" *ngIf="isPurchase">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="purposeOfLoanTrans" type="text" id="purposeOfLoanTrans" readonly>
+            </div>
             <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="drawingPowerTrans" type="text" id="drawingPowerTrans" readonly>
@@ -234,14 +234,14 @@
                         Date of application is required
                 </span>
             </div>
-<!--            <div class="form-group mt-medium">-->
-<!--                <input nbInput fullWidth status="success" shape="semi-round"-->
-<!--                       formControlName="purposeOfLoanTrans" type="text" id="purposeOfLoanCT">-->
-<!--                <span *ngIf="submitted && form.purposeOfLoanTrans.invalid"-->
-<!--                     class="text-danger">-->
-<!--                        Purpose of loan is required-->
-<!--                </span>-->
-<!--            </div>-->
+            <div class="form-group mt-medium" *ngIf="isPurchase">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="purposeOfLoanTrans" type="text" id="purposeOfLoanCT">
+                <span *ngIf="submitted && form.purposeOfLoanTrans.invalid"
+                     class="text-danger">
+                        Purpose of loan is required
+                </span>
+            </div>
             <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="drawingPowerCT" type="text" id="drawingPowerCT">
