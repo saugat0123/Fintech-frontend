@@ -496,65 +496,65 @@
                 <td class="text-left pl-1" [innerHTML]="companyJsonData?.legalReviewRemark | safeHtml"></td>
             </tr>
         </table>
-        <table *ngIf="!srdbAffiliatedId"
-               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr>
-                <th colspan="2">Business given</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Particular</th>
-                <th>Amount(Rs)</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">Interest Income</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">Loan Processing Fee</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">LC Commission</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">Guarantee Commission</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">Other Commission</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">Saving Account</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">Payroll Account</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">Debit Cards</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">Credit Cards</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">Mobile Bank / Internet Banking</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">Locker</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
-            </tr>
-            <tr>
-                <th class="text-left pl-1">Total</th>
-                <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>
-            </tr>
+<!--        <table *ngIf="!srdbAffiliatedId"-->
+<!--               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--            <tr>-->
+<!--                <th colspan="2">Business given</th>-->
+<!--            </tr>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th>Particular</th>-->
+<!--                <th>Amount(Rs)</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">Interest Income</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">Loan Processing Fee</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">LC Commission</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">Guarantee Commission</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">Other Commission</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">Saving Account</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">Payroll Account</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">Debit Cards</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">Credit Cards</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">Mobile Bank / Internet Banking</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">Locker</td>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th class="text-left pl-1">Total</th>-->
+<!--                <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>-->
+<!--            </tr>-->
 
-        </table>
+<!--        </table>-->
         <table *ngIf="!disableCrgAlpha"
                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">

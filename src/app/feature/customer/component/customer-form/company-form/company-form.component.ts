@@ -501,9 +501,9 @@ export class CompanyFormComponent implements OnInit {
             companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.companyBackground, Validators.required],
             businessManagementRisk: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.businessManagementRisk, Validators.required],
+                this.companyJsonData.businessManagementRisk],
             BusinessIndustryOutlook: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.BusinessIndustryOutlook, Validators.required],
+                this.companyJsonData.BusinessIndustryOutlook],
 
             // additional company detail
             additionalCompanyInfo: this.formBuilder.group({
@@ -1036,6 +1036,7 @@ export class CompanyFormComponent implements OnInit {
         if (!this.disableCrgAlpha && !this.microCustomer) {
             /** banking relation setting data from child **/
             this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
+
 
             /** business and industry */
             this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
