@@ -58,10 +58,12 @@ export class IncomeFromAccountComponent implements OnInit {
         this.incomeFormGroup.get('accountTransactionForm').disable();
       }
     }
-    if (!this.isNewCustomer && !ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
-          this.incomeFormGroup.patchValue({
+    if (!this.isNewCustomer && !ObjectUtil.isEmpty(this.companyInfo)) {
+      if (!ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
+        this.incomeFormGroup.patchValue({
           accountNo: this.companyInfo.accountNo
-          });
+        });
+      }
     }
   }
 
@@ -89,7 +91,47 @@ export class IncomeFromAccountComponent implements OnInit {
       lcCommissionAfterNextReview: undefined,
       guaranteeCommissionDuringReview: undefined,
       guaranteeCommissionAfterNextReview: undefined,
-      accountTransactionForm: this.buildAccountTransactionForm()
+      accountTransactionForm: this.buildAccountTransactionForm(),
+
+      // Added new formControl
+      processingLastReview: [undefined],
+      processingDuringReview: [undefined],
+      processingNextReview: [undefined],
+      renewalLastReview: [undefined],
+      renewalDuringReview: [undefined],
+      renewalNextReview: [undefined],
+      exchangeLastReview: [undefined],
+      exchangeDuringReview: [undefined],
+      exchangeNextReview: [undefined],
+      feeCommissionLastReview: [undefined],
+      feeCommissionDuringReview: [undefined],
+      feeCommissionNextReview: [undefined],
+      otherChargesLastReview: [undefined],
+      otherChargesDuringReview1: [undefined],
+      otherChargesNextReview: [undefined],
+      grossLastReview: [undefined],
+      grossDuringReview: [undefined],
+      grossNextReview: [undefined],
+      overDraftLastReview: [undefined],
+      overDraftDuringReview: [undefined],
+      overDraftNextReview: [undefined],
+      trLoanLastReview: [undefined],
+      trLoanDuringReview: [undefined],
+      trLoanNextReview: [undefined],
+      demandLastReview: [undefined],
+      demandDuringReview: [undefined],
+      demandNextReview: [undefined],
+      totalLastReview: [undefined],
+      totalDuringReview: [undefined],
+      totalNextReview: [undefined],
+      interestIncome: [undefined],
+      costBaseRate: [undefined],
+      netInterestSurplus: [undefined],
+      feeCommission: [undefined],
+      otherIncome: [undefined],
+      capitalCost: [undefined],
+      economicProfit: [undefined],
+      economicProfitPercentage: [undefined],
     });
   }
 
@@ -126,6 +168,7 @@ export class IncomeFromAccountComponent implements OnInit {
         this.incomeFormGroup.get('guaranteeCommissionAfterNextReview').value).toFixed(2);
     this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
   }
+
   scrollToFirstInvalidControl() {
     const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
         'form .ng-invalid'
@@ -165,4 +208,95 @@ export class IncomeFromAccountComponent implements OnInit {
     }
     this.isNewCustomer = chk;
   }
+
+  calculateTotalDuringReview() {
+    let totalDuringReview = 0;
+    totalDuringReview =
+        (this.incomeFormGroup.get('processingDuringReview').value +
+            this.incomeFormGroup.get('renewalDuringReview').value +
+            this.incomeFormGroup.get('exchangeDuringReview').value +
+            this.incomeFormGroup.get('feeCommissionDuringReview').value +
+            this.incomeFormGroup.get('otherChargesDuringReview1').value +
+            Number(this.incomeFormGroup.get('grossDuringReview').value)).toFixed(2);
+    this.incomeFormGroup.get('totalDuringReview').patchValue(totalDuringReview);
+  }
+
+  calculateTotalNextReview() {
+    let totalNextReview = 0;
+    totalNextReview =
+        (this.incomeFormGroup.get('processingNextReview').value +
+            this.incomeFormGroup.get('renewalNextReview').value +
+            this.incomeFormGroup.get('exchangeNextReview').value +
+            this.incomeFormGroup.get('feeCommissionNextReview').value +
+            this.incomeFormGroup.get('otherChargesNextReview').value +
+            Number(this.incomeFormGroup.get('grossNextReview').value)).toFixed(2);
+    console.log('gross123',  Number(this.incomeFormGroup.get('grossNextReview').value));
+    console.log('total', totalNextReview);
+    this.incomeFormGroup.get('totalNextReview').patchValue(totalNextReview);
+  }
+
+  calculateTotalLastReview() {
+    let totalLastReview = 0;
+    totalLastReview =
+        (this.incomeFormGroup.get('processingLastReview').value +
+            this.incomeFormGroup.get('renewalLastReview').value +
+            this.incomeFormGroup.get('exchangeLastReview').value +
+            this.incomeFormGroup.get('feeCommissionLastReview').value +
+            this.incomeFormGroup.get('otherChargesLastReview').value +
+            Number(this.incomeFormGroup.get('grossLastReview').value)).toFixed(2);
+    console.log('totalLastReview', totalLastReview);
+    this.incomeFormGroup.get('totalLastReview').patchValue(totalLastReview);
+  }
+
+  calculateGrossLastReview() {
+    let totalGrossLastReview = 0;
+    totalGrossLastReview =
+        (this.incomeFormGroup.get('demandLastReview').value +
+        this.incomeFormGroup.get('trLoanLastReview').value +
+        this.incomeFormGroup.get('overDraftLastReview').value).toFixed(2);
+    console.log('totalGrossLastReview', totalGrossLastReview);
+    this.incomeFormGroup.get('grossLastReview').patchValue(totalGrossLastReview);
+    this.calculateTotalLastReview();
+  }
+
+  calculateGrossNextReview() {
+    let totalGrossNextReview = 0;
+    totalGrossNextReview =
+        (this.incomeFormGroup.get('overDraftNextReview').value +
+        this.incomeFormGroup.get('trLoanNextReview').value +
+        this.incomeFormGroup.get('demandNextReview').value.toFixed(2));
+    console.log('totalGrossNextReview', totalGrossNextReview.toFixed(2));
+    this.incomeFormGroup.get('grossNextReview').patchValue(totalGrossNextReview.toFixed(2));
+    this.calculateTotalLastReview();
+  }
+
+  calculateGrossDuringReview() {
+    let totalGrossDuringReView = 0;
+    totalGrossDuringReView =
+        (this.incomeFormGroup.get('overDraftDuringReview').value +
+        this.incomeFormGroup.get('trLoanDuringReview').value +
+        this.incomeFormGroup.get('demandDuringReview').value).toFixed(2);
+    console.log('totalGrossDuringReView', totalGrossDuringReView);
+    this.incomeFormGroup.get('grossDuringReview').patchValue(totalGrossDuringReView);
+    this.calculateTotalDuringReview();
+  }
+
+  calculateNetInterestSurplus() {
+    let totalInterestSurplus = 0;
+    totalInterestSurplus =
+        Number((this.incomeFormGroup.get('costBaseRate').value -
+            this.incomeFormGroup.get('interestIncome').value).toFixed(2));
+    this.incomeFormGroup.get('netInterestSurplus').setValue(totalInterestSurplus);
+  }
+
+  calculateEconomicProfit() {
+    let totalEconomicProfit = 0;
+    totalEconomicProfit =
+        Number((this.incomeFormGroup.get('netInterestSurplus').value +
+        this.incomeFormGroup.get('feeCommission').value +
+        this.incomeFormGroup.get('otherIncome').value -
+        this.incomeFormGroup.get('capitalCost').value).toFixed(2));
+    this.incomeFormGroup.get('economicProfit').patchValue(totalEconomicProfit);
+  }
+
 }
