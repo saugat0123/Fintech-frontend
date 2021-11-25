@@ -462,7 +462,6 @@
                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                          [letter]="initialInfoPrint"
                          [loanLimit]="this.loanLimit"
-                         [interest]="this.selectedInterest"
                          [preview]="true"
                          [offerData]="offerLetterData"></app-sme-print>
           <app-personal-overdraft-print
@@ -517,6 +516,14 @@
                                          [offerData] = offerLetterData
                                           [preview]="true">
           </app-kisan-karja-subsidy-print>
+          <app-interest-subsidy-sanction-letter-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [renewal]="this.renewal"
+                  [offerData] = offerLetterData
+                  [preview]="true">
+          </app-interest-subsidy-sanction-letter-print>
         </nb-card-body>
     </nb-card>
 </ng-template>

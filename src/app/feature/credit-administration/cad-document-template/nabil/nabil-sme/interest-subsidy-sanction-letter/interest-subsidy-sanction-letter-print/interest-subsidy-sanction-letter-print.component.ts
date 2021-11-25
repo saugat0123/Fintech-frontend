@@ -20,7 +20,7 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   @Input() renewal: any;
   @Input() offerData;
   @Input() loanLimit;
-  @Input() preview = false;
+  @Input() preview;
   loanHolderInfo;
   offerLetterConst = NabilOfferLetterConst;
   selectedSecurity;
@@ -39,6 +39,7 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   finalName;
   finalDateOfApproval;
   finalDateOfApplication;
+  finalDateofSanction;
 
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -48,7 +49,7 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
 
   ngOnInit() {
     this.selectedSecurity = this.security;
-    this.renewalVal = this.letter.renewalChecked.en;
+    // this.renewalVal = this.letter.renewalChecked.en;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;
       this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -89,6 +90,15 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
     } else {
       const templateDateApplication = this.letter.dateofApplicationNepali ? this.letter.dateofApplicationNepali.en : '';
       this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
+    }
+    // For Sanction Letter Date:
+    const sanctionLetterDate = this.letter.previousSanctionType ? this.letter.previousSanctionType.en : '';
+    if (sanctionLetterDate === 'AD') {
+      const templateSanctionDate = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.en : '';
+      this.finalDateofSanction = this.engToNepaliDate.transform(this.datePipe.transform(templateSanctionDate), true);
+    } else {
+      const templateSanctionDate = this.letter.previousSanctionDateNepali ? this.letter.previousSanctionDateNepali.en : '';
+      this.finalDateofSanction = templateSanctionDate ? templateSanctionDate.nDate : '';
     }
     this.guarantorDetails();
   }
