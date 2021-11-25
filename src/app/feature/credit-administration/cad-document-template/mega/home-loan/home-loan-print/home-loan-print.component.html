@@ -402,8 +402,14 @@
                          {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                      </span>
                         ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री
-                        <span [ngClass]="{'font-weight-bold' : letter?.loan.beneficiaryNameCT!== null && letter?.loan.beneficiaryNameCT!== ''}">
-            {{letter?.loan.beneficiaryNameCT === null || letter?.loan.beneficiaryNameCT === '' ? '___________' : letter?.loan.beneficiaryNameCT}}</span>  लाई A/C Payee Cheque /MC/Draft
+                        <span *ngIf="tempData?.loanType === homeLoanType.PURCHASE" [ngClass]="{'font-weight-bold' : letter?.loan.beneficiaryNameCT!== null && letter?.loan.beneficiaryNameCT!== ''}">
+                            {{letter?.loan.beneficiaryNameCT === null || letter?.loan.beneficiaryNameCT === '' ? '___________' : letter?.loan.beneficiaryNameCT}}
+                        </span>
+
+                        <span *ngIf="tempData?.loanType === homeLoanType?.TAKE_OVER" [ngClass]="{'font-weight-bold' : letter?.loan.nameOfBankCT!== null && letter?.loan.nameOfBankCT!== ''}">
+                            {{letter?.loan.nameOfBankCT === null || letter?.loan.nameOfBankCT === '' ? '___________' : letter?.loan.nameOfBankCT}}  बैंक
+                        </span>
+                        लाई A/C Payee Cheque /MC/Draft
                         मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                         <div *ngIf="offerData?.pointInformation !== null" class="row col-md-12"
                              style="margin-top: -0.5em">

@@ -489,11 +489,18 @@
                                                  name="loanAmount"
                                                  placeholder=" "
                                                  type="text"/>
-                                ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री <input class="form-field form-control-sm"
+                                ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री <input *ngIf="tempData?.loanType === homeLoanType?.PURCHASE" class="form-field form-control-sm"
                                                                              formControlName="beneficiaryName"
                                                                              name="beneficiaryName"
                                                                              placeholder=" "
-                                                                             type="text"/>   लाई A/C Payee Cheque /MC/Draft
+                                                                             type="text"/>
+                                <ng-container>
+                                    <input *ngIf="tempData?.loanType === homeLoanType?.TAKE_OVER" class="form-field form-control-sm"
+                                           formControlName="nameOfBank"
+                                           name="nameOfBank"
+                                           type="text"/>
+                                    बैंक
+                                </ng-container> लाई A/C Payee Cheque /MC/Draft
                                 मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                                 <div class="row col-md-12">
                                         <textarea
