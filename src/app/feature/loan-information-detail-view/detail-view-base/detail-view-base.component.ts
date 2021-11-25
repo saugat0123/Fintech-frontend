@@ -41,6 +41,8 @@ export class DetailViewBaseComponent implements OnInit {
   securityId: number;
   siteVisitDocuments: Array<SiteVisitDocument>;
   @Output() documents = new EventEmitter();
+  bankingRelation;
+  isIndividual =  false;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -68,7 +70,12 @@ export class DetailViewBaseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
     }
-
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.bankingRelationship)) {
+      this.bankingRelation = JSON.parse(this.loanDataHolder.loanHolder.bankingRelationship);
+    }
+    if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+      this.isIndividual = true;
+    }
   }
 
   getAllLoans(customerInfoId: number): void {

@@ -83,6 +83,8 @@
                      [fiscalYears]="fiscalYearArray"
                      [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
 </ng-template>
+<app-income-from-account-view *ngIf="!isIndividual" [individual]="isIndividual"
+                              [data]="(bankingRelation)"></app-income-from-account-view>
 <div *ngIf="loanDataHolder?.loanCategory.toLowerCase() === 'institution' && loanDataHolder.loanHolder?.data  !==null">
     <div class="col-md-12">
         <p><strong>Comments</strong>
@@ -99,7 +101,7 @@
                                    [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
 </div>
 
-<app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
+<app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount" [individual]="isIndividual"
                                  [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">

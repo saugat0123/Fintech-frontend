@@ -10,6 +10,7 @@ import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 })
 export class IncomeFromAccountSummeryComponent implements OnInit {
   @Input() formData;
+  @Input() individual;
   incomeFromAccount;
   srdbAffiliatedId = false;
   newCustomerFlag: boolean[];

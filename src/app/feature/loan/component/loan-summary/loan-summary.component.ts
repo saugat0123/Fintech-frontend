@@ -191,6 +191,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     riskInfo;
     senderDetails;
     bankingRelation;
+    isIndividual = false;
 
 
     constructor(
@@ -224,9 +225,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        console.log('this is ', this.loanData);
         this.isRemitLoan = this.loanConfig.loanTag === 'REMIT_LOAN';
         this.loanDataHolder = this.loanData;
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+            this.isIndividual = true;
+        }
         this.individual  = this.loanDataHolder.customerInfo;
         if (!ObjectUtil.isEmpty(this.individual)) {
             if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
