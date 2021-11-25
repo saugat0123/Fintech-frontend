@@ -202,8 +202,17 @@
             <span class="print-only font-weight-bold">{{loanDeedIndividual.get(['loanDeedIndividuals',i,'totalPeople']).value ? loanDeedIndividual.get(['loanDeedIndividuals',i,'totalPeople']).value : "_____________________"}}</span>
             जना
           (जसलाई यसपछि ऋणी भनिएको छ) आगे म/हामी ऋणी (हरु)/ ऋणी लाई
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'purposeOfLoan']).value}}</strong></span>
-          <input formControlName="purposeOfLoan" id="purposeOfLoan" class="form-field form-control-sm d-print-none" type="text">
+            <ng-container *ngIf="offerLoanType === 'TAKE OVER'; else elseTakeOver">
+                <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'nameOfBank']).value}}</strong></span>
+                <input class="form-field form-control-sm d-print-none" formControlName="nameOfBank"
+                       id="nameOfBank" type="text">
+                बैंककाे कर्जा चुक्ता गर्ने
+            </ng-container>
+            <ng-template #elseTakeOver>
+                <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'purposeOfLoan']).value}}</strong></span>
+                <input class="form-field form-control-sm d-print-none" formControlName="purposeOfLoan"
+                       id="purposeOfLoan" type="text">
+            </ng-template>
           प्रयोजनका लागी
           ऋणकर्जा तथा बैकिङ्ग सुविधाहरुको आवश्यकता भई
           तपाई धनी बैंकसँग अनुरोध गरेकोमा तपाई धनी बैंकले मेरो/हाम्रो नाउँमा जारी गरेको मिति
