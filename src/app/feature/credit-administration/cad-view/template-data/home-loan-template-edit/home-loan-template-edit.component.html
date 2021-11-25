@@ -17,7 +17,7 @@
             <app-construction-loan-edit #constructionLoan (eventEmitter)="emitValue($event)" [formValue]="initialInformation.loan"></app-construction-loan-edit>
         </div>
         <div *ngIf="isPurchaseLoan || isTakeOverLoan">
-            <app-home-land-and-building-loan-edit #landAndBuilding (eventEmitter)="emitValue($event)" [formValue]="initialInformation.loan" [isTakeOver]="isTakeOverLoan"></app-home-land-and-building-loan-edit>
+            <app-home-land-and-building-loan-edit #landAndBuilding (eventEmitter)="emitValue($event)" [formValue]="initialInformation.loan" [isTakeOver]="isTakeOverLoan" [isPurchase]="isPurchaseLoan"></app-home-land-and-building-loan-edit>
         </div>
     </nb-card-body>
     <nb-card-footer>

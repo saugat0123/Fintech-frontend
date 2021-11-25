@@ -14,14 +14,13 @@ import {District} from '../../../../../../admin/modal/district';
 import {AddressService} from '../../../../../../../@core/service/baseservice/address.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {UdyamsilKarjaSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../../../@core/utils';
 import {OfferDocument} from '../../../../../model/OfferDocument';
 import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 import {CreditAdministrationService} from '../../../../../service/credit-administration.service';
 import {CadDocStatus} from '../../../../../model/CadDocStatus';
-import {log} from 'util';
+import {DdslWithoutSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
 
 @Component({
     selector: 'app-ddsl-without-subsidy-template-data',
@@ -36,7 +35,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     isLoanOptionSelected = false;
     isCustomerNew = false;
     isSecurityOptionSelected;
-    isSecurityLand = false;
     ADSanctionLetterDate = false;
     BSSanctionLetterDate = false;
     ADApplication = false;
@@ -558,7 +556,7 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     }
 
     openModal() {
-        this.dialogService.open(UdyamsilKarjaSubsidyComponent, {
+        this.dialogService.open(DdslWithoutSubsidyComponent, {
             closeOnBackdropClick: false,
             hasBackdrop: false,
             hasScroll: true,

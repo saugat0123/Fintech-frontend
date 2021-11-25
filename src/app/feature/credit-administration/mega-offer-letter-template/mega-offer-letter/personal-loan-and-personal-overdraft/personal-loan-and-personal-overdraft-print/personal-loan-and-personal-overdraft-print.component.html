@@ -93,34 +93,11 @@
                     </tr>
                     <tr>
                         <td><strong>ऋण प्रशासनिक शुल्क </strong></td>
-                        <td> <ul class="disclist">
-                            <li>ऋण प्रशासनिक शुल्क बापत रु
-                                <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinFigureOd.ct !== null && letter?.loanAdminFeeinFigureOd.ct !== ''}">
-                                        {{letter?.loanAdminFeeinFigureOd.ct === null || letter?.loanAdminFeeinFigureOd.ct === '' ? '___________' : letter?.loanAdminFeeinFigureOd.ct}}
+                        <td> कुल ऋणकर्जा रकमको
+                            <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinFigure.ct !== null && letter?.loanAdminFeeinFigure.ct !== ''}">
+                                        {{letter?.loanAdminFeeinFigure.ct === null || letter?.loanAdminFeeinFigure.ct === '' ? '___________' : letter?.loanAdminFeeinFigure.ct}}
                                     </span>
-                                अक्षरेपी रु
-                                <span [ngClass]="{'font-weight-bold' : letter?.loanAdminFeeinWordsOd.ct !== null && letter?.loanAdminFeeinWordsOd.ct !== ''}">
-                                        {{letter?.loanAdminFeeinWordsOd.ct === null || letter?.loanAdminFeeinWordsOd.ct === '' ? '___________' : letter?.loanAdminFeeinWordsOd.ct}}
-                                    </span> मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
-                                कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट
-                                प्राप्त गरिने साख सूचना, घर/जग्गाको मुल्याड्ढन,
-                                रजिष्ट्रेशन, ब्लु प्रिन्ट तथा टेश नक्सा लिँदा लाग्ने शुल्क, सुरक्षित कारोबार
-                                रजिष्टेशन तथा अन्य आवश्यक सूचना प्राप्त गर्न र
-                                आधिकारिक निकायमा रजिष्ट्रेशन गर्न लाग्ने शुल्क तथा कुनै पनि खर्च, आदि बास्तबिक
-                                रकम ऋणी स्वयंले नै तिर्न बुझाउनु पर्नेछ ।
-                                उक्त रकम तपाईको खातामा खर्च जनाई कटृा गरी भुक्तानी गरिनेछ ।
-                            </li>
-                            <li>तपाई ऋणी तथा तपाई सँग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे
-                                बापत प्रति सूचना रु २,००० शुल्क
-                                लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ ।
-                            </li>
-                            <li>बिमा बापतको शुल्क वा धितो मूल्यांकन/पूर्नमुल्यांकन शुल्क बापतको बास्तबिक रकम
-                                तपाईं ऋणी स्वयंले नै तिर्नु बुझाउनु पर्नेछ ।
-                                सो सेवा सम्बन्धी कुनै वक्यौता रहि सम्बन्धीत पक्षले बैंक समक्ष माग गरेमा बैंकले
-                                तपाईलाई पूर्व सूचना नदिई तपाईको खातामा खर्च
-                                जनाई सम्बन्धीत पक्षलाई भुक्तानी दिन सक्नेछ ।
-                            </li>
-                        </ul>
+                            प्रतिशतका दरले अग्रिम रुपमा तिर्नु बुझाउनु पर्नेछ ।
                         </td>
                     </tr>
 
@@ -187,7 +164,7 @@
                             </span>
                             % का दर निर्धारण
                             गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक महिनाको मसान्तमा र ऋणकर्जा चुक्ता
-                            भुक्तान हँुदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                            भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
                         </td>
                     </tr>
                     <tr>
