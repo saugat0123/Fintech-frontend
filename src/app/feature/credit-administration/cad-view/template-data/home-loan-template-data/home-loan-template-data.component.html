@@ -19,7 +19,7 @@
         <app-construction-loan #constructionLoan [submitted]="submitted" [spinner]="spinner"></app-construction-loan>
     </div>
     <div *ngIf="isPurchaseLoan || isTakeOverLoan">
-        <app-home-land-and-building #landAndBuilding [submitted]="submitted" [spinner]="spinner" [isTakeOver]="isTakeOverLoan"></app-home-land-and-building>
+        <app-home-land-and-building #landAndBuilding [submitted]="submitted" [spinner]="spinner" [isTakeOver]="isTakeOverLoan" [isPurchase]="isPurchaseLoan"></app-home-land-and-building>
     </div>
 </nb-card-body>
 <nb-card-footer>
