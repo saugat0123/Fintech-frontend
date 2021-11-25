@@ -1,45 +1,3 @@
-
-.longInput {
-  width: 400px;
-}
-
-.shortInput {
-  width: 50px;
-}
-
-.nep {
-  font-size: 16px;
-  line-height: 1.9;
-  text-align: justify;
-  text-justify: inter-word;
-  margin: 10px 50px;
-}
-
-.form-field {
-  background: yellow;
-  margin: 0px 5px;
-  border: 0;
-  border-bottom: 1px solid black;
-  border-radius: 0px;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-li {
-  list-style-type: none;
-}
-
-input::-webkit-input-placeholder {
-  font-size: 16px;
-}
-
-
-
-
-
-
 .cdk-global-overlay-wrapper, .cdk-overlay-container {
   width: 100%;
 }
@@ -126,41 +84,14 @@ input::-webkit-input-placeholder {
 .page-break {
   page-break-after: always;
 }
-
-.longInput {
-  width: 400px;
+.fontSize{
+  font-size: 15px;
 }
 
-.shortInput {
-  width: 50px;
-}
-
-.nep {
-  font-size: 16px;
-  line-height: 1.9;
-  text-align: justify;
-  text-justify: inter-word;
-  margin: 10px 50px;
-}
-
-.form-field {
-  background: yellow;
-  margin: 0px 5px;
-  border: 0;
-  border-bottom: 1px solid black;
-  border-radius: 0px;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-li {
-  list-style-type: none;
-}
-
-input::-webkit-input-placeholder {
-  font-size: 16px;
+ol.conditions-list{
+  list-style: devanagari;
+  line-height: 40px !important;
+  text-align: justify !important;
 }
 
 @media screen {
@@ -188,3 +119,9 @@ input::-webkit-input-placeholder {
 
 }
 
+.printFont{
+  font-size: 16px;
+}
+.uniFont{
+  font-size: 15px;
+}
