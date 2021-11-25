@@ -3,5 +3,4 @@ export class RelationshipWithBank {
     accountTurnover: string;
     repaymentHistory: string;
     accountTransactionForm: string;
-    newCustomerChecked: string;
 }

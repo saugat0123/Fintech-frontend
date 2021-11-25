@@ -56,7 +56,7 @@
                     <h6>Account History</h6>
                 </div>
             </nb-card-header>
-            <nb-card-body *ngIf="!chek?.checked">
+            <nb-card-body>
                 <div formGroupName="accountTransactionForm">
                     <div class="col-md-12" >
                         <table class="table table-bordered table-responsive-md table-hover text-center sb-small table-sm">
@@ -114,6 +114,14 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="remark"><strong>Remark</strong></label>
+                            <textarea class="form-control" formControlName="remarks" id="remark"
+                                      name="remark" placeholder="Remark" rows="3"></textarea>
+                        </div>
+                    </div>
+
                     <div class="col" *ngIf="!disabledAlpha && !disabledLambda">
                         <label for="repaymentTrackWithCurrentBank">
                             <strong>Repayment track in our bank</strong></label><strong

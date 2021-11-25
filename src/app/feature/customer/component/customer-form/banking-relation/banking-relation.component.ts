@@ -35,6 +35,7 @@ export class BankingRelationComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.bankingRelation = JSON.parse(this.formValue);
+      this.bankingRelationForm.patchValue(this.bankingRelation);
       if (!ObjectUtil.isEmpty(this.bankingRelation.accountTransactionForm)) {
         this.bankingRelationForm.get('accountTransactionForm').patchValue(JSON.parse(this.bankingRelation.accountTransactionForm));
       }
@@ -83,7 +84,9 @@ export class BankingRelationComponent implements OnInit {
       creditTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
       debitTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
       debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
-      repaymentTrackWithCurrentBank: [undefined, !this.disabledLambda && !this.disabledAlpha ? Validators.required : undefined]
+      repaymentTrackWithCurrentBank: [undefined, !this.disabledLambda && !this.disabledAlpha ? Validators.required : undefined],
+      remarks: [undefined],
+
     });
   }
 

@@ -45,15 +45,16 @@ export class IncomeFromAccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.buildForm();
     if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
       this.srdbAffiliatedId = true;
     }
     if (ObjectUtil.isEmpty(this.companyInfo)) {
       this.individual = true;
+      this.incomeFormGroup.get('accountTransactionForm').enable();
     } else {
       this.incomeFormGroup.get('accountTransactionForm').disable();
     }
-    this.buildForm();
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
       this.incomeFormGroup.patchValue(this.dataForEdit);
