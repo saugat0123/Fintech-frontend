@@ -99,14 +99,14 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       dateOfApproval: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
-      dateofApplication: [undefined],
+      dateOfApplication: [undefined],
       previousSanctionLetter: [undefined],
       requestLetterDate: [undefined],
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
       marginInPercentage: [undefined],
       totalLimitFigure: [undefined],
-      totalLimitWords:[undefined],
+      totalLimitWords: [undefined],
       baseRate: [undefined],
       totalAmountInWords: [undefined],
       totalAmountInFigure: [undefined],
@@ -117,10 +117,9 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       ratePerNrb: [undefined],
       branchName: [undefined],
       amountInFigure: [undefined],
-      guarantorsName: [undefined],
+      guarantorName: [undefined],
       relationshipofficerName: [undefined],
       nameOfBranchManager: [undefined],
-      preparationPerson: [undefined],
     });
   }
   setLoanConfigData(data: any) {
@@ -165,11 +164,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
         this.selectedArray = initialInfo.loanTypeSelectedArray;
         this.fillForm();
         this.initialInfoPrint = initialInfo;
-        if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
-          this.form.get('dateofExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateofExpiry.en, true));
-        } else {
-          this.form.get('dateofExpiry').patchValue(this.initialInfoPrint.dateofExpiryNepali.en);
-        }
       }
     } else {
       this.fillForm();
@@ -202,42 +196,48 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
     }
     // For Date of Application:
-    const dateOfApplication = this.initialInfoPrint.dateofApplicationType ? this.initialInfoPrint.dateofApplicationType.en : '';
+    const dateOfApplication = this.initialInfoPrint.dateOfApplicationType ? this.initialInfoPrint.dateOfApplicationType.en : '';
     let finalDateOfApplication;
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.initialInfoPrint.dateofApplication ? this.initialInfoPrint.dateofApplication.en : '';
+      const templateDateApplication = this.initialInfoPrint.dateOfApplication ? this.initialInfoPrint.dateOfApplication.en : '';
       finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
     } else {
-      const templateDateApplication = this.initialInfoPrint.dateofApplicationNepali ? this.initialInfoPrint.dateofApplicationNepali.en : '';
+      const templateDateApplication = this.initialInfoPrint.dateOfApplicationNepali ? this.initialInfoPrint.dateOfApplicationNepali.en : '';
       finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
     }
+    // For Sanction Letter Date:
+    const sanctionLetterDate = this.initialInfoPrint.previousSanctionType ? this.initialInfoPrint.previousSanctionType.en : '';
+    let finalSanctionDate;
+    if (sanctionLetterDate === 'AD') {
+      const templateSanctionDate = this.initialInfoPrint.previousSanctionDate ? this.initialInfoPrint.previousSanctionDate.en : '';
+      finalSanctionDate = this.engToNepaliDate.transform(this.datePipe.transform(templateSanctionDate), true);
+    } else {
+      const templateSanctionDate = this.initialInfoPrint.previousSanctionDateNepali ? this.initialInfoPrint.previousSanctionDateNepali.en : '';
+      finalSanctionDate = templateSanctionDate ? templateSanctionDate.nDate : '';
+    }
     this.form.patchValue({
-      customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
+      customerName: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+      amountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
       referenceNumber: autoRefNumber ? autoRefNumber : '',
-      // purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
-      // drawingPower: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
-      // loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
       dateOfApproval: finalDateOfApproval ? finalDateOfApproval : '',
-      baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
-      premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
-      previousSanctionLetter: this.tempData.previousSanctionType.ct ? this.tempData.previousSanctionType.ct : '',
-      totalInterestRate: this.tempData.interestRate.ct ? this.tempData.interestRate.ct : '',
-      marginInPercentage: this.tempData.marginInPercentage.ct ? this.tempData.marginInPercentage.ct : '',
-      totalLimitFigure: this.tempData.totalLimitFigure.ct ? this.tempData.totalLimitFigure.ct : '',
-      totalLimitWords: this.tempData.totalLimitWords.ct ? this.tempData.totalLimitWords.ct : '',
-      totalTenureOfLoan: this.tempData.totalTenureOfLoan.ct ? this.tempData.totalTenureOfLoan.ct : '',
-      // loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
-      // loanadminFeeWords: this.tempData.loanadminFeeWords.ct ? this.tempData.loanadminFeeWords.ct : '',
-      // nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
-      // relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
-      nameOfBranchManager: this.tempData.nameOfBranchManager.ct ? this.tempData.nameOfBranchManager.ct : '',
-      branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
+      baseRate: this.tempData.baseRate ? this.tempData.baseRate.ct : '',
+      premiumRate: this.tempData.premiumRate ? this.tempData.premiumRate.ct : '',
+      previousSanctionLetter: finalSanctionDate ? finalSanctionDate : '',
+      totalInterestRate: this.tempData.interestRate ? this.tempData.interestRate.ct : '',
+      marginInPercentage: this.tempData.marginInPercentage ? this.tempData.marginInPercentage.ct : '',
+      totalLimitFigure: this.tempData.totalLimitFigure ? this.tempData.totalLimitFigure.ct : '',
+      totalLimitWords: this.tempData.totalLimitWords ? this.tempData.totalLimitWords.ct : '',
+      totalTenureOfLoan: this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',
+      ratePerNrb: this.tempData.circularRate ? this.tempData.circularRate.ct : '',
+       // relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
+      nameOfBranchManager: this.tempData.nameOfBranchManager ? this.tempData.nameOfBranchManager.ct : '',
+      branchName : this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
       // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
-      dateofApplication : finalDateOfApplication ? finalDateOfApplication : '',
+      dateOfApplication : finalDateOfApplication ? finalDateOfApplication : '',
     });
   }
   submit(): void {
@@ -246,7 +246,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
 
     // this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
     // this.form.get('loanLimitChecked').patchValue(this.loanLimit);
-    this.form.get('renewalChecked').patchValue(this.renewal);
+    // this.form.get('renewalChecked').patchValue(this.renewal);
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {

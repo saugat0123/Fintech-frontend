@@ -1,4 +1,4 @@
-<nb-card style="height:90vh; overflow-y :scroll">
+<nb-card style="overflow-y :scroll">
     <nb-card-body>
         <div class="interest-subsidy" id="{{offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER}}">
             <div class="row mt-3">
@@ -8,12 +8,12 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="m-0">
+                    <p class="m-0 font-weight-bold">
                        <span>
                             {{ autoRefNumber ? autoRefNumber : "_______________________" }}
                         </span>
                     </p>
-                    <p class="m-0">
+                    <p class="m-0 font-weight-bold">
                         मिति :
                         <span>
                             {{ finalDateOfApproval }}
@@ -32,28 +32,27 @@
                               श्रीमती
                             </span>
                         </ng-template>
-
                         <span [ngClass]="{'font-weight-bold': loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}">
-                            {{loanHolderInfo?.name === null || loanHolderInfo?.name === "" ? "___________" : loanHolderInfo?.name.ct}}
+                            {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}
                         </span>
                     </p>
 
                     <p class="m-0">
                         ठेगाना :
                         <span [ngClass]="{'font-weight-bold': customerAddress !== null && customerAddress !== ''}">
-                            {{customerAddress === null || customerAddress === "" ? "___________" : customerAddress}}
+                            {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}
                         </span>
                     </p>
                 </div>
             </div>
-            <div class="row subject mt-5">
+            <div class="row subject mt-5" *ngIf="this.letter.loanOption.en === 'NEW'">
                 <div class="col-sm-12">
                     <p class="pull-left">
                         <strong> बिषय : ऋणकर्जा सुविधा बारे ।</strong>
                     </p>
                 </div>
             </div>
-            <div class="row section-desc">
+            <div class="row section-desc" *ngIf="this.letter.loanOption.en === 'NEW'">
                 <div class="col-sm-12">
                     <p>
                         महोदय,
@@ -69,14 +68,14 @@
                     </p>
                 </div>
             </div>
-            <div class="row subject mt-5">
+            <div class="row subject mt-5" *ngIf="this.letter.loanOption.en === 'EXISTING'">
                 <div class="col-sm-12">
                     <p class="pull-left">
                         <strong> बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</strong>
                     </p>
                 </div>
             </div>
-            <div class="row section-desc">
+            <div class="row section-desc" *ngIf="this.letter.loanOption.en === 'EXISTING'">
                 <div class="col-sm-12">
                     <p>
                         महोदय,
@@ -84,11 +83,15 @@
                     <p class="lh-40 text-justify">
                         तपाईंले यस बैंकको मिति वि.सं
                         <span class="font-weight-bold">
-                            {{ finalDateOfApplication }}
+                            {{ finalDateofSanction }}
                         </span>
                         को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा
                         सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु
-                        भएको मिति वि.सं <span> {{!renewalVal ? 'सुविधाको' : 'सुविधा नविकरणको'}} </span> को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका
+                        भएको मिति वि.सं
+                        <span class="font-weight-bold">
+                            {{ finalDateOfApplication }}
+                        </span>
+                        को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका
                         शर्तबन्देजहरुको अधिनमा रहने गरी देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको
                         ब्यहोरा अनुरोध गर्दछौं।
                     </p>
@@ -96,8 +99,8 @@
             </div>
             <p style="text-align: center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण </strong></p>
 <!--            <div class="row details-table">-->
-                <div class="col-sm-12" style="margin-left: 2em;width:3em;">
-                    <table class="table table-condensed table-bordered text-center"
+                <div class="col-sm-12">
+                    <table class="table table-condensed table-bordered text-justify"
                            id="custom-table">
                         <tr>
                             <td><strong>कर्जाको प्रकार:</strong></td>
@@ -293,20 +296,20 @@
                             <li>
                                 <strong> व्यक्तिगत जमानत</strong>(Personal Guarantee)<br>
                                 रु.<span class="font-weight-bold">
-                                                {{ engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                                            {{
+                                guarantorParse(guarantorData[0].nepData, "gurantedAmount")
+                                }}
                                             </span>
                                 /-(अक्षरेपि रु.
-                                <span class="unicodeResize">{{ nepaliCurrencyWordPipe.transform(proposedAmount) }} मात्र)
+                                <span class="font-weight-bold">{{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, "gurantedAmount", "en"))}}</span> मात्र)
                                 बराबरको <span class="font-weight-bold">
-                                      {{ this.finalName }}
-                                    </span>
+                                            {{ this.finalName }}
+                                            </span>
                                 ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
-                                </span>
                             </li>
                         </ol>
                     </div>
                 </div>
-            </div>
             <div class="mt-5">
                 <div class="col-sm-12">
                     <ol class="conditions-list orderd-list">
@@ -595,7 +598,7 @@
 
                     </div>
                 </div>
-                <div mt-5>
+                <div>
                     <ol class="conditions-list orderd-list">
                         <strong>सामानको मौज्दात सुरक्षण र भुक्तानी प्राप्त गर्न बाँकी रकमहरुका
                             लागि </strong>(Applicable if Fixed Assets has been purposed as security)
@@ -724,7 +727,7 @@
 
             </div>
             <div mt-5>
-                <ol class="conditions-list orderd-list">
+                <ol class="conditions-list orderd-list"style="padding-left: 2em">
                     <strong>बबित्तीय शर्तहरु </strong>(Financial Terms & Conditions)
                     <li> सम्पूर्ण ऋणकर्जाहरुको ब्याज, किस्ता, शुल्क, कमिसन, मार्जिन, हर्जाना
                         ब्याज र अन्य
@@ -868,7 +871,7 @@
                         ल्याउनुपर्नेछ ।(Not applicable in individual nature loan)
                     </li>
 
-                    <li> बैंकको लिखित सहमति बेगर ऋणी फर्म÷कम्पनीको स्वामित्व, शेयर संरचनामा
+                    <li> बैंकको लिखित सहमति बेगर ऋणी फर्म/कम्पनीको स्वामित्व, शेयर संरचनामा
                         परिवर्तन, शेयर
                         विक्रि वा नामसारी गर्न पाईने छैन र बैंकको
                         सहमति बेगर स्वामित्व संरचनामा परिवर्तन वा नामसारी गरेमा यस ऋण सुविधा
@@ -984,7 +987,7 @@
             </div>
 
             <div mt-5>
-                <ol class="conditions-list orderd-list">
+                <ol class="conditions-list orderd-list"style="padding-left: 2em">
                     <strong>कागजपत्रहरु </strong>
 
                     <li> ऋणीले बैंकको <span class="font-weight-bold">{{ branchName }}</span> शाखामा सम्पर्क राखी देहाय बमोजिमका
@@ -1081,13 +1084,12 @@
                         <p>
                             सहायक सम्पर्क अधिकृत
                         </p>
-                        <p>
-                          <span [ngClass]="{'nepaliFont num' : letter?.nameOfBranchManager!== null && letter?.nameOfBranchManager!== ''}">
-            {{letter?.nameOfBranchManager === null || letter?.nameOfBranchManager === '' ? '___________' : letter?.nameOfBranchManager}}</span>
+                        <p style="margin-top: -2em">
+                          <span [ngClass]="{'nepaliFont num' : letter?.nameOfBranchManager.ct!== null && letter?.nameOfBranchManager.ct!== ''}">
+            {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                         </p>
-                        <p>
-                          <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
-            {{letter?.branchName === null || letter?.branchName === '' ? '___________' : letter?.branchName}}</span>
+                        <p style="margin-top: -2em">
+                          <span class="form-text under-info">{{branchName === null || branchName === '' ? '___________' : branchName}}</span>
                         </p>
                     </div>
                     <div class="left-content">
@@ -1095,13 +1097,12 @@
                         <p>
                             सम्पर्क अधिकृत
                         </p>
-                        <p>
-                            <span [ngClass]="{'nepaliFont num' : letter?.relationshipofficerName!== null && letter?.relationshipofficerName!== ''}">
-                            {{letter?.relationshipofficerName === null || letter?.relationshipofficerName === '' ? '___________' : letter?.relationshipofficerName}}</span>
+                        <p style="margin-top: -2em">
+                            <span [ngClass]="{'nepaliFont num' : letter?.nameOfBranchManager.ct!== null && letter?.nameOfBranchManager.ct!== ''}">
+                            {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                         </p>
-                        <p>
-                            <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
-            {{letter?.branchName === null || letter?.branchName === '' ? '___________' : letter?.branchName}}</span>
+                        <p style="margin-top: -2em">
+                            <span class="form-text under-info">{{branchName === null || branchName === '' ? '___________' : branchName}}</span>
                         </p>
                     </div>
                 </div>
@@ -1252,27 +1253,13 @@
                         बैंक लि. का कर्मचारी श्री
                         ____________________________
                     </li>
-                    <li>
-                        Prepared by:
-<!--                        <span [ngClass]="{'font-weight-bold': preparationPerson?.name !== null && preparationPerson?.name !== ''}">-->
-<!--                            {{preparationPerson?.name === null || preparationPerson?.name === "" ? "___________" : preparationPerson?.name.ct}}-->
-<!--                        </span>-->
-                    </li>
                 </ul>
-            </div>
-
-        <div class="row">
-            <div class="col-sm-12">
-                <button *ngIf="preview"
-                        [useExistingCss]="true"
-                        class="d-print-none float-right"
-                        printSectionId="print-section"
-                        nbButton size="small"
-                        #printButton
-                        status="info" outline
-                        ngxPrint>Print <nb-icon icon="printer-outline"></nb-icon>
-                </button>
             </div>
         </div>
     </nb-card-body>
+    <nb-card-footer>
+    <button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+             ngxPrint printSectionId="{{offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER}}" #printButton>Print</button>
+    </nb-card-footer>
 </nb-card>
+
