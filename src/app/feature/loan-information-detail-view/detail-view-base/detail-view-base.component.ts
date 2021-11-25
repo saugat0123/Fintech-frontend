@@ -73,7 +73,7 @@ export class DetailViewBaseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.bankingRelationship)) {
       this.bankingRelation = JSON.parse(this.loanDataHolder.loanHolder.bankingRelationship);
     }
-    if (this.loanDataHolder.loanCategory === 'INSTITUTION') {
+    if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
       this.isIndividual = true;
     }
   }
