@@ -203,6 +203,10 @@
                                  [cadData]="cadData"
                                  [documentId]="documentId"
                                  [customerLoanId]="customerLoanId"></app-mortgage-deed-laxmi>
+        <app-hypothecation-charge-over-fixed-assets *ngSwitchCase="cadTemplate.HYPOTHECATION_CHARGE_OVER_FIXED_ASSETS"
+                                 [cadData]="cadData"
+                                 [documentId]="documentId"
+                                 [customerLoanId]="customerLoanId"></app-hypothecation-charge-over-fixed-assets>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>

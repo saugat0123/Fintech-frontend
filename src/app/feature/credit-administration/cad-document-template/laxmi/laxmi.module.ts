@@ -31,6 +31,7 @@ import { PersonalGuaranteeIndividualComponent } from './laxmi-offer-letter/perso
 import { HypothecationOverStockAndReceivableCurrentAssetsComponent } from './laxmi-offer-letter/hypothecation-over-stock-and-receivable-current-assets/hypothecation-over-stock-and-receivable-current-assets.component';
 import { ConsentOfHakwalaComponent } from './laxmi-offer-letter/consent-of-hakwala/consent-of-hakwala.component';
 import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-laxmi/mortgage-deed-laxmi.component';
+import { HypothecationChargeOverFixedAssetsComponent } from './laxmi-offer-letter/hypothecation-charge-over-fixed-assets/hypothecation-charge-over-fixed-assets.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
         ConsentOfHakwalaComponent,
         CorporateGuranteeComponent,
         ConsentOfHakwalaComponent,
-        MortgageDeedLaxmiComponent],
+        MortgageDeedLaxmiComponent,
+        HypothecationChargeOverFixedAssetsComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -70,21 +72,22 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
         CoreModule,
         NbRadioModule,
     ],
-    exports: [
-        LoanDeedIndividualComponent,
-        PromisoryNoteIndividualComponent,
-        SelfDeclarationComponent,
-        NrbKycComponent,
-        LoanDeedInstitutionalComponent,
-        PromisoryNoteInstitutionalComponent,
-        PersonalGuaranteeInstitutionalComponent,
-        PersonalGuaranteeIndividualComponent,
-        HypothecationOverStockAndReceivableCurrentAssetsComponent,
-        ConsentOfHakwalaComponent,
-        CorporateGuranteeComponent,
-        ConsentOfHakwalaComponent,
-        MortgageDeedLaxmiComponent
-    ],
+  exports: [
+    LoanDeedIndividualComponent,
+    PromisoryNoteIndividualComponent,
+    SelfDeclarationComponent,
+    NrbKycComponent,
+    LoanDeedInstitutionalComponent,
+    PromisoryNoteInstitutionalComponent,
+    PersonalGuaranteeInstitutionalComponent,
+    PersonalGuaranteeIndividualComponent,
+    HypothecationOverStockAndReceivableCurrentAssetsComponent,
+    ConsentOfHakwalaComponent,
+    CorporateGuranteeComponent,
+    ConsentOfHakwalaComponent,
+    MortgageDeedLaxmiComponent,
+    HypothecationChargeOverFixedAssetsComponent
+  ],
     entryComponents: [
         LaxmiOfferLetterComponent
     ]

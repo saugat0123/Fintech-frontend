@@ -17,11 +17,11 @@ import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-corporate-gurantee',
-  templateUrl: './corporate-guarantee.component.html',
-  styleUrls: ['./corporate-guarantee.component.scss']
+  selector: 'app-hypothecation-charge-over-fixed-assets',
+  templateUrl: './hypothecation-charge-over-fixed-assets.component.html',
+  styleUrls: ['./hypothecation-charge-over-fixed-assets.component.scss']
 })
-export class CorporateGuranteeComponent implements OnInit {
+export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
   @Input() cadData;
   @Input() documentId;
   @Input() customerLoanId;
@@ -74,11 +74,10 @@ export class CorporateGuranteeComponent implements OnInit {
   fillForm() {
     if (!ObjectUtil.isEmpty(this.nepaliData)) {
       const customerTempAddress =
-          this.nepaliData.temporaryMunicipality + ' वडा नं= ' +
+          this.nepaliData.temporaryMunicipality + ' j8f g+ ' +
           this.nepaliData.temporaryWard + ', ' +
           this.nepaliData.temporaryDistrict;
       this.form.patchValue({
-        wadNo: this.nepaliNumber.transform(this.cadData.assignedLoan[0].branch.wardNumber, 'preeti'),
         grandFatherName: this.nepaliData.grandFatherName,
         fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : this.nepaliData.fatherInLawName,
         spouseName: this.nepaliData.spouseName,
@@ -93,8 +92,6 @@ export class CorporateGuranteeComponent implements OnInit {
         customerName: this.nepaliData.name,
         rupees: this.nepaliNumber.transform(this.amount, 'preeti'),
         amount: this.nepaliCurrencyWordPipe.transform(this.amount),
-        rupees1: this.nepaliNumber.transform(this.amount, 'preeti'),
-        amount1: this.nepaliCurrencyWordPipe.transform(this.amount)
       });
     }
   }
@@ -143,14 +140,14 @@ export class CorporateGuranteeComponent implements OnInit {
     this.form = this.formBuilder.group({
       branch: [undefined],
       ministry: [undefined],
-      registrationBureau: [undefined],
+      bureauOfMinistry: [undefined],
       privateLimitedNum: [undefined],
       registrationDate: [undefined],
       registrationDistrict: [undefined],
       registrationMunicipality: [undefined],
       registrationWardNum: [undefined],
       taxationBureau: [undefined],
-      panNumber: [undefined],
+      lekhaNumber: [undefined],
       registrationDate1: [undefined],
       companyName: [undefined],
       grandFatherName: [undefined],
@@ -165,22 +162,13 @@ export class CorporateGuranteeComponent implements OnInit {
       customerCitizenshipNo: [undefined],
       citizenshipIssueDistrict: [undefined],
       citizenshipIssueDate: [undefined],
-      ministryOfNepal: [undefined],
-      PvtLtdNum: [undefined],
-      companyRegistrationDate: [undefined],
-      companyRegistrationDistrict: [undefined],
-      companyRegistrationMun: [undefined],
-      companyRegistrationWardNo: [undefined],
-      taxationBureauForCompany: [undefined],
-      companyPanNumber: [undefined],
-      companyRegisterDate: [undefined],
-      companyName1: [undefined],
-      loanApprovedDate: [undefined],
-      appliedLoan: [undefined],
       rupees: [undefined],
       amount: [undefined],
+      plantOrMachineryDescription: [undefined],
       rupees1: [undefined],
-      amount1: [undefined],
+      debtorMortgageDistrict: [undefined],
+      debtorMortgageMunicipality: [undefined],
+      kittaNumber: [undefined],
       witnessDistrict1: [undefined],
       witnessMunicipality1: [undefined],
       witnessWardNum1: [undefined],
