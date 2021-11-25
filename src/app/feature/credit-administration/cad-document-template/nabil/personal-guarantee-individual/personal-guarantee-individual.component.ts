@@ -43,6 +43,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
   guarantorsNepData = [];
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   docName: any;
+  offerLoanType;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -152,6 +153,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
       temporaryward: [undefined],
       borrowerName: [undefined],
       loanPurpose: [undefined],
+      nameOfBank: [undefined],
       dateOfApproval: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
@@ -196,6 +198,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         }
         let approvedDate: any;
         let homeapprovedDate: any;
+        let homeBankName: any;
         this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
           if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
               // tslint:disable-next-line:max-line-length
@@ -210,6 +213,8 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
                   if (this.offerDocumentDetails.loan.dateType === 'BS') {
                       approvedDate = this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate;
                   }
+                  this.offerLoanType = this.offerDocumentDetails.loanType ? this.offerDocumentDetails.loanType : '';
+                  homeBankName = this.offerDocumentDetails.loan.nameOfBankCT ? this.offerDocumentDetails.loan.nameOfBankCT : '';
               } else {
                   // tslint:disable-next-line:max-line-length
                   approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : this.offerDocumentDetails.dateofApprovalNepali ? this.offerDocumentDetails.dateofApprovalNepali.en.eDate : '';
@@ -238,7 +243,8 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             temporaryward: [undefined],
             borrowerName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
             loanPurpose: [this.offerDocumentDetails.loanPurpose ? this.offerDocumentDetails.loanPurpose.ct : this.offerDocumentDetails.purposeofLoan ? this.offerDocumentDetails.purposeofLoan.ct : this.offerDocumentDetails.purposeOfLoan && this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : this.offerDocumentDetails.vehicleName ? (this.offerDocumentDetails.vehicleName.ct + ' नामको सवारी साधन एक थान व्यक्तिगत प्रयोजनका लागि खरिद') : this.offerDocumentDetails.loan.purposeOfLoanCT ? this.offerDocumentDetails.loan.purposeOfLoanCT : ('')],
-            dateOfApproval: [homeapprovedDate ? homeapprovedDate : this.englishNepaliDatePipe.transform(approvedDate || '', true)  || ''],
+            nameOfBank: [homeBankName ? homeBankName : ''],
+              dateOfApproval: [homeapprovedDate ? homeapprovedDate : this.englishNepaliDatePipe.transform(approvedDate || '', true)  || ''],
             loanAmount: [undefined],
             loanAmountWords: [undefined],
             guaranteAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],

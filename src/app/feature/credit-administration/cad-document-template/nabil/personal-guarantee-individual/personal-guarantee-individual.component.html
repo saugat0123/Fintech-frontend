@@ -94,10 +94,19 @@
                             </p>
                             <p>
                                 (जसलाई यस उप्रान्त <strong>"ऋणी"</strong> भनिएको छ) लाई
-                                <input class="form-field form-control-sm d-print-none"
-                                    name="loanPurpose"
-                                    formControlName="loanPurpose" placeholder="ऋण उद्देश्य" type="text"/>
+                                <ng-container *ngIf="offerLoanType === 'TAKE OVER'; else purposeOfLoanElement">
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="nameOfBank"
+                                           formControlName="nameOfBank" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'nameOfBank']).value}}</strong></span>
+                                    बैंककाे कर्जा चुक्ता
+                                </ng-container>
+                                <ng-template #purposeOfLoanElement>
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="loanPurpose"
+                                           formControlName="loanPurpose" placeholder="ऋण उद्देश्य" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'loanPurpose']).value}}</strong></span>
+                                </ng-template>
                                 गर्न ऋणकर्जा सुविधाहरु आवश्यकत्ता भई सोको लागि ऋणीले तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाई धनी बैंकबाट
                                 निज ऋणीको नाममा जारी भएको मिति
                                 <input class="form-field form-control-sm d-print-none"
