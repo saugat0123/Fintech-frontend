@@ -1695,126 +1695,126 @@
                        </div>
                        <!--  Business Given -->
                        <hr>
-                       <ng-container  *ngIf="!srdbAffiliatedId" class="box-header with-border">
-                           <h5 class="box-title">16. Business given</h5>
-                           <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">
-                               <tr class="sb-bg-secondary text-white">
-                                   <th>Particular</th>
-                                   <th>Amount</th>
-                               </tr>
-                               <tr>
-                                   <td>Interest Income</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="interestIncomeDuringReview"
-                                              type="number" appDecimalNumber>
+<!--                       <ng-container  *ngIf="!srdbAffiliatedId" class="box-header with-border">-->
+<!--                           <h5 class="box-title">16. Business given</h5>-->
+<!--                           <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">-->
+<!--                               <tr class="sb-bg-secondary text-white">-->
+<!--                                   <th>Particular</th>-->
+<!--                                   <th>Amount</th>-->
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Interest Income</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="interestIncomeDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
 
-                                   </td>
+<!--                                   </td>-->
 
-                               </tr>
-                               <tr>
-                                   <td>Loan Processing Fee</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="loanProcessingFeeDuringReview"
-                                              type="number" appDecimalNumber>
-                                   </td>
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Loan Processing Fee</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="loanProcessingFeeDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+<!--                                   </td>-->
 
-                               </tr>
-                               <tr>
-                                   <td>LC Commission</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="lcCommissionDuringReview"
-                                              type="number" appDecimalNumber>
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>LC Commission</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="lcCommissionDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
 
-                                   </td>
+<!--                                   </td>-->
 
-                               </tr>
-                               <tr>
-                                   <td>Guarantee Commission</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="guaranteeCommissionDuringReview"
-                                              type="number" appDecimalNumber>
-                                   </td>
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Guarantee Commission</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="guaranteeCommissionDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+<!--                                   </td>-->
 
-                               </tr>
-                               <tr>
-                                   <td>Other Commission</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="otherCommissionDuringReview"
-                                              type="number" appDecimalNumber>
-                                   </td>
-                               </tr>
-                               <tr>
-                                   <td>Saving Account</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="savingAccountDuringReview"
-                                              type="number" appDecimalNumber>
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Other Commission</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="otherCommissionDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+<!--                                   </td>-->
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Saving Account</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="savingAccountDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
 
-                                   </td>
+<!--                                   </td>-->
 
-                               </tr>
-                               <tr>
-                                   <td>Payroll Account</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="payrollAccountDuringReview"
-                                              type="number" appDecimalNumber>
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Payroll Account</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="payrollAccountDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
 
-                                   </td>
+<!--                                   </td>-->
 
-                               </tr>
-                               <tr>
-                                   <td>Debit Cards</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="debitCardsDuringReview"
-                                              type="number" appDecimalNumber>
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Debit Cards</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="debitCardsDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
 
-                                   </td>
+<!--                                   </td>-->
 
-                               </tr>
-                               <tr>
-                                   <td>Credit Cards</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="creditCardsDuringReview"
-                                              type="number" appDecimalNumber>
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Credit Cards</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="creditCardsDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
 
-                                   </td>
+<!--                                   </td>-->
 
-                               </tr>
-                               <tr>
-                                   <td>Mobile Bank / Internet Banking</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="mobileBankingDuringReview"
-                                              type="number" appDecimalNumber>
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Mobile Bank / Internet Banking</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="mobileBankingDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
 
-                                   </td>
+<!--                                   </td>-->
 
-                               </tr>
-                               <tr>
-                                   <td>Locker</td>
-                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                              class="form-control text-center"
-                                              formControlName="lockerDuringReview"
-                                              type="number" appDecimalNumber>
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Locker</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="lockerDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
 
-                                   </td>
+<!--                                   </td>-->
 
-                               </tr>
-                               <tr>
-                                   <td><strong>Total</strong></td>
-                                   <td><input readonly formControlName="total" class="form-control text-center"></td>
-                               </tr>
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td><strong>Total</strong></td>-->
+<!--                                   <td><input readonly formControlName="total" class="form-control text-center"></td>-->
+<!--                               </tr>-->
 
-                           </table>
-                       </ng-container>
+<!--                           </table>-->
+<!--                       </ng-container>-->
                    </nb-tab>
                  <!--  new tab detail start from here-->
                    <nb-tab *ngIf="!disableCrgAlpha && !microCustomer" tabTitle="Other Detail">
@@ -1825,7 +1825,7 @@
                        </app-banking-relation>
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title">17. Business & Industry</h5>
+                           <h5 class="box-title">16. Business & Industry</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-6 form-group">

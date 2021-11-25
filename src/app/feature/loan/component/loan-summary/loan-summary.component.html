@@ -767,6 +767,12 @@
                             <th class="text-white sb-bg-dark">Repayment History</th>
                             <td class="text-left pl-1">{{bankingRelation?.repaymentHistory}}</td>
                         </tr>
+                        <tr *ngIf="!isIndividual">
+                            <td colspan="2">
+                                <app-income-from-account-view *ngIf="bankingRelation?.accountTransactionForm !== null"
+                                                            [individual]="isIndividual"  [data]="(bankingRelation)"></app-income-from-account-view>
+                            </td>
+                        </tr>
                     </table>
                 </ng-template>
             </ng-template>
@@ -1150,7 +1156,7 @@
                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
             </ng-template>
 
-            <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
+            <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [individual]="isIndividual"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
             <br>
             <div *ngIf="loanCategory === 'INSTITUTION' && loanData?.loanHolder.data !== null" >

@@ -74,5 +74,5 @@
   </div>
 </div>
 
-<app-income-from-account-view *ngIf="!newCustomerFlag"
+<app-income-from-account-view *ngIf="!newCustomerFlag && individual" [individual]="individual"
                               [data]="incomeFromAccount"></app-income-from-account-view>
