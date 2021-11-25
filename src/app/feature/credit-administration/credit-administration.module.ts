@@ -100,6 +100,7 @@ import { InterestSubsidySanctionLetterTemplateDataComponent } from './cad-view/t
 import { PersonalOverdraftWithoutCollateralTemplateEditComponent } from './cad-view/template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component';
 import { InterestSubsidySanctionLetterTemplateEditComponent } from './cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-edit/interest-subsidy-sanction-letter-template-edit.component';
 import { DdslWithoutSubsidyTemplateEditComponent} from './cad-view/template-data/nabil-sme-template-data/ddsl-without-subsidy/ddsl-without-subsidy-template-edit/ddsl-without-subsidy-template-edit.component';
+import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from "./cad-view/template-data/personal-loan-and-personal-overdraft-template-edit/personal-loan-and-personal-overdraft-template-edit.component";
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -186,7 +187,8 @@ import { DdslWithoutSubsidyTemplateEditComponent} from './cad-view/template-data
     UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent, InterestSubsidySanctionLetterPrintComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
         InterestSubsidySanctionLetterTemplateEditComponent,
         InterestSubsidySanctionLetterTemplateDataComponent,
-        DdslWithoutSubsidyTemplateEditComponent],
+        DdslWithoutSubsidyTemplateEditComponent,
+        PersonalLoanAndPersonalOverdraftTemplateEditComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -222,7 +224,7 @@ import { DdslWithoutSubsidyTemplateEditComponent} from './cad-view/template-data
   HomeLoanTemplateEditComponent, RetailMortageLoanTemplateDataEditComponent,
     AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
     InterestSubsidySanctionLetterTemplateEditComponent,
-    AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent, DdslWithoutSubsidyTemplateEditComponent],
+    AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent, DdslWithoutSubsidyTemplateEditComponent, PersonalLoanAndPersonalOverdraftTemplateEditComponent],
   exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })

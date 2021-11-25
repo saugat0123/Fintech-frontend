@@ -318,7 +318,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateEditComponent implements On
     //set Expiry Date
     this.form.get('loanExpiryDateType').patchValue(this.initialInformation.loanExpiryDateType.en);
     if (this.initialInformation.loanExpiryDateType.en === 'AD') {
-      this.form.get('loanExpiryDate').patchValue(this.initialInformation.loanExpiryDate.en);
+      this.form.get('loanExpiryDate').patchValue(new Date(this.initialInformation.loanExpiryDate.en));
     } else {
       this.form.get('loanExpiryDateNepali').patchValue(this.initialInformation.loanExpiryDateNepali.en);
     }
@@ -395,27 +395,20 @@ export class PersonalLoanAndPersonalOverdraftTemplateEditComponent implements On
       this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT).toString()) {
-          this.mappedData();
+          Object.keys(this.form.controls).forEach(key => {
+            if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
+              return;
+            }
+            this.attributes = new Attributes();
+            this.attributes.en = this.form.get(key).value;
+            this.attributes.np = this.tdValues[key];
+            this.attributes.ct = this.form.get(key + 'TransVal').value;
+            this.tdValues[key] = this.attributes;
+          });
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+          this.podtranslatedData = {};
         }
       });
-    } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT);
-      Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });
-      this.podtranslatedData = {};
-      this.deleteCTAndTransControls(this.tdValues);
-      offerDocument.initialInformation = JSON.stringify(this.tdValues);
-      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated Offer Letter'));
@@ -423,7 +416,6 @@ export class PersonalLoanAndPersonalOverdraftTemplateEditComponent implements On
       this.spinner = false;
       this.previewBtn = false;
       this.btnDisable = true;
-      this.closed = true;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to update Offer Letter'));
