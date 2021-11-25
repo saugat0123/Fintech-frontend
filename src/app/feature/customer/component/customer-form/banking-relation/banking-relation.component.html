@@ -55,10 +55,6 @@
                 <div class="row d-flex justify-content-center">
                     <h6>Account History</h6>
                 </div>
-                <nb-checkbox #chek formControlName="newCustomerChecked"
-                             (checkedChange)="onAdditionalFieldSelect(chek.checked)" [checked]="formControl.newCustomerChecked.value">
-                    <strong>New Customer</strong>
-                </nb-checkbox>
             </nb-card-header>
             <nb-card-body *ngIf="!chek?.checked">
                 <div formGroupName="accountTransactionForm">

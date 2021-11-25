@@ -49,8 +49,6 @@ export class BankingRelationComponent implements OnInit {
           this.bankingRelation.accountTurnover, Validators.required],
       repaymentHistory: [ObjectUtil.isEmpty(this.bankingRelation) ? undefined :
           this.bankingRelation.repaymentHistory, Validators.required],
-      newCustomerChecked: [ObjectUtil.isEmpty(this.bankingRelation) ? undefined :
-          this.bankingRelation.newCustomerChecked],
       accountTransactionForm: this.buildAccountTransactionForm()
     });
   }
