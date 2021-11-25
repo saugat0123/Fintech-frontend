@@ -277,8 +277,10 @@ export class HomeLandAndBuildingComponent implements OnInit {
     }
     if (this.isPurchase) {
       this.changeValidation('purposeOfLoanCT', true);
+      this.changeValidation('beneficiaryNameCT', true);
     } else {
       this.changeValidation('purposeOfLoanCT', false);
+      this.changeValidation('beneficiaryNameCT', false);
     }
     this.spinner = false;
   }
