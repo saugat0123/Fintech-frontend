@@ -19,6 +19,7 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
   }
 
   ngOnInit() {
+      console.log('asdasdasdasd');
     if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
       this.srdbAffiliatedId = true;
     }

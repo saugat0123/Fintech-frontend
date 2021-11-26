@@ -20,7 +20,6 @@ export class IncomeFromAccountComponent implements OnInit {
   @Input() fromProfile;
   @Output() incomeFromAccountDataEmitter = new EventEmitter();
   @Input() companyInfo: CompanyInfo;
-  @Input() customerInfo: CustomerInfoData;
   incomeDataObject = new IncomeFromAccount();
   incomeFormGroup: FormGroup;
   submitted = false;
