@@ -51,8 +51,6 @@ export class DetailViewBaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('this is loan holder', this.loanHolder);
-    console.log('this is loan holder', this.loanDataHolder);
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
