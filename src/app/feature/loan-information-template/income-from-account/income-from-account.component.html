@@ -22,114 +22,116 @@
 <!--              <span *ngIf="formControls.accountNo.errors.required">Account No is required.</span>-->
 <!--            </div> -->
           <br>
-          <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
-            <thead>
-            <tr class="sb-bg-secondary text-white">
-              <th>Particular</th>
-              <th>During Review Period</th>
-              <th>Projected For next Review Period</th>
-            </tr>
-            </thead>
-            <tr>
-              <td>Gross Interest</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestDuringReview.errors }"
-                         class="form-control text-center"
-                         formControlName="interestDuringReview"
-                         type="number" appDecimalNumber>
-                <div *ngIf="(submitted) && formControls.interestDuringReview.invalid"
-                     class="invalid-feedback">
-                  <span *ngIf="formControls.interestDuringReview.errors.required">Interest During Review is required.</span>
-                </div>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestAfterNextReview.errors }"
-                         class="form-control text-center"
-                         formControlName="interestAfterNextReview"
-                         type="number" appDecimalNumber>
-                <div *ngIf="(submitted) && formControls.interestAfterNextReview.invalid"
-                     class="invalid-feedback">
-                  <span *ngIf="formControls.interestAfterNextReview.errors.required">i]Interest After Next Review is required.</span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Fee and Commission</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionDuringReview.errors }"
-                         class="form-control text-center"
-                         formControlName="commissionDuringReview"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionAfterNextReview.errors }"
-                         class="form-control text-center"
-                         formControlName="commissionAfterNextReview"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <tr>
-              <td>Loan Processing Charge </td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                         class="form-control text-center"
-                         formControlName="loanProcessingDuringReview"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()"
-                         class="form-control text-center"
-                         formControlName="loanProcessingAfterNextReview"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <ng-container *ngIf="srdbAffiliatedId">
+          <ng-container *ngIf="customerInfo?.customerType === 'INDIVIDUAL'; else institutional">
+            <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+              <thead>
+              <tr class="sb-bg-secondary text-white">
+                <th>Particular</th>
+                <th>During Review Period</th>
+                <th>Projected For next Review Period</th>
+              </tr>
+              </thead>
               <tr>
-                <td>LC Commission </td>
-                <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                <td>Gross Interest</td>
+                <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestDuringReview.errors }"
                            class="form-control text-center"
-                           formControlName="lcCommissionDuringReview"
+                           formControlName="interestDuringReview"
+                           type="number" appDecimalNumber>
+                  <div *ngIf="(submitted) && formControls.interestDuringReview.invalid"
+                       class="invalid-feedback">
+                    <span *ngIf="formControls.interestDuringReview.errors.required">Interest During Review is required.</span>
+                  </div>
+                </td>
+                <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestAfterNextReview.errors }"
+                           class="form-control text-center"
+                           formControlName="interestAfterNextReview"
+                           type="number" appDecimalNumber>
+                  <div *ngIf="(submitted) && formControls.interestAfterNextReview.invalid"
+                       class="invalid-feedback">
+                    <span *ngIf="formControls.interestAfterNextReview.errors.required">i]Interest After Next Review is required.</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Fee and Commission</td>
+                <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionDuringReview.errors }"
+                           class="form-control text-center"
+                           formControlName="commissionDuringReview"
                            type="number" appDecimalNumber>
                 </td>
-                <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionAfterNextReview.errors }"
                            class="form-control text-center"
-                           formControlName="lcCommissionAfterNextReview"
+                           formControlName="commissionAfterNextReview"
                            type="number" appDecimalNumber>
                 </td>
               </tr>
               <tr>
-                <td>Guarantee Commission</td>
+                <td>Loan Processing Charge </td>
                 <td><input (keyup)="calculateTotalIncomeDuringReview()"
                            class="form-control text-center"
-                           formControlName="guaranteeCommissionDuringReview"
+                           formControlName="loanProcessingDuringReview"
                            type="number" appDecimalNumber>
                 </td>
                 <td><input (keyup)="calculateTotalIncomeAfterReview()"
                            class="form-control text-center"
-                           formControlName="guaranteeCommissionAfterNextReview"
+                           formControlName="loanProcessingAfterNextReview"
                            type="number" appDecimalNumber>
                 </td>
               </tr>
-            </ng-container>
-            <tr>
-              <td>Other Charges</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }"
-                         class="form-control text-center"
-                         formControlName="otherChargesDuringReview"
-                         type="number" appDecimalNumber>
-              </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesAfterNextReview.errors }"
-                         class="form-control text-center"
-                         formControlName="otherChargesAfterNextReview"
-                         type="number" appDecimalNumber>
-              </td>
-            </tr>
-            <tr class="font-weight-bold">
-              <td>Total</td>
-              <td><input [readOnly]="true" class="form-control text-center"
-                         formControlName="totalIncomeDuringReview"
-                         type="number"></td>
-              <td><input [readOnly]="true" class="form-control text-center"
-                         formControlName="totalIncomeAfterNextReview"
-                         type="number"></td>
-            </tr>
-          </table>
+              <ng-container *ngIf="srdbAffiliatedId">
+                <tr>
+                  <td>LC Commission </td>
+                  <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                             class="form-control text-center"
+                             formControlName="lcCommissionDuringReview"
+                             type="number" appDecimalNumber>
+                  </td>
+                  <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                             class="form-control text-center"
+                             formControlName="lcCommissionAfterNextReview"
+                             type="number" appDecimalNumber>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Guarantee Commission</td>
+                  <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                             class="form-control text-center"
+                             formControlName="guaranteeCommissionDuringReview"
+                             type="number" appDecimalNumber>
+                  </td>
+                  <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                             class="form-control text-center"
+                             formControlName="guaranteeCommissionAfterNextReview"
+                             type="number" appDecimalNumber>
+                  </td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td>Other Charges</td>
+                <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }"
+                           class="form-control text-center"
+                           formControlName="otherChargesDuringReview"
+                           type="number" appDecimalNumber>
+                </td>
+                <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesAfterNextReview.errors }"
+                           class="form-control text-center"
+                           formControlName="otherChargesAfterNextReview"
+                           type="number" appDecimalNumber>
+                </td>
+              </tr>
+              <tr class="font-weight-bold">
+                <td>Total</td>
+                <td><input [readOnly]="true" class="form-control text-center"
+                           formControlName="totalIncomeDuringReview"
+                           type="number"></td>
+                <td><input [readOnly]="true" class="form-control text-center"
+                           formControlName="totalIncomeAfterNextReview"
+                           type="number"></td>
+              </tr>
+            </table>
+          </ng-container>
 
-          <ng-template >
+          <ng-template #institutional>
             <span><strong>Earning From Customer</strong></span>
             <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
               <thead>
@@ -141,7 +143,7 @@
               </tr>
               </thead>
               <tr>
-                <td>Loan Processing Charge</td>
+                <td><b>Loan Processing Charge</b></td>
                 <td><input (keyup)="calculateTotalLastReview()"
                            [ngClass]="{ 'is-invalid': (submitted) && formControls.processingLastReview.errors }"
                            class="form-control text-center"
@@ -174,7 +176,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Loan renewal charge</td>
+                <td><b>Loan renewal charge</b></td>
                 <td><input (keyup)="calculateTotalLastReview()"
                            [ngClass]="{ 'is-invalid': (submitted) && formControls.renewalLastReview.errors }"
                            class="form-control text-center"
@@ -195,7 +197,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Exchange Earning</td>
+                <td><b>Exchange Earning</b></td>
                 <td><input (keyup)="calculateTotalLastReview()"
                            [ngClass]="{ 'is-invalid': (submitted) && formControls.exchangeLastReview.errors }"
                            class="form-control text-center"
@@ -214,7 +216,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Fees and commission </td>
+                <td><b>Fees and commission</b> </td>
                 <td><input (keyup)="calculateTotalLastReview()"
                            [ngClass]="{ 'is-invalid': (submitted) && formControls.feeCommissionLastReview.errors }"
                            class="form-control text-center"
@@ -234,7 +236,7 @@
               </tr>
 
               <tr>
-                <td>Other Charges</td>
+                <td><b>Other Charges</b></td>
                 <td><input (keyup)="calculateTotalLastReview()"
                            [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesLastReview.errors }"
                            class="form-control text-center"
@@ -256,7 +258,7 @@
               </tr>
 
               <tr>
-                <td>Gross Interest</td>
+                <td><b>Gross Interest</b></td>
                 <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.grossLastReview.errors }"
                            class="form-control text-center"
                            formControlName="grossLastReview"
@@ -331,9 +333,41 @@
                            type="number" appDecimalNumber>
                 </td>
               </tr>
+              <tbody *ngFor="let category of incomeFormGroup?.get('grossSubCateGory')['controls']; let i = index"
+                     formArrayName="grossSubCateGory">
+              <tr [formGroupName]="i">
+                <td>{{category?.get('name').value}}</td>
+                <td>
+                  <input (keyup)="calculateGrossLastReview()"
+                         class="form-control text-center"
+                         type="number" formControlName="grossLast"
+                         value="0">
+                </td>
+                <td>
+                  <input (keyup)="calculateGrossDuringReview()"
+                         class="form-control text-center"
+                         type="number" formControlName="grossDuring"
+                         value="0">
+                </td>
+                <td>
+                  <input (keyup)="calculateGrossNextReview()"
+                         class="form-control text-center"
+                         type="number" formControlName="grossNext"
+                         value="0">
+                </td>
+              </tr>
+              </tbody>
+              <tr>
+                <td>
+                  <input #gross placeholder="Particular">
+                  <button (click)="addGrossProfitCategory(gross)"
+                          type="button">Add More
+                  </button>
+                </td>
+              </tr>
 
               <tr class="font-weight-bold">
-                <td>Total</td>
+                <td><b>Total</b></td>
                 <td><input [readOnly]="true" class="form-control text-center"
                            formControlName="totalLastReview"
                            type="number"></td>
