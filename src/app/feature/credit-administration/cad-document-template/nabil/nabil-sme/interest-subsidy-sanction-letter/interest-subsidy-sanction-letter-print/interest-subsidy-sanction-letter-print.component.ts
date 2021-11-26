@@ -40,6 +40,7 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   finalDateOfApproval;
   finalDateOfApplication;
   finalDateofSanction;
+  freeInformation;
 
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -48,6 +49,7 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
               private datePipe: DatePipe) { }
 
   ngOnInit() {
+    this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     this.selectedSecurity = this.security;
     // this.renewalVal = this.letter.renewalChecked.en;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
