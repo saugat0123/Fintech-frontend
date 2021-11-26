@@ -12,7 +12,17 @@
         </p>
     </div>
     <div class="mb-2 col-md-12">
+        <span *ngIf="loanHolderInfo?.gender?.en === 'MALE'; else nameDetails">
         श्री
+       </span>
+        <ng-template #nameDetails>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
+                सुश्री
+            </span>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
+                श्रीमती
+            </span>
+        </ng-template>
         <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
                     {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}
                 </span>ज्यु,
@@ -73,7 +83,6 @@
                         <td>
                             कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो लेखिदिने घर/जग्गाको निकृष्ट स्थितिको मूल्याङकन
                             (Distress Situation Value) को
-                            <strong>धितो कर्जाः </strong>
                             <span [ngClass]="{'font-weight-bold' : letter?.drawingPower.ct !== null && letter?.drawingPower.ct !== ''}">
                          {{letter?.drawingPower.ct === null || letter?.drawingPower.ct === '' ? '___________' : letter?.drawingPower.ct}}
                     </span>
@@ -632,12 +641,10 @@
                      </span>
                         को धितोबन्धक तमसुक ।<br>
                         ङ. मूल्याङकन प्रतिवेदन ।<br>
-                        च. बहुबैकिङ्ग घोषणा पत्र ।<br>
-                        छ. भवनको निर्माण सम्पन्न प्रमाणपत्र ।
-                    </p>
-                    <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" style="margin-top: -1em">
-                        {{ 8 | nepaliWord}}.
-                        बैंकर्स शर्त सहितको रु.
+                        च. बहुबैकिङ्ग घोषणा पत्र ।
+                        <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" style="margin-top: -1em">
+                        छ. भवनको निर्माण सम्पन्न प्रमाणपत्र । <br/>
+                        ज. बैंकर्स शर्त सहितको रु.
                         <span [ngClass]="{'font-weight-bold' : letter?.insuranceAmount.ct !== null && letter?.insuranceAmount.ct !== ''}">
                         {{letter?.insuranceAmount.ct === null || letter?.insuranceAmount.ct === '' ? '___________' : letter?.insuranceAmount.ct}}
                     </span>
@@ -663,7 +670,7 @@
                         </p>
                     </div>
                     <ng-template #guarantorLand >
-                        <p style="margin-top: -1em"> ज.
+                        <p style="margin-top: -1em"> छ.
                             श्री
                             <span class="font-weight-bold">
                             {{this.finalName}}
@@ -680,9 +687,16 @@
                             मात्र)बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ति बिवरण दिनु पर्नेछ ।
                         </p>
                     </ng-template>
-                    <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12" style="margin-top: -1.5em">
+                    <div *ngIf="offerData?.supportedInformation !== null && selectedSecurity === 'LAND_AND_BUILDING'" class="row col-md-12" style="margin-top: -1.5em">
                         <p>
-                            ञ.<span class="nepaliFont"
+                            ञ. <span class="nepaliFont"
+                                    style="font-size: 24px; margin-top: -15px;">{{offerData?.supportedInformation}}
+                                    </span>
+                        </p>
+                    </div>
+                    <div *ngIf="offerData?.supportedInformation !== null && selectedSecurity !== 'LAND_AND_BUILDING'" class="row col-md-12" style="margin-top: -1.5em">
+                        <p>
+                            ज. <span class="nepaliFont"
                                     style="font-size: 24px; margin-top: -15px;">{{offerData?.supportedInformation}}
                                     </span>
                         </p>

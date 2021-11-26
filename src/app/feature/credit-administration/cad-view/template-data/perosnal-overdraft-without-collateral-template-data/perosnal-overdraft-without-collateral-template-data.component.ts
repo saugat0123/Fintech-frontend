@@ -32,8 +32,6 @@ import {EngNepDatePipe} from "nepali-patro";
 export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  municipalityListForSecurities = [];
-  allDistrictList: Array<District> = new Array<District>();
   oneForm: FormGroup;
   offerLetterTypes = [];
   offerLetterConst = NabilOfferLetterConst;
@@ -83,13 +81,8 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
 
   ngOnInit() {
     this.buildForm();
-    this.getAllDistrict();
   }
-  public getAllDistrict(): void {
-    this.addressService.getAllDistrict().subscribe((response: any) => {
-      this.allDistrictList = response.detail;
-    });
-  }
+
   buildForm() {
     this.form = this.formBuilder.group({
       selectedSecurity: [undefined],
@@ -113,7 +106,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       dateofExpiryNepali: [undefined],
       dateOfExpiryType: [undefined],
       nameOfCompany: [undefined],
-      insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
 
@@ -138,22 +130,18 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       dateofExpiryTransVal: [undefined],
       dateofExpiryNepaliTransVal: [undefined],
       dateOfExpiryTypeTransVal: [undefined],
-      insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined],
       nameOfCompanyTransVal: [undefined],
       nameofBranchManagerTransVal: [undefined],
     });
   }
 
+  get Form() {
+    return this.form.controls;
+  }
+
   submit() {
     this.submitted = true;
-    const securityDetails = [{
-      securityType: this.form.get('selectedSecurity').value,
-      securities: this.form.get('securities').value,
-    }];
-    if (this.selectedSecurityVal === 'LAND') {
-      this.clearConditionalValidation();
-    }
     if (this.form.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
       this.spinner = false;
@@ -186,7 +174,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL);
       Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
           return;
         }
         this.attributes = new Attributes();
@@ -195,7 +183,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
-      this.tdValues['securityDetails'] = securityDetails;
       this.translatedData = {};
       this.deleteCTAndTransContorls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
@@ -216,14 +203,9 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     });
   }
 
-  private clearConditionalValidation(): void {
-    this.form.get('insuranceAmountinFigureTransVal').clearValidators();
-    this.form.get('insuranceAmountinFigureTransVal').updateValueAndValidity();
-  }
-
   mappedData() {
     Object.keys(this.form.controls).forEach(key => {
-      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
         return;
       }
       this.attributes = new Attributes();
@@ -232,9 +214,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       this.attributes.ct = this.form.get(key + 'TransVal').value;
       this.tdValues[key] = this.attributes;
     });
-  }
-  get Form() {
-    return this.form.controls;
   }
 
   openModel() {
@@ -299,7 +278,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
     // this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
-    // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
   }

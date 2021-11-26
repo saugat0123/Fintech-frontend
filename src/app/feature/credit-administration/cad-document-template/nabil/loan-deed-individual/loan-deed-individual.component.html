@@ -202,8 +202,17 @@
             <span class="print-only font-weight-bold">{{loanDeedIndividual.get(['loanDeedIndividuals',i,'totalPeople']).value ? loanDeedIndividual.get(['loanDeedIndividuals',i,'totalPeople']).value : "_____________________"}}</span>
             जना
           (जसलाई यसपछि ऋणी भनिएको छ) आगे म/हामी ऋणी (हरु)/ ऋणी लाई
-          <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'purposeOfLoan']).value}}</strong></span>
-          <input formControlName="purposeOfLoan" id="purposeOfLoan" class="form-field form-control-sm d-print-none" type="text">
+            <ng-container *ngIf="offerLoanType === 'TAKE OVER'; else elseTakeOver">
+                <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'nameOfBank']).value}}</strong></span>
+                <input class="form-field form-control-sm d-print-none" formControlName="nameOfBank"
+                       id="nameOfBank" type="text">
+                बैंककाे कर्जा चुक्ता गर्ने
+            </ng-container>
+            <ng-template #elseTakeOver>
+                <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'purposeOfLoan']).value}}</strong></span>
+                <input class="form-field form-control-sm d-print-none" formControlName="purposeOfLoan"
+                       id="purposeOfLoan" type="text">
+            </ng-template>
           प्रयोजनका लागी
           ऋणकर्जा तथा बैकिङ्ग सुविधाहरुको आवश्यकता भई
           तपाई धनी बैंकसँग अनुरोध गरेकोमा तपाई धनी बैंकले मेरो/हाम्रो नाउँमा जारी गरेको मिति
@@ -281,7 +290,7 @@
             <tbody *ngIf="this.cadData.offerDocumentList[0].docName === 'Personal loan and personal overdraft'">
             <tr>
                 <td class="px-2">
-                    <p>{{ cadData?.assignedLoan[0]?.loan?.nepaliName || cadData?.assignedLoan[0]?.loan?.name }}</p>
+                    <p>व्यक्तिगत कर्जा</p>
                 </td>
                 <td class="px-2">
                     <p>{{ this.offerDocumentDetails.loanAmountPl.ct }}</p>
@@ -314,7 +323,7 @@
             </tr>
             <tr>
                 <td class="px-2">
-                    <p>{{ cadData?.assignedLoan[0]?.loan?.nepaliName || cadData?.assignedLoan[0]?.loan?.name }}</p>
+                    <p>व्यक्तिगत अधिविकर्ष</p>
                 </td>
                 <td class="px-2">
                     <p>{{ this.offerDocumentDetails.loanAmountOd.ct }}</p>
@@ -372,7 +381,8 @@
         </div>
 
        <ng-container *ngIf="offerDocumentDetails?.selectedSecurity !== undefined">
-         <div class="mt-5" *ngIf="offerDocumentDetails?.selectedSecurity?.en === 'LAND_AND_BUILDING' || offerDocumentDetails?.selectedSecurity?.en === 'LAND'">
+         <div *ngIf="offerDocumentDetails?.selectedSecurity?.en === 'LAND_AND_BUILDING' || offerDocumentDetails?.selectedSecurity?.en === 'LAND' || offerDocumentDetails?.selectedSecurity?.en === 'LAND_ONLY'"
+              class="mt-5">
            <p class="text-center"><b>तपसिल</b></p>
            <br />
            <p>

@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {PromissoryNoteIndividualPrintComponent} from './promissory-note-individual/promissory-note-individual-print/promissory-note-individual-print.component';
 import {NgxPrintModule} from 'ngx-print';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
-import {NbButtonModule, NbSpinnerModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
 import {LetterOfSetOffComponent} from './letter-of-set-off/letter-of-set-off.component';
 import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
 import {LoanDeedPartnershipComponent} from './loan-deed-partnership/loan-deed-partnership.component';
@@ -32,7 +32,11 @@ import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/
 import { NabilSmeComponent } from './nabil-sme/nabil-sme.component';
 import { KisanKarjaSubsidyComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
 import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
+import { KisanKarjaSubsidyPrintComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy-print/kisan-karja-subsidy-print.component';
+import {ThemeModule} from '../../../../@theme/theme.module';
 import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
+import { DdslWithoutSubsidyComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
+import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy-print/ddsl-without-subsidy-print.component';
 
 
 @NgModule({
@@ -50,7 +54,7 @@ import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsi
         LoanDeedPartnershipComponent,
        LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent],
+        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -77,7 +81,10 @@ import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsi
         LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeProprietorshipComponent,
         KisanKarjaSubsidyComponent,
-        UdyamsilKarjaSubsidyComponent
+        UdyamsilKarjaSubsidyComponent,
+        KisanKarjaSubsidyPrintComponent,
+        DdslWithoutSubsidyComponent,
+        DdslWithoutSubsidyPrintComponent
     ],
     imports: [
         CommonModule,
@@ -87,10 +94,14 @@ import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsi
         CKEditorModule,
         NbSpinnerModule,
         MegaOfferLetterTemplateModule,
+        NbCardModule,
+        ThemeModule,
     ],
     entryComponents: [
         UdyamsilKarjaSubsidyComponent,
+        KisanKarjaSubsidyComponent,
         InterestSubsidySanctionLetterComponent,
+        DdslWithoutSubsidyComponent
     ]
 })
 export class NabilModule {

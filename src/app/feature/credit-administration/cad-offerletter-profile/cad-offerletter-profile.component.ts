@@ -43,6 +43,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     nbDialogServiceRef;
     selectedSecurity: any;
     renewal: any;
+    selectedInterest: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -145,8 +146,11 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 if ('selectedSecurity' in initialInfo) {
                     this.selectedSecurity = initialInfo.selectedSecurity.en;
                 }
-                if ('renewalChecked'in initialInfo) {
+                if ('renewalChecked' in initialInfo) {
                     this.renewal = initialInfo.renewalChecked.en;
+                }
+                if ('selectedInterest'in initialInfo) {
+                    this.selectedInterest = initialInfo.selectedInterest.en;
                 }
                 this.initialInfoPrint = initialInfo;
                 // this.selectedArray = initialInfo.loanTypeSelectedArray;

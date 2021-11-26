@@ -49,12 +49,15 @@
         <app-perosnal-overdraft-without-collateral-template-data [customerApprovedDoc]="cadData"></app-perosnal-overdraft-without-collateral-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.KISAN_KARJA_SUBSIDY" [nbSpinner]="spinner">
-        <app-kisan-karja-subsidy></app-kisan-karja-subsidy>
+        <app-kisan-karja-subsidy-template-data [customerApprovedDoc]="cadData"></app-kisan-karja-subsidy-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.UDYAMSIL_KARJA_SUBSIDY" [nbSpinner]="spinner">
         <app-udhyamsil-karja-subsidy-template-data [customerApprovedDoc]="cadData"></app-udhyamsil-karja-subsidy-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER" [nbSpinner]="spinner">
         <app-interest-subsidy-sanction-letter-template-data [customerApprovedDoc]="cadData"></app-interest-subsidy-sanction-letter-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.DDSL_WITHOUT_SUBSIDY" [nbSpinner]="spinner">
+        <app-ddsl-without-subsidy-template-data [customerApprovedDoc]="cadData"></app-ddsl-without-subsidy-template-data>
     </nb-card-body>
 </nb-card>

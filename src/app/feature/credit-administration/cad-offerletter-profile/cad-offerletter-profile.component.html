@@ -469,6 +469,9 @@
                   [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                   [letter]="initialInfoPrint"
                   [loanLimit]="this.loanLimit"
+                  [security]="this.selectedSecurity"
+                  [renewal]="this.renewal"
+                  [offerData] = offerLetterData
                   [preview]="true"
                   [offerData]="offerLetterData"></app-personal-overdraft-print>
           <app-personal-loan-and-personal-overdraft-print
@@ -489,6 +492,7 @@
                   [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                   [letter]="initialInfoPrint"
                   [loanLimit]="this.loanLimit"
+                  [security]="this.selectedSecurity"
                   [preview]="true"
                   [offerData]="offerLetterData"></app-retail-mortgage-loan-print>
           <app-auto-loan-commercial-print
@@ -506,6 +510,20 @@
               [loanLimit]="this.loanLimit"
               [preview]="true">
           </app-personal-overdraft-without-collateral-print>
+          <app-kisan-karja-subsidy-print  *ngSwitchCase="offerLetterConst.value(offerLetterConst.KISAN_KARJA_SUBSIDY)"
+                                         [letterData]="initialInfoPrint"
+                                         [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                         [offerData] = offerLetterData
+                                          [preview]="true">
+          </app-kisan-karja-subsidy-print>
+          <app-interest-subsidy-sanction-letter-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [renewal]="this.renewal"
+                  [offerData] = offerLetterData
+                  [preview]="true">
+          </app-interest-subsidy-sanction-letter-print>
         </nb-card-body>
     </nb-card>
 </ng-template>
