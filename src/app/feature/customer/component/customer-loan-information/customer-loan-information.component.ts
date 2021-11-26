@@ -274,6 +274,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     saveFinancial(data: string) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.financial)) {
             this.financial = new Financial();
         }
@@ -283,9 +284,11 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Financial!'));
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
+            this.spinner.hide();
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Financial!'));
+            this.spinner.hide();
         });
     }
 
