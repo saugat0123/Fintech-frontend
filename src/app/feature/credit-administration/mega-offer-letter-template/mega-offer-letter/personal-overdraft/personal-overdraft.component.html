@@ -727,6 +727,15 @@
                                                                 type="text"/>
                                             मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                         </p>
+                                        <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'">
+                                            च.  बैकर्श शर्त सहितको कम्तीमा रु
+                                            <input class="form-field form-control-sm"
+                                                                                     formControlName="insuranceAmountinFigure"
+                                                                                     name="insuranceAmountinFigure"
+                                                                                     placeholder=" रकम "
+                                                                                     type="text"/>
+                                            बराबरको भवनको  विमालेख ।
+                                        </p>
                                     </div>
                                 </td>
                             </tr>
