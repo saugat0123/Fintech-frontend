@@ -749,31 +749,33 @@
                     </div>
                 </ng-container>
                 <ng-template #institutional>
-                    <table
-                            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                        <tr class="text-white sb-bg-dark">
-                            <th colspan="2">Company Relationship with Bank</th>
-                        </tr>
-                        <tr>
-                            <th class="text-white sb-bg-dark">Banking Relationship</th>
-                            <td class="text-left pl-1">{{bankingRelation?.bankingRelationship}}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-white sb-bg-dark">Account Turnover
-                            </th>
-                            <td class="text-left pl-1">{{bankingRelation?.accountTurnover}}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-white sb-bg-dark">Repayment History</th>
-                            <td class="text-left pl-1">{{bankingRelation?.repaymentHistory}}</td>
-                        </tr>
-                        <tr *ngIf="!isIndividual">
-                            <td colspan="2">
-                                <app-income-from-account-view *ngIf="bankingRelation?.accountTransactionForm !== null"
-                                                            [individual]="isIndividual"  [data]="(bankingRelation)"></app-income-from-account-view>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="col-md-12">
+                        <table
+                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                            <tr class="text-white sb-bg-dark">
+                                <th colspan="2">Company Relationship with Bank</th>
+                            </tr>
+                            <tr>
+                                <th class="text-white sb-bg-dark">Banking Relationship</th>
+                                <td class="text-left pl-1">{{bankingRelation?.bankingRelationship}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-white sb-bg-dark">Account Turnover
+                                </th>
+                                <td class="text-left pl-1">{{bankingRelation?.accountTurnover}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-white sb-bg-dark">Repayment History</th>
+                                <td class="text-left pl-1">{{bankingRelation?.repaymentHistory}}</td>
+                            </tr>
+                            <tr *ngIf="!isIndividual">
+                                <td colspan="2">
+                                    <app-income-from-account-view *ngIf="bankingRelation?.accountTransactionForm !== null"
+                                                                  [individual]="isIndividual"  [data]="(bankingRelation)"></app-income-from-account-view>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </ng-template>
             </ng-template>
         </div>
@@ -1096,6 +1098,16 @@
                     </tr>
                     <tr>
                         <td class="text-left pl-1"> {{loanDataHolder?.companyInfo?.withinLimitRemarks}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div *ngIf="loanDataHolder?.companyInfo?.accountStrategy">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>Account Strategy</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"> {{loanDataHolder?.companyInfo?.accountStrategy}}</td>
                     </tr>
                 </table>
             </div>

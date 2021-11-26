@@ -50,17 +50,19 @@ export class BankingRelationComponent implements OnInit {
           this.bankingRelation.accountTurnover, Validators.required],
       repaymentHistory: [ObjectUtil.isEmpty(this.bankingRelation) ? undefined :
           this.bankingRelation.repaymentHistory, Validators.required],
-      accountTransactionForm: this.buildAccountTransactionForm()
+      accountTransactionForm: this.buildAccountTransactionForm(),
+      repaymentRemarks: [ObjectUtil.isEmpty(this.bankingRelation) ? undefined :
+          this.bankingRelation.repaymentRemarks],
     });
   }
 
   onSubmit() {
-    console.log(this.bankingRelationForm.controls);
     this.submitted = true;
     this.bankingRelation = new RelationshipWithBank();
     this.bankingRelation.bankingRelationship = this.bankingRelationForm.get('bankingRelationship').value;
     this.bankingRelation.accountTurnover = this.bankingRelationForm.get('accountTurnover').value;
     this.bankingRelation.repaymentHistory = this.bankingRelationForm.get('repaymentHistory').value;
+    this.bankingRelation.repaymentRemarks = this.bankingRelationForm.get('repaymentRemarks').value;
     this.bankingRelation.accountTransactionForm = JSON.stringify(this.bankingRelationForm.get('accountTransactionForm').value);
   }
 
