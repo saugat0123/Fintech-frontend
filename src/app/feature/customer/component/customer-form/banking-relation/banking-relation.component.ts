@@ -55,7 +55,6 @@ export class BankingRelationComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.bankingRelationForm.controls);
     this.submitted = true;
     this.bankingRelation = new RelationshipWithBank();
     this.bankingRelation.bankingRelationship = this.bankingRelationForm.get('bankingRelationship').value;
@@ -86,6 +85,7 @@ export class BankingRelationComponent implements OnInit {
       debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
       repaymentTrackWithCurrentBank: [undefined, !this.disabledLambda && !this.disabledAlpha ? Validators.required : undefined],
       remarks: [undefined],
+      repaymentRemarks: [undefined],
       creditEntries: [undefined],
       creditEntriesValue: [undefined],
 
