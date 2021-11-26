@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../@core/utils/constants/pattern';
@@ -8,6 +8,7 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
 import {CompanyInfo} from '../../admin/modal/company-info';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-income-from-account',
@@ -19,6 +20,7 @@ export class IncomeFromAccountComponent implements OnInit {
   @Input() fromProfile;
   @Output() incomeFromAccountDataEmitter = new EventEmitter();
   @Input() companyInfo: CompanyInfo;
+  @Input() customerInfo: CustomerInfoData;
   incomeDataObject = new IncomeFromAccount();
   incomeFormGroup: FormGroup;
   submitted = false;
@@ -58,6 +60,7 @@ export class IncomeFromAccountComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
       this.incomeFormGroup.patchValue(this.dataForEdit);
+      // this.setGrossSubCategory(this.dataForEdit.grossSubCateGory);  // If add more feature is implemented
       if (!this.dataForEdit.newCustomerChecked && !ObjectUtil.isEmpty(this.dataForEdit.accountTransactionForm)) {
       this.incomeFormGroup.get('accountTransactionForm').patchValue(this.dataForEdit.accountTransactionForm);
       } else {
@@ -71,24 +74,20 @@ export class IncomeFromAccountComponent implements OnInit {
         });
       }
     }
+    this.checkIndividual();
   }
 
   buildForm() {
     this.incomeFormGroup = this.formBuilder.group({
-      interestDuringReview: [undefined,
-        [Validators.required]],
-      interestAfterNextReview: [undefined,
-        [Validators.required]],
+      interestDuringReview: [undefined],
+      interestAfterNextReview: [undefined],
       commissionDuringReview: [undefined],
       commissionAfterNextReview: [undefined],
       otherChargesDuringReview: [undefined],
       otherChargesAfterNextReview: [undefined],
-      incomeFromTheAccount: [undefined,
-        Validators.required],
-      totalIncomeAfterNextReview: [undefined,
-        [Validators.required]],
-      totalIncomeDuringReview: [undefined,
-        [Validators.required]],
+      incomeFromTheAccount: [undefined],
+      totalIncomeAfterNextReview: [undefined],
+      totalIncomeDuringReview: [undefined],
       accountNo: [undefined],
       newCustomerChecked: [false],
       loanProcessingDuringReview: undefined,
@@ -138,6 +137,7 @@ export class IncomeFromAccountComponent implements OnInit {
       capitalCost: [undefined],
       economicProfit: [0],
       economicProfitPercentage: [undefined],
+      grossSubCateGory: this.formBuilder.array([])
     });
   }
 
@@ -253,6 +253,11 @@ export class IncomeFromAccountComponent implements OnInit {
 
   calculateGrossLastReview() {
     let totalGrossLastReview = 0;
+    // let grossLast = 0;
+    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    // gross['value'].forEach(g => {
+    //   grossLast += Number(g['grossLast']);
+    // });
     totalGrossLastReview =
         (this.incomeFormGroup.get('demandLastReview').value +
         this.incomeFormGroup.get('trLoanLastReview').value +
@@ -263,6 +268,11 @@ export class IncomeFromAccountComponent implements OnInit {
 
   calculateGrossNextReview() {
     let totalGrossNextReview = 0;
+    // let grossNext = 0;
+    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    // gross['value'].forEach(g => {
+    //   grossNext += Number(g['grossNext']);
+    // });
     totalGrossNextReview =
         (this.incomeFormGroup.get('overDraftNextReview').value +
         this.incomeFormGroup.get('trLoanNextReview').value +
@@ -273,6 +283,11 @@ export class IncomeFromAccountComponent implements OnInit {
 
   calculateGrossDuringReview() {
     let totalGrossDuringReView = 0;
+    // let grossDuring = 0;
+    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    // gross['value'].forEach(g => {
+    //   grossDuring += Number(g['grossDuring']);
+    // });
     totalGrossDuringReView =
         (this.incomeFormGroup.get('overDraftDuringReview').value +
         this.incomeFormGroup.get('trLoanDuringReview').value +
@@ -299,4 +314,54 @@ export class IncomeFromAccountComponent implements OnInit {
     this.incomeFormGroup.get('economicProfit').patchValue(totalEconomicProfit);
   }
 
+  // Adding gross profit category
+  addGrossProfitCategory(input) {
+    const control = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    control.push(
+        this.formBuilder.group({
+          name: [input.value],
+          grossLast: [0],
+          grossDuring: [0],
+          grossNext: [0]
+        })
+    );
+    input.value = '';
+  }
+
+  // setting Ad more field value
+  private setGrossSubCategory(grossSubCateGory) {
+    console.log(grossSubCateGory);
+    const data = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    grossSubCateGory.forEach(d => {
+      data.push(
+          this.formBuilder.group({
+            name: [d.name],
+            grossLast: [d.grossLast],
+            grossDuring: [d.grossDuring],
+            grossNext: [d.grossNext]
+          })
+      );
+    });
+  }
+
+  controlValidation(controlNames: string[], validate) {
+    controlNames.forEach(s => {
+      if (validate) {
+        this.incomeFormGroup.get(s).setValidators(Validators.required);
+      } else {
+        this.incomeFormGroup.get(s).clearValidators();
+      }
+      this.incomeFormGroup.get(s).updateValueAndValidity();
+    });
+  }
+
+  checkIndividual() {
+    const individualField = ['interestDuringReview', 'interestAfterNextReview', 'incomeFromTheAccount',
+      'totalIncomeAfterNextReview', 'totalIncomeDuringReview'];
+    if (this.individual) {
+      this.controlValidation(individualField, true);
+    } else {
+      this.controlValidation(individualField, false);
+    }
+  }
 }
