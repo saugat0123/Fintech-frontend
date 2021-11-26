@@ -2,8 +2,7 @@
     <nb-card [nbSpinner]="spinner"
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
-             nbSpinnerMessage="INTEREST SUBSIDY SANCTION"
-             id="{{offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER}}">
+             nbSpinnerMessage="INTEREST SUBSIDY SANCTION">
         <nb-card-header *ngIf="preview">
             <a (click)="close()" aria-label="Close" class="close cursor pull-right"
                data-dismiss="modal">
@@ -58,14 +57,14 @@
                     </p>
                 </div>
             </div>
-            <div class="row subject mt-5">
+            <div class="row subject mt-5" *ngIf="this.tempData.loanOption.en === 'NEW'">
                 <div class="col-sm-12">
                     <p class="pull-left">
                         <strong> बिषय : ऋणकर्जा सुविधा बारे ।</strong>
                     </p>
                 </div>
             </div>
-            <div class="row section-desc">
+            <div class="row section-desc" *ngIf="this.tempData.loanOption.en === 'NEW'">
                 <div class="col-sm-12">
                     <p>
                         महोदय,
@@ -73,7 +72,7 @@
                     <p class="lh-40 text-justify">
                         तपाईंले मिति
                         <input class="form-field form-control-sm"
-                               formControlName="dateofApplication"
+                               formControlName="dateOfApplication"
                                type="text"/>
                         मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले
                         देहाय बमोजिमका ऋणकर्जा सुविधाहरु देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृत गरेको
@@ -81,14 +80,14 @@
                     </p>
                 </div>
             </div>
-            <div class="row subject mt-5">
+            <div class="row subject mt-5" *ngIf="this.tempData.loanOption.en === 'EXISTING'">
                 <div class="col-sm-12">
                     <p class="pull-left">
                         <strong> बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</strong>
                     </p>
                 </div>
             </div>
-            <div class="row section-desc">
+            <div class="row section-desc" *ngIf="this.tempData.loanOption.en === 'EXISTING'">
                 <div class="col-sm-12">
                     <p>
                         महोदय,
@@ -102,7 +101,7 @@
                                                            type="text"/>को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा
                         सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु
                         भएको मिति वि.सं<input class="form-field form-control-sm"
-                                              formControlName="requestLetterDate"
+                                              formControlName="dateOfApplication"
                                               name="requestLetterDate"
                                               placeholder=" "
                                               type="text"/>को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका
@@ -112,9 +111,9 @@
                 </div>
             </div>
             <p style="text-align: center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण </strong></p>
-            <div class="row details-table">
+<!--            <div class="row details-table">-->
                 <div class="col-sm-12">
-                    <table class="table table-condensed table-bordered text-center"
+                    <table class="table table-condensed table-bordered text-justify"
                            id="custom-table">
                         <tr>
                             <td><strong>कर्जाको प्रकार:</strong></td>
@@ -313,7 +312,7 @@
                                             <td></td>
                                         </tr>
                                     </table>
-                                </li><br>
+                                </li>
                                 <li>
                                     <strong> सामान मौज्दात धितोेबन्धक हकाधिकार </strong>(Hypothecation Charges)
                                     (Applicable if Fixed Assets has been purposed in approved CFR)<br>
@@ -334,16 +333,16 @@
                                     <strong> व्यक्तिगत जमानत</strong>(Personal Guarantee)<br>
                                     रु.<input class="form-field form-control-sm"
                                               formControlName="totalAmountInFigure"
-                                              name="totalAmountInApprovedCpr"
+                                              [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                               placeholder=" "
                                               type="text"/>(अक्षरेपी रु.<input class="form-field form-control-sm"
                                                                                formControlName="totalAmountInWords"
-                                                                               name="totalAmountInWords"
+                                                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
                                                                                placeholder=" "
                                                                                type="text"/> मात्र)
                                     बराबरको <input class="form-field form-control-sm"
-                                                   formControlName="guarantorsName"
-                                                   name="totalAmountInWords"
+                                                   formControlName="guarantorName"
+                                                   [value]="this.finalName"
                                                    placeholder=" "
                                                    type="text"/>
                                     ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
@@ -351,7 +350,7 @@
                             </ol>
                         </div>
                     </div>
-                </div>
+
                 <div class="service-contions mt-5">
                         <div class="col-sm-12">
                             <ol class="conditions-list orderd-list">
@@ -412,15 +411,15 @@
                                     <ol class="conditions-list orderd-list">
                                         <strong>कर्जा उपयोग सीमाः</strong>
                                         <li>माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
-                                            <input (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
+                                            <input (input)="getNumAmountWord('totalLimitFigure', 'totalLimitWords')"
                                                    class="form-field form-control-sm"
-                                                   formControlName="loanAmountInFigure"
-                                                   name="loanAmountInFigure"
+                                                   formControlName="totalLimitFigure"
+                                                   name="totalLimitFigure"
                                                    placeholder="ऋण रकम"
                                                    type="text"/>
                                             ( अक्षेरुपी रु.<input class="form-field form-control-sm"
-                                                                  formControlName="loanAmountInWords"
-                                                                  name="loanAmountInWords"
+                                                                  formControlName="totalLimitWords"
+                                                                  name="totalLimitWords"
                                                                   placeholder="अक्षेरुपी "
                                                                   type="text"/> मात्र ) भन्दा बढी हुनु हुनेछैन ।
                                         </li>
@@ -782,7 +781,7 @@
                                         </ol>
 
                                 </div>
-                                <div class="service-contions mt-5">
+                                <div class="service-contions">
                                         <ol class="conditions-list orderd-list">
                                             <strong>बबित्तीय शर्तहरु </strong>(Financial Terms & Conditions)
                                             <li> सम्पूर्ण ऋणकर्जाहरुको ब्याज, किस्ता, शुल्क, कमिसन, मार्जिन, हर्जाना
@@ -1095,8 +1094,8 @@
                                                            placeholder=" "
                                                            type="text"/> (बराबरको श्री <input
                                                     class="form-field form-control-sm"
-                                                    formControlName="guarantorsName"
-                                                    name="guarantorsName"
+                                                    formControlName="guarantorName"
+                                                    [value]="this.finalName"
                                                     placeholder=" "
                                                     type="text"/> ले बैंकको पक्षमा लेखिदिनुपर्ने
                                                 व्यक्तिगत जमानत (Personal Guarantee)
@@ -1145,8 +1144,8 @@
                                             </p>
                                             <p>
                                                 <input class="form-field form-control-sm nepaliFont"
-                                                       name="relationshipofficerName"
-                                                       formControlName="relationshipofficerName"
+                                                       name="nameOfBranchManager"
+                                                       formControlName="nameOfBranchManager"
                                                        placeholder="सम्बन्ध अधिकारीको नाम"
                                                        type="text"/>
                                             </p>
@@ -1165,8 +1164,8 @@
                                             </p>
                                             <p>
                                                 <input class="form-field form-control-sm nepaliFont"
-                                                       name="nameofBranchManager"
-                                                       formControlName="nameofBranchManager"
+                                                       name="nameOfBranchManager"
+                                                       formControlName="nameOfBranchManager"
                                                        placeholder="शाखा प्रबन्धक वा पर्यवेक्षकको नाम"
                                                        type="text"/>
                                             </p>
@@ -1327,13 +1326,6 @@
                                             बैंक लि. का कर्मचारी श्री
                                             ____________________________
                                         </li>
-                                        <li>
-                                            Prepared by:<input class="form-field form-control-sm nepaliFont"
-                                                               name="preparationPerson"
-                                                               formControlName="preparationPerson"
-                                                               placeholder=" "
-                                                               type="text"/>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -1344,23 +1336,20 @@
                 </div>
             </form>
         </nb-card-body>
+        <nb-card-footer class="mb-3">
+            <button nbButton
+                    status="info"
+                    class="mb-4 float-right"
+                    [useExistingCss]="true"
+                    ngxPrint printSectionId="{{offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER}}">Print
+            </button>
+        </nb-card-footer>
 </nb-card>
 </div>
 
-
-<nb-card-footer class="mb-3">
-    <button nbButton
-            status="info"
-            class="mb-4 float-right"
-            [useExistingCss]="true"
-            ngxPrint printSectionId="{{offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER}}">Print
-    </button>
-</nb-card-footer>
 <app-interest-subsidy-sanction-letter-print *ngIf="initialInfoPrint"
                               [letter]="initialInfoPrint"
                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                              [security]="this.selectedSecurity"
                               [renewal]="this.renewal"
                               [offerData]=offerLetterData
-                              [loanLimit]="this.loanLimit"
                               hidden></app-interest-subsidy-sanction-letter-print>

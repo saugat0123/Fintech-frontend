@@ -112,7 +112,7 @@
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="loanCommitmentFee" type="number" id="loanCommitmentFee">
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="isPurchase">
                 <label for="beneficiaryName">Account Beneficiary Name</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="beneficiaryName" type="text" id="beneficiaryName">
@@ -197,7 +197,7 @@
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="loanCommitmentFeeTrans" type="text" id="loanCommitmentFeeTrans" readonly>
             </div>
-            <div class="form-group mt-small">
+            <div class="form-group mt-small" *ngIf="isPurchase">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="beneficiaryNameTrans" type="text" id="beneficiaryNameTrans" readonly>
             </div>
@@ -330,7 +330,7 @@
                         Loan commitment fee is required
                 </span>
             </div>
-            <div class="form-group mt-small">
+            <div class="form-group mt-small" *ngIf="isPurchase">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="beneficiaryNameCT" type="text" id="beneficiaryNameCT">
                 <span *ngIf="submitted && form.beneficiaryNameCT.invalid"
