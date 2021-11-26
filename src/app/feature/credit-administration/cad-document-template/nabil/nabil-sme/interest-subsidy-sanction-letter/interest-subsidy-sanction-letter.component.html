@@ -151,9 +151,9 @@
                                 धितोबन्धक/दृष्टिबन्धक/रोक्का गरिदिनु पर्नेछ ।
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="this.tempData.securityType.en === 'LAND & BUILDING' || this.tempData.securityType.en === 'LAND' || this.tempData.securityType.en === 'FIXED ASSETS' || this.tempData.securityType.en === 'STOCK'">
                             <td><strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power) </strong></td>
-                            <td colspan="2"> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक पारित/रोक्का गरिदिने
+                            <td colspan="2" *ngIf="this.tempData.securityType.en === 'LAND & BUILDING' || this.tempData.securityType.en === 'LAND'"> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक पारित/रोक्का गरिदिने
                                 घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको(Motorable Road
                                 access)
                                 को हकमा बजार मुल्य(Market Value) को<input class="form-field form-control-sm"
@@ -168,8 +168,9 @@
                                                                             placeholder=" "
                                                                             type="text"/>
                                 प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ
-                                ।(Applicable Incase of loan is purposed against land/building value)
-                                or
+                                ।
+                            </td>
+                            <td *ngIf="this.tempData.securityType.en === 'FIXED ASSETS' || this.tempData.securityType.en === 'STOCK'">
                                 सुरक्षण महलमा उल्लिखित सामानहरुको मौज्दात, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण
                                 चल
                                 अचल सम्पत्तीहरुको मुल्यको <input class="form-field form-control-sm"
@@ -177,7 +178,7 @@
                                                                  name="marginInPercentage"
                                                                  placeholder=" "
                                                                  type="text"/> प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये
-                                जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।(Applicable Incase of loan is purposed against Stock/Fixed Assets)
+                                जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
 
                             </td>
                         </tr>
@@ -226,9 +227,9 @@
                                                    type="text"/> बर्ष सम्मको लागि मात्र ।
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="this.tempData.securityType.en === 'LAND & BUILDING' || this.tempData.securityType.en === 'LAND' || this.tempData.securityType.en === 'FIXED ASSETS' || this.tempData.securityType.en === 'STOCK'">
                             <td><strong>कर्जा प्रवाह तरिकाः</strong></td>
-                            <td colspan="2">सुरक्षण महलमा उल्लिखित घर/जग्गा बैंकको पक्षमा धितो बन्धक पारित रोक्का
+                            <td colspan="2" *ngIf="this.tempData.securityType.en === 'LAND & BUILDING' || this.tempData.securityType.en === 'LAND'">सुरक्षण महलमा उल्लिखित घर/जग्गा बैंकको पक्षमा धितो बन्धक पारित रोक्का
                                 गरिदिनुका
                                 साथै ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहिछाप गरिसके पश्चात
                                 सो घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको(Motorable
@@ -244,9 +245,9 @@
                                        name="marginInPercentage"
                                        placeholder=" "
                                        type="text"/>। प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
-                                बरावर रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ
-                                ।(Applicable Incase of loan is purposed against land/building value)
-                                OR
+                                बरावर रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
+                            </td>
+                            <td *ngIf="this.tempData.securityType.en === 'FIXED ASSETS'">
                                 ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहिछाप गरिसके पश्चात सुरक्षण महलमा
                                 उल्लिखित सामानहरुको मौज्दात,
                                 उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तीहरुको मुल्यको ‘।
@@ -255,8 +256,7 @@
                                        name="marginInPercentage"
                                        placeholder=" "
                                        type="text"/>
-                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ
-                                ।(Applicable Incase of loan is purposed against Fixed Assets)
+                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
                             </td>
                         </tr>
                     </table>
@@ -276,17 +276,15 @@
                     साथै अघिल्लो प्रदान गरिएका अनुदानहरु पनि फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहेनछ ।
                 </p><br>
                 <div mt-5>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" *ngIf="this.tempData.securityType.en === 'LAND' || this.tempData.securityType.en === 'FIXED ASSETS' || this.tempData.securityType.en === 'STOCK'">
                             <ol class="conditions-list orderd-list">
                                 <strong>सुरक्षण विवरणः </strong>
 
                                 <p>
-                                    <strong>क. </strong> प्राथमिक/थप सुरक्षण (Primary/Secondary Security)
+                                    <strong> क. </strong> प्राथमिक/थप सुरक्षण (Primary/Secondary Security)
                                 </p>
-                                <li>
-                                    <strong> </strong>
-                                    घर/जग्गा धितोेबन्धक हकाधिकार(Mortgage Charges):(Applicable if Land & building has
-                                    been purposed in approved CFR)<br>
+                                <li *ngIf="this.tempData.securityType.en === 'LAND & BUILDING'"><strong> </strong>
+                                    घर/जग्गा धितोेबन्धक हकाधिकार(Mortgage Charges):<br>
                                     स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
                                     बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
                                     <table class="table table-bordered">
@@ -313,9 +311,8 @@
                                         </tr>
                                     </table>
                                 </li>
-                                <li>
-                                    <strong> सामान मौज्दात धितोेबन्धक हकाधिकार </strong>(Hypothecation Charges)
-                                    (Applicable if Fixed Assets has been purposed in approved CFR)<br>
+                                <li *ngIf="this.tempData.securityType.en === 'FIXED ASSETS'"><strong> सामान मौज्दात धितोेबन्धक हकाधिकार </strong>(Hypothecation Charges)
+                                    <br>
                                     बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
                                     रहे भएको कच्चा पदार्थ प्रशोधित वा
                                     अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि,
@@ -324,8 +321,7 @@
                                     बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
                                 </li>
                                 <li>
-                                    <strong> हस्तान्तरण </strong>(Assignment):(Applicable if documents has been
-                                    purposed in approved CFR)<br>
+                                    <strong> हस्तान्तरण </strong>(Assignment):<br>
                                     ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
                                     बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
                                 </li>
@@ -594,7 +590,7 @@
 
                                                 <ol class="conditions-list orderd-list">
                                                     <strong>सुरक्षणहरु सम्बन्धित शर्तहरु, घर तथा जग्गा धितोे
-                                                        सुरक्षण </strong> (Applicable if Land & building has been purposed as security)
+                                                        सुरक्षण </strong>
                                                     <li> माथि उल्लिखित घर/जग्गा बैंकको पक्षमा धितोेबन्धक पारित गर्दा
                                                         लाग्ने सरकारी राजश्व, दै दस्तुर
                                                         ऋणीले नै व्यहोर्नु पर्नेछ ।
@@ -656,8 +652,8 @@
                                     <div class="service-contions mt-5">
                                             <ol class="conditions-list orderd-list">
                                                 <strong>सामानको मौज्दात सुरक्षण र भुक्तानी प्राप्त गर्न बाँकी रकमहरुका
-                                                    लागि </strong> (Applicable if Fixed Assets has been purposed as security)
-                                                <li>ऋणीको सम्पूर्ण चल÷अचल सम्पतिहरु र सो संग सम्बन्धित अभिलेखहरु जुनसुकै
+                                                    लागि </strong>
+                                                <li>ऋणीको सम्पूर्ण चल/अचल सम्पतिहरु र सो संग सम्बन्धित अभिलेखहरु जुनसुकै
                                                     समयमा तपाईंलाई पूर्व
                                                     जानकारी दिइ वा नदिइकन तपाईको खर्चमा निरिक्षण गर्न सक्ने अधिकार
                                                     बैंकमा सुरक्षित रहनेछ ।
@@ -682,7 +678,7 @@
                                 <div class="service-contions mt-5">
                                     <ol class="conditions-list orderd-list">
                                             <strong>बिमा सम्बन्धी शर्तहरु </strong>(Insurance related clause)
-                                            <li>ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
+                                            <li *ngIf="this.tempData.securityType.en === 'STOCK'">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                                                 आतंकवाद आदी जस्ता
                                                 जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
                                                 (Bankers Clause) सहितको सुरक्षण स्वरुप धितोेबन्धक (Hypothecation) मा
@@ -693,9 +689,9 @@
                                                 लेख बैकमा पेश गर्नुपर्नेछ । गोदामहरु एक
                                                 भन्दा बढी स्थानमा रहेको अवस्थामा सबै गोदामहरुको माथी उल्लिखित तरीकाले
                                                 बिमा गरीएको हुनु
-                                                पर्नेछ.(Applicable if insurance of stock has been purposed)
+                                                पर्नेछ.
                                             </li>
-                                            <li> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
+                                            <li *ngIf="this.tempData.securityType.en === 'FIXED ASSETS' || tempData.securityType.en === 'ASSETS PLANTS MACHINERY & OTHER EQUIPMENTS'"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                                                 आतंकवाद आदी जस्ता
                                                 जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
                                                 (Bankers Clause) सहितको सुरक्षण स्वरुप धितोेबन्धक (Hypothecation)मा
@@ -703,9 +699,9 @@
                                                 एण्ड मेशिनरी/अचल सम्पत्तिहरुका लागि बैंकको
                                                 पक्षमा कम्तिमा कर्जा चुक्ताभुक्तान नभएसम्मका लागि समय समयमा
                                                 नबिकरण/अध्यावधिक गराइएको बिमा
-                                                लेख बैकमा पेश गर्नुपर्नेछ ।(Applicable if insurance of fixed assets/plants/machinery & other equipments has been purposed)
+                                                लेख बैकमा पेश गर्नुपर्नेछ ।
                                             </li>
-                                            <li> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प/दंगा/हड्ताल/दुर्भावनापूर्ण क्षति र
+                                            <li *ngIf="this.tempData.securityType.en === 'LIVE STOCKS ANIMALS'"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प/दंगा/हड्ताल/दुर्भावनापूर्ण क्षति र
                                                 आतंकवाद आदी जस्ता
                                                 जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त”
                                                 (Bankers Clause) सहितको सुरक्षण स्वरुप धितोेबन्धक रहेको घरका लागि बैंकको
@@ -713,7 +709,7 @@
                                                 चुक्ताभुक्तान नभएसम्मका लागि समय समयमा नबिकरण
                                                 अध्यावधिक गराइएको बिमा लेख बैकमा पेश गर्नुपर्नेछ । सो बिमा रकम घरको
                                                 लागत/बजार मूल्य भन्दा कम
-                                                हुनु हुने छैन् ।(Applicable if insurance of building has been purposed)
+                                                हुनु हुने छैन् ।
                                             </li>
                                             <li> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा÷हड्ताल, दुर्भावनापूर्ण क्षति र
                                                 आतंकवाद आदी जस्ता
@@ -723,7 +719,7 @@
                                                 सम्पूर्ण सरसामानहरु र
                                                 जिवित पशुहरुमा बैंकको पक्षमा कम्तिमा ऋणकर्जा अवधि सम्मको लागि बिमालेख
                                                 /पशु बिमालेख पेश
-                                                गर्नुपर्नेछ ।(Applicable if insurance of Live stocks/animals has been purposed)
+                                                गर्नुपर्नेछ ।
                                             </li>
                                             <li> बैंकको धितोेबन्धकमा रहेका सम्पत्तिहरु/सुरक्षणहरुमा कुनै भौतिक र/वा
                                                 प्राकृतिक परिवर्तन भएमा
@@ -904,29 +900,29 @@
                                             <li> बैकबाट जुन प्रयोजनार्थ ऋणकर्जा सुबिधा प्रवाह गरीएको हो सोमा प्रयोग नगरी
                                                 अन्य उद्देश्यमा
                                                 प्रयोग गर्ने (Diversion of Fund), व्यवसायबाट आर्जित रकम
-                                                ऋण तिर्नमा नलगाई अन्य कार्यमा प्रयोग गर्ने Siphoning off), अन्य सम्पत्ति
+                                                ऋण तिर्नमा नलगाई अन्य कार्यमा प्रयोग गर्ने (Siphoning off), अन्य सम्पत्ति
                                                 सिर्जना गर्ने,
                                                 अल्पकालीन कर्जाबाट दीर्घकालीन उपयोग गर्ने तथा सहायक कम्पनी वा
                                                 अन्य फर्ममा ऋण तथा पूजी साधन प्रवाह गर्न जस्ता कार्य गर्न पाइनेछैन ।
                                             </li>
 
-                                            <li> ऋणीले आर्थिक बर्ष समाप्त भएको तिन महिना भित्र आफ्नोे व्यवसायको
+                                         <li *ngIf="this.loanHolderInfo.clientType.en !== 'INDIVIDUAL'"> ऋणीले आर्थिक बर्ष समाप्त भएको तिन महिना भित्र आफ्नोे व्यवसायको
                                                 लेखापरिक्षण भएको बार्षिक
                                                 वासलात र नाफा नोक्सान एवं नगद प्रवाह हिसाब बैंकमा पेश गर्नु पर्नेछ ।(Not applicable in individual nature loan)
                                             </li>
 
-                                            <li> बैंकको पूर्व सहमति बेगर तपाईंको व्यवसायमा संचित रहेको नाफा, जगेडा
+                                            <li *ngIf="this.loanHolderInfo.clientType.en !== 'INDIVIDUAL'"> बैंकको पूर्व सहमति बेगर तपाईंको व्यवसायमा संचित रहेको नाफा, जगेडा
                                                 कोष र संचालकहरुबाट
                                                 प्राप्त कर्जा निकाल्न र चुक्ता भुक्तान गर्न पाईनेछैन ।(Not applicable in individual nature loan)
                                             </li>
 
-                                            <li> कम्पनीले आर्थिक अवस्था सुधार्नको लागि स्वलगानी थप्नु पर्ने अवस्था भएमा
+                                            <li *ngIf="this.loanHolderInfo.clientType.en !== 'INDIVIDUAL'"> कम्पनीले आर्थिक अवस्था सुधार्नको लागि स्वलगानी थप्नु पर्ने अवस्था भएमा
                                                 सोही अनुसार
                                                 आवश्यक पुँजी जुटाई वा स्वलगानी थपी बैंकलाई स्विकार्य हुने अवस्थामा
                                                 ल्याउनुपर्नेछ ।(Not applicable in individual nature loan)
                                             </li>
 
-                                            <li> बैंकको लिखित सहमति बेगर ऋणी फर्म÷कम्पनीको स्वामित्व, शेयर संरचनामा
+                                            <li *ngIf="this.loanHolderInfo.clientType.en !== 'INDIVIDUAL'"> बैंकको लिखित सहमति बेगर ऋणी फर्म÷कम्पनीको स्वामित्व, शेयर संरचनामा
                                                 परिवर्तन, शेयर
                                                 विक्रि वा नामसारी गर्न पाईने छैन र बैंकको
                                                 सहमति बेगर स्वामित्व संरचनामा परिवर्तन वा नामसारी गरेमा यस ऋण सुविधा
@@ -934,9 +930,10 @@
                                                 उल्लंघन भएको मानिनेछ ।-(Not applicable in individual nature loan)
                                             </li>
                                             <li><textarea
-                                                    class="form-control customFont nepaliFont"
+                                                    class="form-control customFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
+                                                    placeholder="Extra Financial Clause"
                                                     name="additionalGuarantorDetails"
                                                     formControlName="additionalGuarantorDetails">
                                             </textarea></li>
@@ -1029,13 +1026,14 @@
                                                 भएका फर्मको ऋणकर्जा सुविधा स्वीकृत/नविकरण हुनेछैन र
                                                 साथै तहांले उपभोग गर्दै आउनुभएका सम्पूर्ण ऋण कर्जा सुविधाहरु दर्ता
                                                 नविकरण नभएका कारण फिर्ता
-                                                भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।(Applicable in case of proprietor ship firm/partnership firm only)
+                                                भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                                             </li>
 
                                             <li><textarea
-                                                    class="form-control customFont nepaliFont"
+                                                    class="form-control customFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
+                                                    placeholder="Additional Others Clause"
                                                     name="additionalGuarantorDetails"
                                                     formControlName="additionalGuarantorDetails">
                                             </textarea></li>
@@ -1113,9 +1111,10 @@
                                             <li> स्थायी लेखा नम्बर प्रमाणपत्र (PAN Certificate)
                                             </li>
                                             <li><textarea
-                                                    class="form-control customFont nepaliFont"
+                                                    class="form-control customFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
+                                                    placeholder="Extra Security documents parts"
                                                     name="additionalGuarantorDetails"
                                                     formControlName="additionalGuarantorDetails">
                                             </textarea></li>
@@ -1181,7 +1180,7 @@
                                 </div>
                                 <div class="service-contions mt-5">
                                         <ol class="conditions-list orderd-list">
-                                            <li> म/हामी माथि उल्लिखित ऋणी फर्म÷कम्पनीका
+                                            <li *ngIf="this.loanHolderInfo.clientType.en !== 'INDIVIDUAL'"> म/हामी माथि उल्लिखित ऋणी फर्म÷कम्पनीका
                                                 प्रोपाईटर/साझेदार/प्रबर्धक/संचालकहरु माथि उल्लिखित
                                                 ऋणीलाई तपाईंले स्वीकृत गर्नु भएको
                                                 विभिन्न ऋणकर्जा सुविधाहरुको सम्बन्धमा यसै ऋण स्वीकृति पत्रमा उल्लिखित
@@ -1212,10 +1211,8 @@
                                                 मन्जुरी रहेकोे छ । बैंकको
                                                 पूर्व सहमति बेगर ऋणकर्जा सुविधाहरुको
                                                 सम्पूर्ण बाँकी चुक्ता भुक्तान नभएसम्म फर्म/कम्पनीको स्वामित्व परिवर्तन र
-                                                नामसारी गर्ने छैन/छैनौं
-                                                । अबिगकभ
-                                                (clause is not applicable for Individual Loan/Higher & Techno Edu
-                                                OR)
+                                                नामसारी गर्ने छैन/छैनौं । </li>
+                                                  <li *ngIf="this.loanHolderInfo.clientType.en === 'INDIVIDUAL'">
                                                 म/हामी माथि उल्लिखित ऋणीलाई तपाईंले स्वीकृत गर्नु भएको विभिन्न ऋणकर्जा
                                                 सुविधाहरुको सम्बन्धमा यसै
                                                 ऋण स्वीकृति पत्रमा
@@ -1235,8 +1232,7 @@
                                                 मेरो/हाम्रो मृत्यु भएमा वा
                                                 बहुलाएमा बैंकको सम्पूर्ण लेना सहितको दायित्व
                                                 मेरो/हाम्रो हकवालाहरुलाई उत्तरदायी हुन शिक्षित गरी बहन गर्न म/हामी
-                                                जिम्मेवारी लिन्छु/छौं
-                                                ।(Applicable for Individual loan only)
+                                                जिम्मेवारी लिन्छु/छौं ।
                                             </li>
                                             <li>
                                                  म/हामी माथि उल्लिखित शर्तबन्देजहरु पूर्ण स्वीकार गर्दछु/छौं ।
@@ -1257,14 +1253,14 @@
                                             </li>
                                             <li>
                                                  म/हामी कुनै पनि बैंक वा वित्तीय संस्थाको कर्जा तिर्न असक्षम
-                                                (म्भाबगति) नभएको घोषणा गर्दछु
+                                                (Default) नभएको घोषणा गर्दछु
                                                 साथै म/हामीले यस बैंक लगायत अन्य कुनै बैंक तथा वित्तिय संस्थाबाट कुनै
                                                 पनि किसिमको सहुलियतपुर्ण कर्जा उपभोग नगरेको र माथि स्वीकृत ऋणकर्जा पुर्ण
                                                 रुपमा चुक्ता भुक्तान
                                                 नभएसम्म सो कर्जाहरु माग नगर्ने समेत उद्घोष गर्दछौं ।
                                             </li>
                                             <li>
-                                                 यस बैंकबाट कर्जा सुविधा उपयोग गरिरहेका आपसी सम्बन्ध भएका मेरो/हाम्रो
+                                                यस बैंकबाट कर्जा सुविधा उपयोग गरिरहेका आपसी सम्बन्ध भएका मेरो/हाम्रो
                                                 समुह भित्रको अन्य
                                                 व्यक्ति, फर्म, संस्था वा कम्पनिले सहुलियत पुर्ण कर्जा(भुकम्प पिडित
                                                 बाहेक)
@@ -1295,10 +1291,11 @@
                                                 नातिनी ज्वाइँ समेतलाई बुझाउनेछ ।)
                                             </li>
                                             <li><textarea
-                                                    class="form-control customFont nepaliFont"
+                                                    class="form-control customFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
                                                     name="additionalGuarantorDetails"
+                                                    placeholder="Extra Other terms & conditions-as per NRB circular"
                                                     formControlName="additionalGuarantorDetails">
                                             </textarea></li>
                                         </ol>
@@ -1351,5 +1348,5 @@
                               [letter]="initialInfoPrint"
                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                               [renewal]="this.renewal"
-                              [offerData]=offerLetterData
+                              [offerData]= "offerLetterData"
                               hidden></app-interest-subsidy-sanction-letter-print>

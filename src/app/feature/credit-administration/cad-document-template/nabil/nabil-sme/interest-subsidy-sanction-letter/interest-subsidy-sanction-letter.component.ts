@@ -55,6 +55,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   afterSave = false;
   // selectedSecurity;
   offerDocumentDetails;
+  freeTextVal: any = {};
   guarantorNames: Array<String> = [];
   allguarantorNames;
   finalName;
@@ -277,6 +278,15 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       this.afterSave = false;
       this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
+  }
+  setFreeText() {
+    console.log('Set free text');
+    this.freeTextVal = {
+      firstText: this.form.get('firstAdditionalDetails').value,
+      secondText: this.form.get('secondAdditionalDetails').value,
+      thirdText: this.form.get('thirdAdditionalDetails').value,
+      fourthText: this.form.get('fourthAdditionalDetails').value,
+    };
   }
   calcYearlyRate() {
     const baseRate = this.nepToEngNumberPipe.transform(this.form.get('baseRate').value);
