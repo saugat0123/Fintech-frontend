@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../@core/utils/constants/pattern';
@@ -8,6 +8,7 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
 import {CompanyInfo} from '../../admin/modal/company-info';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-income-from-account',
@@ -58,6 +59,7 @@ export class IncomeFromAccountComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
       this.incomeFormGroup.patchValue(this.dataForEdit);
+      // this.setGrossSubCategory(this.dataForEdit.grossSubCateGory);  // If add more feature is implemented
       if (!this.dataForEdit.newCustomerChecked && !ObjectUtil.isEmpty(this.dataForEdit.accountTransactionForm)) {
       this.incomeFormGroup.get('accountTransactionForm').patchValue(this.dataForEdit.accountTransactionForm);
       } else {
@@ -65,28 +67,26 @@ export class IncomeFromAccountComponent implements OnInit {
       }
     }
     if (!this.isNewCustomer && !ObjectUtil.isEmpty(this.companyInfo)) {
-          this.incomeFormGroup.patchValue({
+      if (!ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
+        this.incomeFormGroup.patchValue({
           accountNo: this.companyInfo.accountNo
-          });
+        });
+      }
     }
+    this.checkIndividual();
   }
 
   buildForm() {
     this.incomeFormGroup = this.formBuilder.group({
-      interestDuringReview: [undefined,
-        [Validators.required]],
-      interestAfterNextReview: [undefined,
-        [Validators.required]],
+      interestDuringReview: [undefined],
+      interestAfterNextReview: [undefined],
       commissionDuringReview: [undefined],
       commissionAfterNextReview: [undefined],
       otherChargesDuringReview: [undefined],
       otherChargesAfterNextReview: [undefined],
-      incomeFromTheAccount: [undefined,
-        Validators.required],
-      totalIncomeAfterNextReview: [undefined,
-        [Validators.required]],
-      totalIncomeDuringReview: [undefined,
-        [Validators.required]],
+      incomeFromTheAccount: [undefined],
+      totalIncomeAfterNextReview: [undefined],
+      totalIncomeDuringReview: [undefined],
       accountNo: [undefined],
       newCustomerChecked: [false],
       loanProcessingDuringReview: undefined,
@@ -95,7 +95,48 @@ export class IncomeFromAccountComponent implements OnInit {
       lcCommissionAfterNextReview: undefined,
       guaranteeCommissionDuringReview: undefined,
       guaranteeCommissionAfterNextReview: undefined,
-      accountTransactionForm: this.buildAccountTransactionForm()
+      accountTransactionForm: this.buildAccountTransactionForm(),
+
+      // Added new formControl
+      processingLastReview: [undefined],
+      processingDuringReview: [undefined],
+      processingNextReview: [undefined],
+      renewalLastReview: [undefined],
+      renewalDuringReview: [undefined],
+      renewalNextReview: [undefined],
+      exchangeLastReview: [undefined],
+      exchangeDuringReview: [undefined],
+      exchangeNextReview: [undefined],
+      feeCommissionLastReview: [undefined],
+      feeCommissionDuringReview: [undefined],
+      feeCommissionNextReview: [undefined],
+      otherChargesLastReview: [undefined],
+      otherChargesDuringReview1: [undefined],
+      otherChargesNextReview: [undefined],
+      grossLastReview: [0],
+      grossDuringReview: [0],
+      grossNextReview: [0],
+      overDraftLastReview: [undefined],
+      overDraftDuringReview: [undefined],
+      overDraftNextReview: [undefined],
+      trLoanLastReview: [undefined],
+      trLoanDuringReview: [undefined],
+      trLoanNextReview: [undefined],
+      demandLastReview: [undefined],
+      demandDuringReview: [undefined],
+      demandNextReview: [undefined],
+      totalLastReview: [0],
+      totalDuringReview: [0],
+      totalNextReview: [0],
+      interestIncome: [undefined],
+      costBaseRate: [undefined],
+      netInterestSurplus: [0],
+      feeCommission: [undefined],
+      otherIncome: [undefined],
+      capitalCost: [undefined],
+      economicProfit: [0],
+      economicProfitPercentage: [undefined],
+      grossSubCateGory: this.formBuilder.array([])
     });
   }
 
@@ -132,6 +173,7 @@ export class IncomeFromAccountComponent implements OnInit {
         this.incomeFormGroup.get('guaranteeCommissionAfterNextReview').value).toFixed(2);
     this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
   }
+
   scrollToFirstInvalidControl() {
     const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
         'form .ng-invalid'
@@ -170,5 +212,155 @@ export class IncomeFromAccountComponent implements OnInit {
       this.incomeFormGroup.get('accountTransactionForm').enable();
     }
     this.isNewCustomer = chk;
+  }
+
+  calculateTotalDuringReview() {
+    let totalDuringReview = 0;
+    totalDuringReview =
+        (this.incomeFormGroup.get('processingDuringReview').value +
+            this.incomeFormGroup.get('renewalDuringReview').value +
+            this.incomeFormGroup.get('exchangeDuringReview').value +
+            this.incomeFormGroup.get('feeCommissionDuringReview').value +
+            this.incomeFormGroup.get('otherChargesDuringReview1').value +
+            Number(this.incomeFormGroup.get('grossDuringReview').value)).toFixed(2);
+    this.incomeFormGroup.get('totalDuringReview').patchValue(totalDuringReview);
+  }
+
+  calculateTotalNextReview() {
+    let totalNextReview = 0;
+    totalNextReview =
+        (this.incomeFormGroup.get('processingNextReview').value +
+            this.incomeFormGroup.get('renewalNextReview').value +
+            this.incomeFormGroup.get('exchangeNextReview').value +
+            this.incomeFormGroup.get('feeCommissionNextReview').value +
+            this.incomeFormGroup.get('otherChargesNextReview').value +
+            Number(this.incomeFormGroup.get('grossNextReview').value)).toFixed(2);
+    this.incomeFormGroup.get('totalNextReview').patchValue(totalNextReview);
+  }
+
+  calculateTotalLastReview() {
+    let totalLastReview = 0;
+    totalLastReview =
+        (this.incomeFormGroup.get('processingLastReview').value +
+            this.incomeFormGroup.get('renewalLastReview').value +
+            this.incomeFormGroup.get('exchangeLastReview').value +
+            this.incomeFormGroup.get('feeCommissionLastReview').value +
+            this.incomeFormGroup.get('otherChargesLastReview').value +
+            Number(this.incomeFormGroup.get('grossLastReview').value)).toFixed(2);
+    this.incomeFormGroup.get('totalLastReview').patchValue(totalLastReview);
+  }
+
+  calculateGrossLastReview() {
+    let totalGrossLastReview = 0;
+    // let grossLast = 0;
+    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    // gross['value'].forEach(g => {
+    //   grossLast += Number(g['grossLast']);
+    // });
+    totalGrossLastReview =
+        (this.incomeFormGroup.get('demandLastReview').value +
+        this.incomeFormGroup.get('trLoanLastReview').value +
+        this.incomeFormGroup.get('overDraftLastReview').value).toFixed(2);
+    this.incomeFormGroup.get('grossLastReview').patchValue(totalGrossLastReview);
+    this.calculateTotalLastReview();
+  }
+
+  calculateGrossNextReview() {
+    let totalGrossNextReview = 0;
+    // let grossNext = 0;
+    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    // gross['value'].forEach(g => {
+    //   grossNext += Number(g['grossNext']);
+    // });
+    totalGrossNextReview =
+        (this.incomeFormGroup.get('overDraftNextReview').value +
+        this.incomeFormGroup.get('trLoanNextReview').value +
+        this.incomeFormGroup.get('demandNextReview').value).toFixed(2);
+    this.incomeFormGroup.get('grossNextReview').patchValue(totalGrossNextReview);
+    this.calculateTotalNextReview();
+  }
+
+  calculateGrossDuringReview() {
+    let totalGrossDuringReView = 0;
+    // let grossDuring = 0;
+    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    // gross['value'].forEach(g => {
+    //   grossDuring += Number(g['grossDuring']);
+    // });
+    totalGrossDuringReView =
+        (this.incomeFormGroup.get('overDraftDuringReview').value +
+        this.incomeFormGroup.get('trLoanDuringReview').value +
+        this.incomeFormGroup.get('demandDuringReview').value).toFixed(2);
+    this.incomeFormGroup.get('grossDuringReview').patchValue(totalGrossDuringReView);
+    this.calculateTotalDuringReview();
+  }
+
+  calculateNetInterestSurplus() {
+    let totalInterestSurplus = 0;
+    totalInterestSurplus =
+        Number((this.incomeFormGroup.get('costBaseRate').value -
+            this.incomeFormGroup.get('interestIncome').value).toFixed(2));
+    this.incomeFormGroup.get('netInterestSurplus').setValue(totalInterestSurplus);
+  }
+
+  calculateEconomicProfit() {
+    let totalEconomicProfit = 0;
+    totalEconomicProfit =
+        Number((this.incomeFormGroup.get('netInterestSurplus').value +
+        this.incomeFormGroup.get('feeCommission').value +
+        this.incomeFormGroup.get('otherIncome').value -
+        this.incomeFormGroup.get('capitalCost').value).toFixed(2));
+    this.incomeFormGroup.get('economicProfit').patchValue(totalEconomicProfit);
+  }
+
+  // Adding gross profit category
+  addGrossProfitCategory(input) {
+    const control = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    control.push(
+        this.formBuilder.group({
+          name: [input.value],
+          grossLast: [0],
+          grossDuring: [0],
+          grossNext: [0]
+        })
+    );
+    input.value = '';
+  }
+
+  // setting Ad more field value
+  private setGrossSubCategory(grossSubCateGory) {
+    console.log(grossSubCateGory);
+    const data = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    grossSubCateGory.forEach(d => {
+      data.push(
+          this.formBuilder.group({
+            name: [d.name],
+            grossLast: [d.grossLast],
+            grossDuring: [d.grossDuring],
+            grossNext: [d.grossNext]
+          })
+      );
+    });
+  }
+
+  controlValidation(controlNames: string[], validate) {
+    controlNames.forEach(s => {
+      if (validate) {
+        this.incomeFormGroup.get(s).setValidators(Validators.required);
+      } else {
+        this.incomeFormGroup.get(s).clearValidators();
+      }
+      this.incomeFormGroup.get(s).updateValueAndValidity();
+    });
+  }
+
+  checkIndividual() {
+    const individualField = ['interestDuringReview', 'interestAfterNextReview', 'incomeFromTheAccount',
+      'totalIncomeAfterNextReview', 'totalIncomeDuringReview'];
+    if (this.individual) {
+      this.controlValidation(individualField, true);
+    } else {
+      this.controlValidation(individualField, false);
+    }
   }
 }

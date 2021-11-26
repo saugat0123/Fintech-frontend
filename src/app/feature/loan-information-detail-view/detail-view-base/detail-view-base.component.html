@@ -101,8 +101,8 @@
                                    [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
 </div>
 
-<app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount" [individual]="isIndividual"
-                                 [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
+<app-income-from-account-summery *ngIf="loanDataHolder?.loanHolder?.incomeFromAccount" [individual]="isIndividual"
+                                 [formData]="loanDataHolder?.loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
