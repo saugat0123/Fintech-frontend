@@ -53,12 +53,12 @@
                     <tr>
                         <td rowspan="6">१.
                         </td>
-                        <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः {{landbuilding}}</strong></td>
+                        <td style="width: 15%"><strong>कर्जा प्रकार/प्रयोजनः {{landbuilding}} {{tempData?.loanType === homeLoanType?.PURCHASE ? 'PURCHASE' : ''}}</strong></td>
                         <td>
                             <strong>आवास कर्जाः</strong>
                             {{tempData?.loanType === homeLoanType.CONSTRUCTION ? ' भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ':
                             (tempData?.loanType === homeLoanType.PURCHASE && tempData?.loan?.purposeOfLoanCT) ? tempData?.loan?.purposeOfLoanCT + ' प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ':
-                            tempData?.loan?.nameOfBankCT ? tempData?.loan?.nameOfBankCT + ' बैंकको कर्जा चुक्ता गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ' : ''}}
+                            tempData?.loan?.nameOfBankCT ? tempData?.loan?.nameOfBankCT + ' को कर्जा चुक्ता गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । ' : ''}}
 
                         </td>
                     </tr>
@@ -96,12 +96,19 @@
                             ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power)
                         </strong>
                         </td>
-                        <td>कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको
-                            निर्माण लागतको
+                        <td>
+                            <!--कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको
+                            निर्माण लागतको-->
+                            कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको निर्माण
+                            लागतको १०० प्रतिशत वा जग्गा र निर्माणीत भवनको निकृष्ट स्थितिको मूल्याञकन
+                            (Distress Situation Value) को
                             <span [ngClass]="{'font-weight-bold' : letter?.loan.drawingPowerCT!== null && letter?.loan.drawingPowerCT!== ''}">
-            {{letter?.loan.drawingPowerCT === null || letter?.loan.drawingPowerCT === '' ? '___________' : letter?.loan.drawingPowerCT}}</span>
-                            प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा
-                            उपयोग गर्न सकिनेछ ।
+                                {{letter?.loan.drawingPowerCT === null || letter?.loan.drawingPowerCT === '' ? '___________' : letter?.loan.drawingPowerCT}}
+                            </span>
+                            प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर
+                            कर्जा उपयोग गर्न सकिनेछ ।
+                            <!--प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा
+                            उपयोग गर्न सकिनेछ ।-->
                         </td>
                     </tr>
 
@@ -333,7 +340,7 @@
 
                 <tr *ngIf="this.tempData.loanType === 'CONSTRUCTION'">
                     <td>९. </td>
-                    <td> धितोबन्धक तमसुक बाहेक, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
+                    <td> धितोबन्धक तमसुक, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
                         <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
             {{loanHolderInfo?.branch.ct === null || loanHolderInfo?.branch.ct === '' ? '___________' : loanHolderInfo?.branch.ct}}</span>
                       शाखामा रहेको खातामा निम्न तरीकाले कर्जा प्रवाह गरिनेछ। <br>
@@ -395,7 +402,7 @@
                 <tr *ngIf="this.tempData.loanType === 'PURCHASE' || this.tempData.loanType === 'TAKE OVER'">
                     <td>९. </td>
                     <td>
-                        धितोबन्धक तमसुक {{tempData.loanType === homeLoanType.PURCHASE ? 'बाहेक' : ''}}, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
+                        धितोबन्धक तमसुक {{tempData.loanType === homeLoanType.TAKE_OVER ? 'बाहेक' : ''}}, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
                         तपाईंको यस नबिल बैंक लिमिटेडको, <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.branch.ct!== null && loanHolderInfo?.branch.ct!== ''}">
             {{loanHolderInfo?.branch.ct === null || loanHolderInfo?.branch.ct === '' ? '___________' : loanHolderInfo?.branch.ct}}</span> शाखामा रहेको चल्ती
                         खातामा रु  <span class=" font-weight-bold">
@@ -409,7 +416,7 @@
                         <span *ngIf="tempData?.loanType === homeLoanType?.TAKE_OVER" [ngClass]="{'font-weight-bold' : letter?.loan.nameOfBankCT!== null && letter?.loan.nameOfBankCT!== ''}">
                             {{letter?.loan.nameOfBankCT === null || letter?.loan.nameOfBankCT === '' ? '___________' : letter?.loan.nameOfBankCT}}  बैंक
                         </span>
-                        लाई A/C Payee Cheque /MC/Draft
+                        लाई A/C Payee Cheque /MC/Draft /Swift /IPS /RTGS
                         मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                         <div *ngIf="offerData?.pointInformation !== null" class="row col-md-12"
                              style="margin-top: -0.5em">
@@ -652,12 +659,15 @@
                 </span>
                              मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण।
                         </p>
+                        <p *ngIf="selectedSecurity === 'LAND & BUILDING'">
+                            झ. भवन निर्माण सम्पन प्रमाणपत्र ।
+                        </p>
                     </td>
                 </tr>
             </table>
             <p *ngIf="offerData?.supportedInformation" style="margin-top: -2.8em;margin-left: 3.8em;">
                 {{selectedSecurity === 'LAND & BUILDING' ?
-                'झ' : 'ज'}}. <span class="nepaliFont"
+                'ञ' : 'ज'}}. <span class="nepaliFont"
                          style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
             </p><br>
 
