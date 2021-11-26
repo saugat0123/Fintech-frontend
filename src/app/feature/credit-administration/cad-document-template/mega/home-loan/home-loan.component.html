@@ -137,7 +137,7 @@
                                     <!--कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको
                                     निर्माण लागतको-->
                                     कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको निर्माण लागतको
-                                    १०० प्रतिशत वा जग्गा र निर्माणीत भवनको निकृष्ट स्थितिको मूल्याञकन (Distress Situation Value)
+                                    १०० प्रतिशत वा जग्गा र निर्माणीत भवनको निकृष्ट स्थितिको मूल्यांकन (Distress Situation Value)
                                     को
                                     <input class="form-field form-control-sm"
                                            formControlName="distressSituationPercentage"
@@ -778,7 +778,7 @@
                                            type="text"/>/- बराबरको भवनको  विमालेख ।
                                 </p>
                                 <p *ngIf="selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType?.CONSTRUCTION">
-                                    झ. भवन निर्माण सम्पन प्रमाणपत्र ।
+                                    झ. भवन निर्माण {{tempData?.loanType === homeLoanType?.CONSTRUCTION ? 'इजाजत पत्र' : 'सम्पन प्रमाणपत्र'}} ।
                                 </p>
                             </td>
                         </tr>
