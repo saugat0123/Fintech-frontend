@@ -106,7 +106,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       dateofExpiryNepali: [undefined],
       dateOfExpiryType: [undefined],
       nameOfCompany: [undefined],
-      insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
 
@@ -131,7 +130,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       dateofExpiryTransVal: [undefined],
       dateofExpiryNepaliTransVal: [undefined],
       dateOfExpiryTypeTransVal: [undefined],
-      insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined],
       nameOfCompanyTransVal: [undefined],
       nameofBranchManagerTransVal: [undefined],
@@ -144,9 +142,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
 
   submit() {
     this.submitted = true;
-    if (this.selectedSecurityVal === 'LAND') {
-      this.clearConditionalValidation();
-    }
     if (this.form.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
       this.spinner = false;
@@ -206,11 +201,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       this.spinner = false;
       this.btnDisable = true;
     });
-  }
-
-  private clearConditionalValidation(): void {
-    this.form.get('insuranceAmountinFigureTransVal').clearValidators();
-    this.form.get('insuranceAmountinFigureTransVal').updateValueAndValidity();
   }
 
   mappedData() {
@@ -288,7 +278,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
     // this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
-    this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
   }
