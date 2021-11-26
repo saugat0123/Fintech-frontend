@@ -1101,6 +1101,16 @@
                     </tr>
                 </table>
             </div>
+            <div *ngIf="loanDataHolder?.companyInfo?.accountStrategy">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>Account Strategy</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"> {{loanDataHolder?.companyInfo?.accountStrategy}}</td>
+                    </tr>
+                </table>
+            </div>
 
             <div *ngIf="megaGroupEnabled">
                 <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
