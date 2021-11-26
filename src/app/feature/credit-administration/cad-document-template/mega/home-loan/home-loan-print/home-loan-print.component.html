@@ -662,12 +662,18 @@
                         <p *ngIf="selectedSecurity === 'LAND & BUILDING'">
                             झ. भवन निर्माण सम्पन प्रमाणपत्र ।
                         </p>
+                        <p *ngIf="tempData?.loanType === homeLoanType?.CONSTRUCTION">
+                            ज. बैकर्श शर्त सहितको कम्तीमा रु
+                            <span [ngClass]="{'font-weight-bold' : insuranceAmount !== null && insuranceAmount !== ''}">
+                                {{insuranceAmount === null || insuranceAmount === '' ? '___________' : insuranceAmount}}
+                            </span> /- बराबरको भवनको  विमालेख ।
+                        </p>
                     </td>
                 </tr>
             </table>
             <p *ngIf="offerData?.supportedInformation" style="margin-top: -2.8em;margin-left: 3.8em;">
                 {{selectedSecurity === 'LAND & BUILDING' ?
-                'ञ' : 'ज'}}. <span class="nepaliFont"
+                'ञ' : tempData?.loanType === homeLoanType.CONSTRUCTION ? 'झ' : 'ज'}}. <span class="nepaliFont"
                          style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
             </p><br>
 
