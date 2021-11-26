@@ -869,14 +869,10 @@
                         विक्रि वा नामसारी गर्न पाईने छैन र बैंकको
                         सहमति बेगर स्वामित्व संरचनामा परिवर्तन वा नामसारी गरेमा यस ऋण सुविधा
                         स्वीकृति पत्रको
-                        उल्लंघन भएको मानिनेछ ।-(Not applicable in individual nature loan)
+                        उल्लंघन भएको मानिनेछ ।
                     </li>
-                    <li><span class="nepaliFont"
-                            style=" font-size: 24px;
-                            margin-top: -0.35em;
-                              margin-left: 0.3em;">
-                         {{ offerData?.supportedInformation }}
-                        </span></li>
+                    <span [ngClass]="{'nepaliFont outside' : letter?.firstAdditionalDetails!== null && letter?.firstAdditionalDetails!== ''}">
+                    {{letter?.firstAdditionalDetails === null || letter?.firstAdditionalDetails === '' ? '_________________' : letter?.firstAdditionalDetails}}</span>
                 </ol>
             </div>
             <div mt-5>
@@ -968,13 +964,10 @@
                             नविकरण नभएका कारण फिर्ता
                             भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                         </li>
-                        <li *ngIf="offerData?.supportedInformation !== null">
-                            <span class="nepaliFont"
-                                  style=" font-size: 24px;
-                            margin-top: -0.35em;
-                              margin-left: 0.3em;">
-                         {{ offerData?.supportedInformation }}
-                        </span></li>
+                        <li>
+                        <span [ngClass]="{'nepaliFont outside' : letter?.fourthAdditionalDetails!== null && letter?.fourthAdditionalDetails!== ''}">
+                    {{letter?.fourthAdditionalDetails === null || letter?.fourthAdditionalDetails === '' ? '_________________' : letter?.fourthAdditionalDetails}}</span>
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -1048,12 +1041,10 @@
                     </li>
                     <li> स्थायी लेखा नम्बर प्रमाणपत्र (PAN Certificate)
                     </li>
-                    <li><span class="nepaliFont"
-                              style=" font-size: 24px;
-                            margin-top: -0.35em;
-                              margin-left: 0.3em;">
-                         {{ offerData?.supportedInformation }}
-                        </span></li>
+                    <li>
+                        <span [ngClass]="{'nepaliFont outside' : letter?.fourthAdditionalDetails!== null && letter?.fourthAdditionalDetails!== ''}">
+                    {{letter?.fourthAdditionalDetails === null || letter?.fourthAdditionalDetails === '' ? '_________________' : letter?.fourthAdditionalDetails}}</span>
+                    </li>
                 </ol>
             </div>
             <p style="padding-left: 2em">
@@ -1212,12 +1203,10 @@
                         माईजु, भाञ्जा, भाञ्जी, नाति, नातिनी, नातिनी बुहारी,
                         नातिनी ज्वाइँ समेतलाई बुझाउनेछ ।)
                     </li>
-                    <li><span class="nepaliFont"
-                              style=" font-size: 24px;
-                            margin-top: -0.35em;
-                              margin-left: 0.3em;">
-                         {{ offerData?.supportedInformation }}
-                        </span></li>
+                    <li>
+                        <span [ngClass]="{'nepaliFont outside' : letter?.fourthAdditionalDetails!== null && letter?.fourthAdditionalDetails!== ''}">
+                    {{letter?.fourthAdditionalDetails === null || letter?.fourthAdditionalDetails === '' ? '_________________' : letter?.fourthAdditionalDetails}}</span>
+                    </li>
                 </ol>
             </div>
             <div style="margin-left:80%; margin-top:2em">

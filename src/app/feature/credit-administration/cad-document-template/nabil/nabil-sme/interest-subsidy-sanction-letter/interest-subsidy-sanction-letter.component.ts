@@ -59,6 +59,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   guarantorNames: Array<String> = [];
   allguarantorNames;
   finalName;
+  freeInformation: any;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -111,7 +112,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       baseRate: [undefined],
       totalAmountInWords: [undefined],
       totalAmountInFigure: [undefined],
-      additionalGuarantorDetails: [undefined],
+      // additionalGuarantorDetails: [undefined],
       premiumRate: [undefined],
       totalInterestRate: [undefined],
       totalTenureOfLoan: [undefined],
@@ -121,6 +122,10 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       guarantorName: [undefined],
       relationshipofficerName: [undefined],
       nameOfBranchManager: [undefined],
+      firstAdditionalDetails: [undefined],
+      secondAdditionalDetails: [undefined],
+      thirdAdditionalDetails: [undefined],
+      fourthAdditionalDetails: [undefined],
     });
   }
   setLoanConfigData(data: any) {
@@ -153,13 +158,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         console.log('Selected Security Details:', initialInfo);
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
-          this.offerLetterData = this.offerLetterDocument;
-          this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
-        }
-        // this.selectedSecurity = initialInfo.selectedSecurity.en;
-        // this.loanLimit = initialInfo.loanLimitChecked.en;
-        // this.renewal = initialInfo.renewalChecked.en;
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
@@ -186,6 +184,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
+    this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     // For date of Approval
     const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
     let finalDateOfApproval;
@@ -239,28 +238,30 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       branchName : this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
       // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
       dateOfApplication : finalDateOfApplication ? finalDateOfApplication : '',
+      firstAdditionalDetails : this.freeInformation.firstText ? this.freeInformation.firstText : '',
+      secondAdditionalDetails : this.freeInformation.secondText ? this.freeInformation.secondText : '',
+      thirdAdditionalDetails : this.freeInformation.thirdText ? this.freeInformation.thirdText : '',
+      fourthAdditionalDetails : this.freeInformation.fourthText ? this.freeInformation.fourthText : '',
+
     });
   }
   submit(): void {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
-
-    // this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
-    // this.form.get('loanLimitChecked').patchValue(this.loanLimit);
-    // this.form.get('renewalChecked').patchValue(this.renewal);
-
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER)
             .toString()) {
-          offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+          this.setFreeText();
+          offerLetterPath.supportedInformation = JSON.stringify(this.freeTextVal);
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
-      offerDocument.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+      this.setFreeText();
+      offerDocument.supportedInformation = JSON.stringify(this.freeTextVal);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
