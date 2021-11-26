@@ -50,7 +50,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
   provinceList = [];
   allDistrictList = [];
   selectedAD = true;
-  isInterestSubsidy = false;
+  interestSubsidy = false;
   isCustomerNew = false;
   attributes;
   translatedValues: any = {};
@@ -99,10 +99,10 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       if (loanType === this.loanOptions.NEW) {
         this.isCustomerNew = true;
       }
-      const tempInterestSubsidy = this.initialInformation.isInterestSubsidy ?
-          this.initialInformation.isInterestSubsidy.en : false;
+      const tempInterestSubsidy = this.initialInformation.interestSubsidy ?
+          this.initialInformation.interestSubsidy.en : false;
       if (!ObjectUtil.isEmpty(tempInterestSubsidy)) {
-        this.isInterestSubsidy = tempInterestSubsidy;
+        this.interestSubsidy = tempInterestSubsidy;
       }
       // For Date Flag:
       const tempApprovalType = this.initialInformation.dateOfApprovalType ?
@@ -167,7 +167,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       baseRate: [undefined],
       premiumRate: [undefined],
       interestRate: [undefined],
-      serviceCharge: [undefined],
       totalTenureOfLoan: [undefined],
       commitmentFee: [undefined],
       circularRate: [undefined],
@@ -199,7 +198,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       baseRateTrans: [undefined],
       premiumRateTrans: [undefined],
       interestRateTrans: [undefined],
-      serviceChargeTrans: [undefined],
       totalTenureOfLoanTrans: [undefined],
       commitmentFeeTrans: [undefined],
       circularRateTrans: [undefined],
@@ -232,7 +230,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
       interestRateCT: [undefined, Validators.required],
-      serviceChargeCT: [undefined, Validators.required],
       totalTenureOfLoanCT: [undefined, Validators.required],
       commitmentFeeCT: [undefined, Validators.required],
       circularRateCT: [undefined, Validators.required],
@@ -391,8 +388,8 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.dialogRef.close();
   }
   interestSubsidyCheck(data) {
-    this.isInterestSubsidy = data;
-    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
+    this.interestSubsidy = data;
+    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.interestSubsidy);
   }
 
   mappedData() {
@@ -412,7 +409,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
   async translateAndSetVal() {
     this.spinner = true;
     // Set Translate Data:
-    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
+    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.interestSubsidy);
     this.kisanKarjaSubsidy.get('loanOptionTrans').patchValue(this.kisanKarjaSubsidy.get('loanOption').value);
     this.kisanKarjaSubsidy.get('repaymentTypeTrans').patchValue(this.kisanKarjaSubsidy.get('repaymentType').value);
     // Set Translated Date of Approval
@@ -493,11 +490,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       this.kisanKarjaSubsidy.get('marginInPercentageTrans').patchValue(convertedMarginNum);
     }
 
-    const serviceChargeNum = this.kisanKarjaSubsidy.get('serviceCharge').value;
-    if (!ObjectUtil.isEmpty(serviceChargeNum)) {
-      const convertServiceCharge = this.convertNumbersToNepali(serviceChargeNum, false);
-      this.kisanKarjaSubsidy.get('serviceChargeTrans').patchValue(convertServiceCharge);
-    }
 
     const tenureData = this.kisanKarjaSubsidy.get('totalTenureOfLoan').value;
     if (!ObjectUtil.isEmpty(tenureData)) {
@@ -651,7 +643,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.kisanKarjaSubsidy.get('baseRateCT').patchValue(this.kisanKarjaSubsidy.get('baseRateTrans').value);
     this.kisanKarjaSubsidy.get('premiumRateCT').patchValue(this.kisanKarjaSubsidy.get('premiumRateTrans').value);
     this.kisanKarjaSubsidy.get('interestRateCT').patchValue(this.kisanKarjaSubsidy.get('interestRateTrans').value);
-    this.kisanKarjaSubsidy.get('serviceChargeCT').patchValue(this.kisanKarjaSubsidy.get('serviceChargeTrans').value);
     this.kisanKarjaSubsidy.get('totalTenureOfLoanCT').patchValue(this.kisanKarjaSubsidy.get('totalTenureOfLoanTrans').value);
     this.kisanKarjaSubsidy.get('commitmentFeeCT').patchValue(this.kisanKarjaSubsidy.get('commitmentFeeTrans').value);
     this.kisanKarjaSubsidy.get('circularRateCT').patchValue(this.kisanKarjaSubsidy.get('circularRateTrans').value);
@@ -702,10 +693,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       this.kisanKarjaSubsidy.get('previousSanctionDateCT').updateValueAndValidity();
     }
     // Clear Validation for other optional fields.
-    if (this.isInterestSubsidy) {
-      this.kisanKarjaSubsidy.get('serviceChargeCT').clearValidators();
-      this.kisanKarjaSubsidy.get('serviceChargeCT').updateValueAndValidity();
-    } else {
+    if (!this.interestSubsidy) {
       this.kisanKarjaSubsidy.get('circularRateCT').clearValidators();
       this.kisanKarjaSubsidy.get('circularRateCT').updateValueAndValidity();
     }
@@ -806,7 +794,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     const tempInterestSub = this.initialInformation.interestSubsidy ?
         this.initialInformation.interestSubsidy.en : false;
     if (!ObjectUtil.isEmpty(tempInterestSub)) {
-      this.isInterestSubsidy = tempInterestSub;
+      this.interestSubsidy = tempInterestSub;
     }
     this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.initialInformation.interestSubsidy.en);
     this.kisanKarjaSubsidy.get('dateOfApprovalType').patchValue(this.initialInformation.dateOfApprovalType.en);
@@ -868,7 +856,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.kisanKarjaSubsidy.get('baseRate').patchValue(this.initialInformation.baseRate.en);
     this.kisanKarjaSubsidy.get('premiumRate').patchValue(this.initialInformation.premiumRate.en);
     this.kisanKarjaSubsidy.get('interestRate').patchValue(this.initialInformation.interestRate.en);
-    this.kisanKarjaSubsidy.get('serviceCharge').patchValue(this.initialInformation.serviceCharge.en);
     this.kisanKarjaSubsidy.get('totalTenureOfLoan').patchValue(this.initialInformation.totalTenureOfLoan.en);
     this.kisanKarjaSubsidy.get('commitmentFee').patchValue(this.initialInformation.commitmentFee.en);
     this.kisanKarjaSubsidy.get('circularRate').patchValue(this.initialInformation.circularRate.en);
@@ -894,7 +881,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.kisanKarjaSubsidy.get('baseRateCT').patchValue(this.initialInformation.baseRate.ct);
     this.kisanKarjaSubsidy.get('premiumRateCT').patchValue(this.initialInformation.premiumRate.ct);
     this.kisanKarjaSubsidy.get('interestRateCT').patchValue(this.initialInformation.interestRate.ct);
-    this.kisanKarjaSubsidy.get('serviceChargeCT').patchValue(this.initialInformation.serviceCharge.ct);
     this.kisanKarjaSubsidy.get('totalTenureOfLoanCT').patchValue(this.initialInformation.totalTenureOfLoan.ct);
     this.kisanKarjaSubsidy.get('commitmentFeeCT').patchValue(this.initialInformation.commitmentFee.ct);
     this.kisanKarjaSubsidy.get('circularRateCT').patchValue(this.initialInformation.circularRate.ct);
@@ -925,7 +911,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.kisanKarjaSubsidy.get('baseRateTrans').patchValue(this.initialInformation.baseRate.np);
     this.kisanKarjaSubsidy.get('premiumRateTrans').patchValue(this.initialInformation.premiumRate.np);
     this.kisanKarjaSubsidy.get('interestRateTrans').patchValue(this.initialInformation.interestRate.np);
-    this.kisanKarjaSubsidy.get('serviceChargeTrans').patchValue(this.initialInformation.serviceCharge.np);
     this.kisanKarjaSubsidy.get('totalTenureOfLoanTrans').patchValue(this.initialInformation.totalTenureOfLoan.np);
     this.kisanKarjaSubsidy.get('commitmentFeeTrans').patchValue(this.initialInformation.commitmentFee.np);
     this.kisanKarjaSubsidy.get('circularRateTrans').patchValue(this.initialInformation.circularRate.np);

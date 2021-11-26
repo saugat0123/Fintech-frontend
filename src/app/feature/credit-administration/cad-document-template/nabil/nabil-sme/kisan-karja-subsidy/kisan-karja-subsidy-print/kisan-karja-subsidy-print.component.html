@@ -68,7 +68,7 @@
                         <tr>
                             <td style="width: 25%"><strong>कर्जा प्रकार: </strong></td>
                             <td>
-                                <span [ngClass]="{'nepaliFont outside' : letter?.typeOfLoan !== null && letter?.typeOfLoan !== ''}">
+                                <span [ngClass]="{'nepaliFont outside' : letter?.typeOfLoan !== null && letter?.typeOfLoan !== '___________'}">
                                 {{letter?.typeOfLoan === null || letter?.typeOfLoan === '' ? '___________' : letter?.typeOfLoan }}</span>
                             </td>
                         </tr>
@@ -130,11 +130,12 @@
                                 <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.firstText!== null && this.freeInformation.firstText!== ''}">
                                 {{this.freeInformation.firstText === null || this.freeInformation.firstText === '' ? '_________________________________' : this.freeInformation.firstText}}</span><br>
                                 ख. अल्पकालिन कर्जा २:
-                                <span [ngClass]="{'nepaliFont outside' : letter?.secondAdditionalDetails!== null && letter?.secondAdditionalDetails!== ''}">
-                                {{letter?.secondAdditionalDetails === null || letter?.secondAdditionalDetails === '' ? '_________________________________' : letter?.secondAdditionalDetails}}</span><br>
+                                <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.secondText!== null && this.freeInformation.secondText!== ''}">
+                                {{this.freeInformation.secondText === null || this.freeInformation.secondText === '' ? '_________________________________' : this.freeInformation.secondText}}</span>
+                                <br>
                                 ग. अल्पकालिन कर्जा ३:
-                                <span [ngClass]="{'nepaliFont outside' : letter?.thirdAdditionalDetails!== null && letter?.thirdAdditionalDetails!== ''}">
-                                {{letter?.thirdAdditionalDetails === null || letter?.thirdAdditionalDetails === '' ? '_________________________________' : letter?.thirdAdditionalDetails}}</span><br>
+                                <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.thirdText!== null && this.freeInformation.thirdText!== ''}">
+                                {{this.freeInformation.thirdText === null || this.freeInformation.thirdText === '' ? '_________________________________' : this.freeInformation.thirdText}}</span><br>
                             </td>
                         </tr>
                         <tr>
@@ -176,30 +177,20 @@
                             </strong>
                             </td>
                             <td>
-                                घर/जग्गा धनीको नाम:
-                                <span [ngClass]="{'nepaliFont outside' : letter?.landOwnerName!== null && letter?.landOwnerName!== ''}">
-                                {{letter?.landOwnerName === null || letter?.landOwnerName === '' ? '___________' : letter?.landOwnerName}}</span>
-                                <br>
-                                जिल्ला:
-                                <span [ngClass]="{'nepaliFont outside' : letter?.district!== null && letter?.district!== ''}">
-                                {{letter?.district === null || letter?.district === '' ? '___________' : letter?.district}}</span>
-                                <br>
-                                न.पा/गा.वि.स:
-                                <span [ngClass]="{'nepaliFont outside' : letter?.vdcMunci!== null && letter?.vdcMunci!== ''}">
-                                {{letter?.vdcMunci === null || letter?.vdcMunci === '' ? '___________' : letter?.vdcMunci}}</span>
-                                <br>
-                                वडा नंः
-                                <span [ngClass]="{'nepaliFont outside' : letter?.wardNo!== null && letter?.wardNo!== ''}">
-                                {{letter?.wardNo === null || letter?.wardNo === '' ? '___________' : letter?.wardNo}}</span>
-                                <br>
-                                किता नं.:
-                                <span [ngClass]="{'nepaliFont outside' : letter?.plotNo!== null && letter?.plotNo!== ''}">
-                                {{letter?.plotNo === null || letter?.plotNo === '' ? '___________' : letter?.plotNo}}</span>
-                                <br>
-                                क्षेत्रफल:
-                                <span [ngClass]="{'nepaliFont outside' : letter?.area!== null && letter?.area!== ''}">
-                                {{letter?.area === null || letter?.area === '' ? '___________' : letter?.area}}</span>
-
+                                <span class="row"
+                                      *ngFor="let guarantor of letter?.securities; let i = index">
+                                <div class="col-md-12">
+                                    घर/जग्गा धनीको नाम
+                                    {{guarantor?.securityOwnersNameCT}}
+                                    जिल्ला
+                                    {{guarantor?.securityOwnersDistrictCT}}
+                                    न.पा/गा.वि.स.
+                                    {{guarantor?.securityOwnersMunicipalityCT}}
+                                    वडा नंः {{guarantor?.securityOwnersPlotNoCT}}
+                                    किता नं. {{guarantor?.securityOwnersLandAreaCT}}
+                                    क्षेत्रफल {{guarantor?.securityOwnersSheetNoCT}}
+                                </div>
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -207,8 +198,8 @@
                                 <strong>कूल कर्जा सिमाको लागु हुने व्यक्तिगत जमानतको नाम (Personal Guarantor): </strong>
                             </td>
                             <td>
-                                <span [ngClass]="{'nepaliFont outside' : letter?.nameOfPersonalGuarantor!== null && letter?.nameOfPersonalGuarantor!== ''}">
-                                {{letter?.nameOfPersonalGuarantor === null || letter?.nameOfPersonalGuarantor === '' ? '___________' : letter?.nameOfPersonalGuarantor}}</span>
+                                <span [ngClass]="{'nepaliFont outside' : this.finalName!== null && this.finalName!== ''}">
+                                {{this.finalName === null || this.finalName === '' ? '___________' : this.finalName}}</span>
                             </td>
                         </tr>
                         <tr>
@@ -232,10 +223,9 @@
                         </tr>
 
                     </table>
-                    <p style="margin-left: 10px">
-                        <span [ngClass]="{'nepaliFont outside' : letter?.fourthAdditionalDetails !== null && letter?.fourthAdditionalDetails !== ''}">
-                                {{letter?.fourthAdditionalDetails === null || letter?.fourthAdditionalDetails === '' ? '___________________________________________________________________________________________________________________' : letter?.fourthAdditionalDetails }}</span>
-                        <br>
+                    <p style="margin-left: 5px">
+                       <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.fourthText!== null && this.freeInformation.fourthText!== ''}">
+                                {{this.freeInformation.fourthText === null || this.freeInformation.fourthText === '' ? '_________________________________' : this.freeInformation.fourthText}}</span><br>
                     </p>
 
                     <div class="service-contions mt-5">
@@ -400,8 +390,8 @@
                             </div>
                         </div>
                     </div>
-                    <span [ngClass]="{'nepaliFont outside' : letter?.fifthAdditionalDetails!== null && letter?.fifthAdditionalDetails!== ''}">
-                                {{letter?.fifthAdditionalDetails === null || letter?.fifthAdditionalDetails === '' ? '___________________________________________________________________________________________________________________' : letter?.fifthAdditionalDetails}}</span>
+                    <span style="margin-left: 5px"  [ngClass]="{'nepaliFont outside' : this.freeInformation.fifthText!== null && this.freeInformation.fifthText!== ''}">
+                                {{this.freeInformation.fifthText === null || this.freeInformation.fifthText === '' ? '_________________________________' : this.freeInformation.fifthText}}</span>
 
                     <div class="service-contions mt-5">
                         <strong><u>ऋण तथा सुबिधाहरु सम्बन्धित शर्तहरु </u></strong><br>
@@ -524,7 +514,7 @@
                         <strong>बित्तीय शर्तहरु </strong><br>
                         <div class="row">
                             <div class="col-sm-12">
-                                <ol class="conditions-list orderd-list">
+                                <ol class="conditions-list orderd-list" style="margin-left: 5px">
                                     <li>
                                         सम्पूर्ण ऋणकर्जाहरुको ब्याज, किस्ता, शुल्क, कमिसन, मार्जिन, हर्जाना ब्याज र अन्य बाँकी बक्यौता भुक्तानी तपाईंको खातामा सिधै खर्च जनाई असुल गरिनेछ ।
                                     </li>
@@ -587,8 +577,8 @@
 
                                     </li>
                                     <li>
-                                         <span [ngClass]="{'nepaliFont outside' : letter?.sixthAdditionalDetails!== null && letter?.sixthAdditionalDetails!== ''}">
-                                {{letter?.sixthAdditionalDetails === null || letter?.sixthAdditionalDetails === '' ? '___________________________________________________________________________________________________________________' : letter?.sixthAdditionalDetails}}</span>
+                                         <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.sixthText!== null && this.freeInformation.sixthText!== ''}">
+                                {{this.freeInformation.sixthText === null || this.freeInformation.sixthText === '' ? '_________________________________' : this.freeInformation.sixthText}}</span>
                                     </li>
                                 </ol>
                             </div>
@@ -624,9 +614,8 @@
                                         तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण गर्ने दायित्व ऋणी फर्मका प्रोप्राईटर/साझेदारहरुको हुनेछ र नविकरण पश्चात सोको प्रतिलिपि यस बैंकमा पेश गर्नु पर्नेछ । दर्ता प्रमाणपत्रको अवधि समाप्त भएका फर्मको ऋणकर्जा सुविधा स्वीकृत/नविकरण हुनेछैन र साथै तहांले उपभोग गर्दै आउनुभएका सम्पूर्ण ऋण कर्जा सुविधाहरु दर्ता नविकरण नभएका कारण फिर्ता भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                                     </li>
                                     <li>
-                                        <span [ngClass]="{'nepaliFont outside' : letter?.seventhAdditionalDetails!== null && letter?.seventhAdditionalDetails!== ''}">
-                                {{letter?.seventhAdditionalDetails === null || letter?.seventhAdditionalDetails === '' ? '___________________________________________________________________________________________________________________' : letter?.seventhAdditionalDetails}}</span>
-                                    </li>
+                                      <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.seventhText!== null && this.freeInformation.seventhText!== ''}">
+                                {{this.freeInformation.seventhText === null || this.freeInformation.seventhText === '' ? '_________________________________' : this.freeInformation.seventhText}}</span></li>
                                 </ol>
                             </div>
                         </div>
@@ -666,9 +655,8 @@
                                         आवश्यक जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धकमा रहेका सम्पूर्ण सामान मौज्दातहरु/सम्पत्तिहरुका लागि <strong>पर्याप्त मुल्य</strong> बराबरको बैंकको पक्षमा बिमालेख ।
                                     </li>
                                     <li>
-                                       <span [ngClass]="{'nepaliFont outside' : letter?.eighthAdditionalDetails!== null && letter?.eighthAdditionalDetails!== ''}">
-                                {{letter?.eighthAdditionalDetails === null || letter?.eighthAdditionalDetails === '' ? '___________________________________________________________________________________________________________________' : letter?.eighthAdditionalDetails}}</span>
-                                    </li>
+                                       <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.eighthText!== null && this.freeInformation.eighthText!== ''}">
+                                {{this.freeInformation.eighthText === null || this.freeInformation.eighthText === '' ? '_________________________________' : this.freeInformation.eighthText}}</span> </li>
                                 </ol>
                             </div>
                         </div>

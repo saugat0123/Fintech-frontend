@@ -48,7 +48,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
   provinceList = [];
   allDistrictList = [];
   selectedAD = true;
-  isInterestSubsidy = false;
+  interestSubsidy = false;
   isCustomerNew = false;
   attributes;
   translatedValues: any = {};
@@ -122,7 +122,6 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       baseRate: [undefined],
       premiumRate: [undefined],
       interestRate: [undefined],
-      serviceCharge: [undefined],
       totalTenureOfLoan: [undefined],
       commitmentFee: [undefined],
       circularRate: [undefined],
@@ -154,7 +153,6 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       baseRateTrans: [undefined],
       premiumRateTrans: [undefined],
       interestRateTrans: [undefined],
-      serviceChargeTrans: [undefined],
       totalTenureOfLoanTrans: [undefined],
       commitmentFeeTrans: [undefined],
       circularRateTrans: [undefined],
@@ -344,8 +342,8 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
   }
 
   interestSubsidyCheck(data) {
-    this.isInterestSubsidy = data;
-    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
+    this.interestSubsidy = data;
+    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.interestSubsidy);
   }
 
   mappedData() {
@@ -365,7 +363,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
   async translateAndSetVal() {
     this.spinner = true;
     // Set Translate Data:
-    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
+    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.interestSubsidy);
     this.kisanKarjaSubsidy.get('loanOptionTrans').patchValue(this.kisanKarjaSubsidy.get('loanOption').value);
     this.kisanKarjaSubsidy.get('repaymentTypeTrans').patchValue(this.kisanKarjaSubsidy.get('repaymentType').value);
     // Set Translated Date of Approval
@@ -644,7 +642,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       this.kisanKarjaSubsidy.get('previousSanctionDateCT').updateValueAndValidity();
     }
     // Clear Validation for other optional fields.
-    if (this.isInterestSubsidy) {
+    if (this.interestSubsidy) {
       this.kisanKarjaSubsidy.get('serviceChargeCT').clearValidators();
       this.kisanKarjaSubsidy.get('serviceChargeCT').updateValueAndValidity();
     } else {
