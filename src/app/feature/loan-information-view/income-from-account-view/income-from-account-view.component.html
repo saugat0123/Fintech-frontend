@@ -31,12 +31,6 @@
                     Rs. {{data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
                 </td>
             </tr>
-            <tr *ngIf="!disabledAlpha && !disabledLambda">
-                <td class="sb-bg-secondary text-white text-left pl-1">Repayment track in our bank</td>
-                <td colspan="2" class="text-left pl-1">
-                    {{data?.accountTransactionForm?.repaymentTrackWithCurrentBank}}
-                </td>
-            </tr>
             <tr *ngIf="!individual">
                 <td class="sb-bg-secondary text-white text-left pl-1">Credit entries as percentage of sales</td>
                 <td class="text-left pl-1">
@@ -52,6 +46,19 @@
                     {{data?.accountTransactionForm?.remarks}}
                 </td>
             </tr>
+            <tr *ngIf="!disabledAlpha && !disabledLambda">
+                <td class="sb-bg-secondary text-white text-left pl-1">Repayment track in our bank</td>
+                <td colspan="2" class="text-left pl-1">
+                    {{data?.accountTransactionForm?.repaymentTrackWithCurrentBank}}
+                </td>
+            </tr>
+            <tr *ngIf="!individual">
+                <td class="sb-bg-secondary text-white text-left pl-1">Repayment Remarks</td>
+                <td colspan="2" class="text-left pl-1">
+                    {{data?.repaymentRemarks}}
+                </td>
+            </tr>
+
             </tbody>
         </table>
     </div>
