@@ -113,7 +113,7 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
       guarantorName: [undefined],
       guaranteedamountinFigure: [undefined],
       guaranteedamountinWords: [undefined],
-      insuranceAmountinFigure: [undefined],
+      // insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       branchName: [undefined],
       district: [undefined],
@@ -241,7 +241,7 @@ export class PersonalOverdraftWithoutCollateralComponent implements OnInit {
       relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
       nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
       branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
-      insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
+      // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
       dateOfApproval: apprDate ? apprDate : '',
       dateofApplication: applicationDate ? applicationDate : '',
     });
