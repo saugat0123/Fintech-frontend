@@ -262,22 +262,6 @@
                     </div>
                 </td>
             </tr>
-
-            <tr>
-                <td>Insurance Amount in Figure</td>
-                <td><input type="text" class="form-control" formControlName="insuranceAmountinFigure"
-                           (input)="translateNumber('insuranceAmountinFigure', 'insuranceAmountinFigureTransVal')"></td>
-                <td class="abc">{{translatedData?.insuranceAmountinFigure}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.insuranceAmountinFigureTransVal.errors }"
-                           formControlName="insuranceAmountinFigureTransVal"/>
-                    <div *ngIf="submitted && Form.insuranceAmountinFigureTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.insuranceAmountinFigureTransVal.errors.required">Insurance Amount is required</div>
-                    </div>
-                </td>
-            </tr>
         </table>
 
         <div class="row pt-5 pl-2">

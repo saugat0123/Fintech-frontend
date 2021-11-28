@@ -40,6 +40,7 @@ export class HomeLoanPrintComponent implements OnInit {
   homeLoanType = HomeLoanType;
   nepaliBranchNAme;
   selectedSecurity;
+  insuranceAmount;
 
   constructor(public engToNepNumberPipe: EngToNepaliNumberPipe,
               public currencyFormatPipe: CurrencyFormatterPipe,
@@ -87,13 +88,17 @@ export class HomeLoanPrintComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
-    if (this.tempData.loanType === 'PURCHASE' || this.tempData.loanType === 'TAKEOVER') {
+    if (this.tempData.loanType === this.homeLoanType.PURCHASE || this.tempData.loanType === this.homeLoanType.TAKE_OVER) {
       this.landbuilding = this.tempData.loan.landBuildingType;
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
     this.guarantorDetails();
+    const tempInsuranceAmount = this.letter.loan ? this.letter.loan.insuranceAmountInFigure : '';
+    if (!ObjectUtil.isEmpty(tempInsuranceAmount)) {
+      this.insuranceAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(tempInsuranceAmount.toString()));
+    }
   }
   guarantorParse(nepData, key, trans?) {
     const data = JSON.parse(nepData);

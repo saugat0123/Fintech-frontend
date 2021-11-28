@@ -91,7 +91,7 @@
                                                name="nameOfBank"
                                                placeholder=""
                                                type="text"/>
-                                        <span> बैकको कर्जा चुक्ता गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । </span>
+                                        <span>को कर्जा चुक्ता गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ । </span>
                                     </ng-container>
                                 </td>
                             </tr>
@@ -133,15 +133,21 @@
                                     ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power)
                                 </strong>
                                 </td>
-                                <td>कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको
-                                    निर्माण लागतको
+                                <td>
+                                    <!--कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको
+                                    निर्माण लागतको-->
+                                    कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको निर्माण लागतको
+                                    १०० प्रतिशत वा जग्गा र निर्माणीत भवनको निकृष्ट स्थितिको मूल्यांकन (Distress Situation Value)
+                                    को
                                     <input class="form-field form-control-sm"
                                            formControlName="distressSituationPercentage"
                                            name="distressSituationPercentage"
                                            placeholder=" "
                                            type="text"/>
-                                    प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा
-                                    उपयोग गर्न सकिनेछ ।
+                                    प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
+                                    बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                   <!-- प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा
+                                    उपयोग गर्न सकिनेछ ।-->
                                 </td>
                             </tr>
 
@@ -390,7 +396,7 @@
 
                         <tr *ngIf="this.tempData.loanType === 'CONSTRUCTION'">
                             <td>९. </td>
-                            <td> धितोबन्धक तमसुक बाहेक, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
+                            <td> धितोबन्धक तमसुक, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षणकागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईको यस नबिल बैंक लिमिटेडको,
                                 <input class="form-field form-control-sm"
                                        formControlName="branchName"
                                        name="branchName"
@@ -478,7 +484,7 @@
                         <tr *ngIf="this.tempData.loanType === 'PURCHASE' || this.tempData.loanType === 'TAKE OVER'">
                             <td>९. </td>
                             <td>
-                                धितोबन्धक तमसुक {{tempData.loanType === homeLoanType.PURCHASE ? 'बाहेक' : ''}}, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
+                                धितोबन्धक तमसुक {{tempData.loanType === homeLoanType.TAKE_OVER ? 'बाहेक' : ''}}, त्यहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
                                 तपाईंको यस नबिल बैंक लिमिटेडको, <input class="form-field form-control-sm"
                                                                        formControlName="branchName"
                                                                        name="branchName"
@@ -489,11 +495,17 @@
                                                  name="loanAmount"
                                                  placeholder=" "
                                                  type="text"/>
-                                ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री <input class="form-field form-control-sm"
+                                ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री <input *ngIf="tempData?.loanType === homeLoanType?.PURCHASE" class="form-field form-control-sm"
                                                                              formControlName="beneficiaryName"
                                                                              name="beneficiaryName"
                                                                              placeholder=" "
-                                                                             type="text"/>   लाई A/C Payee Cheque /MC/Draft
+                                                                             type="text"/>
+                                <ng-container>
+                                    <input *ngIf="tempData?.loanType === homeLoanType?.TAKE_OVER" class="form-field form-control-sm"
+                                           formControlName="nameOfBank"
+                                           name="nameOfBank"
+                                           type="text"/>
+                                </ng-container> लाई A/C Payee Cheque /MC/Draft/Swift/IPS/RTGS
                                 मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                                 <div class="row col-md-12">
                                         <textarea
@@ -759,15 +771,21 @@
                                               placeholder=" "
                                               type="text"/> मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण।
                                 </p>
-                                <p>
-
+                                <p *ngIf="tempData?.loanType === homeLoanType?.CONSTRUCTION">
+                                    ज. बैकर्श शर्त सहितको कम्तीमा रु
+                                    <input class="form-field form-control-sm" formControlName="insuranceAmount"
+                                           name="insuranceAmount"
+                                           type="text"/>/- बराबरको भवनको  विमालेख ।
+                                </p>
+                                <p *ngIf="selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType?.CONSTRUCTION">
+                                    झ. भवन निर्माण {{tempData?.loanType === homeLoanType?.CONSTRUCTION ? 'इजाजत पत्र' : 'सम्पन प्रमाणपत्र'}} ।
                                 </p>
                             </td>
                         </tr>
                     </table>
                     <div class="row col-md-12" style="margin-left: 3em;margin-top: -2em;">
-                        {{selectedSecurity === 'LAND & BUILDING' ?
-                        'झ' : 'ज'}} <textarea id="additionalGuarantorDetails"
+                        {{selectedSecurity === 'LAND & BUILDING' ||  tempData?.loanType === homeLoanType.CONSTRUCTION ?
+                        'ञ' : 'ज'}} <textarea id="additionalGuarantorDetails"
                               class="form-control customFont nepaliFont"
                               rows="5"
                               style="margin-left: 2%;width: 85%;font-size:24px;"
