@@ -2,8 +2,7 @@
     <nb-card [nbSpinner]="spinner"
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
-             nbSpinnerMessage="INTEREST SUBSIDY SANCTION"
-             id="{{offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER}}">
+             nbSpinnerMessage="INTEREST SUBSIDY SANCTION">
         <nb-card-header *ngIf="preview">
             <a (click)="close()" aria-label="Close" class="close cursor pull-right"
                data-dismiss="modal">
@@ -58,14 +57,14 @@
                     </p>
                 </div>
             </div>
-            <div class="row subject mt-5">
+            <div class="row subject mt-5" *ngIf="this.tempData.loanOption.en === 'NEW'">
                 <div class="col-sm-12">
                     <p class="pull-left">
                         <strong> बिषय : ऋणकर्जा सुविधा बारे ।</strong>
                     </p>
                 </div>
             </div>
-            <div class="row section-desc">
+            <div class="row section-desc" *ngIf="this.tempData.loanOption.en === 'NEW'">
                 <div class="col-sm-12">
                     <p>
                         महोदय,
@@ -73,7 +72,7 @@
                     <p class="lh-40 text-justify">
                         तपाईंले मिति
                         <input class="form-field form-control-sm"
-                               formControlName="dateofApplication"
+                               formControlName="dateOfApplication"
                                type="text"/>
                         मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले
                         देहाय बमोजिमका ऋणकर्जा सुविधाहरु देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृत गरेको
@@ -81,14 +80,14 @@
                     </p>
                 </div>
             </div>
-            <div class="row subject mt-5">
+            <div class="row subject mt-5" *ngIf="this.tempData.loanOption.en === 'EXISTING'">
                 <div class="col-sm-12">
                     <p class="pull-left">
                         <strong> बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</strong>
                     </p>
                 </div>
             </div>
-            <div class="row section-desc">
+            <div class="row section-desc" *ngIf="this.tempData.loanOption.en === 'EXISTING'">
                 <div class="col-sm-12">
                     <p>
                         महोदय,
@@ -102,7 +101,7 @@
                                                            type="text"/>को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा
                         सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु
                         भएको मिति वि.सं<input class="form-field form-control-sm"
-                                              formControlName="requestLetterDate"
+                                              formControlName="dateOfApplication"
                                               name="requestLetterDate"
                                               placeholder=" "
                                               type="text"/>को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका
@@ -112,9 +111,9 @@
                 </div>
             </div>
             <p style="text-align: center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण </strong></p>
-            <div class="row details-table">
+<!--            <div class="row details-table">-->
                 <div class="col-sm-12">
-                    <table class="table table-condensed table-bordered text-center"
+                    <table class="table table-condensed table-bordered text-justify"
                            id="custom-table">
                         <tr>
                             <td><strong>कर्जाको प्रकार:</strong></td>
@@ -152,9 +151,9 @@
                                 धितोबन्धक/दृष्टिबन्धक/रोक्का गरिदिनु पर्नेछ ।
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="this.tempData.securityType.en === 'LAND & BUILDING' || this.tempData.securityType.en === 'LAND' || this.tempData.securityType.en === 'FIXED ASSETS' || this.tempData.securityType.en === 'STOCK'">
                             <td><strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power) </strong></td>
-                            <td colspan="2"> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक पारित/रोक्का गरिदिने
+                            <td colspan="2" *ngIf="this.tempData.securityType.en === 'LAND & BUILDING' || this.tempData.securityType.en === 'LAND'"> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक पारित/रोक्का गरिदिने
                                 घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको(Motorable Road
                                 access)
                                 को हकमा बजार मुल्य(Market Value) को<input class="form-field form-control-sm"
@@ -169,8 +168,9 @@
                                                                             placeholder=" "
                                                                             type="text"/>
                                 प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ
-                                ।(Applicable Incase of loan is purposed against land/building value)
-                                or
+                                ।
+                            </td>
+                            <td *ngIf="this.tempData.securityType.en === 'FIXED ASSETS' || this.tempData.securityType.en === 'STOCK'">
                                 सुरक्षण महलमा उल्लिखित सामानहरुको मौज्दात, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण
                                 चल
                                 अचल सम्पत्तीहरुको मुल्यको <input class="form-field form-control-sm"
@@ -227,9 +227,9 @@
                                                    type="text"/> बर्ष सम्मको लागि मात्र ।
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="this.tempData.securityType.en === 'LAND & BUILDING' || this.tempData.securityType.en === 'LAND' || this.tempData.securityType.en === 'FIXED ASSETS' || this.tempData.securityType.en === 'STOCK'">
                             <td><strong>कर्जा प्रवाह तरिकाः</strong></td>
-                            <td colspan="2">सुरक्षण महलमा उल्लिखित घर/जग्गा बैंकको पक्षमा धितो बन्धक पारित रोक्का
+                            <td colspan="2" *ngIf="this.tempData.securityType.en === 'LAND & BUILDING' || this.tempData.securityType.en === 'LAND'">सुरक्षण महलमा उल्लिखित घर/जग्गा बैंकको पक्षमा धितो बन्धक पारित रोक्का
                                 गरिदिनुका
                                 साथै ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहिछाप गरिसके पश्चात
                                 सो घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको(Motorable
@@ -245,9 +245,9 @@
                                        name="marginInPercentage"
                                        placeholder=" "
                                        type="text"/>। प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
-                                बरावर रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ
-                                ।(Applicable Incase of loan is purposed against land/building value)
-                                OR
+                                बरावर रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
+                            </td>
+                            <td *ngIf="this.tempData.securityType.en === 'FIXED ASSETS'">
                                 ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहिछाप गरिसके पश्चात सुरक्षण महलमा
                                 उल्लिखित सामानहरुको मौज्दात,
                                 उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तीहरुको मुल्यको ‘।
@@ -256,13 +256,12 @@
                                        name="marginInPercentage"
                                        placeholder=" "
                                        type="text"/>
-                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ
-                                ।(Applicable Incase of loan is purposed against Fixed Assets)
+                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
                             </td>
                         </tr>
                     </table>
                 </div>
-                <p>द्रष्टब्यः माथि उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन् । सहुलियतपुर्ण कर्जाका लागि ब्याज
+                <p style="padding-left: 1em">द्रष्टब्यः माथि उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन् । सहुलियतपुर्ण कर्जाका लागि ब्याज
                     अनुदान सम्बन्धि एकिकृत कार्यविधि,
                     २०७५, दोस्रो संशोधन, २०७६ र तेस्रो संशोधन, २०७७ बमोजिमको हुन आउने अनुदान ब्याज भुक्तानीका लागि नेपाल
                     राष्ट्र बैंक समक्ष
@@ -275,26 +274,45 @@
                     बैंकले कुनै पनि बखत कर्जा सुविधा फिर्ता माग गर्न सक्नेछ र सो कर्जामा नियमानुसार ब्याज अनुदान प्रदान
                     नगर्नका
                     साथै अघिल्लो प्रदान गरिएका अनुदानहरु पनि फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहेनछ ।
-                </p>
-
-                <div class="service-contions mt-5">
-                        <div class="col-sm-12">
+                </p><br>
+                <div mt-5>
+                        <div class="col-sm-12" *ngIf="this.tempData.securityType.en === 'LAND' || this.tempData.securityType.en === 'FIXED ASSETS' || this.tempData.securityType.en === 'STOCK'">
                             <ol class="conditions-list orderd-list">
                                 <strong>सुरक्षण विवरणः </strong>
 
                                 <p>
-                                    <strong>क. </strong> प्राथमिक/थप सुरक्षण
+                                    <strong> क. </strong> प्राथमिक/थप सुरक्षण (Primary/Secondary Security)
                                 </p>
-                                <li>
-                                    <strong> </strong>
-                                    घर/जग्गा धितोेबन्धक हकाधिकार(Mortgage Charges)(Applicable if Land & building has
-                                    been purposed in approved CFR)<br>
+                                <li *ngIf="this.tempData.securityType.en === 'LAND & BUILDING'"><strong> </strong>
+                                    घर/जग्गा धितोेबन्धक हकाधिकार(Mortgage Charges):<br>
                                     स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
                                     बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td rowspan="2">घर/जग्गा धनीको नाम थर (Land Owner Name)</td>
+                                            <td colspan="3">घर/जग्गाको अवस्थिति</td>
+                                            <td rowspan="2">सिट नं. (Sheet No.)</td>
+                                            <td rowspan="2">कित्ता नं. Plot No.)</td>
+                                            <td rowspan="2">क्षेत्रफल (Area in Sq m/Ropani/Bigha)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>जिल्ला (District)</td>
+                                            <td>नगर/गा.वि.स. (VDC/Munc)</td>
+                                            <td>वडा नं. (Ward No.)</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
                                 </li>
-                                <li>
-                                    <strong> सामान मौज्दात धितोेबन्धक हकाधिकार </strong>(Hypothecation Charges)
-                                    (Applicable if Fixed Assets has been purposed in approved CFR)<br>
+                                <li *ngIf="this.tempData.securityType.en === 'FIXED ASSETS'"><strong> सामान मौज्दात धितोेबन्धक हकाधिकार </strong>(Hypothecation Charges)
+                                    <br>
                                     बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
                                     रहे भएको कच्चा पदार्थ प्रशोधित वा
                                     अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि,
@@ -303,8 +321,7 @@
                                     बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
                                 </li>
                                 <li>
-                                    <strong> हस्तान्तरण </strong>-(Assignment)(Applicable if documents has been
-                                    purposed in approved CFR)<br>
+                                    <strong> हस्तान्तरण </strong>(Assignment):<br>
                                     ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
                                     बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
                                 </li>
@@ -312,21 +329,24 @@
                                     <strong> व्यक्तिगत जमानत</strong>(Personal Guarantee)<br>
                                     रु.<input class="form-field form-control-sm"
                                               formControlName="totalAmountInFigure"
-                                              name="totalAmountInApprovedCpr"
+                                              [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                               placeholder=" "
                                               type="text"/>(अक्षरेपी रु.<input class="form-field form-control-sm"
                                                                                formControlName="totalAmountInWords"
-                                                                               name="totalAmountInWords"
+                                                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
                                                                                placeholder=" "
                                                                                type="text"/> मात्र)
-                                    बराबरको Name of Personal guarantors as per mentioned in approved CFR, can be
-                                    multiple ,
+                                    बराबरको <input class="form-field form-control-sm"
+                                                   formControlName="guarantorName"
+                                                   [value]="this.finalName"
+                                                   placeholder=" "
+                                                   type="text"/>
                                     ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
                                 </li>
                             </ol>
                         </div>
                     </div>
-                </div>
+
                 <div class="service-contions mt-5">
                         <div class="col-sm-12">
                             <ol class="conditions-list orderd-list">
@@ -341,7 +361,7 @@
                                     त्रैमासिक रुपमा ब्याज दर
                                     निर्धारण गरिनेछ।
                                 </li>
-                                <li>बंैकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate ) मा हुने उतार
+                                <li>बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate ) मा हुने उतार
                                     चढाबको
                                     कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर बैंकको आधिकारिक वेव साईट (Website) मा
                                     प्रत्येक त्रैमास अर्थात
@@ -351,7 +371,7 @@
                                     श्रावण, कार्तिक, माघ र बैशाखको पहिलो दिनबाट
                                     ब्याज दर समायोजन तथा संसोधन गरीनेछ ।
                                 </li>
-                                <li>बंैकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार
+                                <li>बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार
                                     चढाबको कारणबाट सम मासिक
                                     किस्ता (EMI- Equated Monthly Installment ) भुक्तानी हुने प्रकृतिका कर्जाहरुको
                                     हकमा निर्धारीत मासिक किस्ता रकम
@@ -387,15 +407,15 @@
                                     <ol class="conditions-list orderd-list">
                                         <strong>कर्जा उपयोग सीमाः</strong>
                                         <li>माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
-                                            <input (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
+                                            <input (input)="getNumAmountWord('totalLimitFigure', 'totalLimitWords')"
                                                    class="form-field form-control-sm"
-                                                   formControlName="loanAmountInFigure"
-                                                   name="loanAmountInFigure"
+                                                   formControlName="totalLimitFigure"
+                                                   name="totalLimitFigure"
                                                    placeholder="ऋण रकम"
                                                    type="text"/>
                                             ( अक्षेरुपी रु.<input class="form-field form-control-sm"
-                                                                  formControlName="loanAmountInWords"
-                                                                  name="loanAmountInWords"
+                                                                  formControlName="totalLimitWords"
+                                                                  name="totalLimitWords"
                                                                   placeholder="अक्षेरुपी "
                                                                   type="text"/> मात्र ) भन्दा बढी हुनु हुनेछैन ।
                                         </li>
@@ -506,7 +526,7 @@
                                                     तिर्नबुझाउन तथा खाता जम्मा गर्न र
                                                     खाताबाट कट्टा गरी लिन ऋणी मञ्जुर गर्दछ ।
                                                 </li>
-                                                <li>थप/अतिरिक्त शुल्कः
+                                                <li><strong>थप/अतिरिक्त शुल्कः </strong>
                                                     स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
                                                     बमोजिम विभिन्न बर्गमा
                                                     वर्गिकरण भएमा बैंक
@@ -522,7 +542,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            ऋणकर्जाको पुर्व निर्धारित सावाँ र ब्याज भुक्तानी मिति र वा
+                                                            <strong> ऋणकर्जाको पुर्व निर्धारित सावाँ र ब्याज भुक्तानी मिति र वा </strong>
                                                             ऋणकर्जा समाप्ति मिति पछि
                                                             ३० औं
                                                             दिन देखि ८९ औं दिन भित्र नविकरण/चुक्ता नभएमा
@@ -532,7 +552,7 @@
                                                         </td>
                                                         <tr>
                                                         <td>
-                                                            ऋणकर्जाको पुर्व निर्धारित सावाँ र ब्याज भुक्तानी मिति र वा
+                                                           <strong> ऋणकर्जाको पुर्व निर्धारित सावाँ र ब्याज भुक्तानी मिति र वा </strong>
                                                             ऋणकर्जा समाप्ति मिति पछि
                                                             ९० औं दिन देखि
                                                             माथि ऋणकर्जा नविकरण/चुक्ता नभए सम्म
@@ -633,7 +653,7 @@
                                             <ol class="conditions-list orderd-list">
                                                 <strong>सामानको मौज्दात सुरक्षण र भुक्तानी प्राप्त गर्न बाँकी रकमहरुका
                                                     लागि </strong>
-                                                <li>ऋणीको सम्पूर्ण चल÷अचल सम्पतिहरु र सो संग सम्बन्धित अभिलेखहरु जुनसुकै
+                                                <li>ऋणीको सम्पूर्ण चल/अचल सम्पतिहरु र सो संग सम्बन्धित अभिलेखहरु जुनसुकै
                                                     समयमा तपाईंलाई पूर्व
                                                     जानकारी दिइ वा नदिइकन तपाईको खर्चमा निरिक्षण गर्न सक्ने अधिकार
                                                     बैंकमा सुरक्षित रहनेछ ।
@@ -657,8 +677,8 @@
                                 </div>
                                 <div class="service-contions mt-5">
                                     <ol class="conditions-list orderd-list">
-                                            <strong>बिमा सम्बन्धी शर्तहरु </strong>
-                                            <li>ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा÷हड्ताल, दुर्भावनापूर्ण क्षति र
+                                            <strong>बिमा सम्बन्धी शर्तहरु </strong>(Insurance related clause)
+                                            <li *ngIf="this.tempData.securityType.en === 'STOCK'">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                                                 आतंकवाद आदी जस्ता
                                                 जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
                                                 (Bankers Clause) सहितको सुरक्षण स्वरुप धितोेबन्धक (Hypothecation) मा
@@ -671,7 +691,7 @@
                                                 बिमा गरीएको हुनु
                                                 पर्नेछ.
                                             </li>
-                                            <li> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
+                                            <li *ngIf="this.tempData.securityType.en === 'FIXED ASSETS' || tempData.securityType.en === 'ASSETS PLANTS MACHINERY & OTHER EQUIPMENTS'"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                                                 आतंकवाद आदी जस्ता
                                                 जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
                                                 (Bankers Clause) सहितको सुरक्षण स्वरुप धितोेबन्धक (Hypothecation)मा
@@ -681,7 +701,7 @@
                                                 नबिकरण/अध्यावधिक गराइएको बिमा
                                                 लेख बैकमा पेश गर्नुपर्नेछ ।
                                             </li>
-                                            <li> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प/दंगा/हड्ताल/दुर्भावनापूर्ण क्षति र
+                                            <li *ngIf="this.tempData.securityType.en === 'LIVE STOCKS ANIMALS'"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प/दंगा/हड्ताल/दुर्भावनापूर्ण क्षति र
                                                 आतंकवाद आदी जस्ता
                                                 जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त”
                                                 (Bankers Clause) सहितको सुरक्षण स्वरुप धितोेबन्धक रहेको घरका लागि बैंकको
@@ -757,10 +777,9 @@
                                         </ol>
 
                                 </div>
-                                <div class="service-contions mt-5">
-
+                                <div class="service-contions">
                                         <ol class="conditions-list orderd-list">
-                                            <strong>बबित्तीय शर्तहरु </strong>
+                                            <strong>बबित्तीय शर्तहरु </strong>(Financial Terms & Conditions)
                                             <li> सम्पूर्ण ऋणकर्जाहरुको ब्याज, किस्ता, शुल्क, कमिसन, मार्जिन, हर्जाना
                                                 ब्याज र अन्य
                                                 बाँकी बक्यौता भुक्तानी तपाईंको खातामा सिधै खर्च जनाई असुल गरिनेछ ।
@@ -881,29 +900,29 @@
                                             <li> बैकबाट जुन प्रयोजनार्थ ऋणकर्जा सुबिधा प्रवाह गरीएको हो सोमा प्रयोग नगरी
                                                 अन्य उद्देश्यमा
                                                 प्रयोग गर्ने (Diversion of Fund), व्यवसायबाट आर्जित रकम
-                                                ऋण तिर्नमा नलगाई अन्य कार्यमा प्रयोग गर्ने Siphoning off), अन्य सम्पत्ति
+                                                ऋण तिर्नमा नलगाई अन्य कार्यमा प्रयोग गर्ने (Siphoning off), अन्य सम्पत्ति
                                                 सिर्जना गर्ने,
                                                 अल्पकालीन कर्जाबाट दीर्घकालीन उपयोग गर्ने तथा सहायक कम्पनी वा
                                                 अन्य फर्ममा ऋण तथा पूजी साधन प्रवाह गर्न जस्ता कार्य गर्न पाइनेछैन ।
                                             </li>
 
-                                            <li> ऋणीले आर्थिक बर्ष समाप्त भएको तिन महिना भित्र आफ्नोे व्यवसायको
+                                         <li *ngIf="this.loanHolderInfo.clientType.en !== 'INDIVIDUAL'"> ऋणीले आर्थिक बर्ष समाप्त भएको तिन महिना भित्र आफ्नोे व्यवसायको
                                                 लेखापरिक्षण भएको बार्षिक
-                                                वासलात र नाफा नोक्सान एवं नगद प्रवाह हिसाब बैंकमा पेश गर्नु पर्नेछ ।
+                                                वासलात र नाफा नोक्सान एवं नगद प्रवाह हिसाब बैंकमा पेश गर्नु पर्नेछ ।(Not applicable in individual nature loan)
                                             </li>
 
-                                            <li> बैंकको पूर्व सहमति बेगर तपाईंको व्यवसायमा संचित रहेको नाफा, जगेडा
+                                            <li *ngIf="this.loanHolderInfo.clientType.en !== 'INDIVIDUAL'"> बैंकको पूर्व सहमति बेगर तपाईंको व्यवसायमा संचित रहेको नाफा, जगेडा
                                                 कोष र संचालकहरुबाट
-                                                प्राप्त कर्जा निकाल्न र चुक्ता भुक्तान गर्न पाईनेछैन ।
+                                                प्राप्त कर्जा निकाल्न र चुक्ता भुक्तान गर्न पाईनेछैन ।(Not applicable in individual nature loan)
                                             </li>
 
-                                            <li> कम्पनीले आर्थिक अवस्था सुधार्नको लागि स्वलगानी थप्नु पर्ने अवस्था भएमा
+                                            <li *ngIf="this.loanHolderInfo.clientType.en !== 'INDIVIDUAL'"> कम्पनीले आर्थिक अवस्था सुधार्नको लागि स्वलगानी थप्नु पर्ने अवस्था भएमा
                                                 सोही अनुसार
                                                 आवश्यक पुँजी जुटाई वा स्वलगानी थपी बैंकलाई स्विकार्य हुने अवस्थामा
-                                                ल्याउनुपर्नेछ ।
+                                                ल्याउनुपर्नेछ ।(Not applicable in individual nature loan)
                                             </li>
 
-                                            <li> बैंकको लिखित सहमति बेगर ऋणी फर्म÷कम्पनीको स्वामित्व, शेयर संरचनामा
+                                            <li *ngIf="this.loanHolderInfo.clientType.en !== 'INDIVIDUAL'"> बैंकको लिखित सहमति बेगर ऋणी फर्म÷कम्पनीको स्वामित्व, शेयर संरचनामा
                                                 परिवर्तन, शेयर
                                                 विक्रि वा नामसारी गर्न पाईने छैन र बैंकको
                                                 सहमति बेगर स्वामित्व संरचनामा परिवर्तन वा नामसारी गरेमा यस ऋण सुविधा
@@ -911,25 +930,26 @@
                                                 उल्लंघन भएको मानिनेछ ।
                                             </li>
                                             <li><textarea
-                                                    class="form-control customFont nepaliFont"
+                                                    class="form-control customFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
-                                                    name="additionalGuarantorDetails"
-                                                    formControlName="additionalGuarantorDetails">
+                                                    placeholder="Extra Financial Clause"
+                                                    name="firstAdditionalDetails"
+                                                    formControlName="firstAdditionalDetails">
                                             </textarea></li>
                                         </ol>
                                 </div>
                                 <div class="service-contions mt-5">
                                     <div class="col-sm-12" style="padding-left: 2em">
                                         <ol class="conditions-list orderd-list">
-                                            <strong>व्याज सम्बन्धी शर्तहरुः</strong>
+                                            <strong>अन्य शर्तहरु:</strong>
                                             <p class="m-0">
                                             <li>बैंकको पक्षमा धितोेबन्धक वा अन्य जुनसुकै रुपमा हक सुरक्षित रहेको
                                                 सम्पत्तिहरु/सुरक्षणहरु
                                                 बैंकको लिखित सहमति बेगर अन्य पक्षहरुको हक वा
                                                 हितमा कुनै पनि तवरले पुनः धितोेबन्धक वा अन्य कुनै व्यहोराले तेश्रो
                                                 पक्षको हक श्रृजना गरी दिन
-                                                पाईने छैन ।।
+                                                पाईने छैन ।
                                             </li>
                                             <li> बैंक अभिलेखमा रहेको तपाईंको अन्तिम ठेगानामा बैंकका सूचना तपाईंलाई
                                                 प्रेषित गरिएमा सूचना
@@ -940,7 +960,7 @@
                                                 यदि ऋणीले यस ऋणकर्जा स्वीकृति पत्रमा उल्लिखित कुनै पनि शर्तबन्देजहरु
                                                 उल्लंघन गरेमा र/वा यदि
                                                 ऋणीले स्वयंले टाट पल्टेको घोषणा गरेमा र/वा यदि
-                                                आधिकारिक निकायबाट ऋणीलाई विघटन (ीष्त्रगष्मबतष्यल) गर्ने प्रकृया चालेमा
+                                                आधिकारिक निकायबाट ऋणीलाई विघटन (Liquidation) गर्ने प्रकृया चालेमा
                                                 र/वा यदि ऋणीले
                                                 फौजदारी कसुरजन्य काम कारवाही गरेमा र/वा ऋणीले
                                                 बैंक बिरुद्ध कुनै न्यायिक वा अर्ध न्यायिक निकायमा मुद्धा दायर गरेमा
@@ -990,31 +1010,32 @@
                                                 परिवार तथा निजहरु कहीं कतै हिताधिकारी भए सोको विवरण तथा
                                                 निजहरुको परिचय खुल्ने प्रमाण समेत यस बैंकमा पेश गनुपर्नेछ ।
                                             </li>
-                                            <li>प्रचलित ऐन, नियम, नेपाल राष्ट्र बंैकको निर्देशन तथा यस बैंकको निति, नियम
+                                            <li>प्रचलित ऐन, नियम, नेपाल राष्ट्र बैंकको निर्देशन तथा यस बैंकको निति, नियम
                                                 तथा तिनमा समय समयमा
                                                 हुने सँशोधन सहितको शर्तहरु पालना गर्न ऋणी/ऋणी
                                                 फर्म/ऋणी कम्पनी/ऋणी संस्था मँजुर गर्नुका साथै माथि उल्लिखित सम्पुर्ण
                                                 समेतबाट स्वीकृत ऋणकर्जा
-                                                बंैकिङ्ग सुविधा प्रशासित तथा सँचालित हुने
+                                                बैंकिङ्ग सुविधा प्रशासित तथा सँचालित हुने
                                                 कुरामा समेत ऋणी/ऋणी फर्म/ऋणी कम्पनी/ऋणी संस्था मञ्जुर गर्दछ ।
                                             </li>
                                             <li> तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित
                                                 कार्यालयबाट नविकरण गर्ने
-                                                दायित्व ऋणी फर्मका प्रोप्राईटर÷साझेदारहरुको हुनेछ र
+                                                दायित्व ऋणी फर्मका प्रोप्राईटर/साझेदारहरुको हुनेछ र
                                                 नविकरण पश्चात सोको प्रतिलिपि यस बैंकमा पेश गर्नु पर्नेछ । दर्ता
                                                 प्रमाणपत्रको अवधि समाप्त
                                                 भएका फर्मको ऋणकर्जा सुविधा स्वीकृत/नविकरण हुनेछैन र
                                                 साथै तहांले उपभोग गर्दै आउनुभएका सम्पूर्ण ऋण कर्जा सुविधाहरु दर्ता
                                                 नविकरण नभएका कारण फिर्ता
-                                                भुक्तानी माग गर्ने÷रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
+                                                भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                                             </li>
 
                                             <li><textarea
-                                                    class="form-control customFont nepaliFont"
+                                                    class="form-control customFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
-                                                    name="additionalGuarantorDetails"
-                                                    formControlName="additionalGuarantorDetails">
+                                                    placeholder="Additional Others Clause"
+                                                    name="secondAdditionalDetails"
+                                                    formControlName="secondAdditionalDetails">
                                             </textarea></li>
                                         </ol>
                                     </div>
@@ -1071,8 +1092,8 @@
                                                            placeholder=" "
                                                            type="text"/> (बराबरको श्री <input
                                                     class="form-field form-control-sm"
-                                                    formControlName="guarantorsName"
-                                                    name="guarantorsName"
+                                                    formControlName="guarantorName"
+                                                    [value]="this.finalName"
                                                     placeholder=" "
                                                     type="text"/> ले बैंकको पक्षमा लेखिदिनुपर्ने
                                                 व्यक्तिगत जमानत (Personal Guarantee)
@@ -1090,11 +1111,12 @@
                                             <li> स्थायी लेखा नम्बर प्रमाणपत्र (PAN Certificate)
                                             </li>
                                             <li><textarea
-                                                    class="form-control customFont nepaliFont"
+                                                    class="form-control customFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
-                                                    name="additionalGuarantorDetails"
-                                                    formControlName="additionalGuarantorDetails">
+                                                    placeholder="Extra Security documents parts"
+                                                    name="thirdAdditionalDetails"
+                                                    formControlName="thirdAdditionalDetails">
                                             </textarea></li>
                                         </ol>
                                 </div>
@@ -1121,9 +1143,9 @@
                                             </p>
                                             <p>
                                                 <input class="form-field form-control-sm nepaliFont"
-                                                       name="relationshipofficerName"
-                                                       formControlName="relationshipofficerName"
-                                                       placeholder="सम्बन्ध अधिकारीको नाम"
+                                                       name="nameOfBranchManager"
+                                                       formControlName="nameOfBranchManager"
+                                                       placeholder="सम्पर्क अधिकृत"
                                                        type="text"/>
                                             </p>
                                             <p>
@@ -1141,9 +1163,9 @@
                                             </p>
                                             <p>
                                                 <input class="form-field form-control-sm nepaliFont"
-                                                       name="nameofBranchManager"
-                                                       formControlName="nameofBranchManager"
-                                                       placeholder="शाखा प्रबन्धक वा पर्यवेक्षकको नाम"
+                                                       name="nameOfBranchManager"
+                                                       formControlName="nameOfBranchManager"
+                                                       placeholder="शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक "
                                                        type="text"/>
                                             </p>
                                             <p>
@@ -1158,7 +1180,7 @@
                                 </div>
                                 <div class="service-contions mt-5">
                                         <ol class="conditions-list orderd-list">
-                                            <li> म/हामी माथि उल्लिखित ऋणी फर्म÷कम्पनीका
+                                            <li *ngIf="this.loanHolderInfo.clientType.en !== 'INDIVIDUAL'"> म/हामी माथि उल्लिखित ऋणी फर्म÷कम्पनीका
                                                 प्रोपाईटर/साझेदार/प्रबर्धक/संचालकहरु माथि उल्लिखित
                                                 ऋणीलाई तपाईंले स्वीकृत गर्नु भएको
                                                 विभिन्न ऋणकर्जा सुविधाहरुको सम्बन्धमा यसै ऋण स्वीकृति पत्रमा उल्लिखित
@@ -1189,10 +1211,8 @@
                                                 मन्जुरी रहेकोे छ । बैंकको
                                                 पूर्व सहमति बेगर ऋणकर्जा सुविधाहरुको
                                                 सम्पूर्ण बाँकी चुक्ता भुक्तान नभएसम्म फर्म/कम्पनीको स्वामित्व परिवर्तन र
-                                                नामसारी गर्ने छैन/छैनौं
-                                                । अबिगकभ
-                                                (clause is not applicable for Individual Loan/Higher & Techno Edu
-                                                OR)
+                                                नामसारी गर्ने छैन/छैनौं । </li>
+                                                  <li *ngIf="this.loanHolderInfo.clientType.en === 'INDIVIDUAL'">
                                                 म/हामी माथि उल्लिखित ऋणीलाई तपाईंले स्वीकृत गर्नु भएको विभिन्न ऋणकर्जा
                                                 सुविधाहरुको सम्बन्धमा यसै
                                                 ऋण स्वीकृति पत्रमा
@@ -1205,15 +1225,14 @@
                                                 कालोसूची व्यवस्था र सोको प्रभाव सम्बन्धी पूर्ण जानकारी सहित बैंकले
                                                 कालोसूचीमा राख्ने निर्णय
                                                 गरेमा स्वीकार्छु/छौं ।
-                                                बैंकको उक्त निर्णय विरुद्ध म÷हामीले कहिं कतै उजुर वाजुर गर्ने छैन । यदि
+                                                बैंकको उक्त निर्णय विरुद्ध म/हामीले कहिं कतै उजुर वाजुर गर्ने छैन । यदि
                                                 बैंकको निर्णय बिरुद्ध
                                                 उजुर वाजुर गरेमा उक्त उजुरीबाट उत्पन्न हुने
                                                 दायित्व र परिणाम म/हामीले नै उठाउने जिम्मेवारी लिन्छु/छौं । यदि
                                                 मेरो/हाम्रो मृत्यु भएमा वा
                                                 बहुलाएमा बैंकको सम्पूर्ण लेना सहितको दायित्व
                                                 मेरो/हाम्रो हकवालाहरुलाई उत्तरदायी हुन शिक्षित गरी बहन गर्न म/हामी
-                                                जिम्मेवारी लिन्छु/छौं
-                                                ।(Applicable for Individual loan only)
+                                                जिम्मेवारी लिन्छु/छौं ।
                                             </li>
                                             <li>
                                                  म/हामी माथि उल्लिखित शर्तबन्देजहरु पूर्ण स्वीकार गर्दछु/छौं ।
@@ -1233,15 +1252,15 @@
                                                 परेको घोषणा भएको छैन भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं ।
                                             </li>
                                             <li>
-                                                 म÷हामी कुनै पनि बैंक वा वित्तीय संस्थाको कर्जा तिर्न असक्षम
-                                                (म्भाबगति) नभएको घोषणा गर्दछु
+                                                 म/हामी कुनै पनि बैंक वा वित्तीय संस्थाको कर्जा तिर्न असक्षम
+                                                (Default) नभएको घोषणा गर्दछु
                                                 साथै म/हामीले यस बैंक लगायत अन्य कुनै बैंक तथा वित्तिय संस्थाबाट कुनै
                                                 पनि किसिमको सहुलियतपुर्ण कर्जा उपभोग नगरेको र माथि स्वीकृत ऋणकर्जा पुर्ण
                                                 रुपमा चुक्ता भुक्तान
                                                 नभएसम्म सो कर्जाहरु माग नगर्ने समेत उद्घोष गर्दछौं ।
                                             </li>
                                             <li>
-                                                 यस बैंकबाट कर्जा सुविधा उपयोग गरिरहेका आपसी सम्बन्ध भएका मेरो/हाम्रो
+                                                यस बैंकबाट कर्जा सुविधा उपयोग गरिरहेका आपसी सम्बन्ध भएका मेरो/हाम्रो
                                                 समुह भित्रको अन्य
                                                 व्यक्ति, फर्म, संस्था वा कम्पनिले सहुलियत पुर्ण कर्जा(भुकम्प पिडित
                                                 बाहेक)
@@ -1272,11 +1291,12 @@
                                                 नातिनी ज्वाइँ समेतलाई बुझाउनेछ ।)
                                             </li>
                                             <li><textarea
-                                                    class="form-control customFont nepaliFont"
+                                                    class="form-control customFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
-                                                    name="additionalGuarantorDetails"
-                                                    formControlName="additionalGuarantorDetails">
+                                                    name="fourthAdditionalDetails"
+                                                    placeholder="Extra Other terms & conditions-as per NRB circular"
+                                                    formControlName="fourthAdditionalDetails">
                                             </textarea></li>
                                         </ol>
                                 </div>
@@ -1303,13 +1323,6 @@
                                             बैंक लि. का कर्मचारी श्री
                                             ____________________________
                                         </li>
-                                        <li>
-                                            Prepared by:<input class="form-field form-control-sm nepaliFont"
-                                                               name="preparationPerson"
-                                                               formControlName="preparationPerson"
-                                                               placeholder=" "
-                                                               type="text"/>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -1320,23 +1333,20 @@
                 </div>
             </form>
         </nb-card-body>
+        <nb-card-footer class="mb-3">
+            <button nbButton
+                    status="info"
+                    class="mb-4 float-right"
+                    [useExistingCss]="true"
+                    ngxPrint printSectionId="{{offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER}}">Print
+            </button>
+        </nb-card-footer>
 </nb-card>
 </div>
 
-
-<nb-card-footer class="mb-3">
-    <button nbButton
-            status="info"
-            class="mb-4 float-right"
-            [useExistingCss]="true"
-            ngxPrint printSectionId="{{offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER}}">Print
-    </button>
-</nb-card-footer>
-<app-interest-subsidy-sanction-letter *ngIf="initialInfoPrint"
+<app-interest-subsidy-sanction-letter-print *ngIf="initialInfoPrint"
                               [letter]="initialInfoPrint"
                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                              [security]="this.selectedSecurity"
                               [renewal]="this.renewal"
-                              [offerData]=offerLetterData
-                              [loanLimit]="this.loanLimit"
-                              hidden></app-interest-subsidy-sanction-letter>
+                              [offerData]= "offerLetterData"
+                              hidden></app-interest-subsidy-sanction-letter-print>

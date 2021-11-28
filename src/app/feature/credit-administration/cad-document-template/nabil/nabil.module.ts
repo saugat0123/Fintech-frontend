@@ -33,6 +33,11 @@ import { NabilSmeComponent } from './nabil-sme/nabil-sme.component';
 import { KisanKarjaSubsidyComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
 import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
 import { UdyamsilKarjaSubsidyPrintComponent } from './nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy-print/udyamsil-karja-subsidy-print.component';
+import { KisanKarjaSubsidyPrintComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy-print/kisan-karja-subsidy-print.component';
+import {ThemeModule} from '../../../../@theme/theme.module';
+import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
+import { DdslWithoutSubsidyComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
+import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy-print/ddsl-without-subsidy-print.component';
 
 
 @NgModule({
@@ -50,7 +55,7 @@ import { UdyamsilKarjaSubsidyPrintComponent } from './nabil-sme/udyamsil-karja-s
         LoanDeedPartnershipComponent,
        LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent],
+        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -78,7 +83,10 @@ import { UdyamsilKarjaSubsidyPrintComponent } from './nabil-sme/udyamsil-karja-s
         PersonalGuaranteeProprietorshipComponent,
         KisanKarjaSubsidyComponent,
         UdyamsilKarjaSubsidyComponent,
-        UdyamsilKarjaSubsidyPrintComponent
+        UdyamsilKarjaSubsidyPrintComponent,
+        KisanKarjaSubsidyPrintComponent,
+        DdslWithoutSubsidyComponent,
+        DdslWithoutSubsidyPrintComponent
     ],
     imports: [
         CommonModule,
@@ -89,9 +97,13 @@ import { UdyamsilKarjaSubsidyPrintComponent } from './nabil-sme/udyamsil-karja-s
         NbSpinnerModule,
         MegaOfferLetterTemplateModule,
         NbCardModule,
+        ThemeModule,
     ],
     entryComponents: [
-        UdyamsilKarjaSubsidyComponent
+        UdyamsilKarjaSubsidyComponent,
+        KisanKarjaSubsidyComponent,
+        InterestSubsidySanctionLetterComponent,
+        DdslWithoutSubsidyComponent
     ]
 })
 export class NabilModule {

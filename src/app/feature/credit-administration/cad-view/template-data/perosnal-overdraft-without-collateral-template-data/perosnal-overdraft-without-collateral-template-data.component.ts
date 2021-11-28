@@ -32,8 +32,6 @@ import {EngNepDatePipe} from "nepali-patro";
 export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  municipalityListForSecurities = [];
-  allDistrictList: Array<District> = new Array<District>();
   oneForm: FormGroup;
   offerLetterTypes = [];
   offerLetterConst = NabilOfferLetterConst;
@@ -83,13 +81,8 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
 
   ngOnInit() {
     this.buildForm();
-    this.getAllDistrict();
   }
-  public getAllDistrict(): void {
-    this.addressService.getAllDistrict().subscribe((response: any) => {
-      this.allDistrictList = response.detail;
-    });
-  }
+
   buildForm() {
     this.form = this.formBuilder.group({
       selectedSecurity: [undefined],
@@ -113,7 +106,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       dateofExpiryNepali: [undefined],
       dateOfExpiryType: [undefined],
       nameOfCompany: [undefined],
-      insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
 
@@ -138,24 +130,18 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       dateofExpiryTransVal: [undefined],
       dateofExpiryNepaliTransVal: [undefined],
       dateOfExpiryTypeTransVal: [undefined],
-      insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined],
       nameOfCompanyTransVal: [undefined],
       nameofBranchManagerTransVal: [undefined],
-      securities: this.formBuilder.array([])
     });
-    this.addDefaultSecurity();
+  }
+
+  get Form() {
+    return this.form.controls;
   }
 
   submit() {
     this.submitted = true;
-    const securityDetails = [{
-      securityType: this.form.get('selectedSecurity').value,
-      securities: this.form.get('securities').value,
-    }];
-    if (this.selectedSecurityVal === 'LAND') {
-      this.clearConditionalValidation();
-    }
     if (this.form.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
       this.spinner = false;
@@ -169,7 +155,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
 
     if (this.customerApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString())[0];
+          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL).toString())[0];
       if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
         this.existingOfferLetter = true;
       }
@@ -178,7 +164,7 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     if (this.existingOfferLetter) {
       this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT).toString()) {
+            this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL).toString()) {
           this.mappedData();
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
           this.translatedData = {};
@@ -186,9 +172,9 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       });
     } else {
       const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL);
       Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+        if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
           return;
         }
         this.attributes = new Attributes();
@@ -197,7 +183,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
         this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
-      this.tdValues['securityDetails'] = securityDetails;
       this.translatedData = {};
       this.deleteCTAndTransContorls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
@@ -218,14 +203,9 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     });
   }
 
-  private clearConditionalValidation(): void {
-    this.form.get('insuranceAmountinFigureTransVal').clearValidators();
-    this.form.get('insuranceAmountinFigureTransVal').updateValueAndValidity();
-  }
-
   mappedData() {
     Object.keys(this.form.controls).forEach(key => {
-      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc' || key === 'securities') {
+      if (key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
         return;
       }
       this.attributes = new Attributes();
@@ -234,9 +214,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
       this.attributes.ct = this.form.get(key + 'TransVal').value;
       this.tdValues[key] = this.attributes;
     });
-  }
-  get Form() {
-    return this.form.controls;
   }
 
   openModel() {
@@ -294,7 +271,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     // this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
     // this.form.get('yearlyInterestRateTransVal').patchValue(this.translatedData.yearlyInterestRate);
     // this.form.get('loanadminFeeTransVal').patchValue(this.translatedData.loanadminFee);
-    this.form.get('loanadminFeeWordsTransVal').patchValue(this.translatedData.loanadminFeeWords);
     // this.form.get('loanCommitmentFeeTransVal').patchValue(this.translatedData.loanCommitmentFee);
     this.form.get('nameOfCompanyTransVal').patchValue(this.translatedData.nameOfCompany);
     this.form.get('dateofExpiryTransVal').patchValue(this.translatedData.dateofExpiry);
@@ -302,7 +278,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     this.form.get('relationshipofficerNameTransVal').patchValue(this.translatedData.relationshipofficerName);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.translatedData.nameofBranchManager);
     // this.form.get('staffNameTransVal').patchValue(this.translatedData.staffName);
-    // this.form.get('insuranceAmountinFigureTransVal').patchValue(this.translatedData.insuranceAmountinFigure);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
     this.form.get('renewalCheckedTransVal').patchValue(this.renewal);
   }
@@ -399,95 +374,6 @@ export class PerosnalOverdraftWithoutCollateralTemplateDataComponent implements 
     });
   }
 
-  private initSecuritiesForm(): FormGroup {
-    return this.formBuilder.group({
-      securityOwnersName: [undefined],
-      securityOwnersNameTransVal: [{value: undefined, disabled: true}],
-      securityOwnersNameCT: [undefined],
-
-      securityOwnersDistrict: [undefined],
-      securityOwnersDistrictTransVal: [{value: undefined, disabled: true}],
-      securityOwnersDistrictCT: [undefined],
-
-      securityOwnersMunicipalityOrVdc: [undefined],
-
-      securityOwnersMunicipality: [undefined],
-      securityOwnersMunicipalityTransVal: [{value: undefined, disabled: true}],
-      securityOwnersMunicipalityCT: [undefined],
-
-      securityOwnersWardNo: [undefined],
-      securityOwnersWardNoTransVal: [{value: undefined, disabled: true}],
-      securityOwnersWardNoCT: [undefined],
-
-      securityOwnersSeatNo: [undefined],
-      securityOwnersSeatNoTransVal: [{value: undefined, disabled: true}],
-      securityOwnersSeatNoCT: [undefined],
-
-      securityOwnersKittaNo: [undefined],
-      securityOwnersKittaNoTransVal: [{value: undefined, disabled: true}],
-      securityOwnersKittaNoCT: [undefined],
-
-      securityOwnersLandArea: [undefined],
-      securityOwnersLandAreaTransVal: [{value: undefined, disabled: true}],
-      securityOwnersLandAreaCT: [undefined],
-    });
-  }
-
-  public addDefaultSecurity(): void {
-    (this.form.get('securities') as FormArray).push(
-        this.initSecuritiesForm()
-    );
-  }
-
-  public removeIndividualSecurities(i): void {
-    (this.form.get('securities') as FormArray).removeAt(i);
-  }
-
-  async onChangeSecurityOwnersName(arrName, source, index, target) {
-    this.oneForm = this.formBuilder.group({
-      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
-    });
-    const sourceResponse = await this.translateService.translateForm(this.oneForm);
-    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
-    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
-  }
-
-  public getMunicipalityByDistrict(data, event, index): void {
-    const district = new District();
-    district.id = data;
-    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-        (response: any) => {
-          this.municipalityListForSecurities[index] = response.detail;
-          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
-          if (event !== null) {
-            this.form.get(['securities', index, 'securityOwnersMunicipalityOrVdc']).patchValue(null);
-          }
-        }
-    );
-  }
-
-  public setDefaultNepaliResponse(arrName, source, index, target): void {
-    this.form.get([String(arrName), index, String(target)])
-        .patchValue(this.form.get([String(arrName), index, String(source)]).value.nepaliName);
-    this.form.get([String(arrName), index, String(source + 'CT')])
-        .patchValue(this.form.get([String(arrName), index, String(source)]).value.nepaliName);
-  }
-
-  public translateSecuritiDetailsNumberFields(arrName, source, index, target): void {
-    const translatedNepaliNum = this.engToNepaliNumberPipe
-        .transform(String(this.form.get([String(arrName), index, String(source)]).value));
-    this.form.get([String(arrName), index, String(target)]).patchValue(translatedNepaliNum);
-    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(translatedNepaliNum);
-  }
-
-  async onChangeTranslateSecurity(arrName, source, index, target) {
-    this.oneForm = this.formBuilder.group({
-      securityOwnersName: this.form.get([String(arrName), index, String(source)]).value
-    });
-    const sourceResponse = await this.translateService.translateForm(this.oneForm);
-    this.form.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
-    this.form.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
-  }
   openCloseTemplate(template) {
     this.modalService.open(template);
   }

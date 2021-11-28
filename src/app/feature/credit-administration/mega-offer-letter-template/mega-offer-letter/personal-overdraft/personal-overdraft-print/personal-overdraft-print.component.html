@@ -34,7 +34,7 @@
                         </ng-template>
                         
                         <span [ngClass]="{'font-weight-bold': loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}">
-                            {{loanHolderInfo?.name === null || loanHolderInfo?.name === "" ? "___________" : loanHolderInfo?.name.ct}}
+                            {{loanHolderInfo?.name === null || loanHolderInfo?.name === "" ? "___________" : loanHolderInfo?.name.ct}} ज्यु,
                         </span>
                     </p>
         
@@ -889,6 +889,24 @@
                                             </span>
                                             मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                         </p>
+                                        <p class="m-0" *ngIf="selectedSecurity === 'LAND_AND_BUILDING'">
+                                            च) बैकर्श शर्त सहितको कम्तीमा रु
+                                            <span
+                                                    [ngClass]="{
+                                                'font-weight-bold':
+                                                  letter?.insuranceAmountinFigure.ct !== null &&
+                                                  letter?.insuranceAmountinFigure.ct !== ''
+                                              }"
+                                            >
+                                              {{
+                                                letter?.insuranceAmountinFigure.ct === null ||
+                                                letter?.insuranceAmountinFigure.ct === ""
+                                                    ? "___________"
+                                                    : letter?.insuranceAmountinFigure.ct
+                                                }}
+                                            </span>
+                                            बराबरको भवनको विमालेख ।
+                                        </p>
                                     </div>
                                 </div>
                                 <!-- end -->
@@ -995,7 +1013,7 @@
                                 म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि
                                 नभएको बिनाशर्त उद्घोष गर्दछु ।
                             </li>
-                            <li *ngIf="!loanLimit">
+                            <li>
                                 यस नबिल बैंक लिमिटेडका संस्थापक, संचालक, प्रमुख कार्यकारी अधिकृत,
                                 अधिकृत र सो भन्दा माथिल्लो स्तरका कर्मचारीहरु, चुक्ता पुँजीको एक
                                 प्रतिशत वा सो भन्दा बढी शेयर लिएका व्यक्तिहरु र बहालवाला लेखापरिक्षक

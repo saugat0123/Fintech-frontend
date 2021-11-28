@@ -1,0 +1,281 @@
+<nb-card [nbSpinner]="spinner" class="px-3">
+    <nb-card-header class="px-2 cursor">
+        <h3>Edit Personal Overdraft Without Collateral Data</h3>
+        <a class="d-flex justify-content-end font-weight-bold text-dark" (click)="ngDialogRef.close()" style="margin-top:-2em">x</a>
+    </nb-card-header>
+    <div>
+    <form [formGroup]="form">
+        <div class="row pt-3 pl-2">
+            <div class="col-md-12 pt-3 pl-2">
+                <nb-checkbox #limitCheck (change)="loanChecked(limitCheck.checked)" [checked]="loanLimit"><i>Customer has total loan amount above One Crore</i></nb-checkbox>
+                <br>
+                <nb-checkbox #renewalCheck (change)="renewalChecked(renewalCheck.checked)" [checked]="renewal"><i>Renewal</i></nb-checkbox>
+            </div>
+        </div>
+        <table class="table table-borderless table-hover text-center sb-small table-sm">
+            <tr>
+                <th></th>
+                <th>Loan Data</th>
+                <th>Nepali Translation</th>
+                <th>Correct Translation</th>
+            </tr>
+            <tr>
+                <td>Date of Approval</td>
+                <td>
+                    <div class="row" style="margin-left: 5px; margin-top: -8px;">
+                        <nb-radio-group name="dateOfApproval" formControlName="dateOfApprovalType">
+                            <nb-radio (click)="setDateTypeBS()" value="BS"><span style="margin-left:-60px">BS</span></nb-radio>
+                            <nb-radio (click)="setDateTypeAD()" value="AD" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </td>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <nepali-patro *ngIf="dateTypeBS" formControlName="dateOfApprovalNepali" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                    <input [nbDatepicker]="doa"
+                           *ngIf="dateTypeAD"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="dateOfApproval"
+                           id="dateOfApproval"
+                           name="dateOfApproval"
+                           placeholder="Date of Approval"
+                           type="text">
+                    <nb-datepicker #doa></nb-datepicker>
+                </td>
+            </tr>
+
+            <tr style="padding: 12px">
+                <td>Date Of Application</td>
+                <td>
+                    <div class="row" style="margin-left: 5px; margin-top: -8px;">
+                        <nb-radio-group name="dateofApplication" formControlName="dateofApplicationType">
+                            <nb-radio (click)="setDateTypeBS1()" value="BS"><span style="margin-left:-60px">BS</span></nb-radio>
+                            <nb-radio (click)="setDateTypeAD1()" value="AD" style="margin-left: 60px;margin-top: -35px;">
+                                AD
+                            </nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <nepali-patro *ngIf="dateTypeBS1" formControlName="dateofApplicationNepali" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                    <input [nbDatepicker]="doap"
+                           *ngIf="dateTypeAD1"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="dateofApplication"
+                           id="dateofApplication"
+                           name="dateofApplication"
+                           placeholder="Date of Application"
+                           type="text">
+                    <nb-datepicker #doap></nb-datepicker>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Purpose of Loan</td>
+                <td><input type="text" class="form-control" formControlName="purposeOfLoan"></td>
+                <td class="abc">{{translatedData?.purposeOfLoan}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           formControlName="purposeOfLoanTransVal"/>
+                    <div *ngIf="submitted && Form.purposeOfLoanTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.purposeOfLoanTransVal.errors.required">Purpose of loan is required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Company Name</td>
+                <td><input type="text" class="form-control" formControlName="nameOfCompany"></td>
+                <td class="abc">{{translatedData?.nameOfCompany}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.nameOfCompanyTransVal.errors }"
+                           formControlName="nameOfCompanyTransVal"/>
+                    <div *ngIf="submitted && Form.nameOfCompanyTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.nameOfCompanyTransVal.errors.required">Name of Company is Required</div>
+                    </div>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Base Rate</td>
+                <td><input type="text" class="form-control" formControlName="baseRate" (input)="calInterestRate()"></td>
+                <td class="abc">{{translatedData?.baseRate}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.baseRateTransVal.errors }"
+                           formControlName="baseRateTransVal"/>
+                    <div *ngIf="submitted && Form.baseRateTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.baseRateTransVal.errors.required">Base Rate is required</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Premium Rate</td>
+                <td><input type="text" class="form-control" formControlName="premiumRate" (input)="calInterestRate()"></td>
+                <td class="abc">{{translatedData?.premiumRate}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.premiumRateTransVal.errors }"
+                           formControlName="premiumRateTransVal"/>
+                    <div *ngIf="submitted && Form.premiumRateTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.premiumRateTransVal.errors.required">Premium Rate is required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Yearly Interest Rate</td>
+                <td><input type="text" class="form-control" formControlName="yearlyInterestRate"
+                           (input) ="translateNumber1('yearlyInterestRate', 'yearlyInterestRateTransVal')"></td>
+                <td class="abc">{{translatedData?.yearlyInterestRate}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.yearlyInterestRateTransVal.errors }"
+                           formControlName="yearlyInterestRateTransVal"/>
+                    <div *ngIf="submitted && Form.yearlyInterestRateTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.yearlyInterestRateTransVal.errors.required">Interest Rate is required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Loan admin Fee</td>
+                <td><input (input)="getNumAmountWord('loanadminFee', 'loanadminFeeWords');translateNumber('loanadminFee', 'loanadminFeeTransVal')"
+                           type="text" class="form-control" formControlName="loanadminFee"></td>
+                <td class="abc">{{translatedData?.loanadminFee}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanadminFeeTransVal.errors }"
+                           formControlName="loanadminFeeTransVal"/>
+                    <div *ngIf="submitted && Form.loanadminFeeTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanadminFeeTransVal.errors.required">Loan Admin Fee is required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Loan admin Fee Words</td>
+                <td><input type="text" class="form-control" formControlName="loanadminFeeWords"></td>
+                <td class="abc">{{translatedData?.loanadminFeeWords}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanadminFeeWordsTransVal.errors }"
+                           formControlName="loanadminFeeWordsTransVal"/>
+                    <div *ngIf="submitted && Form.loanadminFeeWordsTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanadminFeeWordsTransVal.errors.required">Loan Admin Fee is required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td> Loan Commitment Fee (in Percentage)</td>
+                <td><input type="text" class="form-control" formControlName="loanCommitmentFee"
+                           (input)="translateNumber1('loanCommitmentFee', 'loanCommitmentFeeTransVal')"></td>
+                <td class="abc">{{translatedData?.loanCommitmentFee}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanCommitmentFeeTransVal.errors }"
+                           formControlName="loanCommitmentFeeTransVal"/>
+                    <div *ngIf="submitted && Form.loanCommitmentFeeTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanCommitmentFeeTransVal.errors.required">Loan Commitment Fee is required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Date of Expiry</td>
+                <td>
+                    <div class="row" style="margin-left: 5px; margin-top: -8px;">
+                        <nb-radio-group name="dateofExpiry" formControlName="dateOfExpiryType">
+                            <nb-radio (click)="setDateTypeBS2()" value="BS"><span style="margin-left:-60px">BS</span></nb-radio>
+                            <nb-radio (click)="setDateTypeAD2()" value="AD" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <nepali-patro *ngIf="dateTypeBS2" formControlName="dateofExpiryNepali" [responseType]="1"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                    <input [nbDatepicker]="doe"
+                           *ngIf="dateTypeAD2"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="dateofExpiry"
+                           id="dateofExpiry"
+                           name="dateofExpiry"
+                           placeholder="Date of Expiry"
+                           type="text">
+                    <nb-datepicker #doe></nb-datepicker>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Relationship officer Name</td>
+                <td><input type="text" class="form-control" formControlName="relationshipofficerName"></td>
+                <td class="abc">{{translatedData?.relationshipofficerName}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.relationshipofficerNameTransVal.errors }"
+                           formControlName="relationshipofficerNameTransVal"/>
+                    <div *ngIf="submitted && Form.relationshipofficerNameTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.relationshipofficerNameTransVal.errors.required">Relationship Officer Name is required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Name of Branch Manager</td>
+                <td><input type="text" class="form-control" formControlName="nameofBranchManager"></td>
+                <td class="abc">{{translatedData?.nameofBranchManager}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.nameofBranchManagerTransVal.errors }"
+                           formControlName="nameofBranchManagerTransVal"/>
+                    <div *ngIf="submitted && Form.nameofBranchManagerTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.nameofBranchManagerTransVal.errors.required">Name of company is required</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="row pt-5 pl-2">
+            <div class="col-md-12">
+                <button nbButton size="small" status="info" outline class="float-right" (click)="translate()">
+                    Translate Template Details
+                </button>
+            </div>
+        </div>
+        <hr/>
+        <button [disabled]="previewBtn" class="float-right" nbButton (click)="openModel()" size="small" status="primary">
+            Preview
+        </button>
+        <button nbButton status="info" (click)="submit()" size="small" type="submit" class="float-right" [disabled]="!btnDisable">Save</button>
+    </form>
+</div>
+</nb-card>

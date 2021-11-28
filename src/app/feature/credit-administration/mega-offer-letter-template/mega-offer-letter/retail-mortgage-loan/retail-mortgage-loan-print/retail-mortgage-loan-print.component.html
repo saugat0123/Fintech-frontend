@@ -12,7 +12,17 @@
         </p>
     </div>
     <div class="mb-2 col-md-12">
+        <span *ngIf="loanHolderInfo?.gender?.en === 'MALE'; else nameDetails">
         श्री
+       </span>
+        <ng-template #nameDetails>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
+                सुश्री
+            </span>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
+                श्रीमती
+            </span>
+        </ng-template>
         <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
                     {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}
                 </span>ज्यु,
@@ -49,7 +59,7 @@
                                 <span [ngClass]="{'font-weight-bold' : letter?.loanPurpose.ct !== null && letter?.loanPurpose.ct !== ''}">
                          {{letter?.loanPurpose.ct === null || letter?.loanPurpose.ct === '' ? '___________' : letter?.loanPurpose.ct}}
                     </span>
-                                गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
+                            प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
                         </td>
                     </tr>
                     <tr>
@@ -73,7 +83,6 @@
                         <td>
                             कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो लेखिदिने घर/जग्गाको निकृष्ट स्थितिको मूल्याङकन
                             (Distress Situation Value) को
-                            <strong>धितो कर्जाः </strong>
                             <span [ngClass]="{'font-weight-bold' : letter?.drawingPower.ct !== null && letter?.drawingPower.ct !== ''}">
                          {{letter?.drawingPower.ct === null || letter?.drawingPower.ct === '' ? '___________' : letter?.drawingPower.ct}}
                     </span>
@@ -266,10 +275,10 @@
                 <td>२.</td>
                 <td>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट (website)
                     तथा
-                    राष्ट्रियस्तरको पत्रिकामा आधार (Quarterly Average Base Rate) प्रकाशित गरिनेछ। यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित
+                    राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार दर(Quarterly Average Base Rate) प्रकाशित गरिनेछ। यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित
                     हुने
                     पछिल्लो
-                    त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा माथि उल्लेख भए बमोजिमका ब्याज दर प्रिमियम (Interest Rate :Premium)
+                    त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा माथि उल्लेख भए बमोजिमका ब्याज दर प्रिमियम (Interest Rate Premium)
                     थप गरी त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ ।
                 </td>
             </tr>
@@ -289,9 +298,10 @@
                     भुक्तानी मितिमा यदी कुनै साँवा/ब्याज
                     बाँकी रहन गएमा उक्त रकम समेत अन्तिम किस्ता भुक्तानी मितिमा सम्पुर्ण बाँकी बक्यौता कर्जा
                     साँवा ब्याज रकम चुक्ता भुक्तान गर्नुपर्नेछ ।
-                    माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको बृद्घी हुन गएबाट
+                    माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको
+                    वृद्धि हुन गएबाट
                     सो अनुसार बैंकले शुरुमा प्रदान
-                    गरेकोरगर्ने किस्ता रकममा परिवर्तन गर्न बाधा पर्ने छैन । स्वीकृत कर्जा प्रवाह पश्चात
+                    गरेको/गर्ने किस्ता रकममा परिवर्तन गर्न बाधा पर्ने छैन । स्वीकृत कर्जा प्रवाह पश्चात
                     त्रैमासिक वा कम्तिमा बर्षको एक पटक बैैंकमा सम्पर्क गरी
                     बक्यौता कर्जा रकम, मासीक किस्ता तथा ब्याज दरको स्थिति सुनिश्चित गर्नु ऋणीको कर्तव्य तथा
                     जिम्मेवारी हुने कुरामा ऋणी मन्जुर गर्दछ ।
@@ -465,7 +475,7 @@
                         </tr>
                         <tr>
                             <td>
-                                ऋणकर्जाको पुर्व निर्धारित सावाँ र ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ३० औं दिन
+                                ऋणकर्जाको पुर्व निर्धारित सावाँ / ब्याज भुक्तानी मिति र वा ऋणकर्जा समाप्ति मिति पछि ३० औं दिन
                                 देखि ८९ औं दिन भित्र नविकरण/चुक्ता नभएमा
                             </td>
                             <td>
@@ -504,14 +514,14 @@
             <tr>
                 <td>१६.</td>
                 <td>माथि उल्लिखित धितो सुरक्षणमा रहेको/रहने घर/जग्गा तपाईंले बैंकको पक्षमा धितोबन्धक पारित गर्दा
-                    लाग्ने सरकारी राजश्व,
+                    लाग्ने सरकारी राजस्व,
                     शुल्क, दैदस्तुर आदी रकम ऋणीले नै तिर्नु व्यहोर्नु पर्नेछ र बैंकको पक्षमा पारित
                     गरिदिएका/गरिदिने सम्पतिहरु/घर/जग्गामा
                     लाग्ने सम्पत्ति कर, जग्गाको तिरो, बिजुली, पानी आदी आवश्यक सम्पूर्ण कर, दस्तुर, शुल्कहरु
                     सम्बन्धित सम्पत्ति धनी
                     स्वयंले वा ऋणीले तिर्नु बुझाउनु पर्नेछ र सो रसिदको प्रतिलिपि नियमित रुपमा बैंकमा पेश गर्नु
                     पर्नेछ । पछि कुनै
-                    कारणले थप राजश्व बुझाउनु पर्ने भएमा सो समेत ऋणी स्वयंले बुझाउनु पर्नेछ ।
+                    कारणले थप राजस्व बुझाउनु पर्ने भएमा सो समेत ऋणी स्वयंले बुझाउनु पर्नेछ ।
                 </td>
             </tr>
             <tr>
@@ -630,13 +640,11 @@
                          {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                      </span>
                         को धितोबन्धक तमसुक ।<br>
-                        ङ. मूल्याङकन प्रतिवेदन प्राप्त ।<br>
-                        च. बहुबैकिङ्ग घोषणा पत्र प्राप्त ।<br>
-                        छ. भवनको निर्माण सम्पन्न प्रमाणपत्र ।
-                    </p>
-                    <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" style="margin-top: -1em">
-                        {{ 8 | nepaliWord}}.
-                        बैंकर्स शर्त सहितको रु.
+                        ङ. मूल्याङकन प्रतिवेदन ।<br>
+                        च. बहुबैकिङ्ग घोषणा पत्र ।
+                        <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" style="margin-top: -1em">
+                        छ. भवनको निर्माण सम्पन्न प्रमाणपत्र । <br/>
+                        ज. बैंकर्स शर्त सहितको रु.
                         <span [ngClass]="{'font-weight-bold' : letter?.insuranceAmount.ct !== null && letter?.insuranceAmount.ct !== ''}">
                         {{letter?.insuranceAmount.ct === null || letter?.insuranceAmount.ct === '' ? '___________' : letter?.insuranceAmount.ct}}
                     </span>
@@ -658,11 +666,11 @@
                             <span class="font-weight-bold">
                             {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                         </span>
-                            मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                            मात्र)बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ति बिवरण दिनु पर्नेछ ।
                         </p>
                     </div>
                     <ng-template #guarantorLand >
-                        <p style="margin-top: -1em"> ज.
+                        <p style="margin-top: -1em"> छ.
                             श्री
                             <span class="font-weight-bold">
                             {{this.finalName}}
@@ -676,12 +684,19 @@
                             <span class="font-weight-bold">
                             {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
                         </span>
-                            मात्र)बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                            मात्र)बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ति बिवरण दिनु पर्नेछ ।
                         </p>
                     </ng-template>
-                    <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12" style="margin-top: -1.5em">
+                    <div *ngIf="offerData?.supportedInformation !== null && selectedSecurity === 'LAND_AND_BUILDING'" class="row col-md-12" style="margin-top: -1.5em">
                         <p>
-                            ञ.<span class="nepaliFont"
+                            ञ. <span class="nepaliFont"
+                                    style="font-size: 24px; margin-top: -15px;">{{offerData?.supportedInformation}}
+                                    </span>
+                        </p>
+                    </div>
+                    <div *ngIf="offerData?.supportedInformation !== null && selectedSecurity !== 'LAND_AND_BUILDING'" class="row col-md-12" style="margin-top: -1.5em">
+                        <p>
+                            ज. <span class="nepaliFont"
                                     style="font-size: 24px; margin-top: -15px;">{{offerData?.supportedInformation}}
                                     </span>
                         </p>

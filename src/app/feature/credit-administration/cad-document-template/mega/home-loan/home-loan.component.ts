@@ -87,7 +87,7 @@ export class HomeLoanComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
-    if (this.tempData.loanType === 'PURCHASE' || this.tempData.loanType === 'TAKEOVER') {
+    if (this.tempData.loanType === this.homeLoanType.PURCHASE || this.tempData.loanType === this.homeLoanType.TAKE_OVER) {
       this.landbuilding = this.tempData.loan.landBuildingType;
     }
     console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
@@ -155,7 +155,8 @@ export class HomeLoanComponent implements OnInit {
       dateofSignature: [undefined],
       municipalityVDC: [undefined],
       nameOfBank: [undefined],
-      moratoriumPeriodInMonth: [undefined]
+      moratoriumPeriodInMonth: [undefined],
+      purposeOfLoan: [undefined],
     });
   }
   setLoanConfigData(data: any) {
@@ -298,7 +299,8 @@ export class HomeLoanComponent implements OnInit {
       relationshipofficerName: this.tempData.loan.nameOfRelationshipOfficerCT ? this.tempData.loan.nameOfRelationshipOfficerCT : '',
       branchManager: this.tempData.loan.nameOfBranchManagerCT ? this.tempData.loan.nameOfBranchManagerCT : '',
       nameOfBank: this.tempData.loan.nameOfBankCT ? this.tempData.loan.nameOfBankCT : '',
-      moratoriumPeriodInMonth: this.tempData.loan.moratoriumPeriodInMonthCT ? this.tempData.loan.moratoriumPeriodInMonthCT : ''
+      moratoriumPeriodInMonth: this.tempData.loan.moratoriumPeriodInMonthCT ? this.tempData.loan.moratoriumPeriodInMonthCT : '',
+      purposeOfLoan: this.tempData.loan.purposeOfLoanCT ? this.tempData.loan.purposeOfLoanCT : '',
     });
   }
   calcYearlyRate() {

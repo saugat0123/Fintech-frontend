@@ -29,6 +29,12 @@ import {HomeLoanTemplateEditComponent} from '../../../cad-view/template-data/hom
 import {RetailMortageLoanTemplateDataEditComponent} from '../../../cad-view/template-data/retail-mortage-loan-template-data-edit/retail-mortage-loan-template-data-edit.component';
 import {AutoLoanTemplateEditComponent} from '../../../cad-view/template-data/auto-loan-template-edit/auto-loan-template-edit.component';
 import {UdhyamsilKarjaSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/udhyamsil-karja-subsidy/udhyamsil-karja-subsidy-template-edit/udhyamsil-karja-subsidy-template-edit.component';
+import {PersonalOverdraftWithoutCollateralTemplateEditComponent} from '../../../cad-view/template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component';
+import {KisanKarjaSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/kisan-karja-subsidy/kisan-karja-subsidy-template-edit/kisan-karja-subsidy-template-edit.component';
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {InterestSubsidySanctionLetterTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-edit/interest-subsidy-sanction-letter-template-edit.component';
+import {DdslWithoutSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/ddsl-without-subsidy/ddsl-without-subsidy-template-edit/ddsl-without-subsidy-template-edit.component';
+import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from '../../../cad-view/template-data/personal-loan-and-personal-overdraft-template-edit/personal-loan-and-personal-overdraft-template-edit.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -53,6 +59,8 @@ export class OfferLetterListComponent implements OnInit {
   user: User = new User();
   roleType = RoleType;
   asc = false;
+  offerLetterName = NabilOfferLetterConst;
+  offerLetterType = NabilOfferLetterConst;
 
   constructor(private service: CreditAdministrationService,
               private router: Router,
@@ -270,6 +278,56 @@ export class OfferLetterListComponent implements OnInit {
                   });
                 } else if (this.docName === 'Udyamsil Karja Subsidy') {
                   this.dialogService.open(UdhyamsilKarjaSubsidyTemplateEditComponent, {
+                    context: {
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === 'Personal overdraft without collateral') {
+                  this.dialogService.open(PersonalOverdraftWithoutCollateralTemplateEditComponent, {
+                    context: {
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === this.offerLetterName.value(this.offerLetterName.INTEREST_SUBSIDY_SANCTION_LETTER)) {
+                  this.dialogService.open(InterestSubsidySanctionLetterTemplateEditComponent, {
+                    context: {
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === 'DDSL Without Subsidy') {
+                  this.dialogService.open(DdslWithoutSubsidyTemplateEditComponent, {
+                    context: {
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === this.offerLetterName.value(this.offerLetterName.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT)) {
+                  this.dialogService.open(PersonalLoanAndPersonalOverdraftTemplateEditComponent, {
+                    context: {
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                  });
+                } else if (this.docName === this.offerLetterType.value(this.offerLetterType.KISAN_KARJA_SUBSIDY)) {
+                  this.dialogService.open(KisanKarjaSubsidyTemplateEditComponent, {
                     context: {
                       customerApprovedDoc: this.cadOfferLetterApprovedDoc,
                       offerDocumentList: this.offerDocumentList,
