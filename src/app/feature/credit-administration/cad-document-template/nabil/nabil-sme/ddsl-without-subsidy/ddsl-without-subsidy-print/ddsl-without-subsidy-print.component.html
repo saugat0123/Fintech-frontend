@@ -2,26 +2,21 @@
     <div class="row">
         <div class="col-md-12 viewFull" style="line-height: 1.9">
             <p>
-                स्वीकृती पत्र नं.-<span
-                    [ngClass]="{'nepaliFont outside' : ddslData?.referenceNo !== null && ddslData?.referenceNo !== ''}">
-                            {{ddslData?.referenceNo === null || ddslData?.referenceNo === '' ? '___________' : ddslData?.referenceNo}}</span><br>
+                स्वीकृती पत्र नं.-{{autoRefNum ? autoRefNum : '_______________________'}}<br>
                 <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong><br><br>
-                मितिः
-                <span [ngClass]="{'nepaliFont outside' : ddslData?.sanctionLetterDate !== null && ddslData?.sanctionLetterDate !== ''}">
-                            {{ddslData?.sanctionLetterDate === null || ddslData?.sanctionLetterDate === '' ? '___________' : ddslData?.sanctionLetterDate}}</span><br><br>
+                मितिः{{sanctionDate ? sanctionDate : ''}}<br>
+
                 श्री/श्रीमती/सुश्री <span
-                    [ngClass]="{'nepaliFont outside' : ddslData?.borrowersName !== null && ddslData?.borrowersName !== ''}">
-                            {{ddslData?.borrowersName === null || ddslData?.borrowersName === '' ? '___________' : ddslData?.borrowersName}}</span><br>
+                    [ngClass]="{'outside' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
+                            {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}</span><br>
                 ठेगानाः <span
-                    [ngClass]="{'nepaliFont outside' : ddslData?.borrowerAddress !== null && ddslData?.borrowerAddress !== ''}">
-                            {{ddslData?.borrowerAddress === null || ddslData?.borrowerAddress === '' ? '___________' : ddslData?.borrowerAddress}}</span><br>
+                    [ngClass]="{'outside' : customerAddress !== null && customerAddress !== ''}">
+                            {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}</span><br>
             </p>
             <p>
                 <strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong><br><br>
                 महोदय,<br>
-                तपाईंले मिति <span
-                    [ngClass]="{'nepaliFont outside' : ddslData?.customerLoanApplicationDate !== null && ddslData?.customerLoanApplicationDate !== ''}">
-                            {{ddslData?.customerLoanApplicationDate === null || ddslData?.customerLoanApplicationDate === '' ? '___________' : ddslData?.customerLoanApplicationDate}}</span>
+                तपाईंले मिति <span>{{applicationDate ? applicationDate : ''}}</span>
                 मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको
                 सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी
                 स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -30,13 +25,13 @@
                 <strong>बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</strong><br><br>
                 महोदय,<br>
                 तपाईंले यस बैंकको मिति वि.सं. <span
-                    [ngClass]="{'nepaliFont outside' : ddslData?.previousSanctionLetterDate !== null && ddslData?.previousSanctionLetterDate !== ''}">
-                            {{ddslData?.previousSanctionLetterDate === null || ddslData?.previousSanctionLetterDate === '' ? '___________' : ddslData?.previousSanctionLetterDate}}</span>
+                    [ngClass]="{'outside' : letter?.previousSanctionLetterDate !== null && letter?.previousSanctionLetterDate !== ''}">
+                            {{letter?.previousSanctionLetterDate === null || letter?.previousSanctionLetterDate === '' ? '___________' : letter?.previousSanctionLetterDate}}</span>
                 को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा
                 सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति
                 वि.सं.<span
-                    [ngClass]="{'nepaliFont outside' : ddslData?.requestLetterDate !== null && ddslData?.requestLetterDate !== ''}">
-                            {{ddslData?.requestLetterDate === null || ddslData?.requestLetterDate === '' ? '___________' : ddslData?.requestLetterDate}}</span>
+                    [ngClass]="{'outside' : letter?.requestLetterDate !== null && letter?.requestLetterDate !== ''}">
+                            {{letter?.requestLetterDate === null || letter?.requestLetterDate === '' ? '___________' : letter?.requestLetterDate}}</span>
                 को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा
                 रहने गरी
                 देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
@@ -53,18 +48,18 @@
                     <tr>
                         <td><strong>कर्जाको उद्देश्य</strong></td>
                         <td colspan="2"><span
-                                [ngClass]="{'nepaliFont outside' : ddslData?.karjaPurpose !== null && ddslData?.karjaPurpose !== ''}">
-                            {{ddslData?.karjaPurpose === null || ddslData?.karjaPurpose === '' ? '___________' : ddslData?.karjaPurpose}}</span>
+                                [ngClass]="{'outside' : letter?.karjaPurpose !== null && letter?.karjaPurpose !== ''}">
+                            {{letter?.karjaPurpose === null || letter?.karjaPurpose === '' ? '___________' : letter?.karjaPurpose}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td><strong>कर्जा रु.(Loan Amount)</strong></td>
                         <td colspan="2"><strong>रु. <span
-                                [ngClass]="{'nepaliFont outside' : ddslData?.loanAmount !== null && ddslData?.loanAmount !== ''}">
-                            {{ddslData?.loanAmount === null || ddslData?.loanAmount === '' ? '___________' : ddslData?.loanAmount}}</span>
+                                [ngClass]="{'outside' : letter?.loanAmount !== null && letter?.loanAmount !== ''}">
+                            {{letter?.loanAmount === null || letter?.loanAmount === '' ? '___________' : letter?.loanAmount}}</span>
                             ।-(अक्षरेपी रु.
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.loanAmountInWord !== null && ddslData?.loanAmountInWord !== ''}">
-                            {{ddslData?.loanAmountInWord === null || ddslData?.loanAmountInWord === '' ? '___________' : ddslData?.loanAmountInWord}}</span>
+                            <span [ngClass]="{'outside' : letter?.loanAmountInWord !== null && letter?.loanAmountInWord !== ''}">
+                            {{letter?.loanAmountInWord === null || letter?.loanAmountInWord === '' ? '___________' : letter?.loanAmountInWord}}</span>
                             मात्र)</strong></td>
                     </tr>
                     <tr>
@@ -83,12 +78,12 @@
                             आधिकारिक
                             मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको (Motorable Road access) को हकमा बजार मुल्य
                             (Market Value) को <span
-                                    [ngClass]="{'nepaliFont outside' : ddslData?.marginInPercentage1 !== null && ddslData?.marginInPercentage1 !== ''}">
-                            {{ddslData?.marginInPercentage1 === null || ddslData?.marginInPercentage1 === '' ? '___________' : ddslData?.marginInPercentage1}}</span>
+                                    [ngClass]="{'outside' : letter?.marginInPercentageMotor !== null && letter?.marginInPercentageMotor !== ''}">
+                            {{letter?.marginInPercentageMotor === null || letter?.marginInPercentageMotor === '' ? '___________' : letter?.marginInPercentageMotor}}</span>
                             प्रतिशत वा गोरेटो बाटो भएको (Foot trail access)को
                             हकमा बजार मुल्य (Market Value) को <span
-                                    [ngClass]="{'nepaliFont outside' : ddslData?.marginInPercentage2 !== null && ddslData?.marginInPercentage2 !== ''}">
-                            {{ddslData?.marginInPercentage2 === null || ddslData?.marginInPercentage2 === '' ? '___________' : ddslData?.marginInPercentage2}}</span>
+                                    [ngClass]="{'outside' : letter?.marginInPercentageFoot !== null && letter?.marginInPercentageFoot !== ''}">
+                            {{letter?.marginInPercentageFoot === null || letter?.marginInPercentageFoot === '' ? '___________' : letter?.marginInPercentageFoot}}</span>
                             प्रतिशत बराबर रकम वा स्वीकृत
                             कर्जा
                             मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
@@ -97,30 +92,30 @@
                     <tr>
                         <td><strong>ब्याज दर :</strong></td>
                         <td colspan="2"><strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.baseRate !== null && ddslData?.baseRate !== ''}">
-                            {{ddslData?.baseRate === null || ddslData?.baseRate === '' ? '___________' : ddslData?.baseRate}}</span>
+                            <span [ngClass]="{'outside' : letter?.baseRate !== null && letter?.baseRate !== ''}">
+                            {{letter?.baseRate === null || letter?.baseRate === '' ? '___________' : letter?.baseRate}}</span>
                             +
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.premiumRate !== null && ddslData?.premiumRate !== ''}">
-                            {{ddslData?.premiumRate === null || ddslData?.premiumRate === '' ? '___________' : ddslData?.premiumRate}}</span>
+                            <span [ngClass]="{'outside' : letter?.premiumRate !== null && letter?.premiumRate !== ''}">
+                            {{letter?.premiumRate === null || letter?.premiumRate === '' ? '___________' : letter?.premiumRate}}</span>
                             प्रतिशत व्याज दर प्रिमियम (Interest Rate
                             Premium)<br>
                             हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक <span
-                                    [ngClass]="{'nepaliFont outside' : ddslData?.totalInterestRate !== null && ddslData?.totalInterestRate !== ''}">
-                            {{ddslData?.totalInterestRate === null || ddslData?.totalInterestRate === '' ? '___________' : ddslData?.totalInterestRate}}</span>
+                                    [ngClass]="{'outside' : letter?.totalInterestRate !== null && letter?.totalInterestRate !== ''}">
+                            {{letter?.totalInterestRate === null || letter?.totalInterestRate === '' ? '___________' : letter?.totalInterestRate}}</span>
                             का दरले निर्धारण गरीएकोछ ।
                         </td>
                     </tr>
                     <tr>
                         <td><strong>साँवा र ब्याज भुक्तानी तरिकाः</strong></td>
                         <td colspan="2">साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.EMIAmount !== null && ddslData?.EMIAmount !== ''}">
-                            {{ddslData?.EMIAmount === null || ddslData?.EMIAmount === '' ? '___________' : ddslData?.EMIAmount}}</span>
+                            <span [ngClass]="{'outside' : letter?.EMIAmount !== null && letter?.EMIAmount !== ''}">
+                            {{letter?.EMIAmount === null || letter?.EMIAmount === '' ? '___________' : letter?.EMIAmount}}</span>
                             (अक्षरेपि रु. <span
-                                    [ngClass]="{'nepaliFont outside' : ddslData?.EMIAmountInWord !== null && ddslData?.EMIAmountInWord !== ''}">
-                            {{ddslData?.EMIAmountInWord === null || ddslData?.EMIAmountInWord === '' ? '___________' : ddslData?.EMIAmountInWord}}</span>
+                                    [ngClass]="{'outside' : letter?.EMIAmountInWord !== null && letter?.EMIAmountInWord !== ''}">
+                            {{letter?.EMIAmountInWord === null || letter?.EMIAmountInWord === '' ? '___________' : letter?.EMIAmountInWord}}</span>
                             मात्र)का दरले <span
-                                    [ngClass]="{'nepaliFont outside' : ddslData?.totalNoOfInstallment !== null && ddslData?.totalNoOfInstallment !== ''}">
-                            {{ddslData?.totalNoOfInstallment === null || ddslData?.totalNoOfInstallment === '' ? '___________' : ddslData?.totalNoOfInstallment}}</span>
+                                    [ngClass]="{'outside' : letter?.totalNoOfInstallment !== null && letter?.totalNoOfInstallment !== ''}">
+                            {{letter?.totalNoOfInstallment === null || letter?.totalNoOfInstallment === '' ? '___________' : letter?.totalNoOfInstallment}}</span>
                             सम
                             मासिक किस्ता (Equated Monthly Installment)हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                         </td>
@@ -128,11 +123,11 @@
                     <tr>
                         <td><strong>सेवा शुल्कः</strong></td>
                         <td colspan="2"><span
-                                [ngClass]="{'nepaliFont outside' : ddslData?.nameOfFacility !== null && ddslData?.nameOfFacility !== ''}">
-                            {{ddslData?.nameOfFacility === null || ddslData?.nameOfFacility === '' ? '___________' : ddslData?.nameOfFacility}}</span>
+                                [ngClass]="{'outside' : letter?.nameOfFacility !== null && letter?.nameOfFacility !== ''}">
+                            {{letter?.nameOfFacility === null || letter?.nameOfFacility === '' ? '___________' : letter?.nameOfFacility}}</span>
                             कर्जाको
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.serviceCharge !== null && ddslData?.serviceCharge !== ''}">
-                            {{ddslData?.serviceCharge === null || ddslData?.serviceCharge === '' ? '___________' : ddslData?.serviceCharge}}</span>
+                            <span [ngClass]="{'outside' : letter?.serviceCharge !== null && letter?.serviceCharge !== ''}">
+                            {{letter?.serviceCharge === null || letter?.serviceCharge === '' ? '___________' : letter?.serviceCharge}}</span>
                             % सेवा शुल्क लाग्नेछ ।
                         </td>
                     </tr>
@@ -145,8 +140,8 @@
                     <tr>
                         <td><strong>कर्जा अवधिः</strong></td>
                         <td colspan="2"><span
-                                [ngClass]="{'nepaliFont outside' : ddslData?.totalTenureOfLoan !== null && ddslData?.totalTenureOfLoan !== ''}">
-                            {{ddslData?.totalTenureOfLoan === null || ddslData?.totalTenureOfLoan === '' ? '___________' : ddslData?.totalTenureOfLoan}}</span>
+                                [ngClass]="{'outside' : letter?.totalTenureOfLoan !== null && letter?.totalTenureOfLoan !== ''}">
+                            {{letter?.totalTenureOfLoan === null || letter?.totalTenureOfLoan === '' ? '___________' : letter?.totalTenureOfLoan}}</span>
                             बर्ष सम्मको लागि मात्र ।
                         </td>
                     </tr>
@@ -156,11 +151,11 @@
                             गरीदिनुका साथै ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहिछाप गरिसके पश्चात सो
                             घर/जग्गाको बैकको आधिकारिक मुल्याङकनकर्ताले तयार परेको प्रतिवेदनमा उल्लिखित उद्घोषित मोटर
                             बाटो भएको (Motorable Road access)को हकमा बजार मुल्य (Market Value) को <span
-                                    [ngClass]="{'nepaliFont outside' : ddslData?.marginInPercentage3 !== null && ddslData?.marginInPercentage3 !== ''}">
-                            {{ddslData?.marginInPercentage3 === null || ddslData?.marginInPercentage3 === '' ? '___________' : ddslData?.marginInPercentage3}}</span>%
+                                    [ngClass]="{'outside' : letter?.marginInPercentageMotor !== null && letter?.marginInPercentageMotor !== ''}">
+                            {{letter?.marginInPercentageMotor === null || letter?.marginInPercentageMotor === '' ? '___________' : letter?.marginInPercentageMotor}}</span>%
                             प्रतिशत वा गोरेटो बाटो भएको (Foot trial access) को हकमा बजार मुल्य (Market Value)को
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.marginInPercentage4 !== null && ddslData?.marginInPercentage4 !== ''}">
-                            {{ddslData?.marginInPercentage4 === null || ddslData?.marginInPercentage4 === '' ? '___________' : ddslData?.marginInPercentage4}}</span>
+                            <span [ngClass]="{'outside' : letter?.marginInPercentageFoot !== null && letter?.marginInPercentageFoot !== ''}">
+                            {{letter?.marginInPercentageFoot === null || letter?.marginInPercentageFoot === '' ? '___________' : letter?.marginInPercentageFoot}}</span>
                             % प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो रकम
                             तपाईंको
                             निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
@@ -197,31 +192,31 @@
                     <td>नगर/गा.वि.स.</td>
                     <td>वडा नं.</td>
                 </tr>
-                <tr>
+                <tr *ngFor="let details of offerDocumentDetails?.securities; let i = index">
                     <td><span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.landOwnerName !== null && ddslData?.landOwnerName !== ''}">
-                            {{ddslData?.landOwnerName === null || ddslData?.landOwnerName === '' ? '___________' : ddslData?.landOwnerName}}</span>
-                    </td>
-                    <td><span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.district !== null && ddslData?.district !== ''}">
-                            {{ddslData?.district === null || ddslData?.district === '' ? '___________' : ddslData?.district}}</span>
+                            [ngClass]="{'outside' : letter?.landOwnerName !== null && letter?.landOwnerName !== ''}">
+                            {{letter?.landOwnerName === null || letter?.landOwnerName === '' ? '___________' : letter?.landOwnerName}}</span>
                     </td>
                     <td><span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.municipalityVDC !== null && ddslData?.municipalityVDC !== ''}">
-                            {{ddslData?.municipalityVDC === null || ddslData?.municipalityVDC === '' ? '___________' : ddslData?.municipalityVDC}}</span>
-                    </td>
-                    <td><span [ngClass]="{'nepaliFont outside' : ddslData?.wardNo !== null && ddslData?.wardNo !== ''}">
-                            {{ddslData?.wardNo === null || ddslData?.wardNo === '' ? '___________' : ddslData?.wardNo}}</span>
+                            [ngClass]="{'outside' : letter?.district !== null && letter?.district !== ''}">
+                            {{letter?.district === null || letter?.district === '' ? '___________' : letter?.district}}</span>
                     </td>
                     <td><span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.sheetNo !== null && ddslData?.sheetNo !== ''}">
-                            {{ddslData?.sheetNo === null || ddslData?.sheetNo === '' ? '___________' : ddslData?.sheetNo}}</span>
+                            [ngClass]="{'outside' : letter?.municipalityVDC !== null && letter?.municipalityVDC !== ''}">
+                            {{letter?.municipalityVDC === null || letter?.municipalityVDC === '' ? '___________' : letter?.municipalityVDC}}</span>
                     </td>
-                    <td><span [ngClass]="{'nepaliFont outside' : ddslData?.plotNo !== null && ddslData?.plotNo !== ''}">
-                            {{ddslData?.plotNo === null || ddslData?.plotNo === '' ? '___________' : ddslData?.plotNo}}</span>
+                    <td><span [ngClass]="{'outside' : letter?.wardNo !== null && letter?.wardNo !== ''}">
+                            {{letter?.wardNo === null || letter?.wardNo === '' ? '___________' : letter?.wardNo}}</span>
                     </td>
-                    <td><span [ngClass]="{'nepaliFont outside' : ddslData?.area !== null && ddslData?.area !== ''}">
-                            {{ddslData?.area === null || ddslData?.area === '' ? '___________' : ddslData?.area}}</span>
+                    <td><span
+                            [ngClass]="{'outside' : letter?.sheetNo !== null && letter?.sheetNo !== ''}">
+                            {{letter?.sheetNo === null || letter?.sheetNo === '' ? '___________' : letter?.sheetNo}}</span>
+                    </td>
+                    <td><span [ngClass]="{'outside' : letter?.plotNo !== null && letter?.plotNo !== ''}">
+                            {{letter?.plotNo === null || letter?.plotNo === '' ? '___________' : letter?.plotNo}}</span>
+                    </td>
+                    <td><span [ngClass]="{'outside' : letter?.area !== null && letter?.area !== ''}">
+                            {{letter?.area === null || letter?.area === '' ? '___________' : letter?.area}}</span>
                     </td>
                 </tr>
                 </tbody>
@@ -246,14 +241,14 @@
             <p><strong>ख. थप/सहायक सुरक्षण (Additional/Secondary Security)</strong></p>
             <p style="margin-left: 2%;"><strong> व्यक्तिगत जमानत (Personal Guarantee):</strong><br>
                 <strong>रु. <span
-                        [ngClass]="{'nepaliFont outside' : ddslData?.approvedCFRLoanAmount !== null && ddslData?.approvedCFRLoanAmount !== ''}">
-                            {{ddslData?.approvedCFRLoanAmount === null || ddslData?.approvedCFRLoanAmount === '' ? '___________' : ddslData?.approvedCFRLoanAmount}}</span>
+                        [ngClass]="{'nepaliFont outside' : letter?.approvedCFRLoanAmount !== null && letter?.approvedCFRLoanAmount !== ''}">
+                            {{letter?.approvedCFRLoanAmount === null || letter?.approvedCFRLoanAmount === '' ? '___________' : letter?.approvedCFRLoanAmount}}</span>
                     ।-(अक्षरेपी रु. <span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.approvedCFRLoanAmountInWord !== null && ddslData?.approvedCFRLoanAmountInWord !== ''}">
-                            {{ddslData?.approvedCFRLoanAmountInWord === null || ddslData?.approvedCFRLoanAmountInWord === '' ? '___________' : ddslData?.approvedCFRLoanAmountInWord}}</span>
+                            [ngClass]="{'nepaliFont outside' : letter?.approvedCFRLoanAmountInWord !== null && letter?.approvedCFRLoanAmountInWord !== ''}">
+                            {{letter?.approvedCFRLoanAmountInWord === null || letter?.approvedCFRLoanAmountInWord === '' ? '___________' : letter?.approvedCFRLoanAmountInWord}}</span>
                     मात्र)</strong> बराबरको
-                <span [ngClass]="{'nepaliFont outside' : ddslData?.approvedCFRPersonalGuarantor !== null && ddslData?.approvedCFRPersonalGuarantor !== ''}">
-                            {{ddslData?.approvedCFRPersonalGuarantor === null || ddslData?.approvedCFRPersonalGuarantor === '' ? '___________' : ddslData?.approvedCFRPersonalGuarantor}}</span>
+                <span [ngClass]="{'nepaliFont outside' : letter?.approvedCFRPersonalGuarantor !== null && letter?.approvedCFRPersonalGuarantor !== ''}">
+                            {{letter?.approvedCFRPersonalGuarantor === null || letter?.approvedCFRPersonalGuarantor === '' ? '___________' : letter?.approvedCFRPersonalGuarantor}}</span>
                 ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ
                 ।
             </p>
@@ -314,12 +309,12 @@
                 <p><strong><u>कर्जा उपयोग सीमाः</u></strong></p>
                 <ol class="conditions-list">
                     <li>माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा <strong>रु.<span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.totalLimit !== null && ddslData?.totalLimit !== ''}">
-                            {{ddslData?.totalLimit === null || ddslData?.totalLimit === '' ? '___________' : ddslData?.totalLimit}}</span>
+                            [ngClass]="{'nepaliFont outside' : letter?.totalLimit !== null && letter?.totalLimit !== ''}">
+                            {{letter?.totalLimit === null || letter?.totalLimit === '' ? '___________' : letter?.totalLimit}}</span>
                         ।-(अक्षरेपी
                         रु.<span
-                                [ngClass]="{'nepaliFont outside' : ddslData?.totalLimitInWord !== null && ddslData?.totalLimitInWord !== ''}">
-                            {{ddslData?.totalLimitInWord === null || ddslData?.totalLimitInWord === '' ? '___________' : ddslData?.totalLimitInWord}}</span>
+                                [ngClass]="{'nepaliFont outside' : letter?.totalLimitInWord !== null && letter?.totalLimitInWord !== ''}">
+                            {{letter?.totalLimitInWord === null || letter?.totalLimitInWord === '' ? '___________' : letter?.totalLimitInWord}}</span>
                         मात्र)</strong> भन्दा बढी हुनु हुनेछैन ।
                     </li>
                     <li>माथि बुँदामा/बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा कथमकदाचित बढी रकम
@@ -449,8 +444,8 @@
                     <li>आधारभूत सुविधाहरु सहित तपाईंले आफ्नोे गोदाम/वेयरहाउस राम्रो अवस्थामा राख्नुपर्नेछ ।
                     </li>
                     <li>गोदाम/वेयर हाउसमा सबैले स्पष्ट देखिने गरी “यो सामान नबिल बैंक लिमिटेड, <span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.nameOfBranch !== null && ddslData?.nameOfBranch !== ''}">
-                            {{ddslData?.nameOfBranch === null || ddslData?.nameOfBranch === '' ? '___________' : ddslData?.nameOfBranch}}</span>
+                            [ngClass]="{'nepaliFont outside' : letter?.nameOfBranch !== null && letter?.nameOfBranch !== ''}">
+                            {{letter?.nameOfBranch === null || letter?.nameOfBranch === '' ? '___________' : letter?.nameOfBranch}}</span>
                         शाखाको नाममा धितोबन्धक (Hypothecation) गरिएको छ” भन्ने धितोबन्धक सूचना पाटी (Hypothecation
                         Board) झुण्ड्याउनु पर्नेछ ।
                     </li>
@@ -628,8 +623,8 @@
                             यस ऋण सुविधा स्वीकृति पत्रको उल्लंघन भएको मानिनेछ ।</span>
                     </li>
                     <li>
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.extraFinancialClause !== null && ddslData?.extraFinancialClause !== ''}">
-                            {{ddslData?.extraFinancialClause === null || ddslData?.extraFinancialClause === '' ? '___________' : ddslData?.extraFinancialClause}}</span>
+                            <span [ngClass]="{'nepaliFont outside' : letter?.extraFinancialClause !== null && letter?.extraFinancialClause !== ''}">
+                            {{letter?.extraFinancialClause === null || letter?.extraFinancialClause === '' ? '___________' : letter?.extraFinancialClause}}</span>
                     </li>
                 </ol>
                 <p style="margin-left: 3%;"><strong><u>अन्य शर्तहरु</u></strong></p>
@@ -685,56 +680,56 @@
                         कारण फिर्ता भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                     </li>
                     <li>
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.additionalOtherClause !== null && ddslData?.additionalOtherClause !== ''}">
-                            {{ddslData?.additionalOtherClause === null || ddslData?.additionalOtherClause === '' ? '___________' : ddslData?.additionalOtherClause}}</span>
+                            <span [ngClass]="{'nepaliFont outside' : letter?.additionalOtherClause !== null && letter?.additionalOtherClause !== ''}">
+                            {{letter?.additionalOtherClause === null || letter?.additionalOtherClause === '' ? '___________' : letter?.additionalOtherClause}}</span>
                     </li>
                 </ol>
             </div>
             <div>
                 <p><strong><u>कागजपत्रहरु</u></strong></p>
                 <p>ऋणीले बैंकको <span
-                        [ngClass]="{'nepaliFont outside' : ddslData?.nameOfBranch1 !== null && ddslData?.nameOfBranch1 !== ''}">
-                            {{ddslData?.nameOfBranch1 === null || ddslData?.nameOfBranch1 === '' ? '___________' : ddslData?.nameOfBranch1}}</span>
+                        [ngClass]="{'nepaliFont outside' : letter?.nameOfBranch !== null && letter?.nameOfBranch !== ''}">
+                            {{letter?.nameOfBranch === null || letter?.nameOfBranch === '' ? '___________' : letter?.nameOfBranch}}</span>
                     शाखामा सम्पर्क राखी देहाय बमोजिमका कर्जा सम्बन्धी
                     कागजपत्रहरु
                     सहीछाप गर्नु पर्नेछ । साथै माथि उल्लिखित कर्जा सुविधाहरु प्रवाह गर्नको लागि आवश्यक निवेदन तथा
                     अन्य कागजातहरु बैंकमा पेश गर्नुपर्नेछ ।</p>
                 <ul style="margin-left: 3%;">
                     <li>रु.<span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.promissoryAmount !== null && ddslData?.promissoryAmount !== ''}">
-                            {{ddslData?.promissoryAmount === null || ddslData?.promissoryAmount === '' ? '___________' : ddslData?.promissoryAmount}}</span>
+                            [ngClass]="{'nepaliFont outside' : letter?.loanAmount !== null && letter?.loanAmount !== ''}">
+                            {{letter?.loanAmount === null || letter?.loanAmount === '' ? '___________' : letter?.loanAmount}}</span>
                         ।(बराबरको प्रतिज्ञा पत्र (Promissory Note)
                     </li>
                     <li>निरन्तरताको लिखत (Letter of Continuity)</li>
                     <li>रु.<span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.supplementaryAmount !== null && ddslData?.supplementaryAmount !== ''}">
-                            {{ddslData?.supplementaryAmount === null || ddslData?.supplementaryAmount === '' ? '___________' : ddslData?.supplementaryAmount}}</span>
+                            [ngClass]="{'nepaliFont outside' : letter?.loanAmount !== null && letter?.loanAmount !== ''}">
+                            {{letter?.loanAmount === null || letter?.loanAmount === '' ? '___________' : letter?.loanAmount}}</span>
                         ।-बराबरकोे पूरक सम्झौता (Supplementary Agreement) सहित श्री-सम्पत्ति
                         धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation)
                     </li>
                     <li>रु.<span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.powerOfAttorneyAmount !== null && ddslData?.powerOfAttorneyAmount !== ''}">
-                            {{ddslData?.powerOfAttorneyAmount === null || ddslData?.powerOfAttorneyAmount === '' ? '___________' : ddslData?.powerOfAttorneyAmount}}</span>
+                            [ngClass]="{'nepaliFont outside' : letter?.loanAmount !== null && letter?.loanAmount !== ''}">
+                            {{letter?.loanAmount === null || letter?.loanAmount === '' ? '___________' : letter?.loanAmount}}</span>
                         ।-बराबरकोे वारेसनामा (Power of Attorney) सहितभुक्तानी प्राप्त गर्न
                         बांकी रकम
                         संकलन गर्ने अख्तियारनामा (Assignment of Receivables)
                     </li>
                     <li>रु.<span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.loanDeedAmount !== null && ddslData?.loanDeedAmount !== ''}">
-                            {{ddslData?.loanDeedAmount === null || ddslData?.loanDeedAmount === '' ? '___________' : ddslData?.loanDeedAmount}}</span>
+                            [ngClass]="{'nepaliFont outside' : letter?.loanAmount !== null && letter?.loanAmount !== ''}">
+                            {{letter?.loanAmount === null || letter?.loanAmount === '' ? '___________' : letter?.loanAmount}}</span>
                         ।-बराबरको ऋणतमसुक (Loan Deed)
                     </li>
                     <li>कित्ता नं. <span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.mortgageDeedPlotNo !== null && ddslData?.mortgageDeedPlotNo !== ''}">
-                            {{ddslData?.mortgageDeedPlotNo === null || ddslData?.mortgageDeedPlotNo === '' ? '___________' : ddslData?.mortgageDeedPlotNo}}</span>
+                            [ngClass]="{'nepaliFont outside' : letter?.mortgageDeedPlotNo !== null && letter?.mortgageDeedPlotNo !== ''}">
+                            {{letter?.mortgageDeedPlotNo === null || letter?.mortgageDeedPlotNo === '' ? '___________' : letter?.mortgageDeedPlotNo}}</span>
                         को धितोबन्धक तमसुक(Mortgage Deed)
                     </li>
                     <li>रु.<span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.personalGuaranteeAmount !== null && ddslData?.personalGuaranteeAmount !== ''}">
-                            {{ddslData?.referencepersonalGuaranteeAmountNo === null || ddslData?.personalGuaranteeAmount === '' ? '___________' : ddslData?.personalGuaranteeAmount}}</span>
+                            [ngClass]="{'nepaliFont outside' : letter?.personalGuaranteeAmount !== null && letter?.personalGuaranteeAmount !== ''}">
+                            {{letter?.personalGuaranteeAmount === null || letter?.personalGuaranteeAmount === '' ? '___________' : letter?.personalGuaranteeAmount}}</span>
                         ।-(बराबरको श्री <span
-                                [ngClass]="{'nepaliFont outside' : ddslData?.nameOfPersonalGuarantor !== null && ddslData?.nameOfPersonalGuarantor !== ''}">
-                            {{ddslData?.nameOfPersonalGuarantor === null || ddslData?.nameOfPersonalGuarantor === '' ? '___________' : ddslData?.nameOfPersonalGuarantor}}</span>
+                                [ngClass]="{'nepaliFont outside' : letter?.nameOfPersonalGuarantor !== null && letter?.nameOfPersonalGuarantor !== ''}">
+                            {{letter?.nameOfPersonalGuarantor === null || letter?.nameOfPersonalGuarantor === '' ? '___________' : letter?.nameOfPersonalGuarantor}}</span>
                         ले बैंकको पक्षमा लेखिदिनुपर्ने
                         व्यक्तिगत
                         जमानत (Personal Guarantee)
@@ -746,8 +741,8 @@
                     </li>
                     <li>विमालेख घोषणा पत्र (Insurance Declaration Statement)</li>
                     <li><span
-                            [ngClass]="{'nepaliFont outside' : ddslData?.extraSecurityDocument !== null && ddslData?.extraSecurityDocument !== ''}">
-                            {{ddslData?.extraSecurityDocument === null || ddslData?.extraSecurityDocument === '' ? '___________' : ddslData?.extraSecurityDocument}}</span>
+                            [ngClass]="{'nepaliFont outside' : letter?.extraSecurityDocument !== null && letter?.extraSecurityDocument !== ''}">
+                            {{letter?.extraSecurityDocument === null || letter?.extraSecurityDocument === '' ? '___________' : letter?.extraSecurityDocument}}</span>
                     </li>
                 </ul>
                 <p>यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको
@@ -760,29 +755,35 @@
                     अन्यथा, स्वीकृत ऋण सुविधा स्वतः रद्द हुनेछ ।
                 </p>
             </div>
-            <div class="row">
-                <div class="col-lg-9">
-                                <span [ngClass]="{'nepaliFont outside' : ddslData?.nameOfARO !== null && ddslData?.nameOfARO !== ''}">
-                            {{ddslData?.nameOfARO === null || ddslData?.nameOfARO === '' ? '___________' : ddslData?.nameOfARO}}</span>
-                    <br>
-                    <span [ngClass]="{'nepaliFont outside' : ddslData?.position !== null && ddslData?.position !== ''}">
-                            {{ddslData?.position === null || ddslData?.position === '' ? '___________' : ddslData?.position}}</span>
-                    <br>
-                    &nbsp;&nbsp;नबिल बैंक लि.<br>
-                    <span [ngClass]="{'nepaliFont outside' : ddslData?.nameOfBranch2 !== null && ddslData?.nameOfBranch2 !== ''}">
-                            {{ddslData?.nameOfBranch2 === null || ddslData?.nameOfBranch2 === '' ? '___________' : ddslData?.nameOfBranch2}}</span>
-                    शाखा
+            <div class="col-md-12 d-flex justify-content-between">
+                <div class="right-content">
+                    .........................................
+                    <p>
+                         <span [ngClass]="{'nepaliFont outside' : letter?.nameOfARO !== null && letter?.nameOfARO !== ''}">
+                            {{letter?.nameOfARO === null || letter?.nameOfARO === '' ? '___________' : letter?.nameOfARO}}</span>
+                        <br>
+                        <span [ngClass]="{'nepaliFont outside' : letter?.position !== null && letter?.position !== ''}">
+                            {{letter?.position === null || letter?.position === '' ? '___________' : letter?.position}}</span>
+                        <br>
+                        नबिल बैंक लि.<br>
+                        <span [ngClass]="{'nepaliFont outside' : letter?.nameOfBranch !== null && letter?.nameOfBranch !== ''}">
+                            {{letter?.nameOfBranch === null || letter?.nameOfBranch === '' ? '___________' : letter?.nameOfBranch}}</span>
+                        शाखा
+                    </p>
                 </div>
-                <div class="col-lg-3">
-                                <span [ngClass]="{'nepaliFont outside' : ddslData?.nameOfBranchManager !== null && ddslData?.nameOfBranchManager !== ''}">
-                            {{ddslData?.nameOfBranchManager === null || ddslData?.nameOfBranchManager === '' ? '___________' : ddslData?.nameOfBranchManager}}</span><br>
-                    <span [ngClass]="{'nepaliFont outside' : ddslData?.position1 !== null && ddslData?.position1 !== ''}">
-                            {{ddslData?.position1 === null || ddslData?.position1 === '' ? '___________' : ddslData?.position1}}</span>
-                    <br>
-                    &nbsp;&nbsp;नबिल बैंक लि.<br>
-                    <span [ngClass]="{'nepaliFont outside' : ddslData?.nameOfBranch3 !== null && ddslData?.nameOfBranch3 !== ''}">
-                            {{ddslData?.nameOfBranch3 === null || ddslData?.nameOfBranch3 === '' ? '___________' : ddslData?.nameOfBranch3}}</span>
-                    शाखा
+                <div class="left-content">
+                    .........................................
+                    <p>
+                       <span [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager !== null && letter?.nameOfBranchManager !== ''}">
+                            {{letter?.nameOfBranchManager === null || letter?.nameOfBranchManager === '' ? '___________' : letter?.nameOfBranchManager}}</span><br>
+                        <span [ngClass]="{'nepaliFont outside' : letter?.position1 !== null && letter?.position1 !== ''}">
+                            {{letter?.position1 === null || letter?.position1 === '' ? '___________' : letter?.position1}}</span>
+                        <br>
+                        नबिल बैंक लि.<br>
+                        <span [ngClass]="{'nepaliFont outside' : letter?.nameOfBranch !== null && letter?.nameOfBranch !== ''}">
+                            {{letter?.nameOfBranch === null || letter?.nameOfBranch === '' ? '___________' : letter?.nameOfBranch}}</span>
+                        शाखा
+                    </p>
                 </div>
             </div>
             <hr>
@@ -841,19 +842,19 @@
                         भाञ्जा, भाञ्जी, नाति, नातिनी, नातिनी बुहारी, नातिनी ज्वाइँ समेतलाई बुझाउनेछ ।)
                     </li>
                     <li>
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.extraTermsAndConditionsNRB !== null && ddslData?.extraTermsAndConditionsNRB !== ''}">
-                            {{ddslData?.extraTermsAndConditionsNRB === null || ddslData?.extraTermsAndConditionsNRB === '' ? '___________' : ddslData?.extraTermsAndConditionsNRB}}</span>
+                            <span [ngClass]="{'nepaliFont outside' : letter?.extraTermsAndConditionsNRB !== null && letter?.extraTermsAndConditionsNRB !== ''}">
+                            {{letter?.extraTermsAndConditionsNRB === null || letter?.extraTermsAndConditionsNRB === '' ? '___________' : letter?.extraTermsAndConditionsNRB}}</span>
                     </li>
                 </ol>
             </div>
-            <div class="row">
-                <div class="col-lg-8"></div>
-                <div class="col-lg-4">
-                    <p>................................<br>
-                        आधिकारिक हस्ताक्षर (ऋणी)<br>
+            <div class="col-md-12 d-flex justify-content-between">
+                <div class="right-content"></div>
+                <div class="left-content">
+                    .........................................
+                    <p>आधिकारिक हस्ताक्षर (ऋणी)<br>
                         मितिः<span
-                                [ngClass]="{'nepaliFont outside' : ddslData?.sanctionLetterAcceptedDate !== null && ddslData?.sanctionLetterAcceptedDate !== ''}">
-                            {{ddslData?.sanctionLetterAcceptedDate === null || ddslData?.sanctionLetterAcceptedDate === '' ? '___________' : ddslData?.sanctionLetterAcceptedDate}}</span>
+                                [ngClass]="{'nepaliFont outside' : letter?.sanctionLetterAcceptedDate !== null && letter?.sanctionLetterAcceptedDate !== ''}">
+                            {{letter?.sanctionLetterAcceptedDate === null || letter?.sanctionLetterAcceptedDate === '' ? '___________' : letter?.sanctionLetterAcceptedDate}}</span>
                     </p>
                 </div>
             </div>
@@ -861,24 +862,11 @@
                 <div class="col">
                     <p><strong><u>साक्षीः</u></strong></p>
                     <ol class="conditions-list">
-                        <li><span
-                                [ngClass]="{'nepaliFont outside' : ddslData?.witnessDistrict !== null && ddslData?.witnessDistrict !== ''}">
-                            {{ddslData?.witnessDistrict === null || ddslData?.witnessDistrict === '' ? '___________' : ddslData?.witnessDistrict}}</span>
-                            जिल्ला <span
-                                    [ngClass]="{'nepaliFont outside' : ddslData?.witnessMuc !== null && ddslData?.witnessMuc !== ''}">
-                            {{ddslData?.witnessMuc === null || ddslData?.witnessMuc === '' ? '___________' : ddslData?.witnessMuc}}</span>
-                            गा.वि.स./न.पा.,वडा नं.
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.witnessWardNo !== null && ddslData?.witnessWardNo !== ''}">
-                            {{ddslData?.witnessWardNo === null || ddslData?.witnessWardNo === '' ? '___________' : ddslData?.witnessWardNo}}</span>
-                            बस्ने
-                            श्री
-                            <span [ngClass]="{'nepaliFont outside' : ddslData?.witnessName !== null && ddslData?.witnessName !== ''}">
-                            {{ddslData?.witnessName === null || ddslData?.witnessName === '' ? '___________' : ddslData?.witnessName}}</span>
+                        <li>_________________________________________जिल्ला ____________________________________
+                            गा.वि.स./न.पा.,वडा नं.____________ बस्ने श्री __________________________________
                         </li>
                         <li>कारणीले प्रूस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि.का
-                            कर्मचारी श्री<span
-                                    [ngClass]="{'nepaliFont outside' : ddslData?.karmachariName !== null && ddslData?.karmachariName !== ''}">
-                            {{ddslData?.karmachariName === null || ddslData?.karmachariName === '' ? '___________' : ddslData?.karmachariName}}</span>
+                            कर्मचारी श्री ____________________________________
                         </li>
                     </ol>
                 </div>

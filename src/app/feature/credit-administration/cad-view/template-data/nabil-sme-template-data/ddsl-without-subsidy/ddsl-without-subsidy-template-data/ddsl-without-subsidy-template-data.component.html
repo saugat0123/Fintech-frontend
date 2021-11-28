@@ -114,10 +114,29 @@
                                nbInput status="success" type="text">
                     </div>
                     <div class="form-group">
-                        <label for="marginInPercentage">Margin In Percentage</label>
-                        <input class="form-control" formControlName="marginInPercentage" fullWidth
-                               id="marginInPercentage"
+                        <label for="marginInPercentageMotor">Margin In Percentage (Motorable Road)</label>
+                        <input class="form-control" formControlName="marginInPercentageMotor" fullWidth
+                               id="marginInPercentageMotor"
                                nbInput status="success" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="marginInPercentageFoot">Margin In Percentage (Foot Trial)</label>
+                        <input class="form-control" formControlName="marginInPercentageFoot" fullWidth
+                               id="marginInPercentageFoot"
+                               nbInput status="success" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="loanLimitAmountFigure">Loan Limit Amount In Figure</label>
+                        <input (input)="getNumAmountWord('loanLimitAmountFigure', 'loanLimitAmountFigureWords')"
+                               class="form-control" formControlName="loanLimitAmountFigure" fullWidth
+                               id="loanLimitAmountFigure"
+                               nbInput status="success" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="loanLimitAmountFigureWords">Loan Limit Amount In Words</label>
+                        <input class="form-control" formControlName="loanLimitAmountFigureWords" fullWidth
+                               id="loanLimitAmountFigureWords"
+                               nbInput status="success" type="text">
                     </div>
                     <div class="form-group">
                         <label for="baseRate">Base Rate</label>
@@ -253,9 +272,28 @@
                                nbInput status="success" type="text" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="marginInPercentageTrans">Margin In Percentage Translation </label>
-                        <input class="form-control" formControlName="marginInPercentageTrans" fullWidth
-                               id="marginInPercentageTrans"
+                        <label for="marginInPercentageMotorTrans">Margin In Percentage (Motorable Road) Translation</label>
+                        <input class="form-control" formControlName="marginInPercentageMotorTrans" fullWidth
+                               id="marginInPercentageMotorTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="marginInPercentageFootTrans">Margin In Percentage (Foot Trial) Translation</label>
+                        <input class="form-control" formControlName="marginInPercentageFootTrans" fullWidth
+                               id="marginInPercentageFootTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="loanLimitAmountFigureTrans">Loan Limit Amount In Figure Translation </label>
+                        <input (input)="getNumAmountWord('loanLimitAmountFigure', 'loanLimitAmountFigureWords')"
+                               class="form-control" formControlName="loanLimitAmountFigureTrans" fullWidth
+                               id="loanLimitAmountFigureTrans"
+                               nbInput status="success" type="text" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanLimitAmountFigureWordsTrans">Loan Limit Amount In Words Translation </label>
+                        <input class="form-control" formControlName="loanLimitAmountFigureWordsTrans" fullWidth
+                               id="loanLimitAmountFigureWordsTrans"
                                nbInput status="success" type="text" readonly>
                     </div>
                     <div class="form-group">
@@ -442,14 +480,48 @@
                         </span>
                     </div>
                     <div class="form-group">
-                        <label for="marginInPercentageCT">Margin In Percentage CT</label>
-                        <input class="form-control" formControlName="marginInPercentageCT" fullWidth
-                               id="marginInPercentageCT"
+                        <label for="marginInPercentageMotorCT">Margin In Percentage (Motorable Road) CT</label>
+                        <input class="form-control" formControlName="marginInPercentageMotorCT" fullWidth
+                               id="marginInPercentageMotorCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.marginInPercentageCT.errors }"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.marginInPercentageMotorCT.errors }"
                                type="text">
-                        <span *ngIf="submitted && FormControls.marginInPercentageCT.invalid" class="text-danger">
-                            Margin In Percentage is required
+                        <span *ngIf="submitted && FormControls.marginInPercentageMotorCT.invalid" class="text-danger">
+                            Margin In Percentage (Motorable Road) is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="marginInPercentageFootCT">Margin In Percentage (Foot Trial) Translation</label>
+                        <input class="form-control" formControlName="marginInPercentageFootCT" fullWidth
+                               id="marginInPercentageFootCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.marginInPercentageFootCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.marginInPercentageFootCT.invalid" class="text-danger">
+                            Margin In Percentage (Foot Trial) is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanLimitAmountFigureCT">Loan Amount In Figure CT</label>
+                        <input (input)="getNumAmountWord('loanLimitAmountFigure', 'loanLimitAmountFigureWords')"
+                               class="form-control" formControlName="loanLimitAmountFigureCT" fullWidth
+                               id="loanLimitAmountFigureCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.loanLimitAmountFigureCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.loanLimitAmountFigureCT.invalid" class="text-danger">
+                            Loan Limit Amount Figure is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanLimitAmountFigureWordsCT">Loan Limit Amount In Words CT</label>
+                        <input class="form-control" formControlName="loanLimitAmountFigureWordsCT" fullWidth
+                               id="loanLimitAmountFigureWordsCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.loanLimitAmountFigureWordsCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.loanLimitAmountFigureWordsCT.invalid" class="text-danger">
+                            Loan Limit Amount In Words is required
                         </span>
                     </div>
                     <div class="form-group">
