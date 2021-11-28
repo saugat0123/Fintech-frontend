@@ -50,7 +50,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
   provinceList = [];
   allDistrictList = [];
   selectedAD = true;
-  interestSubsidy = false;
+  isInterestSubsidy = false;
   isCustomerNew = false;
   attributes;
   translatedValues: any = {};
@@ -99,10 +99,10 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       if (loanType === this.loanOptions.NEW) {
         this.isCustomerNew = true;
       }
-      const tempInterestSubsidy = this.initialInformation.interestSubsidy ?
-          this.initialInformation.interestSubsidy.en : false;
+      const tempInterestSubsidy = this.initialInformation.isInterestSubsidy ?
+          this.initialInformation.isInterestSubsidy.en : false;
       if (!ObjectUtil.isEmpty(tempInterestSubsidy)) {
-        this.interestSubsidy = tempInterestSubsidy;
+        this.isInterestSubsidy = tempInterestSubsidy;
       }
       // For Date Flag:
       const tempApprovalType = this.initialInformation.dateOfApprovalType ?
@@ -388,8 +388,8 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.dialogRef.close();
   }
   interestSubsidyCheck(data) {
-    this.interestSubsidy = data;
-    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.interestSubsidy);
+    this.isInterestSubsidy = data;
+    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
   }
 
   mappedData() {
@@ -409,7 +409,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
   async translateAndSetVal() {
     this.spinner = true;
     // Set Translate Data:
-    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.interestSubsidy);
+    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
     this.kisanKarjaSubsidy.get('loanOptionTrans').patchValue(this.kisanKarjaSubsidy.get('loanOption').value);
     this.kisanKarjaSubsidy.get('repaymentTypeTrans').patchValue(this.kisanKarjaSubsidy.get('repaymentType').value);
     // Set Translated Date of Approval
@@ -693,7 +693,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       this.kisanKarjaSubsidy.get('previousSanctionDateCT').updateValueAndValidity();
     }
     // Clear Validation for other optional fields.
-    if (!this.interestSubsidy) {
+    if (!this.isInterestSubsidy) {
       this.kisanKarjaSubsidy.get('circularRateCT').clearValidators();
       this.kisanKarjaSubsidy.get('circularRateCT').updateValueAndValidity();
     }
@@ -794,7 +794,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     const tempInterestSub = this.initialInformation.interestSubsidy ?
         this.initialInformation.interestSubsidy.en : false;
     if (!ObjectUtil.isEmpty(tempInterestSub)) {
-      this.interestSubsidy = tempInterestSub;
+      this.isInterestSubsidy = tempInterestSub;
     }
     this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.initialInformation.interestSubsidy.en);
     this.kisanKarjaSubsidy.get('dateOfApprovalType').patchValue(this.initialInformation.dateOfApprovalType.en);

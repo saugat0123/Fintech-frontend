@@ -23,7 +23,7 @@
                     </ng-select>
                 </div>
                 <div class="col-md-12 mt-3" *ngIf="isLoanOptionSelected">
-                    <nb-checkbox #interestSubsidy (checkedChange)="interestSubsidyCheck(interestSubsidy.checked)" [checked]="interestSubsidy">
+                    <nb-checkbox #interestSubsidy (checkedChange)="interestSubsidyCheck(interestSubsidy.checked)" [checked]="isInterestSubsidy">
                         <i>Is Interest Subsidy ?</i></nb-checkbox>
                 </div>
             </div>
@@ -171,7 +171,7 @@
                                nbInput status="success" type="number">
                     </div>
 
-                    <div class="form-group" *ngIf="interestSubsidy">
+                    <div class="form-group" *ngIf="isInterestSubsidy">
                         <label for="circularRate">Rate As Per NRB Circular</label>
                         <input class="form-control" formControlName="circularRate" fullWidth id="circularRate"
                                nbInput status="success" type="number">
@@ -300,7 +300,7 @@
                                nbInput status="success" type="text" readonly>
                     </div>
 
-                    <div class="form-group" *ngIf="interestSubsidy">
+                    <div class="form-group" *ngIf="isInterestSubsidy">
                         <label for="circularRateTrans">Rate As Per NRB Circular Translation </label>
                         <input class="form-control" formControlName="circularRateTrans" fullWidth id="circularRateTrans"
                                nbInput status="success" type="text" readonly>
@@ -515,7 +515,7 @@
                         </span>
                     </div>
 
-                    <div class="form-group" *ngIf="interestSubsidy">
+                    <div class="form-group" *ngIf="isInterestSubsidy">
                         <label for="circularRateCT">Rate As Per NRB Circular CT</label>
                         <input class="form-control" formControlName="circularRateCT" fullWidth id="circularRateCT"
                                nbInput status="success"

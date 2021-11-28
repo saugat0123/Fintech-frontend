@@ -9,7 +9,7 @@
             <h5 class="text-left"><strong> ऋणकर्जा सुविधा स्वीकृति पत्र </strong></h5>
             <p class="text-left">
                 मितिः
-                <span>{{finalDateOfApproval}}</span>
+                <span><strong>{{finalDateOfApproval}}</strong></span>
             </p>
             <div class="mb-2">
                 <p>श्री/श्रीमती/सुश्री
@@ -30,9 +30,9 @@
                         तपाईंले
                         <span class="text-left">
                             मितिः
-                            <span>{{finalDateOfApplication}}</span>
+                            <span><strong>{{finalDateOfApplication}}</strong></span>
                     </span>
-                        मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु
+                         मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु
                         देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं ।
                     </p>
                 </div>
@@ -48,13 +48,13 @@
                         तपाईंले यस बैंकको
                         <span class="text-left">
                             मितिः
-                            <span>{{finalPrevSanctionLetterDate}}</span>
+                            <span> <strong>{{finalPrevSanctionLetterDate}}</strong> </span>
                     </span>
-                        को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त
+                         को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त
                         ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको
                         <span class="text-left">
                             मितिः
-                            <span>{{finalNextReviewDate}}</span>
+                            <span> <strong>{{finalNextReviewDate}}</strong> </span>
                     </span>को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय
                         बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
                     </p>
@@ -127,14 +127,14 @@
                                 आवधिक कर्जाको हकमा संलग्न अनुमानित भुक्तानी तालिका बमोजिम चुक्ता भुक्तानी गर्नु पर्नेछ ।
                                 साथै अल्पकालिन कर्जाको हकमा देहाय बामोजिम हुनेछ ।<br>
                                 क. अल्पकालिन कर्जा १:
-                                <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.firstText=== null && this.freeInformation.firstText=== ''}">
+                                <span class="nepaliFont" [ngClass]="{'nepaliFont outside' : this.freeInformation.firstText=== null && this.freeInformation.firstText=== ''}">
                                 {{this.freeInformation.firstText === null || this.freeInformation.firstText === '' ? '_________________________________' : this.freeInformation.firstText}}</span><br>
                                 ख. अल्पकालिन कर्जा २:
-                                <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.secondText=== null && this.freeInformation.secondText=== ''}">
+                                <span class="nepaliFont" [ngClass]="{'nepaliFont outside' : this.freeInformation.secondText=== null && this.freeInformation.secondText=== ''}">
                                 {{this.freeInformation.secondText === null || this.freeInformation.secondText === '' ? '_________________________________' : this.freeInformation.secondText}}</span>
                                 <br>
                                 ग. अल्पकालिन कर्जा ३:
-                                <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.thirdText=== null && this.freeInformation.thirdText!== ''}">
+                                <span class="nepaliFont" [ngClass]="{'nepaliFont outside' : this.freeInformation.thirdText=== null && this.freeInformation.thirdText!== ''}">
                                 {{this.freeInformation.thirdText === null || this.freeInformation.thirdText === '' ? '_________________________________' : this.freeInformation.thirdText}}</span><br>
                             </td>
                         </tr>
@@ -167,7 +167,7 @@
                             </strong>
                             </td>
                             <td>
-                                <span>{{finalNextReviewDate}}</span>
+                                <span> <strong>{{finalNextReviewDate}}</strong> </span>
                             </td>
                         </tr>
                         <tr>
@@ -223,7 +223,7 @@
 
                     </table>
                     <p style="margin-left: 5px">
-                       <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.fourthText=== null && this.freeInformation.fourthText=== ''}">
+                       <span class="nepaliFont" [ngClass]="{'nepaliFont outside' : this.freeInformation.fourthText=== null && this.freeInformation.fourthText=== ''}">
                                 {{this.freeInformation.fourthText === null || this.freeInformation.fourthText === '' ? '_________________________________' : this.freeInformation.fourthText}}</span><br>
                     </p>
 
@@ -391,7 +391,7 @@
                             </div>
                         </div>
                     </div>
-                    <span style="margin-left: 5px"  [ngClass]="{'nepaliFont outside' : this.freeInformation.fifthText=== null && this.freeInformation.fifthText=== ''}">
+                    <span class="nepaliFont" style="margin-left: 5px"  [ngClass]="{'nepaliFont outside' : this.freeInformation.fifthText=== null && this.freeInformation.fifthText=== ''}">
                                 {{this.freeInformation.fifthText === null || this.freeInformation.fifthText === '' ? '_________________________________' : this.freeInformation.fifthText}}</span>
 
                     <div class="service-contions mt-5">
@@ -579,7 +579,7 @@
 
                                     </li>
                                     <li>
-                                         <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.sixthText=== null && this.freeInformation.sixthText=== ''}">
+                                         <span class="nepaliFont" [ngClass]="{'nepaliFont outside' : this.freeInformation.sixthText=== null && this.freeInformation.sixthText=== ''}">
                                 {{this.freeInformation.sixthText === null || this.freeInformation.sixthText === '' ? '_________________________________' : this.freeInformation.sixthText}}</span>
                                     </li>
                                     </div>
@@ -617,7 +617,7 @@
                                         तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण गर्ने दायित्व ऋणी फर्मका प्रोप्राईटर/साझेदारहरुको हुनेछ र नविकरण पश्चात सोको प्रतिलिपि यस बैंकमा पेश गर्नु पर्नेछ । दर्ता प्रमाणपत्रको अवधि समाप्त भएका फर्मको ऋणकर्जा सुविधा स्वीकृत/नविकरण हुनेछैन र साथै तहांले उपभोग गर्दै आउनुभएका सम्पूर्ण ऋण कर्जा सुविधाहरु दर्ता नविकरण नभएका कारण फिर्ता भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                                     </li>
                                     <li>
-                                      <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.seventhText=== null && this.freeInformation.seventhText=== ''}">
+                                      <span class="nepaliFont" [ngClass]="{'nepaliFont outside' : this.freeInformation.seventhText=== null && this.freeInformation.seventhText=== ''}">
                                 {{this.freeInformation.seventhText === null || this.freeInformation.seventhText === '' ? '_________________________________' : this.freeInformation.seventhText}}</span></li>
                                 </ol>
                             </div>
@@ -658,7 +658,7 @@
                                         आवश्यक जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धकमा रहेका सम्पूर्ण सामान मौज्दातहरु/सम्पत्तिहरुका लागि <strong>पर्याप्त मुल्य</strong> बराबरको बैंकको पक्षमा बिमालेख ।
                                     </li>
                                     <li>
-                                       <span  [ngClass]="{'nepaliFont outside' : this.freeInformation.eighthText=== null && this.freeInformation.eighthText=== ''}">
+                                       <span class="nepaliFont" [ngClass]="{'nepaliFont outside' : this.freeInformation.eighthText=== null && this.freeInformation.eighthText=== ''}">
                                 {{this.freeInformation.eighthText === null || this.freeInformation.eighthText === '' ? '_________________________________' : this.freeInformation.eighthText}}</span> </li>
                                 </ol>
                             </div>

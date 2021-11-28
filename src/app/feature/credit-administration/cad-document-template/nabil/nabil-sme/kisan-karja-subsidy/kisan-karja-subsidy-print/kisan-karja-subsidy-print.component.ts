@@ -40,6 +40,7 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
   finalDateOfApplication;
   finalNextReviewDate;
   finalPrevSanctionLetterDate;
+  offerDocumentDetails;
 
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -64,11 +65,14 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct +
           ' ,' + this.loanHolderInfo.permanentProvince.ct;
       this.branchName = this.loanHolderInfo.branch.ct;
+    }
+      if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
+        // tslint:disable-next-line:max-line-length
+        this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+      }
       if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
         this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
       }
-      this.branchName = this.loanHolderInfo.branch.ct;
-    }
     // For date of Approval
     const dateOfApprovalType = this.letter.dateOfApprovalType ? this.letter.dateOfApprovalType.en : '';
     if (dateOfApprovalType === 'AD') {

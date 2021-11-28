@@ -48,7 +48,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
   provinceList = [];
   allDistrictList = [];
   selectedAD = true;
-  interestSubsidy = false;
+  isInterestSubsidy = false;
   isCustomerNew = false;
   attributes;
   translatedValues: any = {};
@@ -341,8 +341,8 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
   }
 
   interestSubsidyCheck(data) {
-    this.interestSubsidy = data;
-    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.interestSubsidy);
+    this.isInterestSubsidy = data;
+    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
   }
 
   mappedData() {
@@ -362,7 +362,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
   async translateAndSetVal() {
     this.spinner = true;
     // Set Translate Data:
-    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.interestSubsidy);
+    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
     this.kisanKarjaSubsidy.get('loanOptionTrans').patchValue(this.kisanKarjaSubsidy.get('loanOption').value);
     this.kisanKarjaSubsidy.get('repaymentTypeTrans').patchValue(this.kisanKarjaSubsidy.get('repaymentType').value);
     // Set Translated Date of Approval
@@ -634,7 +634,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       this.kisanKarjaSubsidy.get('previousSanctionDateCT').updateValueAndValidity();
     }
     // Clear Validation for other optional fields.
-    if (!this.interestSubsidy){
+    if (!this.isInterestSubsidy){
       this.kisanKarjaSubsidy.get('circularRateCT').clearValidators();
       this.kisanKarjaSubsidy.get('circularRateCT').updateValueAndValidity();
     }
