@@ -44,7 +44,7 @@
                     </div>
 
                     <!-- ............. for new customer ............. -->
-                    <div>
+                    <div *ngIf="loanOption == 'NEW'">
                         <p class="text-center"><strong> बिषयः ऋणकर्जा सुविधा बारे। </strong></p>
                         <p>
                             महोदय, <br>
@@ -59,7 +59,7 @@
                     </div>
 
                     <!-- ............. for existing customers (additional loan) ............. -->
-                    <div class="">
+                    <div *ngIf="loanOption == 'EXISTING'">
                         <strong> बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे। </strong>
                         <p>
                             महोदय, <br>
@@ -169,7 +169,7 @@
                                 </td>
                             </tr>
                             <!-- Not Applicable incase of interest subsidy loan: -->
-                            <tr>
+                            <tr *ngIf="!interestSubsidy == true">
                                 <td style="width: 15%"><strong>सेवा शुल्क, स्वीकृत कर्जाको सिमामा लागूहुने</strong>
                                 </td>
                                 <td>
@@ -205,42 +205,46 @@
                                 <td style="width: 15%"><strong>सुरक्षण (घर/जग्गा धितोेबन्धक विवरण) </strong>
                                 </td>
                                 <td>
-                                    घर/जग्गा धनीको नाम
-                                    <input class="form-field form-control-sm"
-                                           formControlName="landOwnerName"
-                                           name="landOwnerName"
-                                           style="width: 200px"
-                                           type="text"/>
-                                    जिल्ला
-                                    <input class="form-field form-control-sm"
-                                           formControlName="district"
-                                           name="district"
-                                           style="width: 200px"
-                                           type="text"/>
-                                    न.पा/गा.वि.स.
-                                    <input class="form-field form-control-sm"
-                                           formControlName="VDCMunicipality"
-                                           name="VDCMunicipality"
-                                           style="width: 200px"
-                                           type="text"/>
-                                    वडा नंः
-                                    <input class="form-field form-control-sm"
-                                           formControlName="wardNo"
-                                           name="wardNo"
-                                           style="width: 200px"
-                                           type="text"/>
-                                    किता नं.
-                                    <input class="form-field form-control-sm"
-                                           formControlName="plotNo"
-                                           name="plotNo"
-                                           style="width: 200px"
-                                           type="text"/>
-                                    क्षेत्रफल
-                                    <input class="form-field form-control-sm"
-                                           formControlName="areaRopaniBigha"
-                                           name="areaRopaniBigha"
-                                           style="width: 200px"
-                                           type="text"/>
+                                    <span *ngFor="let guarantor of offerDocumentDetails?.securities; let i = index">
+                                        घर/जग्गा धनीको नाम
+                                        <input class="form-field form-control-sm"
+                                               name="landOwnerName"
+                                               [value]="guarantor?.securityOwnersNameCT"
+                                               style="width: 200px"
+                                               type="text"/>
+                                        जिल्ला
+                                        <input class="form-field form-control-sm"
+                                               name="district"
+                                               [value]="guarantor?.securityOwnersDistrictCT"
+                                               style="width: 200px"
+                                               type="text"/>
+                                        न.पा/गा.वि.स.
+                                        <input class="form-field form-control-sm"
+                                               name="VDCMunicipality"
+                                               [value]="guarantor?.securityOwnersMunicipalityCT"
+                                               style="width: 200px"
+                                               type="text"/>
+                                        वडा नंः
+                                        <input class="form-field form-control-sm"
+                                               name="wardNo"
+                                               [value]="guarantor?.securityOwnersPlotNoCT"
+                                               style="width: 200px"
+                                               type="text"/>
+                                        किता नं.
+                                        <input class="form-field form-control-sm"
+                                               name="plotNo"
+                                               [value]="guarantor?.securityOwnersLandAreaCT"
+                                               style="width: 200px"
+                                               type="text"/>
+                                        क्षेत्रफल
+                                        <input class="form-field form-control-sm"
+                                               name="areaRopaniBigha"
+                                               [value]="guarantor?.securityOwnersSheetNoCT"
+                                               style="width: 200px"
+                                               type="text"/>
+                                        <br>
+                                    </span>
+                                    <hr class="row" *ngIf="UdyamsilKarjaSubsidy.get('securities')['length'] > 1">
                                 </td>
                             </tr>
                             <tr>
@@ -294,7 +298,7 @@
                         </textarea>
                     </div>
 
-                    <div class="">
+                    <div class="" *ngIf="interestSubsidy == true">
                         <h6>द्रष्टब्यः </h6>
                         <ol class="conditions-list orderd-list">
                             <!-- Applicable incase of interest subsidy loan -->
@@ -393,7 +397,7 @@
                                 आफै बैंकको आधिकारिक वेव साईट (Website) र/वा पत्रपत्रिका मार्फत प्राप्त गरी तिर्न बुझाउन
                                 मन्जुर गर्दछ।
                             </li>
-                            <li>
+                            <li *ngIf="repaymentType == 'EMI_BASIS'">
                                 बैंकको <strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                                 मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated Monthly Installment)
                                 मा भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा किस्ता
@@ -413,7 +417,7 @@
                                 ऋणी मन्जुर गर्दछ। ऋणीले यस ब्यबस्थाको पालना नगरी पछि मलाई ब्याजदर बढेको तथा अन्तिम
                                 किस्तामा थप रकम बुझाउनु पर्ने कुरा थाहा थिएन भन्ने दावी गर्न पाइने छैन।
                             </li>
-                            <li>
+                            <li *ngIf="interestSubsidy == true">
                                 <!-- applicable in case of interest subsidy loan -->
                                 उल्लिखित ब्याज दर प्रिमियम (interest rate premium) नेपाल राष्ट्र बैंकबाट जारी निर्देशन
                                 बमोजिम समय समयमा परिवर्तन गर्न सकिनेछ र सोहि अनुसार परिवर्तित व्याज दर लागु गरिनेछ ।
@@ -427,7 +431,7 @@
                         <ol class="conditions-list orderd-list">
 
                             <!-- not applicable incase of interest subsidy loan -->
-                            <li>
+                            <li *ngIf="!interestSubsidy == true">
                                 <strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः </strong>
                                 <p>
                                     स्वीकृत अधिविकर्ष तथा नविकरणीय प्रकृतिका कर्जाको तथा निश्चित अवधि वा भुक्तानी
@@ -1088,6 +1092,12 @@
                                        style="width: 200px"
                                        value="सम्पर्क अधिकृत"
                                        type="text"/>
+                                <br>
+                                <input class="form-field form-control-sm "
+                                       formControlName="position"
+                                       [value]="position"
+                                       type="text"/>
+                                <br>
                                 नबिल बैंक लि. <br>
                                 <input class="form-field form-control-sm"
                                        formControlName="branchName"
@@ -1103,11 +1113,17 @@
                             .........................................
                             <p>
                                 <input class="form-field form-control-sm"
-                                       formControlName="nameOfARO_RO_RM_ARM"
-                                       name="nameOfARO_RO_RM_ARM"
+                                       formControlName="nameOfBranchManager"
+                                       name="nameOfBranchManager"
                                        style="width: 200px"
                                        value="शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक"
                                        type="text"/>
+                                <br>
+                                <input class="form-field form-control-sm "
+                                       formControlName="position2"
+                                       [value]="position2"
+                                       type="text"/>
+                                <br>
                                 नबिल बैंक लि. <br>
                                 <input class="form-field form-control-sm"
                                        formControlName="branchName"
@@ -1156,7 +1172,7 @@
                             </li>
 
                             <!-- Applicable incase of interest subsidy loan -->
-                            <li>
+                            <li *ngIf="interestSubsidy == true">
                                 <strong>
                                     म/हामी कुनै पनि बैंक वा वित्तीय संस्थाको कर्जा तिर्न असक्षम (Default) नभएको घोषणा
                                     गर्दछु
@@ -1167,7 +1183,7 @@
                                     नगर्ने समेत उद्घोष गर्दछौं।
                                 </strong>
                             </li>
-                            <li>
+                            <li *ngIf="interestSubsidy == true">
                                 <strong>
                                     यस बैंकबाट कर्जा सुविधा उपयोग गरिरहेका आपसी सम्बन्ध भएका मेरो/हाम्रो समुह भित्रको
                                     अन्य व्यक्ति,

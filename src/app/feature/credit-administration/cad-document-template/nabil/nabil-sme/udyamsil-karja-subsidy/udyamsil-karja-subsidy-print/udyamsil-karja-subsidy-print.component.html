@@ -1,39 +1,37 @@
 <nb-card style="height:90vh; overflow-y :scroll">
     <div class="udyamsil-karja-subsidy" id="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}">
         <p> स्वीकृती पत्र नं.
-            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.referenceNumber !== null && loanHolderInfo?.referenceNumber !== ''}">
-                    {{loanHolderInfo?.referenceNumber === null || loanHolderInfo?.referenceNumber === "" ? "___________" : loanHolderInfo?.referenceNumber.ct}}
+            <span>
+                {{ autoRefNumber ? autoRefNumber : "_______________________" }}
             </span>
         </p>
         <p><b>ऋणकर्जा सुविधा स्वीकृति पत्र</b></p>
         <p class="text-left">
             मितिः
-            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.dateOfApproval !== null && loanHolderInfo?.dateOfApproval !== ''}">
-                    {{loanHolderInfo?.dateOfApproval === null || loanHolderInfo?.dateOfApproval === "" ? "___________" : loanHolderInfo?.dateOfApproval}}
-            </span>
+            <span [ngClass]="{'outside' : letter?.dateOfApproval!== null && letter?.dateOfApproval!== ''}">
+                                {{letter?.dateOfApproval === null || letter?.dateOfApproval === '' ? '___________' : letter?.dateOfApproval.ct}}</span>
         </p>
 
         <div class="mb-2">
 
             <div class="mb-1">श्री/श्रीमती/सुश्री
-                <span [ngClass]="{'font-weight-bold': loanHolderInfo?.loanHoldersName !== null && loanHolderInfo?.loanHoldersName !== ''}">
-                    {{loanHolderInfo?.loanHoldersName === null || loanHolderInfo?.loanHoldersName === "" ? "___________" : loanHolderInfo?.loanHoldersName}}
-                </span>
+                <span [ngClass]="{'font-weight-bold': loanHolderInfo?.nameOfApplicant !== null && loanHolderInfo?.nameOfApplicant !== ''}">
+                                {{loanHolderInfo?.nameOfApplicant === null || loanHolderInfo?.nameOfApplicant === "" ? "___________" : loanHolderInfo?.nameOfApplicant}}
+                        </span>
             </div>
             <div class="mb-1"> ठेगाना:
-                <span [ngClass]="{'font-weight-bold': loanHolderInfo?.customerAddress !== null && loanHolderInfo?.customerAddress !== ''}">
-                    {{loanHolderInfo?.customerAddress === null || loanHolderInfo?.customerAddress === "" ? "___________" : loanHolderInfo?.customerAddress}}
-                </span>
+                <span [ngClass]="{'outside' : this.loanHolderInfo?.customerAddress !== null && this.loanHolderInfo?.customerAddress !== ''}">
+                                {{this.loanHolderInfo?.customerAddress === null || this.loanHolderInfo?.customerAddress === '' ? '___________' : this.loanHolderInfo?.customerAddress.ct}}</span>
             </div>
 
             <!-- ............. for new customer ............. -->
-            <div class="">
+            <div *ngIf="loanOption== 'NEW'">
                 <strong> बिषयः ऋणकर्जा सुविधा बारे। </strong>
                 <p>
                     महोदय, <br>
                     तपाईंले मितिः
-                    <span [ngClass]="{'font-weight-bold': loanHolderInfo?.dateofApplication !== null && loanHolderInfo?.dateofApplication !== ''}">
-                        {{loanHolderInfo?.dateofApplication === null || loanHolderInfo?.dateofApplication === "" ? "___________" : loanHolderInfo?.dateofApplication}}
+                    <span [ngClass]="{'outside' : letter?.requestLetterDate !== null && letter?.requestLetterDate !== ''}">
+                                {{letter?.requestLetterDate === null || letter?.requestLetterDate === '' ? '___________' : letter?.requestLetterDate.ct}}
                     </span>
                     मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको
                     सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु देहाय बमोजिमका
@@ -42,19 +40,17 @@
             </div>
 
             <!-- ............. for existing customers (additional loan) ............. -->
-            <div class="">
+            <div *ngIf="loanOption == 'EXISTING'">
                 <strong> बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे। </strong>
                 <p>
                     महोदय, <br>
                     तपाईंले यस बैंकको मिति
-                    <span [ngClass]="{'font-weight-bold': loanHolderInfo?.previousSanctionLetterDate !== null && loanHolderInfo?.previousSanctionLetterDate !== ''}">
-                        {{loanHolderInfo?.previousSanctionLetterDate === null || loanHolderInfo?.previousSanctionLetterDate === "" ? "___________" : loanHolderInfo?.previousSanctionLetterDate}}
-                    </span>
+                    <span [ngClass]="{'outside' : letter?.previousSanctionDate !== null && letter?.previousSanctionDate !== ''}">
+                                {{letter?.previousSanctionDate === null || letter?.previousSanctionDate === '' ? '___________' : letter?.previousSanctionDate.ct}}</span>
                     को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु
                     भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति
-                    <span [ngClass]="{'font-weight-bold': loanHolderInfo?.requestLetterDate !== null && loanHolderInfo?.requestLetterDate !== ''}">
-                        {{loanHolderInfo?.requestLetterDate === null || loanHolderInfo?.requestLetterDate === "" ? "___________" : loanHolderInfo?.requestLetterDate}}
-                    </span>
+                    <span [ngClass]="{'outside' : letter?.dateOfApplication !== null && letter?.dateOfApplication !== ''}">
+                                {{letter?.dateOfApplication === null || letter?.dateOfApplication === '' ? '___________' : letter?.dateOfApplication.ct}}</span>
                     को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको
                     अधिनमा रहने गरी देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध
                     गर्दछौं।
@@ -66,15 +62,15 @@
                 <strong> स्वीकृत ऋणकर्जा सुविधाहरुको विवरण </strong>
             </div>
             <div class="row form-group">
-                <table class="table table-bordered">
+                <table class="table table-sm table-condensed table-bordered table-sm sb-small" style="width: 95%">
                     <tr>
                         <td class="widthBox"><strong>कर्जा प्रकार: </strong>
                         </td>
                         <td>
                             <strong>
-                                <span [ngClass]="{'font-weight-bold': loanHolderInfo?.typeOfLoan !== null && loanHolderInfo?.typeOfLoan !== ''}">
-                                    {{loanHolderInfo?.typeOfLoan === null || loanHolderInfo?.typeOfLoan === "" ? "___________" : loanHolderInfo?.typeOfLoan}}
-                                </span>
+                                <span [ngClass]="{'outside' : letter?.loanName !== null && letter?.loanName !== ''}">
+                                {{letter?.loanName === null || letter?.loanName === '' ? '___________' : letter?.loanName.ct }}
+                            </span>
                             </strong>
                         </td>
                     </tr>
@@ -82,11 +78,8 @@
                         <td style="width: 15%"><strong>कर्जाको उद्देश्य: </strong>
                         </td>
                         <td>
-                            <strong>
-                                 <span [ngClass]="{'font-weight-bold': loanHolderInfo?.purposeOfLoan !== null && loanHolderInfo?.purposeOfLoan !== ''}">
-                                    {{loanHolderInfo?.purposeOfLoan === null || loanHolderInfo?.purposeOfLoan === "" ? "___________" : loanHolderInfo?.purposeOfLoan}}
-                                </span>
-                            </strong>
+                                 <span [ngClass]="{'outside' : letter?.purposeOfLoan !== null && letter?.purposeOfLoan !== ''}">
+                                {{letter?.purposeOfLoan === null || letter?.purposeOfLoan === '' ? '___________' : letter?.purposeOfLoan.ct }}</span>
                         </td>
                     </tr>
                     <tr>
@@ -94,13 +87,12 @@
                         </td>
                         <td>
                             <strong> रु.
-                                <span [ngClass]="{'font-weight-bold': loanHolderInfo?.loanAmountInFigure !== null && loanHolderInfo?.loanAmountInFigure !== ''}">
-                                        {{loanHolderInfo?.loanAmountInFigure === null || loanHolderInfo?.loanAmountInFigure === "" ? "___________" : loanHolderInfo?.loanAmountInFigure}}
-                                </span>।-
+                                <span [ngClass]="{'nepaliFont' : letter?.loanAmountFigure !== null && letter?.loanAmountFigure !== ''}">
+                                {{letter?.loanAmountFigure === null || letter?.loanAmountFigure === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
+                                ।-
                                 (अक्षरेपी रु.
-                                <span [ngClass]="{'font-weight-bold': loanHolderInfo?.loanAmountInWord !== null && loanHolderInfo?.loanAmountInWord !== ''}">
-                                        {{loanHolderInfo?.loanAmountInWord === null || loanHolderInfo?.loanAmountInWord === "" ? "___________" : loanHolderInfo?.loanAmountInWord}}
-                                </span>
+                                <span [ngClass]="{'nepaliFont' : letter?.loanAmountFigureWords !== null && letter?.loanAmountFigureWords !== ''}">
+                                {{letter?.loanAmountFigureWords === null || letter?.loanAmountFigureWords === '' ? '___________' : letter?.loanAmountFigureWords.ct }}</span>
                                 मात्र)
                             </strong>
                         </td>
@@ -110,8 +102,8 @@
                             <i>(Drawing Power)</i> </strong>
                         </td>
                         <td>
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.marginInPercentage !== null && loanHolderInfo?.marginInPercentage !== ''}">
-                                    {{loanHolderInfo?.marginInPercentage === null || loanHolderInfo?.marginInPercentage === "" ? "___________" : loanHolderInfo?.marginInPercentage}}
+                            <span [ngClass]="{'nepaliFont' : letter?.marginInPercentage !== null && letter?.marginInPercentage !== ''}">
+                                {{letter?.marginInPercentage === null || letter?.marginInPercentage === '' ? '___________' : letter?.marginInPercentage.ct }}
                             </span>
                             प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ।
                         </td>
@@ -121,12 +113,12 @@
                         </td>
                         <td>
                             <strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) </strong>
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.baseRate !== null && loanHolderInfo?.baseRate !== ''}">
-                                    {{loanHolderInfo?.baseRate === null || loanHolderInfo?.baseRate === "" ? "___________" : loanHolderInfo?.baseRate}}
+                            <span [ngClass]="{'nepalifont': letter?.baseRate !== null && letter?.baseRate !== ''}">
+                                    {{letter?.baseRate === null || letter?.baseRate === "" ? "___________" : letter?.baseRate.ct}}
                             </span>
                             +
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.premiumRate !== null && loanHolderInfo?.premiumRate !== ''}">
-                                    {{loanHolderInfo?.premiumRate === null || loanHolderInfo?.premiumRate === "" ? "___________" : loanHolderInfo?.premiumRate}}
+                            <span [ngClass]="{'font-weight-bold': letter?.premiumRate !== null && letter?.premiumRate !== ''}">
+                                    {{letter?.premiumRate === null || letter?.premiumRate === "" ? "___________" : letter?.premiumRate.ct}}
                             </span>
                             प्रतिशत व्याज दर प्रिमियम (Interest Rate Premium)
                             गरि जम्मा बार्षिक
@@ -138,7 +130,7 @@
                     </tr>
 
                     <!-- - Not Applicable incase of interest subsidy loan: -->
-                    <tr>
+                    <tr *ngIf="!interestSubsidy == true">
                         <td style="width: 15%">
                             <strong>
                                 सेवा शुल्क, स्वीकृत कर्जाको सिमामा लागूहुने
@@ -241,7 +233,7 @@
                 </span>
             </div>
 
-            <div class="">
+            <div class="" *ngIf="interestSubsidy == true">
                 <h6>द्रष्टब्यः </h6>
                 <ol class="conditions-list orderd-list">
                     <!-- Applicable incase of interest subsidy loan -->
@@ -260,7 +252,6 @@
                         पनि बखत कर्जा सुविधा फिर्ता माग गर्न सक्नेछ र सो कर्जामा नियमानुसार
                         ब्याज अनुदान प्रदान नगर्नका साथै अघिल्लो प्रदान गरिएका अनुदानहरु
                         पनि फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहेनछ।
-                        - Applicable incase of interest subsidy loan
                     </li>
 
                     <!-- Applicable incase of interest subsidy loan -->
@@ -335,7 +326,7 @@
                         आफै बैंकको आधिकारिक वेव साईट (Website) र/वा पत्रपत्रिका मार्फत प्राप्त गरी तिर्न बुझाउन
                         मन्जुर गर्दछ।
                     </li>
-                    <li>
+                    <li *ngIf="repaymentType == 'EMI_BASIS'">
                         बैंकको <strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                         मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated Monthly Installment)
                         मा भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा किस्ता
@@ -355,7 +346,7 @@
                         ऋणी मन्जुर गर्दछ। ऋणीले यस ब्यबस्थाको पालना नगरी पछि मलाई ब्याजदर बढेको तथा अन्तिम
                         किस्तामा थप रकम बुझाउनु पर्ने कुरा थाहा थिएन भन्ने दावी गर्न पाइने छैन।
                     </li>
-                    <li>
+                    <li *ngIf="interestSubsidy == true">
                         <!-- applicable in case of interest subsidy loan -->
                         उल्लिखित ब्याज दर प्रिमियम (interest rate premium) नेपाल राष्ट्र बैंकबाट जारी निर्देशन
                         बमोजिम समय समयमा परिवर्तन गर्न सकिनेछ र सोहि अनुसार परिवर्तित व्याज दर लागु गरिनेछ ।
@@ -369,7 +360,7 @@
                 <ol class="conditions-list orderd-list">
 
                     <!-- not applicable incase of interest subsidy loan -->
-                    <li>
+                    <li *ngIf="!interestSubsidy == true">
                         <strong>अग्रिम भुक्तानी शुल्क र÷वा स्वाप (Swap) शुल्कः </strong>
                         <p>
                             स्वीकृत अधिविकर्ष तथा नविकरणीय प्रकृतिका कर्जाको तथा निश्चित अवधि वा भुक्तानी
@@ -1069,7 +1060,7 @@
                     </li>
 
                     <!-- Applicable incase of interest subsidy loan -->
-                    <li>
+                    <li *ngIf="interestSubsidy == true">
                         <strong>
                             म/हामी कुनै पनि बैंक वा वित्तीय संस्थाको कर्जा तिर्न असक्षम (Default) नभएको घोषणा
                             गर्दछु
@@ -1080,7 +1071,7 @@
                             नगर्ने समेत उद्घोष गर्दछौं।
                         </strong>
                     </li>
-                    <li>
+                    <li *ngIf="interestSubsidy == true">
                         <strong>
                             यस बैंकबाट कर्जा सुविधा उपयोग गरिरहेका आपसी सम्बन्ध भएका मेरो/हाम्रो समुह भित्रको
                             अन्य व्यक्ति,
