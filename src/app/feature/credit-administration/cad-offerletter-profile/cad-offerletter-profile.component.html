@@ -245,54 +245,51 @@
                     <ng-container
                         *ngFor="let model of cadOfferLetterApprovedDoc?.assignedLoan;let i=index">
                       <tr>
-                        <td><a target="_blank" [routerLink]="['/home/loan/summary']"
-                               [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}"
-                        >{{i + 1}}</a>
+                        <td>
+                          {{i + 1}}
                         </td>
                         <td>
-                          <a target="_blank" [routerLink]="['/home/loan/summary']"
-                             [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}"
-                             nbTooltip="click to view Loan Summary ">
-
-                            {{model?.loan?.name}}</a>
+                          <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                             [queryParams]="{loanConfigId: model?.loan?.id, customerId: model?.id, catalogue: true}"
+                             nbTooltip="click to view Loan Summary ">-->
+                            {{model?.loan?.name}}
+                          <!--</a>-->
                         </td>
-
-                        <td><a target="_blank" [routerLink]="['/home/loan/summary']"
-                               [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}">
-                          {{model?.loanType | replace:'_':' '}}</a></td>
                         <td>
-                          <a target="_blank" [routerLink]="['/home/loan/summary']"
-                             [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}">
-                            {{model?.createdAt | date}}</a>
+                          <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                               [queryParams]="{loanConfigId: model?.loan?.id, customerId: model?.id,
+                               catalogue: true}">-->
+                          {{model?.loanType | replace:'_':' '}}
+                          <!--</a>-->
+                        </td>
+                        <td>
+                          <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                             [queryParams]="{loanConfigId: model?.loan?.id, customerId: model?.id,
+                             catalogue: true}">-->
+                            {{model?.createdAt | date}}
+                          <!--</a>-->
                         </td>
                           <td>
-                              <a target="_blank" [routerLink]="['/home/loan/summary']"
-                                 [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}">
-                                  {{model?.currentStage?.lastModifiedAt | date}}</a>
+                              <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                                 [queryParams]="{loanConfigId: model?.loan?.id, customerId: model?.id,
+                                 catalogue: true}">-->
+                            {{model?.currentStage?.lastModifiedAt | date}}
+                            <!--</a>-->
                           </td>
                         <td>
                           <a class="px-2 cursor"
                              (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
                              nbTooltip="click to view detail comments ">
                             <em class="fa fa-eye"></em>
-                          </a></td>
-                          <td class="text-right"><a target="_blank"
-                                                    [routerLink]="['/home/loan/summary']"
-                                                    [queryParams]="{loanConfigId: model?.loan?.id,
-                                                                                     customerId: model?.id,
-                                                                                     catalogue: true}">
-
-                              Rs. {{model?.proposal?.proposedLimit | number}}</a></td>
+                          </a>
+                        </td>
+                          <td class="text-right">
+                            <!--<a target="_blank" [routerLink]="['/home/loan/summary']"
+                            [queryParams]="{loanConfigId: model?.loan?.id, customerId: model?.id,
+                            catalogue: true}">-->
+                            Rs. {{model?.proposal?.proposedLimit | number}}
+                            <!--</a>-->
+                          </td>
                       </tr>
 
                       <ng-container *ngIf="toggleArray[i].toggled">
@@ -462,7 +459,6 @@
                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                          [letter]="initialInfoPrint"
                          [loanLimit]="this.loanLimit"
-                         [interest]="this.selectedInterest"
                          [preview]="true"
                          [offerData]="offerLetterData"></app-sme-print>
           <app-personal-overdraft-print
@@ -517,6 +513,14 @@
                                          [offerData] = offerLetterData
                                           [preview]="true">
           </app-kisan-karja-subsidy-print>
+          <app-interest-subsidy-sanction-letter-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [renewal]="this.renewal"
+                  [offerData] = offerLetterData
+                  [preview]="true">
+          </app-interest-subsidy-sanction-letter-print>
         </nb-card-body>
     </nb-card>
 </ng-template>

@@ -130,7 +130,6 @@ export class PersonalOverdraftWithoutCollateralTemplateEditComponent implements 
       dateofExpiryNepali: [undefined],
       dateOfExpiryType: [undefined],
       nameOfCompany: [undefined],
-      insuranceAmountinFigure: [undefined],
       relationshipofficerName: [undefined],
       nameofBranchManager: [undefined],
 
@@ -154,7 +153,6 @@ export class PersonalOverdraftWithoutCollateralTemplateEditComponent implements 
       dateofExpiryTransVal: [undefined],
       dateofExpiryNepaliTransVal: [undefined],
       dateOfExpiryTypeTransVal: [undefined],
-      insuranceAmountinFigureTransVal: [undefined],
       relationshipofficerNameTransVal: [undefined],
       nameOfCompanyTransVal: [undefined],
       nameofBranchManagerTransVal: [undefined],
@@ -302,8 +300,6 @@ export class PersonalOverdraftWithoutCollateralTemplateEditComponent implements 
     this.form.get('nameOfCompany').patchValue(this.initialInformation.nameOfCompany.en);
     this.form.get('relationshipofficerName').patchValue(this.initialInformation.relationshipofficerName.en);
     this.form.get('nameofBranchManager').patchValue(this.initialInformation.nameofBranchManager.en);
-    this.form.get('insuranceAmountinFigure').patchValue(this.initialInformation.insuranceAmountinFigure.en);
-
     // set ct value
     // this.form.get('refNumberTransVal').patchValue(this.initialInformation.refNumber.ct);
     this.form.get('purposeOfLoanTransVal').patchValue(this.initialInformation.purposeOfLoan.ct);
@@ -316,7 +312,6 @@ export class PersonalOverdraftWithoutCollateralTemplateEditComponent implements 
     this.form.get('nameOfCompanyTransVal').patchValue(this.initialInformation.nameOfCompany.ct);
     this.form.get('relationshipofficerNameTransVal').patchValue(this.initialInformation.relationshipofficerName.ct);
     this.form.get('nameofBranchManagerTransVal').patchValue(this.initialInformation.nameofBranchManager.ct);
-    this.form.get('insuranceAmountinFigureTransVal').patchValue(this.initialInformation.insuranceAmountinFigure.ct);
   }
 
   openModel() {
