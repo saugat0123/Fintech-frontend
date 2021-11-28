@@ -9,8 +9,7 @@
             <h5 class="text-left"><strong> ऋणकर्जा सुविधा स्वीकृति पत्र </strong></h5>
             <p class="text-left">
                 मितिः
-                <span [ngClass]="{'nepaliFont outside' : letter?.dateOfApproval!== null && letter?.dateOfApproval!== ''}">
-                                {{letter?.dateOfApproval === null || letter?.dateOfApproval === '' ? '___________' : letter?.dateOfApproval}}</span>
+                <span>{{finalDateOfApproval}}</span>
             </p>
             <div class="mb-2">
                 <p>श्री/श्रीमती/सुश्री
@@ -31,8 +30,7 @@
                         तपाईंले
                         <span class="text-left">
                             मितिः
-                            <span [ngClass]="{'nepaliFont outside' : letter?.dateOfApplication !== null && letter?.dateOfApplication !== ''}">
-                                {{letter?.dateOfApplication === null || letter?.dateOfApplication === '' ? '___________' : letter?.dateOfApplication }}</span>
+                            <span>{{finalDateOfApplication}}</span>
                     </span>
                         मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु
                         देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -50,15 +48,13 @@
                         तपाईंले यस बैंकको
                         <span class="text-left">
                             मितिः
-                            <span [ngClass]="{'nepaliFont outside' : letter?.prevSanctionLetterDate !== null && letter?.prevSanctionLetterDate !== ''}">
-                                {{letter?.prevSanctionLetterDate === null || letter?.prevSanctionLetterDate === '' ? '___________' : letter?.prevSanctionLetterDate }}</span>
+                            <span>{{finalPrevSanctionLetterDate}}</span>
                     </span>
                         को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त
                         ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको
                         <span class="text-left">
                             मितिः
-                            <span [ngClass]="{'nepaliFont outside' : letter?.nextReviewDate !== null && letter?.nextReviewDate !== ''}">
-                                {{letter?.nextReviewDate === null || letter?.nextReviewDate === '' ? '___________' : letter?.nextReviewDate }}</span>
+                            <span>{{finalNextReviewDate}}</span>
                     </span>को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय
                         बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
                     </p>
@@ -171,8 +167,7 @@
                             </strong>
                             </td>
                             <td>
-                                <span [ngClass]="{'nepaliFont outside' : letter?.nextReviewDate!== null && letter?.nextReviewDate!== ''}">
-                                {{letter?.nextReviewDate === null || letter?.nextReviewDate === '' ? '___________' : letter?.nextReviewDate}}</span>
+                                <span>{{finalNextReviewDate}}</span>
                             </td>
                         </tr>
                         <tr>
