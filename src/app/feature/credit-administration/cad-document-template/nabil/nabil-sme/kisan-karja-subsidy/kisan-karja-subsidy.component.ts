@@ -18,6 +18,7 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
+import {CustomerSubType} from '../../../../../customer/model/customerSubType';
 
 @Component({
   selector: 'app-kisan-karja-subsidy',
@@ -51,6 +52,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   finalName;
   guarantorNames;
   allguarantorNames;
+  customerSubType = CustomerSubType;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -79,6 +81,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
     this.checkOfferLetterData();
+    console.log('All Data:', this.tempData);
+    console.log('Loan Holder initial data:', this.loanHolderInfo);
    /* this.guarantorDetails();*/
   }
   buildForm() {
@@ -150,8 +154,10 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      if (!ObjectUtil.isEmpty(this.offerLetterDocument.pointInformation)) {
+      if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
         this.offerLetterData = this.offerLetterDocument;
+        this.setFreeText();
+        this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
        /* this.kisanKarjaSubsidy.get(this.freeTextVal.firstText).patchValue(this.offerLetterData.supportedInformation);*/
       }
         // this.selectedSecurity = initialInfo.selectedSecurity.en;
@@ -160,7 +166,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
-        this.initialInfoPrint = initialInfo;
         this.fillForm();
       }
     } else {
@@ -274,6 +279,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY).toString()) {
             this.setFreeText();
             offerLetterPath.supportedInformation = JSON.stringify(this.freeTextVal);
+            console.log(offerLetterPath.supportedInformation, 'freeText');
           // offerLetterPath.supportedInformation = this.kisanKarjaSubsidy.get(this.freeTextVal.firstText).value;
             // offerLetterPath.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
         }
@@ -282,6 +288,9 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
       offerDocument.initialInformation = JSON.stringify(this.kisanKarjaSubsidy.value);
+      this.setFreeText();
+      offerDocument.supportedInformation = JSON.stringify(this.freeTextVal);
+      console.log('NEW');
       // offerDocument.supportedInformation = this.kisanKarjaSubsidy.get(this.freeTextVal).value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }

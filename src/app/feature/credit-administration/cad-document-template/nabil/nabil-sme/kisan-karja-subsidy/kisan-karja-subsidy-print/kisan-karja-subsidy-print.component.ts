@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
+import {CustomerSubType} from '../../../../../../customer/model/customerSubType';
 
 @Component({
   selector: 'app-kisan-karja-subsidy-print',
@@ -15,12 +16,15 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
   @Input() letterData;
   @Input() preview;
   @Input() offerData;
+  @Input() form: any;
+  customerSubType = CustomerSubType;
   autoRefNumber;
   loanHolderInfo;
   customerAddress;
   proposedAmount;
   guarantorName;
   branchName;
+  tempData;
   freeInformation;
   finalName;
   guarantorNames: Array<String> = [];
@@ -42,6 +46,7 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
       });
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct +
           ' ,' + this.loanHolderInfo.permanentProvince.ct;
@@ -49,6 +54,7 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
         this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
       }
+      this.branchName = this.loanHolderInfo.branch.ct;
     }
     this.guarantorDetails();
   }

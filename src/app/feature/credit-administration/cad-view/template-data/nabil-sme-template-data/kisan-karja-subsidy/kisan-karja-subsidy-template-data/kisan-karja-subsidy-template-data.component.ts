@@ -185,7 +185,6 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
       interestRateCT: [undefined, Validators.required],
-      serviceChargeCT: [undefined, Validators.required],
       totalTenureOfLoanCT: [undefined, Validators.required],
       commitmentFeeCT: [undefined, Validators.required],
       circularRateCT: [undefined, Validators.required],
@@ -444,12 +443,6 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       this.kisanKarjaSubsidy.get('marginInPercentageTrans').patchValue(convertedMarginNum);
     }
 
-    const serviceChargeNum = this.kisanKarjaSubsidy.get('serviceCharge').value;
-    if (!ObjectUtil.isEmpty(serviceChargeNum)) {
-      const convertServiceCharge = this.convertNumbersToNepali(serviceChargeNum, false);
-      this.kisanKarjaSubsidy.get('serviceChargeTrans').patchValue(convertServiceCharge);
-    }
-
     const tenureData = this.kisanKarjaSubsidy.get('totalTenureOfLoan').value;
     if (!ObjectUtil.isEmpty(tenureData)) {
       const convertTenureData = this.convertNumbersToNepali(tenureData, false);
@@ -591,7 +584,6 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.kisanKarjaSubsidy.get('baseRateCT').patchValue(this.kisanKarjaSubsidy.get('baseRateTrans').value);
     this.kisanKarjaSubsidy.get('premiumRateCT').patchValue(this.kisanKarjaSubsidy.get('premiumRateTrans').value);
     this.kisanKarjaSubsidy.get('interestRateCT').patchValue(this.kisanKarjaSubsidy.get('interestRateTrans').value);
-    this.kisanKarjaSubsidy.get('serviceChargeCT').patchValue(this.kisanKarjaSubsidy.get('serviceChargeTrans').value);
     this.kisanKarjaSubsidy.get('totalTenureOfLoanCT').patchValue(this.kisanKarjaSubsidy.get('totalTenureOfLoanTrans').value);
     this.kisanKarjaSubsidy.get('commitmentFeeCT').patchValue(this.kisanKarjaSubsidy.get('commitmentFeeTrans').value);
     this.kisanKarjaSubsidy.get('circularRateCT').patchValue(this.kisanKarjaSubsidy.get('circularRateTrans').value);
@@ -642,10 +634,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       this.kisanKarjaSubsidy.get('previousSanctionDateCT').updateValueAndValidity();
     }
     // Clear Validation for other optional fields.
-    if (this.interestSubsidy) {
-      this.kisanKarjaSubsidy.get('serviceChargeCT').clearValidators();
-      this.kisanKarjaSubsidy.get('serviceChargeCT').updateValueAndValidity();
-    } else {
+    if (!this.interestSubsidy){
       this.kisanKarjaSubsidy.get('circularRateCT').clearValidators();
       this.kisanKarjaSubsidy.get('circularRateCT').updateValueAndValidity();
     }
