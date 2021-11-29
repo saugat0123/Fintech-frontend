@@ -238,10 +238,10 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       branchName : this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
       // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
       dateOfApplication : finalDateOfApplication ? finalDateOfApplication : '',
-      firstAdditionalDetails : this.freeInformation.firstText ? this.freeInformation.firstText : '',
-      secondAdditionalDetails : this.freeInformation.secondText ? this.freeInformation.secondText : '',
-      thirdAdditionalDetails : this.freeInformation.thirdText ? this.freeInformation.thirdText : '',
-      fourthAdditionalDetails : this.freeInformation.fourthText ? this.freeInformation.fourthText : '',
+      firstAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.firstText : '',
+      secondAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
+      thirdAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
+      fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
 
     });
   }
