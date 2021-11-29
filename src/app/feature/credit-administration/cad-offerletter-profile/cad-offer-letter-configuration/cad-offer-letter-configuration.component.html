@@ -509,7 +509,7 @@
                            *ngIf="actYearVal.value ==='AD'"
                            class="form-control form-control-sm-error rounded"
                            formControlName="actYear"
-
+                          (change)="setActDateValue()"
                            name="citizenIssuedDate"
                            placeholder="Citizenship Issue Date"
                            type="text">
@@ -2201,9 +2201,9 @@
               </div>
             </div>
           </div>
-          <h4 *ngIf="configForm?.clientType?.value == clientType.INSTITUTION"> Proprietor's Detail
+          <h4 *ngIf="configForm?.clientType?.value == clientType.INSTITUTION"> {{detailOption}}
             <a nbButton status="primary" size="tiny" (click)="addOwnerDetails()">Add
-              Proprietor's Detail
+             Detail
             </a>
           </h4>
 
@@ -2218,7 +2218,7 @@
                 <td>
                   <input class="form-control "
                          formControlName="ownerName"
-
+                          (keyup)="autoTrans('ownerName',i)"
                          autocomplete="off"
                          name="name" placeholder="Owner Name"
                          type="text"/>
@@ -2272,7 +2272,7 @@
                 <td>
                   <input class="form-control "
                          formControlName="ownerEmail"
-
+                         (keyup)="autoTrans('ownerEmail',i)"
                          autocomplete="off"
                          name="name" placeholder="Owner Email"
                          type="text"/>
@@ -2385,7 +2385,7 @@
                 <td>
                   <input class="form-control "
                          formControlName="ownerGrandFatherName"
-
+                         (keyup)="autoTrans('ownerGrandFatherName',i)"
                          name="grandFatherName" placeholder="Grand Father Name"
                          type="text"/>
                 </td>
@@ -2407,7 +2407,7 @@
                 <td>
                   <input class="form-control "
                          formControlName="ownerFatherName"
-
+                         (keyup)="autoTrans('ownerFatherName',i)"
                          name="fatherName" placeholder="Father Name"
                          type="text"/>
                 </td>
@@ -2456,6 +2456,7 @@
                   <input class="form-control "
                          formControlName="ownerSharePercentage"
                          autocomplete="off"
+                         (keyup)="autoTrans('ownerSharePercentage',i)"
                          name="ownerSharePercentage" placeholder="Share Percentage"
                          type="text"/>
                 </td>
@@ -2636,6 +2637,7 @@
                   <input class="form-control "
                          formControlName="indianEmbassyIssuedFrom"
                          autocomplete="off"
+                         (keyup)="autoTrans('indianEmbassyIssuedFrom',i)"
                          name="embassyNo" placeholder="Issued From"
                          type="text"/>
                 </td>
@@ -2715,6 +2717,7 @@
                          formControlName="indianOwnerPassportIssuedFrom"
                          autocomplete="off"
                          name="embassyNo" placeholder="Issued From"
+                         (keyup)="autoTrans('indianOwnerPassportIssuedFrom',i)"
                          type="text"/>
                 </td>
                 <td>
@@ -2826,6 +2829,7 @@
                          formControlName="otherOwnerPassportIssuedFrom"
                          autocomplete="off"
                          name="embassyNo" placeholder="Issued From"
+                         (keyup)="autoTrans('otherOwnerPassportIssuedFrom',i)"
                          type="text"/>
                 </td>
                 <td>
@@ -2888,6 +2892,7 @@
                   <input class="form-control "
                          formControlName="indianOwnerAdharCardIssuedFrom"
                          autocomplete="off"
+                         (keyup)="autoTrans('indianOwnerAdharCardIssuedFrom',i)"
                          name="embassyNo" placeholder="Card Issued From"
                          type="text"/>
                 </td>
@@ -2927,13 +2932,14 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
               <tr *ngIf="userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== 'Nepali' &&
               userConfigForm.get(['ownerDetails', i, 'foreignAddressOption']).value === 'Foreign'">
                 <td>
-                  <label class="title">Other Address</label>
+                  <label class="title">Foreign Address</label>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="ownerOtherAddress"
                          autocomplete="off"
-                         name="ownerOtherAddress" placeholder="Other Address"
+                         (keyup)="autoTrans('ownerOtherAddress',i)"
+                         name="ownerOtherAddress" placeholder="Foreign Address"
                          type="text"/>
                 </td>
                 <td>
@@ -3122,7 +3128,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 <td>
                   <input class="form-control "
                          formControlName="ownerPermanentStreetTole"
-
+                         (keyup)="autoTrans('ownerPermanentStreetTole',i)"
                          name="ownerPermanentStreetTole" placeholder="Street Tole"
                          type="text"/>
                 </td>
@@ -3325,7 +3331,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 <td>
                   <input class="form-control "
                          formControlName="ownerTemporaryStreetTole"
-
+                         (keyup)="autoTrans('ownerTemporaryStreetTole',i)"
                          name="ownerTemporaryStreetTole" placeholder="Street Tole"
                          type="text"/>
                 </td>
@@ -3682,10 +3688,356 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
               </tr>
 
+              <tr *ngIf="customerType === 'INSTITUTION'">
+                <td>
+                  <label class="title">Nationality</label>
+                </td>
+                <td>
+                  <select required="true" class="form-control"
+                          #ownerNationality
+                          formControlName="guarantorNationality">
+                    <option  value="null" hidden>Select Nationality</option>
+                    <option  value="Nepali">Nepali</option>
+                    <option value="Indian">Indian</option>
+                    <option value="Other">Other</option>
+                  </select>
+
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian'">
+                <td>
+                  <label class="title">Detail Option</label>
+                </td>
+                <td>
+                  <select required="true" class="form-control"
+                          #indianGuarantorNationality
+                          formControlName="indianGuarantorDetailOption">
+                    <option  value="null" hidden>Select Detail Option</option>
+                    <option  value="Embassy Certificate">Embassy Certificate</option>
+                    <option value="Passport">Passport</option>
+                    <option value="Adhar Card">Adhar Card</option>
+                  </select>
+
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian' &&
+              userConfigForm.get(['guarantorDetails', i, 'indianGuarantorDetailOption']).value === 'Embassy Certificate'">
+                <td>
+                  <label class="title">Embassy No</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="embassyNo"
+                          autocomplete="off"
+                         name="embassyNo" placeholder="Embassy No"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="embassyNoTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="embassyNoCT"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian' &&
+              userConfigForm.get(['guarantorDetails', i, 'indianGuarantorDetailOption']).value === 'Embassy Certificate'">
+                <td>Embassy Issued Date</td>
+                <div class="col-md-12">
+                  <input [nbDatepicker]="indianGuaEmbIssueDate"
+                         class="form-control form-control-sm-error rounded"
+                         formControlName="embassyIssuedDate"
+                         name="embassyIssuedDate"
+                         placeholder="Issued Date"
+                         type="text">
+                  <nb-datepicker #indianGuaEmbIssueDate></nb-datepicker>
+                </div>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian' &&
+              userConfigForm.get(['guarantorDetails', i, 'indianGuarantorDetailOption']).value === 'Embassy Certificate'">
+                <td>
+                  <label class="title">Embassy Issued From</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="embassyIssuedFrom"
+                         autocomplete="off"
+                         name="embassyNo" placeholder="Issued From"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="embassyIssuedFromTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="embassyIssuedFromCT"
+                  />
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian' &&
+              userConfigForm.get(['guarantorDetails', i, 'indianGuarantorDetailOption']).value === 'Passport'">
+                <td>
+                  <label class="title">Passport No</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="passportNo"
+                         autocomplete="off"
+                         name="passportNo" placeholder="Passport No"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="passportNoTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="passportNoCT"
+                  />
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian' &&
+              userConfigForm.get(['guarantorDetails', i, 'indianGuarantorDetailOption']).value === 'Passport'">
+                <td>Passport Issued Date</td>
+                <td>
+                  <div class="col-md-12">
+                    <input [nbDatepicker]="indianGuaPassIssueDate"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="passportIssuedDate"
+
+                           name="passportIssuedDate"
+                           placeholder="Issued Date"
+                           type="text">
+                    <nb-datepicker #indianGuaPassIssueDate></nb-datepicker>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian' &&
+              userConfigForm.get(['guarantorDetails', i, 'indianGuarantorDetailOption']).value === 'Passport'">
+                <td>Passport Validity Date</td>
+                <td>
+                  <div class="col-md-12">
+                    <input [nbDatepicker]="indianGuaPassValidityDate"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="passportValidityDate"
+
+                           name="passportValidityDate"
+                           placeholder="Validity Date"
+                           type="text">
+                    <nb-datepicker #indianGuaPassValidityDate></nb-datepicker>
+                  </div>
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian' &&
+              userConfigForm.get(['guarantorDetails', i, 'indianGuarantorDetailOption']).value === 'Passport'">
+                <td>
+                  <label class="title">Passport Issued From</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="passportIssuedFrom"
+                         autocomplete="off"
+                         name="embassyNo" placeholder="Issued From"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="passportIssuedFromTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="passportIssuedFromCT"
+                  />
+                </td>
+              </tr>
+
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian' &&
+              userConfigForm.get(['guarantorDetails', i, 'indianGuarantorDetailOption']).value === 'Adhar Card'">
+                <td>
+                  <label class="title">Adhar Card No</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="adharCardNo"
+                         autocomplete="off"
+                         name="adharCardNo" placeholder="Adhar Card No"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="adharCardNoTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="adharCardNoCT"
+                  />
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian' &&
+              userConfigForm.get(['guarantorDetails', i, 'indianGuarantorDetailOption']).value === 'Adhar Card'">
+                <td>Adhar Card Issued Date</td>
+                <td>
+                  <div class="col-md-12">
+                    <input [nbDatepicker]="indianGuaAdharCardIssueDate"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="adharCardIssuedDate"
+
+                           name="adharCardIssuedDate"
+                           placeholder="Issued Date"
+                           type="text">
+                    <nb-datepicker #indianGuaAdharCardIssueDate></nb-datepicker>
+                  </div>
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Indian' &&
+              userConfigForm.get(['guarantorDetails', i, 'indianGuarantorDetailOption']).value === 'Adhar Card'">
+                <td>
+                  <label class="title">Adhar Card Issued From</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="adharCardIssuedFrom"
+                         autocomplete="off"
+                         name="adharCardIssuedFrom" placeholder="Card Issued From"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="adharCardIssuedFromTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="adharCardIssuedFromCT"
+                  />
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Other'">
+                <td>
+                  <label class="title">Passport No</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="otherGuarantorPassportNo"
+                         autocomplete="off"
+                         name="otherGuarantorPassportNo" placeholder="Passport No"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="otherGuarantorPassportNoTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="otherGuarantorPassportNoCT"
+                  />
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Other'">
+                <td>Passport Issued Date</td>
+                <td>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <select required="true" class="form-control"
+                              #otherGuaPassportIssuedDateOption
+                              formControlName="otherGuarantorPassportIssuedDateOption">
+                        <option  value="null" hidden>AD/BS</option>
+                        <option  value="AD">AD</option>
+                        <option value="BS">BS</option>
+                      </select>
+
+                    </div>
+                    <div class="col-md-8">
+                      <nepali-patro *ngIf="otherGuaPassportIssuedDateOption.value ==='BS'"
+                                    formControlName="otherGuarantorPassportIssuedDate" [responseType]="2"
+                                    [displayNepali]="true">
+                      </nepali-patro>
+                      <input [nbDatepicker]="otherGuaPassIssueDate"
+                             *ngIf="otherGuaPassportIssuedDateOption.value ==='AD'"
+                             class="form-control form-control-sm-error rounded"
+                             formControlName="otherGuarantorPassportIssuedDate"
+                             name="otherGuarantorIssuedDate"
+                             placeholder="Issued Date"
+                             type="text">
+                      <nb-datepicker #otherGuaPassIssueDate></nb-datepicker>
+                    </div>
+
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Other'">
+                <td>Passport Validity Date</td>
+                <td>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <select required="true" class="form-control"
+                              #otherGuaPassportValidityDateOption
+                              formControlName="otherGuarantorPassportValidityDateOption">
+                        <option  value="null" hidden>AD/BS</option>
+                        <option  value="AD">AD</option>
+                        <option value="BS">BS</option>
+                      </select>
+
+                    </div>
+                    <div class="col-md-8">
+                      <nepali-patro *ngIf="otherGuaPassportValidityDateOption.value ==='BS'"
+                                    formControlName="otherGuarantorPassportValidityDate" [responseType]="2"
+                                    [displayNepali]="true">
+                      </nepali-patro>
+                      <input [nbDatepicker]="otherguaPassValidityDate"
+                             *ngIf="otherGuaPassportValidityDateOption.value ==='AD'"
+                             class="form-control form-control-sm-error rounded"
+                             formControlName="otherGuarantorPassportValidityDate"
+
+                             name="otherEmbassyIssuedDate"
+                             placeholder="Issued Date"
+                             type="text">
+                      <nb-datepicker #otherguaPassValidityDate></nb-datepicker>
+                    </div>
+
+                  </div>
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Other'">
+                <td>
+                  <label class="title">Passport Issued From</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="otherGuarantorPassportIssuedFrom"
+                         autocomplete="off"
+                         name="otherGuarantorPassportIssuedFrom" placeholder="Issued From"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="otherGuarantorPassportIssuedFromTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="otherGuarantorPassportIssuedFromCT"
+                  />
+                </td>
+              </tr>
 
               <!-- added ended -->
               <!-- guarantor temporaryAddress/permanentAddress start-->
-              <tbody>
+              <tbody *ngIf="customerType === 'INDIVIDUAL' || userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Nepali'
+">
               <tr>
                 <td>
                   <label class="title">
@@ -3802,6 +4154,26 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
 
               </tr>
+              <tr *ngIf="customerType === 'INSTITUTION'">
+                <td>
+                  <label class="title">Street Tole</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="permanentStreetTole"
+                         autocomplete="off"
+                         name="gurantedAmount" placeholder="Street Tole"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="permanentStreetToleTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="permanentStreetToleCT"
+                  />
+                </td>
+              </tr>
               <td></td>
               <td>
                 <nb-checkbox formControlName="isSameTemporaryAndPermanent"
@@ -3811,7 +4183,8 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
               </td>
               </tbody>
               <tbody
-                  *ngIf="!userConfigForm.get(['guarantorDetails', i, 'isSameTemporaryAndPermanent']).value">
+                  *ngIf="!userConfigForm.get(['guarantorDetails', i, 'isSameTemporaryAndPermanent']).value
+&&  customerType === 'INDIVIDUAL' || userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Nepali' ">
               <tr>
                 <td>
                   <strong>Temporary Address</strong>
@@ -3923,6 +4296,26 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                   />
                 </td>
 
+              </tr>
+              <tr *ngIf="customerType === 'INSTITUTION'">
+                <td>
+                  <label class="title">Street Tole</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="temporaryStreetTole"
+                         autocomplete="off"
+                         name="gurantedAmount" placeholder="Street Tole"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="temporaryStreetToleTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="temporaryStreetToleCT"
+                  />
+                </td>
               </tr>
               <br>
               </tbody>
