@@ -162,12 +162,6 @@
                                nbInput status="success" type="number">
                     </div>
 
-                    <div class="form-group" *ngIf="!isInterestSubsidy">
-                        <label for="serviceCharge">Service Charge</label>
-                        <input class="form-control" formControlName="serviceCharge" fullWidth id="serviceCharge"
-                               nbInput status="success" type="number">
-                    </div>
-
                     <div class="form-group">
                         <label for="totalTenureOfLoan">Total Tenure Of Loan (%)</label>
                         <input class="form-control" formControlName="totalTenureOfLoan" fullWidth id="totalTenureOfLoan"
@@ -294,12 +288,6 @@
                     <div class="form-group">
                         <label for="interestRateTrans">Interest Rate (%) Translation </label>
                         <input class="form-control" formControlName="interestRateTrans" fullWidth id="interestRateTrans"
-                               nbInput status="success" type="text" readonly>
-                    </div>
-
-                    <div class="form-group" *ngIf="!isInterestSubsidy">
-                        <label for="serviceChargeTrans">Service Charge Translation </label>
-                        <input class="form-control" formControlName="serviceChargeTrans" fullWidth id="serviceChargeTrans"
                                nbInput status="success" type="text" readonly>
                     </div>
 
@@ -505,17 +493,6 @@
                                type="text">
                         <span *ngIf="submitted && FormControls.interestRateCT.invalid" class="text-danger">
                             Interest Rate is required
-                        </span>
-                    </div>
-
-                    <div class="form-group" *ngIf="!isInterestSubsidy">
-                        <label for="serviceChargeCT">Service Charge CT</label>
-                        <input class="form-control" formControlName="serviceChargeCT" fullWidth id="serviceChargeCT"
-                               nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.serviceChargeCT.errors }"
-                               type="text">
-                        <span *ngIf="submitted && FormControls.serviceChargeCT.invalid" class="text-danger">
-                            Service Charge is required
                         </span>
                     </div>
 
