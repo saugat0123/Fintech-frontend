@@ -100,7 +100,10 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             purposeOfLoan: [undefined],
             loanAmountFigure: [undefined],
             loanAmountFigureWords: [undefined],
-            marginInPercentage: [undefined],
+            loanLimitAmountFigure: [undefined],
+            loanLimitAmountFigureWords: [undefined],
+            marginInPercentageMotor: [undefined],
+            marginInPercentageFoot: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
             interestRate: [undefined],
@@ -131,7 +134,10 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             purposeOfLoanTrans: [undefined],
             loanAmountFigureTrans: [undefined],
             loanAmountFigureWordsTrans: [undefined],
-            marginInPercentageTrans: [undefined],
+            loanLimitAmountFigureTrans: [undefined],
+            loanLimitAmountFigureWordsTrans: [undefined],
+            marginInPercentageMotorTrans: [undefined],
+            marginInPercentageFootTrans: [undefined],
             baseRateTrans: [undefined],
             premiumRateTrans: [undefined],
             interestRateTrans: [undefined],
@@ -160,7 +166,10 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             purposeOfLoanCT: [undefined, Validators.required],
             loanAmountFigureCT: [undefined, Validators.required],
             loanAmountFigureWordsCT: [undefined, Validators.required],
-            marginInPercentageCT: [undefined, Validators.required],
+            loanLimitAmountFigureCT: [undefined, Validators.required],
+            loanLimitAmountFigureWordsCT: [undefined, Validators.required],
+            marginInPercentageMotorCT: [undefined, Validators.required],
+            marginInPercentageFootCT: [undefined, Validators.required],
             baseRateCT: [undefined, Validators.required],
             premiumRateCT: [undefined, Validators.required],
             interestRateCT: [undefined, Validators.required],
@@ -287,7 +296,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             this.attributes.ct = this.ddslFormGroup.get(key + 'CT').value;
             this.tdVal[key] = this.attributes;
         });
-        console.log('This is Attributes', this.tdVal);
     }
 
     async translateAndSetValue() {
@@ -347,10 +355,24 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         if (!ObjectUtil.isEmpty(loanAmountFigData)) {
             this.ddslFormGroup.get('loanAmountFigureWordsTrans').patchValue(loanAmountFigData);
         }
-        const marginNum = this.ddslFormGroup.get('marginInPercentage').value;
+        const loanLimitAmountData = this.ddslFormGroup.get('loanLimitAmountFigure').value;
+        if (!ObjectUtil.isEmpty(loanLimitAmountData)) {
+            const changeNumberLimit = this.convertNumbersToNepali(loanLimitAmountData, true);
+            this.ddslFormGroup.get('loanLimitAmountFigureTrans').patchValue(changeNumberLimit);
+        }
+        const loanLimitAmountFigData = this.ddslFormGroup.get('loanLimitAmountFigureWords').value;
+        if (!ObjectUtil.isEmpty(loanLimitAmountFigData)) {
+            this.ddslFormGroup.get('loanLimitAmountFigureWordsTrans').patchValue(loanLimitAmountFigData);
+        }
+        const marginNum = this.ddslFormGroup.get('marginInPercentageFoot').value;
         if (!ObjectUtil.isEmpty(marginNum)) {
             const convertedMarginNum = this.convertNumbersToNepali(marginNum, false);
-            this.ddslFormGroup.get('marginInPercentageTrans').patchValue(convertedMarginNum);
+            this.ddslFormGroup.get('marginInPercentageFootTrans').patchValue(convertedMarginNum);
+        }
+        const marginNumMotor = this.ddslFormGroup.get('marginInPercentageMotor').value;
+        if (!ObjectUtil.isEmpty(marginNumMotor)) {
+            const convertedMarginNumMotor = this.convertNumbersToNepali(marginNumMotor, false);
+            this.ddslFormGroup.get('marginInPercentageMotorTrans').patchValue(convertedMarginNumMotor);
         }
         const serviceChargeNum = this.ddslFormGroup.get('serviceCharge').value;
         if (!ObjectUtil.isEmpty(serviceChargeNum)) {
@@ -438,7 +460,10 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         this.ddslFormGroup.get('purposeOfLoanCT').patchValue(this.ddslFormGroup.get('purposeOfLoanTrans').value);
         this.ddslFormGroup.get('loanAmountFigureCT').patchValue(this.ddslFormGroup.get('loanAmountFigureTrans').value);
         this.ddslFormGroup.get('loanAmountFigureWordsCT').patchValue(this.ddslFormGroup.get('loanAmountFigureWordsTrans').value);
-        this.ddslFormGroup.get('marginInPercentageCT').patchValue(this.ddslFormGroup.get('marginInPercentageTrans').value);
+        this.ddslFormGroup.get('loanLimitAmountFigureCT').patchValue(this.ddslFormGroup.get('loanLimitAmountFigureTrans').value);
+        this.ddslFormGroup.get('loanLimitAmountFigureWordsCT').patchValue(this.ddslFormGroup.get('loanLimitAmountFigureWordsTrans').value);
+        this.ddslFormGroup.get('marginInPercentageFootCT').patchValue(this.ddslFormGroup.get('marginInPercentageFootTrans').value);
+        this.ddslFormGroup.get('marginInPercentageMotorCT').patchValue(this.ddslFormGroup.get('marginInPercentageMotorTrans').value);
         this.ddslFormGroup.get('baseRateCT').patchValue(this.ddslFormGroup.get('baseRateTrans').value);
         this.ddslFormGroup.get('premiumRateCT').patchValue(this.ddslFormGroup.get('premiumRateTrans').value);
         this.ddslFormGroup.get('interestRateCT').patchValue(this.ddslFormGroup.get('interestRateTrans').value);
@@ -561,7 +586,10 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             hasBackdrop: false,
             hasScroll: true,
             dialogClass: 'modal-full',
-            context: {}
+            context: {
+                cadOfferLetterApprovedDoc: this.customerApprovedDoc,
+                preview: true
+            }
         });
     }
 
