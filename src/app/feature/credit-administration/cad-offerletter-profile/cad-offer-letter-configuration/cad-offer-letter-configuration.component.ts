@@ -375,6 +375,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (this.userConfigForm.invalid) {
             return;
         }
+        this.spinner = true;
         if (this.loanDetails.nepForm.invalid) {
             return;
         }
@@ -489,7 +490,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }
         }
 
-        guarantorDetails.forEach(value => {
+        guarantorDetails.forEach((value, i) => {
             formArray.push(this.formBuilder.group({
                 name: [value.name],
                 guarantorAge: [value.guarantorAge],
@@ -515,19 +516,31 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 guarantorTemporaryMunicipality: [value.guarantorTemporaryMunicipality],
                 guarantorTemporaryWard: [value.guarantorTemporaryWard]
             }));
+            this.getGuarantorDistricts(value.guarantorPermanentProvince, i);
+            this.getGuarantorMunicipalities(value.guarantorPermanentDistrict, i);
+            this.getGuarantorTemporaryDistricts(value.guarantorTemporaryProvince, i);
+            this.getGuarantorTemporaryMunicipalities(value.guarantorTemporaryDistrict, i);
         });
     }
 
-    getGuarantorDistricts(province) {
+    getGuarantorDistricts(data, i, event?) {
+        const province = new Province();
+        province.id = event ? data : data.id;
         this.addressService.getDistrictByProvince(province).subscribe(
             (response: any) => {
-                this.guarantorPermanentDistrictList = response.detail;
-                this.guarantorPermanentDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+                this.guarantorPermanentDistrictList[i] = response.detail;
+                this.guarantorPermanentDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
+                if (event) {
+                    this.userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict']).patchValue(null);
+                    this.userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentMunicipality']).patchValue(null);
+                }
             }
         );
     }
 
-    getGuarantorMunicipalities(district) {
+    getGuarantorMunicipalities(data, i, event?) {
+        const district = new District();
+        district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.guarantorPerMunicipalitiesList = response.detail;
@@ -542,23 +555,31 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         );
     }
 
-    getGuarantorTemporaryDistricts(province) {
+    getGuarantorTemporaryDistricts(data, i, event?) {
+        const province = new Province();
+        province.id = event ? data : data.id;
         this.addressService.getDistrictByProvince(province).subscribe(
             (response: any) => {
-                this.guarantorTemporaryDistrictList = response.detail;
-                this.guarantorTemporaryDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+                this.guarantorTemporaryDistrictList[i] = response.detail;
+                this.guarantorTemporaryDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
+                if (event) {
+                    this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict']).patchValue(null);
+                    this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipality']).patchValue(null);
+                }
             }
         );
     }
 
-    getGuarantorTemporaryMunicipalities(district) {
+    getGuarantorTemporaryMunicipalities(data, i, event?) {
+        const district = new District();
+        district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                this.guarantorTemMunicipalitiesList = response.detail;
-                this.guarantorTemMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-                this.guarantorTemMunicipalitiesList.forEach(municipality => {
+                this.guarantorTemMunicipalitiesList[i] = response.detail;
+                this.guarantorTemMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
+                this.guarantorTemMunicipalitiesList[i].forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalitiesTemporary === municipality))
-                        && municipality.id === this.guarantorList.filter(value => value.municipalitiesTemporary === municipality)[0].id) {
+                        && municipality.id === this.guarantorList.filter(value => value.municipalitiesTemporary === municipality)[0]) {
                         this.userConfigForm.controls.guarantorTemMunicipalitiesList.setValue(municipality);
                     }
                 });

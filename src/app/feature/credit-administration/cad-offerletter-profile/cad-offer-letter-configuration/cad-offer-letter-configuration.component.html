@@ -234,7 +234,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row" >
                             <div class="col-md-12 text-center">
                                 <strong>स्थाई ठेगाना</strong>
                                 <div class="offset-10 col-md-2">
@@ -994,11 +994,11 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorPermanentProvince">प्रदेश</label>
+                                        <label class="title" for="guarantorPermanentProvince{{i}}">प्रदेश</label>
                                         <ng-select bindLabel="nepaliName"
-                                                   (change)="getGuarantorDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentProvince']).value)"
+                                                   (change)="getGuarantorDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentProvince'])?.value?.id, i, $event)"
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentProvince.errors}"
-                                                   id="guarantorPermanentProvince"
+                                                   id="guarantorPermanentProvince{{i}}"
                                                    formControlName="guarantorPermanentProvince">
                                             <ng-option *ngFor="let provinceVal of guarantorPermanentProvinceList"
                                                        [value]="provinceVal"> {{provinceVal.nepaliName}}
@@ -1014,14 +1014,14 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorPermanentDistrict">जिल्ला</label>
+                                        <label class="title" for="guarantorPermanentDistrict{{i}}">जिल्ला</label>
                                         <ng-select bindLabel="nepaliName"
-                                                   (change)="getGuarantorMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict']).value)"
+                                                   (change)="getGuarantorMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict'])?.value?.id, i, $event)"
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentDistrict.errors}"
                                                    formControlName="guarantorPermanentDistrict"
-                                                   id="guarantorPermanentDistrict">
-                                            <ng-option *ngFor="let districtVal of guarantorPermanentDistrictList"
-                                                       [value]="districtVal">
+                                                   id="guarantorPermanentDistrict{{i}}">
+                                            <ng-option *ngFor="let districtVal of guarantorPermanentDistrictList[i]"
+                                                       [value]="districtVal" >
                                                 {{districtVal.nepaliName}}
                                             </ng-option>
                                         </ng-select>
@@ -1045,9 +1045,9 @@
                                         <ng-select bindLabel="nepaliName"
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorPermanentMunicipality.errors}"
                                                    formControlName="guarantorPermanentMunicipality"
-                                                   id="guarantorPermanentMunicipality"
+                                                   id="guarantorPermanentMunicipality{{i}}"
                                                    name="guarantorPermanentMunicipality">
-                                            <ng-option *ngFor="let municipalityVal of guarantorPerMunicipalitiesList"
+                                            <ng-option *ngFor="let municipalityVal of guarantorPerMunicipalitiesList[i]"
                                                        [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
                                             </ng-option>
@@ -1081,13 +1081,13 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorTemporaryProvince">प्रदेश</label>
+                                        <label class="title" for="guarantorTemporaryProvince{{i}}">प्रदेश</label>
                                         <ng-select bindLabel="nepaliName"
-                                                   (change)="getGuarantorTemporaryDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryProvince']).value)"
+                                                   (change)="getGuarantorTemporaryDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryProvince'])?.value?.id, i, $event)"
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryProvince.errors}"
-                                                   id="guarantorTemporaryProvince"
+                                                   id="guarantorTemporaryProvince{{i}}"
                                                    formControlName="guarantorTemporaryProvince">
-                                            <ng-option *ngFor="let provinceVal of temporaryProvinceList"
+                                            <ng-option *ngFor="let provinceVal of guarantorTemporaryProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
                                             </ng-option>
@@ -1102,13 +1102,13 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorTemporaryDistrict">जिल्ला</label>
+                                        <label class="title" for="guarantorTemporaryDistrict{{i}}">जिल्ला</label>
                                         <ng-select bindLabel="nepaliName"
-                                                   (change)="getGuarantorTemporaryMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict']).value)"
+                                                   (change)="getGuarantorTemporaryMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict'])?.value?.id, i, $event)"
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorTemporaryDistrict.errors}"
                                                    formControlName="guarantorTemporaryDistrict"
-                                                   id="guarantorTemporaryDistrict">
-                                            <ng-option *ngFor="let districtVal of guarantorTemporaryDistrictList"
+                                                   id="guarantorTemporaryDistrict{{i}}">
+                                            <ng-option *ngFor="let districtVal of guarantorTemporaryDistrictList[i]"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
                                             </ng-option>
@@ -1133,9 +1133,9 @@
                                         <ng-select bindLabel="nepaliName"
                                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryMunicipalities.errors}"
                                                    formControlName="guarantorTemporaryMunicipality"
-                                                   id="guarantorTemporaryMunicipality"
+                                                   id="guarantorTemporaryMunicipality{{i}}"
                                                    name="guarantorTemporaryMunicipality">
-                                            <ng-option *ngFor="let municipalityVal of guarantorTemMunicipalitiesList"
+                                            <ng-option *ngFor="let municipalityVal of guarantorTemMunicipalitiesList[i]"
                                                        [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
                                             </ng-option>

@@ -216,7 +216,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 address: [value.collateralMunVdc.nepaliName] + ', j8f g+= ' +
                     [value.collateralWardNo] + ', ' +
                     [value.collateralDistrict.nepaliName],
-                wardNo: ', j8f g+= ' + [value.collateralWardNo] + ',',
+                wardNo: [value.collateralWardNo],
                 jaggaDistrict: [value.collateralDistrict.nepaliName],
                 jaggaWard: [value.collateralMunVdc.nepaliName],
                 hal: [value.collateralTemporaryMunVdc.nepaliName],
