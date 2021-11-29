@@ -30,6 +30,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   selectedArray = [];
   afterSave = false;
+  autoPopulate1 = 'सम्पर्क अधिकृत';
+  autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
   kisanKarjaSubsidy: FormGroup;
   spinner = false;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
@@ -123,6 +125,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       sixthAdditionalDetails: [undefined],
       seventhAdditionalDetails: [undefined],
       eighthAdditionalDetails: [undefined],
+      autoPopulate1 : [undefined],
+      autoPopulate2 : [undefined],
     });
   }
 
@@ -253,6 +257,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       sixthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sixthText : '',
       seventhAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.seventhText : '',
       eighthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.eighthText : '',
+      autoPopulate1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate1 : '',
+      autoPopulate2 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate2 : '',
       nameOfPersonalGuarantor : this.finalName ? this.finalName : '',
       totalTenureOfLoan : this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',
       typeOfLoan : this.tempData.repaymentType ? this.tempData.repaymentType.ct : '',
@@ -318,6 +324,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       sixthText: this.kisanKarjaSubsidy.get('sixthAdditionalDetails').value,
       seventhText: this.kisanKarjaSubsidy.get('seventhAdditionalDetails').value,
       eighthText: this.kisanKarjaSubsidy.get('eighthAdditionalDetails').value,
+      autoPopulate1 : this.kisanKarjaSubsidy.get('autoPopulate1').value,
+      autoPopulate2 : this.kisanKarjaSubsidy.get('autoPopulate2').value,
     };
   }
   guarantorDetails() {
