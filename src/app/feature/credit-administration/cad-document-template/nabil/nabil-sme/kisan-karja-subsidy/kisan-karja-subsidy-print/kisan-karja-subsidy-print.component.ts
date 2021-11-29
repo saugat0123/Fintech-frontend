@@ -41,15 +41,17 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
   finalNextReviewDate;
   finalPrevSanctionLetterDate;
   offerDocumentDetails;
+  // Test
+  dateOfApplication;
 
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
                public currencyFormatPipe: CurrencyFormatterPipe,
                private engToNepaliDate: EngNepDatePipe,
+               private engNepDatePipe: EngNepDatePipe,
                private datePipe: DatePipe) { }
 
   ngOnInit() {
-    console.log('This is letter data:', this.letter);
     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
@@ -82,15 +84,21 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
       const templateDateApproval = this.letter.dateOfApprovalNepali ? this.letter.dateOfApprovalNepali.en : '';
       this.finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
     }
+
     // For Date of Application:
-    const dateOfApplication = this.letter.dateofApplicationType ? this.letter.dateofApplicationType.en : '';
+    const dateOfApplication = this.letter.dateOfApplicationType ? this.letter.dateOfApplicationType.en : '';
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.letter.dateofApplication ? this.letter.dateofApplication.en : '';
+      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.en : '';
       this.finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
     } else {
-      const templateDateApplication = this.letter.dateofApplicationNepali ? this.letter.dateofApplicationNepali.en : '';
+      const templateDateApplication = this.letter.dateOfApplicationNepali ? this.letter.dateOfApplicationNepali.en : '';
       this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
     }
+   /* if (!ObjectUtil.isEmpty(this.letter.dateOfApplication)) {
+      this.dateOfApplication = this.engNepDatePipe.transform(this.datePipe.transform(this.tempData.loan.dateOfApplication), true);
+    } else {
+      this.dateOfApplication = this.letter.loan.dateOfApplicationCT;
+    }*/
     // For Next Review Date:
     const nextReviewDate = this.letter.nextReviewDateType ? this.letter.nextReviewDateType.en : '';
     if (nextReviewDate === 'AD') {
@@ -103,7 +111,7 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
     // For Previous Sanction Letter Date:
     const prevSanctionLetterDate = this.letter.previousSanctionType ? this.letter.previousSanctionType.en : '';
     if (prevSanctionLetterDate === 'AD') {
-      const templateReviewDate = this.letter.prevSanctionLetterDate ? this.letter.prevSanctionLetterDate.en : '';
+      const templateReviewDate = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.en : '';
       this.finalPrevSanctionLetterDate = this.engToNepaliDate.transform(this.datePipe.transform(templateReviewDate), true);
     } else {
       const templatePrevSanctionLetterDate = this.letter.previousSanctionDateNepali ? this.letter.previousSanctionDateNepali.en : '';

@@ -78,7 +78,7 @@
                         <nb-datepicker #applicationDate></nb-datepicker>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="!isCustomerNew">
                         <label for="nextReviewDateType">Next Review Date</label><br>
                         <nb-radio-group (valueChange)="nextReviewDate($event)" class="d-inline-flex"
                                         formControlName="nextReviewDateType" id="nextReviewDateType"
@@ -156,11 +156,17 @@
                                id="premiumRate" nbInput status="success" type="number">
                     </div>
 
-                    <div class="form-group">
-                        <label for="interestRate">Interest Rate (%)</label>
-                        <input class="form-control" formControlName="interestRate" fullWidth id="interestRate"
-                               nbInput status="success" type="number">
-                    </div>
+                        <div class="form-group">
+                            <label for="interestRate">Interest Rate (%)</label>
+                            <input class="form-control" formControlName="interestRate" fullWidth id="interestRate"
+                                   nbInput status="success" type="number">
+                        </div>
+
+                        <div *ngIf="!isInterestSubsidy" class="form-group">
+                            <label for="serviceCharge">Service Charge</label>
+                            <input class="form-control" formControlName="serviceCharge" fullWidth id="serviceCharge"
+                                   nbInput status="success" type="number">
+                        </div>
 
                     <div class="form-group">
                         <label for="totalTenureOfLoan">Total Tenure Of Loan (%)</label>
@@ -224,7 +230,7 @@
                         </ng-template>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="!isCustomerNew">
                         <label for="dateOfApplicationTrans">Next Review Date Translation </label>
                         <ng-container *ngIf="BSReview; else reviewDateEnglish">
                             <input class="form-control dateTranslationCustom" formControlName="nextReviewDateNepaliTrans" fullWidth id="nextReviewDateNepaliTrans"
@@ -291,11 +297,19 @@
                                nbInput status="success" type="text" readonly>
                     </div>
 
-                    <div class="form-group">
-                        <label for="totalTenureOfLoanTrans">Total Tenure Of Loan (%) Translation </label>
-                        <input class="form-control" formControlName="totalTenureOfLoanTrans" fullWidth id="totalTenureOfLoanTrans"
-                               nbInput status="success" type="text" readonly>
-                    </div>
+                        <div *ngIf="!isInterestSubsidy" class="form-group">
+                            <label for="serviceChargeTrans">Service Charge Translation </label>
+                            <input class="form-control" formControlName="serviceChargeTrans" fullWidth
+                                   id="serviceChargeTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="totalTenureOfLoanTrans">Total Tenure Of Loan (%) Translation </label>
+                            <input class="form-control" formControlName="totalTenureOfLoanTrans" fullWidth
+                                   id="totalTenureOfLoanTrans"
+                                   nbInput readonly status="success" type="text">
+                        </div>
 
                     <div class="form-group">
                         <label for="commitmentFeeTrans">Total Commitment Fee (%) Translation </label>
@@ -374,7 +388,7 @@
                         </ng-template>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="!isCustomerNew">
                         <label for="nextReviewDateCT">Next Review Date CT</label>
                         <ng-container *ngIf="BSReview ; else nextReviewDateCT">
                             <input class="form-control dateTranslationCustom" formControlName="nextReviewDateNepaliCT" fullWidth id="nextReviewDateNepaliCT"
@@ -494,6 +508,18 @@
                         <span *ngIf="submitted && FormControls.interestRateCT.invalid" class="text-danger">
                             Interest Rate is required
                         </span>
+                        </div>
+
+                        <div *ngIf="!isInterestSubsidy" class="form-group">
+                            <label for="serviceChargeCT">Service Charge CT</label>
+                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.serviceChargeCT.errors }"
+                                   class="form-control" formControlName="serviceChargeCT" fullWidth
+                                   id="serviceChargeCT" nbInput
+                                   status="success"
+                                   type="text">
+                            <span *ngIf="submitted && FormControls.serviceChargeCT.invalid" class="text-danger">
+                            Service Charge is required
+                        </span>
                     </div>
 
                     <div class="form-group">
@@ -595,33 +621,46 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label for="securityOwnersMunicipality{{i}}">Municipality (नगर/गा.वि.स.)</label>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <select class="form-control" formControlName="securityOwnersMunicipalityOrVdc"
-                                            name="securityOwnersMunicipalityOrVdc">
-                                        <option hidden value="null">Municipality or VDC</option>
-                                        <option value="Municipality">Municipality</option>
-                                        <option value="VDC">VDC</option>
-                                        <option value="Rural">Rural</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-8" *ngIf="kisanKarjaSubsidy.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value">
-                                    <select (change)="setDefaultNepaliResponse('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
-                                            class="custom-select"
-                                            formControlName="securityOwnersMunicipality"
-                                            id="securityOwnersMunicipality{{i}}"
-                                            name="securityOwnersMunicipality{{i}}">
-                                        <option [ngValue]="null" hidden>Municipality</option>
-                                        <option *ngFor="let municipalityVal of municipalityListForSecurities[i]"
-                                                [ngValue]="municipalityVal">
-                                            {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                                        </option>
-                                    </select>
+                            <div class="form-group">
+                                <label for="securityOwnersMunicipality{{i}}">Municipality (नगर/गा.वि.स.)</label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select class="form-control" formControlName="securityOwnersMunicipalityOrVdc"
+                                                (ngModelChange)="clearSecurityMunType('securityOwnersMunicipality', i, 'securities')"
+                                                name="securityOwnersMunicipalityOrVdc">
+                                            <option hidden value="null">Municipality or VDC</option>
+                                            <option value="Municipality">Municipality</option>
+                                            <option value="VDC">VDC</option>
+                                            <option value="Rural">Rural</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-8" *ngIf="kisanKarjaSubsidy.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value  &&
+                                    kisanKarjaSubsidy.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value === 'VDC'">
+                                        <input (input)="onChangeTranslateSecurity('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                               class="form-control" formControlName="securityOwnersMunicipality"
+                                               fullWidth
+                                               id="securityOwnersMunicipality"
+                                               nbInput status="success" type="text">
+                                    </div>
+
+                                    <div *ngIf="kisanKarjaSubsidy.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value && kisanKarjaSubsidy.get(['securities', i, 'securityOwnersMunicipalityOrVdc']).value !== 'VDC'"
+                                         class="col-md-8">
+                                        <select (change)="setDefaultNepaliResponse('securities', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                                class="custom-select"
+                                                formControlName="securityOwnersMunicipality"
+                                                [compareWith]="compareFn"
+                                                id="securityOwnersMunicipality{{i}}"
+                                                name="securityOwnersMunicipality{{i}}">
+                                            <option [ngValue]="null" hidden>Municipality</option>
+                                            <option *ngFor="let municipalityVal of municipalityListForSecurities[i]"
+                                                    [ngValue]="municipalityVal">
+                                                {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
                         <div class="form-group">
@@ -781,10 +820,12 @@
                         status="info" style="margin-right: 0.5em">
                     Close
                 </button>
-                <button nbButton status="primary" class="float-right" size="small" [disabled]="!isPreview" (click)="openModal()">
+                <button (click)="openModal()" [disabled]="!isPreview" class="float-right" nbButton size="small"
+                        status="primary">
                     Preview
                 </button>
-                <button nbButton status="success" (click)="submit()" size="small" type="submit" [disabled]="!saveEnable">
+                <button (click)="submit()" [disabled]="!saveEnable" nbButton size="small" status="success"
+                        type="submit">
                     Save
                 </button>
             </div>
