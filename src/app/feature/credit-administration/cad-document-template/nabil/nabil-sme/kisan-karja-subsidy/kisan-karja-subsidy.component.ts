@@ -104,7 +104,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       baseRate: [undefined],
       premiumRate: [undefined],
       yearlyInterestRate: [undefined],
-      swekritiLoan: [undefined],
+      serviceCharge: [undefined],
       totalTenureOfLoan: [undefined],
       landOwnerName: [undefined],
       district: [undefined],
@@ -117,9 +117,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       relationshipOfficerName: [undefined],
       branchName: [undefined],
       branchManager: [undefined],
-      applicantName: [undefined],
       commitmentFee : [undefined],
-      executionDate : [undefined],
       // TEST:
       firstAdditionalDetails: [undefined],
       secondAdditionalDetails: [undefined],
@@ -152,6 +150,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
         this.offerLetterDocument = new OfferDocument();
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
+        this.setFreeText();
+        this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
       if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
@@ -169,6 +169,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         this.fillForm();
       }
     } else {
+      this.setFreeText();
+      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       this.fillForm();
     }
   }
@@ -214,9 +216,9 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     }
     // For PREVIOUS SANCTION DATE
     // tslint:disable-next-line:max-line-length
-    const prevSanctionLetterDateType = this.tempData.previousSanctionType ? this.tempData.previousSanctionType.en : '';
+    const previousSanctionType = this.initialInfoPrint.previousSanctionType ? this.initialInfoPrint.previousSanctionType.en : '';
     let finalprevSanctionLetterDate;
-    if (nextReviewDateType === 'AD') {
+    if (previousSanctionType === 'AD') {
       finalprevSanctionLetterDate = this.tempData.previousSanctionDate ? this.tempData.previousSanctionDate.ct : '';
     } else {
       finalprevSanctionLetterDate = this.tempData.previousSanctionDateNepali ? this.tempData.previousSanctionDateNepali.ct : '';
@@ -250,17 +252,18 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       dateOfApplication : finaldateOfApplication ? finaldateOfApplication : '',
       nextReviewDate : finalNextReviewDate ? finalNextReviewDate : '',
       prevSanctionLetterDate : finalprevSanctionLetterDate ? finalprevSanctionLetterDate : '',
-      firstAdditionalDetails : this.freeInformation.firstText ? this.freeInformation.firstText : '',
-      secondAdditionalDetails : this.freeInformation.secondText ? this.freeInformation.secondText : '',
-      thirdAdditionalDetails : this.freeInformation.thirdText ? this.freeInformation.thirdText : '',
-      fourthAdditionalDetails : this.freeInformation.fourthText ? this.freeInformation.fourthText : '',
-      fifthAdditionalDetails : this.freeInformation.fifthText ? this.freeInformation.fifthText : '',
-      sixthAdditionalDetails : this.freeInformation.sixthText ? this.freeInformation.sixthText : '',
-      seventhAdditionalDetails : this.freeInformation.seventhText ? this.freeInformation.seventhText : '',
-      eighthAdditionalDetails : this.freeInformation.eighthText ? this.freeInformation.eighthText : '',
+      firstAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.firstText : '',
+      secondAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
+      thirdAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
+      fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
+      fifthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : '',
+      sixthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sixthText : '',
+      seventhAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.seventhText : '',
+      eighthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.eighthText : '',
       nameOfPersonalGuarantor : this.finalName ? this.finalName : '',
       totalTenureOfLoan : this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',
       typeOfLoan : this.tempData.repaymentType ? this.tempData.repaymentType.ct : '',
+      serviceCharge : this.tempData.serviceCharge ? this.tempData.serviceCharge.ct : '',
     });
 
   }
