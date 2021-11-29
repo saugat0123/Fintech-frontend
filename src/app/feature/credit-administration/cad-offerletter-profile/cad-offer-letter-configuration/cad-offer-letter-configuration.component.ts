@@ -473,7 +473,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     getGuarantorMunicipalities(data, i, event?) {
         const district = new District();
-        district.id = data;
+        district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 console.log('this.guarantorList: ', this.guarantorList);
@@ -491,12 +491,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     getGuarantorTemporaryDistricts(data, i, event?) {
         const province = new Province();
-        province.id = data;
+        province.id = event ? data : data.id;
         this.addressService.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.guarantorTemporaryDistrictList[i] = response.detail;
                 this.guarantorTemporaryDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
-                if (event !== null) {
+                if (event) {
                     this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict']).patchValue(null);
                     this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipality']).patchValue(null);
                 }
@@ -506,7 +506,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     getGuarantorTemporaryMunicipalities(data, i, event?) {
         const district = new District();
-        district.id = data;
+        district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.guarantorTemMunicipalitiesList[i] = response.detail;
