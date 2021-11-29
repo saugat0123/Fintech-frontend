@@ -446,7 +446,7 @@
                                                     <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
                                                            readonly
-                                                           formControlName="jaggaDistrict">
+                                                           formControlName="jaggaDistrict">;
                                                 </td>
                                                 <td>
                                                     स।बिक:
@@ -554,13 +554,11 @@
                                                type="text"
                                                readonly
                                                (input)="getNumAmountWord('amount3','amountInWords3')"
-                                               [value]="form.get(['loanFacilityTable', 0, 'amount']).value"
                                                formControlName="amount3">
                                         /-(अक्षरेपी:
                                         <input class="form-control-lg form-field nepaliFont font-size-normal"
                                                readonly
                                                type="text"
-                                               [value]="form.get(['loanFacilityTable', 0, 'amountInWords']).value"
                                                formControlName="amountInWords3">
                                         मात्र ।) को ऋणि तथा जमानी कर्ताले
                                         एक एकप्रति प्रतिज्ञापत्रमा सहीछाप गरी फाइनान्सलाई उपलव्ध गराउनु पर्नेछ ।
@@ -1188,7 +1186,6 @@
                                                        value="{{form.get('financeBranch').value}}"
                                                        formControlName="employeeFinanceBranch2">
                                                 ,
-
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        readonly
@@ -1517,6 +1514,8 @@
                             [useExistingCss]="true"
                             [disabled]="!initialInfoPrint"
                             printSectionId="print-section-{{ offerLetterConst.OFFER_LETTER_PERSONAL }}"
+                            nbButton
+                            status="info"
                             ngxPrint>print
                     </button>
                 </div>

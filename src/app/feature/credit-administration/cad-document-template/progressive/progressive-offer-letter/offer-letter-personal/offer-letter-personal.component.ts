@@ -123,6 +123,8 @@ export class OfferLetterPersonalComponent implements OnInit {
                 valuatorName: this.nepaliData.valuatorName ? this.nepaliData.valuatorName : '',
                 fairMarketValue: this.nepaliData.fairMarketValue ? this.nepaliData.fairMarketValue : '',
                 distressValue: this.nepaliData.distressValue ? this.nepaliData.distressValue : '',
+                amount3: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
+                amountInWords3: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : ''
             });
             this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
             this.setSecurityDetails(this.nepaliData.collateralDetails);
@@ -211,9 +213,10 @@ export class OfferLetterPersonalComponent implements OnInit {
                 name: [value.collateralName],
                 parentName: [value.collateralFatherName],
                 grandParentName: [value.collateralGrandFatherName],
-                address: [value.collateralMunVdc.nepaliName] + ', j8f g+= '
-                    [value.collateralWardNo] + ' , ' +
+                address: [value.collateralMunVdc.nepaliName] + ', j8f g+= ' +
+                    [value.collateralWardNo] + ', ' +
                     [value.collateralDistrict.nepaliName],
+                wardNo: ', j8f g+= ' + [value.collateralWardNo] + ',',
                 jaggaDistrict: [value.collateralDistrict.nepaliName],
                 jaggaWard: [value.collateralMunVdc.nepaliName],
                 hal: [value.collateralTemporaryMunVdc.nepaliName],
@@ -230,6 +233,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 name: [undefined],
                 parentName: [undefined],
                 grandParentName: [undefined],
+                wardNo: [undefined],
                 address: [undefined],
                 jaggaDistrict: [undefined],
                 jaggaWard: [undefined],
@@ -276,7 +280,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 branchName: [value.branchName],
                 loanApprovalDate: this.loanAmountTemplate.initDate,
                 loanApprovalNo: this.loanAmountTemplate.loanApprovalNo,
-                loanHolderName: [value.loanHolderName],
+                loanHolderName: this.nepaliData.name,
                 guarantorDistrict: [value.guarantorPermanentDistrict.nepaliName],
                 municipalityName: [value.guarantorPermanentMunicipality.nepaliName],
                 guarantorWardNo: [value.guarantorPermanentWard],
