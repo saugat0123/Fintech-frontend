@@ -48,6 +48,7 @@ import { Section7SecurityClauseComponent } from './nabil-sme/combined-offer-lett
 import { Section8InsuranceClauseComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section8-insurance-clause/section8-insurance-clause.component';
 import { Section9OtherClauseComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section9-other-clause/section9-other-clause.component';
 import { Section10SecurityDocumentsComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section10-security-documents/section10-security-documents.component';
+import { CombinedOfferLetterPrintComponent } from './nabil-sme/combined-offer-letter/combined-offer-letter-print/combined-offer-letter-print.component';
 
 @NgModule({
     declarations: [
@@ -64,7 +65,7 @@ import { Section10SecurityDocumentsComponent } from './nabil-sme/combined-offer-
         LoanDeedPartnershipComponent,
        LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent],
+        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent, CombinedOfferLetterPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -95,7 +96,8 @@ import { Section10SecurityDocumentsComponent } from './nabil-sme/combined-offer-
         KisanKarjaSubsidyPrintComponent,
         DdslWithoutSubsidyComponent,
         DdslWithoutSubsidyPrintComponent,
-        CombinedOfferLetterComponent
+        CombinedOfferLetterComponent,
+        CombinedOfferLetterPrintComponent
     ],
     imports: [
         CommonModule,
