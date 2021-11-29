@@ -6,5 +6,7 @@ export class CollateralSiteVisit extends BaseEntity {
     securityName: string;
     siteVisitJsonData: string;
     siteVisitDocuments: Array<SiteVisitDocument>;
+    collateralDeleted: number;
     isApproved: boolean;
+    uuid: string;
 }

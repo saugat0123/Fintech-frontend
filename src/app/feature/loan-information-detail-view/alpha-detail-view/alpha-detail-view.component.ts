@@ -129,7 +129,7 @@ export class AlphaDetailViewComponent implements OnInit {
         const selectedArray = data.selectedArray;
         if (selectedArray.indexOf('ShareSecurity') !== -1) {
           this.approvedSecurity = true;
-          this.approveSecurityAsProposed = true;
+          this.approveSecurityAsProposed = false;
         }
       }
     }

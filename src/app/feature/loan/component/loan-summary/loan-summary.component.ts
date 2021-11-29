@@ -332,7 +332,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.loanNatureSelected = false;
             this.fundableNonFundableSelcted = false;
         }
-        console.log(this.loanDataHolder.security);
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
                 this.initialSecurity = true;

@@ -257,6 +257,16 @@ export class SecurityInitialFormComponent implements OnInit {
 
     }
 
+    private uuid(): string {
+        // tslint:disable-next-line:no-bitwise
+        let firstPart: any = (Math.random() * 46656) | 0;
+        // tslint:disable-next-line:no-bitwise
+        let secondPart: any = (Math.random() * 46656) | 0;
+        firstPart = ('000' + firstPart.toString(36)).slice(-3);
+        secondPart = ('000' + secondPart.toString(36)).slice(-3);
+        return firstPart + secondPart;
+    }
+
     updateLandSecurityTotal() {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         this.totaldv = 0;
@@ -306,7 +316,8 @@ export class SecurityInitialFormComponent implements OnInit {
             bondValue: [undefined, Validators.required],
             bondSerialNumber: [undefined],
             issuer: [undefined],
-            expiryDate: [undefined]
+            expiryDate: [undefined],
+            uuid: [this.uuid()],
         });
     }
 
@@ -331,6 +342,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         bondSerialNumber: [singleData.bondSerialNumber],
                         issuer: [singleData.issuer],
                         expiryDate: [singleData.expiryDate],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     })
                 );
             });
@@ -469,6 +481,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                     kycCheckForLand: [singleData.kycCheckForLand],
+                    uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
         });
@@ -491,6 +504,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         hypothecationOwnerRelationship: [singleData.hypothecationOwnerRelationship],
                         ownerKycApplicableData: [singleData.ownerKycApplicableData],
                         kycCheckForHypthecation: [singleData.kycCheckForHypthecation],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
 
                     })
                 );
@@ -508,6 +522,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 assignmentsDetails.push(
                     this.formBuilder.group({
                         otherDetail: [singleData.otherDetail],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     })
                 );
             });
@@ -524,6 +539,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 securityOtherDetails.push(
                     this.formBuilder.group({
                         otherDetail: [singleData.otherDetail],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     })
                 );
             });
@@ -546,6 +562,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         email: [singleData.email],
                         phoneNumber: [singleData.phoneNumber],
                         otherDetail: [singleData.otherDetail],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     })
                 );
             });
@@ -567,6 +584,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         phoneNumber: [singleData.phoneNumber],
                         otherDetail: [singleData.otherDetail],
                         owner: [singleData.owner],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
 
                     })
                 );
@@ -616,6 +634,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentStaffRepresentativeDesignation2: [singleData.apartmentStaffRepresentativeDesignation2],
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
                     apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
+                    uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
         });
@@ -699,7 +718,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     progessCost: [singleData.progessCost],
                     landBuildingOtherBranchChecked: [singleData.landBuildingOtherBranchChecked],
-                    kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding]
+                    kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding],
+                    uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
         });
@@ -835,6 +855,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         [singleData.plantMachineryStaffRepresentativeDesignation2],
                     plantMachineryStaffRepresentativeName2: [singleData.plantMachineryStaffRepresentativeName2],
                     plantOtherBranchChecked: [singleData.plantOtherBranchChecked],
+                    uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
         });
@@ -858,6 +879,7 @@ export class SecurityInitialFormComponent implements OnInit {
                             undefined : new Date(singleData.earlySurrenderDate)],
                         consideredValue: [singleData.consideredValue],
                         cashBackAmount: [singleData.cashBackAmount],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     })
                 );
             });
@@ -873,7 +895,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 assignmentDetails.push(
                     this.formBuilder.group({
                         amount: [singleData.amount],
-                        otherDetail: [singleData.otherDetail]
+                        otherDetail: [singleData.otherDetail],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     })
                 );
             });
@@ -1260,6 +1283,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 hypothecationOwnerRelationship: [undefined],
                 ownerKycApplicableData: [undefined],
                 kycCheckForHypthecation: [false],
+                uuid: [this.uuid()],
             }
         );
     }
@@ -1268,6 +1292,7 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
                 otherDetail: [undefined],
                 ownerKycApplicableData: [undefined],
+                uuid: [this.uuid()],
 
             }
         );
@@ -1276,6 +1301,7 @@ export class SecurityInitialFormComponent implements OnInit {
     securityOtherDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
                 otherDetail: [undefined],
+                uuid: [this.uuid()],
             }
         );
     }
@@ -1288,6 +1314,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 email: [undefined],
                 phoneNumber: [undefined],
                 otherDetail: [undefined],
+                uuid: [this.uuid()],
             }
         );
     }
@@ -1300,6 +1327,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 phoneNumber: [undefined],
                 owner: [undefined],
                 otherDetail: [undefined],
+                uuid: [this.uuid()],
             }
         );
     }
@@ -1345,6 +1373,7 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
             kycCheckForLand: [false],
+            uuid: [this.uuid()],
         });
     }
 
@@ -1378,6 +1407,7 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentStaffRepresentativeDesignation2: [undefined],
             apartmentStaffRepresentativeName2: [undefined],
             apartmentOtherBranchChecked: [undefined],
+            uuid: [this.uuid()],
         });
     }
 
@@ -1438,7 +1468,8 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             progessCost: [undefined],
             landBuildingOtherBranchChecked: [undefined],
-            kycCheckForLandAndBuilding: [false]
+            kycCheckForLandAndBuilding: [false],
+            uuid: [this.uuid()],
         });
     }
 
@@ -1454,6 +1485,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 earlySurrenderDate: [undefined],
                 consideredValue: [undefined],
                 cashBackAmount: [undefined],
+                uuid: [this.uuid()],
             }
         );
     }
@@ -1474,13 +1506,15 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryStaffRepresentativeDesignation2: [undefined],
             plantMachineryStaffRepresentativeName2: [undefined],
             plantOtherBranchChecked: [undefined],
+            uuid: [this.uuid()],
         });
     }
 
     assignmentDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
                 amount: [undefined, Validators.required ],
-                otherDetail: [undefined]
+                otherDetail: [undefined],
+                uuid: [this.uuid()],
             }
         );
     }
@@ -1636,6 +1670,7 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicleQuotationDate: undefined,
             vehicleRemarks: [undefined],
             vehicleOtherBranchChecked: [undefined],
+            uuid: [this.uuid()],
         });
     }
 
@@ -1684,7 +1719,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     vehicleQuotationDate: [ObjectUtil.isEmpty(singleData.vehicleQuotationDate) ?
                         undefined : new Date(singleData.vehicleQuotationDate)],
                     vehicleRemarks: [singleData.vehicleRemarks],
-                    vehicleOtherBranchChecked: [singleData.vehicleOtherBranchChecked]
+                    vehicleOtherBranchChecked: [singleData.vehicleOtherBranchChecked],
+                    uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
         });
@@ -1708,7 +1744,8 @@ export class SecurityInitialFormComponent implements OnInit {
             remarks: [''],
             accountHolderName: undefined,
             accountNumber: [undefined, Validators.required],
-            tenureStartDate: undefined
+            tenureStartDate: undefined,
+            uuid: [this.uuid()],
         });
     }
 
@@ -1736,7 +1773,8 @@ export class SecurityInitialFormComponent implements OnInit {
                         accountHolderName: [deposit.accountHolderName],
                         accountNumber: [deposit.accountNumber],
                         tenureStartDate: [ObjectUtil.isEmpty(deposit.tenureStartDate) ?
-                            undefined : new Date(deposit.tenureStartDate)]
+                            undefined : new Date(deposit.tenureStartDate)],
+                        uuid: [ObjectUtil.isEmpty(deposit.uuid) ? this.uuid() : deposit.uuid],
                     })
                 );
             });
@@ -1857,6 +1895,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         dividendYeild: [share.dividendYeild],
                         dividendPayoutRatio: [share.dividendPayoutRatio],
                         ratioAsPerAuitedFinancial: [share.ratioAsPerAuitedFinancial],
+                        uuid: [ObjectUtil.isEmpty(share.uuid) ? this.uuid() : share.uuid],
                     })
                 );
             });
@@ -1879,6 +1918,7 @@ export class SecurityInitialFormComponent implements OnInit {
             dividendYeild: [undefined],
             dividendPayoutRatio: [undefined],
             ratioAsPerAuitedFinancial: [undefined],
+            uuid: [this.uuid()],
         });
     }
 
@@ -2235,11 +2275,12 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
 
-    openSiteVisitModel(security: string) {
+    openSiteVisitModel(security: string, uuid: string) {
         this.close();
         const context = {
             securityId: this.customerSecurityId,
-            security: security
+            security: security,
+            uuid: uuid
         };
         this.dialogRef = this.nbDialogService.open(FixAssetCollateralComponent, {
             context,

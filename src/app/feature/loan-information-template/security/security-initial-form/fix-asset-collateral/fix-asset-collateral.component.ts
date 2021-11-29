@@ -32,6 +32,7 @@ export class FixAssetCollateralComponent implements OnInit {
     @Input() security: string;
     @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
     @Input() readMode;
+    @Input() uuid;
     customerType: string;
     customerId: number;
     submitted = false;
@@ -267,6 +268,7 @@ export class FixAssetCollateralComponent implements OnInit {
             commentAboutFAC: [undefined],
             fixedAssetsLongitude: [undefined],
             fixedAssetsLatitude: [undefined],
+            uuid: [this.uuid]
         });
     }
 
@@ -333,6 +335,7 @@ export class FixAssetCollateralComponent implements OnInit {
         formData.append('siteVisitData', this.fixedAssetsForm.get('date').value);
         formData.append('securityName', this.security);
         formData.append('siteVisitJsonData', JSON.stringify(this.fixedAssetsForm.value));
+        formData.append('uuid', this.uuid);
         if (this.fixedAssetsForm.invalid) {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));

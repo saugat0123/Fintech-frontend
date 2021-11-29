@@ -769,15 +769,15 @@
                         <td class="text-left pl-1">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
                     </tr>
                 </table>
-                <strong *ngIf="collateralSiteVisitByLoan.length > 0">Collateral Site Visit Documents</strong>
-                <table *ngIf="collateralSiteVisitByLoan.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <strong *ngIf="collateralSiteVisitDocuments.length > 0">Collateral Site Visit Documents</strong>
+                <table *ngIf="collateralSiteVisitDocuments.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Security Name</th>
                         <th>Document Name</th>
                         <th>Is Printable?</th>
                     </tr>
-                    <tr *ngFor="let doc of collateralSiteVisitByLoan; let i=index;">
+                    <tr *ngFor="let doc of collateralSiteVisitDocuments; let i=index;">
                         <td>{{i+1}}</td>
                         <td>{{doc?.securityName.slice(0, -2)}}</td>
                         <td>{{doc?.docName}}</td>

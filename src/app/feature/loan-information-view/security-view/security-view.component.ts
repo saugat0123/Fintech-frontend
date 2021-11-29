@@ -185,52 +185,53 @@ export class SecurityViewComponent implements OnInit {
     if (this.bondSecurity) {
       this.calculateTotalBondSecurityAmount();
     }
-    if (this.docStatus.toString() === 'APPROVED') {
-      if (!ObjectUtil.isEmpty(this.collateralData)) {
-        this.collateralSiteVisits = this.collateralData;
-        const arr = [];
-        this.collateralSiteVisits.forEach(f => {
-          if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-            arr.push(f.siteVisitDocuments);
-          }
-        });
-        // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-        const docArray = flatten(arr);
-        // filter for only printable document
-        this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
-
-        this.collateralSiteVisits.filter(item => {
-          this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-        });
-        if (this.collateralData.length > 0) {
-          this.isCollateralSiteVisitPresent = true;
-        }
-      }
-    } else {
-      if (!ObjectUtil.isEmpty(this.securityId)) {
-        this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
-            .subscribe((response: any) => {
-              this.collateralSiteVisits = response.detail;
-              const arr = [];
-              this.collateralSiteVisits.forEach(f => {
-                if (f.siteVisitDocuments.length > 0) {
-                  arr.push(f.siteVisitDocuments);
-                }
+    if (!ObjectUtil.isEmpty(this.securityId)) {
+      this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
+          .subscribe((response: any) => {
+            const siteVisit = response.detail;
+            if (this.landSelected) {
+              const landDetails = this.securityData['initialForm']['landDetails'];
+              landDetails.forEach(v => {
+                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
               });
-              // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-              const docArray = flatten(arr);
-              // filter for only printable document
-              this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
-
-              this.collateralSiteVisits.filter(item => {
-                this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+            }
+            if (this.landBuilding) {
+              const landBuilding = this.securityData['initialForm']['landBuilding'];
+              landBuilding.forEach(v => {
+                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
               });
-              if (response.detail.length > 0) {
-                this.isCollateralSiteVisitPresent = true;
+            }
+            if (this.apartmentSelected) {
+              const buildingDetails = this.securityData['initialForm']['buildingDetails'];
+              buildingDetails.forEach(v => {
+                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
+              });
+            }
+            // for old loan that does not contains uuid for site visit
+            siteVisit.forEach((v) => {
+              if (ObjectUtil.isEmpty(v.uuid)) {
+                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
               }
-              this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
             });
-      }
+            const arr = [];
+            this.collateralSiteVisits.forEach(f => {
+              if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
+                arr.push(f.siteVisitDocuments);
+              }
+            });
+            // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+            const docArray = flatten(arr);
+            // filter for only printable document
+            this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+
+            this.collateralSiteVisits.filter(item => {
+              this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+            });
+            if (this.collateralSiteVisits.length > 0) {
+              this.isCollateralSiteVisitPresent = true;
+            }
+            this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
+          });
     }
   }
 
