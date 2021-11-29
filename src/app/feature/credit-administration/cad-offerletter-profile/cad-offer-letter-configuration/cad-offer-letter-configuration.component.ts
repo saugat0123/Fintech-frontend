@@ -67,20 +67,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     allDistrict: Array<District> = Array<District>();
     guarantorPermanentProvinceList: Array<Province> = Array<Province>();
     guarantorTemporaryProvinceList: Array<Province> = Array<Province>();
-    guarantorPermanentDistrictList: Array<District> = Array<District>();
-    guarantorTemporaryDistrictList: Array<District> = Array<District>();
-    guarantorPerMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    guarantorTemMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    guarantorPermanentDistrictList = [];
+    guarantorTemporaryDistrictList = [];
+    guarantorPerMunicipalitiesList = [];
+    guarantorTemMunicipalitiesList = [];
     collateralPermanentProvinceList: Array<Province> = Array<Province>();
     collateralPermanentDistrictList: Array<District> = Array<District>();
     collateralPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     nepData;
-    collateralOwnerPermanentDistrictList: Array<District> = Array<District>();;
-    collateralOwnerPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();;
-    collateralTemporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();;
-    collateralTemporaryDistrictList: Array<District> = Array<District>();;
+    collateralOwnerPermanentDistrictList: Array<District> = Array<District>();
+    collateralOwnerPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    collateralTemporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    collateralTemporaryDistrictList: Array<District> = Array<District>();
     loanDetails: any;
     loanDetailsValue: any;
+    collateralOwnerPermanentProvinceList: Array<Province> = Array<Province>();
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
