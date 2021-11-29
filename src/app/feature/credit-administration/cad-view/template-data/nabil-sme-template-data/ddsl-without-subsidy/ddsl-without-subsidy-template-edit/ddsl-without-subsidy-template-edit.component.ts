@@ -140,7 +140,10 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
             purposeOfLoan: [undefined],
             loanAmountFigure: [undefined],
             loanAmountFigureWords: [undefined],
-            marginInPercentage: [undefined],
+            loanLimitAmountFigure: [undefined],
+            loanLimitAmountFigureWords: [undefined],
+            marginInPercentageMotor: [undefined],
+            marginInPercentageFoot: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
             interestRate: [undefined],
@@ -158,6 +161,7 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
             // FIELDS FOR TRANSLATED FIELDS (TRANS):
             loanOptionTrans: [undefined],
             securityTypeTrans: [undefined],
+            repaymentTypeTrans: [undefined],
             sanctionLetterDateTypeTrans: [undefined],
             sanctionLetterDateNepaliTrans: [undefined],
             sanctionLetterDateTrans: [undefined],
@@ -170,7 +174,10 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
             purposeOfLoanTrans: [undefined],
             loanAmountFigureTrans: [undefined],
             loanAmountFigureWordsTrans: [undefined],
-            marginInPercentageTrans: [undefined],
+            loanLimitAmountFigureTrans: [undefined],
+            loanLimitAmountFigureWordsTrans: [undefined],
+            marginInPercentageMotorTrans: [undefined],
+            marginInPercentageFootTrans: [undefined],
             baseRateTrans: [undefined],
             premiumRateTrans: [undefined],
             interestRateTrans: [undefined],
@@ -186,6 +193,7 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
             // FIELDS FOR CT VALUES:
             loanOptionCT: [undefined],
             securityTypeCT: [undefined],
+            repaymentTypeCT: [undefined],
             sanctionLetterDateTypeCT: [undefined],
             sanctionLetterDateNepaliCT: [undefined, Validators.required],
             sanctionLetterDateCT: [undefined, Validators.required],
@@ -198,7 +206,10 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
             purposeOfLoanCT: [undefined, Validators.required],
             loanAmountFigureCT: [undefined, Validators.required],
             loanAmountFigureWordsCT: [undefined, Validators.required],
-            marginInPercentageCT: [undefined, Validators.required],
+            loanLimitAmountFigureCT: [undefined, Validators.required],
+            loanLimitAmountFigureWordsCT: [undefined, Validators.required],
+            marginInPercentageMotorCT: [undefined, Validators.required],
+            marginInPercentageFootCT: [undefined, Validators.required],
             baseRateCT: [undefined, Validators.required],
             premiumRateCT: [undefined, Validators.required],
             interestRateCT: [undefined, Validators.required],
@@ -384,10 +395,24 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         if (!ObjectUtil.isEmpty(loanAmountFigData)) {
             this.ddslFormGroup.get('loanAmountFigureWordsTrans').patchValue(loanAmountFigData);
         }
-        const marginNum = this.ddslFormGroup.get('marginInPercentage').value;
+        const loanLimitAmountData = this.ddslFormGroup.get('loanLimitAmountFigure').value;
+        if (!ObjectUtil.isEmpty(loanLimitAmountData)) {
+            const changeNumberLimit = this.convertNumbersToNepali(loanLimitAmountData, true);
+            this.ddslFormGroup.get('loanLimitAmountFigureTrans').patchValue(changeNumberLimit);
+        }
+        const loanLimitAmountFigData = this.ddslFormGroup.get('loanLimitAmountFigureWords').value;
+        if (!ObjectUtil.isEmpty(loanLimitAmountFigData)) {
+            this.ddslFormGroup.get('loanLimitAmountFigureWordsTrans').patchValue(loanLimitAmountFigData);
+        }
+        const marginNum = this.ddslFormGroup.get('marginInPercentageFoot').value;
         if (!ObjectUtil.isEmpty(marginNum)) {
             const convertedMarginNum = this.convertNumbersToNepali(marginNum, false);
-            this.ddslFormGroup.get('marginInPercentageTrans').patchValue(convertedMarginNum);
+            this.ddslFormGroup.get('marginInPercentageFootTrans').patchValue(convertedMarginNum);
+        }
+        const marginNumMotor = this.ddslFormGroup.get('marginInPercentageMotor').value;
+        if (!ObjectUtil.isEmpty(marginNumMotor)) {
+            const convertedMarginNumMotor = this.convertNumbersToNepali(marginNumMotor, false);
+            this.ddslFormGroup.get('marginInPercentageMotorTrans').patchValue(convertedMarginNumMotor);
         }
         const serviceChargeNum = this.ddslFormGroup.get('serviceCharge').value;
         if (!ObjectUtil.isEmpty(serviceChargeNum)) {
@@ -475,7 +500,10 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         this.ddslFormGroup.get('purposeOfLoanCT').patchValue(this.ddslFormGroup.get('purposeOfLoanTrans').value);
         this.ddslFormGroup.get('loanAmountFigureCT').patchValue(this.ddslFormGroup.get('loanAmountFigureTrans').value);
         this.ddslFormGroup.get('loanAmountFigureWordsCT').patchValue(this.ddslFormGroup.get('loanAmountFigureWordsTrans').value);
-        this.ddslFormGroup.get('marginInPercentageCT').patchValue(this.ddslFormGroup.get('marginInPercentageTrans').value);
+        this.ddslFormGroup.get('loanLimitAmountFigureCT').patchValue(this.ddslFormGroup.get('loanLimitAmountFigureTrans').value);
+        this.ddslFormGroup.get('loanLimitAmountFigureWordsCT').patchValue(this.ddslFormGroup.get('loanLimitAmountFigureWordsTrans').value);
+        this.ddslFormGroup.get('marginInPercentageFootCT').patchValue(this.ddslFormGroup.get('marginInPercentageFootTrans').value);
+        this.ddslFormGroup.get('marginInPercentageMotorCT').patchValue(this.ddslFormGroup.get('marginInPercentageMotorTrans').value);
         this.ddslFormGroup.get('baseRateCT').patchValue(this.ddslFormGroup.get('baseRateTrans').value);
         this.ddslFormGroup.get('premiumRateCT').patchValue(this.ddslFormGroup.get('premiumRateTrans').value);
         this.ddslFormGroup.get('interestRateCT').patchValue(this.ddslFormGroup.get('interestRateTrans').value);
@@ -620,7 +648,10 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
             hasBackdrop: false,
             hasScroll: true,
             dialogClass: 'modal-full',
-            context: {}
+            context: {
+                cadOfferLetterApprovedDoc: this.customerApprovedDoc,
+                preview: true
+            }
         });
     }
 
@@ -757,7 +788,10 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         // Patch value for other remaining fields:
         this.ddslFormGroup.get('loanAmountFigure').patchValue(this.initialInformation.loanAmountFigure.en);
         this.ddslFormGroup.get('loanAmountFigureWords').patchValue(this.initialInformation.loanAmountFigureWords.en);
-        this.ddslFormGroup.get('marginInPercentage').patchValue(this.initialInformation.marginInPercentage.en);
+        this.ddslFormGroup.get('loanLimitAmountFigure').patchValue(this.initialInformation.loanLimitAmountFigure.en);
+        this.ddslFormGroup.get('loanLimitAmountFigureWords').patchValue(this.initialInformation.loanLimitAmountFigureWords.en);
+        this.ddslFormGroup.get('marginInPercentageMotor').patchValue(this.initialInformation.marginInPercentageMotor.en);
+        this.ddslFormGroup.get('marginInPercentageFoot').patchValue(this.initialInformation.marginInPercentageFoot.en);
         this.ddslFormGroup.get('baseRate').patchValue(this.initialInformation.baseRate.en);
         this.ddslFormGroup.get('premiumRate').patchValue(this.initialInformation.premiumRate.en);
         this.ddslFormGroup.get('interestRate').patchValue(this.initialInformation.interestRate.en);
@@ -784,7 +818,10 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         this.ddslFormGroup.get('purposeOfLoanCT').patchValue(this.initialInformation.purposeOfLoan.ct);
         this.ddslFormGroup.get('loanAmountFigureCT').patchValue(this.initialInformation.loanAmountFigure.ct);
         this.ddslFormGroup.get('loanAmountFigureWordsCT').patchValue(this.initialInformation.loanAmountFigureWords.ct);
-        this.ddslFormGroup.get('marginInPercentageCT').patchValue(this.initialInformation.marginInPercentage.ct);
+        this.ddslFormGroup.get('loanLimitAmountFigureCT').patchValue(this.initialInformation.loanLimitAmountFigure.ct);
+        this.ddslFormGroup.get('loanLimitAmountFigureWordsCT').patchValue(this.initialInformation.loanLimitAmountFigureWords.ct);
+        this.ddslFormGroup.get('marginInPercentageMotorCT').patchValue(this.initialInformation.marginInPercentageMotor.ct);
+        this.ddslFormGroup.get('marginInPercentageFootCT').patchValue(this.initialInformation.marginInPercentageFoot.ct);
         this.ddslFormGroup.get('baseRateCT').patchValue(this.initialInformation.baseRate.ct);
         this.ddslFormGroup.get('premiumRateCT').patchValue(this.initialInformation.premiumRate.ct);
         this.ddslFormGroup.get('interestRateCT').patchValue(this.initialInformation.interestRate.ct);
@@ -816,7 +853,10 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         this.ddslFormGroup.get('purposeOfLoanTrans').patchValue(this.initialInformation.purposeOfLoan.np);
         this.ddslFormGroup.get('loanAmountFigureTrans').patchValue(this.initialInformation.loanAmountFigure.np);
         this.ddslFormGroup.get('loanAmountFigureWordsTrans').patchValue(this.initialInformation.loanAmountFigureWords.np);
-        this.ddslFormGroup.get('marginInPercentageTrans').patchValue(this.initialInformation.marginInPercentage.np);
+        this.ddslFormGroup.get('loanLimitAmountFigureTrans').patchValue(this.initialInformation.loanLimitAmountFigure.np);
+        this.ddslFormGroup.get('loanLimitAmountFigureWordsTrans').patchValue(this.initialInformation.loanLimitAmountFigureWords.np);
+        this.ddslFormGroup.get('marginInPercentageMotorTrans').patchValue(this.initialInformation.marginInPercentageMotor.np);
+        this.ddslFormGroup.get('marginInPercentageFootTrans').patchValue(this.initialInformation.marginInPercentageFoot.np);
         this.ddslFormGroup.get('baseRateTrans').patchValue(this.initialInformation.baseRate.np);
         this.ddslFormGroup.get('premiumRateTrans').patchValue(this.initialInformation.premiumRate.np);
         this.ddslFormGroup.get('interestRateTrans').patchValue(this.initialInformation.interestRate.np);
