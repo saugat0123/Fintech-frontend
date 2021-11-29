@@ -406,7 +406,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       this.attributes.ct = this.kisanKarjaSubsidy.get(key + 'CT').value;
       this.tdVal[key] = this.attributes;
     });
-    console.log('This is Attributes', this.tdVal);
   }
 
   async translateAndSetVal() {
@@ -761,7 +760,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       this.isPreview = this.closeEnable = true;
       this.saveEnable = false;
     }, error => {
-      console.log(error);
       this.spinner = false;
       this.isPreview = false;
       this.saveEnable = false;
@@ -798,7 +796,6 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
   }
 // Set Template Data:
   setKisanLoanTemplateData() {
-    console.log('intialinfo:', this.initialInformation);
     // SET EN VALUE OF FORM
     this.kisanKarjaSubsidy.get('loanOption').patchValue(this.initialInformation.loanOption.en);
     this.kisanKarjaSubsidy.get('repaymentType').patchValue(this.initialInformation.repaymentType.en);

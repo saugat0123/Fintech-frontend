@@ -52,7 +52,6 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
                private datePipe: DatePipe) { }
 
   ngOnInit() {
-    console.log('This is letter data:', this.letter);
     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {

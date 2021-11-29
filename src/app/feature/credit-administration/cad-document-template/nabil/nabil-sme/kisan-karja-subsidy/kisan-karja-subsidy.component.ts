@@ -72,8 +72,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-      console.log('::::::::::::::', this.tempData);
-      console.log(this.offerDocumentDetails);
     }
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
@@ -81,8 +79,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
     this.checkOfferLetterData();
-    console.log('All Data:', this.tempData);
-    console.log('Loan Holder initial data:', this.loanHolderInfo);
    /* this.guarantorDetails();*/
   }
   buildForm() {
@@ -175,7 +171,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     }
   }
   fillForm() {
-    console.log(this.offerDocumentDetails);
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
     const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
@@ -223,9 +218,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     } else {
       finalprevSanctionLetterDate = this.tempData.previousSanctionDateNepali ? this.tempData.previousSanctionDateNepali.ct : '';
     }
-    console.log('Free Text value:', this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
-    console.log('Free : ', this.freeInformation);
     this.guarantorDetails();
     this.kisanKarjaSubsidy.patchValue({
       customerName: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
@@ -282,7 +275,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY).toString()) {
             this.setFreeText();
             offerLetterPath.supportedInformation = JSON.stringify(this.freeTextVal);
-            console.log(offerLetterPath.supportedInformation, 'freeText');
           // offerLetterPath.supportedInformation = this.kisanKarjaSubsidy.get(this.freeTextVal.firstText).value;
             // offerLetterPath.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
         }
@@ -293,12 +285,10 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       offerDocument.initialInformation = JSON.stringify(this.kisanKarjaSubsidy.value);
       this.setFreeText();
       offerDocument.supportedInformation = JSON.stringify(this.freeTextVal);
-      console.log('NEW');
       // offerDocument.supportedInformation = this.kisanKarjaSubsidy.get(this.freeTextVal).value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
-    console.log('cad dATA', this.cadOfferLetterApprovedDoc);
 
     this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
@@ -319,7 +309,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     this.ref.close();
   }
   setFreeText() {
-    console.log('Set free text');
     this.freeTextVal = {
       firstText: this.kisanKarjaSubsidy.get('firstAdditionalDetails').value,
       secondText: this.kisanKarjaSubsidy.get('secondAdditionalDetails').value,
