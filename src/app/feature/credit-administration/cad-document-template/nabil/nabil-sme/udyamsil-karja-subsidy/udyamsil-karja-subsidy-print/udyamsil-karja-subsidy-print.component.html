@@ -15,8 +15,8 @@
         <div class="mb-2">
 
             <div class="mb-1">श्री/श्रीमती/सुश्री
-                <span [ngClass]="{'font-weight-bold': loanHolderInfo?.nameOfApplicant !== null && loanHolderInfo?.nameOfApplicant !== ''}">
-                                {{loanHolderInfo?.nameOfApplicant === null || loanHolderInfo?.nameOfApplicant === "" ? "___________" : loanHolderInfo?.nameOfApplicant}}
+                <span [ngClass]="{'outside': this.loanHolderInfo?.name !== null && this.loanHolderInfo?.name !== ''}">
+                                {{this.loanHolderInfo?.name === null || this.loanHolderInfo?.name === "" ? "___________" : this.loanHolderInfo?.name.ct}}
                         </span>
             </div>
             <div class="mb-1"> ठेगाना:
@@ -25,7 +25,7 @@
             </div>
 
             <!-- ............. for new customer ............. -->
-            <div *ngIf="loanOption== 'NEW'">
+            <div *ngIf="loanOption == 'NEW'">
                 <strong> बिषयः ऋणकर्जा सुविधा बारे। </strong>
                 <p>
                     महोदय, <br>

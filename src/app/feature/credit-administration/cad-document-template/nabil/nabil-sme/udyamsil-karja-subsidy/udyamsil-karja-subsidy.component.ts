@@ -192,12 +192,12 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
           this.offerLetterData = this.offerLetterDocument;
           this.UdyamsilKarjaSubsidy.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
-        this.selectedSecurity = initialInfo.selectedSecurity.en;
+        /*this.selectedSecurity = initialInfo.selectedSecurity.en;
         this.loanLimit = initialInfo.loanLimitChecked.en;
         this.renewal = initialInfo.renewalChecked.en;
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
-        this.selectedArray = initialInfo.loanTypeSelectedArray;
+        this.selectedArray = initialInfo.loanTypeSelectedArray;*/
         this.fillForm();
         this.initialInfoPrint = initialInfo;
         // if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
