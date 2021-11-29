@@ -667,12 +667,11 @@
                     <div class="col-md-12 d-flex justify-content-between">
                         <div class="right-content">
 
-                            .........................................
-                            <p>
-                                सम्पर्क अधिकृत
-                            </p>
                             <span class="font-weight-bold" [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct!== null && letter?.nameOfStaff.ct!== ''}">
                                 {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
+                            <p>
+                                <span class="nepaliFont">{{freeInformation ? freeInformation.autoPopulate1 : '____________'}}</span>
+                            </p>
                             <p>
                                 नबिल बैंक लि.
                             </p>
@@ -681,12 +680,11 @@
                         </div>
                         <div class="left-content text-right">
 
-                            .........................................
-                            <p>
-                                शाखा प्रबन्धक
-                            </p>
                             <span class="font-weight-bold" [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct!== null && letter?.nameOfBranchManager.ct!== ''}">
                                 {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
+                            <p>
+                                <span class="nepaliFont">{{freeInformation ? freeInformation.autoPopulate2 : '____________'}}</span>
+                            </p>
                             <p>
                                 नबिल बैंक लि.
                             </p>
