@@ -71,8 +71,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantorPerMunicipalitiesList = [];
     guarantorTemMunicipalitiesList = [];
     collateralPermanentProvinceList: Array<Province> = Array<Province>();
-    collateralPermanentDistrictList: Array<District> = Array<District>();
-    collateralPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    collateralPermanentDistrictList = [];
+    collateralPermanentMunicipalitiesList = [];
     nepData;
 
     constructor(private formBuilder: FormBuilder,
@@ -163,28 +163,31 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     }
 
-    getCollateralOwnerDistricts(province: Province) {
+    getCollateralOwnerDistricts(data, i, event?) {
+        const province = new Province();
+        province.id = event ? data : data.id;
         this.addressService.getDistrictByProvince(province).subscribe(
             (response: any) => {
-                this.collateralPermanentDistrictList = response.detail;
-                this.collateralPermanentDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+                this.collateralPermanentDistrictList[i] = response.detail;
+                this.collateralPermanentDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
+                if (event) {
+                    this.userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentDistrict']).patchValue(null);
+                    this.userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentMunicipalities']).patchValue(null);
+                }
             }
         );
     }
 
-    getCollateralOwnerMunicipalities(district: District) {
+    getCollateralOwnerMunicipalities(data, i, event?) {
+        const district = new District();
+        district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                this.collateralPermanentMunicipalitiesList = response.detail;
-                this.collateralPermanentMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-                this.collateralPermanentMunicipalitiesList.forEach(municipality => {
-                    // tslint:disable-next-line:max-line-length
-                    if (!ObjectUtil.isEmpty(this.collateralOwnerList.filter(value => value.collateralOwnerPermanentMunicipalities === municipality))
-                        // tslint:disable-next-line:max-line-length
-                        && municipality.id === this.collateralOwnerList.filter(value => value.collateralOwnerPermanentMunicipalities === municipality)[0].id) {
-                        this.userConfigForm.controls.collateralPermanentMunicipalitiesList.setValue(municipality);
-                    }
-                });
+                this.collateralPermanentMunicipalitiesList[i] = response.detail;
+                this.collateralPermanentMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
+                if (event) {
+                    this.userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentMunicipalities']).patchValue(null);
+                }
             }
         );
 
@@ -476,15 +479,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                console.log('this.guarantorList: ', this.guarantorList);
                 this.guarantorPerMunicipalitiesList[i] = response.detail;
                 this.guarantorPerMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
-                this.guarantorPerMunicipalitiesList[i].forEach(municipality => {
-                    if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalities === municipality))
-                        && municipality.id === this.guarantorList.filter(value => value.municipalities === municipality)[0]) {
-                        this.userConfigForm.controls.guarantorPerMunicipalitiesList.setValue(municipality);
-                    }
-                });
+                if (event) {
+                    this.userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentMunicipality']).patchValue(null);
+                }
             }
         );
     }
@@ -511,12 +510,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             (response: any) => {
                 this.guarantorTemMunicipalitiesList[i] = response.detail;
                 this.guarantorTemMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
-                this.guarantorTemMunicipalitiesList[i].forEach(municipality => {
-                    if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalitiesTemporary === municipality))
-                        && municipality.id === this.guarantorList.filter(value => value.municipalitiesTemporary === municipality)[0]) {
-                        this.userConfigForm.controls.guarantorTemMunicipalitiesList.setValue(municipality);
-                    }
-                });
+                if (event) {
+                    this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipality']).patchValue(null);
+                }
             }
         );
     }
@@ -592,7 +588,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.collateralOwnerList = collateralOwnerList;
             }
         }
-        collateralOwnerDetails.forEach(value => {
+        collateralOwnerDetails.forEach((value, i) => {
             formArray.push(this.formBuilder.group({
                 collateralOwnerName: [value.collateralOwnerName],
                 collateralOwnerNameInEnglish: [value.collateralOwnerNameInEnglish],
@@ -612,6 +608,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 collateralOwnerPermanentMunicipalities: [value.collateralOwnerPermanentMunicipalities],
                 collateralOwnerPermanentWard: [value.collateralOwnerPermanentWard],
             }));
+            this.getCollateralOwnerDistricts(value.collateralOwnerPermanentProvince, i);
+            this.getCollateralOwnerMunicipalities(value.collateralOwnerPermanentDistrict, i);
         });
     }
 
@@ -632,14 +630,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.getTemporaryMunicipalities(data.temporaryDistrict);
             this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
             this.setGuarantors(data.guarantorDetails);
-            // tslint:disable-next-line:max-line-length
-            this.userConfigForm.get('collateralOwnerPermanentProvince').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
-            this.getCollateralOwnerDistricts(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
-            // tslint:disable-next-line:max-line-length
-            this.userConfigForm.get('collateralOwnerPermanentDistrict').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
-            this.getCollateralOwnerMunicipalities(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
-            // tslint:disable-next-line:max-line-length
-            this.userConfigForm.get('collateralOwnerPermanentMunicipalities').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentMunicipalities);
         }
     }
 
