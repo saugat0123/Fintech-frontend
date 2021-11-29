@@ -37,7 +37,17 @@ import {ThemeModule} from '../../../../@theme/theme.module';
 import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
 import { DdslWithoutSubsidyComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
 import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy-print/ddsl-without-subsidy-print.component';
-
+import { CombinedOfferLetterComponent } from './nabil-sme/combined-offer-letter/combined-offer-letter.component';
+import { Section1IntroductionComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section1-introduction/section1-introduction.component';
+import { Section2LoanTypeComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section2-loan-type/section2-loan-type.component';
+import { Section3SecurityAndCollateralComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section3-security-and-collateral/section3-security-and-collateral.component';
+import { Section4LoanLimitComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section4-loan-limit/section4-loan-limit.component';
+import { Section5InterstPenalChargeComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section5-interst-penal-charge/section5-interst-penal-charge.component';
+import { Section6FacilitiesClauseComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section6-facilities-clause/section6-facilities-clause.component';
+import { Section7SecurityClauseComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section7-security-clause/section7-security-clause.component';
+import { Section8InsuranceClauseComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section8-insurance-clause/section8-insurance-clause.component';
+import { Section9OtherClauseComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section9-other-clause/section9-other-clause.component';
+import { Section10SecurityDocumentsComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section10-security-documents/section10-security-documents.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +64,7 @@ import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsi
         LoanDeedPartnershipComponent,
        LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent],
+        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -84,7 +94,8 @@ import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsi
         UdyamsilKarjaSubsidyComponent,
         KisanKarjaSubsidyPrintComponent,
         DdslWithoutSubsidyComponent,
-        DdslWithoutSubsidyPrintComponent
+        DdslWithoutSubsidyPrintComponent,
+        CombinedOfferLetterComponent
     ],
     imports: [
         CommonModule,

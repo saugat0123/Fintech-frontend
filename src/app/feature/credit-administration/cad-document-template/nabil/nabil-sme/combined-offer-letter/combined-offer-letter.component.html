@@ -1,0 +1,50 @@
+<nb-card [nbSpinner]="spinner" id="{{offerLetterConst.COMBINED_LETTER}}"
+         style="line-height: 1.9em">
+    <nb-card-header>
+        <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+    </nb-card-header>
+    <nb-card-body>
+        <!-- TODO PASS THE CONTEXT / DATA BASED ON THE SECTION REQUIREMENTS -->
+        <!-- CALLING EACH SECTION -->
+        <div class="col-md-12">
+            <app-section1-introduction></app-section1-introduction>
+        </div>
+        <div class="col-md-12">
+            <app-section2-loan-type></app-section2-loan-type>
+        </div>
+        <div class="col-md-12">
+            <app-section3-security-and-collateral></app-section3-security-and-collateral>
+        </div>
+        <div class="col-md-12">
+            <app-section4-loan-limit></app-section4-loan-limit>
+        </div>
+        <div class="col-md-12">
+            <app-section5-interst-penal-charge></app-section5-interst-penal-charge>
+        </div>
+        <div class="col-md-12">
+            <app-section6-facilities-clause></app-section6-facilities-clause>
+        </div>
+        <div class="col-md-12">
+            <app-section7-security-clause></app-section7-security-clause>
+        </div>
+        <div class="col-md-12">
+            <app-section8-insurance-clause></app-section8-insurance-clause>
+        </div>
+        <div class="col-md-12">
+            <app-section9-other-clause></app-section9-other-clause>
+        </div>
+        <div class="col-md-12">
+            <app-section10-security-documents></app-section10-security-documents>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="col-md-12 text-right disable-print">
+            <button nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
+                    ngxPrint printSectionId="{{offerLetterConst.COMBINED_LETTER}}">Print
+            </button>
+            <!--<button nbButton status="success" class="disable-print" (click)="submit()">Save</button>-->
+        </div>
+    </nb-card-footer>
+</nb-card>
