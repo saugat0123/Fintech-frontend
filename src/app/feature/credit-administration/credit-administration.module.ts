@@ -100,6 +100,7 @@ import { InterestSubsidySanctionLetterTemplateDataComponent } from './cad-view/t
 import { PersonalOverdraftWithoutCollateralTemplateEditComponent } from './cad-view/template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component';
 import {ClassASanctionLetterComponent} from './cad-document-template/nabil/nabil-sme/class-a-sanction-letter/class-a-sanction-letter.component';
 import {ClassASanctionLetterPrintComponent} from './cad-document-template/nabil/nabil-sme/class-a-sanction-letter/class-a-sanction-letter-print/class-a-sanction-letter-print.component';
+import { ClassASanctionLetterTemplateDataComponent } from './cad-view/template-data/nabil-sme-template-data/class-a-sanction-letter-template-data/class-a-sanction-letter-template-data.component';
 
 
 
@@ -186,7 +187,7 @@ import {ClassASanctionLetterPrintComponent} from './cad-document-template/nabil/
         UdhyamsilKarjaSubsidyTemplateDataComponent,
         DdslWithoutSubsidyTemplateDataComponent,
     UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent, InterestSubsidySanctionLetterPrintComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
-        InterestSubsidySanctionLetterTemplateDataComponent, ClassASanctionLetterComponent, ClassASanctionLetterPrintComponent],
+        InterestSubsidySanctionLetterTemplateDataComponent, ClassASanctionLetterComponent, ClassASanctionLetterPrintComponent, ClassASanctionLetterTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,

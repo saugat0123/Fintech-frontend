@@ -26,20 +26,20 @@
                     </ng-select>
                 </div>
                 <div class="col-md-4">
-                    <label><strong> Is service charge applicable ? </strong></label>
-                    <ng-select
-                            formControlName="serviceCharges"
-                            fullWidth
-                            placeholder=" service charge type "
-                            (change)="checkLoanType1()"
-                            status="info">
-                            <nb-checkbox #classA (checkedChange)="serviceCheck(classA.checked)"
-                                         [checked]="isSecurity">
-                                <i>Is Interest Subsidy ?</i></nb-checkbox>
-                        <ng-option value="Service charge type">Service charge type</ng-option>
-                    </ng-select>
+                    <label><strong> Service charge type </strong></label>
+                    <div> <nb-checkbox #classA (checkedChange)="serviceCheck(classA.checked)"
+                                       [checked]="isSecurity">
+                        <i>Is service charge applicable? </i></nb-checkbox>
+                    </div>
+<!--                    <ng-select-->
+<!--                            formControlName="serviceCharges"-->
+<!--                            fullWidth-->
+<!--                            placeholder=" service charge type "-->
+<!--                            (change)="checkLoanType1()"-->
+<!--                            status="info">-->
+<!--                    </ng-select>-->
             </div>
-            <div class="col-md-4" *ngIf="isSecuritySelected">
+            <div class="col-md-4" *ngIf="isSecurity">
                 <label><strong> Security Type </strong></label>
                 <ng-select
                         formControlName="serviceCharges"
@@ -47,6 +47,7 @@
                         placeholder=" "
                         (selectionchange)="securityValue()"
                         status="info">
+
                     <ng-option value="For All Loan">For All Loan</ng-option>
                     <ng-option value="For Specific Loan Only">For Specific Loan Only </ng-option>
                 </ng-select>
