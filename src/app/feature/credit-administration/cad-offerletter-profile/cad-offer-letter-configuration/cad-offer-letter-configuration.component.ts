@@ -74,17 +74,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     collateralPermanentProvinceList: Array<Province> = Array<Province>();
     collateralPermanentDistrictList: Array<District> = Array<District>();
     collateralPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    collateralTemporaryProvinceList: Array<Province> = Array<Province>();
-    collateralTemporaryDistrictList: Array<District> = Array<District>();
-    collateralTemporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    collateralOwnerPermanentProvinceList: Array<Province> = Array<Province>();
-    collateralOwnerPermanentDistrictList: Array<District> = Array<District>();
-    collateralOwnerPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     nepData;
-    loanDetailsValue;
-
-    @ViewChild('loanDetails', {static: true})
-    loanDetails: NepProposedAmountFormComponent;
+    collateralOwnerPermanentDistrictList: Array<District> = Array<District>();;
+    collateralOwnerPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();;
+    collateralTemporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();;
+    collateralTemporaryDistrictList: Array<District> = Array<District>();;
+    loanDetails: any;
+    loanDetailsValue: any;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -121,9 +117,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.temporaryProvinceList = provinces;
             this.guarantorPermanentProvinceList = provinces;
             this.guarantorTemporaryProvinceList = provinces;
-            this.collateralOwnerPermanentProvinceList = provinces;
             this.collateralPermanentProvinceList = provinces;
-            this.collateralTemporaryProvinceList = provinces;
         });
     }
 
@@ -543,11 +537,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                this.guarantorPerMunicipalitiesList = response.detail;
-                this.guarantorPerMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-                this.guarantorPerMunicipalitiesList.forEach(municipality => {
+                console.log('this.guarantorList: ', this.guarantorList);
+                this.guarantorPerMunicipalitiesList[i] = response.detail;
+                this.guarantorPerMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
+                this.guarantorPerMunicipalitiesList[i].forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.guarantorList.filter(value => value.municipalities === municipality))
-                        && municipality.id === this.guarantorList.filter(value => value.municipalities === municipality)[0].id) {
+                        && municipality.id === this.guarantorList.filter(value => value.municipalities === municipality)[0]) {
                         this.userConfigForm.controls.guarantorPerMunicipalitiesList.setValue(municipality);
                     }
                 });
