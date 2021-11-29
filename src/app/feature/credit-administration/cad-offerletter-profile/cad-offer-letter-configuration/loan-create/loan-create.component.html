@@ -1,4 +1,8 @@
 <form [formGroup]="form" [nbSpinner]="spinner">
+  <div *ngIf="customerType == 'INSTITUTION'">
+    <nb-checkbox [checked]="isCombinedLoan" (change)="combinedLoan($event)">Check if combined loan</nb-checkbox>
+    <br>
+  </div>
    <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>
   <div *ngFor="let loan of form.get('loanDetails')['controls']; let i = index"
        formArrayName="loanDetails">
