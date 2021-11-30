@@ -1,1 +1,362 @@
-<p>sme-global-content works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="globalForm">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Loan Option</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select loan option" status="success">
+                            <nb-option *ngFor="let loanOption of loanOptions" [value]="loanOption?.value">{{loanOption?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option" status="success">
+                            <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Mortgage Type</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="mortgage type" status="success">
+                            <nb-option *ngFor="let type of mortgageType" [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Hypothecation</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select hypothecation type" status="success">
+                            <nb-option *ngFor="let type of hypothecationType" [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Is borrower natural person?</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option" status="success">
+                            <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Is loan amount above 50 crore?</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option" status="success">
+                            <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Is working capital above 25 crore?</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option" status="success">
+                            <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Loan Data</span>
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Date of Approval CRF/MEMO</label>
+                        <input nbInput fullWidth status="success" [nbDatepicker]="dateOfApproval">
+                        <nb-datepicker #dateOfApproval></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Nepali Translation</span>
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" [nbDatepicker]="dateOfApprovalTrans">
+                        <nb-datepicker #dateOfApprovalTrans></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Correct Translation</span>
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" [nbDatepicker]="dateOfApprovalCT">
+                        <nb-datepicker #dateOfApprovalCT></nb-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Loan Application Date</label>
+                        <input nbInput fullWidth status="success" [nbDatepicker]="loanApplicationDate">
+                        <nb-datepicker #loanApplicationDate></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" [nbDatepicker]="loanApplicationDateTrans">
+                        <nb-datepicker #loanApplicationDateTrans></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" [nbDatepicker]="loanApplicationDateCT">
+                        <nb-datepicker #loanApplicationDateCT></nb-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Previous Sanction Letter Date</label>
+                        <input nbInput fullWidth status="success" [nbDatepicker]="sanctionLetterDate">
+                        <nb-datepicker #sanctionLetterDate></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" [nbDatepicker]="sanctionLetterDateTrans">
+                        <nb-datepicker #sanctionLetterDateTrans></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" [nbDatepicker]="sanctionLetterDateCT">
+                        <nb-datepicker #sanctionLetterDateCT></nb-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Service charge type</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option" status="success">
+                            <nb-option *ngFor="let type of chargeType" [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Service charge in figure</label>
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Service charge in words</label>
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Detail of facility</label>
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Service charge in %</label>
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total funded limit in figure</label>
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total funded limit in words</label>
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total non-funded limit in figure</label>
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total non-funded limit in words</label>
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <label></label>
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total limit in figure</label>
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total limit in words</label>
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Name of relationship manager</label>
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Name of branch manager</label>
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer></nb-card-footer>
+</nb-card>
