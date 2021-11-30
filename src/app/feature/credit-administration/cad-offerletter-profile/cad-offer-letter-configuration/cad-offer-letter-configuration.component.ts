@@ -71,14 +71,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantorTemporaryDistrictList = [];
     guarantorPerMunicipalitiesList = [];
     guarantorTemMunicipalitiesList = [];
+    collateralOwnerPermanentProvinceList: Array<Province> = Array<Province>();
+    collateralOwnerPermanentDistrictList = [];
+    collateralOwnerPermanentMunicipalitiesList = [];
+    nepData;
     collateralPermanentProvinceList: Array<Province> = Array<Province>();
+    collateralTemporaryProvinceList: Array<Province> = Array<Province>();
     collateralPermanentDistrictList = [];
     collateralPermanentMunicipalitiesList = [];
-    nepData;
-    collateralPerProvinceList: Array<Province> = Array<Province>();
-    collateralTemporaryProvinceList: Array<Province> = Array<Province>();
-    collateralPerDistrictList = [];
-    collateralPerMunicipalitiesList = [];
     collateralTemporaryDistrictList = [];
     collateralTemporaryMunicipalitiesList = [];
     loanDetails: any;
@@ -119,8 +119,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.temporaryProvinceList = provinces;
             this.guarantorPermanentProvinceList = provinces;
             this.guarantorTemporaryProvinceList = provinces;
+            this.collateralOwnerPermanentProvinceList = provinces;
             this.collateralPermanentProvinceList = provinces;
-            this.collateralPerProvinceList = provinces;
             this.collateralTemporaryProvinceList = provinces;
         });
     }
@@ -179,9 +179,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         province.id = event ? data : data.id;
         this.addressService.getDistrictByProvince(province).subscribe(
             (response: any) => {
-                this.collateralPermanentDistrictList[i] = response.detail;
-                this.collateralPermanentDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
+                this.collateralOwnerPermanentDistrictList[i] = response.detail;
+                this.collateralOwnerPermanentDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
                 if (event) {
+                    this.collateralOwnerPermanentMunicipalitiesList[i] = [];
                     this.userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentDistrict']).patchValue(null);
                     this.userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentMunicipalities']).patchValue(null);
                 }
@@ -194,8 +195,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                this.collateralPermanentMunicipalitiesList[i] = response.detail;
-                this.collateralPermanentMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
+                this.collateralOwnerPermanentMunicipalitiesList[i] = response.detail;
+                this.collateralOwnerPermanentMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
                 if (event) {
                     this.userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentMunicipalities']).patchValue(null);
                 }
@@ -479,6 +480,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.guarantorPermanentDistrictList[i] = response.detail;
                 this.guarantorPermanentDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
                 if (event) {
+                    this.guarantorPerMunicipalitiesList[i] = [];
                     this.userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict']).patchValue(null);
                     this.userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentMunicipality']).patchValue(null);
                 }
@@ -508,6 +510,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.guarantorTemporaryDistrictList[i] = response.detail;
                 this.guarantorTemporaryDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
                 if (event) {
+                    this.guarantorTemMunicipalitiesList[i] = [];
                     this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict']).patchValue(null);
                     this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipality']).patchValue(null);
                 }
@@ -667,9 +670,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         province.id = event ? data : data.id;
         this.addressService.getDistrictByProvince(province).subscribe(
             (response: any) => {
-                this.collateralPerDistrictList[i] = response.detail;
-                this.collateralPerDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
+                this.collateralPermanentDistrictList[i] = response.detail;
+                this.collateralPermanentDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
                 if (event) {
+                    this.collateralPermanentMunicipalitiesList[i] = [];
                     this.userConfigForm.get(['collateralDetails', i, 'collateralDistrict']).patchValue(null);
                     this.userConfigForm.get(['collateralDetails', i, 'collateralMunVdc']).patchValue(null);
                 }
@@ -682,8 +686,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                this.collateralPerMunicipalitiesList[i] = response.detail;
-                this.collateralPerMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
+                this.collateralPermanentMunicipalitiesList[i] = response.detail;
+                this.collateralPermanentMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
                 if (event) {
                     this.userConfigForm.get(['collateralDetails', i, 'collateralMunVdc']).patchValue(null);
                 }
@@ -698,6 +702,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.collateralTemporaryDistrictList[i] = response.detail;
                 this.collateralTemporaryDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
                 if (event) {
+                    this.collateralTemporaryMunicipalitiesList[i] = [];
                     this.userConfigForm.get(['collateralDetails', i, 'collateralTemporaryDistrict']).patchValue(null);
                     this.userConfigForm.get(['collateralDetails', i, 'collateralTemporaryMunVdc']).patchValue(null);
                 }
