@@ -20,7 +20,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 export class DdslWithoutSubsidyComponent implements OnInit {
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Input() preview;
-    @Input() ddslData: any;
+    @Input() letter: any;
     @Input() renewal: any;
     @Input() loanLimit;
     form: FormGroup;
@@ -31,8 +31,8 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     afterSave = false;
     existingOfferLetter = false;
     selectedSecurity;
-    position = 'सम्पर्क अधिकृत';
-    position2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
+    position1 = 'सम्पर्क अधिकृत';
+    position2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
     offerLetterData;
     nepaliNumber = new NepaliNumberAndWords();
     nepaliAmount = [];
@@ -69,7 +69,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
         this.loanOptions = this.tempData.loanOption.ct;
         this.selectedSecurity = this.tempData.securityType.ct;
         this.customerType = this.loanHolderInfo.clientType.en;
-        // console.log('loan Option', this.customerType);
+        console.log('Temp Data', this.tempData);
         this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         // console.log('Guarantors Details', this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
@@ -118,9 +118,9 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             nameOfPersonalGuarantor: [undefined],
             extraSecurityDocument: [undefined],
             nameOfARO: [undefined],
-            position: [undefined],
-            nameOfBranchManager: [undefined],
             position1: [undefined],
+            nameOfBranchManager: [undefined],
+            position2: [undefined],
             extraTermsAndConditionsNRB: [undefined],
             sanctionLetterAcceptedDate: [undefined],
             securities: this.formBuilder.array([]),
@@ -164,7 +164,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             referenceNo: autoRefNumber ? autoRefNumber : '',
             borrowersName: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
             borrowerAddress: customerAddress ? customerAddress : '',
-            customerLoanApplicationDate: finaldateOfApplication ? finaldateOfApplication : '',
+            // customerLoanApplicationDate: finaldateOfApplication ? finaldateOfApplication : '',
             sanctionLetterDate: finaldateOfApproval ? finaldateOfApproval : '',
             previousSanctionLetterDate: finalPreviousSanction ? finalPreviousSanction : '',
             requestLetterDate: finaldateOfApplication ? finaldateOfApplication : '',
@@ -184,12 +184,18 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             nameOfFacility: this.tempData.nameOfFacility ? this.tempData.nameOfFacility.ct : '',
             serviceCharge: this.tempData.serviceCharge ? this.tempData.serviceCharge.ct : '',
             totalTenureOfLoan: this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',
-            approvedCFRLoanAmount: this.tempData.loanAmountFigure ? this.tempData.loanAmountFigure.ct : '',
-            approvedCFRLoanAmountInWord: this.tempData.loanAmountFigure ? this.tempData.loanAmountFigure.ct : '',
+            /*approvedCFRLoanAmount: this.tempData.loanAmountFigure ? this.tempData.loanAmountFigure.ct : '',
+            approvedCFRLoanAmountInWord: this.tempData.loanAmountFigure ? this.tempData.loanAmountFigure.ct : '',*/
             nameOfBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
             nameOfPersonalGuarantor: this.finalName ? this.finalName : '',
             nameOfARO: this.tempData.nameOfStaff ? this.tempData.nameOfStaff.ct : '',
             nameOfBranchManager: this.tempData.nameOfBranchManager ? this.tempData.nameOfBranchManager.ct : '',
+            extraFinancialClause: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.firstText : '',
+            additionalOtherClause: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
+            extraSecurityDocument: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
+            extraTermsAndConditionsNRB: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
+            position1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : '',
+            position2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sixthText : '',
         });
     }
 
@@ -207,20 +213,9 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             } else {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
                 if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
-                    // this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
-                    this.freeInformation = JSON.parse(this.offerLetterDocument.supportedInformation);
                     this.offerLetterData = this.offerLetterDocument;
-                    this.form.get('extraFinancialClause').patchValue(this.freeInformation.firstText);
-                    this.form.get('additionalOtherClause').patchValue(this.freeInformation.secondText);
-                    this.form.get('extraSecurityDocument').patchValue(this.freeInformation.thirdText);
-                    this.form.get('extraTermsAndConditionsNRB').patchValue(this.freeInformation.fourthText);
-                }
-                if (!ObjectUtil.isEmpty(this.offerLetterDocument.pointInformation)) {
-                    this.offerLetterData = this.offerLetterDocument;
-                    this.form.get('extraFinancialClause').patchValue(this.freeInformation.firstText);
-                    this.form.get('additionalOtherClause').patchValue(this.freeInformation.secondText);
-                    this.form.get('extraSecurityDocument').patchValue(this.freeInformation.thirdText);
-                    this.form.get('extraTermsAndConditionsNRB').patchValue(this.freeInformation.fourthText);
+                    this.setFreeText();
+                    this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
                 }
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
@@ -229,6 +224,8 @@ export class DdslWithoutSubsidyComponent implements OnInit {
                 this.fillForm();
             }
         } else {
+            this.setFreeText();
+            this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
             this.fillForm();
         }
     }
@@ -277,6 +274,8 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             secondText: this.form.get('additionalOtherClause').value,
             thirdText: this.form.get('extraSecurityDocument').value,
             fourthText: this.form.get('extraTermsAndConditionsNRB').value,
+            fifthText: this.form.get('position1').value,
+            sixthText: this.form.get('position2').value,
         };
     }
 
