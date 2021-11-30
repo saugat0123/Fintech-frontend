@@ -32,6 +32,7 @@ import { MegaOfferLetterTemplateModule } from '../../mega-offer-letter-template/
 import { NabilSmeComponent } from './nabil-sme/nabil-sme.component';
 import { KisanKarjaSubsidyComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
 import { UdyamsilKarjaSubsidyComponent } from './nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
+import { UdyamsilKarjaSubsidyPrintComponent } from './nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy-print/udyamsil-karja-subsidy-print.component';
 import { KisanKarjaSubsidyPrintComponent } from './nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy-print/kisan-karja-subsidy-print.component';
 import {ThemeModule} from '../../../../@theme/theme.module';
 import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
@@ -54,7 +55,7 @@ import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsi
         LoanDeedPartnershipComponent,
        LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent],
+        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -82,6 +83,7 @@ import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsi
         PersonalGuaranteeProprietorshipComponent,
         KisanKarjaSubsidyComponent,
         UdyamsilKarjaSubsidyComponent,
+        UdyamsilKarjaSubsidyPrintComponent,
         KisanKarjaSubsidyPrintComponent,
         DdslWithoutSubsidyComponent,
         DdslWithoutSubsidyPrintComponent
