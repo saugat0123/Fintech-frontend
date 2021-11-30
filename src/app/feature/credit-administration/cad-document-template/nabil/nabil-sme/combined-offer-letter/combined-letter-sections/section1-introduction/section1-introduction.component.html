@@ -1,1 +1,80 @@
-<p>section1-introduction works!</p>
+<div class="text-justify nep">
+    <nb-card>
+        <nb-card-header>
+        </nb-card-header>
+
+        <nb-card-body>
+            <form [formGroup]="kisanKarjaSubsidy">
+                <p class="text-left">स्वीकृती पत्र नं. :<input class="form-field form-control-sm col-3"
+                                                               formControlName="referenceNumber"
+                                                               name="referenceNumber"
+                                                               placeholder=" सन्दर्भ नम्बर "
+                                                               type="text"/>
+                </p>
+                <h6 class="text-left">ऋणकर्जा सुविधा स्वीकृति पत्र</h6>
+                <br>
+                <p class="text-left">
+                    मितिः <input class="form-field form-control-sm"
+                                 formControlName="dateOfApproval"
+                                 type="text"/>
+                </p>
+                <div class="mb-2">
+                    <p>श्री/श्रीमती/सुश्री <input class="form-field form-control-sm"
+                                               formControlName="customerName"
+                                               name="customerName"
+                                               type="text"/>
+                    </p>
+                    <div class="mb-1"> ठेगाना:
+                        <input class="form-field form-control-sm"
+                               formControlName="customerAddress"
+                               name="customerAddress"
+                               placeholder="ठेगाना"
+                               type="text"/>
+                        <br><br>
+                    </div>
+                    <!--FOR NEW CUSTOMER-->
+                    <div>
+                        <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
+                        <br>
+                        <div class="mb-1">
+                            <p>
+                                महोदय,<br>
+                                तपाईंले
+                                <span class="text-left">
+                                मिति वि.सं. <input class="form-field form-control-sm"
+                                             formControlName="dateOfApplication"
+                                             type="text"/>
+                        </span>
+                                मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं ।
+                            </p>
+                        </div>
+                    </div>
+                    <!--FOR EXISTING CUSTOMER-PLAIN RENEWAL -->
+                    <div>
+                        <strong>बिषयः ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।  </strong>
+                        <br>
+                        <div class="mb-1">
+                            <p>
+                                महोदय,<BR>
+                                तपाईंले यस बैंकको मिति वि.सं.
+                                <span class="text-left">
+                                मितिः <input class="form-field form-control-sm"
+                                             formControlName="prevSanctionLetterDate"
+                                             type="text"/>
+                        </span>
+                                को ऋणस्वीकृति पत्रानुसार उपभोग गर्दै आउनु भएको ऋणकर्जामा हाल ऋणकर्जा सुविधा/हरु नबिकरण/पुनरावलोकन का लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                                <span class="text-left">
+                                मितिः <input class="form-field form-control-sm"
+                                             formControlName="nextReviewDate"
+                                             type="text"/>
+                        </span>को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय
+                                बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </nb-card-body>
+    </nb-card>
+</div>
