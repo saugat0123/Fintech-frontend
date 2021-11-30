@@ -440,7 +440,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
 
         guarantorDetails.forEach((value, i) => {
-            console.log(guarantorDetails, 'guarantorDetails');
             formArray.push(this.formBuilder.group({
                 name: [value.name],
                 guarantorAge: [value.guarantorAge],
@@ -667,7 +666,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         );
     }
     getCollateralDistricts(data, i, event?) {
-        console.log('event: ', event);
         const province = new Province();
         province.id = event ? data : data.id;
         this.addressService.getDistrictByProvince(province).subscribe(
