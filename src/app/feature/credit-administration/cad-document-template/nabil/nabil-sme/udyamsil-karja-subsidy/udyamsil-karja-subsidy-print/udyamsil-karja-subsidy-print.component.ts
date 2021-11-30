@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
-import {FormGroup} from '@angular/forms';
 import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {NepaliCurrencyWordPipe} from '../../../../../../../@core/pipe/nepali-currency-word.pipe';
@@ -52,7 +51,6 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('This is letter data:', this.letter);
     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {

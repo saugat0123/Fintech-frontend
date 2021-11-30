@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
-import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
@@ -17,7 +16,6 @@ import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-forma
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliPercentWordPipe} from '../../../../../../@core/pipe/nepali-percent-word.pipe';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
 import {EngNepDatePipe} from 'nepali-patro';
@@ -187,24 +185,12 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.UDYAMSIL_KARJA_SUBSIDY);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        console.log('Selected Security Details:', initialInfo);
         if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
           this.offerLetterData = this.offerLetterDocument;
           this.UdyamsilKarjaSubsidy.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
-        /*this.selectedSecurity = initialInfo.selectedSecurity.en;
-        this.loanLimit = initialInfo.loanLimitChecked.en;
-        this.renewal = initialInfo.renewalChecked.en;
-        this.initialInfoPrint = initialInfo;
-        this.existingOfferLetter = true;
-        this.selectedArray = initialInfo.loanTypeSelectedArray;*/
         this.fillForm();
         this.initialInfoPrint = initialInfo;
-        // if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
-        //   this.UdyamsilKarjaSubsidy.get('dateofExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateofExpiry.en, true));
-        // } else {
-        //   this.UdyamsilKarjaSubsidy.get('dateofExpiry').patchValue(this.initialInfoPrint.dateofExpiryNepali.en);
-        // }
       }
     } else {
       this.fillForm();
@@ -214,7 +200,6 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
     this.loanOption = this.tempData.loanOption.ct;
     this.interestSubsidy = this.tempData.interestSubsidy.ct;
     this.repaymentType = this.tempData.repaymentType.ct;
-    console.log(this.repaymentType, 'xyz');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
     const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
@@ -232,37 +217,6 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
       autoRefNumber = this.assignedData.refNo;
       loanName = this.assignedData.loan ? this.assignedData.loan.nepaliName : '';
     }
-    // For date of Approval
-    // const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
-    // let finalDateOfApproval;
-    // if (dateOfApprovalType === 'AD') {
-    //   const templateDateApproval = this.initialInfoPrint.dateOfApproval ? this.initialInfoPrint.dateOfApproval.en : '';
-    //   finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
-    // } else {
-    //   const templateDateApproval = this.initialInfoPrint.dateOfApprovalNepali ? this.initialInfoPrint.dateOfApprovalNepali.en : '';
-    //   finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
-    // }
-    // // For date of Approval
-    // const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
-    // let finalDateOfApproval;
-    // if (dateOfApprovalType === 'AD') {
-    //   const templateDateApproval = this.initialInfoPrint.dateOfApproval ? this.initialInfoPrint.dateOfApproval.en : '';
-    //   finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
-    // } else {
-    //   const templateDateApproval = this.initialInfoPrint.dateOfApprovalNepali ? this.initialInfoPrint.dateOfApprovalNepali.en : '';
-    //   finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
-    // }
-    // // For Date of Application:
-    // const dateOfApplication = this.initialInfoPrint.dateofApplicationType ? this.initialInfoPrint.dateofApplicationType.en : '';
-    // let finalDateOfApplication;
-    // if (dateOfApplication === 'AD') {
-    //   const templateDateApplication = this.initialInfoPrint.dateofApplication ? this.initialInfoPrint.dateofApplication.en : '';
-    //   finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
-    // } else {
-    // tslint:disable-next-line:max-line-length
-    //  const templateDateApplication = this.initialInfoPrint.dateofApplicationNepali ? this.initialInfoPrint.dateofApplicationNepali.en : '';
-    //   finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
-    // }
     this.guarantorDetails();
     this.UdyamsilKarjaSubsidy.patchValue({
         customerName: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
