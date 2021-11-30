@@ -1424,57 +1424,57 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="valuationDate">मूल्याङ्कन मिति</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="valuationDate"
+                                               id="valuationDate"
+                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.valuationDate.errors}"
+                                               name="valuationDate" placeholder="मूल्याङ्कन मिति"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="valuatorName">मूल्याङ्कनकर्ताको नाम</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="valuatorName"
+                                               id="valuatorName"
+                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.valuatorName.errors}"
+                                               name="valuatorName" placeholder="मूल्याङ्कनकर्ताको नाम"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="fairMarketValue">उचित बजार मूल्य</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="fairMarketValue"
+                                               id="fairMarketValue"
+                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.fairMarketValue.errors}"
+                                               name="fairMarketValue" placeholder="उचित बजार मूल्य"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="distressValue">संकट मूल्य</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="distressValue"
+                                               id="distressValue"
+                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.distressValue.errors}"
+                                               name="distressValue" placeholder="संकट मूल्य"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                            </div>
                             <div>
                                 <button class="btn btn-danger float-right" (click)="removeAtIndexCollateral(i)"
                                         style="position: static">
                                     <em class="fa fa-trash" style="color: white;"></em>
                                 </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="valuationDate">मूल्याङ्कन मिति</label>
-                                <input class="form-control rounded nepaliFont"
-                                       formControlName="valuationDate"
-                                       id="valuationDate"
-                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.valuationDate.errors}"
-                                       name="valuationDate" placeholder="मूल्याङ्कन मिति"
-                                       type="text"/>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="valuatorName">मूल्याङ्कनकर्ताको नाम</label>
-                                <input class="form-control rounded nepaliFont"
-                                       formControlName="valuatorName"
-                                       id="valuatorName"
-                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.valuatorName.errors}"
-                                       name="valuatorName" placeholder="मूल्याङ्कनकर्ताको नाम"
-                                       type="text"/>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="fairMarketValue">उचित बजार मूल्य</label>
-                                <input class="form-control rounded nepaliFont"
-                                       formControlName="fairMarketValue"
-                                       id="fairMarketValue"
-                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.fairMarketValue.errors}"
-                                       name="fairMarketValue" placeholder="उचित बजार मूल्य"
-                                       type="text"/>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="distressValue">संकट मूल्य</label>
-                                <input class="form-control rounded nepaliFont"
-                                       formControlName="distressValue"
-                                       id="distressValue"
-                                       [ngClass]="{'is-invalid': submitted && basicInfoControls.distressValue.errors}"
-                                       name="distressValue" placeholder="संकट मूल्य"
-                                       type="text"/>
                             </div>
                         </div>
                     </div>
@@ -1656,15 +1656,15 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="collateralOwnerPermanentProvince">
+                                        <label class="title" for="collateralOwnerPermanentProvince{{i}}">
                                             प्रदेश </label>
                                         <ng-select
                                                 bindLabel="nepaliName"
-                                                (change)="getCollateralOwnerDistricts(userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentProvince']).value)"
+                                                (change)="getCollateralOwnerDistricts(userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentProvince'])?.value?.id, i, $event)"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralOwnerPermanentProvince.errors}"
                                                 formControlName="collateralOwnerPermanentProvince"
-                                                id="collateralOwnerPermanentProvince">
-                                            <ng-option *ngFor="let provinceVal of collateralOwnerPermanentProvinceList"
+                                                id="collateralOwnerPermanentProvince{{i}}">
+                                            <ng-option *ngFor="let provinceVal of collateralPermanentProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
                                             </ng-option>
@@ -1679,14 +1679,14 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="collateralOwnerPermanentDistrict">जिल्ला</label>
+                                        <label class="title" for="collateralOwnerPermanentDistrict{{i}}">जिल्ला</label>
                                         <ng-select
                                                 bindLabel="nepaliName"
-                                                (change)="getCollateralOwnerMunicipalities(userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentDistrict']).value)"
+                                                (change)="getCollateralOwnerMunicipalities(userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentDistrict'])?.value?.id, i, $event)"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralOwnerPermanentDistrict.errors}"
                                                 formControlName="collateralOwnerPermanentDistrict"
-                                                id="collateralOwnerPermanentDistrict">
-                                            <ng-option *ngFor="let districtVal of collateralOwnerPermanentDistrictList"
+                                                id="collateralOwnerPermanentDistrict{{i}}">
+                                            <ng-option *ngFor="let districtVal of collateralPermanentDistrictList[i]"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
                                             </ng-option>
@@ -1702,15 +1702,15 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title"
-                                               for="collateralOwnerPermanentMunicipalities">नगरपालिका/गा. बि. स.</label>
+                                               for="collateralOwnerPermanentMunicipalities{{i}}">नगरपालिका/गा. बि. स.</label>
                                         <ng-select
                                                 bindLabel="nepaliName"
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralOwnerPermanentMunicipalities.errors}"
                                                 formControlName="collateralOwnerPermanentMunicipalities"
-                                                id="collateralOwnerPermanentMunicipalities"
+                                                id="collateralOwnerPermanentMunicipalities{{i}}"
                                                 name="collateralOwnerPermanentMunicipalities">
                                             <ng-option
-                                                    *ngFor="let municipalityVal of collateralOwnerPermanentMunicipalitiesList"
+                                                    *ngFor="let municipalityVal of collateralPermanentMunicipalitiesList[i]"
                                                     [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
                                             </ng-option>
@@ -1769,7 +1769,7 @@
                                 <option [ngValue]="null" hidden>
                                     शाखा चयन गर्नुहोस्
                                 </option>
-                                <option *ngFor="let branch of branchList" value="{{branch.nepaliName}}">
+                                <option *ngFor="let branch of branchList" value="{{branch.id}}">
                                     {{branch.nepaliName}}
                                 </option>
                             </select>
