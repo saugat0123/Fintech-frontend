@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-section7-security-clause',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./section7-security-clause.component.scss']
 })
 export class Section7SecurityClauseComponent implements OnInit {
+  form: FormGroup;
 
-  constructor() { }
+  constructor(private formbuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.buildForm();
+  }
+
+  buildForm() {
+    this.form = this.formbuilder.group({
+      nameOfBranch: [undefined],
+    })
   }
 
 }
