@@ -787,8 +787,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             nepData.temporaryDistrict ? nepData.temporaryDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value : '';
             nepData.temporaryMunicipality ? nepData.temporaryMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value : '';
             nepData.temporaryWard ? nepData.temporaryWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value : '';
-            nepData.indianGuarantorDetailOption ? nepData.indianGuarantorDetailOption =
-                this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value : '';
             // english value
             nepData.guarantorName ? nepData.guarantorName.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorName']).value : '';
             nepData.issuedPlace ? nepData.issuedPlace.en = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value : '';
@@ -814,6 +812,227 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             nepData.guarantorPermanentMunicipalityOrVdc ? nepData.guarantorPermanentMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value : '';
             nepData.guarantorTemporaryMunicipalityOrVdc ? nepData.guarantorTemporaryMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value : '';
             nepData.guarantorNationality ? nepData.guarantorNationality =  this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value : '';
+
+            //test-------
+
+            if(this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Passport' && this.actionType === 'Edit' &&
+            this.customerType === CustomerType.INSTITUTION){
+                nepData['indianGuarantorDetailOption'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
+                }
+                nepData['passportNo'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'passportNo']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'passportNoTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'passportNoCT']).value,
+                }
+                nepData['passportIssuedDate'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDate']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDateTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDateCT']).value,
+                }
+                nepData['passportValidityDate'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDate']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDateTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDateCT']).value,
+                }
+                nepData['passportIssuedFrom'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedFrom']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedFromTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedFromCT']).value,
+                }
+            }
+
+            if(this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Adhar Card' && this.actionType === 'Edit' &&
+                this.customerType === CustomerType.INSTITUTION){
+                nepData['indianGuarantorDetailOption'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
+                }
+                nepData['adharCardNo'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'adharCardNo']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'adharCardNoTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'adharCardNoCT']).value,
+                }
+                nepData['adharCardIssuedDate'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDate']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDateTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDateCT']).value,
+                }
+                nepData['adharCardIssuedFrom'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedFrom']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedFromTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedFromCT']).value,
+                }
+
+            }
+
+            if(this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Embassy Certificate' && this.actionType === 'Edit' &&
+                this.customerType === CustomerType.INSTITUTION){
+                nepData['indianGuarantorDetailOption'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
+                }
+                nepData['embassyNo'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyNo']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoCT']).value,
+                }
+                nepData['embassyIssuedDate'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDate']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateCT']).value,
+                }
+                nepData['embassyIssuedFrom'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFrom']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromCT']).value,
+                }
+
+            }
+
+            if(this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Embassy Certificate' && this.actionType === 'Edit' &&
+                this.customerType === CustomerType.INSTITUTION){
+                nepData['indianGuarantorDetailOption'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
+                }
+                nepData['embassyNo'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyNo']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoCT']).value,
+                }
+                nepData['embassyIssuedDate'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDate']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateCT']).value,
+                }
+                nepData['embassyIssuedFrom'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFrom']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromCT']).value,
+                }
+
+            }
+
+            if(this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value === 'Other' && this.actionType === 'Edit' &&
+                this.customerType === CustomerType.INSTITUTION){
+                nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
+                nepData['otherGuarantorPassportNo'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNo']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoCT']).value,
+                }
+                nepData['otherGuarantorPassportIssuedDate'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDate']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateCT']).value,
+                }
+                nepData['otherGuarantorPassportValidityDate'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDate']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateCT']).value,
+                }
+                nepData['otherGuarantorPassportIssuedFrom'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFrom']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFromTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFromCT']).value,
+                }
+
+
+            }
+
+            if(this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value === 'Nepali' && this.actionType === 'Edit' &&
+                this.customerType === CustomerType.INSTITUTION){
+                nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
+                    nepData['otherGuarantorPassportNo'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNo']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoCT']).value,
+                    }
+                nepData['permanentProvince'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value,
+                }
+                nepData['permanentDistrict'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value,
+                }
+                nepData['permanentMunicipality'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value,
+                }
+                nepData['permanentWard'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentWard']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value,
+                }
+
+
+                nepData['temporaryProvince'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value,
+                }
+                nepData['temporaryDistrict'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value,
+                }
+                nepData['temporaryMunicipality'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value,
+                }
+                nepData['temporaryWard'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWard']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value,
+                }
+
+                nepData['isSameTemporaryAndPermanent'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanent']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentCT']).value,
+                }
+
+                nepData['permanentStreetTole'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetTole']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleCT']).value,
+                }
+
+                nepData['temporaryStreetTole'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetTole']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleCT']).value,
+                }
+
+                nepData['guarantorPermanentMunicipalityOrVdc'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                }
+
+                nepData['guarantorTemporaryMunicipalityOrVdc'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                }
+
+
+
+
+            }
+
+            //test----end
 
             // translated data
             nepData.guarantorName ? nepData.guarantorName.np = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).value : '';
@@ -1507,7 +1726,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 // guarantorNationalityOptionCT: ObjectUtil.isEmpty(nepaData.guarantorNationalityOption) ?
                 //     undefined : nepaData.guarantorNationalityOption.ct,
                 indianGuarantorDetailOption:  ObjectUtil.isEmpty(nepaData.indianGuarantorDetailOption) ?
-                    undefined : nepaData.indianGuarantorDetailOption,
+                    undefined : nepaData.indianGuarantorDetailOption.en,
+                indianGuarantorDetailOptionTrans:  undefined,
+                indianGuarantorDetailOptionCT:  undefined,
 
 
                 radioCitizenIssuedDateCT: [undefined],
@@ -1773,6 +1994,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (alluarantors.length > 0) {
             let guarantorsDetails: any = [];
             guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
+            console.log(guarantorsDetails);
             this.spinner = false;
             this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
             this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
@@ -1867,7 +2089,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 adharCardIssuedFromCT: guarantorsDetails.adharCardIssuedFrom ?
                     guarantorsDetails.adharCardIssuedFrom : '',
 
-
+                indianGuarantorDetailOptionTrans: guarantorsDetails.indianGuarantorDetailOption ?
+                    guarantorsDetails.indianGuarantorDetailOption : '',
+                indianGuarantorDetailOptionCT: guarantorsDetails.indianGuarantorDetailOption ?
+                    guarantorsDetails.indianGuarantorDetailOption : '',
 
                 otherGuarantorPassportNoTrans: guarantorsDetails.otherGuarantorPassportNo ?
                     guarantorsDetails.otherGuarantorPassportNo : '',
@@ -1903,12 +2128,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 //     guarantorsDetails.guarantorNationalityOption : '',
                 // guarantorNationalityOptionCT: guarantorsDetails.guarantorNationalityOption ?
                 //     guarantorsDetails.guarantorNationalityOption : '',
-                indianGuarantorDetailOptionTrans: guarantorsDetails.indianGuarantorDetailOption ?
-                    guarantorsDetails.indianGuarantorDetailOption : '',
-                indianGuarantorDetailOptionCT: guarantorsDetails.indianGuarantorDetailOption ?
-                    guarantorsDetails.indianGuarantorDetailOption : '',
 
-            })
+
+            });
 
 
             this.addressFromGroup = this.formBuilder.group({
@@ -1969,6 +2191,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             // for (let i = 0; i < a.length; i++) {
             const individualData = a[index] as FormGroup;
             Object.keys(individualData.controls).forEach(key => {
+                console.log(key);
                 if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
                     || key.indexOf('id') > -1 || key.indexOf('nepData') > -1) {
                     return;
@@ -1988,9 +2211,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.attributes.ct = individualData.get(key + 'CT').value;
                 newArr[key] = this.attributes;
             });
+            console.log(newArr, 'checkGua');
             this.translatedGuarantorDetails[index] = newArr;
             // this.deleteCTAndTransContorls(index);
             this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
+            console.log(this.userConfigForm.get(['guarantorDetails', index, 'nepData']).value ,'testValue');
             // end guarantorDetails
         }
     }
@@ -2203,7 +2428,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         );
     }
 
-    setGuarantorAddressSameAsPermanent(event, i, val) {
+    setGuarantorAddressSameAsPermanent(event, i) {
         if (event.target.checked === true) {
             this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentProvince']).value);
             this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentDistrict']).value);
@@ -2508,15 +2733,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
         if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
             const nepData = (JSON.parse(this.loanHolder.nepData));
-            if (this.customerType === CustomerType.INSTITUTION && !ObjectUtil.isEmpty(nepData.radioActYearDate) && this.actionType === 'Edit') {
-                if (nepData.radioActYearDate.en === 'AD') {
-                    this.institutionalActYear = nepData.actYear.en;
-                } else if (nepData.radioActYearDate.en === 'BS') {
-                    this.institutionalActYear = nepData.actYear.en;
-                } else {
-                    this.institutionalActYear = undefined;
-                }
-            }
+            // if (this.customerType === CustomerType.INSTITUTION && !ObjectUtil.isEmpty(nepData.radioActYearDate) && this.actionType === 'Edit') {
+            //     if (nepData.radioActYearDate.en === 'AD') {
+            //         this.institutionalActYear = nepData.actYear.en;
+            //     } else if (nepData.radioActYearDate.en === 'BS') {
+            //         this.institutionalActYear = nepData.actYear.en;
+            //     } else {
+            //         this.institutionalActYear = undefined;
+            //     }
+            // }
             let registrationDate: any;
             if (this.customerType === CustomerType.INSTITUTION) {
                 if (this.nepData.registrationDateOption.en === 'BS') {
@@ -2552,8 +2777,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 currentStreetTole: ObjectUtil.isEmpty(nepData.currentStreetTole) ? undefined : nepData.currentStreetTole.en,
                 currentStreetToleTrans: ObjectUtil.isEmpty(nepData.currentStreetTole) ? undefined : nepData.currentStreetTole.np,
                 currentStreetToleCT: ObjectUtil.isEmpty(nepData.currentStreetTole) ? undefined : nepData.currentStreetTole.ct,
-                radioActYearDate: ObjectUtil.isEmpty(nepData.radioActYearDate) ? undefined : nepData.radioActYearDate.en,
-                actYear: ObjectUtil.isEmpty(this.institutionalActYear) ? undefined : this.institutionalActYear,
+                radioActYearDate: 'AD',
+                actYear: ObjectUtil.isEmpty(nepData.actYear) ? undefined : nepData.actYear.en.eDate ? nepData.actYear.en.eDate : nepData.actYear.en,
                 citizenshipNoCT: ObjectUtil.isEmpty(nepData.citizenshipNumber) ? undefined : nepData.citizenshipNumber.np,
                 genderCT: ObjectUtil.isEmpty(nepData.gender) ? undefined : nepData.gender.np,
                 permanentProvinceCT: ObjectUtil.isEmpty(nepData.permanentProvince) ? undefined : nepData.permanentProvince.np,
@@ -3187,7 +3412,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                        ownerName : data.ownerName ? data.ownerName : '' ,
                        ownerNameTrans : data.ownerNameTrans ? data.ownerNameTrans : '' ,
                        ownerNameCT : data.ownerNameCT ? data.ownerNameCT : '' ,
-                       ownerDob: data.ownerDob ? data.ownerDob : '' ,
+                       ownerDob: ObjectUtil.isEmpty(data.ownerDob) ? undefined : data.ownerDobCT.eDate ? data.ownerDobCT.eDate : data.ownerDobCT ,
                        ownerDobTrans : data.ownerDobTrans ? data.ownerDobTrans : '' ,
                        ownerDobCT : data.ownerDobCT ? data.ownerDobCT : '' ,
                        ownerEmail : data.ownerEmail ? data.ownerEmail : '' ,
@@ -3220,7 +3445,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                        ownerSharePercentage : data.ownerSharePercentage ? data.ownerSharePercentage : '' ,
                        ownerSharePercentageTrans : data.ownerSharePercentageTrans ? data.ownerSharePercentageTrans : '' ,
                        ownerSharePercentageCT : data.ownerSharePercentageCT ? data.ownerSharePercentageCT : '' ,
-                       radioOwnerDob : data.radioOwnerDob ? data.radioOwnerDob : '' ,
+                       radioOwnerDob : 'AD' ,
                        radioOwnerDobTrans : data.radioOwnerDobTrans ? data.radioOwnerDobTrans : '' ,
                        radioOwnerDobCT : data.radioOwnerDobCT ? data.radioOwnerDobCT : '' ,
                        nepData : data.nepData ? data.nepData : '' ,
@@ -3248,7 +3473,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                        ownerRelationMedium : data.ownerRelationMedium ? data.ownerRelationMedium : '' ,
                        ownerRelationMediumTrans : data.ownerRelationMediumTrans ? data.ownerRelationMediumTrans : '' ,
                        ownerRelationMediumCT : data.ownerRelationMediumCT ? data.ownerRelationMediumCT : '' ,
-                       ownerDobDateType : data.ownerDobDateType ? data.ownerDobDateType : '' ,
+                       ownerDobDateType : data.ownerDobDateType ? 'AD' : '' ,
                        ownerDobDateTypeTrans : data.ownerDobDateTypeTrans ? data.ownerDobDateTypeTrans : '' ,
                        ownerDobDateTypeCT : data.ownerDobDateTypeCT ? data.ownerDobDateTypeCT : '' ,
 
