@@ -18,6 +18,7 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
+import {CustomerSubType} from '../../../../../customer/model/customerSubType';
 
 @Component({
   selector: 'app-kisan-karja-subsidy',
@@ -29,6 +30,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   selectedArray = [];
   afterSave = false;
+  autoPopulate1 = 'सम्पर्क अधिकृत';
+  autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
   kisanKarjaSubsidy: FormGroup;
   spinner = false;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
@@ -48,6 +51,10 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   offerLetterConst = NabilOfferLetterConst;
   freeTextVal: any = {};
   freeInformation: any;
+  finalName;
+  guarantorNames;
+  allguarantorNames;
+  customerSubType = CustomerSubType;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -58,6 +65,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
               private engToNepaliDate: EngNepDatePipe,
+              private ref: NbDialogRef<KisanKarjaSubsidyComponent>,
               public datePipe: DatePipe
   ) { }
 
@@ -66,7 +74,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-      console.log('::::::::::::::', this.tempData);
     }
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
@@ -74,13 +81,12 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
     this.checkOfferLetterData();
-    /*this.guarantorDetails();*/
+   /* this.guarantorDetails();*/
   }
   buildForm() {
     this.kisanKarjaSubsidy = this.formBuilder.group({
       referenceNumber: [undefined],
-      // securities: this.formBuilder.array([]),
-      security: this.formBuilder.array([]),
+      securities: this.formBuilder.array([]),
       freeTextVal : [undefined],
       dateOfApproval: [undefined],
       customerName: [undefined],
@@ -96,7 +102,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       baseRate: [undefined],
       premiumRate: [undefined],
       yearlyInterestRate: [undefined],
-      swekritiLoan: [undefined],
+      serviceCharge: [undefined],
       totalTenureOfLoan: [undefined],
       landOwnerName: [undefined],
       district: [undefined],
@@ -109,9 +115,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       relationshipOfficerName: [undefined],
       branchName: [undefined],
       branchManager: [undefined],
-      applicantName: [undefined],
       commitmentFee : [undefined],
-      executionDate : [undefined],
       // TEST:
       firstAdditionalDetails: [undefined],
       secondAdditionalDetails: [undefined],
@@ -121,6 +125,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       sixthAdditionalDetails: [undefined],
       seventhAdditionalDetails: [undefined],
       eighthAdditionalDetails: [undefined],
+      autoPopulate1 : [undefined],
+      autoPopulate2 : [undefined],
     });
   }
 
@@ -144,10 +150,14 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
         this.offerLetterDocument = new OfferDocument();
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY);
+        this.setFreeText();
+        this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      if (!ObjectUtil.isEmpty(this.offerLetterDocument.pointInformation)) {
+      if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
         this.offerLetterData = this.offerLetterDocument;
+        this.setFreeText();
+        this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
        /* this.kisanKarjaSubsidy.get(this.freeTextVal.firstText).patchValue(this.offerLetterData.supportedInformation);*/
       }
         // this.selectedSecurity = initialInfo.selectedSecurity.en;
@@ -156,10 +166,11 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
-        this.initialInfoPrint = initialInfo;
         this.fillForm();
       }
     } else {
+      this.setFreeText();
+      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       this.fillForm();
     }
   }
@@ -204,16 +215,15 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     }
     // For PREVIOUS SANCTION DATE
     // tslint:disable-next-line:max-line-length
-    const prevSanctionLetterDateType = this.tempData.previousSanctionType ? this.tempData.previousSanctionType.en : '';
+    const previousSanctionType = this.initialInfoPrint.previousSanctionType ? this.initialInfoPrint.previousSanctionType.en : '';
     let finalprevSanctionLetterDate;
-    if (nextReviewDateType === 'AD') {
+    if (previousSanctionType === 'AD') {
       finalprevSanctionLetterDate = this.tempData.previousSanctionDate ? this.tempData.previousSanctionDate.ct : '';
     } else {
       finalprevSanctionLetterDate = this.tempData.previousSanctionDateNepali ? this.tempData.previousSanctionDateNepali.ct : '';
     }
-    console.log('Free Text value:', this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
-    console.log('Free : ', this.freeInformation);
+    this.guarantorDetails();
     this.kisanKarjaSubsidy.patchValue({
       customerName: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
@@ -222,24 +232,39 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
       referenceNumber: autoRefNumber ? autoRefNumber : '',
       purposeOfLoan: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
-      drawingPower: this.tempData.drawingPower ? this.tempData.drawingPower.ct : '',
-      loanCommitmentFee: this.tempData.loanCommitmentFee ? this.tempData.loanCommitmentFee.ct : '',
+      drawingPower: this.tempData.marginInPercentage ? this.tempData.marginInPercentage.ct : '',
+      commitmentFee: this.tempData.commitmentFee ? this.tempData.commitmentFee.ct : '',
+      rateNrbCircular : this.tempData.circularRate ? this.tempData.circularRate.ct : '',
       baseRate: this.tempData.baseRate ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate ? this.tempData.premiumRate.ct : '',
       yearlyInterestRate: this.tempData.interestRate ? this.tempData.interestRate.ct : '',
       loanadminFee: this.tempData.loanadminFee ? this.tempData.loanadminFee.ct : '',
       loanadminFeeWords: this.tempData.loanadminFeeWords ? this.tempData.loanadminFeeWords.ct : '',
       nameofBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
-      relationshipofficerName: this.tempData.relationshipofficerName ? this.tempData.relationshipofficerName.ct : '',
-      nameofBranchManager: this.tempData.nameofBranchManager ? this.tempData.nameofBranchManager.ct : '',
+      relationshipOfficerName: this.tempData.nameOfStaff ? this.tempData.nameOfStaff.ct : '',
+      branchManager : this.tempData.nameOfBranchManager ? this.tempData.nameOfBranchManager.ct : '',
       branchName : this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
       // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
       dateOfApproval : finalDateOfApproval ? finalDateOfApproval : '',
       dateOfApplication : finaldateOfApplication ? finaldateOfApplication : '',
       nextReviewDate : finalNextReviewDate ? finalNextReviewDate : '',
       prevSanctionLetterDate : finalprevSanctionLetterDate ? finalprevSanctionLetterDate : '',
-      firstAdditionalDetails : this.freeInformation.firstText,
+      firstAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.firstText : '',
+      secondAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
+      thirdAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
+      fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
+      fifthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : '',
+      sixthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sixthText : '',
+      seventhAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.seventhText : '',
+      eighthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.eighthText : '',
+      autoPopulate1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate1 : '',
+      autoPopulate2 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate2 : '',
+      nameOfPersonalGuarantor : this.finalName ? this.finalName : '',
+      totalTenureOfLoan : this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',
+      typeOfLoan : this.tempData.repaymentType ? this.tempData.repaymentType.ct : '',
+      serviceCharge : this.tempData.serviceCharge ? this.tempData.serviceCharge.ct : '',
     });
+
   }
   get Form() {
     return this.kisanKarjaSubsidy.controls;
@@ -270,7 +295,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
-    console.log('cad dATA', this.cadOfferLetterApprovedDoc);
 
     this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
@@ -287,9 +311,10 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
   }
-
+  close() {
+    this.ref.close();
+  }
   setFreeText() {
-    console.log('Set free text');
     this.freeTextVal = {
       firstText: this.kisanKarjaSubsidy.get('firstAdditionalDetails').value,
       secondText: this.kisanKarjaSubsidy.get('secondAdditionalDetails').value,
@@ -299,6 +324,33 @@ export class KisanKarjaSubsidyComponent implements OnInit {
       sixthText: this.kisanKarjaSubsidy.get('sixthAdditionalDetails').value,
       seventhText: this.kisanKarjaSubsidy.get('seventhAdditionalDetails').value,
       eighthText: this.kisanKarjaSubsidy.get('eighthAdditionalDetails').value,
+      autoPopulate1 : this.kisanKarjaSubsidy.get('autoPopulate1').value,
+      autoPopulate2 : this.kisanKarjaSubsidy.get('autoPopulate2').value,
     };
+  }
+  guarantorDetails() {
+    if (this.guarantorData.length === 1) {
+      const temp = JSON.parse(this.guarantorData[0].nepData);
+      this.finalName =  temp.guarantorName.ct;
+    } else if (this.guarantorData.length === 2) {
+      for (let i = 0; i < this.guarantorData.length; i++) {
+        const temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+      }
+      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+      this.allguarantorNames = this.guarantorNames.join(' र ');
+      this.finalName = this.allguarantorNames;
+    } else {
+      for (let i = 0; i < this.guarantorData.length - 1 ; i++) {
+        const temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.guarantorName.ct);
+        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+      }
+      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
+      this.allguarantorNames = this.guarantorNames.join(' , ');
+      const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
+      this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
+    }
   }
 }

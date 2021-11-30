@@ -5,6 +5,13 @@
              nbSpinnerSize="large"
              nbSpinnerMessage="Kisan Karja Subsidy....."
              id="{{offerLetterConst.KISAN_KARJA_SUBSIDY}}">
+        <nb-card-header>
+            <div class="col-md-12 text-right">
+                <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+                   data-dismiss="modal">
+                    <span aria-hidden="true">×</span></a>
+            </div>
+        </nb-card-header>
 
         <nb-card-body>
             <form [formGroup]="kisanKarjaSubsidy" id="print-section">
@@ -22,7 +29,7 @@
                                  type="text"/>
                 </p>
                 <div class="mb-2">
-                    श्री/श्रीमती/सुश्री<input class="form-field form-control-sm"
+                    श्री/श्रीमती/सुश्री <input class="form-field form-control-sm"
                                                       formControlName="customerName"
                                                       name="customerName"
                                                       type="text"/>
@@ -35,44 +42,49 @@
                         <br><br>
                     </div>
                     <!--            For New Customer-->
-                    <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
-                    <br>
-                    <div class="mb-1">
-                        <p>
-                            महोदय,<br>
-                            तपाईंले
-                            <span class="text-left">
-                            मितिः <input class="form-field form-control-sm"
-                                         formControlName="dateOfApplication"
-                                         type="text"/>
-                    </span>
-                            मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु
-                            देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं ।
-                        </p>
+                    <div *ngIf="this.tempData.loanOption.en === 'NEW'">
+                        <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
+                        <br>
+                        <div class="mb-1">
+                            <p>
+                                महोदय,<br>
+                                तपाईंले
+                                <span class="text-left">
+                                मितिः <input class="form-field form-control-sm"
+                                             formControlName="dateOfApplication"
+                                             type="text"/>
+                        </span>
+                                मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु
+                                देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं ।
+                            </p>
+                        </div>
                     </div>
 
                     <!--For existing customer - additional loan-->
-                    <strong> बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
-                    <br>
-                    <div class="mb-1">
-                        <p>
-                            महोदय,<br>
-                            तपाईंले यस बैंकको
-                            <span class="text-left">
-                            मितिः <input class="form-field form-control-sm"
-                                         formControlName="prevSanctionLetterDate"
-                                         type="text"/>
-                    </span>
-                            को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त
-                            ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको
-                            <span class="text-left">
-                            मितिः <input class="form-field form-control-sm"
-                                         formControlName="nextReviewDate"
-                                         type="text"/>
-                    </span>को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय
-                            बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
-                        </p>
-                    </div><h4 style="text-align: center">स्वीकृत ऋणकर्जा सुविधाहरुको विवरण </h4>
+                    <div *ngIf="this.tempData.loanOption.en === 'EXISTING'">
+                        <strong> बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
+                        <br>
+                        <div class="mb-1">
+                            <p>
+                                महोदय,<br>
+                                तपाईंले यस बैंकको
+                                <span class="text-left">
+                                मितिः <input class="form-field form-control-sm"
+                                             formControlName="prevSanctionLetterDate"
+                                             type="text"/>
+                        </span>
+                                को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त
+                                ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको
+                                <span class="text-left">
+                                मितिः <input class="form-field form-control-sm"
+                                             formControlName="dateOfApplication"
+                                             type="text"/>
+                        </span>को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय
+                                बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
+                            </p>
+                        </div>
+                    </div>
+                        <h4 style="text-align: center">स्वीकृत ऋणकर्जा सुविधाहरुको विवरण </h4>
 
                     <div>
                         <table class="table table-bordered">
@@ -81,12 +93,8 @@
                             <tr>
                                 <td style="width: 15%"><strong>कर्जा प्रकार: </strong></td>
                                 <td>
-                                    <input class="form-field form-control-sm"
-                                           formControlName="typeOfLoan"
-                                           name="typeOfLoan"
-                                           placeholder="Type of Loan"
-                                           style="width: 200px"
-                                           type="text"/>
+                                    <strong>
+                                        नबिल किसान कर्जा</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -162,19 +170,19 @@
                                     आवधिक कर्जाको हकमा संलग्न अनुमानित भुक्तानी तालिका बमोजिम चुक्ता भुक्तानी गर्नु पर्नेछ ।
                                     साथै अल्पकालिन कर्जाको हकमा देहाय बामोजिम हुनेछ ।<br>
                                     क. अल्पकालिन कर्जा १: <textarea
-                                        class="form-control customFont"
+                                        class="form-control customFont nepaliFont"
                                         style="width: 60%;padding: 5px;margin-top: 10px"
                                         name="freeText"
                                         formControlName="firstAdditionalDetails">
                                             </textarea><br>
                                     ख. अल्पकालिन कर्जा २: <textarea
-                                        class="form-control customFont"
+                                        class="form-control customFont nepaliFont"
                                         style="width: 60%;padding: 5px;margin-top: 10px"
                                         name="freeText"
                                         formControlName="secondAdditionalDetails">
                                             </textarea><br>
                                     ग. अल्पकालिन कर्जा ३: <textarea
-                                        class="form-control customFont"
+                                        class="form-control customFont nepaliFont"
                                         style="width: 60%;padding: 5px;margin-top: 10px"
                                         name="freeText"
                                         formControlName="thirdAdditionalDetails">
@@ -204,14 +212,14 @@
                                         </span>-->
                                 </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="!this.tempData.interestSubsidy.en === true">
                                 <td> <strong>
                                     सेवा शुल्क, स्वीकृत कर्जाको सिमामा लागूहुने:
                                 </strong>
                                 </td>
                                 <td><input class="form-field form-control-sm"
-                                           formControlName="swekritiLoan"
-                                           name="swekritiLoan "
+                                           formControlName="serviceCharge"
+                                           name="serviceCharge "
                                            placeholder="स्वीकृत कर्जाक "
                                            type="text"/>
                                     प्रतिशत ।
@@ -247,32 +255,33 @@
                                 </strong>
                                 </td>
                                 <td>
-                                    घर/जग्गा धनीको नाम: <input class="form-field form-control-sm"
-                                                               formControlName="landOwnerName"
-                                                               name="landOwnerName"
-                                                               type="text"/><br>
-                                    जिल्ला:<input class="form-field form-control-sm"
-                                                  formControlName="district"
-                                                  name="district"
-                                                  type="text"/><br>
-                                    न.पा/गा.वि.स: <input class="form-field form-control-sm"
-                                                         formControlName="vdcMunci"
-                                                         name="vdcMunci"
-                                                         type="text"/><br>
-                                    वडा नंः <input class="form-field form-control-sm"
-                                                   formControlName="wardNo"
-                                                   name="wardNo"
-                                                   type="text"/><br>
-                                    किता नं.: <input class="form-field form-control-sm"
-                                                     formControlName="plotNo"
-                                                     name="plotNo"
-                                                     type="text"/><br>
-                                    क्षेत्रफल: <input class="form-field form-control-sm"
-                                                      formControlName="area"
-                                                      name="area"
-                                                      type="text"/>
+    <span class="row" class="row"
+          *ngFor="let guarantor of offerDocumentDetails?.securities; let i = index"
+          formArrayName="securities">
+    <div class="col-md-12">
+        घर/जग्गा धनीको नाम
+        <input class="form-field form-control-sm"
+               name="landOwnerName"
+               [value]="guarantor?.securityOwnersNameCT"
+               style="width: 200px"
+               type="text"/>
+        जिल्ला
+        <input class="form-field form-control-sm"
+               name="district"
+               [value]="guarantor?.securityOwnersDistrictCT"
+               style="width: 200px"
+               type="text"/>
+        न.पा/गा.वि.स.
 
+ <input class="form-field form-control-sm"  name="VDCMunicipality"  [value]="guarantor?.securityOwnersMunicipalityCT"  style="width: 200px"  type="text"/>
+        वडा नंः  <input class="form-field form-control-sm"  name="wardNo"  [value]="guarantor?.securityOwnersPlotNoCT"  style="width: 200px"  type="text"/>
+        किता नं.<input class="form-field form-control-sm"  name="plotNo"  [value]="guarantor?.securityOwnersLandAreaCT"  style="width: 200px"  type="text"/>
+        क्षेत्रफल  <input class="form-field form-control-sm"  name="areaRopaniBigha"  [value]="guarantor?.securityOwnersSheetNoCT"  style="width: 200px"  type="text"/>
+    </div>
+    </span>
                                 </td>
+
+
                             </tr>
                             <tr>
                                 <td>
@@ -308,7 +317,7 @@
                         </table>
                         <p>
                    <textarea
-                           class="form-control customFont"
+                           class="form-control customFont nepaliFont"
                            rows="5"
                            style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
                            name="freeText"
@@ -321,22 +330,23 @@
                                 <div class="col-sm-12">
                                     <ol class="conditions-list orderd-list font-weight-bold">
                                         <li>
-                                            <strong>माथि उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन् । सहुलियतपुर्ण कर्जाका लागि ब्याज
+                                            <p><strong>माथि उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन् । सहुलियतपुर्ण कर्जाका लागि ब्याज
                                                 अनुदान सम्बन्धि एकिकृत कार्यविधि, २०७५, दोस्रो संशोधन, २०७६ र तेस्रो संशोधन, २०७७
                                                 बमोजिमको हुन आउने अनुदान ब्याज भुक्तानीका लागि नेपाल राष्ट्र बैंक समक्ष अनुरोध गरिनेछ र कथमकदाचित नेपाल
                                                 राष्ट्र बैंकबाट जुनसुकै कारणले ब्याज अनुदान प्राप्त हुन नसकेमा उक्त अनुदान दर वापतको हुने ब्याज रकम समेत तपाई
-                                                ऋणी स्वयंलेनै तिर्नु बुझाउनु पर्नेछ ।
+                                                ऋणी स्वयंलेनै तिर्नु बुझाउनु पर्नेछ ।</strong></p>
 
                                                 <!--Applicable incase of interest subsidy loan-->
+                                            <p *ngIf="!this.tempData.interestSubsidy.en === false"><strong>
                                                 साथै ब्याज तथा साँवा रकम भुक्तानी मिति भित्र नबुझाएमा नियमानुसार ब्याज अनुदान प्रदान गर्न बैंक बाध्य हुनेछैन ।
                                                 साथै बैंकबाट जुन उद्देश्यको लागि कर्जा लिएको हो, सो उद्देश्यमा कर्जा प्रयोग नगरेमा (Misuse of loan) बैंकले कुनै पनि बखत कर्जा
                                                 सुविधा फिर्ता माग गर्न सक्नेछ र सो कर्जामा नियमानुसार ब्याज अनुदान प्रदान नगर्नका साथै अघिल्लो प्रदान गरिएका अनुदानहरु पनि
                                                 फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहेनछ ।
-                                            </strong>
+                                            </strong></p>
                                         </li>
 
                                         <!-- - Applicable incase of interest subsidy loan-->
-                                        <li>
+                                        <li *ngIf="!this.tempData.interestSubsidy.en === false">
                                             <strong>
                                                 सहुलियत पुर्ण कर्जा अन्तर्गत निक्षेप तथा कर्जा सुरक्षण कोष (Deposit and Guarantee Fund) मा सुरक्षण गरिने ऋणकर्जाको लागि उक्त ऋणकर्जाको सुरक्षण गर्दा लाग्ने सुरक्षण शुल्क वापतको रकम ऋणी स्वयमलेनै तिर्नु व्यहोर्नु पर्नेछ । उक्त सुरक्षण शुल्क वापत हाल बार्षिक
                                                 <input class="form-field form-control-sm"
@@ -398,13 +408,15 @@
                                             रहन गएमा उक्त रकम समेत अन्तिम किस्ता भुक्तानी मितिमा सम्पुर्ण बाँकी बक्यौता कर्जा साँवा ब्याज रकम चुक्ता भुक्तान गर्नुपर्नेछ ।
 
                                             <!--(Applicable in case of EMI basis repayment)-->
-                                            माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको बृद्घी हुन गएबाट सो अनुसार बैंकले शुरुमा प्रदान गरेको/गर्ने किस्ता रकममा परिवर्तन गर्न बाधा
-                                            पर्ने छैन । स्वीकृत कर्जा प्रवाह पश्चात त्रैमासिक वा कम्तिमा बर्षको एक पटक बैैंकमा सम्पर्क गरी बक्यौता कर्जा रकम, मासीक किस्ता तथा ब्याज दरको स्थिति
-                                            सुनिश्चित गर्नु ऋणीको कर्तव्य तथा जिम्मेवारी हुने कुरामा ऋणी मन्जुर गर्दछ । ऋणीले यस ब्यबस्थाको पालना नगरी पछि मलाई ब्याजदर बढेको तथा अन्तिम
-                                            किस्तामा थप रकम बुझाउनु पर्ने कुरा थाहा थिएन भन्ने दावी गर्न पाइने छैन ।
+                                            <p *ngIf="this.tempData.repaymentType.en === 'EMI_BASIS'">
+                                                माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको बृद्घी हुन गएबाट सो अनुसार बैंकले शुरुमा प्रदान गरेको/गर्ने किस्ता रकममा परिवर्तन गर्न बाधा
+                                                पर्ने छैन । स्वीकृत कर्जा प्रवाह पश्चात त्रैमासिक वा कम्तिमा बर्षको एक पटक बैैंकमा सम्पर्क गरी बक्यौता कर्जा रकम, मासीक किस्ता तथा ब्याज दरको स्थिति
+                                                सुनिश्चित गर्नु ऋणीको कर्तव्य तथा जिम्मेवारी हुने कुरामा ऋणी मन्जुर गर्दछ । ऋणीले यस ब्यबस्थाको पालना नगरी पछि मलाई ब्याजदर बढेको तथा अन्तिम
+                                                किस्तामा थप रकम बुझाउनु पर्ने कुरा थाहा थिएन भन्ने दावी गर्न पाइने छैन ।
+                                            </p>
                                         </li>
                                         <!-- - Applicable incase of interest subsidy loan-->
-                                        <li>
+                                        <li *ngIf="!this.tempData.interestSubsidy.en === false">
                                             उल्लिखित ब्याज दर प्रिमियम ९ष्लतभचभकत चबतभ (interest rate premium) नेपाल राष्ट्र बैंकबाट जारी निर्देशन बमोजिम समय समयमा परिवर्तन गर्न सकिनेछ र सोहि अनुसार परिवर्तित व्याज दर लागु गरिनेछ ।
                                         </li>
                                     </ol>
@@ -483,7 +495,7 @@
                         </div>
                         <textarea
                                 id="freeText"
-                                class="form-control customFont"
+                                class="form-control customFont nepaliFont"
                                 rows="5"
                                 style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
                                 name="freeText"
@@ -656,7 +668,7 @@
                                         <li>
                                             बैकबाट जुन प्रयोजनार्थ ऋणकर्जा सुबिधा प्रवाह गरीएको हो सोमा प्रयोग नगरी अन्य उद्देश्यमा प्रयोग गर्ने (Diversion of Fund),  व्यवसायबाट आर्जित रकम ऋण तिर्नमा नलगाई अन्य कार्यमा प्रयोग गर्ने (Diversion of Fund), अन्य सम्पत्ति सिर्जना गर्ने, अल्पकालीन कर्जाबाट दीर्घकालीन उपयोग गर्ने तथा सहायक कम्पनी वा अन्य फर्ममा ऋण तथा पूजी साधन प्रवाह गर्न जस्ता कार्य गर्न पाइनेछैन ।
                                         </li>
-
+                                        <div *ngIf="cadOfferLetterApprovedDoc?.loanHolder['customerSubType'] === (customerSubType.PRIVATE_PUBLIC | uppercase)">
                                         <!-- - Following clause shall be applicable if borrower is firm/company-->
                                         <strong>ऋणी फर्म/कम्पनी भएमा देहाय बमोजिमका थप शर्तहरु लागूहुनेछ:</strong>
                                         <li>
@@ -674,8 +686,9 @@
 
                                         </li>
                                         <li>
-                                            <textarea class="form-control customFont" rows="3" formControlName="sixthAdditionalDetails" name="extraFinancialClause" placeholder="Extra Financial Clause" style="width: 95%;padding: 5px;margin-top: 10px;" type="text"></textarea>
+                                            <textarea class="form-control nepaliFont customFont" rows="3" formControlName="sixthAdditionalDetails" name="extraFinancialClause" placeholder="अतिरिक्त वित्तीय खण्ड" style="width: 95%;padding: 5px;margin-top: 10px;" type="text"></textarea>
                                         </li>
+                                        </div>
                                     </ol>
                                 </div>
                             </div>
@@ -703,14 +716,14 @@
                                         </li>
 
                                         <!--Applicable in case of proprietor ship firm/partnership firm only-->
-                                        <li>
+                                        <li *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === (customerSubType.PARTNERSHIP | uppercase)">
                                             प्रचलित ऐन, नियम, नेपाल राष्ट्र बैंकको निर्देशन तथा यस बैंकको निति, नियम तथा तिनमा समय समयमा हुने सँशोधन सहितको शर्तहरु पालना गर्न ऋणी/ऋणी फर्म/ऋणी कम्पनी/ऋणी संस्था मञ्जुर गर्नुका साथै माथि उल्लिखित सम्पुर्ण समेतबाट स्वीकृत ऋणकर्जा बैंकिङ्ग सुविधा प्रशासित तथा सञचालित हुने कुरामा समेत ऋणी/ऋणी फर्म/ऋणी कम्पनी/ऋणी संस्था मञ्जुर गर्दछ ।
                                         </li>
                                         <li>
                                             तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण गर्ने दायित्व ऋणी फर्मका प्रोप्राईटर/साझेदारहरुको हुनेछ र नविकरण पश्चात सोको प्रतिलिपि यस बैंकमा पेश गर्नु पर्नेछ । दर्ता प्रमाणपत्रको अवधि समाप्त भएका फर्मको ऋणकर्जा सुविधा स्वीकृत/नविकरण हुनेछैन र साथै तहांले उपभोग गर्दै आउनुभएका सम्पूर्ण ऋण कर्जा सुविधाहरु दर्ता नविकरण नभएका कारण फिर्ता भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                                         </li>
                                         <li>
-                                            <textarea class="form-control customFont" rows="5" formControlName="seventhAdditionalDetails" name="additionalOthersClause" placeholder="Additional Others Clause" style="width: 95%;padding: 5px;margin-top: 10px;" type="text"></textarea>
+                                            <textarea class="form-control nepaliFont customFont" rows="5" formControlName="seventhAdditionalDetails" name="additionalOthersClause" placeholder="अतिरिक्त अन्य खण्ड" style="width: 95%;padding: 5px;margin-top: 10px;" type="text"></textarea>
                                         </li>
                                     </ol>
                                 </div>
@@ -751,7 +764,7 @@
                                             आवश्यक जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धकमा रहेका सम्पूर्ण सामान मौज्दातहरु/सम्पत्तिहरुका लागि <strong>पर्याप्त मुल्य</strong> बराबरको बैंकको पक्षमा बिमालेख ।
                                         </li>
                                         <li>
-                                            <textarea class="form-control customFont" rows="5" formControlName="eighthAdditionalDetails" name="extraSecurityDocumentParts" placeholder="Extra Security Documents Parts" style="width: 95%;padding: 5px;margin-top: 10px;" type="text"></textarea>
+                                            <textarea class="form-control nepaliFont customFont" rows="5" formControlName="eighthAdditionalDetails" name="extraSecurityDocumentParts" placeholder="अतिरिक्त सुरक्षा कागजात भागहरू" style="width: 95%;padding: 5px;margin-top: 10px;" type="text"></textarea>
                                         </li>
                                     </ol>
                                 </div>
@@ -768,15 +781,17 @@
                         <div class="col-md-12 d-flex justify-content-between">
                             <div class="right-content">
 
-                                .........................................
-                                <p>
-                                    सम्पर्क अधिकृत
-                                </p>
-                                <input class="form-field form-control-sm ios"
+                                <input class="form-field form-control-sm nepaliFont"
                                        formControlName="relationshipOfficerName"
                                        name="relationshipOfficerName"
-                                       value="सम्पर्क अधिकृत"
                                        type="text"/>
+                                <p>
+                                    <input class="form-field form-control-sm nepaliFont"
+                                           formControlName="autoPopulate1"
+                                           name="autoPopulate1"
+                                           [value]="autoPopulate1"
+                                           type="text"/>
+                                </p>
                                 <p>
                                     नबिल बैंक लि.
                                 </p>
@@ -788,15 +803,17 @@
                             </div>
                             <div class="left-content text-right">
 
-                                .........................................
-                                <p>
-                                    शाखा प्रबन्धक
-                                </p>
-                                <input class="form-field form-control-sm ios"
+                                <input class="form-field form-control-sm nepaliFont"
                                        formControlName="branchManager"
                                        name="branchManager"
-                                       value="शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक"
                                        type="text"/>
+                                <p>
+                                    <input class="form-field form-control-sm nepaliFont"
+                                           formControlName="autoPopulate2"
+                                           name="autoPopulate2"
+                                           [value]="autoPopulate2"
+                                           type="text"/>
+                                </p>
                                 <p>
                                     नबिल बैंक लि.
                                 </p>
@@ -823,13 +840,14 @@
                                         </li>
 
                                         <!--Applicable incase of interest subsidy loan-->
-                                        <li>
+                                        <li *ngIf="!this.tempData.interestSubsidy.en === false">
                                             <strong>
                                                 म/हामी कुनै पनि बैंक वा वित्तीय संस्थाको कर्जा तिर्न असक्षम (म्भाबगति) नभएको घोषणा गर्दछु साथै म/हामीले यस बैंक लगायत अन्य कुनै बैंक तथा वित्तिय संस्थाबाट कुनै पनि किसिमको सहुलियतपुर्ण कर्जा उपभोग नगरेको र माथि स्वीकृत ऋणकर्जा पुर्ण रुपमा चुक्ता भुक्तान नभएसम्म सो कर्जाहरु माग नगर्ने समेत उद्घोष गर्दछौं ।
                                             </strong>
                                         </li>
-                                        <li>
+                                        <li *ngIf="!this.tempData.interestSubsidy.en === false"><strong>
                                             यस बैंकबाट कर्जा सुविधा उपयोग गरिरहेका आपसी सम्बन्ध भएका मेरो/हाम्रो समुह भित्रको अन्य व्यक्ति, फर्म, संस्था वा कम्पनिले सहुलियत पुर्ण कर्जा(भुकम्प पिडित बाहेक) नलिएको र म/हामी/यस फर्म, संस्था वा कम्पनिले नेपाल सरकार, प्रदेश वा स्थानीय तहबाट कुनै पनि किसिमको अनुदान तथा आर्थिक सुविधा प्राप्त नगरेको उद्घोष गर्दछु/छौं ।
+                                            </strong>
                                         </li>
                                         <!--        -->
 
@@ -853,7 +871,7 @@
                                 </td>
                                 <td style="width: 80%">
                                     <input class="form-field form-control-sm"
-                                           formControlName="applicantName"
+                                           formControlName="customerName"
                                            name="applicantName"
                                            placeholder=" "
                                            type="text"/>
@@ -864,7 +882,7 @@
                                     दस्तखत:
                                 </td>
                                 <td>
-                                    ........................
+
                                 </td>
                             </tr>
                             <tr>
@@ -880,11 +898,7 @@
                                     मिति:
                                 </td>
                                 <td>
-                                    <input class="form-field form-control-sm"
-                                           formControlName="executionDate"
-                                           name="executionDate"
-                                           placeholder=" "
-                                           type="text"/>
+
                                 </td>
                             </tr>
                         </table>

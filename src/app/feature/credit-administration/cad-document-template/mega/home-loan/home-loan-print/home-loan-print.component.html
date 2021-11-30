@@ -100,7 +100,7 @@
                             <!--कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको
                             निर्माण लागतको-->
                             कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक लेखिदिने जग्गामा बन्न लाग्ने घरको निर्माण
-                            लागतको १०० प्रतिशत वा जग्गा र निर्माणीत भवनको निकृष्ट स्थितिको मूल्याञकन
+                            लागतको १०० प्रतिशत वा जग्गा र निर्माणीत भवनको निकृष्ट स्थितिको मूल्यांकन
                             (Distress Situation Value) को
                             <span [ngClass]="{'font-weight-bold' : letter?.loan.drawingPowerCT!== null && letter?.loan.drawingPowerCT!== ''}">
                                 {{letter?.loan.drawingPowerCT === null || letter?.loan.drawingPowerCT === '' ? '___________' : letter?.loan.drawingPowerCT}}
@@ -414,7 +414,7 @@
                         </span>
 
                         <span *ngIf="tempData?.loanType === homeLoanType?.TAKE_OVER" [ngClass]="{'font-weight-bold' : letter?.loan.nameOfBankCT!== null && letter?.loan.nameOfBankCT!== ''}">
-                            {{letter?.loan.nameOfBankCT === null || letter?.loan.nameOfBankCT === '' ? '___________' : letter?.loan.nameOfBankCT}}  बैंक
+                            {{letter?.loan.nameOfBankCT === null || letter?.loan.nameOfBankCT === '' ? '___________' : letter?.loan.nameOfBankCT}}
                         </span>
                         लाई A/C Payee Cheque /MC/Draft /Swift /IPS /RTGS
                         मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
@@ -659,21 +659,21 @@
                 </span>
                              मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण।
                         </p>
-                        <p *ngIf="selectedSecurity === 'LAND & BUILDING'">
-                            झ. भवन निर्माण सम्पन प्रमाणपत्र ।
-                        </p>
                         <p *ngIf="tempData?.loanType === homeLoanType?.CONSTRUCTION">
                             ज. बैकर्श शर्त सहितको कम्तीमा रु
                             <span [ngClass]="{'font-weight-bold' : insuranceAmount !== null && insuranceAmount !== ''}">
                                 {{insuranceAmount === null || insuranceAmount === '' ? '___________' : insuranceAmount}}
                             </span> /- बराबरको भवनको  विमालेख ।
                         </p>
+                        <p *ngIf="selectedSecurity === 'LAND & BUILDING' || tempData?.loanType === homeLoanType.CONSTRUCTION">
+                            झ. भवन निर्माण {{tempData?.loanType === homeLoanType?.CONSTRUCTION ? 'इजाजत पत्र' : 'सम्पन प्रमाणपत्र'}} ।
+                        </p>
                     </td>
                 </tr>
             </table>
             <p *ngIf="offerData?.supportedInformation" style="margin-top: -2.8em;margin-left: 3.8em;">
                 {{selectedSecurity === 'LAND & BUILDING' ?
-                'ञ' : tempData?.loanType === homeLoanType.CONSTRUCTION ? 'झ' : 'ज'}}. <span class="nepaliFont"
+                'ञ' : tempData?.loanType === homeLoanType.CONSTRUCTION ? 'ञ' : 'ज'}}. <span class="nepaliFont"
                          style="font-size: 24px;">{{offerData?.supportedInformation}}</span>
             </p><br>
 

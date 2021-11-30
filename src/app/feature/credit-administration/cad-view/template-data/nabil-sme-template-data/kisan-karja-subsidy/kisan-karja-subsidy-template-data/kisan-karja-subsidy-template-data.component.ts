@@ -359,7 +359,6 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       this.attributes.ct = this.kisanKarjaSubsidy.get(key + 'CT').value;
       this.tdVal[key] = this.attributes;
     });
-    console.log('This is Attributes', this.tdVal);
   }
 
   async translateAndSetVal() {
@@ -445,13 +444,11 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       const convertedMarginNum = this.convertNumbersToNepali(marginNum, false);
       this.kisanKarjaSubsidy.get('marginInPercentageTrans').patchValue(convertedMarginNum);
     }
-
     const serviceChargeNum = this.kisanKarjaSubsidy.get('serviceCharge').value;
     if (!ObjectUtil.isEmpty(serviceChargeNum)) {
       const convertServiceCharge = this.convertNumbersToNepali(serviceChargeNum, false);
       this.kisanKarjaSubsidy.get('serviceChargeTrans').patchValue(convertServiceCharge);
     }
-
     const tenureData = this.kisanKarjaSubsidy.get('totalTenureOfLoan').value;
     if (!ObjectUtil.isEmpty(tenureData)) {
       const convertTenureData = this.convertNumbersToNepali(tenureData, false);
@@ -703,7 +700,6 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       this.isPreview = this.closeEnable = true;
       this.saveEnable = false;
     }, error => {
-      console.log(error);
       this.spinner = false;
       this.isPreview = false;
       this.saveEnable = false;
@@ -724,7 +720,12 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       }
     });
   }
-
+  clearSecurityMunType(controlName, index, formArrayName) {
+    const tempVal = this.kisanKarjaSubsidy.get([formArrayName, index, 'securityOwnersMunicipalityOrVdc']).value;
+    if (tempVal === 'VDC') {
+      this.kisanKarjaSubsidy.get([formArrayName, index, controlName]).setValue(null);
+    }
+  }
 
 }
 
