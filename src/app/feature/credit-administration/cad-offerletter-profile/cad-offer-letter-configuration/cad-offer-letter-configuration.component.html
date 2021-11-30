@@ -910,7 +910,6 @@
                                         <input class="form-control rounded nepaliFont"
                                                formControlName="guarantorMobileNumber"
                                                id="guarantorMobileNumber"
-                                               autocomplete="off"
                                                name="name" placeholder="मोबाइल नम्बर"
                                                type="text"/>
                                     </div>
@@ -919,12 +918,19 @@
                                     <div class="form-group">
                                         <label class="title" for="guarantorEmailAddress">
                                             इमेल</label>
-                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.email.errors}"
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorEmailAddress.errors}"
                                                type="email"
                                                placeholder="इमेल ठेगाना"
                                                class="form-control rounded"
                                                id="guarantorEmailAddress"
                                                formControlName="guarantorEmailAddress"/>
+                                        <div *ngIf="(submitted) && basicInfoControls.guarantorEmailAddress.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorEmailAddress.errors.guarantorEmailAddress">Valid email
+                                                address has form
+                                                xyz@abc.com
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -1024,6 +1030,7 @@
                                                        [value]="districtVal" >
                                                 {{districtVal.nepaliName}}
                                             </ng-option>
+                                            संपार्श्विक मालिकको स्थायी जिल्ला
                                         </ng-select>
                                         <div *ngIf="(submitted) && basicInfoControls.guarantorPermanentDistrict.invalid"
                                              class="invalid-feedback">
@@ -1227,7 +1234,7 @@
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralProvince.errors}"
                                                 formControlName="collateralProvince"
                                                 id="collateralProvince{{i}}">
-                                            <ng-option *ngFor="let provinceVal of collateralPerProvinceList"
+                                            <ng-option *ngFor="let provinceVal of collateralPermanentProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
                                             </ng-option>
@@ -1237,8 +1244,7 @@
                                             <div *ngIf="basicInfoControls.collateralProvince.errors.required">
                                                 Province is required
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div></div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
@@ -1250,7 +1256,7 @@
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralDistrict.errors}"
                                                 formControlName="collateralDistrict"
                                                 id="collateralDistrict{{i}}">
-                                            <ng-option *ngFor="let districtVal of collateralPerDistrictList[i]"
+                                            <ng-option *ngFor="let districtVal of collateralPermanentDistrictList[i]"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
                                             </ng-option>
@@ -1274,7 +1280,7 @@
                                                 id="collateralMunVdc{{i}}"
                                                 name="collateralMunVdc">
                                             <ng-option
-                                                    *ngFor="let municipalityVal of collateralPerMunicipalitiesList[i]"
+                                                    *ngFor="let municipalityVal of collateralPermanentMunicipalitiesList[i]"
                                                     [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
                                             </ng-option>
@@ -1364,7 +1370,7 @@
                                             id="collateralTemporaryMunVdc"
                                             name="collateralTemporaryMunVdc">
                                         <ng-option
-                                                *ngFor="let municipalityVal of collateralTemporaryMunicipalitiesList"
+                                                *ngFor="let municipalityVal of collateralTemporaryMunicipalitiesList[i]"
                                                 [value]="municipalityVal">
                                             {{municipalityVal.nepaliName}}
                                         </ng-option>
@@ -1664,7 +1670,7 @@
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralOwnerPermanentProvince.errors}"
                                                 formControlName="collateralOwnerPermanentProvince"
                                                 id="collateralOwnerPermanentProvince{{i}}">
-                                            <ng-option *ngFor="let provinceVal of collateralPermanentProvinceList"
+                                            <ng-option *ngFor="let provinceVal of collateralOwnerPermanentProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
                                             </ng-option>
@@ -1686,7 +1692,7 @@
                                                 [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralOwnerPermanentDistrict.errors}"
                                                 formControlName="collateralOwnerPermanentDistrict"
                                                 id="collateralOwnerPermanentDistrict{{i}}">
-                                            <ng-option *ngFor="let districtVal of collateralPermanentDistrictList[i]"
+                                            <ng-option *ngFor="let districtVal of collateralOwnerPermanentDistrictList[i]"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
                                             </ng-option>
@@ -1710,7 +1716,7 @@
                                                 id="collateralOwnerPermanentMunicipalities{{i}}"
                                                 name="collateralOwnerPermanentMunicipalities">
                                             <ng-option
-                                                    *ngFor="let municipalityVal of collateralPermanentMunicipalitiesList[i]"
+                                                    *ngFor="let municipalityVal of collateralOwnerPermanentMunicipalitiesList[i]"
                                                     [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
                                             </ng-option>
