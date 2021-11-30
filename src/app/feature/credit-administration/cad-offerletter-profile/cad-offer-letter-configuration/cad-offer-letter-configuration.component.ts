@@ -638,22 +638,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.getTemporaryMunicipalities(data.temporaryDistrict);
             this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
             this.setGuarantors(data.guarantorDetails);
-            // tslint:disable-next-line:max-line-length
-            // this.userConfigForm.get('collateralOwnerPermanentProvince').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
-            // // tslint:disable-next-line:max-line-length
-            // this.userConfigForm.get('collateralOwnerPermanentDistrict').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
-            // // tslint:disable-next-line:max-line-length
-            // this.userConfigForm.get('collateralOwnerPermanentMunicipalities').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentMunicipalities);
-            // this.userConfigForm.get('collateralProvince').patchValue(data.collateralDetails.collateralProvince);
-            // //this.getCollateralDistricts(data.collateralDetails.collateralProvince);
-            // this.userConfigForm.get('collateralDistrict').patchValue(data.collateralDetails.collateralDistrict);
-            // //this.getCollateralMunicipalities(data.collateralDetails.collateralDistrict);
-            // this.userConfigForm.get('collateralMunVdc').patchValue(data.collateralDetails.collateralMunVdc);
-            // this.userConfigForm.get('collateralTemporaryProvince').patchValue(data.collateralDetails.collateralTemporaryProvince);
-            // this.getCollateralTemporaryDistricts(data.collateralDetails.collateralTemporaryProvince);
-            // this.userConfigForm.get('collateralTemporaryDistrict').patchValue(data.collateralDetails.collateralTemporaryDistrict);
-            // this.getCollateralTemporaryMunicipalities(data.collateralDetails.collateralTemporaryDistrict);
-            // this.userConfigForm.get('collateralTemporaryMunVdc').patchValue(data.collateralDetails.collateralTemporaryMunVdc);
         }
     }
 
