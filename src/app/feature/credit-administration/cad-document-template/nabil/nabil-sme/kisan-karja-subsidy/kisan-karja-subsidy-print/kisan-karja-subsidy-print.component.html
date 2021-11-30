@@ -1,24 +1,27 @@
 <nb-card style="height:90vh; overflow-y :scroll">
     <nb-card-body>
         <div id="{{offerLetterConst.KISAN_KARJA_SUBSIDY}}Print">
+            <div style="line-height: 10px">
             <p class="text-left">स्वीकृती पत्र नं. :
                 <span class="font-weight-bold">
                             {{ autoRefNumber ? autoRefNumber : "_______________________" }}
                         </span>
-            </p>
-            <h5 class="text-left"><strong> ऋणकर्जा सुविधा स्वीकृति पत्र </strong></h5>
-            <p class="text-left">
+                <br>
+            <strong> ऋणकर्जा सुविधा स्वीकृति पत्र </strong>
+                <br>
                 मितिः
                 <span><strong>{{finalDateOfApproval ? finalDateOfApproval : '__________________'}}</strong></span>
-            </p>
-            <div class="mb-2">
-                <p>श्री/श्रीमती/सुश्री
+                <br>
+                श्री/श्रीमती/सुश्री
                 <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}"><strong>
-                    {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}</strong></span> ज्यु, </p>
-                <div class="mb-1"> ठेगाना:
+                    {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}</strong></span> ज्यु,
+                <br>
+                 ठेगाना:
                     <span><strong>{{customerAddress}}</strong></span>
                     <br><br>
-                </div>
+                </p>
+            </div>
+            <div class="mb-2">
                 <!--            For New Customer-->
                 <div *ngIf="this.tempData.loanOption.en === 'NEW'">
                 <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
@@ -128,12 +131,12 @@
                                 आवधिक कर्जाको हकमा संलग्न अनुमानित भुक्तानी तालिका बमोजिम चुक्ता भुक्तानी गर्नु पर्नेछ ।
                                 साथै अल्पकालिन कर्जाको हकमा देहाय बामोजिम हुनेछ ।<br>
                                 क. अल्पकालिन कर्जा १:
-                                <span class="nepaliFont">{{freeInformation ? freeInformation.firstText : '____________'}}</span><br>
+                                <span class="nepaliFont">{{freeInformation ? freeInformation.firstText : ''}}</span><br>
                                 ख. अल्पकालिन कर्जा २:
-                                <span class="nepaliFont">{{freeInformation ? freeInformation.secondText : '____________'}}</span>
+                                <span class="nepaliFont">{{freeInformation ? freeInformation.secondText : ''}}</span>
                                 <br>
                                 ग. अल्पकालिन कर्जा ३:
-                                <span class="nepaliFont">{{freeInformation ? freeInformation.thirdText : '___________'}}</span><br>
+                                <span class="nepaliFont">{{freeInformation ? freeInformation.thirdText : ''}}</span><br>
                             </td>
                         </tr>
                         <tr *ngIf="!this.tempData.interestSubsidy.en === true">
@@ -220,7 +223,7 @@
 
                     </table>
                     <p style="margin-left: 5px">
-                       <span class="font-weight-bold" class="nepaliFont">{{freeInformation ? freeInformation.fourthText : '__________'}}</span><br>
+                       <span class="font-weight-bold" class="nepaliFont">{{freeInformation ? freeInformation.fourthText : ''}}</span><br>
                     </p>
 
                     <div class="service-contions mt-5">
@@ -356,6 +359,7 @@
                                         ऋणीले उपभोग गदैं आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम
                                         <strong>थप जोखिम दर (Additional Risk Premium)</strong>
                                         समेत लाग्नेछ ।
+                                        <br>
                                         <table class="table table-sm table-bordered text-center table-sm sb-small" style="padding: 5px">
                                             <tr>
                                                 <td style="width: 50%">
@@ -387,7 +391,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="font-weight-bold" class="nepaliFont">{{freeInformation ? freeInformation.fifthText : '___________'}}</span>
+                    <span class="font-weight-bold" class="nepaliFont">{{freeInformation ? freeInformation.fifthText : ''}}</span>
 
                     <div class="service-contions mt-5">
                         <strong><u>ऋण तथा सुबिधाहरु सम्बन्धित शर्तहरु </u></strong><br>
@@ -498,7 +502,7 @@
 
                                     </li>
                                     <li>
-                                        ऋणीले बिमालेखको अवधि समाप्त हुनुभन्दा कम्तिमा सात दिन अगावै नविकरण गरिएको बिमालेख बैंकमा पेश गर्नु पर्नेछ । बिमालेख नविकरण नगरिएको वा बिमा गरिएको सम्पत्ति वा सम्पत्ति राखिएको स्थान परिवर्तन भएको वा बिमालेखमा भएको व्यवस्थाको आधारमा बिमा कम्पनीलाई जानकारी दिइनु पर्ने आवश्यक जानकारी नदिइएको वा पर्याप्त रकम र/वा जोखिम बहनको बिमालेख नगरिएको अवस्थामा बैंकलाई धितोे लेखिदिएको चल अचल सम्पत्तिहरुमा पूर्ण वा आंशिक रुपले हानी नोक्सानी भएमा सो हानी नोक्सानीको जिम्मेवार ऋणी स्वयं हुनुपर्नेछ । यसप्रकार बिमा गराउनु पर्ने, सोको नविकरण गराउनु पर्ने लगायतका बिमा सम्बन्धी सम्पूर्ण कार्य ऋणीको प्राथमिक दायित्व रहेको कुरामा तपाईं मञ्जुरी व्यक्त गर्नुहुन्छ । तथापि, बैंकले उपर्युक्त समयसम्म पनि नविकरण गरीएको बिमालेख ऋणीबाट प्राप्त नगरेमा धितोेमा रहेका सम्पत्तिहरुको बिमालेख बैंक स्वयंले तपाईंलाई जानकारी नगराई नविकरण गराउन, बिमा कम्पनी परिवर्तन गर्न, बिमांक रकम तोक्न/मञ्जुर गर्न वा परिवर्तन गर्न लगायत बिमा सम्बन्धी कुनै पनि कार्य गर्न सक्नेछ । यसरी बैंकले बिमा सम्बन्धी कार्य गराउंदा लाग्ने बिमालेख लगायतका शुल्क/दस्तुर तपाईको खातामा खर्च जनाइनेछ । तपाईंले माथि उल्लिखित समयमा नै बैंकमा नविकरण भएको बिमालेख नबुझाउनु भएका कारणले बिमा दोहोरो हुन गएमा सोको लागि बैंक जिम्मेवार नहुने कुरामा तपाईंको मञ्जुरी रहनेछ । बिमालेख नविकरण गराउने लगायतका बिमा सम्बन्धी कुनै पनि कार्य गर्न बैंक बाध्य नहुने र यसबाट तपाईं वा अन्य कसैलाई कुनै क्षति हुन गएमा सोको लागि बैंक जिम्मेवार हुने छैन भन्ने कुरामा तपाईंको मञ्जुरी रहेको छ । बिमा नविकरण नभए सम्मको अवधिमा तपाइलाई स्विकृत गरिएको ऋण सुविधाहरु अांशिक वा संपुर्ण रुपले उपयोग गर्न नदिने अधिकार बैंकको  सुरक्षित रहनेछ ।
+                                        ऋणीले बिमालेखको अवधि समाप्त हुनुभन्दा कम्तिमा सात दिन अगावै नविकरण गरिएको बिमालेख बैंकमा पेश गर्नु पर्नेछ । बिमालेख नविकरण नगरिएको वा बिमा गरिएको सम्पत्ति वा सम्पत्ति राखिएको स्थान परिवर्तन भएको वा बिमालेखमा भएको व्यवस्थाको आधारमा बिमा कम्पनीलाई जानकारी दिइनु पर्ने आवश्यक जानकारी नदिइएको वा पर्याप्त रकम र/वा जोखिम बहनको बिमालेख नगरिएको अवस्थामा बैंकलाई धितोे लेखिदिएको चल अचल सम्पत्तिहरुमा पूर्ण वा आंशिक रुपले हानी नोक्सानी भएमा सो हानी नोक्सानीको जिम्मेवार ऋणी स्वयं हुनुपर्नेछ । यसप्रकार बिमा गराउनु पर्ने, सोको नविकरण गराउनु पर्ने लगायतका बिमा सम्बन्धी सम्पूर्ण कार्य ऋणीको प्राथमिक दायित्व रहेको कुरामा तपाईं मञ्जुरी व्यक्त गर्नुहुन्छ । तथापि, बैंकले उपर्युक्त समयसम्म पनि नविकरण गरीएको बिमालेख ऋणीबाट प्राप्त नगरेमा धितोेमा रहेका सम्पत्तिहरुको बिमालेख बैंक स्वयंले तपाईंलाई जानकारी नगराई नविकरण गराउन, बिमा कम्पनी परिवर्तन गर्न, बिमांक रकम तोक्न/मञ्जुर गर्न वा परिवर्तन गर्न लगायत बिमा सम्बन्धी कुनै पनि कार्य गर्न सक्नेछ । यसरी बैंकले बिमा सम्बन्धी कार्य गराउंदा लाग्ने बिमालेख लगायतका शुल्क/दस्तुर तपाईको खातामा खर्च जनाइनेछ । तपाईंले माथि उल्लिखित समयमा नै बैंकमा नविकरण भएको बिमालेख नबुझाउनु भएका कारणले बिमा दोहोरो हुन गएमा सोको लागि बैंक जिम्मेवार नहुने कुरामा तपाईंको मञ्जुरी रहनेछ । बिमालेख नविकरण गराउने लगायतका बिमा सम्बन्धी कुनै पनि कार्य गर्न बैंक बाध्य नहुने र यसबाट तपाईं वा अन्य कसैलाई कुनै क्षति हुन गएमा सोको लागि बैंक जिम्मेवार हुने छैन भन्ने कुरामा तपाईंको मञ्जुरी रहेको छ । बिमा नविकरण नभए सम्मको अवधिमा तपाइलाई स्विकृत गरिएको ऋण सुविधाहरु आंशिक वा संपुर्ण रुपले उपयोग गर्न नदिने अधिकार बैंकको  सुरक्षित रहनेछ ।
 
                                     </li>
                                 </ol>
@@ -573,8 +577,8 @@
                                         कम्पनीले आर्थिक अवस्था सुधार्नको लागि स्वलगानी थप्नु पर्ने अवस्था भएमा सोही अनुसार आवश्यक पुँजी जुटाई वा स्वलगानी थपी बैंकलाई स्विकार्य हुने अवस्थामा ल्याउनुपर्नेछ ।
 
                                     </li>
-                                    <li>
-                                         <span class="nepaliFont">{{freeInformation ? freeInformation.sixthText : '____________'}}</span>
+                                    <li *ngIf="freeInformation?.sixthText">
+                                         <span class="nepaliFont">{{freeInformation ? freeInformation.sixthText : ''}}</span>
                                     </li>
                                     </div>
                                 </ol>
@@ -610,8 +614,9 @@
                                     <li>
                                         तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण गर्ने दायित्व ऋणी फर्मका प्रोप्राईटर/साझेदारहरुको हुनेछ र नविकरण पश्चात सोको प्रतिलिपि यस बैंकमा पेश गर्नु पर्नेछ । दर्ता प्रमाणपत्रको अवधि समाप्त भएका फर्मको ऋणकर्जा सुविधा स्वीकृत/नविकरण हुनेछैन र साथै तहांले उपभोग गर्दै आउनुभएका सम्पूर्ण ऋण कर्जा सुविधाहरु दर्ता नविकरण नभएका कारण फिर्ता भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                                     </li>
-                                    <li>
-                                      <span class="nepaliFont">{{freeInformation ? freeInformation.seventhText : '__________'}}</span></li>
+                                    <li *ngIf="freeInformation?.seventhText">
+                                      <span class="nepaliFont">{{freeInformation ? freeInformation.seventhText : ''}}</span>
+                                    </li>
                                 </ol>
                             </div>
                         </div>
@@ -650,8 +655,8 @@
                                     <li>
                                         आवश्यक जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धकमा रहेका सम्पूर्ण सामान मौज्दातहरु/सम्पत्तिहरुका लागि <strong>पर्याप्त मुल्य</strong> बराबरको बैंकको पक्षमा बिमालेख ।
                                     </li>
-                                    <li>
-                                       <span class="nepaliFont">{{freeInformation ? freeInformation.eighthText : '___________'}}</span> </li>
+                                    <li *ngIf="freeInformation?.eighthText">
+                                       <span class="nepaliFont">{{freeInformation ? freeInformation.eighthText : ''}}</span> </li>
                                 </ol>
                             </div>
                         </div>
@@ -666,30 +671,30 @@
 
                     <div class="col-md-12 d-flex justify-content-between">
                         <div class="right-content">
-
+                            <p>
                             <span class="font-weight-bold" [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct!== null && letter?.nameOfStaff.ct!== ''}">
                                 {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
-                            <p>
-                                <span class="nepaliFont">{{freeInformation ? freeInformation.autoPopulate1 : '____________'}}</span>
-                            </p>
-                            <p>
+                                <br>
+                                <span class="nepaliFont">{{freeInformation ? freeInformation.autoPopulate1 : 'सम्पर्क अधिकृत'}}</span>
+                                <br>
                                 नबिल बैंक लि.
-                            </p>
+                                <br>
                             <span class="font-weight-bold">{{branchName}}</span>
                             शाखा
+                            </p>
                         </div>
                         <div class="left-content text-right">
-
+                            <p>
                             <span class="font-weight-bold" [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct!== null && letter?.nameOfBranchManager.ct!== ''}">
                                 {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
-                            <p>
-                                <span class="nepaliFont">{{freeInformation ? freeInformation.autoPopulate2 : '____________'}}</span>
-                            </p>
-                            <p>
+                                <br>
+                                <span class="nepaliFont">{{freeInformation ? freeInformation.autoPopulate2 : 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक'}}</span>
+                                <br>
                                 नबिल बैंक लि.
-                            </p>
+                                <br>
                             <span class="font-weight-bold">{{branchName}}</span>
                             शाखा
+                            </p>
                         </div>
                     </div>
 
@@ -731,7 +736,6 @@
                     <p>
                         म/हामी कबुल गर्दछु/गर्दछौ कि माथिका जानकारीहरु सहि/सत्य/ठिक छन् र उल्लेख गरिएका धितो/धितोहरुमा कुनै तेश्रो पक्षको हकदावी छैन । बैकलाई मासिक/त्रैमासिक रुपमा व्याज बुझाउने प्रतिबद्धता लगायत बैंकले राख्ने अन्य शर्तहरु पालना गर्न मन्जुर गर्दछु/गर्दछौं । यस पत्रमा उल्लेखित सम्पूर्ण शर्तबन्देजहरु पढी सो को अर्थ/परिणाम समेत बुझी आफ्नो स्वतन्त्र मञ्जुरीले दिएको मानिनेछ ।
                     </p><br>
-                    <p class="pageBreak"></p>
                     <table class="table table-sm table-condensed table-bordered text-center table-sm sb-small">
                         <tr>
                             <td style="width: 25%">
