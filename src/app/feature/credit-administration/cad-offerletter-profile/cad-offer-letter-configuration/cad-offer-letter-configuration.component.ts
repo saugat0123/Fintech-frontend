@@ -75,13 +75,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     collateralPermanentDistrictList = [];
     collateralPermanentMunicipalitiesList = [];
     nepData;
-    collateralOwnerPermanentDistrictList: Array<District> = Array<District>();
-    collateralOwnerPermanentMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    collateralTemporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    collateralTemporaryDistrictList: Array<District> = Array<District>();
+    collateralPerProvinceList: Array<Province> = Array<Province>();
+    collateralTemporaryProvinceList: Array<Province> = Array<Province>();
+    collateralPerDistrictList = [];
+    collateralPerMunicipalitiesList = [];
+    collateralTemporaryDistrictList = [];
+    collateralTemporaryMunicipalitiesList = [];
     loanDetails: any;
     loanDetailsValue: any;
-    collateralOwnerPermanentProvinceList: Array<Province> = Array<Province>();
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -119,6 +120,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.guarantorPermanentProvinceList = provinces;
             this.guarantorTemporaryProvinceList = provinces;
             this.collateralPermanentProvinceList = provinces;
+            this.collateralPerProvinceList = provinces;
+            this.collateralTemporaryProvinceList = provinces;
         });
     }
 
@@ -199,33 +202,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }
         );
     }
-
-    getCollateralTemporaryDistricts(province: Province) {
-        this.addressService.getDistrictByProvince(province).subscribe(
-            (response: any) => {
-                this.collateralTemporaryDistrictList = response.detail;
-                this.collateralTemporaryDistrictList.sort((a, b) => a.name.localeCompare(b.name));
-            }
-        );
-    }
-
-    getCollateralTemporaryMunicipalities(district: District) {
-        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-            (response: any) => {
-                this.collateralTemporaryMunicipalitiesList = response.detail;
-                this.collateralTemporaryMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-                this.collateralTemporaryMunicipalitiesList.forEach(municipality => {
-                    // tslint:disable-next-line:max-line-length
-                    if (!ObjectUtil.isEmpty(this.collateralList.filter(value => value.collateralTemporaryMunVdc === municipality))
-                        // tslint:disable-next-line:max-line-length
-                        && municipality.id === this.collateralList.filter(value => value.collateralTemporaryMunVdc === municipality)[0].id) {
-                        this.userConfigForm.controls.collateralTemporaryMunicipalitiesList.setValue(municipality);
-                    }
-                });
-            }
-        );
-    }
-
     private getAllDistrict() {
         this.addressService.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
@@ -414,7 +390,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             guarantorTemporaryProvince: [undefined],
             guarantorTemporaryDistrict: [undefined],
             guarantorTemporaryMunicipality: [undefined],
-            guarantorTemporaryWard: [undefined]
+            guarantorTemporaryWard: [undefined],
         });
     }
 
@@ -562,7 +538,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }
         }
 
-        collateralDetails.forEach(value => {
+        collateralDetails.forEach((value, i) => {
             formArray.push(this.formBuilder.group({
                 collateralName: [value.collateralName],
                 collateralFatherName: [value.collateralFatherName],
@@ -579,6 +555,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 areaOfCollateral: [value.areaOfCollateral],
                 seatNo: [value.seatNo],
             }));
+            this.getCollateralDistricts(value.collateralProvince, i);
+            this.getCollateralMunicipalities(value.collateralDistrict, i);
+            this.getCollateralTemporaryDistricts(value.collateralTemporaryProvince, i);
+            this.getCollateralTemporaryMunicipalities(value.collateralTemporaryDistrict, i);
         });
     }
 
@@ -662,22 +642,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.getTemporaryMunicipalities(data.temporaryDistrict);
             this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
             this.setGuarantors(data.guarantorDetails);
-            // tslint:disable-next-line:max-line-length
-            this.userConfigForm.get('collateralOwnerPermanentProvince').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentProvince);
-            // tslint:disable-next-line:max-line-length
-            this.userConfigForm.get('collateralOwnerPermanentDistrict').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentDistrict);
-            // tslint:disable-next-line:max-line-length
-            this.userConfigForm.get('collateralOwnerPermanentMunicipalities').patchValue(data.collateralOwnerDetails.collateralOwnerPermanentMunicipalities);
-            this.userConfigForm.get('collateralProvince').patchValue(data.collateralDetails.collateralProvince);
-            //this.getCollateralDistricts(data.collateralDetails.collateralProvince);
-            this.userConfigForm.get('collateralDistrict').patchValue(data.collateralDetails.collateralDistrict);
-            //this.getCollateralMunicipalities(data.collateralDetails.collateralDistrict);
-            this.userConfigForm.get('collateralMunVdc').patchValue(data.collateralDetails.collateralMunVdc);
-            this.userConfigForm.get('collateralTemporaryProvince').patchValue(data.collateralDetails.collateralTemporaryProvince);
-            this.getCollateralTemporaryDistricts(data.collateralDetails.collateralTemporaryProvince);
-            this.userConfigForm.get('collateralTemporaryDistrict').patchValue(data.collateralDetails.collateralTemporaryDistrict);
-            this.getCollateralTemporaryMunicipalities(data.collateralDetails.collateralTemporaryDistrict);
-            this.userConfigForm.get('collateralTemporaryMunVdc').patchValue(data.collateralDetails.collateralTemporaryMunVdc);
         }
     }
 
@@ -698,4 +662,61 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }
         );
     }
+    getCollateralDistricts(data, i, event?) {
+        const province = new Province();
+        province.id = event ? data : data.id;
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.collateralPerDistrictList[i] = response.detail;
+                this.collateralPerDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
+                if (event) {
+                    this.userConfigForm.get(['collateralDetails', i, 'collateralDistrict']).patchValue(null);
+                    this.userConfigForm.get(['collateralDetails', i, 'collateralMunVdc']).patchValue(null);
+                }
+            }
+        );
+    }
+
+    getCollateralMunicipalities(data, i, event?) {
+        const district = new District();
+        district.id = event ? data : data.id;
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.collateralPerMunicipalitiesList[i] = response.detail;
+                this.collateralPerMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
+                if (event) {
+                    this.userConfigForm.get(['collateralDetails', i, 'collateralMunVdc']).patchValue(null);
+                }
+            }
+        );
+    }
+    getCollateralTemporaryDistricts(data, i, event?) {
+        const province = new Province();
+        province.id = event ? data : data.id;
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.collateralTemporaryDistrictList[i] = response.detail;
+                this.collateralTemporaryDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
+                if (event) {
+                    this.userConfigForm.get(['collateralDetails', i, 'collateralTemporaryDistrict']).patchValue(null);
+                    this.userConfigForm.get(['collateralDetails', i, 'collateralTemporaryMunVdc']).patchValue(null);
+                }
+            }
+        );
+    }
+
+    getCollateralTemporaryMunicipalities(data, i, event?) {
+        const district = new District();
+        district.id = event ? data : data.id;
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.collateralTemporaryMunicipalitiesList[i] = response.detail;
+                this.collateralTemporaryMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
+                if (event) {
+                    this.userConfigForm.get(['collateralDetails', i, 'collateralTemporaryMunVdc']).patchValue(null);
+                }
+            }
+        );
+    }
+
 }
