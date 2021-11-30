@@ -717,7 +717,10 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
             hasBackdrop: false,
             hasScroll: true,
             dialogClass: 'modal-full',
-            context: {}
+            context: {
+                cadOfferLetterApprovedDoc: this.customerApprovedDoc,
+                preview: true,
+            }
         });
     }
 
