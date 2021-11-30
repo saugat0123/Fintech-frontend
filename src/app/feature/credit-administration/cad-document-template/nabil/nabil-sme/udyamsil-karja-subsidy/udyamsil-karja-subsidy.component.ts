@@ -129,7 +129,7 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
       renewalChecked: [undefined],
       additionalGuarantorDetails: [undefined],
       loanHolder: [undefined],
-      previousSanctionDate: [undefined],
+      previousSanctionLetterDate: [undefined],
       requestLetterDate: [undefined],
       typeOfLoan: [undefined],
       marginInPercentage: [undefined],

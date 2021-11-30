@@ -3,7 +3,7 @@
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
              nbSpinnerMessage="UDYAMSIL KARJA LOADING....."
-             id="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}">
+             id ="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}">
         <nb-card-header>
             <div class="col-md-12 text-right">
                 <a (click)="close()" aria-label="Close" class="close cursor pull-right"
@@ -1307,7 +1307,7 @@
                          status="info"
                          class="mb-4 float-right"
                          [useExistingCss]="true"
-                         ngxPrint printSectionId="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}">Print
+                         ngxPrint printSectionId="{{offerLetterConst.UDYAMSIL_KARJA_SUBSIDY}}Print">Print
                 </button>
                 <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
             </div>
@@ -1319,5 +1319,6 @@
                               [letter]="initialInfoPrint"
                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                               [offerData] = offerLetterData
+                              [loanOption]="loanOption"
                               hidden></app-udyamsil-karja-subsidy-print>
 
