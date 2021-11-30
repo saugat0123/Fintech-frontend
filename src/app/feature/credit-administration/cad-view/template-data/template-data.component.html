@@ -61,6 +61,6 @@
         <app-ddsl-without-subsidy-template-data [customerApprovedDoc]="cadData"></app-ddsl-without-subsidy-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.COMBINED_LETTER" [nbSpinner]="spinner">
-        <app-combined-offer-letter [customerApprovedDoc]="cadData"></app-combined-offer-letter>
+        <app-sme-master-template></app-sme-master-template>
     </nb-card-body>
 </nb-card>
