@@ -17,7 +17,7 @@ export class Section6FacilitiesClauseComponent implements OnInit {
   }
   buildForm() {
     return this.form = this.formBuilder.group({
-      TenureOfOne: [undefined],
+      tenureOfOne: [undefined],
     });
   }
 
