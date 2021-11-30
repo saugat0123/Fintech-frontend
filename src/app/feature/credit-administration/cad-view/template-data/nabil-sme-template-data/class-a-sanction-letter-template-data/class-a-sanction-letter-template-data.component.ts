@@ -63,7 +63,20 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   isBankGuaranteeSelected = false;
   isIrrevocableSelected = false;
   isSecurity = false;
+  isAllLoanSelected = false;
+  isSpecificSelected = false;
+  isFixedDepositSelected = false;
+  isDepositAccountSelected = false;
+  isNabilSelected = false;
+  isOtherSelected = false;
+  isNewSelected = false;
+  isExistingSelected = false;
+  isCoupenRateFinancingSelected = false;
+  isBaseRateFinancingSelected = false;
+  is100CashMarginSelected = false;
+  is10CashMarginSelected = false;
   isSecuritySelected = false;
+  selectedSecurityVal;
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
@@ -88,7 +101,31 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   }
   buildForm() {
     this.form = this.formBuilder.group({
-      loanOption: [undefined],
+      loanAmountFigure: [undefined],
+      loanAmountFigureWords: [undefined],
+      nameOfBranchManager: [undefined],
+      nameOfRelationalManager: [undefined],
+      totalLimitInFigure: [undefined],
+      totalLimitInWords: [undefined],
+      TdHolding: [undefined],
+      serviceChargeFigure: [undefined],
+      serviceChargeWords: [undefined],
+      detailOfFacility: [undefined],
+      serviceChargeInPerc: [undefined],
+      TdHolder: [undefined],
+      drawingPower: [undefined],
+      baseRate: [undefined],
+      premiumRate: [undefined],
+      interestRate: [undefined],
+      expiryDate: [undefined],
+      holderName: [undefined],
+      accountNumber: [undefined],
+      comissionRate: [undefined],
+      miniumComissionAmount: [undefined],
+      comissionRateFirstQuarter: [undefined],
+      comissionRateOthersQuarter: [undefined],
+      minimumComissionAmount: [undefined],
+      sanctionLetterDateTrans: [undefined],
       sanctionLetterDateType: [undefined],
       sanctionLetterDateNepali: [undefined],
       sanctionLetterDate: [undefined],
@@ -96,88 +133,86 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       dateOfApplicationNepali: [undefined],
       dateOfApplication: [undefined],
       previousSanctionType: [undefined],
-      previousSanctionDateNepali: [undefined],
       previousSanctionDate: [undefined],
-      overdraft: [undefined],
-      irrevocable: [undefined],
-      bankGuarantee: [undefined],
-      serviceCharges: [undefined],
-      purposeOfLoan: [undefined],
-      loanAmountFigure: [undefined],
-      loanAmountFigureWords: [undefined],
-      marginInPercentage: [undefined],
-      baseRate: [undefined],
-      premiumRate: [undefined],
-      interestRate: [undefined],
-      serviceCharge: [undefined],
-      nameOfFacility: [undefined],
-      totalTenureOfLoan: [undefined],
-      commitmentFee: [undefined],
-      nameOfStaff: [undefined],
-      nameOfBranchManager: [undefined],
-      EMIAmountFigure: [undefined],
-      EMIAmountWord: [undefined],
-      totalInstallmentFigure: [undefined],
-      securityType: [undefined],
+      tenureFacility: [undefined],
       securities: this.formBuilder.array([]),
+      loanOption: [undefined],
+      securityType: [undefined],
+      serviceCharges: [undefined],
+      overdraft: [undefined],
+      BankGuarantee: [undefined],
+
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
-      loanOptionTrans: [undefined],
-      securityTypeTrans: [undefined],
-      repaymentTypeTrans: [undefined],
-      sanctionLetterDateTypeTrans: [undefined],
-      sanctionLetterDateNepaliTrans: [undefined],
-      sanctionLetterDateTrans: [undefined],
-      dateOfApplicationTypeTrans: [undefined],
-      dateOfApplicationNepaliTrans: [undefined],
-      dateOfApplicationTrans: [undefined],
-      previousSanctionTypeTrans: [undefined],
-      previousSanctionDateTrans: [undefined],
-      previousSanctionDateNepaliTrans: [undefined],
-      purposeOfLoanTrans: [undefined],
       loanAmountFigureTrans: [undefined],
       loanAmountFigureWordsTrans: [undefined],
-      marginInPercentageTrans: [undefined],
+      nameOfBranchManagerTrans: [undefined],
+      nameOfRelationalManagerTrans: [undefined],
+      totalLimitInFigureTrans: [undefined],
+      totalLimitInWordsTrans: [undefined],
+      TdHoldingTrans: [undefined],
+      serviceChargeFigureTrans: [undefined],
+      serviceChargeWordsTrans: [undefined],
+      detailOfFacilityTrans: [undefined],
+      serviceChargeInPercTrans: [undefined],
+      TdHolderTrans: [undefined],
+      drawingPowerTrans: [undefined],
       baseRateTrans: [undefined],
       premiumRateTrans: [undefined],
       interestRateTrans: [undefined],
-      serviceChargeTrans: [undefined],
-      nameOfFacilityTrans: [undefined],
-      totalTenureOfLoanTrans: [undefined],
-      commitmentFeeTrans: [undefined],
-      nameOfStaffTrans: [undefined],
-      nameOfBranchManagerTrans: [undefined],
-      EMIAmountFigureTrans: [undefined],
-      totalInstallmentFigureTrans: [undefined],
-      EMIAmountWordTrans: [undefined],
+      expiryDateTrans: [undefined],
+      holderNameTrans: [undefined],
+      accountNumberTrans: [undefined],
+      comissionRateTrans: [undefined],
+      miniumComissionAmountTrans: [undefined],
+      comissionRateFirstQuarterTrans: [undefined],
+      comissionRateOthersQuarterTrans: [undefined],
+      minimumComissionAmountTrans: [undefined],
+      tenureFacilityTrans: [undefined],
+      previousSanctionDateTrans: [undefined],
+      previousSanctionDateNepaliTrans: [undefined],
+      dateOfApplicationTrans: [undefined],
+      loanOptionTrans: [undefined],
+      securityTypeTrans: [undefined],
+      serviceChargesTrans: [undefined],
+      overdraftTrans: [undefined],
+      BankGuaranteeTrans: [undefined],
       // FIELDS FOR CT VALUES:
-      loanOptionCT: [undefined],
-      securityTypeCT: [undefined],
-      repaymentTypeCT: [undefined],
-      sanctionLetterDateTypeCT: [undefined],
-      sanctionLetterDateNepaliCT: [undefined, Validators.required],
-      sanctionLetterDateCT: [undefined, Validators.required],
-      dateOfApplicationTypeCT: [undefined],
-      dateOfApplicationNepaliCT: [undefined, Validators.required],
-      dateOfApplicationCT: [undefined, Validators.required],
-      previousSanctionTypeCT: [undefined],
+      sanctionLetterDateNepaliCT: [undefined],
+      sanctionLetterDateCT: [undefined],
+      dateOfApplicationNepaliCT: [undefined],
+      dateOfApplicationCT: [undefined],
       previousSanctionDateNepaliCT: [undefined, Validators.required],
       previousSanctionDateCT: [undefined, Validators.required],
-      purposeOfLoanCT: [undefined, Validators.required],
-      loanAmountFigureCT: [undefined, Validators.required],
+      loanAmountFigureCT: [undefined],
       loanAmountFigureWordsCT: [undefined, Validators.required],
-      marginInPercentageCT: [undefined, Validators.required],
+      nameOfBranchManagerCT: [undefined, Validators.required],
+      nameOfRelationalManagerCT: [undefined],
+      totalLimitInFigureCT: [undefined, Validators.required],
+      totalLimitInWordsCT: [undefined, Validators.required],
+      TdHoldingCT: [undefined, Validators.required],
+      serviceChargeFigureCT: [undefined, Validators.required],
+      serviceChargeWordsCT: [undefined, Validators.required],
+      detailOfFacilityCT: [undefined, Validators.required],
+      serviceChargeInPercCT: [undefined, Validators.required],
+      TdHolderCT: [undefined, Validators.required],
+      drawingPowerCT: [undefined, Validators.required],
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
       interestRateCT: [undefined, Validators.required],
-      serviceChargeCT: [undefined, Validators.required],
-      nameOfFacilityCT: [undefined, Validators.required],
-      totalTenureOfLoanCT: [undefined, Validators.required],
-      commitmentFeeCT: [undefined, Validators.required],
-      nameOfStaffCT: [undefined, Validators.required],
-      nameOfBranchManagerCT: [undefined, Validators.required],
-      EMIAmountFigureCT: [undefined, Validators.required],
-      EMIAmountWordCT: [undefined, Validators.required],
-      totalInstallmentFigureCT: [undefined, Validators.required],
+      expiryDateCT: [undefined, Validators.required],
+      holderNameCT: [undefined, Validators.required],
+      accountNumberCT: [undefined, Validators.required],
+      comissionRateCT: [undefined, Validators.required],
+      miniumComissionAmountCT: [undefined, Validators.required],
+      comissionRateFirstQuarterCT: [undefined, Validators.required],
+      comissionRateOthersQuarterCT: [undefined, Validators.required],
+      minimumComissionAmountCT: [undefined, Validators.required],
+      tenureFacilityCT: [undefined, Validators.required],
+      loanOptionCT: [undefined],
+      securityTypeCT: [undefined],
+      serviceChargesCT: [undefined],
+      overdraftCT: [undefined],
+      BankGuaranteeCT: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -214,17 +249,43 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   checkLoanType() {
     console.log('Im here');
     const tempSelectedLoanType = this.form.get('securityType').value;
-    this.isBankGuaranteeSelected = tempSelectedLoanType === 'Bank Guarantee';
+    this.isBankGuaranteeSelected = tempSelectedLoanType === 'BankGuarantee';
     this.isOverdraftSelected = tempSelectedLoanType === 'Overdraft';
     this.isIrrevocableSelected = tempSelectedLoanType === 'Irrevocable Letter of Credit Facility';
   }
   checkLoanType1() {
     const tempSelectedLoanType = this.form.get('serviceCharges').value;
-    this.isSecuritySelected = tempSelectedLoanType === 'Service charge type';
+    this.isAllLoanSelected = tempSelectedLoanType === 'For_All_Loan';
+    this.isSpecificSelected = tempSelectedLoanType === 'For Specific Loan Only';
+  }
+  checkOD() {
+    const tempSelectedLoanType = this.form.get('overdraft').value;
+    this.isFixedDepositSelected = tempSelectedLoanType === 'Fixed_Deposit';
+    this.isDepositAccountSelected = tempSelectedLoanType === 'Deposit_Account';
+  }
+  checkTD() {
+    const tempSelectedLoanType = this.form.get('overdraft').value;
+    this.isNabilSelected = tempSelectedLoanType === 'Nabil';
+    this.isOtherSelected = tempSelectedLoanType === 'Other';
+  }
+  checkLetterSet() {
+    const tempSelectedLoanType = this.form.get('overdraft').value;
+    this.isNewSelected = tempSelectedLoanType === 'New';
+    this.isExistingSelected = tempSelectedLoanType === 'Existing';
+  }
+  checkBaseType() {
+    const tempSelectedLoanType = this.form.get('overdraft').value;
+    this.isCoupenRateFinancingSelected = tempSelectedLoanType === 'Coupen Rate Financing';
+    this.isBaseRateFinancingSelected = tempSelectedLoanType === 'Base Rate Financing';
+  }
+  checkCashMarginType() {
+    const tempSelectedLoanType = this.form.get('BankGuarantee').value;
+    this.is100CashMarginSelected = tempSelectedLoanType === '100% Cash Margin';
+    this.is10CashMarginSelected = tempSelectedLoanType === '10% Cash Margin';
   }
   serviceCheck(data) {
     this.isSecurity = data;
-    this.form.get('interestSubsidy').patchValue(this.isSecuritySelected);
+    console.log('selected?', this.isSecurity);
   }
 
   securityValue() {
@@ -232,6 +293,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     if (!ObjectUtil.isEmpty(security)) {
       this.isSecurityOptionSelected = security;
     }
+
   }
 
   public getNumAmountWord(numLabel, wordLabel): void {

@@ -21,7 +21,7 @@
                             (change)="checkLoanType()"
                             status="info">
                         <ng-option value="Overdraft">Overdraft</ng-option>
-                        <ng-option value="Bank Guarantee">Bank Guarantee</ng-option>
+                        <ng-option value="BankGuarantee">BankGuarantee</ng-option>
                         <ng-option value="Irrevocable Letter of Credit Facility">Irrevocable Letter of Credit Facility</ng-option>
                     </ng-select>
                 </div>
@@ -45,10 +45,10 @@
                         formControlName="serviceCharges"
                         fullWidth
                         placeholder=" "
-                        (selectionchange)="securityValue()"
+                        (change)="checkLoanType1()"
                         status="info">
 
-                    <ng-option value="For All Loan">For All Loan</ng-option>
+                    <ng-option value="For_All_Loan">For All Loan</ng-option>
                     <ng-option value="For Specific Loan Only">For Specific Loan Only </ng-option>
                 </ng-select>
             </div>
@@ -58,10 +58,10 @@
                             formControlName="overdraft"
                             fullWidth
                             placeholder="Security Type"
-                            (selectionchange)="securityValue()"
+                            (change)="checkOD()"
                             status="info">
-                        <ng-option value="Overdraft">Fixed Deposit</ng-option>
-                        <ng-option value="Bank Guarantee">Deposit Account</ng-option>
+                        <ng-option value="Fixed_Deposit">Fixed Deposit</ng-option>
+                        <ng-option value="Deposit_Account">Deposit Account</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isOverdraftSelected">
@@ -70,7 +70,7 @@
                             formControlName="overdraft"
                             fullWidth
                             placeholder="Security Type"
-                            (selectionchange)="securityValue()"
+                            (change)="checkTD()"
                             status="info">
                         <ng-option value="Nabil">Nabil</ng-option>
                         <ng-option value="Other">Other</ng-option>
@@ -82,7 +82,7 @@
                             formControlName="overdraft"
                             fullWidth
                             placeholder="Security Type"
-                            (selectionchange)="securityValue()"
+                            (change)="checkLetterSet()"
                             status="info">
                         <ng-option value="New">New</ng-option>
                         <ng-option value="Existing">Existing</ng-option>
@@ -94,31 +94,30 @@
                             formControlName="overdraft"
                             fullWidth
                             placeholder="Security Type"
-                            (selectionchange)="securityValue()"
+                            (change)="checkBaseType()"
                             status="info">
                         <ng-option value="Coupen Rate Financing">Coupen Rate Financing</ng-option>
-                        <ng-option value=" Base Rate Financing"> Base Rate Financing</ng-option>
+                        <ng-option value="Base Rate Financing"> Base Rate Financing</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isBankGuaranteeSelected">
                     <label><strong> Cash Margin Type </strong></label>
                     <ng-select
-                            formControlName="bankGuarantee"
-                            fullWidth
-                            placeholder="Security Type"
-                            (selectionchange)="securityValue()"
+                            formControlName="BankGuarantee"
+                            fullWidth placeholder="Security Type"
+                            (change)="checkCashMarginType()"
                             status="info">
-                        <ng-option value="100% Cash Margin ">100% Cash Margin </ng-option>
-                        <ng-option value=" 10% Cash Margin "> 10% Cash Margin </ng-option>
-                        <ng-option value="TD Account ">TD Account </ng-option>
-                        <ng-option value=" Current "> Current </ng-option>
-                        <ng-option value=" Saving "> Saving </ng-option>
+                        <ng-option value="100% Cash Margin">100% Cash Margin </ng-option>
+                        <ng-option value="10% Cash Margin"> 10% Cash Margin </ng-option>
+<!--                        <ng-option value="TD Account">TD Account </ng-option>-->
+<!--                        <ng-option value="Current"> Current </ng-option>-->
+<!--                        <ng-option value="Saving"> Saving </ng-option>-->
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isBankGuaranteeSelected">
                     <label><strong> Commission Type </strong></label>
                     <ng-select
-                            formControlName="bankGuarantee"
+                            formControlName="BankGuarantee"
                             fullWidth
                             placeholder="Security Type"
                             (selectionchange)="securityValue()"
@@ -235,14 +234,14 @@
                                placeholder="Select Previous Date" status="success">
                         <nb-datepicker #previousDate></nb-datepicker>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isFixedDepositSelected || isOverdraftSelected && isDepositAccountSelected">
                         <label for="loanAmountFigure">Loan Amount In Figure</label>
                         <input (input)="getNumAmountWord('loanAmountFigure', 'loanAmountFigureWords')"
                                class="form-control" formControlName="loanAmountFigure" fullWidth
                                id="loanAmountFigure"
                                nbInput status="success" type="number">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isFixedDepositSelected || isOverdraftSelected && isDepositAccountSelected">
                         <label for="loanAmountFigureWords">Loan Amount In Words</label>
                         <input class="form-control" formControlName="loanAmountFigureWords" fullWidth
                                id="loanAmountFigureWords"
@@ -255,11 +254,141 @@
                                nbInput status="success" type="text">
                     </div>
                     <div class="form-group">
-                        <label for="nameOfBranchManager">Name of Relational Manager</label>
-                        <input class="form-control" formControlName="nameOfBranchManager" fullWidth
+                        <label for="nameOfRelationalManager">Name of Relational Manager</label>
+                        <input class="form-control" formControlName="nameOfRelationalManager" fullWidth
                                id="nameOfRelationalManager"
                                nbInput status="success" type="text">
                     </div>
+                    <div class="form-group">
+                        <label for="totalLimitInFigure">Total Limit In Figure</label>
+                        <input (input)="getNumAmountWord('totalLimitInFigure', 'totalLimitInWords')"
+                               class="form-control" formControlName="totalLimitInFigure" fullWidth
+                               id="totalLimitInFigure"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="totalLimitInWords">Total Limit In words</label>
+                        <input class="form-control" formControlName="totalLimitInWords" fullWidth
+                               id="totalLimitInWords"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isSecurity && isAllLoanSelected">
+                        <label for="serviceChargeFigure">Service charge in figure</label>
+                        <input (input)="getNumAmountWord('serviceChargeFigure', 'serviceChargeWords')"
+                               class="form-control" formControlName="serviceChargeFigure" fullWidth
+                               id="serviceChargeFigure"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isSecurity && isAllLoanSelected">
+                        <label for="serviceChargeWords">service charge in words</label>
+                        <input class="form-control" formControlName="serviceChargeWords" fullWidth
+                               id="serviceChargeWords"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isSecurity && isSpecificSelected">
+                        <label for="detailOfFacility">Details of Facility</label>
+                        <input class="form-control" formControlName="detailOfFacility" fullWidth
+                               id="detailOfFacility"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isSecurity && isSpecificSelected">
+                        <label for="serviceChargeInPerc">Service Charge in %</label>
+                        <input class="form-control" formControlName="serviceChargeInPerc" fullWidth
+                               id="serviceChargeInPerc"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                        <label for="TdHolding">Name of TD Holding Bank</label>
+                        <input class="form-control" formControlName="TdHolding" fullWidth
+                               id="TdHolding"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                        <label for="TdHolder">Name of TD Holder  </label>
+                        <input class="form-control" formControlName="TdHolder" fullWidth
+                               id="TdHolder"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group"*ngIf="isOverdraftSelected && isNewSelected || isOverdraftSelected && isExistingSelected">
+                        <label for="drawingPower">Drawing Power (In %) </label>
+                        <input class="form-control" formControlName="drawingPower" fullWidth
+                               id="drawingPower"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
+                        <label for="nameOfBranchManager">Base rate  </label>
+                        <input class="form-control" formControlName="baseRate" fullWidth
+                               id="baseRate "
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
+                        <label for="premiumRate">Premium Rate  </label>
+                        <input class="form-control" formControlName="premiumRate" fullWidth
+                               id="premiumRate"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
+                        <label for="interestRate"> Interest Rate  </label>
+                        <input class="form-control" formControlName="interestRate" fullWidth
+                               id="interestRate"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
+                        <label for="expiryDate"> Expiry Date  </label>
+                        <input class="form-control" formControlName="expiryDate" fullWidth
+                               id="expiryDate"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected && (is100CashMarginSelected || is10CashMarginSelected)">
+                        <label for="holderName"> Account Holder's Name(s)  </label>
+                        <input class="form-control" formControlName="holderName" fullWidth
+                               id="holderName"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected && (is100CashMarginSelected || is10CashMarginSelected)">
+                        <label for="accountNumber"> Account Number  </label>
+                        <input class="form-control" formControlName="accountNumber" fullWidth
+                               id="accountNumber"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="comissionRate"> Comission Rate  </label>
+                        <input class="form-control" formControlName="comissionRate" fullWidth
+                               id="comissionRate"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="miniumComissionAmount">  Minimum comission in amount </label>
+                        <input class="form-control" formControlName="miniumComissionAmount" fullWidth
+                               id="miniumComissionAmount"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="comissionRateFirstQuarter">  Comission Rate for first quarter </label>
+                        <input class="form-control" formControlName="comissionRateFirstQuarter" fullWidth
+                               id="comissionRateFirstQuarter"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="comissionRateOthersQuarter">  commison rate for other quarters </label>
+                        <input class="form-control" formControlName="comissionRateOthersQuarter" fullWidth
+                               id="comissionRateOthersQuarter"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="minimumComissionAmount">  Minimum comission in amount </label>
+                        <input class="form-control" formControlName="minimumComissionAmount" fullWidth
+                               id="minimumComissionAmount"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="tenureFacility">  Tenure of One-off facility </label>
+                        <input class="form-control" formControlName="tenureFacility" fullWidth
+                               id="tenureFacility"
+                               nbInput status="success" type="text">
+                    </div>
+
+
                 </div>
                 <!--FOR TRANSLATION FIELD-->
                 <div class="col-md-4">
@@ -330,9 +459,138 @@
                     </div>
                     <div class="form-group">
                         <label for="nameOfBranchManagerTrans">Name of relational Manager Translation </label>
-                        <input class="form-control" formControlName="nameOfBranchManagerTrans" fullWidth
+                        <input class="form-control" formControlName="nameOfRelationalManagerTrans" fullWidth
                                id="nameOfRelationalManagerTrans"
                                nbInput status="success" type="text" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalLimitInFigureTrans">Total Limit In Figure Translation</label>
+                        <input (input)="getNumAmountWord('totalLimitInFigure', 'totalLimitInWords')"
+                               class="form-control" formControlName="totalLimitInFigureTrans" fullWidth
+                               id="totalLimitInFigureTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="totalLimitInWordsTrans">Total Limit In words</label>
+                        <input class="form-control" formControlName="totalLimitInWordsTrans" fullWidth
+                               id="totalLimitInWordsTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="TdHoldingTrans">Name of TD Holding Bank</label>
+                        <input class="form-control" formControlName="TdHoldingTrans" fullWidth
+                               id="TdHoldingTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceChargeFigureTrans">Service charge in figure</label>
+                        <input  (input)="getNumAmountWord('serviceChargeFigure', 'serviceChargeWords')"
+                                class="form-control" formControlName="serviceChargeFigureTrans" fullWidth
+                               id="serviceChargeFigureTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceChargeWordsTrans">Service charge in words</label>
+                        <input class="form-control" formControlName="serviceChargeWordsTrans" fullWidth
+                               id="serviceChargeWordsTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="nameOfBranchManager">Details of facility</label>
+                        <input class="form-control" formControlName="detailOfFacility" fullWidth
+                               id="detailOfFacilityTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceChargeInPercTrans">service charge in %</label>
+                        <input class="form-control" formControlName="serviceChargeInPercTrans" fullWidth
+                               id="serviceChargeInPercTrans"
+                               nbInput status="success" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="TdHolderTrans">Name of TD Holder  </label>
+                        <input class="form-control" formControlName="TdHolderTrans" fullWidth
+                               id="TdHolderTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="drawingPowerTrans">Drawing Power (In %) </label>
+                        <input class="form-control" formControlName="drawingPowerTrans" fullWidth
+                               id="drawingPowerTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="baseRateTrans">Base rate  </label>
+                        <input class="form-control" formControlName="baseRateTrans" fullWidth
+                               id="baseRateTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="premiumRateTrans">Premium Rate  </label>
+                        <input class="form-control" formControlName="premiumRateTrans" fullWidth
+                               id="premiumRateTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="interestRateTrans"> Interest Rate  </label>
+                        <input class="form-control" formControlName="interestRateTrans" fullWidth
+                               id="interestRateTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDateTrans"> Expiry Date  </label>
+                        <input class="form-control" formControlName="expiryDateTrans" fullWidth
+                               id="expiryDateTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="holderNameTrans"> Account Holder's Name(s)  </label>
+                        <input class="form-control" formControlName="holderNameTrans" fullWidth
+                               id="holderNameTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="accountNumberTrans"> Account Number  </label>
+                        <input class="form-control" formControlName="accountNumberTrans" fullWidth
+                               id="accountNumberTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="comissionRateTrans"> Comission Rate  </label>
+                        <input class="form-control" formControlName="comissionRateTrans" fullWidth
+                               id="comissionRateTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="miniumComissionAmountTrans">  Minimum comission in amount </label>
+                        <input class="form-control" formControlName="miniumComissionAmountTrans" fullWidth
+                               id="miniumComissionAmountTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="comissionRateFirstQuarterTrans">  Comission Rate for first quarter </label>
+                        <input class="form-control" formControlName="comissionRateFirstQuarterTrans" fullWidth
+                               id="comissionRateFirstQuarterTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="comissionRateOthersQuarterTrans">  commison rate for other quarters </label>
+                        <input class="form-control" formControlName="comissionRateOthersQuarterTrans" fullWidth
+                               id="comissionRateOthersQuarterTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="minimumComissionAmountTrans">  Minimum comission in amount </label>
+                        <input class="form-control" formControlName="minimumComissionAmountTrans" fullWidth
+                               id="minimumComissionAmountTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="tenureFacilityTrans">  Tenure of One-off facility </label>
+                        <input class="form-control" formControlName="tenureFacilityTrans" fullWidth
+                               id="tenureFacilityTrans"
+                               nbInput status="success" type="text">
                     </div>
                 </div>
                 <!-- END OF TRANSLATION SECTION-->
@@ -450,14 +708,245 @@
                         </span>
                     </div>
                     <div class="form-group">
-                        <label for="nameOfBranchManagerCT">Name Of Relational Manager CT</label>
-                        <input class="form-control" formControlName="nameOfBranchManagerCT" fullWidth
+                        <label for="nameOfRelationalManagerCT">Name of relational Manager CT</label>
+                        <input class="form-control" formControlName="nameOfRelationalManagerCT" fullWidth
                                id="nameOfRelationalManagerCT"
                                nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfBranchManagerCT.errors }"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfRelationalManagerCT.errors }"
                                type="text">
-                        <span *ngIf="submitted && FormControls.nameOfBranchManagerCT.invalid" class="text-danger">
-                            Name Of Branch Manager is required
+                        <span *ngIf="submitted && FormControls.nameOfRelationalManagerCT.invalid" class="text-danger">
+                            name Of Relational Manager is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalLimitInFigureCT">Total Limit In Figure CT</label>
+                        <input class="form-control" formControlName="totalLimitInFigureCT" fullWidth
+                               id="totalLimitInFigureCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.totalLimitInFigureCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.totalLimitInFigureCT.invalid" class="text-danger">
+                            Total Limit In Figure is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalLimitInWordsCT">Total Limit In words CT</label>
+                        <input class="form-control" formControlName="totalLimitInWordsCT" fullWidth
+                               id="totalLimitInWordsCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.totalLimitInWordsCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.totalLimitInWordsCT.invalid" class="text-danger">
+                            Total Limit In Words is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="TdHoldingCT">Name of TD Holding Bank</label>
+                        <input class="form-control" formControlName="TdHoldingCT" fullWidth
+                               id="TdHoldingCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.TdHoldingCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.TdHoldingCT.invalid" class="text-danger">
+                            Name of TD Holding Bank is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceChargeFigureCT">Service charge in figure</label>
+                        <input class="form-control" formControlName="serviceChargeFigureCT" fullWidth
+                               id="serviceChargeFigureCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.serviceChargeFigureCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.serviceChargeFigureCT.invalid" class="text-danger">
+                            Service charge in figure is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceChargeWordsCT">Service charge in words CT</label>
+                        <input class="form-control" formControlName="serviceChargeWordsCT" fullWidth
+                               id="serviceChargeWordsCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.serviceChargeWordsCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.serviceChargeWordsCT.invalid" class="text-danger">
+                           Service charge in words is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="detailOfFacilityCT">Details of facility CT</label>
+                        <input class="form-control" formControlName="detailOfFacilityCT" fullWidth
+                               id="detailOfFacilityCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.detailOfFacilityCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.detailOfFacilityCT.invalid" class="text-danger">
+                           Details of facility is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceChargeInPercCT">service charge in % CT</label>
+                        <input class="form-control" formControlName="serviceChargeInPercCT" fullWidth
+                               id="serviceChargeInPercCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.serviceChargeInPercCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.serviceChargeInPercCT.invalid" class="text-danger">
+                            service charge in %  is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="TdHolderCT">Name of TD Holder </label>
+                        <input class="form-control" formControlName="TdHolderCT" fullWidth
+                               id="TdHolderCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.TdHolderCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.TdHolderCT.invalid" class="text-danger">
+                            Name of TD Holder is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="drawingPowerCT">Drawing Power (In %) CT</label>
+                        <input class="form-control" formControlName="drawingPowerCT" fullWidth
+                               id="drawingPowerCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.drawingPowerCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.drawingPowerCT.invalid" class="text-danger">
+                            Drawing Power (In %) is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="baseRateCT">Base rate CT</label>
+                        <input class="form-control" formControlName="baseRateCT" fullWidth
+                               id="baseRateCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.baseRateCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.baseRateCT.invalid" class="text-danger">
+                            Base rate is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="premiumRateCT">Premium Rate CT</label>
+                        <input class="form-control" formControlName="premiumRateCT" fullWidth
+                               id="premiumRateCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.premiumRateCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.premiumRateCT.invalid" class="text-danger">
+                           Premium Rate is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="interestRateCT">Interest Rate CT</label>
+                        <input class="form-control" formControlName="interestRateCT" fullWidth
+                               id="interestRateCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.interestRateCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.interestRateCT.invalid" class="text-danger">
+                            Interest Rate is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDateCT"> Expiry Date </label>
+                        <input class="form-control" formControlName="expiryDateCT" fullWidth
+                               id="expiryDateCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.expiryDateCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.expiryDateCT.invalid" class="text-danger">
+                            Expiry Date is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="holderNameCT">Account Holder's Name(s) </label>
+                        <input class="form-control" formControlName="holderNameCT" fullWidth
+                               id="holderNameCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.holderNameCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.holderNameCT.invalid" class="text-danger">
+                            Account Holder's Name(s)  is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="accountNumberCT"> Account Number</label>
+                        <input class="form-control" formControlName="accountNumberCT" fullWidth
+                               id="accountNumberCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.accountNumberCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.accountNumberCT.invalid" class="text-danger">
+                            Account Number is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="comissionRateCT">Comission Rate CT</label>
+                        <input class="form-control" formControlName="comissionRateCT" fullWidth
+                               id="comissionRateCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.comissionRateCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.comissionRateCT.invalid" class="text-danger">
+                            Comission Rate is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="miniumComissionAmountCT">Minimum comission in amount CT</label>
+                        <input class="form-control" formControlName="miniumComissionAmountCT" fullWidth
+                               id="miniumComissionAmountCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.miniumComissionAmountCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.miniumComissionAmountCT.invalid" class="text-danger">
+                           Minimum comission in amount is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="comissionRateFirstQuarterCT">Comission Rate for first quarter CT</label>
+                        <input class="form-control" formControlName="comissionRateFirstQuarterCT" fullWidth
+                               id="comissionRateFirstQuarterCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.comissionRateFirstQuarterCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.comissionRateFirstQuarterCT.invalid" class="text-danger">
+                            Comission Rate for first quarter is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="comissionRateOthersQuarterCT">Commison rate for other quarters CT</label>
+                        <input class="form-control" formControlName="comissionRateOthersQuarterCT" fullWidth
+                               id="comissionRateOthersQuarterCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.comissionRateOthersQuarterCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.comissionRateOthersQuarterCT.invalid" class="text-danger">
+                            Commison rate for other quarters required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="minimumComissionAmountCT"> Minimum comission in amount</label>
+                        <input class="form-control" formControlName="minimumComissionAmountCT" fullWidth
+                               id="minimumComissionAmountCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.minimumComissionAmountCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.minimumComissionAmountCT.invalid" class="text-danger">
+                            Minimum comission in amount is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="tenureFacilityCT">Tenure of One-off facility </label>
+                        <input class="form-control" formControlName="tenureFacilityCT" fullWidth
+                               id="tenureFacilityCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.tenureFacilityCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.tenureFacilityCT.invalid" class="text-danger">
+                           Tenure of One-off facility  is required
                         </span>
                     </div>
                     <!-- END OF CORRECTION TRANSLATION SECTION-->
