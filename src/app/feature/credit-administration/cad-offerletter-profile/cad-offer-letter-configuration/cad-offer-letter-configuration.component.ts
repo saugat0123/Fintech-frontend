@@ -678,6 +678,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.cadOneformService.saveCustomer(data).subscribe(res => {
             this.spinner = false;
             if (this.hideLoan === true) {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited Customer'));
                 this.closeModal();
                 return;
             }
@@ -1029,6 +1030,103 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
 
+            }
+
+
+            if(this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value === 'Foreign' && this.actionType === 'Edit' &&
+                this.customerType === CustomerType.INSTITUTION){
+                nepData['guarantorForeignAddressOption'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionCT']).value,
+                }
+                nepData['guarantorOtherAddress'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddress']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressCT']).value,
+                }
+
+            }
+
+            if(this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value === 'Local' && this.actionType === 'Edit' &&
+                this.customerType === CustomerType.INSTITUTION){
+                nepData['guarantorForeignAddressOption'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionCT']).value,
+                }
+                nepData['permanentProvince'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value,
+                }
+                nepData['permanentDistrict'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value,
+                }
+                nepData['permanentMunicipality'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value,
+                }
+                nepData['permanentWard'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentWard']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value,
+                }
+
+
+                nepData['temporaryProvince'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value,
+                }
+                nepData['temporaryDistrict'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value,
+                }
+                nepData['temporaryMunicipality'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value,
+                }
+                nepData['temporaryWard'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWard']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value,
+                }
+
+                nepData['isSameTemporaryAndPermanent'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanent']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentCT']).value,
+                }
+
+                nepData['permanentStreetTole'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetTole']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleCT']).value,
+                }
+
+                nepData['temporaryStreetTole'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetTole']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleCT']).value,
+                }
+
+                nepData['guarantorPermanentMunicipalityOrVdc'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                }
+
+                nepData['guarantorTemporaryMunicipalityOrVdc'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                }
 
             }
 
@@ -1469,6 +1567,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
             // Guarantors flag--ends
 
+            guarantorForeignAddressOption: [undefined],
+            guarantorForeignAddressOptionTrans: [undefined],
+            guarantorForeignAddressOptionCT : [undefined],
+
+            guarantorOtherAddress: [undefined],
+            guarantorOtherAddressTrans: [undefined],
+            guarantorOtherAddressCT: [undefined],
+
             // only for Institutional customer--ends
 
             nepData: [undefined],
@@ -1730,6 +1836,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 indianGuarantorDetailOptionTrans:  undefined,
                 indianGuarantorDetailOptionCT:  undefined,
 
+
+                guarantorForeignAddressOption: ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption) ?
+                    undefined : nepaData.guarantorForeignAddressOption.en,
+                guarantorForeignAddressOptionTrans:ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption) ?
+                    undefined : nepaData.guarantorForeignAddressOption.np,
+                guarantorForeignAddressOptionCT : ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption) ?
+                    undefined : nepaData.guarantorForeignAddressOption.ct,
+
+                guarantorOtherAddress: ObjectUtil.isEmpty(nepaData.guarantorOtherAddress) ?
+                    undefined : nepaData.guarantorOtherAddress.en,
+                guarantorOtherAddressTrans:ObjectUtil.isEmpty(nepaData.guarantorOtherAddress) ?
+                    undefined : nepaData.guarantorOtherAddress.np,
+                guarantorOtherAddressCT:ObjectUtil.isEmpty(nepaData.guarantorOtherAddress) ?
+                    undefined : nepaData.guarantorOtherAddress.ct,
 
                 radioCitizenIssuedDateCT: [undefined],
                 citizenIssuedDateCT: [undefined],
@@ -2121,6 +2241,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 otherGuarantorPassportValidityDateOptionTrans: guarantorsDetails.otherGuarantorPassportValidityDateOption ?
                     guarantorsDetails.otherGuarantorPassportValidityDateOption : '',
 
+
+
+                guarantorForeignAddressOptionTrans:guarantorsDetails.guarantorForeignAddressOption ?
+                    guarantorsDetails.guarantorForeignAddressOption : '',
+                guarantorForeignAddressOptionCT :guarantorsDetails.guarantorForeignAddressOption ?
+                    guarantorsDetails.guarantorForeignAddressOption : '',
+
+                guarantorOtherAddress: guarantorsDetails.guarantorOtherAddress ?
+                    guarantorsDetails.guarantorOtherAddress : '',
+                guarantorOtherAddressTrans:  guarantorsDetails.guarantorOtherAddress ?
+                    guarantorsDetails.guarantorOtherAddress : '',
+                guarantorOtherAddressCT:  guarantorsDetails.guarantorOtherAddress ?
+                    guarantorsDetails.guarantorOtherAddress : '',
+
                 //Guarantors flag
 
 
@@ -2430,12 +2564,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     setGuarantorAddressSameAsPermanent(event, i) {
         if (event.target.checked === true) {
+            this.getGuarantorTempDistrictsById(ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', i, 'permanentProvince']).value) ? null :
+                this.userConfigForm.get(['guarantorDetails', i, 'permanentProvince']).value.id, null, i);
+            this.getGuarantorTempMunicipalitiesById(ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', i, 'permanentDistrict']).value) ?
+                null : this.userConfigForm.get(['guarantorDetails', i, 'permanentDistrict']).value.id, null, i);
+
             this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentProvince']).value);
             this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentDistrict']).value);
             this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipality']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentMunicipality']).value);
             this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdc']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentMunicipalityOrVdc']).value);
             this.userConfigForm.get(['guarantorDetails', i, 'temporaryWard']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentWard']).value);
             this.userConfigForm.get(['guarantorDetails', i, 'temporaryWardCT']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentWardCT']).value);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryStreetTole']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentStreetTole']).value);
 
         } else {
             this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(null);
@@ -2783,8 +2923,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 genderCT: ObjectUtil.isEmpty(nepData.gender) ? undefined : nepData.gender.np,
                 permanentProvinceCT: ObjectUtil.isEmpty(nepData.permanentProvince) ? undefined : nepData.permanentProvince.np,
                 permanentDistrictCT: ObjectUtil.isEmpty(nepData.permanentDistrict) ? undefined : nepData.permanentDistrict.np,
-                registrationDateOption: ObjectUtil.isEmpty(nepData.registrationDateOption) ? undefined : nepData.registrationDateOption.en,
-                registrationDate:  registrationDate ? registrationDate : undefined,
+                registrationDateOption: ObjectUtil.isEmpty(nepData.registrationDateOption) ? undefined : 'AD',
+                registrationDate: ObjectUtil.isEmpty(nepData.registrationDate) ? undefined : nepData.registrationDate.en.eDate ?
+                    nepData.registrationDate.en.eDate : nepData.registrationDate.en,
                 registrationDateTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ? undefined : this.userConfigForm.get('registrationDate').value,
                 registrationDateCT:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ? undefined : this.userConfigForm.get('registrationDate').value,
                 // permanentMunicipality: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
@@ -3867,6 +4008,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     setOwnerAddressSameAsPermanent(event, i) {
             if (event.target.checked === true) {
+                this.getDistrictsByIdForOwnerTemp(ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentProvince']).value) ? null :
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentProvince']).value.id, null, i);
+                this.getMunicipalitiesByIdForOwnerTemp(ObjectUtil.isEmpty(this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentDistrict']).value) ? null :
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentDistrict']).value.id, null , i);
+
                 this.userConfigForm.get(['ownerDetails', i]).patchValue({
                     //    for temporary
                     ownerTemporaryProvince: this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentProvince']).value,

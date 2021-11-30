@@ -4040,9 +4040,57 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
               </tr>
 
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value !== 'Nepali' &&
+userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value !== null">
+                <td>
+                  <label class="title">Address Type</label>
+                </td>
+                <td>
+                  <select required="true" class="form-control"
+                          #otherGuaAddressOption
+                          formControlName="guarantorForeignAddressOption">
+                    <option  value="null" hidden>Select Address Type</option>
+                    <option  value="Local">Local</option>
+                    <option value="Foreign">Foreign</option>
+                  </select>
+
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guarantorForeignAddressOptionTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="guarantorForeignAddressOptionCT"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value !== 'Nepali' &&
+              userConfigForm.get(['guarantorDetails', i, 'guarantorForeignAddressOption']).value === 'Foreign'">
+                <td>
+                  <label class="title">Foreign Address</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorOtherAddress"
+                         autocomplete="off"
+                         name="ownerOtherAddress" placeholder="Foreign Address"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guarantorOtherAddressTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="guarantorOtherAddressCT"
+                  />
+                </td>
+              </tr>
+
+
               <!-- added ended -->
               <!-- guarantor temporaryAddress/permanentAddress start-->
-              <tbody *ngIf="customerType === 'INDIVIDUAL' || userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Nepali'
+              <tbody *ngIf="customerType === 'INDIVIDUAL' || userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Nepali' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorForeignAddressOption']).value === 'Local'
 ">
               <tr>
                 <td>
@@ -4190,7 +4238,8 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
               </tbody>
               <tbody
                   *ngIf="!userConfigForm.get(['guarantorDetails', i, 'isSameTemporaryAndPermanent']).value
-&&  (customerType === 'INDIVIDUAL' || userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Nepali')">
+&&  (customerType === 'INDIVIDUAL' || userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value === 'Nepali') ||
+ (userConfigForm.get(['guarantorDetails', i, 'guarantorForeignAddressOption']).value === 'Local')">
               <tr>
                 <td>
                   <strong>Temporary Address</strong>
