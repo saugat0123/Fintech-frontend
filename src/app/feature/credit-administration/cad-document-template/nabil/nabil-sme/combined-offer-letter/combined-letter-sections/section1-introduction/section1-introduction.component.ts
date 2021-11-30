@@ -7,7 +7,7 @@ import {FormGroup} from '@angular/forms';
   styleUrls: ['./section1-introduction.component.scss']
 })
 export class Section1IntroductionComponent implements OnInit {
-  kisanKarjaSubsidy: FormGroup;
+  section1: FormGroup;
   constructor() { }
 
   ngOnInit() {

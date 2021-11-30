@@ -4,8 +4,8 @@
         </nb-card-header>
 
         <nb-card-body>
-            <form [formGroup]="kisanKarjaSubsidy">
-                <p class="text-left">स्वीकृती पत्र नं. :<input class="form-field form-control-sm col-3"
+            <form [formGroup]="section1">
+                <p class="text-left">स्वीकृती पत्र नं. : <input class="form-field form-control-sm col-3"
                                                                formControlName="referenceNumber"
                                                                name="referenceNumber"
                                                                placeholder=" सन्दर्भ नम्बर "
@@ -55,7 +55,7 @@
                         <br>
                         <div class="mb-1">
                             <p>
-                                महोदय,<BR>
+                                महोदय,<br>
                                 तपाईंले यस बैंकको मिति वि.सं.
                                 <span class="text-left">
                                 मितिः <input class="form-field form-control-sm"
@@ -64,15 +64,65 @@
                         </span>
                                 को ऋणस्वीकृति पत्रानुसार उपभोग गर्दै आउनु भएको ऋणकर्जामा हाल ऋणकर्जा सुविधा/हरु नबिकरण/पुनरावलोकन का लागि यस बैंकमा दिनु भएको मिति वि.सं.
                                 <span class="text-left">
-                                मितिः <input class="form-field form-control-sm"
-                                             formControlName="nextReviewDate"
-                                             type="text"/>
-                        </span>को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय
-                                बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
+                                <input class="form-field form-control-sm"
+                                       formControlName="dateOfApplication"
+                                       type="text"/>
+                        </span>को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय बमोजिमका ऋणकर्जा सुविधाहरु नबिकरण/पुनरावलोकन गरेको ब्यहोरा अनुरोध गर्दछौं ।
                             </p>
                         </div>
                     </div>
-
+                    <!--FOR EXISTING CUSTOMER- RENEWAL WITH ENHANCEMENT OR ADDITIONAL LOAN-->
+                    <div>
+                        <strong> बिषयः थप/अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।  </strong>
+                        <br>
+                        <div class="mb-1">
+                            <p>
+                                महोदय,<br>
+                                तपाईंले यस बैंकको मिति वि.सं.
+                                <span class="text-left">
+                                    <input class="form-field form-control-sm"
+                                             formControlName="prevSanctionLetterDate"
+                                             type="text"/>
+                        </span>
+                                को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधा/हरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधा सहित नबिकरण/पुनरावलोकनका लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                                <span class="text-left">
+                                    <input class="form-field form-control-sm"
+                                             formControlName="dateOfApplication"
+                                             type="text"/>
+                        </span>को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी थप/अतिरिक्त ऋणकर्जा सुविधाहरु सहित देहाय बमोजिमका ऋणकर्जा सुविधाहरु स्वीकृत/नविकरण/पुनरावलोकन गरेको ब्यहोरा अनुरोध गर्दछौं ।
+                            </p>
+                        </div>
+                    </div>
+                    <!--FOR EXISTING CUSTOMER - ADDITIONAL LOAN-->
+                    <div>
+                        <strong> बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।   </strong>
+                        <br>
+                        <div class="mb-1">
+                            <p>
+                                महोदय,<br>
+                                तपाईंले यस बैंकको मिति वि.सं.
+                                <span class="text-left">
+                                    <input class="form-field form-control-sm"
+                                           formControlName="prevSanctionLetterDate"
+                                           type="text"/>
+                        </span>
+                                को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                                <span class="text-left">
+                                    <input class="form-field form-control-sm"
+                                           formControlName="dateOfApplication"
+                                           type="text"/>
+                        </span> को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
+                            </p>
+                        </div>
+                    </div>
+                    <!--OR-->
+                    <textarea
+                            class="form-control customFont nepaliFont"
+                            rows="5"
+                            style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
+                            name="freeText"
+                            formControlName="fourthAdditionalDetails">
+                                            </textarea>
                 </div>
             </form>
         </nb-card-body>
