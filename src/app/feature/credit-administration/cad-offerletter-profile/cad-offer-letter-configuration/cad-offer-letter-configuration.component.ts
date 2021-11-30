@@ -538,7 +538,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }
         }
 
-        collateralDetails.forEach(value => {
+        collateralDetails.forEach((value, i) => {
             formArray.push(this.formBuilder.group({
                 collateralName: [value.collateralName],
                 collateralFatherName: [value.collateralFatherName],
@@ -555,6 +555,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 areaOfCollateral: [value.areaOfCollateral],
                 seatNo: [value.seatNo],
             }));
+            this.getCollateralDistricts(value.collateralProvince, i);
+            this.getCollateralMunicipalities(value.collateralDistrict, i);
+            this.getCollateralTemporaryDistricts(value.collateralTemporaryProvince, i);
+            this.getCollateralTemporaryMunicipalities(value.collateralTemporaryDistrict, i);
         });
     }
 
