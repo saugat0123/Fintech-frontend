@@ -25,7 +25,9 @@ import {Branch} from '../../../../admin/modal/branch';
     templateUrl: './nep-proposed-amount-form.component.html',
     styleUrls: ['./nep-proposed-amount-form.component.scss']
 })
+
 export class NepProposedAmountFormComponent implements OnInit {
+    @Output() NepProposedAmountFormEmitter = new EventEmitter();
     @Input() customerInfo: CustomerInfoData;
     @Input()
     cadData: CustomerApprovedLoanCadDocumentation;
@@ -138,6 +140,7 @@ export class NepProposedAmountFormComponent implements OnInit {
         this.nepDataPersonal.loanMaturityDateAD = this.nepForm.get('loanMaturityDateAD').value;
         this.cadData.nepData = JSON.stringify(this.nepaliNumber);
         this.cadData.nepDataPersonal = JSON.stringify(this.nepDataPersonal);
+        this.NepProposedAmountFormEmitter.emit(this.cadData);
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.spinner = false;
             this.dialogRef.close();
