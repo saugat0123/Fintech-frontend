@@ -125,50 +125,63 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
     }
 
-    getDistricts(province: Province) {
+    getDistricts(data, event?) {
+        const province = new Province();
+        province.id = event ? data : data.id;
         this.addressService.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
                 this.districtList.sort((a, b) => a.name.localeCompare(b.name));
+                if (event) {
+                    this.municipalitiesList = [];
+                    this.basicInfoControls.permanentDistrict.patchValue(null);
+                    this.basicInfoControls.permanentMunicipalities.patchValue(null);
+                }
             }
         );
     }
 
-    getMunicipalities(district: District) {
+    getMunicipalities(data, event?) {
+        const district = new District();
+        district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
                 this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-                this.municipalitiesList.forEach(municipality => {
-                    if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
-                        this.userConfigForm.controls.municipalities.setValue(municipality);
-                    }
-                });
+                if (event) {
+                    this.basicInfoControls.permanentMunicipalities.patchValue(null);
+                }
             }
         );
 
     }
 
-    getTemporaryDistricts(province: Province) {
+    getTemporaryDistricts(data, event?) {
+        const province = new Province();
+        province.id = event ? data : data.id;
         this.addressService.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.temporaryDistrictList = response.detail;
                 this.temporaryDistrictList.sort((a, b) => a.name.localeCompare(b.name));
+                if (event) {
+                    this.temporaryMunicipalitiesList = [];
+                    this.basicInfoControls.temporaryDistrict.patchValue(null);
+                    this.basicInfoControls.temporaryMunicipalities.patchValue(null);
+                }
             }
         );
     }
 
-    getTemporaryMunicipalities(district: District) {
+    getTemporaryMunicipalities(data, event?) {
+        const district = new District();
+        district.id = event ? data : data.id;
         this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
                 this.temporaryMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
-                this.temporaryMunicipalitiesList.forEach(municipality => {
-                    if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
-                        municipality.id === this.customer.temporaryMunicipalities.id) {
-                        this.userConfigForm.controls.temporaryMunicipalities.setValue(municipality);
-                    }
-                });
+                if (event) {
+                    this.basicInfoControls.temporaryMunicipalities.patchValue(null);
+                }
             }
         );
 
