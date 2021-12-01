@@ -73,62 +73,89 @@
             <div class="row">
                 <div class="col-md-4">
                     <span class="font-weight-bold">Loan Data</span>
+                    <div>
+                        <nb-radio-group class="d-inline-flex" formControlName="dateOfApprovalType"
+                                        name="crfMemoDateType" id="crfMemoDateType">
+                            <nb-radio *ngFor="let type of dateType" [value]="type">{{type}}</nb-radio>
+                        </nb-radio-group>
+                    </div>
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Date of Approval CRF/MEMO</label>
-                        <input nbInput fullWidth status="success" [nbDatepicker]="dateOfApproval"
+                        <nepali-patro *ngIf="globalForm.get('dateOfApprovalType').value === 'BS'" formControlName="dateOfApproval" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input *ngIf="globalForm.get('dateOfApprovalType').value === 'AD'" nbInput fullWidth status="success" [nbDatepicker]="dateOfApproval"
                         formControlName="dateOfApproval" shape="semi-round">
                         <nb-datepicker #dateOfApproval></nb-datepicker>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <span class="font-weight-bold">Nepali Translation</span>
-                    <div class="form-group mt-4">
+                    <div class="form-group mt-5">
                         <input nbInput fullWidth status="success" type="text" formControlName="dateOfApprovalTrans" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <span class="font-weight-bold">Correct Translation</span>
-                    <div class="form-group mt-4">
+                    <div class="form-group mt-5">
                         <input nbInput fullWidth status="success" formControlName="dateOfApprovalCT" type="text" shape="semi-round">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
+                    <div>
+                        <nb-radio-group class="d-inline-flex" formControlName="loanApplicationDataType"
+                                        name="loanApplicationDataType" id="loanApplicationDataType">
+                            <nb-radio *ngFor="let type of dateType" [value]="type">{{type}}</nb-radio>
+                        </nb-radio-group>
+                    </div>
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Loan Application Date</label>
-                        <input nbInput fullWidth status="success" [nbDatepicker]="loanApplicationDate"
+                        <nepali-patro *ngIf="globalForm.get('loanApplicationDataType').value === 'BS'" formControlName="loanApplicationDate" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input *ngIf="globalForm.get('loanApplicationDataType').value === 'AD'" nbInput fullWidth status="success" [nbDatepicker]="loanApplicationDate"
                         formControlName="loanApplicationDate" shape="semi-round">
                         <nb-datepicker #loanApplicationDate></nb-datepicker>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group mt-4">
+                    <div class="form-group mt-5">
                         <input nbInput fullWidth status="success" formControlName="loanApplicationDateTrans" type="text" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group mt-4">
+                    <div class="form-group mt-5">
                         <input nbInput fullWidth status="success" formControlName="loanApplicationDateCT" type="text" shape="semi-round">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
+                    <div>
+                        <nb-radio-group class="d-inline-flex" formControlName="previousSanctionType"
+                                        name="previousSanctionType" id="previousSanctionType">
+                            <nb-radio *ngFor="let type of dateType" [value]="type">{{type}}</nb-radio>
+                        </nb-radio-group>
+                    </div>
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Previous Sanction Letter Date</label>
-                        <input nbInput fullWidth status="success" [nbDatepicker]="sanctionLetterDate"
+                        <nepali-patro *ngIf="globalForm.get('previousSanctionType').value === 'BS'" formControlName="sanctionLetterDate" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input *ngIf="globalForm.get('previousSanctionType').value === 'AD'" nbInput fullWidth status="success" [nbDatepicker]="sanctionLetterDate"
                                formControlName="sanctionLetterDate" shape="semi-round">
                         <nb-datepicker #sanctionLetterDate></nb-datepicker>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group mt-4">
+                    <div class="form-group mt-5">
                         <input nbInput fullWidth status="success" formControlName="sanctionLetterDateTrans" type="text" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group mt-4">
+                    <div class="form-group mt-5">
                         <input nbInput fullWidth status="success" formControlName="sanctionLetterDateCT" type="text" shape="semi-round">
                     </div>
                 </div>
@@ -153,12 +180,12 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInFigureTrans" shape="semi-round" readonly>
+                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInFigureTrans" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInFigureCT" shape="semi-round">
+                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInFigureCT" shape="semi-round">
                     </div>
                 </div>
             </div>
@@ -166,7 +193,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Service charge in words</label>
-                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInWords" shape="semi-round">
+                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInWords" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -207,12 +234,12 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInPercentTrans" shape="semi-round" readonly>
+                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInPercentTrans" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInPercentCT" shape="semi-round">
+                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInPercentCT" shape="semi-round">
                     </div>
                 </div>
             </div>
@@ -225,12 +252,12 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="number" formControlName="totalFundedLimitInFigureTrans" shape="semi-round" readonly>
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalFundedLimitInFigureTrans" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="number" formControlName="totalFundedLimitInFigureCT" shape="semi-round">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalFundedLimitInFigureCT" shape="semi-round">
                     </div>
                 </div>
             </div>
@@ -238,7 +265,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Total funded limit in words</label>
-                        <input nbInput fullWidth status="success" type="text" formControlName="totalFundedLimitInWords" shape="semi-round">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalFundedLimitInWords" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -261,12 +288,12 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="number" formControlName="totalNonFundedLimitInFigureTrans" shape="semi-round" readonly>
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalNonFundedLimitInFigureTrans" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="number" formControlName="totalNonFundedLimitInFigureCT" shape="semi-round">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalNonFundedLimitInFigureCT" shape="semi-round">
                     </div>
                 </div>
             </div>
@@ -274,7 +301,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Total non-funded limit in words</label>
-                        <input nbInput fullWidth status="success" type="text" formControlName="totalNonFundedLimitInWords" shape="semi-round">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalNonFundedLimitInWords" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -293,17 +320,17 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Total limit in figure</label>
-                        <input nbInput fullWidth status="success" type="number" formControlName="totalLimitInFigure" shape="semi-round">
+                        <input nbInput fullWidth status="success" type="number" formControlName="totalLimitInFigure" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="number" formControlName="totalLimitInFigureTrans" shape="semi-round" readonly>
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInFigureTrans" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="number" formControlName="totalLimitInFigureCT" shape="semi-round">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInFigureCT" shape="semi-round">
                     </div>
                 </div>
             </div>
@@ -311,7 +338,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Total limit in words</label>
-                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInWords" shape="semi-round">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInWords" shape="semi-round" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -362,6 +389,12 @@
                 </div>
             </div>
         </form>
+        <div class="row">
+            <div class="col-md-12">
+                <button nbButton size="small" status="info" outline class="float-right" (click)="translateFormData()">
+                    Translate
+                </button>
+            </div>
+        </div>
     </nb-card-body>
-    <nb-card-footer></nb-card-footer>
 </nb-card>
