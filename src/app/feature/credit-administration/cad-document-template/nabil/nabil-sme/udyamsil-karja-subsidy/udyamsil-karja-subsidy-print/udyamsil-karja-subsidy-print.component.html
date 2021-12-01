@@ -9,7 +9,7 @@
         <p class="text-left">
             मितिः
             <span>
-               {{dateOfApproval}}
+               {{finalDateOfApproval ? finalDateOfApproval : '________________'}}
             </span>
         </p>
 
@@ -32,7 +32,7 @@
                     महोदय, <br>
                     तपाईंले मितिः
                     <span>
-                        {{finalDateOfApplication}}
+                        {{finalDateOfApplication ? finalDateOfApplication : '___________'}}
                     </span>
                     मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको
                     सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु देहाय बमोजिमका
@@ -47,38 +47,37 @@
                     महोदय, <br>
                     तपाईंले यस बैंकको मिति
                     <span>
-                        {{finalPrevSanctionLetterDate}}
+                        {{finalPrevSanctionLetterDate ? finalPrevSanctionLetterDate : '___________'}}
                     </span>
                     को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु
                     भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति
                     <span>
-                        {{finalDateOfApplication}}
+                        {{finalDateOfApplication ? finalDateOfApplication : '___________'}}
                     </span>
                     को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको
                     अधिनमा रहने गरी देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध
                     गर्दछौं।
                 </p>
             </div>
-            <br>
 
             <div style="text-align: center">
                 <strong> स्वीकृत ऋणकर्जा सुविधाहरुको विवरण </strong>
             </div>
             <div class="row form-group">
-                <table class="table table-sm table-condensed table-bordered table-sm sb-small" style="width: 95%">
+                <table class="table table-sm table-condensed table-bordered table-sm sb-small" style="width: 95%; margin-left: 20px">
                     <tr>
-                        <td class="widthBox"><strong>कर्जा प्रकार: </strong>
+                        <td><strong>कर्जा प्रकार: </strong>
                         </td>
                         <td>
                             <strong>
-                                <span [ngClass]="{'outside' : letter?.loanName !== null && letter?.loanName !== ''}">
-                                {{letter?.loanName === null || letter?.loanName === '' ? '___________' : letter?.loanName }}
-                            </span>
+                                <span>
+                                    {{loanName ? loanName : '___________'}}
+                                </span>
                             </strong>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>कर्जाको उद्देश्य: </strong>
+                        <td><strong>कर्जाको उद्देश्य: </strong>
                         </td>
                         <td>
                                  <span [ngClass]="{'outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
@@ -86,7 +85,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>कर्जा रु.<i>(Loan Amount)</i></strong>
+                        <td><strong>कर्जा रु.<i>(Loan Amount)</i></strong>
                         </td>
                         <td>
                             <strong> रु.
@@ -101,7 +100,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>कूल परियोजना लागतको ऋणकर्जा उपयोग गर्न सक्ने सीमा
+                        <td><strong>कूल परियोजना लागतको ऋणकर्जा उपयोग गर्न सक्ने सीमा
                             <i>(Drawing Power)</i> </strong>
                         </td>
                         <td>
@@ -112,7 +111,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>ब्याज दर (परिवर्तनशिल): </strong>
+                        <td><strong>ब्याज दर (परिवर्तनशिल): </strong>
                         </td>
                         <td>
                             <strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) </strong>
@@ -125,8 +124,8 @@
                             </span>
                             प्रतिशत व्याज दर प्रिमियम (Interest Rate Premium)
                             गरि जम्मा बार्षिक
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.totalInterestRate !== null && loanHolderInfo?.totalInterestRate !== ''}">
-                                    {{loanHolderInfo?.totalInterestRate === null || loanHolderInfo?.totalInterestRate === "" ? "___________" : loanHolderInfo?.totalInterestRate}}
+                            <span [ngClass]="{'font-weight-bold': letter?.totalTenureOfLoan.ct !== null && letter?.totalTenureOfLoan.ct !== ''}">
+                                    {{letter?.totalTenureOfLoan.ct === null || letter?.totalTenureOfLoan.ct === "" ? "___________" : letter?.totalTenureOfLoan.ct}}
                             </span>%
                             का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ।
                         </td>
@@ -134,90 +133,79 @@
 
                     <!-- - Not Applicable incase of interest subsidy loan: -->
                     <tr *ngIf="!interestSubsidy == true">
-                        <td style="width: 15%">
+                        <td>
                             <strong>
                                 सेवा शुल्क, स्वीकृत कर्जाको सिमामा लागूहुने
                             </strong>
                         </td>
                         <td>
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.serviceCharge !== null && loanHolderInfo?.serviceCharge !== ''}">
-                                    {{loanHolderInfo?.serviceCharge === null || loanHolderInfo?.serviceCharge === "" ? "___________" : loanHolderInfo?.serviceCharge}}
+                            <span [ngClass]="{'font-weight-bold': letter?.serviceCharge.ct !== null && letter?.serviceCharge.ct !== ''}">
+                                    {{letter?.serviceCharge.ct === null || letter?.serviceCharge.ct === "" ? "___________" : letter?.serviceCharge.ct}}
                             </span>
                             तिशत।
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>साँवा/किस्ता भुक्तानी तरिकाः </strong>
+                        <td><strong>साँवा/किस्ता भुक्तानी तरिकाः </strong>
                         </td>
                         <td>
                             संलग्न अनुमानित भुक्तानी तालिका बमोजिम चुक्ता भुक्तानी गर्नु पर्नेछ।
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>कर्जाको अवधि (महिना) </strong>
+                        <td><strong>कर्जाको अवधि (महिना) </strong>
                         </td>
                         <td>
                             कर्जा निकाशा भएको मितिले
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.totaltenureOfLoan !== null && loanHolderInfo?.totaltenureOfLoan !== ''}">
-                                    {{loanHolderInfo?.totaltenureOfLoan === null || loanHolderInfo?.totaltenureOfLoan === "" ? "___________" : loanHolderInfo?.totaltenureOfLoan}}
+                            <span [ngClass]="{'font-weight-bold': letter?.totalTenureOfLoan.ct !== null && letter?.totalTenureOfLoan.ct !== ''}">
+                                    {{letter?.totalTenureOfLoan.ct === null || letter?.totalTenureOfLoan.ct === "" ? "___________" : letter?.totalTenureOfLoan.ct}}
                             </span>
                             वर्ष सम्म।
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>सुरक्षण (घर/जग्गा धितोेबन्धक विवरण) </strong>
+                        <td><strong>सुरक्षण (घर/जग्गा धितोेबन्धक विवरण) </strong>
                         </td>
                         <td>
-                            घर/जग्गा धनीको नाम
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.landOwnerName !== null && loanHolderInfo?.landOwnerName !== ''}">
-                                    {{loanHolderInfo?.landOwnerName === null || loanHolderInfo?.landOwnerName === "" ? "___________" : loanHolderInfo?.landOwnerName}}
-                            </span>
-                            जिल्ला
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.district !== null && loanHolderInfo?.district !== ''}">
-                                    {{loanHolderInfo?.district === null || loanHolderInfo?.district === "" ? "___________" : loanHolderInfo?.district}}
-                            </span>
-                            न.पा/गा.वि.स.
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.VDCMunicipality !== null && loanHolderInfo?.VDCMunicipality !== ''}">
-                                    {{loanHolderInfo?.VDCMunicipality === null || loanHolderInfo?.VDCMunicipality === "" ? "___________" : loanHolderInfo?.VDCMunicipality}}
-                            </span>
-                            वडा नंः
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.wardNo !== null && loanHolderInfo?.wardNo !== ''}">
-                                    {{loanHolderInfo?.wardNo === null || loanHolderInfo?.wardNo === "" ? "___________" : loanHolderInfo?.wardNo}}
-                            </span>
-                            किता नं.
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.plotNo !== null && loanHolderInfo?.plotNo !== ''}">
-                                    {{loanHolderInfo?.plotNo === null || loanHolderInfo?.plotNo === "" ? "___________" : loanHolderInfo?.plotNo}}
-                            </span>
-                            क्षेत्रफल
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.areaRopaniBigha !== null && loanHolderInfo?.areaRopaniBigha !== ''}">
-                                    {{loanHolderInfo?.areaRopaniBigha === null || loanHolderInfo?.areaRopaniBigha === "" ? "___________" : loanHolderInfo?.areaRopaniBigha}}
+                            <span class="row" *ngFor="let guarantor of letter?.securities; let i = index">
+                                <div class="col-md-12">
+                                    घर/जग्गा धनीको नाम
+                                    {{guarantor?.securityOwnersNameCT}}
+                                    जिल्ला
+                                    {{guarantor?.securityOwnersDistrictCT}}
+                                    न.पा/गा.वि.स.
+                                    {{guarantor?.securityOwnersMunicipalityCT}}
+                                    वडा नंः {{guarantor?.securityOwnersPlotNoCT}}
+                                    किता नं. {{guarantor?.securityOwnersLandAreaCT}}
+                                    क्षेत्रफल {{guarantor?.securityOwnersSheetNoCT}}
+                                </div>
                             </span>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>कूल कर्जा सिमाको लागु हुने व्यक्तिगत जमानतको नाम
+                        <td><strong>कूल कर्जा सिमाको लागु हुने व्यक्तिगत जमानतको नाम
                             <i>(Personal Guarantor)</i></strong>
                         </td>
                         <td>
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.guarantorName !== null && loanHolderInfo?.guarantorName !== ''}">
-                                    {{loanHolderInfo?.guarantorName === null || loanHolderInfo?.guarantorName === "" ? "___________" : loanHolderInfo?.guarantorName}}
+                            <span>
+                                {{finalName ? finalName: '________________'}}
                             </span>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>ऋण प्रतिबद्धता शुल्क </strong>
+                        <td><strong>ऋण प्रतिबद्धता शुल्क </strong>
                         </td>
                         <td>
                             स्वीकृत दीर्घकालिन कर्जा सीमा पुर्ण वा आंशिक रुपमा
                             उपयोग नभएमा सो उपयोग नभएको कर्जा सीमामा
-                            <span [ngClass]="{'font-weight-bold': loanHolderInfo?.commitmentFee !== null && loanHolderInfo?.commitmentFee !== ''}">
-                                    {{loanHolderInfo?.commitmentFee === null || loanHolderInfo?.commitmentFee === "" ? "___________" : loanHolderInfo?.commitmentFee}}
+                            <span [ngClass]="{'font-weight-bold': letter?.commitmentFee.ct !== null && letter?.commitmentFee.ct !== ''}">
+                                    {{letter?.commitmentFee.ct === null || letter?.commitmentFee.ct === "" ? "___________" : letter?.commitmentFee.ct}}
                             </span>
                             प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ।
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 15%"><strong>कर्जा प्रवाह तरिकाः </strong>
+                        <td><strong>कर्जा प्रवाह तरिकाः </strong>
                         </td>
                         <td>
                             ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु
@@ -231,9 +219,7 @@
 
             <!-- free text box -->
             <div class="text-left">
-                <span [ngClass]="{'font-weight-bold': loanHolderInfo?.additionalGuarantorDetails !== null && loanHolderInfo?.additionalGuarantorDetails !== ''}">
-                        {{loanHolderInfo?.additionalGuarantorDetails === null || loanHolderInfo?.additionalGuarantorDetails === "" ? "___________" : loanHolderInfo?.additionalGuarantorDetails}}
-                </span>
+                <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.firstText : ''}}</span><br>
             </div>
 
             <div class="" *ngIf="interestSubsidy == true">
@@ -541,9 +527,7 @@
 
             <!-- free text box -->
             <div>
-                <span [ngClass]="{'font-weight-bold': loanHolderInfo?.additionalGuarantorDetails !== null && loanHolderInfo?.additionalGuarantorDetails !== ''}">
-                        {{loanHolderInfo?.additionalGuarantorDetails === null || loanHolderInfo?.additionalGuarantorDetails === "" ? "___________" : loanHolderInfo?.additionalGuarantorDetails}}
-                </span>
+                <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.secondText : ''}}</span><br>
             </div>
 
             <div class="col-sm-12">
@@ -704,7 +688,7 @@
                 </ol>
             </div>
 
-            <div class="">
+            <div style="margin-left: 10px">
                 <h6><u>बित्तीय शर्तहरु </u></h6>
                 <ol class="conditions-list orderd-list">
                     <li>
@@ -830,10 +814,8 @@
                         पुँजी जुटाई वा स्वलगानी थपी बैंकलाई स्विकार्य हुने अवस्थामा ल्याउनुपर्नेछ।
                     </li>
                     <!-- free text box -->
-                    <li>
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.additionalGuarantorDetails !== null && loanHolderInfo?.additionalGuarantorDetails !== ''}">
-                                {{loanHolderInfo?.additionalGuarantorDetails === null || loanHolderInfo?.additionalGuarantorDetails === "" ? "___________" : loanHolderInfo?.additionalGuarantorDetails}}
-                        </span>
+                    <li *ngIf="freeInformation?.thirdText">
+                        <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.thirdText : ''}}</span>
                     </li>
                 </ol>
             </div>
@@ -925,10 +907,8 @@
                         रहनेछ।
                     </li>
                     <!-- free text box -->
-                    <li>
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.additionalGuarantorDetails !== null && loanHolderInfo?.additionalGuarantorDetails !== ''}">
-                                {{loanHolderInfo?.additionalGuarantorDetails === null || loanHolderInfo?.additionalGuarantorDetails === "" ? "___________" : loanHolderInfo?.additionalGuarantorDetails}}
-                        </span>
+                    <li *ngIf="freeInformation?.fourthText">
+                        <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.fourthText : ''}}</span>
                     </li>
                 </ol>
             </div>
@@ -969,10 +949,8 @@
                     </li>
 
                     <!-- free text box -->
-                    <li>
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.additionalGuarantorDetails !== null && loanHolderInfo?.additionalGuarantorDetails !== ''}">
-                                {{loanHolderInfo?.additionalGuarantorDetails === null || loanHolderInfo?.additionalGuarantorDetails === "" ? "___________" : loanHolderInfo?.additionalGuarantorDetails}}
-                        </span>
+                    <li *ngIf="freeInformation?.fifthText">
+                        <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.fifthText : ''}}</span>
                     </li>
                 </ul>
             </div>
@@ -999,12 +977,16 @@
 
                     .........................................
                     <p>
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.nameOfARO_RO_RM_ARM !== null && loanHolderInfo?.nameOfARO_RO_RM_ARM !== ''}">
-                                {{loanHolderInfo?.nameOfARO_RO_RM_ARM === null || loanHolderInfo?.nameOfARO_RO_RM_ARM === "" ? "___________" : loanHolderInfo?.nameOfARO_RO_RM_ARM}}
+                        <span [ngClass]="{'font-weight-bold': letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
+                                {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === "" ? "___________" : letter?.nameOfStaff.ct}}
                         </span>
+                        <br>
+                        <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.position : 'सम्पर्क अधिकृत'}}</span>
+                        <br>
                         नबिल बैंक लि.
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.branchName !== null && loanHolderInfo?.branchName !== ''}">
-                                {{loanHolderInfo?.branchName === null || loanHolderInfo?.branchName === "" ? "___________" : loanHolderInfo?.branchName}}
+                        <br>
+                        <span>
+                            {{branchName}}
                         </span>
                         शाखा
                     </p>
@@ -1014,12 +996,16 @@
 
                     .........................................
                     <p>
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.nameOfARO_RO_RM_ARM !== null && loanHolderInfo?.nameOfARO_RO_RM_ARM !== ''}">
-                                {{loanHolderInfo?.nameOfARO_RO_RM_ARM === null || loanHolderInfo?.nameOfARO_RO_RM_ARM === "" ? "___________" : loanHolderInfo?.nameOfARO_RO_RM_ARM}}
+                        <span [ngClass]="{'font-weight-bold': letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
+                                {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === "" ? "___________" : letter?.nameOfBranchManager.ct}}
                         </span>
+                        <br>
+                        <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.position2 : 'सम्पर्क अधिकृत'}}</span>
+                        <br>
                         नबिल बैंक लि.
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.branchName !== null && loanHolderInfo?.branchName !== ''}">
-                                {{loanHolderInfo?.branchName === null || loanHolderInfo?.branchName === "" ? "___________" : loanHolderInfo?.branchName}}
+                        <br>
+                        <span>
+                            {{branchName}}
                         </span>
                         शाखा
                     </p>
@@ -1131,12 +1117,12 @@
 
             <table class="table table-hover table-bordered hello" style="width: 100%">
                 <tr>
-                    <td>
+                    <td style="width: 25%">
                         आवेदकको नाम
                     </td>
-                    <td>
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.nameOfApplicant !== null && loanHolderInfo?.nameOfApplicant !== ''}">
-                                {{loanHolderInfo?.nameOfApplicant === null || loanHolderInfo?.nameOfApplicant === "" ? "___________" : loanHolderInfo?.nameOfApplicant}}
+                    <td style="width: 80%">
+                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}">
+                                {{loanHolderInfo?.name === null || loanHolderInfo?.name === "" ? "___________" : loanHolderInfo?.name.ct }}
                         </span>
                     </td>
                 </tr>
@@ -1161,9 +1147,7 @@
                         मिति
                     </td>
                     <td>
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.executionDate !== null && loanHolderInfo?.executionDate !== ''}">
-                                {{loanHolderInfo?.executionDate === null || loanHolderInfo?.executionDate === "" ? "___________" : loanHolderInfo?.executionDate}}
-                        </span>
+
                     </td>
                 </tr>
             </table>
