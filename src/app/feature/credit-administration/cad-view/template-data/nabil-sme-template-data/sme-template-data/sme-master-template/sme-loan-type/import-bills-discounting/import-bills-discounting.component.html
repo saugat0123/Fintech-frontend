@@ -1,0 +1,179 @@
+<div>
+    <form [formGroup]="importBillsDiscount">
+        <!-- CONDITIONAL SECTION -->
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <h6> IMPORT BILLS DISCOUNTING </h6>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Loan Options</strong></label>
+                <nb-select
+                        (selectedChange)="changeFieldValue($event)"
+                        formControlName="loanOption"
+                        fullWidth
+                        placeholder="Loan Options">
+                    <nb-option value="ONE_OFF_BASIS"> One Off Basis</nb-option>
+                    <nb-option value="REGULAR"> Regular Basis</nb-option>
+                </nb-select>
+            </div>
+            <div *ngIf="isComplimentryOtherLoan" class="col-md-4">
+                <label class="font-weight-bold" for="multiLoanImport"><strong>Multi Loan Selection</strong></label><br>
+                <nb-select formControlName="multiLoanImport" fullWidth
+                           id="multiLoanImport"
+                           multiple placeholder="Multiple Select" status="success">
+                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName"> {{loanName}} </nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-12 mt-2 ml-2">
+                <nb-checkbox #complimentryCheck (checkedChange)="checkComplimetryOtherLoan(complimentryCheck.checked)"
+                             [checked]="isComplimentryOtherLoan">
+                    <i> Is complimentary of other loan ? </i></nb-checkbox>
+            </div>
+        </div>
+        <!-- END OF CONDITIONAL SECTION -->
+        <div>
+            <div class="row pt-4">
+                <div class="col-md-4">
+                    <label class="font-weight-bold" for="loanAmount">Loan Period In Days</label>
+                    <input class="form-control" formControlName="loanPeriodInDays" fullWidth
+                           id="loanPeriodInDays"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="loanPeriodInDaysTrans" fullWidth
+                           id="loanPeriodInDaysTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="loanPeriodInDaysCT" fullWidth id="loanPeriodInDaysCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="font-weight-bold" for="loanAmount">Loan Amount</label>
+                    <input (input)="getNumAmountWord('loanAmount', 'loanAmountAmountWords')" class="form-control"
+                           formControlName="loanAmount" fullWidth
+                           id="loanAmount"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="loanAmountTrans" fullWidth id="loanAmountTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="loanAmountAmountWords">Loan Amount Words</label>
+                    <input class="form-control" formControlName="loanAmountAmountWords" fullWidth
+                           id="loanAmountAmountWords"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="loanAmountAmountWordsTrans" fullWidth
+                           id="loanAmountAmountWordsTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="loanAmountAmountWordsCT" fullWidth
+                           id="loanAmountAmountWordsCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="marginInPercentage">Margin in Percentage (%)</label>
+                    <input class="form-control" formControlName="marginInPercentage" fullWidth id="marginInPercentage"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="marginInPercentageTrans" fullWidth
+                           id="marginInPercentageTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="marginInPercentageCT" fullWidth
+                           id="marginInPercentageCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+            <!-- FOR DATE OF EXPIRY SECTION -->
+            <div *ngIf="importBillsDiscount.get('loanOption').value === 'REGULAR'" class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="dateOfExpiryType"> Date Of Expiry</label><br>
+                    <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                    formControlName="dateOfExpiryType" id="dateOfExpiryType"
+                                    name="dateOfExpiryType" status="success">
+                        <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                    </nb-radio-group>
+                    <div *ngIf="BSExpiry" style="margin-bottom: -50px;">
+                        <nepali-patro [displayNepali]="true" [responseType]="2"
+                                      formControlName="dateOfExpiryNepali">
+                        </nepali-patro>
+                    </div>
+                    <input *ngIf="ADExpiry" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                           fullWidth
+                           id="dateOfExpiry"
+                           nbInput
+                           placeholder="Select Date"
+                           shape="semi-round" status="success">
+                    <nb-datepicker #previousDate></nb-datepicker>
+                </div>
+                <div class="col-md-4 form-group dateTranslationCustom">
+                    <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth id="dateOfExpiryTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group dateTranslationCustom">
+                    <input class="form-control" formControlName="dateOfExpiryCT" fullWidth id="dateOfExpiryCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+            <!-- END OF DATE OF EXPIRY SECTION -->
+        </div>
+        <!-- For Translation -->
+        <div class="row pt-5 pb-2 pr-4">
+            <div class="col-md-12 text-right">
+                <button (click)="translateAndSetVal()" nbButton outline size="small" status="info">
+                    Translate Import Bill Letter Details
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
