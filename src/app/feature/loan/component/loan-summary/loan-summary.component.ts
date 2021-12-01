@@ -755,9 +755,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             for (const doc of insuranceDocument) {
                 docPaths.push(doc.policyDocumentPath);
             }
+            // Collateral Document
             const siteVisitDocument = this.siteVisitDocuments;
-            for (const doc of siteVisitDocument) {
-                docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+            if (!ObjectUtil.isEmpty(siteVisitDocument)) {
+                for (const doc of siteVisitDocument) {
+                    docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+                }
             }
         } else {
             docPaths.push(this.loanDataHolder.zipPath);

@@ -329,38 +329,38 @@
                 </td>
               </tr>
 <!--              Add more Feature if needed-->
-<!--              <tbody *ngFor="let category of incomeFormGroup?.get('grossSubCateGory')['controls']; let i = index"-->
-<!--                     formArrayName="grossSubCateGory">-->
-<!--              <tr [formGroupName]="i">-->
-<!--                <td>{{category?.get('name').value}}</td>-->
-<!--                <td>-->
-<!--                  <input (keyup)="calculateGrossLastReview()"-->
-<!--                         class="form-control text-center"-->
-<!--                         type="number" formControlName="grossLast"-->
-<!--                         value="0">-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                  <input (keyup)="calculateGrossDuringReview()"-->
-<!--                         class="form-control text-center"-->
-<!--                         type="number" formControlName="grossDuring"-->
-<!--                         value="0">-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                  <input (keyup)="calculateGrossNextReview()"-->
-<!--                         class="form-control text-center"-->
-<!--                         type="number" formControlName="grossNext"-->
-<!--                         value="0">-->
-<!--                </td>-->
-<!--              </tr>-->
-<!--              </tbody>-->
-<!--              <tr>-->
-<!--                <td>-->
-<!--                  <input #gross placeholder="Particular">-->
-<!--                  <button (click)="addGrossProfitCategory(gross)"-->
-<!--                          type="button">Add More-->
-<!--                  </button>-->
-<!--                </td>-->
-<!--              </tr>-->
+              <tbody *ngFor="let category of incomeFormGroup?.get('grossSubCateGory')['controls']; let i = index"
+                     formArrayName="grossSubCateGory">
+              <tr [formGroupName]="i">
+                <td>{{category?.get('name').value}}</td>
+                <td>
+                  <input (keyup)="calculateGrossLastReview()"
+                         class="form-control text-center"
+                         type="number" formControlName="grossLast"
+                         value="0">
+                </td>
+                <td>
+                  <input (keyup)="calculateGrossDuringReview()"
+                         class="form-control text-center"
+                         type="number" formControlName="grossDuring"
+                         value="0">
+                </td>
+                <td>
+                  <input (keyup)="calculateGrossNextReview()"
+                         class="form-control text-center"
+                         type="number" formControlName="grossNext"
+                         value="0">
+                </td>
+              </tr>
+              </tbody>
+              <tr>
+                <td>
+                  <input #gross placeholder="Particular">
+                  <button (click)="addGrossProfitCategory(gross)"
+                          type="button">Add More
+                  </button>
+                </td>
+              </tr>
 
               <tr class="font-weight-bold">
                 <td><b>Total</b></td>

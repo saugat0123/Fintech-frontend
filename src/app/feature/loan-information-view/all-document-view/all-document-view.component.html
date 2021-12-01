@@ -4,7 +4,7 @@
             <b>All Documents</b>
             <button class="float-right sb-small sb-bg-dark text-white"
                     *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath"
-                    (click)="getDocPath()" [disabled]="spinner"> Download All Document</button>
+                    (click)="getDocPath()"> Download All Document</button>
   <button class="float-right sb-small sb-bg-dark text-white"
           *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath"
           (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')" [disabled]="spinner"> Download All Document</button>

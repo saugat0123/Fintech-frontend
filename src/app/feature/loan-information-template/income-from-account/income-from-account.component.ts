@@ -8,7 +8,6 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
 import {CompanyInfo} from '../../admin/modal/company-info';
-import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-income-from-account',
@@ -252,45 +251,48 @@ export class IncomeFromAccountComponent implements OnInit {
 
   calculateGrossLastReview() {
     let totalGrossLastReview = 0;
-    // let grossLast = 0;
-    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
-    // gross['value'].forEach(g => {
-    //   grossLast += Number(g['grossLast']);
-    // });
+    let grossLast = 0;
+    const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    gross['value'].forEach(g => {
+      grossLast += Number(g['grossLast']);
+    });
     totalGrossLastReview =
         (this.incomeFormGroup.get('demandLastReview').value +
         this.incomeFormGroup.get('trLoanLastReview').value +
-        this.incomeFormGroup.get('overDraftLastReview').value).toFixed(2);
+        this.incomeFormGroup.get('overDraftLastReview').value +
+            grossLast).toFixed(2);
     this.incomeFormGroup.get('grossLastReview').patchValue(totalGrossLastReview);
     this.calculateTotalLastReview();
   }
 
   calculateGrossNextReview() {
     let totalGrossNextReview = 0;
-    // let grossNext = 0;
-    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
-    // gross['value'].forEach(g => {
-    //   grossNext += Number(g['grossNext']);
-    // });
+    let grossNext = 0;
+    const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    gross['value'].forEach(g => {
+      grossNext += Number(g['grossNext']);
+    });
     totalGrossNextReview =
         (this.incomeFormGroup.get('overDraftNextReview').value +
         this.incomeFormGroup.get('trLoanNextReview').value +
-        this.incomeFormGroup.get('demandNextReview').value).toFixed(2);
+        this.incomeFormGroup.get('demandNextReview').value +
+            grossNext).toFixed(2);
     this.incomeFormGroup.get('grossNextReview').patchValue(totalGrossNextReview);
     this.calculateTotalNextReview();
   }
 
   calculateGrossDuringReview() {
     let totalGrossDuringReView = 0;
-    // let grossDuring = 0;
-    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
-    // gross['value'].forEach(g => {
-    //   grossDuring += Number(g['grossDuring']);
-    // });
+    let grossDuring = 0;
+    const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    gross['value'].forEach(g => {
+      grossDuring += Number(g['grossDuring']);
+    });
     totalGrossDuringReView =
         (this.incomeFormGroup.get('overDraftDuringReview').value +
         this.incomeFormGroup.get('trLoanDuringReview').value +
-        this.incomeFormGroup.get('demandDuringReview').value).toFixed(2);
+        this.incomeFormGroup.get('demandDuringReview').value +
+            grossDuring).toFixed(2);
     this.incomeFormGroup.get('grossDuringReview').patchValue(totalGrossDuringReView);
     this.calculateTotalDuringReview();
   }
