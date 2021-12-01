@@ -75,6 +75,12 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   isBaseRateFinancingSelected = false;
   is100CashMarginSelected = false;
   is10CashMarginSelected = false;
+  isQuarterlySelected = false;
+  isYearlySelected = false;
+  isCommissionType1Selected = false;
+  isCommissionType2Selected = false;
+  isRegularSelected = false;
+  isOneoffSelected = false;
   isSecuritySelected = false;
   selectedSecurityVal;
   constructor(private formBuilder: FormBuilder,
@@ -141,6 +147,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       serviceCharges: [undefined],
       overdraft: [undefined],
       BankGuarantee: [undefined],
+      irrevocable: [undefined],
+      loanExpiryDate: [undefined],
 
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
       loanAmountFigureTrans: [undefined],
@@ -176,6 +184,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       serviceChargesTrans: [undefined],
       overdraftTrans: [undefined],
       BankGuaranteeTrans: [undefined],
+      irrevocableTrans: [undefined],
+      loanExpiryDateTrans: [undefined],
       // FIELDS FOR CT VALUES:
       sanctionLetterDateNepaliCT: [undefined],
       sanctionLetterDateCT: [undefined],
@@ -213,6 +223,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       serviceChargesCT: [undefined],
       overdraftCT: [undefined],
       BankGuaranteeCT: [undefined],
+      irrevocableCT: [undefined],
+      loanExpiryDateCT: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -281,6 +293,26 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   checkCashMarginType() {
     const tempSelectedLoanType = this.form.get('BankGuarantee').value;
     this.is100CashMarginSelected = tempSelectedLoanType === '100% Cash Margin';
+    this.is10CashMarginSelected = tempSelectedLoanType === '10% Cash Margin';
+  }
+  checkComissionType() {
+    const tempSelectedLoanType = this.form.get('BankGuarantee').value;
+    this.isQuarterlySelected = tempSelectedLoanType === 'Quarterly';
+    this.isYearlySelected = tempSelectedLoanType === 'Yearly';
+  }
+  checkcommisType() {
+    const tempSelectedLoanType = this.form.get('irrevocable').value;
+    this.isCommissionType1Selected = tempSelectedLoanType === 'Commission Type 1';
+    this.isCommissionType2Selected = tempSelectedLoanType === 'Commision Type 2';
+  }
+  checkLoanOptionType() {
+    const tempSelectedLoanType = this.form.get('irrevocable').value;
+    this.isRegularSelected = tempSelectedLoanType === 'Regular';
+    this.isOneoffSelected = tempSelectedLoanType === 'One off';
+  }
+  checkIrrevocableType() {
+    const tempSelectedLoanType = this.form.get('irrevocable').value;
+    this.is100CashMarginSelected = tempSelectedLoanType === '100 % Cash Margin';
     this.is10CashMarginSelected = tempSelectedLoanType === '10% Cash Margin';
   }
   serviceCheck(data) {

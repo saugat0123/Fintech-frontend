@@ -109,9 +109,19 @@
                             status="info">
                         <ng-option value="100% Cash Margin">100% Cash Margin </ng-option>
                         <ng-option value="10% Cash Margin"> 10% Cash Margin </ng-option>
-<!--                        <ng-option value="TD Account">TD Account </ng-option>-->
-<!--                        <ng-option value="Current"> Current </ng-option>-->
-<!--                        <ng-option value="Saving"> Saving </ng-option>-->
+                    </ng-select>
+                </div>
+                <div class="col-md-4" *ngIf="isBankGuaranteeSelected">
+                    <label><strong> Account Type </strong></label>
+                    <ng-select
+                            formControlName="BankGuarantee"
+                            fullWidth
+                            placeholder="Security Type"
+                            (change)="checkComissionType()"
+                            status="info">
+                        <ng-option value="TD Account">TD Account </ng-option>
+                        <ng-option value="Current"> Current </ng-option>
+                        <ng-option value="Saving"> Saving </ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isBankGuaranteeSelected">
@@ -120,10 +130,10 @@
                             formControlName="BankGuarantee"
                             fullWidth
                             placeholder="Security Type"
-                            (selectionchange)="securityValue()"
+                            (change)="checkComissionType()"
                             status="info">
-                        <ng-option value="Quarterly ">Quarterly</ng-option>
-                        <ng-option value="Yearly ">Yearly</ng-option>
+                        <ng-option value="Quarterly">Quarterly</ng-option>
+                        <ng-option value="Yearly">Yearly</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isIrrevocableSelected">
@@ -132,13 +142,23 @@
                             formControlName="irrevocable"
                             fullWidth
                             placeholder="Security Type"
-                            (selectionchange)="securityValue()"
+                            (change)="checkIrrevocableType()"
                             status="info">
                         <ng-option value="100% Cash Margin ">100% Cash Margin</ng-option>
-                        <ng-option value=" 0% Cash Margin "> 0% Cash Margin </ng-option>
-                        <ng-option value="TD Account ">TD Account </ng-option>
-                        <ng-option value=" Current "> Current </ng-option>
-                        <ng-option value=" Saving "> Saving </ng-option>
+                        <ng-option value=" 10% Cash Margin "> 10% Cash Margin </ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-md-4" *ngIf="isIrrevocableSelected">
+                    <label><strong> Account Type </strong></label>
+                    <ng-select
+                            formControlName="irrevocable"
+                            fullWidth
+                            placeholder="Security Type"
+                            (change)="checkcommisType()"
+                            status="info">
+                        <ng-option value="TD Account">TD Account </ng-option>
+                        <ng-option value=" Current"> Current </ng-option>
+                        <ng-option value=" Saving"> Saving </ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isIrrevocableSelected">
@@ -147,10 +167,10 @@
                             formControlName="irrevocable"
                             fullWidth
                             placeholder="Security Type"
-                            (selectionchange)="securityValue()"
+                            (change)="checkcommisType()"
                             status="info">
                         <ng-option value="Commission Type 1">Commission Type 1</ng-option>
-                        <ng-option value=" Commision Type 2 "> Commision Type 2 </ng-option>
+                        <ng-option value="Commision Type 2"> Commision Type 2 </ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isIrrevocableSelected">
@@ -159,10 +179,10 @@
                             formControlName="irrevocable"
                             fullWidth
                             placeholder="Security Type"
-                            (selectionchange)="securityValue()"
+                            (change)="checkLoanOptionType()"
                             status="info">
                         <ng-option value="Regular">Regular</ng-option>
-                        <ng-option value=" One off "> One off </ng-option>
+                        <ng-option value="One off"> One off </ng-option>
                     </ng-select>
                 </div>
             </div>
@@ -333,58 +353,64 @@
                                id="interestRate"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected || isBankGuaranteeSelected && isQuarterlySelected ||  isBankGuaranteeSelected && isYearlySelected ">
                         <label for="expiryDate"> Expiry Date  </label>
                         <input class="form-control" formControlName="expiryDate" fullWidth
                                id="expiryDate"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group" *ngIf="isBankGuaranteeSelected && (is100CashMarginSelected || is10CashMarginSelected)">
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
                         <label for="holderName"> Account Holder's Name(s)  </label>
                         <input class="form-control" formControlName="holderName" fullWidth
                                id="holderName"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group" *ngIf="isBankGuaranteeSelected && (is100CashMarginSelected || is10CashMarginSelected)">
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
                         <label for="accountNumber"> Account Number  </label>
                         <input class="form-control" formControlName="accountNumber" fullWidth
                                id="accountNumber"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected && (isQuarterlySelected || isYearlySelected) || isIrrevocableSelected && (isCommissionType1Selected)">
                         <label for="comissionRate"> Comission Rate  </label>
                         <input class="form-control" formControlName="comissionRate" fullWidth
                                id="comissionRate"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected && (isQuarterlySelected || isYearlySelected)">
                         <label for="miniumComissionAmount">  Minimum comission in amount </label>
                         <input class="form-control" formControlName="miniumComissionAmount" fullWidth
                                id="miniumComissionAmount"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isCommissionType2Selected)">
                         <label for="comissionRateFirstQuarter">  Comission Rate for first quarter </label>
                         <input class="form-control" formControlName="comissionRateFirstQuarter" fullWidth
                                id="comissionRateFirstQuarter"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isCommissionType2Selected)">
                         <label for="comissionRateOthersQuarter">  commison rate for other quarters </label>
                         <input class="form-control" formControlName="comissionRateOthersQuarter" fullWidth
                                id="comissionRateOthersQuarter"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isCommissionType1Selected)">
                         <label for="minimumComissionAmount">  Minimum comission in amount </label>
                         <input class="form-control" formControlName="minimumComissionAmount" fullWidth
                                id="minimumComissionAmount"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="tenureFacility">  Tenure of One-off facility </label>
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isOneoffSelected)">
+                        <label for="tenureFacility">Tenure of One-off facility </label>
                         <input class="form-control" formControlName="tenureFacility" fullWidth
                                id="tenureFacility"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isRegularSelected)">
+                        <label for="loanExpiryDate">loan expiry date </label>
+                        <input class="form-control" formControlName="loanExpiryDate" fullWidth
+                               id="loanExpiryDate"
                                nbInput status="success" type="text">
                     </div>
 
@@ -438,14 +464,14 @@
                                    nbInput status="success" type="text" readonly>
                         </ng-template>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isFixedDepositSelected || isOverdraftSelected && isDepositAccountSelected">
                         <label for="loanAmountFigureTrans">Loan Amount In Figure Translation </label>
                         <input (input)="getNumAmountWord('loanAmountFigure', 'loanAmountFigureWords')"
                                class="form-control" formControlName="loanAmountFigureTrans" fullWidth
                                id="loanAmountFigureTrans"
                                nbInput status="success" type="text" readonly>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isFixedDepositSelected || isOverdraftSelected && isDepositAccountSelected">
                         <label for="loanAmountFigureWordsTrans">Loan Amount In Words Translation </label>
                         <input class="form-control" formControlName="loanAmountFigureWordsTrans" fullWidth
                                id="loanAmountFigureWordsTrans"
@@ -471,125 +497,131 @@
                                nbInput status="success" type="text">
                     </div>
                     <div class="form-group">
-                        <label for="totalLimitInWordsTrans">Total Limit In words</label>
+                        <label for="totalLimitInWordsTrans">Total Limit In words Translation</label>
                         <input class="form-control" formControlName="totalLimitInWordsTrans" fullWidth
                                id="totalLimitInWordsTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="TdHoldingTrans">Name of TD Holding Bank</label>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                        <label for="TdHoldingTrans">Name of TD Holding Bank Translation</label>
                         <input class="form-control" formControlName="TdHoldingTrans" fullWidth
                                id="TdHoldingTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="serviceChargeFigureTrans">Service charge in figure</label>
+                    <div class="form-group" *ngIf="isSecurity && isAllLoanSelected">
+                        <label for="serviceChargeFigureTrans">Service charge in figure Translation</label>
                         <input  (input)="getNumAmountWord('serviceChargeFigure', 'serviceChargeWords')"
                                 class="form-control" formControlName="serviceChargeFigureTrans" fullWidth
                                id="serviceChargeFigureTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="serviceChargeWordsTrans">Service charge in words</label>
+                    <div class="form-group" *ngIf="isSecurity && isAllLoanSelected">
+                        <label for="serviceChargeWordsTrans">Service charge in words Translation</label>
                         <input class="form-control" formControlName="serviceChargeWordsTrans" fullWidth
                                id="serviceChargeWordsTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="nameOfBranchManager">Details of facility</label>
+                    <div class="form-group" *ngIf="isSecurity && isSpecificSelected">
+                        <label for="nameOfBranchManager">Details of facility Translation</label>
                         <input class="form-control" formControlName="detailOfFacility" fullWidth
                                id="detailOfFacilityTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="serviceChargeInPercTrans">service charge in %</label>
+                    <div class="form-group" *ngIf="isSecurity && isSpecificSelected">
+                        <label for="serviceChargeInPercTrans">service charge in % Translation</label>
                         <input class="form-control" formControlName="serviceChargeInPercTrans" fullWidth
                                id="serviceChargeInPercTrans"
                                nbInput status="success" type="text">
                     </div>
 
-                    <div class="form-group">
-                        <label for="TdHolderTrans">Name of TD Holder  </label>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                        <label for="TdHolderTrans">Name of TD Holder Translation </label>
                         <input class="form-control" formControlName="TdHolderTrans" fullWidth
                                id="TdHolderTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="drawingPowerTrans">Drawing Power (In %) </label>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isNewSelected || isOverdraftSelected && isExistingSelected">
+                        <label for="drawingPowerTrans">Drawing Power (In %) Translation</label>
                         <input class="form-control" formControlName="drawingPowerTrans" fullWidth
                                id="drawingPowerTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="baseRateTrans">Base rate  </label>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
+                        <label for="baseRateTrans">Base rate Translation </label>
                         <input class="form-control" formControlName="baseRateTrans" fullWidth
                                id="baseRateTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="premiumRateTrans">Premium Rate  </label>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
+                        <label for="premiumRateTrans">Premium Rate Translation </label>
                         <input class="form-control" formControlName="premiumRateTrans" fullWidth
                                id="premiumRateTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="interestRateTrans"> Interest Rate  </label>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
+                        <label for="interestRateTrans"> Interest Rate Translation </label>
                         <input class="form-control" formControlName="interestRateTrans" fullWidth
                                id="interestRateTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="expiryDateTrans"> Expiry Date  </label>
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected || isBankGuaranteeSelected && isQuarterlySelected ||  isBankGuaranteeSelected && isYearlySelected ">
+                        <label for="expiryDateTrans"> Expiry Date Translation </label>
                         <input class="form-control" formControlName="expiryDateTrans" fullWidth
                                id="expiryDateTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="holderNameTrans"> Account Holder's Name(s)  </label>
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
+                        <label for="holderNameTrans"> Account Holder's Name(s) Translation </label>
                         <input class="form-control" formControlName="holderNameTrans" fullWidth
                                id="holderNameTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="accountNumberTrans"> Account Number  </label>
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
+                        <label for="accountNumberTrans"> Account Number Translation </label>
                         <input class="form-control" formControlName="accountNumberTrans" fullWidth
                                id="accountNumberTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="comissionRateTrans"> Comission Rate  </label>
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected && (isQuarterlySelected || isYearlySelected) || isIrrevocableSelected && (isCommissionType1Selected)">
+                        <label for="comissionRateTrans"> Comission Rate Translation </label>
                         <input class="form-control" formControlName="comissionRateTrans" fullWidth
                                id="comissionRateTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="miniumComissionAmountTrans">  Minimum comission in amount </label>
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected && (isQuarterlySelected || isYearlySelected)">
+                        <label for="miniumComissionAmountTrans">  Minimum comission in amount Translation </label>
                         <input class="form-control" formControlName="miniumComissionAmountTrans" fullWidth
                                id="miniumComissionAmountTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="comissionRateFirstQuarterTrans">  Comission Rate for first quarter </label>
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isCommissionType2Selected)">
+                        <label for="comissionRateFirstQuarterTrans">  Comission Rate for first quarter Translation</label>
                         <input class="form-control" formControlName="comissionRateFirstQuarterTrans" fullWidth
                                id="comissionRateFirstQuarterTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="comissionRateOthersQuarterTrans">  commison rate for other quarters </label>
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isCommissionType2Selected)">
+                        <label for="comissionRateOthersQuarterTrans">  commison rate for other quarters Translation</label>
                         <input class="form-control" formControlName="comissionRateOthersQuarterTrans" fullWidth
                                id="comissionRateOthersQuarterTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="minimumComissionAmountTrans">  Minimum comission in amount </label>
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isCommissionType1Selected)">
+                        <label for="minimumComissionAmountTrans">  Minimum comission in amount Translation</label>
                         <input class="form-control" formControlName="minimumComissionAmountTrans" fullWidth
                                id="minimumComissionAmountTrans"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group">
-                        <label for="tenureFacilityTrans">  Tenure of One-off facility </label>
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isOneoffSelected)">
+                        <label for="tenureFacilityTrans">  Tenure of One-off facility Translation</label>
                         <input class="form-control" formControlName="tenureFacilityTrans" fullWidth
                                id="tenureFacilityTrans"
+                               nbInput status="success" type="text">
+                    </div>
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isRegularSelected)">
+                        <label for="loanExpiryDateTrans">loan expiry date Translation </label>
+                        <input class="form-control" formControlName="loanExpiryDateTrans" fullWidth
+                               id="loanExpiryDateTrans"
                                nbInput status="success" type="text">
                     </div>
                 </div>
@@ -673,7 +705,7 @@
                             </span>
                         </ng-template>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isFixedDepositSelected || isOverdraftSelected && isDepositAccountSelected">
                         <label for="loanAmountFigureCT">Loan Amount In Figure CT</label>
                         <input (input)="getNumAmountWord('loanAmountFigure', 'loanAmountFigureWords')"
                                class="form-control" formControlName="loanAmountFigureCT" fullWidth
@@ -685,7 +717,7 @@
                             Loan Amount Figure is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isFixedDepositSelected || isOverdraftSelected && isDepositAccountSelected">
                         <label for="loanAmountFigureWordsCT">Loan Amount In Words CT</label>
                         <input class="form-control" formControlName="loanAmountFigureWordsCT" fullWidth
                                id="loanAmountFigureWordsCT"
@@ -740,7 +772,7 @@
                             Total Limit In Words is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
                         <label for="TdHoldingCT">Name of TD Holding Bank</label>
                         <input class="form-control" formControlName="TdHoldingCT" fullWidth
                                id="TdHoldingCT"
@@ -751,7 +783,7 @@
                             Name of TD Holding Bank is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isSecurity && isAllLoanSelected">
                         <label for="serviceChargeFigureCT">Service charge in figure</label>
                         <input class="form-control" formControlName="serviceChargeFigureCT" fullWidth
                                id="serviceChargeFigureCT"
@@ -762,7 +794,7 @@
                             Service charge in figure is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isSecurity && isAllLoanSelected">
                         <label for="serviceChargeWordsCT">Service charge in words CT</label>
                         <input class="form-control" formControlName="serviceChargeWordsCT" fullWidth
                                id="serviceChargeWordsCT"
@@ -773,7 +805,7 @@
                            Service charge in words is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isSecurity && isSpecificSelected">
                         <label for="detailOfFacilityCT">Details of facility CT</label>
                         <input class="form-control" formControlName="detailOfFacilityCT" fullWidth
                                id="detailOfFacilityCT"
@@ -784,7 +816,7 @@
                            Details of facility is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isSecurity && isSpecificSelected">
                         <label for="serviceChargeInPercCT">service charge in % CT</label>
                         <input class="form-control" formControlName="serviceChargeInPercCT" fullWidth
                                id="serviceChargeInPercCT"
@@ -795,7 +827,7 @@
                             service charge in %  is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
                         <label for="TdHolderCT">Name of TD Holder </label>
                         <input class="form-control" formControlName="TdHolderCT" fullWidth
                                id="TdHolderCT"
@@ -806,7 +838,7 @@
                             Name of TD Holder is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isNewSelected || isOverdraftSelected && isExistingSelected">
                         <label for="drawingPowerCT">Drawing Power (In %) CT</label>
                         <input class="form-control" formControlName="drawingPowerCT" fullWidth
                                id="drawingPowerCT"
@@ -817,7 +849,7 @@
                             Drawing Power (In %) is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
                         <label for="baseRateCT">Base rate CT</label>
                         <input class="form-control" formControlName="baseRateCT" fullWidth
                                id="baseRateCT"
@@ -828,7 +860,7 @@
                             Base rate is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
                         <label for="premiumRateCT">Premium Rate CT</label>
                         <input class="form-control" formControlName="premiumRateCT" fullWidth
                                id="premiumRateCT"
@@ -839,7 +871,7 @@
                            Premium Rate is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected">
                         <label for="interestRateCT">Interest Rate CT</label>
                         <input class="form-control" formControlName="interestRateCT" fullWidth
                                id="interestRateCT"
@@ -850,7 +882,7 @@
                             Interest Rate is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected || isBankGuaranteeSelected && isQuarterlySelected ||  isBankGuaranteeSelected && isYearlySelected ">
                         <label for="expiryDateCT"> Expiry Date </label>
                         <input class="form-control" formControlName="expiryDateCT" fullWidth
                                id="expiryDateCT"
@@ -861,7 +893,7 @@
                             Expiry Date is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
                         <label for="holderNameCT">Account Holder's Name(s) </label>
                         <input class="form-control" formControlName="holderNameCT" fullWidth
                                id="holderNameCT"
@@ -872,7 +904,7 @@
                             Account Holder's Name(s)  is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
                         <label for="accountNumberCT"> Account Number</label>
                         <input class="form-control" formControlName="accountNumberCT" fullWidth
                                id="accountNumberCT"
@@ -883,7 +915,7 @@
                             Account Number is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected && (isQuarterlySelected || isYearlySelected) || isIrrevocableSelected && (isCommissionType1Selected)">
                         <label for="comissionRateCT">Comission Rate CT</label>
                         <input class="form-control" formControlName="comissionRateCT" fullWidth
                                id="comissionRateCT"
@@ -894,7 +926,7 @@
                             Comission Rate is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isBankGuaranteeSelected && (isQuarterlySelected || isYearlySelected)">
                         <label for="miniumComissionAmountCT">Minimum comission in amount CT</label>
                         <input class="form-control" formControlName="miniumComissionAmountCT" fullWidth
                                id="miniumComissionAmountCT"
@@ -905,7 +937,7 @@
                            Minimum comission in amount is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isCommissionType2Selected)">
                         <label for="comissionRateFirstQuarterCT">Comission Rate for first quarter CT</label>
                         <input class="form-control" formControlName="comissionRateFirstQuarterCT" fullWidth
                                id="comissionRateFirstQuarterCT"
@@ -916,7 +948,7 @@
                             Comission Rate for first quarter is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isCommissionType2Selected)">
                         <label for="comissionRateOthersQuarterCT">Commison rate for other quarters CT</label>
                         <input class="form-control" formControlName="comissionRateOthersQuarterCT" fullWidth
                                id="comissionRateOthersQuarterCT"
@@ -927,7 +959,7 @@
                             Commison rate for other quarters required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isCommissionType1Selected)">
                         <label for="minimumComissionAmountCT"> Minimum comission in amount</label>
                         <input class="form-control" formControlName="minimumComissionAmountCT" fullWidth
                                id="minimumComissionAmountCT"
@@ -938,7 +970,7 @@
                             Minimum comission in amount is required
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isOneoffSelected)">
                         <label for="tenureFacilityCT">Tenure of One-off facility </label>
                         <input class="form-control" formControlName="tenureFacilityCT" fullWidth
                                id="tenureFacilityCT"
@@ -947,6 +979,17 @@
                                type="text">
                         <span *ngIf="submitted && FormControls.tenureFacilityCT.invalid" class="text-danger">
                            Tenure of One-off facility  is required
+                        </span>
+                    </div>
+                    <div class="form-group" *ngIf="isIrrevocableSelected && (isRegularSelected)">
+                        <label for="loanExpiryDateCT">loan expiry date </label>
+                        <input class="form-control" formControlName="loanExpiryDateCT" fullWidth
+                               id="loanExpiryDateCT"
+                               nbInput status="success"
+                               [ngClass]="{ 'is-invalid':submitted && FormControls.loanExpiryDateCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && FormControls.loanExpiryDateCT.invalid" class="text-danger">
+                           loan expiry date is required
                         </span>
                     </div>
                     <!-- END OF CORRECTION TRANSLATION SECTION-->
