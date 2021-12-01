@@ -58,12 +58,15 @@ export class IncomeFromAccountComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
       this.incomeFormGroup.patchValue(this.dataForEdit);
-      // this.setGrossSubCategory(this.dataForEdit.grossSubCateGory);  // If add more feature is implemented
+      this.setGrossSubCategory(this.dataForEdit.grossSubCateGory);  // If add more feature is implemented
       if (!this.dataForEdit.newCustomerChecked && !ObjectUtil.isEmpty(this.dataForEdit.accountTransactionForm)) {
       this.incomeFormGroup.get('accountTransactionForm').patchValue(this.dataForEdit.accountTransactionForm);
       } else {
         this.incomeFormGroup.get('accountTransactionForm').disable();
       }
+      this.setRiskBasedPrice(this.dataForEdit.riskBasedPrice);
+    } else {
+      this.addRiskBasedPrice();
     }
     if (!this.isNewCustomer && !ObjectUtil.isEmpty(this.companyInfo)) {
       if (!ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
@@ -135,7 +138,8 @@ export class IncomeFromAccountComponent implements OnInit {
       capitalCost: [undefined],
       economicProfit: [0],
       economicProfitPercentage: [undefined],
-      grossSubCateGory: this.formBuilder.array([])
+      grossSubCateGory: this.formBuilder.array([]),
+      riskBasedPrice: this.formBuilder.array([])
     });
   }
 
@@ -364,5 +368,41 @@ export class IncomeFromAccountComponent implements OnInit {
     } else {
       this.controlValidation(individualField, false);
     }
+  }
+
+  // Add risk based price
+  addRiskBasedPrice() {
+    const riskData = this.incomeFormGroup.get('riskBasedPrice') as FormArray;
+    riskData.push(
+        this.formBuilder.group({
+          facility: [undefined],
+          targetPricing: [undefined],
+          exitingInterestRate: [undefined],
+          difference: [undefined],
+        })
+    );
+  }
+
+  removeRiskBasedPrice(i) {
+    (<FormArray>this.incomeFormGroup.get('riskBasedPrice')).removeAt(i);
+  }
+
+  calculateDifference(i) {
+    const data = (this.incomeFormGroup.get(['riskBasedPrice', i, 'targetPricing']).value -
+        this.incomeFormGroup.get(['riskBasedPrice', i, 'exitingInterestRate']).value).toFixed(2);
+    this.incomeFormGroup.get(['riskBasedPrice', i, 'difference']).patchValue(data);
+  }
+
+  setRiskBasedPrice(data) {
+    const riskData = this.incomeFormGroup.get('riskBasedPrice') as FormArray;
+    data.forEach(d => {
+      riskData.push(this.formBuilder.group({
+            facility: [d.facility],
+            targetPricing: [d.targetPricing],
+            exitingInterestRate: [d.exitingInterestRate],
+            difference: [d.difference],
+          })
+      );
+    });
   }
 }
