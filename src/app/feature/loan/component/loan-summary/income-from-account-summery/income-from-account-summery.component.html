@@ -14,26 +14,26 @@
                 </tr>
                 </thead>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Loan Processing Charge</td>
+                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Loan Processing Charge</b></td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.processingLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">
                         Rs. {{incomeFromAccount?.processingDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.processingNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Loan renewal charge</td>
+                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Loan renewal charge</b></td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.renewalLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.renewalDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.renewalNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Exchange Earning</td>
+                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Exchange Earning</b></td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.exchangeLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.exchangeDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.exchangeNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Fees and commission</td>
+                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Fees and commission</b></td>
                     <td class="text-right pr-1">
                         Rs. {{incomeFromAccount?.feeCommissionLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">
@@ -42,7 +42,7 @@
                         Rs. {{incomeFromAccount?.feeCommissionNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Other Charges</td>
+                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Other Charges</b></td>
                     <td class="text-right pr-1">
                         Rs. {{incomeFromAccount?.otherChargesLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">
@@ -51,7 +51,7 @@
                         Rs. {{incomeFromAccount?.otherChargesNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Gross Interest</td>
+                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Gross Interest</b></td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.grossLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.grossDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.grossNextReview |currencyFormatter}}</td>
@@ -74,6 +74,14 @@
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.demandDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.demandNextReview |currencyFormatter}}</td>
                 </tr>
+                <ng-container *ngIf="incomeFromAccount?.grossSubCateGory?.length > 0">
+                    <tr *ngFor="let data of incomeFromAccount?.grossSubCateGory; let index = index">
+                        <td class="sb-bg-secondary text-white text-left pl-1">{{data?.name}}</td>
+                        <td class="text-right pr-1">Rs. {{data?.grossLast}}</td>
+                        <td class="text-right pr-1">Rs. {{data?.grossDuring}}</td>
+                        <td class="text-right pr-1">Rs. {{data?.grossNext}}</td>
+                    </tr>
+                </ng-container>
                 <tr>
                     <td class="sb-bg-secondary text-white text-left pl-1"><b>Total</b></td>
                     <td class="text-right pr-1">Rs. {{incomeFromAccount?.totalLastReview |currencyFormatter}}</td>
@@ -123,6 +131,28 @@
                     <td class="text-right pr-1">
                         Rs. {{incomeFromAccount?.economicProfitPercentage |currencyFormatter}}</td>
                 </tr>
+            </table>
+
+            <span><strong>Risk Based Pricing</strong></span>
+            <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+                <thead>
+                <tr class="sb-bg-dark text-white">
+                    <th>S.No</th>
+                    <th>Facility</th>
+                    <th>Target Pricing</th>
+                    <th>Existing Interest Rate</th>
+                    <th>Difference</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let risk of incomeFromAccount?.riskBasedPrice; let ind = index">
+                    <td class="sn">{{ind + 1}}</td>
+                    <td class="sb-bg-secondary text-white text-left pl-1">{{risk?.facility}}</td>
+                    <td class="text-right pr-1">Rs. {{risk?.targetPricing}}</td>
+                    <td class="text-right pr-1">Rs. {{risk?.exitingInterestRate}}</td>
+                    <td class="text-right pr-1">Rs. {{risk?.difference}}</td>
+                </tr>
+                </tbody>
             </table>
         </ng-container>
         <ng-template #inst>
