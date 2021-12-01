@@ -333,6 +333,13 @@ export class IncomeFromAccountComponent implements OnInit {
     input.value = '';
   }
 
+  removeGrossSubCategory(i) {
+    (<FormArray>this.incomeFormGroup.get('grossSubCateGory')).removeAt(i);
+    this.calculateGrossNextReview();
+    this.calculateGrossDuringReview();
+    this.calculateGrossLastReview();
+  }
+
   // setting Ad more field value
   private setGrossSubCategory(grossSubCateGory) {
     console.log(grossSubCateGory);
