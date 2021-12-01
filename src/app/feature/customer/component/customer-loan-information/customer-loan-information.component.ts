@@ -648,4 +648,23 @@ export class CustomerLoanInformationComponent implements OnInit {
     openModel(name: TemplateRef<any>) {
         this.nbDialogRef = this.modalService.open(name, {closeOnBackdropClick: false, closeOnEsc: false});
     }
+
+    saveReviewDate(data) {
+        this.spinner.show();
+        // if (ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
+        //     this.incomeFromAccountDataResponse = new IncomeFromAccount();
+        // }
+        // this.incomeFromAccountDataResponse = data;
+        this.customerInfoService.saveLoanInfo(data, this.customerInfoId, TemplateName.REVIEW_DATE)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Review Date!'));
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, error => {
+                this.spinner.hide();
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Review Date!'));
+            });
+    }
 }

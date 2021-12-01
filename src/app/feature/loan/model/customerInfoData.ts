@@ -75,6 +75,7 @@ export class CustomerInfoData {
     comments: Comments;
     previousSecurity: PreviousSecurity;
     data: string;
-    remitCustomer : any;
+    remitCustomer: any;
     loanHolder: any;
+    reviewDate: string;
 }
