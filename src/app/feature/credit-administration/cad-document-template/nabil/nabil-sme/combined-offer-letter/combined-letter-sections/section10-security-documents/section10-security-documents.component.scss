@@ -1,0 +1,20 @@
+.form-field {
+  background: yellow;
+  margin: 0px 5px 5px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  &:focus {
+    outline: none;
+  }
+}
+.disc-list {
+  list-style-type: disc;
+}
+.disc-list li{
+  line-height: 1.9em !important;
+  padding-left: 1em !important;
+  text-align: justify;
+}
+
+
