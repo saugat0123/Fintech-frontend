@@ -3,7 +3,7 @@ export class ApiConfig {
     public static URL = 'http://localhost:8086';
 
     // Laxmi Micro Finance
-    public static MICRO_URL = 'http://172.16.16.52:8086';
+    public static MICRO_URL = 'http://103.198.9.175:8080/laxmi_mf';
 
     // Remit App UAT
     public static REMIT_WEB = 'http://202.166.201.232/api';
