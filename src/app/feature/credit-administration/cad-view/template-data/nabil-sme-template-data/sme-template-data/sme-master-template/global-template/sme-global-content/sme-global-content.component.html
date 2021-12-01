@@ -1,0 +1,367 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="globalForm">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Loan Option</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select loan option"
+                        formControlName="loanOption" shape="semi-round">
+                            <nb-option *ngFor="let loanOption of loanOptions" [value]="loanOption?.value">{{loanOption?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                        formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                            <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Mortgage Type</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="mortgage type"
+                        formControlName="mortgageType" shape="semi-round">
+                            <nb-option *ngFor="let type of mortgageType" [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Hypothecation</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select hypothecation type"
+                        formControlName="hypothecation" shape="semi-round">
+                            <nb-option *ngFor="let type of hypothecationType" [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Is borrower natural person?</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                        formControlName="borrowerNaturalPerson" shape="semi-round">
+                            <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Is loan amount above 50 crore?</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                        formControlName="loanAmountAbove50Crore" shape="semi-round">
+                            <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Is working capital above 25 crore?</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                        formControlName="workingCapitalAbove25Crore" shape="semi-round">
+                            <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Loan Data</span>
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Date of Approval CRF/MEMO</label>
+                        <input nbInput fullWidth status="success" [nbDatepicker]="dateOfApproval"
+                        formControlName="dateOfApproval" shape="semi-round">
+                        <nb-datepicker #dateOfApproval></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Nepali Translation</span>
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="dateOfApprovalTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Correct Translation</span>
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" formControlName="dateOfApprovalCT" type="text" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Loan Application Date</label>
+                        <input nbInput fullWidth status="success" [nbDatepicker]="loanApplicationDate"
+                        formControlName="loanApplicationDate" shape="semi-round">
+                        <nb-datepicker #loanApplicationDate></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" formControlName="loanApplicationDateTrans" type="text" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" formControlName="loanApplicationDateCT" type="text" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Previous Sanction Letter Date</label>
+                        <input nbInput fullWidth status="success" [nbDatepicker]="sanctionLetterDate"
+                               formControlName="sanctionLetterDate" shape="semi-round">
+                        <nb-datepicker #sanctionLetterDate></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" formControlName="sanctionLetterDateTrans" type="text" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" formControlName="sanctionLetterDateCT" type="text" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Service charge type</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                        formControlName="serviceChargeType" shape="semi-round">
+                            <nb-option *ngFor="let type of chargeType" [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Service charge in figure</label>
+                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInFigure" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInFigureTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInFigureCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Service charge in words</label>
+                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInWords" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInWordsTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInWordsCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Detail of facility</label>
+                        <input nbInput fullWidth status="success" type="text" formControlName="detailOfFacility" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="detailOfFacilityTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="detailOfFacilityCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Service charge in %</label>
+                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInPercent" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInPercentTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInPercentCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total funded limit in figure</label>
+                        <input nbInput fullWidth status="success" type="number" formControlName="totalFundedLimitInFigure" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number" formControlName="totalFundedLimitInFigureTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number" formControlName="totalFundedLimitInFigureCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total funded limit in words</label>
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalFundedLimitInWords" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalFundedLimitInWordsTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalFundedLimitInWordsCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total non-funded limit in figure</label>
+                        <input nbInput fullWidth status="success" type="number" formControlName="totalNonFundedLimitInFigure" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number" formControlName="totalNonFundedLimitInFigureTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number" formControlName="totalNonFundedLimitInFigureCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total non-funded limit in words</label>
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalNonFundedLimitInWords" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalNonFundedLimitInWordsTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <label></label>
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalNonFundedLimitInWordsCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total limit in figure</label>
+                        <input nbInput fullWidth status="success" type="number" formControlName="totalLimitInFigure" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number" formControlName="totalLimitInFigureTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="number" formControlName="totalLimitInFigureCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Total limit in words</label>
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInWords" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInWordsTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="totalLimitInWordsCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Name of relationship manager</label>
+                        <input nbInput fullWidth status="success" type="text" formControlName="nameOfRelationshipManager" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="nameOfRelationshipManagerTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="nameOfRelationshipManagerCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Name of branch manager</label>
+                        <input nbInput fullWidth status="success" type="text" formControlName="nameOfBranchManager" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="nameOfBranchManagerTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="nameOfBranchManagerCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer></nb-card-footer>
+</nb-card>
