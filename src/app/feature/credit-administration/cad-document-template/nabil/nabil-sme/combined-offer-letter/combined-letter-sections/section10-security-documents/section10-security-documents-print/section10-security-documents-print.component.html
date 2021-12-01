@@ -1,5 +1,6 @@
 <!--Security Documents-->
-<form [formGroup]="form">
+<div style="line-height: 1.9em">
+    SECTION 10
     <div class="col-md-12">
         <div class="row mt-2">
             <p class="m-0">
@@ -11,10 +12,11 @@
         <div class="row mt-2">
             <p class="m-0">
                 ऋणीले बैंकको
-                <input formControlName="nameOfBranch"
-                       name="nameOfBranch"
-                       class="form-field form-control-sm"
-                       type="text"/>
+<!--                <input formControlName="nameOfBranch"-->
+<!--                       name="nameOfBranch"-->
+<!--                       class="form-field form-control-sm"-->
+<!--                       type="text"/>-->
+                <span>NAME OF BRANCH</span>
                 शाखामा सम्पर्क राखी देहाय बमोजिमका कर्जा सम्बन्धी कागजपत्रहरु सहीछाप
                 गर्नु पर्नेछ । साथै माथि उल्लिखित कर्जा सुविधाहरु प्रवाह गर्नको लागि आवश्यक निवेदन तथा अन्य कागजातहरु
                 बैंकमा
@@ -25,37 +27,45 @@
             <ul class="disc-list">
                 <li>
                     रु.
-                    <input formControlName="loanAmountInFigure"
-                           name="loanAmountInfigure"
-                           type="text"
-                           class="form-field form-control-sm"/> /-
+<!--                    <input formControlName="loanAmountInFigure"-->
+<!--                           name="loanAmountInfigure"-->
+<!--                           type="text"-->
+<!--                           class="form-field form-control-sm"/> -->
+                    <span>LOAN AMOUNT IN FIGURE</span>
+                    /-
                     को प्रतिज्ञा पत्र । (Promissory Note)
                 </li>
                 <li>
                     रु.
-                    <input formControlName="loanAmountInFigure"
+                    <!--<input formControlName="loanAmountInFigure"
                            name="loanAmountInfigure"
                            type="text"
-                           class="form-field form-control-sm"/> /-
+                           class="form-field form-control-sm"/> -->
+                    <span>LOAN AMOUNT IN FIGURE</span>
+                    /-
                     को ऋणतमसुक (Loan Deed)
                 </li>
                 <li>
                     निरन्तरताको लिखत (Letter of Continuity)
                 </li>
                 <li>रु.
-                    <input formControlName="loanAmountInFigure"
+                   <!-- <input formControlName="loanAmountInFigure"
                            name="loanAmountInfigure"
                            type="text"
-                           class="form-field form-control-sm"/> /-
+                           class="form-field form-control-sm"/>-->
+                    <span>LOAN AMOUNT IN FIGURE</span>
+                    /-
                     को श्री-सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation) सहित पूरक
                     सम्झौता (Supplementary Agreement)
                 </li>
                 <li>
                     रु.
-                    <input formControlName="loanAmountInFigure"
+                    <!--<input formControlName="loanAmountInFigure"
                            name="loanAmountInfigure"
                            type="text"
-                           class="form-field form-control-sm"/> /-
+                           class="form-field form-control-sm"/>-->
+                    <span>LOAN AMOUNT IN FIGURE</span>
+                    /-
                     को भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) सहित
                     वारेसनामा (Power of Attorney)
                 </li>
@@ -64,14 +74,17 @@
                 </li>
                 <li>
                     रु.
-                    <input formControlName="loanAmountInFigure"
+                   <!-- <input formControlName="loanAmountInFigure"
                            name="loanAmountInfigure"
                            type="text"
-                           class="form-field form-control-sm"/> /-
+                           class="form-field form-control-sm"/>-->
+                    <span>LOAN AMOUNT IN FIGURE</span>
+                    /-
                     बराबरको
-                    <input class="form-field form-control-sm col-3"
+                    <!--<input class="form-field form-control-sm col-3"
                            formControlName="guarantorName"
-                           type="text"/>
+                           type="text"/>-->
+                    <span>GUARANTOR NAME</span>
                     ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
                 </li>
                 <li>
@@ -99,13 +112,14 @@
                     (Undertaking Letter)
                 </li>
                 <li>
-                 <textarea
+                 <!--<textarea
                          class="form-control nepaliFont"
                          rows="5"
                          style="width:95%;margin-left:2%"
                          name="additionalGuarantorDetails"
                          formControlName="additionalGuarantorDetails">
-                 </textarea>
+                 </textarea>-->
+                    <span>ADDITIONAL GUARANTOR DETAILS</span>
                 </li>
             </ul>
         </div>
@@ -119,4 +133,4 @@
             </div>
         </div>
     </div>
-</form>
+</div>

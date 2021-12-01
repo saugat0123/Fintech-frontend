@@ -108,6 +108,8 @@ import { SmeGlobalContentComponent } from './cad-view/template-data/nabil-sme-te
 import { IrrevocableLetterOfCreditFacilityComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/irrevocable-letter-of-credit-facility/irrevocable-letter-of-credit-facility.component';
 import { SmeSecurityComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security.component';
 import { SmeLoanTypeComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/sme-loan-type.component';
+import { CustomerAcceptanceForTimeLetterOfCreditComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/customer-acceptance-for-time-letter-of-credit/customer-acceptance-for-time-letter-of-credit.component';
+import { ImportBillsDiscountingComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/import-bills-discounting/import-bills-discounting.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -196,7 +198,8 @@ import { SmeLoanTypeComponent } from './cad-view/template-data/nabil-sme-templat
         InterestSubsidySanctionLetterTemplateEditComponent,
         InterestSubsidySanctionLetterTemplateDataComponent,
         DdslWithoutSubsidyTemplateEditComponent,
-        PersonalLoanAndPersonalOverdraftTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent, SmeMasterTemplateComponent, SmeGlobalContentComponent, IrrevocableLetterOfCreditFacilityComponent, SmeSecurityComponent, SmeLoanTypeComponent],
+        PersonalLoanAndPersonalOverdraftTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent, SmeMasterTemplateComponent, SmeGlobalContentComponent, IrrevocableLetterOfCreditFacilityComponent, SmeSecurityComponent, SmeLoanTypeComponent, CustomerAcceptanceForTimeLetterOfCreditComponent,
+        ImportBillsDiscountingComponent],
   imports: [
     ThemeModule,
     CommonModule,

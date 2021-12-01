@@ -121,14 +121,14 @@
 
         <div class="form-group"
              *ngIf="createClientType === customerType.INSTITUTION">
-          <select class="form-control"
+          <ng-select
                   [(ngModel)]="createSubInstituteType"
-                  placeholder="Select Institution Customer Type"
+                     placeholder="Select Institution Customer Type"
                   required>
-            <option [value]="subCustomerType.PRIVATE_PUBLIC">PVT LTD OR PUBLIC</option>
-            <option [value]="subCustomerType.PROPRIETORSHIP">PROPRIETORSHIP</option>
-            <option [value]="subCustomerType.PARTNERSHIP">PARTNERSHIP</option>
-          </select>
+            <ng-option [value]="subCustomerType.PRIVATE_PUBLIC">PVT LTD OR PUBLIC</ng-option>
+            <ng-option [value]="subCustomerType.PROPRIETORSHIP">PROPRIETORSHIP</ng-option>
+            <ng-option [value]="subCustomerType.PARTNERSHIP">PARTNERSHIP</ng-option>
+          </ng-select>
         </div>
       </div>
     </div>
