@@ -8,7 +8,6 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
 import {CompanyInfo} from '../../admin/modal/company-info';
-import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-income-from-account',
@@ -59,12 +58,15 @@ export class IncomeFromAccountComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
       this.incomeFormGroup.patchValue(this.dataForEdit);
-      // this.setGrossSubCategory(this.dataForEdit.grossSubCateGory);  // If add more feature is implemented
+      this.setGrossSubCategory(this.dataForEdit.grossSubCateGory);  // If add more feature is implemented
       if (!this.dataForEdit.newCustomerChecked && !ObjectUtil.isEmpty(this.dataForEdit.accountTransactionForm)) {
       this.incomeFormGroup.get('accountTransactionForm').patchValue(this.dataForEdit.accountTransactionForm);
       } else {
         this.incomeFormGroup.get('accountTransactionForm').disable();
       }
+      this.setRiskBasedPrice(this.dataForEdit.riskBasedPrice);
+    } else {
+      this.addRiskBasedPrice();
     }
     if (!this.isNewCustomer && !ObjectUtil.isEmpty(this.companyInfo)) {
       if (!ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
@@ -136,7 +138,8 @@ export class IncomeFromAccountComponent implements OnInit {
       capitalCost: [undefined],
       economicProfit: [0],
       economicProfitPercentage: [undefined],
-      grossSubCateGory: this.formBuilder.array([])
+      grossSubCateGory: this.formBuilder.array([]),
+      riskBasedPrice: this.formBuilder.array([])
     });
   }
 
@@ -252,45 +255,48 @@ export class IncomeFromAccountComponent implements OnInit {
 
   calculateGrossLastReview() {
     let totalGrossLastReview = 0;
-    // let grossLast = 0;
-    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
-    // gross['value'].forEach(g => {
-    //   grossLast += Number(g['grossLast']);
-    // });
+    let grossLast = 0;
+    const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    gross['value'].forEach(g => {
+      grossLast += Number(g['grossLast']);
+    });
     totalGrossLastReview =
         (this.incomeFormGroup.get('demandLastReview').value +
         this.incomeFormGroup.get('trLoanLastReview').value +
-        this.incomeFormGroup.get('overDraftLastReview').value).toFixed(2);
+        this.incomeFormGroup.get('overDraftLastReview').value +
+            grossLast).toFixed(2);
     this.incomeFormGroup.get('grossLastReview').patchValue(totalGrossLastReview);
     this.calculateTotalLastReview();
   }
 
   calculateGrossNextReview() {
     let totalGrossNextReview = 0;
-    // let grossNext = 0;
-    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
-    // gross['value'].forEach(g => {
-    //   grossNext += Number(g['grossNext']);
-    // });
+    let grossNext = 0;
+    const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    gross['value'].forEach(g => {
+      grossNext += Number(g['grossNext']);
+    });
     totalGrossNextReview =
         (this.incomeFormGroup.get('overDraftNextReview').value +
         this.incomeFormGroup.get('trLoanNextReview').value +
-        this.incomeFormGroup.get('demandNextReview').value).toFixed(2);
+        this.incomeFormGroup.get('demandNextReview').value +
+            grossNext).toFixed(2);
     this.incomeFormGroup.get('grossNextReview').patchValue(totalGrossNextReview);
     this.calculateTotalNextReview();
   }
 
   calculateGrossDuringReview() {
     let totalGrossDuringReView = 0;
-    // let grossDuring = 0;
-    // const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
-    // gross['value'].forEach(g => {
-    //   grossDuring += Number(g['grossDuring']);
-    // });
+    let grossDuring = 0;
+    const gross = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
+    gross['value'].forEach(g => {
+      grossDuring += Number(g['grossDuring']);
+    });
     totalGrossDuringReView =
         (this.incomeFormGroup.get('overDraftDuringReview').value +
         this.incomeFormGroup.get('trLoanDuringReview').value +
-        this.incomeFormGroup.get('demandDuringReview').value).toFixed(2);
+        this.incomeFormGroup.get('demandDuringReview').value +
+            grossDuring).toFixed(2);
     this.incomeFormGroup.get('grossDuringReview').patchValue(totalGrossDuringReView);
     this.calculateTotalDuringReview();
   }
@@ -362,5 +368,41 @@ export class IncomeFromAccountComponent implements OnInit {
     } else {
       this.controlValidation(individualField, false);
     }
+  }
+
+  // Add risk based price
+  addRiskBasedPrice() {
+    const riskData = this.incomeFormGroup.get('riskBasedPrice') as FormArray;
+    riskData.push(
+        this.formBuilder.group({
+          facility: [undefined],
+          targetPricing: [undefined],
+          exitingInterestRate: [undefined],
+          difference: [undefined],
+        })
+    );
+  }
+
+  removeRiskBasedPrice(i) {
+    (<FormArray>this.incomeFormGroup.get('riskBasedPrice')).removeAt(i);
+  }
+
+  calculateDifference(i) {
+    const data = (this.incomeFormGroup.get(['riskBasedPrice', i, 'targetPricing']).value -
+        this.incomeFormGroup.get(['riskBasedPrice', i, 'exitingInterestRate']).value).toFixed(2);
+    this.incomeFormGroup.get(['riskBasedPrice', i, 'difference']).patchValue(data);
+  }
+
+  setRiskBasedPrice(data) {
+    const riskData = this.incomeFormGroup.get('riskBasedPrice') as FormArray;
+    data.forEach(d => {
+      riskData.push(this.formBuilder.group({
+            facility: [d.facility],
+            targetPricing: [d.targetPricing],
+            exitingInterestRate: [d.exitingInterestRate],
+            difference: [d.difference],
+          })
+      );
+    });
   }
 }
