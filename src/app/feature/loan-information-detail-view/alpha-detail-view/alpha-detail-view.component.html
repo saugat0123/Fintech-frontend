@@ -122,6 +122,8 @@
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
+                   [collateralData]="loanDataHolder?.collateralSiteVisits"
+                   [docStatus]="loanDataHolder?.documentStatus"
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
 <!-- End Security Details-->
 
