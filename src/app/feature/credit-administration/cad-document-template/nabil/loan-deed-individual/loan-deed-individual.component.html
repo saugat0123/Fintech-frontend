@@ -267,10 +267,9 @@
                 <span>{{ educationInterestRate? convertNepaliNumber(educationInterestRate) : '____________' }}% </span>
                 <span *ngIf="docName === 'Personal Loan'"> / </span>
                 <span>&nbsp;
-                  <span *ngIf="docName !== 'Personal Loan'">रु </span>
+                  <span>रु </span>
                   {{ offerLetterAdminFee ? convertNepaliNumber(offerLetterAdminFee) : '___________'}}
                 </span>
-                <span *ngIf="docName === 'Personal Loan'"> % </span>
               </td>
               <td class="px-2">
                 <span class="print-only">{{expiryDate}}</span>
@@ -298,7 +297,7 @@
                 <td class="px-2">
                     <span>
                         {{ this.offerDocumentDetails.yearlyInterestRate.ct }}% /
-                        {{ this.offerDocumentDetails.loanAdminFeeinFigure.ct }}%
+                       रु.  {{ this.offerDocumentDetails.loanAdminFeeinFigure.ct }}
                     </span>
 <!--                    <span>&nbsp;-->
 <!--                  <span *ngIf="docName !== 'Personal Loan'">रु </span>-->
