@@ -110,6 +110,11 @@ import { SmeSecurityComponent } from './cad-view/template-data/nabil-sme-templat
 import { SmeLoanTypeComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/sme-loan-type.component';
 import { CustomerAcceptanceForTimeLetterOfCreditComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/customer-acceptance-for-time-letter-of-credit/customer-acceptance-for-time-letter-of-credit.component';
 import { ImportBillsDiscountingComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/import-bills-discounting/import-bills-discounting.component';
+import { ImportLoanTrustReceiptLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/import-loan-trust-receipt-loan/import-loan-trust-receipt-loan.component';
+import { DemandLoanForWorkingCapitalComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/demand-loan-for-working-capital/demand-loan-for-working-capital.component';
+import { PreExportLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/pre-export-loan/pre-export-loan.component';
+import { DocumentaryBillPurchaseNegotiationComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/documentary-bill-purchase-negotiation/documentary-bill-purchase-negotiation.component';
+import { OverdraftLoanForWorkingCapitalRequirementComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/overdraft-loan-for-working-capital-requirement/overdraft-loan-for-working-capital-requirement.component';
 import { RevolvingShortTermLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/revolving-short-term-loan/revolving-short-term-loan.component';
 
 @NgModule({
@@ -200,7 +205,7 @@ import { RevolvingShortTermLoanComponent } from './cad-view/template-data/nabil-
         InterestSubsidySanctionLetterTemplateDataComponent,
         DdslWithoutSubsidyTemplateEditComponent,
         PersonalLoanAndPersonalOverdraftTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent, SmeMasterTemplateComponent, SmeGlobalContentComponent, IrrevocableLetterOfCreditFacilityComponent, SmeSecurityComponent, SmeLoanTypeComponent, CustomerAcceptanceForTimeLetterOfCreditComponent,
-        ImportBillsDiscountingComponent,
+        ImportBillsDiscountingComponent, ImportLoanTrustReceiptLoanComponent, DemandLoanForWorkingCapitalComponent, PreExportLoanComponent, DocumentaryBillPurchaseNegotiationComponent, OverdraftLoanForWorkingCapitalRequirementComponent,
         RevolvingShortTermLoanComponent],
   imports: [
     ThemeModule,
