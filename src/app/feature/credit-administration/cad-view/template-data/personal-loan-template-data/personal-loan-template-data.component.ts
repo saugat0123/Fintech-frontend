@@ -124,7 +124,8 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       // sakshiMunicipalityTransVal: [undefined,Validators.required],
       // sakshiWardNumTransVal: [undefined,Validators.required],
       // sakshiNameTransVal: [undefined,Validators.required],
-
+      loanAdminFeeinWords: [undefined],
+      loanAdminFeeinWordsTransVal: [undefined],
     });
   }
 
