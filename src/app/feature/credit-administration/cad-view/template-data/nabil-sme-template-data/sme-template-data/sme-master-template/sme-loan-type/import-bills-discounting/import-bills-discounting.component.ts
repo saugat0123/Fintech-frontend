@@ -33,6 +33,9 @@ export class ImportBillsDiscountingComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.ADExpiry = true;
+        if (!ObjectUtil.isEmpty(this.loanName)) {
+            this.loanDetails = this.loanName;
+        }
     }
 
     buildForm() {
@@ -57,7 +60,7 @@ export class ImportBillsDiscountingComponent implements OnInit {
             loanAmountAmountWordsTrans: [undefined],
             marginInPercentageTrans: [undefined],
             dateOfExpiryTypeTrans: [undefined],
-            dateOfExpiryNepaliTrans: [undefined],
+            // dateOfExpiryNepaliTrans: [undefined],
             dateOfExpiryTrans: [undefined],
 
             /* FOR CT FIELDS */
@@ -69,7 +72,7 @@ export class ImportBillsDiscountingComponent implements OnInit {
             loanAmountAmountWordsCT: [undefined],
             marginInPercentageCT: [undefined],
             dateOfExpiryTypeCT: [undefined],
-            dateOfExpiryNepaliCT: [undefined],
+            // dateOfExpiryNepaliCT: [undefined],
             dateOfExpiryCT: [undefined],
         });
     }
@@ -95,6 +98,9 @@ export class ImportBillsDiscountingComponent implements OnInit {
 
     translateAndSetVal() {
         // SET TRANSLATION VALUE FOR CONDITIONS:
+        this.importBillsDiscount.get('loanOptionTrans').patchValue(
+            this.importBillsDiscount.get('loanOption').value
+        );
         const tempLoan = this.importBillsDiscount.get('loanAmount').value;
         const convertNumber = !ObjectUtil.isEmpty(tempLoan) ?
             this.convertNumbersToNepali(tempLoan, true) : '';
@@ -105,9 +111,9 @@ export class ImportBillsDiscountingComponent implements OnInit {
         );
 
         this.importBillsDiscount.get('complementryOtherTrans').patchValue(this.isComplimentryOtherLoan);
-
-        const tempMultiLoan = this.convertNumbersToNepali(this.importBillsDiscount.get('multiLoanImport').value, false);
-        this.importBillsDiscount.get('multiLoanImportTrans').patchValue(tempMultiLoan);
+        this.importBillsDiscount.get('multiLoanImportTrans').patchValue(
+            this.importBillsDiscount.get('multiLoanImport').value
+        );
         const tempLoanPeriodDays = this.convertNumbersToNepali(this.importBillsDiscount.get('loanPeriodInDays').value, false);
         this.importBillsDiscount.get('loanPeriodInDaysTrans').patchValue(tempLoanPeriodDays);
         const tempMarginPercentage = this.convertNumbersToNepali(this.importBillsDiscount.get('marginInPercentage').value, false);
@@ -159,9 +165,9 @@ export class ImportBillsDiscountingComponent implements OnInit {
         this.importBillsDiscount.get('dateOfExpiryTypeCT').patchValue(
             this.importBillsDiscount.get('dateOfExpiryTypeTrans').value
         );
-        this.importBillsDiscount.get('dateOfExpiryNepaliCT').patchValue(
-            this.importBillsDiscount.get('dateOfExpiryNepaliTrans').value
-        );
+        // this.importBillsDiscount.get('dateOfExpiryNepaliCT').patchValue(
+        //     this.importBillsDiscount.get('dateOfExpiryNepaliTrans').value
+        // );
         this.importBillsDiscount.get('dateOfExpiryCT').patchValue(
             this.importBillsDiscount.get('dateOfExpiryTrans').value
         );
