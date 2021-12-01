@@ -109,6 +109,7 @@ import { IrrevocableLetterOfCreditFacilityComponent } from './cad-view/template-
 import { SmeSecurityComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security.component';
 import { SmeLoanTypeComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/sme-loan-type.component';
 import { CustomerAcceptanceForTimeLetterOfCreditComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/customer-acceptance-for-time-letter-of-credit/customer-acceptance-for-time-letter-of-credit.component';
+import { ImportLoanTrustReceiptLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/import-loan-trust-receipt-loan/import-loan-trust-receipt-loan.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -197,7 +198,7 @@ import { CustomerAcceptanceForTimeLetterOfCreditComponent } from './cad-view/tem
         InterestSubsidySanctionLetterTemplateEditComponent,
         InterestSubsidySanctionLetterTemplateDataComponent,
         DdslWithoutSubsidyTemplateEditComponent,
-        PersonalLoanAndPersonalOverdraftTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent, SmeMasterTemplateComponent, SmeGlobalContentComponent, IrrevocableLetterOfCreditFacilityComponent, SmeSecurityComponent, SmeLoanTypeComponent, CustomerAcceptanceForTimeLetterOfCreditComponent],
+        PersonalLoanAndPersonalOverdraftTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent, SmeMasterTemplateComponent, SmeGlobalContentComponent, IrrevocableLetterOfCreditFacilityComponent, SmeSecurityComponent, SmeLoanTypeComponent, CustomerAcceptanceForTimeLetterOfCreditComponent, ImportLoanTrustReceiptLoanComponent],
   imports: [
     ThemeModule,
     CommonModule,
