@@ -31,7 +31,7 @@
                     <i> Is complimentary of other loan ? </i></nb-checkbox>
             </div>
             <div class="col-md-4 mt-3" *ngIf="isComplimentryOtherLoan">
-                <label for="multiLoan"><strong>Multi Loan Selection</strong></label><br>
+                <label class="font-weight-bold" for="multiLoan"><strong>Multi Loan Selection</strong></label><br>
                 <nb-select multiple placeholder="Multiple Select"
                            fullWidth
                            formControlName="multiLoan" id="multiLoan" status="success">
@@ -42,7 +42,7 @@
         </div>
         <div class="row pt-4">
             <div class="col-md-4">
-                <label for="loanAmount">Loan Amount</label>
+                <label class="font-weight-bold" for="loanAmount">Loan Amount</label>
                 <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount" (input)="getNumAmountWord('loanAmount', 'loanAmountAmountWords')"
                        nbInput
                        shape="semi-round"
@@ -64,7 +64,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 form-group">
-                <label for="loanAmountAmountWords">Loan Amount Words</label>
+                <label class="font-weight-bold" for="loanAmountAmountWords">Loan Amount Words</label>
                 <input class="form-control" formControlName="loanAmountAmountWords" fullWidth id="loanAmountAmountWords"
                        nbInput
                        shape="semi-round"
@@ -86,7 +86,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 form-group">
-                <label for="marginInPercentage">Margin in Percentage (%)</label>
+                <label class="font-weight-bold" for="marginInPercentage">Margin in Percentage (%)</label>
                 <input class="form-control" formControlName="marginInPercentage" fullWidth id="marginInPercentage"
                        nbInput
                        shape="semi-round"
@@ -108,7 +108,7 @@
         </div>
         <div class="row" *ngIf="isCommission1Selected">
             <div class="col-md-4 form-group">
-                <label for="commissionRate">Commission Rate</label>
+                <label class="font-weight-bold" for="commissionRate">Commission Rate</label>
                 <input class="form-control" formControlName="commissionRate" fullWidth id="commissionRate"
                        nbInput
                        shape="semi-round"
@@ -130,7 +130,7 @@
         </div>
         <div class="row" *ngIf="isCommission2Selected">
             <div class="col-md-4 form-group">
-                <label for="commissionRateFirstQuarter">Commission Rate First Quarter</label>
+                <label class="font-weight-bold" for="commissionRateFirstQuarter">Commission Rate First Quarter</label>
                 <input class="form-control" formControlName="commissionRateFirstQuarter" fullWidth id="commissionRateFirstQuarter"
                        nbInput
                        shape="semi-round"
@@ -152,7 +152,7 @@
         </div>
         <div class="row" *ngIf="isCommission2Selected">
             <div class="col-md-4 form-group">
-                <label for="commissionRateOtherQuarter">Commission Rate Other Quarter</label>
+                <label class="font-weight-bold" for="commissionRateOtherQuarter">Commission Rate Other Quarter</label>
                 <input class="form-control" formControlName="commissionRateOtherQuarter" fullWidth id="commissionRateOtherQuarter"
                        nbInput
                        shape="semi-round"
@@ -174,7 +174,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 form-group">
-                <label for="minimumCommissionRate">Minimum Commission Amount</label>
+                <label class="font-weight-bold" for="minimumCommissionRate">Minimum Commission Amount</label>
                 <input class="form-control" formControlName="minimumCommissionRate" fullWidth id="minimumCommissionRate"
                        nbInput
                        shape="semi-round"
@@ -196,7 +196,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 form-group">
-                <label for="dateOfExpiryType"> Date Of Expiry</label><br>
+                <label class="font-weight-bold" for="dateOfExpiryType"> Date Of Expiry</label><br>
                 <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
                                 formControlName="dateOfExpiryType" id="dateOfExpiryType"
                                 name="dateOfExpiryType" status="success">
