@@ -190,27 +190,52 @@ export class SecurityApprovedViewComponent implements OnInit {
             if (this.landSelected) {
               const landDetails = this.securityData['initialForm']['landDetails'];
               landDetails.forEach(v => {
-                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
+                if (!ObjectUtil.isEmpty(v.uuid)) {
+                  this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
+                }
               });
             }
             if (this.landBuilding) {
               const landBuilding = this.securityData['initialForm']['landBuilding'];
               landBuilding.forEach(v => {
-                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
+                if (!ObjectUtil.isEmpty(v.uuid)) {
+                  this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
+                }
               });
             }
             if (this.apartmentSelected) {
               const buildingDetails = this.securityData['initialForm']['buildingDetails'];
               buildingDetails.forEach(v => {
-                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
+                if (!ObjectUtil.isEmpty(v.uuid)) {
+                  this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
+                }
               });
             }
-            // for old loan that does not contains uuid for site visit
-            siteVisit.forEach((v) => {
-              if (ObjectUtil.isEmpty(v.uuid)) {
-                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
-              }
-            });
+            // for old loan that does not contains uuid for security and site visit
+            if (this.landSelected) {
+              const landDetails = this.securityData['initialForm']['landDetails'];
+              landDetails.forEach(v => {
+                if (ObjectUtil.isEmpty(v.uuid)) {
+                  this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
+                }
+              });
+            }
+            if (this.landBuilding) {
+              const landBuilding = this.securityData['initialForm']['landBuilding'];
+              landBuilding.forEach(v => {
+                if (ObjectUtil.isEmpty(v.uuid)) {
+                  this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
+                }
+              });
+            }
+            if (this.apartmentSelected) {
+              const buildingDetails = this.securityData['initialForm']['buildingDetails'];
+              buildingDetails.forEach(v => {
+                if (ObjectUtil.isEmpty(v.uuid)) {
+                  this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
+                }
+              });
+            }
             const arr = [];
             this.collateralSiteVisits.forEach(f => {
               if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
