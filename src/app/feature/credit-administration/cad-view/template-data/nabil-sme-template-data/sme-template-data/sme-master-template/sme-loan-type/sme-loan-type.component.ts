@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-sme-loan-type',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sme-loan-type.component.scss']
 })
 export class SmeLoanTypeComponent implements OnInit {
+  @Input() loanNameDetails;
 
   constructor() { }
 
