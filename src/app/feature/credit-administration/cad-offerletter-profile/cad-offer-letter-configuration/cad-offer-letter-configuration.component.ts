@@ -81,8 +81,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     collateralPermanentMunicipalitiesList = [];
     collateralTemporaryDistrictList = [];
     collateralTemporaryMunicipalitiesList = [];
-    loanDetails: any;
-    loanDetailsValue: any;
+
+    @ViewChild('loanDetails', {static: false})
+    loanDetails: NepProposedAmountFormComponent;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -347,7 +348,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.customerInfoData = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
             this.spinner = false;
-            this.reloadPage();
+            // this.reloadPage();
             this.dialogRef.close(this.customerInfoData);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
