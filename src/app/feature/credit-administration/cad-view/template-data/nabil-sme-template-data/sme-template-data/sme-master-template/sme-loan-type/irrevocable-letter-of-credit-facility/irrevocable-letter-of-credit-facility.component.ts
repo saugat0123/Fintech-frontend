@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
@@ -13,6 +13,7 @@ import {EngNepDatePipe} from 'nepali-patro';
     styleUrls: ['./irrevocable-letter-of-credit-facility.component.scss']
 })
 export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
+    @Input() loanName;
     letterOfCredit: FormGroup;
     isComplimentryOtherLoan = false;
     dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
@@ -20,6 +21,8 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     BSExpiry = false;
     isCommission1Selected = false;
     isCommission2Selected = false;
+    isRegularBasis = false;
+    loanDetails: any = [];
 
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -32,6 +35,9 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.ADExpiry = true;
+        if (!ObjectUtil.isEmpty(this.loanName)) {
+            this.loanDetails = this.loanName;
+        }
     }
 
     buildForm() {
@@ -84,7 +90,6 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     }
 
     checkComplimetryOtherLoan(data) {
-        console.log('This is the data', this.isComplimentryOtherLoan);
         this.isComplimentryOtherLoan = data;
         this.letterOfCredit.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
     }

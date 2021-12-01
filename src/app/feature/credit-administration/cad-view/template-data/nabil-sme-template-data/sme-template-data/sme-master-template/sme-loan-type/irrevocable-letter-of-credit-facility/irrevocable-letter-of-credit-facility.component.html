@@ -35,8 +35,7 @@
                 <nb-select multiple placeholder="Multiple Select"
                            fullWidth
                            formControlName="multiLoan" id="multiLoan" status="success">
-                    <nb-option value="FIRST_LOAN"> First Loan </nb-option>
-                    <nb-option value="SECOND_LOAN">Second Loan</nb-option>
+                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName"> {{loanName}} </nb-option>
                 </nb-select>
             </div>
         </div>
@@ -194,7 +193,7 @@
                        status="success" type="text">
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="letterOfCredit.get('loanOption').value === 'REGULAR'">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="dateOfExpiryType"> Date Of Expiry</label><br>
                 <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
