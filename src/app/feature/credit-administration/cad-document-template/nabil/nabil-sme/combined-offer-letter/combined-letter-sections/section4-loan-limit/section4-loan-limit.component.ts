@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-section4-loan-limit',
@@ -9,9 +9,20 @@ import {FormGroup} from '@angular/forms';
 export class Section4LoanLimitComponent implements OnInit {
   section2: FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
   }
-
+  buildForm() {
+    this.section2 = this.formBuilder.group({
+      totalFundedLimitInFigure: [undefined],
+      /*securities: this.formBuilder.array([]),
+      freeTextVal : [undefined],*/
+      totalFundedLimitInWords: [undefined],
+      totalNonFundedLimitInFigure: [undefined],
+      totalNonFundedLimitInWords: [undefined],
+      totalLimitInFigure: [undefined],
+      totalLimitInWords: [undefined],
+    });
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-section1-introduction',
@@ -8,9 +8,21 @@ import {FormGroup} from '@angular/forms';
 })
 export class Section1IntroductionComponent implements OnInit {
   section1: FormGroup;
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
   }
-
+  buildForm() {
+    this.section1 = this.formBuilder.group({
+      referenceNumber: [undefined],
+      /*securities: this.formBuilder.array([]),
+      freeTextVal : [undefined],*/
+      dateOfApproval: [undefined],
+      customerName: [undefined],
+      customerAddress: [undefined],
+      dateOfApplication: [undefined],
+      prevSanctionLetterDate: [undefined],
+     firstAdditionalDetails: [undefined],
+    });
+  }
 }
