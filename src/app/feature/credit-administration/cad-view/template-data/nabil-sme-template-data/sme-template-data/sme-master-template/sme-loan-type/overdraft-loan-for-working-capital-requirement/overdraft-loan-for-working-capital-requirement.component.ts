@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-overdraft-loan-for-working-capital-requirement',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./overdraft-loan-for-working-capital-requirement.component.scss']
 })
 export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnInit {
+  @Input() loanName;
 
   constructor() { }
 
