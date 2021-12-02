@@ -70,8 +70,10 @@
                                 <tbody>
                                 <tr>
                                     <td width="20%"><strong>कर्जाको प्रकार</strong></td>
-                                    <td width="40%"></td>
-                                    <td width="40%"></td>
+                                    <td width="40%"><input class="form-field form-control-sm "
+                                                           formControlName="loanType"
+                                                           placeholder=""
+                                                           type="text"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>कर्जाको उद्देश्य</strong></td>
@@ -96,7 +98,7 @@
                                     <td colspan="2">ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा
                                         सुरक्षण
                                         महलमा उल्लिखित
-                                        घर/जग्गा तथा ............................... प्रशोधित वा अर्ध प्रशोधित कच्चा
+                                        घर/जग्गा तथा प्रशोधित वा अर्ध प्रशोधित कच्चा
                                         पदार्थ,
                                         तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि, कृषि उपज आदी लगायतका
                                         सम्पूर्ण
@@ -224,17 +226,21 @@
                                     क. <u>प्राथमिक/थप सुरक्षण (Primary/Secondary Security)</u>
                                 </strong>
                             </p>
-                            <p *ngIf="selectedSecurity === 'LAND' || selectedSecurity === 'LAND_AND_BUILDING'">
+                            <p>
                                 <strong>
                                     १. घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges):<br>
                                 </strong>
                             </p>
-                            <p *ngIf="loanOptions === 'NEW'" style="margin-left: 2%;">स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
-                                ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
-                                गरी दिनु पर्नेछ ।</p>
-                            <p *ngIf="loanOptions !== 'NEW'" style="margin-left: 2%;">ऋणकर्जाको सुरक्षण स्वरुप बैंकको
-                                पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
-                                गरिदिनुभएको यथावत कायम रहने ।</p>
+                            <p *ngIf="mortgageOptions === 'NEW_MORTGAGE'; else existingMortgage" style="margin-left: 2%;">स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगाव ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
+                                /गरी दिनु पर्नेछ ।</p>
+                            <ng-template #existingMortgage>
+                                <p style="margin-left: 2%;">
+                                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको
+                                    पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित/
+                                    गरिदिनुभएको यथावत कायम रहने ।
+                                </p>
+                            </ng-template>
                         </div>
                         <div *ngIf="selectedSecurity === 'LAND' || selectedSecurity === 'LAND_AND_BUILDING'">
                             <table class="table table-bordered">

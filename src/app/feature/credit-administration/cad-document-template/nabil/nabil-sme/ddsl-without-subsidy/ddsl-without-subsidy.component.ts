@@ -38,6 +38,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     nepaliAmount = [];
     loanHolderInfo;
     loanOptions;
+    mortgageOptions;
     tempData;
     customerType;
     guarantorData;
@@ -69,6 +70,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
         this.loanOptions = this.tempData.loanOption.ct;
         this.selectedSecurity = this.tempData.securityType.ct;
         this.customerType = this.loanHolderInfo.clientType.en;
+        this.mortgageOptions = this.tempData.mortgageType.ct;
         console.log('Temp Data', this.tempData);
         this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         // console.log('Guarantors Details', this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors);
@@ -84,6 +86,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             referenceNo: [undefined],
             selectedSecurity: [undefined],
             loanOptions: [undefined],
+            mortgageOptions: [undefined],
             freeTextVal: [undefined],
             sanctionLetterDate: [undefined],
             borrowersName: [undefined],
@@ -124,6 +127,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             extraTermsAndConditionsNRB: [undefined],
             sanctionLetterAcceptedDate: [undefined],
             securities: this.formBuilder.array([]),
+            loanType: [undefined],
         });
     }
 
@@ -169,6 +173,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             previousSanctionLetterDate: finalPreviousSanction ? finalPreviousSanction : '',
             requestLetterDate: finaldateOfApplication ? finaldateOfApplication : '',
             karjaPurpose: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
+            loanType: this.tempData.loanSubType ? this.tempData.loanSubType.ct : '',
             loanAmount: this.tempData.loanAmountFigure ? this.tempData.loanAmountFigure.ct : '',
             loanAmountInWord: this.tempData.loanAmountFigureWords ? this.tempData.loanAmountFigureWords.ct : '',
             marginInPercentageMotor: this.tempData.marginInPercentageMotor ? this.tempData.marginInPercentageMotor.ct : '',
