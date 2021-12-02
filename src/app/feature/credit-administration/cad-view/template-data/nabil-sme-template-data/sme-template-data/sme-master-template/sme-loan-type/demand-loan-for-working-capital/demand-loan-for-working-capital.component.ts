@@ -114,6 +114,14 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
       this.demandLoanForm.get('complementryOtherTrans').patchValue(tempComplemetry);
     }
+    const tempMultiLoan = this.demandLoanForm.get('multiLoan').value;
+    if (!ObjectUtil.isEmpty(tempMultiLoan)) {
+      this.demandLoanForm.get('multiLoanTrans').patchValue(tempMultiLoan);
+    }
+    const tempArFinancing = this.demandLoanForm.get('arFinancing').value;
+    if (!ObjectUtil.isEmpty(tempArFinancing)) {
+      this.demandLoanForm.get('arFinancingTrans').patchValue(tempArFinancing);
+    }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
     const tempLoanAmount = this.demandLoanForm.get('loanAmount').value;
@@ -158,6 +166,12 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
   setCTValue() {
     this.demandLoanForm.get('complementryOtherCT').patchValue(
         this.demandLoanForm.get('complementryOtherTrans').value
+    );
+    this.demandLoanForm.get('multiLoanCT').patchValue(
+        this.demandLoanForm.get('multiLoanTrans').value
+    );
+    this.demandLoanForm.get('arFinancingCT').patchValue(
+        this.demandLoanForm.get('arFinancingTrans').value
     );
     this.demandLoanForm.get('loanAmountCT').patchValue(
         this.demandLoanForm.get('loanAmountTrans').value
