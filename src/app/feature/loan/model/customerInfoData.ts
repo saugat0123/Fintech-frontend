@@ -24,6 +24,7 @@ import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 import {Comments} from '../../admin/modal/comments';
 import {PreviousSecurity} from '../../admin/modal/previousSecurity';
 import {MicroCrgParams} from './MicroCrgParams';
+import {ReviewDate} from './reviewDate';
 
 export class CustomerInfoData {
     id: number;
@@ -77,5 +78,5 @@ export class CustomerInfoData {
     data: string;
     remitCustomer: any;
     loanHolder: any;
-    reviewDate: string;
+    reviewDate: ReviewDate;
 }

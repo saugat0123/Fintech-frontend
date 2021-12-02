@@ -42,6 +42,7 @@ import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {ReviewDate} from '../../../loan/model/reviewDate';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -149,6 +150,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     public commentsData: string;
     public securityDataResponse: PreviousSecurity;
     private securityData: string;
+    public reviewDateResponse: ReviewDate;
     client = environment.client;
     clientName = Clients;
     checkedPreviousSecurity = false;
@@ -245,6 +247,9 @@ export class CustomerLoanInformationComponent implements OnInit {
                 this.checkedPreviousSecurity = true;
             }
         }
+        if (!ObjectUtil.isEmpty(this.customerInfo.reviewDate)) {
+            this.reviewDateResponse = this.customerInfo.reviewDate;
+        }
     }
 
     get otherMicroDetailsVisibility() {
@@ -264,7 +269,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.siteVisit, this.customerInfoId, TemplateName.SITE_VISIT)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved site visit!'));
-            //this.itemSiteVisit.close();
+            // this.itemSiteVisit.close();
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
@@ -651,11 +656,11 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     saveReviewDate(data) {
         this.spinner.show();
-        // if (ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
-        //     this.incomeFromAccountDataResponse = new IncomeFromAccount();
-        // }
-        // this.incomeFromAccountDataResponse = data;
-        this.customerInfoService.saveLoanInfo(data, this.customerInfoId, TemplateName.REVIEW_DATE)
+        if (ObjectUtil.isEmpty(this.reviewDateResponse)) {
+            this.reviewDateResponse = new ReviewDate();
+        }
+        this.reviewDateResponse = data;
+        this.customerInfoService.saveLoanInfo(this.reviewDateResponse, this.customerInfoId, TemplateName.REVIEW_DATE)
             .subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Review Date!'));
                 this.nbDialogRef.close();
