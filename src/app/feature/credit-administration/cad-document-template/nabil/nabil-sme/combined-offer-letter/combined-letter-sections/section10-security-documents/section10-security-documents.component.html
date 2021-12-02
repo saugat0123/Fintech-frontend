@@ -1,0 +1,122 @@
+<!--Security Documents-->
+<form [formGroup]="form">
+    <div class="col-md-12">
+        <div class="row mt-2">
+            <p class="m-0">
+                <strong>
+                    कागजपत्रहरु
+                </strong>
+            </p>
+        </div>
+        <div class="row mt-2">
+            <p class="m-0">
+                ऋणीले बैंकको
+                <input formControlName="nameOfBranch"
+                       name="nameOfBranch"
+                       class="form-field form-control-sm"
+                       type="text"/>
+                शाखामा सम्पर्क राखी देहाय बमोजिमका कर्जा सम्बन्धी कागजपत्रहरु सहीछाप
+                गर्नु पर्नेछ । साथै माथि उल्लिखित कर्जा सुविधाहरु प्रवाह गर्नको लागि आवश्यक निवेदन तथा अन्य कागजातहरु
+                बैंकमा
+                पेश गर्नुपर्नेछ ।
+            </p>
+        </div>
+        <div class="row mt-3">
+            <ul class="disc-list">
+                <li>
+                    रु.
+                    <input formControlName="loanAmountInFigure"
+                           name="loanAmountInfigure"
+                           type="text"
+                           class="form-field form-control-sm"/> /-
+                    को प्रतिज्ञा पत्र । (Promissory Note)
+                </li>
+                <li>
+                    रु.
+                    <input formControlName="loanAmountInFigure"
+                           name="loanAmountInfigure"
+                           type="text"
+                           class="form-field form-control-sm"/> /-
+                    को ऋणतमसुक (Loan Deed)
+                </li>
+                <li>
+                    निरन्तरताको लिखत (Letter of Continuity)
+                </li>
+                <li>रु.
+                    <input formControlName="loanAmountInFigure"
+                           name="loanAmountInfigure"
+                           type="text"
+                           class="form-field form-control-sm"/> /-
+                    को श्री-सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation) सहित पूरक
+                    सम्झौता (Supplementary Agreement)
+                </li>
+                <li>
+                    रु.
+                    <input formControlName="loanAmountInFigure"
+                           name="loanAmountInfigure"
+                           type="text"
+                           class="form-field form-control-sm"/> /-
+                    को भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) सहित
+                    वारेसनामा (Power of Attorney)
+                </li>
+                <li>
+                    बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
+                </li>
+                <li>
+                    रु.
+                    <input formControlName="loanAmountInFigure"
+                           name="loanAmountInfigure"
+                           type="text"
+                           class="form-field form-control-sm"/> /-
+                    बराबरको
+                    <input class="form-field form-control-sm col-3"
+                           formControlName="guarantorName"
+                           type="text"/>
+                    ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
+                </li>
+                <li>
+                    जमानीकर्ताको सम्पत्ति विवरण (Wealth Statement of Guarantor)
+                </li>
+                <li>
+                    आवश्यक जोखिमहरुबाट सुरक्षित गरीएको "बैंकिङ्ग शर्त" (Bankers Clause) सहितको बैंकको पक्षमा
+                    धितोबन्धक/दृष्टिबन्धकमा रहेका सम्पूर्ण सामान मौज्दातहरु/सम्पत्तिहरुका लागि
+                    <strong>
+                        पर्याप्त मुल्य
+                    </strong>
+                    बराबरको बैंकको पक्षमा बिमालेख ।
+                </li>
+                <li>
+                    आवश्यक जस्ता जोखिमहरुबाट हुने क्षतीहरुबाट सुरक्षित गरीएको "बैंकिङ्ग शर्त" (Bankers Clause) सहितको
+                    बैंकको पक्षमा धितोबन्धक रहेको घरको बजार मुल्य बराबरको बैंकको पक्षमा बिमालेख ।
+                </li>
+                <li>
+                    विमा सम्बन्धी घोषणा (Insurance declaration statement)
+                </li>
+                <li>
+                    विमा नगरिएका जोखिमहरुबाट बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धकमा रहेका सामान मौज्दात/सम्पत्तिहरुमा
+                    कुनै
+                    पनि हानीनोक्सानी तथा क्षती भएको अवस्थामा सम्पुर्ण नोक्सानी ऋणी स्वयमले ब्यहोर्न प्रतिबद्धता पत्र
+                    (Undertaking Letter)
+                </li>
+                <li>
+                 <textarea
+                         class="form-control nepaliFont"
+                         rows="5"
+                         style="width:95%;margin-left:2%"
+                         name="additionalGuarantorDetails"
+                         formControlName="additionalGuarantorDetails">
+                 </textarea>
+                </li>
+            </ul>
+        </div>
+        <!--    Only for existing case-->
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <strong>
+                    यस अघि विभिन्न मितिका ऋणस्वीकृति पत्रमा उल्लिखित ऋणकर्जा सुविधा सम्बन्धमा बैंकको पक्षमा गरिदिएका
+                    सम्पूर्ण सुरक्षण कागजपत्रहरु तथा सोमा उल्लिखित शर्त बन्देजहरु मान्य र बैध रहनेछन् ।
+                </strong>
+            </div>
+        </div>
+    </div>
+</form>

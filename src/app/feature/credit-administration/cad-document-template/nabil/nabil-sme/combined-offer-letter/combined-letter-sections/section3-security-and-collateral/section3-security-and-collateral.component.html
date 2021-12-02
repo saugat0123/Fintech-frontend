@@ -1,0 +1,852 @@
+<!--Security/Collateral-->
+<form [formGroup]="form">
+    <div class="col-md-12">
+        <div class="row mt-2">
+            <p class="m-0">
+                <strong>
+                    सुरक्षण विवरणः
+                </strong>
+            </p>
+        </div>
+        <!--        Applicable incase of land/building as security-->
+        <div>
+            <div class="col-md-12">
+                <div class="row mt-4">
+                    <p class="m-0">
+                        <strong>
+                            क.
+                            <u>
+                                प्राथमिक सुरक्षण (Primary Security)
+                            </u>
+                        </strong>
+                    </p>
+                </div>
+                <div class="row mt-3">
+                    <ol class="dev-list">
+                        <li> <!-- Applicable only if Land/building as primary collateral-->
+                            <strong>घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges):</strong>
+                            <p class="m-0">
+                                <!--For new mortgage / remortgage-->
+                                <span>
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                            </span>
+                                ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
+                                <!--For new mortgage / remortgage-->
+                                <span>
+                                गरी दिनु पर्नेछ ।
+                            </span>
+                                <span><!--For existing mortgage to be continued-->
+                            गरिदिनुभएको यथावत कायम रहने छ ।
+                            </span>
+                            </p>
+
+                            <p class="m-0"> <!-- For existing mortgage with enhancement-->
+                                यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएका देहाय
+                                बमोजिमको
+                                घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि
+                                समेत
+                                धितोेबन्धक यथावत कायम रहने छ ।
+                            </p>
+
+                            <p class="m-0"> <!--this clause if the collateral is shared-->
+                                <span> <!--For new mortgage-->
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                            </span>
+                                ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा
+                                देहाय बमोजिमको घर जग्गा यस बैकले
+                                <input formControlName="otherBorrowingClientName"
+                                       name="otherBorrowingClientName"
+                                       type="text"
+                                       class="form-field form-control-sm"
+                                       placeholder="Borrowing Client Name"/>
+                                को नाममा स्वीकृत ऋण कर्जा सुविधा समेत
+                                उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                <span> <!--For new mortgage / remortgage-->
+                                गरिदिनु पर्नेछ ।
+                            </span>
+                                <!--For existing mortgage to be continued-->
+                                <span>
+                                गरिदिनुभएको यथावत कायम रहने छ ।
+                            </span>
+                            </p>
+
+                            <p class="m-0">
+                                <!--this clause if the collateral is shared and For existing mortgage with enhancement-->
+                                <span> <!--For new mortgage-->
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                            </span>
+                                यस अघि ऋणकर्जाको सुरक्षण स्वरुप यस बैंकले तपाई ऋणी तथा
+                                <input formControlName="otherBorrowingClientName"
+                                       name="otherBorrowingClientName"
+                                       type="text"
+                                       class="form-field form-control-sm"
+                                       placeholder="Borrowing Client Name"/>
+                                को नाममा स्वीकृत ऋण कर्जा सुविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                गरिदिनुभएको
+                                देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण ऋणकर्जा
+                                सुविधाका
+                                लागि धितोेबन्धक यथावत कायम रहने छ ।
+                            </p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="firstTable">
+                <table class="table table-bordered">
+                    <tr>
+                        <td rowspan="2">
+                            घर/जग्गा
+                            धनीको नाम थर
+                        </td>
+                        <td colspan="3">
+                            घर/जग्गाको अवस्थिति
+                        </td>
+                        <td rowspan="2">
+                            सिट नं.
+                        </td>
+                        <td rowspan="2">
+                            कित्ता नं.
+                        </td>
+                        <td rowspan="2">
+                            क्षेत्रफल
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            जिल्ला
+                        </td>
+                        <td>
+                            नगर/गा.वि.स.
+                        </td>
+                        <td>
+                            वडा नं.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="optional">
+                <textarea
+                        class="form-control nepaliFont"
+                        rows="5"
+                        style="width:95%;margin-left:2%"
+                        name="freeText1"
+                        formControlName="freeText1">
+                 </textarea>
+                <div class="firstTable mt-3">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td rowspan="2">
+                                घर/जग्गा
+                                धनीको नाम थर
+                            </td>
+                            <td colspan="3">
+                                घर/जग्गाको अवस्थिति
+                            </td>
+                            <td rowspan="2">
+                                सिट नं.
+                            </td>
+                            <td rowspan="2">
+                                कित्ता नं.
+                            </td>
+                            <td rowspan="2">
+                                क्षेत्रफल
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                जिल्ला
+                            </td>
+                            <td>
+                                नगर/गा.वि.स.
+                            </td>
+                            <td>
+                                वडा नं.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Applicable if only hypothecation letter is required-->
+            <div class="col-md-12">
+                <div class="row mt-3">
+                    <ol class="dev-list" start="2">
+                        <li>
+                            <strong>सामान मौज्दात धितोेबन्धक हकाधिकार (Hypothecation Charges): </strong>
+                            <p class="m-0"> <!--For trading Unit-->
+                                बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरिएको जहासुकै रहे
+                                भएको
+                                सम्पूर्ण सामानहरुको मौज्दात उपर यस बैंकको पक्षमा धितोबन्धक हकाधिकार कायम
+                                <!--If new hypothecation is to be executed-->
+                                <span>
+                                गरिदिनु पर्नेछ ।
+                            </span>
+                                <!--If existing hypothecation is to be continued-->
+                                <span>
+                               गरिदिनु भएको यथावत कायम रहने छ ।
+                            </span>
+                            </p>
+                            <p class="m-0">  <!--For Manufacturing Case-->
+                                बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरिएको जहासुकै रहे
+                                भएको
+                                कच्चा पदार्थ प्रशोधित वा अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, प्रशोधनको क्रममा रहेको
+                                कच्चा पदार्थ समेत सम्पूर्ण सामानहरुको मौज्दात उपर यस बैंकको पक्षमा धितोबन्धक हकाधिकार
+                                कायम
+                                <span> <!--If new hypothecation is to be executed-->
+                              गरिदिनु पर्नेछ ।
+                            </span>
+                                <span> <!--If existing hypothecation is to be continued-->
+                                गरिदिनु भएको यथावत कायम रहने छ ।
+                            </span>
+                            </p>
+                        </li>
+
+                        <li>  <!-- Applicable if only assignment of letter is required-->
+                            <strong>हस्तान्तरण (Assignment): </strong>
+                            <p class="m-0">
+                                ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले
+                                संकलन
+                                गर्न सक्ने अख्तियारनामा हस्तान्तरण
+                                <span> <!--If new assignment letter need to be obtained-->
+                                गरिदिनु पर्नेछ ।
+                            </span>
+                                <span> <!--If existing assignment letter is to be continued-->
+                                गरिदिनु भएको यथावत कायम रहने छ ।
+                            </span>
+                            </p>
+                        </li>
+
+                        <li> <!-- Applicable if only assignment of letter is required-->
+                            <strong> पारिपासु (Paripassu): </strong>
+                            <p class="m-0">
+                                प्राथमिक सुरक्षण अन्तर्गत उल्लिखित चल सम्पत्ति (Current Assets) हरु उपर यस बैंक तथा
+                                सहभागी
+                                <input formControlName="nameOfMemberBank"
+                                       name="nameOfMemberBank"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Member Bank"/>
+                                <input formControlName="freeBankName"
+                                       name="freeBankName"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Other Bank Name"/>
+                                बैंक/हरुको पक्षमा पारिपासु सम्झौता अन्तर्गत बैंकहरुका माझ प्रथम
+                                पारिपासु हकाअधिकार कायम
+                                <span> <!--If paripassu is to be executed-->
+                                गरिदिनु पर्नेछ ।
+                            </span>
+                                <span> <!--If existing paripassu is continued-->
+                                गरिदिनु भएको यथावत कायम रहने छ ।
+                           </span>
+                                <textarea
+                                        class="form-control nepaliFont"
+                                        rows="5"
+                                        style="width:95%;margin-left:2%"
+                                        name="freeText2"
+                                        formControlName="freeText2">
+                            </textarea>
+                            </p>
+                        </li>
+
+                        <li>
+                            <!--Applicable only if TD or deposit or National Bond Debenture is required as primary security-->
+                            <strong>ग्रहणाधिकार (Lien): </strong>
+                            <p class="m-0"> <!--For TD -->
+                                <span> <!--If TD is of Nabil Bank-->
+                               नबिल
+                           </span>
+                                /
+                                <!--Other bank name If TD is of other bank-->
+                                <input formControlName="otherBankName"
+                                       name="otherBankName"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Other Bank Name"/>
+                                बैंकद्धारा जारी
+                                गरिएको .............को नाममा रहेको कम्तिमा रु
+                                <input formControlName="loanAmountInFigure"
+                                       name="loanAmountInFigure"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Loan Amount"/>
+                                बराबरको मुद्धती रसिद/हरु उपर बैंकले
+                                उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न सक्ने अधिकार सहितको मोजरापत्र (Letter of
+                                Set-Off) बैंकको
+                                पक्षमा जारी गरी दिनु पर्नेछ र सो मुद्धती रसिद/हरुको सक्कल प्रति बैंकलाई हस्तान्तरण
+                                <span> <!--If lien is to be created-->
+                                गर्नु पर्नेछ ।
+                            </span>
+                                <span> <!--If existing lien is continued-->
+                                गरिदिइएको यथावत कायम रहने छ ।
+                            </span>
+                            </p>
+
+                            <p class="m-0"> <!--For Deposit-Saving/Current/Call a/c-->
+                                नबिल बैंकमा खोलिएको
+                                <input formControlName="nameOfAccoutHolder"
+                                       name="nameOfAccoutHolder"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Account Holder Name"/>
+                                <input formControlName="freeAccountHolderName"
+                                       name="freeAccountHolderName"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Other Account Holder Name"/>
+                                को नाममा रहेको
+                                <span> <!--Current-->
+                                चल्ति
+                            </span>
+                                <span>
+                                बचत
+                            </span>
+                                <span>
+                                कल
+                            </span>
+                                खाता नं.
+                                <input formControlName="accountNumber"
+                                       name="accountNumber"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Account Number"/>
+                                मा रहेको मौज्दात
+                                रु
+                                <input formControlName="loanAmountInFigure"
+                                       name="loanAmountInFigure"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Loan Amount"/>
+                                बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने
+                                अधिकार सहितको मोजरापत्र (Letter of Set-off) बैंकको पक्षमा जारी
+                                <span> <!--If letter of set-off to be obtained-->
+                                गरिदिनु पर्नेछ ।
+                            </span>
+                                <span> <!--If letter of set off is continued-->
+                                    गरिदिइएको यथावत कायम रहने छ ।
+                            </span>
+                            </p>
+
+                            <p class="m-0"> <!--For National Bond/Debenture-->
+                                <input formControlName="customerName"
+                                       name="customerName"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Customer Name"/>
+                                <input formControlName="freeCustomerName"
+                                       name="freeCustomerName"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Other Customer Name"/>
+                                हरुको नाममा रहेको कम्तिमा रु
+                                <input formControlName="loanAmountInFigure"
+                                       name="loanAmountInFigure"
+                                       type="text"
+                                       class="form-control-sm form-field"
+                                       placeholder="Loan Amount"/>
+                                ।( बराबरको नागरिक
+                                बचत पत्र/ राष्ट्रिय बचत पत्र/ ऋणपत्र (DropDown) उपर यस बैंकले उल्लिखित नागरिक बचत पत्र/
+                                राष्ट्रिय बचत पत्र/
+                                ऋणपत्र (DropDown) वापतको रकम र सोमा प्राप्त हुने ब्याज समेत
+                                कर्जामा समायोजन गर्न सक्ने अधिकार सहितकोे मोजरापत्र (Letter of Set-off) बैंकको पक्षमा
+                                जारी गरी दिनु पर्नेछ
+                                र सो नागरिक बचत पत्र/ राष्ट्रिय बचत पत्र/ ऋणपत्र (DropDown) को
+                                ब्याज भुक्तानी पुर्जा सहित बैंकलाई हस्तान्तरण
+                                <span> <!--If lien is to be created-->
+                                गर्नु पर्नेछ ।
+                            </span>
+                                <span> <!--If lien is already created-->
+                                गरिदिइएको यथावत कायम रहने छ ।
+                            </span>
+                            </p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="optional">
+                    <textarea
+                            class="form-control nepaliFont"
+                            rows="5"
+                            style="width:95%;margin-left:2%"
+                            name="freeText3"
+                            formControlName="freeText3">
+                     </textarea>
+                <div class="firstTable mt-3">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td rowspan="2">
+                                घर/जग्गा
+                                धनीको नाम थर
+                            </td>
+                            <td colspan="3">
+                                घर/जग्गाको अवस्थिति
+                            </td>
+                            <td rowspan="2">
+                                सिट नं.
+                            </td>
+                            <td rowspan="2">
+                                कित्ता नं.
+                            </td>
+                            <td rowspan="2">
+                                क्षेत्रफल
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                जिल्ला
+                            </td>
+                            <td>
+                                नगर/गा.वि.स.
+                            </td>
+                            <td>
+                                वडा नं.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <!--Applicable only Auto loan and termloan for vehicle is required-->
+                <div class="row mt-3">
+                    <ol class="dev-list" start="6">
+                        <li>
+                            <strong> सवारी साधन दर्ता (Vehicle Registration): </strong>
+                            <p class="m-0">
+                                सवारी साधन कर्जाबाट खरिद गरिएका सवारी साधनको व्यापक (Comprehensive) बिमा सहित बैंकको
+                                नाममा
+                                दर्ता
+                                <span> <!--Registration is to be done-->
+                                गरिदिनु पर्नेछ ।
+                            </span>
+                                <span> <!--Existing registration is continued -->
+                                गरिदिनुभएको यथावत कायम रहनेछ ।
+                            </span>
+                            </p>
+                        </li>
+
+                        <li> <!--Applicable for guarantee facility required-->
+                            <strong>काउण्टर जमानत (General Counter Guarantee): </strong>
+                            <p class="m-0">
+                                बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee)
+                                <span> <!--If new counter guarantee is to be obtained-->
+                                 लेखिदिनुपर्नेछ ।
+                            </span>
+                                <span> <!--If existing guarantee is continued-->
+                               लेखिदिनुभएको यथावत कायम रहनेछ ।
+                            </span>
+                            </p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div>
+                <div class="col-md-12">
+                    <div class="row mt-4">
+                        <p class="m-0">
+                            <strong>
+                                ख.
+                                <u>
+                                    थप/सहायक सुरक्षण (Additional/ Secondary Security)
+                                </u>
+                            </strong>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row mt-3">
+                        <ol class="dev-list">
+                            <li> <!-- Applicable only if Land/building as primary collateral-->
+                                <strong>घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges): </strong>
+                                <p class="m-0">
+                                    <!--For new mortgage / remortgage-->
+                                    <span>
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                            </span>
+                                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
+                                    <!--For new mortgage / remortgage-->
+                                    <span>
+                                गरी दिनु पर्नेछ ।
+                            </span>
+                                    <span><!--For existing mortgage to be continued-->
+                            गरिदिनुभएको यथावत कायम रहने छ ।
+                            </span>
+                                </p>
+
+                                <p class="m-0"> <!-- For existing mortgage with enhancement-->
+                                    यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएका देहाय
+                                    बमोजिमको
+                                    घर/जग्गा माथि स्वीकृत थप/अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि
+                                    समेत
+                                    धितोेबन्धक यथावत कायम रहने छ ।
+                                </p>
+
+                                <p class="m-0"> <!--this clause if the collateral is shared-->
+                                    <span> <!--For new mortgage-->
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                            </span>
+                                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा
+                                    देहाय बमोजिमको घर जग्गा यस बैकले
+                                    <input formControlName="otherBorrowingClientName"
+                                           name="otherBorrowingClientName"
+                                           type="text"
+                                           class="form-field form-control-sm"
+                                           placeholder="Borrowing Client Name"/>
+                                    को नाममा स्वीकृत ऋण कर्जा सुविधा समेत
+                                    उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                    <span> <!--For new mortgage / remortgage-->
+                                गरिदिनु पर्नेछ ।
+                            </span>
+                                    <!--For existing mortgage to be continued-->
+                                    <span>
+                                गरिदिनुभएको यथावत कायम रहने छ ।
+                            </span>
+                                </p>
+
+                                <p class="m-0">
+                                    <!--this clause if the collateral is shared and For existing mortgage with enhancement-->
+                                    <span> <!--For new mortgage-->
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                            </span>
+                                    यस अघि ऋणकर्जाको सुरक्षण स्वरुप यस बैंकले तपाई ऋणी तथा
+                                    <input formControlName="otherBorrowingClientName"
+                                           name="otherBorrowingClientName"
+                                           type="text"
+                                           class="form-field form-control-sm"
+                                           placeholder="Borrowing Client Name"/>
+                                    को नाममा स्वीकृत ऋण कर्जा सुविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                    गरिदिनुभएको देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा
+                                    सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि धितोेबन्धक यथावत कायम रहने छ ।
+                                </p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="firstTable">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td rowspan="2">
+                                घर/जग्गा
+                                धनीको नाम थर
+                            </td>
+                            <td colspan="3">
+                                घर/जग्गाको अवस्थिति
+                            </td>
+                            <td rowspan="2">
+                                सिट नं.
+                            </td>
+                            <td rowspan="2">
+                                कित्ता नं.
+                            </td>
+                            <td rowspan="2">
+                                क्षेत्रफल
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                जिल्ला
+                            </td>
+                            <td>
+                                नगर/गा.वि.स.
+                            </td>
+                            <td>
+                                वडा नं.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="optional">
+                <textarea
+                        class="form-control nepaliFont"
+                        rows="5"
+                        style="width:95%;margin-left:2%"
+                        name="freeText4"
+                        formControlName="freeText4">
+                 </textarea>
+                    <div class="firstTable mt-3">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td rowspan="2">
+                                    घर/जग्गा
+                                    धनीको नाम थर
+                                </td>
+                                <td colspan="3">
+                                    घर/जग्गाको अवस्थिति
+                                </td>
+                                <td rowspan="2">
+                                    सिट नं.
+                                </td>
+                                <td rowspan="2">
+                                    कित्ता नं.
+                                </td>
+                                <td rowspan="2">
+                                    क्षेत्रफल
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    जिल्ला
+                                </td>
+                                <td>
+                                    नगर/गा.वि.स.
+                                </td>
+                                <td>
+                                    वडा नं.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="row mt-3">
+                        <ol class="dev-list" start="2">
+                            <li> <!--Applicable only if Guarantee is required-->
+                                <strong>व्यक्तिगत जमानत (Personal Guarantee): </strong>
+                                <p class="m-0">
+                                    रु
+                                    <input formControlName="loanAmountInFigure"
+                                           name="loanAmountInFigure"
+                                           type="text"
+                                           class="form-control-sm form-field"
+                                           placeholder="Loan Amount"/>
+                                    /- (अक्षरेपी रु
+                                    <input formControlName="loanAmountInWords"
+                                           name="loanAmountInWords"
+                                           type="text"
+                                           class="form-control-sm form-field"
+                                           placeholder="Loan Amount"/>
+                                    मात्र) बराबरको
+                                    श्रीमान्/श्रीमती/सुश्री
+                                    <input formControlName="guarantorName"
+                                           name="guarantorName"
+                                           type="text"
+                                           class="form-control-sm form-field"
+                                           placeholder="Guarantor Names"/>
+                                    ले बैंकको पक्षमा व्यक्तिगत जमानत
+                                    <span> <!--If existing personal guarantee is continued-->
+                                लेखिदिईएको यथावत कायम रहने छ ।
+                            </span>
+                                    <span> <!--If new guarantor is proposed-->
+                                लेखिदिनु पर्नेछ ।
+                            </span>
+                                </p>
+                            </li>
+
+                            <li> <!--Applicable if corporate guarantee is required-->
+                                <strong> संस्थागत जमानत (Corporate Guarantee): </strong>
+                                <p class="m-0">
+                                    रु
+                                    <input formControlName="loanAmountInFigure"
+                                           name="loanAmountInFigure"
+                                           type="text"
+                                           class="form-control-sm form-field"
+                                           placeholder="Loan Amount"/>
+                                    /- (अक्षरेपी रु
+                                    <input formControlName="loanAmountInWords"
+                                           name="loanAmountInWords"
+                                           type="text"
+                                           class="form-control-sm form-field"
+                                           placeholder="Loan Amount"/>
+                                    मात्र) बराबरको श्री
+                                    <input formControlName="corporateGuarantorName"
+                                           name="corporateGuarantorName"
+                                           type="text"
+                                           class="form-control-sm form-field"
+                                           placeholder="Corporate Guarantor Name"/>
+                                    ले बैंकको पक्षमा संस्थागत जमानत
+                                    <span> <!--If existing corporate guarantee is continued-->
+                                लेखिदिईएको यथावत कायम रहने छ ।
+                            </span>
+                                    <span> <!--If new corporate guarantor is required-->
+                                लेखिदिनु पर्नेछ ।
+                            </span>
+                                </p>
+                            </li>
+
+                            <li> <!--Applicable if cross guarantee required-->
+                                <strong> पारस्परिक जमानत (Cross Guarantee): </strong>
+                                <p class="m-0">
+                                    रु
+                                    <input formControlName="loanAmountInFigure"
+                                           name="loanAmountInFigure"
+                                           type="text"
+                                           class="form-control-sm form-field"
+                                           placeholder="Loan Amount"/>
+                                    /- (अक्षरेपी रु
+                                    <input formControlName="loanAmountInWords"
+                                           name="loanAmountInWords"
+                                           type="text"
+                                           class="form-control-sm form-field"
+                                           placeholder="Loan Amount"/>
+                                    मात्र) बराबरको श्री
+                                    <input formControlName="crossGuarantorName"
+                                           name="crossGuarantorName"
+                                           type="text"
+                                           class="form-control-sm form-field"
+                                           placeholder="Corporate Guarantor Name"/>
+                                    ले बैंकको पक्षमा पारस्परिक जमानत
+                                    <span> <!--If existing cross guarantee is continued-->
+                                लेखिदिईएको यथावत कायम रहने छ ।
+                            </span>
+                                    <span> <!--If new cross guarantor is required-->
+                                लेखिदिनु पर्नेछ ।
+                            </span>
+                                </p>
+                            </li>
+
+                            <li> <!--If Share is as security-->
+                                <strong>शेयर धितोेबन्धक (Share Pledge): </strong>
+                                <p class="m-0">
+                                    ऋणकर्जाको सुरक्षण स्वरुप यस बैंकको पक्षमा देहाय बमोजिमका संस्था/कम्पनीहरुद्धारा जारी
+                                    गरिएको
+                                    शेयरहरु
+                                    र सोमा प्राप्त हुने लाभांश र बोनस शेयरहरु समेतमा पनि यस बैंकको धितो हकाधिकार कायम
+                                    रहने
+                                    गरी
+                                    सम्बन्धित
+                                    कम्पनी वा सो कम्पनीको शेयर रजिष्ट्रारबाट यस बैंकको पक्षमा रोक्का कायम गराई
+                                    धितोेबन्धक
+                                    तमसुक
+                                    <span> <!--In case of new pledge-->
+                                गरिदिनुभएको यथावत कायम रहने छ ।
+                            </span>
+                                    <span> <!--In case of existing pledge-->
+                                गरीदिनु पर्नेछ ।
+                            </span>
+                                </p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="optional">
+                <textarea
+                        class="form-control nepaliFont"
+                        rows="5"
+                        style="width:95%;margin-left:2%"
+                        name="freeText5"
+                        formControlName="freeText5">
+                 </textarea>
+                    <div class="firstTable mt-3">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>
+                                    क्र.सं.
+                                </th>
+                                <th>
+                                    कम्पनीहरुको नाम
+                                </th>
+                                <th>
+                                    सिट नं.
+                                </th>
+                                <th>
+                                    शेयर संख्या
+                                </th>
+                                <th>
+                                    शेयर धनीको नाम
+                                </th>
+                                <th>
+                                    शेयर धनीे नं.
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
