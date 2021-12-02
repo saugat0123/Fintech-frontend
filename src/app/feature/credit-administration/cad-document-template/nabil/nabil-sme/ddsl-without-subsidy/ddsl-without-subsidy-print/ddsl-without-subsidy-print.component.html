@@ -44,11 +44,16 @@
                         <td width="40%"><span
                                 [ngClass]="{'outside' : letter?.loanSubType.ct !== null && letter?.loanSubType.ct !== ''}">
                             {{letter?.loanSubType.ct === null || letter?.loanSubType.ct === '' ? '___________' : letter?.loanSubType.ct}}</span></td>
+                        <td>
+                            <span
+                                    [ngClass]="{'outside' : letter?.loanSubType.en.eData !== null && letter?.loanSubType.en.eData !== ''}">
+                            {{letter?.loanSubType.en.eData === null || letter?.loanSubType.en.eData === '' ? '___________' : letter?.loanSubType.en.eData}}</span>
+                        </td>
                     </tr>
                     <tr>
                         <td><strong>कर्जाको उद्देश्य</strong></td>
                         <td colspan="2"><span
-                                [ngClass]="{'outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
+                                [ngClass]="{'nepaliFont outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
                             {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct}}</span>
                         </td>
                     </tr>
@@ -776,22 +781,21 @@
                 <div class="right-content">
                     .........................................
                     <p>
-                         <span [ngClass]="{'outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
+                         <span [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
                             {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
-                        <br>
                         <span class="nepaliFont">{{freeInformation ? freeInformation.fifthText : 'सम्पर्क अधिकृत'}}</span>
                         <br>
                         नबिल बैंक लि.<br>
                         {{branchName ? branchName : ''}} शाखा
                     </p>
                 </div>
-                <div class="left-content">
+                <div class="left-content text-right">
                     .........................................
                     <p>
-                       <span [ngClass]="{'outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
-                            {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span><br>
+                       <span [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
+                            {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                         <span class="nepaliFont">{{freeInformation ? freeInformation.sixthText : 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक'}}</span><br>
-                        नबिल बैंक लि.<br>
+                        नबिल बैंक लि. <br>
                         {{branchName ? branchName : ''}} शाखा
                     </p>
                 </div>

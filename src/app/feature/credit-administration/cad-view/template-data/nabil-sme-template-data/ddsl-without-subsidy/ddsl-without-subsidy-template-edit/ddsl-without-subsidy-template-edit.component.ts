@@ -359,7 +359,6 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
             this.attributes.ct = this.ddslFormGroup.get(key + 'CT').value;
             this.tdVal[key] = this.attributes;
         });
-        console.log('This is Attributes', this.tdVal);
     }
 
     async translateAndSetValue() {

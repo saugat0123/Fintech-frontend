@@ -11,6 +11,7 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {CustomerSubType} from '../../../../../customer/model/customerSubType';
 
 @Component({
     selector: 'app-ddsl-without-subsidy',
@@ -49,6 +50,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     offerDocumentDetails;
     freeTextVal: any = {};
     freeInformation: any;
+    customerSubType = CustomerSubType;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -128,6 +130,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             sanctionLetterAcceptedDate: [undefined],
             securities: this.formBuilder.array([]),
             loanType: [undefined],
+            loanTypeEn: [undefined],
         });
     }
 
@@ -174,6 +177,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             requestLetterDate: finaldateOfApplication ? finaldateOfApplication : '',
             karjaPurpose: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
             loanType: this.tempData.loanSubType ? this.tempData.loanSubType.ct : '',
+            loanTypeEn: this.tempData.loanSubType ? this.tempData.loanSubType.en.eData : '',
             loanAmount: this.tempData.loanAmountFigure ? this.tempData.loanAmountFigure.ct : '',
             loanAmountInWord: this.tempData.loanAmountFigureWords ? this.tempData.loanAmountFigureWords.ct : '',
             marginInPercentageMotor: this.tempData.marginInPercentageMotor ? this.tempData.marginInPercentageMotor.ct : '',
