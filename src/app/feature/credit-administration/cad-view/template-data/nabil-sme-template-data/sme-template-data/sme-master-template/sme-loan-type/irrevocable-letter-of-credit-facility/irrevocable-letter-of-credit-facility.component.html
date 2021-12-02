@@ -1,5 +1,5 @@
 <div>
-    <form [formGroup]="letterOfCredit">
+    <form [formGroup]="letterOfCreditForm">
         <div class="row">
             <div class="col-md-12 pb-2">
                 <h5> IRREVOCABLE LETTER OF CREDIT FACILITY </h5>
@@ -193,7 +193,7 @@
                        status="success" type="text">
             </div>
         </div>
-        <div class="row" *ngIf="letterOfCredit.get('loanOption').value === 'REGULAR'">
+        <div class="row" *ngIf="letterOfCreditForm.get('loanOption').value === 'REGULAR'">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="dateOfExpiryType"> Date Of Expiry</label><br>
                 <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
