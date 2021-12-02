@@ -103,6 +103,24 @@ import { PersonalOverdraftWithoutCollateralTemplateEditComponent } from './cad-v
 import { InterestSubsidySanctionLetterTemplateEditComponent } from './cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-edit/interest-subsidy-sanction-letter-template-edit.component';
 import { DdslWithoutSubsidyTemplateEditComponent} from './cad-view/template-data/nabil-sme-template-data/ddsl-without-subsidy/ddsl-without-subsidy-template-edit/ddsl-without-subsidy-template-edit.component';
 import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from "./cad-view/template-data/personal-loan-and-personal-overdraft-template-edit/personal-loan-and-personal-overdraft-template-edit.component";
+import { SmeMasterTemplateComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-master-template.component';
+import { SmeGlobalContentComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/global-template/sme-global-content/sme-global-content.component';
+import { IrrevocableLetterOfCreditFacilityComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/irrevocable-letter-of-credit-facility/irrevocable-letter-of-credit-facility.component';
+import { SmeSecurityComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security.component';
+import { SmeLoanTypeComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/sme-loan-type.component';
+import { CustomerAcceptanceForTimeLetterOfCreditComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/customer-acceptance-for-time-letter-of-credit/customer-acceptance-for-time-letter-of-credit.component';
+import { ImportBillsDiscountingComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/import-bills-discounting/import-bills-discounting.component';
+import { ImportLoanTrustReceiptLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/import-loan-trust-receipt-loan/import-loan-trust-receipt-loan.component';
+import { DemandLoanForWorkingCapitalComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/demand-loan-for-working-capital/demand-loan-for-working-capital.component';
+import { PreExportLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/pre-export-loan/pre-export-loan.component';
+import { DocumentaryBillPurchaseNegotiationComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/documentary-bill-purchase-negotiation/documentary-bill-purchase-negotiation.component';
+import { OverdraftLoanForWorkingCapitalRequirementComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/overdraft-loan-for-working-capital-requirement/overdraft-loan-for-working-capital-requirement.component';
+import { RevolvingShortTermLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/revolving-short-term-loan/revolving-short-term-loan.component';
+import { EquityMortgagedOverdraftComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/equity-mortgaged-overdraft/equity-mortgaged-overdraft.component';
+import { OverdraftFacilityAgainstFixedDepositComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/overdraft-facility-against-fixed-deposit/overdraft-facility-against-fixed-deposit.component';
+import { OverdraftFacilityAgainstBondComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/overdraft-facility-against-bond/overdraft-facility-against-bond.component';
+import { BridgeGapLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/bridge-gap-loan/bridge-gap-loan.component';
+import { TermLoanToOrForComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/term-loan-to-or-for/term-loan-to-or-for.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -191,7 +209,14 @@ import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from "./cad-view/
         InterestSubsidySanctionLetterTemplateEditComponent,
         InterestSubsidySanctionLetterTemplateDataComponent,
         DdslWithoutSubsidyTemplateEditComponent,
-        PersonalLoanAndPersonalOverdraftTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent],
+        PersonalLoanAndPersonalOverdraftTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent, SmeMasterTemplateComponent, SmeGlobalContentComponent, IrrevocableLetterOfCreditFacilityComponent, SmeSecurityComponent, SmeLoanTypeComponent, CustomerAcceptanceForTimeLetterOfCreditComponent,
+        ImportBillsDiscountingComponent, ImportLoanTrustReceiptLoanComponent, DemandLoanForWorkingCapitalComponent, PreExportLoanComponent, DocumentaryBillPurchaseNegotiationComponent, OverdraftLoanForWorkingCapitalRequirementComponent,
+        RevolvingShortTermLoanComponent,
+        EquityMortgagedOverdraftComponent,
+        OverdraftFacilityAgainstFixedDepositComponent,
+        OverdraftFacilityAgainstBondComponent,
+        BridgeGapLoanComponent,
+        TermLoanToOrForComponent],
   imports: [
     ThemeModule,
     CommonModule,

@@ -19,10 +19,21 @@ export class CombinedOfferLetterComponent implements OnInit {
               private dialogRef: NbDialogRef<CombinedOfferLetterComponent>) { }
 
   ngOnInit() {
+    this.buildForm();
   }
 
   close() {
     this.dialogRef.close();
+  }
+  buildForm() {
+    return this.form = this.formBuilder.group({
+      sanctionLetterDate: [undefined],
+      nameOfBorrower: [undefined],
+      addressOfBorrower: [undefined],
+      samparkaAdhikrit: [undefined],
+      branchName: [undefined],
+      samparkaPrabandhak: [undefined]
+    });
   }
 
   submit() {}
