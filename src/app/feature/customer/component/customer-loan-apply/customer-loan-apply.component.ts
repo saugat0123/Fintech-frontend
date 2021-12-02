@@ -144,6 +144,8 @@ export class CustomerLoanApplyComponent implements OnInit {
                   case LoanTag.getKeyByValue(LoanTag.SHARE_SECURITY) :
                     if (!securityData.selectedArray.includes('ShareSecurity')) {
                       this.openModel(templateRef, TemplateName.SHARE_SECURITY);
+                    } else {
+                      this.routeToLoanForm();
                     }
                     break;
                   case LoanTag.getKeyByValue(LoanTag.FIXED_DEPOSIT) :
@@ -208,11 +210,12 @@ export class CustomerLoanApplyComponent implements OnInit {
   private openModel(templateRef: any, note: string) {
     if (note === TemplateName.SHARE_SECURITY) {
       this.note = 'share security';
+      this.modalService.open(templateRef, {backdrop: false});
     }
     if (note === TemplateName.NO_SECURITY) {
       this.note = 'security';
+      this.modalService.open(templateRef, {backdrop: false});
     }
-    this.modalService.open(templateRef, {backdrop: false});
   }
 
   public onNo(templateRef): void {
