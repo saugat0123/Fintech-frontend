@@ -115,6 +115,7 @@ import { DemandLoanForWorkingCapitalComponent } from './cad-view/template-data/n
 import { PreExportLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/pre-export-loan/pre-export-loan.component';
 import { DocumentaryBillPurchaseNegotiationComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/documentary-bill-purchase-negotiation/documentary-bill-purchase-negotiation.component';
 import { OverdraftLoanForWorkingCapitalRequirementComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/overdraft-loan-for-working-capital-requirement/overdraft-loan-for-working-capital-requirement.component';
+import { RevolvingShortTermLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/revolving-short-term-loan/revolving-short-term-loan.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -204,7 +205,8 @@ import { OverdraftLoanForWorkingCapitalRequirementComponent } from './cad-view/t
         InterestSubsidySanctionLetterTemplateDataComponent,
         DdslWithoutSubsidyTemplateEditComponent,
         PersonalLoanAndPersonalOverdraftTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent, SmeMasterTemplateComponent, SmeGlobalContentComponent, IrrevocableLetterOfCreditFacilityComponent, SmeSecurityComponent, SmeLoanTypeComponent, CustomerAcceptanceForTimeLetterOfCreditComponent,
-        ImportBillsDiscountingComponent, ImportLoanTrustReceiptLoanComponent, DemandLoanForWorkingCapitalComponent, PreExportLoanComponent, DocumentaryBillPurchaseNegotiationComponent, OverdraftLoanForWorkingCapitalRequirementComponent],
+        ImportBillsDiscountingComponent, ImportLoanTrustReceiptLoanComponent, DemandLoanForWorkingCapitalComponent, PreExportLoanComponent, DocumentaryBillPurchaseNegotiationComponent, OverdraftLoanForWorkingCapitalRequirementComponent,
+        RevolvingShortTermLoanComponent],
   imports: [
     ThemeModule,
     CommonModule,
