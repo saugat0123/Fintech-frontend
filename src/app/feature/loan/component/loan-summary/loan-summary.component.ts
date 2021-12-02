@@ -181,18 +181,19 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    isOpen: false;
    private dialogRef: NbDialogRef<any>;
    refId: number;
-    securityId: number;
-    siteVisitDocuments: Array<SiteVisitDocument>;
-    isRemitLoan = false;
-    beneficiary;
-    dbr;
-    individual;
-    individualJsonData;
-    riskInfo;
-    senderDetails;
-    bankingRelation;
-    isIndividual = false;
-
+   securityId: number;
+   siteVisitDocuments: Array<SiteVisitDocument>;
+   isRemitLoan = false;
+   beneficiary;
+   dbr;
+   individual;
+   individualJsonData;
+   riskInfo;
+   senderDetails;
+   bankingRelation;
+   isIndividual = false;
+   naChecked: boolean;
+   reviewDateData;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -463,6 +464,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     });
                 }
             });
+        }
+
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reviewDate)) {
+                this.reviewDateData = JSON.parse(this.loanDataHolder.loanHolder.reviewDate.data);
+                this.naChecked = this.reviewDateData.checked;
+            }
         }
         // getting fiscal years
         this.getFiscalYears();

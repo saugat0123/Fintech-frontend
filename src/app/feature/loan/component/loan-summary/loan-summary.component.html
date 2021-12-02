@@ -146,6 +146,19 @@
                         <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch.branchCode}}</span></div>
                         <br>
                         <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan.name + " "+ loanDataHolder.loan.shortNames}}</span></div>
+                        <br>
+                        <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
+                            <span><strong>Review Date: </strong>
+                                <ng-container *ngIf="naChecked; else date">
+                                    {{'NA'}}
+                                </ng-container>
+                                <ng-template #date>
+                                    <br>
+                                    Last Review Date: {{reviewDateData?.lastReviewDate | date}} <br>
+                                    Next Review Date: {{reviewDateData?.nextReviewDate | date}}
+                                </ng-template>
+                            </span>
+                        </div>
                         <div class="float-right" *ngIf="loanDataHolder?.isSol">
                             <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
 
