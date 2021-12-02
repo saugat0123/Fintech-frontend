@@ -72,6 +72,17 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Interest Rate Type</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                                   formControlName="interestRateType" shape="semi-round">
+                            <nb-option *ngFor="let type of interestRateType" [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
                     <span class="font-weight-bold">Loan Data</span>
                     <div>
                         <nb-radio-group class="d-inline-flex" formControlName="dateOfApprovalType"
