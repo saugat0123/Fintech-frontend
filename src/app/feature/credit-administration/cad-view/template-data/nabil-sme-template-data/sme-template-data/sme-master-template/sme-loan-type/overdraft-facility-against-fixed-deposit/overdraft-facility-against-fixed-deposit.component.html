@@ -1,1 +1,492 @@
-<p>overdraft-facility-against-fixed-deposit works!</p>
+<div>
+    <form [formGroup]="overdraftFixedForm">
+        <div class="row mb-2">
+            <div class="col-md-12 mt-4 mb-2">
+                <h6> OVERDRAFT FACILITY AGAINST FIXED DEPOSIT </h6>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Sub-Loan Type</strong></label>
+                <nb-select
+                        formControlName="subLoanOption"
+                        fullWidth
+                        (selectedChange)="subLoanOption($event)"
+                        placeholder="Sub-Loan Type">
+                    <nb-option value="AGAINST_FIXED_DEPOSIT">Loan Against Fixed Deposit</nb-option>
+                    <nb-option value="AGAINST_DEPOSIT_ACCOUNT">Loan Against Deposit Account</nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Letter of Set-Off to be used</strong></label>
+                <nb-select
+                        formControlName="letterOfSetOff"
+                        fullWidth
+                        (selectedChange)="letterOfSetOff($event)"
+                        placeholder="Letter Of Set-Off">
+                    <nb-option value="NEW">NEW</nb-option>
+                    <nb-option value="EXISTING">EXISTING</nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Interest Rate Type</strong></label>
+                <nb-select
+                        formControlName="interestRateType"
+                        fullWidth
+                        (selectedChange)="changeInterestRateType($event)"
+                        placeholder="Interest Rate Type">
+                    <nb-option value="COUPEN_RATE_FINANCING">Coupen Rate Financing</nb-option>
+                    <nb-option value="BASE_RATE_FINANCING">Base Rate Financing</nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-12 mt-2 ml-2">
+                <nb-checkbox #additionalPremiumRate
+                             (checkedChange)="checkadditionalPremiumRate(additionalPremiumRate.checked)"
+                             [checked]="isAdditionalPremiumRate">
+                    <i> Is additional premium rate applicable ? </i></nb-checkbox>
+            </div>
+        </div>
+        <!-- END OF CONDITION SECTION -->
+
+        <!-- FIELDS BASED ON THE LOAN -->
+        <div class="row mt-4">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="nameOfFacility">Name of Facility</label>
+                <input class="form-control" formControlName="nameOfFacility" fullWidth id="nameOfFacility"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="nameOfFacilityTrans" fullWidth
+                       id="nameOfFacilityTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="nameOfFacilityCT" fullWidth id="nameOfFacilityCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
+                <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords')" class="form-control"
+                       formControlName="loanAmount" fullWidth
+                       id="loanAmount"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountTrans" fullWidth id="loanAmountTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words </label>
+                <input class="form-control" formControlName="loanAmountWords" fullWidth id="loanAmountWords"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountWordsTrans" fullWidth id="loanAmountWordsTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="loanAmountWordsCT" fullWidth id="loanAmountWordsCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <div *ngIf="isFixedDeposit" class="conditional">
+            <div class="row">
+                <div class="col-md-4">
+                    <label><strong>FD Holding Bank</strong></label>
+                    <nb-select
+                            formControlName="holdingBank"
+                            fullWidth
+                            (selectedChange)="changeHoldingBank($event)"
+                            placeholder="FD Holding Bank">
+                        <nb-option value="NABIL">Nabil Bank</nb-option>
+                        <nb-option value="OTHER">Other Bank</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+
+            <div *ngIf="isOther" class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
+                    <input class="form-control" formControlName="nameOfHoldingBank" fullWidth id="nameOfHoldingBank"
+                           nbInput
+                           shape="semi-round"
+                           status="success"
+                           type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="nameOfHoldingBankTrans" fullWidth id="nameOfHoldingBankTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="nameOfHoldingBankCT" fullWidth id="nameOfHoldingBankCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="nameOfFDHolder">Name of FD Holder/s</label>
+                    <input class="form-control" formControlName="nameOfFDHolder" fullWidth id="nameOfFDHolder"
+                           nbInput
+                           shape="semi-round"
+                           status="success"
+                           type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="nameOfFDHolderTrans" fullWidth id="nameOfFDHolderTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="nameOfFDHolderCT" fullWidth id="nameOfFDHolderCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="FdAmountInFigure">FD Amount in Figure</label>
+                    <input class="form-control"
+                           formControlName="FdAmountInFigure" fullWidth
+                           id="FdAmountInFigure"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="FdAmountInFigureTrans" fullWidth id="FdAmountInFigureTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="FdAmountInFigureCT" fullWidth id="FdAmountInFigureCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="isDepositAccount" class="conditional">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="nameOfDepositors">Name of Depositor/s</label>
+                    <input class="form-control" formControlName="nameOfDepositors" fullWidth id="nameOfDepositors"
+                           nbInput
+                           shape="semi-round"
+                           status="success"
+                           type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="nameOfDepositorsTrans" fullWidth
+                           id="nameOfDepositorsTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="nameOfDepositorsCT" fullWidth id="nameOfDepositorsCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label><strong>Account Type</strong></label>
+                    <nb-select
+                            formControlName="accountType"
+                            fullWidth
+                            (selectedChange)="changeAccountType($event)"
+                            placeholder="Change Account Type">
+                        <nb-option value="CURRENT_ACCOUNT">Current Account</nb-option>
+                        <nb-option value="SAVING_ACCOUNT">Saving Account</nb-option>
+                        <nb-option value="CALL_ACCOUNT">Call Account</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="accountNumber">Account Number</label>
+                    <input class="form-control" formControlName="accountNumber" fullWidth id="accountNumber"
+                           nbInput
+                           shape="semi-round"
+                           status="success"
+                           type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="accountNumberTrans" fullWidth
+                           id="accountNumberTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="accountNumberCT" fullWidth id="accountNumberCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="amountInFigure">Amount in Figure</label>
+                    <input class="form-control" formControlName="amountInFigure" fullWidth id="amountInFigure"
+                           nbInput
+                           shape="semi-round"
+                           status="success"
+                           type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="amountInFigureTrans" fullWidth
+                           id="amountInFigureTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="amountInFigureCT" fullWidth id="amountInFigureCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="drawingPower">Drawing Power (in %)</label>
+                <input class="form-control" formControlName="drawingPower" fullWidth id="drawingPower"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="drawingPowerTrans" fullWidth id="drawingPowerTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="drawingPowerCT" fullWidth id="drawingPowerCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <div *ngIf="isCoupenRate" class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="totalInterestRate">Total Interest Rate</label>
+                <input class="form-control" formControlName="totalInterestRate" fullWidth id="totalInterestRate"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="totalInterestRateTrans" fullWidth id="totalInterestRateTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="totalInterestRateCT" fullWidth id="totalInterestRateCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <div *ngIf="isCoupenRate && isAdditionalPremiumRate" class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="additionalPremiumRate">Additional Premium Rate</label>
+                <input class="form-control" formControlName="additionalPremiumRate" fullWidth id="additionalPremiumRate"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="additionalPremiumRateTrans" fullWidth id="additionalPremiumRateTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="additionalPremiumRateCT" fullWidth id="additionalPremiumRateCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+
+        <div *ngIf="isBaseRate" class="conditional">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="baseRate"> Base Rate </label>
+                    <input class="form-control" formControlName="baseRate" fullWidth id="baseRate"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="baseRateTrans" fullWidth id="baseRateTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="baseRateCT" fullWidth id="baseRateCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
+                    <input (input)="calInterestRate()" class="form-control" formControlName="premiumRate" fullWidth
+                           id="premiumRate"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="premiumRateTrans" fullWidth id="premiumRateTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="premiumRateCT" fullWidth id="premiumRateCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
+                    <input (input)="calInterestRate()" class="form-control" formControlName="interestRate" fullWidth
+                           id="interestRate"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="number">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="interestRateTrans" fullWidth id="interestRateTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="interestRateCT" fullWidth id="interestRateCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+        </div>
+
+        <!-- FOR LOAN EXPIRY / LOAN REVIEW DATE -->
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry/Next Review Date</label><br>
+                <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
+                                formControlName="dateOfExpiryType" id="dateOfExpiryType"
+                                name="dateOfExpiryType" status="success">
+                    <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
+                </nb-radio-group>
+                <div *ngIf="BSExpiry" style="margin-bottom: -50px;">
+                    <nepali-patro [displayNepali]="true" [responseType]="2"
+                                  formControlName="dateOfExpiryNepali">
+                    </nepali-patro>
+                </div>
+                <input *ngIf="ADExpiry" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                       fullWidth
+                       id="dateOfExpiry"
+                       nbInput
+                       placeholder="Select Date"
+                       shape="semi-round" status="success">
+                <nb-datepicker #previousDate></nb-datepicker>
+            </div>
+            <div class="col-md-4 form-group dateTranslationCustom">
+                <input class="form-control" formControlName="dateOfExpiryTrans" fullWidth id="dateOfExpiryTrans"
+                       nbInput
+                       readonly
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group dateTranslationCustom">
+                <input class="form-control" formControlName="dateOfExpiryCT" fullWidth id="dateOfExpiryCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+        </div>
+        <!-- END OF LOAN FIELDS -->
+
+         <!--For Translation-->
+        <div class="row pt-5 pb-2 pr-4">
+            <div class="col-md-12 text-right">
+                <button (click)="translateAndSetVal()" nbButton outline size="small" status="info">
+                    Translate Overdraft Facility Against Fixed Deposit Details
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
