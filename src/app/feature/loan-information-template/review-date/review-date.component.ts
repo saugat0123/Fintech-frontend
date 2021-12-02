@@ -29,7 +29,6 @@ export class ReviewDateComponent implements OnInit {
       this.checked = this.dataForEdit.checked;
     }
     this.buildForm(this.dataForEdit);
-    console.log('dataForEdit', this.dataForEdit);
   }
 
   buildForm(data) {

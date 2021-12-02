@@ -17,19 +17,20 @@
             <div class="row form-group">
                 <div class="col-md-4">
                     <label>Last Review Date</label>
-                    <ng-container *ngIf="checked; else na">
+                    <ng-container *ngIf="checked; else naCheck">
                         <input class="form-control"
                                [readOnly]="true"
                                formControlName="lastReviewDate"
                                placeholder="Last Review Date"/>
                     </ng-container>
-                    <ng-template #na>
+                    <ng-template #naCheck>
                         <input [nbDatepicker]="lastReviewDate"
                                *ngIf="calendarType === 'AD'"
                                class="form-control date-picker"
                                formControlName="lastReviewDate"
                                placeholder="Last Review Date"/>
-                        <input *ngIf="calendarType === 'BS'" formControlName="lastReviewDate" hidden>
+                        <input *ngIf="calendarType === 'BS'"
+                               formControlName="lastReviewDate" hidden>
                         <app-calendar *ngIf="calendarType === 'BS'"
                                       [ePreDate]="reviewDate?.get('lastReviewDate')?.value"></app-calendar>
                         <nb-datepicker #lastReviewDate></nb-datepicker>
