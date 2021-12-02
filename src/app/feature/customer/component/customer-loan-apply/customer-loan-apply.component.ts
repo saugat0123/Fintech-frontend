@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {LoanDataHolder} from '../../../loan/model/loanData';
@@ -15,6 +15,7 @@ import {CustomerType} from '../../model/customerType';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {LoanTag} from '../../../loan/model/loanTag';
+import {TemplateName} from '../../model/templateName';
 
 @Component({
   selector: 'app-customer-loan-apply',
@@ -48,6 +49,7 @@ export class CustomerLoanApplyComponent implements OnInit {
   microLoanList = [];
   nonMicroLoanList = [];
   isMicroCustomer: boolean;
+  note: string;
 
   constructor(
       public activeModal: NgbActiveModal,
@@ -56,7 +58,8 @@ export class CustomerLoanApplyComponent implements OnInit {
       private customerLoanService: LoanFormService,
       private combinedLoanService: CombinedLoanService,
       private toastService: ToastService,
-      private customerInfoService: CustomerInfoService
+      private customerInfoService: CustomerInfoService,
+      private modalService: NgbModal,
   ) {
   }
 
@@ -90,7 +93,7 @@ export class CustomerLoanApplyComponent implements OnInit {
     });
   }
 
-  openLoanForm(isCombined: boolean, removeFromCombined = false) {
+  openLoanForm(isCombined: boolean, removeFromCombined = false, templateRef?: any) {
     this.spinner = true;
     if (isCombined) {
       if (!removeFromCombined && this.combinedLoansIds.length < 1) {
@@ -140,9 +143,7 @@ export class CustomerLoanApplyComponent implements OnInit {
                 switch (loanConfig.loanTag) {
                   case LoanTag.getKeyByValue(LoanTag.SHARE_SECURITY) :
                     if (!securityData.selectedArray.includes('ShareSecurity')) {
-                      this.toastService.show(new Alert(AlertType.INFO, 'Fill Share Security for Share Loan'));
-                    } else {
-                      this.routeToLoanForm();
+                      this.openModel(templateRef, TemplateName.SHARE_SECURITY);
                     }
                     break;
                   case LoanTag.getKeyByValue(LoanTag.FIXED_DEPOSIT) :
@@ -163,8 +164,7 @@ export class CustomerLoanApplyComponent implements OnInit {
                     break;
                 }
               } else {
-                this.toastService.show(new Alert(AlertType.INFO, 'Security is Empty'));
-                return;
+                this.openModel(templateRef, TemplateName.NO_SECURITY);
               }
             }
         );
@@ -203,5 +203,24 @@ export class CustomerLoanApplyComponent implements OnInit {
       this.multipleSelectedLoanType.push(val);
 
     });
+  }
+
+  private openModel(templateRef: any, note: string) {
+    if (note === TemplateName.SHARE_SECURITY) {
+      this.note = 'share security';
+    }
+    if (note === TemplateName.NO_SECURITY) {
+      this.note = 'security';
+    }
+    this.modalService.open(templateRef, {backdrop: false});
+  }
+
+  public onNo(templateRef): void {
+    this.modalService.dismissAll(templateRef);
+  }
+
+  public onYes(templateRef): void {
+    this.modalService.dismissAll(templateRef);
+    this.routeToLoanForm();
   }
 }

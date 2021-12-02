@@ -6,7 +6,7 @@
     </a>
   </nb-card-header>
   <nb-card-body>
-    <form #f="ngForm" (ngSubmit)="f.form.valid && openLoanForm(singleOrCombine === 'Combine')">
+    <form #f="ngForm" (ngSubmit)="f.form.valid && openLoanForm(singleOrCombine === 'Combine',false, templateRef)">
       <div class="row">
         <div class="col-md-12 text-center">
           <p class="text-center" *ngIf="singleOrCombine === 'Single'"><b>Single Loan</b></p>
@@ -106,3 +106,21 @@
     </form>
   </nb-card-body>
 </nb-card>
+<ng-template #templateRef>
+  <nb-card-header>
+    <div class="row justify-content-center">
+      <span class="text-warning">Warning !!! No {{note}} found !!!</span>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row justify-content-center">
+      <span class="text-warning">Do you want to continue?</span>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row justify-content-end">
+      <button nbButton status="success" size="tiny" (click)="onYes(templateRef)">Yes</button>
+      <button nbButton status="danger" size="tiny" class="ml-1" (click)="onNo(templateRef)">No</button>
+    </div>
+  </nb-card-footer>
+</ng-template>
