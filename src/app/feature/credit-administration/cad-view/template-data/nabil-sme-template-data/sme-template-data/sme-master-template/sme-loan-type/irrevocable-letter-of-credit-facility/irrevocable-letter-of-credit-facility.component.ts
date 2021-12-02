@@ -14,7 +14,7 @@ import {EngNepDatePipe} from 'nepali-patro';
 })
 export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     @Input() loanName;
-    letterOfCredit: FormGroup;
+    letterOfCreditForm: FormGroup;
     isComplimentryOtherLoan = false;
     dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
     ADExpiry = false;
@@ -41,7 +41,7 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     }
 
     buildForm() {
-        this.letterOfCredit = this.formBuilder.group({
+        this.letterOfCreditForm = this.formBuilder.group({
             loanOption: [undefined],
             multiLoan: [undefined],
             complementryOther: [undefined],
@@ -91,7 +91,7 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
 
     checkComplimetryOtherLoan(data) {
         this.isComplimentryOtherLoan = data;
-        this.letterOfCredit.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
+        this.letterOfCreditForm.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
     }
 
     public checkDateOfExpiry(value): void {
@@ -100,8 +100,8 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     }
 
     public getNumAmountWord(numLabel, wordLabel): void {
-        const transformValue = this.nepaliCurrencyWordPipe.transform(this.letterOfCredit.get(numLabel).value);
-        this.letterOfCredit.get(wordLabel).patchValue(transformValue);
+        const transformValue = this.nepaliCurrencyWordPipe.transform(this.letterOfCreditForm.get(numLabel).value);
+        this.letterOfCreditForm.get(wordLabel).patchValue(transformValue);
     }
 
     setCommissionType(data) {
@@ -113,108 +113,108 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     translateAndSetVal() {
 
         /* SET TRANS VALUE FOR CONDITIONS */
-        const tempLoanOptions = this.letterOfCredit.get('loanOption').value;
+        const tempLoanOptions = this.letterOfCreditForm.get('loanOption').value;
         if (!ObjectUtil.isEmpty(tempLoanOptions)) {
-            this.letterOfCredit.get('loanOptionTrans').patchValue('');
+            this.letterOfCreditForm.get('loanOptionTrans').patchValue('');
         }
 
-        const tempMultiLoan = this.letterOfCredit.get('multiLoanTrans').value;
+        const tempMultiLoan = this.letterOfCreditForm.get('multiLoanTrans').value;
         if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-            this.letterOfCredit.get('multiLoanTrans').patchValue('');
+            this.letterOfCreditForm.get('multiLoanTrans').patchValue('');
         }
 
-        const tempComplemetry = this.letterOfCredit.get('complementryOther').value;
+        const tempComplemetry = this.letterOfCreditForm.get('complementryOther').value;
         if (!ObjectUtil.isEmpty(tempComplemetry)) {
-            this.letterOfCredit.get('complementryOtherTrans').patchValue(tempComplemetry);
+            this.letterOfCreditForm.get('complementryOtherTrans').patchValue(tempComplemetry);
         }
 
-        const tempCommissionType = this.letterOfCredit.get('commissionType').value;
+        const tempCommissionType = this.letterOfCreditForm.get('commissionType').value;
         if (!ObjectUtil.isEmpty(tempCommissionType)) {
-            this.letterOfCredit.get('commissionTypeTrans').patchValue(tempCommissionType);
+            this.letterOfCreditForm.get('commissionTypeTrans').patchValue(tempCommissionType);
         }
 
         /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
-        const tempLoanAmount = this.letterOfCredit.get('loanAmount').value;
+        const tempLoanAmount = this.letterOfCreditForm.get('loanAmount').value;
         const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
             this.convertNumbersToNepali(tempLoanAmount, true) : '';
-        this.letterOfCredit.get('loanAmountTrans').patchValue(convertNumber);
+        this.letterOfCreditForm.get('loanAmountTrans').patchValue(convertNumber);
 
-        this.letterOfCredit.get('loanAmountAmountWordsTrans').patchValue(
-            this.letterOfCredit.get('loanAmountAmountWords').value
+        this.letterOfCreditForm.get('loanAmountAmountWordsTrans').patchValue(
+            this.letterOfCreditForm.get('loanAmountAmountWords').value
         );
-        const convertMargin = this.convertNumbersToNepali(this.letterOfCredit.get('marginInPercentage').value, false);
-        this.letterOfCredit.get('marginInPercentageTrans').patchValue(convertMargin);
-        const convertCommissionRate = this.convertNumbersToNepali(this.letterOfCredit.get('commissionRate').value, false);
-        this.letterOfCredit.get('commissionRateTrans').patchValue(convertCommissionRate);
-        const convertCommissionFirst = this.convertNumbersToNepali(this.letterOfCredit.get('commissionRateFirstQuarter').value, false);
-        this.letterOfCredit.get('commissionRateFirstQuarterTrans').patchValue(convertCommissionFirst);
-        const convertCommissionOther = this.convertNumbersToNepali(this.letterOfCredit.get('commissionRateOtherQuarter').value, false);
-        this.letterOfCredit.get('commissionRateOtherQuarterTrans').patchValue(convertCommissionOther);
-        const convertMinimumCommission = this.convertNumbersToNepali(this.letterOfCredit.get('minimumCommissionRate').value, false);
-        this.letterOfCredit.get('minimumCommissionRateTrans').patchValue(convertMinimumCommission);
+        const convertMargin = this.convertNumbersToNepali(this.letterOfCreditForm.get('marginInPercentage').value, false);
+        this.letterOfCreditForm.get('marginInPercentageTrans').patchValue(convertMargin);
+        const convertCommissionRate = this.convertNumbersToNepali(this.letterOfCreditForm.get('commissionRate').value, false);
+        this.letterOfCreditForm.get('commissionRateTrans').patchValue(convertCommissionRate);
+        const convertCommissionFirst = this.convertNumbersToNepali(this.letterOfCreditForm.get('commissionRateFirstQuarter').value, false);
+        this.letterOfCreditForm.get('commissionRateFirstQuarterTrans').patchValue(convertCommissionFirst);
+        const convertCommissionOther = this.convertNumbersToNepali(this.letterOfCreditForm.get('commissionRateOtherQuarter').value, false);
+        this.letterOfCreditForm.get('commissionRateOtherQuarterTrans').patchValue(convertCommissionOther);
+        const convertMinimumCommission = this.convertNumbersToNepali(this.letterOfCreditForm.get('minimumCommissionRate').value, false);
+        this.letterOfCreditForm.get('minimumCommissionRateTrans').patchValue(convertMinimumCommission);
 
         /* Converting value for date */
-        this.letterOfCredit.get('dateOfExpiryTypeTrans').patchValue(
-            this.letterOfCredit.get('dateOfExpiryType').value
+        this.letterOfCreditForm.get('dateOfExpiryTypeTrans').patchValue(
+            this.letterOfCreditForm.get('dateOfExpiryType').value
         );
-        const tempDateOfExpType = this.letterOfCredit.get('dateOfExpiryType').value;
+        const tempDateOfExpType = this.letterOfCreditForm.get('dateOfExpiryType').value;
         let tempExpDate;
         if (tempDateOfExpType === 'AD') {
-            const tempEngExpDate = this.letterOfCredit.get('dateOfExpiry').value;
+            const tempEngExpDate = this.letterOfCreditForm.get('dateOfExpiry').value;
             tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ?
                 this.engToNepDatePipe.transform(this.datePipe.transform(tempEngExpDate), true) : '';
-            this.letterOfCredit.get('dateOfExpiryTrans').patchValue(tempExpDate);
+            this.letterOfCreditForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
         } else {
-            const tempDateOfExpNep = this.letterOfCredit.get('dateOfExpiryNepali').value;
+            const tempDateOfExpNep = this.letterOfCreditForm.get('dateOfExpiryNepali').value;
             tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
                 tempDateOfExpNep.nDate : '';
-            this.letterOfCredit.get('dateOfExpiryTrans').patchValue(tempExpDate);
+            this.letterOfCreditForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
         }
         this.setCTValue();
     }
 
     setCTValue() {
-        this.letterOfCredit.get('loanOptionCT').patchValue(
-            this.letterOfCredit.get('loanOptionTrans').value
+        this.letterOfCreditForm.get('loanOptionCT').patchValue(
+            this.letterOfCreditForm.get('loanOptionTrans').value
         );
-        this.letterOfCredit.get('multiLoanCT').patchValue(
-            this.letterOfCredit.get('multiLoanTrans').value
+        this.letterOfCreditForm.get('multiLoanCT').patchValue(
+            this.letterOfCreditForm.get('multiLoanTrans').value
         );
-        this.letterOfCredit.get('complementryOtherCT').patchValue(
-            this.letterOfCredit.get('complementryOtherTrans').value
+        this.letterOfCreditForm.get('complementryOtherCT').patchValue(
+            this.letterOfCreditForm.get('complementryOtherTrans').value
         );
-        this.letterOfCredit.get('loanAmountCT').patchValue(
-            this.letterOfCredit.get('loanAmountTrans').value
+        this.letterOfCreditForm.get('loanAmountCT').patchValue(
+            this.letterOfCreditForm.get('loanAmountTrans').value
         );
-        this.letterOfCredit.get('loanAmountAmountWordsCT').patchValue(
-            this.letterOfCredit.get('loanAmountAmountWordsTrans').value
+        this.letterOfCreditForm.get('loanAmountAmountWordsCT').patchValue(
+            this.letterOfCreditForm.get('loanAmountAmountWordsTrans').value
         );
-        this.letterOfCredit.get('marginInPercentageCT').patchValue(
-            this.letterOfCredit.get('marginInPercentageTrans').value
+        this.letterOfCreditForm.get('marginInPercentageCT').patchValue(
+            this.letterOfCreditForm.get('marginInPercentageTrans').value
         );
-        this.letterOfCredit.get('commissionTypeCT').patchValue(
-            this.letterOfCredit.get('commissionTypeTrans').value
+        this.letterOfCreditForm.get('commissionTypeCT').patchValue(
+            this.letterOfCreditForm.get('commissionTypeTrans').value
         );
-        this.letterOfCredit.get('commissionRateCT').patchValue(
-            this.letterOfCredit.get('commissionRateTrans').value
+        this.letterOfCreditForm.get('commissionRateCT').patchValue(
+            this.letterOfCreditForm.get('commissionRateTrans').value
         );
-        this.letterOfCredit.get('commissionRateFirstQuarterCT').patchValue(
-            this.letterOfCredit.get('commissionRateFirstQuarterTrans').value
+        this.letterOfCreditForm.get('commissionRateFirstQuarterCT').patchValue(
+            this.letterOfCreditForm.get('commissionRateFirstQuarterTrans').value
         );
-        this.letterOfCredit.get('commissionRateOtherQuarterCT').patchValue(
-            this.letterOfCredit.get('commissionRateOtherQuarterTrans').value
+        this.letterOfCreditForm.get('commissionRateOtherQuarterCT').patchValue(
+            this.letterOfCreditForm.get('commissionRateOtherQuarterTrans').value
         );
-        this.letterOfCredit.get('minimumCommissionRateCT').patchValue(
-            this.letterOfCredit.get('minimumCommissionRateTrans').value
+        this.letterOfCreditForm.get('minimumCommissionRateCT').patchValue(
+            this.letterOfCreditForm.get('minimumCommissionRateTrans').value
         );
-        this.letterOfCredit.get('dateOfExpiryTypeCT').patchValue(
-            this.letterOfCredit.get('dateOfExpiryTypeTrans').value
+        this.letterOfCreditForm.get('dateOfExpiryTypeCT').patchValue(
+            this.letterOfCreditForm.get('dateOfExpiryTypeTrans').value
         );
-        this.letterOfCredit.get('dateOfExpiryNepaliCT').patchValue(
-            this.letterOfCredit.get('dateOfExpiryNepaliTrans').value
+        this.letterOfCreditForm.get('dateOfExpiryNepaliCT').patchValue(
+            this.letterOfCreditForm.get('dateOfExpiryNepaliTrans').value
         );
-        this.letterOfCredit.get('dateOfExpiryCT').patchValue(
-            this.letterOfCredit.get('dateOfExpiryTrans').value
+        this.letterOfCreditForm.get('dateOfExpiryCT').patchValue(
+            this.letterOfCreditForm.get('dateOfExpiryTrans').value
         );
     }
 
