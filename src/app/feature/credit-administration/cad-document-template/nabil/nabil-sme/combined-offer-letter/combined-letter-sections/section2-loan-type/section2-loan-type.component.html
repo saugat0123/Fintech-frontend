@@ -11,7 +11,7 @@
                             <span><strong> पटके अपरिवर्तनीय प्रतित पत्र सुविधा
                     (Irrevocable letter of credit facility)
                     बुँदा नं.<input class="form-field form-control-sm"
-                                    formControlName="serialNoOfParentLimitIrrevocable"
+                                    formControlName="SNOfParentLimitIrrevocable"
                                     placeholder=""
                                     type="text"/>
                     को पूरक सुविधा/कुल सुविधाको
@@ -20,7 +20,7 @@
                             <span><strong>नियमित अपरिवर्तनीय प्रतित पत्र सुविधा
                         (Irrevocable letter of credit facility)
                             बुँदा नं.<input class="form-field form-control-sm"
-                                            formControlName="serialNoOfParentLimitIrrevocable"
+                                            formControlName="SNOfParentLimitIrrevocable"
                                             placeholder=""
                                             type="text"/> को पूरक सुविधा/कुल सुविधाको
                         पूरक सुविधा</strong></span>
@@ -78,7 +78,7 @@
                                                                                     placeholder=""
                                                                                     type="text"/><br>
                             <strong>सुविधा समाप्ति मितिः</strong><input class="form-field form-control-sm "
-                                                                        formControlName="loanExpiryDateIrrevocable"
+                                                                        formControlName="loanExpiryDateIrrevocable2"
                                                                         placeholder=""
                                                                         type="text"/><br>
                         </p>
@@ -91,13 +91,13 @@
                             <!--For on off Basis-->
                             <span><strong>पटके समय प्रतित पत्रका लागि ग्राहक स्वीकृति (Customer Acceptance for Time of Credit) बुँदा
                     नं. <input class="form-field form-control-sm "
-                               formControlName="serialNoOfParentLimitTimeLetter"
+                               formControlName="SNOfParentLimitTimeLetter"
                                placeholder=""
                                type="text"/> को पूरक सुविधा <br></strong></span>
                             <!--For Regular-->
                             <span><strong>नियमित समय प्रतित पत्रका लागि ग्राहक स्वीकृति (Customer Acceptance for Time of Credit) बुँदा
                     नं. <input class="form-field form-control-sm "
-                               formControlName="serialNoOfParentLimitTimeLetter"
+                               formControlName="SNOfParentLimitTimeLetter"
                                placeholder=""
                                type="text"/> को पूरक सुविधा <br></strong></span>
                         </p>
@@ -148,7 +148,7 @@
                                     type="text"/><br></span>
 
                             <span><strong>सुविधा समाप्ति मितिः</strong><input class="form-field form-control-sm "
-                                                                              formControlName="loanExpiryDateTimeLetter"
+                                                                              formControlName="loanExpiryDateTimeLetter2"
                                                                               placeholder=""
                                                                               type="text"/><br></span>
                         </p>
@@ -166,7 +166,7 @@
                                         placeholder=""
                                         type="text"/>days)
                         बुँदा नं.<input class="form-field form-control-sm "
-                                        formControlName="serialNoOfParentLimitBillsDiscounting"
+                                        formControlName="SNOfParentLimitBillsDiscounting"
                                         placeholder=""
                                         type="text"/>को पूरक सुविधा</strong><br>
                         <strong>सीमाः रु.<input class="form-field form-control-sm "
@@ -197,11 +197,19 @@
                         <strong>कमिसनः</strong> बैंकको नियम अनुसार लाग्नेछ ।<br>
                         <strong>कर्जा अवधि समाप्ति मितिः</strong> बिल्स डिस्काउन्टिङ्ग कागजातको म्याद समाप्ति मिति सम्म
                         ।<br>
-                        <strong>कर्जा भुक्तानी तरिकाः </strong>free text
+                        <strong>कर्जा भुक्तानी तरिकाः </strong>
+                        <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextOne">
+                        </textarea>
                         <span><strong>सुविधा समाप्ति/पुनरावलोकन मितिः <input class="form-field form-control-sm "
-                                                                            formControlName="loanExpiryDateBillsDiscounting"
-                                                                            placeholder=""
-                                                                            type="text"/></strong></span>
+                                                                             formControlName="loanExpiryDateBillsDiscounting"
+                                                                             placeholder=""
+                                                                             type="text"/></strong></span>
                     </td>
                 </tr>
                 <tr>
@@ -218,7 +226,7 @@
                                                                type="text"/>days to
                         finance goods imported under Letter of Credit)
                     बुँदा नं. <input class="form-field form-control-sm "
-                                     formControlName="serialNoOfParentLimitLoanTrust"
+                                     formControlName="SNOfParentLimitLoanTrust"
                                      placeholder=""
                                      type="text"/> को पूरक सुविधा</strong></span><br>
 
@@ -234,7 +242,7 @@
                                                                type="text"/>days to finance
                             goods imported under Letter of Credit)
                     बुँदा नं. <input class="form-field form-control-sm "
-                                     formControlName="serialNoOfParentLimitLoanTrust"
+                                     formControlName="SNOfParentLimitLoanTrust"
                                      placeholder=""
                                      type="text"/> को पूरक सुविधा</strong></span><br>
 
@@ -281,7 +289,7 @@
 
                         <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                             बार्षिक <input class="form-field form-control-sm "
-                                           formControlName="interestRateLoanTrust"
+                                           formControlName="totalInterestRateLoanTrust"
                                            placeholder=""
                                            type="text"/>का दरले
                     निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -299,7 +307,14 @@
                                                          formControlName="remainDaysLoanTrust"
                                                          placeholder=""
                                                          type="text"/>दिन सम्म ।</span><br>
-                        <strong>कर्जा भुक्तानी तरिकाः</strong>free text<br>
+                        <strong>कर्जा भुक्तानी तरिकाः</strong><textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextTwo">
+                        </textarea><br>
                         <span><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong><input class="form-field form-control-sm "
                                                                                      formControlName="loanExpiryDateLoanTrust"
                                                                                      placeholder=""
@@ -317,7 +332,7 @@
                                     placeholder=""
                                     type="text"/>days)
                         बुँदा नं.<input class="form-field form-control-sm "
-                                        formControlName="serialNoOfParentLimitShortTermLoan"
+                                        formControlName="SNOfParentLimitShortTermLoan"
                                         placeholder=""
                                         type="text"/> को पूरक सुविधा/कुल
                     सुविधाको पूरक सुविधा</strong></span><br>
@@ -331,7 +346,7 @@
                                     placeholder=""
                                     type="text"/>days)
                             बुँदा नं.<input class="form-field form-control-sm "
-                                            formControlName="serialNoOfParentLimitShortTermLoan"
+                                            formControlName="SNOfParentLimitShortTermLoan"
                                             placeholder=""
                                             type="text"/> को पूरक सुविधा/कुल
                     सुविधाको पूरक सुविधा</strong></span><br>
@@ -344,7 +359,7 @@
                                     formControlName="loanMonthsShortTermLoanInEng"
                                     placeholder=""
                                     type="text"/>months) बुँदा नं.<input class="form-field form-control-sm "
-                                                                         formControlName="serialNoOfParentLimitShortTermLoan"
+                                                                         formControlName="SNOfParentLimitShortTermLoan"
                                                                          placeholder=""
                                                                          type="text"/> को पूरक सुविधा/कुल
                     सुविधाको पूरक सुविधा</strong></span><br>
@@ -357,7 +372,7 @@
                                     formControlName="loanMonthsShortTermLoanInEng"
                                     placeholder=""
                                     type="text"/>months) बुँदा नं.<input class="form-field form-control-sm "
-                                                                         formControlName="serialNoOfParentLimitShortTermLoan"
+                                                                         formControlName="SNOfParentLimitShortTermLoan"
                                                                          placeholder=""
                                                                          type="text"/> को पूरक सुविधा/कुल
                     सुविधाको पूरक सुविधा</strong></span><br>
@@ -403,11 +418,11 @@
                     कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
 
                         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
-                        <input class="form-field form-control-sm "
+                        <input class="form-field form-control-sm"
                                formControlName="baseRateShortTermLoan"
                                placeholder=""
                                type="text"/> +
-                        <input class="form-field form-control-sm "
+                        <input class="form-field form-control-sm"
                                formControlName="premiumRateShortTermLoan"
                                placeholder=""
                                type="text"/> प्रतिशत
@@ -423,7 +438,7 @@
 
                         <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                             बार्षिक <input class="form-field form-control-sm "
-                                           formControlName="interestRateShortTermLoan"
+                                           formControlName="totalInterestRateShortTermLoan"
                                            placeholder=""
                                            type="text"/>% का दरले
                     निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -447,7 +462,14 @@
                                                                                  formControlName="loanExpiryDateShortTermLoan"
                                                                                  placeholder=""
                                                                                  type="text"/></span><br>
-                        free text
+                        <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextThree">
+                        </textarea>
                     </td>
                 </tr>
                 <tr>
@@ -455,7 +477,7 @@
                     <td>
                     <span><strong>डिमाण्ड कर्जा (Demand Loan for working capital)
                         बुँदा नं.<input class="form-field form-control-sm "
-                                        formControlName="serialNoOfParentLimitDemandLoan"
+                                        formControlName="SNOfParentLimitDemandLoan"
                                         placeholder=""
                                         type="text"/> को पूरक सुविधा/कुल
                     सुविधाको पूरक सुविधा</strong></span><br>
@@ -521,7 +543,7 @@
 
                         <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                             बार्षिक <input class="form-field form-control-sm "
-                                           formControlName="interestRateDemandLoan"
+                                           formControlName="totalInterestRateDemandLoan"
                                            placeholder=""
                                            type="text"/>% का दरले
                     निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -541,7 +563,7 @@
                     <td>
                     <span><strong>पूर्व निर्यात कर्जा (Pre-Export Loan)
                         बुँदा नं.<input class="form-field form-control-sm "
-                                        formControlName="serialNoOfParentLimitPreExport"
+                                        formControlName="SNOfParentLimitPreExport"
                                         placeholder=""
                                         type="text"/> को पूरक सुविधा/कुल
                     सुविधाको पूरक सुविधा</strong></span><br>
@@ -565,7 +587,14 @@
                     प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण
                     गरिदिइएको यथावत कायम रहने छ।</span>
 
-                        <br>free text<br>
+                        <br><textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextFour">
+                        </textarea><br>
 
                         <span><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
                     मूल्य मध्ये जुन कम हुन्छ सोकोे <input class="form-field form-control-sm "
@@ -578,7 +607,14 @@
                                                                                type="text"/>% बराबर रकम वा स्वीकृत
                     कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
 
-                        <br>free text<br>
+                        <br><textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextFive">
+                        </textarea><br>
 
                         <strong>शुल्कः </strong><input class="form-field form-control-sm "
                                                        formControlName="sulkaPreExport"
@@ -600,7 +636,7 @@
                     <td>
                     <span><strong>डकुमेन्ट्री बिल्स खरिद कर्जा (Documentary Bill Purchase/Negotiation)
                     बुँदा नं.<input class="form-field form-control-sm"
-                                    formControlName="serialNoOfParentLimitDocumentaryBill"
+                                    formControlName="SNOfParentLimitDocumentaryBill"
                                     placeholder=""
                                     type="text"/> को पूरक सुविधा/कुलसुविधाको पूरक सुविधा</strong></span><br>
 
@@ -627,7 +663,7 @@
                         हस्तान्तरण गर्नु पर्नेछ ।<br>
 
                         <strong>धरौटीः</strong> प्रतित पत्रकागजात मूल्यको <input class="form-field form-control-sm "
-                                                                                 formControlName="marginInPercntageDocumentaryBill"
+                                                                                 formControlName="marginInPercentageDocumentaryBill"
                                                                                  placeholder=""
                                                                                  type="text"/>% नगद धरौटी स्वरुप रहनेछ ।<br>
 
@@ -722,7 +758,7 @@
 
                         <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                             बार्षिक <input class="form-field form-control-sm "
-                                           formControlName="interestRateOverdraftLoan"
+                                           formControlName="totalInterestRateOverdraftLoan"
                                            placeholder=""
                                            type="text"/>% का दरले
                     निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -820,7 +856,7 @@
 
                         <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                             बार्षिक <input class="form-field form-control-sm "
-                                           formControlName="interestRateMortgageOverdraft"
+                                           formControlName="totalInterestRateMortgageOverdraft"
                                            placeholder=""
                                            type="text"/>% का दरले
                     निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -885,9 +921,9 @@
                         </p>
                         <p>
                             <strong>सुरक्षणः</strong> <input class="form-field form-control-sm "
-                                                                  formControlName="nameOfBankOverdraftFacility"
-                                                                  placeholder=""
-                                                                  type="text"/>
+                                                             formControlName="nameOfBankOverdraftFacility"
+                                                             placeholder=""
+                                                             type="text"/>
                             बैंकद्घारा जारी गरिएको <input class="form-field form-control-sm "
                                                           formControlName="nameOfFDHolderOverdraftFacility"
                                                           placeholder=""
@@ -922,10 +958,11 @@
                                     उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको
                                     मोजरापत्र (Letter of Set-off) ।</span><br>
 
-                            <span><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको <input class="form-field form-control-sm "
-                                                                                       formControlName="nameOfDepositorOverdraftFacility"
-                                                                                       placeholder=""
-                                                                                       type="text"/>को
+                            <span><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको <input
+                                    class="form-field form-control-sm "
+                                    formControlName="nameOfDepositorOverdraftFacility"
+                                    placeholder=""
+                                    type="text"/>को
                             नाममा रहेको <input class="form-field form-control-sm "
                                                formControlName="accountTypeOverdraftFacility"
                                                placeholder=""
@@ -1001,38 +1038,38 @@
                     <td width="10%"><strong>ठ)</strong></td>
                     <td>
                         <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
-                                                            formControlName=""
+                                                            formControlName="nameOfFacilityAgainstBond"
                                                             placeholder=""
                                                             type="text"/>
                             कर्जा (<input class="form-field form-control-sm "
-                                          formControlName=""
+                                          formControlName="nameOfFacilityAgainstBondInEng"
                                           placeholder=""
                                           type="text"/> Facility
                             against
                             Bond)</strong><br>
 
                         <strong>सीमाः रु.<input class="form-field form-control-sm "
-                                                formControlName=""
+                                                formControlName="loanAmountAgainstBond"
                                                 placeholder=""
                                                 type="text"/>।-
                             (अक्षरेपी रु.<input class="form-field form-control-sm "
-                                                formControlName=""
+                                                formControlName="loanAmountInWordAgainstBond"
                                                 placeholder=""
                                                 type="text"/> मात्र)</strong><br>
                         <p>
                         <span><strong>सुरक्षणः</strong><input class="form-field form-control-sm "
-                                                              formControlName=""
+                                                              formControlName="ownerNameAgainstBond"
                                                               placeholder=""
                                                               type="text"/>हरुको
                             नाममा रहेको कम्तिमा रु.<input class="form-field form-control-sm "
-                                                          formControlName=""
+                                                          formControlName="bondAmountAgainstBond"
                                                           placeholder=""
                                                           type="text"/>।-( बराबरको
-                   <input class="form-field form-control-sm "
-                          formControlName=""
+                   <input class="form-field form-control-sm"
+                          formControlName="bondTypeAgainstBond"
                           placeholder=""
                           type="text"/> यस बैंकले उल्लिखित <input class="form-field form-control-sm "
-                                                                  formControlName=""
+                                                                  formControlName="bondTypeAgainstBond"
                                                                   placeholder=""
                                                                   type="text"/>
                    वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
@@ -1040,18 +1077,18 @@
                         </p>
                         <p>
                         <span><strong>सुरक्षणः</strong><input class="form-field form-control-sm "
-                                                              formControlName=""
+                                                              formControlName="ownerNameAgainstBond"
                                                               placeholder=""
                                                               type="text"/>हरुको
                             नाममा रहेको कम्तिमा रु.<input class="form-field form-control-sm "
-                                                          formControlName=""
+                                                          formControlName="bondAmountAgainstBond"
                                                           placeholder=""
                                                           type="text"/>।-( बराबरको
                     <input class="form-field form-control-sm "
-                           formControlName=""
+                           formControlName="bondTypeAgainstBond"
                            placeholder=""
                            type="text"/> यस बैंकले उल्लिखित <input class="form-field form-control-sm "
-                                                                   formControlName=""
+                                                                   formControlName="bondTypeAgainstBond"
                                                                    placeholder=""
                                                                    type="text"/>
                             वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
@@ -1059,7 +1096,7 @@
                         </p>
                         <p>
                             <strong>ब्याज दरः</strong> बार्षिक <input class="form-field form-control-sm "
-                                                                      formControlName=""
+                                                                      formControlName="totalInterestRateAgainstBond"
                                                                       placeholder=""
                                                                       type="text"/>% का दरले नेपाली पात्रो बमोजिम
                             प्रत्येक
@@ -1069,18 +1106,18 @@
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="baseRateAgainstBond"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="premiumRateAgainstBond"
                                    placeholder=""
                                    type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
                         </p>
                         <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                             बार्षिक <input class="form-field form-control-sm "
-                                           formControlName=""
+                                           formControlName="interestRateAgainstBond"
                                            placeholder=""
                                            type="text"/>% का दर
                         निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
@@ -1088,7 +1125,7 @@
 
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong><input
                                 class="form-field form-control-sm "
-                                formControlName=""
+                                formControlName="loanExpiryDateAgainstBond"
                                 placeholder=""
                                 type="text"/></span><br>
                     </td>
@@ -1099,43 +1136,57 @@
                         <p>
                             <strong>ब्रिज ग्याप कर्जा (Bridge Gap Loan) बुँदा नं.<input
                                     class="form-field form-control-sm "
-                                    formControlName=""
+                                    formControlName="SNOfParentLimitBridgeGap"
                                     placeholder=""
                                     type="text"/>को पूरक सुविधा/कुल
                                 सुविधाको पूरक सुविधा</strong>
                         </p>
                         <p>
                             <strong>सीमाः रु.<input class="form-field form-control-sm "
-                                                    formControlName=""
+                                                    formControlName="loanAmountBridgeGap"
                                                     placeholder=""
                                                     type="text"/>।-
                                 (अक्षरेपी रु.<input class="form-field form-control-sm "
-                                                    formControlName=""
+                                                    formControlName="loanAmountInWordBridgeGap"
                                                     placeholder=""
                                                     type="text"/> मात्र)</strong>
                         </p>
                         <p>
-                            <strong>सुरक्षणः</strong> free text
+                            <strong>सुरक्षणः</strong> <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextSix">
+                        </textarea>
                         </p>
                         <p>
-                            <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>free text
+                            <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong><textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextSeven">
+                        </textarea>
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="baseRateBridgeGap"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="premiumRateBridgeGap"
                                    placeholder=""
                                    type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
                         </p>
                         <p>
                           <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                               बार्षिक <input class="form-field form-control-sm "
-                                             formControlName=""
+                                             formControlName="interestRateBridgeGap"
                                              placeholder=""
                                              type="text"/>% का दर
                     निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
@@ -1143,7 +1194,7 @@
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="totalInterestRateBridgeGap"
                                                placeholder=""
                                                type="text"/>% का दरले
                     निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -1151,24 +1202,46 @@
                     पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
                         </p>
-                        <strong>कर्जा प्रवाह तरिकाः</strong> free text<br>
-                        <strong>कर्जा अवधि समाप्तिः</strong> free text
+                        <strong>कर्जा प्रवाह तरिकाः</strong> <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextEight">
+                        </textarea><br>
+                        <strong>कर्जा अवधि समाप्तिः</strong> <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextNine">
+                        </textarea>
                     </td>
                 </tr>
                 <tr>
                     <td width="10%"><strong>ढ)</strong></td>
                     <td>
-                        <p><strong>सवारी साधन खरिद गर्न <input class="form-field form-control-sm "
-                                                               formControlName=""
-                                                               placeholder=""
-                                                               type="text"/>
-                            आवधिक कर्जा (Term Loan
-                            to<input class="form-field form-control-sm "
-                                     formControlName=""
-                                     placeholder=""
-                                     type="text"/>/ to Purchase Vehicle)
+                        <p><strong>सवारी साधन खरिद गर्न आवधिक कर्जा (Term Loan to Purchase Vehicle)
                             बुँदा नं.<input class="form-field form-control-sm "
-                                            formControlName=""
+                                            formControlName="SNOfParentLimitVehicleLoan"
+                                            placeholder=""
+                                            type="text"/>को पूरक सुविधा/कुल सुविधाको
+                            पूरक
+                            सुविधा</strong>
+                        </p>
+                        <p><strong> <input class="form-field form-control-sm nepaliFont"
+                                           formControlName="purposeLoanVehicleLoan"
+                                           placeholder=""
+                                           type="text"/>
+                            आवधिक कर्जा (Term Loan
+                            to<input class="form-field form-control-sm"
+                                     formControlName="purposeLoanVehicleLoanInEng"
+                                     placeholder=""
+                                     type="text"/>)
+                            बुँदा नं.<input class="form-field form-control-sm "
+                                            formControlName="SNOfParentLimitVehicleLoan"
                                             placeholder=""
                                             type="text"/>को पूरक सुविधा/कुल सुविधाको
                             पूरक
@@ -1176,34 +1249,48 @@
                         </p>
                         <p>
                             <strong>सीमाः रु.<input class="form-field form-control-sm "
-                                                    formControlName=""
+                                                    formControlName="loanAmountVehicleLoan"
                                                     placeholder=""
                                                     type="text"/>।-
                                 (अक्षरेपी रु.<input class="form-field form-control-sm "
-                                                    formControlName=""
+                                                    formControlName="loanAmountInWordVehicleLoan"
                                                     placeholder=""
                                                     type="text"/> मात्र)</strong>
                         </p>
                         <p>
-                            <strong>सुरक्षणः</strong> free text
+                            <strong>सुरक्षणः</strong> <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextTen">
+                        </textarea>
                         </p>
                         <p>
-                            <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>free text
+                            <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong><textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextEleven">
+                        </textarea>
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newEMIBaseRateVehicleLoan"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newEMIPremiumRateVehicleLoan"
                                    placeholder=""
                                    type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)<br>
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newEMIInterestRateVehicleLoan"
                                                placeholder=""
                                                type="text"/>% का दरले
                            मासिक तिर्नु बुझाउनु पर्नेछ ।
@@ -1211,51 +1298,51 @@
                             <span>
                             <strong>साँवा रब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक
                             रु.<input class="form-field form-control-sm "
-                                      formControlName=""
+                                      formControlName="newEMIAmountVehicleLoan"
                                       placeholder=""
                                       type="text"/>|-
                                 (अक्षरेपि रु.<input class="form-field form-control-sm "
-                                                    formControlName=""
+                                                    formControlName="newEMIAmountInWordVehicleLoan"
                                                     placeholder=""
                                                     type="text"/> मात्र)
                             का दरले <input class="form-field form-control-sm "
-                                           formControlName=""
+                                           formControlName="newEMINoOfInstallmentVehicleLoan"
                                            placeholder=""
                                            type="text"/> सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                         </span><br>
-                            <span><strong>कर्जा भुक्तानी शुरुः</strong><input class="form-field form-control-sm "
-                                                                              formControlName=""
-                                                                              placeholder=""
-                                                                              type="text"/>
-                                <!--(कर्जा निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ ।)(auto Populate)..........--></span><br>
+                            <span><strong>कर्जा भुक्तानी शुरुः</strong> कर्जा <input class="form-field form-control-sm "
+                                                                                     formControlName="newEMISubsequentVehicleLoan"
+                                                                                     value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
+                                                                                     type="text"/> ।
+                                <!--( निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--></span><br>
 
                             <span>कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।<br>
                         <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
-                                                            formControlName=""
+                                                            formControlName="newEMILoanPurposeVehicleLoan"
                                                             placeholder=""
                                                             type="text"/>
                                 कर्जाको <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newEMIServiceChargeVehicleLoan"
                                                placeholder=""
                                                type="text"/>% सेवा शुल्क लाग्नेछ ।<br>
                         <strong>कर्जा अवधि:</strong> <input class="form-field form-control-sm "
-                                                            formControlName=""
+                                                            formControlName="newEMILoanTenureVehicleLoan"
                                                             placeholder=""
                                                             type="text"/> बर्ष सम्मको लागि मात्र ।</span>
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualEMIBaseRateVehicleLoan"
                                    placeholder=""
                                    type="text"/> +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualEMIPremiumRateVehicleLoan"
                                    placeholder=""
                                    type="text"/> प्रतिशत ब्याज दर प्रिमियम(interest rate premium)<br>
                             हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating interest Rate)
                             बार्षिक <input class="form-field form-control-sm "
-                                           formControlName=""
+                                           formControlName="annualEMIInterestRateVehicleLoan"
                                            placeholder=""
                                            type="text"/>% का
                             दरले
@@ -1264,37 +1351,37 @@
                             मासिक
                             किस्ता (Equated
                             Monthly Installment) तालिका बमोजिम मासिक रु.<input class="form-field form-control-sm "
-                                                                               formControlName=""
+                                                                               formControlName="annualEMIAmountVehicleLoan"
                                                                                placeholder=""
                                                                                type="text"/>|-
                             (अक्षरेपि रु.<input class="form-field form-control-sm "
-                                                formControlName=""
+                                                formControlName="annualEMIAmountInWordVehicleLoan"
                                                 placeholder=""
                                                 type="text"/> मात्र)का दरले बाञकी किस्ताहरुमा तल उल्लिखित कर्जा अवधि
                             समाप्ति
                             मिति
                             भित्र चुक्ता भुक्तानी गर्नु पर्नेछ ।<br>
                             <strong>कर्जा अवधि समाप्ति मितिः</strong> <input class="form-field form-control-sm "
-                                                                             formControlName=""
+                                                                             formControlName="annualEMILoanExpiryDateVehicleLoan"
                                                                              placeholder=""
                                                                              type="text"/> ।
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newInstallmentBaseRateVehicleLoan"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newInstallmentPremiumRateVehicleLoan"
                                    placeholder=""
                                    type="text"/> प्रतिशत
                             ब्याज दर प्रिमियम (interest rate premium)<br>
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newInstallmentInterestRateVehicleLoan"
                                                placeholder=""
                                                type="text"/>% का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
@@ -1302,7 +1389,7 @@
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newInstallmentTotalInterestRateVehicleLoan"
                                                placeholder=""
                                                type="text"/>% का दरले
                             निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -1312,58 +1399,62 @@
                             <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>
                                 स्वीकृतकर्जा रकम उपलब्ध तालिका बमोजिम शुरु निकाशा भएको मितिले
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newInstallmentLoanTenureVehicleLoan"
                                    placeholder=""
                                    type="text"/> वर्ष भित्र प्रति
                                 वर्ष/अर्धबार्षिक/त्रैमास/महिना रु.<input class="form-field form-control-sm "
-                                                                         formControlName=""
+                                                                         formControlName="newInstallmentPaymentAmountVehicleLoan"
                                                                          placeholder=""
                                                                          type="text"/>।—
                             अक्षरेपी<input class="form-field form-control-sm "
-                                           formControlName=""
+                                           formControlName="newInstallmentPaymentAmountInWordVehicleLoan"
                                            placeholder=""
                                            type="text"/> का दरले <input class="form-field form-control-sm "
-                                                                        formControlName=""
+                                                                        formControlName="newInstallmentNoOfPaymentVehicleLoan"
                                                                         placeholder=""
                                                                         type="text"/>
+                                <input class="form-field form-control-sm "
+                                       formControlName="newInstallmentPaymentTypeVehicleLoan"
+                                       placeholder=""
+                                       type="text"/>
                                 <!-- बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch value from Form)-->
-                            किस्ताहरुमा चुक्ता भुक्तानी गर्नुपर्नेछ । कर्जा निकाशा भएको <input
+                            किस्ताहरुमा चुक्ता भुक्तानी गर्नुपर्नेछ । कर्जा निकाशा भएको मितिले <input
                                         class="form-field form-control-sm "
-                                        formControlName=""
+                                        formControlName="newInstallmentPaymentDurationVehicleLoan"
                                         placeholder=""
                                         type="text"/>
-                                <!--मितिले/एक बर्ष/छ महिना/तिन महिना/एक महिना (Auto select according to an above selection)-->
+                                <!--/एक बर्ष/छ महिना/तिन महिना/एक महिना (Auto select according to an above selection)-->
                             पश्चात प्रथम किस्ता भुक्तानी हुनेछ ।</span><br>
                             <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
-                                                                formControlName=""
+                                                                formControlName="newInstallmentLoanPurposeVehicleLoan"
                                                                 placeholder=""
                                                                 type="text"/>
                             कर्जाको <input class="form-field form-control-sm "
-                                           formControlName=""
+                                           formControlName="newInstallmentServiceChargeVehicleLoan"
                                            placeholder=""
                                            type="text"/>% सेवा शुल्क
                             लाग्नेछ ।<br>
                             <strong>कर्जा अवधि: </strong><input class="form-field form-control-sm "
-                                                                formControlName=""
+                                                                formControlName="newInstallmentLoanTenureVehicleLoan"
                                                                 placeholder=""
                                                                 type="text"/> बर्ष सम्मको लागि मात्र ।
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualInstallmentBaseRateVehicleLoan"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualInstallmentPremiumRateVehicleLoan"
                                    placeholder=""
                                    type="text"/> प्रतिशत
                             ब्याज दर प्रिमियम (interest rate premium)<br>
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="annualInstallmentInterestRateVehicleLoan"
                                                placeholder=""
                                                type="text"/>% का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
@@ -1371,7 +1462,7 @@
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="annualInstallmentTotalInterestRateVehicleLoan"
                                                placeholder=""
                                                type="text"/>% का दरले
                             निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -1380,25 +1471,36 @@
 
                             <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>यस अघि निर्धारित भुक्तानी
                         तालिकाबमोजिम बाञकी किस्ताहरु रु.<input class="form-field form-control-sm "
-                                                               formControlName=""
+                                                               formControlName="annualInstallmentPaymentAmountVehicleLoan"
                                                                placeholder=""
                                                                type="text"/>।— <input
                                         class="form-field form-control-sm "
-                                        formControlName=""
+                                        formControlName="annualInstallmentPaymentAmountInWordVehicleLoan"
                                         placeholder=""
                                         type="text"/>का दरले
                         <input class="form-field form-control-sm "
-                               formControlName=""
+                               formControlName="annualInstallmentNoOfPaymentVehicleLoan"
                                placeholder=""
                                type="text"/>
+                                <input class="form-field form-control-sm "
+                                       formControlName="annualInstallmentPaymentTypeVehicleLoan"
+                                       placeholder=""
+                                       type="text"/>
                                 <!--बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch data from Form)-->
                             किस्ताहरुमा तल उल्लिखित कर्जा अवधि
                             समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
                             <strong>कर्जा अवधि समाप्ति मितिः </strong><input class="form-field form-control-sm "
-                                                                             formControlName=""
+                                                                             formControlName="annualInstallmentLoanExpiryDateVehicleLoan"
                                                                              placeholder=""
                                                                              type="text"/> ।<br>
-                            <strong>कर्जा प्रवाह तरिकाः</strong> free text
+                            <strong>कर्जा प्रवाह तरिकाः</strong> <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextTwelve">
+                        </textarea>
                         </p>
                     </td>
                 </tr>
@@ -1408,23 +1510,23 @@
                         <p>
                         <span><strong>अचल संपत्ति सुरक्षणमा आधारित आवधिक कर्जा (Mortgage Term Loan)
                             बुँदा नं.<input class="form-field form-control-sm "
-                                            formControlName=""
+                                            formControlName="SNOfParentLimitMortgageTerm"
                                             placeholder=""
                                             type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</strong></span><br>
 
                             <span><strong>सुरक्षणमा आधारीत स्वपुञजी आवधिक कर्जा (Equity Mortgage Term Loan)
                             बुँदा नं.<input class="form-field form-control-sm "
-                                            formControlName=""
+                                            formControlName="SNOfParentLimitMortgageTerm"
                                             placeholder=""
                                             type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</strong></span>
                         </p>
                         <p>
                             <strong> सीमाः रु.<input class="form-field form-control-sm "
-                                                     formControlName=""
+                                                     formControlName="loanAmountMortgageTerm"
                                                      placeholder=""
                                                      type="text"/>।-
                                 (अक्षरेपी रु.<input class="form-field form-control-sm "
-                                                    formControlName=""
+                                                    formControlName="loanAmountInWordMortgageTerm"
                                                     placeholder=""
                                                     type="text"/>
                                 मात्र)</strong><br>
@@ -1441,7 +1543,7 @@
                         कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे लेखिदिने
                         घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value)
                         को <input class="form-field form-control-sm "
-                                  formControlName=""
+                                  formControlName="drawingPowerMortgageTerm"
                                   placeholder=""
                                   type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
                         सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
@@ -1450,7 +1552,7 @@
                         कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे लेखिदिने
                         घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित बजार मुल्य
                         (Market Value)को <input class="form-field form-control-sm "
-                                                formControlName=""
+                                                formControlName="drawingPowerMortgageTerm"
                                                 placeholder=""
                                                 type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
                         सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
@@ -1459,7 +1561,7 @@
                         कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
                         लेखिदिएको घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value)
                         को <input class="form-field form-control-sm "
-                                  formControlName=""
+                                  formControlName="drawingPowerMortgageTerm"
                                   placeholder=""
                                   type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
                         सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
@@ -1468,7 +1570,7 @@
                         कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
                         लेखिदिएको घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित
                         बजार मुल्य (Market Value)को <input class="form-field form-control-sm "
-                                                           formControlName=""
+                                                           formControlName="drawingPowerMortgageTerm"
                                                            placeholder=""
                                                            type="text"/>
                                 प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
@@ -1477,18 +1579,18 @@
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newEMIBaseRateMortgageTerm"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newEMIPremiumRateMortgageTerm"
                                    placeholder=""
                                    type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)<br>
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newEMIInterestRateMortgageTerm"
                                                placeholder=""
                                                type="text"/>% का दरले
                            मासिक तिर्नु बुझाउनु पर्नेछ ।
@@ -1497,51 +1599,53 @@
                             <span>
                             <strong>साँवा रब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक
                             रु.<input class="form-field form-control-sm "
-                                      formControlName=""
+                                      formControlName="newEMIAmountMortgageTerm"
                                       placeholder=""
                                       type="text"/>|-
                                 (अक्षरेपि रु.<input class="form-field form-control-sm "
-                                                    formControlName=""
+                                                    formControlName="newEMIAmountInWordMortgageTerm"
                                                     placeholder=""
                                                     type="text"/> मात्र)
                             का दरले <input class="form-field form-control-sm "
-                                           formControlName=""
+                                           formControlName="newEMINoOfInstallmentMortgageTerm"
                                            placeholder=""
                                            type="text"/> सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                         </span><br>
-                            <span><strong>कर्जा भुक्तानी शुरुः</strong>कर्जा <input class="form-field form-control-sm "
-                                                                                    formControlName=""
-                                                                                    placeholder=""
-                                                                                    type="text"/>
-                                <!--(निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ ।)(auto Populate)..........--></span><br>
+                            <span><strong>कर्जा भुक्तानी शुरुः</strong>कर्जा <input
+                                    class="form-field form-control-sm nepaliFont"
+                                    formControlName="newEMIAutoPopulateMortgageTerm"
+                                    value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
+                                    type="text"/>।
+                                <!--(निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--></span><br>
 
                             <span>कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।<br>
                         <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
-                                                            formControlName=""
+                                                            formControlName="newEMILoanPurposeMortgageTerm"
                                                             placeholder=""
                                                             type="text"/>
                                 कर्जाको <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newEMIServiceChargeMortgageTerm"
                                                placeholder=""
                                                type="text"/>% सेवा शुल्क लाग्नेछ ।<br>
                         <strong>कर्जा अवधि:</strong> <input class="form-field form-control-sm "
-                                                            formControlName=""
+                                                            formControlName="newEMILoanTenureMortgageTerm"
                                                             placeholder=""
                                                             type="text"/> बर्ष सम्मको लागि मात्र ।</span>
                         </p>
+                        <!--Upto Here-->
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualEMIBaseRateMortgageTerm"
                                    placeholder=""
                                    type="text"/> +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualEMIPremiumRateMortgageTerm"
                                    placeholder=""
                                    type="text"/> प्रतिशत ब्याज दर प्रिमियम(interest rate premium)<br>
                             हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating interest Rate)
                             बार्षिक <input class="form-field form-control-sm "
-                                           formControlName=""
+                                           formControlName="annualEMIInterestRateMortgageTerm"
                                            placeholder=""
                                            type="text"/>% का
                             दरले
@@ -1550,37 +1654,37 @@
                             मासिक
                             किस्ता (Equated
                             Monthly Installment) तालिका बमोजिम मासिक रु.<input class="form-field form-control-sm "
-                                                                               formControlName=""
+                                                                               formControlName="annualEMIAmountMortgageTerm"
                                                                                placeholder=""
                                                                                type="text"/>|-
                             (अक्षरेपि रु.
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualEMIAmountInWordMortgageTerm"
                                    placeholder=""
                                    type="text"/> मात्र)का दरले बाञकी किस्ताहरुमा तल उल्लिखित कर्जा अवधि समाप्ति
                             मिति
                             भित्र चुक्ता भुक्तानी गर्नु पर्नेछ ।<br>
                             <strong>कर्जा अवधि समाप्ति मितिः</strong> <input class="form-field form-control-sm "
-                                                                             formControlName=""
+                                                                             formControlName="annualEMILoanExpiryDateMortgageTerm"
                                                                              placeholder=""
                                                                              type="text"/> ।
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newInstallmentBaseRateMortgageTerm"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newInstallmentPremiumRateMortgageTerm"
                                    placeholder=""
                                    type="text"/> प्रतिशत
                             ब्याज दर प्रिमियम (interest rate premium)<br>
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newInstallmentInterestRateMortgageTerm"
                                                placeholder=""
                                                type="text"/>% का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
@@ -1588,7 +1692,7 @@
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newInstallmentTotalInterestRateMortgageTerm"
                                                placeholder=""
                                                type="text"/>% का दरले
                             निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -1598,58 +1702,62 @@
                             <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>
                                 स्वीकृतकर्जा रकम उपलब्ध तालिका बमोजिम शुरु निकाशा भएको मितिले
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newInstallmentLoanTenureMortgageTerm"
                                    placeholder=""
                                    type="text"/> वर्ष भित्र प्रति वर्ष/अर्धबार्षिक/त्रैमास/महिना
                                 रु.<input class="form-field form-control-sm "
-                                          formControlName=""
+                                          formControlName="newInstallmentPaymentAmountMortgageTerm"
                                           placeholder=""
                                           type="text"/>।—
                             अक्षरेपी <input class="form-field form-control-sm "
-                                            formControlName=""
+                                            formControlName="newInstallmentPaymentAmountInWordMortgageTerm"
                                             placeholder=""
                                             type="text"/> का दरले <input class="form-field form-control-sm "
-                                                                         formControlName=""
+                                                                         formControlName="newInstallmentNoOfPaymentMortgageTerm"
                                                                          placeholder=""
                                                                          type="text"/>
+                                <input class="form-field form-control-sm "
+                                       formControlName="newInstallmentPaymentTypeMortgageTerm"
+                                       placeholder=""
+                                       type="text"/>
                                 <!-- बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch value from Form)-->
                             किस्ताहरुमा चुक्ता भुक्तानी गर्नुपर्नेछ । कर्जा निकाशा भएको <input
                                         class="form-field form-control-sm "
-                                        formControlName=""
+                                        formControlName="newInstallmentPaymentDurationMortgageTerm"
                                         placeholder=""
                                         type="text"/>
                                 <!--मितिले/एक बर्ष/छ महिना/तिन महिना/एक महिना (Auto select according to an above selection)-->
                             पश्चात प्रथम किस्ता भुक्तानी हुनेछ ।</span><br>
                             <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
-                                                                formControlName=""
+                                                                formControlName="newInstallmentLoanPurposeMortgageTerm"
                                                                 placeholder=""
                                                                 type="text"/>
                             कर्जाको<input class="form-field form-control-sm "
-                                          formControlName=""
+                                          formControlName="newInstallmentServiceChargeMortgageTerm"
                                           placeholder=""
                                           type="text"/>% सेवा शुल्क
                             लाग्नेछ ।<br>
                             <strong>कर्जा अवधि: </strong><input class="form-field form-control-sm "
-                                                                formControlName=""
+                                                                formControlName="newInstallmentLoanTenureMortgageTerm"
                                                                 placeholder=""
                                                                 type="text"/> बर्ष सम्मको लागि मात्र ।
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualInstallmentBaseRateMortgageTerm"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualInstallmentPremiumRateMortgageTerm"
                                    placeholder=""
                                    type="text"/> प्रतिशत
                             ब्याज दर प्रिमियम (interest rate premium)<br>
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="annualInstallmentInterestRateMortgageTerm"
                                                placeholder=""
                                                type="text"/>% का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
@@ -1657,7 +1765,7 @@
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="annualInstallmentTotalInterestRateMortgageTerm"
                                                placeholder=""
                                                type="text"/>% का दरले
                             निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -1666,22 +1774,26 @@
 
                             <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>यस अघि निर्धारित भुक्तानी
                         तालिकाबमोजिम बाञकी किस्ताहरु रु.<input class="form-field form-control-sm "
-                                                               formControlName=""
+                                                               formControlName="annualInstallmentPaymentAmountMortgageTerm"
                                                                placeholder=""
                                                                type="text"/>।—
                                 <input class="form-field form-control-sm "
-                                       formControlName=""
+                                       formControlName="annualInstallmentPaymentAmountInWordMortgageTerm"
                                        placeholder=""
                                        type="text"/>का दरले
                         <input class="form-field form-control-sm "
-                               formControlName=""
+                               formControlName="annualInstallmentNoOfPaymentMortgageTerm"
                                placeholder=""
                                type="text"/>
+                                <input class="form-field form-control-sm "
+                                       formControlName="annualInstallmentPaymentTypeMortgageTerm"
+                                       placeholder=""
+                                       type="text"/>
                                 <!--बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch data from Form)-->
                             किस्ताहरुमा तल उल्लिखित कर्जा अवधि
                             समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
                             <strong>कर्जा अवधि समाप्ति मितिः </strong><input class="form-field form-control-sm "
-                                                                             formControlName=""
+                                                                             formControlName="annualInstallmentLoanExpiryDateMortgageTerm"
                                                                              placeholder=""
                                                                              type="text"/> ।<br>
                             <span>
@@ -1690,7 +1802,7 @@
                                 साथै ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहिछाप गरिसके पश्चात सो घर/जग्गाको बैकको
                                 आधिकारिक मुल्याङकनकर्ताले तयार परेको प्रतिवेदनमा उल्लिखितन्यूनतम
                                 मूल्य(Distress Value)कोे <input class="form-field form-control-sm "
-                                                                formControlName=""
+                                                                formControlName="annualInstallmentDrawingPowerMortgageTerm"
                                                                 placeholder=""
                                                                 type="text"/>
                                 प्रतिशत वा स्वीकृत ऋणकर्जा रकम मध्ये जुन कम हुन्छ सो
@@ -1701,7 +1813,7 @@
                                 साथै ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहिछाप गरिसके पश्चात सो घर/जग्गाको बैकको
                                 आधिकारिक मुल्याङकनकर्ताले तयार परेको प्रतिवेदनमा उल्लिखित बजार
                                 मुल्य(Market Value) कोे <input class="form-field form-control-sm "
-                                                               formControlName=""
+                                                               formControlName="annualInstallmentDrawingPowerMortgageTerm"
                                                                placeholder=""
                                                                type="text"/>
                                 प्रतिशत वा स्वीकृत ऋणकर्जा रकम मध्ये जुन कम हुन्छ सो
@@ -1712,7 +1824,7 @@
                                 ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहि छाप भई बैंकलाई प्राप्त भए
                                 पश्चात धितोेबन्धक रहेको घर/जग्गाको आधिकारिक मुल्याङकनकर्ताले तयार परेको प्रतिवेदनमा
                                 उल्लिखित न्यूनतम मूल्य(Distress Value)को <input class="form-field form-control-sm "
-                                                                                formControlName=""
+                                                                                formControlName="annualInstallmentDrawingPowerMortgageTerm1"
                                                                                 placeholder=""
                                                                                 type="text"/>
                                 प्रतिशत वा
@@ -1723,7 +1835,7 @@
                                 ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहि छाप भई बैंकलाई प्राप्त भए
                                 पश्चात धितोेबन्धक रहेको घर/जग्गाको आधिकारिक मुल्याङकनकर्ताले तयार परेको प्रतिवेदनमा
                                 उल्लिखित बजार मुल्य(Market Value)को <input class="form-field form-control-sm "
-                                                                           formControlName=""
+                                                                           formControlName="annualInstallmentDrawingPowerMortgageTerm1"
                                                                            placeholder=""
                                                                            type="text"/> प्रतिशत वा
                                 स्वीकृत ऋणकर्जा रकम मध्ये जुन कम हुन्छ सो रकम तपाईंले यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह
@@ -1731,7 +1843,14 @@
                         </span>
                         </p>
                         <p>
-                            free text
+                            <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextThirteen">
+                        </textarea>
                         </p>
                     </td>
                 </tr>
@@ -1741,16 +1860,16 @@
                         <p>
                             <strong>सवारी साधन कर्जा (Auto Loan)
                                 बुँदा नं.<input class="form-field form-control-sm "
-                                                formControlName=""
+                                                formControlName="SNOfParentLimitAutoLoan"
                                                 placeholder=""
                                                 type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</strong>
 
                             <strong><br> सीमाः रु.<input class="form-field form-control-sm "
-                                                     formControlName=""
-                                                     placeholder=""
-                                                     type="text"/>।-
+                                                         formControlName="loanAmountAutoLoan"
+                                                         placeholder=""
+                                                         type="text"/>।-
                                 (अक्षरेपी रु.<input class="form-field form-control-sm "
-                                                    formControlName=""
+                                                    formControlName="loanAmountInWordAutoLoan"
                                                     placeholder=""
                                                     type="text"/>
                                 मात्र)</strong><br>
@@ -1770,7 +1889,7 @@
                         <p>
                             <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                             सवारी साधनको मूल्यको <input class="form-field form-control-sm "
-                                                        formControlName=""
+                                                        formControlName="newEMIDrawingPowerAutoLoan"
                                                         placeholder=""
                                                         type="text"/>प्रतिशत
                             बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बराबर कर्जा उपयोग गर्न सकिनेछ ।
@@ -1778,18 +1897,18 @@
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newEMIBaseRateAutoLoan"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newEMIPremiumRateAutoLoan"
                                    placeholder=""
                                    type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)<br>
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newEMIInterestRateAutoLoan"
                                                placeholder=""
                                                type="text"/>% का दरले
                            मासिक तिर्नु बुझाउनु पर्नेछ ।
@@ -1798,52 +1917,52 @@
                             <span>
                             <strong>साँवा रब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक
                             रु.<input class="form-field form-control-sm "
-                                      formControlName=""
+                                      formControlName="newEMIAmountAutoLoan"
                                       placeholder=""
                                       type="text"/>|-
                                 (अक्षरेपि रु. <input class="form-field form-control-sm "
-                                                     formControlName=""
+                                                     formControlName="newEMIAmountInWordAutoLoan"
                                                      placeholder=""
                                                      type="text"/> मात्र)
                             का दरले <input class="form-field form-control-sm "
-                                           formControlName=""
+                                           formControlName="newEMINoOfInstallmentAutoLoan"
                                            placeholder=""
                                            type="text"/>
                                 सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                         </span><br>
                             <span><strong>कर्जा भुक्तानी शुरुः</strong>कर्जा <input class="form-field form-control-sm "
-                                                                                    formControlName=""
-                                                                                    placeholder=""
-                                                                                    type="text"/>
-                                <!--(निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ ।)(auto Populate)..........--></span><br>
+                                                                                    formControlName="newEMIAutoPopulateAutoLoan"
+                                                                                    value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
+                                                                                    type="text"/>।
+                                <!--(निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--></span><br>
 
                             <span>कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।<br>
                         <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
-                                                            formControlName=""
+                                                            formControlName="newEMILoanPurposeAutoLoan"
                                                             placeholder=""
                                                             type="text"/>
                                 कर्जाको <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newEMIServiceChargeAutoLoan"
                                                placeholder=""
                                                type="text"/>% सेवा शुल्क लाग्नेछ ।<br>
                         <strong>कर्जा अवधि:</strong> <input class="form-field form-control-sm "
-                                                            formControlName=""
+                                                            formControlName="newEMILoanTenureAutoLoan"
                                                             placeholder=""
                                                             type="text"/> बर्ष सम्मको लागि मात्र ।</span>
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualEMIBaseRateAutoLoan"
                                    placeholder=""
                                    type="text"/> +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualEMIPremiumRateAutoLoan"
                                    placeholder=""
                                    type="text"/> प्रतिशत ब्याज दर प्रिमियम(interest rate premium)<br>
                             हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating interest Rate)
                             बार्षिक <input class="form-field form-control-sm "
-                                           formControlName=""
+                                           formControlName="annualEMIInterestRateAutoLoan"
                                            placeholder=""
                                            type="text"/>% का
                             दरले
@@ -1852,37 +1971,37 @@
                             मासिक
                             किस्ता (Equated
                             Monthly Installment) तालिका बमोजिम मासिक रु.<input class="form-field form-control-sm "
-                                                                               formControlName=""
+                                                                               formControlName="annualEMIAmountAutoLoan"
                                                                                placeholder=""
                                                                                type="text"/>|-
                             (अक्षरेपि रु.
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualEMIAmountInWordAutoLoan"
                                    placeholder=""
                                    type="text"/> मात्र)का दरले बाञकी किस्ताहरुमा तल उल्लिखित कर्जा अवधि समाप्ति
                             मिति
                             भित्र चुक्ता भुक्तानी गर्नु पर्नेछ ।<br>
                             <strong>कर्जा अवधि समाप्ति मितिः</strong> <input class="form-field form-control-sm "
-                                                                             formControlName=""
+                                                                             formControlName="annualEMILoanExpiryDateAutoLoan"
                                                                              placeholder=""
                                                                              type="text"/> ।
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newInstallmentBaseRateAutoLoan"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newInstallmentPremiumRateAutoLoan"
                                    placeholder=""
                                    type="text"/> प्रतिशत
                             ब्याज दर प्रिमियम (interest rate premium)<br>
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="newInstallmentInterestRateAutoLoan"
                                                placeholder=""
                                                type="text"/>% का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
@@ -1890,59 +2009,63 @@
 
                             <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>स्वीकृतकर्जा रकम उपलब्ध तालिका बमोजिम शुरु निकाशा भएको मितिले
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="newInstallmentLoanTenureAutoLoan"
                                    placeholder=""
                                    type="text"/> वर्ष भित्र प्रति वर्ष/अर्धबार्षिक/त्रैमास/महिना रु. <input
                                         class="form-field form-control-sm "
-                                        formControlName=""
+                                        formControlName="newInstallmentPaymentAmountAutoLoan"
                                         placeholder=""
                                         type="text"/>।—
                             अक्षरेपी <input class="form-field form-control-sm "
-                                            formControlName=""
+                                            formControlName="newInstallmentPaymentAmountInWordAutoLoan"
                                             placeholder=""
                                             type="text"/> का दरले <input class="form-field form-control-sm "
-                                                                         formControlName=""
+                                                                         formControlName="newInstallmentNoOfPaymentAutoLoan"
                                                                          placeholder=""
                                                                          type="text"/>
+                                <input class="form-field form-control-sm "
+                                       formControlName="newInstallmentPaymentTypeAutoLoan"
+                                       placeholder=""
+                                       type="text"/>
                                 <!-- बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch value from Form)-->
                             किस्ताहरुमा चुक्ता भुक्तानी गर्नुपर्नेछ । कर्जा निकाशा भएको <input
                                         class="form-field form-control-sm "
-                                        formControlName=""
+                                        formControlName="newInstallmentPaymentDurationAutoLoan"
                                         placeholder=""
                                         type="text"/>
                                 <!--मितिले/एक बर्ष/छ महिना/तिन महिना/एक महिना (Auto select according to an above selection)-->
                             पश्चात प्रथम किस्ता भुक्तानी हुनेछ ।</span><br>
                             <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
-                                                                formControlName=""
+                                                                formControlName="newInstallmentLoanPurposeAutoLoan"
                                                                 placeholder=""
                                                                 type="text"/>
                             कर्जाको <input class="form-field form-control-sm "
-                                           formControlName=""
+                                           formControlName="newInstallmentServiceChargeAutoLoan"
                                            placeholder=""
                                            type="text"/>% सेवा शुल्क
                             लाग्नेछ
                             ।<br>
                             <strong>कर्जा अवधि: </strong><input class="form-field form-control-sm "
-                                                                formControlName=""
+                                                                formControlName="newInstallmentLoanTenureAutoLoan"
                                                                 placeholder=""
                                                                 type="text"/> बर्ष सम्मको लागि मात्र ।
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualInstallmentBaseRateAutoLoan"
                                    placeholder=""
                                    type="text"/>
                             +
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="annualInstallmentPremiumRateAutoLoan"
                                    placeholder=""
                                    type="text"/> प्रतिशत
                             ब्याज दर प्रिमियम (interest rate premium)<br>
 
                             <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName=""
+                                               formControlName="annualInstallmentInterestRateAutoLoan"
                                                placeholder=""
                                                type="text"/>% का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
@@ -1950,39 +2073,51 @@
 
                             <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>यस अघि निर्धारित भुक्तानी
                         तालिकाबमोजिम बाञकी किस्ताहरु रु. <input class="form-field form-control-sm "
-                                                                formControlName=""
+                                                                formControlName="annualInstallmentPaymentAmountAutoLoan"
                                                                 placeholder=""
                                                                 type="text"/>।—
                                 <input class="form-field form-control-sm "
-                                       formControlName=""
+                                       formControlName="annualInstallmentPaymentAmountInWordAutoLoan"
                                        placeholder=""
                                        type="text"/>का दरले
                         <input class="form-field form-control-sm "
-                               formControlName=""
+                               formControlName="annualInstallmentNoOfPaymentAutoLoan"
                                placeholder=""
                                type="text"/>
+                                <input class="form-field form-control-sm "
+                                       formControlName="annualInstallmentPaymentTypeAutoLoan"
+                                       placeholder=""
+                                       type="text"/>
                                 <!--बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch data from Form)-->
                             किस्ताहरुमा तल उल्लिखित कर्जा अवधि
                             समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
                             <strong>कर्जा अवधि समाप्ति मितिः </strong><input class="form-field form-control-sm "
-                                                                             formControlName=""
+                                                                             formControlName="annualInstallmentLoanExpiryDateAutoLoan"
                                                                              placeholder=""
                                                                              type="text"/> ।<br>
                             <span>
                             <strong>कर्जा प्रवाह तरिकाः</strong> सवारी साधनको व्यापक (Comprehensive) बिमालेख सहित बैंकको नाममा
                             दर्ता गरीदिनुका साथै आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु सहीछाप भई बैंकलाई प्राप्त भएपश्चात सवारी
                             साधनको कर बिजक/भ्याट बिलको <input class="form-field form-control-sm "
-                                                              formControlName=""
+                                                              formControlName="annualInstallmentDrawingPowerAutoLoan"
                                                               placeholder=""
                                                               type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन
                             कम हुन्छ सो रकम तपाईंले यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ र तपाईंको लिखित निर्देशन
-                            बमोजिम सोहि खातामा खर्च जनाई आधिकारिक विक्रेता <input class="form-field form-control-sm "
-                                                                                  formControlName=""
-                                                                                  placeholder=""
-                                                                                  type="text"/> वा उसको
+                            बमोजिम सोहि खातामा खर्च जनाई आधिकारिक विक्रेता <input
+                                    class="form-field form-control-sm nepaliFont"
+                                    formControlName=""
+                                    placeholder="annualInstallmentNameOfDealerAutoLoan"
+                                    type="text"/> वा उसको
                             प्रतिनिधिलाई सो रकम बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।
                             </span><br>
-                            <span><strong>कर्जा प्रवाह तरिकाः</strong>free text</span>
+                            <span><strong>कर्जा प्रवाह तरिकाः</strong><textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextFourteen">
+                        </textarea></span>
                         </p>
                     </td>
                 </tr>
@@ -1992,16 +2127,16 @@
                         <p>
                             <strong>बैंक जमानत सुविधा (Bank Guarantee)
                                 बुँदा नं.<input class="form-field form-control-sm "
-                                                formControlName=""
+                                                formControlName="SNOfParentLimitBankGuarantee"
                                                 placeholder=""
                                                 type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</strong><br>
 
                             <strong> सीमाः रु.<input class="form-field form-control-sm "
-                                                     formControlName=""
+                                                     formControlName="loanAmountBankGuarantee"
                                                      placeholder=""
                                                      type="text"/>।-
                                 (अक्षरेपी रु.<input class="form-field form-control-sm "
-                                                    formControlName=""
+                                                    formControlName="loanAmountInWordBankGuarantee"
                                                     placeholder=""
                                                     type="text"/>
                                 मात्र)</strong><br>
@@ -2026,15 +2161,14 @@
                         </p>
                         <p>
                             <strong>सुरक्षणः</strong> <input class="form-field form-control-sm "
-                                                             formControlName=""
+                                                             formControlName="nameOfBankBankGuarantee"
                                                              placeholder=""
                                                              type="text"/> बैंकले यस बैंकलाई जारी गरिएको काउण्टर जमानत
-                            पत्र
-                            ।
+                            पत्र ।
                         </p>
                         <p>
                             <strong>धरौटी:</strong> नगद <input class="form-field form-control-sm "
-                                                               formControlName=""
+                                                               formControlName="marginInPercentageBankGuarantee"
                                                                placeholder=""
                                                                type="text"/>% धरौटी स्वरुप रहनेछ ।
                         </p>
@@ -2042,21 +2176,21 @@
                         <p>
                             अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को
                             हकमा <input class="form-field form-control-sm "
-                                        formControlName=""
+                                        formControlName="commission1BankGuarantee"
                                         placeholder=""
                                         type="text"/>% नगद र
                             कार्य
                             सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक जमानत (Bid Bond)को हकमा
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="commission1BankGuarantee1"
                                    placeholder=""
                                    type="text"/>% नगद धरौटी स्वरुप रहनेछ ।<br>
                             कमिसन: प्रति त्रैमास <input class="form-field form-control-sm "
-                                                        formControlName=""
+                                                        formControlName="serviceChargeBankGuarantee"
                                                         placeholder=""
                                                         type="text"/>% का दरले वा कम्तिमा रु.
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="minimumServiceChargeBankGuarantee1"
                                    placeholder=""
                                    type="text"/>।–लाग्नेछ ।
                         </p>
@@ -2064,23 +2198,23 @@
                             अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति
                             त्रैमास
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="commission2BankGuarantee"
                                    placeholder=""
                                    type="text"/>% का दरलेर कार्य सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक
                             जमानत
-                            (Bid
-                            Bond) को हकमा प्रति बैकं जमानत प्रति त्रैमास <input class="form-field form-control-sm "
-                                                                                formControlName=""
-                                                                                placeholder=""
-                                                                                type="text"/>%का दरले वा कम्तिमा रु.
+                            (Bid Bond) को हकमा प्रति बैकं जमानत प्रति त्रैमास <input class="form-field form-control-sm "
+                                                                                     formControlName="commission2BankGuarantee1"
+                                                                                     placeholder=""
+                                                                                     type="text"/>%का दरले वा कम्तिमा
+                            रु.
                             <input class="form-field form-control-sm "
-                                   formControlName=""
+                                   formControlName="minimumServiceChargeBankGuarantee2"
                                    placeholder=""
                                    type="text"/>।–लाग्नेछ ।
                         </p>
                         <p>
                             सुविधा समाप्ति/पुनरावलोकन मितिः <input class="form-field form-control-sm "
-                                                                   formControlName=""
+                                                                   formControlName="loanExpiryDateBankGuarantee1"
                                                                    placeholder=""
                                                                    type="text"/>
                         </p>
@@ -2092,43 +2226,50 @@
                         <p>
                             <strong>बिल्स खरिद कर्जा (Bills Purchase)
                                 बुँदा नं.<input class="form-field form-control-sm "
-                                                formControlName=""
+                                                formControlName="SNOfParentLimitBillsPurchase"
                                                 placeholder=""
                                                 type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</strong><br>
 
                             <strong> सीमाः रु.<input class="form-field form-control-sm "
-                                                     formControlName=""
+                                                     formControlName="loanAmountBillsPurchase"
                                                      placeholder=""
                                                      type="text"/>|-
                                 (अक्षरेपी रु.<input class="form-field form-control-sm "
-                                                    formControlName=""
+                                                    formControlName="loanAmountInWordBillsPurchase"
                                                     placeholder=""
                                                     type="text"/>
                                 मात्र)</strong>
                         </p>
                         <p>
-                            <strong>सुरक्षणः</strong> खरिद गरिने बिल्स् , चेक, free text
+                            <strong>सुरक्षणः</strong> खरिद गरिने बिल्स् , चेक, <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextFifteen">
+                        </textarea>
                         </p>
                         <p>
                             <strong>धरौटीः </strong><input class="form-field form-control-sm "
-                                                           formControlName=""
+                                                           formControlName="marginInPercentageBillsPurchase"
                                                            placeholder=""
                                                            type="text"/>प्रतिशत धरौटी स्वरुप रहनेछ ।
                         </p>
                         <p>
                             <strong>शुल्कः</strong>प्रति कारोबार <strong>‘<input class="form-field form-control-sm "
-                                                                                 formControlName=""
+                                                                                 formControlName="commissionBillsPurchase"
                                                                                  placeholder=""
                                                                                  type="text"/>‘%</strong> वा
                             कम्तिमा रु.<input class="form-field form-control-sm "
-                                              formControlName=""
+                                              formControlName="commissionAmountBillsPurchase"
                                               placeholder=""
                                               type="text"/>।–का दरले लाग्नेछ ।
                         </p>
                         <p>
                             <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong><input
                                 class="form-field form-control-sm "
-                                formControlName=""
+                                formControlName="loanExpiryDateBillsPurchase"
                                 placeholder=""
                                 type="text"/>।
                         </p>
@@ -2137,18 +2278,25 @@
                 <tr>
                     <td width="10%"><strong>ध)</strong></td>
                     <td>
-                        free text
+                        <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="2"
+                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                name=""
+                                placeholder=""
+                                formControlName="freeTextSixteen">
+                        </textarea>
                     </td>
                 </tr>
             </table>
         </div>
         <div>
-            <table class="table-borderless">
+            <table class="table table-borderless">
                 <tr>
                     <td width="10%"><strong>द्रष्टब्यः</strong></td>
                     <td>
                         <p>माथि बुँदा नं.<input class="form-field form-control-sm "
-                                                formControlName=""
+                                                formControlName="SNOfFacility"
                                                 placeholder=""
                                                 type="text"/>मा उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन्
                             । सहुलियतपुर्ण कर्जाका लागि ब्याज अनुदान सम्बन्धि एकिकृत कार्यविधि,२०७५, दोस्रो संशोधन, २०७६
