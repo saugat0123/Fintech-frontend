@@ -39,6 +39,7 @@ export class SmeGlobalContentComponent implements OnInit {
     {value: 'For Specific Loan Only'},
   ];
   dateType = ['AD', 'BS'];
+  interestRateType = [{value: 'Floating Interest Rate'}, {value: 'Fixed Interest Rate'}];
 
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
@@ -62,6 +63,7 @@ export class SmeGlobalContentComponent implements OnInit {
       borrowerNaturalPerson: [undefined],
       loanAmountAbove50Crore: [undefined],
       workingCapitalAbove25Crore: [undefined],
+      interestRateType: [undefined],
       dateOfApproval: [undefined],
       dateOfApprovalTrans: [undefined],
       dateOfApprovalCT: [undefined],
