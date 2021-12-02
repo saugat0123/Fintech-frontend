@@ -107,7 +107,6 @@ import { SmeMasterTemplateComponent } from './cad-view/template-data/nabil-sme-t
 import { SmeGlobalContentComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/global-template/sme-global-content/sme-global-content.component';
 import { IrrevocableLetterOfCreditFacilityComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/irrevocable-letter-of-credit-facility/irrevocable-letter-of-credit-facility.component';
 import { SmeSecurityComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security.component';
-import { SmeLoanTypeComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/sme-loan-type.component';
 import { CustomerAcceptanceForTimeLetterOfCreditComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/customer-acceptance-for-time-letter-of-credit/customer-acceptance-for-time-letter-of-credit.component';
 import { ImportBillsDiscountingComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/import-bills-discounting/import-bills-discounting.component';
 import { ImportLoanTrustReceiptLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/import-loan-trust-receipt-loan/import-loan-trust-receipt-loan.component';
@@ -202,15 +201,29 @@ import { TermLoanToOrForComponent } from './cad-view/template-data/nabil-sme-tem
         RetailMortageLoanTemplateDataEditComponent,
         PerosnalOverdraftWithoutCollateralTemplateDataComponent,
         AutoLoanTemplateEditComponent,
-      KisanKarjaSubsidyTemplateDataComponent,
+        KisanKarjaSubsidyTemplateDataComponent,
         UdhyamsilKarjaSubsidyTemplateDataComponent,
         DdslWithoutSubsidyTemplateDataComponent,
-    UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent, InterestSubsidySanctionLetterPrintComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
+        UdhyamsilKarjaSubsidyTemplateEditComponent,
+        InterestSubsidySanctionLetterComponent,
+        InterestSubsidySanctionLetterPrintComponent,
+        PersonalOverdraftWithoutCollateralTemplateEditComponent,
         InterestSubsidySanctionLetterTemplateEditComponent,
         InterestSubsidySanctionLetterTemplateDataComponent,
         DdslWithoutSubsidyTemplateEditComponent,
-        PersonalLoanAndPersonalOverdraftTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent, SmeMasterTemplateComponent, SmeGlobalContentComponent, IrrevocableLetterOfCreditFacilityComponent, SmeSecurityComponent, SmeLoanTypeComponent, CustomerAcceptanceForTimeLetterOfCreditComponent,
-        ImportBillsDiscountingComponent, ImportLoanTrustReceiptLoanComponent, DemandLoanForWorkingCapitalComponent, PreExportLoanComponent, DocumentaryBillPurchaseNegotiationComponent, OverdraftLoanForWorkingCapitalRequirementComponent,
+        PersonalLoanAndPersonalOverdraftTemplateEditComponent,
+        KisanKarjaSubsidyTemplateEditComponent,
+        SmeMasterTemplateComponent,
+        SmeGlobalContentComponent,
+        IrrevocableLetterOfCreditFacilityComponent,
+        SmeSecurityComponent,
+        CustomerAcceptanceForTimeLetterOfCreditComponent,
+        ImportBillsDiscountingComponent,
+        ImportLoanTrustReceiptLoanComponent,
+        DemandLoanForWorkingCapitalComponent,
+        PreExportLoanComponent,
+        DocumentaryBillPurchaseNegotiationComponent,
+        OverdraftLoanForWorkingCapitalRequirementComponent,
         RevolvingShortTermLoanComponent,
         EquityMortgagedOverdraftComponent,
         OverdraftFacilityAgainstFixedDepositComponent,
