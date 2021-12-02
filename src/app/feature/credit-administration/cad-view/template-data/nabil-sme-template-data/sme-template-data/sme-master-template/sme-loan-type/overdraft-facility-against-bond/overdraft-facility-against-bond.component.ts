@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
@@ -22,6 +22,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
     dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
     translateForm: FormGroup;
     tdValue: any = {};
+    arrayForm: any = {};
 
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -46,7 +47,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
             nameOfFacility: [undefined],
             loanAmount: [undefined],
             loanAmountWords: [undefined],
-            bondOwnerName: [undefined],
+            // bondOwnerName: [undefined],
             bondAmount: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
@@ -62,7 +63,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
             nameOfFacilityTrans: [undefined],
             loanAmountTrans: [undefined],
             loanAmountWordsTrans: [undefined],
-            bondOwnerNameTrans: [undefined],
+            // bondOwnerNameTrans: [undefined],
             bondAmountTrans: [undefined],
             baseRateTrans: [undefined],
             premiumRateTrans: [undefined],
@@ -77,14 +78,16 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
             nameOfFacilityCT: [undefined],
             loanAmountCT: [undefined],
             loanAmountWordsCT: [undefined],
-            bondOwnerNameCT: [undefined],
+            // bondOwnerNameCT: [undefined],
             bondAmountCT: [undefined],
             baseRateCT: [undefined],
             premiumRateCT: [undefined],
             interestRateCT: [undefined],
             dateOfExpiryTypeCT: [undefined],
             dateOfExpiryCT: [undefined],
+            bondDetails: this.formBuilder.array([]),
         });
+        this.addBondDetails();
     }
 
     public getNumAmountWord(numLabel, wordLabel): void {
@@ -160,7 +163,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
 
         this.translateForm = this.formBuilder.group({
             nameOfFacility: [this.overDraftFacilityForm.get('nameOfFacility').value],
-            bondOwnerName: [this.overDraftFacilityForm.get('bondOwnerName').value]
+            // bondOwnerName: [this.overDraftFacilityForm.get('bondOwnerName').value]
         });
 
         /* Translating Values */
@@ -169,11 +172,10 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         /* SET GOOGLE TRANSLATED VALUE BY TRANSLATION */
         if (!ObjectUtil.isEmpty(this.tdValue)) {
             this.overDraftFacilityForm.get('nameOfFacilityTrans').patchValue(this.tdValue.nameOfFacility);
-            this.overDraftFacilityForm.get('bondOwnerNameTrans').patchValue(this.tdValue.bondOwnerName);
+            // this.overDraftFacilityForm.get('bondOwnerNameTrans').patchValue(this.tdValue.bondOwnerName);
         }
 
         this.setCTData();
-        console.log('This is final Data', this.overDraftFacilityForm.value);
     }
 
     /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/
@@ -191,9 +193,32 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         return finalConvertedVal;
     }
 
+    addBondDetails() {
+        (this.overDraftFacilityForm.get('bondDetails') as FormArray).push(
+            this.formBuilder.group({
+                bondOwnerName: [undefined],
+                bondOwnerNameTrans: [undefined],
+                bondOwnerNameCT: [undefined],
+            })
+        );
+    }
+
+    removeBondDetails(i) {
+        (this.overDraftFacilityForm.get('bondDetails') as FormArray).removeAt(i);
+    }
+
     async translate(form) {
         const translatedData = await this.translatedService.translateForm(form);
         return translatedData;
+    }
+
+    async onChangeTranslateSecurity(arrName, source, index, target) {
+        this.arrayForm = this.formBuilder.group({
+            formValue: this.overDraftFacilityForm.get([String(arrName), index, String(source)]).value
+        });
+        const sourceResponse = await this.translatedService.translateForm(this.arrayForm);
+        this.overDraftFacilityForm.get([String(arrName), index, String(target)]).patchValue(sourceResponse.formValue);
+        this.overDraftFacilityForm.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.formValue);
     }
 
     /* SET CT VALUES OF TRANSLATED DATA */
@@ -216,9 +241,9 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         this.overDraftFacilityForm.get('loanAmountWordsCT').patchValue(
             this.overDraftFacilityForm.get('loanAmountWordsTrans').value
         );
-        this.overDraftFacilityForm.get('bondOwnerNameCT').patchValue(
-            this.overDraftFacilityForm.get('bondOwnerNameTrans').value
-        );
+        // this.overDraftFacilityForm.get('bondOwnerNameCT').patchValue(
+        //     this.overDraftFacilityForm.get('bondOwnerNameTrans').value
+        // );
         this.overDraftFacilityForm.get('bondAmountCT').patchValue(
             this.overDraftFacilityForm.get('bondAmountTrans').value
         );

@@ -114,26 +114,44 @@
             </div>
         </div>
 
+        <ng-container *ngFor="let data of overDraftFacilityForm.get('bondDetails')['controls']; let index = index;"
+                      formArrayName="bondDetails">
+            <div [formGroupName]="index" class="row">
+                <div class="col-md-4 form-group">
+                    <label class="font-weight-bold" for="bondOwnerName"> Bond Owner Name/s </label>
+                    <input class="form-control" formControlName="bondOwnerName" fullWidth id="bondOwnerName"
+                           (input)="onChangeTranslateSecurity('bondDetails', 'bondOwnerName', index, 'bondOwnerNameTrans')"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="bondOwnerNameTrans" fullWidth id="bondOwnerNameTrans"
+                           nbInput
+                           readonly
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+                <div class="col-md-4 form-group fieldMargin">
+                    <input class="form-control" formControlName="bondOwnerNameCT" fullWidth id="bondOwnerNameCT"
+                           nbInput
+                           shape="semi-round"
+                           status="success" type="text">
+                </div>
+            </div>
+            <div *ngIf="overDraftFacilityForm.get('bondDetails')['length'] > 1" class="col-md-12">
+                <button (click)="removeBondDetails(index)" nbButton size="tiny" status="danger"
+                        style="position: static">
+                    <em class="fa fa-trash" style="color: white;"></em>
+                </button>
+            </div>
+        </ng-container>
+
         <div class="row">
-            <div class="col-md-4 form-group">
-                <label class="font-weight-bold" for="bondOwnerName"> Bond Owner Name/s </label>
-                <input class="form-control" formControlName="bondOwnerName" fullWidth id="bondOwnerName"
-                       nbInput
-                       shape="semi-round"
-                       status="success" type="text">
-            </div>
-            <div class="col-md-4 form-group fieldMargin">
-                <input class="form-control" formControlName="bondOwnerNameTrans" fullWidth id="bondOwnerNameTrans"
-                       nbInput
-                       readonly
-                       shape="semi-round"
-                       status="success" type="text">
-            </div>
-            <div class="col-md-4 form-group fieldMargin">
-                <input class="form-control" formControlName="bondOwnerNameCT" fullWidth id="bondOwnerNameCT"
-                       nbInput
-                       shape="semi-round"
-                       status="success" type="text">
+            <div class="col-md-12">
+                <button (click)="addBondDetails()" class="float-right" nbButton size="tiny" status="primary">Add
+                    Bond Details
+                </button>
             </div>
         </div>
 
@@ -162,7 +180,7 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="overDraftFacilityForm.get('interestRateType').value === 'BASE_RATE_FINANCING'">
+        <div *ngIf="overDraftFacilityForm.get('interestRateType').value === 'BASE_RATE_FINANCING'" class="row">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="baseRate"> Base Rate </label>
                 <input (input)="calInterestRate()" class="form-control" formControlName="baseRate" fullWidth
@@ -186,7 +204,7 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="overDraftFacilityForm.get('interestRateType').value === 'BASE_RATE_FINANCING'">
+        <div *ngIf="overDraftFacilityForm.get('interestRateType').value === 'BASE_RATE_FINANCING'" class="row">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
                 <input (input)="calInterestRate()" class="form-control" formControlName="premiumRate" fullWidth
