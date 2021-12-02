@@ -1,3 +1,27 @@
-<app-sme-global-content></app-sme-global-content>
-<app-sme-loan-type [loanNameDetails]="loanData"></app-sme-loan-type>
-<app-sme-security></app-sme-security>
+<div [nbSpinner]="spinner">
+    <app-sme-global-content #smeGlobalContent></app-sme-global-content>
+    <!-- Type of sme loan start here-->
+    <app-irrevocable-letter-of-credit-facility #irrevocableLetterOfCreditFacility [loanName]="loanData"></app-irrevocable-letter-of-credit-facility>
+    <app-customer-acceptance-for-time-letter-of-credit [loanName]="loanData"></app-customer-acceptance-for-time-letter-of-credit>
+    <app-import-bills-discounting [loanName]="loanData"></app-import-bills-discounting>
+    <app-import-loan-trust-receipt-loan [loanName]="loanData"></app-import-loan-trust-receipt-loan>
+    <app-revolving-short-term-loan [loanName]="loanData"></app-revolving-short-term-loan>
+    <app-demand-loan-for-working-capital [loanName]="loanData"></app-demand-loan-for-working-capital>
+    <app-pre-export-loan [loanName]="loanData"></app-pre-export-loan>
+    <app-documentary-bill-purchase-negotiation [loanName]="loanData"></app-documentary-bill-purchase-negotiation>
+    <app-overdraft-loan-for-working-capital-requirement [loanName]="loanData"></app-overdraft-loan-for-working-capital-requirement>
+    <app-equity-mortgaged-overdraft [loanName]="loanData"></app-equity-mortgaged-overdraft>
+    <app-overdraft-facility-against-fixed-deposit [loanName]="loanData"></app-overdraft-facility-against-fixed-deposit>
+    <app-overdraft-facility-against-bond [loanName]="loanData"></app-overdraft-facility-against-bond>
+    <app-bridge-gap-loan [loanName]="loanData"></app-bridge-gap-loan>
+    <app-term-loan-to-or-for [loanName]="loanData"></app-term-loan-to-or-for>
+    <!-- Type of sme loan end here-->
+    <app-sme-security></app-sme-security>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="d-flex float-right ml-1" nbButton status="primary" size="small" (click)="onSubmit()" [disabled]="disableBtn">Save</button>
+            <button class="d-flex float-right" nbButton status="success" size="small" [disabled]="!disableBtn">Preview</button>
+        </div>
+    </div>
+
+</div>
