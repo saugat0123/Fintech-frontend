@@ -31,7 +31,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
   selectedArray = [];
   afterSave = false;
   autoPopulate1 = 'सम्पर्क अधिकृत';
-  autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
+  autoPopulate2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
   kisanKarjaSubsidy: FormGroup;
   spinner = false;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
