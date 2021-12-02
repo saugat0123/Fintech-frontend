@@ -364,7 +364,6 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     this.overdraftFixedForm.get('nameOfFacilityCT').patchValue(
         this.translatedValue.nameOfFacility
     );
-    console.log('Form Data:', this.overdraftFixedForm);
   }
 
   /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/
