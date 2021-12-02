@@ -115,7 +115,7 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
       this.importLoanTrust.get('loanOptionTrans').patchValue('');
     }
 
-    const tempMultiLoan = this.importLoanTrust.get('multiLoanTrans').value;
+    const tempMultiLoan = this.importLoanTrust.get('multiLoan').value;
     if (!ObjectUtil.isEmpty(tempMultiLoan)) {
       this.importLoanTrust.get('multiLoanTrans').patchValue('');
     }

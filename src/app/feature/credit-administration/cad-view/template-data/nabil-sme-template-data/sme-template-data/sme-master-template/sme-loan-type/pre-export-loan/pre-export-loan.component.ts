@@ -94,14 +94,19 @@ export class PreExportLoanComponent implements OnInit {
   translateAndSetVal() {
 
     /* SET TRANS VALUE FOR CONDITIONS */
-    const tempLoanOptions = this.preExportForm.get('drawingBasis').value;
-    if (!ObjectUtil.isEmpty(tempLoanOptions)) {
-      this.preExportForm.get('drawingBasisTrans').patchValue('');
+    const tempMultiLoan = this.preExportForm.get('multiLoan').value;
+    if (!ObjectUtil.isEmpty(tempMultiLoan)) {
+      this.preExportForm.get('multiLoanTrans').patchValue(tempMultiLoan);
     }
 
     const tempComplemetry = this.preExportForm.get('complementryOther').value;
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
       this.preExportForm.get('complementryOtherTrans').patchValue(tempComplemetry);
+    }
+
+    const tempDrawingBasis = this.preExportForm.get('drawingBasis').value;
+    if (!ObjectUtil.isEmpty(tempDrawingBasis)) {
+      this.preExportForm.get('drawingBasisTrans').patchValue(tempDrawingBasis);
     }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
@@ -137,6 +142,9 @@ export class PreExportLoanComponent implements OnInit {
   }
 
   setCTValue() {
+    this.preExportForm.get('multiLoanCT').patchValue(
+        this.preExportForm.get('multiLoanTrans').value
+    );
     this.preExportForm.get('drawingBasisCT').patchValue(
         this.preExportForm.get('drawingBasisTrans').value
     );
