@@ -1,21 +1,18 @@
-*{
-  color: black;
-  font-size: 16px;
-}
 .form-field {
   background: yellow;
   margin: 0px 5px;
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
-  font-size: 20px;
+  font-size: 16px;
   &:focus {
     outline: none;
   }
 }
-table, th, td{
-  border: 1px solid black;
+ol.conditions-list{
+  list-style: devanagari;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  text-align: justify !important;
 }
-.customFont {
-  font-size: 22px;
-}
+
