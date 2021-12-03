@@ -120,6 +120,11 @@ import { OverdraftFacilityAgainstFixedDepositComponent } from './cad-view/templa
 import { OverdraftFacilityAgainstBondComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/overdraft-facility-against-bond/overdraft-facility-against-bond.component';
 import { BridgeGapLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/bridge-gap-loan/bridge-gap-loan.component';
 import { TermLoanToOrForComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/term-loan-to-or-for/term-loan-to-or-for.component';
+import { MortgageOrEquityMortgageTermLoanComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/mortgage-or-equity-mortgage-term-loan/mortgage-or-equity-mortgage-term-loan.component';
+import { AutoLoanMasterComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/auto-loan-master/auto-loan-master.component';
+import { BankGuaranteeComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/bank-guarantee/bank-guarantee.component';
+import { BillPurchaseComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/bill-purchase/bill-purchase.component';
+import {CombinedOfferLetterComponent} from './cad-document-template/nabil/nabil-sme/combined-offer-letter/combined-offer-letter.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -229,7 +234,11 @@ import { TermLoanToOrForComponent } from './cad-view/template-data/nabil-sme-tem
         OverdraftFacilityAgainstFixedDepositComponent,
         OverdraftFacilityAgainstBondComponent,
         BridgeGapLoanComponent,
-        TermLoanToOrForComponent],
+        TermLoanToOrForComponent,
+        MortgageOrEquityMortgageTermLoanComponent,
+        AutoLoanMasterComponent,
+        BankGuaranteeComponent,
+        BillPurchaseComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -266,7 +275,8 @@ import { TermLoanToOrForComponent } from './cad-view/template-data/nabil-sme-tem
     AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
     InterestSubsidySanctionLetterTemplateEditComponent,
       DdslWithoutSubsidyTemplateEditComponent, PersonalLoanAndPersonalOverdraftTemplateEditComponent,
-       KisanKarjaSubsidyTemplateEditComponent],
+       KisanKarjaSubsidyTemplateEditComponent,
+  CombinedOfferLetterComponent],
   exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })

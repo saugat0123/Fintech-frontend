@@ -15,12 +15,16 @@
     <app-overdraft-facility-against-bond [loanName]="loanData"></app-overdraft-facility-against-bond>
     <app-bridge-gap-loan [loanName]="loanData"></app-bridge-gap-loan>
     <app-term-loan-to-or-for [loanName]="loanData"></app-term-loan-to-or-for>
+    <app-mortgage-or-equity-mortgage-term-loan [loanName]="loanData"></app-mortgage-or-equity-mortgage-term-loan>
+    <app-auto-loan-master [loanName]="loanData"></app-auto-loan-master>
+    <app-bank-guarantee [loanName]="loanData"></app-bank-guarantee>
+    <app-bill-purchase [loanName]="loanData"></app-bill-purchase>
     <!-- Type of sme loan end here-->
     <app-sme-security></app-sme-security>
     <div class="row">
         <div class="col-md-12">
             <button class="d-flex float-right ml-1" nbButton status="primary" size="small" (click)="onSubmit()" [disabled]="disableBtn">Save</button>
-            <button class="d-flex float-right" nbButton status="success" size="small" [disabled]="!disableBtn">Preview</button>
+            <button class="d-flex float-right" nbButton status="success" size="small" (click)="openCombinedOfferLetter()" [disabled]="!disableBtn">Preview</button>
         </div>
     </div>
 
