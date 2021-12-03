@@ -55,6 +55,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     isRemitLoan = false;
     isLoaded = false;
     siteVisitDocuments: Array<SiteVisitDocument>;
+    reviewDateData;
+    naChecked: boolean;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -100,6 +102,13 @@ export class LoanInformationDetailViewComponent implements OnInit {
                     this.crgGammaGradeStatusBadge = 'badge badge-danger';
                 } else {
                     this.crgGammaGradeStatusBadge = 'badge badge-warning';
+                }
+            }
+
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder)) {
+                if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reviewDate)) {
+                    this.reviewDateData = JSON.parse(this.loanDataHolder.loanHolder.reviewDate.data);
+                    this.naChecked = this.reviewDateData.checked;
                 }
             }
 

@@ -5,11 +5,14 @@
         <tr>
           <td><b>Nature Of business</b></td>
           <td>{{companyJsonData?.majorProductService}}</td>
-          <td><b>Relationship Start Date(AD/BS)</b>: {{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince |engNepDate: false}})</td>
+          <td><b>Relationship Start (with group) (AD/BS)</b>: {{companyJsonData?.relationshipSince | date}}
+            ({{companyJsonData?.relationshipSince |engNepDate: false}})</td>
         </tr>
         <tr>
           <td><b>Sister Concerns</b></td>
-          <td colspan="2">{{companyJsonData?.sisterConcern || 'N/A'}}</td>
+          <td>{{companyJsonData?.sisterConcern || 'N/A'}}</td>
+          <td><b>Relationship Since (with customer) (AD/BS)</b>: {{companyJsonData?.relationshipSinceWithCustomer | date}}
+            ({{companyJsonData?.relationshipSinceWithCustomer |engNepDate: false}})</td>
         </tr>
         <tr>
           <td rowspan="5"><b>RegistrationDetail</b></td>

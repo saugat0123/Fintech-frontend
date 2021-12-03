@@ -26,6 +26,7 @@ export class ReviewDateComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.reviewData)) {
       this.reviewDateData = this.reviewData;
       this.dataForEdit = JSON.parse(this.reviewData.data);
+      this.checked = this.dataForEdit.checked;
     }
     this.buildForm(this.dataForEdit);
   }
@@ -46,6 +47,8 @@ export class ReviewDateComponent implements OnInit {
   checkChecked(event) {
     if (event) {
       this.checked = true;
+      this.reviewDate.get('lastReviewDate').setValue(null);
+      this.reviewDate.get('nextReviewDate').setValue(null);
     } else {
       this.checked = false;
     }
