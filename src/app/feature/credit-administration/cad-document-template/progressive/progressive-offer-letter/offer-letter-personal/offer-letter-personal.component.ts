@@ -126,8 +126,8 @@ export class OfferLetterPersonalComponent implements OnInit {
                 amount3: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
                 amountInWords3: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : ''
             });
-            this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
-            this.setSecurityDetails(this.nepaliData.collateralDetails);
+            /*this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
+            this.setSecurityDetails(this.nepaliData.collateralDetails);*/
         }
 
         this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
@@ -213,13 +213,19 @@ export class OfferLetterPersonalComponent implements OnInit {
                 name: [value.collateralName],
                 parentName: [value.collateralFatherName],
                 grandParentName: [value.collateralGrandFatherName],
-                address: [value.collateralMunVdc.nepaliName] + ', j8f g+= ' +
+                address: [
+                    !ObjectUtil.isEmpty(value.collateralMunVdc) ?
+                        value.collateralMunVdc.nepaliName : ''] + ', j8f g+= ' +
                     [value.collateralWardNo] + ', ' +
-                    [value.collateralDistrict.nepaliName],
+                    [!ObjectUtil.isEmpty(value.collateralDistrict) ?
+                            value.collateralDistrict.nepaliName : ''],
                 wardNo: [value.collateralWardNo],
-                jaggaDistrict: [value.collateralDistrict.nepaliName],
-                jaggaWard: [value.collateralMunVdc.nepaliName],
-                hal: [value.collateralTemporaryMunVdc.nepaliName],
+                jaggaDistrict: [!ObjectUtil.isEmpty(value.collateralDistrict) ?
+                    value.collateralDistrict.nepaliName : ''],
+                jaggaWard: [!ObjectUtil.isEmpty(value.collateralMunVdc) ?
+                    value.collateralMunVdc.nepaliName : ''],
+                hal: [!ObjectUtil.isEmpty(value.collateralTemporaryMunVdc) ?
+                        value.collateralTemporaryMunVdc.nepaliName : ''],
                 jaggaKittaNum: [value.plotNo],
                 jaggaArea: [value.areaOfCollateral],
                 jaggaSiNum: [value.seatNo],
@@ -281,8 +287,14 @@ export class OfferLetterPersonalComponent implements OnInit {
                 loanApprovalDate: this.loanAmountTemplate.initDate,
                 loanApprovalNo: this.loanAmountTemplate.loanApprovalNo,
                 loanHolderName: this.nepaliData.name,
-                guarantorDistrict: [value.guarantorPermanentDistrict.nepaliName],
-                municipalityName: [value.guarantorPermanentMunicipality.nepaliName],
+                guarantorDistrict: [
+                    !ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
+                        value.guarantorPermanentDistrict.nepaliName : ''
+                ],
+                municipalityName: [
+                    !ObjectUtil.isEmpty(value.guarantorPermanentMunicipality) ?
+                        value.guarantorPermanentMunicipality.nepaliName : ''
+                ],
                 guarantorWardNo: [value.guarantorPermanentWard],
                 guarantorRelation: [value.relationship],
                 fatherInLawName: [value.guarantorFatherInLawName],
