@@ -1185,6 +1185,9 @@
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [individual]="isIndividual"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
             <br>
+
+            <app-multi-banking-summary *ngIf="multiBankingSummary"
+                                       [formData]="multiBankingData"></app-multi-banking-summary>
             <div *ngIf="loanCategory === 'INSTITUTION' && loanData?.loanHolder.data !== null" >
                 <div class="col-md-12">
                     <p><strong>Comments</strong>

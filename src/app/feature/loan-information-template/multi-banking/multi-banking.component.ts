@@ -20,7 +20,6 @@ export class MultiBankingComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.buildForm();
         if (!ObjectUtil.isEmpty(this.multiBankingData)) {
             this.multiBanking = this.multiBankingData;
             const data = JSON.parse(this.multiBankingData.data);
@@ -192,7 +191,6 @@ export class MultiBankingComponent implements OnInit {
     }
 
     setMultiBankindData(data) {
-        console.log('saveData', data);
         const multiBank = this.multiBankingForm.get('multiBanking') as FormArray;
         if (!ObjectUtil.isEmpty(data)) {
             data.forEach((d) => {

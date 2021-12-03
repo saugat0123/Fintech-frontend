@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-body>
-        <form (ngSubmit)="submitForm()" [formGroup]="multiBankingForm">
+        <form [formGroup]="multiBankingForm">
             <div class="row">
                 <div class="col-md-12">
                     <span><strong>Multi Banking</strong></span>
@@ -236,10 +236,12 @@
                         </tr>
                         <tr>
                             <th>Last Audited Year</th>
-                            <td><input class="form-control text-center"
+                            <td><input [nbDatepicker]="auditedYear" class="form-control text-center"
                                        formControlName="lastAudited"
                                        placeholder="Last Audited Year"
-                                       type="text"/></td>
+                                       type="text"/>
+                                <nb-datepicker #auditedYear></nb-datepicker>
+                            </td>
                         </tr>
                         <tr>
                             <th>Auditor's Name</th>
@@ -253,7 +255,7 @@
                             <td><input class="form-control text-center"
                                        formControlName="taxAmount"
                                        placeholder="Tax Amount"
-                                       type="text"/></td>
+                                       type="number"/></td>
                         </tr>
                         <tr>
                             <th>Name of Executive Head</th>
@@ -271,10 +273,12 @@
                         </tr>
                         <tr>
                             <th>Date fo Appointment</th>
-                            <td><input class="form-control text-center"
+                            <td><input [nbDatepicker]="appointment" class="form-control text-center"
                                        formControlName="dateOfApp"
                                        placeholder="Date fo Appointment"
-                                       type="text"/></td>
+                                       type="text"/>
+                                <nb-datepicker #appointment></nb-datepicker>
+                            </td>
                         </tr>
                         <tr>
                             <th>Consortium Member Banks</th>
