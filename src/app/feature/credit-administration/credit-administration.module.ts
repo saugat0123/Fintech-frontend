@@ -124,6 +124,7 @@ import { MortgageOrEquityMortgageTermLoanComponent } from './cad-view/template-d
 import { AutoLoanMasterComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/auto-loan-master/auto-loan-master.component';
 import { BankGuaranteeComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/bank-guarantee/bank-guarantee.component';
 import { BillPurchaseComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/bill-purchase/bill-purchase.component';
+import {CombinedOfferLetterComponent} from './cad-document-template/nabil/nabil-sme/combined-offer-letter/combined-offer-letter.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -274,7 +275,8 @@ import { BillPurchaseComponent } from './cad-view/template-data/nabil-sme-templa
     AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
     InterestSubsidySanctionLetterTemplateEditComponent,
       DdslWithoutSubsidyTemplateEditComponent, PersonalLoanAndPersonalOverdraftTemplateEditComponent,
-       KisanKarjaSubsidyTemplateEditComponent],
+       KisanKarjaSubsidyTemplateEditComponent,
+  CombinedOfferLetterComponent],
   exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })

@@ -11,12 +11,11 @@ export class Section1IntroductionComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.buildForm();
   }
   buildForm() {
     this.section1 = this.formBuilder.group({
       referenceNumber: [undefined],
-      /*securities: this.formBuilder.array([]),
-      freeTextVal : [undefined],*/
       dateOfApproval: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],

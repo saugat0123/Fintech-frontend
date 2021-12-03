@@ -8,6 +8,8 @@ import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../../../@core/utils';
 import {OfferDocument} from '../../../../../model/OfferDocument';
 import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {CombinedOfferLetterComponent} from '../../../../../cad-document-template/nabil/nabil-sme/combined-offer-letter/combined-offer-letter.component';
 
 @Component({
   selector: 'app-sme-master-template',
@@ -24,9 +26,11 @@ export class SmeMasterTemplateComponent implements OnInit {
 
   spinner = false;
   disableBtn = false;
+  dialogRef: NbDialogRef<any>;
 
   constructor(private administrationService: CreditAdministrationService,
-              private toastService: ToastService) { }
+              private toastService: ToastService,
+              private nbDialogueService: NbDialogService) { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
@@ -65,6 +69,13 @@ export class SmeMasterTemplateComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
+    });
+  }
+
+  public openCombinedOfferLetter() {
+    this.dialogRef = this.nbDialogueService.open(CombinedOfferLetterComponent, {
+      hasScroll: true,
+      dialogClass: 'model-full'
     });
   }
 

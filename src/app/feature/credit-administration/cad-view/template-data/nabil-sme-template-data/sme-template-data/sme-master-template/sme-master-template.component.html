@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-md-12">
             <button class="d-flex float-right ml-1" nbButton status="primary" size="small" (click)="onSubmit()" [disabled]="disableBtn">Save</button>
-            <button class="d-flex float-right" nbButton status="success" size="small" [disabled]="!disableBtn">Preview</button>
+            <button class="d-flex float-right" nbButton status="success" size="small" (click)="openCombinedOfferLetter()" [disabled]="!disableBtn">Preview</button>
         </div>
     </div>
 
