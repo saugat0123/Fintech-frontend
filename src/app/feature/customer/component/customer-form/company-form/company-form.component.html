@@ -277,7 +277,7 @@
                                </div>
                                <div  class="col-md-4">
                                    <div class="form-group">
-                                       <label for="businessType"><strong>Relationship Since(with group)</strong></label>
+                                       <label for="businessType"><strong>Relationship Since (with group)</strong></label>
                                        <input *ngIf="calendarType === 'AD'"
                                               [ngClass]="{'is-invalid':submitted &&  form.relationshipSince.errors}"
                                               formControlName="relationshipSince"
@@ -293,7 +293,7 @@
                                        <div *ngIf="submitted && form.relationshipSince?.errors"
                                             class="small text-danger">
                                            <div *ngIf="form.relationshipSince?.errors.beforeToday">
-                                               Relationship Since value should be past date
+                                               Relationship Since (with group) value should be past date
                                            </div>
                                        </div>
                                    </div>
@@ -318,7 +318,7 @@
                                        <div *ngIf="submitted && form.relationshipSinceWithCustomer?.errors"
                                             class="small text-danger">
                                            <div *ngIf="form.relationshipSinceWithCustomer?.errors.beforeToday">
-                                               Relationship Since (with group) value should be past date
+                                               Relationship Since (with customer) value should be past date
                                            </div>
                                        </div>
                                    </div>
