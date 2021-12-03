@@ -27,4 +27,5 @@ export class CompanyJsonData {
   addressLegalDocument: string;
   businessManagementRisk: string;
   BusinessIndustryOutlook: string;
+  relationshipSinceWithCustomer: string = undefined;
 }

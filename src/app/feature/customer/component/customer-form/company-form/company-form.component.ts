@@ -336,7 +336,11 @@ export class CompanyFormComponent implements OnInit {
             relationshipSince:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSince)) ? undefined :
-                    this.companyJsonData.relationshipSince, DateValidator.isValidBefore],
+                    new Date(this.companyJsonData.relationshipSince), DateValidator.isValidBefore],
+            relationshipSinceWithCustomer:
+                [(ObjectUtil.isEmpty(this.companyJsonData)
+                    || ObjectUtil.isEmpty(this.companyJsonData.relationshipSinceWithCustomer)) ? undefined :
+                    new Date(this.companyJsonData.relationshipSinceWithCustomer), DateValidator.isValidBefore],
             issuePlace:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :

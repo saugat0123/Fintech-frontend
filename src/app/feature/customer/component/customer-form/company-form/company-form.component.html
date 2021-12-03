@@ -277,15 +277,14 @@
                                </div>
                                <div  class="col-md-4">
                                    <div class="form-group">
-                                       <label for="businessType"><strong>Relationship Since</strong></label>
-                                       <input
-                                                  *ngIf="calendarType === 'AD'"
-                                                  [ngClass]="{'is-invalid':submitted &&  form.relationshipSince.errors}"
-                                                  formControlName="relationshipSince"
-                                                  [nbDatepicker]="relationshipSince"
-                                                  class="form-control"
-                                                  id="relationshipSince"
-                                                  placeholder="Relationship Since"/>
+                                       <label for="businessType"><strong>Relationship Since (with group)</strong></label>
+                                       <input *ngIf="calendarType === 'AD'"
+                                              [ngClass]="{'is-invalid':submitted &&  form.relationshipSince.errors}"
+                                              formControlName="relationshipSince"
+                                              [nbDatepicker]="relationshipSince"
+                                              class="form-control"
+                                              id="relationshipSince"
+                                              placeholder="Relationship Since (with group)"/>
                                        <input formControlName="relationshipSince" *ngIf="calendarType === 'BS'" hidden>
 
                                        <app-calendar [ePreDate]="form.relationshipSince?.value" *ngIf="calendarType === 'BS'"
@@ -294,7 +293,32 @@
                                        <div *ngIf="submitted && form.relationshipSince?.errors"
                                             class="small text-danger">
                                            <div *ngIf="form.relationshipSince?.errors.beforeToday">
-                                               Relationship Since value should be past date
+                                               Relationship Since (with group) value should be past date
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+
+                               <div  class="col-md-4">
+                                   <div class="form-group">
+                                       <label><strong>Relationship Since (with customer)</strong></label>
+                                       <input *ngIf="calendarType === 'AD'"
+                                              [ngClass]="{'is-invalid':submitted &&  form.relationshipSinceWithCustomer.errors}"
+                                              formControlName="relationshipSinceWithCustomer"
+                                              [nbDatepicker]="relationshipSinceWithCustomer"
+                                              class="form-control"
+                                              id="relationshipSinceWithCustomer"
+                                              placeholder="Relationship Since (with customer)"/>
+                                       <input formControlName="relationshipSinceWithCustomer" *ngIf="calendarType === 'BS'" hidden>
+                                       <app-calendar [ePreDate]="form.relationshipSinceWithCustomer?.value"
+                                                     *ngIf="calendarType === 'BS'"
+                                                     (messageToEmit)="form.relationshipSinceWithCustomer.patchValue($event?.eDate)">
+                                       </app-calendar>
+                                       <nb-datepicker #relationshipSinceWithCustomer></nb-datepicker>
+                                       <div *ngIf="submitted && form.relationshipSinceWithCustomer?.errors"
+                                            class="small text-danger">
+                                           <div *ngIf="form.relationshipSinceWithCustomer?.errors.beforeToday">
+                                               Relationship Since (with customer) value should be past date
                                            </div>
                                        </div>
                                    </div>

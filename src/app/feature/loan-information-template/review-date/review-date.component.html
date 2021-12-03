@@ -1,28 +1,61 @@
 <nb-card class="m-0" accent="primary" [nbSpinner]="spinner"
          nbSpinnerStatus="primary"
          nbSpinnerSize="giant">
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-12 text-right" *ngIf="fromProfile">
+                <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                                name="securityInitialInfoCalendarType">
+                    <nb-radio value="AD">AD</nb-radio>
+                    <nb-radio value="BS">BS</nb-radio>
+                </nb-radio-group>
+            </div>
+        </div>
+    </nb-card-header>
     <nb-card-body>
         <form [formGroup]="reviewDate" class="form-horizontal">
             <div class="row form-group">
                 <div class="col-md-4">
-                    <label for="lastReviewDate">Last Review Date</label>
-                    <input [nbDatepicker]="lastReviewDate"
-                           class="form-control date-picker" id="lastReviewDate"
-                           formControlName="lastReviewDate" placeholder="Last Review Date"/>
-                    <input *ngIf="calendarType === 'BS'" formControlName="lastReviewDate" hidden>
-                    <app-calendar *ngIf="calendarType === 'BS'"
-                                  [ePreDate]="reviewDate?.get('lastReviewDate')?.value"></app-calendar>
-                    <nb-datepicker #lastReviewDate></nb-datepicker>
+                    <label>Last Review Date</label>
+                    <ng-container *ngIf="checked; else naCheck">
+                        <input class="form-control"
+                               [readOnly]="true"
+                               formControlName="lastReviewDate"
+                               placeholder="Last Review Date"/>
+                    </ng-container>
+                    <ng-template #naCheck>
+                        <input [nbDatepicker]="lastReviewDate"
+                               *ngIf="calendarType === 'AD'"
+                               class="form-control date-picker"
+                               formControlName="lastReviewDate"
+                               placeholder="Last Review Date"/>
+                        <input *ngIf="calendarType === 'BS'"
+                               formControlName="lastReviewDate" hidden>
+                        <app-calendar *ngIf="calendarType === 'BS'"
+                                      [ePreDate]="reviewDate?.get('lastReviewDate')?.value"></app-calendar>
+                        <nb-datepicker #lastReviewDate></nb-datepicker>
+                    </ng-template>
                 </div>
                 <div class="col-md-4">
-                    <label for="nextReviewDate">Next Review Date</label>
-                    <input [nbDatepicker]="nextReviewDate"
-                           class="form-control date-picker" id="nextReviewDate"
-                           formControlName="nextReviewDate" placeholder="Next Review Date"/>
-                    <input *ngIf="calendarType === 'BS'" formControlName="nextReviewDate" hidden>
-                    <app-calendar *ngIf="calendarType === 'BS'"
-                                  [ePreDate]="reviewDate?.get('nextReviewDate')?.value"></app-calendar>
-                    <nb-datepicker #nextReviewDate></nb-datepicker>
+                    <label>Next Review Date</label>
+                    <ng-container *ngIf="checked; else na">
+                        <input class="form-control"
+                               [readOnly]="true"
+                               formControlName="nextReviewDate"
+                               placeholder="Next Review Date"/>
+                    </ng-container>
+                    <ng-template #na>
+                        <input [nbDatepicker]="nextReviewDate"
+                               *ngIf="calendarType === 'AD'"
+                               class="form-control date-picker"
+                               formControlName="nextReviewDate"
+                               placeholder="Next Review Date"/>
+                        <input *ngIf="calendarType === 'BS'"
+                               formControlName="nextReviewDate" hidden>
+                        <app-calendar *ngIf="calendarType === 'BS'"
+                                      [ePreDate]="reviewDate?.get('nextReviewDate')?.value"></app-calendar>
+                        <nb-datepicker #nextReviewDate></nb-datepicker>
+                    </ng-template>
                 </div>
                 <div class="col-md-4 py-4">
                     <nb-checkbox (change)="checkChecked($event.target.checked)"
