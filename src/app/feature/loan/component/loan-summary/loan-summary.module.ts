@@ -39,6 +39,7 @@ import { RemitDetailsComponent } from './remit-details/remit-details.component';
 import { VideoKycInformationComponent } from './video-kyc-information/video-kyc-information.component';
 import {VideoKycModule} from '../../../video-kyc/video-kyc.module';
 import { RemitProfileComponent } from './remit-profile/remit-profile.component';
+import { MultiBankingSummaryComponent } from './multi-banking-summary/multi-banking-summary.component';
 
 
 const COMPONENTS = [
@@ -61,7 +62,8 @@ const COMPONENTS = [
     ProposalTermsAndConditionSummeryComponent,
     ApprovalSheetComponent,
     RoleHierarchyChainComponent,
-    NtaMegaSummaryComponent
+    NtaMegaSummaryComponent,
+    MultiBankingSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
@@ -104,6 +106,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         PreviousSecuritySummaryComponent,
         RoleHierarchyChainComponent,
         RemitDetailsComponent,
+        MultiBankingSummaryComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

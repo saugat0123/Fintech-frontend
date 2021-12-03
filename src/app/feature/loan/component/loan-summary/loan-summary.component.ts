@@ -194,6 +194,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    isIndividual = false;
    naChecked: boolean;
    reviewDateData;
+   multiBankingSummary = false;
+   multiBankingData;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -471,6 +473,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.reviewDateData = JSON.parse(this.loanDataHolder.loanHolder.reviewDate.data);
                 this.naChecked = this.reviewDateData.checked;
             }
+        }
+
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.multiBanking)) {
+            this.multiBankingData = this.loanDataHolder.loanHolder.multiBanking;
+            this.multiBankingSummary = true;
         }
         // getting fiscal years
         this.getFiscalYears();

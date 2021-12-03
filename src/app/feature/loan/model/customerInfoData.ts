@@ -25,6 +25,7 @@ import {Comments} from '../../admin/modal/comments';
 import {PreviousSecurity} from '../../admin/modal/previousSecurity';
 import {MicroCrgParams} from './MicroCrgParams';
 import {ReviewDate} from './reviewDate';
+import {MultiBanking} from './multiBanking';
 
 export class CustomerInfoData {
     id: number;
@@ -79,4 +80,5 @@ export class CustomerInfoData {
     remitCustomer: any;
     loanHolder: any;
     reviewDate: ReviewDate;
+    multiBanking: MultiBanking;
 }
