@@ -6,6 +6,7 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 import {CustomerType} from '../../customer/model/customerType';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {CreditChecklistGeneralComponent} from '../../loan-information-template/credit-checklist-general/credit-checklist-general.component';
 
 @Component({
   selector: 'app-credit-checklist-view',
@@ -27,7 +28,10 @@ export class CreditChecklistViewComponent implements OnInit {
   creditChecklistView: CreditChecklistView = new CreditChecklistView();
   optionList = ['Yes', 'No', 'Na'];
   optionListRegulatory = ['Yes', 'No'];
-
+  // @ts-ignore
+  checklist: CreditChecklistGeneralComponent = new CreditChecklistGeneralComponent();
+  questionAnswer = [];
+  answer = [];
   constructor(private formBuilder: FormBuilder) {
   }
 
@@ -35,10 +39,13 @@ export class CreditChecklistViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditChecklistView = this.formData;
       this.dataForEdit = JSON.parse(this.formData.data);
+      this.answer = this.dataForEdit.question;
     }
     this.buildForm(this.dataForEdit);
+    if (this.customerType.toLowerCase() === 'institution') {
+      this.questionAnswer = this.checklist.buildQuestionAnswer();
+    }
   }
-
   buildForm(data) {
     this.formGroupCheckList = this.formBuilder.group({
       dateCheckList: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.isEmpty(data.dateCheckList)

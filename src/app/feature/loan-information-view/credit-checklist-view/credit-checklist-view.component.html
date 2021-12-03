@@ -1678,6 +1678,98 @@
                             </tr>
                             </tbody>
                         </table>
+                        <h6>Environmental and Social Due Diligence Checklist and Risk rating Tool</h6>
+                        <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+                            <thead>
+                            <tr class="sb-bg-dark">
+                                   <td colspan="5">Basic Information</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="2" >Date:</td>
+                                <td colspan="3"><input *ngIf="fromProfile" type="date" fullWidth nbInput formControlName="esrmDate">
+                                </td>
+
+                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.esrmDate}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" >Name Of Client/Account:</td>
+                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="client">
+                                </td>
+
+                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.client}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" >Customer ID:</td>
+                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="customerId">
+                                </td>
+
+                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.customerId}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" >Location:</td>
+                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="location">
+                                </td>
+
+                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.location}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" >Industry / Sector: (NRB Sector Code)</td>
+                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="industry">
+                                </td>
+
+                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.esrmDate}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" >Product Manufactured / Traded:</td>
+                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="traded">
+                                </td>
+
+                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.traded}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" >Name of A/RM/ BM</td>
+                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="nameOf">
+                                </td>
+
+                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.nameOf}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" >Business line (Sub-sector): (NRB sub sector code)</td>
+                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="bl">
+                                </td>
+
+                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.bl}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+                            <thead>
+                            <tr class="sb-bg-dark">
+                                <th>SN</th>
+                                <th>Question</th>
+                                <th class="width"colspan="3" >Answer</th>
+                            </tr>
+                            </thead>
+                            <tbody  *ngFor="let question of questionAnswer;let i = index;">
+                            <tr>
+                                <th>{{question?.sn}}</th>
+                                <th colspan="2"><b>{{question?.question}}</b></th>
+                                <th colspan="2">{{answer[i]?.answer}}</th>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                  Remarks:  {{answer[i]?.remarks}}
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tr><td colspan="2"><b>E&S Risk Rating of the Project (ESRR):</b>
+                            </td><td colspan="3"><b>
+                                {{dataForEdit?.esRisk}}
+                            </b></td></tr>
+
+                        </table>
                     </ng-container>
                 </div>
 

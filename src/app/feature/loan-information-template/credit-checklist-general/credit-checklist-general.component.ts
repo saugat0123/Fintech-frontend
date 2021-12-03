@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CreditChecklistGeneral} from '../../loan/model/creditChecklistGeneral';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {CustomerType} from '../../customer/model/customerType';
 import {Clients} from '../../../../environments/Clients';
 import {environment} from '../../../../environments/environment';
+import {NbToastrService} from '@nebular/theme';
 
 @Component({
     selector: 'app-credit-checklist-general',
@@ -30,7 +31,8 @@ export class CreditChecklistGeneralComponent implements OnInit {
     questionAnswer = [];
     riskCalculate = new Map();
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,
+                private toastService: NbToastrService) {
     }
 
     ngOnInit() {
@@ -39,23 +41,26 @@ export class CreditChecklistGeneralComponent implements OnInit {
             this.dataForEdit = JSON.parse(this.formData.data);
         }
         this.buildForm(this.dataForEdit);
-        this.buildQuestionAnswer();
-        this.questionAnswer.forEach(d => {
-            const fa = this.formGroupCheckList.get('question') as FormArray;
-            fa.push(this.buildQuestionForm());
-        });
-        if (!ObjectUtil.isEmpty(this.formData)) {
-            if (!ObjectUtil.isEmpty(this.dataForEdit.question)) {
-                if (!ObjectUtil.isEmpty(this.dataForEdit.riskCalculate)) {
-                    const jsonObj = JSON.parse(this.dataForEdit.riskCalculate);
-                    for (let k of Object.keys(jsonObj)) {
-                        this.riskCalculate.set(parseInt(k), jsonObj[k]);
+        if (this.customerType.toLowerCase() === 'institution') {
+           this.questionAnswer = this.buildQuestionAnswer();
+            this.questionAnswer.forEach(d => {
+                const fa = this.formGroupCheckList.get('question') as FormArray;
+                fa.push(this.buildQuestionForm());
+            });
+            if (!ObjectUtil.isEmpty(this.formData)) {
+                if (!ObjectUtil.isEmpty(this.dataForEdit.question)) {
+                    if (!ObjectUtil.isEmpty(this.dataForEdit.riskCalculate)) {
+                        const jsonObj = JSON.parse(this.dataForEdit.riskCalculate);
+                        for (let k of Object.keys(jsonObj)) {
+                            this.riskCalculate.set(parseInt(k), jsonObj[k]);
+                        }
                     }
+                    this.dataForEdit.question.forEach((d, i) => {
+                        this.formGroupCheckList.get(['question', i, 'answer']).patchValue(d.answer);
+                        this.formGroupCheckList.get(['question', i, 'remarks']).patchValue(d.remarks);
+                        this.formGroupCheckList.get(['question', i, 'questionNumber']).patchValue(d.questionNumber);
+                    });
                 }
-                this.dataForEdit.question.forEach((d, i) => {
-                    this.formGroupCheckList.get(['question', i, 'answer']).patchValue(d.answer);
-                    this.formGroupCheckList.get(['question', i, 'remarks']).patchValue(d.remarks);
-                });
             }
         }
     }
@@ -326,7 +331,7 @@ export class CreditChecklistGeneralComponent implements OnInit {
         this.formGroupCheckList.get('der').patchValue('Yes');
     }
 
-    buildQuestionAnswer() {
+    public buildQuestionAnswer() {
         const firstQuestion = [
             {
                 'sn': '1.1',
@@ -449,7 +454,7 @@ export class CreditChecklistGeneralComponent implements OnInit {
                 ]
             },
         ];
-        this.questionAnswer = firstQuestion;
+        return firstQuestion;
     }
 
     onChange(index, value) {
@@ -493,17 +498,24 @@ export class CreditChecklistGeneralComponent implements OnInit {
 
     buildQuestionForm(): FormGroup {
         return this.formBuilder.group({
-            answer: [undefined],
-            remarks: [undefined]
+            answer: [undefined, Validators.required],
+            remarks: [undefined],
+            questionNumber: [undefined],
         });
     }
 
     submitForm() {
-        let jsonObject = {};
-        this.riskCalculate.forEach((value, key) => {
-            jsonObject[key] = value;
-        });
-        this.formGroupCheckList.get('riskCalculate').patchValue(JSON.stringify(jsonObject));
+        if (this.customerType.toLowerCase() === 'institution') {
+            if (this.formGroupCheckList.invalid) {
+                this.toastService.warning('Please Fill ESRM Annex 3');
+                return;
+            }
+            let jsonObject = {};
+            this.riskCalculate.forEach((value, key) => {
+                jsonObject[key] = value;
+            });
+            this.formGroupCheckList.get('riskCalculate').patchValue(JSON.stringify(jsonObject));
+        }
         this.creditChecklistGeneral.data = JSON.stringify(this.formGroupCheckList.value);
         this.creditChecklistGeneralEmitter.emit(this.creditChecklistGeneral);
     }

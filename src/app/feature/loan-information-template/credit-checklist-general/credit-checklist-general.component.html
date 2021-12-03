@@ -1517,7 +1517,7 @@
             </nb-tabset>
 
           </nb-tab>
-          <nb-tab tabTitle="WatchList">
+          <nb-tab *ngIf="client === clientName.LAXMI && customerType.toLowerCase() === 'institution'" tabTitle="WatchList">
             <nb-tabset>
               <nb-tab>
                 <h6>Watch list Provisioning Checklist – as per NRB guidelines</h6>
@@ -1699,7 +1699,7 @@
               </nb-tab>
             </nb-tabset>
           </nb-tab>
-          <nb-tab tabTitle="ESRM Annex 3">
+          <nb-tab *ngIf="client === clientName.LAXMI && customerType.toLowerCase() === 'institution'" tabTitle="ESRM Annex 3">
             <nb-tabset>
               <nb-tab>
                 <h6>Environmental and Social Due Diligence Checklist and Risk rating Tool</h6>
@@ -1796,6 +1796,7 @@
                               <tr *ngFor="let option of questionAnswer[x].answer;let i = index;">
                                 <td colspan="2">
                                 <input type="radio" [value]="option" (change)="onChange(x,i)"  formControlName="answer" placeholder="{{option}}}"  >
+                                <input type="text" [value]="x"  formControlName="questionNumber" hidden >
                                 <label>{{option}}</label>
                               </td>
                               </tr>
