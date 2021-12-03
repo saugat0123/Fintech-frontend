@@ -28,10 +28,13 @@
                                        formControlName="bankName"
                                        placeholder="Bank Name"
                                        type="text"/></td>
-                            <td><input class="form-control text-center"
+                            <td>
+                                <input [nbDatepicker]="date"
+                                       class="form-control text-center"
                                        formControlName="date"
-                                       placeholder="Date"
-                                       type="text"/></td>
+                                       placeholder="Date"/>
+                                <nb-datepicker #date></nb-datepicker>
+                            </td>
                             <td><input (keyup)="calculateTotalMultiBanking()"
                                        (change)="multiTotalLimit(i)"
                                        class="form-control text-center"
@@ -133,10 +136,11 @@
                                        formControlName="conBankName"
                                        placeholder="Bank Name"
                                        type="text"/></td>
-                            <td><input class="form-control text-center"
+                            <td>
+                                <input [nbDatepicker]="date1" class="form-control text-center"
                                        formControlName="conDate"
-                                       placeholder="Date"
-                                       type="text"/></td>
+                                       placeholder="Date"/>
+                                <nb-datepicker #date1></nb-datepicker></td>
                             <td><input (keyup)="calculateTotalConsortium()"
                                        (change)="consortiumTotalLimit(index)"
                                        class="form-control text-center"
@@ -166,12 +170,12 @@
                                        formControlName="conNonFundedOS"
                                        placeholder="Non Funded O.S"
                                        type="number"/></td>
-                            <td><input class="form-control text-center"
+                            <td><input [readOnly]="true"
+                                       class="form-control text-center"
                                        formControlName="conTotalOS"
                                        placeholder="Total O.S"
                                        type="number"/></td>
-                            <td><input [readOnly]="true"
-                                       class="form-control text-center"
+                            <td><input class="form-control text-center"
                                        formControlName="conRemarks"
                                        placeholder="Remarks (if any)"
                                        type="text"/></td>
@@ -213,83 +217,86 @@
                     </div>
                 </div>
 
-<!--                <div class="col-md-12">-->
-<!--                    <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-left">-->
-<!--                        <tbody>-->
-<!--                        <tr>-->
-<!--                            <th>Lead Bank</th>-->
-<!--                            <td><input class="form-control text-center"-->
-<!--                                       formControlName="leadBank"-->
-<!--                                       placeholder="Lead Bank"-->
-<!--                                       type="text"/></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Financial Information of the Borrower</th>-->
-<!--                            <td><input class="form-control text-center"-->
-<!--                                       formControlName="financialInformation"-->
-<!--                                       placeholder="Financial Information of the Borrower"-->
-<!--                                       type="number"/></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Last Audited Year</th>-->
-<!--                            <td><input class="form-control text-center"-->
-<!--                                       formControlName="lastAudited"-->
-<!--                                       placeholder="Last Audited Year"-->
-<!--                                       type="text"/></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Auditor's Name</th>-->
-<!--                            <td><input class="form-control text-center"-->
-<!--                                       formControlName="auditorName"-->
-<!--                                       placeholder="Auditor's Name"-->
-<!--                                       type="text"/></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Tax Amount</th>-->
-<!--                            <td><input class="form-control text-center"-->
-<!--                                       formControlName="taxAmount"-->
-<!--                                       placeholder="Tax Amount"-->
-<!--                                       type="text"/></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Name of Executive Head</th>-->
-<!--                            <td><input class="form-control text-center"-->
-<!--                                       formControlName="nameExecutive"-->
-<!--                                       placeholder="Name of Executive Head"-->
-<!--                                       type="text"/></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Address of Executive Head</th>-->
-<!--                            <td><input class="form-control text-center"-->
-<!--                                       formControlName="addressExecutive"-->
-<!--                                       placeholder="Address of Executive Head"-->
-<!--                                       type="text"/></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Date fo Appointment</th>-->
-<!--                            <td><input class="form-control text-center"-->
-<!--                                       formControlName="dateOfApp"-->
-<!--                                       placeholder="Date fo Appointment"-->
-<!--                                       type="text"/></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Consortium Member Banks</th>-->
-<!--                            <td><input class="form-control text-center"-->
-<!--                                       formControlName="consortiumMember"-->
-<!--                                       placeholder="Consortium Member Banks"-->
-<!--                                       type="text"/></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Name of Lender (Other than BFIs)</th>-->
-<!--                            <td><input class="form-control text-center"-->
-<!--                                       formControlName="nameOfLeader"-->
-<!--                                       placeholder="Name of Lender (Other than BFIs)"-->
-<!--                                       type="text"/></td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
+                <div class="col-md-12">
+                    <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-left">
+                        <tbody>
+                        <tr>
+                            <th>Lead Bank</th>
+                            <td><input class="form-control text-center"
+                                       formControlName="leadBank"
+                                       placeholder="Lead Bank"
+                                       type="text"/></td>
+                        </tr>
+                        <tr>
+                            <th>Financial Information of the Borrower</th>
+                            <td><input class="form-control text-center"
+                                       formControlName="financialInformation"
+                                       placeholder="Financial Information of the Borrower"
+                                       type="number"/></td>
+                        </tr>
+                        <tr>
+                            <th>Last Audited Year</th>
+                            <td><input class="form-control text-center"
+                                       formControlName="lastAudited"
+                                       placeholder="Last Audited Year"
+                                       type="text"/></td>
+                        </tr>
+                        <tr>
+                            <th>Auditor's Name</th>
+                            <td><input class="form-control text-center"
+                                       formControlName="auditorName"
+                                       placeholder="Auditor's Name"
+                                       type="text"/></td>
+                        </tr>
+                        <tr>
+                            <th>Tax Amount</th>
+                            <td><input class="form-control text-center"
+                                       formControlName="taxAmount"
+                                       placeholder="Tax Amount"
+                                       type="text"/></td>
+                        </tr>
+                        <tr>
+                            <th>Name of Executive Head</th>
+                            <td><input class="form-control text-center"
+                                       formControlName="nameExecutive"
+                                       placeholder="Name of Executive Head"
+                                       type="text"/></td>
+                        </tr>
+                        <tr>
+                            <th>Address of Executive Head</th>
+                            <td><input class="form-control text-center"
+                                       formControlName="addressExecutive"
+                                       placeholder="Address of Executive Head"
+                                       type="text"/></td>
+                        </tr>
+                        <tr>
+                            <th>Date fo Appointment</th>
+                            <td><input class="form-control text-center"
+                                       formControlName="dateOfApp"
+                                       placeholder="Date fo Appointment"
+                                       type="text"/></td>
+                        </tr>
+                        <tr>
+                            <th>Consortium Member Banks</th>
+                            <td><input class="form-control text-center"
+                                       formControlName="consortiumMember"
+                                       placeholder="Consortium Member Banks"
+                                       type="text"/></td>
+                        </tr>
+                        <tr>
+                            <th>Name of Lender (Other than BFIs)</th>
+                            <td><input class="form-control text-center"
+                                       formControlName="nameOfLeader"
+                                       placeholder="Name of Lender (Other than BFIs)"
+                                       type="text"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            <nb-card-footer *ngIf="fromProfile">
+                <button (click)="submitForm()" class="btn float-right" nbButton type="submit">Save</button>
+            </nb-card-footer>
         </form>
     </nb-card-body>
 </nb-card>

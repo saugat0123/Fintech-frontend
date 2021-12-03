@@ -256,9 +256,9 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.reviewDate)) {
             this.reviewDateResponse = this.customerInfo.reviewDate;
         }
-        // if (!ObjectUtil.isEmpty(this.customerInfo.multiBanking)) {
-        //     this.multiBankingResponse = this.customerInfo.multiBanking;
-        // }
+        if (!ObjectUtil.isEmpty(this.customerInfo.multiBanking)) {
+            this.multiBankingResponse = this.customerInfo.multiBanking;
+        }
     }
 
     get otherMicroDetailsVisibility() {
@@ -688,16 +688,16 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.multiBankingResponse = new MultiBanking();
         }
         this.multiBankingResponse = data;
-        // this.customerInfoService.saveLoanInfo(this.multiBankingResponse, this.customerInfoId, TemplateName.MULTI_BANKING)
-        //     .subscribe(() => {
-        //         this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Review Date!'));
-        //         this.nbDialogRef.close();
-        //         this.triggerCustomerRefresh.emit(true);
-        //         this.spinner.hide();
-        //     }, error => {
-        //         this.spinner.hide();
-        //         console.error(error);
-        //         this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Review Date!'));
-        //     });
+        this.customerInfoService.saveLoanInfo(this.multiBankingResponse, this.customerInfoId, TemplateName.MULTI_BANKING)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Multi Banking!'));
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, error => {
+                this.spinner.hide();
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Multi Banking!'));
+            });
     }
 }

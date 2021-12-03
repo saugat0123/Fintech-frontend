@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MultiBanking} from '../../loan/model/multiBanking';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {NumberUtils} from '../../../@core/utils/number-utils';
 
 @Component({
     selector: 'app-multi-banking',
@@ -26,6 +25,8 @@ export class MultiBankingComponent implements OnInit {
             this.multiBanking = this.multiBankingData;
             const data = JSON.parse(this.multiBankingData.data);
             this.multiBankingForm.patchValue(data);
+            this.setMultiBankindData(data.multiBanking);
+            this.setConsortiumData(data.consortium);
         } else {
             this.addMultiBanking();
             this.addConsortium();
@@ -158,7 +159,7 @@ export class MultiBankingComponent implements OnInit {
         let total = 0;
         total = Number(
             (Number(this.multiBankingForm.get(['multiBanking', i, 'fundedLimited']).value) +
-            Number(this.multiBankingForm.get(['multiBanking', i, 'nonFundedLimited']).value)).toFixed(2));
+                Number(this.multiBankingForm.get(['multiBanking', i, 'nonFundedLimited']).value)).toFixed(2));
         this.multiBankingForm.get(['multiBanking', i, 'totalLimit']).setValue(total);
         this.calculateTotalMultiBanking();
     }
@@ -188,5 +189,52 @@ export class MultiBankingComponent implements OnInit {
                 Number(this.multiBankingForm.get(['consortium', i, 'conNonFundedOS']).value)).toFixed(2));
         this.multiBankingForm.get(['consortium', i, 'conTotalOS']).setValue(total);
         this.calculateTotalConsortium();
+    }
+
+    setMultiBankindData(data) {
+        console.log('saveData', data);
+        const multiBank = this.multiBankingForm.get('multiBanking') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach((d) => {
+                multiBank.push(
+                    this.formBuilder.group({
+                        bankName: [d.bankName],
+                        date: [ObjectUtil.isEmpty(d) ? undefined :
+                            ObjectUtil.isEmpty(d.date) ? undefined :
+                                new Date(d.date)],
+                        fundedLimited: [d.fundedLimited],
+                        nonFundedLimited: [d.nonFundedLimited],
+                        totalLimit: [d.totalLimit],
+                        fundedOS: [d.fundedOS],
+                        nonFundedOS: [d.nonFundedOS],
+                        totalOS: [d.totalOS],
+                        remarks: [d.remarks],
+                    })
+                );
+            });
+        }
+    }
+
+    setConsortiumData(data) {
+        const consort = this.multiBankingForm.get('consortium') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach((d) => {
+                consort.push(
+                    this.formBuilder.group({
+                        conBankName: [d.conBankName],
+                        conDate: [ObjectUtil.isEmpty(d) ? undefined :
+                            ObjectUtil.isEmpty(d.conDate) ? undefined :
+                                new Date(d.conDate)],
+                        conFundedLimited: [d.conFundedLimited],
+                        conNonFundedLimited: [d.conNonFundedLimited],
+                        conTotalLimit: [d.conTotalLimit],
+                        conFundedOS: [d.conFundedOS],
+                        conNonFundedOS: [d.conNonFundedOS],
+                        conTotalOS: [d.conTotalOS],
+                        conRemarks: [d.conRemarks],
+                    })
+                );
+            });
+        }
     }
 }
