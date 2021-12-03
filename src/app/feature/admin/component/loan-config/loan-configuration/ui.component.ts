@@ -63,7 +63,7 @@ export class UIComponent implements OnInit, DoCheck {
     loanCategories = CustomerType.enumObject();
     selectedLoanCategory: string;
     loanTagList = LoanTag.enumObject();
-    selectedLoanTag = LoanTag.getKeyByValue(LoanTag.GENERAL);
+    selectedLoanTag = LoanTag.getKeyByValue(LoanTag.REMIT_LOAN);
     cadDocumentUploadList = [];
     finalCadDocumentUploadList = Array<Document>();
     formLabel: string;

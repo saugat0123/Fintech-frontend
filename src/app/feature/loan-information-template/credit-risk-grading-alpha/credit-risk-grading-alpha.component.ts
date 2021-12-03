@@ -215,14 +215,14 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     // Calculate Security risk portion --
     if (!ObjectUtil.isEmpty(this.security) && !ObjectUtil.isEmpty(this.security.data)) {
       const parsedSecurityData = JSON.parse(this.security.data);
-      if (this.loanTag === this.loanTagEnum.GENERAL) {
-        this.calculateTotalFMV(parsedSecurityData);
-        this.setValueForCriteria('FACLocation', parsedSecurityData.buildingLocation,
-            this.landAndBuildingLocationPointsMap.get(parsedSecurityData.buildingLocation));
-      } else if (this.loanTag === this.loanTagEnum.VEHICLE) {
-        this.setValueForCriteria('securityCoverageVehicle', parsedSecurityData.vehicleSecurityCoverage,
-            this.vehicleSecurityCoveragePointsMap.get(parsedSecurityData.vehicleSecurityCoverage));
-      }
+      // if (this.loanTag === this.loanTagEnum.GENERAL) {
+      //   this.calculateTotalFMV(parsedSecurityData);
+      //   this.setValueForCriteria('FACLocation', parsedSecurityData.buildingLocation,
+      //       this.landAndBuildingLocationPointsMap.get(parsedSecurityData.buildingLocation));
+      // } else if (this.loanTag === this.loanTagEnum.VEHICLE) {
+      //   this.setValueForCriteria('securityCoverageVehicle', parsedSecurityData.vehicleSecurityCoverage,
+      //       this.vehicleSecurityCoveragePointsMap.get(parsedSecurityData.vehicleSecurityCoverage));
+      // }
       this.setValueForCriteria('guarantee', parsedSecurityData.securityGuarantee,
           this.securityGuaranteePointsMap.get(parsedSecurityData.securityGuarantee));
     } else {

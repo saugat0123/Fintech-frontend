@@ -126,42 +126,43 @@ export class CustomerLoanApplyComponent implements OnInit {
         if (ObjectUtil.isEmpty(loanConfig.loanTag)) {
           this.toastService.show(new Alert(AlertType.INFO, 'Configure Loan Tag From Loan Configuration'));
           return;
-        } else if (!((loanConfig.loanTag === LoanTag.getKeyByValue(LoanTag.FIXED_DEPOSIT)) ||
-            (loanConfig.loanTag === LoanTag.getKeyByValue(LoanTag.SHARE_SECURITY) ||
-                (loanConfig.loanTag === LoanTag.getKeyByValue(LoanTag.VEHICLE))))) {
-          this.routeToLoanForm();
-
         }
+        // else if (!((loanConfig.loanTag === LoanTag.getKeyByValue(LoanTag.FIXED_DEPOSIT)) ||
+        //     (loanConfig.loanTag === LoanTag.getKeyByValue(LoanTag.SHARE_SECURITY) ||
+        //         (loanConfig.loanTag === LoanTag.getKeyByValue(LoanTag.VEHICLE))))) {
+        //   this.routeToLoanForm();
+        //
+        // }
         this.customerInfoService.detail(this.paramProp.customerInfoId).subscribe(customerInfoResponse => {
               const customerInfo: CustomerInfoData = customerInfoResponse.detail;
               const securityData = customerInfo.security ? JSON.parse(customerInfo.security.data) : undefined;
               if (!ObjectUtil.isEmpty(securityData)) {
-                switch (loanConfig.loanTag) {
-                  case LoanTag.getKeyByValue(LoanTag.SHARE_SECURITY) :
-                    if (!securityData.selectedArray.includes('ShareSecurity')) {
-                      this.toastService.show(new Alert(AlertType.INFO, 'Fill Share Security for Share Loan'));
-                    } else {
-                      this.routeToLoanForm();
-                    }
-                    break;
-                  case LoanTag.getKeyByValue(LoanTag.FIXED_DEPOSIT) :
-                    if (!securityData.selectedArray.includes('FixedDeposit')) {
-                      this.toastService.show(new Alert(AlertType.INFO, 'Fill Fixed Deposit Security for Fixed Deposit Loan'));
-                    } else {
-                      this.routeToLoanForm();
-
-                    }
-                    break;
-                  case LoanTag.getKeyByValue(LoanTag.VEHICLE) :
-                    if (!securityData.selectedArray.includes('VehicleSecurity')) {
-                      this.toastService.show(new Alert(AlertType.INFO, 'Fill Vehicle Security for Vehicle Loan'));
-                    } else {
-                      this.routeToLoanForm();
-
-                    }
-                    break;
-                }
-              } else {
+                // switch (loanConfig.loanTag) {
+                  // case LoanTag.getKeyByValue(LoanTag.SHARE_SECURITY) :
+                  //   if (!securityData.selectedArray.includes('ShareSecurity')) {
+                  //     this.toastService.show(new Alert(AlertType.INFO, 'Fill Share Security for Share Loan'));
+                  //   } else {
+                  //     this.routeToLoanForm();
+                  //   }
+                  //   break;
+                  // case LoanTag.getKeyByValue(LoanTag.FIXED_DEPOSIT) :
+                  //   if (!securityData.selectedArray.includes('FixedDeposit')) {
+                  //     this.toastService.show(new Alert(AlertType.INFO, 'Fill Fixed Deposit Security for Fixed Deposit Loan'));
+                  //   } else {
+                  //     this.routeToLoanForm();
+                  //
+                  //   }
+                  //   break;
+                  // case LoanTag.getKeyByValue(LoanTag.VEHICLE) :
+                  //   if (!securityData.selectedArray.includes('VehicleSecurity')) {
+                  //     this.toastService.show(new Alert(AlertType.INFO, 'Fill Vehicle Security for Vehicle Loan'));
+                  //   } else {
+                  //     this.routeToLoanForm();
+                  //
+                  //   }
+                  //   break;
+                // }
+              // } else {
                 this.toastService.show(new Alert(AlertType.INFO, 'Security is Empty'));
                 return;
               }
