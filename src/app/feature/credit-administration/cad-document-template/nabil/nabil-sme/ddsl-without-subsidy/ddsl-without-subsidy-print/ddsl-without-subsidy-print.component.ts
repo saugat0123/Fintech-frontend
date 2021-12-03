@@ -30,6 +30,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     finalName;
     customerType;
     loanOptions;
+    mortgageOptions;
     selectedSecurity;
     offerLetterConst = NabilOfferLetterConst;
     offerDocumentDetails;
@@ -74,6 +75,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.loanOptions = this.tempData.loanOption.ct;
             this.selectedSecurity = this.tempData.securityType.ct;
             this.customerType = this.loanHolderInfo.clientType.en;
+            this.mortgageOptions = this.tempData.mortgageType.ct;
         }
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
             // tslint:disable-next-line:max-line-length
