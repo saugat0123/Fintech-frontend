@@ -31,6 +31,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     isRoleLegal = false;
     layoutFlag = false;
     isCad = false;
+    isMaker = false;
     isInCurrentUser = false;
     productUtils = LocalStorageUtil.getStorage().productUtil;
 
@@ -62,6 +63,9 @@ export class LegalAndDisbursementComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
+            this.isMaker = true;
+        }
         this.getUserDetail();
         this.cadDocumentId = Number(this.activatedRoute.snapshot.queryParamMap.get('cadDocumentId'));
             LegalAndDisbursementComponent.loadData(this);
