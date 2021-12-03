@@ -12,6 +12,7 @@ export class Section4LoanLimitComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.buildForm();
   }
   buildForm() {
     this.section2 = this.formBuilder.group({
