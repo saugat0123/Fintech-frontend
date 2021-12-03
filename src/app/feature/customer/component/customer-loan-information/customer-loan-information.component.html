@@ -407,8 +407,7 @@
           <div class="row">
             <div class="col-md-10">
               <p class="custom-font">
-                <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)'
-                  : 'NET TRADING ASSETS (NTA)'}}</span>
+                <span>NET TRADING ASSETS (NTA)</span>
               </p>
             </div>
             <div class="col-md-2 d-flex justify-content-end">
@@ -427,8 +426,7 @@
         <ng-template #netComponentTemplate let-data let-ref="dialogRef">
           <nb-card class="template-css">
             <nb-card-header>
-                <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)'
-                    : 'NET TRADING ASSETS (NTA)'}}</span>
+                <span>NET TRADING ASSETS (NTA)</span>
               <a aria-label="Close" class="close cursor"
                  data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
@@ -836,6 +834,7 @@
       </ng-template>
       </div>
 
+      <!-- ReviewDate-->
       <div class="col-md-4">
         <div class="row">
           <nb-card class="col-md-11 py-2" #reviewDate>
@@ -872,6 +871,47 @@
                              [reviewData]="customerInfo?.reviewDate"
                              (reviewDateDataEmitter)="saveReviewDate($event)">
             </app-review-date>
+          </nb-card-body>
+        </nb-card>
+      </ng-template>
+
+      <!-- Multi Banking/Consortium Financing-->
+      <div class="col-md-4">
+        <div class="row">
+          <nb-card class="col-md-11 py-2">
+            <a class="cursor info-label" (click)="openModel(multiBankingTemplate)">
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="custom-font">MULTI BAKING/CONSORTIUM FINANCING</p>
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
+              <span *ngIf="multiBankingResponse" style="color:green"
+                    title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!multiBankingResponse" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+      </div>
+      <ng-template #multiBankingTemplate let-data let-ref="dialogRef">
+        <nb-card class="template-css">
+          <nb-card-header> MULTI BAKING/CONSORTIUM FINANCING
+            <a aria-label="Close" class="close cursor"
+               data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+          </nb-card-header>
+          <nb-card-body>
+            <app-multi-banking [fromProfile]="true"
+                               [multiBankingData]="customerInfo?.multiBanking"
+                               (multiBankingDataEmitter)="saveMultiBanking($event)">
+            </app-multi-banking>
           </nb-card-body>
         </nb-card>
       </ng-template>

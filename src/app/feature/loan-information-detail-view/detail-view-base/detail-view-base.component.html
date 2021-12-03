@@ -104,6 +104,9 @@
 <app-income-from-account-summery *ngIf="loanDataHolder?.loanHolder?.incomeFromAccount" [individual]="isIndividual"
                                  [formData]="loanDataHolder?.loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 
+<app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking"
+                           [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
+
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
     <app-report-summary
