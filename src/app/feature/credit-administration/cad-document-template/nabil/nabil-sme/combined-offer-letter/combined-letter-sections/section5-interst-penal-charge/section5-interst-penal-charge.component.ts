@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-section5-interst-penal-charge',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./section5-interst-penal-charge.component.scss']
 })
 export class Section5InterstPenalChargeComponent implements OnInit {
-
-  constructor() { }
+  section5: FormGroup;
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
   }
-
+  buildForm() {
+    this.section5 = this.formBuilder.group({
+      interestRate: [undefined],
+      /*securities: this.formBuilder.array([]),
+      freeTextVal : [undefined],*/
+      serviceChargeInFigure: [undefined],
+      serviceChargeInWords: [undefined],
+      detailsOfFacility: [undefined],
+      serviceChargeInPercentage: [undefined],
+    });
+  }
 }
