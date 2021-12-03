@@ -1,69 +1,77 @@
 <div class="row mt-2">
     <div class="col-md-12">
-        <p><strong>Multi Banking</strong></p>
-        <span><strong>Earning From Customer</strong></span>
-        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
-            <thead>
-            <tr class="sb-bg-dark text-white">
-                <th>S.N</th>
-                <th>Bank Name</th>
-                <th>Date</th>
-                <th>Funded Limited</th>
-                <th>Non Funded Limited</th>
-                <th>Total Limit</th>
-                <th>Funded O.S</th>
-                <th>Non Funded O.S</th>
-                <th>Total O.S</th>
-                <th>Remark (if any)</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let multi of multiBankingData?.multiBanking; let i= index">
-                <td>{{i+1}}</td>
-                <td class="text-left pl-1">{{multi?.bankName}}</td>
-                <td class="text-left pl-1">{{multi?.date | date}}</td>
-                <td class="text-right pr-1">Rs. {{multi?.fundedLimited}}</td>
-                <td class="text-right pr-1">Rs. {{multi?.nonFundedLimited}}</td>
-                <td class="text-right pr-1">Rs. {{multi?.totalLimit}}</td>
-                <td class="text-right pr-1">Rs. {{multi?.fundedOS}}</td>
-                <td class="text-right pr-1">Rs. {{multi?.nonFundedOS}}</td>
-                <td class="text-right pr-1">Rs. {{multi?.totalOS}}</td>
-                <td class="text-left pl-1">{{multi?.remarks}}</td>
-            </tr>
-            </tbody>
-        </table>
+        MULTI BAKING/CONSORTIUM FINANCING
+        <p><strong>Multi Banking/Consortium Financing</strong></p>
+        <span><strong>Multi Banking ? </strong>{{multiBankingData?.isMultiBanking === true ? 'YES' : 'NO'}}</span>
+        <ng-container *ngIf="multiBankingData?.isMultiBanking">
+            <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+                <thead>
+                <tr class="sb-bg-dark text-white">
+                    <th>S.N</th>
+                    <th>Bank Name</th>
+                    <th>Date</th>
+                    <th>Funded Limited</th>
+                    <th>Non Funded Limited</th>
+                    <th>Total Limit</th>
+                    <th>Funded O.S</th>
+                    <th>Non Funded O.S</th>
+                    <th>Total O.S</th>
+                    <th>Remark (if any)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let multi of multiBankingData?.multiBanking; let i= index">
+                    <td>{{i+1}}</td>
+                    <td class="text-left pl-1">{{multi?.bankName}}</td>
+                    <td class="text-left pl-1">{{multi?.date | date}}</td>
+                    <td class="text-right pr-1">Rs. {{multi?.fundedLimited}}</td>
+                    <td class="text-right pr-1">Rs. {{multi?.nonFundedLimited}}</td>
+                    <td class="text-right pr-1">Rs. {{multi?.totalLimit}}</td>
+                    <td class="text-right pr-1">Rs. {{multi?.fundedOS}}</td>
+                    <td class="text-right pr-1">Rs. {{multi?.nonFundedOS}}</td>
+                    <td class="text-right pr-1">Rs. {{multi?.totalOS}}</td>
+                    <td class="text-left pl-1">{{multi?.remarks}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </ng-container>
 
-        <span><strong>Earning From Customer</strong></span>
+        <span><strong>Consortium Financing ? </strong>{{multiBankingData?.isConsortium === true ? 'YES' : 'NO'}}</span>
+        <ng-container *ngIf="multiBankingData?.isConsortium">
+            <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+                <thead>
+                <tr class="sb-bg-dark text-white">
+                    <th>S.N</th>
+                    <th>Bank Name</th>
+                    <th>Date</th>
+                    <th>Funded Limited</th>
+                    <th>Non Funded Limited</th>
+                    <th>Total Limit</th>
+                    <th>Funded O.S</th>
+                    <th>Non Funded O.S</th>
+                    <th>Total O.S</th>
+                    <th>Remark (if any)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let const of multiBankingData?.consortium; let i= index">
+                    <td>{{i+1}}</td>
+                    <td class="text-left pl-1">{{const?.conBankName}}</td>
+                    <td class="text-left pl-1">{{const?.conDate | date}}</td>
+                    <td class="text-right pr-1">Rs. {{const?.conFundedLimited}}</td>
+                    <td class="text-right pr-1">Rs. {{const?.conNonFundedLimited}}</td>
+                    <td class="text-right pr-1">Rs. {{const?.conTotalLimit}}</td>
+                    <td class="text-right pr-1">Rs. {{const?.conFundedOS}}</td>
+                    <td class="text-right pr-1">Rs. {{const?.conNonFundedOS}}</td>
+                    <td class="text-right pr-1">Rs. {{const?.conTotalOS}}</td>
+                    <td class="text-left pl-1">{{const?.conRemarks}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </ng-container>
+        <br>
         <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
             <thead>
-            <tr class="sb-bg-dark text-white">
-                <th>S.N</th>
-                <th>Bank Name</th>
-                <th>Date</th>
-                <th>Funded Limited</th>
-                <th>Non Funded Limited</th>
-                <th>Total Limit</th>
-                <th>Funded O.S</th>
-                <th>Non Funded O.S</th>
-                <th>Total O.S</th>
-                <th>Remark (if any)</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let const of multiBankingData?.consortium; let i= index">
-                <td>{{i+1}}</td>
-                <td class="text-left pl-1">{{const?.conBankName}}</td>
-                <td class="text-left pl-1">{{const?.conDate | date}}</td>
-                <td class="text-right pr-1">Rs. {{const?.conFundedLimited}}</td>
-                <td class="text-right pr-1">Rs. {{const?.conNonFundedLimited}}</td>
-                <td class="text-right pr-1">Rs. {{const?.conTotalLimit}}</td>
-                <td class="text-right pr-1">Rs. {{const?.conFundedOS}}</td>
-                <td class="text-right pr-1">Rs. {{const?.conNonFundedOS}}</td>
-                <td class="text-right pr-1">Rs. {{const?.conTotalOS}}</td>
-                <td class="text-left pl-1">{{const?.conRemarks}}</td>
-            </tr>
-            </tbody>
-            <tbody>
             <tr class="sb-bg-dark text-white">
                 <th>Lead Bank</th>
                 <th>Financial Information of the Borrower</th>
@@ -76,6 +84,8 @@
                 <th>Consortium Member Banks</th>
                 <th>Name of Lender (Other than BFIs)</th>
             </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td class="text-left pl-1">{{multiBankingData?.leadBank}}</td>
                 <td class="text-left pl-1">{{multiBankingData?.financialInformation}}</td>
@@ -90,5 +100,6 @@
             </tr>
             </tbody>
         </table>
+
     </div>
 </div>

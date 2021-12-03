@@ -37,6 +37,8 @@ export class MultiBankingComponent implements OnInit {
         this.multiBankingForm = this.formBuilder.group({
             multiBanking: this.formBuilder.array([]),
             consortium: this.formBuilder.array([]),
+            isMultiBanking: [true],
+            isConsortium: [true],
             leadBank: [undefined],
             financialInformation: [undefined],
             lastAudited: [undefined],
