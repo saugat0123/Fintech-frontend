@@ -342,18 +342,19 @@ export class IncomeFromAccountComponent implements OnInit {
 
   // setting Ad more field value
   private setGrossSubCategory(grossSubCateGory) {
-    console.log(grossSubCateGory);
     const data = this.incomeFormGroup.get('grossSubCateGory') as FormArray;
-    grossSubCateGory.forEach(d => {
-      data.push(
-          this.formBuilder.group({
-            name: [d.name],
-            grossLast: [d.grossLast],
-            grossDuring: [d.grossDuring],
-            grossNext: [d.grossNext]
-          })
-      );
-    });
+    if (!ObjectUtil.isEmpty(grossSubCateGory)) {
+      grossSubCateGory.forEach(d => {
+        data.push(
+            this.formBuilder.group({
+              name: [d.name],
+              grossLast: [d.grossLast],
+              grossDuring: [d.grossDuring],
+              grossNext: [d.grossNext]
+            })
+        );
+      });
+    }
   }
 
   controlValidation(controlNames: string[], validate) {
@@ -402,14 +403,16 @@ export class IncomeFromAccountComponent implements OnInit {
 
   setRiskBasedPrice(data) {
     const riskData = this.incomeFormGroup.get('riskBasedPrice') as FormArray;
-    data.forEach(d => {
-      riskData.push(this.formBuilder.group({
-            facility: [d.facility],
-            targetPricing: [d.targetPricing],
-            exitingInterestRate: [d.exitingInterestRate],
-            difference: [d.difference],
-          })
-      );
-    });
+    if (!ObjectUtil.isEmpty(data)) {
+      data.forEach(d => {
+        riskData.push(this.formBuilder.group({
+              facility: [d.facility],
+              targetPricing: [d.targetPricing],
+              exitingInterestRate: [d.exitingInterestRate],
+              difference: [d.difference],
+            })
+        );
+      });
+    }
   }
 }

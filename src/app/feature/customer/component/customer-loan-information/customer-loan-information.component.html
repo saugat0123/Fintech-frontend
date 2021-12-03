@@ -407,8 +407,7 @@
           <div class="row">
             <div class="col-md-10">
               <p class="custom-font">
-                <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)'
-                  : 'NET TRADING ASSETS (NTA)'}}</span>
+                <span>NET TRADING ASSETS (NTA)</span>
               </p>
             </div>
             <div class="col-md-2 d-flex justify-content-end">
@@ -427,8 +426,7 @@
         <ng-template #netComponentTemplate let-data let-ref="dialogRef">
           <nb-card class="template-css">
             <nb-card-header>
-                <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)'
-                    : 'NET TRADING ASSETS (NTA)'}}</span>
+                <span>NET TRADING ASSETS (NTA)</span>
               <a aria-label="Close" class="close cursor"
                  data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">

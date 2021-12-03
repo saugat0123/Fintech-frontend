@@ -101,6 +101,10 @@ export class CustomerLoanInformationComponent implements OnInit {
     private borrowerLoanPortfolioComponent: NbAccordionItemComponent;
     @ViewChild('borrowerFinancialHighlight', {static: false})
     private borrowerFinancialHighlight: NbAccordionItemComponent;
+    @ViewChild('reviewDate', {static: false})
+    private reviewDate: ReviewDate;
+    @ViewChild('multiBanking', {static: false})
+    private multiBanking: MultiBanking;
 
     @ViewChild('microCrgParamsComponent', {static: false})
     private microCrgParamsComponent: NbAccordionItemComponent;
