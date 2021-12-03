@@ -1681,66 +1681,47 @@
                         <h6>Environmental and Social Due Diligence Checklist and Risk rating Tool</h6>
                         <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                             <thead>
-                            <tr class="sb-bg-dark">
-                                   <td colspan="5">Basic Information</td>
+                            <tr>
+                            <th class="sb-bg-dark">
+                                <b>Basic Information</b>
+                            </th>
+                            <th class="sb-bg-dark">
+                                <b>Information</b>
+                            </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td colspan="2" >Date:</td>
-                                <td colspan="3"><input *ngIf="fromProfile" type="date" fullWidth nbInput formControlName="esrmDate">
-                                </td>
-
-                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.esrmDate}}</td>
+                                <td  >Date:</td>
+                                <td *ngIf="!fromProfile">{{dataForEdit?.esrmDate}}</td>
                             </tr>
                             <tr>
-                                <td colspan="2" >Name Of Client/Account:</td>
-                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="client">
-                                </td>
-
-                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.client}}</td>
+                                <td>Name Of Client/Account:</td>
+                                <td *ngIf="!fromProfile">{{dataForEdit?.client}}</td>
                             </tr>
                             <tr>
-                                <td colspan="2" >Customer ID:</td>
-                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="customerId">
-                                </td>
-
-                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.customerId}}</td>
+                                <td>Customer ID:</td>
+                                <td  *ngIf="!fromProfile">{{dataForEdit?.customerId}}</td>
                             </tr>
                             <tr>
-                                <td colspan="2" >Location:</td>
-                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="location">
-                                </td>
-
-                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.location}}</td>
+                                <td  >Location:</td>
+                                <td *ngIf="!fromProfile">{{dataForEdit?.location}}</td>
                             </tr>
                             <tr>
-                                <td colspan="2" >Industry / Sector: (NRB Sector Code)</td>
-                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="industry">
-                                </td>
-
-                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.esrmDate}}</td>
+                                <td  >Industry / Sector: (NRB Sector Code)</td>
+                                <td  *ngIf="!fromProfile">{{dataForEdit?.esrmDate}}</td>
                             </tr>
                             <tr>
-                                <td colspan="2" >Product Manufactured / Traded:</td>
-                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="traded">
-                                </td>
-
-                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.traded}}</td>
+                                <td  >Product Manufactured / Traded:</td>
+                                <td *ngIf="!fromProfile">{{dataForEdit?.traded}}</td>
                             </tr>
                             <tr>
-                                <td colspan="2" >Name of A/RM/ BM</td>
-                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="nameOf">
-                                </td>
-
-                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.nameOf}}</td>
+                                <td >Name of A/RM/ BM</td>
+                                <td *ngIf="!fromProfile">{{dataForEdit?.nameOf}}</td>
                             </tr>
                             <tr>
-                                <td colspan="2" >Business line (Sub-sector): (NRB sub sector code)</td>
-                                <td colspan="3"><input *ngIf="fromProfile" type="text" fullWidth nbInput formControlName="bl">
-                                </td>
-
-                                <td colspan="3" *ngIf="!fromProfile">{{dataForEdit?.bl}}</td>
+                                <td  >Business line (Sub-sector): (NRB sub sector code)</td>
+                                <td  *ngIf="!fromProfile">{{dataForEdit?.bl}}</td>
                             </tr>
                             </tbody>
                         </table>
