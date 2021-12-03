@@ -35,6 +35,8 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     isLoanOptionSelected = false;
     isCustomerNew = false;
     isSecurityOptionSelected;
+    isMortgageOptionSelected;
+    isLoanSubTypeSelected;
     ADSanctionLetterDate = false;
     BSSanctionLetterDate = false;
     ADApplication = false;
@@ -58,6 +60,16 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     allDistrictList = [];
     offerLetterConst = NabilOfferLetterConst;
     offerLetterDocument: OfferDocument;
+    securities;
+    loanSubTypeList = [
+        {nData: 'ब्यापारिक कृषि तथा पशुपंछी कर्जा', eData: 'Commercial Agro and Livestock Loan'},
+        {nData: 'शिक्षित युवा स्वरोजगार कर्जा', eData: 'Educated Youth and Self Employeed Loan '},
+        {nData: 'उच्च र/वा प्राविधिक तथा व्यवसायिक शिक्षा कर्जा', eData: 'Higher and Techno-Vocational Education Loan'},
+        {nData: 'विपन्न, दलित तथा पिछडिएको वर्ग / समुदाय व्यवसाय विकाश कर्र्जा', eData: 'Loan to under-priviledged Caste/Community/Marginalized Communities'},
+        {nData: 'भुकम्प पीडितहरुको निजी आवास निर्माण कर्जा', eData: 'Personal Home Construction loan for Earthquake Affected People'},
+        {nData: 'महिलाफरा प्रबर्तित लघु उद्यमशीलता कर्जा', eData: 'Women Run Micro enterprise Loan'},
+        {nData: 'बैदेशिक रोजगारीबाट फर्केका युवा परियोजना कर्जा ', eData: 'Project loan for Youths returning from Foreign Employment'},
+    ];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -182,6 +194,12 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             EMIAmountFigureCT: [undefined, Validators.required],
             EMIAmountWordCT: [undefined, Validators.required],
             totalInstallmentFigureCT: [undefined, Validators.required],
+            mortgageType: [undefined],
+            mortgageTypeTrans: [undefined],
+            mortgageTypeCT: [undefined],
+            loanSubType: [undefined],
+            loanSubTypeTrans: [undefined],
+            loanSubTypeCT: [undefined],
         });
         this.addDefaultSecurity();
     }
@@ -189,7 +207,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     get FormControls() {
         return this.ddslFormGroup.controls;
     }
-
     public sanctionLetterDate(value): void {
         this.ADSanctionLetterDate = value === 'AD';
         this.BSSanctionLetterDate = value === 'BS';
@@ -222,6 +239,19 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             this.isSecurityOptionSelected = security;
         }
     }
+    mortgageValue() {
+        const mortgage = this.ddslFormGroup.get('mortgageType').value;
+        if (!ObjectUtil.isEmpty(mortgage)) {
+            this.isMortgageOptionSelected = mortgage;
+        }
+    }
+    loanSubTypeValue() {
+        const loanSub = this.ddslFormGroup.get('loanSubType').value;
+        if (!ObjectUtil.isEmpty(loanSub)) {
+            this.isLoanSubTypeSelected = loanSub;
+        }
+    }
+
 
     public getNumAmountWord(numLabel, wordLabel): void {
         const transformValue = this.nepaliCurrencyWordPipe.transform(this.ddslFormGroup.get(numLabel).value);
@@ -303,6 +333,8 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         // Translation Data
         this.ddslFormGroup.get('loanOptionTrans').patchValue(this.ddslFormGroup.get('loanOption').value);
         this.ddslFormGroup.get('securityTypeTrans').patchValue(this.ddslFormGroup.get('securityType').value);
+        this.ddslFormGroup.get('mortgageTypeTrans').patchValue(this.ddslFormGroup.get('mortgageType').value);
+        this.ddslFormGroup.get('loanSubTypeTrans').patchValue(this.ddslFormGroup.get('loanSubType').value);
         // Set Translated Sanction letter Date:
         const sanctionType = this.ddslFormGroup.get('sanctionLetterDateType').value;
         let approvalDateTrans;
@@ -403,6 +435,11 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         if (!ObjectUtil.isEmpty(EMIAmountWordData)) {
             this.ddslFormGroup.get('EMIAmountWordTrans').patchValue(EMIAmountWordData);
         }
+        // Set Translated Data of Loan sub type:
+        const tempSubTypeVal = this.ddslFormGroup.get('loanSubType').value;
+        if (!ObjectUtil.isEmpty(tempSubTypeVal)) {
+            this.ddslFormGroup.get('loanSubTypeTrans').patchValue(tempSubTypeVal.nData);
+        }
         // For Required Translation Data:
         this.translateFormGroup = this.formBuilder.group({
             purposeOfLoan: this.ddslFormGroup.get('purposeOfLoan').value,
@@ -425,6 +462,8 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         // Set CT values
         this.ddslFormGroup.get('loanOptionCT').patchValue(this.ddslFormGroup.get('loanOption').value);
         this.ddslFormGroup.get('securityTypeCT').patchValue(this.ddslFormGroup.get('securityType').value);
+        this.ddslFormGroup.get('mortgageTypeCT').patchValue(this.ddslFormGroup.get('mortgageType').value);
+        this.ddslFormGroup.get('loanSubTypeCT').patchValue(this.ddslFormGroup.get('loanSubType').value);
         // set CT value of Sanction Letter Date
         this.ddslFormGroup.get('sanctionLetterDateTypeCT').patchValue(this.ddslFormGroup.get('sanctionLetterDateType').value);
         if (this.ADSanctionLetterDate) {
@@ -476,6 +515,7 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         this.ddslFormGroup.get('nameOfBranchManagerCT').patchValue(this.ddslFormGroup.get('nameOfBranchManagerTrans').value);
         this.ddslFormGroup.get('EMIAmountFigureCT').patchValue(this.ddslFormGroup.get('EMIAmountFigureTrans').value);
         this.ddslFormGroup.get('EMIAmountWordCT').patchValue(this.ddslFormGroup.get('EMIAmountWordTrans').value);
+        this.ddslFormGroup.get('loanSubTypeCT').patchValue(this.ddslFormGroup.get('loanSubTypeTrans').value);
     }
 
     buildSecurityForm() {

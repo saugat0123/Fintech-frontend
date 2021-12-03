@@ -41,13 +41,19 @@
                     <tbody>
                     <tr>
                         <td width="20%"><strong>कर्जाको प्रकार</strong></td>
-                        <td width="40%"></td>
-                        <td width="40%"></td>
+                        <td width="40%"><span
+                                [ngClass]="{'outside' : letter?.loanSubType.ct !== null && letter?.loanSubType.ct !== ''}">
+                            {{letter?.loanSubType.ct === null || letter?.loanSubType.ct === '' ? '___________' : letter?.loanSubType.ct}}</span></td>
+                        <td>
+                            <span
+                                    [ngClass]="{'outside' : letter?.loanSubType.en.eData !== null && letter?.loanSubType.en.eData !== ''}">
+                            {{letter?.loanSubType.en.eData === null || letter?.loanSubType.en.eData === '' ? '___________' : letter?.loanSubType.en.eData}}</span>
+                        </td>
                     </tr>
                     <tr>
                         <td><strong>कर्जाको उद्देश्य</strong></td>
                         <td colspan="2"><span
-                                [ngClass]="{'outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
+                                [ngClass]="{'nepaliFont outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
                             {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct}}</span>
                         </td>
                     </tr>
@@ -174,12 +180,16 @@
                         १. घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges):<br>
                     </strong>
                 </p>
-                <p *ngIf="loanOptions === 'NEW'" style="margin-left: 2%;">स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
-                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
-                    गरी दिनु पर्नेछ ।</p>
-                <p *ngIf="loanOptions !== 'NEW'" style="margin-left: 2%;">ऋणकर्जाको सुरक्षण स्वरुप बैंकको
-                    पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
-                    गरिदिनुभएको यथावत कायम रहने ।</p>
+                <p *ngIf="mortgageOptions === 'NEW_MORTGAGE'; else existingMortgage" style="margin-left: 2%;">स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                    स्वीकृत ऋणकर्जा प्रवाह गर्नु अगाव ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
+                    /गरी दिनु पर्नेछ ।</p>
+                <ng-template #existingMortgage>
+                    <p style="margin-left: 2%;">
+                        ऋणकर्जाको सुरक्षण स्वरुप बैंकको
+                        पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित/
+                        गरिदिनुभएको यथावत कायम रहने ।
+                    </p>
+                </ng-template>
             </div>
             <div *ngIf="selectedSecurity === 'LAND' || selectedSecurity === 'LAND_AND_BUILDING'">
                 <table class="table table-bordered">
@@ -650,7 +660,7 @@
                         वा नामसारी गर्न पाईने छैन र बैंकको सहमति बेगर स्वामित्व संरचनामा परिवर्तन वा नामसारी
                         गरेमा यस ऋण सुविधा स्वीकृति पत्रको उल्लंघन भएको मानिनेछ ।
                     </li>
-                    <li><span class="nepaliFont">{{freeInformation ? freeInformation.firstText : ''}}</span></li>
+                    <li *ngIf="freeInformation?.firstText"><span class="nepaliFont">{{freeInformation ? freeInformation.firstText : ''}}</span></li>
                 </ol>
                 <p style="margin-left: 3%;"><strong><u>अन्य शर्तहरु</u></strong></p>
                 <ol class="conditions-list">
@@ -704,7 +714,7 @@
                         हुनेछैन र साथै तहांले उपभोग गर्दै आउनुभएका सम्पूर्ण ऋण कर्जा सुविधाहरु दर्ता नविकरण नभएका
                         कारण फिर्ता भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                     </li>
-                    <li><span class="nepaliFont">{{freeInformation ? freeInformation.secondText : ''}}</span></li>
+                    <li *ngIf="freeInformation?.secondText"><span class="nepaliFont">{{freeInformation ? freeInformation.secondText : ''}}</span></li>
                 </ol>
             </div>
             <div>
@@ -755,7 +765,7 @@
                         बढी कर्जा उपभोग नगरेको उदघोषण पत्र ।
                     </li>
                     <li>विमालेख घोषणा पत्र (Insurance Declaration Statement)</li>
-                    <li><span class="nepaliFont">{{freeInformation ? freeInformation.thirdText : ''}}</span></li>
+                    <li *ngIf="freeInformation?.thirdText"><span class="nepaliFont">{{freeInformation ? freeInformation.thirdText : ''}}</span></li>
                 </ul>
                 <p>यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको
                     प्रतिलिपीमा तपाईंको मञ्जुरी सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ । अन्यथा यो प्रस्ताव स्वतः
@@ -771,22 +781,21 @@
                 <div class="right-content">
                     .........................................
                     <p>
-                         <span [ngClass]="{'outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
+                         <span [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
                             {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
-                        <br>
-                        <span class="nepaliFont">{{freeInformation ? freeInformation.fifthText : ''}}</span>
+                        <span class="nepaliFont">{{freeInformation ? freeInformation.fifthText : 'सम्पर्क अधिकृत'}}</span>
                         <br>
                         नबिल बैंक लि.<br>
                         {{branchName ? branchName : ''}} शाखा
                     </p>
                 </div>
-                <div class="left-content">
+                <div class="left-content text-right">
                     .........................................
                     <p>
-                       <span [ngClass]="{'outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
-                            {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span><br>
-                        <span class="nepaliFont">{{freeInformation ? freeInformation.sixthText : ''}}</span><br>
-                        नबिल बैंक लि.<br>
+                       <span [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
+                            {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
+                        <span class="nepaliFont">{{freeInformation ? freeInformation.sixthText : 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक'}}</span><br>
+                        नबिल बैंक लि. <br>
                         {{branchName ? branchName : ''}} शाखा
                     </p>
                 </div>
@@ -883,7 +892,7 @@
                         माईजु,
                         भाञ्जा, भाञ्जी, नाति, नातिनी, नातिनी बुहारी, नातिनी ज्वाइँ समेतलाई बुझाउनेछ ।)
                     </li>
-                    <li><span class="nepaliFont">{{freeInformation ? freeInformation.fourthText : ''}}</span></li>
+                    <li *ngIf="freeInformation?.fourthText"><span class="nepaliFont">{{freeInformation ? freeInformation.fourthText : ''}}</span></li>
                 </ol>
             </div>
             <div class="col-md-12 d-flex justify-content-between">
