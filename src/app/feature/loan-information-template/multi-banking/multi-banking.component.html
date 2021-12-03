@@ -1,0 +1,151 @@
+<nb-card>
+    <nb-card-body>
+        <form (ngSubmit)="submitForm()" [formGroup]="multiBankingForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <span><strong>Multi Banking</strong></span>
+                    <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+                        <thead>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>S.N</th>
+                            <th>Bank Name</th>
+                            <th>Date</th>
+                            <th>Funded Limited</th>
+                            <th>Non Funded Limited</th>
+                            <th>Total Limit</th>
+                            <th>Funded O.S</th>
+                            <th>Non Funded O.S</th>
+                            <th>Total O.S</th>
+                            <th>Remark (if any)</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let data of multiBankingForm.get('multiBanking')['controls']; let i = index"
+                               formArrayName="multiBanking">
+                        <tr [formGroupName]="i">
+                            <td>{{i+1}}</td>
+                            <td><input class="form-control text-center"
+                                       formControlName="bankName"
+                                       placeholder="Bank Name"
+                                       type="text"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="date"
+                                       placeholder="Date"
+                                       type="text"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="fundedLimited"
+                                       placeholder="Funded Limited"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="nonFundedLimited"
+                                       placeholder="Non Funded Limited"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="totalLimit"
+                                       placeholder="Total Limit"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="fundedOS"
+                                       placeholder="Funded O.S"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="nonFundedOS"
+                                       placeholder="Non Funded O.S"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="totalOS"
+                                       placeholder="Total O.S"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="remarks"
+                                       placeholder="Remarks (if any)"
+                                       type="text"/></td>
+                            <div>
+                                <button (click)="removeMultiBanking(i)"
+                                        *ngIf="i > 0"
+                                        class="btn btn-success" nbButton size="small"
+                                        status="primary">Delete </button>
+                            </div>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right">
+                        <input (click)="addMultiBanking()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <span><strong>Consortium</strong></span>
+                    <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+                        <thead>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>S.N</th>
+                            <th>Bank Name</th>
+                            <th>Date</th>
+                            <th>Funded Limited</th>
+                            <th>Non Funded Limited</th>
+                            <th>Total Limit</th>
+                            <th>Funded O.S</th>
+                            <th>Non Funded O.S</th>
+                            <th>Total O.S</th>
+                            <th>Remark (if any)</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let data of multiBankingForm.get('consortium')['controls']; let index = index"
+                               formArrayName="consortium">
+                        <tr [formGroupName]="index">
+                            <td>{{i+1}}</td>
+                            <td><input class="form-control text-center"
+                                       formControlName="conBankName"
+                                       placeholder="Bank Name"
+                                       type="text"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="conDate"
+                                       placeholder="Date"
+                                       type="text"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="conFundedLimited"
+                                       placeholder="Funded Limited"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="conNonFundedLimited"
+                                       placeholder="Non Funded Limited"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="conTotalLimit"
+                                       placeholder="Total Limit"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="conFundedOS"
+                                       placeholder="Funded O.S"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="conNonFundedOS"
+                                       placeholder="Non Funded O.S"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="conTotalOS"
+                                       placeholder="Total O.S"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="conRemarks"
+                                       placeholder="Remarks (if any)"
+                                       type="text"/></td>
+                            <div>
+                                <button (click)="removeConsortium(index)"
+                                        *ngIf="index > 0"
+                                        class="btn btn-success" nbButton size="small"
+                                        status="primary">Delete </button>
+                            </div>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right">
+                        <input (click)="addConsortium()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

@@ -43,6 +43,7 @@ import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ReviewDate} from '../../../loan/model/reviewDate';
+import {MultiBanking} from '../../../loan/model/multiBanking';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -151,6 +152,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     public securityDataResponse: PreviousSecurity;
     private securityData: string;
     public reviewDateResponse: ReviewDate;
+    public multiBankingResponse: MultiBanking;
     client = environment.client;
     clientName = Clients;
     checkedPreviousSecurity = false;
@@ -250,6 +252,9 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.reviewDate)) {
             this.reviewDateResponse = this.customerInfo.reviewDate;
         }
+        // if (!ObjectUtil.isEmpty(this.customerInfo.multiBanking)) {
+        //     this.multiBankingResponse = this.customerInfo.multiBanking;
+        // }
     }
 
     get otherMicroDetailsVisibility() {
@@ -671,5 +676,24 @@ export class CustomerLoanInformationComponent implements OnInit {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Review Date!'));
             });
+    }
+
+    saveMultiBanking(data) {
+        this.spinner.show();
+        if (ObjectUtil.isEmpty(this.multiBankingResponse)) {
+            this.multiBankingResponse = new MultiBanking();
+        }
+        this.multiBankingResponse = data;
+        // this.customerInfoService.saveLoanInfo(this.multiBankingResponse, this.customerInfoId, TemplateName.MULTI_BANKING)
+        //     .subscribe(() => {
+        //         this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Review Date!'));
+        //         this.nbDialogRef.close();
+        //         this.triggerCustomerRefresh.emit(true);
+        //         this.spinner.hide();
+        //     }, error => {
+        //         this.spinner.hide();
+        //         console.error(error);
+        //         this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Review Date!'));
+        //     });
     }
 }
