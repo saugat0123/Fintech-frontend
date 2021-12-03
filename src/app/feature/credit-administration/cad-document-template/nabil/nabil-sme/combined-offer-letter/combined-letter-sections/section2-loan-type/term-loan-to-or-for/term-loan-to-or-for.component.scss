@@ -1,6 +1,5 @@
 *{
   color: black;
-  font-size: 16px;
 }
 .form-field {
   background: yellow;
@@ -12,9 +11,6 @@
   &:focus {
     outline: none;
   }
-}
-table, th, td{
-  border: 1px solid black;
 }
 .customFont {
   font-size: 22px;
