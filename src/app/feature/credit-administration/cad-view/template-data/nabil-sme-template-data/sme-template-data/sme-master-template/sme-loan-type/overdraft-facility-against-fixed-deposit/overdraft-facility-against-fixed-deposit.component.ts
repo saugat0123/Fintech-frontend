@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {NepaliCurrencyWordPipe} from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
 import {EngNepDatePipe} from "nepali-patro";
 import {DatePipe} from "@angular/common";
@@ -34,6 +34,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
   translatedFormGroup: FormGroup;
   translatedValue: any;
+  arrayForm: any = {};
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -129,13 +130,15 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
       dateOfExpiryCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryTypeCT: [undefined],
-
-    })
+      fdHolderDetails: this.formBuilder.array([]),
+      depositorDetails: this.formBuilder.array([]),
+    });
+    this.addDepositorDetails();
+    this.addFDHolderDetails();
   }
 
   subLoanOption(data) {
     const tempData = !ObjectUtil.isEmpty(data) ? data : '';
-    console.log('Tempdata:', tempData);
     this.isFixedDeposit = tempData === 'AGAINST_FIXED_DEPOSIT';
     this.isDepositAccount = tempData === 'AGAINST_DEPOSIT_ACCOUNT';
   }
@@ -276,7 +279,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     // translated by google api
     this.translatedFormGroup = this.formBuilder.group({
       nameOfHoldingBank: this.overdraftFixedForm.get('nameOfHoldingBank').value,
-      nameOfFDHolder: this.overdraftFixedForm.get('nameOfFDHolder').value,
+      // nameOfFDHolder: this.overdraftFixedForm.get('nameOfFDHolder').value,
       nameOfDepositors: this.overdraftFixedForm.get('nameOfDepositors').value,
       nameOfFacility: this.overdraftFixedForm.get('nameOfFacility').value,
     });
@@ -284,7 +287,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     this.translatedValue =  await this.translateService.translateForm(this.translatedFormGroup);
 
     this.overdraftFixedForm.get('nameOfHoldingBankTrans').patchValue(this.translatedValue.nameOfHoldingBank);
-    this.overdraftFixedForm.get('nameOfFDHolderTrans').patchValue(this.translatedValue.nameOfFDHolder);
+    // this.overdraftFixedForm.get('nameOfFDHolderTrans').patchValue(this.translatedValue.nameOfFDHolder);
     this.overdraftFixedForm.get('nameOfDepositorsTrans').patchValue(this.translatedValue.nameOfDepositors);
     this.overdraftFixedForm.get('nameOfFacilityTrans').patchValue(this.translatedValue.nameOfFacility);
 
@@ -355,9 +358,9 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     this.overdraftFixedForm.get('nameOfHoldingBankCT').patchValue(
         this.translatedValue.nameOfHoldingBank
     );
-    this.overdraftFixedForm.get('nameOfFDHolderCT').patchValue(
-        this.translatedValue.nameOfFDHolder
-    );
+    // this.overdraftFixedForm.get('nameOfFDHolderCT').patchValue(
+    //     this.translatedValue.nameOfFDHolder
+    // );
     this.overdraftFixedForm.get('nameOfDepositorsCT').patchValue(
         this.translatedValue.nameOfDepositors
     );
@@ -379,6 +382,43 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
       }
     }
     return finalConvertedVal;
+  }
+
+  addDepositorDetails() {
+    (this.overdraftFixedForm.get('depositorDetails') as FormArray).push(
+        this.formBuilder.group({
+          nameOfDepositors: [undefined],
+          nameOfDepositorsTrans: [undefined],
+          nameOfDepositorsCT: [undefined],
+        })
+    );
+  }
+
+  removeDepositorDetails(i) {
+    (this.overdraftFixedForm.get('depositorDetails') as FormArray).removeAt(i);
+  }
+
+  addFDHolderDetails() {
+    (this.overdraftFixedForm.get('fdHolderDetails') as FormArray).push(
+        this.formBuilder.group({
+          nameOfFDHolder: [undefined],
+          nameOfFDHolderTrans: [undefined],
+          nameOfFDHolderCT: [undefined],
+        })
+    );
+  }
+
+  removeFDHolderDetails(i) {
+    (this.overdraftFixedForm.get('fdHolderDetails') as FormArray).removeAt(i);
+  }
+
+  async onChangeTranslateSecurity(arrName, source, index, target) {
+    this.arrayForm = this.formBuilder.group({
+      formValue: this.overdraftFixedForm.get([String(arrName), index, String(source)]).value
+    });
+    const sourceResponse = await this.translateService.translateForm(this.arrayForm);
+    this.overdraftFixedForm.get([String(arrName), index, String(target)]).patchValue(sourceResponse.formValue);
+    this.overdraftFixedForm.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.formValue);
   }
 
 }

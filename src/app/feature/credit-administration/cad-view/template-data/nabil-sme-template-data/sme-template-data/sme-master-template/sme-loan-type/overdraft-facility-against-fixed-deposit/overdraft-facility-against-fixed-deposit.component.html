@@ -158,27 +158,44 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-4 form-group">
-                    <label class="font-weight-bold" for="nameOfFDHolder">Name of FD Holder/s</label>
-                    <input class="form-control" formControlName="nameOfFDHolder" fullWidth id="nameOfFDHolder"
-                           nbInput
-                           shape="semi-round"
-                           status="success"
-                           type="text">
+            <ng-container *ngFor="let data of overdraftFixedForm.get('fdHolderDetails')['controls']; let index = index;"
+                          formArrayName="fdHolderDetails">
+                <div [formGroupName]="index" class="row" *ngIf="isFixedDeposit">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="nameOfFDHolder"> Name of FD Holder/s </label>
+                        <input class="form-control" formControlName="nameOfFDHolder" fullWidth id="nameOfFDHolder"
+                               (input)="onChangeTranslateSecurity('fdHolderDetails', 'nameOfFDHolder', index, 'nameOfFDHolderTrans')"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFDHolderTrans" fullWidth id="nameOfFDHolderTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfFDHolderCT" fullWidth id="nameOfFDHolderCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
                 </div>
-                <div class="col-md-4 form-group fieldMargin">
-                    <input class="form-control" formControlName="nameOfFDHolderTrans" fullWidth id="nameOfFDHolderTrans"
-                           nbInput
-                           readonly
-                           shape="semi-round"
-                           status="success" type="text">
+                <div *ngIf="overdraftFixedForm.get('fdHolderDetails')['length'] > 1" class="col-md-12">
+                    <button (click)="removeFDHolderDetails(index)" nbButton size="tiny" status="danger"
+                            style="position: static">
+                        <em class="fa fa-trash" style="color: white;"></em>
+                    </button>
                 </div>
-                <div class="col-md-4 form-group fieldMargin">
-                    <input class="form-control" formControlName="nameOfFDHolderCT" fullWidth id="nameOfFDHolderCT"
-                           nbInput
-                           shape="semi-round"
-                           status="success" type="text">
+            </ng-container>
+
+            <div class="row" *ngIf="isFixedDeposit">
+                <div class="col-md-12">
+                    <button (click)="addFDHolderDetails()" class="float-right" nbButton size="tiny" status="primary">Add
+                        FDHolder
+                    </button>
                 </div>
             </div>
 
@@ -209,28 +226,44 @@
         </div>
 
         <div *ngIf="isDepositAccount" class="conditional">
-            <div class="row">
-                <div class="col-md-4 form-group">
-                    <label class="font-weight-bold" for="nameOfDepositors">Name of Depositor/s</label>
-                    <input class="form-control" formControlName="nameOfDepositors" fullWidth id="nameOfDepositors"
-                           nbInput
-                           shape="semi-round"
-                           status="success"
-                           type="text">
+            <ng-container *ngFor="let data of overdraftFixedForm.get('depositorDetails')['controls']; let index = index;"
+                          formArrayName="depositorDetails">
+                <div [formGroupName]="index" class="row" *ngIf="isDepositAccount">
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold" for="nameOfDepositors"> Name of Depositor/s </label>
+                        <input class="form-control" formControlName="nameOfDepositors" fullWidth id="nameOfDepositors"
+                               (input)="onChangeTranslateSecurity('depositorDetails', 'nameOfDepositors', index, 'nameOfDepositorsTrans')"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfDepositorsTrans" fullWidth id="nameOfDepositorsTrans"
+                               nbInput
+                               readonly
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="nameOfDepositorsCT" fullWidth id="nameOfDepositorsCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
+                    </div>
                 </div>
-                <div class="col-md-4 form-group fieldMargin">
-                    <input class="form-control" formControlName="nameOfDepositorsTrans" fullWidth
-                           id="nameOfDepositorsTrans"
-                           nbInput
-                           readonly
-                           shape="semi-round"
-                           status="success" type="text">
+                <div *ngIf="overdraftFixedForm.get('depositorDetails')['length'] > 1" class="col-md-12">
+                    <button (click)="removeDepositorDetails(index)" nbButton size="tiny" status="danger"
+                            style="position: static">
+                        <em class="fa fa-trash" style="color: white;"></em>
+                    </button>
                 </div>
-                <div class="col-md-4 form-group fieldMargin">
-                    <input class="form-control" formControlName="nameOfDepositorsCT" fullWidth id="nameOfDepositorsCT"
-                           nbInput
-                           shape="semi-round"
-                           status="success" type="text">
+            </ng-container>
+
+            <div class="row" *ngIf="isDepositAccount">
+                <div class="col-md-12">
+                    <button (click)="addDepositorDetails()" class="float-right" nbButton size="tiny" status="primary">Add
+                        Depositor
+                    </button>
                 </div>
             </div>
 
