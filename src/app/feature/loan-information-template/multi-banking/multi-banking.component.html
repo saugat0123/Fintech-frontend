@@ -29,11 +29,11 @@
                                        placeholder="Bank Name"
                                        type="text"/></td>
                             <td>
-                                <input [nbDatepicker]="date"
-                                       class="form-control text-center"
+                                <input class="form-control text-center"
                                        formControlName="date"
-                                       placeholder="Date"/>
-                                <nb-datepicker #date></nb-datepicker>
+                                       placeholder="Date"
+                                       type="date"/>
+<!--                                <nb-datepicker #date></nb-datepicker>-->
                             </td>
                             <td><input (keyup)="calculateTotalMultiBanking()"
                                        (change)="multiTotalLimit(i)"
@@ -137,10 +137,11 @@
                                        placeholder="Bank Name"
                                        type="text"/></td>
                             <td>
-                                <input [nbDatepicker]="date1" class="form-control text-center"
+                                <input class="form-control text-center"
                                        formControlName="conDate"
-                                       placeholder="Date"/>
-                                <nb-datepicker #date1></nb-datepicker></td>
+                                       placeholder="Date"
+                                       type="date"/>
+<!--                                <nb-datepicker #date1></nb-datepicker></td>-->
                             <td><input (keyup)="calculateTotalConsortium()"
                                        (change)="consortiumTotalLimit(index)"
                                        class="form-control text-center"
@@ -236,11 +237,11 @@
                         </tr>
                         <tr>
                             <th>Last Audited Year</th>
-                            <td><input [nbDatepicker]="auditedYear" class="form-control text-center"
+                            <td><input class="form-control text-center"
                                        formControlName="lastAudited"
                                        placeholder="Last Audited Year"
-                                       type="text"/>
-                                <nb-datepicker #auditedYear></nb-datepicker>
+                                       type="date"/>
+<!--                                <nb-datepicker #auditedYear></nb-datepicker>-->
                             </td>
                         </tr>
                         <tr>
@@ -273,11 +274,11 @@
                         </tr>
                         <tr>
                             <th>Date fo Appointment</th>
-                            <td><input [nbDatepicker]="appointment" class="form-control text-center"
+                            <td><input class="form-control text-center"
                                        formControlName="dateOfApp"
                                        placeholder="Date fo Appointment"
-                                       type="text"/>
-                                <nb-datepicker #appointment></nb-datepicker>
+                                       type="date"/>
+<!--                                <nb-datepicker #appointment></nb-datepicker>-->
                             </td>
                         </tr>
                         <tr>

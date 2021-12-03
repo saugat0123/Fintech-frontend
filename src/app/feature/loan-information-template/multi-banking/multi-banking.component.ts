@@ -20,6 +20,7 @@ export class MultiBankingComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.buildForm();
         if (!ObjectUtil.isEmpty(this.multiBankingData)) {
             this.multiBanking = this.multiBankingData;
             const data = JSON.parse(this.multiBankingData.data);
@@ -197,9 +198,10 @@ export class MultiBankingComponent implements OnInit {
                 multiBank.push(
                     this.formBuilder.group({
                         bankName: [d.bankName],
-                        date: [ObjectUtil.isEmpty(d) ? undefined :
-                            ObjectUtil.isEmpty(d.date) ? undefined :
-                                new Date(d.date)],
+                        // date: [ObjectUtil.isEmpty(d) ? undefined :
+                        //     ObjectUtil.isEmpty(d.date) ? undefined :
+                        //         new Date(d.date)],
+                        date: [d.date],
                         fundedLimited: [d.fundedLimited],
                         nonFundedLimited: [d.nonFundedLimited],
                         totalLimit: [d.totalLimit],
@@ -220,9 +222,10 @@ export class MultiBankingComponent implements OnInit {
                 consort.push(
                     this.formBuilder.group({
                         conBankName: [d.conBankName],
-                        conDate: [ObjectUtil.isEmpty(d) ? undefined :
-                            ObjectUtil.isEmpty(d.conDate) ? undefined :
-                                new Date(d.conDate)],
+                        // conDate: [ObjectUtil.isEmpty(d) ? undefined :
+                        //     ObjectUtil.isEmpty(d.conDate) ? undefined :
+                        //         new Date(d.conDate)],
+                        conDate: [d.conDate],
                         conFundedLimited: [d.conFundedLimited],
                         conNonFundedLimited: [d.conNonFundedLimited],
                         conTotalLimit: [d.conTotalLimit],
