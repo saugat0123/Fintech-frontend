@@ -11,6 +11,7 @@ export class Section5InterstPenalChargeComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.buildForm();
   }
   buildForm() {
     this.section5 = this.formBuilder.group({
