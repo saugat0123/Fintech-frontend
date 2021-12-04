@@ -1,5 +1,5 @@
 <div>
-    <form [formGroup]="importBillsDiscount">
+    <form [formGroup]="importBillsDiscountForm">
         <!-- CONDITIONAL SECTION -->
         <div class="row">
             <div class="col-md-12 mb-2">
@@ -130,7 +130,7 @@
                 </div>
             </div>
             <!-- FOR DATE OF EXPIRY SECTION -->
-            <div *ngIf="importBillsDiscount.get('loanOption').value === 'REGULAR'" class="row">
+            <div *ngIf="importBillsDiscountForm.get('loanOption').value === 'REGULAR'" class="row">
                 <div class="col-md-4 form-group">
                     <label class="font-weight-bold" for="dateOfExpiryType"> Date Of Expiry</label><br>
                     <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"

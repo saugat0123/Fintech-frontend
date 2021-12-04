@@ -14,7 +14,7 @@ import {EngNepDatePipe} from 'nepali-patro';
 })
 export class ImportBillsDiscountingComponent implements OnInit {
     @Input() loanName;
-    importBillsDiscount: FormGroup;
+    importBillsDiscountForm: FormGroup;
     isComplimentryOtherLoan = false;
     loanDetails: any = [];
     ADExpiry = false;
@@ -39,7 +39,7 @@ export class ImportBillsDiscountingComponent implements OnInit {
     }
 
     buildForm() {
-        this.importBillsDiscount = this.formBuilder.group({
+        this.importBillsDiscountForm = this.formBuilder.group({
             loanOption: [undefined],
             complementryOther: [undefined],
             multiLoanImport: [undefined],
@@ -79,12 +79,12 @@ export class ImportBillsDiscountingComponent implements OnInit {
 
     checkComplimetryOtherLoan(data) {
         this.isComplimentryOtherLoan = data;
-        this.importBillsDiscount.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
+        this.importBillsDiscountForm.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
     }
 
     public getNumAmountWord(numLabel, wordLabel): void {
-        const transformValue = this.nepaliCurrencyWordPipe.transform(this.importBillsDiscount.get(numLabel).value);
-        this.importBillsDiscount.get(wordLabel).patchValue(transformValue);
+        const transformValue = this.nepaliCurrencyWordPipe.transform(this.importBillsDiscountForm.get(numLabel).value);
+        this.importBillsDiscountForm.get(wordLabel).patchValue(transformValue);
     }
 
     public checkDateOfExpiry(value): void {
@@ -98,78 +98,78 @@ export class ImportBillsDiscountingComponent implements OnInit {
 
     translateAndSetVal() {
         // SET TRANSLATION VALUE FOR CONDITIONS:
-        this.importBillsDiscount.get('loanOptionTrans').patchValue(
-            this.importBillsDiscount.get('loanOption').value
+        this.importBillsDiscountForm.get('loanOptionTrans').patchValue(
+            this.importBillsDiscountForm.get('loanOption').value
         );
-        const tempLoan = this.importBillsDiscount.get('loanAmount').value;
+        const tempLoan = this.importBillsDiscountForm.get('loanAmount').value;
         const convertNumber = !ObjectUtil.isEmpty(tempLoan) ?
             this.convertNumbersToNepali(tempLoan, true) : '';
-        this.importBillsDiscount.get('loanAmountTrans').patchValue(convertNumber);
+        this.importBillsDiscountForm.get('loanAmountTrans').patchValue(convertNumber);
 
-        this.importBillsDiscount.get('loanAmountAmountWordsTrans').patchValue(
-            this.importBillsDiscount.get('loanAmountAmountWords').value
+        this.importBillsDiscountForm.get('loanAmountAmountWordsTrans').patchValue(
+            this.importBillsDiscountForm.get('loanAmountAmountWords').value
         );
 
-        this.importBillsDiscount.get('complementryOtherTrans').patchValue(this.isComplimentryOtherLoan);
-        this.importBillsDiscount.get('multiLoanImportTrans').patchValue(
-            this.importBillsDiscount.get('multiLoanImport').value
+        this.importBillsDiscountForm.get('complementryOtherTrans').patchValue(this.isComplimentryOtherLoan);
+        this.importBillsDiscountForm.get('multiLoanImportTrans').patchValue(
+            this.importBillsDiscountForm.get('multiLoanImport').value
         );
-        const tempLoanPeriodDays = this.convertNumbersToNepali(this.importBillsDiscount.get('loanPeriodInDays').value, false);
-        this.importBillsDiscount.get('loanPeriodInDaysTrans').patchValue(tempLoanPeriodDays);
-        const tempMarginPercentage = this.convertNumbersToNepali(this.importBillsDiscount.get('marginInPercentage').value, false);
-        this.importBillsDiscount.get('marginInPercentageTrans').patchValue(tempMarginPercentage);
+        const tempLoanPeriodDays = this.convertNumbersToNepali(this.importBillsDiscountForm.get('loanPeriodInDays').value, false);
+        this.importBillsDiscountForm.get('loanPeriodInDaysTrans').patchValue(tempLoanPeriodDays);
+        const tempMarginPercentage = this.convertNumbersToNepali(this.importBillsDiscountForm.get('marginInPercentage').value, false);
+        this.importBillsDiscountForm.get('marginInPercentageTrans').patchValue(tempMarginPercentage);
 
         /* Converting value for date */
-        this.importBillsDiscount.get('dateOfExpiryTypeTrans').patchValue(
-            this.importBillsDiscount.get('dateOfExpiryType').value
+        this.importBillsDiscountForm.get('dateOfExpiryTypeTrans').patchValue(
+            this.importBillsDiscountForm.get('dateOfExpiryType').value
         );
-        const tempDateOfExpType = this.importBillsDiscount.get('dateOfExpiryType').value;
+        const tempDateOfExpType = this.importBillsDiscountForm.get('dateOfExpiryType').value;
         let tempExpDate;
         if (tempDateOfExpType === 'AD') {
-            const tempEngExpDate = this.importBillsDiscount.get('dateOfExpiry').value;
+            const tempEngExpDate = this.importBillsDiscountForm.get('dateOfExpiry').value;
             tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ?
                 this.engToNepDatePipe.transform(this.datePipe.transform(tempEngExpDate), true) : '';
-            this.importBillsDiscount.get('dateOfExpiryTrans').patchValue(tempExpDate);
+            this.importBillsDiscountForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
         } else {
-            const tempDateOfExpNep = this.importBillsDiscount.get('dateOfExpiryNepali').value;
+            const tempDateOfExpNep = this.importBillsDiscountForm.get('dateOfExpiryNepali').value;
             tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
                 tempDateOfExpNep.nDate : '';
-            this.importBillsDiscount.get('dateOfExpiryTrans').patchValue(tempExpDate);
+            this.importBillsDiscountForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
         }
         /* SET CT VALUE */
         this.setCTValue();
     }
 
     setCTValue() {
-        this.importBillsDiscount.get('loanOptionCT').patchValue(
-            this.importBillsDiscount.get('loanOptionTrans').value
+        this.importBillsDiscountForm.get('loanOptionCT').patchValue(
+            this.importBillsDiscountForm.get('loanOptionTrans').value
         );
-        this.importBillsDiscount.get('complementryOtherCT').patchValue(
-            this.importBillsDiscount.get('complementryOtherTrans').value
+        this.importBillsDiscountForm.get('complementryOtherCT').patchValue(
+            this.importBillsDiscountForm.get('complementryOtherTrans').value
         );
-        this.importBillsDiscount.get('multiLoanImportCT').patchValue(
-            this.importBillsDiscount.get('multiLoanImportTrans').value
+        this.importBillsDiscountForm.get('multiLoanImportCT').patchValue(
+            this.importBillsDiscountForm.get('multiLoanImportTrans').value
         );
-        this.importBillsDiscount.get('loanPeriodInDaysCT').patchValue(
-            this.importBillsDiscount.get('loanPeriodInDaysTrans').value
+        this.importBillsDiscountForm.get('loanPeriodInDaysCT').patchValue(
+            this.importBillsDiscountForm.get('loanPeriodInDaysTrans').value
         );
-        this.importBillsDiscount.get('loanAmountCT').patchValue(
-            this.importBillsDiscount.get('loanAmountTrans').value
+        this.importBillsDiscountForm.get('loanAmountCT').patchValue(
+            this.importBillsDiscountForm.get('loanAmountTrans').value
         );
-        this.importBillsDiscount.get('loanAmountAmountWordsCT').patchValue(
-            this.importBillsDiscount.get('loanAmountAmountWordsTrans').value
+        this.importBillsDiscountForm.get('loanAmountAmountWordsCT').patchValue(
+            this.importBillsDiscountForm.get('loanAmountAmountWordsTrans').value
         );
-        this.importBillsDiscount.get('marginInPercentageCT').patchValue(
-            this.importBillsDiscount.get('marginInPercentageTrans').value
+        this.importBillsDiscountForm.get('marginInPercentageCT').patchValue(
+            this.importBillsDiscountForm.get('marginInPercentageTrans').value
         );
-        this.importBillsDiscount.get('dateOfExpiryTypeCT').patchValue(
-            this.importBillsDiscount.get('dateOfExpiryTypeTrans').value
+        this.importBillsDiscountForm.get('dateOfExpiryTypeCT').patchValue(
+            this.importBillsDiscountForm.get('dateOfExpiryTypeTrans').value
         );
-        // this.importBillsDiscount.get('dateOfExpiryNepaliCT').patchValue(
-        //     this.importBillsDiscount.get('dateOfExpiryNepaliTrans').value
+        // this.importBillsDiscountForm.get('dateOfExpiryNepaliCT').patchValue(
+        //     this.importBillsDiscountForm.get('dateOfExpiryNepaliTrans').value
         // );
-        this.importBillsDiscount.get('dateOfExpiryCT').patchValue(
-            this.importBillsDiscount.get('dateOfExpiryTrans').value
+        this.importBillsDiscountForm.get('dateOfExpiryCT').patchValue(
+            this.importBillsDiscountForm.get('dateOfExpiryTrans').value
         );
     }
 
