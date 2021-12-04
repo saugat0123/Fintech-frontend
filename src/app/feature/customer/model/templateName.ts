@@ -23,4 +23,5 @@ export class TemplateName {
   static COMMENTS = 'Comments';
   static PREVIOUS_SECURITY = 'previousSecurity';
   static REVIEW_DATE = 'Review Date';
+  static MULTI_BANKING = 'MultiBanking';
 }
