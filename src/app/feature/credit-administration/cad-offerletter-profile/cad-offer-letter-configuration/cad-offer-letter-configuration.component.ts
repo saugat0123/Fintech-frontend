@@ -27,6 +27,10 @@ import {Collateral} from '../../../loan/model/collateral';
 import {CollateralDetail} from '../../../loan/model/collateralDetail';
 import {CollateralOwner} from '../../../loan/model/collateralOwner';
 import {NepProposedAmountFormComponent} from './nep-proposed-amount-form/nep-proposed-amount-form.component';
+import {CreditAdministrationService} from '../../service/credit-administration.service';
+import {HttpParams} from '@angular/common/http';
+import {CustomerCadInfo} from '../../../loan/model/CustomerCadInfo';
+import {RouterUtilsService} from '../../utils/router-utils.service';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -81,18 +85,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     collateralPermanentMunicipalitiesList = [];
     collateralTemporaryDistrictList = [];
     collateralTemporaryMunicipalitiesList = [];
+    customerCadInfoData = new CustomerCadInfo();
 
     @ViewChild('loanDetails', {static: false})
     loanDetails: NepProposedAmountFormComponent;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
+                private service: CreditAdministrationService,
                 private customerService: CustomerService,
                 private toastService: ToastService,
                 private engToNepNumber: EngToNepaliNumberPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 public datepipe: DatePipe,
                 private addressService: AddressService,
+                private router: RouterUtilsService,
                 private branchService: BranchService,
                 protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) {
     }
@@ -300,6 +307,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             valuatorName: [undefined],
             fairMarketValue: [undefined],
             distressValue: [undefined],
+            loanDetails: [undefined],
         });
     }
 
@@ -342,13 +350,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (this.loanDetails.nepForm.invalid) {
             return;
         }
-        this.loanDetails.save();
-        const data = JSON.stringify(this.userConfigForm.value);
-        this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
+        this.loanDetails.getCadValue();
+        this.customerCadInfoData.cadDocument = this.cadData;
+        this.customerCadInfoData.customerInfo = JSON.stringify(this.userConfigForm.value);
+        this.service.saveCadData(this.customerCadInfoData).subscribe(res => {
             this.customerInfoData = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
             this.spinner = false;
-            // this.reloadPage();
+            this.router.reloadCadProfileRoute(this.cadData.id);
             this.dialogRef.close(this.customerInfoData);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));

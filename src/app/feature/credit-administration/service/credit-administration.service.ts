@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
+import {CustomerCadInfo} from '../../loan/model/CustomerCadInfo';
 
 @Injectable({
     providedIn: 'root'
@@ -107,4 +108,8 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
+    public saveCadData(customerCadInfo: CustomerCadInfo): Observable<any> {
+        const request = ApiUtils.getRequest(`${this.getApi()}/cad/save-cad-data`);
+        return this.http.post(request.url, customerCadInfo,  {headers: request.header});
+    }
 }
