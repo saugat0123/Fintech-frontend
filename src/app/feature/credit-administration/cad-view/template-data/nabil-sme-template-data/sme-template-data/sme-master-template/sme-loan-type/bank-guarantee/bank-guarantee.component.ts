@@ -148,8 +148,10 @@ export class BankGuaranteeComponent implements OnInit {
         this.bankGuarantee.get('loanAmountAmountWords').value
     );
     // translated by google api
+    const tempNameOfHoldingBank = !ObjectUtil.isEmpty(this.bankGuarantee.get('nameOfHoldingBank').value) ?
+        this.bankGuarantee.get('nameOfHoldingBank').value : '';
     this.translatedFormGroup = this.formBuilder.group({
-      nameOfHoldingBank: this.bankGuarantee.get('nameOfHoldingBank').value,
+      nameOfHoldingBank: tempNameOfHoldingBank,
       // nameOfFDHolder: this.overdraftFixedForm.get('nameOfFDHolder').value,
       /*nameOfDepositors: this.overdraftFixedForm.get('nameOfDepositors').value,
       nameOfFacility: this.overdraftFixedForm.get('nameOfFacility').value,*/
