@@ -144,7 +144,10 @@ export class SmeMasterTemplateComponent implements OnInit {
   public openCombinedOfferLetter() {
     this.dialogRef = this.nbDialogueService.open(CombinedOfferLetterComponent, {
       hasScroll: true,
-      dialogClass: 'model-full'
+      dialogClass: 'model-full',
+      context: {
+        customerApprovedDoc: this.customerApprovedDoc
+      }
     });
   }
 
