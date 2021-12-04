@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
+import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-section2-loan-type',
@@ -7,7 +9,9 @@ import {FormBuilder, FormGroup} from '@angular/forms';
     styleUrls: ['./section2-loan-type.component.scss']
 })
 export class Section2LoanTypeComponent implements OnInit {
+    @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     form: FormGroup;
+    tempData;
 
     constructor(private formBuilder: FormBuilder,
     ) {
@@ -15,6 +19,10 @@ export class Section2LoanTypeComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+            this.fillForm();
+        }
     }
 
     buildForm() {
@@ -199,6 +207,22 @@ export class Section2LoanTypeComponent implements OnInit {
             freeTextNine: [undefined],
             freeTextFifteen: [undefined],
             freeTextSixteen: [undefined],
+        });
+    }
+
+    fillForm() {
+        this.form.patchValue({
+            // Irrevocable letter of credit facility
+            // SNOfParentLimitIrrevocable: [undefined],
+            loanAmountIrrevocable: this.tempData.letterOfCreditForm.loanAmountCT ? this.tempData.letterOfCreditForm.loanAmountCT : '',
+            loanAmountInWordIrrevocable: this.tempData.letterOfCreditForm.loanAmountAmountWordsCT ? this.tempData.letterOfCreditForm.loanAmountAmountWordsCT : '',
+            marginInPercentageIrrevocable: this.tempData.letterOfCreditForm.marginInPercentageCT ? this.tempData.letterOfCreditForm.marginInPercentageCT : '',
+            commissionRateIrrevocable: this.tempData.letterOfCreditForm.commissionRateCT ? this.tempData.letterOfCreditForm.commissionRateCT : '',
+            commissionAmountIrrevocable: this.tempData.letterOfCreditForm.minimumCommissionRateCT ? this.tempData.letterOfCreditForm.minimumCommissionRateCT : '',
+            commissionRateForFirstQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT ? this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT : '',
+            commissionRateForOtherQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT ? this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT : '',
+            loanExpiryDateIrrevocable: this.tempData.letterOfCreditForm.dateOfExpiryCT ? this.tempData.letterOfCreditForm.dateOfExpiryCT : '',
+            // loanExpiryDateIrrevocable2:  this.tempData.letterOfCreditForm.loanAmountCT ? this.tempData.letterOfCreditForm.loanAmountCT : '' ,
         });
     }
 
