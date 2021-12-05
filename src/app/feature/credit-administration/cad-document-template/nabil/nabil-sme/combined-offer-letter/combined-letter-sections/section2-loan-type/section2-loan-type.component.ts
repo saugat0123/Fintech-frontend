@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
+import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-section2-loan-type',
@@ -7,7 +9,9 @@ import {FormBuilder, FormGroup} from '@angular/forms';
     styleUrls: ['./section2-loan-type.component.scss']
 })
 export class Section2LoanTypeComponent implements OnInit {
+    @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     form: FormGroup;
+    tempData;
 
     constructor(private formBuilder: FormBuilder,
     ) {
@@ -15,6 +19,10 @@ export class Section2LoanTypeComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+            this.fillForm();
+        }
     }
 
     buildForm() {
@@ -202,4 +210,290 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
+    fillForm() {
+        this.form.patchValue({
+            // Irrevocable letter of credit facility
+            // SNOfParentLimitIrrevocable: [undefined],
+            loanAmountIrrevocable: this.tempData.letterOfCreditForm.loanAmountCT ? this.tempData.letterOfCreditForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordIrrevocable: this.tempData.letterOfCreditForm.loanAmountAmountWordsCT ? this.tempData.letterOfCreditForm.loanAmountAmountWordsCT : '',
+            // tslint:disable-next-line:max-line-length
+            marginInPercentageIrrevocable: this.tempData.letterOfCreditForm.marginInPercentageCT ? this.tempData.letterOfCreditForm.marginInPercentageCT : '',
+            // tslint:disable-next-line:max-line-length
+            commissionRateIrrevocable: this.tempData.letterOfCreditForm.commissionRateCT ? this.tempData.letterOfCreditForm.commissionRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            commissionAmountIrrevocable: this.tempData.letterOfCreditForm.minimumCommissionRateCT ? this.tempData.letterOfCreditForm.minimumCommissionRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            commissionRateForFirstQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT ? this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT : '',
+            // tslint:disable-next-line:max-line-length
+            commissionRateForOtherQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT ? this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT : '',
+            loanExpiryDateIrrevocable: this.tempData.letterOfCreditForm.dateOfExpiryCT ? this.tempData.letterOfCreditForm.dateOfExpiryCT : '',
+            // tslint:disable-next-line:max-line-length
+            // loanExpiryDateIrrevocable2:  this.tempData.letterOfCreditForm.loanAmountCT ? this.tempData.letterOfCreditForm.loanAmountCT : '' ,
+        });
+        this.timeLetterCreditForm();
+        this.importBillsDiscountForm();
+        this.importTrustForm();
+        this.revolvingShortTermForm();
+        this.demandLoanForm();
+        this.preExportForm();
+        this.documentaryBillPurchaseForm();
+        this.overdraftLoanForm();
+        this.equityMortgageForm();
+        this.overdraftFixedForm();
+        this.overDraftFacilityForm();
+        this.bridgeGapLoanForm();
+    }
+
+    timeLetterCreditForm() {
+        this.form.patchValue({
+            // Customer Acceptance for Time Letter of Credit
+            // SNOfParentLimitTimeLetter: [undefined],
+            loanAmountTimeLetter: this.tempData.timeLetterCreditForm.loanAmountCT ? this.tempData.timeLetterCreditForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordTimeLetter: this.tempData.timeLetterCreditForm.loanAmountAmountWordsCT ? this.tempData.timeLetterCreditForm.loanAmountAmountWordsCT : '',
+            // tslint:disable-next-line:max-line-length
+            marginInPercentageTimeLetter: this.tempData.timeLetterCreditForm.marginInPercentageCT ? this.tempData.timeLetterCreditForm.marginInPercentageCT : '',
+            // tslint:disable-next-line:max-line-length
+            commissionRateQuarterlyTimeLetter: this.tempData.timeLetterCreditForm.commissionRateCT ? this.tempData.timeLetterCreditForm.commissionRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            commissionAmountTimeLetter: this.tempData.timeLetterCreditForm.minimumCommissionAmountCT ? this.tempData.timeLetterCreditForm.minimumCommissionAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanExpiryDateTimeLetter: this.tempData.timeLetterCreditForm.dateOfExpiryCT ? this.tempData.timeLetterCreditForm.dateOfExpiryCT : '',
+            // tslint:disable-next-line:max-line-length
+            // loanExpiryDateTimeLetter2: this.tempData.timeLetterCreditForm.loanAmountCT ? this.tempData.timeLetterCreditForm.loanAmountCT : '',
+        });
+    }
+    importBillsDiscountForm() {
+        this.form.patchValue({
+            // Import Bills Discounting
+            // tslint:disable-next-line:max-line-length
+            loanDaysBillsDiscounting: this.tempData.importBillsDiscountForm.loanPeriodInDaysCT ? this.tempData.importBillsDiscountForm.loanPeriodInDaysCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanDaysBillsDiscountingInEng: this.tempData.importBillsDiscountForm.loanPeriodInDays ? this.tempData.importBillsDiscountForm.loanPeriodInDays : '',
+            // SNOfParentLimitBillsDiscounting: [undefined],
+            // tslint:disable-next-line:max-line-length
+            loanAmountBillsDiscounting: this.tempData.importBillsDiscountForm.loanAmountCT ? this.tempData.importBillsDiscountForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordBillsDiscounting: this.tempData.importBillsDiscountForm.loanAmountAmountWordsCT ? this.tempData.importBillsDiscountForm.loanAmountAmountWordsCT : '',
+            // tslint:disable-next-line:max-line-length
+            marginInPercentageBillsDiscounting: this.tempData.importBillsDiscountForm.marginInPercentageCT ? this.tempData.importBillsDiscountForm.marginInPercentageCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanExpiryDateBillsDiscounting: this.tempData.importBillsDiscountForm.dateOfExpiryCT ? this.tempData.importBillsDiscountForm.dateOfExpiryCT : '',
+
+        });
+    }
+
+    importTrustForm() {
+        this.form.patchValue({
+            // Import Loan/ Trust Receipt Loan
+            loanDaysLoanTrust: this.tempData.importTrustForm.loanPeriodCT ? this.tempData.importTrustForm.loanPeriodCT : '',
+            loanDaysLoanTrustInEng: this.tempData.importTrustForm.loanPeriod ? this.tempData.importTrustForm.loanPeriod : '',
+            // SNOfParentLimitLoanTrust: [undefined],
+            loanAmountLoanTrust: this.tempData.importTrustForm.loanAmountCT ? this.tempData.importTrustForm.loanAmountCT : '',
+            loanAmountInWordLoanTrust: this.tempData.importTrustForm.loanAmountWordsCT ? this.tempData.importTrustForm.loanAmountWordsCT : '',
+            drawingPowerLoanTrust: this.tempData.importTrustForm.drawingPowerCT ? this.tempData.importTrustForm.drawingPowerCT : '',
+            baseRateLoanTrust: this.tempData.importTrustForm.baseRateCT ? this.tempData.importTrustForm.baseRateCT : '',
+            premiumRateLoanTrust: this.tempData.importTrustForm.premiumRateCT ? this.tempData.importTrustForm.premiumRateCT : '',
+            interestRateLoanTrust: this.tempData.importTrustForm.interestRateCT ? this.tempData.importTrustForm.interestRateCT : '',
+            totalInterestRateLoanTrust: this.tempData.importTrustForm.interestRateCT ? this.tempData.importTrustForm.interestRateCT : '',
+            // remainDaysLoanTrust: [undefined],
+            loanExpiryDateLoanTrust: this.tempData.importTrustForm.dateOfExpiryCT ? this.tempData.importTrustForm.dateOfExpiryCT : '',
+
+        });
+    }
+
+    revolvingShortTermForm() {
+        this.form.patchValue({
+            // Revolving/One off basis Short Term Loan
+            // tslint:disable-next-line:max-line-length
+            loanDaysShortTermLoan: this.tempData.revolvingShortTermForm.loanRevolvingPeriodCT ? this.tempData.revolvingShortTermForm.loanRevolvingPeriodCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanDaysShortTermLoanInEng: this.tempData.revolvingShortTermForm.loanRevolvingPeriod ? this.tempData.revolvingShortTermForm.loanRevolvingPeriod : '',
+            // SNOfParentLimitShortTermLoan: [undefined],
+            // tslint:disable-next-line:max-line-length
+            loanMonthsShortTermLoan: this.tempData.revolvingShortTermForm.loanRevolvingPeriodCT ? this.tempData.revolvingShortTermForm.loanRevolvingPeriodCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanMonthsShortTermLoanInEng: this.tempData.revolvingShortTermForm.loanRevolvingPeriod ? this.tempData.revolvingShortTermForm.loanRevolvingPeriod : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountShortTermLoan: this.tempData.revolvingShortTermForm.loanAmountCT ? this.tempData.revolvingShortTermForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordShortTermLoan: this.tempData.revolvingShortTermForm.loanAmountWordsCT ? this.tempData.revolvingShortTermForm.loanAmountWordsCT : '',
+            ARDaysShortTermLoan: this.tempData.revolvingShortTermForm.arDaysCT ? this.tempData.revolvingShortTermForm.arDaysCT : '',
+            // tslint:disable-next-line:max-line-length
+            drawingPowerShortTermLoan: this.tempData.revolvingShortTermForm.drawingPowerCT ? this.tempData.revolvingShortTermForm.drawingPowerCT : '',
+            baseRateShortTermLoan: this.tempData.revolvingShortTermForm.baseRateCT ? this.tempData.revolvingShortTermForm.baseRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            premiumRateShortTermLoan: this.tempData.revolvingShortTermForm.premiumRateCT ? this.tempData.revolvingShortTermForm.premiumRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            interestRateShortTermLoan: this.tempData.revolvingShortTermForm.interestRateCT ? this.tempData.revolvingShortTermForm.interestRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            totalInterestRateShortTermLoan: this.tempData.revolvingShortTermForm.interestRateCT ? this.tempData.revolvingShortTermForm.interestRateCT : '',
+            // remainDaysShortTermLoan: [undefined],
+            // tslint:disable-next-line:max-line-length
+            loanExpiryDateShortTermLoan: this.tempData.revolvingShortTermForm.dateOfExpiryCT ? this.tempData.revolvingShortTermForm.dateOfExpiryCT : '',
+        });
+    }
+
+    demandLoanForm() {
+        this.form.patchValue({
+            // Demand Loan for working capital
+            SNOfParentLimitDemandLoan: [undefined],
+            loanAmountDemandLoan: this.tempData.demandLoanForm.loanAmountCT ? this.tempData.demandLoanForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            LoanAmountInWordDemandLoan: this.tempData.demandLoanForm.loanAmountWordsCT ? this.tempData.demandLoanForm.loanAmountWordsCT : '',
+            ARDaysDemandLoan: this.tempData.demandLoanForm.arDaysCT ? this.tempData.demandLoanForm.arDaysCT : '',
+            drawingPowerDemandLoan: this.tempData.demandLoanForm.drawingPowerCT ? this.tempData.demandLoanForm.drawingPowerCT : '',
+            baseRateDemandLoan: this.tempData.demandLoanForm.baseRateCT ? this.tempData.demandLoanForm.baseRateCT : '',
+            premiumRateDemandLoan: this.tempData.demandLoanForm.premiumRateCT ? this.tempData.demandLoanForm.premiumRateCT : '',
+            interestRateDemandLoan: this.tempData.demandLoanForm.interestRateCT ? this.tempData.demandLoanForm.interestRateCT : '',
+            totalInterestRateDemandLoan: this.tempData.demandLoanForm.interestRateCT ? this.tempData.demandLoanForm.interestRateCT : '',
+            loanExpiryDateDemandLoan: this.tempData.demandLoanForm.dateOfExpiryCT ? this.tempData.demandLoanForm.dateOfExpiryCT : '',
+        });
+    }
+
+    preExportForm() {
+        this.form.patchValue({
+            // Pre-Export Loan
+            // SNOfParentLimitPreExport: [undefined],
+            loanAmountPreExport: this.tempData.preExportForm.loanAmountCT ? this.tempData.preExportForm.loanAmountCT : '',
+            loanAmountInWordPreExport: this.tempData.preExportForm.loanAmountWordsCT ? this.tempData.preExportForm.loanAmountWordsCT : '',
+            drawingPower1PreExport: this.tempData.preExportForm.drawingPowerCT ? this.tempData.preExportForm.drawingPowerCT : '',
+            drawingPower2PreExport: this.tempData.preExportForm.drawingPowerCT ? this.tempData.preExportForm.drawingPowerCT : '',
+            // sulkaPreExport: [undefined],
+            // interestRatePreExport: [undefined],
+            loanExpiryDatePreExport: this.tempData.preExportForm.dateOfExpiryCT ? this.tempData.preExportForm.dateOfExpiryCT : '',
+        });
+    }
+
+    documentaryBillPurchaseForm() {
+        this.form.patchValue({
+            // Documentary Bill Purchase/Negotiation
+            // SNOfParentLimitDocumentaryBill: [undefined],
+            // tslint:disable-next-line:max-line-length
+            loanAmountDocumentaryBill: this.tempData.documentaryBillPurchaseForm.loanAmountCT ? this.tempData.documentaryBillPurchaseForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordDocumentaryBill: this.tempData.documentaryBillPurchaseForm.loanAmountWordsCT ? this.tempData.documentaryBillPurchaseForm.loanAmountWordsCT : '',
+            // tslint:disable-next-line:max-line-length
+            marginInPercentageDocumentaryBill: this.tempData.documentaryBillPurchaseForm.marginInPercentageCT ? this.tempData.documentaryBillPurchaseForm.marginInPercentageCT : '',
+            // tslint:disable-next-line:max-line-length
+            drawingPowerDocumentaryBill: this.tempData.documentaryBillPurchaseForm.drawingPowerCT ? this.tempData.documentaryBillPurchaseForm.drawingPowerCT : '',
+            // InterestRateDocumentaryBill: [undefined],
+            // loanPaymentDocumentaryBill: [undefined],
+            // tslint:disable-next-line:max-line-length
+            loanExpiryDateDocumentaryBill: this.tempData.documentaryBillPurchaseForm.dateOfExpiryCT ? this.tempData.documentaryBillPurchaseForm.dateOfExpiryCT : '',
+        });
+    }
+
+    overdraftLoanForm() {
+        this.form.patchValue({
+            // Overdraft Loan for Working Capital requirement
+            loanAmountOverdraftLoan: this.tempData.overdraftLoanForm.loanAmountCT ? this.tempData.overdraftLoanForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordOverdraftLoan: this.tempData.overdraftLoanForm.loanAmountWordsCT ? this.tempData.overdraftLoanForm.loanAmountWordsCT : '',
+            ARDaysOverdraftLoan: this.tempData.overdraftLoanForm.arDaysCT ? this.tempData.overdraftLoanForm.arDaysCT : '',
+            drawingPowerOverdraftLoan: this.tempData.overdraftLoanForm.drawingPowerCT ? this.tempData.overdraftLoanForm.drawingPowerCT : '',
+            baseRateOverdraftLoan: this.tempData.overdraftLoanForm.baseRateCT ? this.tempData.overdraftLoanForm.baseRateCT : '',
+            premiumRateOverdraftLoan: this.tempData.overdraftLoanForm.premiumRateCT ? this.tempData.overdraftLoanForm.premiumRateCT : '',
+            interestRateOverdraftLoan: this.tempData.overdraftLoanForm.interestRateCT ? this.tempData.overdraftLoanForm.interestRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            totalInterestRateOverdraftLoan: this.tempData.overdraftLoanForm.interestRateCT ? this.tempData.overdraftLoanForm.interestRateCT : '',
+            loanExpiryDateOverdraftLoan: this.tempData.overdraftLoanForm.dateOfExpiryCT ? this.tempData.overdraftLoanForm.dateOfExpiryCT : '',
+        });
+    }
+
+    equityMortgageForm() {
+        this.form.patchValue({
+            // Mortgage Overdraft/ Other Overdraft/ Equity Mortgaged Overdraft
+            loanAmountMortgageOverdraft: this.tempData.equityMortgageForm.loanAmountCT ? this.tempData.equityMortgageForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordMortgageOverdraft: this.tempData.equityMortgageForm.loanAmountWordsCT ? this.tempData.equityMortgageForm.loanAmountWordsCT : '',
+            // tslint:disable-next-line:max-line-length
+            drawingPowerMortgageOverdraft: this.tempData.equityMortgageForm.drawingPowerCT ? this.tempData.equityMortgageForm.drawingPowerCT : '',
+            baseRateMortgageOverdraft: this.tempData.equityMortgageForm.baseRateCT ? this.tempData.equityMortgageForm.baseRateCT : '',
+            premiumRateMortgageOverdraft: this.tempData.equityMortgageForm.premiumRateCT ? this.tempData.equityMortgageForm.premiumRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            interestRateMortgageOverdraft: this.tempData.equityMortgageForm.interestRateCT ? this.tempData.equityMortgageForm.interestRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            totalInterestRateMortgageOverdraft: this.tempData.equityMortgageForm.interestRateCT ? this.tempData.equityMortgageForm.interestRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanExpiryDateMortgageOverdraft: this.tempData.equityMortgageForm.dateOfExpiryCT ? this.tempData.equityMortgageForm.dateOfExpiryCT : '',
+        });
+    }
+
+    overdraftFixedForm() {
+        this.form.patchValue({
+            // Overdraft Facility against Fixed Deposit/ Lien on Deposit Account
+            // tslint:disable-next-line:max-line-length
+            nameOfFacilityOverdraftFacility: this.tempData.overdraftFixedForm.nameOfFacilityCT ? this.tempData.overdraftFixedForm.nameOfFacilityCT : '',
+            // tslint:disable-next-line:max-line-length
+            nameOfFacilityOverdraftFacilityInEng: this.tempData.overdraftFixedForm.nameOfFacility ? this.tempData.overdraftFixedForm.nameOfFacility : '',
+            loanAmountOverdraftFacility: this.tempData.overdraftFixedForm.loanAmountCT ? this.tempData.overdraftFixedForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordOverdraftFacility: this.tempData.overdraftFixedForm.loanAmountWordsCT ? this.tempData.overdraftFixedForm.loanAmountWordsCT : '',
+            // tslint:disable-next-line:max-line-length
+            // nameOfFDHolderOverdraftFacility: this.tempData.overdraftFixedForm.fdHolderDetails ? this.tempData.overdraftFixedForm.nameOfFDHolderCT.fdHolderDetails[0].nameOfFDHolderCT : '',
+            // tslint:disable-next-line:max-line-length
+            FDAmountOverdraftFacility: this.tempData.overdraftFixedForm.FdAmountInFigureCT ? this.tempData.overdraftFixedForm.FdAmountInFigureCT : '',
+            nameOfBankOverdraftFacility: this.tempData.overdraftFixedForm.holdingBankCT ? this.tempData.overdraftFixedForm.holdingBankCT : '',
+            // tslint:disable-next-line:max-line-length
+            // nameOfDepositorOverdraftFacility: this.tempData.overdraftFixedForm.depositorDetails ? this.tempData.overdraftFixedForm.depositorDetails[0].nameOfDepositorsCT : '',
+            accountTypeOverdraftFacility: this.tempData.overdraftFixedForm.accountTypeCT ? this.tempData.overdraftFixedForm.accountTypeCT : '',
+            // tslint:disable-next-line:max-line-length
+            accountNoOverdraftFacility: this.tempData.overdraftFixedForm.accountNumberCT ? this.tempData.overdraftFixedForm.accountNumberCT : '',
+            amountOverdraftFacility: this.tempData.overdraftFixedForm.amountInFigureCT ? this.tempData.overdraftFixedForm.amountInFigureCT : '',
+            // tslint:disable-next-line:max-line-length
+            drawingPowerOverdraftFacility: this.tempData.overdraftFixedForm.drawingPowerCT ? this.tempData.overdraftFixedForm.drawingPowerCT : '',
+            // tslint:disable-next-line:max-line-length
+            additionalPremiumOverdraftFacility: this.tempData.overdraftFixedForm.additionalPremiumRateCT ? this.tempData.overdraftFixedForm.additionalPremiumRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            couponInterestRateOverdraftFacility: this.tempData.overdraftFixedForm.totalInterestRateCT ? this.tempData.overdraftFixedForm.totalInterestRateCT : '',
+            baseRateOverdraftFacility: this.tempData.overdraftFixedForm.baseRateCT ? this.tempData.overdraftFixedForm.baseRateCT : '',
+            premiumRateOverdraftFacility: this.tempData.overdraftFixedForm.premiumRateCT ? this.tempData.overdraftFixedForm.premiumRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            interestRateOverdraftFacility: this.tempData.overdraftFixedForm.interestRateCT ? this.tempData.overdraftFixedForm.interestRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanExpiryDateOverdraftFacility: this.tempData.overdraftFixedForm.dateOfExpiryCT ? this.tempData.overdraftFixedForm.dateOfExpiryCT : '',
+        });
+    }
+
+    overDraftFacilityForm() {
+        this.form.patchValue({
+            // Overdraft Facility against Bond
+            // tslint:disable-next-line:max-line-length
+            nameOfFacilityAgainstBond: this.tempData.overDraftFacilityForm.nameOfFacilityCT ? this.tempData.overDraftFacilityForm.nameOfFacilityCT : '',
+            // tslint:disable-next-line:max-line-length
+            nameOfFacilityAgainstBondInEng: this.tempData.overDraftFacilityForm.nameOfFacility ? this.tempData.overDraftFacilityForm.nameOfFacility : '',
+            loanAmountAgainstBond: this.tempData.overDraftFacilityForm.loanAmountCT ? this.tempData.overDraftFacilityForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordAgainstBond: this.tempData.overDraftFacilityForm.loanAmountWordsCT ? this.tempData.overDraftFacilityForm.loanAmountWordsCT : '',
+            // tslint:disable-next-line:max-line-length
+            // ownerNameAgainstBond: this.tempData.overDraftFacilityForm.bondDetails ? this.tempData.overDraftFacilityForm.bondDetails[0].bondOwnerNameCT : '',
+            bondAmountAgainstBond: this.tempData.overDraftFacilityForm.bondAmountCT ? this.tempData.overDraftFacilityForm.bondAmountCT : '',
+            bondTypeAgainstBond: this.tempData.overDraftFacilityForm.bondTypeCT ? this.tempData.overDraftFacilityForm.bondTypeCT : '',
+            // tslint:disable-next-line:max-line-length
+            totalInterestRateAgainstBond: this.tempData.overDraftFacilityForm.interestRateCT ? this.tempData.overDraftFacilityForm.interestRateCT : '',
+            baseRateAgainstBond: this.tempData.overDraftFacilityForm.baseRateCT ? this.tempData.overDraftFacilityForm.baseRateCT : '',
+            premiumRateAgainstBond: this.tempData.overDraftFacilityForm.premiumRateCT ? this.tempData.overDraftFacilityForm.premiumRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            interestRateAgainstBond: this.tempData.overDraftFacilityForm.interestRateCT ? this.tempData.overDraftFacilityForm.interestRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanExpiryDateAgainstBond: this.tempData.overDraftFacilityForm.dateOfExpiryCT ? this.tempData.overDraftFacilityForm.dateOfExpiryCT : '',
+        });
+    }
+
+    bridgeGapLoanForm() {
+        this.form.patchValue({
+            // Bridge Gap Loan
+            // SNOfParentLimitBridgeGap: [undefined],
+            loanAmountBridgeGap: this.tempData.bridgeGapLoanForm.loanAmountCT ? this.tempData.bridgeGapLoanForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordBridgeGap: this.tempData.bridgeGapLoanForm.loanAmountWordsCT ? this.tempData.bridgeGapLoanForm.loanAmountWordsCT : '',
+            baseRateBridgeGap: this.tempData.bridgeGapLoanForm.baseRateCT ? this.tempData.bridgeGapLoanForm.baseRateCT : '',
+            premiumRateBridgeGap: this.tempData.bridgeGapLoanForm.premiumRateCT ? this.tempData.bridgeGapLoanForm.premiumRateCT : '',
+            interestRateBridgeGap: this.tempData.bridgeGapLoanForm.interestRateCT ? this.tempData.bridgeGapLoanForm.interestRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            totalInterestRateBridgeGap: this.tempData.bridgeGapLoanForm.totalInterestRateCT ? this.tempData.bridgeGapLoanForm.totalInterestRateCT : '',
+        });
+    }
 }

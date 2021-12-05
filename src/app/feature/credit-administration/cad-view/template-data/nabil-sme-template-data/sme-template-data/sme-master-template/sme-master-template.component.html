@@ -2,23 +2,23 @@
     <app-sme-global-content #smeGlobalContent></app-sme-global-content>
     <!-- Type of sme loan start here-->
     <app-irrevocable-letter-of-credit-facility #irrevocableLetterOfCreditFacility [loanName]="loanData"></app-irrevocable-letter-of-credit-facility>
-    <app-customer-acceptance-for-time-letter-of-credit [loanName]="loanData"></app-customer-acceptance-for-time-letter-of-credit>
-    <app-import-bills-discounting [loanName]="loanData"></app-import-bills-discounting>
-    <app-import-loan-trust-receipt-loan [loanName]="loanData"></app-import-loan-trust-receipt-loan>
-    <app-revolving-short-term-loan [loanName]="loanData"></app-revolving-short-term-loan>
-    <app-demand-loan-for-working-capital [loanName]="loanData"></app-demand-loan-for-working-capital>
-    <app-pre-export-loan [loanName]="loanData"></app-pre-export-loan>
-    <app-documentary-bill-purchase-negotiation [loanName]="loanData"></app-documentary-bill-purchase-negotiation>
-    <app-overdraft-loan-for-working-capital-requirement [loanName]="loanData"></app-overdraft-loan-for-working-capital-requirement>
-    <app-equity-mortgaged-overdraft [loanName]="loanData"></app-equity-mortgaged-overdraft>
-    <app-overdraft-facility-against-fixed-deposit [loanName]="loanData"></app-overdraft-facility-against-fixed-deposit>
-    <app-overdraft-facility-against-bond [loanName]="loanData"></app-overdraft-facility-against-bond>
-    <app-bridge-gap-loan [loanName]="loanData"></app-bridge-gap-loan>
-    <app-term-loan-to-or-for [loanName]="loanData"></app-term-loan-to-or-for>
-    <app-mortgage-or-equity-mortgage-term-loan [loanName]="loanData"></app-mortgage-or-equity-mortgage-term-loan>
-    <app-auto-loan-master [loanName]="loanData"></app-auto-loan-master>
-    <app-bank-guarantee [loanName]="loanData"></app-bank-guarantee>
-    <app-bill-purchase [loanName]="loanData"></app-bill-purchase>
+    <app-customer-acceptance-for-time-letter-of-credit [loanName]="loanData" #customerAcceptanceForTimeLetterOfCreditComponent></app-customer-acceptance-for-time-letter-of-credit>
+    <app-import-bills-discounting [loanName]="loanData" #billsDiscountingComponent></app-import-bills-discounting>
+    <app-import-loan-trust-receipt-loan [loanName]="loanData" #importLoanTrustReceiptLoanComponent></app-import-loan-trust-receipt-loan>
+    <app-revolving-short-term-loan [loanName]="loanData" #revolvingShortTermLoanComponent></app-revolving-short-term-loan>
+    <app-demand-loan-for-working-capital [loanName]="loanData" #demandLoanForWorkingCapitalComponent></app-demand-loan-for-working-capital>
+    <app-pre-export-loan [loanName]="loanData" #preExportLoanComponent></app-pre-export-loan>
+    <app-documentary-bill-purchase-negotiation [loanName]="loanData" #billPurchaseNegotiationComponent></app-documentary-bill-purchase-negotiation>
+    <app-overdraft-loan-for-working-capital-requirement [loanName]="loanData" #overdraftLoanForWorkingCapitalRequirementComponent></app-overdraft-loan-for-working-capital-requirement>
+    <app-equity-mortgaged-overdraft [loanName]="loanData" #equityMortgagedOverdraftComponent></app-equity-mortgaged-overdraft>
+    <app-overdraft-facility-against-fixed-deposit [loanName]="loanData" #overdraftFacilityAgainstFixedDepositComponent></app-overdraft-facility-against-fixed-deposit>
+    <app-overdraft-facility-against-bond [loanName]="loanData" #overdraftFacilityAgainstBondComponent></app-overdraft-facility-against-bond>
+    <app-bridge-gap-loan [loanName]="loanData" #bridgeGapLoanComponent></app-bridge-gap-loan>
+    <app-term-loan-to-or-for [loanName]="loanData" #termLoanToOrForComponent></app-term-loan-to-or-for>
+    <app-mortgage-or-equity-mortgage-term-loan [loanName]="loanData" #mortgageOrEquityMortgageTermLoanComponent></app-mortgage-or-equity-mortgage-term-loan>
+    <app-auto-loan-master [loanName]="loanData" #autoLoanMasterComponent></app-auto-loan-master>
+    <app-bank-guarantee [loanName]="loanData" #bankGuaranteeComponent></app-bank-guarantee>
+    <app-bill-purchase [loanName]="loanData" #billPurchaseComponent></app-bill-purchase>
     <!-- Type of sme loan end here-->
     <app-sme-security></app-sme-security>
     <div class="row">
