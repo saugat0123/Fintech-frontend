@@ -312,9 +312,6 @@ export class TermLoanToOrForComponent implements OnInit {
     this.termLoanForm.get('loanAmountWordsCT').patchValue(
         this.termLoanForm.get('loanAmountWordsTrans').value
     );
-    this.termLoanForm.get('loanAmountCT').patchValue(
-        this.termLoanForm.get('loanAmountTrans').value
-    );
     this.termLoanForm.get('loanAmountWordsCT').patchValue(
         this.termLoanForm.get('loanAmountWordsTrans').value
     );
@@ -372,7 +369,6 @@ export class TermLoanToOrForComponent implements OnInit {
     this.termLoanForm.get('numberOfPaymentsCT').patchValue(
         this.termLoanForm.get('numberOfPaymentsTrans').value
     );
-    console.log(this.termLoanForm.value);
   }
 
   /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/
