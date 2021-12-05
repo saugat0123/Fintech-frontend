@@ -211,6 +211,26 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     fillForm() {
+        this.form.patchValue({
+            // Irrevocable letter of credit facility
+            // SNOfParentLimitIrrevocable: [undefined],
+            loanAmountIrrevocable: this.tempData.letterOfCreditForm.loanAmountCT ? this.tempData.letterOfCreditForm.loanAmountCT : '',
+            // tslint:disable-next-line:max-line-length
+            loanAmountInWordIrrevocable: this.tempData.letterOfCreditForm.loanAmountAmountWordsCT ? this.tempData.letterOfCreditForm.loanAmountAmountWordsCT : '',
+            // tslint:disable-next-line:max-line-length
+            marginInPercentageIrrevocable: this.tempData.letterOfCreditForm.marginInPercentageCT ? this.tempData.letterOfCreditForm.marginInPercentageCT : '',
+            // tslint:disable-next-line:max-line-length
+            commissionRateIrrevocable: this.tempData.letterOfCreditForm.commissionRateCT ? this.tempData.letterOfCreditForm.commissionRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            commissionAmountIrrevocable: this.tempData.letterOfCreditForm.minimumCommissionRateCT ? this.tempData.letterOfCreditForm.minimumCommissionRateCT : '',
+            // tslint:disable-next-line:max-line-length
+            commissionRateForFirstQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT ? this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT : '',
+            // tslint:disable-next-line:max-line-length
+            commissionRateForOtherQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT ? this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT : '',
+            loanExpiryDateIrrevocable: this.tempData.letterOfCreditForm.dateOfExpiryCT ? this.tempData.letterOfCreditForm.dateOfExpiryCT : '',
+            // tslint:disable-next-line:max-line-length
+            // loanExpiryDateIrrevocable2:  this.tempData.letterOfCreditForm.loanAmountCT ? this.tempData.letterOfCreditForm.loanAmountCT : '' ,
+        });
         this.timeLetterCreditForm();
         this.importBillsDiscountForm();
         this.importTrustForm();
