@@ -153,6 +153,30 @@ export class NepProposedAmountFormComponent implements OnInit {
         });
     }
 
+    getCadValue() {
+        this.nepaliNumber.initDate = this.nepForm.get('initDate').value;
+        this.nepaliNumber.loanApprovalNo = this.nepForm.get('loanApprovalNo').value;
+        this.nepDataPersonal.loanType = this.nepForm.get('loanType').value;
+        this.nepDataPersonal.interestRate = this.nepForm.get('interestRate').value;
+        this.nepDataPersonal.serviceFeePercent = this.nepForm.get('serviceFeePercent').value;
+        this.nepDataPersonal.serviceFeeAmount = this.nepForm.get('serviceFeeAmount').value;
+        this.nepDataPersonal.tenureOfLoanInMonths = this.nepForm.get('tenureOfLoanInMonths').value;
+        this.nepDataPersonal.tenureOfLoanInYears = this.nepForm.get('tenureOfLoanInYears').value;
+        this.nepDataPersonal.installmentAmount = this.nepForm.get('installmentAmount').value;
+        this.nepDataPersonal.typeOfLoanInEnglish = this.nepForm.get('typeOfLoanInEnglish').value;
+        this.nepDataPersonal.purposeOfLoan = this.nepForm.get('purposeOfLoan').value;
+        this.nepDataPersonal.baseRate = this.nepForm.get('baseRate').value;
+        this.nepDataPersonal.premium = this.nepForm.get('premium').value;
+        this.nepDataPersonal.discount = this.nepForm.get('discount').value;
+        this.nepDataPersonal.cibCharges = this.nepForm.get('cibCharges').value;
+        this.nepDataPersonal.interestInstallmentPaymentFrequency = this.nepForm.get('interestInstallmentPaymentFrequency').value;
+        this.nepDataPersonal.loanMaturityDateBS = this.nepForm.get('loanMaturityDateBS').value;
+        this.nepDataPersonal.loanMaturityDateAD = this.nepForm.get('loanMaturityDateAD').value;
+        this.cadData.nepData = JSON.stringify(this.nepaliNumber);
+        this.cadData.nepDataPersonal = JSON.stringify(this.nepDataPersonal);
+        this.NepProposedAmountFormEmitter.emit(this.cadData);
+        return this.cadData;
+    }
     closeModal() {
         this.dialogRef.close();
     }
