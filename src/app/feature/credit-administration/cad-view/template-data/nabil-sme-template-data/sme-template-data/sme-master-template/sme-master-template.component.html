@@ -7,22 +7,54 @@
     <ng-container *ngIf="isCustomerAcceptance">
     <app-customer-acceptance-for-time-letter-of-credit #customerAcceptanceLetterOfCredit [loanName]="loanData"></app-customer-acceptance-for-time-letter-of-credit>
     </ng-container>
+    <ng-container *ngIf="isBillDiscounting">
     <app-import-bills-discounting #importBillsDiscounting [loanName]="loanData"></app-import-bills-discounting>
+    </ng-container>
+    <ng-container *ngIf="isLoanTrustReceiptLoan">
     <app-import-loan-trust-receipt-loan #importLoanTrustReceiptLoan [loanName]="loanData"></app-import-loan-trust-receipt-loan>
+    </ng-container>
+    <ng-container *ngIf="isRevolvingShortTermLoan">
     <app-revolving-short-term-loan #revolvingShortTermLoan [loanName]="loanData"></app-revolving-short-term-loan>
+    </ng-container>
+    <ng-container *ngIf="isDemandLoanWorkingCapital">
     <app-demand-loan-for-working-capital #demandLoanForWorkingCapital [loanName]="loanData"></app-demand-loan-for-working-capital>
+    </ng-container>
+    <ng-container *ngIf="isPreExportLoan">
     <app-pre-export-loan #preExportLoan [loanName]="loanData"></app-pre-export-loan>
+    </ng-container>
+    <ng-container *ngIf="isDocumentaryBillPurchase">
     <app-documentary-bill-purchase-negotiation #documentaryBillPurchaseNegotiation [loanName]="loanData"></app-documentary-bill-purchase-negotiation>
+    </ng-container>
+    <ng-container *ngIf="isOverdraftLoanWorkingCapital">
     <app-overdraft-loan-for-working-capital-requirement #overdraftLoanForWorkingCapitalRequirement [loanName]="loanData"></app-overdraft-loan-for-working-capital-requirement>
+    </ng-container>
+    <ng-container *ngIf="isEquityMortgageOverdraft">
     <app-equity-mortgaged-overdraft #equityMortgagedOverdraft [loanName]="loanData"></app-equity-mortgaged-overdraft>
+    </ng-container>
+    <ng-container *ngIf="isOverDraftFacilityFixedDeposit">
     <app-overdraft-facility-against-fixed-deposit #overdraftFacilityAgainstFixedDeposit [loanName]="loanData"></app-overdraft-facility-against-fixed-deposit>
+    </ng-container>
+    <ng-container *ngIf="isOverdraftFacilityAgainstBond">
     <app-overdraft-facility-against-bond #overdraftFacilityAgainstBond [loanName]="loanData"></app-overdraft-facility-against-bond>
+    </ng-container>
+    <ng-container *ngIf="isBridgeGapLoan">
     <app-bridge-gap-loan #bridgeGapLoan [loanName]="loanData"></app-bridge-gap-loan>
+    </ng-container>
+    <ng-container *ngIf="isTermLoanToOrFor">
     <app-term-loan-to-or-for #termLoanToOrFor [loanName]="loanData"></app-term-loan-to-or-for>
+    </ng-container>
+    <ng-container *ngIf="isEquityMortgageTermLoan">
     <app-mortgage-or-equity-mortgage-term-loan #mortgageOrEquityMortgageTermLoanComponent [loanName]="loanData"></app-mortgage-or-equity-mortgage-term-loan>
+    </ng-container>
+    <ng-container *ngIf="isAutoLoanMaster">
     <app-auto-loan-master #autoLoanMasterComponent [loanName]="loanData"></app-auto-loan-master>
+    </ng-container>
+    <ng-container *ngIf="isBankGuarantee">
     <app-bank-guarantee #bankGuaranteeComponent [loanName]="loanData"></app-bank-guarantee>
+    </ng-container>
+    <ng-container *ngIf="isBillPurchase">
     <app-bill-purchase #billPurchaseComponent [loanName]="loanData"></app-bill-purchase>
+    </ng-container>
     <!-- Type of sme loan end here-->
     <app-sme-security></app-sme-security>
     <div class="row">
