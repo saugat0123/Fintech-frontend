@@ -3,6 +3,7 @@
          nbSpinnerMessage="Loading data please wait....."
          nbSpinnerSize="giant"
          nbSpinnerStatus="primary"
+         *ngIf="loaded"
          [nbSpinner]="spinner">
     <nb-card-header>
         <strong>{{(cadOfferLetterApprovedDoc?.docStatus | replace:'_':' ')}}</strong>
@@ -11,7 +12,7 @@
                      [useExistingCss]="true"
                      printSectionId="helloWorld"
                      ngxPrint
-                     *ngIf="approvedLoan"
+                     *ngIf="(cadOfferLetterApprovedDoc?.docStatus | replace: '_':' ').toLowerCase() === 'disbursement approved'"
                      class="m-2 d-print-none">Print</button>
         </div>
         <app-cad-authority-laxmi [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc" hidden></app-cad-authority-laxmi>
