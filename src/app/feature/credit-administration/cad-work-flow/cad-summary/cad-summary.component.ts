@@ -17,6 +17,7 @@ export class CadSummaryComponent implements OnInit {
     customerInfoData: CustomerInfoData;
     cadDocumentId;
     spinner = false;
+    loaded = false;
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
     toggleArray: { toggled: boolean }[] = [];
     checkListLiteVersion = LocalStorageUtil.getStorage().productUtil.CHECK_LIST_LITE_VERSION;
@@ -33,6 +34,7 @@ export class CadSummaryComponent implements OnInit {
             other.cadOfferLetterApprovedDoc = res.detail;
             other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;
             other.spinner = false;
+            other.loaded = true;
             other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;
             other.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => other.toggleArray.push({toggled: false}));
 
