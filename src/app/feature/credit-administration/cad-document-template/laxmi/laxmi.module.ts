@@ -32,6 +32,7 @@ import { PersonalGuaranteeIndividualComponent } from './laxmi-offer-letter/perso
 import { HypothecationOverStockAndReceivableCurrentAssetsComponent } from './laxmi-offer-letter/hypothecation-over-stock-and-receivable-current-assets/hypothecation-over-stock-and-receivable-current-assets.component';
 import { ConsentOfHakwalaComponent } from './laxmi-offer-letter/consent-of-hakwala/consent-of-hakwala.component';
 import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-laxmi/mortgage-deed-laxmi.component';
+import { HypothecationChargeOverFixedAssetsComponent } from './laxmi-offer-letter/hypothecation-charge-over-fixed-assets/hypothecation-charge-over-fixed-assets.component';
 import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-laxmi/offer-letter-laxmi.component';
 
 
@@ -59,10 +60,10 @@ import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-lax
         PersonalGuaranteeInstitutionalPrintComponent,
         PersonalGuaranteeIndividualComponent,
         HypothecationOverStockAndReceivableCurrentAssetsComponent,
+        ConsentOfHakwalaComponent,
         CorporateGuranteeComponent,
         ConsentOfHakwalaComponent,
-        MortgageDeedLaxmiComponent,
-        OfferLetterLaxmiComponent],
+        MortgageDeedLaxmiComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -72,21 +73,23 @@ import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-lax
         CoreModule,
         NbRadioModule,
     ],
-    exports: [
-        LoanDeedIndividualComponent,
-        PromisoryNoteIndividualComponent,
-        SelfDeclarationComponent,
-        NrbKycComponent,
-        LoanDeedInstitutionalComponent,
-        PromisoryNoteInstitutionalComponent,
-        PersonalGuaranteeInstitutionalComponent,
-        PersonalGuaranteeIndividualComponent,
-        HypothecationOverStockAndReceivableCurrentAssetsComponent,
-        CorporateGuranteeComponent,
-        ConsentOfHakwalaComponent,
-        MortgageDeedLaxmiComponent,
-        OfferLetterLaxmiComponent
-    ],
+  exports: [
+    LoanDeedIndividualComponent,
+    PromisoryNoteIndividualComponent,
+    SelfDeclarationComponent,
+    NrbKycComponent,
+    LoanDeedInstitutionalComponent,
+    PromisoryNoteInstitutionalComponent,
+    PersonalGuaranteeInstitutionalComponent,
+    PersonalGuaranteeIndividualComponent,
+    HypothecationOverStockAndReceivableCurrentAssetsComponent,
+    ConsentOfHakwalaComponent,
+    CorporateGuranteeComponent,
+    ConsentOfHakwalaComponent,
+    MortgageDeedLaxmiComponent,
+    HypothecationChargeOverFixedAssetsComponent,
+      OfferLetterLaxmiComponent
+  ],
     entryComponents: [
         LaxmiOfferLetterComponent
     ]

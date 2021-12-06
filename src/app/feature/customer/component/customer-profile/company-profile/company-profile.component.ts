@@ -70,6 +70,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     sbsGroupEnabled = environment.SBS_GROUP;
     megaGroupEnabled = environment.MEGA_GROUP;
     isEditable = false;
+    isAccountEdited = false;
 
     constructor(private companyInfoService: CompanyInfoService,
                 private customerInfoService: CustomerInfoService,
@@ -118,6 +119,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.form.houseNumber.setValue(companyInfoData.companyLocations.houseNumber);
         this.form.establishmentDate.setValue(new Date(companyInfoData.establishmentDate));
         this.form.withinLimitRemarks.setValue(companyInfoData.withinLimitRemarks);
+        this.form.accountStrategy.setValue(companyInfoData.accountStrategy);
     }
 
     getCompanyInfo(companyInfoId) {
@@ -218,7 +220,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             email: [undefined, Validators.required],
             contactNum: [undefined, Validators.required],
             businessType: [undefined, Validators.required],
-            withinLimitRemarks: [undefined]
+            withinLimitRemarks: [undefined],
+            accountStrategy: [undefined]
         });
     }
 
@@ -226,6 +229,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.spinner = true;
         this.isEdited = false;
         this.isRemarkEdited = false;
+        this.isAccountEdited = false;
         this.companyInfo.companyName = this.companyForm.get('companyName').value;
         this.companyInfo.registrationNumber = this.companyForm.get('registrationNumber').value;
         this.companyInfo.establishmentDate = this.companyForm.get('establishmentDate').value;
@@ -238,6 +242,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.companyInfo.contactNum = this.companyForm.get('contactNum').value;
         this.companyInfo.businessType = this.companyForm.get('businessType').value;
         this.companyInfo.withinLimitRemarks = this.companyForm.get('withinLimitRemarks').value;
+        this.companyInfo.accountStrategy = this.companyForm.get('accountStrategy').value;
         this.companyInfoService.save(this.companyInfo).subscribe(response => {
             this.companyInfo = response.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED COMPANY DETAIL'));
@@ -297,7 +302,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     editRemark() {
         this.isRemarkEdited = true;
     }
-
+    editAccountStrategy() {
+        this.isAccountEdited = true;
+    }
     cbsGroupUpdate(event) {
         this.spinner = true;
         const customerInfo = new CustomerInfoData();

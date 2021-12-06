@@ -74,7 +74,7 @@ export class CorporateGuranteeComponent implements OnInit {
   fillForm() {
     if (!ObjectUtil.isEmpty(this.nepaliData)) {
       const customerTempAddress =
-          this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
+          this.nepaliData.temporaryMunicipality + ' वडा नं= ' +
           this.nepaliData.temporaryWard + ', ' +
           this.nepaliData.temporaryDistrict;
       this.form.patchValue({

@@ -51,6 +51,8 @@ import { SecurityTableComponent } from './security/security-initial-form/securit
 import { CreateDocumentComponent } from './security/security-initial-form/create-document/create-document.component';
 import {CustomerModule} from '../customer/customer.module';
 import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
+import { ReviewDateComponent } from './review-date/review-date.component';
+import { MultiBankingComponent } from './multi-banking/multi-banking.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -86,6 +88,8 @@ const COMPONENTS = [
     FixAssetCollateralComponent,
     SecurityTableComponent,
     CreateDocumentComponent,
+    ReviewDateComponent,
+    MultiBankingComponent
 ];
 
 

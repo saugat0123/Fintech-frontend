@@ -41,6 +41,9 @@ import {PreviousSecurityComponent} from '../../../loan-information-template/prev
 import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {ReviewDate} from '../../../loan/model/reviewDate';
+import {MultiBanking} from '../../../loan/model/multiBanking';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -98,6 +101,10 @@ export class CustomerLoanInformationComponent implements OnInit {
     private borrowerLoanPortfolioComponent: NbAccordionItemComponent;
     @ViewChild('borrowerFinancialHighlight', {static: false})
     private borrowerFinancialHighlight: NbAccordionItemComponent;
+    @ViewChild('reviewDate', {static: false})
+    private reviewDate: ReviewDate;
+    @ViewChild('multiBankingComponent', {static: false})
+    private multiBankingComponent: MultiBanking;
 
     @ViewChild('microCrgParamsComponent', {static: false})
     private microCrgParamsComponent: NbAccordionItemComponent;
@@ -148,6 +155,8 @@ export class CustomerLoanInformationComponent implements OnInit {
     public commentsData: string;
     public securityDataResponse: PreviousSecurity;
     private securityData: string;
+    public reviewDateResponse: ReviewDate;
+    public multiBankingResponse: MultiBanking;
     client = environment.client;
     clientName = Clients;
     checkedPreviousSecurity = false;
@@ -160,6 +169,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService,
         private modalService: NbDialogService,
+        private spinner: NgxSpinnerService,
     ) {
     }
 
@@ -231,7 +241,7 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.commentsData = this.customerInfo.data;
             const jsonSec = JSON.parse(this.commentsData);
             const secParseJson = JSON.parse(jsonSec.data);
-            if (!ObjectUtil.isEmpty(secParseJson.previousComments) || !ObjectUtil.isEmpty(secParseJson.previousComments)) {
+            if (!ObjectUtil.isEmpty(secParseJson)) {
                 this.checkedPreviousComments = true;
             }
         }
@@ -242,6 +252,12 @@ export class CustomerLoanInformationComponent implements OnInit {
             if (!ObjectUtil.isEmpty(secParseJson.securityDetails)) {
                 this.checkedPreviousSecurity = true;
             }
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo.reviewDate)) {
+            this.reviewDateResponse = this.customerInfo.reviewDate;
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo.multiBanking)) {
+            this.multiBankingResponse = this.customerInfo.multiBanking;
         }
     }
 
@@ -262,7 +278,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.siteVisit, this.customerInfoId, TemplateName.SITE_VISIT)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved site visit!'));
-            //this.itemSiteVisit.close();
+            // this.itemSiteVisit.close();
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
@@ -272,6 +288,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     saveFinancial(data: string) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.financial)) {
             this.financial = new Financial();
         }
@@ -281,13 +298,16 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Financial!'));
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
+            this.spinner.hide();
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Financial!'));
+            this.spinner.hide();
         });
     }
 
     public saveSecurity(data: Security) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.security)) {
             this.security = new Security();
         }
@@ -303,7 +323,9 @@ export class CustomerLoanInformationComponent implements OnInit {
                     this.triggerCustomerRefresh.emit(true);
                     this.nbDialogRef.close();
                 }
+                this.spinner.hide();
             }, error => {
+                this.spinner.hide();
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
             });
@@ -314,41 +336,49 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.shareSecurity = data.share;
         this.customerInfoService.saveLoanInfo(this.shareSecurity, this.customerInfoId, TemplateName.SHARE_SECURITY)
         .subscribe(() => {
+            this.spinner.hide();
             this.itemSecurity.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
+            this.spinner.hide();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
         });
     }
 
     saveGuarantor(data: GuarantorDetail) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.guarantors)) {
             this.guarantors = new GuarantorDetail();
         }
         this.guarantors = data;
         this.customerInfoService.saveLoanInfo(this.guarantors, this.customerInfoId, TemplateName.GUARANTOR)
         .subscribe(() => {
+            this.spinner.hide();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Guarantor saved successfully !'));
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
             console.error(error);
+            this.spinner.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Guarantor !'));
         });
     }
 
     public saveInsurance(data: Array<Insurance>) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.insurance)) {
             this.insurance = new Array<Insurance>();
         }
         this.insurance = data;
         this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)
         .subscribe(() => {
+            this.spinner.hide();
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Insurance!'));
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
+            this.spinner.hide();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
         });
@@ -371,6 +401,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     }*/
 
     saveCrg(data: string) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.creditRiskGrading)) {
             this.creditRiskGrading = new CreditRiskGrading();
         }
@@ -380,7 +411,9 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading!'));
             this.itemCrg.close();
             this.triggerCustomerRefresh.emit(true);
+            this.spinner.hide();
         }, error => {
+            this.spinner.hide();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading!'));
         });
@@ -403,6 +436,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     saveCICL(data: CiclArray) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.ciclResponse)) {
             this.ciclResponse = new CiclArray();
         }
@@ -413,13 +447,16 @@ export class CustomerLoanInformationComponent implements OnInit {
             // this.itemCicl.close();
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
+            this.spinner.hide();
         }, error => {
+            this.spinner.hide();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
         });
     }
 
     saveIncomeFromAccount(data: IncomeFromAccount) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
             this.incomeFromAccountDataResponse = new IncomeFromAccount();
         }
@@ -430,13 +467,16 @@ export class CustomerLoanInformationComponent implements OnInit {
             // this.itemIncomeFromAccount.close();
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
+            this.spinner.hide();
         }, error => {
+            this.spinner.hide();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Income From Account)!'));
         });
     }
 
     saveNetTradingAssets(data: NetTradingAssets) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.netTradingAssets)) {
             this.netTradingAssets = new NetTradingAssets();
         }
@@ -446,13 +486,16 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Net Trading Assets!'));
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
+            this.spinner.hide();
         }, error => {
+            this.spinner.hide();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Net Trading Assets)!'));
         });
     }
 
     saveCreditChecklist(data: CreditChecklistGeneral) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.creditChecklistGeneral)) {
             this.creditChecklistGeneral = new CreditChecklistGeneral();
         }
@@ -462,7 +505,10 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Checklist!'));
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
+            this.spinner.hide();
+
         }, error => {
+            this.spinner.hide();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Credit Checklist!'));
         });
@@ -588,9 +634,10 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.commentsDataResponse, this.customerInfoId, TemplateName.COMMENTS)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Comments!'));
-            this.commentsFromAccount.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
+            this.nbDialogRef.close();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Comments)!'));
         });
@@ -614,5 +661,43 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     openModel(name: TemplateRef<any>) {
         this.nbDialogRef = this.modalService.open(name, {closeOnBackdropClick: false, closeOnEsc: false});
+    }
+
+    saveReviewDate(data) {
+        this.spinner.show();
+        if (ObjectUtil.isEmpty(this.reviewDateResponse)) {
+            this.reviewDateResponse = new ReviewDate();
+        }
+        this.reviewDateResponse = data;
+        this.customerInfoService.saveLoanInfo(this.reviewDateResponse, this.customerInfoId, TemplateName.REVIEW_DATE)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Review Date!'));
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, error => {
+                this.spinner.hide();
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Review Date!'));
+            });
+    }
+
+    saveMultiBanking(data) {
+        this.spinner.show();
+        if (ObjectUtil.isEmpty(this.multiBankingResponse)) {
+            this.multiBankingResponse = new MultiBanking();
+        }
+        this.multiBankingResponse = data;
+        this.customerInfoService.saveLoanInfo(this.multiBankingResponse, this.customerInfoId, TemplateName.MULTI_BANKING)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Multi Banking!'));
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, error => {
+                this.spinner.hide();
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Multi Banking!'));
+            });
     }
 }

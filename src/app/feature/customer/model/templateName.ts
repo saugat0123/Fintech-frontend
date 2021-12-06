@@ -22,4 +22,6 @@ export class TemplateName {
   static CUSTOMER_REPORTING_INFO = 'Customer Reporting Info';
   static COMMENTS = 'Comments';
   static PREVIOUS_SECURITY = 'previousSecurity';
+  static REVIEW_DATE = 'Review Date';
+  static MULTI_BANKING = 'MultiBanking';
 }

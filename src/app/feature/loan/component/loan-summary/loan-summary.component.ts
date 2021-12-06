@@ -43,7 +43,6 @@ import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hiera
 import {DOCUMENT} from '@angular/common';
 // tslint:disable-next-line:max-line-length
 import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
-import {flatten} from '@angular/compiler';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
@@ -182,16 +181,21 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    isOpen: false;
    private dialogRef: NbDialogRef<any>;
    refId: number;
-    securityId: number;
-    siteVisitDocuments: Array<SiteVisitDocument>;
-    isRemitLoan = false;
-    beneficiary;
-    dbr;
-    individual;
-    individualJsonData;
-    riskInfo;
-    senderDetails;
-
+   securityId: number;
+   siteVisitDocuments: Array<SiteVisitDocument>;
+   isRemitLoan = false;
+   beneficiary;
+   dbr;
+   individual;
+   individualJsonData;
+   riskInfo;
+   senderDetails;
+   bankingRelation;
+   isIndividual = false;
+   naChecked: boolean;
+   reviewDateData;
+   multiBankingSummary = false;
+   multiBankingData;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -225,8 +229,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.isRemitLoan = this.loanConfig.loanTag === 'REMIT_LOAN';
-        console.log('this is loan data holder', this.loanData.loanHolder.bankingRelationship);
         this.loanDataHolder = this.loanData;
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+            this.isIndividual = true;
+        }
         this.individual  = this.loanDataHolder.customerInfo;
         if (!ObjectUtil.isEmpty(this.individual)) {
             if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
@@ -250,6 +256,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.senderDetails = JSON.parse(this.loanDataHolder.remitCustomer.senderData);
         }
         this.calculateEmiEqiAmount();
+        if (!ObjectUtil.isEmpty(this.loanData.loanHolder.bankingRelationship)) {
+            this.bankingRelation = JSON.parse(this.loanData.loanHolder.bankingRelationship);
+        }
     }
 
     ngOnDestroy(): void {
@@ -457,6 +466,18 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     });
                 }
             });
+        }
+
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reviewDate)) {
+                this.reviewDateData = JSON.parse(this.loanDataHolder.loanHolder.reviewDate.data);
+                this.naChecked = this.reviewDateData.checked;
+            }
+        }
+
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.multiBanking)) {
+            this.multiBankingData = this.loanDataHolder.loanHolder.multiBanking;
+            this.multiBankingSummary = true;
         }
         // getting fiscal years
         this.getFiscalYears();
@@ -749,9 +770,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             for (const doc of insuranceDocument) {
                 docPaths.push(doc.policyDocumentPath);
             }
+            // Collateral Document
             const siteVisitDocument = this.siteVisitDocuments;
-            for (const doc of siteVisitDocument) {
-                docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+            if (!ObjectUtil.isEmpty(siteVisitDocument)) {
+                for (const doc of siteVisitDocument) {
+                    docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+                }
             }
         } else {
             docPaths.push(this.loanDataHolder.zipPath);
