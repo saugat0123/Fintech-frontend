@@ -12,22 +12,46 @@
                     <label><strong>Loan Options</strong></label>
                     <ng-select (ngModelChange)="transferValue($event)"
                                [multiple]="false"
-                               formControlName="loanOption">
+                               formControlName="loanOption"
+                               placeholder="Select Case Type">
                         <ng-option *ngFor="let customerLoanOption of customerLoanOptions"
                                    [value]="customerLoanOption.value">{{customerLoanOption.value}}</ng-option>
                     </ng-select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
+                    <label><strong>Loan Sub Type</strong></label>
+                    <ng-select
+                            formControlName="loanSubType"
+                            fullWidth
+                            placeholder="Loan Sub Type">
+                        <ng-option *ngFor="let loansubType of loanSubTypeList"
+                                   [value]="loansubType">{{loansubType.eData + ' || ' + loansubType.nData}}</ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-md-4 pt-4">
                     <label><strong>Security Type</strong></label>
                     <ng-select
                             formControlName="securityType"
                             fullWidth
+                            placeholder="Security Type"
                             (selectionchange)="securityValue()"
                             status="info">
                         <ng-option value="LAND">LAND</ng-option>
                         <ng-option value="LAND_AND_BUILDING">LAND AND BUILDING</ng-option>
                         <ng-option value="FIXED_ASSETS">FIXED ASSETS</ng-option>
                         <ng-option value="DOCUMENTS">DOCUMENTS</ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-md-4 pt-4">
+                    <label><strong>Mortgage Type</strong></label>
+                    <ng-select
+                            formControlName="mortgageType"
+                            fullWidth
+                            placeholder="Mortgage Type"
+                            (selectionchange)="mortgageValue()"
+                            status="info">
+                        <ng-option value="NEW_MORTGAGE">NEW MORTGAGE</ng-option>
+                        <ng-option value="EXISTING_MORTGAGE">EXISTING MORTGAGE</ng-option>
                     </ng-select>
                 </div>
             </div>

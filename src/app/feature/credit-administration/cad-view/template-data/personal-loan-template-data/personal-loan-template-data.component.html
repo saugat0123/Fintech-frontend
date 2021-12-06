@@ -143,11 +143,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Loan Admin Fee</td>
+                    <td>Loan Admin Fee in Figures</td>
                     <td>
                         <input type="number" class="form-control"
                                formControlName="loanAdminFee"
-                               (input)="translateNumber('loanAdminFee', 'loanAdminFeeTransVal')"/>
+                               (input)="getNumAmountWord('loanAdminFee', 'loanAdminFeeinWords')"/>
                     </td>
                     <td class="abc">{{translatedData?.loanAdminFee}}</td>
                     <td>
@@ -156,7 +156,21 @@
                                formControlName="loanAdminFeeTransVal"/>
                         <div *ngIf="submitted && Form.loanAdminFeeTransVal.errors"
                              class="invalid-feedback">
-                            <div *ngIf="Form.loanAdminFeeTransVal.errors.required">Loan admin fee is required</div>
+                            <div *ngIf="Form.loanAdminFeeTransVal.errors.required">Loan admin fee in Figures is required</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Loan Admin Fee in Words</td>
+                    <td><input type="text" class="form-control" formControlName="loanAdminFeeinWords"></td>
+                    <td class="abc">{{translatedData?.loanAdminFeeinWords}}</td>
+                    <td>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinWordsTransVal.errors }"
+                               formControlName="loanAdminFeeinWordsTransVal"/>
+                        <div *ngIf="submitted && Form.loanAdminFeeinWordsTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.loanAdminFeeinWordsTransVal.errors.required">Loan Admin Fee in words is required</div>
                         </div>
                     </td>
                 </tr>

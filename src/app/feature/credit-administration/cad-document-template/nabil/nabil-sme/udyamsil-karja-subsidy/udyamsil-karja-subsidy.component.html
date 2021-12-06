@@ -289,12 +289,10 @@
                     <!-- free text box -->
                     <div class="text-left">
                         <textarea
-                                id="freeTextFieldAdditionalGuarantor"
                                 class="form-control customFont nepaliFont"
-                                rows="5"
-                                style="width:inherit;margin-left:2%"
-                                name="additionalGuarantorDetails"
-                                formControlName="additionalGuarantorDetails">
+                                style="width: 60%; padding: 5px; margin-top: 10px"
+                                name="freeText"
+                                formControlName="firstAdditionalDetails">
                         </textarea>
                     </div>
 
@@ -610,12 +608,10 @@
                     <!-- free text box -->
                     <div>
                         <textarea
-                                id="addtionalRiskFreeTextField"
                                 class="form-control customFont nepaliFont"
-                                rows="5"
-                                style="width:inherit;margin-left:2%"
-                                name="additionalGuarantorDetails"
-                                formControlName="additionalGuarantorDetails">
+                                style="width: 60%; padding: 5px; margin-top: 10px"
+                                name="freeText"
+                                formControlName="secondAdditionalDetails">
                         </textarea>
                     </div>
 
@@ -902,14 +898,7 @@
                             </li>
                             <!-- free text box -->
                             <li>
-                                <textarea
-                                        id="extraFinancialRelatedFreeTextField"
-                                        class="form-control customFont nepaliFont"
-                                        rows="5"
-                                        style="width:inherit;margin-left:2%"
-                                        name="additionalGuarantorDetails"
-                                        formControlName="additionalGuarantorDetails">
-                                </textarea>
+                                <textarea class="form-control nepaliFont customFont" rows="3" formControlName="thirdAdditionalDetails" name="extraFinancialClause" style="width: 95%;padding: 5px;margin-top: 10px;" type="text"></textarea>
                             </li>
                         </ol>
                     </div>
@@ -1002,14 +991,7 @@
                             </li>
                             <!-- free text box -->
                             <li>
-                                <textarea
-                                        id="extraAdditionalAsPerNRBFreeTextField"
-                                        class="form-control customFont nepaliFont"
-                                        rows="5"
-                                        style="width:inherit;margin-left:2%"
-                                        name="additionalGuarantorDetails"
-                                        formControlName="additionalGuarantorDetails">
-                                </textarea>
+                                <textarea class="form-control nepaliFont customFont" rows="3" formControlName="fourthAdditionalDetails" name="additionalOthersClause" style="width: 95%;padding: 5px;margin-top: 10px;" type="text"></textarea>
                             </li>
                         </ol>
                     </div>
@@ -1049,17 +1031,9 @@
                                 पर्याप्त मुल्य बराबरको
                                 बैंकको पक्षमा बिमालेख।
                             </li>
-
                             <!-- free text box -->
                             <li>
-                                <textarea
-                                        id="additionalGuarantorDetails"
-                                        class="form-control customFont nepaliFont"
-                                        rows="5"
-                                        style="width:inherit;margin-left:2%"
-                                        name="additionalGuarantorDetails"
-                                        formControlName="additionalGuarantorDetails">
-                                </textarea>
+                                <textarea class="form-control nepaliFont customFont" rows="3" formControlName="fifthAdditionalDetails" name="extraSecurityDocumentsParts" style="width: 95%;padding: 5px;margin-top: 10px;" type="text"></textarea>
                             </li>
                         </ul>
                     </div>
@@ -1093,7 +1067,7 @@
                                        value="सम्पर्क अधिकृत"
                                        type="text"/>
                                 <br>
-                                <input class="form-field form-control-sm "
+                                <input class="form-field form-control-sm nepaliFont"
                                        formControlName="position"
                                        [value]="position"
                                        type="text"/>
@@ -1119,9 +1093,9 @@
                                        value="शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक"
                                        type="text"/>
                                 <br>
-                                <input class="form-field form-control-sm "
-                                       formControlName="position2"
-                                       [value]="position2"
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="position1"
+                                       [value]="position1"
                                        type="text"/>
                                 <br>
                                 नबिल बैंक लि. <br>

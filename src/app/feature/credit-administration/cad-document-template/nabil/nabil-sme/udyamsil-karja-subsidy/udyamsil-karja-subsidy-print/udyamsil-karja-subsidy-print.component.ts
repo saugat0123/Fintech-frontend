@@ -30,6 +30,7 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
   proposedAmount;
   allguarantorNames;
   guarantorNames: Array<String> = [];
+  guarantorAmount: number = 0;
   guarantorName;
   finalName;
   branchName;
@@ -73,6 +74,7 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+      this.loanName = this.cadOfferLetterApprovedDoc.assignedLoan[0].loan ? this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.nepaliName : '';
     }
     this.loanOption = this.tempData.loanOption.ct;
     this.interestSubsidy = this.tempData.interestSubsidy.ct;

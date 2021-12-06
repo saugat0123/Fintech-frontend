@@ -136,13 +136,16 @@
                             </strong>
                         </td>
                         <td>
-                            कुल ऋणकर्जा रकमको
-                            <input class="form-field form-control-sm "
-                                   name="loanAdminFee"
-                                   formControlName="loanAdminFee"
-                                   placeholder="ऋण व्यवस्थापक शुल्क"
-                                   type="text"/>
-                            प्रतिशतका दरले रकम अग्रिम रुपमा तिर्नुबुझाउनु पर्नेछ ।
+                            ऋण प्रशासनिक शुल्क बापत रु <input (input)="getNumAmountWord('loanAdminFee', 'loanAdminFeeinWords')"
+                                                              class="form-field form-control-sm"
+                                                              formControlName="loanAdminFee"
+                                                              name="loanAdminFee"
+                                                              placeholder=" "
+                                                              type="text"/> । (अक्षरेपी रु <input class="form-field form-control-sm"
+                                                                                                  formControlName="loanAdminFeeinWords"
+                                                                                                  name="loanAdminFeeinWords"
+                                                                                                  placeholder=" "
+                                                                                                  type="text"/> मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                             तपाई ऋणी तथा तपाई सँग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे बापत प्रति सूचना
                             रु २,०००/-शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ ।
                         </td>

@@ -61,8 +61,10 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
   interestSubsidy;
   repaymentType;
   position = 'सम्पर्क अधिकृत';
-  position2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
+  position1 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
   assignedData;
+  freeTextVal: any = {};
+  freeInformation: any;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -146,9 +148,14 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
       executionDate: [undefined],
       nameOfBranchManager: [undefined],
       position: [undefined],
-      position2: [undefined],
+      position1: [undefined],
       securities: this.formBuilder.array([]),
-
+      freeTextVal: [undefined],
+      firstAdditionalDetails: [undefined],
+      secondAdditionalDetails: [undefined],
+      thirdAdditionalDetails: [undefined],
+      fourthAdditionalDetails: [undefined],
+      fifthAdditionalDetails: [undefined],
     });
   }
   setLoanConfigData(data: any) {
@@ -188,11 +195,16 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
           this.offerLetterData = this.offerLetterDocument;
           this.UdyamsilKarjaSubsidy.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
+          this.setFreeText();
+          this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
         }
-        this.fillForm();
         this.initialInfoPrint = initialInfo;
+        this.existingOfferLetter = true;
+        this.fillForm();
       }
     } else {
+      this.setFreeText();
+      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       this.fillForm();
     }
   }
@@ -252,6 +264,13 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
         nameOfApplicant: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
         guarantorName: this.finalName ? this.finalName : '',
         typeOfLoan: loanName ? loanName : '',
+        firstAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.firstText : '',
+        secondAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
+        thirdAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
+        fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
+        fifthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : '',
+        position : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position : '',
+        position1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position2 : '',
     });
   }
   submit(): void {
@@ -264,16 +283,17 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.UDYAMSIL_KARJA_SUBSIDY)
-            .toString()) {
-          offerLetterPath.supportedInformation = this.UdyamsilKarjaSubsidy.get('additionalGuarantorDetails').value;
+        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.UDYAMSIL_KARJA_SUBSIDY).toString()) {
+          this.setFreeText();
+          offerLetterPath.supportedInformation = JSON.stringify(this.freeTextVal);
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.UDYAMSIL_KARJA_SUBSIDY);
       offerDocument.initialInformation = JSON.stringify(this.UdyamsilKarjaSubsidy.value);
-      offerDocument.supportedInformation = this.UdyamsilKarjaSubsidy.get('additionalGuarantorDetails').value;
+      this.setFreeText();
+      offerDocument.supportedInformation = JSON.stringify(this.freeTextVal);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
@@ -291,6 +311,17 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
       this.afterSave = false;
       this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
+  }
+  setFreeText() {
+    this.freeTextVal = {
+      firstText: this.UdyamsilKarjaSubsidy.get('firstAdditionalDetails').value,
+      secondText: this.UdyamsilKarjaSubsidy.get('secondAdditionalDetails').value,
+      thirdText: this.UdyamsilKarjaSubsidy.get('thirdAdditionalDetails').value,
+      fourthText: this.UdyamsilKarjaSubsidy.get('fourthAdditionalDetails').value,
+      fifthText: this.UdyamsilKarjaSubsidy.get('fifthAdditionalDetails').value,
+      sixthText: this.UdyamsilKarjaSubsidy.get('position').value,
+      seventhText: this.UdyamsilKarjaSubsidy.get('position1').value,
+    };
   }
   calcYearlyRate() {
     const baseRate = this.nepToEngNumberPipe.transform(this.UdyamsilKarjaSubsidy.get('baseRate').value);

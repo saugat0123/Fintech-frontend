@@ -1,25 +1,52 @@
-@media screen {
-  .print-only {
-    display: none;
-  }
-
-  .disable-print {
-    display: inline;
-
-  }
+.nepaliFont{
+  font-size: 20px;
 }
-
+table {
+  text-align: justify !important;
+  line-height: 1.9;
+}
+p{
+  line-height: 1.9;
+}
+ol.conditions-list{
+  list-style: devanagari;
+  text-align: justify !important;
+}
+.nepaliList {
+  list-style-type: devanagari;
+}
+.nepaliList > li {
+  list-style-type: devanagari;
+  line-height: 1.9;
+}
+.nep {
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 70px;
+}
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
+}
+.hello{
+  width: 95%;
+  float: right;
+}
+.hello >tr{
+  border: 1px solid black !important;
+}
+.hello > tr > td{
+  border: 1px solid black !important;
+}
 @media print {
-  .print-only {
-    display: inline;
+  footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
-  div.align {
-    font-size: 20px;
-    line-height: 1.9;
-    margin: 10px 70px;
-  }
-
 }
-.outside {
-  font-size: 16px !important;
+.disclist > li{
+  list-style-type: disc;
 }

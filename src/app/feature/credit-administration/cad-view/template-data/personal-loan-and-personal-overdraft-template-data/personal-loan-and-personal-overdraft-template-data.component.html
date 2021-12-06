@@ -108,7 +108,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Loan Admin Fee (in Percentage)</td>
+                <td>Loan Admin Fee in Figure</td>
                 <td><input type="text" class="form-control" formControlName="loanAdminFeeinFigure"
                            (input)="getNumAmountWord('loanAdminFeeinFigure', 'loanAdminFeeinWords')"></td>
                 <td class="abc">{{podtranslatedData?.loanAdminFeeinFigure}}</td>
@@ -122,6 +122,21 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <td>Loan Admin Fee in Words</td>
+                <td><input type="text" class="form-control" formControlName="loanAdminFeeinWords"></td>
+                <td class="abc">{{podtranslatedData?.loanAdminFeeinWords}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeinWordsTransVal.errors }"
+                           formControlName="loanAdminFeeinWordsTransVal"/>
+                    <div *ngIf="submitted && Form.loanAdminFeeinWordsTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanAdminFeeinWordsTransVal.errors.required">Loan Admin Fee in words is required</div>
+                    </div>
+                </td>
+            </tr>
+
             <tr>
                 <td>Emi In Figure</td>
                 <td><input type="number" class="form-control" formControlName="emiInFigure"

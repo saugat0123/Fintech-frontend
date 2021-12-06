@@ -11,22 +11,26 @@
                 <div class="row viewFull">
                     <div class="col-md-12" style="overflow-y: auto;">
                         <p>
-                            स्वीकृती पत्र नं.-<input class="form-field form-control-sm"
+                            स्वीकृती पत्र नं.-<input class="form-field form-control-sm "
+                                                     readonly
                                                      formControlName="referenceNo"
                                                      placeholder=""
                                                      type="text"/><br>
                             <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong><br><br>
 
                             मितिः <input class="form-field form-control-sm "
+                                         readonly
                                          formControlName="sanctionLetterDate"
                                          placeholder=""
                                          type="text"/><br><br>
 
                             श्री/श्रीमती/सुश्री <input class="form-field form-control-sm "
+                                                       readonly
                                                        formControlName="borrowersName"
                                                        placeholder=""
                                                        type="text"/><br>
                             ठेगानाः <input class="form-field form-control-sm "
+                                           readonly
                                            formControlName="borrowerAddress"
                                            placeholder=""
                                            type="text"/><br>
@@ -35,6 +39,7 @@
                             <strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong><br><br>
                             महोदय,<br>
                             तपाईंले मिति <input class="form-field form-control-sm "
+                                                readonly
                                                 formControlName="requestLetterDate"
                                                 placeholder=""
                                                 type="text"/> मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको
@@ -47,6 +52,7 @@
                                 <strong>बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</strong><br><br>
                                 महोदय,<br>
                                 तपाईंले यस बैंकको मिति वि.सं. <input class="form-field form-control-sm "
+                                                                     readonly
                                                                      formControlName="previousSanctionLetterDate"
                                                                      placeholder=""
                                                                      type="text"/> को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका
@@ -55,6 +61,7 @@
                                 भएको
                                 मिति
                                 वि.सं.<input class="form-field form-control-sm "
+                                             readonly
                                              formControlName="requestLetterDate"
                                              placeholder=""
                                              type="text"/> को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका
@@ -70,12 +77,25 @@
                                 <tbody>
                                 <tr>
                                     <td width="20%"><strong>कर्जाको प्रकार</strong></td>
-                                    <td width="40%"></td>
-                                    <td width="40%"></td>
+                                    <td width="40%">
+                                        <input class="form-field form-control-sm "
+                                                           readonly
+                                                           formControlName="loanType"
+                                                           placeholder=""
+                                                           type="text"/>
+                                    </td>
+                                    <td>
+                                        <input class="form-field form-control-sm "
+                                               readonly
+                                               formControlName="loanTypeEn"
+                                               placeholder=""
+                                               type="text"/>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><strong>कर्जाको उद्देश्य</strong></td>
-                                    <td colspan="2"><input class="form-field form-control-sm "
+                                    <td colspan="2"><input class="form-field form-control-sm nepaliFont"
+                                                           readonly
                                                            formControlName="karjaPurpose"
                                                            placeholder=""
                                                            type="text"/></td>
@@ -83,10 +103,12 @@
                                 <tr>
                                     <td><strong>कर्जा रु.(Loan Amount)</strong></td>
                                     <td colspan="2"><strong>रु. <input class="form-field form-control-sm "
+                                                                       readonly
                                                                        formControlName="loanAmount"
                                                                        placeholder=""
                                                                        type="text"/>।-(अक्षरेपी रु.
                                         <input class="form-field form-control-sm "
+                                               readonly
                                                formControlName="loanAmountInWord"
                                                placeholder=""
                                                type="text"/>मात्र)</strong></td>
@@ -96,7 +118,7 @@
                                     <td colspan="2">ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा
                                         सुरक्षण
                                         महलमा उल्लिखित
-                                        घर/जग्गा तथा ............................... प्रशोधित वा अर्ध प्रशोधित कच्चा
+                                        घर/जग्गा तथा प्रशोधित वा अर्ध प्रशोधित कच्चा
                                         पदार्थ,
                                         तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि, कृषि उपज आदी लगायतका
                                         सम्पूर्ण
@@ -113,6 +135,7 @@
                                         मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको (Motorable Road access) को हकमा
                                         बजार मुल्य
                                         (Market Value) को <input class="form-field form-control-sm "
+                                                                 readonly
                                                                  formControlName="marginInPercentageMotor"
                                                                  placeholder=""
                                                                  type="text"/> प्रतिशत वा गोरेटो बाटो भएको (Foot trail
@@ -130,9 +153,11 @@
                                     <td><strong>ब्याज दर :</strong></td>
                                     <td colspan="2"><strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                                         <input class="form-field form-control-sm "
+                                               readonly
                                                formControlName="baseRate"
                                                placeholder=""
                                                type="text"/> + <input class="form-field form-control-sm "
+                                                                      readonly
                                                                       formControlName="premiumRate"
                                                                       placeholder=""
                                                                       type="text"/> प्रतिशत व्याज दर प्रिमियम (Interest
@@ -150,6 +175,7 @@
                                     <td><strong>साँवा र ब्याज भुक्तानी तरिकाः</strong></td>
                                     <td colspan="2">साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                         <input class="form-field form-control-sm "
+                                               readonly
                                                formControlName="EMIAmount"
                                                placeholder=""
                                                type="text"/> (अक्षरेपि रु. <input
@@ -167,10 +193,12 @@
                                 <tr>
                                     <td><strong>सेवा शुल्कः</strong></td>
                                     <td colspan="2"><input class="form-field form-control-sm "
+                                                           readonly
                                                            formControlName="nameOfFacility"
                                                            placeholder=""
                                                            type="text"/> कर्जाको
                                         <input class="form-field form-control-sm "
+                                               readonly
                                                formControlName="serviceCharge"
                                                placeholder=""
                                                type="text"/>% सेवा शुल्क लाग्नेछ ।
@@ -186,6 +214,7 @@
                                 <tr>
                                     <td><strong>कर्जा अवधिः</strong></td>
                                     <td colspan="2"><input class="form-field form-control-sm "
+                                                           readonly
                                                            formControlName="totalTenureOfLoan"
                                                            placeholder=""
                                                            type="text"/> बर्ष सम्मको लागि मात्र ।
@@ -207,6 +236,7 @@
                                         प्रतिशत वा गोरेटो बाटो भएको (Foot trial access) को हकमा बजार मुल्य (Market
                                         Value)को
                                         <input class="form-field form-control-sm "
+                                               readonly
                                                formControlName="marginInPercentageFoot"
                                                placeholder=""
                                                type="text"/>% प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
@@ -224,17 +254,23 @@
                                     क. <u>प्राथमिक/थप सुरक्षण (Primary/Secondary Security)</u>
                                 </strong>
                             </p>
-                            <p *ngIf="selectedSecurity === 'LAND' || selectedSecurity === 'LAND_AND_BUILDING'">
+                            <p>
                                 <strong>
                                     १. घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges):<br>
                                 </strong>
                             </p>
-                            <p *ngIf="loanOptions === 'NEW'" style="margin-left: 2%;">स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
-                                ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
-                                गरी दिनु पर्नेछ ।</p>
-                            <p *ngIf="loanOptions !== 'NEW'" style="margin-left: 2%;">ऋणकर्जाको सुरक्षण स्वरुप बैंकको
-                                पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
-                                गरिदिनुभएको यथावत कायम रहने ।</p>
+                            <p *ngIf="mortgageOptions === 'NEW_MORTGAGE'; else existingMortgage"
+                               style="margin-left: 2%;">स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगाव ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको
+                                घर/जग्गा धितोेबन्धक पारित
+                                /गरी दिनु पर्नेछ ।</p>
+                            <ng-template #existingMortgage>
+                                <p style="margin-left: 2%;">
+                                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको
+                                    पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित/
+                                    गरिदिनुभएको यथावत कायम रहने ।
+                                </p>
+                            </ng-template>
                         </div>
                         <div *ngIf="selectedSecurity === 'LAND' || selectedSecurity === 'LAND_AND_BUILDING'">
                             <table class="table table-bordered">
@@ -254,36 +290,43 @@
                                 </tr>
                                 <tr *ngFor="let details of offerDocumentDetails?.securities; let i = index">
                                     <td><input class="form-field form-control-sm "
+                                               readonly
                                                name="landOwnerName"
                                                [value]="details?.securityOwnersNameCT"
                                                type="text"/>
                                     </td>
                                     <td><input class="form-field form-control-sm "
+                                               readonly
                                                name="district"
                                                [value]="details?.securityOwnersDistrictCT"
                                                type="text"/>
                                     </td>
                                     <td><input class="form-field form-control-sm "
+                                               readonly
                                                name="municipalityVDC"
                                                [value]="details?.securityOwnersMunicipalityCT"
                                                type="text"/>
                                     </td>
                                     <td><input class="form-field form-control-sm "
+                                               readonly
                                                name="wardNo"
                                                [value]="details?.securityOwnersWardNoCT"
                                                type="text"/>
                                     </td>
                                     <td><input class="form-field form-control-sm "
+                                               readonly
                                                name="sheetNo"
                                                [value]="details?.securityOwnersSheetNoCT"
                                                type="text"/>
                                     </td>
                                     <td><input class="form-field form-control-sm "
+                                               readonly
                                                name="plotNo"
                                                [value]="details?.securityOwnersPlotNoCT"
                                                type="text"/>
                                     </td>
                                     <td><input class="form-field form-control-sm "
+                                               readonly
                                                name="area"
                                                [value]="details?.securityOwnersLandAreaCT"
                                                type="text"/>
@@ -317,6 +360,7 @@
                         <p><strong>ख. थप/सहायक सुरक्षण (Additional/Secondary Security)</strong></p>
                         <p style="margin-left: 2%;"><strong> व्यक्तिगत जमानत (Personal Guarantee):</strong><br>
                             <strong>रु. <input class="form-field form-control-sm "
+                                               readonly
                                                formControlName="approvedCFRLoanAmount"
                                                [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                                type="text"/>।-(अक्षरेपी रु. <input
@@ -325,6 +369,7 @@
                                     [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))"
                                     type="text"/>मात्र)</strong> बराबरको
                             <input class="form-field form-control-sm "
+                                   readonly
                                    formControlName="nameOfPersonalGuarantor"
                                    [value]="this.finalName"
                                    type="text"/> ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ
@@ -411,6 +456,7 @@
                                         placeholder=""
                                         type="text"/>।-(अक्षरेपी
                                     रु.<input class="form-field form-control-sm "
+                                              readonly
                                               formControlName="totalLimitInWord"
                                               placeholder=""
                                               type="text"/>मात्र)</strong> भन्दा बढी हुनु हुनेछैन ।
@@ -570,7 +616,8 @@
                                 रकमहरुका लागि</u></strong></p>
                             <ol class="conditions-list">
                                 <li>गोदाम/वेयरहाउसमा रहेको सामानको सूची, पक्षहरुको विवरण र अवधि सहित भुक्तानी दिनुपर्ने
-                                    बाँकी र भुक्तानी पाउनु पर्ने बाँकी रकमहरुको विस्तृत विवरण ऋणीले त्रैमासिक रुपमा बैंकलाई बुझाउनु पर्नेछ ।
+                                    बाँकी र भुक्तानी पाउनु पर्ने बाँकी रकमहरुको विस्तृत विवरण ऋणीले त्रैमासिक रुपमा
+                                    बैंकलाई बुझाउनु पर्नेछ ।
                                 </li>
                                 <li>सामानको मौज्दात/भुक्तानी पाउनु पर्ने बाँकी रकम र सम्बन्धित अभिलेखहरु जुनसुकै समयमा
                                     तपाईंलाई पूर्व जानकारी दिइ वा नदिइकन तपाईंको खर्चमा निरीक्षण गर्न सक्ने अधिकार
@@ -587,26 +634,33 @@
                                     (Hypothecation Board) झुण्ड्याउनु पर्नेछ ।
                                 </li>
                                 <li>तपाईंले जुनसुकै समयमा पर्याप्त मात्रामा ऋणलाई खाम्ने गरी सामानहरुको मौज्दात
-                                    राख्नुपर्नेछ । बैंकको पक्षमा धितोबन्धक (Hypothecation) गरेका सामानहरुको मौज्दातमा कमी भएमा सोही
-                                    बराबर रकम बैंकमा जम्मा गर्नुपर्नेछ र/वा सामानहरुको मौज्दात यथासिघ्र बृद्धि गर्नु पर्नेछ ।
+                                    राख्नुपर्नेछ । बैंकको पक्षमा धितोबन्धक (Hypothecation) गरेका सामानहरुको मौज्दातमा
+                                    कमी भएमा सोही
+                                    बराबर रकम बैंकमा जम्मा गर्नुपर्नेछ र/वा सामानहरुको मौज्दात यथासिघ्र बृद्धि गर्नु
+                                    पर्नेछ ।
                                 </li>
                                 <li>बिक्री नभएर लामो समयसम्म मौज्दातमा रहिरहने सामानहरु (Slow Moving Items) बिग्रिएका
                                     सामानहरु र काम नलाग्ने सामानहरु मौज्दात विवरणमा समाबेश गर्नुहुनेछैन । यदि समाबेश
-                                    गरिएको पाईएमा बैंकले आफ्नोे स्वविवेकमा त्यस्ता सामानहरु मौज्दात विवरणमा समाबेश नगर्न सक्नेछ ।
-                                    मौज्दातको वास्तविक मूल्य तथा स्वीकार योग्य भुक्तानी प्राप्त गर्न बाँकि रकमहरु (Receivables)
-                                    बाटत्यस्ता सामानहरु र भुक्तानी दिन बाँकी रकमहरु घटाई बाँकी रहने खुद मौज्दात/रकमको आधारमा
+                                    गरिएको पाईएमा बैंकले आफ्नोे स्वविवेकमा त्यस्ता सामानहरु मौज्दात विवरणमा समाबेश नगर्न
+                                    सक्नेछ ।
+                                    मौज्दातको वास्तविक मूल्य तथा स्वीकार योग्य भुक्तानी प्राप्त गर्न बाँकि रकमहरु
+                                    (Receivables)
+                                    बाटत्यस्ता सामानहरु र भुक्तानी दिन बाँकी रकमहरु घटाई बाँकी रहने खुद मौज्दात/रकमको
+                                    आधारमा
                                     कर्जा सीमा पुनरावलोकन गरिने छ र सो मितिमा बढी उपभोग गरिएको कर्जा सुविधाहरु तत्काल
                                     भुक्तान गरी सीमा भित्र ल्याउनु पर्नेछ ।
                                 </li>
                                 <li>माथि उल्लिखित तरिकाले चालु पुँजी कर्जाको उपभोग सीमा निर्धारण गर्दा बहु बैंकिङ्ग
-                                    सुविधा अन्तरर्गत अन्य बैंकहरुबाट चालु पुँजी कर्जा लिएको अवस्थामा अन्य बैंकको कर्जालाई पनि
+                                    सुविधा अन्तरर्गत अन्य बैंकहरुबाट चालु पुँजी कर्जा लिएको अवस्थामा अन्य बैंकको
+                                    कर्जालाई पनि
                                     उपयोग सीमामा गणना गरिनेछ ।
                                 </li>
                                 <li>बैंकमा पेश गरिएको अन्तिम सामान मौज्दात विवरणमा भन्दा दश प्रतिशतले सामानहरुको बजार
                                     मुल्य बढेमा/घटेमा सोको जानकारी बैंकलाई अविलम्ब गराउनु पर्नेछ ।
                                 </li>
                                 <li> ऋणीको आफ्नो गोदाम वेयर हाउसको ठेगाना परिवर्तन भएको खण्डमा पहिले पेश गरिएको
-                                    बिमालेखमा परिवर्तित ठाउँको ठेगाना उल्लेख हुने गरी संशोधन गरिएको सम्पूर्ण विवरणहरु सहितको
+                                    बिमालेखमा परिवर्तित ठाउँको ठेगाना उल्लेख हुने गरी संशोधन गरिएको सम्पूर्ण विवरणहरु
+                                    सहितको
                                     बिमालेख यथासिघ्र बैंकमा बुझाउनुपर्नेछ ।
                                 </li>
                                 <li>गोदाम/वेयर हाउसको प्रयोजनार्थ घर बहालमा लिएको भए घर/जग्गा धनी र ऋणीका बीच भएका पट्टा
@@ -618,41 +672,53 @@
                                 </li>
                                 <li>धितोे सुरक्षणमा रहने सम्पूर्ण सामानहरुको मौज्दात र/वा भुक्तानी पाउनु पर्ने बाँकी
                                     रकम(Receivables)का साथै सम्पुर्ण चल सम्पतिहरु सुरक्षित कारोबार ऐन, २०६३ बमोजिम
-                                    बैंकले सम्बन्धित निकायमा विवरण दर्ता (रजिष्ट्रेशन) गराउने तथा सोमा संसोधन र निरन्तरता कायम
-                                    गराउन सक्ने अधिकार बैंकलाइ प्रदान गरिएको मानिनेछ । साथै उक्त दर्ता, संसोधन, निरन्तरता र
+                                    बैंकले सम्बन्धित निकायमा विवरण दर्ता (रजिष्ट्रेशन) गराउने तथा सोमा संसोधन र
+                                    निरन्तरता कायम
+                                    गराउन सक्ने अधिकार बैंकलाइ प्रदान गरिएको मानिनेछ । साथै उक्त दर्ता, संसोधन,
+                                    निरन्तरता र
                                     समाप्ती सम्बन्धि लाग्ने शुल्क, दस्तुर तपाईको खातामा खर्च जनाई कट्टृा गरी लिईनेछ ।
                                 </li>
                             </ol>
                             <p style="margin-left: 3%;"><strong><u>बिमा सम्बन्धी शर्तहरु</u></strong></p>
                             <ol class="conditions-list">
                                 <li>ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद आदी
-                                    जस्ता जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण स्वरुप
+                                    जस्ता जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण
+                                    स्वरुप
                                     धितोेबन्धक (Hypothecation) मा रहेका सम्पूर्ण सामान मौज्दातहरु/सम्पत्तिहरुका लागि
                                     बैंकको पक्षमा कम्तिमा कर्जा चुक्ताभुक्तान नभएसम्मका लागि समय समयमा नबिकरण/ अध्यावधिक
-                                    गराइएको बिमा लेख बैकमा पेश गर्नुपर्नेछ । गोदामहरु एक भन्दा बढी स्थानमा रहेको अवस्थामा सबै
+                                    गराइएको बिमा लेख बैकमा पेश गर्नुपर्नेछ । गोदामहरु एक भन्दा बढी स्थानमा रहेको
+                                    अवस्थामा सबै
                                     गोदामहरुको माथी उल्लिखित तरीकाले बिमा गरीएको हुनु पर्नेछ ।
                                 </li>
-                                <li>ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद आदी
-                                    जस्ता जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण स्वरुप
+                                <li *ngIf="selectedSecurity === 'FIXED_ASSETS'">'LAND_AND_BUILDING'
+                                    ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद आदी
+                                    जस्ता जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण
+                                    स्वरुप
                                     धितोेबन्धक (Hypothecation) मा रहेका सम्पूर्ण प्लान्ट एण्ड मेशिनरी/अचल सम्पत्तिहरुका
-                                    लागि बैंकको पक्षमा कम्तिमा कर्जा चुक्ताभुक्तान नभएसम्मका लागि समय समयमा नबिकरण/अध्यावधिक
+                                    लागि बैंकको पक्षमा कम्तिमा कर्जा चुक्ताभुक्तान नभएसम्मका लागि समय समयमा
+                                    नबिकरण/अध्यावधिक
                                     गराइएको बिमा लेख बैकमा पेश गर्नुपर्नेछ ।
                                 </li>
-                                <li>ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प/दंगा/हड्ताल/दुर्भावनापूर्ण क्षति र आतंकवाद आदी
-                                    जस्ता जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण स्वरुप
+                                <li *ngIf="selectedSecurity === 'LAND_AND_BUILDING'">ऋणीले आफ्नोे खर्चमा आगलागी,
+                                    भुकम्प/दंगा/हड्ताल/दुर्भावनापूर्ण क्षति र आतंकवाद आदी
+                                    जस्ता जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण
+                                    स्वरुप
                                     धितोेबन्धक रहेको घरका लागि बैंकको पक्षमा कर्जा चुक्ताभुक्तान नभएसम्मका लागि समय
-                                    समयमा नबिकरण / अध्यावधिक गराइएको बिमा लेख बैकमा पेश गर्नुपर्नेछ । सो बिमा रकम घरको लागत÷बजार
+                                    समयमा नबिकरण / अध्यावधिक गराइएको बिमा लेख बैकमा पेश गर्नुपर्नेछ । सो बिमा रकम घरको
+                                    लागत÷बजार
                                     मूल्य भन्दा कम हुनु हुने छैन् ।
                                 </li>
                                 <li>बैंकको धितोेबन्धकमा रहेकासम्पत्तिहरु/सुरक्षणहरुमा कुनै भौतिक र/वा प्राकृतिक परिवर्तन
-                                    भएमा र/वा सम्पत्ति सुरक्षणहरुको मुल्यमा कुनै परिवर्तन भएमा सोको अविलम्ब जानकारी बैंकलाई
+                                    भएमा र/वा सम्पत्ति सुरक्षणहरुको मुल्यमा कुनै परिवर्तन भएमा सोको अविलम्ब जानकारी
+                                    बैंकलाई
                                     दिनुपर्नेछ र सोही अनुसार बिमालेखहरु ऋणी स्वयंले परिवर्तन गराउनु पर्नेछ । सम्पत्ति /
                                     सुरक्षणहरुमा परिवर्तन भए बमोजिम बिमालेखहरु अधावधिक नभई कुनै हानि नोक्सानी भएमा ऋणी
                                     स्वंयम जिम्मेवार हुनेछ ।
                                 </li>
                                 <li>विमा गरिएका सम्पतिहरु (सवारी साधन समेत)मा कुनै खराबी उत्पन्न भएमा वा दुर्घटना लगायत
                                     कुनै पनि कारणले क्षति भएमा ऋणीले सम्बन्धित बिमा पोलिसीमा लेखिएको समय भित्रै वा बिमा
-                                    कम्पनीको नियमानुसारको समयावधिमा सम्बन्धित बिमा कम्पनीलाई जानकारी दिनुपर्नेछ साथै बैंकलाई समेत
+                                    कम्पनीको नियमानुसारको समयावधिमा सम्बन्धित बिमा कम्पनीलाई जानकारी दिनुपर्नेछ साथै
+                                    बैंकलाई समेत
                                     सोही समयभित्र बोद्यार्थ जानकारी गराउनुपर्नेछ ।
                                 </li>
                                 <li>ऋणीले बिमालेखको अवधि समाप्त हुनुभन्दा कम्तिमा सात दिन अगावै नविकरण गरिएको बिमालेख
@@ -900,7 +966,8 @@
                                     सँचालित
                                     हुने कुरामा समेत ऋणी/ऋणी फर्म/ऋणी कम्पनी/ऋणी संस्था मँजुर गर्दछ ।
                                 </li>
-                                <li>तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण
+                                <li *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === (customerSubType.PARTNERSHIP | uppercase)">
+                                    तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण
                                     गर्ने
                                     दायित्व ऋणी फर्मका प्रोप्राईटर/साझेदारहरुको हुनेछ र नविकरण पश्चात सोको प्रतिलिपि यस
                                     बैंकमा
@@ -924,6 +991,7 @@
                         <div>
                             <p><strong><u>कागजपत्रहरु</u></strong></p>
                             <p>ऋणीले बैंकको <input class="form-field form-control-sm "
+                                                   readonly
                                                    formControlName="nameOfBranch"
                                                    placeholder=""
                                                    type="text"/> शाखामा सम्पर्क राखी देहाय बमोजिमका कर्जा सम्बन्धी
@@ -933,12 +1001,14 @@
                                 अन्य कागजातहरु बैंकमा पेश गर्नुपर्नेछ ।</p>
                             <ul style="margin-left: 3%;">
                                 <li>रु.<input class="form-field form-control-sm "
+                                              readonly
                                               formControlName="loanAmount"
                                               placeholder=""
                                               type="text"/>।(बराबरको प्रतिज्ञा पत्र (Promissory Note)
                                 </li>
                                 <li>निरन्तरताको लिखत (Letter of Continuity)</li>
                                 <li>रु.<input class="form-field form-control-sm "
+                                              readonly
                                               formControlName="loanAmount"
                                               placeholder=""
                                               type="text"/>।-बराबरकोे पूरक सम्झौता (Supplementary Agreement) सहित
@@ -946,6 +1016,7 @@
                                     धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation)
                                 </li>
                                 <li>रु.<input class="form-field form-control-sm "
+                                              readonly
                                               formControlName="loanAmount"
                                               placeholder=""
                                               type="text"/>।-बराबरकोे वारेसनामा (Power of Attorney) सहितभुक्तानी प्राप्त
@@ -954,6 +1025,7 @@
                                     संकलन गर्ने अख्तियारनामा (Assignment of Receivables)
                                 </li>
                                 <li>रु.<input class="form-field form-control-sm "
+                                              readonly
                                               formControlName="loanAmount"
                                               placeholder=""
                                               type="text"/>।-बराबरको ऋणतमसुक (Loan Deed)
@@ -966,7 +1038,8 @@
                                                       [value]="details.securityOwnersPlotNoCT"
                                                       type="text"/>को धितोबन्धक तमसुक(Mortgage Deed)
                                 </li>
-                                <li>रु.<input class="form-field form-control-sm"
+                                <li>रु.<input class="form-field form-control-sm "
+                                              readonly
                                               formControlName="personalGuaranteeAmount"
                                               [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                               type="text"/>।-(बराबरको श्री <input
@@ -1011,7 +1084,8 @@
                         <div class="row">
                             <div class="col-lg-9">
                                 .........................................<br>
-                                <input class="form-field form-control-sm "
+                                <input class="form-field form-control-sm nepaliFont"
+                                       readonly
                                        formControlName="nameOfARO"
                                        placeholder=""
                                        type="text"/><br>
@@ -1022,12 +1096,14 @@
                                 <br>
                                 &nbsp;&nbsp;नबिल बैंक लि.<br>
                                 <input class="form-field form-control-sm "
+                                       readonly
                                        formControlName="nameOfBranch"
                                        placeholder=""
                                        type="text"/>शाखा
                             </div>
                             <div class="col-lg-3">.........................................<br>
-                                <input class="form-field form-control-sm "
+                                <input class="form-field form-control-sm nepaliFont"
+                                       readonly
                                        formControlName="nameOfBranchManager"
                                        placeholder=""
                                        type="text"/><br>
@@ -1037,6 +1113,7 @@
                                        type="text"/><br>
                                 &nbsp;&nbsp;नबिल बैंक लि.<br>
                                 <input class="form-field form-control-sm "
+                                       readonly
                                        formControlName="nameOfBranch"
                                        placeholder=""
                                        type="text"/>शाखा

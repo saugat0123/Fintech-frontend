@@ -130,7 +130,8 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
       relationshipOfficerTransVal: [undefined, Validators.required],
       managerNameTransVal: [undefined, Validators.required],
       loanPeriodInMonthTransVal: [undefined, Validators.required],
-
+      loanAdminFeeinWordsTransVal: [undefined],
+      loanAdminFeeinWords: [undefined],
     });
   }
 
@@ -325,6 +326,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
     this.form.get('premiumRate').patchValue(this.initialInformation.premiumRate.en);
     this.form.get('yearlyFloatingInterestRate').patchValue(this.initialInformation.yearlyFloatingInterestRate.en);
     this.form.get('loanAdminFee').patchValue(this.initialInformation.loanAdminFee.en);
+    this.form.get('loanAdminFeeinWords').patchValue(this.initialInformation.loanAdminFeeinWords.en);
     this.form.get('emiAmount').patchValue(this.initialInformation.emiAmount.en);
     this.form.get('emiAmountWords').patchValue(this.initialInformation.emiAmountWords.en);
     this.form.get('companyName').patchValue(this.initialInformation.companyName.en);
@@ -340,6 +342,7 @@ export class PersonalLoanTemplateEditComponent implements OnInit {
     this.form.get('premiumRateTransVal').patchValue(this.initialInformation.premiumRate.ct);
     this.form.get('yearlyFloatingInterestRateTransVal').patchValue(this.initialInformation.yearlyFloatingInterestRate.ct);
     this.form.get('loanAdminFeeTransVal').patchValue(this.initialInformation.loanAdminFee.ct);
+    this.form.get('loanAdminFeeinWordsTransVal').patchValue(this.initialInformation.loanAdminFeeinWords.ct);
     this.form.get('emiAmountTransVal').patchValue(this.initialInformation.emiAmount.ct);
     this.form.get('emiAmountWordsTransVal').patchValue(this.initialInformation.emiAmountWords.ct);
     this.form.get('companyNameTransVal').patchValue(this.initialInformation.companyName.ct);
