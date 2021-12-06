@@ -41,7 +41,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         {nData: 'ब्यापारिक कृषि तथा पशुपंछी कर्जा', eData: 'Commercial Agro and Livestock Loan'},
         {nData: 'शिक्षित युवा स्वरोजगार कर्जा', eData: 'Educated Youth and Self Employeed Loan '},
         {nData: 'उच्च र/वा प्राविधिक तथा व्यवसायिक शिक्षा कर्जा', eData: 'Higher and Techno-Vocational Education Loan'},
-        {nData: 'विपन्न, दलित तथा पिछडिएको वर्ग÷ समुदाय व्यवसाय विकाश कर्र्जा', eData: 'Loan to under-priviledged Caste/Community/Marginalized Communities'},
+        {nData: 'विपन्न, दलित तथा पिछडिएको वर्ग / समुदाय व्यवसाय विकाश कर्र्जा', eData: 'Loan to under-priviledged Caste/Community/Marginalized Communities'},
         {nData: 'भुकम्प पीडितहरुको निजी आवास निर्माण कर्जा', eData: 'Personal Home Construction loan for Earthquake Affected People'},
         {nData: 'महिलाफरा प्रबर्तित लघु उद्यमशीलता कर्जा', eData: 'Women Run Micro enterprise Loan'},
         {nData: 'बैदेशिक रोजगारीबाट फर्केका युवा परियोजना कर्जा ', eData: 'Project loan for Youths returning from Foreign Employment'},
@@ -96,6 +96,8 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
         this.buildForm();
         this.getAllProvince();
         this.getAllDistrict();
+        this.ADApproval = true;
+        this.ADApplication = true;
         this.cadDocStatus = CadDocStatus.key();
     }
 
@@ -105,13 +107,13 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             repaymentType: [undefined],
             interestSubsidy: [undefined],
             securityType: [undefined],
-            dateOfApprovalType: [undefined],
+            dateOfApprovalType: ['AD'],
             dateOfApproval: [undefined],
             dateOfApprovalNepali: [undefined],
-            dateOfApplicationType: [undefined],
+            dateOfApplicationType: ['AD'],
             dateOfApplication: [undefined],
             dateOfApplicationNepali: [undefined],
-            previousSanctionType: [undefined],
+            previousSanctionType: ['AD'],
             previousSanctionDate: [undefined],
             previousSanctionDateNepali: [undefined],
             purposeOfLoan: [undefined],
@@ -185,6 +187,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
 
     transferValue(val) {
         this.isCustomerNew = val === 'NEW';
+        this.ADPrevious = !this.isCustomerNew;
     }
 
     interestSubsidyCheck(data) {

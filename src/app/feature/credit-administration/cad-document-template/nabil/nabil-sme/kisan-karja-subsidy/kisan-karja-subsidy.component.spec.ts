@@ -10,7 +10,7 @@ describe('KisanKarjaSubsidyComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ KisanKarjaSubsidyComponent ]
     })
-    .compileComponents();
+        .compileComponents();
   }));
 
   beforeEach(() => {

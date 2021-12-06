@@ -12,7 +12,17 @@
         </p>
     </div>
     <div class="mb-2 col-md-12">
+        <span *ngIf="loanHolderInfo?.gender?.en === 'MALE'; else nameDetails">
         श्री
+       </span>
+        <ng-template #nameDetails>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
+                सुश्री
+            </span>
+            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
+                श्रीमती
+            </span>
+        </ng-template>
         <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
                     {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}
                 </span>ज्यु,

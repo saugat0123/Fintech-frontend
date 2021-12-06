@@ -657,6 +657,8 @@ export class UdhyamsilKarjaSubsidyTemplateDataComponent implements OnInit {
             hasScroll: true,
             dialogClass: 'modal-full',
             context: {
+                cadOfferLetterApprovedDoc: this.customerApprovedDoc,
+                preview: true,
             }
         });
     }

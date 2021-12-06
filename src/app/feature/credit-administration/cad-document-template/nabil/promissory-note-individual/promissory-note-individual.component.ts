@@ -50,6 +50,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
   jointNepData;
   spinner = false;
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
+  tempData: any;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -88,6 +89,8 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       date: [undefined],
       loanamountinFigure: [undefined],
       loanamountinWords: [undefined],
+      loanamountinFigureOd: [undefined],
+      loanamountinWordsOd: [undefined],
       nameofGrandFather: [undefined],
       nameofFather: [undefined],
       district: [undefined],
@@ -105,6 +108,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       sakshiAge: [undefined],
       nameofWitness: [undefined],
       interest: [undefined],
+      interestOd: [undefined],
       sakshiDistrict1: [undefined],
       sakshiVdc1: [undefined],
       sakshiWardNo1: [undefined],
@@ -119,13 +123,14 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     });
   }
   fillform() {
+    this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
     let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;
       totalLoan = totalLoan + proposedAmount;
     });
-    const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
-    const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
+    const finalAmount = this.tempData.loanAmountPl ? this.tempData.loanAmountPl.ct : this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
+    const loanAmountWord = this.tempData.loanAmountPlInWords ? this.tempData.loanAmountPlInWords.ct : this.nepaliCurrencyWordPipe.transform(totalLoan);
     let citizenshipIssuedDate;
     if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate.en.nDate)) {
       citizenshipIssuedDate = this.individualData.citizenshipIssueDate.en.nDate;
@@ -186,6 +191,9 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           age: age ? age : '',
           totalPeople: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
           interest: (this.educationalTemplateData && this.educationalTemplateData.ct) ? (this.educationalTemplateData.ct) : ((this.educationalTemplateData) ? (this.educationalTemplateData) : ('')),
+          loanamountinFigureOd: this.tempData.loanAmountOd ? this.tempData.loanAmountOd.ct : '',
+          loanamountinWordsOd: this.tempData.loanAmountOdInWords ? this.tempData.loanAmountOdInWords.ct : '',
+          interestOd: this.tempData.yearlyInterestRateOd ? this.tempData.yearlyInterestRateOd.ct : '',
         }
     );
   }
@@ -328,7 +336,6 @@ export class PromissoryNoteIndividualComponent implements OnInit {
         documentName = document.docName;
         this.offerLetterDocument = document;
       });
-      console.log('Document Name:', documentName);
       if (documentName === 'Educational Loan') {
         if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
@@ -370,6 +377,20 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.interestRate ?
               educationalOfferData.interestRate.ct : '';
+        }
+      }
+      if (documentName === 'Personal overdraft without collateral') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyInterestRate ?
+              educationalOfferData.yearlyInterestRate.ct : '';
+        }
+      }
+      if (documentName === 'Personal loan and personal overdraft') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.yearlyInterestRate ?
+              educationalOfferData.yearlyInterestRate.ct : '';
         }
       }
 

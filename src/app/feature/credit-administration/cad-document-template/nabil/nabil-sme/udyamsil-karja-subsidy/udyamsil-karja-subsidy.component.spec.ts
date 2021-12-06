@@ -10,7 +10,7 @@ describe('UdyamsilKarjaSubsidyComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ UdyamsilKarjaSubsidyComponent ]
     })
-    .compileComponents();
+        .compileComponents();
   }));
 
   beforeEach(() => {

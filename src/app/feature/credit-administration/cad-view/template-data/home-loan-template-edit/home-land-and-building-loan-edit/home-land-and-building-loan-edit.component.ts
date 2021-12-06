@@ -22,6 +22,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
   @Input() spinner;
   @Input() formValue: any;
   @Input() isTakeOver: boolean;
+  @Input() isPurchase: boolean;
   landBuildingForm: FormGroup;
   translateFormGroup: FormGroup;
   isLand = false;
@@ -309,6 +310,18 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
       this.landBuildingForm.get('nameOfBankCT').clearValidators();
       this.landBuildingForm.get('nameOfBankCT').updateValueAndValidity();
     }
+    if (!this.isBuilding) {
+      this.landBuildingForm.get('insuranceAmountInFigureCT').clearValidators();
+      this.landBuildingForm.get('insuranceAmountInFigureCT').updateValueAndValidity();
+      this.landBuildingForm.get('insuranceAmountInWordCT').clearValidators();
+      this.landBuildingForm.get('insuranceAmountInWordCT').updateValueAndValidity();
+    }
+    if (!this.isPurchase) {
+      this.changeValidation('purposeOfLoanCT', false);
+      this.changeValidation('beneficiaryNameCT', false);
+    } else {
+      this.changeValidation('beneficiaryNameCT', true);
+    }
     this.eventEmitter.emit(true);
   }
 
@@ -391,6 +404,15 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
           }
         }
     );
+  }
+
+  changeValidation(control, validate) {
+    if (validate) {
+      this.landBuildingForm.get(control).setValidators(Validators.required);
+    } else {
+      this.landBuildingForm.get(control).clearValidators();
+    }
+    this.landBuildingForm.get(control).updateValueAndValidity();
   }
 
   public setDefaultNepaliResponse(arrName, source, index, target): void {
