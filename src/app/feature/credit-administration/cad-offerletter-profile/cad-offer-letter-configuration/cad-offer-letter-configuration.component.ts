@@ -353,18 +353,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.loanDetails.getCadValue();
         this.customerCadInfoData.cadDocument = this.cadData;
         this.customerCadInfoData.customerInfo = JSON.stringify(this.userConfigForm.value);
-        this.service.saveCadData(this.customerCadInfoData).subscribe(res => {
-            this.customerInfoData = res.detail;
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
-            this.spinner = false;
-            this.router.reloadCadProfileRoute(this.cadData.id);
-            this.dialogRef.close(this.customerInfoData);
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
-            console.log(error);
-            this.spinner = false;
-            this.dialogRef.close();
-        });
+        if (!ObjectUtil.isEmpty(this.customerCadInfoData)) {
+            this.service.saveCadData(this.customerCadInfoData).subscribe(res => {
+                this.customerInfoData = res.detail;
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
+                this.spinner = false;
+                this.router.reloadCadProfileRoute(this.cadData.id);
+                this.dialogRef.close(this.customerInfoData);
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
+                console.log(error);
+                this.spinner = false;
+                this.dialogRef.close();
+            });
+        } else {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Loan Details is Required!!!'));
+        }
     }
 
     closeModal() {
@@ -392,7 +396,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addGuarantorField() {
         return this.formBuilder.group({
-            name: [undefined],
+            guarantorName: [undefined],
             guarantorAge: [undefined],
             issuedYear: [undefined],
             issuedPlace: [undefined],
@@ -464,7 +468,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
         guarantorDetails.forEach((value, i) => {
             formArray.push(this.formBuilder.group({
-                name: [value.name],
+                guarantorName: [value.guarantorName],
                 guarantorAge: [value.guarantorAge],
                 issuedYear: [value.issuedYear],
                 issuedPlace: [value.issuedPlace],
