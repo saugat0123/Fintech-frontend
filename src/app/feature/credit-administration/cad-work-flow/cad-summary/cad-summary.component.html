@@ -6,7 +6,15 @@
          [nbSpinner]="spinner">
     <nb-card-header>
         <strong>{{(cadOfferLetterApprovedDoc?.docStatus | replace:'_':' ')}}</strong>
-
+        <div class="float-right">
+            <button  nbButton size="small" status="primary" nbTooltip="Print"
+                     [useExistingCss]="true"
+                     printSectionId="helloWorld"
+                     ngxPrint
+                     *ngIf="approvedLoan"
+                     class="m-2 d-print-none">Print</button>
+        </div>
+        <app-cad-authority-laxmi [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc" hidden></app-cad-authority-laxmi>
     </nb-card-header>
     <nb-card-body>
         <nb-tabset>
