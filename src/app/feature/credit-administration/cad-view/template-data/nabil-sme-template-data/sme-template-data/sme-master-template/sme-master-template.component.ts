@@ -120,7 +120,7 @@ export class SmeMasterTemplateComponent implements OnInit {
       bridgeGapLoanForm: this.bridgeGapLoanComponent.bridgeGapLoan.value,
       termLoanForm: this.termLoanToOrForComponent.termLoanForm.value,
       mortgageEquityTermForm: this.mortgageOrEquityMortgageTermLoanComponent.mortgageEquityTermForm.value,
-      // autoLoanMasterForm: this.autoLoanMasterComponent.autoLoanMasterForm,
+      autoLoanMasterForm: this.autoLoanMasterComponent.autoLoanMasterForm.value,
       bankGuaranteeForm: this.bankGuaranteeComponent.bankGuarantee.value,
       billPurchaseForm: this.billPurchaseComponent.billPurchasecomponent.value,
     };
