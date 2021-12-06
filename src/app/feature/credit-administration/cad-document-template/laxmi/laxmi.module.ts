@@ -63,7 +63,9 @@ import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-lax
         ConsentOfHakwalaComponent,
         CorporateGuranteeComponent,
         ConsentOfHakwalaComponent,
-        MortgageDeedLaxmiComponent],
+        MortgageDeedLaxmiComponent,
+        HypothecationChargeOverFixedAssetsComponent,
+        OfferLetterLaxmiComponent],
     imports: [
         CommonModule,
         NbCardModule,

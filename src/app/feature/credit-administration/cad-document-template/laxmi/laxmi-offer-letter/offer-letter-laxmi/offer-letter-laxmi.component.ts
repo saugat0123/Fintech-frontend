@@ -15,6 +15,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {LoanType} from '../../../../../loan/model/loanType';
 
 @Component({
   selector: 'app-offer-letter-laxmi',
@@ -33,6 +34,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
   nepaliData;
   proposedAmount;
   customerInfo;
+  loanType;
+  loanTypes = LoanType;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -46,6 +49,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
               private nepaliNumber: NepaliNumberPipe) { }
 
   ngOnInit() {
+    console.log('this is cad data', this.cadData);
+    this.loanType = this.cadData.assignedLoan[0].loanType;
     this.buildForm();
   }
 
