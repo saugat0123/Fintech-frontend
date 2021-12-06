@@ -60,7 +60,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     customerInfoData: CustomerInfoData;
     component: any;
     offerLetterTypes = [];
-    excelOfferLetterTypes = [];
     client = environment.client;
     clientList = Clients;
     // todo move document upload to different to component
@@ -80,33 +79,19 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
 
     ngOnInit() {
+        console.log('client', this.client);
+        console.log('offer enum', LaxmiOfferLetterConst.enumObject());
+        this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
+        this.component = LaxmiOfferLetterComponent;
+
         this.initial();
         this.checkCadDocument();
         if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
             this.isRemit = true;
         }
-        switch (this.client) {
-            case this.clientList.LAXMI:
-                this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
-                this.offerLetterConst = LaxmiOfferLetterConst;
-                this.component = LaxmiOfferLetterComponent;
-                break;
-            case this.clientList.EXCEL:
-                this.offerLetterTypes = ExcelOfferLetterConst.enumObject();
-                this.offerLetterConst = ExcelOfferLetterConst;
-                this.component = ExcelOfferLetterComponent;
-                break;
-            case this.clientList.PROGRESSIVE:
-                this.offerLetterTypes = ProgressiveOfferLetterConst.enumObject();
-                this.offerLetterConst = ProgressiveOfferLetterConst;
-                this.component = ProgressiveOfferLetterComponent;
-                break;
-            case this.clientList.ICFC:
-                this.offerLetterTypes = IcfcOfferLetterConst.enumObject();
-                this.offerLetterConst = IcfcOfferLetterConst;
-                this.component = IcfcOfferLetterComponent;
-                break;
-        }
+        console.log('offer enum');
+        console.log('offer enum', LaxmiOfferLetterConst.enumObject());
+        this.offerLetterConst = LaxmiOfferLetterConst;
     }
 
     close() {
@@ -181,11 +166,13 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
     initial() {
+        console.log('offer letter approved doc', this.cadOfferLetterApprovedDoc);
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
     }
 
     openOfferLetterDocumentModal(offerLetterType) {
+        console.log('offer letter type', offerLetterType);
         if (ObjectUtil.isEmpty(offerLetterType)) {
             this.toastrService.show(new Alert(AlertType.WARNING, 'Please Select Offer letter type'));
             return;
@@ -195,6 +182,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         if (isNaN(offerLetterType)) {
             offerLetterType = this.offerLetterConst.keysEnum(offerLetterType);
         }
+        console.log('component', this.component);
         this.nbDialogService.open(this.component, {
             context: {offerLetterType, cadOfferLetterApprovedDoc}
         });
