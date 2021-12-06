@@ -216,42 +216,73 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     fillForm() {
-        this.form.patchValue({
-            // Irrevocable letter of credit facility
-            // SNOfParentLimitIrrevocable: [undefined],
-            loanAmountIrrevocable: this.loanAmount ? this.loanAmount : '',
-            loanAmountInWordIrrevocable: this.loanAmountInWord ? this.loanAmountInWord : '',
-            // tslint:disable-next-line:max-line-length
-            marginInPercentageIrrevocable: this.tempData.letterOfCreditForm.marginInPercentageCT ? this.tempData.letterOfCreditForm.marginInPercentageCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionRateIrrevocable: this.tempData.letterOfCreditForm.commissionRateCT ? this.tempData.letterOfCreditForm.commissionRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionAmountIrrevocable: this.tempData.letterOfCreditForm.minimumCommissionRateCT ? this.tempData.letterOfCreditForm.minimumCommissionRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionRateForFirstQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT ? this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionRateForOtherQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT ? this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT : '',
-            loanExpiryDateIrrevocable: this.tempData.letterOfCreditForm.dateOfExpiryCT ? this.tempData.letterOfCreditForm.dateOfExpiryCT : '',
-            // tslint:disable-next-line:max-line-length
-            // loanExpiryDateIrrevocable2:  this.tempData.letterOfCreditForm.loanAmountCT ? this.tempData.letterOfCreditForm.loanAmountCT : '' ,
-        });
-        this.timeLetterCreditForm();
-        this.importBillsDiscountForm();
-        this.importTrustForm();
-        this.revolvingShortTermForm();
-        this.demandLoanForm();
-        this.preExportForm();
-        this.documentaryBillPurchaseForm();
-        this.overdraftLoanForm();
-        this.equityMortgageForm();
-        this.overdraftFixedForm();
-        this.overDraftFacilityForm();
-        this.bridgeGapLoanForm();
-        this.bankGuaranteeForm();
-        this.billPurchaseForm();
+        if ( !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm)) {
+            this.form.patchValue({
+                // Irrevocable letter of credit facility
+                // SNOfParentLimitIrrevocable: [undefined],
+                loanAmountIrrevocable: this.loanAmount ? this.loanAmount : '',
+                loanAmountInWordIrrevocable: this.loanAmountInWord ? this.loanAmountInWord : '',
+                // tslint:disable-next-line:max-line-length
+                marginInPercentageIrrevocable: this.tempData.letterOfCreditForm.marginInPercentageCT ? this.tempData.letterOfCreditForm.marginInPercentageCT : '',
+                // tslint:disable-next-line:max-line-length
+                commissionRateIrrevocable: this.tempData.letterOfCreditForm.commissionRateCT ? this.tempData.letterOfCreditForm.commissionRateCT : '',
+                // tslint:disable-next-line:max-line-length
+                commissionAmountIrrevocable: this.tempData.letterOfCreditForm.minimumCommissionRateCT ? this.tempData.letterOfCreditForm.minimumCommissionRateCT : '',
+                // tslint:disable-next-line:max-line-length
+                commissionRateForFirstQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT ? this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT : '',
+                // tslint:disable-next-line:max-line-length
+                commissionRateForOtherQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT ? this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT : '',
+                // tslint:disable-next-line:max-line-length
+                loanExpiryDateIrrevocable: this.tempData.letterOfCreditForm.dateOfExpiryCT ? this.tempData.letterOfCreditForm.dateOfExpiryCT : '',
+                // tslint:disable-next-line:max-line-length
+                // loanExpiryDateIrrevocable2:  this.tempData.letterOfCreditForm.loanAmountCT ? this.tempData.letterOfCreditForm.loanAmountCT : '' ,
+            });
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
+            this.timeLetterCreditFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
+            this.importBillsDiscountFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.importTrustForm)) {
+            this.importTrustFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.revolvingShortTermForm)) {
+            this.revolvingShortTermFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.demandLoanForm)) {
+            this.demandLoanFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.preExportForm)) {
+            this.preExportFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchaseForm)) {
+            this.documentaryBillPurchaseFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.overdraftLoanForm)) {
+            this.overdraftLoanFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.equityMortgageForm)) {
+            this.equityMortgageFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
+            this.overdraftFixedFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm)) {
+            this.overDraftFacilityFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.bridgeGapLoanForm)) {
+            this.bridgeGapLoanFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.bankGuaranteeForm)) {
+            this.bankGuaranteeFormPatchValue();
+        }
+        if ( !ObjectUtil.isEmpty(this.tempData.billPurchaseForm)) {
+            this.billPurchaseFormPatchValue();
+        }
     }
 
-    timeLetterCreditForm() {
+    timeLetterCreditFormPatchValue() {
         this.form.patchValue({
             // Customer Acceptance for Time Letter of Credit
             // SNOfParentLimitTimeLetter: [undefined],
@@ -266,10 +297,10 @@ export class Section2LoanTypeComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             loanExpiryDateTimeLetter: this.tempData.timeLetterCreditForm.dateOfExpiryCT ? this.tempData.timeLetterCreditForm.dateOfExpiryCT : '',
             // tslint:disable-next-line:max-line-length
-            // loanExpiryDateTimeLetter2: this.tempData.timeLetterCreditForm.loanAmountCT ? this.tempData.timeLetterCreditForm.loanAmountCT : '',
+            // loanExpiryDateTimeLetter2: this.tempData.timeLetterCreditForm.loanAmount ? this.tempData.timeLetterCreditForm.loanAmountCT : '',
         });
     }
-    importBillsDiscountForm() {
+    importBillsDiscountFormPatchValue() {
         this.form.patchValue({
             // Import Bills Discounting
             // tslint:disable-next-line:max-line-length
@@ -287,7 +318,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    importTrustForm() {
+    importTrustFormPatchValue() {
         this.form.patchValue({
             // Import Loan/ Trust Receipt Loan
             loanDaysLoanTrust: this.tempData.importTrustForm.loanPeriodCT ? this.tempData.importTrustForm.loanPeriodCT : '',
@@ -306,7 +337,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    revolvingShortTermForm() {
+    revolvingShortTermFormPatchValue() {
         this.form.patchValue({
             // Revolving/One off basis Short Term Loan
             // tslint:disable-next-line:max-line-length
@@ -336,7 +367,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    demandLoanForm() {
+    demandLoanFormPatchValue() {
         this.form.patchValue({
             // Demand Loan for working capital
             SNOfParentLimitDemandLoan: [undefined],
@@ -352,7 +383,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    preExportForm() {
+    preExportFormPatchValue() {
         this.form.patchValue({
             // Pre-Export Loan
             // SNOfParentLimitPreExport: [undefined],
@@ -366,7 +397,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    documentaryBillPurchaseForm() {
+    documentaryBillPurchaseFormPatchValue() {
         this.form.patchValue({
             // Documentary Bill Purchase/Negotiation
             // SNOfParentLimitDocumentaryBill: [undefined],
@@ -383,7 +414,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    overdraftLoanForm() {
+    overdraftLoanFormPatchValue() {
         this.form.patchValue({
             // Overdraft Loan for Working Capital requirement
             loanAmountOverdraftLoan:  this.loanAmount ? this.loanAmount : '',
@@ -399,7 +430,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    equityMortgageForm() {
+    equityMortgageFormPatchValue() {
         this.form.patchValue({
             // Mortgage Overdraft/ Other Overdraft/ Equity Mortgaged Overdraft
             loanAmountMortgageOverdraft:  this.loanAmount ? this.loanAmount : '',
@@ -417,7 +448,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    overdraftFixedForm() {
+    overdraftFixedFormPatchValue() {
         this.form.patchValue({
             // Overdraft Facility against Fixed Deposit/ Lien on Deposit Account
             // tslint:disable-next-line:max-line-length
@@ -452,7 +483,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    overDraftFacilityForm() {
+    overDraftFacilityFormPatchValue() {
         this.form.patchValue({
             // Overdraft Facility against Bond
             // tslint:disable-next-line:max-line-length
@@ -476,7 +507,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    bridgeGapLoanForm() {
+    bridgeGapLoanFormPatchValue() {
         this.form.patchValue({
             // Bridge Gap Loan
             // SNOfParentLimitBridgeGap: [undefined],
@@ -490,7 +521,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    bankGuaranteeForm() {
+    bankGuaranteeFormPatchValue() {
         this.form.patchValue({
             // Bank Guarantee
             // SNOfParentLimitBankGuarantee: [undefined],
@@ -516,7 +547,7 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    billPurchaseForm() {
+    billPurchaseFormPatchValue() {
         this.form.patchValue({
             // Bills Purchase
             // SNOfParentLimitBillsPurchase: [undefined],
