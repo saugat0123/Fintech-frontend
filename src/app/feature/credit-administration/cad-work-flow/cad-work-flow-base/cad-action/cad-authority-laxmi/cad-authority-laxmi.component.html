@@ -1,0 +1,37 @@
+<div class="col-lg-12 viewFull text-justify" id="helloWorld">
+    <div class="col-lg-12 card">
+        <div class="col-lg-6">
+            <p><b>Name</b>: {{loanData?.customerName}}</p>
+        </div>
+        <div class="col-lg-6">
+            <p><b>Contact Number</b>: {{loanData?.contactNo}}</p>
+        </div>
+        <hr>
+    </div>
+    <div class="col-lg-12 card">
+        <div class="col-lg-6">
+            <p><b>DOB</b>: {{loanData?.dob}}</p>
+        </div>
+        
+        <div class="col-lg-6">
+            <p><b>Citizenship No</b>: {{loanData?.citizenshipNumber}}</p>
+        </div>
+        <hr>
+    </div>
+    <div class="col-lg-12 card">
+        <div class="col-lg-6">
+            <p><b>Issued Date</b>: {{loanData?.citizenshipIssuedDate}}</p>
+        </div>
+        
+        <div class="col-lg-6">
+            <p><b>Email</b>: {{loanData?.email}}</p>
+        </div>
+        <hr>
+    </div>
+    <div class="col-lg-12 card">
+        <div class="col-lg-6">
+            <p><b>Approved By</b>: {{cadOfferLetterApprovedDoc.cadCurrentStage.toUser.name}}</p>
+        </div>
+    </div>
+    <app-comment [cadData]="cadOfferLetterApprovedDoc"></app-comment>
+</div>
