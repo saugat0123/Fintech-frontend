@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
     selector: 'app-auto-loan',
@@ -7,6 +8,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
     styleUrls: ['./auto-loan.component.scss']
 })
 export class AutoLoanComponent implements OnInit {
+    @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     form: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
