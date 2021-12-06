@@ -87,13 +87,13 @@ export class OfferLetterPersonalComponent implements OnInit {
             allGuarantors = allGuarantors.slice(0, -2);
             allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');
             const customerAddress =
-                this.nepaliData.permanentMunicipality + ' j8f g+= ' +
+                this.nepaliData.permanentMunicipalities.nepaliName + ' j8f g+= ' +
                 this.nepaliData.permanentWard + ' , ' +
-                this.nepaliData.permanentDistrict;
+                this.nepaliData.permanentDistrict.nepaliName;
             const customerTempAddress =
-                this.nepaliData.temporaryMunicipality + ' j8f g+= ' +
+                this.nepaliData.temporaryMunicipalities.nepaliName + ' j8f g+= ' +
                 this.nepaliData.temporaryWard + ' , ' +
-                this.nepaliData.temporaryDistrict;
+                this.nepaliData.temporaryDistrict.nepaliName;
             this.form.patchValue({
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
                 customerAddress: customerAddress ? customerAddress : '',
@@ -109,7 +109,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 temporaryMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
                 temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
                 temporaryDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
-                shreeName1: allGuarantors ? allGuarantors : '',
+                guarantorName: allGuarantors ? allGuarantors : '',
                 financeBranch: this.nepaliData.branchName ? this.nepaliData.branchName : '',
                 financeMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
                 financeWardNum: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
@@ -126,8 +126,8 @@ export class OfferLetterPersonalComponent implements OnInit {
                 amount3: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
                 amountInWords3: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : ''
             });
-            /*this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
-            this.setSecurityDetails(this.nepaliData.collateralDetails);*/
+            this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
+            this.setSecurityDetails(this.nepaliData.collateralDetails);
         }
 
         this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
@@ -162,11 +162,12 @@ export class OfferLetterPersonalComponent implements OnInit {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
-            this.fillForm();
-            this.setEmptyGuarantors(initialInfo.guarantorDetails);
-            this.setSecurityDetails(initialInfo.securityDetails);
-            this.setLoanFacility(initialInfo.loanFacilityTable);
             this.form.patchValue(initialInfo);
+            this.fillForm();
+/*            this.setEmptyGuarantors(initialInfo.guarantorDetails);
+            this.setSecurityDetails(initialInfo.securityDetails);*/
+            this.setLoanFacility(initialInfo.loanFacilityTable);
+            // this.form.patchValue(initialInfo);
         }
     }
 
@@ -385,10 +386,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             distressValue: [undefined],
             dhitoLekhi: [undefined],
 
-            shreeName1: [undefined],
-            shreeAmount: [undefined],
-            shreeAmountInWord: [undefined],
-
+            guarantorName: [undefined],
             amount2: [undefined],
             amountInWords2: [undefined],
             amount3: [undefined],
@@ -398,20 +396,14 @@ export class OfferLetterPersonalComponent implements OnInit {
             financeWardNum: [undefined],
             financeDistrict: [undefined],
             financeTelephoneNum: [undefined],
-            financeTelephoneNum2: [undefined],
-            financeTelephoneNum3: [undefined],
             financeFaxNum: [undefined],
             financeEmail: [undefined],
             customerMunicipality: [undefined],
             customerWardNum: [undefined],
             customerDistrict: [undefined],
             customerTelephone: [undefined],
-            customerTelephone2: [undefined],
-            customerTelephone3: [undefined],
             customerFax: [undefined],
             customerEmail: [undefined],
-            akhtiyarName: [undefined],
-            akhtiyarContactNum: [undefined],
 
             employeeName: [undefined],
             employeeFinanceBranch: [undefined],
@@ -425,9 +417,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             signatoryCitizenshipNum: [undefined],
             signatoryCitizenshipIssueDate: [undefined],
             signatoryCitizenshipIssuePlace: [undefined],
-            akhtiyarName2: [undefined],
-            akhtiyarMunicipality2: [undefined],
-            akhtiyarWardNum2: [undefined],
+
             signatoryGrandParentName: [undefined],
             signatoryParentName: [undefined],
 
