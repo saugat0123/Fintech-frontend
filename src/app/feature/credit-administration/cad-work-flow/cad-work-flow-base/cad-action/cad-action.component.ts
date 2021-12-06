@@ -318,7 +318,7 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     approvedForwardBackward(template, val, returnToMaker) {
         console.log('template', template);
-        console.log('val', val);
+        console.log('doaction value', val);
         console.log(returnToMaker, returnToMaker);
         // if (!this.hasRequierdDocument) {
         //     this.toastService.show(new Alert(AlertType.WARNING, 'Please Generate Document Before Proceeding to next Stage'));
@@ -434,16 +434,11 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     public forwardBackwardDocStatusChange() {
         console.log('current status', this.currentStatus);
-        if (this.currentStatus === 'OFFER_APPROVED') {
-            return 'LEGAL_PENDING';
-        } else if (this.currentStatus === 'LEGAL_APPROVED') {
-            return 'LIMIT_PENDING';
-        } else if (this.currentStatus === 'LIMIT_APPROVED') {
+        if (this.currentStatus === 'OFFER_PENDING') {
             return 'DISBURSEMENT_PENDING';
         } else {
             return this.currentStatus;
         }
-
     }
 
     public backwardDocStatus() {
