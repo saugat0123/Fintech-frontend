@@ -117,6 +117,57 @@ export class SmeMasterTemplateComponent implements OnInit {
         if (v === LoanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY) {
             this.isIrrevocableLetter = true;
         }
+        if (v === LoanNameConstant.IMPORT_BILLS_DISCOUNTING) {
+          this.isBillDiscounting = true;
+        }
+        if (v === LoanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN) {
+          this.isLoanTrustReceiptLoan = true;
+        }
+        if (v === LoanNameConstant.SHORT_TERM_LOAN) {
+          this.isRevolvingShortTermLoan = true;
+        }
+        if (v === LoanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL) {
+          this.isDemandLoanWorkingCapital = true;
+        }
+        if (v === LoanNameConstant.PRE_EXPORT_LOAN) {
+          this.isPreExportLoan = true;
+        }
+        if (v === LoanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION) {
+          this.isDocumentaryBillPurchase = true;
+        }
+        if (v === LoanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT) {
+          this.isOverdraftLoanWorkingCapital = true;
+        }
+        if (v === LoanNameConstant.MORTGAGE_OVERDRAFT || v === LoanNameConstant.EQUITY_MORTGAGED_OVERDRAFT) {
+          this.isEquityMortgageOverdraft = true;
+        }
+        if (v === LoanNameConstant.OVERDRAFT_FACILITY_FIXED_DEPOSIT || v === LoanNameConstant.OVERDRAFT_FACILITY_LIEN_ON_DEPOSIT_ACCOUNT ||
+            v === LoanNameConstant.STL_AGAINST_FIXED_DEPOSIT || v === LoanNameConstant.STL_LIEN_ON_DEPOSIT_ACCOUNT ||
+            v === LoanNameConstant.DL_AGAINST_FIXED_DEPOSIT || v === LoanNameConstant.DL_LIEN_ON_DEPOSIT_ACCOUNT) {
+            this.isOverDraftFacilityFixedDeposit = true;
+        }
+        if (v === LoanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND || v === LoanNameConstant.STL_FACILITY_AGAINST_BOND ||
+            v === LoanNameConstant.DL_FACILITY_AGAINST_BOND) {
+            this.isOverdraftFacilityAgainstBond = true;
+        }
+        if (v === LoanNameConstant.BRIDGE_GAP_LOAN) {
+          this.isBridgeGapLoan = true;
+        }
+        if (v === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
+            this.isTermLoanToOrFor = true;
+        }
+        if (v === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
+          this.isEquityMortgageTermLoan = true;
+        }
+        if (v === LoanNameConstant.AUTO_LOAN) {
+          this.isAutoLoanMaster = true;
+        }
+        if (v === LoanNameConstant.BANK_GUARANTEE) {
+          this.isBankGuarantee = true;
+        }
+        if (v === LoanNameConstant.BILLS_PURCHASE) {
+          this.isBillPurchase = true;
+        }
       });
     }
   }
