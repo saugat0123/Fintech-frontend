@@ -832,10 +832,9 @@
                          class="form-group" formArrayName="guarantorDetails">
                         <div [formGroupName]="i">
                             <div class="row">
-                                <div class="col"
-                                     *ngIf="client === clientList.PROGRESSIVE && customerInfo?.customerType === 'INDIVIDUAL'">>
+                                <div class="col">
                                     <div class="form-group">
-                                        <label class="title">ग्यारेन्टरको नाम</label>
+                                        <label class="title" for="guarantorName">ग्यारेन्टरको नाम</label>
                                         <input [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorName.errors}"
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorName"
@@ -847,7 +846,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title">ग्यारेन्टरको उमेर</label>
+                                        <label class="title" for="guarantorAge">ग्यारेन्टरको उमेर</label>
                                         <input [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorAge.errors}"
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorAge"
@@ -859,7 +858,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title">नगरिकता नम्बर</label>
+                                        <label class="title" for="guarantorCitizenshipNum">नगरिकता नम्बर</label>
                                         <input [ngClass]="{'is-invalid': submitted && basicInfoControls.citizenNumber.errors}"
                                                class="form-control rounded nepaliFont"
                                                formControlName="citizenNumber"
