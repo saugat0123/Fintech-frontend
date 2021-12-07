@@ -55,9 +55,9 @@
                             </p>
                         </div>
                     </div>
-                    <h6 class="text-center">
-                        <u><strong>व्यक्तिगत तथा गोप्य</strong></u>
-                    </h6>
+                    <h1 class="text-center uniFont">
+                        <u><strong><em>व्यक्तिगत तथा गोप्य</em></strong></u>
+                    </h1>
                     <div style="margin-top:20px">
                         <h5 class="text-center">
                             <u><strong>विषय : कर्जा/सुबिधा स्वीकृती पत्र ।</strong></u>
@@ -226,7 +226,7 @@
                                     /–
                                 </td>
                             </tr>
-                            <tr class="page-break">
+                            <tr>
                                 <td><strong> व्याज किस्ता तिर्ने</strong></td>
                                 <td>
                                     <span [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.interestInstallmentPaymentFrequency !== null && loanFacilityData?.interestInstallmentPaymentFrequency !== ''}">
@@ -856,7 +856,7 @@
                             </tr>
                         </table>
                         <br>
-                        <div *ngIf="printDocForm?.loanFacilityTable.length === 1" class="page-break"></div>
+                        <div *ngIf="printDocForm?.loanFacilityTable.length === 1"></div>
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table text-center table-bordered">
