@@ -6,7 +6,7 @@
              formArrayName="securityDetails">
             <ng-container [formGroupName]="i">
                 <div class="row d-flex justify-content-between m-1">
-                    <h6><u> {{i + 1}}. PRIMARY SECURITY</u></h6>
+                    <h6> {{i + 1}}. ><u>PRIMARY SECURITY</u></h6>
                 </div>
                 <div class="row mb-4">
                     <div class="col-md-4 mb-2">
@@ -365,12 +365,6 @@
                                    status="success" type="text">
                         </div>
                     </div>
-                    <!--                    <div *ngIf="section1SecurityForm.get('securityDetails')['length'] > 1" class="col-md-12 text-right">-->
-                    <!--                        <button (click)="removeSecurityDetails(i)" nbButton size="small" status="danger"-->
-                    <!--                                style="position: static">-->
-                    <!--                            <em class="fa fa-trash" style="color: white;"></em>-->
-                    <!--                        </button>-->
-                    <!--                    </div>-->
                 </div>
 
                 <!-- FOR HYPOTHECATION SECTION -->
