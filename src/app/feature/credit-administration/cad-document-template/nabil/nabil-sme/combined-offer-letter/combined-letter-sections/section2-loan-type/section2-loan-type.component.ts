@@ -15,6 +15,7 @@ export class Section2LoanTypeComponent implements OnInit {
     tempData;
     loanAmount;
     loanAmountInWord;
+    freeTextVal: any = {};
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe
@@ -26,7 +27,7 @@ export class Section2LoanTypeComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
             this.loanAmount = String(this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal.proposedLimit);
-            this.loanAmountInWord = this.engToNepWord.transform( this.loanAmount);
+            this.loanAmountInWord = this.engToNepWord.transform(this.loanAmount);
             this.fillForm();
         }
     }
@@ -200,6 +201,7 @@ export class Section2LoanTypeComponent implements OnInit {
             commissionAmountBillsPurchase: [undefined],
             loanExpiryDateBillsPurchase: [undefined],
             // other Input Fields
+            freeTextVal: [undefined],
             SNOfFacility: [undefined],
             freeTextOne: [undefined],
             freeTextTwo: [undefined],
@@ -216,7 +218,7 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     fillForm() {
-        if ( !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.letterOfCreditForm)) {
             this.form.patchValue({
                 // Irrevocable letter of credit facility
                 // SNOfParentLimitIrrevocable: [undefined],
@@ -238,46 +240,46 @@ export class Section2LoanTypeComponent implements OnInit {
                 // loanExpiryDateIrrevocable2:  this.tempData.letterOfCreditForm.loanAmountCT ? this.tempData.letterOfCreditForm.loanAmountCT : '' ,
             });
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
             this.timeLetterCreditFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
             this.importBillsDiscountFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.importTrustForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.importTrustForm)) {
             this.importTrustFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.revolvingShortTermForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.revolvingShortTermForm)) {
             this.revolvingShortTermFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.demandLoanForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.demandLoanForm)) {
             this.demandLoanFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.preExportForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.preExportForm)) {
             this.preExportFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchaseForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.documentaryBillPurchaseForm)) {
             this.documentaryBillPurchaseFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.overdraftLoanForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.overdraftLoanForm)) {
             this.overdraftLoanFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.equityMortgageForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.equityMortgageForm)) {
             this.equityMortgageFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
             this.overdraftFixedFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm)) {
             this.overDraftFacilityFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.bridgeGapLoanForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.bridgeGapLoanForm)) {
             this.bridgeGapLoanFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.bankGuaranteeForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.bankGuaranteeForm)) {
             this.bankGuaranteeFormPatchValue();
         }
-        if ( !ObjectUtil.isEmpty(this.tempData.billPurchaseForm)) {
+        if (!ObjectUtil.isEmpty(this.tempData.billPurchaseForm)) {
             this.billPurchaseFormPatchValue();
         }
     }
@@ -300,6 +302,7 @@ export class Section2LoanTypeComponent implements OnInit {
             // loanExpiryDateTimeLetter2: this.tempData.timeLetterCreditForm.loanAmount ? this.tempData.timeLetterCreditForm.loanAmountCT : '',
         });
     }
+
     importBillsDiscountFormPatchValue() {
         this.form.patchValue({
             // Import Bills Discounting
@@ -324,7 +327,7 @@ export class Section2LoanTypeComponent implements OnInit {
             loanDaysLoanTrust: this.tempData.importTrustForm.loanPeriodCT ? this.tempData.importTrustForm.loanPeriodCT : '',
             loanDaysLoanTrustInEng: this.tempData.importTrustForm.loanPeriod ? this.tempData.importTrustForm.loanPeriod : '',
             // SNOfParentLimitLoanTrust: [undefined],
-            loanAmountLoanTrust:  this.loanAmount ? this.loanAmount : '',
+            loanAmountLoanTrust: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordLoanTrust: this.loanAmountInWord ? this.loanAmountInWord : '',
             drawingPowerLoanTrust: this.tempData.importTrustForm.drawingPowerCT ? this.tempData.importTrustForm.drawingPowerCT : '',
             baseRateLoanTrust: this.tempData.importTrustForm.baseRateCT ? this.tempData.importTrustForm.baseRateCT : '',
@@ -349,7 +352,7 @@ export class Section2LoanTypeComponent implements OnInit {
             loanMonthsShortTermLoan: this.tempData.revolvingShortTermForm.loanRevolvingPeriodCT ? this.tempData.revolvingShortTermForm.loanRevolvingPeriodCT : '',
             // tslint:disable-next-line:max-line-length
             loanMonthsShortTermLoanInEng: this.tempData.revolvingShortTermForm.loanRevolvingPeriod ? this.tempData.revolvingShortTermForm.loanRevolvingPeriod : '',
-            loanAmountShortTermLoan:  this.loanAmount ? this.loanAmount : '',
+            loanAmountShortTermLoan: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordShortTermLoan: this.loanAmountInWord ? this.loanAmountInWord : '',
             ARDaysShortTermLoan: this.tempData.revolvingShortTermForm.arDaysCT ? this.tempData.revolvingShortTermForm.arDaysCT : '',
             // tslint:disable-next-line:max-line-length
@@ -371,7 +374,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.form.patchValue({
             // Demand Loan for working capital
             SNOfParentLimitDemandLoan: [undefined],
-            loanAmountDemandLoan:  this.loanAmount ? this.loanAmount : '',
+            loanAmountDemandLoan: this.loanAmount ? this.loanAmount : '',
             LoanAmountInWordDemandLoan: this.loanAmountInWord ? this.loanAmountInWord : '',
             ARDaysDemandLoan: this.tempData.demandLoanForm.arDaysCT ? this.tempData.demandLoanForm.arDaysCT : '',
             drawingPowerDemandLoan: this.tempData.demandLoanForm.drawingPowerCT ? this.tempData.demandLoanForm.drawingPowerCT : '',
@@ -387,7 +390,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.form.patchValue({
             // Pre-Export Loan
             // SNOfParentLimitPreExport: [undefined],
-            loanAmountPreExport:  this.loanAmount ? this.loanAmount : '',
+            loanAmountPreExport: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordPreExport: this.loanAmountInWord ? this.loanAmountInWord : '',
             drawingPower1PreExport: this.tempData.preExportForm.drawingPowerCT ? this.tempData.preExportForm.drawingPowerCT : '',
             drawingPower2PreExport: this.tempData.preExportForm.drawingPowerCT ? this.tempData.preExportForm.drawingPowerCT : '',
@@ -401,7 +404,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.form.patchValue({
             // Documentary Bill Purchase/Negotiation
             // SNOfParentLimitDocumentaryBill: [undefined],
-            loanAmountDocumentaryBill:  this.loanAmount ? this.loanAmount : '',
+            loanAmountDocumentaryBill: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordDocumentaryBill: this.loanAmountInWord ? this.loanAmountInWord : '',
             // tslint:disable-next-line:max-line-length
             marginInPercentageDocumentaryBill: this.tempData.documentaryBillPurchaseForm.marginInPercentageCT ? this.tempData.documentaryBillPurchaseForm.marginInPercentageCT : '',
@@ -417,7 +420,7 @@ export class Section2LoanTypeComponent implements OnInit {
     overdraftLoanFormPatchValue() {
         this.form.patchValue({
             // Overdraft Loan for Working Capital requirement
-            loanAmountOverdraftLoan:  this.loanAmount ? this.loanAmount : '',
+            loanAmountOverdraftLoan: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordOverdraftLoan: this.loanAmountInWord ? this.loanAmountInWord : '',
             ARDaysOverdraftLoan: this.tempData.overdraftLoanForm.arDaysCT ? this.tempData.overdraftLoanForm.arDaysCT : '',
             drawingPowerOverdraftLoan: this.tempData.overdraftLoanForm.drawingPowerCT ? this.tempData.overdraftLoanForm.drawingPowerCT : '',
@@ -433,7 +436,7 @@ export class Section2LoanTypeComponent implements OnInit {
     equityMortgageFormPatchValue() {
         this.form.patchValue({
             // Mortgage Overdraft/ Other Overdraft/ Equity Mortgaged Overdraft
-            loanAmountMortgageOverdraft:  this.loanAmount ? this.loanAmount : '',
+            loanAmountMortgageOverdraft: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordMortgageOverdraft: this.loanAmountInWord ? this.loanAmountInWord : '',
             // tslint:disable-next-line:max-line-length
             drawingPowerMortgageOverdraft: this.tempData.equityMortgageForm.drawingPowerCT ? this.tempData.equityMortgageForm.drawingPowerCT : '',
@@ -455,7 +458,7 @@ export class Section2LoanTypeComponent implements OnInit {
             nameOfFacilityOverdraftFacility: this.tempData.overdraftFixedForm.nameOfFacilityCT ? this.tempData.overdraftFixedForm.nameOfFacilityCT : '',
             // tslint:disable-next-line:max-line-length
             nameOfFacilityOverdraftFacilityInEng: this.tempData.overdraftFixedForm.nameOfFacility ? this.tempData.overdraftFixedForm.nameOfFacility : '',
-            loanAmountOverdraftFacility:  this.loanAmount ? this.loanAmount : '',
+            loanAmountOverdraftFacility: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordOverdraftFacility: this.loanAmountInWord ? this.loanAmountInWord : '',
             // tslint:disable-next-line:max-line-length
             // nameOfFDHolderOverdraftFacility: this.tempData.overdraftFixedForm.fdHolderDetails ? this.tempData.overdraftFixedForm.nameOfFDHolderCT.fdHolderDetails[0].nameOfFDHolderCT : '',
@@ -490,7 +493,7 @@ export class Section2LoanTypeComponent implements OnInit {
             nameOfFacilityAgainstBond: this.tempData.overDraftFacilityForm.nameOfFacilityCT ? this.tempData.overDraftFacilityForm.nameOfFacilityCT : '',
             // tslint:disable-next-line:max-line-length
             nameOfFacilityAgainstBondInEng: this.tempData.overDraftFacilityForm.nameOfFacility ? this.tempData.overDraftFacilityForm.nameOfFacility : '',
-            loanAmountAgainstBond:  this.loanAmount ? this.loanAmount : '',
+            loanAmountAgainstBond: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordAgainstBond: this.loanAmountInWord ? this.loanAmountInWord : '',
             // tslint:disable-next-line:max-line-length
             // ownerNameAgainstBond: this.tempData.overDraftFacilityForm.bondDetails ? this.tempData.overDraftFacilityForm.bondDetails[0].bondOwnerNameCT : '',
@@ -511,7 +514,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.form.patchValue({
             // Bridge Gap Loan
             // SNOfParentLimitBridgeGap: [undefined],
-            loanAmountBridgeGap:  this.loanAmount ? this.loanAmount : '',
+            loanAmountBridgeGap: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordBridgeGap: this.loanAmountInWord ? this.loanAmountInWord : '',
             baseRateBridgeGap: this.tempData.bridgeGapLoanForm.baseRateCT ? this.tempData.bridgeGapLoanForm.baseRateCT : '',
             premiumRateBridgeGap: this.tempData.bridgeGapLoanForm.premiumRateCT ? this.tempData.bridgeGapLoanForm.premiumRateCT : '',
@@ -525,7 +528,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.form.patchValue({
             // Bank Guarantee
             // SNOfParentLimitBankGuarantee: [undefined],
-            loanAmountBankGuarantee:  this.loanAmount ? this.loanAmount : '',
+            loanAmountBankGuarantee: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordBankGuarantee: this.loanAmountInWord ? this.loanAmountInWord : '',
             // tslint:disable-next-line:max-line-length
             nameOfBankBankGuarantee: this.tempData.bankGuaranteeForm.nameOfHoldingBankCT ? this.tempData.bankGuaranteeForm.nameOfHoldingBankCT : '',
@@ -551,7 +554,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.form.patchValue({
             // Bills Purchase
             // SNOfParentLimitBillsPurchase: [undefined],
-            loanAmountBillsPurchase:  this.loanAmount ? this.loanAmount : '',
+            loanAmountBillsPurchase: this.loanAmount ? this.loanAmount : '',
             loanAmountInWordBillsPurchase: this.loanAmountInWord ? this.loanAmountInWord : '',
             // tslint:disable-next-line:max-line-length
             marginInPercentageBillsPurchase: this.tempData.billPurchaseForm.marginInPercentageCT ? this.tempData.billPurchaseForm.marginInPercentageCT : '',
@@ -561,4 +564,21 @@ export class Section2LoanTypeComponent implements OnInit {
             loanExpiryDateBillsPurchase: this.tempData.billPurchaseForm.dateOfExpiryCT ? this.tempData.billPurchaseForm.dateOfExpiryCT : '',
         });
     }
+
+   /* setTextAreaValue() {
+        this.freeTextVal = {
+            SNOfFacility: this.form.get('SNOfFacility').value,
+            freeTextOne: this.form.get('freeTextOne').value,
+            freeTextTwo: this.form.get('freeTextTwo').value,
+            freeTextThree: this.form.get('freeTextThree').value,
+            freeTextFour: this.form.get('freeTextFour').value,
+            freeTextFive: this.form.get('freeTextFive').value,
+            freeTextSix: this.form.get('freeTextSix').value,
+            freeTextSeven: this.form.get('freeTextSeven').value,
+            freeTextEight: this.form.get('freeTextEight').value,
+            freeTextNine: this.form.get('freeTextNine').value,
+            freeTextFifteen: this.form.get('freeTextFifteen').value,
+            freeTextSixteen: this.form.get('freeTextSixteen').value,
+        };
+    }*/
 }
