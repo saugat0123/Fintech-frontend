@@ -9,11 +9,11 @@
         <app-common-section-top></app-common-section-top>
         <!-- TODO PASS THE CONTEXT / DATA BASED ON THE SECTION REQUIREMENTS -->
         <!-- CALLING EACH SECTION -->
-        <app-section1-introduction [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section1-introduction>
+        <app-section1-introduction #section1 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section1-introduction>
 
-        <app-section2-loan-type [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section2-loan-type>
+        <app-section2-loan-type #section2 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section2-loan-type>
 
-        <app-section3-security-and-collateral [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section3-security-and-collateral>
+        <app-section3-security-and-collateral #section3 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section3-security-and-collateral>
 
 
         <app-section4-loan-limit [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section4-loan-limit>
@@ -29,9 +29,9 @@
 
         <app-section8-insurance-clause></app-section8-insurance-clause>
 
-        <app-section9-other-clause></app-section9-other-clause>
+        <app-section9-other-clause #section9></app-section9-other-clause>
 
-        <app-section10-security-documents [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section10-security-documents>
+        <app-section10-security-documents #section10 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section10-security-documents>
 
         <!--common section BOTTOM-->
        <app-common-section-bottom></app-common-section-bottom>
@@ -42,9 +42,11 @@
             <button nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
                     ngxPrint printSectionId="{{offerLetterConst.COMBINED_LETTER}}">Print
             </button>
-            <!--<button nbButton status="success" class="disable-print" (click)="submit()">Save</button>-->
+            <button nbButton status="success" (click)="onSubmit()">Save</button>
         </div>
     </nb-card-footer>
 </nb-card>
 
-<app-combined-offer-letter-print hidden></app-combined-offer-letter-print>
+<app-combined-offer-letter-print hidden
+[customerApprovedDoc]="customerApprovedDoc"
+></app-combined-offer-letter-print>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-section2-loan-type-print',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./section2-loan-type-print.component.scss']
 })
 export class Section2LoanTypePrintComponent implements OnInit {
+  @Input() letterData;
+  @Input() customerApprovedDoc;
+  @Input() freeText;
 
   constructor() { }
 

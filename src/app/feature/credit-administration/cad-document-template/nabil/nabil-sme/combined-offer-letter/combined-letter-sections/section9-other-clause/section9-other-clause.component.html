@@ -1,4 +1,4 @@
-<div class="section9">
+<div class="section9" [formGroup]="form">
     <strong>बित्तीय शर्तहरु </strong><br>
     <div class="row">
         <div class="col-sm-12">
@@ -124,6 +124,15 @@
                         बैंकको लिखित सहमति बेगर ऋणी फर्म/कम्पनीको स्वामित्व, शेयर संरचनामा परिवर्तन, शेयर विक्रि वा
                         नामसारी गर्न पाईने छैन र बैंकको सहमति बेगर स्वामित्व संरचनामा परिवर्तन वा नामसारी गरेमा यस
                         ऋण सुविधा स्वीकृति पत्रको उल्लंघन भएको मानिनेछ ।
+                    </li>
+                    <li>
+                        <textarea
+                                class="form-control nepaliFont"
+                                rows="5"
+                                style="width:95%;margin-left:2%"
+                                name="freeText1"
+                                formControlName="freeText1">
+                        </textarea>
                     </li>
                 </ol>
             </div>
