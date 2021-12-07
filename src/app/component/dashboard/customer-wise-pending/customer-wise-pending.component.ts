@@ -387,7 +387,6 @@ export class CustomerWisePendingComponent implements OnInit {
     pendingLoanProposedLimit() {
         const userId = LocalStorageUtil.getStorage().userId;
         this.loanFormService.getPendingLoanProposedLimit(userId).subscribe((res: any) => {
-            console.log('res', res.detail);
             this.proposalLimit = res.detail;
         });
     }
