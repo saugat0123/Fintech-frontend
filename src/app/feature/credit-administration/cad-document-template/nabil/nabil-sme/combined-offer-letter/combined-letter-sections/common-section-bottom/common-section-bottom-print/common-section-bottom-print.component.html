@@ -8,36 +8,41 @@
 
     <div class="col-md-12 d-flex justify-content-between">
         <div class="right-content">
-            <br>
-            <br>
-            ............................
-            <br>
-            <!--<span
-           [ngClass]="{'outside' : letter?.samparkaAdhikrit.ct !== null && letter?.samparkaAdhikrit.ct !== ''}">
-            {{letter?.samparkaAdhikrit.ct === null || letter?.samparkaAdhikrit.ct === '' ? '___________' : letter?.samparkaAdhikrit.ct}}</span>-->
-            <span>_____________</span>
-            <br>
-            नबिल बैंक लि.<br>
-            <!--<span
-           [ngClass]="{'outside' : letter?.branchName.ct !== null && letter?.branchName.ct !== ''}">
-            {{letter?.branchName.ct === null || letter?.branchName.ct === '' ? '___________' : letter?.branchName.ct}}</span>-->
-            <span>_____________</span>
-            शाखा<br>
+
+            .........................................
+            <p>
+                        <span [ngClass]="{'font-weight-bold': letter?.smeGlobalForm.nameOfRelationshipManagerCT !== null && letter?.smeGlobalForm.nameOfRelationshipManagerCT !== ''}">
+                                {{letter?.smeGlobalForm.nameOfRelationshipManagerCT === null || letter?.smeGlobalForm.nameOfRelationshipManagerCT === "" ? "___________" : letter?.smeGlobalForm.nameOfRelationshipManagerCT}}
+                        </span>
+                <br>
+                <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.position : 'सम्पर्क अधिकृत'}}</span>
+                <br>
+                नबिल बैंक लि.
+                <br>
+                <span>
+                            {{branchName}}
+                        </span>
+                शाखा
+            </p>
         </div>
+
         <div class="left-content">
-            <br>
-            <br>
-            ............................
-            <br>
-            <!--<span
-           [ngClass]="{'outside' : letter?.samparkaPrabandhak.ct !== null && letter?.samparkaPrabandhak.ct !== ''}">
-            {{letter?.samparkaPrabandhak.ct === null || letter?.samparkaPrabandhak.ct === '' ? '___________' : letter?.samparkaPrabandhak.ct}}</span>-->
-            <span>_____________</span><br>
-            नबिल बैंक लि.<br>
-            <!--<span
-           [ngClass]="{'outside' : letter?.branchName.ct !== null && letter?.branchName.ct !== ''}">
-            {{letter?.branchName.ct === null || letter?.branchName.ct === '' ? '___________' : letter?.branchName.ct}}</span>-->
-            <span>_____________</span>शाखा<br>
+
+            .........................................
+            <p>
+                        <span [ngClass]="{'font-weight-bold': letter?.smeGlobalForm.nameOfBranchManagerCT !== null && letter?.smeGlobalForm.nameOfBranchManagerCT !== ''}">
+                                {{letter?.smeGlobalForm.nameOfBranchManagerCT === null || letter?.smeGlobalForm.nameOfBranchManagerCT === "" ? "___________" : letter?.smeGlobalForm.nameOfBranchManagerCT}}
+                        </span>
+                <br>
+                <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.position2 : 'सम्पर्क अधिकृत'}}</span>
+                <br>
+                नबिल बैंक लि.
+                <br>
+                <span>
+                            {{branchName}}
+                        </span>
+                शाखा
+            </p>
         </div>
     </div>
     <hr>

@@ -9,34 +9,53 @@
 
         <div class="col-md-12 d-flex justify-content-between">
             <div class="right-content">
-                <br>
-                <br>
-                &nbsp; ............................
-                <br>
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="samparkaAdhikrit"
-                       placeholder=""
-                       type="text"/><br>
-                &nbsp; नबिल बैंक लि.<br>
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="branchName"
-                       placeholder=""
-                       type="text"/> शाखा<br>
+
+                .........................................
+                <p>
+                    <input class="form-field form-control-sm"
+                           formControlName="nameOfARO_RO_RM_ARM"
+                           name="nameOfARO_RO_RM_ARM"
+                           style="width: 200px"
+                           type="text"/>
+                    <br>
+                    <input class="form-field form-control-sm nepaliFont"
+                           formControlName="position"
+                           [value]="position"
+                           type="text"/>
+                    <br>
+                    नबिल बैंक लि. <br>
+                    <input class="form-field form-control-sm"
+                           formControlName="branchName"
+                           name="branchName"
+                           style="width: 200px"
+                           type="text"/>
+                    शाखा
+                </p>
             </div>
+
             <div class="left-content">
-                <br>
-                <br>
-                &nbsp; ............................
-                <br>
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="samparkaPrabandhak"
-                       placeholder=""
-                       type="text"/><br>
-                &nbsp; नबिल बैंक लि.<br>
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="branchName"
-                       placeholder=""
-                       type="text"/> शाखा<br>
+
+                .........................................
+                <p>
+                    <input class="form-field form-control-sm"
+                           formControlName="nameOfBranchManager"
+                           name="nameOfBranchManager"
+                           style="width: 200px"
+                           type="text"/>
+                    <br>
+                    <input class="form-field form-control-sm nepaliFont"
+                           formControlName="position1"
+                           [value]="position1"
+                           type="text"/>
+                    <br>
+                    नबिल बैंक लि. <br>
+                    <input class="form-field form-control-sm"
+                           formControlName="branchName"
+                           name="branchName"
+                           style="width: 200px"
+                           type="text"/>
+                    शाखा
+                </p>
             </div>
         </div>
         <hr>
@@ -144,3 +163,5 @@
         </div>
     </form>
 </div>
+<app-common-section-bottom-print [letter]="initialInfoPrint"
+                                 [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
