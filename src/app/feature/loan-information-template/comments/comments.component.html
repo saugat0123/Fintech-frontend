@@ -2,16 +2,133 @@
     <nb-card-body>
         <form [formGroup]="commentsAccordionFormGroup">
             <div class="row">
-                <div class="col-md-12 form-group">
-                    <label for="previousComments"><b>Previous Approving Comments</b></label>
-                    <textarea rows="4" class="form-control" formControlName="previousComments"
-                              id="previousComments" placeholder="Previous Approving Comments"></textarea>
-                </div>
-                <div class="col-md-12 form-group">
-                    <label for="auditorComments"><b>Auditor Comments</b></label>
-                    <textarea rows="4" class="form-control" formControlName="auditorComments"
-                              id="auditorComments" placeholder="Auditor Comments"></textarea>
-                </div>
+                <table class="table table-bordered table-hover text-center sb-small table-sm">
+                    <thead class="sb-bg-dark text-white">
+                    <tr>
+                        <td colspan="4">Previous Approving Comments</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="sb-bg-dark text-white">
+                        <td>NRB Comments in last two financial year</td>
+                        <td>Fiscal Year                                 </td>
+                        <td>Comment Details</td>
+                        <td>Response/Planned corrective action</td>
+                    </tr>
+                    <tr *ngIf="!view">
+                        <td></td>
+                        <td><input class="form-control disable-print" formControlName="nrbFiscalYear"  nbInput
+                                   placeholder="Fiscal Year" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="nrbCommentDetails"  nbInput
+                                   placeholder="Comment Details" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="nrbCorrectiveAction"  nbInput
+                                   placeholder="Response/Planned corrective action" type="text"></td>
+                    </tr>
+                    <tr *ngIf="view">
+                        <td></td>
+                        <td>{{data?.nrbFiscalYear}}</td>
+                        <td>{{data?.nrbCommentDetails}}</td>
+                        <td>{{data?.nrbCorrectiveAction}}</td>
+                    </tr>
+                    <tr *ngIf="!view">
+                        <td></td>
+                        <td><input class="form-control disable-print" formControlName="nrbFiscalYearTwo"  nbInput
+                                   placeholder="Fiscal Year" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="nrbCommentDetailsTwo"  nbInput
+                                   placeholder="Comment Details" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="nrbCorrectiveActionTwo"  nbInput
+                                   placeholder="Response/Planned corrective action" type="text"></td>
+                    </tr>
+                    <tr *ngIf="view">
+                        <td></td>
+                        <td>{{data?.nrbFiscalYearTwo}}</td>
+                        <td>{{data?.nrbCommentDetailsTwo}}</td>
+                        <td>{{data?.nrbCorrectiveActionTwo}}</td>
+                    </tr>
+                    <tr class="sb-bg-dark text-white">
+                        <td>External Audit Comments in last two financial year</td>
+                        <td>Fiscal Year</td>
+                        <td>Comment Details</td>
+                        <td>Response/Planned corrective action</td>
+                    </tr>
+                    <tr *ngIf="!view">
+                        <td></td>
+                        <td><input class="form-control disable-print" formControlName="externalFiscalYear"  nbInput
+                                   placeholder="Fiscal Year" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="externalCommentDetails"  nbInput
+                                   placeholder="Comment Details" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="externalCorrectiveAction"  nbInput
+                                   placeholder="Response/Planned corrective action" type="text"></td>
+                    </tr>
+                    <tr *ngIf="view">
+                        <td></td>
+                        <td>{{data?.externalFiscalYear}}</td>
+                        <td>{{data?.externalCommentDetails}}</td>
+                        <td>{{data?.externalCorrectiveAction}}</td>
+                    </tr>
+                    <tr *ngIf="!view">
+                        <td></td>
+                        <td><input class="form-control disable-print" formControlName="externalFiscalYearTwo"  nbInput
+                                   placeholder="Fiscal Year" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="externalCommentDetailsTwo"  nbInput
+                                   placeholder="Comment Details" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="externalCorrectiveActionTwo"  nbInput
+                                   placeholder="Response/Planned corrective action" type="text"></td>
+                    </tr>
+                    <tr *ngIf="view">
+                        <td></td>
+                        <td>{{data?.externalFiscalYearTwo}}</td>
+                        <td>{{data?.externalCommentDetailsTwo}}</td>
+                        <td>{{data?.externalCorrectiveActionTwo}}</td>
+                    </tr>
+                    <tr class="sb-bg-dark text-white">
+                        <td>Internal Audit Comments in last two financial year</td>
+                        <td>Fiscal Year</td>
+                        <td>Comment Details</td>
+                        <td>Response/Planned corrective action</td>
+                    </tr>
+                    <tr *ngIf="!view">
+                        <td></td>
+                        <td><input class="form-control disable-print" formControlName="internalFiscalYear"  nbInput
+                                   placeholder="Fiscal Year" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="internalCommentDetails"  nbInput
+                                   placeholder="Comment Details" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="internalCorrectiveAction"  nbInput
+                                   placeholder="Response/Planned corrective action" type="text"></td>
+                    </tr>
+                    <tr *ngIf="view">
+                        <td></td>
+                        <td>{{data?.internalFiscalYear}}</td>
+                        <td>{{data?.internalCommentDetails}}</td>
+                        <td>{{data?.internalCorrectiveAction}}</td>
+                    </tr>
+                    <tr *ngIf="!view">
+                        <td></td>
+                        <td><input class="form-control disable-print" formControlName="internalFiscalYearTwo"  nbInput
+                                   placeholder="Fiscal Year" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="internalCommentDetailsTwo"  nbInput
+                                   placeholder="Comment Details" type="text"></td>
+                        <td><input class="form-control disable-print" formControlName="internalCorrectiveActionTwo"  nbInput
+                                   placeholder="Response/Planned corrective action" type="text"></td>
+                    </tr>
+                    <tr *ngIf="view">
+                        <td></td>
+                        <td>{{data?.internalFiscalYearTwo}}</td>
+                        <td>{{data?.internalCommentDetailsTwo}}</td>
+                        <td>{{data?.internalCorrectiveActionTwo}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+<!--                <div class="col-md-12 form-group">-->
+<!--                    <label for="previousComments"><b>Previous Approving Comments</b></label>-->
+<!--                    <textarea rows="4" class="form-control disable-print" formControlName="previousComments"-->
+<!--                              id="previousComments" placeholder="Previous Approving Comments"></textarea>-->
+<!--                </div>-->
+<!--                <div class="col-md-12 form-group">-->
+<!--                    <label for="auditorComments"><b>Auditor Comments</b></label>-->
+<!--                    <textarea rows="4" class="form-control disable-print" formControlName="auditorComments"-->
+<!--                              id="auditorComments" placeholder="Auditor Comments"></textarea>-->
+<!--                </div>-->
             </div>
         </form>
     </nb-card-body>

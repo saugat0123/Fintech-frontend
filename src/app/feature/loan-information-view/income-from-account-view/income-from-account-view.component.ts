@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {environment} from '../../../../environments/environment';
 
 @Component({
@@ -9,6 +8,7 @@ import {environment} from '../../../../environments/environment';
 })
 export class IncomeFromAccountViewComponent implements OnInit {
   @Input()  data;
+  @Input()  individual;
 
   // disableCrgAlpha and disableCrgLambda
   disabledLambda = environment.disableCrgLambda;
@@ -17,6 +17,9 @@ export class IncomeFromAccountViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (!this.individual) {
+      this.data.accountTransactionForm = JSON.parse(this.data.accountTransactionForm);
+    }
   }
 
 }

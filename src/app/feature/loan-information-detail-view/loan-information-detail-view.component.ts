@@ -19,6 +19,7 @@ import {CombinedLoan} from '../loan/model/combined-loan';
 import {CombinedLoanService} from '../service/combined-loan.service';
 import {Clients} from '../../../environments/Clients';
 import {SiteVisitDocument} from '../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -33,7 +34,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
     id;
     loanConfig: LoanConfig;
     loanDataHolder: LoanDataHolder;
-    spinner;
     loanCategory;
     client;
     clientList;
@@ -55,6 +55,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     isRemitLoan = false;
     isLoaded = false;
     siteVisitDocuments: Array<SiteVisitDocument>;
+    reviewDateData;
+    naChecked: boolean;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -63,6 +65,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 private fiscalYearService: FiscalYearService,
                 private toastService: ToastService,
                 private combinedLoanService: CombinedLoanService,
+                private spinner: NgxSpinnerService
     ) {
         this.client = environment.client;
         this.clientList = Clients;
@@ -71,6 +74,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
 
     ngOnInit() {
         this.loadSummary();
+        this.spinner.show();
         this.customerLoanService.detail(this.customerId).subscribe((response) => {
             this.loanDataHolder = response.detail;
             this.isLoaded = true;
@@ -101,6 +105,13 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 }
             }
 
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder)) {
+                if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reviewDate)) {
+                    this.reviewDateData = JSON.parse(this.loanDataHolder.loanHolder.reviewDate.data);
+                    this.naChecked = this.reviewDateData.checked;
+                }
+            }
+
             this.signatureList = this.getSignatureList(new Array<LoanStage>
             (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
             this.getAllLoans(this.loanHolder.id);
@@ -110,7 +121,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
                 this.isJointInfo = true;
             }
-
+            this.spinner.hide();
         });
         this.getFiscalYears();
 
@@ -144,7 +155,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     onBack() {
-        this.spinner = true;
+        this.spinner.show();
         window.history.back();
     }
 
@@ -257,8 +268,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     customSafePipe(val) {
-        if(val == null){
-            return "";
+        if (val == null) {
+            return '';
         }
         return val.replace(/(<([^>]+)>)/gi, '');
     }
