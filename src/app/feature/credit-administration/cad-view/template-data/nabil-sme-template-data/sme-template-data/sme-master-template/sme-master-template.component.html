@@ -56,7 +56,7 @@
     <app-bill-purchase #billPurchaseComponent [loanName]="loanData"></app-bill-purchase>
     </ng-container>
     <!-- Type of sme loan end here-->
-    <app-sme-security></app-sme-security>
+    <app-sme-security #masterSecurity></app-sme-security>
     <div class="row">
         <div class="col-md-12">
             <button class="d-flex float-right ml-1" nbButton status="primary" size="small" (click)="onSubmit()" [disabled]="disableBtn">Save</button>

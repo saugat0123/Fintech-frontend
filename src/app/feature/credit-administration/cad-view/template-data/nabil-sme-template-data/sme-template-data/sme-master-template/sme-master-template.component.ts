@@ -28,6 +28,7 @@ import {AutoLoanMasterComponent} from './sme-loan-type/auto-loan-master/auto-loa
 import {BankGuaranteeComponent} from './sme-loan-type/bank-guarantee/bank-guarantee.component';
 import {BillPurchaseComponent} from './sme-loan-type/bill-purchase/bill-purchase.component';
 import {LoanNameConstant} from '../../sme-costant/loan-name-constant';
+import {SmeSecurityComponent} from './sme-security/sme-security.component';
 
 @Component({
   selector: 'app-sme-master-template',
@@ -65,6 +66,8 @@ export class SmeMasterTemplateComponent implements OnInit {
   bankGuaranteeComponent: BankGuaranteeComponent;
   @ViewChild('billPurchaseComponent', {static: false})
   billPurchaseComponent: BillPurchaseComponent;
+  @ViewChild('masterSecurity', {static: false})
+  smeSecurityComponent: SmeSecurityComponent;
 
   offerLetterConst = NabilOfferLetterConst;
 
@@ -268,6 +271,12 @@ export class SmeMasterTemplateComponent implements OnInit {
     if (this.isBillPurchase) {
       billPurchaseForm = this.billPurchaseComponent.billPurchaseForm.value;
     }
+
+    const securityData = this.smeSecurityComponent.setSecurityData();
+    let securityForm;
+    if (!ObjectUtil.isEmpty(securityData)) {
+      securityForm = securityData;
+    }
     const smeMasterForm = {
       smeGlobalForm: smeGlobalForm,
       letterOfCreditForm: letterOfCreditForm,
@@ -287,7 +296,8 @@ export class SmeMasterTemplateComponent implements OnInit {
       mortgageEquityTermForm: mortgageEquityTermForm,
       autoLoanMasterForm: autoLoanMasterForm,
       bankGuarantee: bankGuarantee,
-      billPurchaseForm: billPurchaseForm
+      billPurchaseForm: billPurchaseForm,
+      securities: securityForm
     };
     return JSON.stringify(smeMasterForm);
   }
