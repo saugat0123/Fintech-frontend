@@ -21,7 +21,7 @@
                                     {{printDocForm?.customerMunicipality === null || printDocForm?.customerMunicipality === '' ? '_________________' : printDocForm?.customerMunicipality}}
                                 </span>
                                 वडा नं.
-                                <span [ngClass]="{'nepaliFont unicode-size3' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
+                                <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
                                     {{printDocForm?.customerWardNum === null || printDocForm?.customerWardNum === '' ? '_________________' : printDocForm?.customerWardNum}}
                                 </span>
                                 <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.customerDistrict !== null && printDocForm?.customerDistrict !== ''}">
@@ -338,7 +338,7 @@
                                                 <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.jaggaWard !== null && securityDetail?.jaggaWard !== ''}">
                                                     {{securityDetail?.jaggaWard === null || securityDetail?.jaggaWard === '' ? '' : securityDetail?.jaggaWard}}
                                                 </span>, वडा नं.
-                                                <span [ngClass]="{'nepaliFont unicode-size5' : securityDetail?.wardNo !== null && securityDetail?.wardNo !== ''}">
+                                                <span [ngClass]="{'nepaliFont' : securityDetail?.wardNo !== null && securityDetail?.wardNo !== ''}">
                                                     {{securityDetail?.wardNo === null || securityDetail?.wardNo === '' ? '' : securityDetail?.wardNo}}
                                                 </span>,
                                                 <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.jaggaDistrict !== null && securityDetail?.jaggaDistrict !== ''}">
@@ -401,7 +401,7 @@
                                     </span>
                                     को जग्गा तथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण
                                     लिगलगापात फाइनान्सको
-                                    नाममा धितो वन्धकीको लिखत
+                                    नाममा धितो वन्धकीको लिखत`
                                     लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.
                                     <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.dhitoLekhi !== null && printDocForm?.dhitoLekhi !== ''}">
                                         {{printDocForm?.dhitoLekhi === null || printDocForm?.dhitoLekhi === '' ? '_________________' : printDocForm?.dhitoLekhi}}
@@ -918,7 +918,7 @@
                                             न.पा.
                                             वडा नं.
 
-                                            <span [ngClass]="{'nepaliFont unicode-size3' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
+                                            <span [ngClass]="{'nepaliFont' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
                                                 {{printDocForm?.customerWardNum === null || printDocForm?.customerWardNum === '' ? '________' : printDocForm?.customerWardNum}}
                                             </span>
                                             ,
@@ -1042,12 +1042,12 @@
 
                                     दस्तखत गर्नेको नाम:—
                                     श्री
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+                                    <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                                         {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '____________________' : printDocForm?.customerName}}
                                     </span>
                                     <br>
                                     नागरिकता नं., मिति र कार्यालय:—
-                                    <span [ngClass]="{'nepaliFont unicode-size6' : printDocForm?.signatoryCitizenshipNum !== null && printDocForm?.signatoryCitizenshipNum !== ''}">
+                                    <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipNum !== null && printDocForm?.signatoryCitizenshipNum !== ''}">
                                         {{printDocForm?.signatoryCitizenshipNum === null || printDocForm?.signatoryCitizenshipNum === '' ? '____________________' : printDocForm?.signatoryCitizenshipNum}}
                                     </span>,
                                     <span [ngClass]="{'nepaliFont unicode-size6' : printDocForm?.signatoryCitizenshipIssueDate !== null && printDocForm?.signatoryCitizenshipIssueDate !== ''}">
@@ -1201,10 +1201,10 @@
                                     </li>
                                     <li>
                                         नागरिकता नं./मिति/जिल्लाः
-                                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.guarantorCitizenshipNo !== null && guarantor?.guarantorCitizenshipNo !== ''}">
+                                        <span [ngClass]="{'nepaliFont' : guarantor?.guarantorCitizenshipNo !== null && guarantor?.guarantorCitizenshipNo !== ''}">
                                             {{guarantor?.guarantorCitizenshipNo === null || guarantor?.guarantorCitizenshipNo === '' ? '_________________' : guarantor?.guarantorCitizenshipNo}}
                                         </span> ,
-                                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.guarantorIssuedDate !== null && guarantor?.guarantorIssuedDate !== ''}">
+                                        <span [ngClass]="{'nepaliFont' : guarantor?.guarantorIssuedDate !== null && guarantor?.guarantorIssuedDate !== ''}">
                                             {{guarantor?.guarantorIssuedDate === null || guarantor?.guarantorIssuedDate === '' ? '_________________' : guarantor?.guarantorIssuedDate}}
                                         </span>,
                                         <strong>जि.प्र.का.</strong>
