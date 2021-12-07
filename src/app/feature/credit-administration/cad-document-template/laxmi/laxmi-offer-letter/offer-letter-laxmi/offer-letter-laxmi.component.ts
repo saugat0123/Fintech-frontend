@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
@@ -16,6 +16,8 @@ import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LoanType} from '../../../../../loan/model/loanType';
+import {SubLoanType} from '../../../../../loan/model/subLoanType';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-offer-letter-laxmi',
@@ -27,6 +29,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
   @Input() cadData;
   @Input() documentId;
   @Input() customerLoanId;
+  @ViewChild('select', {static: true}) modal: TemplateRef<any>;
   offerLetterForm: FormGroup;
   spinner = false;
   initialInfoPrint;
@@ -35,13 +38,18 @@ export class OfferLetterLaxmiComponent implements OnInit {
   proposedAmount;
   customerInfo;
   loanType;
+  loanName;
   loanTypes = LoanType;
+  subloanTypes;
+  subloanType;
+  subloanTypeEnum = SubLoanType;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService,
+              private modalService: NgbModal,
               private currencyFormatPipe: CurrencyFormatterPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -49,9 +57,15 @@ export class OfferLetterLaxmiComponent implements OnInit {
               private nepaliNumber: NepaliNumberPipe) { }
 
   ngOnInit() {
-    console.log('this is cad data', this.cadData);
+    this.loanName = this.cadData.assignedLoan[0].loan.name;
+    this.subloanTypes = SubLoanType.value(this.loanName);
     this.loanType = this.cadData.assignedLoan[0].loanType;
+    console.log(this.cadData);
+    console.log(this.loanName);
+    console.log(this.subloanTypes);
+    console.log(this.subloanType);
     this.buildForm();
+    this.modalService.open(this.modal);
   }
 
   buildForm() {
@@ -70,6 +84,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
       branchName: [undefined],
       telephoneNumber: [undefined],
       faxNumber: [undefined],
+      subLoanType: [undefined],
       //
       // dateOfBirth: [undefined],
       // address: [undefined],
@@ -191,6 +206,13 @@ export class OfferLetterLaxmiComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+  }
+  log(data) {
+   this.subloanType = data;
+   this.modalService.dismissAll();
+  }
+  close() {
+    this.modalService.dismissAll();
   }
 
 }

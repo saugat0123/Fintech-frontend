@@ -1,0 +1,81 @@
+export enum SubLoanType {
+    WORKING_CAPITAL_FINANCING = 'Working Capital Financing',
+    SHARE_LOAN = 'Share Loan',
+    GOLD_LOAN = 'Gold Loan',
+    CAPITAL_EXPENDITURE_FINANCING = 'Capital Expenditure Financing',
+    FIXED_ASSETS_FINANCING = 'Fixed Assets Financing',
+    VEHICLE_FINANCING = 'Vehicle Financing',
+    REFINANCING_OF_ASSETS = 'Refinancing of Assets',
+}
+
+export namespace SubLoanType {
+
+    export function values() {
+        return Object.keys(SubLoanType).filter(
+            (type) => isNaN(<any>type) && type !== 'values' && type !== 'value'
+        );
+    }
+
+    export function value(loanType: string) {
+        const enums = [];
+        if (loanType.toLowerCase() === 'demand loan') {
+            enums.push({
+                key: getEnum(SubLoanType.WORKING_CAPITAL_FINANCING),
+                value: SubLoanType.WORKING_CAPITAL_FINANCING
+            });
+            enums.push({
+                key: getEnum(SubLoanType.GOLD_LOAN),
+                value: SubLoanType.GOLD_LOAN
+            });
+            enums.push({
+                key: getEnum(SubLoanType.SHARE_LOAN),
+                value: SubLoanType.SHARE_LOAN
+            });
+
+        } else if (loanType.toLowerCase() === 'term loan') {
+            enums.push({
+                key: getEnum(SubLoanType.WORKING_CAPITAL_FINANCING),
+                value: SubLoanType.WORKING_CAPITAL_FINANCING
+            });
+            enums.push({
+                key: getEnum(SubLoanType.CAPITAL_EXPENDITURE_FINANCING),
+                value: SubLoanType.CAPITAL_EXPENDITURE_FINANCING
+            });
+            enums.push({
+                key: getEnum(SubLoanType.FIXED_ASSETS_FINANCING),
+                value: SubLoanType.FIXED_ASSETS_FINANCING
+            });
+            enums.push({
+                key: getEnum(SubLoanType.VEHICLE_FINANCING),
+                value: SubLoanType.VEHICLE_FINANCING
+            });
+            enums.push({
+                key: getEnum(SubLoanType.REFINANCING_OF_ASSETS),
+                value: SubLoanType.REFINANCING_OF_ASSETS
+            });
+
+        }
+        return enums;
+    }
+
+    export function enumObject() {
+        const enums = [];
+        values().forEach(elem => {
+            enums.push({
+                key: elem,
+                value: SubLoanType[elem],
+            });
+        });
+        return enums;
+    }
+
+    export function getEnum(value: string) {
+        for (const enumPair of enumObject()) {
+            if (enumPair.value === value) {
+                return enumPair.key;
+            }
+        }
+    }
+}
+
+
