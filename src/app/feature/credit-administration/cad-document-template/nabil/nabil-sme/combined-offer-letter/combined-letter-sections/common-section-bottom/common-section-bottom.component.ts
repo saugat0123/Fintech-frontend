@@ -12,7 +12,7 @@ import {ProposalCalculationUtils} from '../../../../../../../loan/component/loan
 })
 export class CommonSectionBottomComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  @Input() letter;
+  // @Input() letter;
   form: FormGroup;
   spinner = false;
   offerLetterConst = NabilOfferLetterConst;
