@@ -85,28 +85,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
             this.isRemit = true;
         }
-        switch (this.client) {
-            case this.clientList.LAXMI:
                 this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
                 this.offerLetterConst = LaxmiOfferLetterConst;
                 this.component = LaxmiOfferLetterComponent;
-                break;
-            case this.clientList.EXCEL:
-                this.offerLetterTypes = ExcelOfferLetterConst.enumObject();
-                this.offerLetterConst = ExcelOfferLetterConst;
-                this.component = ExcelOfferLetterComponent;
-                break;
-            case this.clientList.PROGRESSIVE:
-                this.offerLetterTypes = ProgressiveOfferLetterConst.enumObject();
-                this.offerLetterConst = ProgressiveOfferLetterConst;
-                this.component = ProgressiveOfferLetterComponent;
-                break;
-            case this.clientList.ICFC:
-                this.offerLetterTypes = IcfcOfferLetterConst.enumObject();
-                this.offerLetterConst = IcfcOfferLetterConst;
-                this.component = IcfcOfferLetterComponent;
-                break;
-        }
     }
 
     close() {
