@@ -839,9 +839,14 @@
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorName"
                                                id="guarantorName"
-                                               autocomplete="off"
                                                name="guarantorName" placeholder="ग्यारेन्टरको नाम"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorName.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorName.errors.required">
+                                                Guarantor name is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -851,33 +856,48 @@
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorAge"
                                                id="guarantorAge"
-                                               autocomplete="off"
                                                name="guarantorAge" placeholder="ग्यारेन्टरको उमेर"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorAge.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorAge.errors.required">
+                                                Guarantor age is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorCitizenshipNum">नगरिकता नम्बर</label>
+                                        <label class="title" for="citizenNumber">नगरिकता नम्बर</label>
                                         <input [ngClass]="{'is-invalid': submitted && basicInfoControls.citizenNumber.errors}"
                                                class="form-control rounded nepaliFont"
                                                formControlName="citizenNumber"
-                                               id="guarantorCitizenshipNum"
-                                               autocomplete="off"
+                                               id="citizenNumber"
                                                name="citizenNumber" placeholder="नगरिकता नम्बर"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.citizenNumber.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.citizenNumber.errors.required">
+                                                Guarantor citizen number is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorIssueDate">नगरिकता जारी मिति</label>
+                                        <label class="title" for="issuedYear">नगरिकता जारी मिति</label>
                                         <input  [ngClass]="{'is-invalid': submitted && basicInfoControls.issuedYear.errors}"
                                                 class="form-control rounded nepaliFont"
                                                 formControlName="issuedYear"
-                                                id="guarantorIssueDate"
-                                                autocomplete="off"
+                                                id="issuedYear"
                                                 name="issuedYear" placeholder="जारी मिति"
                                                 type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.issuedYear.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.issuedYear.errors.required">
+                                                Guarantor citizen issued year is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -889,9 +909,14 @@
                                                class="form-control rounded nepaliFont"
                                                formControlName="issuedPlace"
                                                id="guarantorIssueDistrict"
-                                               autocomplete="off"
-                                               name="issuedPlace" placeholder="जारी जिल्ला"
+                                               name="guarantorIssueDistrict" placeholder="जारी जिल्ला"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorIssueDistrict.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorIssueDistrict.errors.required">
+                                                Guarantor citizen issued district is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -901,7 +926,6 @@
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorMobileNumber"
                                                id="guarantorMobileNumber"
-                                               autocomplete="off"
                                                name="guarantorMobileNumber" placeholder="मोबाइल नम्बर"
                                                type="text"/>
                                         <div *ngIf="(submitted) && basicInfoControls.guarantorMobileNumber.invalid"
@@ -941,9 +965,14 @@
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorGrandfatherName"
                                                id="guarantorGrandfatherName"
-                                               autocomplete="off"
                                                name="guarantorGrandfatherName" placeholder="हजुरबुबाको नाम"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorGrandfatherName.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorGrandfatherName.errors.required">
+                                                Guarantor grand-father name is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -953,9 +982,14 @@
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorFatherName"
                                                id="guarantorFatherName"
-                                               autocomplete="off"
                                                name="guarantorFatherName" placeholder="बुवाको नाम"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorFatherName.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorFatherName.errors.required">
+                                                Guarantor father name is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -965,9 +999,14 @@
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorFatherInLawName"
                                                id="guarantorFatherInLawName"
-                                               autocomplete="off"
                                                name="guarantorFatherInLawName" placeholder="ससुराको नाम"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorFatherInLawName.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorFatherInLawName.errors.required">
+                                                Guarantor father-in-law name is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -977,21 +1016,32 @@
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorSpouseName"
                                                id="guarantorSpouseName"
-                                               autocomplete="off"
                                                name="guarantorSpouseName" placeholder="पति÷पत्नीको नाम"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorSpouseName.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorSpouseName.errors.required">
+                                                Guarantor spouse name is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="relationMedium" for="guarantorRelationship">सम्बन्धको
+                                        <label class="relationMedium" for="relationship">सम्बन्धको
                                             माध्यम</label>
                                         <select [ngClass]="{'is-invalid': submitted && basicInfoControls.relationship.errors}"
                                                 class="form-control" formControlName="relationship"
-                                                id="guarantorRelationship">
+                                                id="relationship">
                                             <option *ngFor="let relationship of relationshipList"
                                                     [value]="relationship.value">{{relationship?.value}}</option>
                                         </select>
+                                        <div *ngIf="(submitted) && basicInfoControls.relationship.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.relationship.errors.required">
+                                                Guarantor relationship is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1036,7 +1086,6 @@
                                                        [value]="districtVal" >
                                                 {{districtVal.nepaliName}}
                                             </ng-option>
-                                            संपार्श्विक मालिकको स्थायी जिल्ला
                                         </ng-select>
                                         <div *ngIf="(submitted) && basicInfoControls.guarantorPermanentDistrict.invalid"
                                              class="invalid-feedback">

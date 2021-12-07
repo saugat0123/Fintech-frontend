@@ -270,7 +270,7 @@ export class OfferLetterPersonalComponent implements OnInit {
         }
         data.forEach((value) => {
             formArray.push(this.formBuilder.group({
-                jamaniKartaName: [value.name],
+                jamaniKartaName: [value.guarantorName],
                 guarantorCitizenshipNo: [value.guarantorCitizenshipNo],
                 guarantorIssuedDate: [value.guarantorIssuedDate],
                 guarantorCitizenIssuedOffice: [value.guarantorIssuedDate],

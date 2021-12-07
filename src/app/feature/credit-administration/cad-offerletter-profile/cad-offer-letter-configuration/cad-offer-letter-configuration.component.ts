@@ -342,18 +342,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     save() {
         this.submitted = true;
-
+        this.spinner = true;
         if (this.userConfigForm.invalid) {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error while validating data!!!'));
             return;
         }
-        this.spinner = true;
         if (this.loanDetails.nepForm.invalid) {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error while validating loan data!!!'));
             return;
         }
         this.loanDetails.getCadValue();
         this.customerCadInfoData.cadDocument = this.cadData;
         this.customerCadInfoData.customerInfo = JSON.stringify(this.userConfigForm.value);
-        if (!ObjectUtil.isEmpty(this.customerCadInfoData)) {
             this.service.saveCadData(this.customerCadInfoData).subscribe(res => {
                 this.customerInfoData = res.detail;
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
@@ -366,9 +368,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.spinner = false;
                 this.dialogRef.close();
             });
-        } else {
-            this.toastService.show(new Alert(AlertType.ERROR, 'Loan Details is Required!!!'));
-        }
     }
 
     closeModal() {
