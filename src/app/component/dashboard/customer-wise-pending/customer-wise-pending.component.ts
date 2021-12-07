@@ -83,6 +83,7 @@ export class CustomerWisePendingComponent implements OnInit {
     sortedLoanType = [];
     loanTagList = [];
     companyInfoId: any;
+    proposalLimit = 0;
 
     constructor(
         private service: DmsLoanService,
@@ -126,12 +127,13 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.pendingLoanList();
         this.sortFn();
         this.getClientType();
         this.getSubSector();
-        this.activatedRoute.queryParams.subscribe((data)=> {
+        this.activatedRoute.queryParams.subscribe((data) => {
             this.companyInfoId = data.customerInfoId;
-        })
+        });
         this.search.documentStatus = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
         this.initStatus = this.search.documentStatus;
         this.buildFilterForm();
@@ -380,6 +382,19 @@ export class CustomerWisePendingComponent implements OnInit {
             loanTypeArray.push(LoanType[value]);
         }
         this.sortedLoanType = loanTypeArray.sort();
+    }
+
+    pendingLoanList() {
+        const userId = LocalStorageUtil.getStorage().userId;
+        this.loanFormService.getPendingLoanList(userId).subscribe((res: any) => {
+            const pendingLoan = res.detail;
+            console.log('pendingLoan', pendingLoan);
+            if (!ObjectUtil.isEmpty(pendingLoan)) {
+                pendingLoan.forEach((p: any) => {
+                    this.proposalLimit += p.proposal.proposedLimit;
+                });
+            }
+        });
     }
 
 }
