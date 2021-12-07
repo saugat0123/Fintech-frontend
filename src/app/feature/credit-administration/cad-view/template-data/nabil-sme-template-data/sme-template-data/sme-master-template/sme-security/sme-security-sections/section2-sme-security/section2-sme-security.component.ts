@@ -43,7 +43,6 @@ export class Section2SmeSecurityComponent implements OnInit {
 
     buildForm() {
         this.section2SecurityForm = this.formBuilder.group({
-            securityType: [undefined],
             securityDetails: this.formBuilder.array([]),
         });
         /* FOR DEFAULT FORM*/
