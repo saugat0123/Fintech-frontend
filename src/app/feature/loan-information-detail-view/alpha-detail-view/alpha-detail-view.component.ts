@@ -138,6 +138,7 @@ export class AlphaDetailViewComponent implements OnInit {
             this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
           } else {
             this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'CLOSED');
           }
           // push loans from combined loan if not in the existing array
           const combinedLoans = this.customerAllLoanList
