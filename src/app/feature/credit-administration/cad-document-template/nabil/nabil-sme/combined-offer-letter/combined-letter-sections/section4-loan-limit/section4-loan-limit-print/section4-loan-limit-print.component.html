@@ -16,16 +16,10 @@
                             <!--Total Funded Limit-->
                             <p>
                                 माथि उल्लिखित कोषमा आधारित सम्पूर्ण ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
-                                <!--<input class="form-field form-control-sm font-weight-bold"
-                                       formControlName="totalFundedLimitInWords"
-                                       name="totalFundedLimitInWords"
-                                       type="text"/>--> ________________
-                                <strong>। (अक्षरेपी रु. </strong>
-                                <!--<input class="form-field form-control-sm font-weight-bold"
-                                       formControlName="totalFundedLimitInWords"
-                                       name="totalFundedLimitInWords"
-                                       type="text"/>-->  ________________
-                                <strong>मात्र)</strong> भन्दा बढी हुनु हुनेछैन ।
+                                <span><strong>{{this.letterData.smeGlobalForm.totalFundedLimitInFigureCT ? this.letterData.smeGlobalForm.totalFundedLimitInFigureCT : ''}}</strong></span>
+                                । (अक्षरेपी रु.
+                                <span><strong>{{this.letterData.smeGlobalForm.totalFundedLimitInWordsCT ? this.letterData.smeGlobalForm.totalFundedLimitInWordsCT : ''}}</strong></span>
+                               मात्र) भन्दा बढी हुनु हुनेछैन ।
                             </p>
                             <br>
                         </li>
@@ -34,16 +28,10 @@
                             <!--Required incase of Total Non-Funded Limit is proposed in approved CFR-->
                             <p>
                                 माथि उल्लिखित गैर–कोषमा आधारित सम्पूर्ण सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
-                                <!-- <input class="form-field form-control-sm font-weight-bold"
-                                        formControlName="totalNonFundedLimitInWords"
-                                        name="totalNonFundedLimitInWords"
-                                        type="text"/>-->  ________________
-                                <strong>। (अक्षरेपी रु. </strong>
-                                <!--<input class="form-field form-control-sm font-weight-bold"
-                                       formControlName="totalNonFundedLimitInWords"
-                                       name="totalNonFundedLimitInWords"
-                                       type="text"/>--> ________________
-                                <strong>मात्र)</strong> भन्दा बढी हुनु हुनेछैन ।
+                                <span><strong>{{this.letterData.smeGlobalForm.totalNonFundedLimitInFigureCT ? this.letterData.smeGlobalForm.totalNonFundedLimitInFigureCT : ''}}</strong></span>
+                                । (अक्षरेपी रु.
+                                <span><strong>{{this.letterData.smeGlobalForm.totalNonFundedLimitInWordsCT ? this.letterData.smeGlobalForm.totalNonFundedLimitInWordsCT : ''}}</strong></span>
+                                मात्र) भन्दा बढी हुनु हुनेछैन ।
                             </p>
                             <br>
                         </li>
@@ -52,16 +40,10 @@
                             <!--Total Limit-->
                             <p>
                                 माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
-                                <!--<input class="form-field form-control-sm font-weight-bold"
-                                       formControlName="totalLimitInFigure"
-                                       name="totalLimitInFigure"
-                                       type="text"/>-->  ________________
-                                <strong>। (अक्षरेपी रु. </strong>
-                                <!--<input class="form-field form-control-sm font-weight-bold"
-                                       formControlName="totalLimitInWords"
-                                       name="totalLimitInWords"
-                                       type="text"/>--> ________________
-                                <strong>मात्र)</strong> भन्दा बढी हुनु हुनेछैन ।
+                                <span><strong>{{this.letterData.smeGlobalForm.totalLimitInFigureCT ? this.letterData.smeGlobalForm.totalLimitInFigureCT : ''}}</strong></span>
+                              । (अक्षरेपी रु.
+                                <span><strong>{{this.letterData.smeGlobalForm.totalLimitInWordsCT ? this.letterData.smeGlobalForm.totalLimitInWordsCT : ''}}</strong></span>
+                                मात्र) भन्दा बढी हुनु हुनेछैन ।
                             </p>
                             <br>
                         </li>
