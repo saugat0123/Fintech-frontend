@@ -31,7 +31,7 @@
                             </p>
                             <p>
                                 स्थायी ठेगाना
-                                <input class="form-control-sm form-field nepaliFont"
+                                <input class="form-control-sm form-field nepaliFont uniFont"
                                        type="text"
                                        readonly
                                        [value]="form.get('customerMunicipality').value">
@@ -40,14 +40,14 @@
                                        type="text"
                                        readonly
                                        [value]="form.get('customerWardNum').value">
-                                <input class="form-control-sm form-field nepaliFont"
+                                <input class="form-control-sm form-field nepaliFont uniFont"
                                        readonly
                                        type="text"
                                        [value]="form.get('customerDistrict').value">
                             </p>
                             <p>
                                 हाल
-                                <input class="form-control-sm form-field nepaliFont"
+                                <input class="form-control-sm form-field nepaliFont uniFont"
                                        readonly
                                        type="text"
                                        [value]="form.get('temporaryMunicipality').value">
@@ -56,7 +56,7 @@
                                        readonly
                                        type="text"
                                        [value]="form.get('temporaryWardNum').value">
-                                <input class="form-control-sm form-field nepaliFont"
+                                <input class="form-control-sm form-field nepaliFont uniFont"
                                        readonly
                                        type="text"
                                        [value]="form.get('temporaryDistrict').value">
@@ -152,7 +152,7 @@
                                                        (input)="getNumAmountFormArray('amount','amountInWords', i)"
                                                        formControlName="amount">
                                                 <ng-template #firstIndex>
-                                                    <input class="form-control-sm form-field nepaliFont"
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                                            type="text"
                                                            readonly
                                                            (input)="getNumAmountFormArray('amount','amountInWords', i)"
@@ -160,7 +160,7 @@
                                                 </ng-template>
                                                 /– (अक्षरेपी:
 
-                                                <input class="form-control-lg form-field nepaliFont font-size-normal"
+                                                <input class="form-control-lg form-field nepaliFont uniFont"
                                                        readonly
                                                        type="text"
                                                        formControlName="amountInWords">
@@ -289,7 +289,7 @@
                                         </tr>
                                         <tr>
                                             <td><strong> व्याज किस्ता तिर्ने</strong></td>
-                                            <td><input *ngIf="i === 0; else interestInstallmentPaymentFrequency" class="form-control-sm form-field nepaliFont"
+                                            <td><input *ngIf="i === 0; else interestInstallmentPaymentFrequency" class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="interestInstallmentPaymentFrequency">
@@ -326,7 +326,7 @@
                                             <td><strong>प्रतिवद्धता शुल्क :</strong></td>
                                             <td>
                                                 रु.
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        value="{{form.get(['loanFacilityTable', i, 'amount']).value}}"
@@ -418,44 +418,44 @@
                                                    formArrayName="securityDetails">
                                             <tr [formGroupName]="i">
                                                 <th> जग्गा धनिको नाम :
-                                                    <input class="form-control-sm form-field nepaliFont"
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                                            formControlName="name"
                                                            readonly
                                                            type="text">
                                                     <br>
                                                     बूबाको नाम :
-                                                    <input class="form-control-sm form-field nepaliFont"
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                                            formControlName="parentName"
                                                            readonly
                                                            type="text">
                                                     <br>
                                                     बाजेको नाम :
-                                                    <input class="form-control-sm form-field nepaliFont"
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                                            formControlName="grandParentName"
                                                            readonly
                                                            type="text">
                                                     <br>
                                                     ठेगाना :
-                                                    <input class="form-control-sm form-field nepaliFont"
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                                            formControlName="address"
                                                            readonly
                                                            type="text">
                                                     <br>
                                                 </th>
                                                 <td>
-                                                    <input class="form-control-sm form-field nepaliFont"
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                                            type="text"
                                                            readonly
                                                            formControlName="jaggaDistrict">;
                                                 </td>
                                                 <td>
                                                     स।बिक:
-                                                    <input class="form-control-sm form-field nepaliFont"
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                                            type="text"
                                                            readonly
                                                            formControlName="jaggaWard">
                                                     <br>
-                                                    हाल: <input class="form-control-sm form-field nepaliFont"
+                                                    हाल: <input class="form-control-sm form-field nepaliFont uniFont"
                                                                 type="text"
                                                                 readonly
                                                                 formControlName="hal">
@@ -467,7 +467,7 @@
                                                            formControlName="jaggaKittaNum">
                                                 </td>
                                                 <td>
-                                                    <input class="form-control-sm form-field nepaliFont"
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
                                                            type="text"
                                                            readonly
                                                            formControlName="jaggaArea">
@@ -550,13 +550,13 @@
                                 <tr>
                                     <td><strong>२.२</strong></td>
                                     <td>रु.
-                                        <input class="form-control-sm form-field nepaliFont"
+                                        <input class="form-control-sm form-field nepaliFont uniFont"
                                                type="text"
                                                readonly
                                                (input)="getNumAmountWord('amount3','amountInWords3')"
                                                formControlName="amount3">
                                         /-(अक्षरेपी:
-                                        <input class="form-control-lg form-field nepaliFont font-size-normal"
+                                        <input class="form-control-lg form-field nepaliFont uniFont"
                                                readonly
                                                type="text"
                                                formControlName="amountInWords3">
@@ -1031,19 +1031,19 @@
                                         <tr>
                                             <td> श्री प्रोग्रेशिभ फाइनान्स लिमिटेड,<br>
                                                 शाखा कार्यालय
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly="readonly"
                                                        formControlName="financeBranch">
                                                 ,<br>
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly="readonly"
                                                        formControlName="financeMunicipality">
                                                 ,<br>
                                                 वडा नं.
                                                 <input
-                                                        class="form-control-sm form-field nepaliFont"
+                                                        class="form-control-sm form-field nepaliFont uniFont"
                                                         type="text"
                                                         readonly="readonly"
                                                         formControlName="financeWardNum">
@@ -1056,7 +1056,7 @@
                                                     </option>
                                                 </select>-->
                                                 <input
-                                                        class="form-control-sm form-field nepaliFont"
+                                                        class="form-control-sm form-field nepaliFont uniFont"
                                                         type="text"
                                                         readonly="readonly"
                                                         formControlName="financeDistrict">
@@ -1089,7 +1089,7 @@
 
                                                 <br>
 
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="customerMunicipality">
@@ -1102,7 +1102,7 @@
                                                        formControlName="customerWardNum">
                                                 ,
 
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="customerDistrict">
@@ -1155,14 +1155,14 @@
                                                 <br>
                                                 प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
                                                 शाखा कार्यालय,
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        value="{{form.get('financeBranch').value}}"
                                                        formControlName="employeeFinanceBranch">
                                                 ,
 
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        value="{{form.get('financeDistrict').value}}"
@@ -1180,13 +1180,13 @@
                                                 <br>
                                                 प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
                                                 शाखा कार्यालय,
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        value="{{form.get('financeBranch').value}}"
                                                        formControlName="employeeFinanceBranch2">
                                                 ,
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        value="{{form.get('financeDistrict').value}}"
@@ -1236,7 +1236,7 @@
                                                [value]="form.get('customerName').value">
                                         <br>
                                         नागरिकता नं., मिति र कार्यालय:—
-                                        <input class="form-control-sm form-field nepaliFont"
+                                        <input class="form-control-sm form-field nepaliFont uniFont"
                                                type="text"
                                                readonly
                                                [value]="form.get('signatoryCitizenshipNum').value">,
@@ -1360,13 +1360,13 @@
                                         श्री प्रोग्रेशिभ फाइनान्स लिमिटेड
                                     </p>
                                     <p>
-                                        <input class="form-control-sm form-field nepaliFont"
+                                        <input class="form-control-sm form-field nepaliFont uniFont"
                                                type="text"
                                                readonly
                                                value="{{form.get('financeBranch').value}}"
                                                formControlName="officeType">
                                         शाखा,
-                                        <input class="form-control-sm form-field nepaliFont"
+                                        <input class="form-control-sm form-field nepaliFont uniFont"
                                                type="text"
                                                readonly
                                                formControlName="branchName"
@@ -1438,12 +1438,12 @@
                                         <li>
                                             <p>
                                                 ठेगानाः
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="guarantorDistrict">
                                                 <strong> जिल्ला,</strong>
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="municipalityName">
@@ -1460,7 +1460,7 @@
                                         </li>
                                         <li>
                                             ऋणीसंगको सम्बन्धः <strong>जमानत कर्ता/ (अन्य भएमा उल्लेख गर्ने)</strong> <input
-                                                class="form-control-sm form-field nepaliFont"
+                                                class="form-control-sm form-field nepaliFont uniFont"
                                                 type="text"
                                                 readonly
                                                 formControlName="guarantorRelation">

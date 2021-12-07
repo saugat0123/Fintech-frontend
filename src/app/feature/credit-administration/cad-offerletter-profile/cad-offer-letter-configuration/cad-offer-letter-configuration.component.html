@@ -834,48 +834,70 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title">ग्यारेन्टरको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="name"
+                                        <label class="title" for="guarantorName">ग्यारेन्टरको नाम</label>
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorName.errors}"
+                                               class="form-control rounded nepaliFont"
+                                               formControlName="guarantorName"
                                                id="guarantorName"
-                                               autocomplete="off"
-                                               name="name" placeholder="ग्यारेन्टरको नाम"
+                                               name="guarantorName" placeholder="ग्यारेन्टरको नाम"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorName.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorName.errors.required">
+                                                Guarantor name is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col"
-                                     *ngIf="client === clientList.PROGRESSIVE && customerInfo?.customerType === 'INDIVIDUAL'">
+                                <div class="col">
                                     <div class="form-group">
-                                        <label class="title">ग्यारेन्टरको उमेर</label>
-                                        <input class="form-control rounded nepaliFont"
+                                        <label class="title" for="guarantorAge">ग्यारेन्टरको उमेर</label>
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorAge.errors}"
+                                               class="form-control rounded nepaliFont"
                                                formControlName="guarantorAge"
                                                id="guarantorAge"
-                                               autocomplete="off"
-                                               name="name" placeholder="ग्यारेन्टरको उमेर"
+                                               name="guarantorAge" placeholder="ग्यारेन्टरको उमेर"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorAge.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorAge.errors.required">
+                                                Guarantor age is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title">नगरिकता नम्बर</label>
-                                        <input class="form-control rounded nepaliFont"
+                                        <label class="title" for="citizenNumber">नगरिकता नम्बर</label>
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.citizenNumber.errors}"
+                                               class="form-control rounded nepaliFont"
                                                formControlName="citizenNumber"
-                                               id="guarantorCitizenshipNum"
-                                               autocomplete="off"
-                                               name="name" placeholder="नगरिकता नम्बर"
+                                               id="citizenNumber"
+                                               name="citizenNumber" placeholder="नगरिकता नम्बर"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.citizenNumber.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.citizenNumber.errors.required">
+                                                Guarantor citizen number is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorIssueDate">नगरिकता जारी मिति</label>
-                                        <input
+                                        <label class="title" for="issuedYear">नगरिकता जारी मिति</label>
+                                        <input  [ngClass]="{'is-invalid': submitted && basicInfoControls.issuedYear.errors}"
                                                 class="form-control rounded nepaliFont"
                                                 formControlName="issuedYear"
-                                                id="guarantorIssueDate"
-                                                autocomplete="off"
-                                                name="name" placeholder="जारी मिति"
+                                                id="issuedYear"
+                                                name="issuedYear" placeholder="जारी मिति"
                                                 type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.issuedYear.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.issuedYear.errors.required">
+                                                Guarantor citizen issued year is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -883,22 +905,38 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorIssueDistrict">नगरिकता जारी जिल्ला</label>
-                                        <input class="form-control rounded nepaliFont"
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.issuedPlace.errors}"
+                                               class="form-control rounded nepaliFont"
                                                formControlName="issuedPlace"
                                                id="guarantorIssueDistrict"
-                                               autocomplete="off"
-                                               name="name" placeholder="जारी जिल्ला"
+                                               name="guarantorIssueDistrict" placeholder="जारी जिल्ला"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorIssueDistrict.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorIssueDistrict.errors.required">
+                                                Guarantor citizen issued district is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorMobileNumber">मोबाइल नम्बर</label>
-                                        <input class="form-control rounded nepaliFont"
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorMobileNumber.errors}"
+                                               class="form-control rounded nepaliFont"
                                                formControlName="guarantorMobileNumber"
                                                id="guarantorMobileNumber"
-                                               name="name" placeholder="मोबाइल नम्बर"
+                                               name="guarantorMobileNumber" placeholder="मोबाइल नम्बर"
                                                type="text"/>
+                                        <div *ngIf="(submitted) && basicInfoControls.guarantorMobileNumber.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorMobileNumber.errors.required">
+                                                Mobile Number is required
+                                            </div>
+                                            <div *ngIf="basicInfoControls.guarantorMobileNumber?.errors.min || basicInfoControls.guarantorMobileNumber?.errors.max">
+                                                Enter 10 Digit Mobile no!
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -913,7 +951,7 @@
                                                formControlName="guarantorEmailAddress"/>
                                         <div *ngIf="(submitted) && basicInfoControls.guarantorEmailAddress.invalid"
                                              class="invalid-feedback">
-                                            <div *ngIf="basicInfoControls.guarantorEmailAddress.errors.guarantorEmailAddress">Valid email
+                                            <div *ngIf="basicInfoControls.guarantorEmailAddress.errors.required">Valid email
                                                 address has form
                                                 xyz@abc.com
                                             </div>
@@ -923,56 +961,87 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorGrandfatherName">हजुरबुबाको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorGrandfatherName.errors}"
+                                               class="form-control rounded nepaliFont"
                                                formControlName="guarantorGrandfatherName"
                                                id="guarantorGrandfatherName"
-                                               autocomplete="off"
-                                               name="name" placeholder="हजुरबुबाको नाम"
+                                               name="guarantorGrandfatherName" placeholder="हजुरबुबाको नाम"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorGrandfatherName.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorGrandfatherName.errors.required">
+                                                Guarantor grand-father name is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorFatherName">बुवाको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorFatherName.errors}"
+                                               class="form-control rounded nepaliFont"
                                                formControlName="guarantorFatherName"
                                                id="guarantorFatherName"
-                                               autocomplete="off"
-                                               name="name" placeholder="बुवाको नाम"
+                                               name="guarantorFatherName" placeholder="बुवाको नाम"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorFatherName.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorFatherName.errors.required">
+                                                Guarantor father name is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorFatherInLawName">ससुराको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorFatherInLawName.errors}"
+                                               class="form-control rounded nepaliFont"
                                                formControlName="guarantorFatherInLawName"
                                                id="guarantorFatherInLawName"
-                                               autocomplete="off"
-                                               name="name" placeholder="ससुराको नाम"
+                                               name="guarantorFatherInLawName" placeholder="ससुराको नाम"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorFatherInLawName.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorFatherInLawName.errors.required">
+                                                Guarantor father-in-law name is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorSpouseName">पति/पत्नीको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
+                                        <input [ngClass]="{'is-invalid': submitted && basicInfoControls.guarantorSpouseName.errors}"
+                                               class="form-control rounded nepaliFont"
                                                formControlName="guarantorSpouseName"
                                                id="guarantorSpouseName"
-                                               autocomplete="off"
-                                               name="name" placeholder="पति÷पत्नीको नाम"
+                                               name="guarantorSpouseName" placeholder="पति÷पत्नीको नाम"
                                                type="text"/>
+                                        <div *ngIf="(submitted) &&  basicInfoControls.guarantorSpouseName.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.guarantorSpouseName.errors.required">
+                                                Guarantor spouse name is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="relationMedium" for="guarantorRelationship">सम्बन्धको
+                                        <label class="relationMedium" for="relationship">सम्बन्धको
                                             माध्यम</label>
-                                        <select class="form-control" formControlName="relationship"
-                                                id="guarantorRelationship">
+                                        <select [ngClass]="{'is-invalid': submitted && basicInfoControls.relationship.errors}"
+                                                class="form-control" formControlName="relationship"
+                                                id="relationship">
                                             <option *ngFor="let relationship of relationshipList"
                                                     [value]="relationship.value">{{relationship?.value}}</option>
                                         </select>
+                                        <div *ngIf="(submitted) && basicInfoControls.relationship.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="basicInfoControls.relationship.errors.required">
+                                                Guarantor relationship is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1017,7 +1086,6 @@
                                                        [value]="districtVal" >
                                                 {{districtVal.nepaliName}}
                                             </ng-option>
-                                            संपार्श्विक मालिकको स्थायी जिल्ला
                                         </ng-select>
                                         <div *ngIf="(submitted) && basicInfoControls.guarantorPermanentDistrict.invalid"
                                              class="invalid-feedback">

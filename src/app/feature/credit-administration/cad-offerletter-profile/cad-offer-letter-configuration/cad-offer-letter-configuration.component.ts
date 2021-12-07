@@ -342,29 +342,32 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     save() {
         this.submitted = true;
-
+        this.spinner = true;
         if (this.userConfigForm.invalid) {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error while validating data!!!'));
             return;
         }
-        this.spinner = true;
         if (this.loanDetails.nepForm.invalid) {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error while validating loan data!!!'));
             return;
         }
         this.loanDetails.getCadValue();
         this.customerCadInfoData.cadDocument = this.cadData;
         this.customerCadInfoData.customerInfo = JSON.stringify(this.userConfigForm.value);
-        this.service.saveCadData(this.customerCadInfoData).subscribe(res => {
-            this.customerInfoData = res.detail;
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
-            this.spinner = false;
-            this.router.reloadCadProfileRoute(this.cadData.id);
-            this.dialogRef.close(this.customerInfoData);
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
-            console.log(error);
-            this.spinner = false;
-            this.dialogRef.close();
-        });
+            this.service.saveCadData(this.customerCadInfoData).subscribe(res => {
+                this.customerInfoData = res.detail;
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
+                this.spinner = false;
+                this.router.reloadCadProfileRoute(this.cadData.id);
+                this.dialogRef.close(this.customerInfoData);
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
+                console.log(error);
+                this.spinner = false;
+                this.dialogRef.close();
+            });
     }
 
     closeModal() {
@@ -392,7 +395,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addGuarantorField() {
         return this.formBuilder.group({
-            name: [undefined],
+            guarantorName: [undefined],
             guarantorAge: [undefined],
             issuedYear: [undefined],
             issuedPlace: [undefined],
@@ -464,7 +467,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
         guarantorDetails.forEach((value, i) => {
             formArray.push(this.formBuilder.group({
-                name: [value.name],
+                guarantorName: [value.guarantorName],
                 guarantorAge: [value.guarantorAge],
                 issuedYear: [value.issuedYear],
                 issuedPlace: [value.issuedPlace],
