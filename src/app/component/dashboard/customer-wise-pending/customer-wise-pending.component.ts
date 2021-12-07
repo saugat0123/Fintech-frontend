@@ -127,7 +127,7 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.pendingLoanList();
+        this.pendingLoanProposedLimit();
         this.sortFn();
         this.getClientType();
         this.getSubSector();
@@ -384,16 +384,11 @@ export class CustomerWisePendingComponent implements OnInit {
         this.sortedLoanType = loanTypeArray.sort();
     }
 
-    pendingLoanList() {
+    pendingLoanProposedLimit() {
         const userId = LocalStorageUtil.getStorage().userId;
-        this.loanFormService.getPendingLoanList(userId).subscribe((res: any) => {
-            const pendingLoan = res.detail;
-            console.log('pendingLoan', pendingLoan);
-            if (!ObjectUtil.isEmpty(pendingLoan)) {
-                pendingLoan.forEach((p: any) => {
-                    this.proposalLimit += p.proposal.proposedLimit;
-                });
-            }
+        this.loanFormService.getPendingLoanProposedLimit(userId).subscribe((res: any) => {
+            console.log('res', res.detail);
+            this.proposalLimit = res.detail;
         });
     }
 

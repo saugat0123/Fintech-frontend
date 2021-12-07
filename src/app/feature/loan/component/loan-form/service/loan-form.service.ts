@@ -209,7 +209,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, data, {headers: req.header});
     }
 
-    public getPendingLoanList(loanNo: string): Observable<any> {
+    public getPendingLoanProposedLimit(loanNo: string): Observable<any> {
         const api = `${this.getApi()}/check-user-customer-pending-loan/${loanNo}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
