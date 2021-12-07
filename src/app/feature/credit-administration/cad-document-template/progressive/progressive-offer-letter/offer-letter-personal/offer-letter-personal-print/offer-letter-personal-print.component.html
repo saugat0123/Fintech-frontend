@@ -67,7 +67,7 @@
                         </p>
                         <p>
                             तपाई
-                            <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+                            <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                                     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                                 </span>
 
@@ -78,7 +78,7 @@
                             गराउदछौ ।
                             <br> पक्षहरु :–<br>
                             १.१ श्री
-                            <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+                            <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                                     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                                 </span>
                             (यस पछि “ऋणी” भनिएको)<br>
@@ -101,7 +101,7 @@
                             <tr>
                                 <td><strong>कर्जा सुविधाको किसिम :</strong></td>
                                 <td>
-                                    <span [ngClass]="{'nepaliFont unicode-size3' : loanFacilityData?.loanTypeNepali !== null && loanFacilityData?.loanTypeNepali !== ''}">
+                                    <span [ngClass]="{'nepaliFont uniFont' : loanFacilityData?.loanTypeNepali !== null && loanFacilityData?.loanTypeNepali !== ''}">
                                         {{loanFacilityData?.loanTypeNepali === null || loanFacilityData?.loanTypeNepali === '' ? '_________________' : loanFacilityData?.loanTypeNepali}}
                                     </span>
                                     कर्जा
@@ -128,7 +128,7 @@
                             <tr>
                                 <td><strong>उदेश्य :</strong></td>
                                 <td>
-                                    <span [ngClass]="{'nepaliFont unicode-size3' : loanFacilityData?.loanPurpose !== null && loanFacilityData?.loanPurpose !== ''}">
+                                    <span [ngClass]="{'nepaliFont uniFont' : loanFacilityData?.loanPurpose !== null && loanFacilityData?.loanPurpose !== ''}">
                                         {{loanFacilityData?.loanPurpose === null || loanFacilityData?.loanPurpose === '' ? '_________________' : loanFacilityData?.loanPurpose}}
                                     </span>
 
@@ -320,17 +320,17 @@
                                         </thead>
                                         <tr *ngFor = "let securityDetail of printDocForm?.securityDetails; index as i;">
                                             <td> <strong>जग्गा धनिको नाम :</strong>
-                                                <span [ngClass]="{'nepaliFont' : securityDetail?.name !== null && securityDetail?.name !== ''}">
+                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.name !== null && securityDetail?.name !== ''}">
                                                     {{securityDetail?.name === null || securityDetail?.name === '' ? '' : securityDetail?.name}}
                                                 </span>
                                                 <br>
                                                 <strong>बूबाको नाम :</strong>
-                                                <span [ngClass]="{'nepaliFont' : securityDetail?.parentName !== null && securityDetail?.parentName !== ''}">
+                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.parentName !== null && securityDetail?.parentName !== ''}">
                                                     {{securityDetail?.parentName === null || securityDetail?.parentName === '' ? '' : securityDetail?.parentName}}
                                                 </span>
                                                 <br>
                                                 <strong>बाजेको नाम :</strong>
-                                                <span [ngClass]="{'nepaliFont' : securityDetail?.grandParentName !== null && securityDetail?.grandParentName !== ''}">
+                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.grandParentName !== null && securityDetail?.grandParentName !== ''}">
                                                     {{securityDetail?.grandParentName === null || securityDetail?.grandParentName === '' ? '' : securityDetail?.grandParentName}}
                                                 </span>
                                                 <br>
@@ -338,7 +338,7 @@
                                                 <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.jaggaWard !== null && securityDetail?.jaggaWard !== ''}">
                                                     {{securityDetail?.jaggaWard === null || securityDetail?.jaggaWard === '' ? '' : securityDetail?.jaggaWard}}
                                                 </span>, वडा नं.
-                                                <span [ngClass]="{'nepaliFont' : securityDetail?.wardNo !== null && securityDetail?.wardNo !== ''}">
+                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.wardNo !== null && securityDetail?.wardNo !== ''}">
                                                     {{securityDetail?.wardNo === null || securityDetail?.wardNo === '' ? '' : securityDetail?.wardNo}}
                                                 </span>,
                                                 <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.jaggaDistrict !== null && securityDetail?.jaggaDistrict !== ''}">
@@ -368,7 +368,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <span [ngClass]="{'nepaliFont' : securityDetail?.jaggaArea !== null && securityDetail?.jaggaArea !== ''}">
+                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.jaggaArea !== null && securityDetail?.jaggaArea !== ''}">
                                                     {{securityDetail?.jaggaArea === null || securityDetail?.jaggaArea === '' ? '' : securityDetail?.jaggaArea}}
                                                 </span>
                                                 (रोपनी, वर्गमिटर, वि.क.धु)
@@ -1164,16 +1164,16 @@
                             <div class="col-md-12">
                                 <p style="line-height: 1.8">
                                     त्यस वित्तीय संस्थाको मिति
-                                    <span [ngClass]="{'nepaliFont unicode-size3' : guarantor?.loanApprovalDate !== null && guarantor?.loanApprovalDate !== ''}">
+                                    <span [ngClass]="{'nepaliFont uniFont' : guarantor?.loanApprovalDate !== null && guarantor?.loanApprovalDate !== ''}">
                                         {{guarantor?.loanApprovalDate === null || guarantor?.loanApprovalDate === '' ? '_________________' : guarantor?.loanApprovalDate}}
                                     </span>
                                     को
                                     पत्र नं.
-                                    <span [ngClass]="{'nepaliFont unicode-size3' : guarantor?.loanApprovalNo !== null && guarantor?.loanApprovalNo !== ''}">
+                                    <span [ngClass]="{'nepaliFont uniFont' : guarantor?.loanApprovalNo !== null && guarantor?.loanApprovalNo !== ''}">
                                         {{guarantor?.loanApprovalNo === null || guarantor?.loanApprovalNo === '' ? '_________________' : guarantor?.loanApprovalNo}}
                                     </span>
                                     बमोजिम श्री
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.loanHolderName !== null && guarantor?.loanHolderName !== ''}">
+                                    <span [ngClass]="{'nepaliFont uniFont' : guarantor?.loanHolderName !== null && guarantor?.loanHolderName !== ''}">
                                         {{guarantor?.loanHolderName === null || guarantor?.loanHolderName === '' ? '_________________' : guarantor?.loanHolderName}}
                                     </span>
                                      लाई दिने/दिएकोे
@@ -1195,20 +1195,20 @@
                                 <ul class="list-inline" style="line-height: 1.5">
                                     <li>
                                         जमानतकर्ताको नामः श्री
-                                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.jamaniKartaName !== null && guarantor?.jamaniKartaName !== ''}">
+                                        <span [ngClass]="{'nepaliFont uniFont' : guarantor?.jamaniKartaName !== null && guarantor?.jamaniKartaName !== ''}">
                                             {{guarantor?.jamaniKartaName === null || guarantor?.jamaniKartaName === '' ? '_________________' : guarantor?.jamaniKartaName}}
                                         </span>
                                     </li>
                                     <li>
                                         नागरिकता नं./मिति/जिल्लाः
-                                        <span [ngClass]="{'nepaliFont' : guarantor?.guarantorCitizenshipNo !== null && guarantor?.guarantorCitizenshipNo !== ''}">
+                                        <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorCitizenshipNo !== null && guarantor?.guarantorCitizenshipNo !== ''}">
                                             {{guarantor?.guarantorCitizenshipNo === null || guarantor?.guarantorCitizenshipNo === '' ? '_________________' : guarantor?.guarantorCitizenshipNo}}
                                         </span> ,
-                                        <span [ngClass]="{'nepaliFont' : guarantor?.guarantorIssuedDate !== null && guarantor?.guarantorIssuedDate !== ''}">
+                                        <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorIssuedDate !== null && guarantor?.guarantorIssuedDate !== ''}">
                                             {{guarantor?.guarantorIssuedDate === null || guarantor?.guarantorIssuedDate === '' ? '_________________' : guarantor?.guarantorIssuedDate}}
                                         </span>,
                                         <strong>जि.प्र.का.</strong>
-                                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.guarantorCitizenIssuedOffice !== null && guarantor?.guarantorCitizenIssuedOffice !== ''}">
+                                        <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorCitizenIssuedOffice !== null && guarantor?.guarantorCitizenIssuedOffice !== ''}">
                                             {{guarantor?.guarantorCitizenIssuedOffice === null || guarantor?.guarantorCitizenIssuedOffice === '' ? '_________________' : guarantor?.guarantorCitizenIssuedOffice}}
                                         </span>
                                     </li>
@@ -1226,7 +1226,7 @@
                                                 न.पा/म.न.पा
                                                 वडा नं
                                             </strong>
-                                            <span [ngClass]="{'nepaliFont unicode-size3' : guarantor?.guarantorWardNo !== null && guarantor?.guarantorWardNo !== ''}">
+                                            <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorWardNo !== null && guarantor?.guarantorWardNo !== ''}">
                                                 {{guarantor?.guarantorWardNo === null || guarantor?.guarantorWardNo === '' ? '______' : guarantor?.guarantorWardNo}}
                                             </span>
                                         </p>
@@ -1237,7 +1237,8 @@
                                             {{guarantor?.guarantorRelation === null || guarantor?.guarantorRelation === '' ? '_________________' : guarantor?.guarantorRelation}}
                                         </span>
                                     </li>
-                                    <li>
+                                    <li>तपसील
+
                                         ससुराको नामः <strong>श्री</strong>
                                         <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.fatherInLawName !== null && guarantor?.fatherInLawName !== ''}">
                                             {{guarantor?.fatherInLawName === null || guarantor?.fatherInLawName === '' ? '_________________' : guarantor?.fatherInLawName}}
