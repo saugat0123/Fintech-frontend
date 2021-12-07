@@ -76,30 +76,35 @@
                             देहाय वमोजिमको धितो सुरक्षणमा तपसिलमा उल्लेखित शर्त बन्देजहरु पालना गर्ने गरी कर्जा
                             तथा सुविधा स्वीकृति गरिएको ब्यहोरा जानकारी
                             गराउदछौ ।
+
                             <br> पक्षहरु :–<br>
+                        </p>
+                            <div style="padding-left: 75px">
                             १.१ श्री
                             <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                                     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                                 </span>
                             (यस पछि “ऋणी” भनिएको)<br>
                             १.२ श्री प्रोग्रेशिभ फाइनान्स लिमिटेड (यसपछि “फाइनान्स” भनिएको)
-                        </p>
+                            </div>
+
                         <table class="table table-borderless bodyParagraphTable"
                                 *ngFor="let loanFacilityData of printDocForm?.loanFacilityTable; let i = index;">
+                            <tr>
+                                <th>
+                                     <span *ngIf="i === 0" class="unicode-size">
+                                         १.
+                                     </span>
 
-                            <thead>
-                            <tr>
-                                <th rowspan="11">
-                                     <span *ngIf="i === 0">
-                                                    १.
-                                                </span>
-                                    ({{i + 1 | nepaliWord}})
                                 </th>
-                                <th colspan="2"><u>कर्जा तथा सुविधाको विवरण :</u></th>
+                                <th colspan="2"><span *ngIf="i === 0" class="unicode-size">
+                                         <u>कर्जा तथा सुविधाको विवरण :</u>
+                                     </span>
+                                </th>
                             </tr>
-                            </thead>
                             <tr>
-                                <td><strong>कर्जा सुविधाको किसिम :</strong></td>
+                                <td rowspan="10">({{i + 1 | nepaliWord}})</td>
+                                <td style="width: 22%"><strong>कर्जा सुविधाको किसिम :</strong></td>
                                 <td>
                                     <span [ngClass]="{'nepaliFont uniFont' : loanFacilityData?.loanTypeNepali !== null && loanFacilityData?.loanTypeNepali !== ''}">
                                         {{loanFacilityData?.loanTypeNepali === null || loanFacilityData?.loanTypeNepali === '' ? '_________________' : loanFacilityData?.loanTypeNepali}}
@@ -127,7 +132,7 @@
                             </tr>
                             <tr>
                                 <td><strong>उदेश्य :</strong></td>
-                                <td>
+                                <td style="vertical-align: top">
                                     <span [ngClass]="{'nepaliFont uniFont' : loanFacilityData?.loanPurpose !== null && loanFacilityData?.loanPurpose !== ''}">
                                         {{loanFacilityData?.loanPurpose === null || loanFacilityData?.loanPurpose === '' ? '_________________' : loanFacilityData?.loanPurpose}}
                                     </span>
@@ -137,8 +142,6 @@
                             <tr>
                                 <td><strong>व्याजदर :</strong></td>
                                 <td>
-
-                                    <p>
                                         स्वीकृत लिमिट मध्ये बाट उपभोग गरिएको हदसम्म तोकिएको
                                         <span [ngClass]="{'nepaliFont unicode-size3' : loanFacilityData?.interestFinalRate !== null && loanFacilityData?.interestFinalRate !== ''}">
                                             {{loanFacilityData?.interestFinalRate === null || loanFacilityData?.interestFinalRate === '' ? '_________________' : loanFacilityData?.interestFinalRate}}
@@ -172,8 +175,7 @@
                                             {{loanFacilityData?.interestTempDiscountRate === null || loanFacilityData?.interestTempDiscountRate === '' ? '________' : loanFacilityData?.interestTempDiscountRate}}
                                         </span>
                                         प्रतिशत
-                                    </p>
-                                    <p>
+
                                         ब्याजदर = आधार दर + प्रिमियम – अस्थाई छुट =
                                         <span [ngClass]="{'nepaliFont unicode-size3' : loanFacilityData?.interestBaseRate !== null && loanFacilityData?.interestBaseRate !== ''}">
                                             {{loanFacilityData?.interestBaseRate === null || loanFacilityData?.interestBaseRate === '' ? '________' : loanFacilityData?.interestBaseRate}}
@@ -196,7 +198,6 @@
                                         %
                                         <br>
                                         (Base Rate + Risk Premium - Temporary Discount = Interest Rate)
-                                    </p>
                                 </td>
                             </tr>
                             <tr>
@@ -410,7 +411,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>२.१</strong></td>
+                                <td>२.१</td>
                                 <td><strong>श्री </strong>
                                     <span [ngClass]="{'nepaliFont unicode-size3' : printDocForm?.shreeName1 !== null && printDocForm?.shreeName1 !== ''}">
                                         {{printDocForm?.shreeName1 === null || printDocForm?.shreeName1 === '' ? '_________________' : printDocForm?.shreeName1}}
@@ -428,7 +429,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>२.२</strong></td>
+                                <td>२.२</td>
                                 <td>रु.
                                     <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.amount3 !== null && printDocForm?.amount3 !== ''}">
                                         {{printDocForm?.amount3 === null || printDocForm?.amount3 === '' ? '_____________' : printDocForm?.amount3}}
@@ -458,7 +459,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td> ३.
+                                <td><strong>३.</strong>
                                 </td>
                                 <td><strong><u>व्याज :</u></strong> <br>
                                     <ul style="line-height: 1.5;">
@@ -492,14 +493,14 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>४.</td>
-                                <td> पुनरावलोकन : कर्जाको भुक्तानी मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका कर्जा
+                                <td><strong>४.</strong></td>
+                                <td> <strong>पुनरावलोकन :</strong> कर्जाको भुक्तानी मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका कर्जा
                                     तथा
                                     सुविधाहरु कुनै कारण देखाई वा नदेखाई
                                     फाइनान्सले फिर्ता भुक्तानी माग गरेका वखत तत्कालै भुक्तानी गर्नु पर्नेछ ।<br></td>
                             </tr>
                             <tr>
-                                <td>५.</td>
+                                <td><strong>५.</strong></td>
                                 <td> <strong><u>निरिक्षण :</u></strong><br>कुनै पूर्व तयारी नगरी फाइनान्सले आवश्यक देखेको समयमा व्यवसाय गरेका
                                     वा धितो
                                     सुरक्षण दिएका सम्पत्तिहरुको निरिक्षण गर्न फाइनान्स
@@ -508,7 +509,7 @@
                                     ।<br></td>
                             </tr>
                             <tr>
-                                <td>६.</td>
+                                <td><strong>६.</strong></td>
                                 <td> <strong>शर्त वन्देजहरु :</strong> सुविधा समाप्त नभएसम्म वा कुनै रकम कलम वा दायित्वहरु वाँकी रहे सम्म
                                     ऋणीले
                                     निम्न वमोजिमको शर्त वन्देजहरु अविच्छिन्न
@@ -610,7 +611,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>७.</td>
+                                <td><strong>७.</strong></td>
                                 <td> <strong><u>अन्य शर्त वन्देजहरु:</u></strong><br>यसका अतिरिक्त ऋणी निम्न शर्त वन्देजहरु स्वीकार गर्दछ ।
                                 </td>
                             </tr>
@@ -665,7 +666,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>८.</td>
+                                <td><strong>८.</strong></td>
                                 <td><strong><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></strong><br>
                                     देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा किस्ता/कर्जा खिलाफी भएको मानिने छ
                                     ।
@@ -770,7 +771,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>९.</td>
+                                <td><strong>९.</strong></td>
                                 <td><strong><u>लागू हुने पूर्व शर्त</u></strong> <br>
                                     यो कर्जा सुविधा प्राप्त गर्न, यस कर्जा सुविधाको लागि माथि दफा २ मा
                                     लेखिएको सम्पत्तिको रुपमा उपलव्ध गराउन र धितो सम्पत्तिका लिखतहरु
@@ -800,7 +801,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>१०.</td>
+                                <td><strong>१०.</strong></td>
                                 <td>
                                     <strong><u>घोषणा (Decleration) : </u></strong> ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने
                                     कुराको
@@ -836,7 +837,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>११.</td>
+                                <td><strong>११.</strong></td>
                                 <td>
                                     <strong><u>छुट (Waiver)</u></strong><br>
                                     कुनै खास अधिकार छोडेको लिखित सूचना ऋणीले प्राप्त नगरे सम्म यस कर्जा
@@ -847,7 +848,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>१२.</td>
+                                <td><strong>१२.</strong></td>
                                 <td>
                                     <strong><u>सूचना (Notice)</u></strong><br>
                                     कुनै पनि सूचना गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी वा फ्याक्स मार्फत
@@ -1075,33 +1076,47 @@
                         <div class="page-break"></div>
                         <div class="row mt-4">
                             <div class="col-md-12" id="witness">
-                                <strong> साक्षी : </strong>
-                                <br>
-                                <p>दस्तखत : ...........................................
-
-                                    <br>  नाम:
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.witnessName !== null && printDocForm?.witnessName !== ''}">
+                                <table class="table-borderless">
+                                    <tr>
+                                        <td style="padding-right: 20px; vertical-align: top" rowspan="3">(१)</td>
+                                        <td>दस्तखत : ...........................................</td>
+                                    </tr>
+                                    <tr>
+                                        <td>नाम:
+                                            <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.witnessName !== null && printDocForm?.witnessName !== ''}">
                                                 {{printDocForm?.witnessName === null || printDocForm?.witnessName === '' ? '____________________' : printDocForm?.witnessName}}
                                             </span>
-                                    <br>
-                                    ठेगाना:
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.witnessAddress !== null && printDocForm?.witnessAddress !== ''}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ठेगाना:
+                                            <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.witnessAddress !== null && printDocForm?.witnessAddress !== ''}">
                                                 {{printDocForm?.witnessAddress === null || printDocForm?.witnessAddress === '' ? '____________________' : printDocForm?.witnessAddress}}
                                             </span>
-
-                                </p>
-                                <p>दस्तखत : ...........................................
-
-                                    <br> नाम:
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.witnessName2 !== null && printDocForm?.witnessName2 !== ''}">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right: 20px; vertical-align: top" rowspan="3">(२)</td>
+                                        <td>दस्तखत : ...........................................</td>
+                                    </tr>
+                                    <tr>
+                                        <td>नाम:
+                                            <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.witnessName2 !== null && printDocForm?.witnessName2 !== ''}">
                                                 {{printDocForm?.witnessName2 === null || printDocForm?.witnessName2 === '' ? '____________________' : printDocForm?.witnessName2}}
                                             </span>
-                                    <br>
-                                    ठेगाना:
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.witnessAddress2 !== null && printDocForm?.witnessAddress2 !== ''}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td>ठेगाना:
+                                            <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.witnessAddress2 !== null && printDocForm?.witnessAddress2 !== ''}">
                                                 {{printDocForm?.witnessAddress2 === null || printDocForm?.witnessAddress2 === '' ? '____________________' : printDocForm?.witnessAddress2}}
                                             </span>
-                                </p>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                         <br>
@@ -1147,20 +1162,18 @@
                             </div>
                             <div class="col-md-12 mt-3">
                                 <p>
-                                    श्री प्रोग्रेशिभ फाइनान्स लिमिटेड
-                                </p>
-                                <p>
+                                    श्री प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
                                      <span [ngClass]="{'nepaliFont unicode-size5' : printDocForm?.financeBranch !== null && printDocForm?.financeBranch !== ''}">
                                         {{printDocForm?.financeBranch === null || printDocForm?.financeBranch === '' ? '_________________' : printDocForm?.financeBranch}}
                                     </span>
                                     शाखा,
                                     <span [ngClass]="{'nepaliFont unicode-size5' : printDocForm?.financeMunicipality !== null && printDocForm?.financeMunicipality !== ''}">
                                         {{printDocForm?.financeMunicipality === null || printDocForm?.financeMunicipality === '' ? '_________________' : printDocForm?.financeMunicipality}}
-                                    </span>
+                                    </span>।
                                 </p>
                             </div>
                         </div>
-                        <div class="row" id="jamanikartaBodySection">
+                        <div class="row" id="jamanikartaBodySection" style="margin-top: -30px">
                             <div class="col-md-12">
                                 <p style="line-height: 1.8">
                                     त्यस वित्तीय संस्थाको मिति
@@ -1183,15 +1196,15 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
+                        <div class="row" style="margin-top: -30px">
+                            <div class="col-md-12" >
                                 <p class="text-center">
                                     <u>
                                         तपसील
                                     </u>
                                 </p>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="margin-top: -20px">
                                 <ul class="list-inline" style="line-height: 1.5">
                                     <li>
                                         जमानतकर्ताको नामः श्री

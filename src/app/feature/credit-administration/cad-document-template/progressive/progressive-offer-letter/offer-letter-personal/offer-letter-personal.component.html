@@ -69,9 +69,9 @@
                                        formControlName="customerMobile">
                             </p>
                         </div>
-                        <h5 class="text-center">
-                            <u>व्यक्तिगत तथा गोप्य</u>
-                        </h5>
+                        <h2 class="text-center">
+                            <u><em>व्यक्तिगत तथा गोप्य</em></u>
+                        </h2>
                         <div style="margin-top:30px">
                             <h6 class="text-center">
                                 <u>विषय : कर्जा/सुबिधा स्वीकृती पत्र ।</u>
@@ -90,6 +90,8 @@
                                     पेश गरेको कर्जा आवेदन उपर कारवाही हुदा देहाय वमोजिमको धितो सुरक्षणमा तपसिलमा उल्लेखित
                                     शर्त बन्देजहरु पालना गर्ने गरी कर्जा तथा सुविधा स्वीकृति गरिएको ब्यहोरा जानकारी गराउदछौ ।
                                     <br> पक्षहरु :–<br>
+                                </p>
+                                <div style="padding-left: 75px">
                                     १.१ श्री
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
@@ -97,28 +99,29 @@
                                            [value]="form.get('customerName').value">
                                     (यस पछि “ऋणी” भनिएको)<br>
                                     १.२ श्री प्रोग्रेशिभ फाइनान्स लिमिटेड (यसपछि “फाइनान्स” भनिएको)
-                                </p>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12"
                                      *ngFor="let loanFacilityData of form.get('loanFacilityTable')['controls']; let i = index;"
                                      formArrayName="loanFacilityTable">
                                     <table [formGroupName]="i" class="table table-borderless">
-                                        <thead>
+                                        <thead *ngIf="i === 0">
                                         <tr>
-                                            <th rowspan="11">
-                                                <span *ngIf="i === 0">
-                                                    १.
-                                                </span>
-                                                ({{i + 1 | nepaliWord}})
+                                            <th>
+                                                १.
                                             </th>
-                                            <th colspan="2"><u>कर्जा तथा सुविधाको विवरण :</u></th>
+                                            <th colspan="2">
+                                               <u>कर्जा तथा सुविधाको विवरण :</u>
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td><strong>कर्जा सुविधाको किसिम :</strong></td>
-                                            <td><input *ngIf="i > 0; else firstIndexLoanType"
+                                            <td rowspan="10">({{i + 1 | nepaliWord}})</td>
+                                            <td style="width: 18%"><strong>कर्जा सुविधाको किसिम :</strong></td>
+                                            <td>
+                                                <input *ngIf="i > 0; else firstIndexLoanType"
                                                     class="form-control-sm form-field nepaliFont"
                                                     type="text"
                                                     formControlName="loanTypeNepali">
@@ -526,7 +529,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>२.१</strong></td>
+                                    <td>२.१</td>
                                     <td><strong>श्री </strong>
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
@@ -548,7 +551,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>२.२</strong></td>
+                                    <td>२.२</td>
                                     <td>रु.
                                         <input class="form-control-sm form-field nepaliFont uniFont"
                                                type="text"
@@ -581,9 +584,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td> ३.
+                                    <td><strong>३.</strong>
                                     </td>
-                                    <td><strong>व्याज :</strong> <br>
+                                    <td><strong><u>व्याज :</u></strong> <br>
                                         <ul style="line-height: 40px;">
                                             <li> अन्यथा व्यवस्था गरिएकोमा वाहेक यस कर्जा सुबिधा स्वीकृति पत्रमा तोकिएको
                                                 व्याज
@@ -628,7 +631,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>४.</td>
+                                    <td><strong>४.</strong></td>
                                     <td><strong>पुनरावलोकन :</strong> कर्जाको भुक्तानी मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका
                                         कर्जा
                                         तथा
@@ -637,7 +640,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>५.</td>
+                                    <td><strong>५.</strong></td>
                                     <td><strong><u>निरिक्षण :</u></strong>कुनै पूर्व तयारी नगरी फाइनान्सले आवश्यक देखेको समयमा व्यवसाय गरेका
                                         वा धितो
                                         सुरक्षण दिएका सम्पत्तिहरुको निरिक्षण गर्न फाइनान्स
@@ -646,7 +649,7 @@
                                         ।<br></td>
                                 </tr>
                                 <tr>
-                                    <td>६.</td>
+                                    <td><strong>६.</strong></td>
                                     <td><strong>शर्त वन्देजहरु :</strong> सुविधा समाप्त नभएसम्म वा कुनै रकम कलम वा दायित्वहरु वाँकी रहे
                                         सम्म
                                         ऋणीले
@@ -756,8 +759,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>७.</td>
-                                    <td><strong><u>अन्य शर्त वन्देजहरु:</u></strong>
+                                    <td><strong>७.</strong></td>
+                                    <td><strong><u>अन्य शर्त वन्देजहरु:</u></strong><br>
                                         यसका अतिरिक्त ऋणी निम्न शर्त वन्देजहरु स्वीकार गर्दछ ।
                                     </td>
                                 </tr>
@@ -814,7 +817,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>८.</td>
+                                    <td><strong>८.</strong></td>
                                     <td><strong><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></strong><br>
                                         देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा किस्ता/कर्जा खिलाफी भएको
                                         मानिने छ
@@ -929,7 +932,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>९.</td>
+                                    <td><strong>९.</strong></td>
                                     <td><strong><u>लागू हुने पूर्व शर्त</u></strong> <br>
                                         यो कर्जा सुविधा प्राप्त गर्न, यस कर्जा सुविधाको लागि माथि दफा २ मा
                                         लेखिएको सम्पत्तिको रुपमा उपलव्ध गराउन र धितो सम्पत्तिका लिखतहरु
@@ -961,7 +964,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td>१०.</td>
+                                    <td><strong>१०.</strong></td>
                                     <td>
                                         <strong><u>घोषणा (Declaration) : </u></strong> ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने
                                         कुराको
@@ -999,7 +1002,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>११.</td>
+                                    <td><strong>११.</strong></td>
                                     <td>
                                         <strong><u>छुट (Waiver)</u></strong><br>
                                         कुनै खास अधिकार छोडेको लिखित सूचना ऋणीले प्राप्त नगरे सम्म यस कर्जा
@@ -1010,7 +1013,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>१२.</td>
+                                    <td><strong>१२.</strong></td>
                                     <td>
                                         <strong><u>सूचना (Notice)</u></strong><br>
                                         कुनै पनि सूचना गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी वा फ्याक्स
@@ -1023,13 +1026,15 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <table class="table text-center table-bordered">
+                                        <thead>
                                         <tr>
-                                            <th>फाइनान्स</th>
-                                            <th>ऋणी</th>
+                                            <th style="border-bottom: none">फाइनान्स</th>
+                                            <th style="border-bottom: none">ऋणी</th>
                                         </tr>
+                                        </thead>
                                         <tbody>
                                         <tr>
-                                            <td> श्री प्रोग्रेशिभ फाइनान्स लिमिटेड,<br>
+                                            <td style="border-top: none"> श्री प्रोग्रेशिभ फाइनान्स लिमिटेड,<br>
                                                 शाखा कार्यालय
                                                 <input class="form-control-sm form-field nepaliFont uniFont"
                                                        type="text"
@@ -1080,7 +1085,7 @@
                                                        formControlName="financeEmail">
                                                 <br>
                                             </td>
-                                            <td>
+                                            <td style="border-top: none">
                                                 श्री
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
@@ -1272,38 +1277,36 @@
                                 <div class="col-md-12" id="witness">
                                     <table class="table-borderless">
                                         <tr>
-                                            <td style="padding-right: 20px">(१)</td>
+                                            <td style="padding-right: 20px; vertical-align: top" rowspan="3">(१)</td>
                                             <td>दस्तखत : ...........................................</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
                                             <td>नाम:
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
-                                                       formControlName="witnessName"></td>
+                                                       formControlName="witnessName">
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td></td>
                                             <td>ठेगाना:
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
-                                                       formControlName="witnessAddress"></td>
+                                                       formControlName="witnessAddress">
+                                            </td>
                                         </tr>
                                     </table>
                                     <table>
                                         <tr>
-                                            <td style="padding-right: 20px">(२)</td>
+                                            <td style="padding-right: 20px; vertical-align: top" rowspan="3">(२)</td>
                                             <td>दस्तखत : ...........................................</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
                                             <td>नाम:
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        formControlName="witnessName2"></td>
                                         </tr>
                                         <tr>
-                                            <td></td>
                                             <td>ठेगाना:
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
