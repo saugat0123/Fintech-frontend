@@ -166,13 +166,11 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
     initial() {
-        console.log('offer letter approved doc', this.cadOfferLetterApprovedDoc);
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
     }
 
     openOfferLetterDocumentModal(offerLetterType) {
-        console.log('offer letter type', offerLetterType);
         if (ObjectUtil.isEmpty(offerLetterType)) {
             this.toastrService.show(new Alert(AlertType.WARNING, 'Please Select Offer letter type'));
             return;
@@ -182,7 +180,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         if (isNaN(offerLetterType)) {
             offerLetterType = this.offerLetterConst.keysEnum(offerLetterType);
         }
-        console.log('component', this.component);
         this.nbDialogService.open(this.component, {
             context: {offerLetterType, cadOfferLetterApprovedDoc}
         });
