@@ -111,15 +111,12 @@
                     पनि हानीनोक्सानी तथा क्षती भएको अवस्थामा सम्पुर्ण नोक्सानी ऋणी स्वयमले ब्यहोर्न प्रतिबद्धता पत्र
                     (Undertaking Letter)
                 </li>
-                <li>
-                 <!--<textarea
-                         class="form-control nepaliFont"
-                         rows="5"
-                         style="width:95%;margin-left:2%"
-                         name="additionalGuarantorDetails"
-                         formControlName="additionalGuarantorDetails">
-                 </textarea>-->
-                    <span>ADDITIONAL GUARANTOR DETAILS</span>
+                <li *ngIf="freeText?.section10 !== ''">
+                    <span
+                            class="nepaliFont"
+                            style="font-size: 24px;">
+                           {{ freeText?.section10 }}
+                    </span>
                 </li>
             </ul>
         </div>

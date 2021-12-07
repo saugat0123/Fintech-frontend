@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {CustomerApprovedLoanCadDocumentation} from "../../../../../../model/customerApprovedLoanCadDocumentation";
+import {ObjectUtil} from "../../../../../../../../@core/utils/ObjectUtil";
 
 @Component({
   selector: 'app-section3-security-and-collateral',
@@ -7,12 +9,18 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrls: ['./section3-security-and-collateral.component.scss']
 })
 export class Section3SecurityAndCollateralComponent implements OnInit {
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   form: FormGroup;
+  tempData: any;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      this.fillForm();
+    }
   }
 
   buildForm() {
@@ -37,6 +45,10 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       freeText4: [undefined],
       freeText5: [undefined],
     })
+  }
+
+  fillForm() {
+    console.log('tempData: ', this.tempData);
   }
 
 }
