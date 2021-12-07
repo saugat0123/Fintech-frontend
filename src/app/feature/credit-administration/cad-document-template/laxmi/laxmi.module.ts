@@ -20,6 +20,7 @@ import {SelfDeclarationComponent} from './laxmi-offer-letter/self-declaration/se
 import {SelfDeclarationPrintComponent} from './laxmi-offer-letter/self-declaration/self-declaration-print/self-declaration-print.component';
 import {NrbKycComponent} from './laxmi-offer-letter/nrb-kyc/nrb-kyc.component';
 import {NrbKycPrintComponent} from './laxmi-offer-letter/nrb-kyc/nrb-kyc-print/nrb-kyc-print.component';
+// tslint:disable-next-line:max-line-length
 import {PromisoryNoteInstitutionalComponent} from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional.component';
 import {PromisoryNoteInstitutionalPrintComponent} from './laxmi-offer-letter/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
 import {LoanDeedInstitutionalComponent} from './laxmi-offer-letter/loan-deed-institutional/loan-deed-institutional.component';
@@ -32,6 +33,7 @@ import { HypothecationOverStockAndReceivableCurrentAssetsComponent } from './lax
 import { ConsentOfHakwalaComponent } from './laxmi-offer-letter/consent-of-hakwala/consent-of-hakwala.component';
 import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-laxmi/mortgage-deed-laxmi.component';
 import { HypothecationChargeOverFixedAssetsComponent } from './laxmi-offer-letter/hypothecation-charge-over-fixed-assets/hypothecation-charge-over-fixed-assets.component';
+import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-laxmi/offer-letter-laxmi.component';
 
 
 @NgModule({
@@ -62,7 +64,8 @@ import { HypothecationChargeOverFixedAssetsComponent } from './laxmi-offer-lette
         CorporateGuranteeComponent,
         ConsentOfHakwalaComponent,
         MortgageDeedLaxmiComponent,
-        HypothecationChargeOverFixedAssetsComponent],
+        HypothecationChargeOverFixedAssetsComponent,
+        OfferLetterLaxmiComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -86,7 +89,8 @@ import { HypothecationChargeOverFixedAssetsComponent } from './laxmi-offer-lette
     CorporateGuranteeComponent,
     ConsentOfHakwalaComponent,
     MortgageDeedLaxmiComponent,
-    HypothecationChargeOverFixedAssetsComponent
+    HypothecationChargeOverFixedAssetsComponent,
+      OfferLetterLaxmiComponent
   ],
     entryComponents: [
         LaxmiOfferLetterComponent

@@ -15,10 +15,14 @@
                     *ngSwitchCase=offerLetterConst.PERSONAL_GUARANTEE
                     [offerLetterType]="offerLetterType"
                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-personal-guarantee>
-            <app-offer-letter
+<!--            <app-offer-letter-->
+<!--                    *ngSwitchCase=offerLetterConst.OFFER_LETTER-->
+<!--                    [offerLetterType]="offerLetterType"-->
+<!--                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter>-->
+            <app-offer-letter-laxmi
+                    [cadData]="cadOfferLetterApprovedDoc"
                     *ngSwitchCase=offerLetterConst.OFFER_LETTER
-                    [offerLetterType]="offerLetterType"
-                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter>
+            ></app-offer-letter-laxmi>
         </div>
     </nb-card-body>
 </nb-card>
