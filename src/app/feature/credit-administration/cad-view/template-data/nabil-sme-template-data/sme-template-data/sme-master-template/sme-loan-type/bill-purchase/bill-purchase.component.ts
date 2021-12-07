@@ -14,7 +14,7 @@ import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 })
 export class BillPurchaseComponent implements OnInit {
   @Input() loanName;
-  billPurchasecomponent: FormGroup;
+  billPurchaseForm: FormGroup;
   isComplimentryOtherLoan = false;
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
   ADExpiry = false;
@@ -37,7 +37,7 @@ export class BillPurchaseComponent implements OnInit {
     }
   }
   buildForm() {
-    this.billPurchasecomponent = this.formBuilder.group({
+    this.billPurchaseForm = this.formBuilder.group({
       // for from data
       complementryOther: [undefined],
       multiLoan: [undefined],
@@ -75,7 +75,7 @@ export class BillPurchaseComponent implements OnInit {
   }
   checkComplimetryOtherLoan(data) {
     this.isComplimentryOtherLoan = data;
-    this.billPurchasecomponent.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
+    this.billPurchaseForm.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
   }
 
   public checkDateOfExpiry(value): void {
@@ -84,78 +84,78 @@ export class BillPurchaseComponent implements OnInit {
   }
 
   public getNumAmountWord(numLabel, wordLabel): void {
-    const transformValue = this.nepaliCurrencyWordPipe.transform(this.billPurchasecomponent.get(numLabel).value);
-    this.billPurchasecomponent.get(wordLabel).patchValue(transformValue);
+    const transformValue = this.nepaliCurrencyWordPipe.transform(this.billPurchaseForm.get(numLabel).value);
+    this.billPurchaseForm.get(wordLabel).patchValue(transformValue);
   }
   translateAndSetVal() {
     /* SET TRANS VALUE FOR CONDITIONS */
-    const tempComplemetry = this.billPurchasecomponent.get('complementryOther').value;
+    const tempComplemetry = this.billPurchaseForm.get('complementryOther').value;
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
-      this.billPurchasecomponent.get('complementryOtherTrans').patchValue(tempComplemetry);
+      this.billPurchaseForm.get('complementryOtherTrans').patchValue(tempComplemetry);
     }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
-    const tempLoanAmount = this.billPurchasecomponent.get('loanAmount').value;
+    const tempLoanAmount = this.billPurchaseForm.get('loanAmount').value;
     const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
         this.convertNumbersToNepali(tempLoanAmount, true) : '';
-    this.billPurchasecomponent.get('loanAmountTrans').patchValue(convertNumber);
+    this.billPurchaseForm.get('loanAmountTrans').patchValue(convertNumber);
 
-    this.billPurchasecomponent.get('loanAmountWordsTrans').patchValue(
-        this.billPurchasecomponent.get('loanAmountWords').value
+    this.billPurchaseForm.get('loanAmountWordsTrans').patchValue(
+        this.billPurchaseForm.get('loanAmountWords').value
     );
-    const convertMargin = this.convertNumbersToNepali(this.billPurchasecomponent.get('marginInPercentage').value, false);
-    this.billPurchasecomponent.get('marginInPercentageTrans').patchValue(convertMargin);
-    const commission = this.convertNumbersToNepali(this.billPurchasecomponent.get('commission').value, false);
-    this.billPurchasecomponent.get('commissionTrans').patchValue(commission);
-    const minCommissionAmountInFig = this.convertNumbersToNepali(this.billPurchasecomponent.get('minCommissionAmountInFig').value, false);
-    this.billPurchasecomponent.get('minCommissionAmountInFigTrans').patchValue(minCommissionAmountInFig);
+    const convertMargin = this.convertNumbersToNepali(this.billPurchaseForm.get('marginInPercentage').value, false);
+    this.billPurchaseForm.get('marginInPercentageTrans').patchValue(convertMargin);
+    const commission = this.convertNumbersToNepali(this.billPurchaseForm.get('commission').value, false);
+    this.billPurchaseForm.get('commissionTrans').patchValue(commission);
+    const minCommissionAmountInFig = this.convertNumbersToNepali(this.billPurchaseForm.get('minCommissionAmountInFig').value, false);
+    this.billPurchaseForm.get('minCommissionAmountInFigTrans').patchValue(minCommissionAmountInFig);
 
     /* Converting value for date */
-    this.billPurchasecomponent.get('dateOfExpiryTypeTrans').patchValue(
-        this.billPurchasecomponent.get('dateOfExpiryType').value
+    this.billPurchaseForm.get('dateOfExpiryTypeTrans').patchValue(
+        this.billPurchaseForm.get('dateOfExpiryType').value
     );
-    const tempDateOfExpType = this.billPurchasecomponent.get('dateOfExpiryType').value;
+    const tempDateOfExpType = this.billPurchaseForm.get('dateOfExpiryType').value;
     let tempExpDate;
     if (tempDateOfExpType === 'AD') {
-      const tempEngExpDate = this.billPurchasecomponent.get('dateOfExpiry').value;
+      const tempEngExpDate = this.billPurchaseForm.get('dateOfExpiry').value;
       tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ?
           this.engToNepDatePipe.transform(this.datePipe.transform(tempEngExpDate), true) : '';
-      this.billPurchasecomponent.get('dateOfExpiryTrans').patchValue(tempExpDate);
+      this.billPurchaseForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
     } else {
-      const tempDateOfExpNep = this.billPurchasecomponent.get('dateOfExpiryNepali').value;
+      const tempDateOfExpNep = this.billPurchaseForm.get('dateOfExpiryNepali').value;
       tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
           tempDateOfExpNep.nDate : '';
-      this.billPurchasecomponent.get('dateOfExpiryTrans').patchValue(tempExpDate);
+      this.billPurchaseForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
     }
     this.setCTValue();
   }
   setCTValue() {
-    this.billPurchasecomponent.get('complementryOtherCT').patchValue(
-        this.billPurchasecomponent.get('complementryOtherTrans').value
+    this.billPurchaseForm.get('complementryOtherCT').patchValue(
+        this.billPurchaseForm.get('complementryOtherTrans').value
     );
-    this.billPurchasecomponent.get('loanAmountCT').patchValue(
-        this.billPurchasecomponent.get('loanAmountTrans').value
+    this.billPurchaseForm.get('loanAmountCT').patchValue(
+        this.billPurchaseForm.get('loanAmountTrans').value
     );
-    this.billPurchasecomponent.get('loanAmountWordsCT').patchValue(
-        this.billPurchasecomponent.get('loanAmountWordsTrans').value
+    this.billPurchaseForm.get('loanAmountWordsCT').patchValue(
+        this.billPurchaseForm.get('loanAmountWordsTrans').value
     );
-    this.billPurchasecomponent.get('marginInPercentageCT').patchValue(
-        this.billPurchasecomponent.get('marginInPercentageTrans').value
+    this.billPurchaseForm.get('marginInPercentageCT').patchValue(
+        this.billPurchaseForm.get('marginInPercentageTrans').value
     );
-    this.billPurchasecomponent.get('commissionCT').patchValue(
-        this.billPurchasecomponent.get('commissionTrans').value
+    this.billPurchaseForm.get('commissionCT').patchValue(
+        this.billPurchaseForm.get('commissionTrans').value
     );
-    this.billPurchasecomponent.get('minCommissionAmountInFigCT').patchValue(
-        this.billPurchasecomponent.get('minCommissionAmountInFigTrans').value
+    this.billPurchaseForm.get('minCommissionAmountInFigCT').patchValue(
+        this.billPurchaseForm.get('minCommissionAmountInFigTrans').value
     );
-    this.billPurchasecomponent.get('dateOfExpiryTypeCT').patchValue(
-        this.billPurchasecomponent.get('dateOfExpiryTypeTrans').value
+    this.billPurchaseForm.get('dateOfExpiryTypeCT').patchValue(
+        this.billPurchaseForm.get('dateOfExpiryTypeTrans').value
     );
-    this.billPurchasecomponent.get('dateOfExpiryNepaliCT').patchValue(
-        this.billPurchasecomponent.get('dateOfExpiryNepaliTrans').value
+    this.billPurchaseForm.get('dateOfExpiryNepaliCT').patchValue(
+        this.billPurchaseForm.get('dateOfExpiryNepaliTrans').value
     );
-    this.billPurchasecomponent.get('dateOfExpiryCT').patchValue(
-        this.billPurchasecomponent.get('dateOfExpiryTrans').value
+    this.billPurchaseForm.get('dateOfExpiryCT').patchValue(
+        this.billPurchaseForm.get('dateOfExpiryTrans').value
     );
   }
   /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/
