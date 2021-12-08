@@ -10,29 +10,30 @@ import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 })
 export class Section6FacilitiesClauseComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() freeText;
   form: FormGroup;
   tempData;
-
+  tenureOfLoan;
+  freeInformation: any;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
-      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-      this.fillForm();
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     }
+    this.fillForm();
   }
   buildForm() {
-    return this.form = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       tenureOfLoan: [undefined],
     });
   }
-
   fillForm() {
     this.form.patchValue({
-      tenureOfLoan: this.tempData.autoLoanMasterForm.tenureOfLoan ? this.tempData.autoLoanMasterForm.tenureOfLoan : ''
+      tenureOfLoan: this.freeInformation ? this.freeInformation.section6.tenureOfLoan : ''
     });
   }
 

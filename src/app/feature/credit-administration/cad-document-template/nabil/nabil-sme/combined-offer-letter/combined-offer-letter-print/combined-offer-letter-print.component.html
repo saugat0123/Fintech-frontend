@@ -1,7 +1,8 @@
 <div id="{{offerLetterConst.COMBINED_LETTER}}">
     <!-- todo NEEDED TO CALL EACH SECTION COMPONENT ALONG WITH COMMON COMPONENTS-->
     <div class="col-md-12">
-        <app-common-section-top-print></app-common-section-top-print>
+        <app-common-section-top-print
+                [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-common-section-top-print>
         <app-section2-loan-type-print
                 [customerApprovedDoc]="customerApprovedDoc"
                 [letterData]="letterData"
@@ -10,7 +11,9 @@
                 [customerApprovedDoc]="customerApprovedDoc"
                 [letterData]="letterData"
                 [freeText]="freeText"></app-section3-security-and-collateral-print>
-        <app-section6-facilities-clause-print></app-section6-facilities-clause-print>
+        <app-section6-facilities-clause-print
+                [customerApprovedDoc]="customerApprovedDoc"
+                [freeText]="freeText"></app-section6-facilities-clause-print>
         <app-section7-security-clause-print></app-section7-security-clause-print>
         <app-section9-other-clause-print
                 [customerApprovedDoc]="customerApprovedDoc"
@@ -21,6 +24,6 @@
                 [letterData]="letterData"
                 [freeText]="freeText"
         ></app-section10-security-documents-print>
-        <app-common-section-bottom-print></app-common-section-bottom-print>
+        <app-common-section-bottom-print [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-common-section-bottom-print>
     </div>
 </div>

@@ -13,11 +13,13 @@ import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 })
 export class CommonSectionTopPrintComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() customerApprovedDoc;
   form: FormGroup;
   spinner = false;
   offerLetterConst = NabilOfferLetterConst;
   loanHolderInfo;
   tempData;
+  autoRefNumber;
   sanctionLetterDate;
   addressOfBorrower;
   constructor(
@@ -27,6 +29,11 @@ export class CommonSectionTopPrintComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // reference number
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+    }
+    // for address
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -43,31 +50,5 @@ export class CommonSectionTopPrintComponent implements OnInit {
       const sanctionLetDate = this.tempData.smeGlobalForm.sanctionLetterDate ? this.tempData.smeGlobalForm.sanctionLetterDateCT : '';
       this.sanctionLetterDate = sanctionLetDate ? sanctionLetDate : '';
     }
-    // address of customer
-    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
-    this.form.patchValue({
-      nameOfBorrower: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
-      addressOfBorrower: customerAddress ? customerAddress : '',
-    });
-  }
-  setLoanConfigData(data: any) {
-    let cadNepData = {
-      numberNepali: ')',
-      nepaliWords: 'सुन्य',
-    };
-    const customerAddress =
-        data.permanentMunicipality + ' , ' +
-        data.permanentWard + ' , ' +
-        data.permanentProvince + ' , ' +
-        data.permanentDistrict;
-    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
-      cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-    }
-    this.form.patchValue({
-      customerName: data.name ? data.name : '',
-      customerAddress: customerAddress ? customerAddress : ''
-    });
   }
 }

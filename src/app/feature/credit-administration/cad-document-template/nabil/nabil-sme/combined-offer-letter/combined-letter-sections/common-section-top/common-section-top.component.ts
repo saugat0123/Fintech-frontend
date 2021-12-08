@@ -18,6 +18,7 @@ export class CommonSectionTopComponent implements OnInit {
   offerLetterConst = NabilOfferLetterConst;
   loanHolderInfo;
   tempData;
+  assignedData;
   sanctionLetterDate;
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +36,7 @@ export class CommonSectionTopComponent implements OnInit {
   }
   buildForm() {
     return this.form = this.formBuilder.group({
+      referenceNumber: [undefined],
       sanctionLetterDate: [undefined],
       nameOfBorrower: [undefined],
       addressOfBorrower: [undefined],
@@ -59,6 +61,12 @@ export class CommonSectionTopComponent implements OnInit {
     });
   }
   fillForm() {
+    // ref number of customer
+    let autoRefNumber;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
+      this.assignedData = this.cadOfferLetterApprovedDoc.assignedLoan[0];
+      autoRefNumber = this.assignedData.refNo;
+    }
     // Sanction-letter-date
     const previousSanctionType  = this.tempData.smeGlobalForm.previousSanctionType ? this.tempData.smeGlobalForm.previousSanctionType : '';
     if (previousSanctionType === 'AD') {
@@ -73,6 +81,7 @@ export class CommonSectionTopComponent implements OnInit {
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
         this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
     this.form.patchValue({
+      referenceNumber: autoRefNumber ? autoRefNumber : '',
       nameOfBorrower: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
       addressOfBorrower: customerAddress ? customerAddress : '',
     });

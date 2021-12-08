@@ -11,6 +11,7 @@ import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 })
 export class CommonSectionBottomPrintComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() customerApprovedDoc;
   @Input() letter;
   form: FormGroup;
   spinner = false;
