@@ -3,7 +3,6 @@
     <nb-checkbox [checked]="isCombinedLoan" (change)="combinedLoan($event)">Check if combined loan</nb-checkbox>
     <br>
   </div>
-   <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>
   <div *ngFor="let loan of form.get('loanDetails')['controls']; let i = index"
        formArrayName="loanDetails">
     <table class="table table-borderless small table-4" [formGroupName]="i">
@@ -91,6 +90,9 @@
       </tr>
     </table>
     <hr>
+  </div>
+  <div *ngIf="isCombinedLoan">
+    <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>
   </div>
   <button class="float-right" nbButton type="submit" (click)="save()" [disabled]="spinner">Save & Next
   </button>
