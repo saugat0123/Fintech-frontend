@@ -129,6 +129,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
             this.creditAdministrationService.saveCadDocumentBulk(this.cadData).subscribe((res) => {
                 this.cadData = res.detail;
                 this.document = this.cadData.requiredDocument;
+                this.responseCadData.emit(res.detail);
                 console.log(res.detail);
             });
         }
