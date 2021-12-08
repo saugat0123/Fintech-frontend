@@ -43,6 +43,14 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
               private formBuilder: FormBuilder,
               ) {
   }
+  totalApprovedProposedAmount;
+  totalRejectProposedAmount;
+  totalClosedProposedAmount;
+  totalInitialPendingProposedAmount;
+  totalApprovedCollateralAmount;
+  totalRejectCollateralAmount;
+  totalClosedCollateralAmount;
+  totalInitialPendingCollateralAmount;
 
   public static LOAN_CHANGE = 'loanChange';
   public static LOAN_DELETE = 'loanDelete';
@@ -140,52 +148,103 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       this.collateralDtoData.totalRejectRequiredCollateral = 0;
       this.collateralDtoData.totalClosedProposedLimit= 0;
       this.collateralDtoData.totalClosedRequiredCollateral =0;
-      this.customerGroupLoanList.forEach(l => {
 
-            if(l.proposal && l.documentStatus.toString() !== DocStatus.value(DocStatus.REJECTED ) && l.documentStatus.toString() !== DocStatus.value(DocStatus.CLOSED) &&l.documentStatus.toString() !== DocStatus.value(DocStatus.APPROVED)){
-              this.totalLoanProposedAmount = this.collateralDtoData.totalApprovedLimit + l.proposal.proposedLimit;
-              this.collateralDtoData.totalRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
-                  ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-              this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
-                  l.proposal.proposedLimit;
-              this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
-                  + ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-            }
+      // Total Approved Proposed Amount
 
-              else if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
-                this.collateralDtoData.totalApprovedLimit = this.collateralDtoData.totalApprovedLimit +
-                    l.proposal.proposedLimit;
-                this.collateralDtoData.totalApprovedRequiredCollateral =
-                    this.collateralDtoData.totalApprovedRequiredCollateral +
-                    ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-              }
-
-
-              else if (l.documentStatus.toString() == DocStatus.value(DocStatus.REJECTED)) {
-                this.collateralDtoData.totalRejectProposedLimit +=
-                    l.proposal.proposedLimit;
-                this.collateralDtoData.totalRejectRequiredCollateral =
-                    this.collateralDtoData.totalRejectRequiredCollateral +
-                    ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-
-              }
-              else if (l.documentStatus.toString() == DocStatus.value(DocStatus.CLOSED)){
-              this.collateralDtoData.totalClosedProposedLimit +=
-                  l.proposal.proposedLimit;
-              this.collateralDtoData.totalClosedRequiredCollateral =
-                  this.collateralDtoData.totalClosedRequiredCollateral +
-                  ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-            }
-            else{
-
-              this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
-                  l.proposal.proposedLimit;
-              this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
-                  + ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-            }
+      let totalApprovedProposedAmount = [];
+      this.customerGroupLoanList.map(val => {
+        if(val.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED )) {
+          totalApprovedProposedAmount.push(val.proposal.proposedLimit);
         }
+      });
+      this.totalApprovedProposedAmount = totalApprovedProposedAmount.reduce((a,b)=> Number(a) + Number(b), 0)
 
-      );
+
+      // Total Approved Collateral Amount
+      let totalApprovedCollateralAmount =0;
+     this.customerGroupLoanList.forEach(value => {
+       if(value.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED )){
+         totalApprovedCollateralAmount += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+       }
+     });
+     this.totalApprovedCollateralAmount = totalApprovedCollateralAmount
+
+
+
+//    Total Rejected Proposed Amount
+      let totalRejectProposedAmount = [];
+      this.customerGroupLoanList.map(val => {
+        if(val.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED)) {
+          totalRejectProposedAmount.push(val.proposal.proposedLimit);
+        }
+      });
+      this.totalRejectProposedAmount = totalRejectProposedAmount.reduce((a,b)=> Number(a) + Number(b), 0)
+
+
+      // Total Rejected Collateral Amount
+      let totalRejectCollateralAmount =0;
+      this.customerGroupLoanList.forEach(value => {
+        if(value.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED )){
+          totalRejectCollateralAmount += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+        }
+      });
+      this.totalRejectCollateralAmount = totalRejectCollateralAmount
+
+
+// Total Closed Proposed Amount
+      let totalClosedProposedAmount = [];
+      this.customerGroupLoanList.map(val => {
+        if(val.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+          totalClosedProposedAmount.push(val.proposal.proposedLimit);
+        }
+      });
+      this.totalClosedProposedAmount = totalClosedProposedAmount.reduce((a,b)=> Number(a) + Number(b), 0)
+
+
+      // Total Closed Collateral Amount
+
+      let totalClosedCollateralAmount =0;
+      this.customerGroupLoanList.forEach(value => {
+        if(value.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED )){
+          totalClosedCollateralAmount += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+        }
+      });
+      this.totalClosedCollateralAmount = totalClosedCollateralAmount
+
+
+// Total Initial Pending UnderDiscussion Under Review Proposed Amount
+      let totalInitialPendingProposedAmount = [];
+      this.customerGroupLoanList.map(val => {
+        if  (val.documentStatus.toString() === DocStatus.value(DocStatus.PENDING) ||
+            (val.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION)) ||
+            (val.documentStatus.toString() === DocStatus.value(DocStatus.INITIAL)) ||
+            (val.documentStatus.toString() === DocStatus.value(DocStatus.UNDER_REVIEW))) {
+          totalInitialPendingProposedAmount.push(val.proposal.proposedLimit);
+        }
+      });
+      this.totalInitialPendingProposedAmount = totalInitialPendingProposedAmount.reduce((a,b)=> Number(a) + Number(b), 0)
+
+
+
+      // Total Initial Pending UnderDiscussion Under Review Proposed Amount
+      let totalInitialPendingCollateralAmount =0;
+      this.customerGroupLoanList.forEach(value => {
+        if  (value.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION)) ||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.INITIAL)) ||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.UNDER_REVIEW)) ||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION))||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION))){
+          totalInitialPendingCollateralAmount += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+        }
+      });
+      this.totalInitialPendingCollateralAmount = totalInitialPendingCollateralAmount
+
+
+      // Total Loan Proposed Amount
+
+      this.totalLoanProposedAmount = this.totalInitialPendingProposedAmount + this.totalApprovedProposedAmount;
+
       this.calculateCollateralData();
       const loanAmountType = new LoanAmountType();
       loanAmountType.type = this.fetchLoan.CUSTOMER_LOAN;

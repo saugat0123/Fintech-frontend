@@ -215,6 +215,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     loanNatureSelected = false;
     companyInfoId: any;
     mGroupInfo: any;
+    requestedLoanType;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -249,6 +250,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe((res) => {
+            this.requestedLoanType = res.type;
            this.customerLoanService.detail(res.customerId).subscribe(response => {
                this.companyInfoId =  response.detail.loanHolder.id;
             const details = JSON.parse(response.detail.data);
@@ -530,14 +532,17 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             .subscribe((res: any) => {
                 this.customerAllLoanList = res.detail;
                 // push current loan if not fetched from staged spec response
-                if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
-                    this.customerAllLoanList.push(this.loanDataHolder);
-                }
-                if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+                if (ObjectUtil.isEmpty(this.requestedLoanType)) {
+                    if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
+                        this.customerAllLoanList.push(this.loanDataHolder);
+                    }
+                    if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED')|| (this.loanDataHolder.documentStatus.toString() === 'CLOSED')) {
+                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+                    } else {
+                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'APPROVED') && (c.currentStage.docAction !== 'CLOSED')));
+                    }
                 } else {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'CLOSED');
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));
                 }
                 // push loans from combined loan if not in the existing array
                 const combinedLoans = this.customerAllLoanList

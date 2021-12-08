@@ -77,10 +77,10 @@
                     <tr class="sb-bg-secondary text-white">
                         <td></td>
                         <td>Total</td>
-                        <td class="text-right pr-1">Rs. {{collateralDtoData?.totalPendingLimit |currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{totalInitialPendingProposedAmount |currencyFormatter}}</td>
                         <td colspan="4"></td>
                         <td class="text-right pr-1">
-                            Rs. {{collateralDtoData?.totalPendingRequiredCollateral |currencyFormatter}}</td>
+                            Rs. {{totalInitialPendingCollateralAmount|currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -181,10 +181,10 @@
                         <td></td>
                         <td>Total</td>
                         <td class="text-right pr-2">
-                            Rs. {{collateralDtoData?.totalApprovedLimit |currencyFormatter}}</td>
+                            Rs. {{totalApprovedProposedAmount |currencyFormatter}}</td>
                         <td colspan="3"></td>
                         <td class="text-right pr-1">
-                            Rs. {{collateralDtoData?.totalApprovedRequiredCollateral |currencyFormatter}}</td>
+                            Rs. {{totalApprovedCollateralAmount |currencyFormatter}}</td>
                         <td></td>
                     </tr>
                     </tbody>
@@ -264,10 +264,10 @@
                     <tr class="sb-bg-secondary text-white">
                         <td></td>
                         <td>Total</td>
-                        <td class="text-right pr-1">Rs. {{collateralDtoData?.totalRejectProposedLimit |currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{totalRejectProposedAmount |currencyFormatter}}</td>
                         <td colspan="4"></td>
                         <td class="text-right pr-1">
-                            Rs. {{collateralDtoData?.totalRejectRequiredCollateral |currencyFormatter}}</td>
+                            Rs. {{totalRejectCollateralAmount |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -308,20 +308,6 @@
                                 class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                             <td>
-                                <div *ngIf='((model?.documentStatus.toString() === "CLOSED") && canReInitiateLoan)'>
-                                    <button nbButton status="warning" size="tiny"
-                                            (click)="onReInitiateClick(onReInitiateLoan, model?.id, model?.customerInfoCustomerName,
-                                    model?.loanName, loanType[model?.loanType], model?.branchName)">
-                                        Re-initiate</button>
-                                </div>
-                                <div *ngIf="model.parentId">
-                                    <a (click)="renewedOrCloseFrom(model?.id,model?.parentId)"
-                                       class="text-success cursor">{{loanType[model.loanType]}} From
-                                        <em class="p-1 fa fa-edit"></em></a>
-                                </div>
-                                <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
-                                    <p>NA</p>
-                                </div>
                             </td>
                         </tr>
                         <ng-container *ngIf="toggleArray[i].toggled">
@@ -345,10 +331,10 @@
                     <tr class="sb-bg-secondary text-white">
                         <td></td>
                         <td>Total</td>
-                        <td class="text-right pr-1">Rs. {{collateralDtoData?.totalClosedProposedLimit |currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{totalClosedProposedAmount |currencyFormatter}}</td>
                         <td colspan="4"></td>
                         <td class="text-right pr-1">
-                            Rs. {{collateralDtoData?.totalClosedRequiredCollateral |currencyFormatter}}</td>
+                            Rs. {{totalClosedCollateralAmount |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
