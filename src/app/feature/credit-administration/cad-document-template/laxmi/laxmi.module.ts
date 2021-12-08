@@ -34,6 +34,7 @@ import { ConsentOfHakwalaComponent } from './laxmi-offer-letter/consent-of-hakwa
 import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-laxmi/mortgage-deed-laxmi.component';
 import { HypothecationChargeOverFixedAssetsComponent } from './laxmi-offer-letter/hypothecation-charge-over-fixed-assets/hypothecation-charge-over-fixed-assets.component';
 import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-laxmi/offer-letter-laxmi.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-lax
         NgxPrintModule,
         CoreModule,
         NbRadioModule,
+        NgSelectModule,
     ],
   exports: [
     LoanDeedIndividualComponent,
