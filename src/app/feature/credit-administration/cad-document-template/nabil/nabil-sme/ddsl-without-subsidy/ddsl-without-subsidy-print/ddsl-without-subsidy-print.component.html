@@ -71,7 +71,7 @@
                         <td><strong>सुरक्षणः</strong></td>
                         <td colspan="2">ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा सुरक्षण
                             महलमा उल्लिखित
-                            घर/जग्गा तथा ............................... प्रशोधित वा अर्ध प्रशोधित कच्चा पदार्थ,
+                            घर/जग्गा तथा प्रशोधित वा अर्ध प्रशोधित कच्चा पदार्थ,
                             तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि, कृषि उपज आदी लगायतका सम्पूर्ण
                             सामानहरुको मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तीहरु
                             बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धक/रोक्का गरिदिनु पर्नेछ ।
@@ -782,8 +782,8 @@
                     .........................................
                     <p>
                          <span [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
-                            {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
-                        <span class="nepaliFont">{{freeInformation ? freeInformation.fifthText : 'सम्पर्क अधिकृत'}}</span>
+                            {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span><br>
+                        <span class="nepaliFont" style="font-size: 16px">{{freeInformation ? freeInformation.fifthText : 'सम्पर्क अधिकृत'}}</span>
                         <br>
                         नबिल बैंक लि.<br>
                         {{branchName ? branchName : ''}} शाखा
@@ -793,8 +793,8 @@
                     .........................................
                     <p>
                        <span [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
-                            {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
-                        <span class="nepaliFont">{{freeInformation ? freeInformation.sixthText : 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक'}}</span><br>
+                            {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span><br>
+                        <span class="nepaliFont" style="font-size: 16px">{{freeInformation ? freeInformation.sixthText : 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक'}}</span><br>
                         नबिल बैंक लि. <br>
                         {{branchName ? branchName : ''}} शाखा
                     </p>
