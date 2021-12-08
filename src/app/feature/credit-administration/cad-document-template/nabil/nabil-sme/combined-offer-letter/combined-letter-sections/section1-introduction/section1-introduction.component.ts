@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {ObjectUtil} from "../../../../../../../../@core/utils/ObjectUtil";
+import {DatePipe} from "@angular/common";
+import {EngNepDatePipe} from "nepali-patro";
 
 @Component({
   selector: 'app-section1-introduction',
@@ -7,11 +10,21 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./section1-introduction.component.scss']
 })
 export class Section1IntroductionComponent implements OnInit {
+  @Input() cadOfferLetterApprovedDoc;
   section1: FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  tempData: any;
+  tempApplicationDate: any;
+  tempSanctionDate: any;
+  constructor(private formBuilder: FormBuilder,
+              private datePipe: DatePipe,
+              private engToNepaliDate: EngNepDatePipe) { }
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      this.fillForm();
+    }
   }
   buildForm() {
     this.section1 = this.formBuilder.group({
@@ -23,5 +36,22 @@ export class Section1IntroductionComponent implements OnInit {
       prevSanctionLetterDate: [undefined],
      firstAdditionalDetails: [undefined],
     });
+  }
+
+  fillForm() {
+    if (this.tempData.smeGlobalForm.loanApplicationDataType === 'AD') {
+      this.tempApplicationDate = this.engToNepaliDate.transform(this.datePipe.transform(this.tempData.smeGlobalForm.loanApplicationDate), true);
+    } else {
+      this.tempApplicationDate = this.tempData.smeGlobalForm.loanApplicationDateCT;
+    }
+    if (this.tempData.smeGlobalForm.previousSanctionType === 'AD') {
+      this.tempSanctionDate = this.engToNepaliDate.transform(this.datePipe.transform(this.tempData.smeGlobalForm.sanctionLetterDate), true);
+    } else {
+      this.tempSanctionDate = this.tempData.smeGlobalForm.sanctionLetterDateCT;
+    }
+    this.section1.patchValue({
+      dateOfApplication: this.tempApplicationDate ? this.tempApplicationDate : '',
+      prevSanctionLetterDate: this.tempSanctionDate ? this.tempSanctionDate : '',
+    })
   }
 }

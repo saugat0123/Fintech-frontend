@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
+import {CustomerApprovedLoanCadDocumentation} from "../../../../../model/customerApprovedLoanCadDocumentation";
+import {ObjectUtil} from "../../../../../../../@core/utils/ObjectUtil";
 
 @Component({
   selector: 'app-combined-offer-letter-print',
@@ -7,11 +9,18 @@ import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
   styleUrls: ['./combined-offer-letter-print.component.scss']
 })
 export class CombinedOfferLetterPrintComponent implements OnInit {
+  @Input() customerApprovedDoc;
   offerLetterConst = NabilOfferLetterConst;
+  letterData: any;
+  freeText: any;
 
   constructor() { }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
+      this.letterData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
+      this.freeText = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
+    }
   }
 
 }

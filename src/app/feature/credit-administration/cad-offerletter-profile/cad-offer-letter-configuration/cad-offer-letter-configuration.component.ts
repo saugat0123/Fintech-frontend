@@ -870,6 +870,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
             }
 
+            if(this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value && this.actionType === 'Edit' &&
+                this.customerType === CustomerType.INSTITUTION){
+                nepData['guarantorType'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTypeTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTypeCT']).value,
+                }
+
+            }
+
+            if(this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonName']).value && this.actionType === 'Edit' &&
+                this.customerType === CustomerType.INSTITUTION){
+                nepData['authorizedPersonName'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonName']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonNameTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonNameCT']).value,
+                }
+
+            }
+
             if(this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Embassy Certificate' && this.actionType === 'Edit' &&
                 this.customerType === CustomerType.INSTITUTION){
                 nepData['indianGuarantorDetailOption'] = {
@@ -1047,6 +1067,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 }
 
             }
+
+            if(this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderName']).value &&
+                this.customerType === CustomerType.INSTITUTION){
+                nepData['guaranteeProviderName'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderName']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderNameTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderNameCT']).value,
+                }
+
+            }
+
+
 
             if(this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value === 'Local' && this.actionType === 'Edit' &&
                 this.customerType === CustomerType.INSTITUTION){
@@ -1577,6 +1609,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
             // only for Institutional customer--ends
 
+            guarantorType: [undefined],
+            guarantorTypeTrans: [undefined],
+            guarantorTypeCT: [undefined],
+            authorizedPersonName: [undefined],
+            authorizedPersonNameTrans: [undefined],
+            authorizedPersonNameCT: [undefined],
+            guaranteeProviderName: [undefined],
+            guaranteeProviderNameTrans: [undefined],
+            guaranteeProviderNameCT: [undefined],
+
+
             nepData: [undefined],
 
         });
@@ -1850,6 +1893,24 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                     undefined : nepaData.guarantorOtherAddress.np,
                 guarantorOtherAddressCT:ObjectUtil.isEmpty(nepaData.guarantorOtherAddress) ?
                     undefined : nepaData.guarantorOtherAddress.ct,
+                guarantorType : ObjectUtil.isEmpty(nepaData.guarantorType) ?
+                    undefined : nepaData.guarantorType.en,
+                guarantorTypeTrans: ObjectUtil.isEmpty(nepaData.guarantorType) ?
+                    undefined : nepaData.guarantorType.np,
+                guarantorTypeCT: ObjectUtil.isEmpty(nepaData.guarantorType) ?
+                    undefined : nepaData.guarantorType.ct,
+                authorizedPersonName: ObjectUtil.isEmpty(nepaData.authorizedPersonName) ?
+                    undefined : nepaData.authorizedPersonName.en,
+                authorizedPersonNameTrans: ObjectUtil.isEmpty(nepaData.authorizedPersonName) ?
+                    undefined : nepaData.authorizedPersonName.np,
+                authorizedPersonNameCT: ObjectUtil.isEmpty(nepaData.authorizedPersonName) ?
+                    undefined : nepaData.authorizedPersonName.ct,
+                guaranteeProviderName: ObjectUtil.isEmpty(nepaData.guaranteeProviderName) ?
+                    undefined : nepaData.guaranteeProviderName.en,
+                guaranteeProviderNameTrans: ObjectUtil.isEmpty(nepaData.guaranteeProviderName) ?
+                    undefined : nepaData.guaranteeProviderName.np,
+                guaranteeProviderNameCT: ObjectUtil.isEmpty(nepaData.guaranteeProviderName) ?
+                    undefined : nepaData.guaranteeProviderName.ct,
 
                 radioCitizenIssuedDateCT: [undefined],
                 citizenIssuedDateCT: [undefined],
@@ -2254,6 +2315,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                     guarantorsDetails.guarantorOtherAddress : '',
                 guarantorOtherAddressCT:  guarantorsDetails.guarantorOtherAddress ?
                     guarantorsDetails.guarantorOtherAddress : '',
+                guarantorTypeTrans : guarantorsDetails.guarantorType ?
+                    guarantorsDetails.guarantorType : '',
+                guarantorTypeCT : guarantorsDetails.guarantorType ?
+                    guarantorsDetails.guarantorType : '',
+
+                guaranteeProviderNameTrans: guarantorsDetails.guaranteeProviderName ?
+                    guarantorsDetails.guaranteeProviderName : '',
+                guaranteeProviderNameCT: guarantorsDetails.guaranteeProviderName ?
+                    guarantorsDetails.guaranteeProviderName : '',
+
+                authorizedPersonNameTrans:  guarantorsDetails.authorizedPersonName ?
+                    guarantorsDetails.authorizedPersonName : '',
+                authorizedPersonNameCT:  guarantorsDetails.authorizedPersonName ?
+                    guarantorsDetails.authorizedPersonName : '',
+
+
 
                 //Guarantors flag
 

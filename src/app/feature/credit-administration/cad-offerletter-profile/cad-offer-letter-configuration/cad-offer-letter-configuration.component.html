@@ -511,7 +511,7 @@
                            formControlName="actYear"
                           (change)="setActDateValue()"
                            name="citizenIssuedDate"
-                           placeholder="Citizenship Issue Date"
+                           placeholder="Act Year"
                            type="text">
                     <nb-datepicker #actYearDate></nb-datepicker>
                   </div>
@@ -3382,7 +3382,27 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
               formArrayName="guarantorDetails"
               style="border: 1px solid rgba(255,255,255, 0.1)">
             <table [formGroupName]="i" class="table table-borderless table-4">
-              <tr>
+              <tr *ngIf="configForm?.clientType?.value == clientType.INSTITUTION">
+
+                 <td>
+                   <label class="title">Guarantor Type</label>
+                 </td>
+                 <td>
+                       <select required="true" class="form-control"
+                               formControlName="guarantorType">
+                         <option  value="null" hidden>Select Guarantor Type</option>
+                         <option  value="Personal Guarantor">Personal Guarantor</option>
+                         <option value="Corporate Guarantor">Corporate Guarantor</option>
+                         <option value="Cross Guarantor">Cross Guarantor</option>
+                       </select>
+                 </td>
+                 <td> <input  class="form-control" type="text"
+                             formControlName="guarantorTypeTrans" readonly/></td>
+                <td> <input  class="form-control" type="text"
+                            formControlName="guarantorTypeCT" readonly/></td>
+
+              </tr>
+              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
                 <td>
                   <label class="title">{{i + 1}}. Guarantor Name</label>
                 </td>
@@ -3403,7 +3423,53 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                   />
                 </td>
               </tr>
-              <tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">{{i + 1}}. Name Of Authorized Person</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="authorizedPersonName"
+
+                         autocomplete="off"
+                         name="name" placeholder=" Authorized Person Name"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="authorizedPersonNameTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="authorizedPersonNameCT"
+                  />
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Name Of Guarantee Provider</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guaranteeProviderName"
+
+                         autocomplete="off"
+                         name="name" placeholder="Guarantee Provider Name"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guaranteeProviderNameTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="guaranteeProviderNameCT"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value || configForm?.clientType?.value == clientType.INDIVIDUAL">
                 <td>
                   <label class="title">Citizenship No</label>
                 </td>
@@ -3449,7 +3515,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                   <input class="form-control nepaliFont" type="text" formControlName="issuedYear" />
                 </td>-->
               <!--              </tr>-->
-              <tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value || configForm?.clientType?.value == clientType.INDIVIDUAL">
                 <td>
                   <label class="title">Citizenship Issue
                     District</label>
@@ -3474,7 +3540,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                   <input class="form-control" type="text" formControlName="issuedPlaceCT"/>
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value || configForm?.clientType?.value == clientType.INDIVIDUAL">
                 <td>
                   <label class="title">Citizenship Issue Date</label>
                 </td>
@@ -3532,7 +3598,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
 <!--                </td>-->
 <!--                <td></td>-->
 <!--              </tr>-->
-              <tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value || configForm?.clientType?.value == clientType.INDIVIDUAL">
                 <td>
                   <label class="title">Guaranteed Amount</label>
                 </td>
@@ -3555,7 +3621,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
               </tr>
 
 
-              <tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value || configForm?.clientType?.value == clientType.INDIVIDUAL">
                 <td>
                   <label class="relationMedium">Guarantor
                     Relation</label>
@@ -3688,7 +3754,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
               </tr>
 
-              <tr *ngIf="customerType === 'INSTITUTION'">
+              <tr *ngIf="customerType === 'INSTITUTION' && userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value ">
                 <td>
                   <label class="title">Nationality</label>
                 </td>

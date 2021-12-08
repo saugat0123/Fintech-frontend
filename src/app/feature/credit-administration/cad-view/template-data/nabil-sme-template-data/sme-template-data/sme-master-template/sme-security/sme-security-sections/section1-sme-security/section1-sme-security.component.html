@@ -1,0 +1,511 @@
+<div>
+    <form [formGroup]="section1SecurityForm">
+
+        <!-- FOR LAND AND BUILDING SECTION  || FOR LAND-->
+        <div *ngFor="let securityData of section1SecurityForm.get('securityDetails')['controls']; let i = index;"
+             formArrayName="securityDetails">
+            <ng-container [formGroupName]="i">
+                <div class="row d-flex justify-content-between m-1">
+                    <h6> {{i + 1}}. <u>PRIMARY SECURITY</u></h6>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-2">
+                        <label><strong> Security Type </strong></label>
+                        <nb-select
+                                (selectedChange)="selectedSecurity($event, i)"
+                                formControlName="securityType"
+                                fullWidth
+                                placeholder="Security Type">
+                            <nb-option *ngFor="let security of securityType"
+                                       [value]="security.key"> {{security.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+
+                <div
+                        class="row mt-2 mb-2">
+                    <div class="col-md-12">
+                        <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[0]?.key || this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[1]?.key">
+                            {{this.section1SecurityForm.get(['securityDetails', i, 'securityType']).value === securityType[0]?.key ? 'LAND DETAILS' : 'LAND AND BUILDING DETAILS'}} </h6>
+                        <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[2].key">
+                            HYPOTHECATION </h6>
+                        <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[3].key">
+                            ASSIGNMENT </h6>
+                        <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[4].key">
+                            PARIPASSU </h6>
+                        <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[5].key">
+                            LIEN </h6>
+                        <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[6].key">
+                            VEHICLE REGISTRATION </h6>
+                        <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[7].key">
+                            GENERAL COUNTER_GUARANTEE </h6>
+                    </div>
+                </div>
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[0]?.key || this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[1]?.key"
+                     class="row">
+                    <div class="col-md-4">
+                        <label><strong>Collateral Shared</strong></label>
+                        <nb-select
+                                (selectedChange)="setDefaultCTAndTransVal('collateralShare', false, 'securityDetails', i)"
+                                formControlName="collateralShare"
+                                fullWidth
+                                placeholder="Collateral Share">
+                            <nb-option *ngFor="let collateral of collateralShare"
+                                       [value]="collateral.value"> {{collateral.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value !== securityType[7]?.key && this.section1SecurityForm.get(['securityDetails', i,'securityType']).value"
+                     class="row mb-4">
+                    <div class="col-md-12 m-2">
+                        <nb-checkbox #insuranceRequired
+                                     (checkedChange)="checkInsuranceRequired(insuranceRequired.checked, i)"
+                                     [checked]="formControls.securityDetails[i]?.insuranceRequired.value"
+                                     formControlName="insuranceRequired">
+                            <i> Insurance Required </i></nb-checkbox>
+                    </div>
+                </div>
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[0]?.key || this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[1]?.key">
+                    <!--                    <div class="row mt-2 mb-2">-->
+                    <!--                        <div class="col-md-12">-->
+                    <!--                            <h6> {{i + 1}}-->
+                    <!--                                . {{this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[0]?.key ? 'LAND DETAILS' : 'LAND AND BUILDING DETAILS'}} </h6>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="row" >-->
+                    <!--                        <div class="col-md-4">-->
+                    <!--                            <label><strong>Collateral Shared</strong></label>-->
+                    <!--                            <nb-select-->
+                    <!--                                    (selectedChange)="setDefaultCTAndTransVal('collateralShare', false, 'securityDetails', i)"-->
+                    <!--                                    formControlName="collateralShare"-->
+                    <!--                                    fullWidth-->
+                    <!--                                    placeholder="Security Type">-->
+                    <!--                                <nb-option *ngFor="let collateral of collateralShare"-->
+                    <!--                                           [value]="collateral.value"> {{collateral.value}}</nb-option>-->
+                    <!--                            </nb-select>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+                    <!--                    <div class="row mb-4">-->
+                    <!--                        <div class="col-md-12 m-2">-->
+                    <!--                            <nb-checkbox #insuranceRequired-->
+                    <!--                                         (checkedChange)="checkInsuranceRequired(insuranceRequired.checked, i)"-->
+                    <!--                                         [checked]="formControls.securityDetails[i]?.insuranceRequired.value"-->
+                    <!--                                         formControlName="insuranceRequired">-->
+                    <!--                                <i> Insurance Required </i></nb-checkbox>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+                    <div *ngIf="section1SecurityForm.get(['securityDetails', i, 'insuranceRequired'])?.value"
+                         class="row">
+                        <div class="form-group col-md-4">
+                            <label for="nameOfBorrowingClient">Name of other borrowing clients </label>
+                            <input (input)="onChangeTranslate('securityDetails', 'nameOfBorrowingClient', i, 'nameOfBorrowingClientTrans')"
+                                   class="form-control" formControlName="nameOfBorrowingClient"
+                                   fullWidth
+                                   id="nameOfBorrowingClient"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfBorrowingClientTrans" fullWidth
+                                   id="nameOfBorrowingClientTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfBorrowingClientCT" fullWidth
+                                   id="nameOfBorrowingClientCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersName">Collateral Owner Name</label>
+                            <input (input)="onChangeTranslate('securityDetails', 'securityOwnersName', i, 'securityOwnersNameTrans')"
+                                   class="form-control" formControlName="securityOwnersName"
+                                   fullWidth
+                                   id="securityOwnersName"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersNameTrans" fullWidth
+                                   id="securityOwnersNameTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersNameCT" fullWidth
+                                   id="securityOwnersNameCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersDistrict{{i}}">District (जिल्ला)</label>
+                            <select (change)="getMunicipalityByDistrict(section1SecurityForm.get(['securityDetails', i, 'securityOwnersDistrict'])?.value?.id, $event, i); setDefaultResponse('securityDetails', 'securityOwnersDistrict', i, 'securityOwnersDistrictTrans')"
+                                    class="custom-select"
+                                    formControlName="securityOwnersDistrict" id="securityOwnersDistrict{{i}}"
+                                    name="securityOwnersDistrict{{i}}">
+                                <option [ngValue]="null" hidden>District</option>
+                                <option *ngFor="let district of allDistrictList"
+                                        [ngValue]="district">{{district.name}} || {{district.nepaliName}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersDistrictTrans" fullWidth
+                                   id="securityOwnersDistrictTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersDistrictCT" fullWidth
+                                   id="securityOwnersDistrictCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersMunicipality{{i}}">Municipality (नगर/गा.वि.स.)</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select (ngModelChange)="clearSecurityMunType('securityOwnersMunicipality', i, 'securityDetails')"
+                                            class="form-control"
+                                            formControlName="securityOwnersMunicipalityOrVdc"
+                                            name="securityOwnersMunicipalityOrVdc">
+                                        <option hidden value="null">Municipality or VDC</option>
+                                        <option value="Municipality">Municipality</option>
+                                        <option value="VDC">VDC</option>
+                                        <option value="Rural">Rural</option>
+                                    </select>
+                                </div>
+
+                                <div *ngIf="section1SecurityForm.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value  &&
+                                    section1SecurityForm.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value === 'VDC'"
+                                     class="col-md-8">
+                                    <input (input)="onChangeTranslate('securityDetails', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                           class="form-control" formControlName="securityOwnersMunicipality"
+                                           fullWidth
+                                           id="securityOwnersVDC"
+                                           nbInput status="success" type="text">
+                                </div>
+
+                                <div *ngIf="section1SecurityForm.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value
+                                    && section1SecurityForm.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value !== 'VDC'"
+                                     class="col-md-8">
+                                    <select (change)="setDefaultResponse('securityDetails', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                            class="custom-select"
+                                            formControlName="securityOwnersMunicipality"
+                                            id="securityOwnersMunicipality{{i}}"
+                                            name="securityOwnersMunicipality{{i}}">
+                                        <option [ngValue]="null" hidden>Municipality</option>
+                                        <option *ngFor="let municipalityVal of municipalityListForSecurities[i]"
+                                                [ngValue]="municipalityVal">
+                                            {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersMunicipalityTrans" fullWidth
+                                   id="securityOwnersMunicipalityTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersMunicipalityCT" fullWidth
+                                   id="securityOwnersMunicipalityCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersWardNo">Ward No</label>
+                            <input (input)="translateSecurityNumber('securityDetails', 'securityOwnersWardNo', i, 'securityOwnersWardNoTrans')"
+                                   class="form-control" formControlName="securityOwnersWardNo"
+                                   fullWidth
+                                   id="securityOwnersWardNo"
+                                   nbInput
+                                   shape="semi-round" status="success" type="number">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersWardNoTrans" fullWidth
+                                   id="securityOwnersWardNoTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersWardNoCT" fullWidth
+                                   id="securityOwnersWardNoCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersKittaNo">Kitta Number</label>
+                            <input (input)="onChangeTranslate('securityDetails', 'securityOwnersKittaNo', i, 'securityOwnersKittaNoTrans')"
+                                   class="form-control" formControlName="securityOwnersKittaNo"
+                                   fullWidth
+                                   id="securityOwnersKittaNo"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersKittaNoTrans" fullWidth
+                                   id="securityOwnersKittaNoTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersKittaNoCT" fullWidth
+                                   id="securityOwnersKittaNoCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersLandArea">Area in Sq m.</label>
+                            <input (input)="onChangeTranslate('securityDetails', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTrans')"
+                                   class="form-control" formControlName="securityOwnersLandArea"
+                                   fullWidth
+                                   id="securityOwnersLandArea"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersLandAreaTrans" fullWidth
+                                   id="securityOwnersLandAreaTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersLandAreaCT" fullWidth
+                                   id="securityOwnersLandAreaCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersSheetNo">Sheet Number</label>
+                            <input (input)="translateSecurityNumber('securityDetails', 'securityOwnersSheetNo', i, 'securityOwnersSheetNoTrans')"
+                                   class="form-control" formControlName="securityOwnersSheetNo"
+                                   fullWidth
+                                   id="securityOwnersSheetNo"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersSheetNoTrans" fullWidth
+                                   id="securityOwnersSheetNoTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="securityOwnersSheetNoCT" fullWidth
+                                   id="securityOwnersSheetNoCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOR HYPOTHECATION SECTION -->
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[2]?.key">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <label><strong> Hypothecation Purpose </strong></label>
+                            <nb-select
+                                    (selectedChange)="setDefaultCTAndTransVal('hypothecationPurpose', false, 'securityDetails', i)"
+                                    formControlName="hypothecationPurpose"
+                                    fullWidth
+                                    placeholder="Hypothecation Purpose">
+                                <nb-option *ngFor="let hypo of hypoContents"
+                                           [value]="hypo.value"> {{hypo.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF HYPOTHECATION SECTION-->
+
+                <!-- FOR ASSIGNMENT SECTION -->
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[3]?.key">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <label><strong> Assignment To Be Used </strong></label>
+                            <nb-select
+                                    (selectedChange)="setDefaultCTAndTransVal('assignmentToBeUsed', false, 'securityDetails', i)"
+                                    formControlName="assignmentToBeUsed"
+                                    fullWidth
+                                    placeholder="Assignment">
+                                <nb-option *ngFor="let multi of multiContents"
+                                           [value]="multi.value"> {{multi.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF ASSIGNMENT SECTION-->
+
+                <!-- FOR PARIPASSU SECTION -->
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[4]?.key">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <label><strong> Paripassu To Be Used </strong></label>
+                            <nb-select
+                                    (selectedChange)="setDefaultCTAndTransVal('paripassuContents', false, 'securityDetails', i)"
+                                    formControlName="paripassuContents"
+                                    fullWidth
+                                    placeholder="paripassu to be used">
+                                <nb-option *ngFor="let multi of multiContents"
+                                           [value]="multi.value"> {{multi.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="securityOwnersSheetNo"> Name Of Member Bank </label>
+                            <input (input)="onChangeTranslate('securityDetails', 'nameOfMemberBank', i, 'nameOfMemberBankTrans')"
+                                   class="form-control" formControlName="nameOfMemberBank"
+                                   fullWidth
+                                   id="nameOfMemberBank"
+                                   nbInput
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfMemberBankTrans" fullWidth
+                                   id="nameOfMemberBankTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfMemberBankCT" fullWidth
+                                   id="nameOfMemberBankCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF PARIPASSU SECTION-->
+
+                <!--FOR LIEN -->
+                <!--<div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[5]?.key" class="row">
+
+                </div>-->
+
+                <!-- vehicle registration contents -->
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[6]?.key"
+                     class="row">
+                    <div class="col-md-4 mb-2">
+                        <label><strong> Vehicle Registration </strong></label>
+                        <nb-select
+                                (selectedChange)="setDefaultCTAndTransVal('vehicleRegistration', false, 'securityDetails', i)"
+                                formControlName="vehicleRegistration"
+                                fullWidth
+                                placeholder="Vehicle Registration ">
+                            <nb-option *ngFor="let multi of multiContents"
+                                       [value]="multi.value"> {{multi.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <!-- END OF VEHICLE REGISTRATION -->
+
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[7]?.key"
+                     class="row">
+                    <div class="col-md-4 mb-2">
+                        <label><strong> General Counter Guarantee To Be Used </strong></label>
+                        <nb-select
+                                (selectedChange)="setDefaultCTAndTransVal('generalCounterGuarantee', false, 'securityDetails', i)"
+                                formControlName="generalCounterGuarantee"
+                                fullWidth
+                                placeholder="General Counter Guarantee ">
+                            <nb-option *ngFor="let multi of multiContents"
+                                       [value]="multi.value"> {{multi.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <div *ngIf="section1SecurityForm.get('securityDetails')['length'] > 1" class="col-md-12 text-right">
+                    <button (click)="removeSecurityDetails(i)" nbButton size="small" status="danger"
+                            style="position: static">
+                        <em class="fa fa-trash" style="color: white;"></em>
+                    </button>
+                </div>
+
+                <hr *ngIf="section1SecurityForm.get('securityDetails')['length'] > 1">
+            </ng-container>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button (click)="addMoreSecurityDetails()" *ngIf="selectedValue" nbButton outline size="small"
+                        status="success">
+                    Add More Primary Securities
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

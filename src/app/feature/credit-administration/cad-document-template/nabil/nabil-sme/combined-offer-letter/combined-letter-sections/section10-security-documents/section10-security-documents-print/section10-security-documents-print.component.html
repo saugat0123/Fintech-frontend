@@ -12,11 +12,7 @@
         <div class="row mt-2">
             <p class="m-0">
                 ऋणीले बैंकको
-<!--                <input formControlName="nameOfBranch"-->
-<!--                       name="nameOfBranch"-->
-<!--                       class="form-field form-control-sm"-->
-<!--                       type="text"/>-->
-                <span>NAME OF BRANCH</span>
+                <span><strong>{{this.branchName ? this.branchName : ''}}</strong></span>
                 शाखामा सम्पर्क राखी देहाय बमोजिमका कर्जा सम्बन्धी कागजपत्रहरु सहीछाप
                 गर्नु पर्नेछ । साथै माथि उल्लिखित कर्जा सुविधाहरु प्रवाह गर्नको लागि आवश्यक निवेदन तथा अन्य कागजातहरु
                 बैंकमा
@@ -27,21 +23,13 @@
             <ul class="disc-list">
                 <li>
                     रु.
-<!--                    <input formControlName="loanAmountInFigure"-->
-<!--                           name="loanAmountInfigure"-->
-<!--                           type="text"-->
-<!--                           class="form-field form-control-sm"/> -->
-                    <span>LOAN AMOUNT IN FIGURE</span>
+                    <span><strong>{{proposedAmount ? proposedAmount : ''}}</strong></span>
                     /-
                     को प्रतिज्ञा पत्र । (Promissory Note)
                 </li>
                 <li>
                     रु.
-                    <!--<input formControlName="loanAmountInFigure"
-                           name="loanAmountInfigure"
-                           type="text"
-                           class="form-field form-control-sm"/> -->
-                    <span>LOAN AMOUNT IN FIGURE</span>
+                    <span><strong>{{proposedAmount ? proposedAmount : ''}}</strong></span>
                     /-
                     को ऋणतमसुक (Loan Deed)
                 </li>
@@ -49,22 +37,14 @@
                     निरन्तरताको लिखत (Letter of Continuity)
                 </li>
                 <li>रु.
-                   <!-- <input formControlName="loanAmountInFigure"
-                           name="loanAmountInfigure"
-                           type="text"
-                           class="form-field form-control-sm"/>-->
-                    <span>LOAN AMOUNT IN FIGURE</span>
+                    <span><strong>{{proposedAmount ? proposedAmount : ''}}</strong></span>
                     /-
                     को श्री-सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation) सहित पूरक
                     सम्झौता (Supplementary Agreement)
                 </li>
                 <li>
                     रु.
-                    <!--<input formControlName="loanAmountInFigure"
-                           name="loanAmountInfigure"
-                           type="text"
-                           class="form-field form-control-sm"/>-->
-                    <span>LOAN AMOUNT IN FIGURE</span>
+                    <span><strong>{{proposedAmount ? proposedAmount : ''}}</strong></span>
                     /-
                     को भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) सहित
                     वारेसनामा (Power of Attorney)
@@ -74,17 +54,10 @@
                 </li>
                 <li>
                     रु.
-                   <!-- <input formControlName="loanAmountInFigure"
-                           name="loanAmountInfigure"
-                           type="text"
-                           class="form-field form-control-sm"/>-->
-                    <span>LOAN AMOUNT IN FIGURE</span>
+                    <span><strong>{{proposedAmount ? proposedAmount : ''}}</strong></span>
                     /-
                     बराबरको
-                    <!--<input class="form-field form-control-sm col-3"
-                           formControlName="guarantorName"
-                           type="text"/>-->
-                    <span>GUARANTOR NAME</span>
+                    <span><strong>{{finalName ? finalName : ''}}</strong></span>
                     ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
                 </li>
                 <li>
@@ -111,15 +84,12 @@
                     पनि हानीनोक्सानी तथा क्षती भएको अवस्थामा सम्पुर्ण नोक्सानी ऋणी स्वयमले ब्यहोर्न प्रतिबद्धता पत्र
                     (Undertaking Letter)
                 </li>
-                <li>
-                 <!--<textarea
-                         class="form-control nepaliFont"
-                         rows="5"
-                         style="width:95%;margin-left:2%"
-                         name="additionalGuarantorDetails"
-                         formControlName="additionalGuarantorDetails">
-                 </textarea>-->
-                    <span>ADDITIONAL GUARANTOR DETAILS</span>
+                <li *ngIf="freeText?.section10 !== ''">
+                    <span
+                            class="nepaliFont"
+                            style="font-size: 24px;">
+                           {{ freeText?.section10 }}
+                    </span>
                 </li>
             </ul>
         </div>
