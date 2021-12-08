@@ -82,33 +82,33 @@ export class OfferLetterPersonalComponent implements OnInit {
         let allGuarantors = '';
         if (!ObjectUtil.isEmpty(this.nepaliData)) {
             (this.nepaliData.guarantorDetails).forEach(guarantor => {
-                allGuarantors = allGuarantors + guarantor.name + ', ';
+                allGuarantors = allGuarantors + guarantor.guarantorName + ', ';
             });
             allGuarantors = allGuarantors.slice(0, -2);
             allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');
             const customerAddress =
-                this.nepaliData.permanentMunicipalities.nepaliName + ' j8f g+= ' +
+                !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ? this.nepaliData.permanentMunicipalities.nepaliName : '' + ' j8f g+= ' +
                 this.nepaliData.permanentWard + ' , ' +
-                this.nepaliData.permanentDistrict.nepaliName;
+                !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '';
             const customerTempAddress =
-                this.nepaliData.temporaryMunicipalities.nepaliName + ' j8f g+= ' +
+                !ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ? this.nepaliData.temporaryMunicipalities.nepaliName : '' + ' j8f g+= ' +
                 this.nepaliData.temporaryWard + ' , ' +
-                this.nepaliData.temporaryDistrict.nepaliName;
+                !ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ? this.nepaliData.temporaryDistrict.nepaliName : '';
             this.form.patchValue({
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
                 customerAddress: customerAddress ? customerAddress : '',
                 customerTemporaryAddress: customerTempAddress ? customerTempAddress : '',
-                customerMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+                customerMunicipality: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ? this.nepaliData.permanentMunicipalities.nepaliName : '',
                 customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-                customerDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
+                customerDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '',
                 signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
                 signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
                 signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
                 signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
                 signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-                temporaryMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+                temporaryMunicipality: !ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
                 temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-                temporaryDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+                temporaryDistrict: !ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ? this.nepaliData.temporaryDistrict.nepaliName : '',
                 guarantorName: allGuarantors ? allGuarantors : '',
                 financeBranch: this.nepaliData.branchName ? this.nepaliData.branchName : '',
                 financeMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
