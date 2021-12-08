@@ -138,6 +138,7 @@ export class OfferLetterComponent implements OnInit {
             emiAmount: [undefined],
             remitterName: [undefined],
             date: [undefined],
+            loanType: [undefined],
         });
     }
 
