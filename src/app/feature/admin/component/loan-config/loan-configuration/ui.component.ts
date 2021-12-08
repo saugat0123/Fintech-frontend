@@ -96,7 +96,6 @@ export class UIComponent implements OnInit, DoCheck {
 
     static loadData(other: UIComponent) {
         other.getTemplate();
-        console.log('enum', other.sanctionLetter);
         other.offerLetterService.getAll().subscribe((responseList: any) => {
             other.offerLetterList = responseList.detail;
         }, error => {
