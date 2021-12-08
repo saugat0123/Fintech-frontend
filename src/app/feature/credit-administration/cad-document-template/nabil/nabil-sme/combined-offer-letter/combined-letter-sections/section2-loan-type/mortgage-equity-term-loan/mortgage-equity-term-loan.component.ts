@@ -15,6 +15,7 @@ export class MortgageEquityTermLoanComponent implements OnInit {
     tempData;
     loanAmount;
     loanAmountInWord;
+    mortgageEquity: any = {};
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe
@@ -177,6 +178,13 @@ export class MortgageEquityTermLoanComponent implements OnInit {
                 annualInstallmentDrawingPowerMortgageTerm1: this.tempData.mortgageEquityTermForm.drawingPowerInPercentageCT ? this.tempData.mortgageEquityTermForm.drawingPowerInPercentageCT : '',
             });
         }
+    }
+
+    setFreeTextAutoLoan() {
+        this.mortgageEquity = {
+            freeText13: this.form.get('freeTextThirteen').value,
+        };
+        return this.mortgageEquity;
     }
 
 }

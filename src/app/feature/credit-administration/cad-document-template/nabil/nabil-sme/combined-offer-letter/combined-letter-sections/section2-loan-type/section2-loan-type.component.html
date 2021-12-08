@@ -1236,21 +1236,21 @@
                     <!--Term Loan to/for-->
                     <td width="10%"><strong>ढ)</strong></td>
                     <td>
-                        <app-term-loan-to-or-for [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-term-loan-to-or-for>
+                        <app-term-loan-to-or-for #termLoanToOrForComponent [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-term-loan-to-or-for>
                     </td>
                 </tr>
                 <tr>
                     <!--Mortgage Term Loan / Equity Mortgage Term Loan-->
                     <td width="10%"><strong>ण)</strong></td>
                     <td>
-                        <app-mortgage-equity-term-loan [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-mortgage-equity-term-loan>
+                        <app-mortgage-equity-term-loan #mortgageEquityTermLoanComponent [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-mortgage-equity-term-loan>
                     </td>
                 </tr>
                 <tr>
                     <!--Auto Loan-->
                     <td width="10%"><strong>त)</strong></td>
                    <td>
-                        <app-auto-loan [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-auto-loan>
+                        <app-auto-loan #autoLoanComponent [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-auto-loan>
                    </td>
                 </tr>
                 <tr>
