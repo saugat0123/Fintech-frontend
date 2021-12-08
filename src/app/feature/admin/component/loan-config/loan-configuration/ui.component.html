@@ -26,6 +26,19 @@
                                    [(ngModel)]="loanConfig.nepaliName">
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><h6>Sanction Letter</h6></label>
+                            <ng-select #sanction="ngModel" [items]="sanctionLetter"
+                                       [multiple]="false"
+                                       bindValue="key"
+                                       bindLabel="key"
+                                       [(ngModel)]="selectedOfferLetterConst"
+                                       name="sanctionLetter"
+                                       placeholder="Select sanction">
+                            </ng-select>
+                        </div>
+                    </div>
                     <div class="col-md-6 row">
                         <div class="col-md-12 form-group">
                             <label for="fundable"><h6>Loan Type</h6></label>
