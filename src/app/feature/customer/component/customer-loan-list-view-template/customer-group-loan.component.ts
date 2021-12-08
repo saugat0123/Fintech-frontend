@@ -141,18 +141,27 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       this.collateralDtoData.totalClosedProposedLimit= 0;
       this.collateralDtoData.totalClosedRequiredCollateral =0;
       this.customerGroupLoanList.forEach(l => {
-            if (l.proposal) {
-              this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.proposal.proposedLimit;
+
+            if(l.proposal && l.documentStatus.toString() !== DocStatus.value(DocStatus.REJECTED ) && l.documentStatus.toString() !== DocStatus.value(DocStatus.CLOSED) &&l.documentStatus.toString() !== DocStatus.value(DocStatus.APPROVED)){
+              this.totalLoanProposedAmount = this.collateralDtoData.totalApprovedLimit + l.proposal.proposedLimit;
               this.collateralDtoData.totalRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
                   ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-              if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+              this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
+                  l.proposal.proposedLimit;
+              this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
+                  + ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
+            }
+
+              else if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
                 this.collateralDtoData.totalApprovedLimit = this.collateralDtoData.totalApprovedLimit +
                     l.proposal.proposedLimit;
                 this.collateralDtoData.totalApprovedRequiredCollateral =
                     this.collateralDtoData.totalApprovedRequiredCollateral +
                     ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
               }
-              if (l.documentStatus.toString() == DocStatus.value(DocStatus.REJECTED)) {
+
+
+              else if (l.documentStatus.toString() == DocStatus.value(DocStatus.REJECTED)) {
                 this.collateralDtoData.totalRejectProposedLimit +=
                     l.proposal.proposedLimit;
                 this.collateralDtoData.totalRejectRequiredCollateral =
@@ -160,21 +169,22 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                     ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
 
               }
-              if (l.documentStatus.toString() == DocStatus.value(DocStatus.CLOSED)) {
-                this.collateralDtoData.totalClosedProposedLimit +=
-                    l.proposal.proposedLimit;
-                this.collateralDtoData.totalClosedRequiredCollateral =
-                    this.collateralDtoData.totalClosedRequiredCollateral +
-                    ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-              } else {
-
-                this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
-                    l.proposal.proposedLimit;
-                this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
-                    + ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-              }
+              else if (l.documentStatus.toString() == DocStatus.value(DocStatus.CLOSED)){
+              this.collateralDtoData.totalClosedProposedLimit +=
+                  l.proposal.proposedLimit;
+              this.collateralDtoData.totalClosedRequiredCollateral =
+                  this.collateralDtoData.totalClosedRequiredCollateral +
+                  ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
             }
-          }
+            else{
+
+              this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
+                  l.proposal.proposedLimit;
+              this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
+                  + ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
+            }
+        }
+
       );
       this.calculateCollateralData();
       const loanAmountType = new LoanAmountType();
