@@ -270,7 +270,7 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
         fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
         fifthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : '',
         position : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position : '',
-        position1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position2 : '',
+        position1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position1 : '',
     });
   }
   submit(): void {
