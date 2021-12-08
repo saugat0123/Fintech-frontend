@@ -15,6 +15,7 @@ export class Section1IntroductionComponent implements OnInit {
   tempData: any;
   tempApplicationDate: any;
   tempSanctionDate: any;
+  loanOption: any;
   constructor(private formBuilder: FormBuilder,
               private datePipe: DatePipe,
               private engToNepaliDate: EngNepDatePipe) { }
@@ -24,6 +25,7 @@ export class Section1IntroductionComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.fillForm();
+      this.loanOption = this.tempData.smeGlobalForm.loanOption;
     }
   }
   buildForm() {
