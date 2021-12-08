@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NabilOfferLetterConst} from '../../../../../../nabil-offer-letter-const';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
   selector: 'app-common-section-bottom',
@@ -9,7 +10,7 @@ import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
   styleUrls: ['./common-section-bottom.component.scss']
 })
 export class CommonSectionBottomComponent implements OnInit {
-  @Input() cadOfferLetterApprovedDoc;
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   form: FormGroup;
   spinner = false;
   offerLetterConst = NabilOfferLetterConst;

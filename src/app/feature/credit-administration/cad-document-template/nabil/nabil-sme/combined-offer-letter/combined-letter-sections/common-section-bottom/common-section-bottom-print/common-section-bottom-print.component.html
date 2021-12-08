@@ -8,14 +8,12 @@
 
     <div class="col-md-12 d-flex justify-content-between">
         <div class="right-content">
-
-            .........................................
             <p>
-                        <span [ngClass]="{'font-weight-bold': letter?.smeGlobalForm.nameOfRelationshipManagerCT !== null && letter?.smeGlobalForm.nameOfRelationshipManagerCT !== ''}">
+                        <span class="nepaliFont" [ngClass]="{'outside': letter?.smeGlobalForm.nameOfRelationshipManagerCT !== null && letter?.smeGlobalForm.nameOfRelationshipManagerCT !== ''}">
                                 {{letter?.smeGlobalForm.nameOfRelationshipManagerCT === null || letter?.smeGlobalForm.nameOfRelationshipManagerCT === "" ? "___________" : letter?.smeGlobalForm.nameOfRelationshipManagerCT}}
                         </span>
                 <br>
-                <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.position : 'सम्पर्क अधिकृत'}}</span>
+                <span class="nepaliFont" style="font-size: 16px">{{freeInformation ? freeInformation.position : 'सम्पर्क अधिकृत'}}</span>
                 <br>
                 नबिल बैंक लि.
                 <br>
@@ -27,14 +25,12 @@
         </div>
 
         <div class="left-content">
-
-            .........................................
             <p>
-                        <span [ngClass]="{'font-weight-bold': letter?.smeGlobalForm.nameOfBranchManagerCT !== null && letter?.smeGlobalForm.nameOfBranchManagerCT !== ''}">
+                        <span class="nepaliFont" [ngClass]="{'outside': letter?.smeGlobalForm.nameOfBranchManagerCT !== null && letter?.smeGlobalForm.nameOfBranchManagerCT !== ''}">
                                 {{letter?.smeGlobalForm.nameOfBranchManagerCT === null || letter?.smeGlobalForm.nameOfBranchManagerCT === "" ? "___________" : letter?.smeGlobalForm.nameOfBranchManagerCT}}
                         </span>
                 <br>
-                <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.position1 : 'सम्पर्क अधिकृत'}}</span>
+                <span class="nepaliFont" style="font-size: 16px">{{freeInformation ? freeInformation.position1 : 'सम्पर्क प्रबन्धक'}}</span>
                 <br>
                 नबिल बैंक लि.
                 <br>

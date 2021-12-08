@@ -9,7 +9,6 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/c
 export class Section6FacilitiesClausePrintComponent implements OnInit {
   @Input() customerApprovedDoc;
   @Input() freeText;
-  tenureOfLoan;
   constructor() { }
 
   ngOnInit() {
