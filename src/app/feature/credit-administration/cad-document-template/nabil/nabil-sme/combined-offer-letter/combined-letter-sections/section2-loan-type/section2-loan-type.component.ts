@@ -1,8 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {TermLoanToOrForComponent} from './term-loan-to-or-for/term-loan-to-or-for.component';
+import {MortgageEquityTermLoanComponent} from './mortgage-equity-term-loan/mortgage-equity-term-loan.component';
+import {AutoLoanComponent} from './auto-loan/auto-loan.component';
 import {LoanNameConstant} from '../../../../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
 
 @Component({
@@ -18,6 +21,9 @@ export class Section2LoanTypeComponent implements OnInit {
     loanAmountInWord;
     loanData = [];
     freeTextVal: any = {};
+    @ViewChild('termLoanToOrForComponent', {static: false}) termLoanToOrForComponent: TermLoanToOrForComponent;
+    @ViewChild('mortgageEquityTermLoanComponent', {static: false}) mortgageEquityTermLoanComponent: MortgageEquityTermLoanComponent;
+    @ViewChild('autoLoanComponent', {static: false}) autoLoanComponent: AutoLoanComponent;
     isCustomerAcceptance = false;
     isIrrevocableLetter = false;
     isBillDiscounting = false;
@@ -634,20 +640,28 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
-    /* setTextAreaValue() {
-         this.freeTextVal = {
-             SNOfFacility: this.form.get('SNOfFacility').value,
-             freeTextOne: this.form.get('freeTextOne').value,
-             freeTextTwo: this.form.get('freeTextTwo').value,
-             freeTextThree: this.form.get('freeTextThree').value,
-             freeTextFour: this.form.get('freeTextFour').value,
-             freeTextFive: this.form.get('freeTextFive').value,
-             freeTextSix: this.form.get('freeTextSix').value,
-             freeTextSeven: this.form.get('freeTextSeven').value,
-             freeTextEight: this.form.get('freeTextEight').value,
-             freeTextNine: this.form.get('freeTextNine').value,
-             freeTextFifteen: this.form.get('freeTextFifteen').value,
-             freeTextSixteen: this.form.get('freeTextSixteen').value,
-         };
-     }*/
+    setTextAreaValue() {
+        const tempTermLoanFreeVal = this.termLoanToOrForComponent.setFreeTextTermLoan();
+        const tempAutoLoanFreeVal = this.autoLoanComponent.setFreeTextAutoLoan();
+        const tempMortgageEquity = this.mortgageEquityTermLoanComponent.setFreeTextAutoLoan();
+        this.freeTextVal = {
+            freeText1: this.form.get('freeTextOne').value,
+            freeText2: this.form.get('freeTextTwo').value,
+            freeText3: this.form.get('freeTextThree').value,
+            freeText4: this.form.get('freeTextFour').value,
+            freeText5: this.form.get('freeTextFive').value,
+            freeText6: this.form.get('freeTextSix').value,
+            freeText7: this.form.get('freeTextSeven').value,
+            freeText8: this.form.get('freeTextEight').value,
+            freeText9: this.form.get('freeTextNine').value,
+            freeText10: tempTermLoanFreeVal.freeText10,
+            freeText11: tempTermLoanFreeVal.freeText11,
+            freeText12: tempTermLoanFreeVal.freeText12,
+            freeText13: tempMortgageEquity.freeText13,
+            freeText14: tempAutoLoanFreeVal.freeText14,
+            freeText15: this.form.get('freeTextFifteen').value,
+            freeText16: this.form.get('freeTextSixteen').value,
+        };
+        return this.freeTextVal;
+    }
 }
