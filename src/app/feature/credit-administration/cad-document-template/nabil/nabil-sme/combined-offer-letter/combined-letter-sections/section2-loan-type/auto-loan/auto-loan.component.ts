@@ -15,6 +15,7 @@ export class AutoLoanComponent implements OnInit {
     tempData;
     loanAmount;
     loanAmountInWord;
+    autoLoanFreeText: any = {};
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe
@@ -163,5 +164,11 @@ export class AutoLoanComponent implements OnInit {
                 annualInstallmentNameOfDealerAutoLoan: this.tempData.autoLoanMasterForm.nameOfDealer ? this.tempData.autoLoanMasterForm.nameOfDealerCT : '',
             });
         }
+    }
+    setFreeTextAutoLoan() {
+        this.autoLoanFreeText = {
+            freeText14: this.form.get('freeTextFourteen').value,
+        };
+        return this.autoLoanFreeText;
     }
 }
