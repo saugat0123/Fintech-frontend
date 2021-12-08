@@ -2,7 +2,7 @@
     <!-- todo NEEDED TO CALL EACH SECTION COMPONENT ALONG WITH COMMON COMPONENTS-->
     <div class="col-md-12">
         <app-common-section-top-print
-                [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-common-section-top-print>
+                [customerApprovedDoc]="customerApprovedDoc"></app-common-section-top-print>
         <app-section1-introduction-print
                 [customerApprovedDoc]="customerApprovedDoc"
                 [letterData]="letterData"
@@ -37,6 +37,6 @@
                 [letterData]="letterData"
                 [freeText]="freeText"
         ></app-section10-security-documents-print>
-        <app-common-section-bottom-print [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-common-section-bottom-print>
+        <app-common-section-bottom-print [customerApprovedDoc]="customerApprovedDoc"></app-common-section-bottom-print>
     </div>
 </div>

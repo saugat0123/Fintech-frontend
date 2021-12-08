@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormGroup} from '@angular/forms';
 import {NabilOfferLetterConst} from '../../../../../../../nabil-offer-letter-const';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
@@ -10,7 +9,6 @@ import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
   styleUrls: ['./common-section-bottom-print.component.scss']
 })
 export class CommonSectionBottomPrintComponent implements OnInit {
-  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() customerApprovedDoc;
   @Input() letter;
   form: FormGroup;
@@ -25,10 +23,10 @@ export class CommonSectionBottomPrintComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
-      this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+    if (!ObjectUtil.isEmpty(this.customerApprovedDoc.loanHolder)) {
+      this.loanHolderInfo = JSON.parse(this.customerApprovedDoc.loanHolder.nepData);
+      this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
     }
-    this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+    this.freeInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
   }
 }

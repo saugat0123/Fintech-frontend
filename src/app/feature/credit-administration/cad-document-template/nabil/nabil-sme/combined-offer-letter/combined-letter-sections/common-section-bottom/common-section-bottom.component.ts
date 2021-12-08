@@ -1,9 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NabilOfferLetterConst} from '../../../../../../nabil-offer-letter-const';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
-import {ProposalCalculationUtils} from '../../../../../../../loan/component/loan-summary/ProposalCalculationUtils';
 
 @Component({
   selector: 'app-common-section-bottom',
@@ -11,8 +9,7 @@ import {ProposalCalculationUtils} from '../../../../../../../loan/component/loan
   styleUrls: ['./common-section-bottom.component.scss']
 })
 export class CommonSectionBottomComponent implements OnInit {
-  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  // @Input() letter;
+  @Input() cadOfferLetterApprovedDoc;
   form: FormGroup;
   spinner = false;
   offerLetterConst = NabilOfferLetterConst;

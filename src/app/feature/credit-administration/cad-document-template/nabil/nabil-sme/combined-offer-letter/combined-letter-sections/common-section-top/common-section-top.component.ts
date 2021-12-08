@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NabilOfferLetterConst} from '../../../../../../nabil-offer-letter-const';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
@@ -12,7 +11,7 @@ import {DatePipe} from '@angular/common';
   styleUrls: ['./common-section-top.component.scss']
 })
 export class CommonSectionTopComponent implements OnInit {
-  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() cadOfferLetterApprovedDoc;
   form: FormGroup;
   spinner = false;
   offerLetterConst = NabilOfferLetterConst;
@@ -22,8 +21,7 @@ export class CommonSectionTopComponent implements OnInit {
   sanctionLetterDate;
   constructor(
     private formBuilder: FormBuilder,
-    private engToNepaliDate: EngNepDatePipe,
-    private datePipe: DatePipe
+    private engToNepaliDate: EngNepDatePipe
   ) { }
 
   ngOnInit() {

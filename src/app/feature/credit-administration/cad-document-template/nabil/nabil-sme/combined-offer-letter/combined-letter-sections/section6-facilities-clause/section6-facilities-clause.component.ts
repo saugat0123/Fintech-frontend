@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 
 @Component({
@@ -9,7 +8,7 @@ import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
   styleUrls: ['./section6-facilities-clause.component.scss']
 })
 export class Section6FacilitiesClauseComponent implements OnInit {
-  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() cadOfferLetterApprovedDoc;
   @Input() freeText;
   form: FormGroup;
   tempData;
