@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 
 @Component({
     selector: 'app-section2-loan-type',
@@ -15,10 +17,11 @@ export class Section2LoanTypeComponent implements OnInit {
     tempData;
     loanAmount;
     loanAmountInWord;
-    freeTextVal: any = {};
 
     constructor(private formBuilder: FormBuilder,
-                private engToNepWord: NepaliCurrencyWordPipe
+                private engToNepWord: NepaliCurrencyWordPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
     ) {
     }
 
@@ -26,8 +29,9 @@ export class Section2LoanTypeComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-            this.loanAmount = String(this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal.proposedLimit);
-            this.loanAmountInWord = this.engToNepWord.transform(this.loanAmount);
+            const totalLoanAmount = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal.proposedLimit;
+            this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
+            this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
             this.fillForm();
         }
     }
@@ -201,7 +205,6 @@ export class Section2LoanTypeComponent implements OnInit {
             commissionAmountBillsPurchase: [undefined],
             loanExpiryDateBillsPurchase: [undefined],
             // other Input Fields
-            freeTextVal: [undefined],
             SNOfFacility: [undefined],
             freeTextOne: [undefined],
             freeTextTwo: [undefined],
@@ -564,21 +567,4 @@ export class Section2LoanTypeComponent implements OnInit {
             loanExpiryDateBillsPurchase: this.tempData.billPurchaseForm.dateOfExpiryCT ? this.tempData.billPurchaseForm.dateOfExpiryCT : '',
         });
     }
-
-   /* setTextAreaValue() {
-        this.freeTextVal = {
-            SNOfFacility: this.form.get('SNOfFacility').value,
-            freeTextOne: this.form.get('freeTextOne').value,
-            freeTextTwo: this.form.get('freeTextTwo').value,
-            freeTextThree: this.form.get('freeTextThree').value,
-            freeTextFour: this.form.get('freeTextFour').value,
-            freeTextFive: this.form.get('freeTextFive').value,
-            freeTextSix: this.form.get('freeTextSix').value,
-            freeTextSeven: this.form.get('freeTextSeven').value,
-            freeTextEight: this.form.get('freeTextEight').value,
-            freeTextNine: this.form.get('freeTextNine').value,
-            freeTextFifteen: this.form.get('freeTextFifteen').value,
-            freeTextSixteen: this.form.get('freeTextSixteen').value,
-        };
-    }*/
 }
