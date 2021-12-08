@@ -3,7 +3,7 @@
         <p class="text-center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण</strong></p>
         <div>
             <table class="table table-bordered">
-                <tr>
+                <tr *ngIf="isIrrevocableLetter">
                     <!--Irrevocable letter of credit facility-->
                     <td width="10%"><strong>क)</strong></td>
                     <td>
@@ -85,7 +85,7 @@
                         </p>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isCustomerAcceptance">
                     <!--Customer Acceptance for Time Letter of Credit-->
                     <td width="10%"><strong>ख)</strong></td>
                     <td>
@@ -156,7 +156,7 @@
                         </p>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isBillDiscounting">
                     <!--Import Bills Discounting -->
                     <td width="10%"><strong>ग)</strong></td>
                     <td><strong><input class="form-field form-control-sm "
@@ -215,7 +215,7 @@
                                                                              type="text"/></strong></span>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isLoanTrustReceiptLoan">
                     <!--Import Loan/ Trust Receipt Loan-->
                     <td width="10%"><strong>घ)</strong></td>
                     <td><span><strong>पटके प्रतित पत्र मार्फत सामान आयात गर्नका लागि <input
@@ -325,7 +325,7 @@
                                                                                      type="text"/></span>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isRevolvingShortTermLoan">
                     <!--Revolving/One off basis Short Term Loan-->
                     <td width="10%"><strong>ङ)</strong></td>
                     <td><span><strong><input class="form-field form-control-sm "
@@ -477,7 +477,7 @@
                         </textarea>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isDemandLoanWorkingCapital">
                     <!--Demand Loan for working capital-->
                     <td width="10%"><strong>च)</strong></td>
                     <td>
@@ -564,7 +564,7 @@
 
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isPreExportLoan">
                     <!--Pre- Export Loan-->
                     <td width="10%"><strong>छ)</strong></td>
                     <td>
@@ -638,7 +638,7 @@
                                 type="text"/></span><br>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isDocumentaryBillPurchase">
                     <!--Documentary Bill Purchase/Negotiation-->
                     <td width="10%"><strong>ज)</strong></td>
                     <td>
@@ -699,7 +699,7 @@
                                 type="text"/></span><br>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isOverdraftLoanWorkingCapital">
                     <!--Overdraft Loan for Working Capital requirement-->
                     <td width="10%"><strong>झ)</strong></td>
                     <td>
@@ -782,7 +782,7 @@
 
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isEquityMortgageOverdraft">
                     <!--Mortgage Overdraft/ Other Overdraft/ Equity Mortgaged Overdraft-->
                     <td width="10%"><strong>ञ)</strong></td>
                     <td>
@@ -879,7 +879,7 @@
                                 type="text"/></span><br>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isOverDraftFacilityFixedDeposit">
                     <!--Overdraft Facility against Fixed Deposit/ Lien on Deposit Account-->
                     <td width="10%"><strong>ट)</strong></td>
                     <td>
@@ -1044,7 +1044,7 @@
                                 type="text"/></span><br>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isOverdraftFacilityAgainstBond">
                     <!--Overdraft Facility against Bond-->
                     <td width="10%"><strong>ठ)</strong></td>
                     <td>
@@ -1141,7 +1141,7 @@
                                 type="text"/></span><br>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isBridgeGapLoan">
                     <!--Bridge Gap Loan-->
                     <td width="10%"><strong>ड)</strong></td>
                     <td>
@@ -1232,28 +1232,28 @@
                         </textarea>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isTermLoanToOrFor">
                     <!--Term Loan to/for-->
                     <td width="10%"><strong>ढ)</strong></td>
                     <td>
-                        <app-term-loan-to-or-for [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-term-loan-to-or-for>
+                        <app-term-loan-to-or-for #termLoanToOrForComponent [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-term-loan-to-or-for>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isEquityMortgageTermLoan">
                     <!--Mortgage Term Loan / Equity Mortgage Term Loan-->
                     <td width="10%"><strong>ण)</strong></td>
                     <td>
-                        <app-mortgage-equity-term-loan [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-mortgage-equity-term-loan>
+                        <app-mortgage-equity-term-loan #mortgageEquityTermLoanComponent [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-mortgage-equity-term-loan>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isAutoLoanMaster">
                     <!--Auto Loan-->
                     <td width="10%"><strong>त)</strong></td>
                    <td>
-                        <app-auto-loan [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-auto-loan>
+                        <app-auto-loan #autoLoanComponent [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-auto-loan>
                    </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isBankGuarantee">
                     <!--Bank Guarantee-->
                     <td width="10%"><strong>थ)</strong></td>
                     <td>
@@ -1353,7 +1353,7 @@
                         </p>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="isBillPurchase">
                     <!--Bills Purchase-->
                     <td width="10%"><strong>द)</strong></td>
                     <td>
