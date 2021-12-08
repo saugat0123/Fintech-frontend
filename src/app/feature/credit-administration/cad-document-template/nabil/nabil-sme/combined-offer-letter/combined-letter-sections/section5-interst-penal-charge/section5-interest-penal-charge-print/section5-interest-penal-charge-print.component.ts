@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-section5-interest-penal-charge-print',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./section5-interest-penal-charge-print.component.scss']
 })
 export class Section5InterestPenalChargePrintComponent implements OnInit {
+  @Input() letterData;
+  @Input() customerApprovedDoc;
+  @Input() freeText;
 
   constructor() { }
 

@@ -86,7 +86,6 @@ export class CombinedOfferLetterComponent implements OnInit {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER);
       offerDocument.supportedInformation = this.setFreeText();
-      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
@@ -94,13 +93,13 @@ export class CombinedOfferLetterComponent implements OnInit {
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.customerApprovedDoc.id);
+      // this.routerUtilsService.reloadCadProfileRoute(this.customerApprovedDoc.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.customerApprovedDoc.id);
+      // this.routerUtilsService.reloadCadProfileRoute(this.customerApprovedDoc.id);
     });
   }
 
@@ -118,6 +117,7 @@ export class CombinedOfferLetterComponent implements OnInit {
       freeText9: this.section2.form.get('freeTextNine').value ? this.section2.form.get('freeTextNine').value : '',
       freeText10: this.section2.form.get('freeTextFifteen').value ? this.section2.form.get('freeTextFifteen').value : '',
       freeText11: this.section2.form.get('freeTextSixteen').value ? this.section2.form.get('freeTextSixteen').value : '',
+      // freeTextOthers: this.section2.form.get('otherFreeTexts').value ? this.section2.form.get('otherFreeTexts').value : '',
     }
     const section3FreeText = {
       freeText1: this.section3.form.get('freeText1').value ? this.section3.form.get('freeText1').value : '',
