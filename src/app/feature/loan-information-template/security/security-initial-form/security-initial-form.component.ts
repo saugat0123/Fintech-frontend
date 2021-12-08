@@ -1858,7 +1858,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         const activeNepse = shareType === ShareType.PROMOTER ? this.activeNepseMaster.promoter :
             this.activeNepseMaster.ordinary;
-        return ((totalShareUnit * amountPerUnit) / 100) * activeNepse;
+        return (((totalShareUnit * amountPerUnit) / 100) * activeNepse).toFixed(2);
     }
 
     calculateShareFieldsValues(index: number) {
@@ -1866,7 +1866,7 @@ export class SecurityInitialFormComponent implements OnInit {
         const amountPerUnit = this.shareField.at(index).get('amountPerUnit').value;
         const shareType = this.shareField.at(index).get('shareType').value;
         this.shareField.at(index).patchValue({
-            total: totalShareUnit * amountPerUnit,
+            total: (totalShareUnit * amountPerUnit).toFixed(2),
             consideredValue: this.calculateConsideredAmount(totalShareUnit, amountPerUnit, shareType)
         });
     }
