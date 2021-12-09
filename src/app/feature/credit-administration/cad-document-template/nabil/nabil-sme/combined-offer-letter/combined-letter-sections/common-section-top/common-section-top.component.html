@@ -2,6 +2,11 @@
     <form [formGroup]="form">
         <p>
             स्वीकृती पत्र नं.
+            <input class="form-field form-control-sm col-3"
+                   formControlName="referenceNumber"
+                   name="referenceNumber"
+                   placeholder=" सन्दर्भ नम्बर "
+                   type="text"/>
             <br>
             <br>
             <br>
@@ -9,13 +14,14 @@
             <br>
             <br>
             <br>
-            मितिः <input class="form-field form-control-sm nepaliFont"
+            मितिः <input class="form-field form-control-sm"
                          formControlName="sanctionLetterDate"
                          name="sanctionLetterDate"
+                         [value]="sanctionLetterDate"
                          type="text"/>
             <br>
             <br>
-            श्री <input class="form-field form-control-sm nepaliFont"
+            श्री <input class="form-field form-control-sm"
                         formControlName="nameOfBorrower"
                         name="nameOfBorrower"
                         type="text"/> |
@@ -31,3 +37,4 @@
         </p>
     </form>
 </div>
+<!--<app-common-section-top-print [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc" hidden></app-common-section-top-print>-->

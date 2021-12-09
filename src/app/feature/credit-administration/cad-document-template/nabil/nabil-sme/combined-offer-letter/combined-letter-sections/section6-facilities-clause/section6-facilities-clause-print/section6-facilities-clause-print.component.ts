@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
   selector: 'app-section6-facilities-clause-print',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./section6-facilities-clause-print.component.scss']
 })
 export class Section6FacilitiesClausePrintComponent implements OnInit {
-
+  @Input() customerApprovedDoc;
+  @Input() freeText;
   constructor() { }
 
   ngOnInit() {
