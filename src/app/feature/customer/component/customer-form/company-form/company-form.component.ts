@@ -1029,7 +1029,7 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
-            if (this.client !== this.clientName.LAXMI) {
+            if (this.client !== this.clientName.LAXMIBANK) {
                 proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
                     proprietorsIndex.toString())[0].ownerKycForm.value;
             }
@@ -1199,7 +1199,7 @@ export class CompanyFormComponent implements OnInit {
 
     calculateTotalIncomeDuringReview() {
         let total = 0;
-        if (this.client !== this.clientName.LAXMI) {
+        if (this.client !== this.clientName.LAXMIBANK) {
             total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
                 this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
                 this.companyInfoFormGroup.get('lcCommissionDuringReview').value +

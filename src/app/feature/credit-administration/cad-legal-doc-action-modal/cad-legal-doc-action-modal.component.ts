@@ -26,6 +26,7 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LaxmiOfferLetterConst} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
 import {LaxmiModule} from '../cad-document-template/laxmi/laxmi.module';
+import {Clients} from "../../../../environments/Clients";
 
 @Component({
     selector: 'app-cad-legal-doc-action-modal',
@@ -147,7 +148,8 @@ export class CadLegalDocActionModalComponent implements OnInit {
                 beneficiaryId: this.beneficiaryId,
                 legalDoc: JSON.stringify(this.legalDoc),
                 remarks: comment,
-                status: this.docAction
+                status: this.docAction,
+                institution: Clients.Bank
             };
             this.loanFormService.sendLegalDocumentBackToSenderOrAgent(sendDocToRemit).subscribe((res) => {
                 this.spinner = false;
