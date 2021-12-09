@@ -126,6 +126,7 @@ export class CombinedOfferLetterComponent implements OnInit {
     }
     const section9FreeText = {
       freeText1: this.section9.form.get('freeText1').value ? this.section9.form.get('freeText1').value : '',
+      freeText2: this.section9.form.get('freeText2').value ? this.section9.form.get('freeText2').value : '',
     }
     const section10FreeText = this.section10.form.get('additionalGuarantorDetails').value ? this.section10.form.get('additionalGuarantorDetails').value : '';
     const freeTextVal = {

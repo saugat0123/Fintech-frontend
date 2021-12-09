@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-section9-other-clause',
@@ -18,6 +18,7 @@ export class Section9OtherClauseComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       freeText1: [undefined],
+      freeText2: [undefined],
     });
   }
 
