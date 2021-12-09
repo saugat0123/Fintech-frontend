@@ -822,6 +822,14 @@
                                                type="text"/>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <app-security-revaluation #revaluationComponentApartment
+                                                              [valuators]="securityValuator?.buildingValuator[i]"
+                                                              [data]="formDataForEdit?.buildingDetails[i]?.revaluationData"
+                                                              [oldValuation]="securityForm.get('buildingDetails').value"
+                                                              [revaluationId]="securityId.apartmentId + i"
+                                                              [calendarType]="calendarType"></app-security-revaluation>
+                                </div>
                                 <div *ngIf="securityForm.get('buildingDetails')['length'] > 1"
                                      class="col-md-1 pt-4">
                                     <input (click)="removeBuildingDetails(i)"
@@ -1748,6 +1756,15 @@
                                            type="number" placeholder="Amount">
                                 </div>
                             </ng-container>
+                            <div class="col-md-12">
+                                <app-security-revaluation #revaluationComponentLandBuilding
+                                                          [valuators]="securityValuator?.buildingValuator[i]"
+                                                          [data]="formDataForEdit?.landBuilding[i]?.revaluationData"
+                                                          [oldValuation]="securityForm.get('landBuilding').value"
+                                                          [revaluationId]="securityId.land_buildingId + i"
+                                                          [calendarType]="calendarType"></app-security-revaluation>
+                            </div>
+
                         </div>
 
                         <hr>

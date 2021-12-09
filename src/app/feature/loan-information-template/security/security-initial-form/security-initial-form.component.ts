@@ -1969,7 +1969,12 @@ export class SecurityInitialFormComponent implements OnInit {
 
     }
 
-
+    setRevaluationData(controlName, list: QueryList<any>, securityId) {
+        this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
+            const comp: any = list.filter(item => item.revaluationId === (securityId + index))[0];
+            control.get('revaluationData').setValue(comp.formGroup.value);
+        });
+    }
 
     fetchOwnerKycValue(controlName, list: QueryList<any>, securityId) {
         this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
@@ -1981,12 +1986,7 @@ export class SecurityInitialFormComponent implements OnInit {
             }
         });
     }
-    setRevaluationData(controlName, list: QueryList<any>, securityId) {
-        this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
-            const comp: any = list.filter(item => item.revaluationId === (securityId + index))[0];
-            control.get('revaluationData').setValue(comp.formGroup.value);
-        });
-    }
+
 
     private getShareDataList() {
         const list: Array<CustomerShareData> = [];
