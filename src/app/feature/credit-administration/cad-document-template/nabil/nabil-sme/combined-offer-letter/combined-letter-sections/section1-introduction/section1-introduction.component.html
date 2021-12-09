@@ -1,7 +1,7 @@
 <div class="row text-justify nep">
     <form [formGroup]="section1">
         <!--FOR NEW CUSTOMER-->
-        <div>
+        <div *ngIf="loanOption === 'New'">
             <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
             <br>
             <div class="mb-1">
@@ -19,7 +19,7 @@
             </div>
         </div>
         <!--FOR EXISTING CUSTOMER-PLAIN RENEWAL -->
-        <div>
+        <div *ngIf="loanOption === 'Plain Renewal'">
             <strong>बिषयः ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे । </strong>
             <br>
             <div class="mb-1">
@@ -43,7 +43,7 @@
             </div>
         </div>
         <!--FOR EXISTING CUSTOMER- RENEWAL WITH ENHANCEMENT OR ADDITIONAL LOAN-->
-        <div>
+        <div *ngIf="loanOption === 'Renewal with Enhancement or Additional Loan'">
             <strong> बिषयः थप/अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे । </strong>
             <br>
             <div class="mb-1">
@@ -68,7 +68,7 @@
             </div>
         </div>
         <!--FOR EXISTING CUSTOMER - ADDITIONAL LOAN-->
-        <div>
+        <div *ngIf="loanOption === 'Additional Loan'">
             <strong> बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
             <br>
             <div class="mb-1">
@@ -92,13 +92,16 @@
             </div>
         </div>
         <!--OR-->
-        <textarea
-                class="form-control customFont nepaliFont"
-                rows="5"
-                style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
-                name="freeText"
-                formControlName="firstAdditionalDetails">
+        <div *ngIf="loanOption === 'Other'">
+             <textarea
+                     class="form-control customFont nepaliFont"
+                     rows="5"
+                     style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
+                     name="freeText"
+                     formControlName="firstAdditionalDetails">
                                             </textarea>
+        </div>
+
 
     </form>
 </div>
