@@ -16,10 +16,11 @@ export class SmeGlobalContentComponent implements OnInit {
   translatedFormGroup: FormGroup;
   translatedValue: any;
   loanOptions = [
-      {value: 'New Plain Renewal'},
+      {value: 'New'},
       {value: 'Plain Renewal'},
       {value: 'Renewal with Enhancement or Additional Loan'},
-      {value: 'Additional Loan'}
+      {value: 'Additional Loan'},
+      {value: 'Other'},
   ];
   yesNoOptions = [
     {value: 'Yes'},
