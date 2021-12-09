@@ -50,6 +50,7 @@ export class UserFormComponent implements OnInit {
     };
     roleType = RoleType;
     isCadSuperVisor = false;
+    hideCadFile = false;
 
     constructor(
         private service: UserService,
@@ -278,6 +279,13 @@ export class UserFormComponent implements OnInit {
                     this.customerCount = response.detail.count;
                     this.hideCustomerCount = false;
                     this.hideSaveButton = true;
+                    const roleDetail = this.model.role;
+                    if (roleDetail.roleName.toString() === 'CAD' ||
+                        roleDetail.roleType === RoleType.CAD_ADMIN ||
+                        roleDetail.roleType === RoleType.CAD_SUPERVISOR ||
+                        roleDetail.roleType === RoleType.CAD_LEGAL) {
+                        this.hideCadFile = true;
+                    }
                 }
             });
         } else {
