@@ -17,6 +17,7 @@ import {DocumentService} from '../../../../../admin/component/document/document.
 import {Status} from '../../../../../../@core/Status';
 import {environment} from '../../../../../../../environments/environment';
 import {Clients} from '../../../../../../../environments/Clients';
+import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
 
 @Component({
     selector: 'app-document-checklist-lite',
@@ -49,6 +50,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
     document: Array<Document> = [];
     client = environment.client;
     clientList = Clients;
+    cadChecklistEnum = CadCheckListTemplateEnum;
 
     constructor(private creditAdministrationService: CreditAdministrationService,
                 private toastService: ToastService,
@@ -59,15 +61,16 @@ export class DocumentChecklistLiteComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.checkDocuments();
         this.displaySelectedData();
         this.initial();
-
     }
 
     initial() {
         if (this.document.length < 1) {
             this.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe(res => {
                 this.document = res.detail;
+                console.log(res.detail);
                 if (!ObjectUtil.isEmpty(this.cadData) && !(ObjectUtil.isEmpty(this.document))) {
                     this.customerLoanList = this.cadData.assignedLoan;
                     this.cadData.cadFileList.forEach(singleCadFile => {
@@ -94,6 +97,43 @@ export class DocumentChecklistLiteComponent implements OnInit {
         this.uploadFile = event.target.files[0];
     }
 
+    checkDocuments() {
+        let vehicle = false;
+        let loanApp = false;
+        let hype = false;
+        this.cadData.requiredDocument.forEach((d) => {
+            if (d.id.toString() === this.cadChecklistEnum.VEHICLE_APPLICATION) {
+                vehicle = true;
+            } else if (d.id.toString() === this.cadChecklistEnum.LOAN_APPLICATION) {
+                loanApp = true;
+            } else if (d.id.toString() === this.cadChecklistEnum.HYPOTHECATION) {
+                hype = true;
+            }
+        });
+        if (!vehicle) {
+            const vehicles = new Document();
+            vehicles.id = +this.cadChecklistEnum.VEHICLE_APPLICATION;
+            this.cadData.requiredDocument.push(vehicles);
+        }
+        if (!loanApp) {
+            const loan = new Document();
+            loan.id = +this.cadChecklistEnum.LOAN_APPLICATION;
+            this.cadData.requiredDocument.push(loan);
+        }
+        if (!hype) {
+            const hypo = new Document();
+            hypo.id = +this.cadChecklistEnum.HYPOTHECATION;
+            this.cadData.requiredDocument.push(hypo);
+        }
+        if (!vehicle || !loanApp || !hype) {
+            this.creditAdministrationService.saveCadDocumentBulk(this.cadData).subscribe((res) => {
+                this.cadData = res.detail;
+                this.document = this.cadData.requiredDocument;
+                this.responseCadData.emit(res.detail);
+                console.log(res.detail);
+            });
+        }
+    }
     save(loanHolderId, customerLoanId, documentId, documentName) {
         this.spinner = true;
         const formData: FormData = new FormData();
