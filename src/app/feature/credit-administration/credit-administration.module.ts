@@ -125,6 +125,8 @@ import { AutoLoanMasterComponent } from './cad-view/template-data/nabil-sme-temp
 import { BankGuaranteeComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/bank-guarantee/bank-guarantee.component';
 import { BillPurchaseComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-loan-type/bill-purchase/bill-purchase.component';
 import {CombinedOfferLetterComponent} from './cad-document-template/nabil/nabil-sme/combined-offer-letter/combined-offer-letter.component';
+import { Section1SmeSecurityComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security-sections/section1-sme-security/section1-sme-security.component';
+import { Section2SmeSecurityComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security-sections/section2-sme-security/section2-sme-security.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -238,7 +240,9 @@ import {CombinedOfferLetterComponent} from './cad-document-template/nabil/nabil-
         MortgageOrEquityMortgageTermLoanComponent,
         AutoLoanMasterComponent,
         BankGuaranteeComponent,
-        BillPurchaseComponent],
+        BillPurchaseComponent,
+        Section1SmeSecurityComponent,
+        Section2SmeSecurityComponent],
   imports: [
     ThemeModule,
     CommonModule,

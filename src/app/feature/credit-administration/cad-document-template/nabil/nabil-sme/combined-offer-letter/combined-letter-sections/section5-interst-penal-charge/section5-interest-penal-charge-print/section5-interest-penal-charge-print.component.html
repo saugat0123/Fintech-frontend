@@ -80,7 +80,8 @@
                     <ol class="conditions-list orderd-list font-weight-bold">
                         <li>
                             <p>
-                                ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर <!--<input class="form-field form-control-sm font-weight-bold"
+                                ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर
+                                <!--<input class="form-field form-control-sm font-weight-bold"
                                                                                                         formControlName="interestRate"
                                                                                                         name="interestRate"
                                                                                                         type="text"/>-->
@@ -310,24 +311,27 @@
                             <p>
                                 <strong>ऋण प्रशासनिक शुल्क: </strong>
                                 <br>
-                                ऋण प्रशासनिक शुल्क बापत <strong>रु. </strong> <!--<input class="form-field form-control-sm font-weight-bold"
-                                                                                             formControlName="serviceChargeInFigure"
-                                                                                             name="serviceChargeInFigure"
-                                                                                             type="text"/>-->
-                                _______________
-                                <strong>। (अक्षरेपी रु. </strong><!--<input class="form-field form-control-sm font-weight-bold"
-                                                                                formControlName="serviceChargeInWords"
-                                                                                name="serviceChargeInWords"
-                                                                                type="text"/>-->_______________
-                                <strong>मात्र) वा </strong>
-                                स्वीकृत <!--<input class="form-field form-control-sm font-weight-bold"
-                                                       formControlName="detailsOfFacility"
-                                                       name="detailsOfFacility"
-                                                       type="text"/>-->_______________
-                                कर्जाकाे <!--<input class="form-field form-control-sm font-weight-bold"
-                                                        formControlName="serviceChargeInPercentage"
-                                                        name="serviceChargeInPercentage"
-                                                        type="text"/>-->_______________
+                                ऋण प्रशासनिक शुल्क बापत रु.
+                                <span><strong>
+                                    {{this.letterData.smeGlobalForm.serviceChargeInFigureCT ? this.letterData.smeGlobalForm.serviceChargeInFigureCT : ''}}
+                                </strong></span>
+                                । (अक्षरेपी रु.
+                                <span><strong>
+                                    {{this.letterData.smeGlobalForm.serviceChargeInWordsCT ? this.letterData.smeGlobalForm.serviceChargeInWordsCT : ''}}
+                                </strong></span>
+                                मात्र) वा
+                                स्वीकृत
+                                <span>
+                                    <strong>
+                                        {{this.letterData.smeGlobalForm.detailOfFacilityCT ? this.letterData.smeGlobalForm.detailOfFacilityCT : ''}}
+                                    </strong>
+                                </span>
+                                कर्जाकाे
+                                <span>
+                                    <strong>
+                                        {{this.letterData.smeGlobalForm.serviceChargeInPercentCT ? this.letterData.smeGlobalForm.serviceChargeInPercentCT : ''}}
+                                    </strong>
+                                </span>
                                 प्रतिशतका दरले हुन आउने रकम अग्रिम रुपमा तपाईंको खाताबाट कट्टा गरी लिइनेछ वा तपाईंले
                                 तिर्नु बुझाउनु पर्नेछ ।
                             </p>

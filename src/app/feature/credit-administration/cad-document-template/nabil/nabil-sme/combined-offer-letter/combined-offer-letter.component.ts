@@ -84,7 +84,6 @@ export class CombinedOfferLetterComponent implements OnInit {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER);
       offerDocument.supportedInformation = this.setFreeText();
-      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
@@ -92,20 +91,20 @@ export class CombinedOfferLetterComponent implements OnInit {
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.customerApprovedDoc.id);
+      // this.routerUtilsService.reloadCadProfileRoute(this.customerApprovedDoc.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.customerApprovedDoc.id);
+      // this.routerUtilsService.reloadCadProfileRoute(this.customerApprovedDoc.id);
     });
   }
 
   setFreeText() {
     const section1FreeText = this.section1.section1.get('firstAdditionalDetails').value ? this.section1.section1.get('firstAdditionalDetails').value : '';
-    const section2FreeText = {
-      freeText1: this.section2.form.get('freeTextOne').value ? this.section2.form.get('freeTextOne').value : '',
+    const section2FreeText = this.section2.setTextAreaValue();
+      /*freeText1: this.section2.form.get('freeTextOne').value ? this.section2.form.get('freeTextOne').value : '',
       freeText2: this.section2.form.get('freeTextTwo').value ? this.section2.form.get('freeTextTwo').value : '',
       freeText3: this.section2.form.get('freeTextThree').value ? this.section2.form.get('freeTextThree').value : '',
       freeText4: this.section2.form.get('freeTextFour').value ? this.section2.form.get('freeTextFour').value : '',
@@ -115,8 +114,10 @@ export class CombinedOfferLetterComponent implements OnInit {
       freeText8: this.section2.form.get('freeTextEight').value ? this.section2.form.get('freeTextEight').value : '',
       freeText9: this.section2.form.get('freeTextNine').value ? this.section2.form.get('freeTextNine').value : '',
       freeText10: this.section2.form.get('freeTextFifteen').value ? this.section2.form.get('freeTextFifteen').value : '',
-      freeText11: this.section2.form.get('freeTextSixteen').value ? this.section2.form.get('freeTextSixteen').value : '',
-    }
+      freeText11: this.section2.form.get('freeTextSixteen').value ? this.section2.form.get('freeTextSixteen').value : '',*/
+
+      // freeTextOthers: this.section2.form.get('otherFreeTexts').value ? this.section2.form.get('otherFreeTexts').value : '',
+
     const section3FreeText = {
       freeText1: this.section3.form.get('freeText1').value ? this.section3.form.get('freeText1').value : '',
       freeText2: this.section3.form.get('freeText2').value ? this.section3.form.get('freeText2').value : '',
