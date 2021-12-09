@@ -40,6 +40,11 @@ export class SmeGlobalContentComponent implements OnInit {
   ];
   dateType = ['AD', 'BS'];
   interestRateType = [{value: 'Floating Interest Rate'}, {value: 'Fixed Interest Rate'}];
+  loanSchemeType = [{value: 'Nabil Sajilo Karja'},
+    {value: 'Nari Karja'},
+    {value: 'Nabil Fast Track Scheme'},
+    {value: 'Nabil Anniversary Scheme'}];
+  loanSchemeSelected = false;
 
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
@@ -63,6 +68,8 @@ export class SmeGlobalContentComponent implements OnInit {
       borrowerNaturalPerson: [undefined],
       loanAmountAbove50Crore: [undefined],
       workingCapitalAbove25Crore: [undefined],
+      loanScheme: [undefined],
+      loanSchemeType: [undefined],
       interestRateType: [undefined],
       dateOfApproval: [undefined],
       dateOfApprovalTrans: [undefined],
@@ -73,6 +80,9 @@ export class SmeGlobalContentComponent implements OnInit {
       sanctionLetterDate: [undefined],
       sanctionLetterDateTrans: [undefined],
       sanctionLetterDateCT: [undefined],
+      schemeInterestRate: [undefined],
+      schemeInterestRateTrans: [undefined],
+      schemeInterestRateCT: [undefined],
       serviceChargeType: [undefined],
       serviceChargeInFigure: [undefined],
       serviceChargeInFigureTrans: [undefined],
@@ -120,6 +130,12 @@ export class SmeGlobalContentComponent implements OnInit {
     if (!ObjectUtil.isEmpty(serviceChargeInFigure)) {
       this.globalForm.get('serviceChargeInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(serviceChargeInFigure.toString()));
       this.globalForm.get('serviceChargeInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(serviceChargeInFigure.toString()));
+    }
+
+    const tempSchemeInterestRate = this.globalForm.get('schemeInterestRate').value;
+    if (!ObjectUtil.isEmpty(tempSchemeInterestRate)) {
+      this.globalForm.get('schemeInterestRateTrans').patchValue(this.engToNepaliNumberPipe.transform(tempSchemeInterestRate.toString()));
+      this.globalForm.get('schemeInterestRateCT').patchValue(this.engToNepaliNumberPipe.transform(tempSchemeInterestRate.toString()));
     }
 
     const serviceChargeInPercent = this.globalForm.get('serviceChargeInPercent').value;
@@ -233,6 +249,11 @@ export class SmeGlobalContentComponent implements OnInit {
 
     this.globalForm.get('nameOfBranchManagerTrans').patchValue(this.translatedValue.nameOfBranchManager);
     this.globalForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
+  }
+
+  /* For selected loan Scheme*/
+  checkLoanScheme(data) {
+    this.loanSchemeSelected = data === 'Yes';
   }
 
 }

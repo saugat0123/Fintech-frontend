@@ -39,7 +39,7 @@ export class BillPurchaseComponent implements OnInit {
   buildForm() {
     this.billPurchaseForm = this.formBuilder.group({
       // for from data
-      complementryOther: [undefined],
+      ComplementaryOther: [undefined],
       multiLoan: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
@@ -50,7 +50,7 @@ export class BillPurchaseComponent implements OnInit {
       dateOfExpiryNepali: [undefined],
       dateOfExpiry: [undefined],
       // for translated data
-      complementryOtherTrans: [undefined],
+      ComplementaryOtherTrans: [undefined],
       multiLoanTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
@@ -61,7 +61,7 @@ export class BillPurchaseComponent implements OnInit {
       dateOfExpiryNepaliTrans: [undefined],
       dateOfExpiryTrans: [undefined],
       // for corrected data
-      complementryOtherCT: [undefined],
+      ComplementaryOtherCT: [undefined],
       multiLoanCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
@@ -75,7 +75,7 @@ export class BillPurchaseComponent implements OnInit {
   }
   checkComplimetryOtherLoan(data) {
     this.isComplimentryOtherLoan = data;
-    this.billPurchaseForm.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
+    this.billPurchaseForm.get('ComplementaryOther').patchValue(this.isComplimentryOtherLoan);
   }
 
   public checkDateOfExpiry(value): void {
@@ -89,9 +89,9 @@ export class BillPurchaseComponent implements OnInit {
   }
   translateAndSetVal() {
     /* SET TRANS VALUE FOR CONDITIONS */
-    const tempComplemetry = this.billPurchaseForm.get('complementryOther').value;
+    const tempComplemetry = this.billPurchaseForm.get('ComplementaryOther').value;
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
-      this.billPurchaseForm.get('complementryOtherTrans').patchValue(tempComplemetry);
+      this.billPurchaseForm.get('ComplementaryOtherTrans').patchValue(tempComplemetry);
     }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
@@ -130,8 +130,8 @@ export class BillPurchaseComponent implements OnInit {
     this.setCTValue();
   }
   setCTValue() {
-    this.billPurchaseForm.get('complementryOtherCT').patchValue(
-        this.billPurchaseForm.get('complementryOtherTrans').value
+    this.billPurchaseForm.get('ComplementaryOtherCT').patchValue(
+        this.billPurchaseForm.get('ComplementaryOtherTrans').value
     );
     this.billPurchaseForm.get('loanAmountCT').patchValue(
         this.billPurchaseForm.get('loanAmountTrans').value
