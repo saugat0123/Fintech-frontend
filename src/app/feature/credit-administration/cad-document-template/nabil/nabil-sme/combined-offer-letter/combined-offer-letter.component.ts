@@ -13,6 +13,7 @@ import {Section3SecurityAndCollateralComponent} from "./combined-letter-sections
 import {Section9OtherClauseComponent} from "./combined-letter-sections/section9-other-clause/section9-other-clause.component";
 import {Section1IntroductionComponent} from "./combined-letter-sections/section1-introduction/section1-introduction.component";
 import {RouterUtilsService} from "../../../../utils/router-utils.service";
+import {Section6FacilitiesClauseComponent} from './combined-letter-sections/section6-facilities-clause/section6-facilities-clause.component';
 
 @Component({
   selector: 'app-combined-offer-letter',
@@ -31,6 +32,7 @@ export class CombinedOfferLetterComponent implements OnInit {
   @ViewChild('section1', {static: false}) section1: Section1IntroductionComponent;
   @ViewChild('section2', {static: false}) section2: Section2LoanTypeComponent;
   @ViewChild('section3', {static: false}) section3: Section3SecurityAndCollateralComponent;
+  @ViewChild('section6', {static: false}) section6: Section6FacilitiesClauseComponent;
   @ViewChild('section9', {static: false}) section9: Section9OtherClauseComponent;
   @ViewChild('section10', {static: false}) section10: Section10SecurityDocumentsComponent;
 
@@ -125,6 +127,7 @@ export class CombinedOfferLetterComponent implements OnInit {
       freeText4: this.section3.form.get('freeText4').value ? this.section3.form.get('freeText4').value : '',
       freeText5: this.section3.form.get('freeText5').value ? this.section3.form.get('freeText5').value : '',
     }
+    const section6FreeText = this.section6.form.get('tenureOfLoan').value ? this.section6.form.get('tenureOfLoan').value : '';
     const section9FreeText = {
       freeText1: this.section9.form.get('freeText1').value ? this.section9.form.get('freeText1').value : '',
       freeText2: this.section9.form.get('freeText2').value ? this.section9.form.get('freeText2').value : '',
@@ -134,6 +137,7 @@ export class CombinedOfferLetterComponent implements OnInit {
       section1: section1FreeText,
       section2: section2FreeText,
       section3: section3FreeText,
+      section6: section6FreeText,
       section9: section9FreeText,
       section10: section10FreeText,
     };
