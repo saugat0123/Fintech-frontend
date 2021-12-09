@@ -51,6 +51,7 @@ import { CreateDocumentComponent } from './security/security-initial-form/create
 import { ObtainedDocumentComponent } from './obtained-document/obtained-document.component';
 import { OutstandingUpdateComponent } from './outstanding-update/outstanding-update.component';
 import {AngularEmojisModule} from 'angular-emojis';
+import {SecurityRevaluationComponent} from './security/security-initial-form/security-revaluation/security-revaluation.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -89,10 +90,10 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
-      CrgMicroComponent,
-      ObtainedDocumentComponent,
-      OutstandingUpdateComponent],
+    declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
+        CrgMicroComponent,
+        ObtainedDocumentComponent,
+        OutstandingUpdateComponent, SecurityRevaluationComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, ObtainedDocumentComponent, OutstandingUpdateComponent],
     entryComponents: [...COMPONENTS],
     imports: [

@@ -420,6 +420,17 @@
                                        type="number" placeholder="Amount">
                             </div>
                         </ng-container>
+                        <div class="col-md-12">
+                            <app-security-revaluation #revaluationComponent
+                                                      [valuators]="securityValuator?.landValuator[i]"
+                                                      [oldValuation]="securityForm.get('landDetails').value"
+                                                      [data]="formDataForEdit?.landDetails[i]?.revaluationData"
+                                                      [revaluationId]="securityId.landId + i"
+                                                      [calendarType]="calendarType"
+                                                      [index]="i"
+                                                      (revaluationDataEmitter)="eventLandSecurity($event, i)"
+                            ></app-security-revaluation>
+                        </div>
                         <div *ngIf="securityForm.get('landDetails') ['length'] > 1" class="col-md-1">
                             <input (click)="removeLandDetails(i)"
                                    class="align-self-end btn btn-sm btn-danger btn-primary"

@@ -15,6 +15,7 @@ import {CustomerShareData} from '../../../admin/modal/CustomerShareData';
 import {NepseService} from '../../../admin/component/nepse/nepse.service';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {SecurityRevaluationComponent} from './security-revaluation/security-revaluation.component';
 import {SecurityIds} from './SecurityIds';
 import {OwnershipTransfer} from '../../../loan/model/ownershipTransfer';
 import {RelationshipList} from '../../../loan/model/relationshipList';
@@ -47,6 +48,15 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() shareSecurity;
     @Input() customerSecurityId;
     securityEmitValue: string;
+
+    @ViewChildren('revaluationComponent')
+    revaluationComponent: QueryList<SecurityRevaluationComponent>;
+
+    @ViewChildren('revaluationComponentApartment')
+    revaluationComponentApartment: QueryList<SecurityRevaluationComponent>;
+
+    @ViewChildren('revaluationComponentLandBuilding')
+    revaluationComponentLandBuilding: QueryList<SecurityRevaluationComponent>;
 
     @ViewChildren('ownerKycApplicable')
     ownerKycApplicable: QueryList<OwnerKycApplicableComponent>;
@@ -252,17 +262,72 @@ export class SecurityInitialFormComponent implements OnInit {
 
     }
 
+    eventLandSecurity($event) {
+        const landDetails = this.securityForm.get('landDetails') as FormArray;
+        $event['reValuatedDv'] = $event['reValuatedDv'] == null ? 0 : $event['reValuatedDv'];
+        $event['reValuatedFmv'] = $event['reValuatedFmv'] == null ? 0 : $event['reValuatedFmv'];
+        $event['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'] == null ? 0 : $event['reValuatedConsideredValue'];
+        if ($event['isReValuated']) {
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(true);
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = $event['reValuatedDv'];
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = $event['reValuatedFmv'];
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'];
+            if (!ObjectUtil.isEmpty(landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'])) {
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['reValuatedDv']
+                    = $event['reValuatedDv'];
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['reValuatedFmv']
+                    = $event['reValuatedFmv'];
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['reValuatedConsideredValue']
+                    = $event['reValuatedConsideredValue'];
+            }
+        } else {
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(false);
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = 0;
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = 0;
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = 0;
+            if (!ObjectUtil.isEmpty(landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'])) {
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) => l['reValuatedDv'] = 0);
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) => l['reValuatedFmv'] = 0);
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) =>
+                    l['reValuatedConsideredValue'] = 0);
+            }
+        }
+        this.updateLandSecurityTotal();
+    }
+
     updateLandSecurityTotal() {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         this.totaldv = 0;
         this.totalmv = 0;
         this.totalcv = 0;
         landDetails['value'].forEach((sec, index) => {
+            this.totaldv += Number(sec['distressValue']);
+            this.totalmv += Number(sec['marketValue']);
+            this.totalcv += Number(sec['landConsideredValue']);
+            if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
+                if (sec['revaluationData'].revaluationDetails === undefined || sec['revaluationData'].revaluationDetails === null) {
+                    this.totaldv += Number(sec['revaluationData']['reValuatedDv']);
+                    this.totalmv += Number(sec['revaluationData']['reValuatedFmv']);
+                    this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
+                } else {
+                    const revData = sec['revaluationData'].revaluationDetails;
+                    if (ObjectUtil.isEmpty(revData.reValuatedConsideredValue)) {
+                        this.totalmv += Number(revData[revData.length - 1].reValuatedFmv);
+                        this.totaldv += Number(revData[revData.length - 1].reValuatedDv);
+                        this.totalcv += Number(revData[revData.length - 1].reValuatedConsideredValue);
+                    } else {
+                        this.totalmv += Number(revData.reValuatedFmv);
+                        this.totaldv += Number(revData.reValuatedDv);
+                        this.totalcv += Number(revData.reValuatedConsideredValue);
+                    }
+                }
+            } else {
                 this.totaldv += Number(sec['distressValue']);
                 this.totalmv += Number(sec['marketValue']);
                 this.totalcv += Number(sec['landConsideredValue']);
             }
-        );
+        });
+
     }
 
     buildForm() {
@@ -441,6 +506,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBranch: [singleData.landBranch],
                     landConsideredValue: [ObjectUtil.isEmpty(singleData.landConsideredValue) ? undefined : singleData.landConsideredValue],
                     typeOfProperty: [singleData.typeOfProperty],
+                    revaluationData: [singleData.revaluationData],
                     landStaffRepresentativeDesignation: [singleData.landStaffRepresentativeDesignation],
                     landStaffRepresentativeName2: [singleData.landStaffRepresentativeName2],
                     landStaffRepresentativeDesignation2: [singleData.landStaffRepresentativeDesignation2],
@@ -605,6 +671,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     ApartmentValuatorRepresentative: [singleData.ApartmentValuatorRepresentative],
                     ApartmentStaffRepresentativeName: [singleData.ApartmentStaffRepresentativeName],
                     apartmentBranch: [singleData.apartmentBranch],
+                    revaluationData: [singleData.revaluationData],
                     apartmentStaffRepresentativeDesignation: [singleData.apartmentStaffRepresentativeDesignation],
                     apartmentStaffRepresentativeDesignation2: [singleData.apartmentStaffRepresentativeDesignation2],
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
@@ -681,6 +748,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landConsideredValueConstruction: [singleData.landConsideredValueConstruction],
                     // typeOfPropertyConstruction: [singleData.typeOfPropertyConstruction],
                     // modeOfTransferConstruction: [singleData.modeOfTransferConstruction],
+                    revaluationData: [singleData.revaluationData],
                     landBuildingStaffRepresentativeDesignation: [singleData.landBuildingStaffRepresentativeDesignation],
                     landBuildingStaffRepresentativeDesignation2: [singleData.landBuildingStaffRepresentativeDesignation2],
                     landBuildingStaffRepresentativeName2: [singleData.landBuildingStaffRepresentativeName2],
@@ -1318,6 +1386,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landBranch: [undefined],
             landConsideredValue: [undefined, Validators.required],
             typeOfProperty: [undefined],
+            revaluationData: [{isReValuated: false, reValuatedDv: 0, reValuatedFmv: 0, reValuatedConsideredValue: 0}, Validators.required],
             landStaffRepresentativeDesignation: [undefined],
             landStaffRepresentativeName2: [undefined],
             landStaffRepresentativeDesignation2: [undefined],
@@ -1367,6 +1436,7 @@ export class SecurityInitialFormComponent implements OnInit {
             ApartmentValuatorRepresentative: [undefined],
             ApartmentStaffRepresentativeName: [undefined],
             apartmentBranch: [undefined],
+            revaluationData: [undefined],
             apartmentStaffRepresentativeDesignation: [undefined],
             apartmentStaffRepresentativeDesignation2: [undefined],
             apartmentStaffRepresentativeName2: [undefined],
@@ -1420,6 +1490,7 @@ export class SecurityInitialFormComponent implements OnInit {
             // typeOfPropertyConstruction: [undefined],
             // modeOfTransferConstruction: [undefined],
             underConstructionChecked: undefined,
+            revaluationData: [undefined],
             landBuildingStaffRepresentativeDesignation: [undefined],
             landBuildingStaffRepresentativeDesignation2: [undefined],
             landBuildingStaffRepresentativeName2: [undefined],
@@ -1879,6 +1950,9 @@ export class SecurityInitialFormComponent implements OnInit {
 
     submit() {
         this.pushSecurityNameInArray();
+        this.setRevaluationData('landDetails', this.revaluationComponent, SecurityIds.landId);
+        this.setRevaluationData('buildingDetails', this.revaluationComponentApartment, SecurityIds.apartmentId);
+        this.setRevaluationData('landBuilding', this.revaluationComponentLandBuilding, SecurityIds.land_buildingId);
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
@@ -1895,6 +1969,8 @@ export class SecurityInitialFormComponent implements OnInit {
 
     }
 
+
+
     fetchOwnerKycValue(controlName, list: QueryList<any>, securityId) {
         this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
             const comp: any = list.filter(item => item.kycId === (securityId + index))[0];
@@ -1903,6 +1979,12 @@ export class SecurityInitialFormComponent implements OnInit {
             } else {
                 control.get('ownerKycApplicableData').setValue(comp.ownerKycForm.value);
             }
+        });
+    }
+    setRevaluationData(controlName, list: QueryList<any>, securityId) {
+        this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
+            const comp: any = list.filter(item => item.revaluationId === (securityId + index))[0];
+            control.get('revaluationData').setValue(comp.formGroup.value);
         });
     }
 
