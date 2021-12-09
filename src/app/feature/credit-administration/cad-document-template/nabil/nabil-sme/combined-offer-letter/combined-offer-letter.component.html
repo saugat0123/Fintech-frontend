@@ -6,7 +6,7 @@
     </nb-card-header>
     <nb-card-body>
 
-        <app-common-section-top></app-common-section-top>
+        <app-common-section-top [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-common-section-top>
         <!-- TODO PASS THE CONTEXT / DATA BASED ON THE SECTION REQUIREMENTS -->
         <!-- CALLING EACH SECTION -->
         <app-section1-introduction #section1 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section1-introduction>
@@ -22,7 +22,7 @@
         <app-section5-interst-penal-charge [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section5-interst-penal-charge>
 
 
-        <app-section6-facilities-clause></app-section6-facilities-clause>
+        <app-section6-facilities-clause #section6 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section6-facilities-clause>
 
 
         <app-section7-security-clause [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section7-security-clause>
@@ -34,7 +34,7 @@
         <app-section10-security-documents #section10 [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section10-security-documents>
 
         <!--common section BOTTOM-->
-       <app-common-section-bottom></app-common-section-bottom>
+       <app-common-section-bottom [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-common-section-bottom>
 
     </nb-card-body>
     <nb-card-footer>

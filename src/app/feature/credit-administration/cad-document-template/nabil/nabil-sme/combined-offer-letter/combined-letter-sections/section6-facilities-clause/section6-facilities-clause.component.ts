@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-section6-facilities-clause',
@@ -7,17 +8,31 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./section6-facilities-clause.component.scss']
 })
 export class Section6FacilitiesClauseComponent implements OnInit {
+  @Input() cadOfferLetterApprovedDoc;
+  @Input() freeText;
   form: FormGroup;
+  tempData;
+  tenureOfLoan;
+  freeInformation: any;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+    }
+    this.fillForm();
   }
   buildForm() {
-    return this.form = this.formBuilder.group({
-      tenureOfOne: [undefined],
+    this.form = this.formBuilder.group({
+      tenureOfLoan: [undefined],
+    });
+  }
+  fillForm() {
+    this.form.patchValue({
+      tenureOfLoan: this.freeInformation ? this.freeInformation.section6.tenureOfLoan : ''
     });
   }
 
