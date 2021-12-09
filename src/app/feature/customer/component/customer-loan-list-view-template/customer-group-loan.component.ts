@@ -21,6 +21,9 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {DocAction} from '../../../loan/model/docAction';
+import {RoleType} from '../../../admin/modal/roleType';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -36,8 +39,18 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
               private modalService: NgbModal,
               private spinnerService: NgxSpinnerService,
               private toastService: ToastService,
-              private  activatedRoute: ActivatedRoute,) {
+              private  activatedRoute: ActivatedRoute,
+              private formBuilder: FormBuilder,
+              ) {
   }
+  totalApprovedProposedAmount;
+  totalRejectProposedAmount;
+  totalClosedProposedAmount;
+  totalInitialPendingProposedAmount;
+  totalApprovedCollateralAmount;
+  totalRejectCollateralAmount;
+  totalClosedCollateralAmount;
+  totalInitialPendingCollateralAmount;
 
   public static LOAN_CHANGE = 'loanChange';
   public static LOAN_DELETE = 'loanDelete';
@@ -75,6 +88,10 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     loanExposure: 0,
     totalApprovedLimit: 0,
     totalPendingLimit: 0,
+    totalRejectProposedLimit: 0,
+    totalRejectRequiredCollateral: 0,
+    totalClosedProposedLimit: 0,
+    totalClosedRequiredCollateral: 0,
     totalApprovedRequiredCollateral: 0,
     totalPendingRequiredCollateral: 0,
   };
@@ -83,6 +100,14 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   currentUserRoleType = LocalStorageUtil.getStorage().roleType;
   loanAction: any;
   loanActionList = [];
+  canReInitiateLoan = false;
+  reInitiateSpinner = false;
+  reInitiateLoanCustomerName: string;
+  reInitiateLoanFacilityName: string;
+  reInitiateLoanBranchName: string;
+  reInitiateLoanType: string;
+  showBranch = true;
+  formAction: FormGroup;
   displaySecurity = false;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -100,6 +125,12 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       value: 'Change Loan'
     }];
     this.displaySecurityDetails();
+    if (LocalStorageUtil.getStorage().username === 'SPADMIN'
+        || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN
+        || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
+      this.canReInitiateLoan = true;
+    }
+    this.buildActionForm();
   }
 
   getCustomerLoans() {
@@ -115,26 +146,109 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       this.collateralDtoData.totalPendingRequiredCollateral = 0;
       this.collateralDtoData.totalPendingLimit = 0;
       this.collateralDtoData.totalRequiredCollateral = 0;
-      this.customerGroupLoanList.forEach(l => {
-            if (l.proposal) {
-              this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.proposal.proposedLimit;
-              this.collateralDtoData.totalRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
-                  ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-              if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
-                this.collateralDtoData.totalApprovedLimit = this.collateralDtoData.totalApprovedLimit +
-                    l.proposal.proposedLimit;
-                this.collateralDtoData.totalApprovedRequiredCollateral =
-                    this.collateralDtoData.totalApprovedRequiredCollateral +
-                    ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-              } else {
-                this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
-                    l.proposal.proposedLimit;
-                this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
-                    + ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-              }
-            }
-          }
-      );
+      this.collateralDtoData.totalRejectProposedLimit = 0;
+      this.collateralDtoData.totalRejectRequiredCollateral = 0;
+      this.collateralDtoData.totalClosedProposedLimit= 0;
+      this.collateralDtoData.totalClosedRequiredCollateral =0;
+
+      // Total Approved Proposed Amount
+
+      let totalApprovedProposedAmount = [];
+      this.customerGroupLoanList.map(val => {
+        if(val.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED )) {
+          totalApprovedProposedAmount.push(val.proposal.proposedLimit);
+        }
+      });
+      this.totalApprovedProposedAmount = totalApprovedProposedAmount.reduce((a,b)=> Number(a) + Number(b), 0)
+
+
+      // Total Approved Collateral Amount
+      let totalApprovedCollateralAmount =0;
+     this.customerGroupLoanList.forEach(value => {
+       if(value.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED )){
+         totalApprovedCollateralAmount += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+       }
+     });
+     this.totalApprovedCollateralAmount = totalApprovedCollateralAmount
+
+
+
+//    Total Rejected Proposed Amount
+      let totalRejectProposedAmount = [];
+      this.customerGroupLoanList.map(val => {
+        if(val.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED)) {
+          totalRejectProposedAmount.push(val.proposal.proposedLimit);
+        }
+      });
+      this.totalRejectProposedAmount = totalRejectProposedAmount.reduce((a,b)=> Number(a) + Number(b), 0)
+
+
+      // Total Rejected Collateral Amount
+      let totalRejectCollateralAmount =0;
+      this.customerGroupLoanList.forEach(value => {
+        if(value.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED )){
+          totalRejectCollateralAmount += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+        }
+      });
+      this.totalRejectCollateralAmount = totalRejectCollateralAmount
+
+
+// Total Closed Proposed Amount
+      let totalClosedProposedAmount = [];
+      this.customerGroupLoanList.map(val => {
+        if(val.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+          totalClosedProposedAmount.push(val.proposal.proposedLimit);
+        }
+      });
+      this.totalClosedProposedAmount = totalClosedProposedAmount.reduce((a,b)=> Number(a) + Number(b), 0)
+
+
+      // Total Closed Collateral Amount
+
+      let totalClosedCollateralAmount =0;
+      this.customerGroupLoanList.forEach(value => {
+        if(value.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED )){
+          totalClosedCollateralAmount += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+        }
+      });
+      this.totalClosedCollateralAmount = totalClosedCollateralAmount
+
+
+// Total Initial Pending UnderDiscussion Under Review Proposed Amount
+      let totalInitialPendingProposedAmount = [];
+      this.customerGroupLoanList.map(val => {
+        if  (val.documentStatus.toString() === DocStatus.value(DocStatus.PENDING) ||
+            (val.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION)) ||
+            (val.documentStatus.toString() === DocStatus.value(DocStatus.INITIAL)) ||
+            (val.documentStatus.toString() === DocStatus.value(DocStatus.UNDER_REVIEW))) {
+          totalInitialPendingProposedAmount.push(val.proposal.proposedLimit);
+        }
+      });
+      this.totalInitialPendingProposedAmount = totalInitialPendingProposedAmount.reduce((a,b)=> Number(a) + Number(b), 0)
+
+
+
+      // Total Initial Pending UnderDiscussion Under Review Proposed Amount
+      let totalInitialPendingCollateralAmount =0;
+      this.customerGroupLoanList.forEach(value => {
+        if  (value.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION)) ||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.INITIAL)) ||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.UNDER_REVIEW)) ||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION))||
+            (value.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION))){
+          totalInitialPendingCollateralAmount += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+        }
+      });
+      this.totalInitialPendingCollateralAmount = totalInitialPendingCollateralAmount
+
+
+      // Total Loan Proposed Amount
+
+      this.totalLoanProposedAmount = this.totalInitialPendingProposedAmount + this.totalApprovedProposedAmount;
+
+// Total Required Collateral
+      this.totalRequiredCollateral = this.totalInitialPendingCollateralAmount + this.totalApprovedCollateralAmount;
       this.calculateCollateralData();
       const loanAmountType = new LoanAmountType();
       loanAmountType.type = this.fetchLoan.CUSTOMER_LOAN;
@@ -225,12 +339,17 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   loanHistoriesGroup(loans: SingleCombinedLoanDto[]): {
     pending: SingleCombinedLoanDto[],
     funded: SingleCombinedLoanDto[],
-    nonFunded: SingleCombinedLoanDto[]
+    nonFunded: SingleCombinedLoanDto[],
+    rejected: SingleCombinedLoanDto[],
+    closed: SingleCombinedLoanDto[],
   } {
     return {
-      pending: loans.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]),
+      pending: loans.filter((l) => (l.documentStatus !== DocStatus[DocStatus.APPROVED])
+          && (l.documentStatus !== DocStatus[DocStatus.REJECTED]) && (l.documentStatus !== DocStatus[DocStatus.CLOSED])),
       funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
-      nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable)
+      nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable),
+      rejected: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.REJECTED]),
+      closed: loans.filter((l) => l.documentStatus=== DocStatus[DocStatus.CLOSED]),
     };
   }
 
@@ -257,13 +376,11 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     });
   }
 
-  onClick(loanConfigId: number, customerId: number, currentStage: LoanStage, docStatus) {
+  onClick(loanConfigId: number, customerId: number, currentStage: LoanStage) {
     this.modalService.dismissAll();
     this.spinnerService.show();
     if (!ObjectUtil.isEmpty(currentStage)) {
-      if ((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER') ||
-          (currentStage.toUser.id.toString() !== this.currentUserId) &&
-          (this.currentUserRoleType === 'MAKER') && (docStatus === 'PENDING')) {
+      if ((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER')) {
         this.router.navigate(['/home/loan/summary'], {
           queryParams: {
             loanConfigId: loanConfigId,
@@ -374,21 +491,92 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     });
   }
 
+  onReInitiateClick(template, customerLoanId, customerName, loanFacilityName, loanType, branchName) {
+    this.reInitiateLoanCustomerName = customerName;
+    this.reInitiateLoanFacilityName = loanFacilityName;
+    this.reInitiateLoanType = loanType;
+    this.reInitiateLoanBranchName = branchName;
+    this.formAction.patchValue({
+          customerLoanId: customerLoanId,
+          docAction: DocAction.value(DocAction.RE_INITIATE),
+          comment: 'Re-initiate'
+        }
+    );
+    this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
+  }
+
+  reInitiateConfirm(comment: string) {
+    const ref = this.modalService.open(LoginPopUp);
+    let isAuthorized = false;
+    ref.componentInstance.returnAuthorizedState.subscribe((receivedEntry) => {
+      isAuthorized = receivedEntry;
+      if (isAuthorized) {
+        this.modalService.dismissAll();
+        this.reInitiateSpinner = true;
+        this.formAction.patchValue({
+          comment: comment
+        });
+        this.customerLoanService.reInitiateLoan(this.formAction.value).subscribe((response: any) => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan has been successfully re-initiated.'));
+          this.reInitiateSpinner = false;
+          this.modalService.dismissAll();
+          this.ngOnInit();
+        }, error => {
+          this.reInitiateSpinner = false;
+          this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+          this.modalService.dismissAll();
+        });
+      }
+    });
+  }
+
+  renewedOrCloseFrom(loanConfigId, childId) {
+    this.router.navigate(['/home/loan/summary'], {
+      queryParams: {
+        loanConfigId: loanConfigId,
+        customerId: childId,
+        catalogue: true
+      }
+    });
+  }
+
+  onClose() {
+    this.buildActionForm();
+    this.modalService.dismissAll();
+  }
+
+  buildActionForm(): void {
+    this.formAction = this.formBuilder.group(
+        {
+          loanConfigId: [undefined],
+          customerLoanId: [undefined],
+          toUser: [undefined, Validators.required],
+          toRole: [undefined, Validators.required],
+          docAction: [undefined],
+          comment: [undefined, Validators.required],
+          documentStatus: [undefined]
+        }
+    );
+  }
+
   displaySecurityDetails() {
     if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
-    const securityData = JSON.parse(this.customerInfo.security.data);
-    const initialData = securityData.initialForm;
-    if (!ObjectUtil.isEmpty(this.customerInfo.security) && securityData.selectedArray.length > 0) {
-      this.displaySecurity = true;
-      if (securityData.selectedArray.length === 1 &&
-          securityData.selectedArray.includes('OtherSecurity')) {
+      const securityData = JSON.parse(this.customerInfo.security.data);
+      const initialData = securityData.initialForm;
+      if (!ObjectUtil.isEmpty(this.customerInfo.security) && securityData.selectedArray.length > 0) {
+        this.displaySecurity = true;
+        if (securityData.selectedArray.length === 1 &&
+            securityData.selectedArray.includes('OtherSecurity')) {
+          this.displaySecurity = false;
+        }
+      } else {
         this.displaySecurity = false;
       }
     } else {
       this.displaySecurity = false;
     }
-  } else {
-      this.displaySecurity = false;
-    }
   }
 }
+
+
+
