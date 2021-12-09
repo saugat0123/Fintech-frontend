@@ -350,7 +350,7 @@
                     <td class="text-left pl-1"><strong>{{holder?.addressLine1}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.addressLine2}}</strong></td>
                 </tr>
-                <tr class="text-white sb-bg-dark" *ngIf="client !== clientName.LAXMI">
+                <tr class="text-white sb-bg-dark" *ngIf="client !== clientName.LAXMIBANK">
                     <th></th>
                     <th>Father's Name</th>
                     <th>Grandfather's Name</th>
@@ -359,7 +359,7 @@
                     <th>Issued place</th>
                     <th>Date of birth(AD/BS)</th>
                 </tr>
-                <tr *ngIf="client !== clientName.LAXMI">
+                <tr *ngIf="client !== clientName.LAXMIBANK">
                     <td></td>
                     <td class="text-left pl-1"><strong>{{holder?.fatherName}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.grandFatherName}}</strong></td>
@@ -369,7 +369,7 @@
                     <td class="text-left pl-1"><strong>{{holder?.dateOfBirth | date}} ({{holder?.dateOfBirth|engNepDate: false}})</strong></td>
                 </tr>
 
-                <tr *ngIf="client != clientName.LAXMI">
+                <tr *ngIf="client != clientName.LAXMIBANK">
                     <td colspan="9">
                         <br>
                         <table class="table border-dark">

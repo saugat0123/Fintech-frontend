@@ -710,7 +710,7 @@
 <h6><strong>This checklist is not applicable where facilities extended are secured against Fixed Deposit Receipts of Laxmi
   Bank Limited or against securities of Nepal Government and Nepal Rastra Bank._______________________</strong></h6>
               </nb-tab>
-              <nb-tab *ngIf="client === clientName.LAXMI" tabTitle="AML / CFT Checklist">
+              <nb-tab *ngIf="client === clientName.LAXMIBANK" tabTitle="AML / CFT Checklist">
                 <table class="table table-responsive-md table-bordered text-justify">
                   <thead>
                   <tr  *ngIf="fromProfile">
@@ -1050,7 +1050,7 @@
                   </tbody>
                 </table>
               </nb-tab>
-              <nb-tab *ngIf="client === clientName.LAXMI && customerType.toLowerCase() === 'institution'" tabTitle="Environment and Social Risk Management - Exclusion and Critical Sector Checklist">
+              <nb-tab *ngIf="client === clientName.LAXMIBANK && customerType.toLowerCase() === 'institution'" tabTitle="Environment and Social Risk Management - Exclusion and Critical Sector Checklist">
                 <h6>Environment and Social Risk Management - Exclusion and Critical Sector Checklist</h6>
                 <table class="table table-responsive-md table-bordered text-justify">
                   <thead>
@@ -1517,7 +1517,7 @@
             </nb-tabset>
 
           </nb-tab>
-          <nb-tab *ngIf="client === clientName.LAXMI && customerType.toLowerCase() === 'institution'" tabTitle="WatchList">
+          <nb-tab *ngIf="client === clientName.LAXMIBANK && customerType.toLowerCase() === 'institution'" tabTitle="WatchList">
             <nb-tabset>
               <nb-tab>
                 <h6>Watch list Provisioning Checklist – as per NRB guidelines</h6>
@@ -1699,7 +1699,7 @@
               </nb-tab>
             </nb-tabset>
           </nb-tab>
-          <nb-tab *ngIf="client === clientName.LAXMI && customerType.toLowerCase() === 'institution'" tabTitle="ESRM Annex 3">
+          <nb-tab *ngIf="client === clientName.LAXMIBANK && customerType.toLowerCase() === 'institution'" tabTitle="ESRM Annex 3">
             <nb-tabset>
               <nb-tab>
                 <h6>Environmental and Social Due Diligence Checklist and Risk rating Tool</h6>
