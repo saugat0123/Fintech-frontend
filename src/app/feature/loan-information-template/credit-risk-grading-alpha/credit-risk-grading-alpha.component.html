@@ -371,35 +371,35 @@
                 <td colspan="2"><strong>Security Risk</strong></td>
                 <td colspan="4"><strong>45.00%</strong></td>
             </tr>
-            <ng-container *ngIf="loanTag === loanTagEnum.GENERAL">
-                <tr>
-                    <td>(Collateral)</td>
-                    <td>Security Coverage - FAC</td>
-                    <td>40.00%</td>
-                    <td>{{creditRiskGradingForm.get('securityCoverageFAC').get('parameter').value}}</td>
-                    <td> {{creditRiskGradingForm.get('securityCoverageFAC').get('automatedValue').value}} </td>
-                    <td>{{creditRiskGradingForm.get('securityCoverageFAC').get('value').value}}%</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>FAC (Land and Building) Location</td>
-                    <td>2.50%</td>
-                    <td>{{creditRiskGradingForm.get('FACLocation').get('parameter').value}}</td>
-                    <td>--</td>
-                    <td>{{creditRiskGradingForm.get('FACLocation').get('value').value}}%</td>
-                </tr>
-            </ng-container>
+<!--            <ng-container *ngIf="loanTag === loanTagEnum.GENERAL">-->
+<!--                <tr>-->
+<!--                    <td>(Collateral)</td>-->
+<!--                    <td>Security Coverage - FAC</td>-->
+<!--                    <td>40.00%</td>-->
+<!--                    <td>{{creditRiskGradingForm.get('securityCoverageFAC').get('parameter').value}}</td>-->
+<!--                    <td> {{creditRiskGradingForm.get('securityCoverageFAC').get('automatedValue').value}} </td>-->
+<!--                    <td>{{creditRiskGradingForm.get('securityCoverageFAC').get('value').value}}%</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>&nbsp;</td>-->
+<!--                    <td>FAC (Land and Building) Location</td>-->
+<!--                    <td>2.50%</td>-->
+<!--                    <td>{{creditRiskGradingForm.get('FACLocation').get('parameter').value}}</td>-->
+<!--                    <td>&#45;&#45;</td>-->
+<!--                    <td>{{creditRiskGradingForm.get('FACLocation').get('value').value}}%</td>-->
+<!--                </tr>-->
+<!--            </ng-container>-->
 
-            <ng-container *ngIf="loanTag === loanTagEnum.VEHICLE">
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>Security Coverage - Vehicle </td>
-                    <td>42.50%</td>
-                    <td>{{creditRiskGradingForm.get('securityCoverageVehicle').get('parameter').value}}</td>
-                    <td>--</td>
-                    <td>{{creditRiskGradingForm.get('securityCoverageVehicle').get('value').value}}%</td>
-                </tr>
-            </ng-container>
+<!--            <ng-container *ngIf="loanTag === loanTagEnum.VEHICLE">-->
+<!--                <tr>-->
+<!--                    <td>&nbsp;</td>-->
+<!--                    <td>Security Coverage - Vehicle </td>-->
+<!--                    <td>42.50%</td>-->
+<!--                    <td>{{creditRiskGradingForm.get('securityCoverageVehicle').get('parameter').value}}</td>-->
+<!--                    <td>&#45;&#45;</td>-->
+<!--                    <td>{{creditRiskGradingForm.get('securityCoverageVehicle').get('value').value}}%</td>-->
+<!--                </tr>-->
+<!--            </ng-container>-->
             <tr>
                 <td>&nbsp;</td>
                 <td>Guarantee</td>

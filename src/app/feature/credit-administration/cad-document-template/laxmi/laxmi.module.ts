@@ -20,6 +20,7 @@ import { SelfDeclarationComponent } from './laxmi-offer-letter/self-declaration/
 import { SelfDeclarationPrintComponent } from './laxmi-offer-letter/self-declaration/self-declaration-print/self-declaration-print.component';
 import { NrbKycComponent } from './laxmi-offer-letter/nrb-kyc/nrb-kyc.component';
 import { NrbKycPrintComponent } from './laxmi-offer-letter/nrb-kyc/nrb-kyc-print/nrb-kyc-print.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { NrbKycPrintComponent } from './laxmi-offer-letter/nrb-kyc/nrb-kyc-print
         NgxPrintModule,
         CoreModule,
         NbRadioModule,
+        NgSelectModule,
     ],
     exports: [
         LoanDeedIndividualComponent,

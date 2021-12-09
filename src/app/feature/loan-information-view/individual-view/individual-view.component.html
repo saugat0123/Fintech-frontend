@@ -152,7 +152,7 @@
                         <td class="text-center pl-1" [innerHTML]="(loanDataHolder?.loanHolder.bankingRelationship) ? ((loanDataHolder?.loanHolder.bankingRelationship | jsonParse).remarks | safeHtml) : 'N/A'"></td>
                     </tr>
                     <tr>
-                        <td class="text-center pl-1">Any credit relationship with Laxmi Bank?(Including Group)</td>
+                        <td class="text-center pl-1">Any credit relationship with Laxmi Microfinance ?(Including Group)</td>
                         <td class="text-center pl-1">{{(loanDataHolder?.loanHolder.bankingRelationship) ? (loanDataHolder?.loanHolder.bankingRelationship | jsonParse).creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>
                     </tr>
                 </table>
