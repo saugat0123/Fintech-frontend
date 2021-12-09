@@ -108,6 +108,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   reInitiateLoanType: string;
   showBranch = true;
   formAction: FormGroup;
+  displaySecurity = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -123,6 +124,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       key: CustomerGroupLoanComponent.LOAN_CHANGE,
       value: 'Change Loan'
     }];
+    this.displaySecurityDetails();
     if (LocalStorageUtil.getStorage().username === 'SPADMIN'
         || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN
         || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
@@ -245,6 +247,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
       this.totalLoanProposedAmount = this.totalInitialPendingProposedAmount + this.totalApprovedProposedAmount;
 
+// Total Required Collateral
+      this.totalRequiredCollateral = this.totalInitialPendingCollateralAmount + this.totalApprovedCollateralAmount;
       this.calculateCollateralData();
       const loanAmountType = new LoanAmountType();
       loanAmountType.type = this.fetchLoan.CUSTOMER_LOAN;
@@ -554,4 +558,25 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         }
     );
   }
+
+  displaySecurityDetails() {
+    if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
+      const securityData = JSON.parse(this.customerInfo.security.data);
+      const initialData = securityData.initialForm;
+      if (!ObjectUtil.isEmpty(this.customerInfo.security) && securityData.selectedArray.length > 0) {
+        this.displaySecurity = true;
+        if (securityData.selectedArray.length === 1 &&
+            securityData.selectedArray.includes('OtherSecurity')) {
+          this.displaySecurity = false;
+        }
+      } else {
+        this.displaySecurity = false;
+      }
+    } else {
+      this.displaySecurity = false;
+    }
+  }
 }
+
+
+
