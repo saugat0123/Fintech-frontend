@@ -69,9 +69,9 @@
                         <p>
                             महोदय, <br>
                             तपाईंले यस बैंकको मिति वि.सं.
-                            <span [ngClass]="{'font-weight-bold': letter?.dateofApplication.ct !== null && letter?.dateofApplication.ct !== ''}">
-                                            {{letter?.dateofApplication.ct === null || letter?.dateofApplication.ct === "" ? "___________" : letter?.dateofApplication.ct}}
-                                        </span>
+                            <span class="font-weight-bold">
+                            {{ finalDateOfSanction }}
+                        </span>
                             को ऋणस्वीकृति पत्रानुसार उपभोग गर्दै आउनु भएको ऋणकर्जामा हाल ऋणकर्जा सुविधा/हरु
                             नबिकरण/पुनरावलोकन का लागि यस बैंकमा दिनु भएको मिति वि.सं.
                             <span class="font-weight-bold">
@@ -90,9 +90,9 @@
                         <p>
                             महोदय,<br>
                             तपाईंले यस बैंकको मिति वि.सं.
-                            <span [ngClass]="{'font-weight-bold': letter?.dateofApplication.ct !== null && letter?.dateofApplication.ct !== ''}">
-                                            {{letter?.dateofApplication.ct === null || letter?.dateofApplication.ct === "" ? "___________" : letter?.dateofApplication.ct}}
-                                        </span>
+                            <span class="font-weight-bold">
+                            {{ finalDateOfSanction }}
+                        </span>
                             को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधा/हरु उपभोग गर्दै आउनु
                             भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधा सहित नबिकरण/पुनरावलोकनका लागि
                             यस बैंकमा दिनु भएको मिति वि.सं.
@@ -113,9 +113,9 @@
                         <p>
                             महोदय,<br>
                             तपाईंले यस बैंकको मिति वि.सं.
-                            <span [ngClass]="{'font-weight-bold': letter?.dateofApplication.ct !== null && letter?.dateofApplication.ct !== ''}">
-                                            {{letter?.dateofApplication.ct === null || letter?.dateofApplication.ct === "" ? "___________" : letter?.dateofApplication.ct}}
-                                        </span>
+                            <span class="font-weight-bold">
+                            {{ finalDateOfSanction }}
+                        </span>
                             को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु
                             भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति वि.स
                             <span class="font-weight-bold">
@@ -158,12 +158,12 @@
                                         सुरक्षणः
                                     </strong> नबिल <!--If TD is of Nabil Bank /Free Text If FD is of other Bank (input hallna)-->
                                     बैंकद्धारा जारी गरिएको
-                                    <span [ngClass]="{'font-weight-bold': letter?.nameOfTdHolder.ct !== null && letter?.nameOfTdHolder.ct !== ''}">
-                                            {{letter?.nameOfTdHolder.ct === null || letter?.nameOfTdHolder.ct === "" ? "___________" : letter?.nameOfTdHolder.ct}}
+                                    <span [ngClass]="{'font-weight-bold': letter?.TdHolder.ct !== null && letter?.TdHolder.ct !== ''}">
+                                            {{letter?.TdHolder.ct === null || letter?.TdHolder.ct === "" ? "___________" : letter?.TdHolder.ct}}
                                         </span>
                                     हरुको नाममा रहेको कम्तिमा रु
-                                    <span [ngClass]="{'font-weight-bold': letter?.tdAmount.ct !== null && letter?.tdAmount.ct !== ''}">
-                                            {{letter?.tdAmount.ct === null || letter?.tdAmount.ct === "" ? "___________" : letter?.tdAmount.ct}}
+                                    <span [ngClass]="{'font-weight-bold': letter?.TDAmount.ct !== null && letter?.TDAmount.ct !== ''}">
+                                            {{letter?.TDAmount.ct === null || letter?.TDAmount.ct === "" ? "___________" : letter?.TDAmount.ct}}
                                         </span>
                                     (बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन
                                     गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <!-- गरिदिइएको if new letter of set-off to be obtained / गरिन
@@ -181,15 +181,16 @@
                                     <span [ngClass]="{'font-weight-bold': letter?.premiumRate.ct !== null && letter?.premiumRate.ct !== ''}">
                                             {{letter?.premiumRate.ct === null || letter?.premiumRate.ct === "" ? "___________" : letter?.premiumRate.ct}}
                                         </span> प्रतिशत ब्याजदर प्रिमियम (Interest Rate Premium) हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर
-                                    (Floating Interest Rate) बार्षिक <span [ngClass]="{'font-weight-bold': letter?.yearlyInterestRate.ct !== null && letter?.yearlyInterestRate.ct !== ''}">
-                                            {{letter?.yearlyInterestRate.ct === null || letter?.yearlyInterestRate.ct === "" ? "___________" : letter?.yearlyInterestRate.ct}}
+                                    (Floating Interest Rate) बार्षिक <span [ngClass]="{'font-weight-bold': letter?.interestRate.ct!== null && letter?.interestRate.ct!== ''}">
+                                            {{letter?.interestRate.ct=== null || letter?.interestRate.ct=== "" ? "___________" : letter?.interestRate.ct}}
                                         </span> % का दर निर्धारण गरीएकोछ । साथै भविष्यमा कुपन दर वा
                                     आधार दर मध्ये बढि भएको दरमा माथि उल्लेख भए बमोजिमको ब्याज दर प्रिमियम थप गरि त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ र
                                     सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तमा र ऋणकर्जा चुक्ता भुक्तान हञुदाका बखत
                                     तिर्नु बुझाउनु पर्नेछ ।<br>
-                                    <strong> कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong> <span *ngIf="letter.dateofExpiry?.en; else dateofExpiryPrint" class="font-weight-bold">
-                                        {{ letter?.dateofExpiry?.en}} मा हुनेछ ।
-                                    </span> |
+                                    <strong> कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
+                                    <span class="font-weight-bold">
+                            {{ finalDateOfExpiry }}
+                        </span> मा हुनेछ ।
                                 </td>
                             </tr>
                             <tr>
@@ -206,8 +207,8 @@
                                     <strong> धरौटी: </strong> <!-- नगद १००% धरौती स्वरुप रहनेछ (In case 100% cash margin)
                                     / नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती(In case 10% cash margin and Lien on TD/current
                                     ac/ saving ac ) --> स्वरुप नबिल बैंकमा रहेको श्री
-                                    <span [ngClass]="{'font-weight-bold': letter?.nameOfTD.ct !== null && letter?.nameOfTD.ct !== ''}">
-                                            {{letter?.nameOfTD.ct === null || letter?.nameOfTD.ct === "" ? "___________" : letter?.nameOfTD.ct}}
+                                    <span [ngClass]="{'font-weight-bold': letter?.TdHolder.ct !== null && letter?.TdHolder.ct !== ''}">
+                                            {{letter?.TdHolder.ct === null || letter?.TdHolder.ct === "" ? "___________" : letter?.TdHolder.ct}}
                                         </span>
                                     को <!--मुद्धती (Lien against TD) / चल्ति (Lien against Current a/c)/ बचत (Lien against Saving a/c) -->
                                     खाता नं
@@ -216,12 +217,12 @@
                                         </span>उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ ।<br>
                                     <strong> कमिसनः</strong> प्रति <!-- त्रैमास (Id commission is quarterly)/ वार्षिक (If commission is yearly) [RATE]-->
                                     % का दरले वा कम्तिमा रु
-                                    <span [ngClass]="{'font-weight-bold': letter?.minimumCommissionAmount.ct !== null && letter?.minimumCommissionAmount.ct !== ''}">
-                                            {{letter?.minimumCommissionAmount.ct === null || letter?.minimumCommissionAmount.ct === "" ? "___________" : letter?.minimumCommissionAmount.ct}}
+                                    <span [ngClass]="{'font-weight-bold': letter?.miniumComissionAmount.ct !== null && letter?.miniumComissionAmount.ct !== ''}">
+                                            {{letter?.miniumComissionAmount.ct === null || letter?.miniumComissionAmount.ct === "" ? "___________" : letter?.miniumComissionAmount.ct}}
                                         </span>। लाग्नेछ ।
-                                    <strong> सुविधा समाप्ति/पुनरावलोकन मितिः<span *ngIf="letter.dateofExpiry?.en; else dateofExpiryPrint" class="font-weight-bold">
-                                        {{ letter?.dateofExpiry?.en}} मा हुनेछ ।
-                                    </span>
+                                    <strong> सुविधा समाप्ति/पुनरावलोकन मितिः <span class="font-weight-bold">
+                            {{ finalDateOfExpiry }}
+                        </span> मा हुनेछ ।
                                     </strong>
                                 </td>
                             </tr>
@@ -273,18 +274,18 @@
                                 <strong> ग्रहणाधिकार (Lien): </strong> <!-- Application only if TD or deposit or National Bond Debentrue is required as primary security -->
                                 For TD
                                 नबिलक्ष (If TD is of Nabil Bank) / (other bank name If TD is other bank) बैंकद्धारा
-                                जारी गरिएको  ............. को नाममा रहेको कम्तिमा रु <span [ngClass]="{'font-weight-bold': letter?.amount.ct !== null && letter?.amount.ct !== ''}">
-                                            {{letter?.amount.ct === null || letter?.amount.ct === "" ? "___________" : letter?.amount.ct}}
-                                        </span>
+<!--                                जारी गरिएको  ............. को नाममा रहेको कम्तिमा रु <span [ngClass]="{'font-weight-bold': letter?.amount.ct !== null && letter?.amount.ct !== ''}">-->
+<!--                                            {{letter?.amount.ct === null || letter?.amount.ct === "" ? "___________" : letter?.amount.ct}}-->
+<!--                                        </span>-->
                                 बराबरको मुद्धती रसिद/हरु उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न सक्ने अधिकार सहितको मोजरापत्र
                                 (Letter of Set-off) बैंकको पक्षमा जारी गरी दिनु पर्नेछ र सो मुद्धती रसिद/हरुको सक्कल प्रति बैंकलाई हस्तान्तरण गर्नु
                                 पर्नेछ (If lien is to be created)/ गरिदिइएको यथावत कायम रहने छ (If existing lien is continued) ।<br>
                                 AND/OR
                                 For Deposit-Saving/Current/Call a/c<br>
                                 नबिल बैंकमा खोलिएको (Name of account holder(Free-text)) को नाममा रहेको चल्ति (Current) / बचत (Saving)
-                                / कल (Call) खाता नं. (A/C Number (Free-text) Required) मा रहेको मौज्दात रु <span [ngClass]="{'font-weight-bold': letter?.amount.ct !== null && letter?.amount.ct !== ''}">
-                                            {{letter?.amount.ct === null || letter?.amount.ct === "" ? "___________" : letter?.amount.ct}}
-                                        </span>
+<!--                                / कल (Call) खाता नं. (A/C Number (Free-text) Required) मा रहेको मौज्दात रु <span [ngClass]="{'font-weight-bold': letter?.amount.ct !== null && letter?.amount.ct !== ''}">-->
+<!--                                            {{letter?.amount.ct === null || letter?.amount.ct === "" ? "___________" : letter?.amount.ct}}-->
+<!--                                        </span>-->
                                 बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको मोजरापत्र (Letter-of Set-off)
                                 बैंकको पक्षमा जारी गरिदिनु पर्नेछ (If letter of set-off to be obtained) / गरिदिइएको यथावत कायम रहने छ
                                 (If letter of set off is obtained) |
@@ -352,8 +353,8 @@
                                         </span> मात्र)
                             भन्दा बढी हुनु हुनेछैन । <!-- Total limit -->
                             <!-- Condition -->
-                            १. माथि उल्लिखित ऋणकर्जा सुविधा र यस अघि मिति वि.सं <span [ngClass]="{'font-weight-bold': letter?.dateofApplication.ct !== null && letter?.dateofApplication.ct !== ''}">
-                                            {{letter?.dateofApplication.ct === null || letter?.dateofApplication.ct === "" ? "___________" : letter?.dateofApplication.ct}}
+                            १. माथि उल्लिखित ऋणकर्जा सुविधा र यस अघि मिति वि.सं <span [ngClass]="{'font-weight-bold': letter?.dateOfApplication.ct !== null && letter?.dateOfApplication.ct !== ''}">
+                                            {{letter?.dateOfApplication.ct === null || letter?.dateOfApplication.ct === "" ? "___________" : letter?.dateOfApplication.ct}}
                                         </span>
                             को ऋण स्वीकृती पत्रानुसार स्वीकृत ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु <span [ngClass]="{'font-weight-bold': letter?.totalLimitInFigure.ct !== null && letter?.totalLimitInFigure.ct !== ''}">
                                             {{letter?.totalLimitInFigure.ct === null || letter?.totalLimitInFigure.ct === "" ? "___________" : letter?.totalLimitInFigure.ct}}
@@ -398,13 +399,17 @@
                         <p>
                             <strong> २. ऋण प्रशासनिक शुल्कः </strong> <!-- Application incase service charge has been purpose -->
                             ऋण प्रशासनिक शुल्क बापत रु
-                            <span [ngClass]="{'font-weight-bold': letter?.serviceChargeInFigure.ct !== null && letter?.serviceChargeInFigure.ct !== ''}">
-                                            {{letter?.serviceChargeInFigure.ct === null || letter?.serviceChargeInFigure.ct === "" ? "___________" : letter?.serviceChargeInFigure.ct}}
+                            <span [ngClass]="{'font-weight-bold': letter?.serviceChargeFigure.ct !== null && letter?.serviceChargeFigure.ct !== ''}">
+                                            {{letter?.serviceChargeFigure.ct === null || letter?.serviceChargeFigure.ct === "" ? "___________" : letter?.serviceChargeFigure.ct}}
                                         </span>।-
-                            (अक्षरेपी रु  <span [ngClass]="{'font-weight-bold': letter?.serviceChargeInWords.ct !== null && letter?.serviceChargeInWords.ct !== ''}">
-                                            {{letter?.serviceChargeInWords.ct === null || letter?.serviceChargeInWords.ct === "" ? "___________" : letter?.serviceChargeInWords.ct}}
+                            (अक्षरेपी रु  <span [ngClass]="{'font-weight-bold': letter?.serviceChargeWords.ct !== null && letter?.serviceChargeWords.ct !== ''}">
+                                            {{letter?.serviceChargeWords.ct === null || letter?.serviceChargeWords.ct === "" ? "___________" : letter?.serviceChargeWords.ct}}
                                         </span>मात्र)
-                            वा स्वीकृत (Details of facility) कर्जाको (service charge in percentage) प्रतिशतका दरले हुन आउने रकम अग्रिम रुपमा तपाईंको खाताबाट कट्टा
+                            वा स्वीकृत <span [ngClass]="{'font-weight-bold': letter?.detailOfFacility.ct !== null && letter?.detailOfFacility.ct !== ''}">
+                                            {{letter?.detailOfFacility.ct === null || letter?.detailOfFacility.ct === "" ? "___________" : letter?.detailOfFacility.ct}}
+                                        </span> कर्जाको <span [ngClass]="{'font-weight-bold': letter?.serviceChargeInPerc.ct !== null && letter?.serviceChargeInPerc.ct !== ''}">
+                                            {{letter?.serviceChargeInPerc.ct === null || letter?.serviceChargeInPerc.ct === "" ? "___________" : letter?.serviceChargeInPerc.ct}}
+                                        </span> प्रतिशतका दरले हुन आउने रकम अग्रिम रुपमा तपाईंको खाताबाट कट्टा
                             गरी लिइनेछ वा तपाईंले तिर्नु बुझाउनु पर्नेछ ।
                         </p>
                         <p>
@@ -459,8 +464,8 @@
                     <!-- Condition(Application incase of one-off facility) -->
                     <div class="cold-md-12">
                         पटके कर्जा/सुविधा (Applicable incase of one-off facility)
-                        १. <span [ngClass]="{'font-weight-bold': letter?.tenureOfFacility.ct !== null && letter?.tenureOfFacility.ct !== ''}">
-                                            {{letter?.tenureOfFacility.ct === null || letter?.tenureOfFacility.ct === "" ? "___________" : letter?.tenureOfFacility.ct}}
+                        १. <span [ngClass]="{'font-weight-bold': letter?.tenureFacility.ct !== null && letter?.tenureFacility.ct !== ''}">
+                                            {{letter?.tenureFacility.ct === null || letter?.tenureFacility.ct === "" ? "___________" : letter?.tenureFacility.ct}}
                                         </span>पटके ऋण कर्जा सुविधा सीमा आंशिक वा पूर्ण भुक्तानी÷उपभोग भए पश्चात पुनः उपयोग गर्न सकिने छैन ।
                     </div>
 
@@ -659,8 +664,8 @@
 
                             .........................................
                             <p>
-                                <span [ngClass]="{'nepaliFont num' : letter?.relationshipofficerName!== null && letter?.relationshipofficerName!== ''}">
-            {{letter?.relationshipofficerName === null || letter?.relationshipofficerName === '' ? '___________' : letter?.relationshipofficerName}}</span>
+                                <span [ngClass]="{'nepaliFont num' : letter?.nameOfRelationalManager!== null && letter?.nameOfRelationalManager!== ''}">
+            {{letter?.nameOfRelationalManager === null || letter?.nameOfRelationalManager === '' ? '___________' : letter?.nameOfRelationalManager}}</span>
                                 नबिल बैंक लि. <br>
                                 <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
             {{letter?.branchName === null || letter?.branchName === '' ? '___________' : letter?.branchName}}</span>

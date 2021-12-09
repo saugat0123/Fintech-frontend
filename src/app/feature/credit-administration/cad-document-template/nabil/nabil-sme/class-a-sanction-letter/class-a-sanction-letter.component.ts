@@ -57,6 +57,15 @@ export class ClassASanctionLetterComponent implements OnInit {
   allguarantorNames;
   guarantorAmount: number = 0;
   finalName;
+  isNatural;
+  isFixedDepositSelected;
+  isOneoffSelected;
+  isAllLoanSelected;
+  isSpecificSelected;
+  isCommissionType1Selected;
+  isCommissionType2Selected;
+  New;
+  Existing;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -73,6 +82,7 @@ export class ClassASanctionLetterComponent implements OnInit {
               public datePipe: DatePipe) { }
 
   ngOnInit() {  this.buildSanction();
+    console.log('This is cad Approved doc ', this.cadOfferLetterApprovedDoc);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -82,6 +92,9 @@ export class ClassASanctionLetterComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
+    console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
+    console.log('All Data:', this.tempData);
+    console.log('Loan Holder initial data:', this.loanHolderInfo);
     this.checkOfferLetterData();
     this.guarantorDetails();
   }
@@ -89,24 +102,23 @@ export class ClassASanctionLetterComponent implements OnInit {
     this.form = this.formBuilder.group({
       referenceNumber: [undefined],
       dateOfApproval: [undefined],
+      dateOfApplication: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
-      dateofApplication: [undefined],
       nameOfBorrower: [undefined],
       addressOfBorrower: [undefined],
       requestLetterDate: [undefined],
-      tenureOfFacility :[undefined],
-      previousSanctionLetterDate: [undefined],
-      sanctionLetterDate:[undefined],
-      premium:[undefined],
-      loanAmountInFigure: [undefined],
-      loanAmountInWords: [undefined],
+      tenureFacility : [undefined],
+      sanctionLetterDate: [undefined],
+      previousSanctionDate: [undefined],
+      premiumRate: [undefined],
+      loanAmountFigure: [undefined],
+      loanAmountFigureWords: [undefined],
       nameOfTdHolder: [undefined],
-      tdAmount: [undefined],
       drawingPower: [undefined],
       baseRate: [undefined],
       interestRate: [undefined],
-      expiryDate: [undefined],
+      dateOfExpiry: [undefined],
       additionalGuarantorDetails: [undefined],
       additionalGuarantorDetail:[undefined],
       nameOfTD: [undefined],
@@ -117,11 +129,25 @@ export class ClassASanctionLetterComponent implements OnInit {
       totalLimitInFigure: [undefined],
       serviceChargeInFigure: [undefined],
       serviceChargeInWords: [undefined],
-      relationshipOfficerName: [undefined],
+      nameOfRelationalManager: [undefined],
       branchName: [undefined],
       additionalDetail:[undefined],
       nameOfBranchManager: [undefined],
       date: [undefined],
+      TdHolding: [undefined],
+      serviceChargeFigure: [undefined],
+      serviceChargeWords: [undefined],
+      detailOfFacility: [undefined],
+      serviceChargeInPerc: [undefined],
+      TdHolder: [undefined],
+      TDAmount: [undefined],
+      holderName: [undefined],
+      miniumComissionAmount: [undefined],
+      comissionRate: [undefined],
+      comissionRateFirstQuarter: [undefined],
+      comissionRateOthersQuarter: [undefined],
+      naturalPersonCheck: [undefined],
+      counterGuarantee: [undefined],
     });
   }
   checkOfferLetterData() {
@@ -138,18 +164,19 @@ export class ClassASanctionLetterComponent implements OnInit {
           this.offerLetterData = this.offerLetterDocument;
           this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
-        this.selectedSecurity = initialInfo.selectedSecurity.en;
-        this.loanLimit = initialInfo.loanLimitChecked.en;
-        this.renewal = initialInfo.renewalChecked.en;
+        // this.selectedSecurity = initialInfo.selectedSecurity.en;
+        this.isNatural = initialInfo.naturalPersonCheck.en;
+        this.New = initialInfo.New.ct;
+        this.Existing = initialInfo.Existing.ct;
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
         this.fillForm();
         this.initialInfoPrint = initialInfo;
         if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
-          this.form.get('dateofExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateofExpiry.en, true));
+          this.form.get('dateOfExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateOfExpiry.en, true));
         } else {
-          this.form.get('dateofExpiry').patchValue(this.initialInfoPrint.dateofExpiryNepali.en);
+          this.form.get('dateOfExpiry').patchValue(this.initialInfoPrint.dateOfExpiryNepali.en);
         }
       }
     } else {
@@ -189,52 +216,85 @@ export class ClassASanctionLetterComponent implements OnInit {
       const val = value.proposal.proposedLimit;
       totalLoanAmount = totalLoanAmount + val;
     });
+    console.log('k airako xa', totalLoanAmount);
     let autoRefNumber;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
-    // For date of Approval
-    const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
-    let finalDateOfApproval;
-    if (dateOfApprovalType === 'AD') {
-      const templateDateApproval = this.initialInfoPrint.dateOfApproval ? this.initialInfoPrint.dateOfApproval.en : '';
-      finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
+    // For date of Approval(sanction date)
+    console.log('InitialInfoPrint:', this.initialInfoPrint);
+    const sanctionLetterDate = this.initialInfoPrint.sanctionLetterDateType ? this.initialInfoPrint.sanctionLetterDateType.en : '';
+    let finalDateOfSanctionDate;
+    if (sanctionLetterDate === 'AD') {
+      const templateDateSanctionDate = this.initialInfoPrint.sanctionLetterDate ? this.initialInfoPrint.sanctionLetterDate.en : '';
+      finalDateOfSanctionDate = this.engToNepaliDate.transform(this.datePipe.transform(templateDateSanctionDate), true);
     } else {
-      const templateDateApproval = this.initialInfoPrint.dateOfApprovalNepali ? this.initialInfoPrint.dateOfApprovalNepali.en : '';
-      finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
+      const templateDateSanctionDate = this.initialInfoPrint.sanctionLetterDateNepali ? this.initialInfoPrint.sanctionLetterDateNepali.en : '';
+      finalDateOfSanctionDate = templateDateSanctionDate ? templateDateSanctionDate.nDate : '';
     }
     // For Date of Application:
-    const dateOfApplication = this.initialInfoPrint.dateofApplicationType ? this.initialInfoPrint.dateofApplicationType.en : '';
+    const dateOfApplication = this.initialInfoPrint.dateOfApplicationType ? this.initialInfoPrint.dateOfApplicationType.en : '';
     let finalDateOfApplication;
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.initialInfoPrint.dateofApplication ? this.initialInfoPrint.dateofApplication.en : '';
+      const templateDateApplication = this.initialInfoPrint.dateOfApplication ? this.initialInfoPrint.dateOfApplication.en : '';
       finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
     } else {
-      const templateDateApplication = this.initialInfoPrint.dateofApplicationNepali ? this.initialInfoPrint.dateofApplicationNepali.en : '';
+      const templateDateApplication = this.initialInfoPrint.dateOfApplicationNepali ? this.initialInfoPrint.dateOfApplicationNepali.en : '';
       finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
+    }
+    // For Date of Expiry:
+    const dateOfExpiry = this.initialInfoPrint.dateOfExpiryType ? this.initialInfoPrint.dateOfExpiryType.en : '';
+    let finalDateOfExpiry;
+    if (dateOfExpiry === 'AD') {
+      const templateDateExpiry = this.initialInfoPrint.dateOfExpiry ? this.initialInfoPrint.dateOfExpiry.en : '';
+      finalDateOfExpiry = this.engToNepaliDate.transform(this.datePipe.transform(templateDateExpiry), true);
+    } else {
+      const templateDateExpiry = this.initialInfoPrint.dateOfExpiryNepali ? this.initialInfoPrint.dateOfExpiryNepali.en : '';
+      finalDateOfExpiry = templateDateExpiry ? templateDateExpiry.nDate : '';
+    }
+    // For Previous Sanction:
+    const previousSanctionDate = this.initialInfoPrint.previousSanctionType ? this.initialInfoPrint.previousSanctionType.en : '';
+    let finalDateOfSanction;
+    if (previousSanctionDate === 'AD') {
+      const templateDateSanction = this.initialInfoPrint.previousSanctionDate ? this.initialInfoPrint.previousSanctionDate.en : '';
+      finalDateOfSanction = this.engToNepaliDate.transform(this.datePipe.transform(templateDateSanction), true);
+    } else {
+      const templateDateSanction = this.initialInfoPrint.previousSanctionDateNepali ? this.initialInfoPrint.previousSanctionDateNepali.en : '';
+      finalDateOfSanction = templateDateSanction ? templateDateSanction.nDate : '';
     }
     this.form.patchValue({
       customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
-      loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-      loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
-      // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
+      loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      loanAmountFigureWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       referenceNumber: autoRefNumber ? autoRefNumber : '',
-      // purposeOfLoan: this.tempData.purposeOfLoan.ct ? this.tempData.purposeOfLoan.ct : '',
-      // drawingPower: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
-      // loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
-      yearlyInterestRate: this.tempData.yearlyInterestRate.ct ? this.tempData.yearlyInterestRate.ct : '',
-      // loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
-      // loanadminFeeWords: this.tempData.loanadminFeeWords.ct ? this.tempData.loanadminFeeWords.ct : '',
-      // nameofBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
-      relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
-      nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
+      interestRate: this.tempData.interestRate.ct ? this.tempData.interestRate.ct : '',
+      drawingPower: this.tempData.drawingPower.ct ? this.tempData.drawingPower.ct : '',
+      nameOfRelationalManager: this.tempData.nameOfRelationalManager.ct ? this.tempData.nameOfRelationalManager.ct : '',
+      nameOfBranchManager: this.tempData.nameOfBranchManager.ct ? this.tempData.nameOfBranchManager.ct : '',
+      TDAmount: this.tempData.TDAmount.ct ? this.tempData.TDAmount.ct : '',
+      TdHolder: this.tempData.TdHolder.ct ? this.tempData.TdHolder.ct : '',
+      totalLimitInFigure: this.tempData.totalLimitInFigure.ct ? this.tempData.totalLimitInFigure.ct : '',
+      // sanctionLetterDate: this.tempData.sanctionLetterDate.ct ? this.tempData.sanctionLetterDate.ct : '',
+      totalLimitInWords: this.tempData.totalLimitInWords.ct ? this.tempData.totalLimitInWords.ct : '',
+      TdHolding: this.tempData.TdHolding.ct ? this.tempData.TdHolding.ct : '',
       branchName : this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
-      // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
-      dateOfApproval : finalDateOfApproval ? finalDateOfApproval : '',
-      dateofApplication : finalDateOfApplication ? finalDateOfApplication : '',
+      sanctionLetterDate : finalDateOfSanctionDate ? finalDateOfSanctionDate : '',
+      dateOfApplication : finalDateOfApplication ? finalDateOfApplication : '',
+      dateOfExpiry: finalDateOfExpiry ? finalDateOfExpiry : '',
+      previousSanctionDate: finalDateOfSanction ? finalDateOfSanction : '',
+      comissionRate: this.tempData.comissionRate.ct ? this.tempData.comissionRate.ct : '',
+      accountNumber: this.tempData.accountNumber.ct ? this.tempData.accountNumber.ct : '',
+      serviceChargeInFigure: this.tempData.serviceChargeFigure.ct ? this.tempData.serviceChargeFigure.ct : '',
+      serviceChargeInWords: this.tempData.serviceChargeWords.ct ? this.tempData.serviceChargeWords.ct : '',
+      tenureFacility: this.tempData.tenureFacility.ct ? this.tempData.tenureFacility.ct : '',
+      detailOfFacility: this.tempData.detailOfFacility.ct ? this.tempData.detailOfFacility.ct : '',
+      serviceChargeInPerc: this.tempData.serviceChargeInPerc.ct ? this.tempData.serviceChargeInPerc.ct : '',
+
+
+
     });
   }
 
@@ -243,7 +303,7 @@ export class ClassASanctionLetterComponent implements OnInit {
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
     this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
-    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
+    this.form.get('naturalPersonCheck').patchValue(this.isNatural);
     this.form.get('renewalChecked').patchValue(this.renewal);
 
     if (this.existingOfferLetter) {

@@ -19,8 +19,8 @@ import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Attributes} from '../../../../../../@core/model/attributes';
 import {District} from '../../../../../admin/modal/district';
-import {UdyamsilKarjaSubsidyComponent} from '../../../../cad-document-template/nabil/nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {ClassASanctionLetterComponent} from '../../../../cad-document-template/nabil/nabil-sme/class-a-sanction-letter/class-a-sanction-letter.component';
 
 @Component({
   selector: 'app-class-a-sanction-letter-template-data',
@@ -47,6 +47,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   ADloanExpiry = false;
   BSloanExpiry = false;
   displayNepali: boolean;
+  btnDisable;
   saveEnable = false;
   submitted = false;
   closeEnable = false;
@@ -59,6 +60,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   oneForm: FormGroup;
   attributes;
   cadDocStatus;
+  existingOfferLetter = false;
+  renewal = false;
   municipalityListForSecurities = [];
   allDistrictList = [];
   offerLetterConst = NabilOfferLetterConst;
@@ -81,15 +84,22 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   is10CashMarginSelected = false;
   isQuarterlySelected = false;
   isYearlySelected = false;
+  previewBtn = true;
   isCommissionType1Selected = false;
   isCommissionType2Selected = false;
   isRegularSelected = false;
   isOneoffSelected = false;
   ExpiryDateTypeBS2;
   ExpiryDateTypeAD2;
+  loanLimit = false;
+  tdValues: any = {};
+  closed = false;
   translatedData;
   isSecuritySelected = false;
   selectedSecurityVal;
+  isNatural = false;
+  isNewIsSelected = false;
+  isExistingIsSelected = false;
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
@@ -126,6 +136,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       detailOfFacility: [undefined],
       serviceChargeInPerc: [undefined],
       TdHolder: [undefined],
+      TDAmount : [undefined],
       drawingPower: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
@@ -136,7 +147,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       miniumComissionAmount: [undefined],
       comissionRateFirstQuarter: [undefined],
       comissionRateOthersQuarter: [undefined],
-      sanctionLetterDateTrans: [undefined],
       sanctionLetterDateType: [undefined],
       sanctionLetterDateNepali: [undefined],
       sanctionLetterDate: [undefined],
@@ -160,9 +170,21 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       dateOfExpiryType: [undefined],
       dateOfExpiryNepali: [undefined],
       dateOfExpiry: [undefined],
+      naturalPersonCheck: [undefined],
+      FixedDeposit: [undefined],
+      OneOff: [undefined],
+      ForAllLoan: [undefined],
+      CommissionType1: [undefined],
+      CommissionType2: [undefined],
+      ForSpecificLoanOnly: [undefined],
+      New: [ undefined],
+      Existing: [undefined],
+      isNewIsSelected: [undefined],
+      isExistingIsSelected: [undefined],
+      loanType: [undefined],
 
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
-      loanAmountFigureTrans: [undefined],
+      /*loanAmountFigureTrans: [undefined],
       loanAmountFigureWordsTrans: [undefined],
       nameOfBranchManagerTrans: [undefined],
       nameOfRelationalManagerTrans: [undefined],
@@ -172,6 +194,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       serviceChargeFigureTrans: [undefined],
       serviceChargeWordsTrans: [undefined],
       detailOfFacilityTrans: [undefined],
+      sanctionLetterDateTypeTrans: [undefined],
+      sanctionLetterDateTrans: [undefined],
       serviceChargeInPercTrans: [undefined],
       TdHolderTrans: [undefined],
       drawingPowerTrans: [undefined],
@@ -202,38 +226,100 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       dateOfExpiryTypeTrans: [undefined],
       dateOfExpiryNepaliTrans: [undefined],
       dateOfExpiryTrans: [undefined],
+      dateOfApplicationTypeTrans: [undefined],
+      previousSanctionTypeTrans: [undefined],*/
+
+      loanAmountFigureTrans: [undefined],
+      loanAmountFigureWordsTrans: [undefined],
+      nameOfBranchManagerTrans: [undefined],
+      nameOfRelationalManagerTrans: [undefined],
+      totalLimitInFigureTrans: [undefined],
+      totalLimitInWordsTrans: [undefined],
+      TdHoldingTrans: [undefined],
+      serviceChargeFigureTrans: [undefined],
+      serviceChargeWordsTrans: [undefined],
+      detailOfFacilityTrans: [undefined],
+      serviceChargeInPercTrans: [undefined],
+      TdHolderTrans: [undefined],
+      TDAmountTrans: [undefined],
+      drawingPowerTrans: [undefined],
+      baseRateTrans: [undefined],
+      premiumRateTrans: [undefined],
+      interestRateTrans: [undefined],
+      holderNameTrans: [undefined],
+      accountNumberTrans: [undefined],
+      comissionRateTrans: [undefined],
+      miniumComissionAmountTrans: [undefined],
+      comissionRateFirstQuarterTrans: [undefined],
+      comissionRateOthersQuarterTrans: [undefined],
+      sanctionLetterDateTypeTrans: [undefined],
+      sanctionLetterDateNepaliTrans: [undefined],
+      sanctionLetterDateTrans: [undefined],
+      dateOfApplicationTypeTrans: [undefined],
+      dateOfApplicationNepaliTrans: [undefined],
+      dateOfApplicationTrans: [undefined],
+      previousSanctionTypeTrans: [undefined],
+      previousSanctionDateTrans: [undefined],
+      tenureFacilityTrans: [undefined],
+      loanOptionTrans: [undefined],
+      securityTypeTrans: [undefined],
+      serviceChargesTrans: [undefined],
+      overdraftTrans: [undefined],
+      BankGuaranteeTrans: [undefined],
+      irrevocableTrans: [undefined],
+      loanExpiryTrans: [undefined],
+      loanExpiryTypeTrans: [undefined],
+      loanExpiryNepaliTrans: [undefined],
+      previousSanctionDateNepaliTrans: [undefined],
+      dateOfExpiryTypeTrans: [undefined],
+      dateOfExpiryNepaliTrans: [undefined],
+      dateOfExpiryTrans: [undefined],
+      naturalPersonCheckTrans: [undefined],
+      FixedDepositTrans: [undefined],
+      OneOffTrans: [undefined],
+      ForAllLoanTrans: [undefined],
+      ForSpecificLoanOnlyTrans: [undefined],
+      NewTrans: [ undefined],
+      ExistingTrans: [undefined],
+      isNewIsSelectedTrans: [undefined],
+      isExistingIsSelectedTrans: [undefined],
+      loanTypeTrans: [undefined],
+      CommissionType1Trans: [undefined],
+      CommissionType2Trans: [undefined],
       // FIELDS FOR CT VALUES:
       sanctionLetterDateNepaliCT: [undefined],
       sanctionLetterDateCT: [undefined],
+      sanctionLetterDateTypeCT: [undefined],
       dateOfApplicationNepaliCT: [undefined],
       dateOfApplicationCT: [undefined],
       dateOfApplicationTypeCT: [undefined],
-      previousSanctionDateNepaliCT: [undefined, Validators.required],
-      previousSanctionDateCT: [undefined, Validators.required],
-      previousSanctionTypeCT: [undefined, Validators.required],
+      previousSanctionDateNepaliCT: [undefined],
+      previousSanctionDateCT: [undefined],
+      previousSanctionTypeCT: [undefined],
       loanAmountFigureCT: [undefined],
-      loanAmountFigureWordsCT: [undefined, Validators.required],
-      nameOfBranchManagerCT: [undefined, Validators.required],
+      loanAmountFigureWordsCT: [undefined],
+      nameOfBranchManagerCT: [undefined],
       nameOfRelationalManagerCT: [undefined],
-      totalLimitInFigureCT: [undefined, Validators.required],
-      totalLimitInWordsCT: [undefined, Validators.required],
-      TdHoldingCT: [undefined, Validators.required],
-      serviceChargeFigureCT: [undefined, Validators.required],
-      serviceChargeWordsCT: [undefined, Validators.required],
-      detailOfFacilityCT: [undefined, Validators.required],
-      serviceChargeInPercCT: [undefined, Validators.required],
-      TdHolderCT: [undefined, Validators.required],
-      drawingPowerCT: [undefined, Validators.required],
-      baseRateCT: [undefined, Validators.required],
-      premiumRateCT: [undefined, Validators.required],
-      interestRateCT: [undefined, Validators.required],
-      holderNameCT: [undefined, Validators.required],
-      accountNumberCT: [undefined, Validators.required],
-      comissionRateCT: [undefined, Validators.required],
-      miniumComissionAmountCT: [undefined, Validators.required],
-      comissionRateFirstQuarterCT: [undefined, Validators.required],
-      comissionRateOthersQuarterCT: [undefined, Validators.required],
-      tenureFacilityCT: [undefined, Validators.required],
+      totalLimitInFigureCT: [undefined],
+      totalLimitInWordsCT: [undefined],
+      TdHoldingCT: [undefined],
+      serviceChargeFigureCT: [undefined],
+      serviceChargeWordsCT: [undefined],
+      detailOfFacilityCT: [undefined],
+      serviceChargeInPercCT: [undefined],
+      TdHolderCT: [undefined],
+      TDAmountCT: [undefined],
+      drawingPowerCT: [undefined],
+      baseRateCT: [undefined],
+      premiumRateCT: [undefined],
+      interestRateCT: [undefined],
+      holderNameCT: [undefined],
+      accountNumberCT: [undefined],
+      comissionRateCT: [undefined],
+      miniumComissionAmountCT: [undefined],
+      comissionRateFirstQuarterCT: [undefined],
+      comissionRateOthersQuarterCT: [undefined],
+      tenureFacilityCT: [undefined],
       loanOptionCT: [undefined],
       securityTypeCT: [undefined],
       serviceChargesCT: [undefined],
@@ -246,6 +332,18 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       dateOfExpiryTypeCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
+      naturalPersonCheckCT: [undefined],
+      FixedDepositCT: [undefined],
+      OneOffCT: [undefined],
+      ForAllLoanCT: [undefined],
+      ForSpecificLoanOnlyCT: [undefined],
+      NewCT: [ undefined],
+      ExistingCT: [undefined],
+      isNewIsSelectedCT: [undefined],
+      isExistingIsSelectedCT: [undefined],
+      loanTypeCT: [undefined],
+      CommissionType1CT: [undefined],
+      CommissionType2CT: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -288,19 +386,19 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
 
   checkLoanType() {
     console.log('Im here');
-    const tempSelectedLoanType = this.form.get('securityType').value;
+    const tempSelectedLoanType = this.form.get('loanType').value;
     this.isBankGuaranteeSelected = tempSelectedLoanType === 'BankGuarantee';
     this.isOverdraftSelected = tempSelectedLoanType === 'Overdraft';
     this.isIrrevocableSelected = tempSelectedLoanType === 'Irrevocable Letter of Credit Facility';
   }
   checkLoanType1() {
     const tempSelectedLoanType = this.form.get('serviceCharges').value;
-    this.isAllLoanSelected = tempSelectedLoanType === 'For_All_Loan';
-    this.isSpecificSelected = tempSelectedLoanType === 'For Specific Loan Only';
+    this.isAllLoanSelected = tempSelectedLoanType === 'ForAllLoan';
+    this.isSpecificSelected = tempSelectedLoanType === 'ForSpecificLoanOnly';
   }
   checkOD() {
     const tempSelectedLoanType = this.form.get('overdraft').value;
-    this.isFixedDepositSelected = tempSelectedLoanType === 'Fixed_Deposit';
+    this.isFixedDepositSelected = tempSelectedLoanType === 'FixedDeposit';
     this.isDepositAccountSelected = tempSelectedLoanType === 'Deposit_Account';
   }
   checkTD() {
@@ -323,6 +421,11 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.is100CashMarginSelected = tempSelectedLoanType === '100% Cash Margin';
     this.is10CashMarginSelected = tempSelectedLoanType === '10% Cash Margin';
   }
+  counterGuarantee() {
+    const tempSelectedLoanType = this.form.get('BankGuarantee').value;
+    this.isNewIsSelected = tempSelectedLoanType === 'New';
+    this.isExistingIsSelected = tempSelectedLoanType === 'Existing';
+  }
   checkComissionType() {
     const tempSelectedLoanType = this.form.get('BankGuarantee').value;
     this.isQuarterlySelected = tempSelectedLoanType === 'Quarterly';
@@ -330,13 +433,13 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   }
   checkcommisType() {
     const tempSelectedLoanType = this.form.get('irrevocable').value;
-    this.isCommissionType1Selected = tempSelectedLoanType === 'Commission Type 1';
-    this.isCommissionType2Selected = tempSelectedLoanType === 'Commision Type 2';
+    this.isCommissionType1Selected = tempSelectedLoanType === 'CommissionType1';
+    this.isCommissionType2Selected = tempSelectedLoanType === 'CommissionType2';
   }
   checkLoanOptionType() {
     const tempSelectedLoanType = this.form.get('irrevocable').value;
     this.isRegularSelected = tempSelectedLoanType === 'Regular';
-    this.isOneoffSelected = tempSelectedLoanType === 'One off';
+    this.isOneoffSelected = tempSelectedLoanType === 'OneOff';
   }
   checkIrrevocableType() {
     const tempSelectedLoanType = this.form.get('irrevocable').value;
@@ -346,6 +449,10 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   serviceCheck(data) {
     this.isSecurity = data;
     console.log('selected?', this.isSecurity);
+  }
+  naturalPersonCheck(data) {
+    this.isNatural = data;
+    console.log('selected?', this.isNatural);
   }
 
   securityValue() {
@@ -406,6 +513,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('nameOfBranchManagerTrans').patchValue(this.translatedValues.nameOfBranchManager);
     this.form.get('nameOfRelationalManagerTrans').patchValue(this.translatedValues.nameOfRelationalManager);
     this.form.get('TdHolderTrans').patchValue(this.translatedValues.TdHolder);
+    this.form.get('TDAmountTrans').patchValue(this.translatedValues.TDAmount);
     this.form.get('TdHoldingTrans').patchValue(this.translatedValues.TdHolding);
     this.form.get('accountNumberTrans').patchValue(this.translatedValues.accountNumber);
     this.form.get('drawingPowerTrans').patchValue(this.translatedValues.drawingPower);
@@ -417,6 +525,15 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('comissionRateFirstQuarterTrans').patchValue(this.translatedValues.comissionRateFirstQuarter);
     this.form.get('comissionRateOthersQuarterTrans').patchValue(this.translatedValues.comissionRateOthersQuarter);
     this.form.get('tenureFacilityTrans').patchValue(this.translatedValues.tenureFacility);
+    this.form.get('naturalPersonCheckTrans').patchValue(this.isNatural);
+    this.form.get('FixedDepositTrans').patchValue(this.isFixedDepositSelected);
+    this.form.get('OneOffTrans').patchValue(this.isOneoffSelected);
+    this.form.get('ForAllLoanTrans').patchValue(this.isAllLoanSelected);
+    this.form.get('CommissionType1Trans').patchValue(this.isCommissionType1Selected);
+    this.form.get('CommissionType2Trans').patchValue(this.isCommissionType2Selected);
+    this.form.get('ForSpecificLoanOnlyTrans').patchValue(this.isSpecificSelected);
+    this.form.get('NewTrans').patchValue(this.isNewIsSelected);
+    this.form.get('ExistingTrans').patchValue(this.isExistingIsSelected);
     // this.form.get('expiryDateTrans').patchValue(this.translatedValues.expiryDate);
     //  this.form.get('sanctionLetterDateTypeTrans').patchValue(this.translatedValues.sanctionLetterDateType);
     // this.form.get('dateOfApplicationTypeTrans').patchValue(this.translatedValues.dateOfApplicationType);
@@ -448,11 +565,13 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.spinner = true;
     // Translation Data
     this.form.get('loanOptionTrans').patchValue(this.form.get('loanOption').value);
+    this.form.get('loanTypeTrans').patchValue(this.form.get('loanType').value);
+
     this.form.get('securityTypeTrans').patchValue(this.form.get('securityType').value);
     // Set Translated Sanction letter Date:
-    const sanctionType = this.form.get('sanctionLetterDateType').value;
+    const sanctionLetterType = this.form.get('sanctionLetterDateType').value;
     let approvalDateTrans;
-    if (sanctionType === 'AD') {
+    if (sanctionLetterType === 'AD') {
       const approvalForm = this.form.get('sanctionLetterDate').value;
       approvalDateTrans = !ObjectUtil.isEmpty(approvalForm) ?
           this.datePipe.transform(approvalForm) : '';
@@ -561,6 +680,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       dateOfExpiry: this.form.get('dateOfExpiry').value,
       loanExpiry: this.form.get('loanExpiry').value,
       TdHolder: this.form.get('TdHolder').value,
+      TDAmount: this.form.get('TDAmount').value,
       TdHolding: this.form.get('TdHolding').value,
       accountNumber: this.form.get('accountNumber').value,
       drawingPower: this.form.get('drawingPower').value,
@@ -595,6 +715,16 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     if (this.BSApplication) {
       this.form.get('dateOfApplicationNepaliCT').patchValue(this.form.get('dateOfApplicationNepaliTrans').value);
     }
+    // Set CT Value of sanction letter date type
+    this.form.get('sanctionLetterDateTypeCT').patchValue(this.form.get('sanctionLetterDateType').value);
+    if (this.ADSanctionLetterDate) {
+      const transDate = this.form.get('sanctionLetterDateTrans').value;
+      const convertAppDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
+      this.form.get('sanctionLetterDateCT').patchValue(convertAppDate);
+    }
+    if (this.BSApplication) {
+      this.form.get('sanctionLetterDateNepaliCT').patchValue(this.form.get('sanctionLetterDateNepaliTrans').value);
+    }
     // Set CT Value of Date of Expiry
     this.form.get('dateOfExpiryTypeCT').patchValue(this.form.get('dateOfExpiryType').value);
     if (this.ADDateOfExpiry) {
@@ -616,17 +746,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     if (this.BSloanExpiry) {
       this.form.get('loanExpiryNepaliCT').patchValue(this.form.get('loanExpiryNepaliTrans').value);
     }
-    // // Set CT Value of expiry date
-    // this.form.get('dateOfApplicationTypeCT').patchValue(this.form.get('dateOfApplicationType').value);
-    // if (this.ADApplication) {
-    //   const transDate = this.form.get('dateOfApplicationTrans').value;
-    //   const convertAppDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-    //   this.form.get('dateOfApplicationCT').patchValue(convertAppDate);
-    // }
-    // if (this.BSApplication) {
-    //   this.form.get('dateOfApplicationNepaliCT').patchValue(this.form.get('dateOfApplicationNepaliTrans').value);
-    // }
-    // Set of CT value of Previous Sanction Letter Date
     this.form.get('previousSanctionTypeCT').patchValue(this.form.get('previousSanctionType').value);
     if (this.ADPrevious) {
       const transPreviousDate = this.form.get('previousSanctionDateTrans').value;
@@ -652,6 +771,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('serviceChargeFigureCT').patchValue(this.form.get('serviceChargeFigureTrans').value);
     this.form.get('serviceChargeWordsCT').patchValue(this.form.get('serviceChargeWordsTrans').value);
     this.form.get('TdHolderCT').patchValue(this.form.get('TdHolderTrans').value);
+    this.form.get('TDAmountCT').patchValue(this.form.get('TDAmountTrans').value);
     this.form.get('TdHoldingCT').patchValue(this.form.get('TdHoldingTrans').value);
     this.form.get('drawingPowerCT').patchValue(this.form.get('drawingPowerTrans').value);
     this.form.get('accountNumberCT').patchValue(this.form.get('accountNumberTrans').value);
@@ -663,6 +783,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('comissionRateFirstQuarterCT').patchValue(this.form.get('comissionRateFirstQuarterTrans').value);
     this.form.get('comissionRateOthersQuarterCT').patchValue(this.form.get('comissionRateOthersQuarterTrans').value);
     this.form.get('tenureFacilityCT').patchValue(this.form.get('tenureFacilityTrans').value);
+    this.form.get('sanctionLetterDateTypeCT').patchValue(this.form.get('sanctionLetterDateTypeTrans').value);
   }
   get Form() {
     return this.form.controls;
@@ -771,15 +892,24 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   }
 
   openModal() {
-    this.dialogService.open(UdyamsilKarjaSubsidyComponent, {
+    this.dialogService.open(ClassASanctionLetterComponent, {
       closeOnBackdropClick: false,
       hasBackdrop: false,
       hasScroll: true,
       dialogClass: 'modal-full',
-      context: {}
+      context: { cadOfferLetterApprovedDoc: this.customerApprovedDoc,
+        preview: true,}
     });
   }
-
+  // deleteCTAndTransContorls from form controls
+  deleteCTAndTransContorls(data) {
+    const individualData = data as FormGroup;
+    Object.keys(data).forEach(key => {
+      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1) {
+        delete individualData[key];
+      }
+    });
+  }
   clearConditionalValidation() {
     // Clear Validation for Approval Date:
     if (this.BSSanctionLetterDate) {
@@ -835,52 +965,72 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
 
   save() {
     this.submitted = true;
-    this.tdVal['securities'] = this.form.get('securities').value;
-    this.clearConditionalValidation();
-    const invalidControls = [];
-    const controls = this.form.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalidControls.push(this.titleCasePipe.transform(name).replace('CT', '').replace('Trans', ''));
-      }
-    }
     if (this.form.invalid) {
-      this.toastService.show(new Alert(AlertType.DANGER, 'Please Check validation For :\n' + invalidControls.filter((
-          value, index, self) => self.indexOf(value) === index).join(', ')));
+      this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
       this.spinner = false;
       return;
     }
+    this.form.get('naturalPersonCheck').patchValue(this.isNatural);
+    this.form.get('FixedDeposit').patchValue(this.isFixedDepositSelected );
+    this.form.get('OneOff').patchValue(this.isOneoffSelected );
+    this.form.get('ForAllLoan').patchValue(this.isAllLoanSelected );
+    this.form.get('CommissionType1').patchValue(this.isCommissionType1Selected );
+    this.form.get('CommissionType2Trans').patchValue(this.isCommissionType2Selected );
+    this.form.get('ForSpecificLoanOnly').patchValue(this.isSpecificSelected);
+    this.form.get('New').patchValue(this.isNewIsSelected);
+    this.form.get('Existing').patchValue(this.isExistingIsSelected);
     this.spinner = true;
-    this.customerApprovedDoc.docStatus = this.cadDocStatus[0];
+    this.btnDisable = true;
+    console.log('customerApprovedDoc: ', this.customerApprovedDoc);
+    this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
     if (this.customerApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
           === this.offerLetterConst.value(this.offerLetterConst.CLASS_A_SANCTION_LETTER).toString())[0];
       if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-          if (offerLetterPath.docName.toString() ===
-              this.offerLetterConst.value(this.offerLetterConst.CLASS_A_SANCTION_LETTER).toString()) {
-            offerLetterPath.initialInformation = JSON.stringify(this.tdVal);
-          }
-        });
+        this.existingOfferLetter = true;
       }
+    }
+
+    if (this.existingOfferLetter) {
+      this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+        if (offerLetterPath.docName.toString() ===
+            this.offerLetterConst.value(this.offerLetterConst.CLASS_A_SANCTION_LETTER).toString()) {
+          this.mappedData();
+          offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+          this.translatedData = {};
+        }
+      });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A_SANCTION_LETTER);
-      offerDocument.initialInformation = JSON.stringify(this.tdVal);
+      Object.keys(this.form.controls).forEach(key => {
+        if (key.indexOf('Trans') > -1 || key === 'municipalityOrVdc' || key === 'securities' || key.indexOf('CT') > -1) {
+          return;
+        }
+        this.attributes = new Attributes();
+        this.attributes.en = this.form.get(key).value;
+        console.log('Key:::::', key);
+        this.attributes.np = this.tdValues[key];
+        this.attributes.ct = this.form.get(key + 'Trans').value;
+        this.tdValues[key] = this.attributes;
+      });
+      this.translatedData = {};
+      this.deleteCTAndTransContorls(this.tdValues);
+      offerDocument.initialInformation = JSON.stringify(this.tdValues);
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
-      this.customerApprovedDoc = res.detail;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.customerApprovedDoc = res.detail;
       this.spinner = false;
-      this.isPreview = this.closeEnable = true;
-      this.saveEnable = false;
+      this.previewBtn = false;
+      this.btnDisable = false;
+      this.closed = true;
     }, error => {
-      console.log(error);
-      this.spinner = false;
-      this.isPreview = false;
-      this.saveEnable = false;
+      console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.spinner = false;
+      this.btnDisable = true;
     });
   }
 }

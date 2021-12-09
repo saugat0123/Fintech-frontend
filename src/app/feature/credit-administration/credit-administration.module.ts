@@ -235,7 +235,7 @@ import { ClassASanctionLetterTemplateDataComponent } from './cad-view/template-d
       InterestSubsidySanctionLetterTemplateDataComponent,
     InterestSubsidySanctionLetterTemplateEditComponent,
       DdslWithoutSubsidyTemplateEditComponent, PersonalLoanAndPersonalOverdraftTemplateEditComponent,
-       KisanKarjaSubsidyTemplateEditComponent],
+       KisanKarjaSubsidyTemplateEditComponent, ClassASanctionLetterComponent, ClassASanctionLetterPrintComponent, ClassASanctionLetterTemplateDataComponent],
   exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent, ClassASanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })
