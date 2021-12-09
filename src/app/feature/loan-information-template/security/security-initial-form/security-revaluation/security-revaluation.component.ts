@@ -44,9 +44,6 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             if (!ObjectUtil.isEmpty(this.data.revaluationDetails)) {
                 this.setRevaluationDetails(this.data);
             }
-            if (!ObjectUtil.isEmpty(this.data.reValuationDate)) {
-                this.formGroup.get('reValuationDate').setValue(new Date(this.data.reValuationDate));
-            }
         } else {
             this.addMoreRevaluationDetails();
         }
