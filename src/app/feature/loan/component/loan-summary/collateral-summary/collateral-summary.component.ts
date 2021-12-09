@@ -96,9 +96,9 @@ export class CollateralSummaryComponent implements OnInit {
     this.nonFundedApprovedLoans = this.approvedLoans.filter((l) => !l.loan.isFundable);
     this.fundedApprovedLoans =  this.approvedLoans.filter((l)=> l.loan.isFundable);
 
-    this.allFundedList = response.detail.filter((l) => l.loan.isFundable);
+    this.allFundedList = response.detail.filter((l) => l.loan.isFundable && l.documentStatus !== DocStatus[DocStatus.CLOSED] && l.documentStatus !== DocStatus[DocStatus.REJECTED] );
     this.fundedList = this.allFundedList.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED] );
-    this.allNonFundedList = response.detail.filter((l) => !l.loan.isFundable)
+    this.allNonFundedList = response.detail.filter((l) => !l.loan.isFundable && l.documentStatus !== DocStatus[DocStatus.CLOSED] && l.documentStatus !== DocStatus[DocStatus.REJECTED])
     this.nonFundedList  = this.allNonFundedList.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]);
     this.facSelectedLoans = this.nonFundedList.filter((l) => l.proposal.cashMarginOrFac === 'FAC');
     });
