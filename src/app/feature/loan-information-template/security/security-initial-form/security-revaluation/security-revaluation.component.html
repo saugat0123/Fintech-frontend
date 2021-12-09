@@ -96,10 +96,14 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="staffRepresentativeDesignation1">Staff Representative Designation 1</label>
-                            <input class="form-control rounded" formControlName="staffRepresentativeDesignation1"
-                                   id="staffRepresentativeDesignation1" name="staffRepresentativeDesignation1"
-                                   placeholder="Staff Representative Designation 1"
-                                   type="text">
+                            <select class="form-control rounded"
+                                    formControlName="staffRepresentativeDesignation1"
+                                    id="staffRepresentativeDesignation1"
+                                    name="staffRepresentativeDesignation1">
+                                <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
+                                <option *ngFor="let designation of designationList"
+                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                            </select>
                         </div>
                     </div>
 
@@ -115,10 +119,14 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="staffRepresentativeDesignation2">Staff Representative Designation 2</label>
-                            <input class="form-control rounded" formControlName="staffRepresentativeDesignation2"
-                                   id="staffRepresentativeDesignation2" name="staffRepresentativeDesignation2"
-                                   placeholder="Staff Representative Designation 2"
-                                   type="text">
+                            <select class="form-control rounded"
+                                    formControlName="staffRepresentativeDesignation2"
+                                    id="staffRepresentativeDesignation2"
+                                    name="staffRepresentativeDesignation2">
+                                <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
+                                <option *ngFor="let designation of designationList"
+                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
