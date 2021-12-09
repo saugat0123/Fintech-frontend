@@ -9,6 +9,7 @@ import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {RoleService} from '../../../../admin/component/role-permission/role.service';
 
 @Component({
     selector: 'app-security-revaluation',
@@ -30,22 +31,22 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     client = environment.client;
     clientName = Clients;
     isRevaluationNull = false;
+    designationList = [];
 
     constructor(private valuatorService: ValuatorService,
                 private formBuilder: FormBuilder,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private roleService: RoleService) {
     }
 
     ngOnInit() {
+        this.getRoleList();
         this.buildForm();
         this.arrayData();
         if (!ObjectUtil.isEmpty(this.data)) {
             this.formGroup.patchValue(this.data);
             if (!ObjectUtil.isEmpty(this.data.revaluationDetails)) {
                 this.setRevaluationDetails(this.data);
-            }
-            if (!ObjectUtil.isEmpty(this.data.reValuationDate)) {
-                this.formGroup.get('reValuationDate').setValue(new Date(this.data.reValuationDate));
             }
         } else {
             this.addMoreRevaluationDetails();
@@ -161,8 +162,8 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         currentData.revaluationDetails.forEach((singleData) => {
             revaluationDetails.push(
                 this.formBuilder.group({
-                    reValuationDate: [ObjectUtil.isEmpty(singleData.reValuationDate)] ? undefined :
-                        new Date(singleData.reValuationDate),
+                    reValuationDate: [ObjectUtil.isEmpty(singleData.reValuationDate) ? undefined :
+                        new Date(singleData.reValuationDate)],
                     reValuatedFmv: [singleData.reValuatedFmv],
                     reValuatedDv: [singleData.reValuatedDv],
                     reValuatedConsideredValue: [singleData.reValuatedConsideredValue],
@@ -232,5 +233,13 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
                 }
             });
         }
+    }
+
+    getRoleList() {
+        this.roleService.getAll().subscribe(res => {
+            this.designationList = res.detail;
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
+        });
     }
 }
