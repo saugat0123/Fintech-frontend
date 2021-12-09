@@ -42,12 +42,12 @@
                         </div>
                     </div>
                     <nb-card class="mt-3"
-                             *ngIf="roleType !== 'MAKER' || (roleType === 'MAKER' && client === clientList.LAXMI)">
+                             *ngIf="roleType !== 'MAKER' || (roleType === 'MAKER' && client === clientList.LAXMILAGHUBITTA)">
                         <nb-card-header>
                             <strong>Generate Offer Letter</strong>
                         </nb-card-header>
                         <nb-card-body
-                                *ngIf="client === clientList?.LAXMI || client === clientList?.EXCEL || client === clientList?.PROGRESSIVE || client === clientList?.ICFC">
+                                *ngIf="client === clientList?.LAXMILAGHUBITTA || client === clientList?.EXCEL || client === clientList?.PROGRESSIVE || client === clientList?.ICFC">
                             <div class="row">
                                 <div class="col-md-12">
                                     <nb-select
@@ -65,8 +65,8 @@
                                             class="float-right" nbButton
                                             size="small"
                                             [disabled]="
-                                            !(client === clientList.LAXMI)||
-                                            (roleType === 'MAKER' && client !== clientList.LAXMI) ||
+                                            !(client === clientList.LAXMILAGHUBITTA)||
+                                            (roleType === 'MAKER' && client !== clientList.LAXMILAGHUBITTA) ||
                               (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">Generate

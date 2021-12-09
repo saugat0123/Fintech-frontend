@@ -35,8 +35,8 @@
             </tbody>
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th *ngIf="client !== clientName.LAXMI">Father's Name</th>
-                <th *ngIf="client !== clientName.LAXMI">Grandfather's Name</th>
+                <th *ngIf="client !== clientName.LAXMILAGHUBITTA">Father's Name</th>
+                <th *ngIf="client !== clientName.LAXMILAGHUBITTA">Grandfather's Name</th>
                 <th>Mobile Number</th>
                 <th>LandLine Number</th>
                 <th>Email</th>
@@ -48,9 +48,9 @@
             <tbody>
             <tr>
                 <td class="text-left pl-1"
-                    *ngIf="client !== clientName.LAXMI">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+                    *ngIf="client !== clientName.LAXMILAGHUBITTA">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
                 <td class="text-left pl-1"
-                    *ngIf="client !== clientName.LAXMI">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+                    *ngIf="client !== clientName.LAXMILAGHUBITTA">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                 <td class="text-right pr-1">{{individual?.contactNumber || 'NA'}}</td>
                 <td class="text-right pr1">{{individual?.landLineNumber || 'NA'}}</td>
                 <td class="text-left pl-1">{{individual?.email || 'NA'}}</td>
@@ -348,7 +348,7 @@
                     <th>Citizenship no.</th>
                     <th>Citizenship Issued District</th>
                     <th>Citizenship Issued Date(AD/BS)</th>
-                    <th *ngIf="client !== clientName.LAXMI">Age</th>
+                    <th *ngIf="client !== clientName.LAXMILAGHUBITTA">Age</th>
                 </tr>
                 <ng-container *ngIf="info?.customerRelations;else data;">
                     <tr *ngFor="let infos of info?.customerRelations">

@@ -20,6 +20,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {RoleType} from '../../../admin/modal/roleType';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {Clients} from "../../../../../environments/Clients";
 
 @Component({
     selector: 'app-loan-action-modal',
@@ -132,13 +133,12 @@ export class LoanActionModalComponent implements OnInit {
                 beneficiaryId: this.beneficiaryId,
                 legalDoc: JSON.stringify(this.legalDoc),
                 remarks: comment,
-                status: this.docAction
+                status: this.docAction,
+                institution: Clients.MICRO_FINANCE
             };
-            console.log('we sending legal doc to remit app', sendDocToRemit);
             this.loanFormService.sendLegalDocumentBackToSenderOrAgent(sendDocToRemit).subscribe((res) => {
                 this.nbDialogRef.close();
 
-                console.log('response', res);
             }, error => {
                 this.nbDialogRef.close();
 
@@ -272,10 +272,6 @@ export class LoanActionModalComponent implements OnInit {
                 }// send backward to committee
 
         }
-    }
-
-    private sendBackToSenderOrAgent() {
-
     }
 
     private postAction() {
