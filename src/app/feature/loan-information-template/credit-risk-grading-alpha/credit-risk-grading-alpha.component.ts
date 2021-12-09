@@ -166,6 +166,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     // Calculate financial risk portion --
     if (!ObjectUtil.isEmpty(this.financialData)) {
       this.parsedFinancialData = JSON.parse(this.financialData);
+      console.log('this is the data', this.parsedFinancialData);
       this.historicalDataPresent = this.parsedFinancialData.initialForm.historicalDataPresent;
       this.totalWorkingCapitalLimit = Number(this.parsedFinancialData.initialForm.totalWorkingCapitalLimit);
       if (this.parsedFinancialData.fiscalYear.length > 0) {
