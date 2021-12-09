@@ -61,9 +61,9 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-      this.customerAddress =  this.loanHolderInfo.permanentMunicipality.ct + '-' +
-          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-          this.loanHolderInfo.permanentProvince.ct;
+      this.customerAddress =  this.loanHolderInfo.registeredMunicipality.ct + '-' +
+          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+          this.loanHolderInfo.registeredProvince.ct;
       if (!ObjectUtil.isEmpty(this.guarantorData)) {
         this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
       }
