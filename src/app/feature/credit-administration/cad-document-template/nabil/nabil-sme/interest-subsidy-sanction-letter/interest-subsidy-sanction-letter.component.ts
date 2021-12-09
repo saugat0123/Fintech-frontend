@@ -88,9 +88,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
-    console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
-    console.log('All Data:', this.tempData);
-    console.log('Loan Holder initial data:', this.loanHolderInfo);
     this.checkOfferLetterData();
     this.guarantorDetails();
   }
@@ -138,6 +135,9 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
         data.permanentWard + ' , ' +
         data.permanentProvince + ' , ' +
         data.permanentDistrict;
+    /*this.loanHolderInfo.registeredMunicipality.ct + '-' +
+    this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+    this.loanHolderInfo.registeredProvince.ct;*/
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
       cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
     }
@@ -171,9 +171,9 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   fillForm() {
     console.log('FIll Form works');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+    const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+        this.loanHolderInfo.registeredProvince.ct;
     const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
     let totalLoanAmount = 0;
     this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
