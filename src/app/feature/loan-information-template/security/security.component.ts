@@ -438,7 +438,6 @@ export class SecurityComponent implements OnInit {
     }
 
     calculateDistressValue(securityData): number {
-        console.log('securityData', securityData);
         let totalDistressAmount = 0;
         securityData.selectedArray.forEach(selectedSecurity => {
             switch (selectedSecurity) {
@@ -498,7 +497,6 @@ export class SecurityComponent implements OnInit {
                     break;
             }
         });
-        console.log('totalDistressAmount', totalDistressAmount);
         return totalDistressAmount;
     }
 }
