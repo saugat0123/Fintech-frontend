@@ -152,7 +152,7 @@
             </div>
             <div class="col-md-6" [hidden]="hideCustomerCount">
                 <p>This User has {{customerCount}} number of customers loan please transfer loan to proceed.</p>
-                <p><a class="pr-2 cursor text-success" (click)="goToCatalouge()">Click</a>here to transfer
+                <p [hidden]="hideCadFile"><a class="pr-2 cursor text-success" (click)="goToCatalouge()">Click</a>here to transfer
                     the loan</p>
             </div>
             <!--<div class="col-md-6">-->
