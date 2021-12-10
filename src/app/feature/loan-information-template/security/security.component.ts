@@ -461,19 +461,31 @@ export class SecurityComponent implements OnInit {
                 case 'LandSecurity':
                     const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
                     for (let i = 0; i < landDetailsArray.length; i++) {
-                        totalDistressAmount += Number(landDetailsArray[i].distressValue);
+                        if (landDetailsArray[i].revaluationData.isReValuated) {
+                            totalDistressAmount += Number(landDetailsArray[i].revaluationData.reValuatedDv);
+                        } else {
+                            totalDistressAmount += Number(landDetailsArray[i].distressValue);
+                        }
                     }
                     break;
                 case 'ApartmentSecurity':
                     const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
                     for (let i = 0; i < buildingDetailsArray.length; i++) {
-                        totalDistressAmount += Number(buildingDetailsArray[i].buildingDistressValue);
+                        if (buildingDetailsArray[i].revaluationData.isReValuated) {
+                            totalDistressAmount += Number(buildingDetailsArray[i].revaluationData.reValuatedDv);
+                        } else {
+                            totalDistressAmount += Number(buildingDetailsArray[i].buildingDistressValue);
+                        }
                     }
                     break;
                 case 'Land and Building Security':
                     const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
                     for (let i = 0; i < landBuildingArray.length; i++) {
-                        totalDistressAmount += Number(landBuildingArray[i].distressValue);
+                        if (landBuildingArray[i].revaluationData.isReValuated) {
+                            totalDistressAmount += Number(landBuildingArray[i].revaluationData.reValuatedDv);
+                        } else {
+                            totalDistressAmount += Number(landBuildingArray[i].distressValue);
+                        }
                     }
                     break;
 
