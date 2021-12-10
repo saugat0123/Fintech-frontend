@@ -30,7 +30,7 @@ export class Section7SecurityClauseComponent implements OnInit {
       this.fillForm();
     }
     const securities = this.tempData.securities;
-    // this.fixedDeposit = this.tempData.overdraftFixedForm.subLoanOption;
+    this.fixedDeposit = this.tempData.overdraftFixedForm.subLoanOption;
     this.mortgageType1 = this.tempData.smeGlobalForm.mortgageType;
     if (
         securities.primarySecurity.filter(s => s.securityType === 'LAND' || s.securityType === 'LAND_AND_BUILDING').length > 0
