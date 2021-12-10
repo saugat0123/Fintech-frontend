@@ -39,6 +39,13 @@ export class RoleService extends BaseService<Role> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public getHSOVRoles(): Observable<any> {
+        const api = `${RoleService.API}/role-hsov`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     public update(obj: Object): Observable<any> {
         const api = `${RoleService.API}/edit`;
         const req = ApiUtils.getRequest(api);

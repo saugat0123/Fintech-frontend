@@ -6,7 +6,6 @@ import {DocStatus} from '../../../../feature/loan/model/docStatus';
 import {CustomerOfferLetterService} from '../../../../feature/loan/service/customer-offer-letter.service';
 import {ProductUtils} from '../../../../feature/admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {CreditAdministrationService} from '../../../../feature/credit-administration/service/credit-administration.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 
@@ -23,13 +22,13 @@ export class PendingLoanComponent implements OnInit {
     initCount: number;
     postApprovalDocStat;
     productUtils: ProductUtils = null;
+    hsovPendingCount: number;
 
     constructor(
         private router: Router,
         private loanFormService: LoanFormService,
         private catalogueService: CatalogueService,
         private customerOfferLetterService: CustomerOfferLetterService,
-        private creditAdminService: CreditAdministrationService
     ) {
     }
 
@@ -40,11 +39,13 @@ export class PendingLoanComponent implements OnInit {
         this.getPostApprovalDocStat();
         this.loanFormService.getStatus().subscribe(
             (response: any) => {
+                console.log('loan response', response);
                 this.pendingCount = response.detail.pending;
                 this.approvedCount = response.detail.Approved;
                 this.rejectedCount = response.detail.Rejected;
                 this.closedCount = response.detail.Closed;
                 this.initCount = response.detail.initial;
+                this.hsovPendingCount = response.detail.Hsov;
             }
         );
     }

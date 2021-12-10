@@ -47,6 +47,17 @@
                         </select>
                     </div>
                 </div>
+                <div *ngIf="docAction== 'HSOV_PENINDG' && showUserList && !isMaker" class="row">
+                    <div class="col-md-12 form-group">
+                        <label class="toUser" for="toUser">Send HSOV To</label>
+                        <select class="form-control form-control-sm" formControlName="toUser" id="toHSOV"
+                                name="toUser">
+                            <option *ngFor="let user of hsovUserList"
+                                    [ngValue]="user">
+                                {{user.username}}
+                        </select>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-md-12">

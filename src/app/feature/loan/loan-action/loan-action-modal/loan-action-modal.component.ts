@@ -47,12 +47,15 @@ export class LoanActionModalComponent implements OnInit {
     submitted = false;
     formAction: FormGroup;
     userList: Array<User> = new Array<User>();
+    hsovUserList: Array<User> = new Array<User>();
     sendForwardBackwardList = [];
     roleId: number;
     isEmptyUser = false;
     showUserList = true;
     ckeConfig = Editor.CK_CONFIG;
     spinner = false;
+    hsovRole: any;
+
     // selectedRoleForSol:Role = undefined;
 
     constructor(
@@ -70,12 +73,32 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('is maker', this.isMaker);
+        console.log('doc action msg', this.docActionMsg);
+        console.log('doc action', this.docAction);
+        console.log('doc status', this.documentStatus);
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
             this.isHSOVChecked(this.customerLoanHolder.isHsov);
         }
+        this.getHsovUserList();
+        this.getHsovRole();
+    }
+
+    public getHsovRole() {
+        this.roleService.getHSOVRoles().subscribe((res: any) => {
+            this.hsovRole = res.detail;
+            console.log('hsov role respinse', this.hsovRole);
+        });
+    }
+
+    public getHsovUserList() {
+        this.userService.getUserListByRoleHSOV().subscribe((res: any) => {
+            this.hsovUserList = res.detail;
+            console.log('hsov role list', this.hsovUserList);
+        });
     }
 
     public getUserList(role) {
@@ -83,8 +106,10 @@ export class LoanActionModalComponent implements OnInit {
         this.isEmptyUser = false;
         this.showUserList = true;
         this.roleService.detail(role.id).subscribe((res: any) => {
+            console.log('role service', res.detail);
             role = res.detail;
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+                console.log('user list detail', response);
                 this.userList = response.detail;
                 if (this.userList.length === 0) {
                     this.isEmptyUser = true;
@@ -95,6 +120,8 @@ export class LoanActionModalComponent implements OnInit {
                 } else if ((role.roleType === RoleType.COMMITTEE) && this.userList.length > 1) {
                     const committeeDefaultUser = this.userList.filter(f => f.name.toLowerCase().includes('default'));
                     this.showUserList = false;
+                    console.log('show user list is false', this.showUserList);
+
                     if (committeeDefaultUser.length === 0) {
                         this.formAction.patchValue({
                             toUser: this.userList[0]
@@ -120,6 +147,7 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
+
         const comment = this.formAction.value.comment;
 
         const docAction = this.formAction.value.docAction;
@@ -243,6 +271,7 @@ export class LoanActionModalComponent implements OnInit {
                         }
                     });
                 break;
+
             default:
                 if (!ObjectUtil.isEmpty(this.toRole)) {
                     this.getUserList(this.toRole);
@@ -252,6 +281,13 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     private postAction() {
+
+        if (this.docAction == 'HSOV_PENINDG') {
+            this.formAction.patchValue({
+                toRole: this.hsovRole
+            });
+        }
+
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             const msg = `Successfully ${this.formAction.get('docActionMsg').value}`;
             this.toastService.show(new Alert(AlertType.SUCCESS, msg));

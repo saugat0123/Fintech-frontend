@@ -45,6 +45,12 @@ export class UserService extends BaseService<User> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
+
+    public getUserListByRoleHSOV(): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${UserService.API}/user-hsov`);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     public getLoggedInUser(): Observable<any> {
         const req = ApiUtils.getRequest(`${UserService.API}/authenticated`);
 
