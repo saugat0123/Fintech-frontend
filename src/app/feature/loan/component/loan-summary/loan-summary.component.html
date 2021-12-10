@@ -839,30 +839,17 @@
                     </div>
                 </div>
             </div>
+            <app-proposal-justification-summary *ngIf="proposalSummary"
+                                                [customerAllLoanList]="customerAllLoanList"
+                                                [proposalData]="proposalData"></app-proposal-justification-summary>
 
-            <div *ngIf="client === clientName.ICFC && loanData?.loanType !== 'CLOSURE_LOAN'">
-                <p><strong>Other Documents to be Completed</strong>
-                <div>
 
-                <ol class="row" type="1">
-                    <li style="font-size: 12.60px"
-                        class="col-md-4" *ngFor="let doc of obtainableDocuments;
-                        let i=index">{{doc.name}}</li>
-                    <li style="font-size: 12.60px"
-                        class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
-                        let i=index">{{otherDoc}}</li>
-                </ol>
-            </div>
-            </div>
             <div *ngIf="!productUtils.CBS_ENABLE" >
                 <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
                 <app-collateral-summary
                         *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                         [customerAllLoanList]="customerAllLoanList"
                         [security]="loanDataHolder?.security" [loan]="loanDataHolder?.loan" [loanData]="loanDataHolder"></app-collateral-summary></div>
-                <app-proposal-justification-summary *ngIf="proposalSummary"
-                                                    [customerAllLoanList]="customerAllLoanList"
-                                                    [proposalData]="proposalData"></app-proposal-justification-summary>
             </div>
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
@@ -873,83 +860,29 @@
                                   [collateralData]="loanDataHolder?.collateralSiteVisits"
                                   [docStatus]="loanDataHolder?.documentStatus"
                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-summary>
+            <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
+                <app-insurance-summary *ngIf="loanDataHolder?.insurance"
+                                       [insurance]="loanDataHolder?.insurance"></app-insurance-summary></div>
+
 
             <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
-            <hr>
-            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
-                <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                      [fiscalYears]="fiscalYearArray"
-                                      [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
-            </ng-container>
 
-            <ng-template #otherBank>
-                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                 [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
-            </ng-template>
-            <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
-            <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
-                                             [formData]="incomeFromAccountData"></app-income-from-account-summery>
-            </div>
-            <br>
-            <div *ngIf="client === clientName?.MEGA">
-                <app-comments-summary *ngIf="commentsSummary"
-                                      [formData]="dataFromComments"></app-comments-summary>
-                <app-previous-security-summary *ngIf="previousSecuritySummary"
-                                               [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
-            </div>
-
-            <br>
-            <div *ngIf="client !== clientName?.MEGA">
                 <app-guarantor-summary *ngIf="checkGuarantorData"
                                        [guarantorData]="guarantorData"></app-guarantor-summary>
-            </div>
-            <div *ngIf="client === clientName?.MEGA">
-                <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
-                                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <app-sitevist-summary-component *ngIf="siteVisitSummary"
-                                                    [formData]="siteVisitData"
-                                                    [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
-                </div>
-            </div>
 
-            <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
-
-                <app-report-summary
-                        [approved]="true"
-                        *ngIf="loanDataHolder?.reportingInfoLog"
-                        [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
-                </app-report-summary>
-            </div>
-            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED' && loanData.loanType !== 'CLOSURE_LOAN'">
-                <span><strong>Loan Reporting Information</strong></span>
-                <app-report-summary
-                        [approved]="false"
-                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
-                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
-                <ng-template #noinfo>
-                    <p>No any information tagged</p>
-                </ng-template>
-            </div>
-            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA  && loanData?.loanType !== 'CLOSURE_LOAN'">
-                <span><strong>Customer Reporting Information</strong></span>
-                <app-report-summary
-                        [approved]="false"
-                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-            </div>
-<div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
-            <app-insurance-summary *ngIf="loanDataHolder?.insurance"
-                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary></div>
 
             <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA && loanData?.loanType !== 'CLOSURE_LOAN'" >
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
                                [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
             </div>
+
+            <div *ngIf="loanData?.loanType !== 'CLOSURE_LOAN'">
+                <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
+                                                 [formData]="incomeFromAccountData"></app-income-from-account-summery>
+            </div>
+
             <div class="row">
                 <div class="col-md-12 disable-print">
           <span>
@@ -963,7 +896,8 @@
           </span>
                 </div>
             </div>
-            <hr>
+
+
             <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
                 <div class="col-md-12">
                     <p><strong>Loan Documents</strong></p>
@@ -995,6 +929,72 @@
                     </table>
                 </div>
             </div>
+
+            <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
+
+                <app-report-summary
+                        [approved]="true"
+                        *ngIf="loanDataHolder?.reportingInfoLog"
+                        [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
+                </app-report-summary>
+            </div>
+            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+                <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                                      [fiscalYears]="fiscalYearArray"
+                                      [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
+            </ng-container>
+
+            <ng-template #otherBank>
+                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                                 [fiscalYears]="fiscalYearArray"
+                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
+            </ng-template>
+
+            <br>
+            <div *ngIf="client === clientName?.MEGA">
+                <app-comments-summary *ngIf="commentsSummary"
+                                      [formData]="dataFromComments"></app-comments-summary>
+                <app-previous-security-summary *ngIf="previousSecuritySummary"
+                                               [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+            </div>
+
+            <br>
+
+            <div *ngIf="client === clientName?.MEGA">
+                <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <app-sitevist-summary-component *ngIf="siteVisitSummary"
+                                                    [formData]="siteVisitData"
+                                                    [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
+                </div>
+            </div>
+
+
+            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED' && loanData.loanType !== 'CLOSURE_LOAN'">
+                <span><strong>Loan Reporting Information</strong></span>
+                <app-report-summary
+                        [approved]="false"
+                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
+                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+                <ng-template #noinfo>
+                    <p>No any information tagged</p>
+                </ng-template>
+            </div>
+            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA  && loanData?.loanType !== 'CLOSURE_LOAN'">
+                <span><strong>Customer Reporting Information</strong></span>
+                <app-report-summary
+                        [approved]="false"
+                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+            </div>
+
+
+
+
+            <hr>
+
             <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print">
                 <div class="col-md-12">
                     <table class="table table-condensed table-bordered table-sm sb-small text-center">
@@ -1450,6 +1450,21 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <div *ngIf="client === clientName.ICFC && loanData?.loanType !== 'CLOSURE_LOAN'">
+                <p><strong>Other Documents to be Completed</strong>
+                <div>
+
+                    <ol class="row" type="1">
+                        <li style="font-size: 12.60px"
+                            class="col-md-4" *ngFor="let doc of obtainableDocuments;
+                        let i=index">{{doc.name}}</li>
+                        <li style="font-size: 12.60px"
+                            class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
+                        let i=index">{{otherDoc}}</li>
+                    </ol>
                 </div>
             </div>
 
