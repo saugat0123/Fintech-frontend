@@ -38,8 +38,6 @@ import {ThemeModule} from '../../../../@theme/theme.module';
 import {InterestSubsidySanctionLetterComponent} from './nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
 import { DdslWithoutSubsidyComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
 import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy-print/ddsl-without-subsidy-print.component';
-
-
 @NgModule({
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
@@ -86,7 +84,7 @@ import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsi
         UdyamsilKarjaSubsidyPrintComponent,
         KisanKarjaSubsidyPrintComponent,
         DdslWithoutSubsidyComponent,
-        DdslWithoutSubsidyPrintComponent
+        DdslWithoutSubsidyPrintComponent,
     ],
     imports: [
         CommonModule,
@@ -103,7 +101,7 @@ import { DdslWithoutSubsidyPrintComponent } from './nabil-sme/ddsl-without-subsi
         UdyamsilKarjaSubsidyComponent,
         KisanKarjaSubsidyComponent,
         InterestSubsidySanctionLetterComponent,
-        DdslWithoutSubsidyComponent
+        DdslWithoutSubsidyComponent,
     ]
 })
 export class NabilModule {

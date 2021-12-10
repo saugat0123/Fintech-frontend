@@ -102,7 +102,12 @@ import { InterestSubsidySanctionLetterTemplateDataComponent } from './cad-view/t
 import { PersonalOverdraftWithoutCollateralTemplateEditComponent } from './cad-view/template-data/personal-overdraft-without-collateral-template-edit/personal-overdraft-without-collateral-template-edit.component';
 import { InterestSubsidySanctionLetterTemplateEditComponent } from './cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-edit/interest-subsidy-sanction-letter-template-edit.component';
 import { DdslWithoutSubsidyTemplateEditComponent} from './cad-view/template-data/nabil-sme-template-data/ddsl-without-subsidy/ddsl-without-subsidy-template-edit/ddsl-without-subsidy-template-edit.component';
-import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from "./cad-view/template-data/personal-loan-and-personal-overdraft-template-edit/personal-loan-and-personal-overdraft-template-edit.component";
+import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from './cad-view/template-data/personal-loan-and-personal-overdraft-template-edit/personal-loan-and-personal-overdraft-template-edit.component';
+import {ClassASanctionLetterComponent} from './cad-document-template/nabil/nabil-sme/class-a-sanction-letter/class-a-sanction-letter.component';
+import {ClassASanctionLetterPrintComponent} from './cad-document-template/nabil/nabil-sme/class-a-sanction-letter/class-a-sanction-letter-print/class-a-sanction-letter-print.component';
+import { ClassASanctionLetterTemplateDataComponent } from './cad-view/template-data/nabil-sme-template-data/class-a-sanction-letter-template-data/class-a-sanction-letter-template-data.component';
+
+
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -188,8 +193,9 @@ import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from "./cad-view/
         UdhyamsilKarjaSubsidyTemplateDataComponent,
         DdslWithoutSubsidyTemplateDataComponent,
     UdhyamsilKarjaSubsidyTemplateEditComponent, InterestSubsidySanctionLetterComponent, InterestSubsidySanctionLetterPrintComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
-        InterestSubsidySanctionLetterTemplateEditComponent,
         InterestSubsidySanctionLetterTemplateDataComponent,
+        InterestSubsidySanctionLetterTemplateEditComponent,
+        ClassASanctionLetterComponent, ClassASanctionLetterPrintComponent, ClassASanctionLetterTemplateDataComponent,
         DdslWithoutSubsidyTemplateEditComponent,
         PersonalLoanAndPersonalOverdraftTemplateEditComponent, KisanKarjaSubsidyTemplateEditComponent],
   imports: [
@@ -226,10 +232,11 @@ import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from "./cad-view/
     EducationalLoanTemplateEditComponent, EditLoanDetailComponent, PersonalLoanTemplateEditComponent, PersonalOverdraftTemplateDataEditComponent,
   HomeLoanTemplateEditComponent, RetailMortageLoanTemplateDataEditComponent,
     AutoLoanTemplateEditComponent, UdhyamsilKarjaSubsidyTemplateEditComponent, PersonalOverdraftWithoutCollateralTemplateEditComponent,
+      InterestSubsidySanctionLetterTemplateDataComponent,
     InterestSubsidySanctionLetterTemplateEditComponent,
       DdslWithoutSubsidyTemplateEditComponent, PersonalLoanAndPersonalOverdraftTemplateEditComponent,
-       KisanKarjaSubsidyTemplateEditComponent],
-  exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent],
+       KisanKarjaSubsidyTemplateEditComponent, ClassASanctionLetterComponent, ClassASanctionLetterPrintComponent, ClassASanctionLetterTemplateDataComponent],
+  exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent, ClassASanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })
 export class CreditAdministrationModule {
