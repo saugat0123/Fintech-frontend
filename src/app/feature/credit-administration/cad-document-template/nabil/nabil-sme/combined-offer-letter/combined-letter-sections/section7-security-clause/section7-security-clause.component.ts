@@ -40,14 +40,15 @@ export class Section7SecurityClauseComponent implements OnInit {
       this.isGharJaggaVisible = true;
     }
     if (
-        securities.primarySecurity.filter(s => s.securityType === 'HYPOTHECATION').length > 0 || securities.secondarySecurity.filter(s => s.securityType === 'HYPOTHECATION').length > 0
+        securities.primarySecurity.filter(s => s.securityType === 'HYPOTHECATION').length > 0
     ) {
       this.isSamanMojdatVisible = true;
     }
     if (
-        securities.primarySecurity.filter(s => s.securityType === 'ASSIGNMENT').length  > 0 || securities.secondarySecurity.filter(s => s.securityType === 'ASSIGNMENT').length  > 0
-    )
-      this.isReceivableVisible = true ;
+        securities.primarySecurity.filter(s => s.securityType === 'ASSIGNMENT').length  > 0
+    ) {
+      this.isReceivableVisible = true;
+    }
   }
 
   buildForm() {
