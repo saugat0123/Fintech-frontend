@@ -15,6 +15,7 @@ export class Section5InterstPenalChargeComponent implements OnInit {
   tempData: any;
   globalData: any;
   loanScheme: any;
+  loanSchemeSelected: any;
   selectedInterestRate;
   loanNames: any = [];
   loanNameConst = LoanNameConstant;
@@ -56,6 +57,7 @@ export class Section5InterstPenalChargeComponent implements OnInit {
 
     fillForm() {
         this.loanScheme = this.globalData.loanSchemeType;
+        this.loanSchemeSelected = this.globalData.loanScheme;
         this.subsidyAgricultureSelected = this.globalData.subsidyOrAgricultureLoan;
         this.selectedInterestRate = this.globalData.interestRateType;
         this.section5.patchValue({
