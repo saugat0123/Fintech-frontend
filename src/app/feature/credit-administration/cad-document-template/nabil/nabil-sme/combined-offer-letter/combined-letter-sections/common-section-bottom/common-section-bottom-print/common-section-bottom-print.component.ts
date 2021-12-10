@@ -11,23 +11,24 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/c
 })
 export class CommonSectionBottomPrintComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc;
+  @Input() customerApprovedDoc;
+  @Input() freeText;
   @Input() letter;
   form: FormGroup;
   spinner = false;
   offerLetterConst = NabilOfferLetterConst;
-  position = 'सम्पर्क अधिकृत';
-  position1 = 'सम्पर्क प्रबन्धक';
   loanHolderInfo;
   branchName;
   tempData;
-  freeInformation: any;
+  freeInformation;
   constructor() { }
 
   ngOnInit() {
+    this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      this.branchName = this.loanHolderInfo.branch.ct;
     }
-    this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
   }
 }
