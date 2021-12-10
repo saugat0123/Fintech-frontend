@@ -213,9 +213,9 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
     this.interestSubsidy = this.tempData.interestSubsidy.ct;
     this.repaymentType = this.tempData.repaymentType.ct;
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+    const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+        this.loanHolderInfo.registeredProvince.ct;
     const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
     let totalLoanAmount = 0;
     this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -270,7 +270,7 @@ export class UdyamsilKarjaSubsidyComponent implements OnInit {
         fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
         fifthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : '',
         position : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position : '',
-        position1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position2 : '',
+        position1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position1 : '',
     });
   }
   submit(): void {

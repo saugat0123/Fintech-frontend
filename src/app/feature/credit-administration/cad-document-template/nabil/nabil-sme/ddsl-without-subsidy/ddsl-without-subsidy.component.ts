@@ -135,9 +135,9 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     }
 
     fillForm() {
-        const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-            this.loanHolderInfo.permanentProvince.ct;
+        const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+            this.loanHolderInfo.registeredProvince.ct;
         let autoRefNumber;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
             autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
