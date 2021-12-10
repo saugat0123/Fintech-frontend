@@ -37,9 +37,11 @@ export class SecurityComponent implements OnInit {
     @Input() calendarType: CalendarType;
     @Input() loanTag: string;
     @Output() securityDataEmitter = new EventEmitter();
+    @Output() submittedCheck = new EventEmitter();
     @Input() fromProfile;
     @Input() shareSecurity: ShareSecurity;
     @Input() isMicroCustomer: boolean;
+    @Input() submittedCheckFromParent: boolean;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
@@ -253,19 +255,22 @@ export class SecurityComponent implements OnInit {
         this.submitted = true;
         if (this.securityForm.invalid) {
             this.overlay.hide();
+            this.submitted = false;
             return;
         }
         if (this.initialSecurity.selectedSecurity === undefined) {
             this.initialSecurity.clearValidationAtInitialStage();
         }
         if (this.initialSecurity.securityForm.invalid) {
-            this.overlay.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+            this.overlay.hide();
+            this.submitted = false;
             return;
         }
         if (this.initialSecurity.shareSecurityForm.invalid) {
-            this.overlay.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+            this.overlay.hide();
+            this.submitted = false;
             return;
         }
         if (!ObjectUtil.isEmpty(this.securityValue)) {
@@ -339,6 +344,7 @@ export class SecurityComponent implements OnInit {
             this.securityData.guarantor.push(guarantor);
         }
         this.securityDataEmitter.emit(this.securityData);
+        this.submittedCheck.emit(this.submitted);
     }
 
     calculateTotalSecurity(securityData): number {
@@ -348,7 +354,11 @@ export class SecurityComponent implements OnInit {
                 case 'LandSecurity':
                     const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
                     for (let i = 0; i < landDetailsArray.length; i++) {
+                        if (landDetailsArray[i].revaluationData.isReValuated) {
+                            totalSecurityAmount += Number(landDetailsArray[i].revaluationData.reValuatedConsideredValue);
+                        } else {
                             totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
+                        }
                     }
                     break;
                 case 'VehicleSecurity':
@@ -360,7 +370,11 @@ export class SecurityComponent implements OnInit {
                 case 'ApartmentSecurity':
                     const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
                     for (let i = 0; i < buildingDetailsArray.length; i++) {
+                        if (buildingDetailsArray[i].revaluationData.isReValuated) {
+                            totalSecurityAmount += Number(buildingDetailsArray[i].revaluationData.reValuatedFmv);
+                        } else {
                             totalSecurityAmount += Number(buildingDetailsArray[i].buildingFairMarketValue);
+                        }
                     }
                     break;
                 case 'PlantSecurity':
@@ -373,7 +387,11 @@ export class SecurityComponent implements OnInit {
                 case 'Land and Building Security':
                     const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
                     for (let i = 0; i < landBuildingArray.length; i++) {
+                        if (landBuildingArray[i].revaluationData.isReValuated) {
+                            totalSecurityAmount += Number(landBuildingArray[i].revaluationData.reValuatedConsideredValue);
+                        } else {
                             totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
+                        }
                     }
                     break;
                 case 'FixedDeposit':
@@ -385,7 +403,7 @@ export class SecurityComponent implements OnInit {
                 case 'ShareSecurity':
                     const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
                     shareSecurity.forEach(value => {
-                        totalSecurityAmount += value.total;
+                        totalSecurityAmount += value.consideredValue;
                     });
                     break;
                 case 'BondSecurity':
@@ -394,7 +412,6 @@ export class SecurityComponent implements OnInit {
                         totalSecurityAmount += Number(bondSecurityArray[i].bondValue);
                     }
                     break;
-
                 default:
                     totalSecurityAmount += 0;
                     break;
@@ -444,19 +461,31 @@ export class SecurityComponent implements OnInit {
                 case 'LandSecurity':
                     const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
                     for (let i = 0; i < landDetailsArray.length; i++) {
-                        totalDistressAmount += Number(landDetailsArray[i].distressValue);
+                        if (landDetailsArray[i].revaluationData.isReValuated) {
+                            totalDistressAmount += Number(landDetailsArray[i].revaluationData.reValuatedDv);
+                        } else {
+                            totalDistressAmount += Number(landDetailsArray[i].distressValue);
+                        }
                     }
                     break;
                 case 'ApartmentSecurity':
                     const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
                     for (let i = 0; i < buildingDetailsArray.length; i++) {
-                        totalDistressAmount += Number(buildingDetailsArray[i].buildingDistressValue);
+                        if (buildingDetailsArray[i].revaluationData.isReValuated) {
+                            totalDistressAmount += Number(buildingDetailsArray[i].revaluationData.reValuatedDv);
+                        } else {
+                            totalDistressAmount += Number(buildingDetailsArray[i].buildingDistressValue);
+                        }
                     }
                     break;
                 case 'Land and Building Security':
                     const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
                     for (let i = 0; i < landBuildingArray.length; i++) {
-                        totalDistressAmount += Number(landBuildingArray[i].distressValue);
+                        if (landBuildingArray[i].revaluationData.isReValuated) {
+                            totalDistressAmount += Number(landBuildingArray[i].revaluationData.reValuatedDv);
+                        } else {
+                            totalDistressAmount += Number(landBuildingArray[i].distressValue);
+                        }
                     }
                     break;
 
