@@ -69,6 +69,27 @@
                         </nb-select>
                     </div>
                 </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Is a scheme ?</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                                   (selectedChange)="checkLoanScheme($event)"
+                                   formControlName="loanScheme" shape="semi-round">
+                            <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <div class="col-md-4" *ngIf="loanSchemeSelected">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold"> Loan Scheme Type </label>
+                        <nb-select [multiple]="false" fullWidth placeholder="Select Loan Scheme"
+                                   formControlName="loanSchemeType" shape="semi-round">
+                            <nb-option *ngFor="let option of loanSchemeType" [value]="option?.value">{{option?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -254,6 +275,26 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row" *ngIf="loanSchemeSelected">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Scheme Interest Rate </label>
+                        <input nbInput fullWidth status="success" type="number" formControlName="schemeInterestRate" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="schemeInterestRateTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="schemeInterestRateCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
