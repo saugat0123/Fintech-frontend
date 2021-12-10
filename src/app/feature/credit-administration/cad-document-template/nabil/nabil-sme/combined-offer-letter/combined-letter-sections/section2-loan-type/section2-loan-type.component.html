@@ -9,22 +9,22 @@
                     <td>
                         <p>
                             <!-- For one off basis-->
-                            <span><strong> पटके अपरिवर्तनीय प्रतित पत्र सुविधा
+                            <span *ngIf="this.loanOptionIrrevocable === 'ONE_OFF_BASIS'"><strong> पटके अपरिवर्तनीय प्रतित पत्र सुविधा
                     (Irrevocable letter of credit facility)
-                    बुँदा नं.<input class="form-field form-control-sm"
+                    <ng-container *ngIf="complementaryOtherIrrevocable">बुँदा नं.<input class="form-field form-control-sm"
                                     formControlName="SNOfParentLimitIrrevocable"
                                     placeholder=""
                                     type="text"/>
                     को पूरक सुविधा/कुल सुविधाको
-                    पूरक सुविधा</strong></span><br>
+                    पूरक सुविधा</ng-container></strong></span><br>
                             <!--For regular-->
-                            <span><strong>नियमित अपरिवर्तनीय प्रतित पत्र सुविधा
+                            <span *ngIf="this.loanOptionIrrevocable === 'REGULAR'"><strong>नियमित अपरिवर्तनीय प्रतित पत्र सुविधा
                         (Irrevocable letter of credit facility)
-                            बुँदा नं.<input class="form-field form-control-sm"
+                           <ng-container *ngIf="complementaryOtherIrrevocable"> बुँदा नं.<input class="form-field form-control-sm"
                                             formControlName="SNOfParentLimitIrrevocable"
                                             placeholder=""
                                             type="text"/> को पूरक सुविधा/कुल सुविधाको
-                        पूरक सुविधा</strong></span>
+                        पूरक सुविधा</ng-container></strong></span>
                         </p>
                         <p>
                             <strong>सीमाः रु.<input class="form-field form-control-sm"
@@ -47,7 +47,7 @@
                             % धरौटीस्वरुप रहनेछ ।<br>
                         </p>
                         <!--Commission Type 1-->
-                        <p>
+                        <p *ngIf="commissionTypeIrrevocable === 'COMMISSION_TYPE_1'">
                             <strong>कमिसनः</strong> प्रति त्रैमास <input class="form-field form-control-sm"
                                                                          formControlName="commissionRateIrrevocable"
                                                                          placeholder=""
@@ -59,7 +59,7 @@
                         </p>
 
                         <!--Commission Type 2-->
-                        <p>
+                        <p *ngIf="commissionTypeIrrevocable === 'COMMISSION_TYPE_2'">
                             <strong>कमिसनः</strong> पहिलो त्रैमासका
                             लागि <input class="form-field form-control-sm"
                                         formControlName="commissionRateForFirstQuarterIrrevocable"
@@ -73,16 +73,21 @@
                             दरले वा कम्तिमा रु.<input class="form-field form-control-sm"
                                                       formControlName="commissionAmountIrrevocable"
                                                       placeholder=""
-                                                      type="text"/>।– लाग्नेछ । <br>
+                                                      type="text"/>।– लाग्नेछ ।
+                        </p>
+                        <p *ngIf="this.loanOptionIrrevocable === 'REGULAR'">
                             <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong> <input class="form-field form-control-sm "
                                                                                     formControlName="loanExpiryDateIrrevocable"
                                                                                     placeholder=""
-                                                                                    type="text"/><br>
+                                                                                    type="text"/>
+                        </p>
+                        <p *ngIf="this.loanOptionIrrevocable === 'ONE_OFF_BASIS'">
                             <strong>सुविधा समाप्ति मितिः</strong><input class="form-field form-control-sm "
                                                                         formControlName="loanExpiryDateIrrevocable2"
                                                                         placeholder=""
-                                                                        type="text"/><br>
+                                                                        type="text"/>
                         </p>
+
                     </td>
                 </tr>
                 <tr *ngIf="isCustomerAcceptance">
@@ -91,17 +96,18 @@
                     <td>
                         <p>
                             <!--For on off Basis-->
-                            <span><strong>पटके समय प्रतित पत्रका लागि ग्राहक स्वीकृति (Customer Acceptance for Time of Credit) बुँदा
-                    नं. <input class="form-field form-control-sm "
+                            <span *ngIf="this.loanOptionTimeLetter === 'ONE_OFF_BASIS'"><strong>पटके समय प्रतित पत्रका लागि ग्राहक स्वीकृति (Customer Acceptance for Time of Credit)
+                                <ng-container *ngIf="complementaryOtherTimeLetter">
+                                    बुँदा नं. <input class="form-field form-control-sm "
                                formControlName="SNOfParentLimitTimeLetter"
                                placeholder=""
-                               type="text"/> को पूरक सुविधा <br></strong></span>
+                               type="text"/> को पूरक सुविधा</ng-container></strong></span><br>
                             <!--For Regular-->
-                            <span><strong>नियमित समय प्रतित पत्रका लागि ग्राहक स्वीकृति (Customer Acceptance for Time of Credit) बुँदा
-                    नं. <input class="form-field form-control-sm "
+                            <span *ngIf="this.loanOptionTimeLetter === 'REGULAR'"><strong>नियमित समय प्रतित पत्रका लागि ग्राहक स्वीकृति (Customer Acceptance for Time of Credit)
+                                <ng-container *ngIf="complementaryOtherTimeLetter"> बुँदा नं. <input class="form-field form-control-sm "
                                formControlName="SNOfParentLimitTimeLetter"
                                placeholder=""
-                               type="text"/> को पूरक सुविधा <br></strong></span>
+                               type="text"/> को पूरक सुविधा </ng-container></strong></span><br>
                         </p>
                         <p>
                             <strong>सीमाः रु.<input class="form-field form-control-sm "
@@ -115,11 +121,11 @@
                         </p>
                         <strong>सुरक्षणः</strong><br>
                         <p>
-                            <span>१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                            <span *ngIf="this.hypothecationGlobal === 'New'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
                     प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु
                     पर्नेछ।</span><br>
 
-                            <span>१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                            <span *ngIf="this.hypothecationGlobal === 'Existing'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
                     प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गरिदिइएको
                     यथावतकायम रहने छ।</span><br>
                         </p>
@@ -143,13 +149,13 @@
                                       type="text"/>।–लाग्नेछ ।<br>
                         </p>
                         <p>
-                            <span><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong> <input
+                            <span *ngIf="this.loanOptionTimeLetter === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong> <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateTimeLetter"
                                     placeholder=""
                                     type="text"/><br></span>
 
-                            <span><strong>सुविधा समाप्ति मितिः</strong><input class="form-field form-control-sm "
+                            <span *ngIf="this.loanOptionTimeLetter === 'ONE_OFF_BASIS'"><strong>सुविधा समाप्ति मितिः</strong><input class="form-field form-control-sm "
                                                                               formControlName="loanExpiryDateTimeLetter2"
                                                                               placeholder=""
                                                                               type="text"/><br></span>
@@ -1236,22 +1242,25 @@
                     <!--Term Loan to/for-->
                     <td width="10%"><strong>ढ)</strong></td>
                     <td>
-                        <app-term-loan-to-or-for #termLoanToOrForComponent [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-term-loan-to-or-for>
+                        <app-term-loan-to-or-for #termLoanToOrForComponent
+                                                 [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-term-loan-to-or-for>
                     </td>
                 </tr>
                 <tr *ngIf="isEquityMortgageTermLoan">
                     <!--Mortgage Term Loan / Equity Mortgage Term Loan-->
                     <td width="10%"><strong>ण)</strong></td>
                     <td>
-                        <app-mortgage-equity-term-loan #mortgageEquityTermLoanComponent [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-mortgage-equity-term-loan>
+                        <app-mortgage-equity-term-loan #mortgageEquityTermLoanComponent
+                                                       [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-mortgage-equity-term-loan>
                     </td>
                 </tr>
                 <tr *ngIf="isAutoLoanMaster">
                     <!--Auto Loan-->
                     <td width="10%"><strong>त)</strong></td>
-                   <td>
-                        <app-auto-loan #autoLoanComponent [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-auto-loan>
-                   </td>
+                    <td>
+                        <app-auto-loan #autoLoanComponent
+                                       [customerApprovedDoc]="cadOfferLetterApprovedDoc"></app-auto-loan>
+                    </td>
                 </tr>
                 <tr *ngIf="isBankGuarantee">
                     <!--Bank Guarantee-->
@@ -1319,9 +1328,9 @@
                                    placeholder=""
                                    type="text"/>% नगद धरौटी स्वरुप रहनेछ ।<br>
                             <strong>कमिसन:</strong> प्रति त्रैमास <input class="form-field form-control-sm "
-                                                        formControlName="serviceChargeBankGuarantee"
-                                                        placeholder=""
-                                                        type="text"/>% का दरले वा कम्तिमा रु.
+                                                                         formControlName="serviceChargeBankGuarantee"
+                                                                         placeholder=""
+                                                                         type="text"/>% का दरले वा कम्तिमा रु.
                             <input class="form-field form-control-sm "
                                    formControlName="minimumServiceChargeBankGuarantee"
                                    placeholder=""
@@ -1347,9 +1356,9 @@
                         </p>
                         <p>
                             <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong> <input class="form-field form-control-sm "
-                                                                   formControlName="loanExpiryDateBankGuarantee1"
-                                                                   placeholder=""
-                                                                   type="text"/>
+                                                                                    formControlName="loanExpiryDateBankGuarantee1"
+                                                                                    placeholder=""
+                                                                                    type="text"/>
                         </p>
                     </td>
                 </tr>

@@ -44,7 +44,12 @@ export class Section2LoanTypeComponent implements OnInit {
     isAutoLoanMaster = false;
     isBankGuarantee = false;
     isBillPurchase = false;
-
+    // SME Global Form
+    hypothecationGlobal;
+    // Irrevocable letter of credit facility
+    loanOptionIrrevocable; commissionTypeIrrevocable; complementaryOtherIrrevocable = false;
+    // Customer Acceptance for Time Letter of Credit
+    loanOptionTimeLetter; complementaryOtherTimeLetter = false;
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
                 private currencyFormatPipe: CurrencyFormatterPipe,
@@ -59,6 +64,7 @@ export class Section2LoanTypeComponent implements OnInit {
             const totalLoanAmount = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal.proposedLimit;
             this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
             this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
+            this.hypothecationGlobal = this.tempData.smeGlobalForm.hypothecation;
             this.getLoanName();
             this.checkLoanName();
         }
@@ -254,10 +260,19 @@ export class Section2LoanTypeComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 if (v === LoanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT && !ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
                     this.isCustomerAcceptance = true;
+                    this.loanOptionTimeLetter = this.tempData.timeLetterCreditForm.loanOption;
+                    if (this.tempData.timeLetterCreditForm.complementryOther === true) {
+                        this.complementaryOtherTimeLetter = true;
+                    }
                     this.timeLetterCreditFormPatchValue();
                 }
                 if (v === LoanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY && !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm)) {
                     this.isIrrevocableLetter = true;
+                    this.loanOptionIrrevocable = this.tempData.letterOfCreditForm.loanOption;
+                    this.commissionTypeIrrevocable = this.tempData.letterOfCreditForm.commissionType;
+                    if (this.tempData.letterOfCreditForm.complementryOther === true) {
+                        this.complementaryOtherIrrevocable = true;
+                    }
                     this.irrevocableLetterOfCredit();
                 }
                 if (v === LoanNameConstant.IMPORT_BILLS_DISCOUNTING && !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
