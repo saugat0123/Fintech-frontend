@@ -137,7 +137,7 @@ import { CommonSectionTopPrintComponent } from './nabil-sme/combined-offer-lette
         UdyamsilKarjaSubsidyComponent,
         KisanKarjaSubsidyComponent,
         InterestSubsidySanctionLetterComponent,
-        DdslWithoutSubsidyComponent
+        DdslWithoutSubsidyComponent,
     ]
 })
 export class NabilModule {
