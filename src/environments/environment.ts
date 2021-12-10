@@ -32,7 +32,7 @@ export const environment = {
   RISK_INITIAL_ROLE_CORPORATE: 'RISK OFFICER ( CORPORATE )',
   microLoan: false,
   SBS_GROUP: false,
-  MEGA_GROUP: true,
+  MEGA_GROUP: false,
   summaryType: SummaryType.ALPHA,
   versionCheckUrl: 'http://localhost:84/version.json',
   autoReload: true
