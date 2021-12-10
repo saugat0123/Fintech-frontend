@@ -248,7 +248,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       this.totalLoanProposedAmount = this.totalInitialPendingProposedAmount + this.totalApprovedProposedAmount;
 
 // Total Required Collateral
-      this.totalRequiredCollateral = this.totalInitialPendingCollateralAmount + this.totalApprovedCollateralAmount;
+      this.collateralDtoData.totalRequiredCollateral = this.totalInitialPendingCollateralAmount + this.totalApprovedCollateralAmount;
       this.calculateCollateralData();
       const loanAmountType = new LoanAmountType();
       loanAmountType.type = this.fetchLoan.CUSTOMER_LOAN;
@@ -577,6 +577,3 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     }
   }
 }
-
-
-
