@@ -7,6 +7,8 @@ import {TermLoanToOrForComponent} from './term-loan-to-or-for/term-loan-to-or-fo
 import {MortgageEquityTermLoanComponent} from './mortgage-equity-term-loan/mortgage-equity-term-loan.component';
 import {AutoLoanComponent} from './auto-loan/auto-loan.component';
 import {LoanNameConstant} from '../../../../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
+import {CurrencyFormatterPipe} from '../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 
 @Component({
     selector: 'app-section2-loan-type',
@@ -44,7 +46,9 @@ export class Section2LoanTypeComponent implements OnInit {
     isBillPurchase = false;
 
     constructor(private formBuilder: FormBuilder,
-                private engToNepWord: NepaliCurrencyWordPipe
+                private engToNepWord: NepaliCurrencyWordPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
     ) {
     }
 
@@ -52,8 +56,9 @@ export class Section2LoanTypeComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-            this.loanAmount = String(this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal.proposedLimit);
-            this.loanAmountInWord = this.engToNepWord.transform(this.loanAmount);
+            const totalLoanAmount = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal.proposedLimit;
+            this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
+            this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
             this.getLoanName();
             this.checkLoanName();
         }
@@ -228,7 +233,6 @@ export class Section2LoanTypeComponent implements OnInit {
             commissionAmountBillsPurchase: [undefined],
             loanExpiryDateBillsPurchase: [undefined],
             // other Input Fields
-            freeTextVal: [undefined],
             SNOfFacility: [undefined],
             freeTextOne: [undefined],
             freeTextTwo: [undefined],
