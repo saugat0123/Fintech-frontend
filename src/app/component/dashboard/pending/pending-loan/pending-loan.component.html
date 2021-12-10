@@ -38,4 +38,76 @@
             <i class="fa fa-file-pdf"></i>
         </app-icon-card>
     </div>
+
+
 </div>
+<hr>
+    <nb-card  accent="warning" status="success">
+        <nb-card-header><h1 style="color: white">Pending Loans</h1></nb-card-header>
+        <nb-card-body>
+            <div class="row">
+            <div class=" col-md-3 col-sm-6 col-xs-13 cursor">
+                <app-icon-card (click)="getPendingNewLoan('NEW_LOAN')"  title="New Loan "
+                               type="warning">
+                    <b>{{newLoanCount}}</b>
+                </app-icon-card>
+
+            </div>
+
+            <div class=" col-md-3 col-sm-6 col-xs-13 cursor">
+                <app-icon-card (click)="getPendingNewLoan('RENEWED_LOAN')"  title="Renewed Loan"
+                               type="warning">
+                    <b>{{renewedLoanCount}}</b>
+                </app-icon-card>
+            </div>
+
+
+            <div class=" col-md-3 col-sm-6 col-xs-13 cursor">
+                <app-icon-card (click)="getPendingNewLoan('CLOSURE_LOAN')"   title="Closure Loan"
+                               type="warning">
+                    <b>{{closureLoanCount}}</b>
+                </app-icon-card>
+            </div>
+
+                <div class=" col-md-3 col-sm-6 col-xs-13 cursor">
+                    <app-icon-card (click)="getPendingNewLoan('ENHANCED_LOAN')"  title="Enhanced Loan"
+                                   type="warning">
+                        <b>{{enhancedLoanCount}}</b>
+                    </app-icon-card>
+                </div>
+
+                <div class=" col-md-4   col-sm-6 col-xs-13 cursor">
+                    <app-icon-card (click)="getPendingNewLoan('PARTIAL_SETTLEMENT_LOAN')" title="Partial Settlement"
+                                   type="warning">
+                        <b>{{partialSettleLoanCount}}</b>
+                    </app-icon-card>
+                </div>
+
+                <div class=" col-md-4 col-sm-6 col-xs-13 cursor">
+                    <app-icon-card (click)="getPendingNewLoan('FULL_SETTLEMENT_LOAN')"  title="Full Settlement" style="background-color: #0E2231"
+                                   type="warning">
+                        <b>{{fullSettlementLoanCount}}</b>
+                    </app-icon-card>
+                </div>
+
+                <div class=" col-md-4 col-sm-6 col-xs-13 cursor">
+                    <app-icon-card (click)="getPendingNewLoan('RENEW_WITH_ENHANCEMENT')"  title="Renew With Enhancement "
+                                   type="warning">
+                        <b>{{renewWithEnhancementLoanCount}}</b>
+                    </app-icon-card>
+                </div>
+
+
+            </div>
+
+        </nb-card-body>
+    </nb-card>
+
+
+
+
+
+
+
+
+
