@@ -140,7 +140,7 @@ import { SharePledgeSecuritiesComponent } from './share-pledge-securities/share-
         UdyamsilKarjaSubsidyComponent,
         KisanKarjaSubsidyComponent,
         InterestSubsidySanctionLetterComponent,
-        DdslWithoutSubsidyComponent
+        DdslWithoutSubsidyComponent,
     ]
 })
 export class NabilModule {
