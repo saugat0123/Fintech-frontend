@@ -267,30 +267,25 @@ export class SecurityInitialFormComponent implements OnInit {
         $event['reValuatedDv'] = $event['reValuatedDv'] == null ? 0 : $event['reValuatedDv'];
         $event['reValuatedFmv'] = $event['reValuatedFmv'] == null ? 0 : $event['reValuatedFmv'];
         $event['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'] == null ? 0 : $event['reValuatedConsideredValue'];
+
+        if (landDetails.controls[$event['index']]['controls']['revaluationData']['value'] == null) {
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value'] = {
+                isReValuated: true,
+                reValuatedDv: 0,
+                reValuatedFmv: 0,
+                reValuatedConsideredValue: 0
+            };
+        }
         if ($event['isReValuated']) {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(true);
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = $event['reValuatedDv'];
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = $event['reValuatedFmv'];
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'];
-            if (!ObjectUtil.isEmpty(landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'])) {
-                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['reValuatedDv']
-                    = $event['reValuatedDv'];
-                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['reValuatedFmv']
-                    = $event['reValuatedFmv'];
-                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['reValuatedConsideredValue']
-                    = $event['reValuatedConsideredValue'];
-            }
         } else {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(false);
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = 0;
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = 0;
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = 0;
-            if (!ObjectUtil.isEmpty(landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'])) {
-                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) => l['reValuatedDv'] = 0);
-                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) => l['reValuatedFmv'] = 0);
-                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) =>
-                    l['reValuatedConsideredValue'] = 0);
-            }
         }
         this.updateLandSecurityTotal();
     }
@@ -301,33 +296,17 @@ export class SecurityInitialFormComponent implements OnInit {
         this.totalmv = 0;
         this.totalcv = 0;
         landDetails['value'].forEach((sec, index) => {
-            this.totaldv += Number(sec['distressValue']);
-            this.totalmv += Number(sec['marketValue']);
-            this.totalcv += Number(sec['landConsideredValue']);
             if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
-                if (sec['revaluationData'].revaluationDetails === undefined || sec['revaluationData'].revaluationDetails === null) {
-                    this.totaldv += Number(sec['revaluationData']['reValuatedDv']);
-                    this.totalmv += Number(sec['revaluationData']['reValuatedFmv']);
-                    this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
-                } else {
-                    const revData = sec['revaluationData'].revaluationDetails;
-                    if (ObjectUtil.isEmpty(revData.reValuatedConsideredValue)) {
-                        this.totalmv += Number(revData[revData.length - 1].reValuatedFmv);
-                        this.totaldv += Number(revData[revData.length - 1].reValuatedDv);
-                        this.totalcv += Number(revData[revData.length - 1].reValuatedConsideredValue);
-                    } else {
-                        this.totalmv += Number(revData.reValuatedFmv);
-                        this.totaldv += Number(revData.reValuatedDv);
-                        this.totalcv += Number(revData.reValuatedConsideredValue);
-                    }
-                }
+                this.totaldv += Number(sec['revaluationData']['reValuatedDv']);
+                this.totalmv += Number(sec['revaluationData']['reValuatedFmv']);
+                this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
             } else {
                 this.totaldv += Number(sec['distressValue']);
                 this.totalmv += Number(sec['marketValue']);
                 this.totalcv += Number(sec['landConsideredValue']);
             }
-        });
 
+        });
     }
 
     buildForm() {
