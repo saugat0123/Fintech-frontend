@@ -131,7 +131,7 @@
                             देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
                         </p>
                     </div>
-                    <!-- <div class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
+                     <div class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
                         <textarea
                                 class="form-control customFont nepaliFont"
                                 rows="3"
@@ -139,7 +139,7 @@
                                 name="additionalGuarantorDetails"
                                 formControlName="additionalGuarantorDetail">
                                         </textarea>
-                    </div> -->
+                    </div>
                     <span class="text-left">
                     <strong> स्वीकृत ऋणकर्जा सुविधाहरुको विवरण  </strong>
                     </span>
@@ -147,8 +147,8 @@
 
                     <div class="row from-group">
                         <table class="table table-bordered">
-                            <tr *ngIf="this.tempData.FixedDeposit.en">
-                                <td>
+                            <tr>
+                                <td *ngIf="this.tempData.FixedDeposit.en">
                                     क)
                                 </td>
                                 <td>
@@ -173,8 +173,9 @@
                                                                         formControlName="TDAmount"
                                                                         type="text"/>
                                     (बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन
-                                    गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <!-- गरिदिइएको if new letter of set-off to be obtained / गरिन
-                                    is existing letter of set-off is continued --> मोजरापत्र (Letter of Set-off) |<br>
+                                    गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <span *ngIf="New"> गरिदिइएको  </span>
+                                    <span *ngIf="Existing"> गरिने </span>
+                                    मोजरापत्र <br>
                                     <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power): </strong> <!-- मुद्धती रसिदको for loan against TD /
                                     खातामा रोक्का राखिएका for loan against deposit --> मौज्दातको <input
                                         class="form-field form-control-sm"
@@ -182,13 +183,13 @@
                                         type="text"/>
                                     प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न
                                     सकिनेछ ।<br>
-                                    <strong> ब्याज दरः </strong> <!-- कुपन दर coupon rate financing / base rate financing
-                                    प्रकाशित आधार दर (Base Rate)--> <input class="form-field form-control-sm"
+                                    <strong> ब्याज दरः </strong> <span *ngIf="CoupenRateFinancing">कुपन दर </span> /
+                                    <span *ngIf="BaseRateFinancing">प्रकाशित आधार दर (Base Rate) <input class="form-field form-control-sm"
                                                                            formControlName="baseRate"
                                                                            type="text"/> +
                                     <input class="form-field form-control-sm"
                                            formControlName="premiumRate"
-                                           type="text"/> प्रतिशत ब्याजदर प्रिमियम (Interest Rate Premium) हाल उपर्युक्त
+                                           type="text"/></span> प्रतिशत ब्याजदर प्रिमियम (Interest Rate Premium) हाल उपर्युक्त
                                     बमोजिम परीवर्तनशिल ब्याज दर
                                     (Floating Interest Rate) बार्षिक <input class="form-field form-control-sm"
                                                                             formControlName="interestRate"
@@ -248,8 +249,7 @@
                                 <td>
                                     ग)
                                 </td>
-                                <td>
-                                    <!-- पटके  For one off basis /नियमित For regular --> <strong> अपरिवर्तनीय प्रतित
+                                <td *ngIf="this.tempData.OneOff.en">पटके <span *ngIf="this.tempData.Regular.en">नियमित </span><strong> अपरिवर्तनीय प्रतित
                                     पत्र सुविधा
                                     (Irrevocable letter of credit facility) </strong><br>
                                     <strong> सीमाः रु <input class="form-field form-control-sm"

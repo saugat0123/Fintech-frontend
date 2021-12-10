@@ -61,6 +61,7 @@ export class ClassASanctionLetterComponent implements OnInit {
   isNatural;
   isFixedDepositSelected;
   isOneoffSelected;
+  isRegularSelected;
   isAllLoanSelected;
   isSpecificSelected;
   isCommissionType1Selected;
@@ -69,6 +70,8 @@ export class ClassASanctionLetterComponent implements OnInit {
   Existing;
   CashMarginHundred;
   CashMarginTen;
+  CoupenRateFinancing;
+  BaseRateFinancing;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -334,14 +337,12 @@ export class ClassASanctionLetterComponent implements OnInit {
       this.spinner = false;
       this.dialogRef.close();
       this.afterSave = true;
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
       this.afterSave = false;
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
   }
   close() {

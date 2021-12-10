@@ -173,6 +173,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       naturalPersonCheck: [undefined],
       FixedDeposit: [undefined],
       OneOff: [undefined],
+      Regular: [undefined],
       ForAllLoan: [undefined],
       HundredCashMargin: [undefined],
       TenCashMargin: [undefined],
@@ -186,6 +187,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       isNewIsSelected: [undefined],
       isExistingIsSelected: [undefined],
       loanType: [undefined],
+      CoupenRateFinancing: [undefined],
+      BaseRateFinancing: [undefined],
 
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
       loanAmountFigureTrans: [undefined],
@@ -236,6 +239,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       naturalPersonCheckTrans: [undefined],
       FixedDepositTrans: [undefined],
       OneOffTrans: [undefined],
+      RegularTrans: [undefined],
       ForAllLoanTrans: [undefined],
       ForSpecificLoanOnlyTrans: [undefined],
       HundredCashMarginTrans: [undefined],
@@ -249,6 +253,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       CommissionType2Trans: [undefined],
       CashMarginHundredTrans: [undefined],
       CashMarginTenTrans: [undefined],
+      CoupenRateFinancingTrans: [undefined],
+      BaseRateFinancingTrans: [undefined],
       // FIELDS FOR CT VALUES:
       sanctionLetterDateNepaliCT: [undefined],
       sanctionLetterDateCT: [undefined],
@@ -298,6 +304,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       naturalPersonCheckCT: [undefined],
       FixedDepositCT: [undefined],
       OneOffCT: [undefined],
+      RegularCT: [undefined],
       ForAllLoanCT: [undefined],
       ForSpecificLoanOnlyCT: [undefined],
       HundredCashMarginCT: [undefined],
@@ -311,6 +318,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       CommissionType2CT: [undefined],
       CashMarginHundredCT: [undefined],
       CashMarginTenCT: [undefined],
+      CoupenRateFinancingCT: [undefined],
+      BaseRateFinancingCT: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -364,52 +373,52 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.isSpecificSelected = tempSelectedLoanType === 'ForSpecificLoanOnly';
   }
   checkOD() {
-    const tempSelectedLoanType = this.form.get('overdraft').value;
+    const tempSelectedLoanType = this.form.get('securityType').value;
     this.isFixedDepositSelected = tempSelectedLoanType === 'FixedDeposit';
     this.isDepositAccountSelected = tempSelectedLoanType === 'Deposit_Account';
   }
   checkTD() {
-    const tempSelectedLoanType = this.form.get('overdraft').value;
+    const tempSelectedLoanType = this.form.get('tdHoldingBank').value;
     this.isNabilSelected = tempSelectedLoanType === 'Nabil';
     this.isOtherSelected = tempSelectedLoanType === 'Other';
   }
   checkLetterSet() {
-    const tempSelectedLoanType = this.form.get('overdraft').value;
+    const tempSelectedLoanType = this.form.get('letterOfSetOff').value;
     this.isNewSelected = tempSelectedLoanType === 'New';
     this.isExistingSelected = tempSelectedLoanType === 'Existing';
   }
   checkBaseType() {
-    const tempSelectedLoanType = this.form.get('overdraft').value;
-    this.isCoupenRateFinancingSelected = tempSelectedLoanType === 'Coupen Rate Financing';
-    this.isBaseRateFinancingSelected = tempSelectedLoanType === 'Base Rate Financing';
+    const tempSelectedLoanType = this.form.get('baseRateType').value;
+    this.isCoupenRateFinancingSelected = tempSelectedLoanType === 'CoupenRateFinancing';
+    this.isBaseRateFinancingSelected = tempSelectedLoanType === 'BaseRateFinancing';
   }
   checkCashMarginType() {
-    const tempSelectedLoanType = this.form.get('BankGuarantee').value;
+    const tempSelectedLoanType = this.form.get('cashMarginType').value;
     this.is100CashMarginSelected = tempSelectedLoanType === 'HundredCashMargin';
     this.is10CashMarginSelected = tempSelectedLoanType === 'TenCashMargin';
   }
   counterGuarantee() {
-    const tempSelectedLoanType = this.form.get('BankGuarantee').value;
+    const tempSelectedLoanType = this.form.get('counterGuarantee').value;
     this.isNewIsSelected = tempSelectedLoanType === 'New';
     this.isExistingIsSelected = tempSelectedLoanType === 'Existing';
   }
   checkComissionType() {
-    const tempSelectedLoanType = this.form.get('BankGuarantee').value;
+    const tempSelectedLoanType = this.form.get('comissionType').value;
     this.isQuarterlySelected = tempSelectedLoanType === 'Quarterly';
     this.isYearlySelected = tempSelectedLoanType === 'Yearly';
   }
   checkcommisType() {
-    const tempSelectedLoanType = this.form.get('irrevocable').value;
+    const tempSelectedLoanType = this.form.get('commissionType').value;
     this.isCommissionType1Selected = tempSelectedLoanType === 'CommissionType1';
     this.isCommissionType2Selected = tempSelectedLoanType === 'CommissionType2';
   }
   checkLoanOptionType() {
-    const tempSelectedLoanType = this.form.get('irrevocable').value;
+    const tempSelectedLoanType = this.form.get('loanOption').value;
     this.isRegularSelected = tempSelectedLoanType === 'Regular';
     this.isOneoffSelected = tempSelectedLoanType === 'OneOff';
   }
   checkIrrevocableType() {
-    const tempSelectedLoanType = this.form.get('irrevocable').value;
+    const tempSelectedLoanType = this.form.get('cashMarginType').value;
     this.is100CashMarginSelected = tempSelectedLoanType === 'CashMarginHundred';
     this.is10CashMarginSelected = tempSelectedLoanType === 'CashMarginTen';
   }
@@ -495,6 +504,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('naturalPersonCheckTrans').patchValue(this.isNatural);
     this.form.get('FixedDepositTrans').patchValue(this.isFixedDepositSelected);
     this.form.get('OneOffTrans').patchValue(this.isOneoffSelected);
+    this.form.get('RegularTrans').patchValue(this.isRegularSelected);
     this.form.get('ForAllLoanTrans').patchValue(this.isAllLoanSelected);
     this.form.get('HundredCashMarginTrans').patchValue(this.is100CashMarginSelected);
     this.form.get('TenCashMarginTrans').patchValue(this.is10CashMarginSelected);
@@ -502,8 +512,11 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('CommissionType2Trans').patchValue(this.isCommissionType2Selected);
     this.form.get('ForSpecificLoanOnlyTrans').patchValue(this.isSpecificSelected);
     this.form.get('NewTrans').patchValue(this.isNewIsSelected);
+    this.form.get('ExistingTrans').patchValue(this.isExistingSelected);
     this.form.get('CashMarginHundredTrans').patchValue(this.is100CashMarginSelected);
     this.form.get('CashMarginTenTrans').patchValue(this.is10CashMarginSelected);
+    this.form.get('CoupenRateFinancingTrans').patchValue(this.isCoupenRateFinancingSelected);
+    this.form.get('BaseRateFinancingTrans').patchValue(this.isBaseRateFinancingSelected);
     // this.form.get('expiryDateTrans').patchValue(this.translatedValues.expiryDate);
     //  this.form.get('sanctionLetterDateTypeTrans').patchValue(this.translatedValues.sanctionLetterDateType);
     // this.form.get('dateOfApplicationTypeTrans').patchValue(this.translatedValues.dateOfApplicationType);
