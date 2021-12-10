@@ -246,15 +246,22 @@
                                     खाता नं <span [ngClass]="{'font-weight-bold': letter?.accountNumber.ct !== null && letter?.accountNumber.ct !== ''}">
                                             {{letter?.accountNumber.ct === null || letter?.accountNumber.ct === "" ? "___________" : letter?.accountNumber.ct}}
                                         </span> उपर बैंकको ग्रहणाधिकार (ष्भिल) कायम गरी दिनु पर्नेछ ।<br>
-                                    <!-- Commission Type 1
-                                    <strong> कमिसनः </strong> प्रति त्रैमास (Common rate) % का दरले वा कम्तिमा रु. (Minimum commission in amount) । - लाग्नेछ ।
-                                    OR
-                                    Commission Type 2
-                                    <strong> कमिसनः </strong> पहिलो त्रैमासका लागि (Commission rate for first quater) % का दरले र त्यस पछिका त्रैमासहरुमा
-                                    (Commission rate for other quaters) % का दरले वा कम्तिमा रु (Minimum commission in amount)। लाग्नेछ । <br>
-                                    <strong> सुविधा समाप्ति/पुनरावलोकन मितिः (loan expiry date (for regular))
-                                    / सुविधा समाप्ति मितिः (for one off basis (free text))
-                                    </strong> -->
+
+                                    <strong>कमिसनः प्रति त्रैमास </strong> <span [ngClass]="{'font-weight-bold': letter?.comissionRate.ct !== null && letter?.comissionRate.ct !== ''}">
+                                            {{letter?.comissionRate.ct === null || letter?.comissionRate.ct === "" ? "___________" : letter?.comissionRate.ct}}
+                                        </span>
+                                        % का दरले वा कम्तिमा रु.<span [ngClass]="{'font-weight-bold': letter?.miniumComissionAmount.ct !== null && letter?.miniumComissionAmount.ct !== ''}">
+                                            {{letter?.miniumComissionAmount.ct === null || letter?.miniumComissionAmount.ct === "" ? "___________" : letter?.miniumComissionAmount.ct}}
+                                        </span> । - लाग्नेछ ।
+                                    <strong> कमिसनः  पहिलो त्रैमासका लागि </strong><span [ngClass]="{'font-weight-bold': letter?.comissionRateFirstQuarter.ct !== null && letter?.comissionRateFirstQuarter.ct !== ''}">
+                                            {{letter?.comissionRateFirstQuarter.ct === null || letter?.comissionRateFirstQuarter.ct === "" ? "___________" : letter?.comissionRateFirstQuarter.ct}}
+                                        </span>  % का दरले र त्यस पछिका त्रैमासहरुमा
+                                    <span [ngClass]="{'font-weight-bold': letter?.comissionRateOthersQuarter.ct !== null && letter?.comissionRateOthersQuarter.ct !== ''}">
+                                            {{letter?.comissionRateOthersQuarter.ct === null || letter?.comissionRateOthersQuarter.ct === "" ? "___________" : letter?.comissionRateOthersQuarter.ct}}
+                                        </span>। लाग्नेछ । <br>
+                                        <strong> सुविधा समाप्ति/पुनरावलोकन मितिः (loan expiry date (for regular))
+                                            / सुविधा समाप्ति मितिः (for one off basis (free text))
+                                        </strong>
                                 </td>
                             </tr>
                         </table>

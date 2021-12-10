@@ -22,7 +22,7 @@
                             status="info">
                         <ng-option value="Overdraft">Overdraft</ng-option>
                         <ng-option value="BankGuarantee">BankGuarantee</ng-option>
-                        <ng-option value="Irrevocable Letter of Credit Facility">Irrevocable Letter of Credit Facility
+                        <ng-option value="IrrevocableLetterofCreditFacility">Irrevocable Letter of Credit Facility
                         </ng-option>
                     </ng-select>
                 </div>
@@ -114,8 +114,8 @@
                             fullWidth placeholder="Security Type"
                             (change)="checkCashMarginType()"
                             status="info">
-                        <ng-option value="100% Cash Margin">100% Cash Margin</ng-option>
-                        <ng-option value="10% Cash Margin"> 10% Cash Margin</ng-option>
+                        <ng-option value="HundredCashMargin">Hundred Percent Cash Margin</ng-option>
+                        <ng-option value="TenCashMargin"> Ten Percent CashMargin</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isBankGuaranteeSelected">
@@ -162,8 +162,8 @@
                             placeholder="Security Type"
                             (change)="checkIrrevocableType()"
                             status="info">
-                        <ng-option value="100% Cash Margin ">100% Cash Margin</ng-option>
-                        <ng-option value=" 10% Cash Margin "> 10% Cash Margin</ng-option>
+                        <ng-option value="CashMarginHundred ">100% Cash Margin</ng-option>
+                        <ng-option value="CashMarginTen"> 10% Cash Margin</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isIrrevocableSelected">

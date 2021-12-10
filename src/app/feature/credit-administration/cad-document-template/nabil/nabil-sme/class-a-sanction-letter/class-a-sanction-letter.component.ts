@@ -48,6 +48,7 @@ export class ClassASanctionLetterComponent implements OnInit {
   loanHolderInfo;
   tempData;
   offerLetterData;
+  autoRefNumber;
   afterSave = false;
   selectedSecurity;
   loanLimit;
@@ -66,6 +67,8 @@ export class ClassASanctionLetterComponent implements OnInit {
   isCommissionType2Selected;
   New;
   Existing;
+  CashMarginHundred;
+  CashMarginTen;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -292,6 +295,11 @@ export class ClassASanctionLetterComponent implements OnInit {
       tenureFacility: this.tempData.tenureFacility.ct ? this.tempData.tenureFacility.ct : '',
       detailOfFacility: this.tempData.detailOfFacility.ct ? this.tempData.detailOfFacility.ct : '',
       serviceChargeInPerc: this.tempData.serviceChargeInPerc.ct ? this.tempData.serviceChargeInPerc.ct : '',
+      comissionRateFirstQuarter: this.tempData.comissionRateFirstQuarter.ct ? this.tempData.comissionRateFirstQuarter.ct : '',
+      comissionRateOthersQuarter: this.tempData.comissionRateOthersQuarter.ct ? this.tempData.comissionRateOthersQuarter.ct : '',
+      miniumComissionAmount:  this.tempData.miniumComissionAmount.ct ? this.tempData.miniumComissionAmount.ct : '',
+
+
 
 
 

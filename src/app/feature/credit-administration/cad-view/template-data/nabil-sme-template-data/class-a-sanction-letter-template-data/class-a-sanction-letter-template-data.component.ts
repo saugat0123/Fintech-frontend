@@ -174,8 +174,12 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       FixedDeposit: [undefined],
       OneOff: [undefined],
       ForAllLoan: [undefined],
+      HundredCashMargin: [undefined],
+      TenCashMargin: [undefined],
       CommissionType1: [undefined],
       CommissionType2: [undefined],
+      CashMarginHundred: [undefined],
+      CashMarginTen: [undefined],
       ForSpecificLoanOnly: [undefined],
       New: [ undefined],
       Existing: [undefined],
@@ -234,6 +238,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       OneOffTrans: [undefined],
       ForAllLoanTrans: [undefined],
       ForSpecificLoanOnlyTrans: [undefined],
+      HundredCashMarginTrans: [undefined],
+      TenCashMarginTrans: [undefined],
       NewTrans: [ undefined],
       ExistingTrans: [undefined],
       isNewIsSelectedTrans: [undefined],
@@ -241,6 +247,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       loanTypeTrans: [undefined],
       CommissionType1Trans: [undefined],
       CommissionType2Trans: [undefined],
+      CashMarginHundredTrans: [undefined],
+      CashMarginTenTrans: [undefined],
       // FIELDS FOR CT VALUES:
       sanctionLetterDateNepaliCT: [undefined],
       sanctionLetterDateCT: [undefined],
@@ -292,6 +300,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       OneOffCT: [undefined],
       ForAllLoanCT: [undefined],
       ForSpecificLoanOnlyCT: [undefined],
+      HundredCashMarginCT: [undefined],
+      TenCashMarginCT: [undefined],
       NewCT: [ undefined],
       ExistingCT: [undefined],
       isNewIsSelectedCT: [undefined],
@@ -299,6 +309,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       loanTypeCT: [undefined],
       CommissionType1CT: [undefined],
       CommissionType2CT: [undefined],
+      CashMarginHundredCT: [undefined],
+      CashMarginTenCT: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -344,7 +356,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     const tempSelectedLoanType = this.form.get('loanType').value;
     this.isBankGuaranteeSelected = tempSelectedLoanType === 'BankGuarantee';
     this.isOverdraftSelected = tempSelectedLoanType === 'Overdraft';
-    this.isIrrevocableSelected = tempSelectedLoanType === 'Irrevocable Letter of Credit Facility';
+    this.isIrrevocableSelected = tempSelectedLoanType === 'IrrevocableLetterofCreditFacility';
   }
   checkLoanType1() {
     const tempSelectedLoanType = this.form.get('serviceCharges').value;
@@ -373,8 +385,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   }
   checkCashMarginType() {
     const tempSelectedLoanType = this.form.get('BankGuarantee').value;
-    this.is100CashMarginSelected = tempSelectedLoanType === '100% Cash Margin';
-    this.is10CashMarginSelected = tempSelectedLoanType === '10% Cash Margin';
+    this.is100CashMarginSelected = tempSelectedLoanType === 'HundredCashMargin';
+    this.is10CashMarginSelected = tempSelectedLoanType === 'TenCashMargin';
   }
   counterGuarantee() {
     const tempSelectedLoanType = this.form.get('BankGuarantee').value;
@@ -398,8 +410,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   }
   checkIrrevocableType() {
     const tempSelectedLoanType = this.form.get('irrevocable').value;
-    this.is100CashMarginSelected = tempSelectedLoanType === '100 % Cash Margin';
-    this.is10CashMarginSelected = tempSelectedLoanType === '10% Cash Margin';
+    this.is100CashMarginSelected = tempSelectedLoanType === 'CashMarginHundred';
+    this.is10CashMarginSelected = tempSelectedLoanType === 'CashMarginTen';
   }
   serviceCheck(data) {
     this.isSecurity = data;
@@ -484,11 +496,14 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('FixedDepositTrans').patchValue(this.isFixedDepositSelected);
     this.form.get('OneOffTrans').patchValue(this.isOneoffSelected);
     this.form.get('ForAllLoanTrans').patchValue(this.isAllLoanSelected);
+    this.form.get('HundredCashMarginTrans').patchValue(this.is100CashMarginSelected);
+    this.form.get('TenCashMarginTrans').patchValue(this.is10CashMarginSelected);
     this.form.get('CommissionType1Trans').patchValue(this.isCommissionType1Selected);
     this.form.get('CommissionType2Trans').patchValue(this.isCommissionType2Selected);
     this.form.get('ForSpecificLoanOnlyTrans').patchValue(this.isSpecificSelected);
     this.form.get('NewTrans').patchValue(this.isNewIsSelected);
-    this.form.get('ExistingTrans').patchValue(this.isExistingIsSelected);
+    this.form.get('CashMarginHundredTrans').patchValue(this.is100CashMarginSelected);
+    this.form.get('CashMarginTenTrans').patchValue(this.is10CashMarginSelected);
     // this.form.get('expiryDateTrans').patchValue(this.translatedValues.expiryDate);
     //  this.form.get('sanctionLetterDateTypeTrans').patchValue(this.translatedValues.sanctionLetterDateType);
     // this.form.get('dateOfApplicationTypeTrans').patchValue(this.translatedValues.dateOfApplicationType);
@@ -929,11 +944,15 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('FixedDeposit').patchValue(this.isFixedDepositSelected );
     this.form.get('OneOff').patchValue(this.isOneoffSelected );
     this.form.get('ForAllLoan').patchValue(this.isAllLoanSelected );
+    this.form.get('HundredCashMargin').patchValue(this.is100CashMarginSelected );
+    this.form.get('TenCashMargin').patchValue(this.is10CashMarginSelected );
     this.form.get('CommissionType1').patchValue(this.isCommissionType1Selected );
-    this.form.get('CommissionType2Trans').patchValue(this.isCommissionType2Selected );
+    this.form.get('CommissionType2').patchValue(this.isCommissionType2Selected );
     this.form.get('ForSpecificLoanOnly').patchValue(this.isSpecificSelected);
     this.form.get('New').patchValue(this.isNewIsSelected);
     this.form.get('Existing').patchValue(this.isExistingIsSelected);
+    this.form.get('CashMarginHundred').patchValue(this.is100CashMarginSelected);
+    this.form.get('CashMarginTen').patchValue(this.is10CashMarginSelected);
     this.spinner = true;
     this.btnDisable = true;
     console.log('customerApprovedDoc: ', this.customerApprovedDoc);

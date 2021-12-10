@@ -11,7 +11,11 @@
 
         <nb-card-body>
             <form [formGroup]="form" style="padding-left:20px; padding-right:20px; line-height: 1.9">
-                <p> स्वीकृती पत्र नं.</p>
+                <p> स्वीकृती पत्र नं.<input class="form-field form-control-sm col-3"
+                                              formControlName="referenceNumber"
+                                              name="referenceNumber"
+                                              placeholder=" सन्दर्भ नम्बर "
+                                              type="text"/></p><br>
                 <h6> ऋणकर्जा सुविधा स्वीकृति पत्र </h6>
                 <p class="text-left">
                     मितिः <input class="form-field form-control-sm"
@@ -143,7 +147,7 @@
 
                     <div class="row from-group">
                         <table class="table table-bordered">
-                            <tr>
+                            <tr *ngIf="this.tempData.FixedDeposit.en">
                                 <td>
                                     क)
                                 </td>
@@ -201,7 +205,7 @@
                                         type="text"/>|
                                 </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="this.tempData.loanType.en === 'BankGuarantee'">
                                 <td>
                                     ख.
                                 </td>
@@ -215,9 +219,8 @@
                                                             type="text"/> मात्र)<br>
                                         सुरक्षणः </strong> बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter
                                     Guarantee)<br>
-                                    <strong> धरौटी: </strong> <!-- नगद १००% धरौती स्वरुप रहनेछ (In case 100% cash margin)
-                                    / नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती(In case 10% cash margin and Lien on TD/current
-                                    ac/ saving ac ) --> स्वरुप नबिल बैंकमा रहेको श्री <input
+                                    <strong> धरौटी: </strong><span *ngIf="this.tempData.HundredCashMargin.en"> नगद १००% धरौती स्वरुप रहनेछ </span>
+                                    <span *ngIf="this.tempData.TenCashMargin.en">नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती </span> स्वरुप नबिल बैंकमा रहेको श्री <input
                                         class="form-field form-control-sm"
                                         formControlName="TdHolder"
                                         type="text"/>
@@ -241,7 +244,7 @@
                                     </strong>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="this.tempData.loanType.en === 'IrrevocableLetterofCreditFacility'">
                                 <td>
                                     ग)
                                 </td>
@@ -259,30 +262,35 @@
                                     <strong> सुरक्षणः </strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित
                                     पत्र मूल्यको ११०% बिमालेख सहित सम्बन्धित
                                     प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
-                                    <strong> धरौटीः </strong> <!-- नगद १००% धरौती स्वरुप रहनेछ (If loan against 100% cash margin) / १००% धरौती
-                                    स्वरुप नबिल बैंकमा रहेको श्री (Name/s of TD or a/c holder/s) को (If loan against 100% Lien on TD/current a/c
-                                    saving ac) मुद्धती (Lien against TD) /चल्ति (Lien against Current a/c)/ बचत (Lien against saving a/c) -->
+                                    <strong *ngIf="this.tempData.CashMarginHundred.en"> धरौटीः  नगद १००% धरौती स्वरुप रहनेछ (If loan against 100% cash margin)</strong>
+                                    <span *ngIf="this.tempData.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री (Name/s of TD or a/c holder/s) को (If loan against 100% Lien on TD/current a/c
+                                    saving ac)
+                                    मुद्धती (Lien against TD) /चल्ति (Lien against Current a/c)/ बचत (Lien against saving a/c)
                                     खाता नं <input class="form-field form-control-sm"
                                                    formControlName="accountNumber"
-                                                   type="text"/> उपर बैंकको ग्रहणाधिकार (ष्भिल) कायम गरी दिनु पर्नेछ
-                                    ।<br>
-
-                                    <strong *ngIf="this.tempData.CommissionType1.en">
-                                        कमिसनः </strong> प्रति त्रैमास <input class="form-field form-control-sm"
-                                                                              formControlName="comissionRate"
-                                                                              type="text"/>
+                                                   type="text"/> उपर बैंकको ग्रहणाधिकार (ष्भिल) कायम गरी दिनु पर्नेछ ।</span> <br>
+                                    <strong *ngIf="this.tempData.CommissionType1.en"> कमिसनः प्रति त्रैमास
+                                        <input class="form-field form-control-sm"
+                                                formControlName="comissionRate"
+                                               type="text"/>
                                     % का दरले वा कम्तिमा रु.<input class="form-field form-control-sm"
                                                                    formControlName="miniumComissionAmount"
-                                                                   type="text"/> । - लाग्नेछ ।
-
-                                    <strong *ngIf="this.tempData.CommissionType2.en"> कमिसनः </strong> पहिलो त्रैमासका
-                                    लागि (Commission rate for first quater) % का दरले र त्यस पछिका त्रैमासहरुमा
-                                    (Commission rate for other quaters) % का दरले वा कम्तिमा रु <input
+                                                                   type="text"/> । - लाग्नेछ ।</strong>
+                                    <strong *ngIf="this.tempData.CommissionType2.en"> कमिसनः  पहिलो त्रैमासका
+                                    लागि <input
                                         class="form-field form-control-sm"
-                                        formControlName="miniumComissionAmount"
+                                        formControlName="comissionRateFirstQuarter"
+                                        type="text"/> % का दरले र त्यस पछिका त्रैमासहरुमा
+                                    <input
+                                            class="form-field form-control-sm"
+                                            formControlName="comissionRateFirstQuarter"
+                                            type="text"/> % का दरले वा कम्तिमा रु <input
+                                        class="form-field form-control-sm"
+                                        formControlName="comissionRateOthersQuarter"
                                         type="text"/>। लाग्नेछ । <br>
                                     <strong> सुविधा समाप्ति/पुनरावलोकन मितिः (loan expiry date (for regular))
                                         / सुविधा समाप्ति मितिः (for one off basis (free text))
+                                    </strong>
                                     </strong>
                                 </td>
                             </tr>
