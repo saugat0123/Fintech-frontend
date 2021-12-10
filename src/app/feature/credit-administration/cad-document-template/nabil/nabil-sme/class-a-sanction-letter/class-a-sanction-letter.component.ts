@@ -126,7 +126,7 @@ export class ClassASanctionLetterComponent implements OnInit {
       interestRate: [undefined],
       dateOfExpiry: [undefined],
       additionalGuarantorDetails: [undefined],
-      additionalGuarantorDetail:[undefined],
+      additionalGuarantorDetail: [undefined],
       nameOfTD: [undefined],
       accountNumber: [undefined],
       minimumCommissionAmount: [undefined],
@@ -137,7 +137,7 @@ export class ClassASanctionLetterComponent implements OnInit {
       serviceChargeInWords: [undefined],
       nameOfRelationalManager: [undefined],
       branchName: [undefined],
-      additionalDetail:[undefined],
+      additionalDetail: [undefined],
       nameOfBranchManager: [undefined],
       date: [undefined],
       TdHolding: [undefined],
@@ -159,10 +159,10 @@ export class ClassASanctionLetterComponent implements OnInit {
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.CLASS_A_SANCTION_LETTER).toString())[0];
+          === this.offerLetterConst.value(this.offerLetterConst.CLASS_A).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
         this.offerLetterDocument = new OfferDocument();
-        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A_SANCTION_LETTER);
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         console.log('Selected Security Details:', initialInfo);
@@ -175,6 +175,8 @@ export class ClassASanctionLetterComponent implements OnInit {
         this.New = initialInfo.New.ct;
         this.Existing = initialInfo.Existing.ct;
         this.initialInfoPrint = initialInfo;
+        this.CoupenRateFinancing = initialInfo.CoupenRateFinancing.ct;
+        this.BaseRateFinancing = initialInfo.BaseRateFinancing.ct;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
         this.fillForm();
@@ -182,40 +184,39 @@ export class ClassASanctionLetterComponent implements OnInit {
         if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
           this.form.get('dateOfExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateOfExpiry.en, true));
         } else {
-          this.form.get('dateOfExpiry').patchValue(this.initialInfoPrint.dateOfExpiryNepali.en);
+          this.form.get('dateOfExpiry').patchValue(this.initialInfoPrint.dateOfExpiryNepali.ct);
         }
       }
     } else {
       this.fillForm();
     }
   }
-  guarantorDetails(){
-    if (this.guarantorData.length == 1) {
-      let temp = JSON.parse(this.guarantorData[0].nepData);
-      this.finalName =  temp.guarantorName.ct;
-    } else if (this.guarantorData.length == 2) {
-      for (let i = 0; i < this.guarantorData.length; i++){
-        let temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
+  guarantorDetails() {
+    if (this.guarantorData.length === 1) {
+      const temp = JSON.parse(this.guarantorData[0].nepData);
+      this.finalName =  temp.authorizedPersonName.ct;
+    } else if (this.guarantorData.length === 2) {
+      for (let i = 0; i < this.guarantorData.length; i++) {
+        const temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.authorizedPersonName.ct);
       }
       this.allguarantorNames = this.guarantorNames.join(' र ');
       this.finalName = this.allguarantorNames;
-    }
-    else {
+    } else {
       for (let i = 0; i < this.guarantorData.length - 1; i++) {
-        let temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
+        const temp = JSON.parse(this.guarantorData[i].nepData);
+        this.guarantorNames.push(temp.authorizedPersonName.ct);
       }
       this.allguarantorNames = this.guarantorNames.join(' , ');
-      let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
-      this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
+      const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
+      this.finalName =  this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
     }
   }
   fillForm() {
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+    const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+        this.loanHolderInfo.registeredProvince.ct + ' प्रदेश ';
     const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
     let totalLoanAmount = 0;
     this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -319,14 +320,14 @@ export class ClassASanctionLetterComponent implements OnInit {
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.CLASS_A_SANCTION_LETTER)
+        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.CLASS_A)
             .toString()) {
           offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
         }
       });
     } else {
       const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A_SANCTION_LETTER);
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
       offerDocument.supportedInformation = this.form.get('additionalGuarantorDetails').value;
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
