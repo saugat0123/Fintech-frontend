@@ -189,6 +189,13 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       loanType: [undefined],
       CoupenRateFinancing: [undefined],
       BaseRateFinancing: [undefined],
+      tdHoldingBank: [undefined],
+      letterOfSetOff: [undefined],
+      baseRateType: [undefined],
+      cashMarginType: [undefined],
+      counterGuarantee: [undefined],
+      comissionType: [undefined],
+      commissionTypes: [undefined],
 
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
       loanAmountFigureTrans: [undefined],
@@ -255,6 +262,13 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       CashMarginTenTrans: [undefined],
       CoupenRateFinancingTrans: [undefined],
       BaseRateFinancingTrans: [undefined],
+      tdHoldingBankTrans: [undefined],
+      letterOfSetOffTrans: [undefined],
+      baseRateTypeTrans: [undefined],
+      cashMarginTypeTrans: [undefined],
+      counterGuaranteeTrans: [undefined],
+      comissionTypeTrans: [undefined],
+      commissionTypesTrans: [undefined],
       // FIELDS FOR CT VALUES:
       sanctionLetterDateNepaliCT: [undefined],
       sanctionLetterDateCT: [undefined],
@@ -320,6 +334,13 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       CashMarginTenCT: [undefined],
       CoupenRateFinancingCT: [undefined],
       BaseRateFinancingCT: [undefined],
+      tdHoldingBankCT: [undefined],
+      letterOfSetOffCT: [undefined],
+      baseRateTypeCT: [undefined],
+      cashMarginTypeCT: [undefined],
+      counterGuaranteeCT: [undefined],
+      comissionTypeCT: [undefined],
+      commissionTypesCT: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -408,7 +429,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.isYearlySelected = tempSelectedLoanType === 'Yearly';
   }
   checkcommisType() {
-    const tempSelectedLoanType = this.form.get('commissionType').value;
+    const tempSelectedLoanType = this.form.get('commissionTypes').value;
     this.isCommissionType1Selected = tempSelectedLoanType === 'CommissionType1';
     this.isCommissionType2Selected = tempSelectedLoanType === 'CommissionType2';
   }
