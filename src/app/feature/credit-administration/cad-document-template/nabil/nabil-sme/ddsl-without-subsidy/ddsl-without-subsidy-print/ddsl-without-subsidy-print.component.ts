@@ -65,9 +65,9 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.proposedAmount = totalLoanAmount;
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-            this.customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-                this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct +
-                ' ,' + this.loanHolderInfo.permanentProvince.ct;
+            this.customerAddress =  this.loanHolderInfo.registeredMunicipality.ct + '-' +
+                this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+                this.loanHolderInfo.registeredProvince.ct;
             if (!ObjectUtil.isEmpty(this.guarantorData)) {
                 this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
             }
