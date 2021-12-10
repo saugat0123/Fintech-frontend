@@ -10,15 +10,15 @@
         <div class="right-content">
             <p>
                         <span class="nepaliFont" [ngClass]="{'outside': letter?.smeGlobalForm.nameOfRelationshipManagerCT !== null && letter?.smeGlobalForm.nameOfRelationshipManagerCT !== ''}">
-                                {{letter?.smeGlobalForm.nameOfRelationshipManagerCT === null || letter?.smeGlobalForm.nameOfRelationshipManagerCT === "" ? "___________" : letter?.smeGlobalForm.nameOfRelationshipManagerCT}}
+                                {{letter?.smeGlobalForm.nameOfRelationshipManagerCT === null || letter?.smeGlobalForm.nameOfRelationshipManagerCT === "" ? "_______" : letter?.smeGlobalForm.nameOfRelationshipManagerCT}}
                         </span>
                 <br>
-                <span class="nepaliFont" style="font-size: 16px">{{freeInformation ? freeInformation.position : 'सम्पर्क अधिकृत'}}</span>
+                <span class="nepaliFont" style="font-size: 16px">{{freeInformation ? freeInformation.sectionBottom.position : 'सम्पर्क अधिकृत'}}</span>
                 <br>
                 नबिल बैंक लि.
                 <br>
                 <span>
-                            {{branchName}}
+                            {{branchName ? branchName : ''}}
                         </span>
                 शाखा
             </p>
@@ -27,10 +27,10 @@
         <div class="left-content">
             <p>
                         <span class="nepaliFont" [ngClass]="{'outside': letter?.smeGlobalForm.nameOfBranchManagerCT !== null && letter?.smeGlobalForm.nameOfBranchManagerCT !== ''}">
-                                {{letter?.smeGlobalForm.nameOfBranchManagerCT === null || letter?.smeGlobalForm.nameOfBranchManagerCT === "" ? "___________" : letter?.smeGlobalForm.nameOfBranchManagerCT}}
+                                {{letter?.smeGlobalForm.nameOfBranchManagerCT === null || letter?.smeGlobalForm.nameOfBranchManagerCT === "" ? "_______" : letter?.smeGlobalForm.nameOfBranchManagerCT}}
                         </span>
                 <br>
-                <span class="nepaliFont" style="font-size: 16px">{{freeInformation ? freeInformation.position1 : 'सम्पर्क प्रबन्धक'}}</span>
+                <span class="nepaliFont" style="font-size: 16px">{{freeInformation ? freeInformation.sectionBottom.position1 : 'सम्पर्क प्रबन्धक'}}</span>
                 <br>
                 नबिल बैंक लि.
                 <br>
