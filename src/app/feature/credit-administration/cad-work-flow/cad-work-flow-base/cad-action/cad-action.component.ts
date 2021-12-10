@@ -129,9 +129,13 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.inMyBucket = true;
         }
         try {
-            // if (this.cadOfferLetterApprovedDoc.previousList[0].fromRole.roleType === RoleType.APPROVAL || this.cadOfferLetterApprovedDoc.previousList[0].fromRole.roleType === RoleType.COMMITTEE) {
-            //     this.cadOfferLetterApprovedDoc.previousList.splice(0, 1);
-            // }
+            console.log(this.cadOfferLetterApprovedDoc.docStatus);
+            if (this.cadOfferLetterApprovedDoc.previousList.length > 1) {
+                if (this.cadOfferLetterApprovedDoc.previousList[0].fromRole.roleType === RoleType.APPROVAL || this.cadOfferLetterApprovedDoc.previousList[0].fromRole.roleType === RoleType.COMMITTEE || this.cadOfferLetterApprovedDoc.docStatus !== CadDocStatus.DISBURSEMENT_APPROVED) {
+                    this.cadOfferLetterApprovedDoc.previousList.splice(0, 1);
+                    console.log(this.cadOfferLetterApprovedDoc.previousList);
+                }
+            }
             this.cadOfferLetterApprovedDoc.previousList.forEach((data) => {
                 if (!ObjectUtil.isEmpty(data.toUser)) {
                     if (data.toUser.id.toString() === this.currentUserId && data.fromRole.roleType !== 'CAD_ADMIN') {
