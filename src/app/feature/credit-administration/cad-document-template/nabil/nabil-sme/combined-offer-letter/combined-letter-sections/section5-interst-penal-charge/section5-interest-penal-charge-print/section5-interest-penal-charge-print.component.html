@@ -5,7 +5,7 @@
             <!--FOR NORMAL SCHEME-->
             <div class="row" *ngIf="loanSchemeSelected === 'No'">
                 <div class="col-sm-12">
-                    <ol class="conditions-list orderd-list font-weight-bold">
+                    <ol class="dev-list orderd-list font-weight-bold">
                         <li>
                             <p>
                                 हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव
@@ -79,7 +79,7 @@
             <!--(For The case of Nabil Sajilo Karja/Nari Karja/Nabil Fast Track Scheme)-->
             <!--<div class="row">
                 <div class="col-sm-12">
-                    <ol class="conditions-list orderd-list font-weight-bold">
+                    <ol class="dev-list orderd-list font-weight-bold">
                         <li>
                             <p>
                                 ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर
@@ -102,7 +102,7 @@
             <!--(For The case of  Nabil Aniverssary Scheme)-->
             <div class="row">
                 <div class="col-sm-12">
-                    <ol class="conditions-list orderd-list font-weight-bold">
+                    <ol class="dev-list orderd-list font-weight-bold">
                         <li  *ngIf="loanScheme === 'Nabil Sajilo Karja' || loanScheme == 'Nabil Fast Track Scheme' || loanScheme === 'Nari Karja'">
                             <p>
                                 ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर
@@ -113,7 +113,6 @@
                                 <span class="font-weight-bold">
                                     {{this.letterData?.smeGlobalForm ? this.letterData?.smeGlobalForm?.schemeInterestRateCT : ''}}
                                 </span>
-                                _______________
                                 प्रतिशत प्रति वर्ष कायम रहनेछ र सो पश्चात उक्त ब्याजदरमा समय समयमा संशोधन गर्ने बैंकको
                                 अधिकार सुरक्षित रहनेछ ।
                                 ब्याज दरमा भएको संशोधनको जानकारी बैंकले ऋणीको नाममा पत्र जारी गरी वा सार्वजनिक सुचना वा
@@ -131,14 +130,13 @@
                                 <span class="font-weight-bold">
                                     {{this.letterData?.smeGlobalForm ? this.letterData?.smeGlobalForm?.schemeInterestRateCT : ''}}
                                 </span>
-                                _______________
                                 प्रतिशत प्रति वर्ष कायम रहनेछ र सो पश्चात उक्त ब्याजदरमा समय समयमा संशोधन गर्ने बैंकको
                                 अधिकार सुरक्षित रहनेछ । ब्याज दरमा भएको संशोधनको जानकारी बैंकले ऋणीको
                                 नाममा पत्र जारी गरी वा सार्वजनिक सुचना वा बैंकको आधिकारिक वेव साईट (Website) मार्फत
                                 जानकारी गराई परिवर्तित दरको ब्याज लागु गरिने छ ।
                             </p>
                         </li>
-                        <li>
+                        <li  *ngIf="loanScheme === 'Nabil Anniversary Scheme'">
                             <p>
                                 यसरी ब्याज दर निर्धारण गर्दा बैंकले आफ्नो प्रकाशित आधार दर (Base Rate) मा ब्याज दर
                                 प्रिमियम (Interest Rate Premium) मा जोडि निर्धारण गर्नेछ । ऋणकर्जा स्वीकृत
@@ -163,7 +161,7 @@
             <!--For Floating interest rate-->
 <!--            <div class="row">-->
 <!--                <div class="col-sm-12">-->
-<!--                    <ol class="conditions-list orderd-list font-weight-bold">-->
+<!--                    <ol class="dev-list orderd-list font-weight-bold">-->
 
 <!--                        <li>-->
 <!--                            <p>-->
@@ -232,7 +230,7 @@
             <!--For Fixed  rate-->
             <div class="row">
                 <div class="col-sm-12">
-                    <ol class="conditions-list orderd-list font-weight-bold">
+                    <ol class="dev-list orderd-list font-weight-bold">
                         <li *ngIf="selectedInterestRate === 'Floating Interest Rate'">
                             <p>
                                 <strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्क :-</strong>

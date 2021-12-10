@@ -35,7 +35,7 @@ export class Section5InterestPenalChargePrintComponent implements OnInit {
     }
   }
   getLoanName() {
-    const globalData = this.letterData.globalForm;
+    const globalData = this.letterData.smeGlobalForm;
     this.loanScheme = globalData.loanSchemeType;
     this.loanSchemeSelected = globalData.loanScheme;
     this.subsidyAgricultureSelected = globalData.subsidyOrAgricultureLoan;
