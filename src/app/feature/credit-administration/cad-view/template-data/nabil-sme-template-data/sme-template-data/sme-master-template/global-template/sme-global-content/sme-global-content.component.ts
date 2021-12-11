@@ -47,6 +47,10 @@ export class SmeGlobalContentComponent implements OnInit {
     {value: 'Nabil Anniversary Scheme'}];
   loanSchemeSelected = false;
   loanOptionsSelected = false;
+  changedServiceChargeType = [
+    {value: 'Service Charge In Flat Amount'},
+    {value: 'Service Charge In Percentage'}
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
@@ -253,6 +257,17 @@ export class SmeGlobalContentComponent implements OnInit {
     this.globalForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
   }
 
+  /* For Clearing the fields based on chosen options */
+  selectedServiceCharge(selectedVal) {
+    if (selectedVal === this.changedServiceChargeType[0].value) {
+      this.clearForm('detailOfFacility', true);
+      this.clearForm('serviceChargeInPercent', true);
+    } else {
+      this.clearForm('serviceChargeInFigure', true);
+      this.clearForm('serviceChargeInWords', true);
+    }
+  }
+
   /* For selected loan Scheme*/
   checkLoanScheme(data) {
     this.loanSchemeSelected = data === 'Yes';
@@ -260,6 +275,14 @@ export class SmeGlobalContentComponent implements OnInit {
 
   checkSelectedOptions(data) {
     this.loanOptionsSelected = data === 'New';
+  }
+
+  clearForm(controls, option?: boolean) {
+    this.globalForm.get(controls).setValue(null);
+    if (option) {
+      this.globalForm.get(controls + 'Trans').setValue(null);
+      this.globalForm.get(controls + 'CT').setValue(null);
+    }
   }
 
 }
