@@ -46,6 +46,7 @@ export class SmeGlobalContentComponent implements OnInit {
     {value: 'Nabil Fast Track Scheme'},
     {value: 'Nabil Anniversary Scheme'}];
   loanSchemeSelected = false;
+  loanOptionsSelected = false;
 
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
@@ -255,6 +256,10 @@ export class SmeGlobalContentComponent implements OnInit {
   /* For selected loan Scheme*/
   checkLoanScheme(data) {
     this.loanSchemeSelected = data === 'Yes';
+  }
+
+  checkSelectedOptions(data) {
+    this.loanOptionsSelected = data === 'New';
   }
 
 }

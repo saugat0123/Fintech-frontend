@@ -6,6 +6,7 @@
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Loan Option</label>
                         <nb-select [multiple]="false" fullWidth placeholder="select loan option"
+                                   (selectedChange)="checkSelectedOptions($event)"
                         formControlName="loanOption" shape="semi-round">
                             <nb-option *ngFor="let loanOption of loanOptions" [value]="loanOption?.value">{{loanOption?.value}}</nb-option>
                         </nb-select>
@@ -163,7 +164,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="!loanOptionsSelected">
                 <div class="col-md-4">
                     <div>
                         <nb-radio-group class="d-inline-flex" formControlName="previousSanctionType"
@@ -192,6 +193,26 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row" *ngIf="loanSchemeSelected">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Scheme Interest Rate </label>
+                        <input nbInput fullWidth status="success" type="number" formControlName="schemeInterestRate" shape="semi-round">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="schemeInterestRateTrans" shape="semi-round" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input nbInput fullWidth status="success" type="text" formControlName="schemeInterestRateCT" shape="semi-round">
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -272,25 +293,6 @@
                 <div class="col-md-4">
                     <div class="form-group mt-4">
                         <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInPercentCT" shape="semi-round">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" *ngIf="loanSchemeSelected">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="ml-1 font-weight-bold">Scheme Interest Rate </label>
-                        <input nbInput fullWidth status="success" type="number" formControlName="schemeInterestRate" shape="semi-round">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="text" formControlName="schemeInterestRateTrans" shape="semi-round" readonly>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="text" formControlName="schemeInterestRateCT" shape="semi-round">
                     </div>
                 </div>
             </div>
