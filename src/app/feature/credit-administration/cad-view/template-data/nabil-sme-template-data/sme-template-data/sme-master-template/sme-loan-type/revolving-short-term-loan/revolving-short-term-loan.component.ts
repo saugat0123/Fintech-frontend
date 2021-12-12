@@ -20,7 +20,10 @@ export class RevolvingShortTermLoanComponent implements OnInit {
     ADExpiry = false;
     BSExpiry = false;
     dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
-
+    yesNoOptions = [
+        {value: 'Yes'},
+        {value: 'No'}
+    ];
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -40,6 +43,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         this.revolvingShortTermLoan = this.formBuilder.group({
             loanOption: [undefined],
             loanRevolvingBasis: [undefined],
+            subsidyOrAgricultureLoan: [undefined],
             complementaryOther: [undefined],
             arFinancing: [undefined],
             multiLoan: [undefined],

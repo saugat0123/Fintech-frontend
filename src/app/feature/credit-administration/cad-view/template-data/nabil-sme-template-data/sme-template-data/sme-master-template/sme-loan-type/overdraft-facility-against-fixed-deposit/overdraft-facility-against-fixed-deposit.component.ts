@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {NepaliCurrencyWordPipe} from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {EngNepDatePipe} from "nepali-patro";
-import {DatePipe} from "@angular/common";
-import {EngToNepaliNumberPipe} from "../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {CurrencyFormatterPipe} from "../../../../../../../../../@core/pipe/currency-formatter.pipe";
-import {SbTranslateService} from "../../../../../../../../../@core/service/sbtranslate.service";
+import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngNepDatePipe} from 'nepali-patro';
+import {DatePipe} from '@angular/common';
+import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {SbTranslateService} from '../../../../../../../../../@core/service/sbtranslate.service';
 
 @Component({
   selector: 'app-overdraft-facility-against-fixed-deposit',
@@ -35,6 +35,10 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
   translatedFormGroup: FormGroup;
   translatedValue: any;
   arrayForm: any = {};
+  yesNoOptions = [
+    {value: 'Yes'},
+    {value: 'No'}
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -42,21 +46,22 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
               private datePipe: DatePipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatterPipe: CurrencyFormatterPipe,
-              private translateService: SbTranslateService,) { }
+              private translateService: SbTranslateService, ) { }
 
   ngOnInit() {
    this.buildForm();
-   if(!ObjectUtil.isEmpty(this.loanName)) {
+   if (!ObjectUtil.isEmpty(this.loanName)) {
      this.loanDetails = this.loanName;
    }
   }
 
   buildForm() {
     this.overdraftFixedForm = this.formBuilder.group({
-      //For Form Data
+      // For Form Data
       subLoanOption: [undefined],
       letterOfSetOff: [undefined],
       interestRateType: [undefined],
+      subsidyOrAgricultureLoan: [undefined],
       checkAdditionalPremiumRate: [undefined],
       nameOfFacility: [undefined],
       loanAmount: [undefined],
@@ -79,7 +84,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
       dateOfExpiryNepali: [undefined],
       dateOfExpiryType: [undefined],
 
-      //For Translated Data
+      // For Translated Data
       subLoanOptionTrans: [undefined],
       letterOfSetOffTrans: [undefined],
       interestRateTypeTrans: [undefined],
@@ -105,7 +110,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
       dateOfExpiryNepaliTrans: [undefined],
       dateOfExpiryTypeTrans: [undefined],
 
-      //For Corrected Data
+      // For Corrected Data
       subLoanOptionCT: [undefined],
       letterOfSetOffCT: [undefined],
       interestRateTypeCT: [undefined],

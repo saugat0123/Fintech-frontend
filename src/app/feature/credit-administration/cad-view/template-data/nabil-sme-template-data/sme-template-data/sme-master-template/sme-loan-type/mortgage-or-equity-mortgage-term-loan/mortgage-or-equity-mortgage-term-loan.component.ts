@@ -26,6 +26,15 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
     translatedForm: FormGroup;
     tdValues: any = {};
     spinner = false;
+    yesNoOptions = [
+        {value: 'Yes'},
+        {value: 'No'}
+    ];
+    mortgageType = [
+        {value: 'New'},
+        {value: 'Existing'},
+        {value: 'Enhancement'}
+    ];
 
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -47,6 +56,8 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
     buildForm() {
         this.mortgageEquityTermForm = this.formBuilder.group({
             termLoanFor: [undefined],
+            subsidyOrAgricultureLoan: [undefined],
+            mortgageType: [undefined],
             termLoanType: [undefined],
             complimentaryOther: [undefined],
             multiLoan: [undefined],
