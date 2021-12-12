@@ -38,6 +38,17 @@
                     <nb-option value="BASE_RATE_FINANCING"> Base Rate Financing</nb-option>
                 </nb-select>
             </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                    <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                               formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                        <nb-option *ngFor="let option of yesNoOptions"
+                                   [value]="option?.value">{{option?.value}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
         </div>
         <!-- END OF CONDITIONAL SECTION -->
 
