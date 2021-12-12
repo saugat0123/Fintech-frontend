@@ -53,4 +53,7 @@
     <nb-card-body *ngIf="isCombinedOfferLetter" [nbSpinner]="spinner">
         <app-sme-master-template [customerApprovedDoc]="cadData"></app-sme-master-template>
     </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.CLASS_A" [nbSpinner]="spinner">
+        <app-class-a-sanction-letter-template-data [customerApprovedDoc]="cadData"></app-class-a-sanction-letter-template-data>
+    </nb-card-body>
 </nb-card>
