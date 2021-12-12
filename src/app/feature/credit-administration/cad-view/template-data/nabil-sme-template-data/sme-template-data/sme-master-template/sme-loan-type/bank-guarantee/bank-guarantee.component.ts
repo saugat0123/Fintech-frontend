@@ -34,6 +34,10 @@ export class BankGuaranteeComponent implements OnInit {
     {value: 'Cash Margin'},
     {value: 'APG/PFG/Bid Bond'},
   ];
+  loanOptions = [
+    {key: 'ONE_OFF_BASIS', value: 'One Off Basis'},
+    {key: 'REGULAR', value: 'Regular'}
+  ];
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepDatePipe: EngNepDatePipe,
@@ -54,6 +58,7 @@ export class BankGuaranteeComponent implements OnInit {
   buildForm() {
     this.bankGuarantee = this.formBuilder.group({
       // FOR FORM DATA
+      loanOption: [undefined],
       multiLoan: [undefined],
       securityType: [undefined],
       guaranteeType: [undefined],
@@ -73,6 +78,7 @@ export class BankGuaranteeComponent implements OnInit {
       dateOfExpiry: [undefined],
       complementryOther: [undefined],
       // FOR TRANSLATED DATA
+      loanOptionTrans: [undefined],
       multiLoanTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountAmountWordsTrans: [undefined],
@@ -90,6 +96,7 @@ export class BankGuaranteeComponent implements OnInit {
       dateOfExpiryTrans: [undefined],
       complementryOtherTrans: [undefined],
       // FOR CORRECTED DATA
+      loanOptionCT: [undefined],
       multiLoanCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountAmountWordsCT: [undefined],
@@ -126,6 +133,10 @@ export class BankGuaranteeComponent implements OnInit {
     this.isCommission2Selected = tempData === 'COMMISSION_TYPE_2';
   }
   async translateAndSetVal() {
+    const tempLoanOption = this.bankGuarantee.get('loanOption').value;
+    if (!ObjectUtil.isEmpty(tempLoanOption)) {
+      this.bankGuarantee.get('loanOptionTrans').patchValue(tempLoanOption);
+    }
     const tempMultiLoan = this.bankGuarantee.get('multiLoanTrans').value;
     if (!ObjectUtil.isEmpty(tempMultiLoan)) {
       this.bankGuarantee.get('multiLoanTrans').patchValue('');
@@ -204,6 +215,9 @@ export class BankGuaranteeComponent implements OnInit {
   setCTValue() {
     this.bankGuarantee.get('loanAmountCT').patchValue(
         this.bankGuarantee.get('loanAmountTrans').value
+    );
+    this.bankGuarantee.get('loanOptionCT').patchValue(
+        this.bankGuarantee.get('loanOptionTrans').value
     );
     this.bankGuarantee.get('multiLoanCT').patchValue(
         this.bankGuarantee.get('multiLoanTrans').value
