@@ -426,7 +426,7 @@
                     </div>
 
                     <!-- Condition (Application for OD only) -->
-                    <div class="col-md-12" *ngIf="this.letter.loanOption.en === 'Overdraft'">
+                    <div class="col-md-12" *ngIf="this.letter.loanType.en === 'Overdraft'">
                         व्याज सम्बन्धी शर्तहरुः
                         १.	हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट (Website) तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार
                         दर (Quarterly Average Base Rate ) प्रकाशित गरिनेछ । यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित हुने पछिल्लो त्रैमासिक औसत आधार दर ( Quarterly Average Base Rate )
@@ -441,7 +441,7 @@
                     </div>
 
                     <!-- Condition(Application incase of LC facility is purpose) -->
-                    <div class="col-mid-12" *ngIf="this.letter.loanOption.en === 'Irrevocable Letter of Credit Facility'">>
+                    <div class="col-mid-12" *ngIf="this.letter.loanType.en === 'Irrevocable Letter of Credit Facility'">>
                         ऋण तथा सुबिधाहरु सम्बन्धित शर्तहरु
                         प्रतित पत्र सुविधाः<br>
                         १. 	सम्पूर्ण प्रतित पत्र र अन्य आवेदनहरुमा तपाईंको आधिकारिक हस्ताक्षरवाला(हरु)ले हस्ताक्षर   गर्नुपर्नेछ ।<br>
@@ -477,7 +477,7 @@
                     </div>
 
                     <!-- Condition(Applicable incase of bank guarantee facility only) -->
-                    <div class="cold-md-12" *ngIf="this.letter.loanOption.en === 'BankGuarantee'">>
+                    <div class="cold-md-12" *ngIf="this.letter.loanType.en === 'BankGuarantee'">>
                         बैंक जमानत सुविधा Applicable (incase of bank guarantee facility only)
                         १.	सम्पूर्ण बैंक जमानत सुविधा आवेदन र अन्य कागजातहरुमा तपाईंको आधिकारिक हस्ताक्षरवाला(हरु)ले हस्ताक्षर गर्नुपर्नेछ ।
                     </div>
