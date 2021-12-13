@@ -49,7 +49,7 @@
                     <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
                     <br>
 
-                    <div class="mb-1" *ngIf="this.tempData.loanType.en === 'NEW'">
+                    <div class="mb-1" *ngIf="this.tempData.loanOption.en === 'NEW'">
                         <p>
                             महोदय, <br>
                             तपाईंले
@@ -63,7 +63,7 @@
                             ।
                         </p>
                     </div>
-                    <div class="mb-1" *ngIf="this.tempData.loanType.en === 'EXISTING'">
+                    <div class="mb-1" *ngIf="this.tempData.loanOption.en === 'EXISTING'">
                         <strong> षयः ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</strong>
                         <p>
                             महोदय, <br>
@@ -86,7 +86,7 @@
                         </p>
                     </div>
                     <br>
-                    <div class="mb-1" *ngIf="this.tempData.loanType.en === 'EXISTING'">
+                    <div class="mb-1" *ngIf="this.tempData.loanOption.en === 'EXISTING'">
                         <strong> बिषयः थप/अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे । </strong>
                         <p>
                             महोदय,<br>
@@ -110,7 +110,7 @@
                         </p>
                     </div>
                     <br>
-                    <div class="mb-1" *ngIf="this.tempData.loanType.en === 'EXISTING'">
+                    <div class="mb-1" *ngIf="this.tempData.loanOption.en === 'EXISTING'">
                         <strong> बिबिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
                         <p>
                             महोदय,<br>
@@ -153,9 +153,6 @@
                                 </td>
                                 <td>
                                     <strong> निक्षेप मौज्दातमा आधारीत अधिविकर्ष कर्जा </strong>
-                                    <!--                                    (Overdraft Facility against Fixed Deposit(For OD-->
-                                    <!--                                    loan against Fixed Deposit)/ Lien onDeposit Account-->
-                                    <!--                                    (For OD loan against deposit Account))-->
                                     <br>
                                     <strong> सीमाः रु <input class="form-field form-control-sm"
                                                              formControlName="loanAmountFigure"
@@ -165,7 +162,6 @@
                                                type="text"/> मात्र)<br>
                                         सुरक्षणः
                                     </strong> नबिल
-                                    <!--If TD is of Nabil Bank /Free Text If FD is of other Bank (input hallna)-->
                                     बैंकद्धारा जारी गरिएको <input class="form-field form-control-sm"
                                                                   formControlName="TdHolder"
                                                                   type="text"/>
@@ -176,8 +172,7 @@
                                     गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <span *ngIf="New"> गरिदिइएको  </span>
                                     <span *ngIf="Existing"> गरिने </span>
                                     मोजरापत्र <br>
-                                    <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power): </strong> <!-- मुद्धती रसिदको for loan against TD /
-                                    खातामा रोक्का राखिएका for loan against deposit --> मौज्दातको <input
+                                    <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power): </strong>  मौज्दातको <input
                                         class="form-field form-control-sm"
                                         formControlName="drawingPower"
                                         type="text"/>
@@ -225,9 +220,7 @@
                                         class="form-field form-control-sm"
                                         formControlName="TdHolder"
                                         type="text"/>
-                                    को
-                                    <!--मुद्धती (Lien against TD) / चल्ति (Lien against Current a/c)/ बचत (Lien against Saving a/c) -->
-                                    खाता नं <input class="form-field form-control-sm"
+                                    को खाता नं <input class="form-field form-control-sm"
                                                    formControlName="accountNumber"
                                                    type="text"/> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ
                                     ।<br>
@@ -263,9 +256,8 @@
                                     पत्र मूल्यको ११०% बिमालेख सहित सम्बन्धित
                                     प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
                                     <strong *ngIf="this.tempData.CashMarginHundred.en"> धरौटीः  नगद १००% धरौती स्वरुप रहनेछ (If loan against 100% cash margin)</strong>
-                                    <span *ngIf="this.tempData.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री (Name/s of TD or a/c holder/s) को (If loan against 100% Lien on TD/current a/c
-                                    saving ac)
-                                    मुद्धती (Lien against TD) /चल्ति (Lien against Current a/c)/ बचत (Lien against saving a/c)
+                                    <span *ngIf="this.tempData.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री को
+                                    मुद्धती /चल्ति बचत
                                     खाता नं <input class="form-field form-control-sm"
                                                    formControlName="accountNumber"
                                                    type="text"/> उपर बैंकको ग्रहणाधिकार (ष्भिल) कायम गरी दिनु पर्नेछ ।</span> <br>
@@ -288,8 +280,18 @@
                                         class="form-field form-control-sm"
                                         formControlName="comissionRateOthersQuarter"
                                         type="text"/>। लाग्नेछ । <br>
-                                    <strong> सुविधा समाप्ति/पुनरावलोकन मितिः (loan expiry date (for regular))
-                                        / सुविधा समाप्ति मितिः (for one off basis (free text))
+                                    <strong> सुविधा समाप्ति/पुनरावलोकन मितिः <input
+                                            class="form-field form-control-sm"
+                                            formControlName="dateOfExpiry"
+                                            type="text"/>|
+                                        / सुविधा समाप्ति मितिः <textarea
+                                                class="form-control customFont nepaliFont"
+                                                rows="2"
+                                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                                name="additionalGuarantorDetails"
+                                                placeholder="अतिरिक्त अन्य खण्ड"
+                                                formControlName="additionalGuarantorDetails">
+                                        </textarea>
                                     </strong>
                                     </strong>
                                 </td>
@@ -304,40 +306,50 @@
                         <ol class="condtions-list order-list">
                             <li *ngIf="this.tempData.loanType.en === 'BankGuarantee'">
                                 काउण्टर जमानत (General Counter Guarantee):<br>
-                                <!--Application for guarantee facility required: -->
                                 बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) <span
                                     *ngIf="New">लेखिदिनुपर्नेछ </span>
                                 <span *ngIf="Existing">लेखिदिनुभएको यथावत कायम रहनेछ.</span>।
                             </li>
                             <li>
                                 <strong> ग्रहणाधिकार (Lien): </strong>
-                                <!-- Application only if TD or deposit or National Bond Debentrue is required as primary security -->
-                                For TD
-                                नबिलक्ष (If TD is of Nabil Bank) / (other bank name If TD is other bank) बैंकद्धारा
-                                जारी गरिएको ............. को नाममा रहेको कम्तिमा रु <input
-                                    class="form-field form-control-sm"
-                                    formControlName="amount"
-                                    type="text"/>
+                                नबिलक्ष  बैंकद्धारा
+                                जारी गरिएको ............. को नाममा रहेको कम्तिमा रु <input class="form-field form-control-sm"
+                                                                                           formControlName="loanAmountFigure"
+                                                                                           type="text"/>
                                 बराबरको मुद्धती रसिद/हरु उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न सक्ने
                                 अधिकार सहितको मोजरापत्र
                                 (Letter of Set-off) बैंकको पक्षमा जारी गरी दिनु पर्नेछ र सो मुद्धती रसिद/हरुको सक्कल
                                 प्रति बैंकलाई हस्तान्तरण गर्नु
-                                पर्नेछ (If lien is to be created)/ गरिदिइएको यथावत कायम रहने छ (If existing lien is
-                                continued) ।<br>
-                                AND/OR
-                                For Deposit-Saving/Current/Call a/c<br>
-                                नबिल बैंकमा खोलिएको (Name of account holder(Free-text)) को नाममा रहेको चल्ति (Current) /
-                                बचत (Saving)
-                                / कल (Call) खाता नं. (A/C Number (Free-text) Required) मा रहेको मौज्दात रु <input
+                                पर्नेछ/ गरिदिइएको यथावत कायम रहने छ ।<br>
+                                <br>
+                                नबिल बैंकमा खोलिएको <input class="form-field form-control-sm"
+                                                           formControlName="customerName"
+                                                           name="customerName"
+                                                           placeholder="{{loanHolderInfo?.name}}"
+                                                           type="text"/> <textarea
+                                    class="form-control customFont nepaliFont"
+                                    rows="2"
+                                    style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                    name="additionalGuarantorDetails"
+                                    placeholder="अतिरिक्त अन्य खण्ड"
+                                    formControlName="additionalGuarantorDetails"></textarea> को नाममा रहेको चल्ति
+                                बचत / कल (Call) खाता नं.<input
                                     class="form-field form-control-sm"
-                                    formControlName="amount"
+                                    formControlName="accountNumber"
                                     type="text"/>
+                                <textarea
+                                        class="form-control customFont nepaliFont"
+                                        rows="2"
+                                        style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                        name="additionalGuarantorDetails"
+                                        placeholder="अतिरिक्त अन्य खण्ड"
+                                        formControlName="additionalGuarantorDetails"></textarea> मा रहेको मौज्दात रु <input class="form-field form-control-sm"
+                                                                                                                            formControlName="loanAmountFigure"
+                                                                                                                            type="text"/>
                                 बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार
-                                सहितको मोजरापत्र (Letter-of Set-off)
-                                बैंकको पक्षमा जारी गरिदिनु पर्नेछ (If letter of set-off to be obtained) / गरिदिइएको
-                                यथावत कायम रहने छ
-                                (If letter of set off is obtained) |
-                                AND/OR
+                                सहितको मोजरापत्र.
+                                बैंकको पक्षमा जारी गरिदिनु पर्नेछ / गरिदिइएको
+                                यथावत कायम रहने छ.
                             </li>
                         </ol>
                     </div>
@@ -403,7 +415,7 @@
                             (अक्षरेपी रु <input class="form-field form-control-sm"
                                                 formControlName="totalLimitInWords"
                                                 type="text"/> मात्र)
-                            भन्दा बढी हुनु हुनेछैन । <!-- Total limit -->
+                            भन्दा बढी हुनु हुनेछैन ।
                             <!-- Condition -->
                             <span *ngIf="this.tempData.loanOption.en === 'EXISTING'"> १. माथि उल्लिखित ऋणकर्जा सुविधा र यस अघि मिति वि.सं <input
                                     class="form-field form-control-sm"
@@ -577,11 +589,10 @@
 
                     <!-- Condition(Applicable incase security is purpose as fixed deposit) -->
                     <div class="cold-md-12" *ngIf="this.tempData.FixedDeposit.en">
-                        <strong> मुद्दती रसिद/राष्ट्रिय बचत पत्र/ऋणपत्र सुरक्षण (Applicable incase security is purpose
-                            as Fixed deposit)</strong><br>
+                        <strong> मुद्दती रसिद/राष्ट्रिय बचत पत्र/ऋणपत्र सुरक्षण</strong><br>
                         १. धितोे सुरक्षणमा रहेका मुद्दती रसिद लागायत अन्य कागजात FOR OD लागायत अन्य औजार FOR LC ऋकोहकमा
                         सो रसिद समयमै नविकरण
-                        गरी सक्कल रसिद बैंकलाई हस्तान्तरण गर्नुपर्नेछ ।(For Gtee Red color font not required)<br>
+                        गरी सक्कल रसिद बैंकलाई हस्तान्तरण गर्नुपर्नेछ ।<br>
                         २. यदि ऋणकर्जा अवधि समाप्ति भएमा र/वा ऋणकर्जा सुरक्षण वापत राखिएको मुद्दती
                         रसिद FOR TD /राष्ट्रिय बचत पत्र/ऋणपत्रका लागायत अन्य कागजातको FOR OD लागायत अन्य औजारको FOR LC
                         को म्याद समेत
@@ -814,14 +825,14 @@
                                 आधिकारीक हस्ताक्षरवालाबाट हस्ताक्षरित प्रतित पत्र र आवश्यक ने.रा.बैं.को बि. बि. नि.
                                 आवेदन फाराम ।
                             </li>
-                            <li *ngIf="this.tempData.loanOption.en === 'BankGuarantee'">
+                            <li *ngIf="this.tempData.loanType.en === 'BankGuarantee'">
                                 काउण्टर जमानी सम्बन्धी सम्झौता (General Counter Guarantee)स्वीकृत सुविधाहरु र अवधी
                                 समाप्त हुने/भएका मुद्धति रसिदहरु स्वतः नविकरणका
                                 लागि मुद्धति रसिद धनीहरुको मंजुरीनामा (Consent Letter from benecificary of FD holding
                                 for auto renewal)
                             </li>
                             <!--                        Applicable for Guarantee-->
-                            <li *ngIf="this.tempData.loanOption.en === 'Overdraft'">
+                            <li *ngIf="this.tempData.loanType.en === 'Overdraft'">
                                 श्री ...........................द्धारा श्री ....................को नाममा जारी गरिएको
                                 सक्कल मुद्धती रसिदहरु लागायत अन्य कागजात(Applicable for od)
                                 लागायत अन्य कागजात (Fixed Deposit Receipts)
@@ -990,7 +1001,7 @@
                     status="info"
                     class="mb-4 float-right"
                     [useExistingCss]="true"
-                    ngxPrint printSectionId="{{offerLetterConst.CLASS_A_SANCTION_LETTER}}">Print
+                    ngxPrint printSectionId="{{offerLetterConst.CLASS_A}}">Print
             </button>
         </nb-card-footer>
     </nb-card>

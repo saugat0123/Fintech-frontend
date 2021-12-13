@@ -4,8 +4,8 @@
                 <div class="col-sm-12">
                     <p class="m-0">
                        <span>
-                            {{ autoRefNumber ? autoRefNumber : "_______________________" }}
-                        </span>
+                            {{autoRefNum ? autoRefNum : '_______________________'}}<br>
+                       </span>
                     </p>
                     <h5>ऋणकर्जा सुविधा स्वीकृति पत्र</h5>
                 </div>
@@ -48,7 +48,7 @@
                     <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
                     <br>
 
-                    <div class="mb-1">
+                    <div class="mb-1" *ngIf="this.letter.loanOption.en === 'NEW'">
                         <p>
                             महोदय, <br>
                             तपाईंले
@@ -62,10 +62,8 @@
                     </div>
                     <br>
 
+            <div class="mb-1" *ngIf="this.letter.loanOption.en === 'EXISTING'">
                     <strong> षयः ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</strong>
-                    <br>
-
-                    <div class="mb-1">
                         <p>
                             महोदय, <br>
                             तपाईंले यस बैंकको मिति वि.सं.
@@ -83,10 +81,8 @@
                     </div>
                     <br>
 
-                    <strong> बिषयः थप/अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे । </strong>
-                    <br>
-
-                    <div class="mb-1">
+                    <div class="mb-1" *ngIf="this.letter.loanOption.en === 'EXISTING'">
+                        <strong> बिषयः थप/अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे । </strong>
                         <p>
                             महोदय,<br>
                             तपाईंले यस बैंकको मिति वि.सं.
@@ -106,10 +102,9 @@
                     </div>
                     <br>
 
-                    <strong> बिबिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
-                    <br>
 
-                    <div class="mb-1">
+                    <div class="mb-1"  *ngIf="this.letter.loanOption.en === 'EXISTING'">
+                        <strong> बिबिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
                         <p>
                             महोदय,<br>
                             तपाईंले यस बैंकको मिति वि.सं.
@@ -143,7 +138,7 @@
                     <div class="row from-group">
                         <table class="table table-bordered">
                             <tr>
-                                <td>
+                                <td *ngIf="this.letter.FixedDeposit.en">
                                     क)
                                 </td>
                                 <td>
@@ -166,16 +161,16 @@
                                             {{letter?.TDAmount.ct === null || letter?.TDAmount.ct === "" ? "___________" : letter?.TDAmount.ct}}
                                         </span>
                                     (बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन
-                                    गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <!-- गरिदिइएको if new letter of set-off to be obtained / गरिन
-                                    is existing letter of set-off is continued --> मोजरापत्र (Letter of Set-off) |<br>
+                                    गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <span *ngIf="New"> गरिदिइएको  </span>
+                                    <span *ngIf="Existing"> गरिने </span> मोजरापत्र <br>
                                     <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power): </strong> <!-- मुद्धती रसिदको for loan against TD /
                                     खातामा रोक्का राखिएका for loan against deposit --> मौज्दातको
                                     <span [ngClass]="{'font-weight-bold': letter?.drawingPower.ct !== null && letter?.drawingPower.ct !== ''}">
                                             {{letter?.drawingPower.ct === null || letter?.drawingPower.ct === "" ? "___________" : letter?.drawingPower.ct}}
                                         </span>
                                     प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।<br>
-                                    <strong> ब्याज दरः  </strong> <!-- कुपन दर coupon rate financing / base rate financing
-                                    प्रकाशित आधार दर (Base Rate)-->  <span [ngClass]="{'font-weight-bold': letter?.baseRate.ct !== null && letter?.baseRate.ct !== ''}">
+                                    <strong> ब्याज दरः  </strong> <span *ngIf="CoupenRateFinancing">कुपन दर </span>
+                                    <span *ngIf="BaseRateFinancing">प्रकाशित आधार दर (Base Rate)  <span [ngClass]="{'font-weight-bold': letter?.baseRate.ct !== null && letter?.baseRate.ct !== ''}">
                                             {{letter?.baseRate.ct === null || letter?.baseRate.ct === "" ? "___________" : letter?.baseRate.ct}}
                                         </span> +
                                     <span [ngClass]="{'font-weight-bold': letter?.premiumRate.ct !== null && letter?.premiumRate.ct !== ''}">
@@ -191,9 +186,9 @@
                                     <span class="font-weight-bold">
                             {{ finalDateOfExpiry }}
                         </span> मा हुनेछ ।
-                                </td>
+                                    </span>
                             </tr>
-                            <tr>
+                            <tr *ngIf="this.letter.loanType.en === 'BankGuarantee'">
                                 <td>
                                     ख.
                                 </td>
@@ -204,9 +199,9 @@
                                         </span>।
                                         (अक्षरेपी रु <span class="unicodeResize">{{ nepaliCurrencyWordPipe.transform(proposedAmount) }}</span> मात्र)
                                         सुरक्षणः </strong> बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee)
-                                    <strong> धरौटी: </strong> <!-- नगद १००% धरौती स्वरुप रहनेछ (In case 100% cash margin)
-                                    / नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती(In case 10% cash margin and Lien on TD/current
-                                    ac/ saving ac ) --> स्वरुप नबिल बैंकमा रहेको श्री
+                                    <strong> धरौटी: </strong> <span *ngIf="this.letter.HundredCashMargin.en"> नगद १००% धरौती स्वरुप रहनेछ </span>
+                                    <span *ngIf="this.letter.TenCashMargin.en">नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती
+                                        स्वरुप नबिल बैंकमा रहेको श्री </span>
                                     <span [ngClass]="{'font-weight-bold': letter?.TdHolder.ct !== null && letter?.TdHolder.ct !== ''}">
                                             {{letter?.TdHolder.ct === null || letter?.TdHolder.ct === "" ? "___________" : letter?.TdHolder.ct}}
                                         </span>
@@ -226,13 +221,13 @@
                                     </strong>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="this.letter.loanType.en === 'IrrevocableLetterofCreditFacility'">
                                 <td>
                                     ग)
                                 </td>
-                                <td>
-                                    <!-- पटके  For one off basis /नियमित For regular --> <strong> अपरिवर्तनीय प्रतित पत्र सुविधा
-                                    (Irrevocable letter of credit facility) </strong><br>
+                                <td *ngIf="this.letter.OneOff.en">पटके <span *ngIf="this.letter.Regular.en">नियमित </span><strong> अपरिवर्तनीय प्रतित पत्र सुविधा
+                                    पत्र सुविधा
+                                    (Irrevocable letter of credit facility)  </strong><br>
                                     <strong> सीमाः रु <span class="font-weight-bold">
                                             {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                         </span>।
@@ -240,9 +235,10 @@
                                     </strong>
                                     <strong> सुरक्षणः </strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित पत्र मूल्यको ११०% बिमालेख सहित सम्बन्धित
                                     प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
-                                    <strong> धरौटीः </strong> <!-- नगद १००% धरौती स्वरुप रहनेछ (If loan against 100% cash margin) / १००% धरौती
-                                    स्वरुप नबिल बैंकमा रहेको श्री (Name/s of TD or a/c holder/s) को (If loan against 100% Lien on TD/current a/c
-                                    saving ac) मुद्धती (Lien against TD) /चल्ति (Lien against Current a/c)/ बचत (Lien against saving a/c) -->
+                                    <strong *ngIf="this.letter.CashMarginHundred.en"> धरौटीः धरौटीः  नगद १००% धरौती स्वरुप रहनेछ (If loan against 100% cash margin)</strong>
+                                    <span *ngIf="this.letter.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री (Name/s of TD or a/c holder/s) को (If loan against 100% Lien on TD/current a/c
+                                    saving ac)
+                                        मुद्धती (Lien against TD) /चल्ति (Lien against Current a/c)/ बचत (Lien against saving a/c)</span>
                                     खाता नं <span [ngClass]="{'font-weight-bold': letter?.accountNumber.ct !== null && letter?.accountNumber.ct !== ''}">
                                             {{letter?.accountNumber.ct === null || letter?.accountNumber.ct === "" ? "___________" : letter?.accountNumber.ct}}
                                         </span> उपर बैंकको ग्रहणाधिकार (ष्भिल) कायम गरी दिनु पर्नेछ ।<br>
@@ -253,7 +249,7 @@
                                         % का दरले वा कम्तिमा रु.<span [ngClass]="{'font-weight-bold': letter?.miniumComissionAmount.ct !== null && letter?.miniumComissionAmount.ct !== ''}">
                                             {{letter?.miniumComissionAmount.ct === null || letter?.miniumComissionAmount.ct === "" ? "___________" : letter?.miniumComissionAmount.ct}}
                                         </span> । - लाग्नेछ ।
-                                    <strong> कमिसनः  पहिलो त्रैमासका लागि </strong><span [ngClass]="{'font-weight-bold': letter?.comissionRateFirstQuarter.ct !== null && letter?.comissionRateFirstQuarter.ct !== ''}">
+                                    <strong *ngIf="this.letter.CommissionType2.en"> कमिसनः  पहिलो त्रैमासका लागि </strong><span [ngClass]="{'font-weight-bold': letter?.comissionRateFirstQuarter.ct !== null && letter?.comissionRateFirstQuarter.ct !== ''}">
                                             {{letter?.comissionRateFirstQuarter.ct === null || letter?.comissionRateFirstQuarter.ct === "" ? "___________" : letter?.comissionRateFirstQuarter.ct}}
                                         </span>  % का दरले र त्यस पछिका त्रैमासहरुमा
                                     <span [ngClass]="{'font-weight-bold': letter?.comissionRateOthersQuarter.ct !== null && letter?.comissionRateOthersQuarter.ct !== ''}">
@@ -272,16 +268,18 @@
                         <strong> सुरक्षण विवरणः </strong><br>
                         <strong> क. प्राथमिक सुरक्षण (Primary Security) </strong>
                         <ol class="condtions-list order-list">
-                            <li>
+                            <li *ngIf="this.letter.loanType.en === 'BankGuarantee'">
                                 काउण्टर जमानत (General Counter Guarantee):<br> <!--Application for guarantee facility required: -->
-                                बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) लेखिदिनुपर्नेछ (If new counter guarantee is
-                                to be obtained) / लेखिदिनुभएको यथावत कायम रहनेछ (Id existing guarantee is continued) ।
+                                बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) <span *ngIf="New">लेखिदिनुपर्नेछ </span>
+                                <span *ngIf="Existing"> लेखिदिनुभएको यथावत कायम रहनेछ </span> ।
                             </li>
                             <li>
-                                <strong> ग्रहणाधिकार (Lien): </strong> <!-- Application only if TD or deposit or National Bond Debentrue is required as primary security -->
+                                <strong> ग्रहणाधिकार (Lien): </strong>
+                                <!-- Application only if TD or deposit or National Bond Debentrue is required as primary security -->
                                 For TD
                                 नबिलक्ष (If TD is of Nabil Bank) / (other bank name If TD is other bank) बैंकद्धारा
-<!--                                जारी गरिएको  ............. को नाममा रहेको कम्तिमा रु <span [ngClass]="{'font-weight-bold': letter?.amount.ct !== null && letter?.amount.ct !== ''}">-->
+                                जारी गरिएको  ............. को नाममा रहेको कम्तिमा रु
+<!--                                <span [ngClass]="{'font-weight-bold': letter?.amount.ct !== null && letter?.amount.ct !== ''}">-->
 <!--                                            {{letter?.amount.ct === null || letter?.amount.ct === "" ? "___________" : letter?.amount.ct}}-->
 <!--                                        </span>-->
                                 बराबरको मुद्धती रसिद/हरु उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न सक्ने अधिकार सहितको मोजरापत्र
@@ -290,7 +288,8 @@
                                 AND/OR
                                 For Deposit-Saving/Current/Call a/c<br>
                                 नबिल बैंकमा खोलिएको (Name of account holder(Free-text)) को नाममा रहेको चल्ति (Current) / बचत (Saving)
-<!--                                / कल (Call) खाता नं. (A/C Number (Free-text) Required) मा रहेको मौज्दात रु <span [ngClass]="{'font-weight-bold': letter?.amount.ct !== null && letter?.amount.ct !== ''}">-->
+                                / कल (Call) खाता नं. (A/C Number (Free-text) Required) मा रहेको मौज्दात रु
+<!--                                <span [ngClass]="{'font-weight-bold': letter?.amount.ct !== null && letter?.amount.ct !== ''}">-->
 <!--                                            {{letter?.amount.ct === null || letter?.amount.ct === "" ? "___________" : letter?.amount.ct}}-->
 <!--                                        </span>-->
                                 बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको मोजरापत्र (Letter-of Set-off)
@@ -360,7 +359,7 @@
                                         </span> मात्र)
                             भन्दा बढी हुनु हुनेछैन । <!-- Total limit -->
                             <!-- Condition -->
-                            १. माथि उल्लिखित ऋणकर्जा सुविधा र यस अघि मिति वि.सं <span [ngClass]="{'font-weight-bold': letter?.dateOfApplication.ct !== null && letter?.dateOfApplication.ct !== ''}">
+                            <span *ngIf="this.letter.loanOption.en === 'EXISTING'"> १. माथि उल्लिखित ऋणकर्जा सुविधा र यस अघि मिति वि.सं <span [ngClass]="{'font-weight-bold': letter?.dateOfApplication.ct !== null && letter?.dateOfApplication.ct !== ''}">
                                             {{letter?.dateOfApplication.ct === null || letter?.dateOfApplication.ct === "" ? "___________" : letter?.dateOfApplication.ct}}
                                         </span>
                             को ऋण स्वीकृती पत्रानुसार स्वीकृत ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु <span [ngClass]="{'font-weight-bold': letter?.totalLimitInFigure.ct !== null && letter?.totalLimitInFigure.ct !== ''}">
@@ -370,6 +369,7 @@
                                             {{letter?.totalLimitInWords.ct === null || letter?.totalLimitInWords.ct === "" ? "___________" : letter?.totalLimitInWords.ct}}
                                         </span> मात्र)
                             भन्दा बढी हुनु हुनेछैन । <!-- For Existing Loan Customer -->
+                            </span>
                         </p>
                         <p>
                             २.  माथि बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा कथमकदाचित बढी रकम उपयोग गरेमा वा उपयोग हुन गएमा त्यस्तो बढी
@@ -403,16 +403,16 @@
                             समय समयमा तोकेको दरले थप हर्जाना व्याज लाग्नेछ ।
                         </p>
                         <!-- Condition -->
-                        <p>
+                        <p *ngIf="this.letter.ForAllLoan.en || this.letter.ForSpecificLoanOnly.en">>
                             <strong> २. ऋण प्रशासनिक शुल्कः </strong> <!-- Application incase service charge has been purpose -->
-                            ऋण प्रशासनिक शुल्क बापत रु
+                            <span *ngIf="this.letter.ForAllLoan.en"> ऋण प्रशासनिक शुल्क बापत रु
                             <span [ngClass]="{'font-weight-bold': letter?.serviceChargeFigure.ct !== null && letter?.serviceChargeFigure.ct !== ''}">
                                             {{letter?.serviceChargeFigure.ct === null || letter?.serviceChargeFigure.ct === "" ? "___________" : letter?.serviceChargeFigure.ct}}
                                         </span>।-
                             (अक्षरेपी रु  <span [ngClass]="{'font-weight-bold': letter?.serviceChargeWords.ct !== null && letter?.serviceChargeWords.ct !== ''}">
                                             {{letter?.serviceChargeWords.ct === null || letter?.serviceChargeWords.ct === "" ? "___________" : letter?.serviceChargeWords.ct}}
                                         </span>मात्र)
-                            वा स्वीकृत <span [ngClass]="{'font-weight-bold': letter?.detailOfFacility.ct !== null && letter?.detailOfFacility.ct !== ''}">
+                            </span> स्वीकृत <span [ngClass]="{'font-weight-bold': letter?.detailOfFacility.ct !== null && letter?.detailOfFacility.ct !== ''}">
                                             {{letter?.detailOfFacility.ct === null || letter?.detailOfFacility.ct === "" ? "___________" : letter?.detailOfFacility.ct}}
                                         </span> कर्जाको <span [ngClass]="{'font-weight-bold': letter?.serviceChargeInPerc.ct !== null && letter?.serviceChargeInPerc.ct !== ''}">
                                             {{letter?.serviceChargeInPerc.ct === null || letter?.serviceChargeInPerc.ct === "" ? "___________" : letter?.serviceChargeInPerc.ct}}
@@ -426,7 +426,7 @@
                     </div>
 
                     <!-- Condition (Application for OD only) -->
-                    <div class="col-md-12">
+                    <div class="col-md-12" *ngIf="this.letter.loanOption.en === 'Overdraft'">
                         व्याज सम्बन्धी शर्तहरुः
                         १.	हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट (Website) तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार
                         दर (Quarterly Average Base Rate ) प्रकाशित गरिनेछ । यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित हुने पछिल्लो त्रैमासिक औसत आधार दर ( Quarterly Average Base Rate )
@@ -441,7 +441,7 @@
                     </div>
 
                     <!-- Condition(Application incase of LC facility is purpose) -->
-                    <div class="col-mid-12">
+                    <div class="col-mid-12" *ngIf="this.letter.loanOption.en === 'Irrevocable Letter of Credit Facility'">>
                         ऋण तथा सुबिधाहरु सम्बन्धित शर्तहरु
                         प्रतित पत्र सुविधाः<br>
                         १. 	सम्पूर्ण प्रतित पत्र र अन्य आवेदनहरुमा तपाईंको आधिकारिक हस्ताक्षरवाला(हरु)ले हस्ताक्षर   गर्नुपर्नेछ ।<br>
@@ -469,7 +469,7 @@
                     </div>
 
                     <!-- Condition(Application incase of one-off facility) -->
-                    <div class="cold-md-12">
+                    <div class="cold-md-12" *ngIf="this.letter.OneOff.en">
                         पटके कर्जा/सुविधा (Applicable incase of one-off facility)
                         १. <span [ngClass]="{'font-weight-bold': letter?.tenureFacility.ct !== null && letter?.tenureFacility.ct !== ''}">
                                             {{letter?.tenureFacility.ct === null || letter?.tenureFacility.ct === "" ? "___________" : letter?.tenureFacility.ct}}
@@ -477,13 +477,13 @@
                     </div>
 
                     <!-- Condition(Applicable incase of bank guarantee facility only) -->
-                    <div class="cold-md-12">
+                    <div class="cold-md-12" *ngIf="this.letter.loanOption.en === 'BankGuarantee'">>
                         बैंक जमानत सुविधा Applicable (incase of bank guarantee facility only)
                         १.	सम्पूर्ण बैंक जमानत सुविधा आवेदन र अन्य कागजातहरुमा तपाईंको आधिकारिक हस्ताक्षरवाला(हरु)ले हस्ताक्षर गर्नुपर्नेछ ।
                     </div>
 
                     <!-- Condition(Applicable incase security is purpose as fixed deposit) -->
-                    <div class="cold-md-12">
+                    <div class="cold-md-12" *ngIf="this.letter.FixedDeposit.en">
                         मुद्दती रसिद/राष्ट्रिय बचत पत्र/ऋणपत्र सुरक्षण (Applicable incase security is purpose as Fixed deposit)
                         १. धितोे सुरक्षणमा रहेका मुद्दती रसिद लागायत अन्य कागजात FOR OD लागायत अन्य औजार FOR LC ऋकोहकमा सो रसिद समयमै नविकरण
                         गरी सक्कल रसिद बैंकलाई हस्तान्तरण गर्नुपर्नेछ ।For Gtee Red color font not required
@@ -571,26 +571,26 @@
                                 माथि उल्लिखित स्वीकृत ऋणकर्जा सुविधाको सीमाहरु अप्रतिबद्ध सीमाहरु हुन् र तपाईंलाई पूर्व सूचना दिई वा नदिई सो
                                 ऋणकर्जा सुविधाहरुको सम्पुर्ण कर्जा सुविधा सीमा वा उपयोग नगरिएका अंशहरु रोक्न/रद्ध गर्न/निलम्बन गर्न र घटाउन बैंकको अधिकार सुरक्षित रहनेछ ।
                             </li>
-                            <li>
+                            <li *ngIf="!isNatural">
                                 बैकबाट जुन प्रयोजनार्थ ऋणकर्जा सुबिधा प्रवाह गरीएको हो सोमा प्रयोग नगरी अन्य उद्देश्यमा प्रयोग
                                 गर्ने ९म्ष्खभचकष्यल या ँगलम०, व्यवसायबाट आर्जित रकम ऋण तिर्नमा नलगाई अन्य कार्यमा प्रयोग गर्ने ९क्ष्उजयलष्लन याा०,
                                 अन्य सम्पत्ति सिर्जना गर्ने, अल्पकालीन कर्जाबाट दीर्घकालीन उपयोग गर्ने तथा सहायक कम्पनी वा अन्य फर्ममा ऋण तथा
                                 पूजी साधन प्रवाह गर्न जस्ता कार्य गर्न पाइनेछैन ।
                                 <!--                                Not applicable if borrower is natural person-->
                             </li>
-                            <li>
+                            <li *ngIf="!isNatural">
                                 ऋणीले आर्थिक बर्ष समाप्त भएको तिनमहिना भित्र आफ्नोे व्यवसायको लेखापरिक्षण भएको बार्षिक वासलात र नाफा नोक्सान एवं नगद प्रवाह हिसाब बैंकमा पेश गर्नु पर्नेछ ।
                                 <!--                                Not applicable if borrower is natural person-->
                             </li>
-                            <li>
+                            <li *ngIf="!isNatural">
                                 बैंकको पूर्व सहमति बेगर तपाईंको व्यवसायमा संचित रहेको नाफा, जगेडा कोष र संचालकहरुबाट प्राप्त कर्जा निकाल्न र चुक्ता भुक्तान गर्न पाईनेछैन ।
                                 <!--                                Not applicable if borrower is natural person-->
                             </li>
-                            <li>
+                            <li *ngIf="!isNatural">
                                 कम्पनीले आर्थिक अवस्था सुधार्नको लागि स्वलगानी थप्नु पर्ने अवस्था भएमा सोही अनुसार आवश्यक पुँजी जुटाई वा स्वलगानी थपी बैंकलाई स्विकार्य हुने अवस्थामा ल्याउनुपर्नेछ ।
                                 <!--                                Not applicable if borrower is natural person-->
                             </li>
-                            <li>
+                            <li *ngIf="!isNatural">
                                 बैंकको लिखित सहमति बेगर ऋणी फर्म/कम्पनीको स्वामित्व, शेयर संरचनामा परिवर्तन, शेयर विक्रि वा नामसारी गर्न पाईने छैन र बैंकको सहमति
                                 बेगर स्वामित्व संरचनामा परिवर्तन वा नामसारी गरेमा यस ऋण सुविधा स्वीकृति पत्रको उल्लंघन भएको मानिनेछ ।
                                 <!--                                Not applicable if borrower is natural person-->
@@ -631,9 +631,9 @@
                         ७. प्रचलित ऐन, नियम, नेपाल राष्ट्र बंैकको निर्देशन तथा यस बैंकको निति, नियम तथा तिनमा समय समयमा हुने संशोधन सहितको शर्तहरु पालना गर्न ऋणी/ऋणी फर्म/ऋणी
                         कम्पनी/ऋणी संस्था मँजुर गर्नुका साथै माथि उल्लिखित सम्पुर्ण समेतबाट स्वीकृत ऋणकर्जा बैंकिङ सुविधा प्रशासित तथा सँचालित हुने कुरामा समेत/ऋणी/ऋणी
                         फर्म/ऋणी कम्पनी/ऋणी संस्था मँजुर गर्दछ ।<br>
-                        ८. तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण गर्ने दायित्व ऋणी फर्मका प्रोप्राईटर/साझेदारहरुको हुनेछ र नविकरण पश्चात
+                        <span *ngIf="this.loanHolderInfo.subCustomerType !== 'PRIVATE_PUBLIC'"> ८. तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण गर्ने दायित्व ऋणी फर्मका प्रोप्राईटर/साझेदारहरुको हुनेछ र नविकरण पश्चात
                         सोको प्रतिलिपि यस बैंकमा पेश गर्नु पर्नेछ । दर्ता प्रमाणपत्रको अवधि समाप्त भएका फर्मको ऋणकर्जा सुविधा स्वीकृत/नविकरण हुनेछैन र साथै तहांले उपभोग गर्दै
-                        आउनुभएका सम्पूर्ण ऋण कर्जा सुविधाहरु दर्ता नविकरण नभएका कारण फिर्ता भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
+                            आउनुभएका सम्पूर्ण ऋण कर्जा सुविधाहरु दर्ता नविकरण नभएका कारण फिर्ता भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।</span>
                         <!--                        (Not applicable of Pvt ltd company)-->
                     </div>
                     <br>
@@ -642,22 +642,45 @@
                         <p><strong> कागजपत्रहरु </strong></p>
                         ऋणीले बैंकको <span class="font-weight-bold">{{ branchName }}</span> शाखामा सम्पर्क राखी देहाय बमोजिमका कर्जा सम्बन्धी कागजपत्रहरु सहीछाप गर्नु पर्नेछ ।
                         साथै माथि उल्लिखित कर्जा सुविधाहरु प्रवाह गर्नको लागि आवश्यक निवेदन तथा अन्य कागजातहरु बैंकमा पेश गर्नुपर्नेछ ।
-                        शेयरधनी तथा संचालकको निर्णय (Board Resolution)
+                       <li>
+                           शेयरधनी तथा संचालकको निर्णय (Board Resolution)
+                       </li>
+                        <li>
                         आधिकारीक हस्ताक्षरवालाबाट हस्ताक्षरित प्रतित पत्र र आवश्यक ने.रा.बैं.को बि. बि. नि. आवेदन फाराम ।
-                        काउण्टर जमानी सम्बन्धी सम्झौता (General Counter Guarantee)स्वीकृत सुविधाहरु र अवधी समाप्त हुने/भएका मुद्धति रसिदहरु स्वतः नविकरणका
+                        </li>
+                       <li *ngIf="loanType=== 'BankGuarantee'"> काउण्टर जमानी सम्बन्धी सम्झौता (General Counter Guarantee)स्वीकृत सुविधाहरु र अवधी समाप्त हुने/भएका मुद्धति रसिदहरु स्वतः नविकरणका
                         लागि मुद्धति रसिद धनीहरुको मंजुरीनामा (Consent Letter from benecificary of FD holding for auto renewal)
+                       </li>
                         <!--                        Applicable for Guarantee-->
+                        <li *ngIf="loanType === 'Overdraft'">
                         श्री ...........................द्धारा श्री ....................को नाममा जारी गरिएको सक्कल	मुद्धती रसिदहरु लागायत अन्य कागजात(Applicable for od)
                         (Fixed Deposit Receipts)
+                        </li>
                         <!--                        Applicable of Loan against TD-->
+                        <li>
+                            मोजरा पत्र (Letter of set off)
+                        </li>
+                        <li class="row col-md-12" style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
+                          <!--      <textarea
+                                        class="form-control customFont nepaliFont"
+                                        rows="3"
+                                        style="width: inherit;margin-left:-6em;margin-top: 2em"
+                                        name="additionalGuarantorDetails"
+                                        formControlName="additionalGuarantorDetails">
+                                        </textarea>-->
+
+                        </li>
                     </div>
                     <br>
 
                     <!-- Condition(Not required in ew case) -->
                     <div class="col-md-12">
                         <p><strong> साक्षीः </strong></p>
-                        यस अघि विभिन्न मितिका ऋणस्वीकृति पत्रमा उल्लिखित ऋणकर्जा सुविधा सम्बन्धमा बैंकको पक्षमा गरिदिएका सम्पूर्ण सुरक्षण कागजपत्रहरु तथा सोमा उल्लिखित शर्त
-                        बन्देजहरु मान्य र बैध रहनेछन् ।
+                        <div *ngIf="this.letter.loanOption.en !== 'NEW'">यस अघि विभिन्न मितिका ऋणस्वीकृति पत्रमा
+                            उल्लिखित ऋणकर्जा सुविधा सम्बन्धमा बैंकको पक्षमा गरिदिएका सम्पूर्ण सुरक्षण कागजपत्रहरु तथा
+                            सोमा उल्लिखित शर्त
+                            बन्देजहरु मान्य र बैध रहनेछन् ।
+                        </div>
 <!--                        Not required in new case-->
                         यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको प्रतिलिपीमा तपाईंको मञ्जुरी सहीछाप गरी बैंकमा
                         फिर्ता बुझाउनु पर्नेछ । अन्यथा यो प्रस्ताव स्वतः रद्द हुनेछ । साथै, तपाईले यो ऋण स्वीकृति पत्रमा मञ्जुरी जनाएको मितिले ६० (साठ्ठी) दिनभित्र यस ऋण
@@ -673,10 +696,10 @@
                             <p>
                                 <span [ngClass]="{'nepaliFont num' : letter?.nameOfRelationalManager!== null && letter?.nameOfRelationalManager!== ''}">
             {{letter?.nameOfRelationalManager === null || letter?.nameOfRelationalManager === '' ? '___________' : letter?.nameOfRelationalManager}}</span>
-                                नबिल बैंक लि. <br>
+                                <br>
                                 <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
             {{letter?.branchName === null || letter?.branchName === '' ? '___________' : letter?.branchName}}</span>
-                                शाखा
+
                             </p>
                         </div>
 
@@ -705,11 +728,19 @@
                         जानकारी गराई उल्लिखित शर्तबन्देजहरु पालना नगरेमा वा अन्य सुरक्षण कागजपत्रमा उल्लिखित शर्तबन्देजहरु उल्लंघन गरेमा बैंकले माग गर्नासाथ र बैंकले दिएको समयमा भुक्तानी नगरिएको
                         अवस्थामा नेपाल राष्ट्र बैंक, कर्जा सूचना केन्द्र लिमिटेडको कालोसूची व्यवस्था बमोजिम निजहरुलाई समेत कालोसूचीमा राख्ने मन्जुरी रहेकोे छ ।
                         बैंकको पूर्व सहमति बेगर ऋणकर्जा सुविधाहरुको सम्पूर्ण बाँकी चुक्ता भुक्तान नभएसम्म फर्म/कम्पनीको स्वामित्व परिवर्तन र नामसारी गर्ने छैन/छैनौं ।
-                        म/हामीले बैंकले माग गर्ना साथ र बैंकले दिएको समयमा भुक्तानी नगरिएको अवस्थामा नेपाल राष्ट्र बैंक, कर्जा सूचना केन्द्र लिमिटेडको कालोसूची व्यवस्था बमोजिम म/हामीलाई
-                        कालोसूची व्यवस्था र सोको प्रभाव सम्बन्धी पूर्ण जानकारी सहित बैंकले कालोसूचीमा राख्ने निर्णय गरेमा स्वीकार्छु/छौं । बैंकको उक्त निर्णय विरुद्ध म/हामीले कहिं कतै उजुर वाजुर गर्ने छैन ।
-                        यदि बैंकको निर्णय बिरुद्ध उजुर वाजुर गरेमा उक्त उजुरीबाट उत्पन्न हुने दायित्व र परिणाम म/हामीले नै उठाउने जिम्मेवारी लिन्छु/छौं । यदि मेरो/हाम्रो मृत्यु भएमा वा बहुलाएमा बैंकको सम्पूर्ण
-                        लेना सहितको दायित्व मेरो/हाम्रो हकवालाहरुलाई उत्तरदायी हुन शिक्षित गरी बहन गर्न म/हामी जिम्मेवारी लिन्छु/छौं ।<br>
-<!--                        Applicable only for natural person-->
+
+                        <div *ngIf="!isNatural"> म/हामीले बैंकले माग गर्ना साथ र बैंकले दिएको समयमा भुक्तानी नगरिएको
+                            अवस्थामा नेपाल राष्ट्र बैंक, कर्जा सूचना केन्द्र लिमिटेडको कालोसूची व्यवस्था बमोजिम
+                            म/हामीलाई
+                            कालोसूची व्यवस्था र सोको प्रभाव सम्बन्धी पूर्ण जानकारी सहित बैंकले कालोसूचीमा राख्ने निर्णय
+                            गरेमा स्वीकार्छु/छौं । बैंकको उक्त निर्णय विरुद्ध म/हामीले कहिं कतै उजुर वाजुर गर्ने छैन ।
+                            यदि बैंकको निर्णय बिरुद्ध उजुर वाजुर गरेमा उक्त उजुरीबाट उत्पन्न हुने दायित्व र परिणाम
+                            म/हामीले नै उठाउने जिम्मेवारी लिन्छु/छौं । यदि मेरो/हाम्रो मृत्यु भएमा वा बहुलाएमा बैंकको
+                            सम्पूर्ण
+                            लेना सहितको दायित्व मेरो/हाम्रो हकवालाहरुलाई उत्तरदायी हुन शिक्षित गरी बहन गर्न म/हामी
+                            जिम्मेवारी लिन्छु/छौं ।
+                        </div><br>
+                       <!-- Applicable only for natural person-->
                         २.	म/हामी माथि उल्लिखित शर्तबन्देजहरु पूर्ण स्वीकार गर्दछु/छौं ।<br>
                         ३.	म/हामीलाई पूर्व जानकारी सहित वा जानकारी बेगर कुनै वा सम्पूर्ण ऋणकर्जा सीमा जुनसुकै समयमा रद्ध गर्न त्यस बैंकको अधिकार रहने कुरामा मेरो/हाम्रो स्वीकृति छ ।<br>
                         बैंकले माग गर्नासाथ सम्पूर्ण बाँकी रकम, उपार्जित ब्याज र शुल्कहरु समेत भुक्तानी गर्न म/हामी जिम्मेवारी लिन्छु/छौं ।<br>
