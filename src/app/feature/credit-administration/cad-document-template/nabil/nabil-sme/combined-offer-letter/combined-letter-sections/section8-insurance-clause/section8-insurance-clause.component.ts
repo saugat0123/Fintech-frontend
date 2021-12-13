@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
 
@@ -7,27 +7,41 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/cust
   templateUrl: './section8-insurance-clause.component.html',
   styleUrls: ['./section8-insurance-clause.component.scss']
 })
-export class Section8InsuranceClauseComponent implements OnInit {
+export class Section8InsuranceClauseComponent implements OnInit, OnChanges {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   tempData;
   trustReceiptVisible;
-  form;
-  insuranceVisible = false;
+  acceptance;
+  autoLoanVisible;
+  stockInsurance: boolean;
+  buildingInsurance: boolean;
+  insuranceVisible: boolean;
   constructor() { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const securities = this.tempData.securities;
+  }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
-    const trustReceipt = this.tempData.importLoanTrust;
     const securities = this.tempData.securities;
-    if (securities.primarySecurity.filter(s => s.insuranceRequired === true).length > 0
-        || securities.secondarySecurity.filter(s => s.insuranceRequired === true).length > 0
+    this.trustReceiptVisible = this.tempData.importLoanTrust;
+    this.acceptance = this.tempData.timeLetterCreditForm;
+    this.autoLoanVisible = this.tempData.termLoanForm;
+    if (securities.primarySecurity.some(s => s.insuranceRequired === true)
+        || securities.secondarySecurity.some(s => s.insuranceRequired === true)
     ) {
       this.insuranceVisible = true;
     }
-    if (trustReceipt.selected) {
-      this.trustReceiptVisible = true;
+    if (securities.primarySecurity.some(s => s.securityType === 'LAND_AND_BUILDING' && s.insuranceRequired === true)
+    || securities.secondarySecurity.some(s => s.securityType === 'LAND_AND_BUILDING' && s.insuranceRequired === true)) {
+      this.buildingInsurance = true;
+    }
+    if (securities.primarySecurity.some(s => s.securityType === 'HYPOTHECATION' && s.insuranceRequired === true)
+    || securities.secondarySecurity.some(s => s.securityType === 'HYPOTHECATION' && s.secondarySecurity === true)) {
+      this.stockInsurance = true;
     }
   }
 

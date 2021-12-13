@@ -1,6 +1,6 @@
 <div class="text-justify nep">
     <form>
-        <div class="service-contions mt-5">
+        <div class="service-contions mt-5" *ngIf="insuranceVisible">
             <!--Applicable incase of insurance required-->
             <p><strong>बिमा सम्बन्धी शर्तहरु : </strong></p>
             <div class="row">
@@ -8,7 +8,7 @@
                     <ol class="conditions-list orderd-list font-weight-bold">
                         <li>
                             <!--Applicable incase of TR/Acceptance facility-->
-                            <p>
+                            <p *ngIf="this.trustReceiptVisible.selected || this.acceptance.selected">
                                 ऋणीले आगलागी, भुकम्प, दंगा/हड्ताल जस्ता जोखिमबाट हुने क्षति, दुर्भावनापूर्ण क्षति र
                                 आतंकवाद आदी जस्ता जोखिमहरु बाट सुरक्षित गरीएको "बैंकिङ्ग शर्त" (Bankers Clause)
                                 सहितको माथि उल्लिखित आयात कर्जा/ग्राहक स्वीकृति/बिल्स डिस्काउन्टिङ्ग सुविधाका लागि
@@ -19,7 +19,7 @@
 
                         <li>
                             <!--Applicable incase of auto loan/term loan to purchase of Vehicle-->
-                            <p>
+                            <p *ngIf="this.autoLoanVisible.selected">
                                 तपाईले सवारी साधन कर्जाबाट खरिद गरिएको/गरिने सवारी साधनको आगलागी, भुकम्प, दंगा हड्ताल
                                 जस्ता जोखिमबाट हुने क्षति, दुर्भावनापूर्ण क्षति, आतंकवाद आदि जस्ता जोखिमहरु र तेस्रो
                                 पक्षको बिमा सहितको व्यापक (Comprehensive)
@@ -31,7 +31,7 @@
                         <!-- Applicable incase of building insurance required-->
 
                         <li>
-                            <p>
+                            <p *ngIf="buildingInsurance">
                                 ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद आदी
                                 जस्ता जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण स्वरुप
                                 धितोेबन्धक रहेको घरका लागि बैंकको
@@ -43,7 +43,7 @@
 
                         <li>
                             <!--Applicable incase of stock insurance required-->
-                            <p>
+                            <p *ngIf="stockInsurance">
                                 ऋणीले आफ्नोे खर्चमा आगलागी, सेधमारी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद
                                 आदी जस्ता जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण
                                 स्वरुप धितोेबन्धक (Hypothecation) मा
