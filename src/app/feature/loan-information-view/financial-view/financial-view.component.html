@@ -66,20 +66,19 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="2"><strong>Total EMI of client including present proposal</strong></td>
+                <td class="text-left pl-1" colspan="2"><strong>Total EMI/EQI of client including present proposal</strong></td>
                 <td colspan="2" class="text-right pr-1">
                     <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>
                 </td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="2"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
-                    : 'EMI / Gross Monthly Income'}}</strong></td>
+                <td class="text-left pl-1" colspan="2"><strong>EMI/EQI/Gross Monthly Income</strong></td>
                 <td colspan="2" class="text-right pr-1">
                     <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
                 </td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="2"><strong>EMI / Net Monthly Income</strong></td>
+                <td class="text-left pl-1" colspan="2"><strong>EMI/EQI/Net Monthly Income</strong></td>
                 <td colspan="2" class="text-right pr-1">
                     <strong>{{financialData?.initialForm?.emiNetMonthly}}</strong>
                 </td>
