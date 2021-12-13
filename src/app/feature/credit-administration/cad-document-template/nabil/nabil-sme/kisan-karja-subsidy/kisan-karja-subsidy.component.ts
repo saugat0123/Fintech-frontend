@@ -52,7 +52,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     freeTextVal: any = {};
     freeInformation: any;
     finalName;
-    guarantorNames;
+    guarantorNames: Array<any> = new Array<any>();
     allguarantorNames;
     customerSubType = CustomerSubType;
 
@@ -366,12 +366,15 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             for (let i = 0; i < this.guarantorData.length - 1; i++) {
                 if (this.guarantorData[i].guarantorType === 'Personal Guarantor') {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
+                    console.log(temp);
                     this.guarantorNames.push(temp.guarantorName.ct);
                     // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
                 } else {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
+                    console.log(temp);
                     this.guarantorNames.push(temp.authorizedPersonName.ct);
                 }
+
             }
             // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
             this.allguarantorNames = this.guarantorNames.join(' , ');
