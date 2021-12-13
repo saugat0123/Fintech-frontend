@@ -46,8 +46,6 @@ export class Section2LoanTypeComponent implements OnInit {
     isBillPurchase = false;
     // SME Global Form
     hypothecationGlobal;
-    interestSubsidyAg;
-    mortgageTypeGlobal;
     // Irrevocable letter of credit facility
     loanOptionIrrevocable; commissionTypeIrrevocable; complementaryOtherIrrevocable = false;
     // Customer Acceptance for Time Letter of Credit
@@ -55,19 +53,20 @@ export class Section2LoanTypeComponent implements OnInit {
     // Import Bills Discounting
     loanOptionBillDiscounting; complementaryOtherBillDiscounting = false;
     // Import Loan/ Trust Receipt Loan
-    loanOptionImportLoanTrust; complementaryOtherImportLoanTrust = false;
+    loanOptionImportLoanTrust; complementaryOtherImportLoanTrust = false; interestSubsidyAgImportLoanTrust;
     // Revolving/One off basis Short Term Loan
     loanRevolvingBasisShortTermLoan; loanOptionShortTermLoan; complementaryOtherShortTermLoan = false; arFinancingShortTermLoan = false;
+    interestSubsidyAgShortTermLoan;
     // Demand Loan for working capital
-    complementaryOtherDemandLoan = false; arFinancingDemandLoan = false;
+    complementaryOtherDemandLoan = false; arFinancingDemandLoan = false; interestSubsidyAgDemandLoan;
     // Pre- Export Loan
     complementaryOtherPreExportLoan = false;
     // Documentary Bill Purchase/Negotiation
     complementaryOtherDocumentaryBill = false;
     // Overdraft Loan for Working Capital requirement
-    arFinancingOverdraftLoanWorking = false;
+    arFinancingOverdraftLoanWorking = false; interestSubsidyAgOverdraftLoanWorking;
     // Mortgage Overdraft/ Other Overdraft/ Equity Mortgaged Overdraft
-    loanSubTypeEquityMortgage; drawingBasisEquityMortgage;
+    loanSubTypeEquityMortgage; drawingBasisEquityMortgage; mortgageTypeEquityMortgage; interestSubsidyAgEquityMortgage;
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
                 private currencyFormatPipe: CurrencyFormatterPipe,
@@ -83,8 +82,6 @@ export class Section2LoanTypeComponent implements OnInit {
             this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
             this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
             this.hypothecationGlobal = this.tempData.smeGlobalForm.hypothecation;
-            this.interestSubsidyAg = this.tempData.smeGlobalForm.subsidyOrAgricultureLoan;
-            this.mortgageTypeGlobal = this.tempData.smeGlobalForm.mortgageType;
             this.getLoanName();
             this.checkLoanName();
         }
@@ -306,6 +303,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 if (v === LoanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN && !ObjectUtil.isEmpty(this.tempData.importLoanTrust)) {
                     this.isLoanTrustReceiptLoan = true;
                     this.loanOptionImportLoanTrust = this.tempData.importLoanTrust.loanOption;
+                    this.interestSubsidyAgImportLoanTrust = this.tempData.importLoanTrust.subsidyOrAgricultureLoan;
                     if (this.tempData.importLoanTrust.complementryOther === true) {
                         this.complementaryOtherImportLoanTrust = true;
                     }
@@ -315,6 +313,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.isRevolvingShortTermLoan = true;
                     this.loanOptionShortTermLoan = this.tempData.revolvingShortTermLoan.loanOption;
                     this.loanRevolvingBasisShortTermLoan = this.tempData.revolvingShortTermLoan.loanRevolvingBasis;
+                    this.interestSubsidyAgShortTermLoan = this.tempData.revolvingShortTermLoan.subsidyOrAgricultureLoan;
                     if (this.tempData.revolvingShortTermLoan.complementaryOther === true) {
                         this.complementaryOtherShortTermLoan = true;
                     }
@@ -325,6 +324,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 }
                 if (v === LoanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL && !ObjectUtil.isEmpty(this.tempData.demandLoanForm)) {
                     this.isDemandLoanWorkingCapital = true;
+                    this.interestSubsidyAgDemandLoan = this.tempData.demandLoanForm.subsidyOrAgricultureLoan;
                     if (this.tempData.demandLoanForm.complementryOther === true) {
                         this.complementaryOtherDemandLoan = true;
                     }
@@ -351,6 +351,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 if (v === LoanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT &&
                     !ObjectUtil.isEmpty(this.tempData.overdraftLoanForm)) {
                     this.isOverdraftLoanWorkingCapital = true;
+                    this.interestSubsidyAgOverdraftLoanWorking = this.tempData.overdraftLoanForm.subsidyOrAgricultureLoan;
                     if (this.tempData.overdraftLoanForm.arFinancing === true) {
                         this.arFinancingOverdraftLoanWorking = true;
                     }
@@ -361,6 +362,8 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.isEquityMortgageOverdraft = true;
                     this.loanSubTypeEquityMortgage = this.tempData.equityMortgaged.loanSubType;
                     this.drawingBasisEquityMortgage = this.tempData.equityMortgaged.drawingBasis;
+                    this.mortgageTypeEquityMortgage = this.tempData.equityMortgaged.mortgageType;
+                    this.interestSubsidyAgEquityMortgage = this.tempData.equityMortgaged.subsidyOrAgricultureLoan;
                     this.equityMortgageFormPatchValue();
                 }
                 // tslint:disable-next-line:max-line-length
