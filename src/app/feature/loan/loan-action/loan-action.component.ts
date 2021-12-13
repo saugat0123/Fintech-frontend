@@ -49,6 +49,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     status: any;
     docStatus = DocStatus;
     currentUser = LocalStorageUtil.getStorage().roleName.toLowerCase();
+    fileUnder = false;
 
     constructor(
         private alertService: AlertService,
@@ -61,8 +62,12 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.loanFormService.detail(this.id).subscribe((data) => {
-            this.status = data.detail.documentStatus;
+            this.customerLoanHolder = data.detail;
+            if (LocalStorageUtil.getStorage().userId === this.customerLoanHolder.currentStage.toUser.id.toString()) {
+                this.fileUnder = true;
+            }
         });
+        this.status = this.customerLoanHolder.documentStatus;
         const roleName: string = LocalStorageUtil.getStorage().roleName;
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
