@@ -122,11 +122,11 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
   guarantorDetails() {
     if (this.guarantorData.length === 1) {
       const temp = JSON.parse(this.guarantorData[0].nepData);
-      this.finalName =  temp.guarantorName.ct;
+      this.finalName =  temp.authorizedPersonName.ct;
     } else if (this.guarantorData.length === 2) {
       for (let i = 0; i < this.guarantorData.length; i++) {
         const temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
+        this.guarantorNames.push(temp.authorizedPersonName.ct);
         // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
       }
       // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
@@ -135,13 +135,13 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
     } else {
       for (let i = 0; i < this.guarantorData.length - 1 ; i++) {
         const temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
+        this.guarantorNames.push(temp.authorizedPersonName.ct);
         // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
       }
       // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
       this.allguarantorNames = this.guarantorNames.join(' , ');
       const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
-      this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
+      this.finalName =  this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
     }
   }
 
