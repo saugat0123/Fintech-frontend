@@ -23,6 +23,10 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
     translateForm: FormGroup;
     tdValue: any = {};
     arrayForm: any = {};
+    yesNoOptions = [
+        {value: 'Yes'},
+        {value: 'No'}
+    ];
 
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -42,6 +46,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
     buildForm() {
         this.overDraftFacilityForm = this.formBuilder.group({
             bondType: [undefined],
+            subsidyOrAgricultureLoan: [undefined],
             letterOfSetOffUsed: [undefined],
             interestRateType: [undefined],
             nameOfFacility: [undefined],

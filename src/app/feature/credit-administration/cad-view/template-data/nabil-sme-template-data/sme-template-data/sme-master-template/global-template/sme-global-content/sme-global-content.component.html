@@ -6,6 +6,7 @@
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Loan Option</label>
                         <nb-select [multiple]="false" fullWidth placeholder="select loan option"
+                                   (selectedChange)="checkSelectedOptions($event)"
                         formControlName="loanOption" shape="semi-round">
                             <nb-option *ngFor="let loanOption of loanOptions" [value]="loanOption?.value">{{loanOption?.value}}</nb-option>
                         </nb-select>
@@ -163,7 +164,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="!loanOptionsSelected">
                 <div class="col-md-4">
                     <div>
                         <nb-radio-group class="d-inline-flex" formControlName="previousSanctionType"
@@ -192,89 +193,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="ml-1 font-weight-bold">Service charge type</label>
-                        <nb-select [multiple]="false" fullWidth placeholder="select from option"
-                        formControlName="serviceChargeType" shape="semi-round">
-                            <nb-option *ngFor="let type of chargeType" [value]="type?.value">{{type?.value}}</nb-option>
-                        </nb-select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="ml-1 font-weight-bold">Service charge in figure</label>
-                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInFigure" shape="semi-round">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInFigureTrans" shape="semi-round" readonly>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInFigureCT" shape="semi-round">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="ml-1 font-weight-bold">Service charge in words</label>
-                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInWords" shape="semi-round" readonly>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInWordsTrans" shape="semi-round" readonly>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInWordsCT" shape="semi-round">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="ml-1 font-weight-bold">Detail of facility</label>
-                        <input nbInput fullWidth status="success" type="text" formControlName="detailOfFacility" shape="semi-round">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="text" formControlName="detailOfFacilityTrans" shape="semi-round" readonly>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="text" formControlName="detailOfFacilityCT" shape="semi-round">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="ml-1 font-weight-bold">Service charge in %</label>
-                        <input nbInput fullWidth status="success" type="number" formControlName="serviceChargeInPercent" shape="semi-round">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInPercentTrans" shape="semi-round" readonly>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mt-4">
-                        <input nbInput fullWidth status="success" type="text" formControlName="serviceChargeInPercentCT" shape="semi-round">
-                    </div>
-                </div>
-            </div>
 
             <div class="row" *ngIf="loanSchemeSelected">
                 <div class="col-md-4">
@@ -295,6 +213,130 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Service charge type</label>
+                        <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                                   (selectedChange)="selectedServiceCharge($event)"
+                        formControlName="serviceChargeType" shape="semi-round">
+                            <nb-option *ngFor="let type of changedServiceChargeType" [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <!-- FOR SERVICE CHARGE IN FLAT AMOUNT CONDITIONS -->
+            <ng-container *ngIf="globalForm.get('serviceChargeType').value === changedServiceChargeType[0].value">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Service charge in figure</label>
+                            <input formControlName="serviceChargeInFigure" fullWidth nbInput shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mt-4">
+                            <input formControlName="serviceChargeInFigureTrans" fullWidth nbInput readonly
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mt-4">
+                            <input formControlName="serviceChargeInFigureCT" fullWidth nbInput shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Service charge in words</label>
+                            <input formControlName="serviceChargeInWords" fullWidth nbInput readonly shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mt-4">
+                            <input formControlName="serviceChargeInWordsTrans" fullWidth nbInput readonly
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mt-4">
+                            <input formControlName="serviceChargeInWordsCT" fullWidth nbInput shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <!-- FOR SERVICE CHARGE IN PERCENTAGE -->
+            <ng-container *ngIf="globalForm.get('serviceChargeType').value === changedServiceChargeType[1].value">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Detail of facility</label>
+                            <input formControlName="detailOfFacility" fullWidth nbInput shape="semi-round" status="success"
+                                   type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mt-4">
+                            <input formControlName="detailOfFacilityTrans" fullWidth nbInput readonly
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mt-4">
+                            <input formControlName="detailOfFacilityCT" fullWidth nbInput shape="semi-round" status="success"
+                                   type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="ml-1 font-weight-bold">Service charge in %</label>
+                            <input formControlName="serviceChargeInPercent" fullWidth nbInput shape="semi-round"
+                                   status="success" type="number">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mt-4">
+                            <input formControlName="serviceChargeInPercentTrans" fullWidth nbInput readonly
+                                   shape="semi-round" status="success" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mt-4">
+                            <input formControlName="serviceChargeInPercentCT" fullWidth nbInput shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <!-- For Total Commitment fee -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="ml-1 font-weight-bold">Commitment Fee </label>
+                        <input formControlName="commitmentFee" fullWidth nbInput shape="semi-round" status="success"
+                               type="number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input formControlName="commitmentFeeTrans" fullWidth nbInput readonly shape="semi-round"
+                               status="success" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-4">
+                        <input formControlName="commitmentFeeCT" fullWidth nbInput shape="semi-round" status="success"
+                               type="text">
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
