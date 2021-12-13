@@ -314,10 +314,10 @@
                                            placeholder="Loan Amount"/>
                                     बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने
                                     अधिकार सहितको मोजरापत्र (Letter of Set-off) बैंकको पक्षमा जारी
-                                    <span *ngIf="this.tempData.overdraftFixedForm.letterOfSetOffCT === 'NEW'"> <!--If letter of set-off to be obtained-->
+                                    <span *ngIf="this.tempData?.overdraftFixedForm?.letterOfSetOffCT === 'NEW'"> <!--If letter of set-off to be obtained-->
                                 गरिदिनु पर्नेछ ।
                             </span>
-                                    <span *ngIf="this.tempData.overdraftFixedForm.letterOfSetOffCT === 'EXISTING'"> <!--If letter of set off is continued-->
+                                    <span *ngIf="this.tempData?.overdraftFixedForm?.letterOfSetOffCT === 'EXISTING'"> <!--If letter of set off is continued-->
                                     गरिदिइएको यथावत कायम रहने छ ।
                             </span>
                                 </p>
