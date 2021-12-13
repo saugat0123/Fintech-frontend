@@ -21,12 +21,6 @@
                        [loanId]="loanId" [customerInfo]="loanHolder"></app-company-info-view>
 <!--End Company Details-->'
 
-<!-- Start Cicl Details-->
-<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN'">
-<app-cicl-view *ngIf="loanHolder?.cicl"
-               [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
-</div>
-<!-- End Cicl Details-->
 
 <!-- Start Proposal Details-->
 <app-proposal-view *ngIf="loanDataHolder?.proposal"
@@ -34,6 +28,11 @@
                    [proposalData]="proposalData"
                    [loanDataHolder]="loanDataHolder"></app-proposal-view>
 <!-- End Proposal Details-->
+
+    <!-- Start Group and Group security Details-->
+    <div *ngIf="megaGroupEnabled && loanDataHolder.loanType !== 'CLOSURE_LOAN' ">
+        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+    </div>
 
 <div class="row">
     <div class="col-md-12">
@@ -52,10 +51,46 @@
 </div>
 <!-- End Justification of proposal-->
 
+<!-- Start Security Details-->
+<app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
+                   [shareSecurityData]="loanHolder?.shareSecurity"
+                   [securityId]="securityId"
+                   [collateralData]="loanDataHolder?.collateralSiteVisits"
+                   [docStatus]="loanDataHolder?.documentStatus"
+                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
+<!-- End Security Details-->
+
+
+<!-- Start Insurance Details-->
+<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+    <app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
+                        [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view></div>
+<!-- End Insurance Details-->
+
+<!-- Start Financial Details-->
+<app-financial-view *ngIf="loanHolder?.financial"
+                    [customerType]="loanHolder?.customerType"
+                    [formData]="loanHolder?.financial"></app-financial-view>
+<!-- End Financial Details-->
+
+<!--Start Guarantor Details-->
+<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+<!--End Guarantor Details-->
+
+<!-- Start Cicl Details-->
+<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+    <app-cicl-view *ngIf="loanHolder?.cicl"
+                   [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
+</div>
+<!-- End Cicl Details-->
+
 <!-- Start Income From Account Details-->
 <div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN'">
-<app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
-                                 [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
+    <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
+                                     [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
+
+
 
 <table *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
@@ -116,56 +151,9 @@
     </tr>
 </table>
 </div>
+
 <!-- End Income From Account Details-->
 
-<!-- Start Security Details-->
-<app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
-                   [shareSecurityData]="loanHolder?.shareSecurity"
-                   [securityId]="securityId"
-                   [collateralData]="loanDataHolder?.collateralSiteVisits"
-                   [docStatus]="loanDataHolder?.documentStatus"
-                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
-<!-- End Security Details-->
-
-<!-- Start SiteVisit Details-->
-<app-site-visit-view *ngIf="loanHolder?.siteVisit"
-                     [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
-<!-- End SiteVisit Details-->
-
-<!-- Start Insurance Details-->
-<div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN'">
-<app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
-                    [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view></div>
-<!-- End Insurance Details-->
-
-<!--Start Guarantor Details-->
-<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
-                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
-<!--End Guarantor Details-->
-
-<!-- Start Financial Details-->
-<app-financial-view *ngIf="loanHolder?.financial"
-                    [customerType]="loanHolder?.customerType"
-                    [formData]="loanHolder?.financial"></app-financial-view>
-<!-- End Financial Details-->
-
-<!-- Start NTCA Details-->
-<ng-container *ngIf="client === clientName?.ICFC; else otherBank">
-    <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                          [fiscalYears]="fiscalYearArray"
-                          [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
-</ng-container>
-<ng-template #otherBank>
-    <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                     [fiscalYears]="fiscalYearArray"
-                     [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
-</ng-template>
-<!-- End NTCA Details-->
-
-<!-- Start Group and Group security Details-->
-<div *ngIf="megaGroupEnabled && loanDataHolder.loanType !== 'CLOSURE_LOAN' ">
-    <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
-</div>
 
 <div *ngIf="!productUtils.CBS_ENABLE && loanDataHolder.loanType !== 'CLOSURE_LOAN'">
     <app-collateral-summary
@@ -175,82 +163,86 @@
 </div>
 <!-- End Group and Group security Details-->
 
-<div class="row">
-    <div class="col-md-12">
-        <p><strong>Single Obligor Limit</strong></p>
-        <tr>
-            <td class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></td>
-        </tr>
-    </div>
-</div>
 
 <!--Start Risk and Mitigation-->
 <div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN'">
-<div class="row">
-    <div class="col-md-12">
-        <p><strong>Risk & Mitigation</strong></p>
-        <tr>
-            <td class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></td>
-        </tr>
-    </div>
-    <div class="col-md-12">
-        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <tr class="sb-bg-dark text-white">
-                <th>Succession Risk & Mitigation</th>
-            </tr>
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong>Risk & Mitigation</strong></p>
             <tr>
-                <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' &&!isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.successionRisk || 'N/A' | safeHtml"></td>
-                <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION' &&!isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="loanDataHolder?.companyInfo?.successionPlanning || 'N/A' | safeHtml"></td>
-                <td *ngIf="isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="jointCustomerData?.successionRisk || 'N/A' | safeHtml"></td>
+                <td class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></td>
             </tr>
-            <tr  class="sb-bg-dark text-white">
-                <th>Security Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && !isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
-                <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION' && !isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.securityRisk || 'N/A' | safeHtml"></td>
-                <td *ngIf="isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="jointCustomerData?.securityRisk || 'N/A' | safeHtml"></td>
-            </tr>
-            <ng-container *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">
-                <tr class="text-white sb-bg-dark">
-                    <th>Income Risk & Mitigation</th>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <tr class="sb-bg-dark text-white">
+                    <th>Succession Risk & Mitigation</th>
                 </tr>
                 <tr>
-                    <td *ngIf="!isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
-                    <td *ngIf="isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="jointCustomerData?.incomeRisk || 'N/A' | safeHtml"></td>
+                    <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' &&!isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.successionRisk || 'N/A' | safeHtml"></td>
+                    <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION' &&!isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="loanDataHolder?.companyInfo?.successionPlanning || 'N/A' | safeHtml"></td>
+                    <td *ngIf="isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="jointCustomerData?.successionRisk || 'N/A' | safeHtml"></td>
                 </tr>
-            </ng-container>
-            <ng-container *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">
-                <tr class="text-white sb-bg-dark">
-                    <th>Industry/Market Risk & Mitigation</th>
-                </tr>
-                <tr>
-                    <td class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.BusinessIndustryOutlook || 'N/A' | safeHtml"></td>
-                </tr>
-                <tr class="text-white sb-bg-dark">
-                    <th>Business/Management Risk & Mitigation</th>
+                <tr  class="sb-bg-dark text-white">
+                    <th>Security Risk & Mitigation</th>
                 </tr>
                 <tr>
-                    <td class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.technicalAspect || 'N/A' | safeHtml"></td>
+                    <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && !isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
+                    <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION' && !isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.securityRisk || 'N/A' | safeHtml"></td>
+                    <td *ngIf="isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="jointCustomerData?.securityRisk || 'N/A' | safeHtml"></td>
                 </tr>
-                <tr class="text-white sb-bg-dark">
-                    <th>Financial and Cash Flow Risk & Mitigation</th>
-                </tr>
-                <tr>
-                    <td class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.financialAndCashFlowRisk || 'N/A' | safeHtml"></td>
-                </tr>
-            </ng-container>
-        </table>
+                <ng-container *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">
+                    <tr class="text-white sb-bg-dark">
+                        <th>Income Risk & Mitigation</th>
+                    </tr>
+                    <tr>
+                        <td *ngIf="!isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
+                        <td *ngIf="isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="jointCustomerData?.incomeRisk || 'N/A' | safeHtml"></td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">
+                    <tr class="text-white sb-bg-dark">
+                        <th>Industry/Market Risk & Mitigation</th>
+                    </tr>
+                    <tr>
+                        <td class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.BusinessIndustryOutlook || 'N/A' | safeHtml"></td>
+                    </tr>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Business/Management Risk & Mitigation</th>
+                    </tr>
+                    <tr>
+                        <td class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.technicalAspect || 'N/A' | safeHtml"></td>
+                    </tr>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Financial and Cash Flow Risk & Mitigation</th>
+                    </tr>
+                    <tr>
+                        <td class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.financialAndCashFlowRisk || 'N/A' | safeHtml"></td>
+                    </tr>
+                </ng-container>
+            </table>
+        </div>
     </div>
-</div>
 </div>
 <!--End Risk and Mitigation-->
 
-<!-- Start Gamma Details-->
-<app-crg-gamma-detail-view
-        *ngIf="loanDataHolder?.crgGamma"
-        [formData]="loanDataHolder?.crgGamma" [loanCategory]="loanDataHolder?.loanCategory"></app-crg-gamma-detail-view>
-<!-- End Gamma Details-->
+<!-- Start All Document Details-->
+<app-all-document-view *ngIf="loanDataHolder"
+                       [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN'">
+    <span><strong>Obtainable Document</strong></span>
+    <ol class="row" type="1">
+        <li style="font-size: 12.60px"
+            class="col-md-4" *ngFor="let doc of obtainableDocuments;
+            let i = index">{{doc.name}}</li>
+        <li style="font-size: 12.60px"
+            class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
+                        let i=index">{{otherDoc}}</li>
+    </ol>
+</div>
+
+<!-- End All Document Details-->
+
 
 <!-- Start Reporting Information Details-->
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
@@ -279,22 +271,58 @@
 </div>
 <!-- End Reporting Information Details-->
 
-<!-- Start All Document Details-->
-<app-all-document-view *ngIf="loanDataHolder"
-                       [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
-<div *ngIf=" loanDataHolder.loanType !== 'CLOSURE_LOAN'">
-<span><strong>Obtainable Document</strong></span>
-    <ol class="row" type="1">
-        <li style="font-size: 12.60px"
-            class="col-md-4" *ngFor="let doc of obtainableDocuments;
-            let i = index">{{doc.name}}</li>
-        <li style="font-size: 12.60px"
-            class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
-                        let i=index">{{otherDoc}}</li>
-    </ol>
+
+<!--Start proposal terms and condition-->
+<app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
+                                          [customerAllLoanList]="customerAllLoanList"
+                                          [loanDataHolder]="loanDataHolder"
+                                          [loanCategory]="loanDataHolder?.loanCategory"></app-proposal-terms-and-condition-summery>
+<!--End proposal terms and condition-->
+
+
+
+<!-- Start SiteVisit Details-->
+<app-site-visit-view *ngIf="loanHolder?.siteVisit"
+                     [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
+<!-- End SiteVisit Details-->
+
+
+
+
+
+<!-- Start NTCA Details-->
+<ng-container *ngIf="client === clientName?.ICFC; else otherBank">
+    <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                          [fiscalYears]="fiscalYearArray"
+                          [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
+</ng-container>
+<ng-template #otherBank>
+    <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                     [fiscalYears]="fiscalYearArray"
+                     [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
+</ng-template>
+<!-- End NTCA Details-->
+
+
+<div class="row">
+    <div class="col-md-12">
+        <p><strong>Single Obligor Limit</strong></p>
+        <tr>
+            <td class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></td>
+        </tr>
+    </div>
 </div>
 
-<!-- End All Document Details-->
+
+<!-- Start Gamma Details-->
+<app-crg-gamma-detail-view
+        *ngIf="loanDataHolder?.crgGamma"
+        [formData]="loanDataHolder?.crgGamma" [loanCategory]="loanDataHolder?.loanCategory"></app-crg-gamma-detail-view>
+<!-- End Gamma Details-->
+
+
+
+
 
 <!-- Start Credit Checklist Details-->
 <div *ngIf="loanDataHolder.loanType !== 'CLOSURE_LOAN'">
@@ -304,12 +332,7 @@
                            [customerType]="loanHolder?.customerType"></app-credit-checklist-view></div>
 <!-- End Credit Checklist Details-->
 
-<!--Start proposal terms and condition-->
-<app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
-                                          [customerAllLoanList]="customerAllLoanList"
-                                          [loanDataHolder]="loanDataHolder"
-                                          [loanCategory]="loanDataHolder?.loanCategory"></app-proposal-terms-and-condition-summery>
-<!--End proposal terms and condition-->
+
 
 <div class="row">
     <div class="col-md-12">
