@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
-import {NepaliCurrencyWordPipe} from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {CurrencyFormatterPipe} from "../../../../../../../../../@core/pipe/currency-formatter.pipe";
-import {EngToNepaliNumberPipe} from "../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {SbTranslateService} from "../../../../../../../../../@core/service/sbtranslate.service";
-import {DatePipe} from "@angular/common";
-import {EngNepDatePipe} from "nepali-patro";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {SbTranslateService} from '../../../../../../../../../@core/service/sbtranslate.service';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-term-loan-to-or-for',
@@ -35,6 +35,10 @@ export class TermLoanToOrForComponent implements OnInit {
   translatedFormGroup: FormGroup;
   translatedValue: any;
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
+  yesNoOptions = [
+    {value: 'Yes'},
+    {value: 'No'}
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -46,15 +50,16 @@ export class TermLoanToOrForComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if(!ObjectUtil.isEmpty(this.loanName)) {
+    if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
     }
   }
 
   buildForm() {
     this.termLoanForm = this.formBuilder.group({
-      //For Form Data
+      // For Form Data
       complementaryOther: [undefined],
+      subsidyOrAgricultureLoan: [undefined],
       multiLoan: [undefined],
       termLoanFor: [undefined],
       termLoanType: [undefined],
@@ -79,7 +84,7 @@ export class TermLoanToOrForComponent implements OnInit {
       paymentAmountWords: [undefined],
       numberOfPayments: [undefined],
 
-      //For Translated Data
+      // For Translated Data
       complementaryOtherTrans: [undefined],
       multiLoanTrans: [undefined],
       termLoanForTrans: [undefined],
@@ -105,7 +110,7 @@ export class TermLoanToOrForComponent implements OnInit {
       paymentAmountWordsTrans: [undefined],
       numberOfPaymentsTrans: [undefined],
 
-      //For Corrected Data
+      // For Corrected Data
       complementaryOtherCT: [undefined],
       multiLoanCT: [undefined],
       termLoanForCT: [undefined],
@@ -131,7 +136,7 @@ export class TermLoanToOrForComponent implements OnInit {
       paymentAmountWordsCT: [undefined],
       numberOfPaymentsCT: [undefined],
 
-    })
+    });
   }
 
   checkComplimetryOtherLoan(data) {
@@ -216,7 +221,7 @@ export class TermLoanToOrForComponent implements OnInit {
       this.termLoanForm.get('paymentTermsTrans').patchValue(tempPaymentTerms);
     }
 
-    //Translation for Numbers
+    // Translation for Numbers
     const tempLoanAmount = this.termLoanForm.get('loanAmount').value;
     const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
         this.convertNumbersToNepali(tempLoanAmount, true) : '';

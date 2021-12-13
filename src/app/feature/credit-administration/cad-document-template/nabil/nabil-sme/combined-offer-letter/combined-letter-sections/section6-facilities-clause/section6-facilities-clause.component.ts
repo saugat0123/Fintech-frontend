@@ -26,7 +26,7 @@ export class Section6FacilitiesClauseComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
       this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     }
     this.fillForm();
@@ -40,7 +40,7 @@ export class Section6FacilitiesClauseComponent implements OnInit {
   }
   fillForm() {
     this.form.patchValue({
-      tenureOfLoan: this.freeInformation ? this.freeInformation.section6.tenureOfLoan : ''
+      tenureOfLoan: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.section6 : ''
     });
   }
   private checkLoanName(): void {

@@ -46,6 +46,11 @@ export class SmeGlobalContentComponent implements OnInit {
     {value: 'Nabil Fast Track Scheme'},
     {value: 'Nabil Anniversary Scheme'}];
   loanSchemeSelected = false;
+  loanOptionsSelected = false;
+  changedServiceChargeType = [
+    {value: 'Service Charge In Flat Amount'},
+    {value: 'Service Charge In Percentage'}
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
@@ -69,7 +74,7 @@ export class SmeGlobalContentComponent implements OnInit {
       borrowerNaturalPerson: [undefined],
       loanAmountAbove50Crore: [undefined],
       workingCapitalAbove25Crore: [undefined],
-      loanScheme: [undefined],
+      loanScheme: [this.yesNoOptions[1].value],
       loanSchemeType: [undefined],
       interestRateType: [undefined],
       dateOfApproval: [undefined],
@@ -97,6 +102,9 @@ export class SmeGlobalContentComponent implements OnInit {
       serviceChargeInPercent: [undefined],
       serviceChargeInPercentTrans: [undefined],
       serviceChargeInPercentCT: [undefined],
+      commitmentFee: [undefined],
+      commitmentFeeTrans: [undefined],
+      commitmentFeeCT: [undefined],
       totalFundedLimitInFigure: [undefined],
       totalFundedLimitInFigureTrans: [undefined],
       totalFundedLimitInFigureCT: [undefined],
@@ -143,6 +151,12 @@ export class SmeGlobalContentComponent implements OnInit {
     if (!ObjectUtil.isEmpty(serviceChargeInPercent)) {
       this.globalForm.get('serviceChargeInPercentTrans').patchValue(this.engToNepaliNumberPipe.transform(serviceChargeInPercent.toString()));
       this.globalForm.get('serviceChargeInPercentCT').patchValue(this.engToNepaliNumberPipe.transform(serviceChargeInPercent.toString()));
+    }
+
+    const commitmentFee = this.globalForm.get('commitmentFee').value;
+    if (!ObjectUtil.isEmpty(commitmentFee)) {
+      this.globalForm.get('commitmentFeeTrans').patchValue(this.engToNepaliNumberPipe.transform(commitmentFee.toString()));
+      this.globalForm.get('commitmentFeeCT').patchValue(this.engToNepaliNumberPipe.transform(commitmentFee.toString()));
     }
 
     const totalFundedLimitInFigure = this.globalForm.get('totalFundedLimitInFigure').value;
@@ -252,9 +266,32 @@ export class SmeGlobalContentComponent implements OnInit {
     this.globalForm.get('nameOfBranchManagerCT').patchValue(this.translatedValue.nameOfBranchManager);
   }
 
+  /* For Clearing the fields based on chosen options */
+  selectedServiceCharge(selectedVal) {
+    if (selectedVal === this.changedServiceChargeType[0].value) {
+      this.clearForm('detailOfFacility', true);
+      this.clearForm('serviceChargeInPercent', true);
+    } else {
+      this.clearForm('serviceChargeInFigure', true);
+      this.clearForm('serviceChargeInWords', true);
+    }
+  }
+
   /* For selected loan Scheme*/
   checkLoanScheme(data) {
     this.loanSchemeSelected = data === 'Yes';
+  }
+
+  checkSelectedOptions(data) {
+    this.loanOptionsSelected = data === 'New';
+  }
+
+  clearForm(controls, option?: boolean) {
+    this.globalForm.get(controls).setValue(null);
+    if (option) {
+      this.globalForm.get(controls + 'Trans').setValue(null);
+      this.globalForm.get(controls + 'CT').setValue(null);
+    }
   }
 
 }

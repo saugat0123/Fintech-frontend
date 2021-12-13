@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {NepaliCurrencyWordPipe} from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {EngToNepaliNumberPipe} from "../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {CurrencyFormatterPipe} from "../../../../../../../../../@core/pipe/currency-formatter.pipe";
-import {DatePipe} from "@angular/common";
-import {EngNepDatePipe} from "nepali-patro";
+import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-demand-loan-for-working-capital',
@@ -21,6 +21,10 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
   ADExpiry = false;
   BSExpiry = false;
   loanDetails: any = [];
+  yesNoOptions = [
+    {value: 'Yes'},
+    {value: 'No'}
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -38,10 +42,11 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
 
   buildForm() {
     this.demandLoanForm = this.formBuilder.group({
-      //for form data
+      // for form data
       complementryOther: [undefined],
       multiLoan: [undefined],
       arFinancing: [undefined],
+      subsidyOrAgricultureLoan: [undefined],
       arDays: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
@@ -53,7 +58,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       dateOfExpiryNepali: [undefined],
       dateOfExpiry: [undefined],
 
-      //for translated data
+      // for translated data
       complementryOtherTrans: [undefined],
       multiLoanTrans: [undefined],
       arFinancingTrans: [undefined],
@@ -68,7 +73,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       dateOfExpiryNepaliTrans: [undefined],
       dateOfExpiryTrans: [undefined],
 
-      //for corrected data
+      // for corrected data
       complementryOtherCT: [undefined],
       multiLoanCT: [undefined],
       arFinancingCT: [undefined],
@@ -83,7 +88,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
 
-    })
+    });
   }
 
   checkComplimetryOtherLoan(data) {

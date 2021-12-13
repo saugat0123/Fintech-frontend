@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
-import {NepaliCurrencyWordPipe} from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {EngToNepaliNumberPipe} from "../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {CurrencyFormatterPipe} from "../../../../../../../../../@core/pipe/currency-formatter.pipe";
-import {DatePipe} from "@angular/common";
-import {EngNepDatePipe} from "nepali-patro";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-overdraft-loan-for-working-capital-requirement',
@@ -20,6 +20,10 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
   ADExpiry = false;
   loanDetails: any = [];
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
+  yesNoOptions = [
+    {value: 'Yes'},
+    {value: 'No'}
+  ];
 
   constructor( private formBuilder: FormBuilder,
                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -30,15 +34,16 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
 
   ngOnInit() {
     this.buildForm();
-    if(!ObjectUtil.isEmpty(this.loanName)) {
+    if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
     }
   }
 
   buildForm() {
     this.overdraftLoanForm = this.formBuilder.group({
-      //For form Data
+      // For form Data
       arFinancing: [undefined],
+      subsidyOrAgricultureLoan: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
       arDays: [undefined],
@@ -50,7 +55,7 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
       dateOfExpiry: [undefined],
       dateOfExpiryNepali: [undefined],
 
-      //For translated Data
+      // For translated Data
       arFinancingTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
@@ -63,7 +68,7 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
       dateOfExpiryTrans: [undefined],
       dateOfExpiryNepaliTrans: [undefined],
 
-      //For corrected Data
+      // For corrected Data
       arFinancingCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
@@ -75,7 +80,7 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
       dateOfExpiryTypeCT: [undefined],
       dateOfExpiryCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
-    })
+    });
   }
 
   checkARFinancing(data) {
