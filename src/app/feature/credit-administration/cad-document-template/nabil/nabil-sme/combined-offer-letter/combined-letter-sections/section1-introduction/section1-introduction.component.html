@@ -1,5 +1,5 @@
 <div class="row text-justify nep">
-    <form [formGroup]="section1">
+    <form [formGroup]="section1" class="w-100">
         <!--FOR NEW CUSTOMER-->
         <div *ngIf="loanOption === 'New'">
             <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
@@ -96,7 +96,7 @@
              <textarea
                      class="form-control customFont nepaliFont"
                      rows="5"
-                     style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
+                     style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 95%"
                      name="freeText"
                      formControlName="firstAdditionalDetails">
                                             </textarea>
