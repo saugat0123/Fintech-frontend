@@ -19,6 +19,7 @@ import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise
 import {SafePipe} from './memo/pipe/safe.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import { VideoKycComponent } from './video-kyc/video-kyc.component';
+import {HsovPendingComponent} from '../component/dashboard/hsov-pending/hsov-pending.component';
 
 
 @NgModule({
@@ -44,10 +45,11 @@ import { VideoKycComponent } from './video-kyc/video-kyc.component';
         MouseScrollDisableDirective,
         CommonAddressComponent,
         CustomerWisePendingComponent,
+          HsovPendingComponent,
         ErrorPageComponent,
 
       ],
-    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
+    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent, HsovPendingComponent],
       providers: [SafePipe]
     }
 )
