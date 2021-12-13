@@ -18,6 +18,7 @@ export class Section8InsuranceClausePrintComponent implements OnInit {
   insuranceVisible: boolean;
   constructor() { }
 
+
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);

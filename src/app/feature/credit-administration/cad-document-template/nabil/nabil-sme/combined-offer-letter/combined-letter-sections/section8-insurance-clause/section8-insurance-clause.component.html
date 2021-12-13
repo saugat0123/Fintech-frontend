@@ -1,22 +1,22 @@
-<div class="row text-justify nep">{{insuranceVisible}}
+<div class="row text-justify nep">
                 <div class="service-contions mt-5" *ngIf="insuranceVisible">
                     <!--Applicable incase of insurance required-->
                     <p><strong>बिमा सम्बन्धी शर्तहरु : </strong></p>
                     <div class="row">
                         <div class="col-sm-12">
                             <ol class="conditions-list orderd-list font-weight-bold">
-                                <li>
+                                <li *ngIf="trustReceiptVisible || acceptance">
                                     <!--Applicable incase of TR/Acceptance facility-->
-                                    <p *ngIf="this.trustReceiptVisible.selected || this.acceptance.selected">
+                                    <p>
                                         ऋणीले आगलागी, भुकम्प, दंगा/हड्ताल जस्ता जोखिमबाट हुने क्षति, दुर्भावनापूर्ण क्षति र आतंकवाद आदी जस्ता जोखिमहरु बाट सुरक्षित गरीएको "बैंकिङ्ग शर्त" (Bankers Clause)
                                         सहितको माथि उल्लिखित आयात कर्जा/ग्राहक स्वीकृति/बिल्स डिस्काउन्टिङ्ग सुविधाका लागि आयातित सामानका लागि बैंकको पक्षमा कर्जा चुक्ताभुक्तान नभएसम्मका लागि समय समयमा
                                         नबिकरण/अध्यावधिक गराइएको बिमा लेख बैकमा पेश गर्नुपर्नेछ ।
                                     </p>
                                 </li>
 
-                                <li>
+                                <li *ngIf="autoLoanVisible">
                                     <!--Applicable incase of auto loan/term loan to purchase of Vehicle-->
-                                    <p *ngIf="this.autoLoanVisible.selected">
+                                    <p>
                                         तपाईले सवारी साधन कर्जाबाट खरिद गरिएको/गरिने सवारी साधनको आगलागी, भुकम्प, दंगा हड्ताल जस्ता जोखिमबाट हुने क्षति, दुर्भावनापूर्ण क्षति, आतंकवाद आदि जस्ता जोखिमहरु र तेस्रो पक्षको बिमा सहितको व्यापक (Comprehensive)
                                         बिमालेख बैंकको पक्षमा कर्जा चुक्ताभुक्तान नभएसम्मका लागि समय समयमा नविकरण/अध्यावधिक गराइएको बिमालेख बैकमा पेश गर्नुपर्नेछ ।
                                     </p>
@@ -24,17 +24,17 @@
 
                                 <!-- Applicable incase of building insurance required-->
 
-                                <li>
-                                    <p *ngIf="buildingInsurance">
+                                <li *ngIf="buildingInsurance">
+                                    <p>
                                         ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद आदी जस्ता जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण स्वरुप धितोेबन्धक रहेको घरका लागि बैंकको
                                         पक्षमा कर्जा चुक्ताभुक्तान नभएसम्मका लागि समय समयमा नबिकरण/अध्यावधिक गराइएको बिमा लेख बैकमा पेश गर्नुपर्नेछ । सो बिमा रकम घरको लागत/बजार मूल्य भन्दा कम हुनु हुने छैन् ।
 
                                     </p>
                                 </li>
 
-                                <li>
+                                <li *ngIf="stockInsurance">
                                     <!--Applicable incase of stock insurance required-->
-                                    <p *ngIf="stockInsurance">
+                                    <p>
                                         ऋणीले आफ्नोे खर्चमा आगलागी, सेधमारी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद आदी जस्ता जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण स्वरुप धितोेबन्धक (Hypothecation) मा
                                         रहेका सम्पूर्ण सामान मौज्दातहरु/सम्पत्तिहरुका लागि बैंकको पक्षमा कम्तिमा कर्जा चुक्ताभुक्तान नभएसम्मका लागि समय समयमा नबिकरण/अध्यावधिक गराइएको बिमा लेख बैकमा पेश गर्नुपर्नेछ । गोदामहरु एक भन्दा बढी स्थानमा
                                         रहको अवस्थामा सबै गोदामहरुको माथी उल्लिखित तरीकाले बिमा गरीएको हुनु पर्नेछ ।

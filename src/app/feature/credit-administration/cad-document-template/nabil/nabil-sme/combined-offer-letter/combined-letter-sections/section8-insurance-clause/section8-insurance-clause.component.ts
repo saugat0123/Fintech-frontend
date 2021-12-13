@@ -7,7 +7,7 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/cust
   templateUrl: './section8-insurance-clause.component.html',
   styleUrls: ['./section8-insurance-clause.component.scss']
 })
-export class Section8InsuranceClauseComponent implements OnInit, OnChanges {
+export class Section8InsuranceClauseComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   tempData;
   trustReceiptVisible;
@@ -18,9 +18,6 @@ export class Section8InsuranceClauseComponent implements OnInit, OnChanges {
   insuranceVisible: boolean;
   constructor() { }
 
-  ngOnChanges(changes: SimpleChanges) {
-    const securities = this.tempData.securities;
-  }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
