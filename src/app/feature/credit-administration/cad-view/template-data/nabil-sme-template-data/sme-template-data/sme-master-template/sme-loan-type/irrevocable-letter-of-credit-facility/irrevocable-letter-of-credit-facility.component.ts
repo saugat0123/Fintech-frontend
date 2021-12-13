@@ -43,7 +43,7 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     buildForm() {
         this.letterOfCreditForm = this.formBuilder.group({
             loanOption: [undefined],
-            multiLoan: [undefined],
+            complimentaryLoanSelected: [undefined],
             complementryOther: [undefined],
             loanAmount: [undefined],
             loanAmountAmountWords: [undefined],
@@ -58,7 +58,7 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
             dateOfExpiry: [undefined],
             /* FOR TRANSLATION FIELDS */
             loanOptionTrans: [undefined],
-            multiLoanTrans: [undefined],
+            complimentaryLoanSelectedTrans: [undefined],
             complementryOtherTrans: [undefined],
             loanAmountTrans: [undefined],
             loanAmountAmountWordsTrans: [undefined],
@@ -73,7 +73,7 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
             dateOfExpiryTrans: [undefined],
             /*FOR CORRECTION FIELDS*/
             loanOptionCT: [undefined],
-            multiLoanCT: [undefined],
+            complimentaryLoanSelectedCT: [undefined],
             complementryOtherCT: [undefined],
             loanAmountCT: [undefined],
             loanAmountAmountWordsCT: [undefined],
@@ -118,9 +118,9 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
             this.letterOfCreditForm.get('loanOptionTrans').patchValue('');
         }
 
-        const tempMultiLoan = this.letterOfCreditForm.get('multiLoanTrans').value;
-        if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-            this.letterOfCreditForm.get('multiLoanTrans').patchValue('');
+        const tempComplimentaryLoan = this.letterOfCreditForm.get('complimentaryLoanSelected').value;
+        if (!ObjectUtil.isEmpty(tempComplimentaryLoan)) {
+            this.letterOfCreditForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoan);
         }
 
         const tempComplemetry = this.letterOfCreditForm.get('complementryOther').value;
@@ -177,8 +177,8 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
         this.letterOfCreditForm.get('loanOptionCT').patchValue(
             this.letterOfCreditForm.get('loanOptionTrans').value
         );
-        this.letterOfCreditForm.get('multiLoanCT').patchValue(
-            this.letterOfCreditForm.get('multiLoanTrans').value
+        this.letterOfCreditForm.get('complimentaryLoanSelectedCT').patchValue(
+            this.letterOfCreditForm.get('complimentaryLoanSelectedTrans').value
         );
         this.letterOfCreditForm.get('complementryOtherCT').patchValue(
             this.letterOfCreditForm.get('complementryOtherTrans').value

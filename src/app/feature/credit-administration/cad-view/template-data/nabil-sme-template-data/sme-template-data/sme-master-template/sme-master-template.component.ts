@@ -92,6 +92,7 @@ export class SmeMasterTemplateComponent implements OnInit {
   isAutoLoanMaster = false;
   isBankGuarantee = false;
   isBillPurchase = false;
+  loanExtraDetails = [];
 
   constructor(private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -108,6 +109,11 @@ export class SmeMasterTemplateComponent implements OnInit {
     this.customerApprovedDoc.assignedLoan.forEach(val => {
       const loanName = val.loan.name;
       this.loanData.push(loanName);
+      const tempStructure = {
+        name: loanName,
+        loanAmount: val.proposal.proposedLimit,
+      };
+      this.loanExtraDetails.push(tempStructure);
     });
   }
 
