@@ -16,6 +16,10 @@ export class BridgeGapLoanComponent implements OnInit {
   isComplimentryOtherLoan = false;
   isInterestSubsidy = false;
   loanDetails: any = [];
+  yesNoOptions = [
+    {value: 'Yes'},
+    {value: 'No'}
+  ];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -35,6 +39,7 @@ export class BridgeGapLoanComponent implements OnInit {
       // for form data
       complementryOther: [undefined],
       interestSubsidy: [undefined],
+      subsidyOrAgricultureLoan: [undefined],
       multiLoan: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],

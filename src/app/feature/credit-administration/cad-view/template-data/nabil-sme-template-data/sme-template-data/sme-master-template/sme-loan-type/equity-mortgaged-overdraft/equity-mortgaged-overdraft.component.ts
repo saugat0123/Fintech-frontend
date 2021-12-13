@@ -18,6 +18,15 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
     ADExpiry = false;
     BSExpiry = false;
     dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
+    yesNoOptions = [
+        {value: 'Yes'},
+        {value: 'No'}
+    ];
+    mortgageType = [
+        {value: 'New'},
+        {value: 'Existing'},
+        {value: 'Enhancement'}
+    ];
 
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -34,6 +43,8 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
 
     buildForm() {
         this.equityMortgaged = this.formBuilder.group({
+            subsidyOrAgricultureLoan: [undefined],
+            mortgageType: [undefined],
             loanSubType: [undefined],
             drawingBasis: [undefined],
             loanAmount: [undefined],
