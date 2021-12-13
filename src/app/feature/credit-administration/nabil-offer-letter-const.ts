@@ -50,7 +50,7 @@ export namespace NabilOfferLetterConst {
             case NabilOfferLetterConst.SHARE_LOAN:
                 return 'Share Loan';
             case NabilOfferLetterConst.CLASS_A:
-                return 'Class A';
+                return 'Class A Sanction letter';
             case NabilOfferLetterConst.NABIL_SAHAYATRI_KARJA:
                 return 'Nabil Sahayatri Karja';
         }

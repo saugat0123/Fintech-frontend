@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NabilOfferLetterConst} from '../../../../../../nabil-offer-letter-const';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
+import {OfferDocument} from '../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-common-section-bottom',
@@ -10,7 +10,8 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/cust
   styleUrls: ['./common-section-bottom.component.scss']
 })
 export class CommonSectionBottomComponent implements OnInit {
-  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() cadOfferLetterApprovedDoc;
+  offerLetterDocument: OfferDocument;
   form: FormGroup;
   spinner = false;
   offerLetterConst = NabilOfferLetterConst;
@@ -19,7 +20,6 @@ export class CommonSectionBottomComponent implements OnInit {
   loanHolderInfo;
   initialInfoPrint;
   tempData;
-  freeTextVal: any = {};
   freeInformation: any;
   constructor(
       private formBuilder: FormBuilder,
@@ -27,14 +27,14 @@ export class CommonSectionBottomComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    // for free information
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+    }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-
-      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
-    this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
-    this.setFreeText();
     this.fillForm();
   }
   buildForm() {
@@ -43,25 +43,32 @@ export class CommonSectionBottomComponent implements OnInit {
       position: [undefined],
       position1: [undefined],
       branchName: [undefined],
-      nameOfARO_RO_RM_ARM: [undefined],
-      freeTextVal: [undefined],
+      nameOfARO_RO_RM_ARM: [undefined]
     });
   }
   fillForm() {
     this.form.patchValue({
+      branchName: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
       nameOfARO_RO_RM_ARM: this.tempData.smeGlobalForm.nameOfRelationshipManagerCT ? this.tempData.smeGlobalForm.nameOfRelationshipManagerCT : '',
       nameOfBranchManager: this.tempData.smeGlobalForm.nameOfBranchManagerCT ? this.tempData.smeGlobalForm.nameOfBranchManagerCT : '',
-      position : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position : '',
-      position1 : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.position1 : '',
-      branchName: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
-
+      position : !ObjectUtil.isEmpty(this.position) ? this.position : '',
+      position1 : !ObjectUtil.isEmpty(this.position1) ? this.position1 : '',
     });
-  }
-  setFreeText() {
-    this.freeTextVal = {
-      sixthText: this.form.get('position').value,
-      seventhText: this.form.get('position1').value,
-    };
+    // position value
+    if (!ObjectUtil.isEmpty(this.freeInformation)) {
+      if (this.position === this.freeInformation.sectionBottom.position) {
+        this.position = 'सम्पर्क अधिकृत';
+      }
+      if (this.position1 === this.freeInformation.sectionBottom.position1) {
+        this.position1 = 'सम्पर्क प्रबन्धक';
+      }
+      if (this.freeInformation.sectionBottom.position !== this.position) {
+        this.position = this.freeInformation.sectionBottom.position;
+      }
+      if (this.freeInformation.sectionBottom.position1 !== this.position1) {
+        this.position1 = this.freeInformation.sectionBottom.position1;
+      }
+    }
   }
 
 }

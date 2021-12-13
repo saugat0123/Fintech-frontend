@@ -33,10 +33,15 @@
                   <p class="text-secondary mb-1">{{customerInfoData?.customerType |titlecase}}
                     Customer</p>
                   <!--todo change to address -->
-                  <p class="text-muted font-size-sm">
+                  <p *ngIf="customerInfoData?.customerType === customerType.INDIVIDUAL" class="text-muted font-size-sm">
                     {{ nepData?.permanentProvince.en.name}} ,
                     {{ nepData?.permanentDistrict.en.name}} ,
                     {{ nepData?.permanentMunicipality.en.name}}</p>
+
+                  <p *ngIf="customerInfoData?.customerType === customerType.INSTITUTION" class="text-muted font-size-sm">
+                    {{ nepData?.registeredProvince.en.name}} ,
+                    {{ nepData?.registeredDistrict.en.name}} ,
+                    {{ nepData?.registeredMunicipality.en.name}}</p>
                 </div>
               </div>
             </div>
