@@ -7,6 +7,9 @@ import {CustomerOfferLetterService} from '../../../../feature/loan/service/custo
 import {ProductUtils} from '../../../../feature/admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {CreditAdministrationService} from '../../../../feature/credit-administration/service/credit-administration.service';
+import {PendingSearch, PendingService} from '../pending.service';
+import {search} from 'ionicons/icons';
+import {LoanType} from '../../../../feature/loan/model/loanType';
 
 
 @Component({
@@ -22,12 +25,21 @@ export class PendingLoanComponent implements OnInit {
     initCount: number;
     postApprovalDocStat;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    renewedLoanCount: number;
+    closureLoanCount: number;
+    enhancedLoanCount: number;
+    partialSettleLoanCount: number;
+    newLoanCount: number;
+    fullSettlementLoanCount: number;
+    renewWithEnhancementLoanCount: number;
+
 
     constructor(
         private router: Router,
         private loanFormService: LoanFormService,
         private catalogueService: CatalogueService,
         private customerOfferLetterService: CustomerOfferLetterService,
+        private pendingService: PendingService,
     ) {
     }
 
@@ -43,6 +55,18 @@ export class PendingLoanComponent implements OnInit {
                 this.initCount = response.detail.initial;
             }
         );
+        this.loanFormService.getpendingLoansCount().subscribe(res =>{
+            this.newLoanCount = res.detail.newLoan;
+            this.enhancedLoanCount = res.detail.enhancedLoan;
+            this.partialSettleLoanCount = res.detail.partialSettleLoan;
+            this.closureLoanCount = res.detail.closureLoan;
+            this.renewedLoanCount = res.detail.renewedLoan;
+            this.renewWithEnhancementLoanCount = res.detail.renewWithEnhancement;
+            this.fullSettlementLoanCount = res.detail.fullSettleLoan;
+
+
+
+        })
     }
 
     resolveToCatalogue(status: string) {
@@ -62,6 +86,35 @@ export class PendingLoanComponent implements OnInit {
             }
         });
     }
+    getPendingNewLoan(loanType: any) {
+        const Search: PendingSearch = new PendingSearch();
+
+        if(loanType === 'NEW_LOAN'){
+            Search.loanType === LoanType.NEW_LOAN
+        }else if(loanType === 'RENEWED_LOAN'){
+            Search.loanType === LoanType.RENEWED_LOAN
+        }else if(loanType === 'CLOSURE_LOAN'){
+            Search.loanType === LoanType.CLOSURE_LOAN
+        }else if(loanType === 'ENHANCED_LOAN'){
+            Search.loanType === LoanType.ENHANCED_LOAN
+        }else if(loanType === 'PARTIAL_SETTLEMENT_LOAN'){
+            Search.loanType === LoanType.PARTIAL_SETTLEMENT_LOAN
+        }else if(loanType === 'FULL_SETTLEMENT_LOAN'){
+            Search.loanType === LoanType.FULL_SETTLEMENT_LOAN
+        }else if(loanType === 'RENEW_WITH_ENHANCEMENT'){
+            Search.loanType === LoanType.RENEW_WITH_ENHANCEMENT
+        }
+        this.pendingService.search = Search;
+        this.router.navigate(['/home/status/PENDING'], {
+            queryParams: {
+                search: Search.loanType,
+                type: loanType
+            }
+        });
+
+
+    }
+
 
     getPostApprovalDocStat() {
         this.customerOfferLetterService.getPostApprovedDocStat().subscribe((res: any) => {

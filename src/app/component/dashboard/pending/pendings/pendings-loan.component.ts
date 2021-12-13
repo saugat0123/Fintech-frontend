@@ -95,6 +95,7 @@ export class PendingsLoanComponent implements OnInit {
     ngOnInit() {
         this.sortFn();
         this.search.documentStatus = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
+        this.search.documentStatus = this.search.documentStatus.split("?")[0];
         this.buildFilterForm();
         if (this.search.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)) {
             this.showDocStatusList = false;

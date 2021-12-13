@@ -129,6 +129,12 @@ export abstract class BaseService<T> {
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
+    public getpendingLoansCount(): Observable<any> {
+        const api = `${this.getApi()}/pendingLoansCount`;
+
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
 
     public getListWithSearchObject(searchObj: any): Observable<any> {
         const api = `${this.getApi()}/list/filtered`;
