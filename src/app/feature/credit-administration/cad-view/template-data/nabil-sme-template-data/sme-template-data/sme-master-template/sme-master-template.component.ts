@@ -29,6 +29,7 @@ import {BankGuaranteeComponent} from './sme-loan-type/bank-guarantee/bank-guaran
 import {BillPurchaseComponent} from './sme-loan-type/bill-purchase/bill-purchase.component';
 import {LoanNameConstant} from '../../sme-costant/loan-name-constant';
 import {SmeSecurityComponent} from './sme-security/sme-security.component';
+import {RequiredLegalDocumentSectionComponent} from './required-legal-document-section/required-legal-document-section.component';
 
 @Component({
   selector: 'app-sme-master-template',
@@ -68,6 +69,8 @@ export class SmeMasterTemplateComponent implements OnInit {
   billPurchaseComponent: BillPurchaseComponent;
   @ViewChild('masterSecurity', {static: false})
   smeSecurityComponent: SmeSecurityComponent;
+  @ViewChild('requiredLegalDocumentSectionComponent', {static: false})
+  requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
 
   offerLetterConst = NabilOfferLetterConst;
 
@@ -92,6 +95,7 @@ export class SmeMasterTemplateComponent implements OnInit {
   isAutoLoanMaster = false;
   isBankGuarantee = false;
   isBillPurchase = false;
+  loanExtraDetails = [];
 
   constructor(private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -105,9 +109,16 @@ export class SmeMasterTemplateComponent implements OnInit {
   }
 
   getLoanName() {
+    const tempTotalLimit = {name: 'TOTAL LIMIT', loanAmount: 0};
+    this.loanExtraDetails.push(tempTotalLimit);
     this.customerApprovedDoc.assignedLoan.forEach(val => {
       const loanName = val.loan.name;
       this.loanData.push(loanName);
+      const tempStructure = {
+        name: loanName,
+        loanAmount: val.proposal.proposedLimit,
+      };
+      this.loanExtraDetails.push(tempStructure);
     });
   }
 
@@ -277,6 +288,9 @@ export class SmeMasterTemplateComponent implements OnInit {
     if (!ObjectUtil.isEmpty(securityData)) {
       securityForm = securityData;
     }
+
+    const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
+
     const smeMasterForm = {
       smeGlobalForm: smeGlobalForm,
       letterOfCreditForm: letterOfCreditForm,
@@ -297,7 +311,8 @@ export class SmeMasterTemplateComponent implements OnInit {
       autoLoanMasterForm: autoLoanMasterForm,
       bankGuarantee: bankGuarantee,
       billPurchaseForm: billPurchaseForm,
-      securities: securityForm
+      securities: securityForm,
+      requiredLegalDocument: requiredLegalDocument,
     };
     return JSON.stringify(smeMasterForm);
   }

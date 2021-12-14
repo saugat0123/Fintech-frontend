@@ -23,6 +23,7 @@ export class Section5InterestPenalChargePrintComponent implements OnInit {
   loanSchemeSelected;
   subsidyAgricultureSelected;
   selectedInterestRate;
+  subsidyOrAgricultureLoan;
 
   constructor() { }
 
