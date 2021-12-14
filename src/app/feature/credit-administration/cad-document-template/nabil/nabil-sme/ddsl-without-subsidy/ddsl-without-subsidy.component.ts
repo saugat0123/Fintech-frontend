@@ -43,9 +43,8 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     tempData;
     customerType;
     guarantorData;
-    guarantorNames;
+    guarantorNames: Array<any> = new Array<any>();
     allguarantorNames;
-    guarantorAmount = 0;
     finalName;
     offerDocumentDetails;
     freeTextVal: any = {};
@@ -331,6 +330,14 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             this.allguarantorNames = this.guarantorNames.join(' , ');
             const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
             this.finalName = this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
+        }
+    }
+    guarantorParse(nepData, key, trans?) {
+        const data = JSON.parse(nepData);
+        if (ObjectUtil.isEmpty(trans)) {
+            return data[key].ct;
+        } else {
+            return data[key].en;
         }
     }
 }
