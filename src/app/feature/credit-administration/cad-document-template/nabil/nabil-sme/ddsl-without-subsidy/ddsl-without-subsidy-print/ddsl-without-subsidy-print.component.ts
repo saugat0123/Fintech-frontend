@@ -165,12 +165,10 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
                 const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
                 if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
-                    console.log(temp);
                     this.guarantorNames.push(temp.guarantorName.ct);
                     // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
                 } else {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
-                    console.log(temp);
                     this.guarantorNames.push(temp.authorizedPersonName.ct);
                 }
 

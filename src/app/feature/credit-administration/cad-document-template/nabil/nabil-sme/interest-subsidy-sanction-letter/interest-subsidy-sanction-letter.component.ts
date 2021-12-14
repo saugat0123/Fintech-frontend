@@ -78,7 +78,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Offer Letter Details for Home Loan', this.cadOfferLetterApprovedDoc);
     this.buildSanction();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -158,7 +157,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        console.log('Selected Security Details:', initialInfo);
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
@@ -170,7 +168,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     }
   }
   fillForm() {
-    console.log('FIll Form works');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
     const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
@@ -282,7 +279,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     });
   }
   setFreeText() {
-    console.log('Set free text');
     this.freeTextVal = {
       firstText: this.form.get('firstAdditionalDetails').value,
       secondText: this.form.get('secondAdditionalDetails').value,
@@ -314,7 +310,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
         this.finalName = tempGuarantorNep.guarantorName.ct;
       } else {
         // const temp = JSON.parse(this.guarantorData[0].nepData);
-        console.log('authorizedPersonName', tempGuarantorNep);
         this.finalName = tempGuarantorNep.authorizedPersonName.ct;
       }
     } else if (this.guarantorData.length === 2) {
@@ -325,7 +320,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
           this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
         } else {
           // const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(tempGuarantorNep);
           this.guarantorNames.push(tempGuarantorNep.authorizedPersonName.ct);
         }
         // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
@@ -338,7 +332,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
         const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
         if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
           // const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(tempGuarantorNep);
           this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
           // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
         } else {
