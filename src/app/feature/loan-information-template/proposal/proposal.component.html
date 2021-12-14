@@ -37,7 +37,7 @@
                                                (keyup)="calculateLimitValues()"
                                                formControlName="outStandingLimit" id="outStandingLimit"
                                                name="outStandingLimit" placeholder="Limit Amount"
-                                               type="number">
+                                               type="number" appDecimalNumber>
                                         <div *ngIf=" (submitted)  && formControls.outStandingLimit.errors"
                                              class="invalid-feedback">
                                             <span *ngIf="(formControls.outStandingLimit.errors.required)">Amount is required</span>
