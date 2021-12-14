@@ -40,7 +40,7 @@ export class BillPurchaseComponent implements OnInit {
     this.billPurchaseForm = this.formBuilder.group({
       // for from data
       complementryOther: [undefined],
-      multiLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
       marginInPercentage: [undefined],
@@ -51,7 +51,7 @@ export class BillPurchaseComponent implements OnInit {
       dateOfExpiry: [undefined],
       // for translated data
       complementryOtherTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
       marginInPercentageTrans: [undefined],
@@ -62,7 +62,7 @@ export class BillPurchaseComponent implements OnInit {
       dateOfExpiryTrans: [undefined],
       // for corrected data
       complementryOtherCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
       marginInPercentageCT: [undefined],
@@ -93,6 +93,9 @@ export class BillPurchaseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
       this.billPurchaseForm.get('complementryOtherTrans').patchValue(tempComplemetry);
     }
+
+    const tempComplimentaryLoanSelected = this.billPurchaseForm.get('complimentaryLoanSelected').value;
+    this.billPurchaseForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
     const tempLoanAmount = this.billPurchaseForm.get('loanAmount').value;
@@ -132,6 +135,9 @@ export class BillPurchaseComponent implements OnInit {
   setCTValue() {
     this.billPurchaseForm.get('complementryOtherCT').patchValue(
         this.billPurchaseForm.get('complementryOtherTrans').value
+    );
+    this.billPurchaseForm.get('complimentaryLoanSelectedCT').patchValue(
+        this.billPurchaseForm.get('complimentaryLoanSelectedTrans').value
     );
     this.billPurchaseForm.get('loanAmountCT').patchValue(
         this.billPurchaseForm.get('loanAmountTrans').value

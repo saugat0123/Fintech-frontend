@@ -46,7 +46,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             subsidyOrAgricultureLoan: [undefined],
             complementaryOther: [undefined],
             arFinancing: [undefined],
-            multiLoan: [undefined],
+            complimentaryLoanSelected: [undefined],
             loanRevolvingPeriod: [undefined],
             loanAmount: [undefined],
             loanAmountWords: [undefined],
@@ -63,7 +63,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             loanOptionTrans: [undefined],
             loanRevolvingBasisTrans: [undefined],
             complementaryOtherTrans: [undefined],
-            multiLoanTrans: [undefined],
+            complimentaryLoanSelectedTrans: [undefined],
             arFinancingTrans: [undefined],
             loanRevolvingPeriodTrans: [undefined],
             loanAmountTrans: [undefined],
@@ -80,7 +80,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             loanOptionCT: [undefined],
             loanRevolvingBasisCT: [undefined],
             complementaryOtherCT: [undefined],
-            multiLoanCT: [undefined],
+            complimentaryLoanSelectedCT: [undefined],
             arFinancingCT: [undefined],
             loanRevolvingPeriodCT: [undefined],
             loanAmountCT: [undefined],
@@ -148,8 +148,8 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         }
 
         /* FOR MULTI LOAN SELECTION DATA */
-        this.revolvingShortTermLoan.get('multiLoanTrans').patchValue(
-            this.revolvingShortTermLoan.get('multiLoan').value
+        this.revolvingShortTermLoan.get('complimentaryLoanSelectedTrans').patchValue(
+            this.revolvingShortTermLoan.get('complimentaryLoanSelected').value
         );
 
         /* SET REMAINING FIELDS */
@@ -206,8 +206,8 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         this.revolvingShortTermLoan.get('complementaryOtherCT').patchValue(
             this.revolvingShortTermLoan.get('complementaryOtherTrans').value
         );
-        this.revolvingShortTermLoan.get('multiLoanCT').patchValue(
-            this.revolvingShortTermLoan.get('multiLoanTrans').value
+        this.revolvingShortTermLoan.get('complimentaryLoanSelectedCT').patchValue(
+            this.revolvingShortTermLoan.get('complimentaryLoanSelectedTrans').value
         );
         this.revolvingShortTermLoan.get('arFinancingCT').patchValue(
             this.revolvingShortTermLoan.get('arFinancingTrans').value
