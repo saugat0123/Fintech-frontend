@@ -35,7 +35,8 @@
                 <nb-select placeholder="Select Complimentary Loan"
                            fullWidth
                            formControlName="complimentaryLoanSelected" id="complimentaryLoanSelected" status="success">
-                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName.name"> {{loanName.name + ' = ' + loanName.loanAmount}} </nb-option>
+                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                        {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' + loanName?.loanAmount}} </nb-option>
                 </nb-select>
             </div>
         </div>

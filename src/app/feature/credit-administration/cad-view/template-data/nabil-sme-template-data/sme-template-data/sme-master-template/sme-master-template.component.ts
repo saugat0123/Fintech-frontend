@@ -106,6 +106,8 @@ export class SmeMasterTemplateComponent implements OnInit {
   }
 
   getLoanName() {
+    const tempTotalLimit = {name: 'TOTAL LIMIT', loanAmount: 0};
+    this.loanExtraDetails.push(tempTotalLimit);
     this.customerApprovedDoc.assignedLoan.forEach(val => {
       const loanName = val.loan.name;
       this.loanData.push(loanName);

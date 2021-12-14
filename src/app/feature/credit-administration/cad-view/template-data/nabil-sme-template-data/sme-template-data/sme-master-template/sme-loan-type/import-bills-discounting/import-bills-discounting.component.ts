@@ -42,7 +42,7 @@ export class ImportBillsDiscountingComponent implements OnInit {
         this.importBillsDiscountForm = this.formBuilder.group({
             loanOption: [undefined],
             complementryOther: [undefined],
-            multiLoanImport: [undefined],
+            complimentaryLoanSelected: [undefined],
             loanPeriodInDays: [undefined],
             loanAmount: [undefined],
             loanAmountAmountWords: [undefined],
@@ -54,7 +54,7 @@ export class ImportBillsDiscountingComponent implements OnInit {
             /* FOR TRANSLATION FIELDS */
             loanOptionTrans: [undefined],
             complementryOtherTrans: [undefined],
-            multiLoanImportTrans: [undefined],
+            complimentaryLoanSelectedTrans: [undefined],
             loanPeriodInDaysTrans: [undefined],
             loanAmountTrans: [undefined],
             loanAmountAmountWordsTrans: [undefined],
@@ -66,7 +66,7 @@ export class ImportBillsDiscountingComponent implements OnInit {
             /* FOR CT FIELDS */
             loanOptionCT: [undefined],
             complementryOtherCT: [undefined],
-            multiLoanImportCT: [undefined],
+            complimentaryLoanSelectedCT: [undefined],
             loanPeriodInDaysCT: [undefined],
             loanAmountCT: [undefined],
             loanAmountAmountWordsCT: [undefined],
@@ -111,8 +111,8 @@ export class ImportBillsDiscountingComponent implements OnInit {
         );
 
         this.importBillsDiscountForm.get('complementryOtherTrans').patchValue(this.isComplimentryOtherLoan);
-        this.importBillsDiscountForm.get('multiLoanImportTrans').patchValue(
-            this.importBillsDiscountForm.get('multiLoanImport').value
+        this.importBillsDiscountForm.get('complimentaryLoanSelectedTrans').patchValue(
+            this.importBillsDiscountForm.get('complimentaryLoanSelected').value
         );
         const tempLoanPeriodDays = this.convertNumbersToNepali(this.importBillsDiscountForm.get('loanPeriodInDays').value, false);
         this.importBillsDiscountForm.get('loanPeriodInDaysTrans').patchValue(tempLoanPeriodDays);
@@ -147,8 +147,8 @@ export class ImportBillsDiscountingComponent implements OnInit {
         this.importBillsDiscountForm.get('complementryOtherCT').patchValue(
             this.importBillsDiscountForm.get('complementryOtherTrans').value
         );
-        this.importBillsDiscountForm.get('multiLoanImportCT').patchValue(
-            this.importBillsDiscountForm.get('multiLoanImportTrans').value
+        this.importBillsDiscountForm.get('complimentaryLoanSelectedCT').patchValue(
+            this.importBillsDiscountForm.get('complimentaryLoanSelectedTrans').value
         );
         this.importBillsDiscountForm.get('loanPeriodInDaysCT').patchValue(
             this.importBillsDiscountForm.get('loanPeriodInDaysTrans').value
