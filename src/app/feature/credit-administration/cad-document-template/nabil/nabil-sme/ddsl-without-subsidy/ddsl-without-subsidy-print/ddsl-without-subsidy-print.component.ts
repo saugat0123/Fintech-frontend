@@ -137,16 +137,18 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     }
     guarantorDetails() {
         if (this.guarantorData.length === 1) {
-            if (this.guarantorData[0].guarantorType === 'Personal Guarantor') {
-                const temp = JSON.parse(this.guarantorData[0].nepData);
-                this.finalName = temp.guarantorName.ct;
+            const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
+            if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+                // const temp = JSON.parse(this.guarantorData[0].nepData);
+                this.finalName = tempGuarantorNep.guarantorName.ct;
             } else {
-                const temp = JSON.parse(this.guarantorData[0].nepData);
-                this.finalName = temp.authorizedPersonName.ct;
+                // const temp = JSON.parse(this.guarantorData[0].nepData);
+                this.finalName = tempGuarantorNep.authorizedPersonName.ct;
             }
         } else if (this.guarantorData.length === 2) {
             for (let i = 0; i < this.guarantorData.length; i++) {
-                if (this.guarantorData[i].guarantorType === 'Personal Guarantor') {
+                const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+                if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
                     this.guarantorNames.push(temp.guarantorName.ct);
                 } else {
@@ -160,14 +162,18 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.finalName = this.allguarantorNames;
         } else {
             for (let i = 0; i < this.guarantorData.length - 1; i++) {
-                if (this.guarantorData[i].guarantorType === 'Personal Guarantor') {
+                const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+                if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
+                    console.log(temp);
                     this.guarantorNames.push(temp.guarantorName.ct);
                     // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
                 } else {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
+                    console.log(temp);
                     this.guarantorNames.push(temp.authorizedPersonName.ct);
                 }
+
             }
             // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
             this.allguarantorNames = this.guarantorNames.join(' , ');

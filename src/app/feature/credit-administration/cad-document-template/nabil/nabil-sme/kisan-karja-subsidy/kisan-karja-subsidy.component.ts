@@ -83,6 +83,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
         }
+        console.log('tempdata', this.tempData);
         this.checkOfferLetterData();
         /* this.guarantorDetails();*/
     }
@@ -181,6 +182,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     }
 
     fillForm() {
+        console.log('fillfomr works');
         const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
         const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
             this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
@@ -341,16 +343,18 @@ export class KisanKarjaSubsidyComponent implements OnInit {
 
     guarantorDetails() {
         if (this.guarantorData.length === 1) {
-            if (this.guarantorData[0].guarantorType === 'Personal Guarantor') {
-                const temp = JSON.parse(this.guarantorData[0].nepData);
-                this.finalName = temp.guarantorName.ct;
+            const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
+            if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+                // const temp = JSON.parse(this.guarantorData[0].nepData);
+                this.finalName = tempGuarantorNep.guarantorName.ct;
             } else {
-                const temp = JSON.parse(this.guarantorData[0].nepData);
-                this.finalName = temp.authorizedPersonName.ct;
+                // const temp = JSON.parse(this.guarantorData[0].nepData);
+                this.finalName = tempGuarantorNep.authorizedPersonName.ct;
             }
         } else if (this.guarantorData.length === 2) {
             for (let i = 0; i < this.guarantorData.length; i++) {
-                if (this.guarantorData[i].guarantorType === 'Personal Guarantor') {
+                const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+                if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
                     this.guarantorNames.push(temp.guarantorName.ct);
                 } else {
@@ -364,7 +368,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             this.finalName = this.allguarantorNames;
         } else {
             for (let i = 0; i < this.guarantorData.length - 1; i++) {
-                if (this.guarantorData[i].guarantorType === 'Personal Guarantor') {
+                const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+                if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
                     console.log(temp);
                     this.guarantorNames.push(temp.guarantorName.ct);
