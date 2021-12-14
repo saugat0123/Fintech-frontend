@@ -55,15 +55,15 @@
 
                                 </select>
                             </div>
-                            <div class="col-md-3 py-2">
-                                <select class="form-control form-control-tiny" formControlName="loanType">
-                                    <option [value]="null" selected hidden>Select Type</option>
-                                    <option [value]="null">All Types</option>
-                                    <option *ngFor="let typeOfLoan of sortedLoanType"
-                                            [value]="loanType.getEnum(typeOfLoan)">{{typeOfLoan}}
-                                    </option>
-                                </select>
-                            </div>
+<!--                            <div class="col-md-3 py-2">-->
+<!--                                <select class="form-control form-control-tiny" formControlName="loanType">-->
+<!--                                    <option [value]="null" selected hidden>Select Type</option>-->
+<!--                                    <option [value]="null">All Types</option>-->
+<!--                                    <option *ngFor="let typeOfLoan of sortedLoanType"-->
+<!--                                            [value]="loanType.getEnum(typeOfLoan)">{{typeOfLoan}}-->
+<!--                                    </option>-->
+<!--                                </select>-->
+<!--                            </div>-->
 
                             <div *ngIf="showDocStatusList" class="col-md-3 py-2">
                                 <ng-select [items]="docStatusMakerList"
