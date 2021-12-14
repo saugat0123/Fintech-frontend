@@ -380,9 +380,9 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     this.modalService.dismissAll();
     this.spinnerService.show();
     if (!ObjectUtil.isEmpty(currentStage)) {
-      if ((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER') ||
-          (currentStage.toUser.id.toString() !== this.currentUserId) &&
-          (this.currentUserRoleType === 'MAKER') && (docStatus === 'PENDING')) {
+      if (((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER')) ||
+          ((currentStage.toUser.id.toString() !== this.currentUserId) &&
+          (this.currentUserRoleType === 'MAKER') && (docStatus === 'PENDING'))) {
         this.router.navigate(['/home/loan/summary'], {
           queryParams: {
             loanConfigId: loanConfigId,
