@@ -2,7 +2,7 @@
     <div>
         <div class="col-md-12 viewFull" style="line-height: 1.9">
 
-            <div class="">
+            <div *ngIf="isIrrevocableLetter || isCustomerAcceptance">
                 <strong><u>प्रतित पत्र सुविधाः</u></strong>
                 <!--Applicable incase of LC facility is purpose-->
 
@@ -39,7 +39,7 @@
                 </ol>
             </div>
 
-            <div class="">
+            <div *ngIf="isExcept">
                 <strong><u>नबिकरणीय प्रकृतिका कर्जा</u></strong><br>
                 <!--Applicable in all facility except term loan, auto loan & one of facility-->
                 <ol class="conditions-list">
@@ -62,9 +62,9 @@
                 </ol>
             </div>
 
-            <div class="">
-                <strong><u>दीर्घकालीन कर्जा </u></strong><br>
-                <!--Applicable incase of term loan & auto loan facility only-->
+            <div *ngIf="isOneOffFacility">
+                <strong><u>पटके कर्जा/सुविधा  </u></strong><br>
+                <!--Applicable incase of one-off facility-->
                 <ol class="conditions-list">
                     <li>
                         <!--<span
@@ -79,7 +79,7 @@
                 </ol>
             </div>
 
-            <div class="">
+            <div *ngIf="isTermOrAuto">
                 <strong><u>दीर्घकालीन कर्जा </u></strong><br>
                 <!--Applicable incase of term loan & auto loan facility only-->
                 <ol class="conditions-list">
@@ -98,7 +98,7 @@
                 </ol>
             </div>
 
-            <div class="">
+            <div *ngIf="isAutoLoan || isTermLoanForVehicle === 'VEHICLE'">
                 <strong><u>सवारी साधन कर्जाः  </u></strong><br>
                 <!--Applicable incase of auto loan/term loan to purchase vehicle facility is purpose-->
                 <ol class="conditions-list">
@@ -140,7 +140,7 @@
                 </ol>
             </div>
 
-            <div class="">
+            <div *ngIf="isBankGuarantee">
                 <strong><u>बैंक जमानत सुविधा   </u></strong><br>
                 <!--Applicable incase of bank guarantee facility only-->
                 <ol class="conditions-list">
