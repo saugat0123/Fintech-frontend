@@ -645,7 +645,7 @@
         <nb-card-footer>
             <div class="col-md-12">
                 <button class="btn btn-danger" (click)="close()">Close</button>
-                <button class="btn btn-primary float-right" (click)="saveTermsAndCommentModal()">Submit</button>
+                <button class="btn btn-primary float-right" [disabled]="spinner" (click)="saveTermsAndCommentModal()">Submit</button>
             </div>
         </nb-card-footer>
     </nb-card>

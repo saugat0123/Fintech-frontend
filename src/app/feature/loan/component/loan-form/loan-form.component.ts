@@ -871,10 +871,10 @@ export class LoanFormComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Customer cannot be empty! Please search customer'));
                 return;
             }
-            this.nbSpinner=true;
+            this.nbSpinner = true;
             this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
                 this.loanDocument = response.detail;
-                this.nbSpinner=false;
+                this.nbSpinner = false;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
                 this.router.navigate(['/home/loan/summary'], {queryParams: {
@@ -886,7 +886,8 @@ export class LoanFormComponent implements OnInit {
                         this.spinner.hide();
                     });
             }, error => {
-                this.nbSpinner=false;
+                this.spinner.hide();
+                this.nbSpinner = false;
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, `Error saving loan: ${error.error.message}`));
             });
