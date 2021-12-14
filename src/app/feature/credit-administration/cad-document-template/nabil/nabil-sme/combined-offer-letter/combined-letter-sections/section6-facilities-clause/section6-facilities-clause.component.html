@@ -44,7 +44,7 @@
                     </ol>
                 </div>
 
-                <div class="">
+                <div *ngIf="isExcept">
                     <strong><u>नबिकरणीय प्रकृतिका कर्जा</u></strong><br>
                     <!--Applicable in all facility except term loan, auto loan & one of facility-->
                     <ol class="conditions-list">
@@ -52,26 +52,23 @@
                             ऋणकर्जा सुविधाहरुको अवधि समाप्त हुने मिति भन्दा ४५ दिन अगावै आवश्यक
                             कागजपत्रहरु सहित नविकरणका लागि निवेदन दिनुपर्नेछ । नविकरणका लागि निवेदन प्राप्त नभएमा
                             वा निवेदनका साथ पूर्ण कागजपत्रहरु संलग्न नभएमा नविकरण हुनेछैन र नविकरण नभएको अवस्थामा
-                            बाँकी ऋणकर्जा सुविधाहरु बिलम्बित बक्यौताको रुपमा लिईनेछ र यथासिघ्र चुक्ताभुक्तान गर्नुपर्नेछ
-                            र
-                            चुक्ता भुक्तान नभएमा प्रशासनिक वा कानूनी कारबाही गरी हर्जाना ब्याज तथा शुल्क सहित आफ्नोे
-                            सम्पूर्ण लेना रकम असुल उपर गर्न सक्नेछ ।
+                            बाँकी ऋणकर्जा सुविधाहरु बिलम्बित बक्यौताको रुपमा लिईनेछ र यथासिघ्र चुक्ताभुक्तान गर्नुपर्नेछ र
+                            चुक्ता भुक्तान नभएमा प्रशासनिक वा कानूनी कारबाही गरी हर्जाना ब्याज तथा शुल्क सहित
+                            आफ्नोे सम्पूर्ण लेना रकम असुल उपर गर्न सक्नेछ ।
                         </li>
                         <li>
-                            कर्जा भुक्तानीको सम्बन्धमा जुनसुकै मिति मञ्जुर गरिएको भएता पनि प्रस्तुत कर्जा बैंकले कुनै
-                            पनि
-                            बखत
+                            कर्जा भुक्तानीको सम्बन्धमा जुनसुकै मिति मञ्जुर गरिएको भएता पनि प्रस्तुत कर्जा बैंकले कुनै पनि बखत
                             वा समय समयमा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकनका लागि बैंकले माग गरेका
                             कागजात/विवरण/सूचना ऋणीले प्रदान गर्नु पर्नेछ । त्यस्तो विवरण/कागजात/सुचना बैंकलाई प्राप्त
-                            नभएमा वा प्राप्त कागजात/विवरण/सुचनाबाट बैंक संन्तुष्ट नभएमा बैंकले कुनै पनि बखत कर्जा सुविधा
-                            फिर्ता माग गर्न सक्नेछ ।
+                            नभएमा वा प्राप्त कागजात/विवरण/सुचनाबाट बैंक संन्तुष्ट नभएमा बैंकले कुनै पनि बखत कर्जा
+                            सुविधा फिर्ता माग गर्न सक्नेछ ।
                         </li>
                     </ol>
                 </div>
 
-                <div class="">
-                    <strong><u>दीर्घकालीन कर्जा </u></strong><br>
-                    <!--Applicable incase of term loan & auto loan facility only-->
+                <div *ngIf="isOneOffFacility">
+                    <strong><u>पटके कर्जा/सुविधा </u></strong><br>
+                    <!--Aplicable incase of one-off facilityy-->
                     <ol class="conditions-list">
                         <li>
                             <input class="form-field form-control-sm nepaliFont"
@@ -84,7 +81,7 @@
                     </ol>
                 </div>
 
-                <div class="">
+                <div *ngIf="isTermOrAuto">
                     <strong><u>दीर्घकालीन कर्जा </u></strong><br>
                     <!--Applicable incase of term loan & auto loan facility only-->
                     <ol class="conditions-list">
@@ -105,7 +102,7 @@
                     </ol>
                 </div>
 
-                <div class="">
+                <div *ngIf="isAutoLoan || isTermLoanForVehicle === 'VEHICLE'">
                     <strong><u>सवारी साधन कर्जाः </u></strong><br>
                     <!--Applicable incase of auto loan/term loan to purchase vehicle facility is purpose-->
                     <ol class="conditions-list">
@@ -148,7 +145,7 @@
                     </ol>
                 </div>
 
-                <div class="">
+                <div *ngIf="isBankGuarantee">
                     <strong><u>बैंक जमानत सुविधा </u></strong><br>
                     <!--Applicable incase of bank guarantee facility only-->
                     <ol class="conditions-list">
