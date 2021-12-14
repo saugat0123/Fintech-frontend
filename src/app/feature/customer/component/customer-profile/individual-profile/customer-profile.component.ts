@@ -40,10 +40,10 @@ import {Clients} from '../../../../../../environments/Clients';
     styleUrls: ['./customer-profile.component.scss']
 })
 export class CustomerProfileComponent implements OnInit, AfterContentInit {
-    @ViewChild('customerListGroupComponent', {static: false})
+    @ViewChild('customerListGroupComponent')
     public customerListGroupComponent: CustomerListGroupComponent;
 
-    @ViewChild('mGroupAccordion', {static: false})
+    @ViewChild('mGroupAccordion')
     public mGroupAccordion: NbAccordionItemComponent;
 
     associateId: number;

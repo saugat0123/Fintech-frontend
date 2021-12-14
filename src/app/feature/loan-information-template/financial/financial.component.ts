@@ -34,10 +34,10 @@ import {NgxSpinnerService} from "ngx-spinner";
     styleUrls: ['./financial.component.scss']
 })
 export class FinancialComponent implements OnInit {
-    @ViewChild('incomeStatement', {static: false}) incomeStatement: IncomeStatementComponent;
-    @ViewChild('balanceSheet', {static: false}) balanceSheet: BalanceSheetComponent;
-    @ViewChild('cashFlowStatement', {static: false}) cashFlowStatement: CashFlowStatementComponent;
-    @ViewChild('keyIndicators', {static: false}) keyIndicators: KeyIndicatorsComponent;
+    @ViewChild('incomeStatement') incomeStatement: IncomeStatementComponent;
+    @ViewChild('balanceSheet') balanceSheet: BalanceSheetComponent;
+    @ViewChild('cashFlowStatement') cashFlowStatement: CashFlowStatementComponent;
+    @ViewChild('keyIndicators') keyIndicators: KeyIndicatorsComponent;
     @Input() formData: Financial;
     @Input() fromProfile: boolean;
     @Output() financialDataEmitter = new EventEmitter();

@@ -54,71 +54,71 @@ export class CustomerLoanInformationComponent implements OnInit {
     @Input() public companyInfo: CompanyInfo;
     @Input() isMicroCustomer: boolean;
 
-    @ViewChild('siteVisitComponent', {static: false})
+    @ViewChild('siteVisitComponent')
     public siteVisitComponent: SiteVisitComponent;
-    @ViewChild('itemSiteVisit', {static: false})
+    @ViewChild('itemSiteVisit')
     private itemSiteVisit: NbAccordionItemComponent;
-    @ViewChild('financialComponent', {static: false})
+    @ViewChild('financialComponent')
     public financialComponent: FinancialComponent;
-    @ViewChild('itemFinancial', {static: false})
+    @ViewChild('itemFinancial')
     private itemFinancial: NbAccordionItemComponent;
     /*@ViewChild('CrgAlphaComponent', {static: false})
     public CrgAlphaComponent: CreditRiskGradingAlphaComponent;
     @ViewChild('itemCrgAlpha', {static: false})
     private itemCrgAlpha: NbAccordionItemComponent;*/
-    @ViewChild('CrgComponent', {static: false})
+    @ViewChild('CrgComponent')
     public CrgComponent: CreditGradingComponent;
-    @ViewChild('itemCrg', {static: false})
+    @ViewChild('itemCrg')
     private itemCrg: NbAccordionItemComponent;
-    @ViewChild('CrgGammaComponent', {static: false})
+    @ViewChild('CrgGammaComponent')
     public CrgGammaComponent: CreditRiskGradingGammaComponent;
-    @ViewChild('itemCrgGamma', {static: false})
+    @ViewChild('itemCrgGamma')
     private itemCrgGamma: NbAccordionItemComponent;
-    @ViewChild('itemSecurity', {static: false})
+    @ViewChild('itemSecurity')
     private itemSecurity: NbAccordionItemComponent;
-    @ViewChild('guarantorComponent', {static: false})
+    @ViewChild('guarantorComponent')
     public guarantorComponent: GuarantorComponent;
-    @ViewChild('itemGuarantor', {static: false})
+    @ViewChild('itemGuarantor')
     private itemGuarantor: NbAccordionItemComponent;
-    @ViewChild('itemInsurance', {static: false})
+    @ViewChild('itemInsurance')
     private itemInsurance: NbAccordionItemComponent;
-    @ViewChild('itemIncomeFromAccount', {static: false})
+    @ViewChild('itemIncomeFromAccount')
     private itemIncomeFromAccount: NbAccordionItemComponent;
-    @ViewChild('itemNetTradingAssets', {static: false})
+    @ViewChild('itemNetTradingAssets')
     private itemNetTradingAssets: NbAccordionItemComponent;
-    @ViewChild('ciclComponent', {static: false})
+    @ViewChild('ciclComponent')
     private itemCicl: NbAccordionItemComponent;
-    @ViewChild('itemloanChecklist', {static: false})
+    @ViewChild('itemloanChecklist')
     private itemloanChecklist: NbAccordionItemComponent;
-    @ViewChild('synopsisAccordion', {static: false})
+    @ViewChild('synopsisAccordion')
     private synopsisAccordion: NbAccordionItemComponent;
-    @ViewChild('loanPortfolio', {static: false})
+    @ViewChild('loanPortfolio')
     private loanPortfolio: NbAccordionItemComponent;
-    @ViewChild('borrowerLoanPortfolioComponent', {static: false})
+    @ViewChild('borrowerLoanPortfolioComponent')
     private borrowerLoanPortfolioComponent: NbAccordionItemComponent;
-    @ViewChild('borrowerFinancialHighlight', {static: false})
+    @ViewChild('borrowerFinancialHighlight')
     private borrowerFinancialHighlight: NbAccordionItemComponent;
 
-    @ViewChild('microCrgParamsComponent', {static: false})
+    @ViewChild('microCrgParamsComponent')
     private microCrgParamsComponent: NbAccordionItemComponent;
 
-    @ViewChild('baselRiskAccordion', {static: false})
+    @ViewChild('baselRiskAccordion')
     private marketingActivitiesAccordian: NbAccordionItemComponent;
-    @ViewChild('marketingActivitiesAccordian', {static: false})
+    @ViewChild('marketingActivitiesAccordian')
     private baselRiskAccordion: NbAccordionItemComponent;
-    @ViewChild('reportingInfoLevelAccordion', {static: false})
+    @ViewChild('reportingInfoLevelAccordion')
     public reportingInfoLevelAccordion: NbAccordionItemComponent;
-    @ViewChild('reportingInfoTagging', {static: false})
+    @ViewChild('reportingInfoTagging')
     public reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
     @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
     calendarType: CalendarType = CalendarType.AD;
-    @ViewChild('commentsFromAccount', {static: false})
+    @ViewChild('commentsFromAccount')
     private commentsFromAccount: NbAccordionItemComponent;
-    @ViewChild('commentsInfoTagging', {static: false})
+    @ViewChild('commentsInfoTagging')
     public commentsComponent: CommentsComponent;
-    @ViewChild('dataFromPreviousSecurity', {static: false})
+    @ViewChild('dataFromPreviousSecurity')
     private dataFromPreviousSecurity: NbAccordionItemComponent;
-    @ViewChild('previousSecurityInfoTagging', {static: false})
+    @ViewChild('previousSecurityInfoTagging')
     public previousSecurityComponent: PreviousSecurityComponent;
 
     private siteVisit: SiteVisit;

@@ -123,16 +123,16 @@ export class CompanyFormComponent implements OnInit {
     // json data
     companyJsonData: CompanyJsonData = new CompanyJsonData();
 
-    @ViewChild('bankingRelationComponent', {static: false})
+    @ViewChild('bankingRelationComponent')
     bankingRelationComponent: BankingRelationComponent;
 
-    @ViewChild('companyOtherDetailComponent', {static: false})
+    @ViewChild('companyOtherDetailComponent')
     companyOtherDetailComponent: CompanyOtherDetailComponent;
 
-    @ViewChild('marketScenarioComponent', {static: false})
+    @ViewChild('marketScenarioComponent')
     marketScenarioComponent: MarketScenarioComponent;
 
-    @ViewChild('microCompanyFormComponent', {static: false})
+    @ViewChild('microCompanyFormComponent')
     microCompanyFormComponent: MicroCompanyFormComponentComponent;
 
 

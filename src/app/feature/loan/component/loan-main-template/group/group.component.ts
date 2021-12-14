@@ -17,10 +17,10 @@ export class GroupComponent implements OnInit {
     @Input() groupValue: Group;
     @Input() proposalDataHolder: Proposal;
 
-    @ViewChild('groupDetail' , {static: false})
+    @ViewChild('groupDetail')
     groupDetail: GroupDetailComponent;
 
-    @ViewChild('securityDetail' , {static: false})
+    @ViewChild('securityDetail')
     securityDetail: SecurityDetailComponent;
 
     groupDataForEdit;

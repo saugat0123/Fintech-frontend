@@ -83,7 +83,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   previousList: Array<LoanStage> = new Array<LoanStage>();
   currentDocAction = '';
   loanCategory;
-  @ViewChild('print', {static: false}) print;
+  @ViewChild('print') print;
   businessType = BusinessType;
   financialData: Financial = new Financial();
   shareSecurityData: ShareSecurity = new ShareSecurity();

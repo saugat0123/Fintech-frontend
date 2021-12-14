@@ -33,7 +33,7 @@ import {LoanFormService} from '../../../../loan/component/loan-form/service/loan
     styleUrls: ['./company-profile.component.scss']
 })
 export class CompanyProfileComponent implements OnInit, AfterContentInit {
-    @ViewChild('mGroupAccordion', {static: false})
+    @ViewChild('mGroupAccordion')
     public mGroupAccordion: NbAccordionItemComponent;
 
     companyInfo: CompanyInfo = new CompanyInfo();

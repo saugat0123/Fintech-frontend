@@ -25,7 +25,7 @@ import {ValuatingField} from '../../modal/valuatingField';
     templateUrl: './valuator.component.html'
 })
 export class ValuatorComponent implements OnInit {
-    @ViewChild(NbPopoverDirective, { static: false }) popover: NbPopoverDirective;
+    @ViewChild(NbPopoverDirective) popover: NbPopoverDirective;
     popoverContent = undefined;
     inactiveCodePopoverContent = '';
     inactiveCommentPopoverContent = '';

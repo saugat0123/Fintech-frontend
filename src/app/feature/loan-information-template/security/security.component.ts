@@ -42,7 +42,7 @@ export class SecurityComponent implements OnInit {
     @Input() isMicroCustomer: boolean;
     @Input() submittedCheckFromParent: boolean;
 
-    @ViewChild('initialSecurity' , {static: false})
+    @ViewChild('initialSecurity')
     initialSecurity: SecurityInitialFormComponent;
     securityData: Security = new Security();
     guarantorsForm: FormGroup;

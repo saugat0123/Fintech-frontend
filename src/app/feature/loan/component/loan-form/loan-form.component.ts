@@ -143,73 +143,73 @@ export class LoanFormComponent implements OnInit {
     showDocStatusDropDown = true;
     isBlackListed = false;
 
-    @ViewChild('priorityFormNav', {static: false})
+    @ViewChild('priorityFormNav')
     priorityFormNav: ElementRef;
 
-    @ViewChild('container', {static: false})
+    @ViewChild('container')
     container: ElementRef;
 
-    @ViewChild('basicInfo', {static: false})
+    @ViewChild('basicInfo')
     basicInfo: BasicInfoComponent;
 
-    @ViewChild('dmsLoanFile', {static: false})
+    @ViewChild('dmsLoanFile')
     dmsLoanFile: DmsLoanFileComponent;
 
-    @ViewChild('companyInfo', {static: false})
+    @ViewChild('companyInfo')
     companyInfoComponent: CompanyInfoComponent;
 
-    @ViewChild('kycInfo', {static: false})
+    @ViewChild('kycInfo')
     kycInfo: KycInfoComponent;
 
-    @ViewChild('proposalInfo', {static: false})
+    @ViewChild('proposalInfo')
     proposalDetail: ProposalComponent;
 
-    @ViewChild('cicl', {static: false})
+    @ViewChild('cicl')
     cicl: CiclComponent;
 
-    @ViewChild('creditGrading', {static: false})
+    @ViewChild('creditGrading')
     creditGrading: CreditGradingComponent;
 
-    @ViewChild('creditRiskGradingAlpha', {static: false})
+    @ViewChild('creditRiskGradingAlpha')
     creditRiskGradingAlpha: CreditRiskGradingAlphaComponent;
 
-    @ViewChild('creditRiskGradingLambda', {static: false})
+    @ViewChild('creditRiskGradingLambda')
     creditRiskGradingLambda: CreditRiskGradingLambdaComponent;
 
-    @ViewChild('crgMicro', {static: false})
+    @ViewChild('crgMicro')
     crgMicro: CrgMicroComponent;
 
-    @ViewChild('crgGamma', {static: false})
+    @ViewChild('crgGamma')
     crgGamma: CreditRiskGradingGammaComponent;
 
-    @ViewChild('financial', {static: false})
+    @ViewChild('financial')
     financial: FinancialComponent;
 
-    @ViewChild('siteVisit', {static: false})
+    @ViewChild('siteVisit')
     siteVisit: SiteVisitComponent;
 
-    @ViewChild('security', {static: false})
+    @ViewChild('security')
     security: SecurityComponent;
 
-    @ViewChild('customerDocument', {static: false})
+    @ViewChild('customerDocument')
     customerDocument: CustomerLoanDocumentComponent;
 
-    @ViewChild('group', {static: false})
+    @ViewChild('group')
     group: GroupComponent;
 
-    @ViewChild('guarantor', {static: false})
+    @ViewChild('guarantor')
     guarantorComponent: GuarantorAdderComponent;
 
-    @ViewChild('reportingInfoTagging', {static: false})
+    @ViewChild('reportingInfoTagging')
     reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
 
-    @ViewChild('insurance', {static: false})
+    @ViewChild('insurance')
     insuranceComponent: InsuranceComponent;
 
-    @ViewChild('microProposalInfo', {static: false})
+    @ViewChild('microProposalInfo')
     microProposalInfo: MicroProposalComponent;
 
-    @ViewChild('obtainedDocument', {static: false})
+    @ViewChild('obtainedDocument')
     obtainedDocument: ObtainedDocumentComponent;
 
     loanTag: string;

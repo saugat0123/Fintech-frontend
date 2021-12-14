@@ -51,7 +51,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         return this.basicInfo.controls;
     }
 
-    @ViewChild('microIndividualFormComponent' , {static: false}) microIndividualFormComponent: MicroIndividualFormComponent;
+    @ViewChild('microIndividualFormComponent') microIndividualFormComponent: MicroIndividualFormComponent;
 
     @Input() formValue: Customer = new Customer();
     @Input() clientTypeInput: any;

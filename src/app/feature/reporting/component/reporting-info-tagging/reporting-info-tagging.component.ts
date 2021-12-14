@@ -27,7 +27,7 @@ export class ReportingInfoTaggingComponent implements OnInit {
   };
   public savedReportTagsId = new Set<number>();
   public finalReportingInfoLevels: Array<ReportingInfoLevel>;
-  @ViewChild('reportingInfoTaggingFormComponent', {static: false})
+  @ViewChild('reportingInfoTaggingFormComponent')
   public taggingComponent: ReportingInfoTaggingFormComponent;
 
   constructor(

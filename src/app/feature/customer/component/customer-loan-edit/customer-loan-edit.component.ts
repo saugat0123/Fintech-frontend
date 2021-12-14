@@ -31,19 +31,19 @@ export class CustomerLoanEditComponent implements OnInit {
 
   ];
 
-  @ViewChild('proposal', {static: false})
+  @ViewChild('proposal')
   proposal: ProposalComponent;
 
-  @ViewChild('microProposal', {static: false})
+  @ViewChild('microProposal')
   microProposal: MicroProposalComponent;
 
-  @ViewChild('customerLoanDoc', {static: false})
+  @ViewChild('customerLoanDoc')
   customerLoanDoc: CustomerLoanDocumentComponent;
 
-  @ViewChild('reportingInfoTagging', {static: false})
+  @ViewChild('reportingInfoTagging')
   reportingInfoTagging: ReportingInfoTaggingComponent;
 
-  @ViewChild('priorityFormNav', {static: false})
+  @ViewChild('priorityFormNav')
   priorityFormNav: ElementRef;
 
   constructor(private loanFormService: LoanFormService,

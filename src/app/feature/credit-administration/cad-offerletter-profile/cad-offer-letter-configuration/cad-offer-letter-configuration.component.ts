@@ -87,7 +87,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     collateralTemporaryMunicipalitiesList = [];
     customerCadInfoData = new CustomerCadInfo();
 
-    @ViewChild('loanDetails', {static: false})
+    @ViewChild('loanDetails')
     loanDetails: NepProposedAmountFormComponent;
 
     constructor(private formBuilder: FormBuilder,
