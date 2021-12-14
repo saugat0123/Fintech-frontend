@@ -24,7 +24,7 @@ export class CustomInputComponent implements OnInit {
     ) {
     }
 
-    val: string;
+    val = '';
     engVal = this.val;
     nepVal;
 
