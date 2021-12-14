@@ -122,7 +122,8 @@ export class FinancialService {
             + Number(cashFlowStatementData.longTermLoanReceived[index].value)
             + Number(cashFlowStatementData.dividendDrawing[index].value)
             + Number(cashFlowStatementData.interestExpensesCFSb[index].value)
-            + Number(cashFlowStatementData.otherAdjustments[index].value)).toFixed(2);
+            + Number(cashFlowStatementData.otherAdjustments[index].value)
+            + Number(cashFlowStatementData.additionalCapital[index].value)).toFixed(2);
     }
 
     netCashFlowTotal(cashFlowStatementData, index) {

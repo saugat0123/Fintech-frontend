@@ -902,7 +902,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.baseRate = this.proposalForm.controls['baseRate'].value;
         this.interestRate = this.proposalForm.controls['interestRate'].value;
         // @ts-ignore
-        this.premiumRateOnBaseRate = (this.interestRate - this.baseRate).toPrecision(2);
+        this.premiumRateOnBaseRate = (this.interestRate - this.baseRate).toFixed(2);
         this.proposalForm.controls['premiumRateOnBaseRate'].patchValue(this.premiumRateOnBaseRate);
     }
 
