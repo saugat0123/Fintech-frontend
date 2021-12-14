@@ -41,7 +41,7 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
     this.timeLetterCreditForm = this.formBuilder.group({
       //form data
       loanOption: [undefined],
-      multiLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
       complementryOther: [undefined],
       loanAmount: [undefined],
       loanAmountAmountWords: [undefined],
@@ -54,7 +54,7 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
 
       //translated data
       loanOptionTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       complementryOtherTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountAmountWordsTrans: [undefined],
@@ -67,7 +67,7 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
 
       //for corrected data
       loanOptionCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       complementryOtherCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountAmountWordsCT: [undefined],
@@ -104,9 +104,9 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
       this.timeLetterCreditForm.get('loanOptionTrans').patchValue('');
     }
 
-    const tempMultiLoan = this.timeLetterCreditForm.get('multiLoanTrans').value;
-    if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-      this.timeLetterCreditForm.get('multiLoanTrans').patchValue('');
+    const tempComplimentaryLoan = this.timeLetterCreditForm.get('complimentaryLoanSelected').value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoan)) {
+      this.timeLetterCreditForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoan);
     }
 
     const tempComplemetry = this.timeLetterCreditForm.get('complementryOther').value;
@@ -154,8 +154,8 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
     this.timeLetterCreditForm.get('loanOptionCT').patchValue(
         this.timeLetterCreditForm.get('loanOptionTrans').value
     );
-    this.timeLetterCreditForm.get('multiLoanCT').patchValue(
-        this.timeLetterCreditForm.get('multiLoanTrans').value
+    this.timeLetterCreditForm.get('complimentaryLoanSelectedCT').patchValue(
+        this.timeLetterCreditForm.get('complimentaryLoanSelectedTrans').value
     );
     this.timeLetterCreditForm.get('complementryOtherCT').patchValue(
         this.timeLetterCreditForm.get('complementryOtherTrans').value

@@ -55,7 +55,7 @@ export class AutoLoanMasterComponent implements OnInit {
     this.autoLoanMasterForm = this.formBuilder.group({
       //For form Data
       complementaryOther: [undefined],
-      multiLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
       vehiclePurchased: [undefined],
       vehicleRegistered: [undefined],
       autoLoanType: [undefined],
@@ -83,7 +83,7 @@ export class AutoLoanMasterComponent implements OnInit {
 
       //For Translated Data
       complementaryOtherTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       vehiclePurchasedTrans: [undefined],
       vehicleRegisteredTrans: [undefined],
       autoLoanTypeTrans: [undefined],
@@ -111,7 +111,7 @@ export class AutoLoanMasterComponent implements OnInit {
 
       //For Corrected Data
       complementaryOtherCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       vehiclePurchasedCT: [undefined],
       vehicleRegisteredCT: [undefined],
       autoLoanTypeCT: [undefined],
@@ -213,9 +213,9 @@ export class AutoLoanMasterComponent implements OnInit {
       this.autoLoanMasterForm.get('vehicleRegisteredTrans').patchValue(tempVehicleRegistered);
     }
 
-    const tempMultiLoan = this.autoLoanMasterForm.get('multiLoan').value;
-    if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-      this.autoLoanMasterForm.get('multiLoanTrans').patchValue(tempMultiLoan);
+    const tempComplimentaryLoanSelected = this.autoLoanMasterForm.get('complimentaryLoanSelected').value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
+      this.autoLoanMasterForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
     }
 
     const tempAutoLoanType = this.autoLoanMasterForm.get('autoLoanType').value;
@@ -320,8 +320,8 @@ export class AutoLoanMasterComponent implements OnInit {
     this.autoLoanMasterForm.get('vehicleRegisteredCT').patchValue(
         this.autoLoanMasterForm.get('vehicleRegisteredTrans').value
     );
-    this.autoLoanMasterForm.get('multiLoanCT').patchValue(
-        this.autoLoanMasterForm.get('multiLoanTrans').value
+    this.autoLoanMasterForm.get('complimentaryLoanSelectedCT').patchValue(
+        this.autoLoanMasterForm.get('complimentaryLoanSelectedTrans').value
     );
     this.autoLoanMasterForm.get('autoLoanTypeCT').patchValue(
         this.autoLoanMasterForm.get('autoLoanTypeTrans').value

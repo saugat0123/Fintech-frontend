@@ -43,9 +43,8 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     tempData;
     customerType;
     guarantorData;
-    guarantorNames;
+    guarantorNames: Array<any> = new Array<any>();
     allguarantorNames;
-    guarantorAmount = 0;
     finalName;
     offerDocumentDetails;
     freeTextVal: any = {};
@@ -287,15 +286,26 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             sixthText: this.form.get('position2').value,
         };
     }
-
     guarantorDetails() {
         if (this.guarantorData.length === 1) {
-            const temp = JSON.parse(this.guarantorData[0].nepData);
-            this.finalName = temp.guarantorName.ct;
+            const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
+            if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+                // const temp = JSON.parse(this.guarantorData[0].nepData);
+                this.finalName = tempGuarantorNep.guarantorName.ct;
+            } else {
+                // const temp = JSON.parse(this.guarantorData[0].nepData);
+                this.finalName = tempGuarantorNep.authorizedPersonName.ct;
+            }
         } else if (this.guarantorData.length === 2) {
             for (let i = 0; i < this.guarantorData.length; i++) {
-                const temp = JSON.parse(this.guarantorData[i].nepData);
-                this.guarantorNames.push(temp.guarantorName.ct);
+                const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+                if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+                    const temp = JSON.parse(this.guarantorData[i].nepData);
+                    this.guarantorNames.push(temp.guarantorName.ct);
+                } else {
+                    const temp = JSON.parse(this.guarantorData[i].nepData);
+                    this.guarantorNames.push(temp.authorizedPersonName.ct);
+                }
                 // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
             }
             // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
@@ -303,27 +313,31 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             this.finalName = this.allguarantorNames;
         } else {
             for (let i = 0; i < this.guarantorData.length - 1; i++) {
-                const temp = JSON.parse(this.guarantorData[i].nepData);
-                this.guarantorNames.push(temp.guarantorName.ct);
-                // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+                const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+                if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+                    const temp = JSON.parse(this.guarantorData[i].nepData);
+                    console.log(temp);
+                    this.guarantorNames.push(temp.guarantorName.ct);
+                    // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+                } else {
+                    const temp = JSON.parse(this.guarantorData[i].nepData);
+                    console.log(temp);
+                    this.guarantorNames.push(temp.authorizedPersonName.ct);
+                }
+
             }
             // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
             this.allguarantorNames = this.guarantorNames.join(' , ');
             const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
-            this.finalName = this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
+            this.finalName = this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
         }
     }
-
     guarantorParse(nepData, key, trans?) {
         const data = JSON.parse(nepData);
-        try {
-            if (ObjectUtil.isEmpty(trans)) {
-                return data[key].ct;
-            } else {
-                return data[key].en;
-            }
-        } catch (exp) {
-            console.log(exp);
+        if (ObjectUtil.isEmpty(trans)) {
+            return data[key].ct;
+        } else {
+            return data[key].en;
         }
     }
 }

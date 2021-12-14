@@ -60,7 +60,7 @@ export class TermLoanToOrForComponent implements OnInit {
       // For Form Data
       complementaryOther: [undefined],
       subsidyOrAgricultureLoan: [undefined],
-      multiLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
       termLoanFor: [undefined],
       termLoanType: [undefined],
       loanAmount: [undefined],
@@ -86,7 +86,7 @@ export class TermLoanToOrForComponent implements OnInit {
 
       // For Translated Data
       complementaryOtherTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       termLoanForTrans: [undefined],
       termLoanTypeTrans: [undefined],
       loanAmountTrans: [undefined],
@@ -112,7 +112,7 @@ export class TermLoanToOrForComponent implements OnInit {
 
       // For Corrected Data
       complementaryOtherCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       termLoanForCT: [undefined],
       termLoanTypeCT: [undefined],
       loanAmountCT: [undefined],
@@ -196,9 +196,9 @@ export class TermLoanToOrForComponent implements OnInit {
       this.termLoanForm.get('complementaryOtherTrans').patchValue(tempComplementary);
     }
 
-    const tempMultiLoan = this.termLoanForm.get('multiLoan').value;
-    if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-      this.termLoanForm.get('multiLoanTrans').patchValue(tempMultiLoan);
+    const tempComplimentaryLoanSelected = this.termLoanForm.get('complimentaryLoanSelected').value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
+      this.termLoanForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
     }
 
     const tempTermLoanFor = this.termLoanForm.get('termLoanFor').value;
@@ -302,8 +302,8 @@ export class TermLoanToOrForComponent implements OnInit {
     this.termLoanForm.get('complementaryOtherCT').patchValue(
         this.termLoanForm.get('complementaryOtherTrans').value
     );
-    this.termLoanForm.get('multiLoanCT').patchValue(
-        this.termLoanForm.get('multiLoanTrans').value
+    this.termLoanForm.get('complimentaryLoanSelectedCT').patchValue(
+        this.termLoanForm.get('complimentaryLoanSelectedTrans').value
     );
     this.termLoanForm.get('termLoanForCT').patchValue(
         this.termLoanForm.get('termLoanForTrans').value
