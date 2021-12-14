@@ -17,11 +17,13 @@
                 </nb-select>
             </div>
             <div *ngIf="isComplimentryOtherLoan" class="col-md-4">
-                <label class="font-weight-bold" for="multiLoanImport"><strong>Multi Loan Selection</strong></label><br>
-                <nb-select formControlName="multiLoanImport" fullWidth
-                           id="multiLoanImport"
-                           multiple placeholder="Multiple Select" status="success">
-                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName"> {{loanName}} </nb-option>
+                <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
+                <nb-select formControlName="complimentaryLoanSelected" fullWidth
+                           id="complimentaryLoanSelected"
+                           placeholder="Select Complimentary Loan" status="success">
+                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                        {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' + loanName?.loanAmount}}
+                    </nb-option>
                 </nb-select>
             </div>
             <div class="col-md-12 mt-2 ml-2">
