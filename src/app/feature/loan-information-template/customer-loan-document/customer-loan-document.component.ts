@@ -236,7 +236,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
 
     previewDocument(id: number): void {
         let url;
-        const link = document.createElement('a');
+        const link: any = document.createElement('a');
         this.customerDocumentArray.forEach(a => {
             if (a.document.id === id) {
                 url = a.documentPath;

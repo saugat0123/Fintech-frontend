@@ -209,7 +209,7 @@ export class CustomerComponent implements OnInit {
         this.overlay.show();
         this.customerInfoService.download(this.filterForm.value).subscribe((response: any) => {
             this.overlay.hide();
-            const link = document.createElement('a');
+            const link: any = document.createElement('a');
             link.target = '_blank';
             link.href = ApiConfig.URL + '/' + response.detail;
             link.download = name;
