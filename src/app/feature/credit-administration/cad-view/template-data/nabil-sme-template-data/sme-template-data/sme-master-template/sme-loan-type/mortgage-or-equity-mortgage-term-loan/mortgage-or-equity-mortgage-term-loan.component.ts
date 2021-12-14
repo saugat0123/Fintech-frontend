@@ -60,7 +60,7 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
             mortgageType: [undefined],
             termLoanType: [undefined],
             complimentaryOther: [undefined],
-            multiLoan: [undefined],
+            complimentaryLoanSelected: [undefined],
             purposeOfLoan: [undefined],
             loanAmount: [undefined],
             loanAmountAmountWords: [undefined],
@@ -88,7 +88,7 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
             termLoanForTrans: [undefined],
             termLoanTypeTrans: [undefined],
             complimentaryOtherTrans: [undefined],
-            multiLoanTrans: [undefined],
+            complimentaryLoanSelectedTrans: [undefined],
             purposeOfLoanTrans: [undefined],
             loanAmountTrans: [undefined],
             loanAmountAmountWordsTrans: [undefined],
@@ -115,7 +115,7 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
             termLoanForCT: [undefined],
             termLoanTypeCT: [undefined],
             complimentaryOtherCT: [undefined],
-            multiLoanCT: [undefined],
+            complimentaryLoanSelectedCT: [undefined],
             purposeOfLoanCT: [undefined],
             loanAmountCT: [undefined],
             loanAmountAmountWordsCT: [undefined],
@@ -183,9 +183,9 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
 
         this.mortgageEquityTermForm.get('complimentaryOtherTrans').patchValue(this.isComplementaryOther);
 
-        const tempMultiLoan = this.mortgageEquityTermForm.get('multiLoan').value;
-        if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-            this.mortgageEquityTermForm.get('multiLoanTrans').patchValue(tempMultiLoan);
+        const tempComplimentaryLoanSelected = this.mortgageEquityTermForm.get('complimentaryLoanSelected').value;
+        if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
+            this.mortgageEquityTermForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
         }
 
         const tempDrawingPowerBasis = this.mortgageEquityTermForm.get('drawingPowerBasis').value;
@@ -315,8 +315,8 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
         this.mortgageEquityTermForm.get('complimentaryOtherCT').patchValue(
             this.mortgageEquityTermForm.get('complimentaryOtherTrans').value
         );
-        this.mortgageEquityTermForm.get('multiLoanCT').patchValue(
-            this.mortgageEquityTermForm.get('multiLoanTrans').value
+        this.mortgageEquityTermForm.get('complimentaryLoanSelectedCT').patchValue(
+            this.mortgageEquityTermForm.get('complimentaryLoanSelectedTrans').value
         );
         this.mortgageEquityTermForm.get('purposeOfLoanCT').patchValue(
             this.mortgageEquityTermForm.get('purposeOfLoanTrans').value
