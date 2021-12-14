@@ -52,11 +52,13 @@
                     <i> Is complimentary of other loan ? </i></nb-checkbox>
             </div>
             <div *ngIf="isComplementaryOther" class="col-md-4 mt-3">
-                <label class="font-weight-bold" for="multiLoan"><strong>Multi Loan Selection</strong></label><br>
-                <nb-select formControlName="multiLoan" fullWidth
-                           id="multiLoan"
-                           multiple placeholder="Multiple Select" status="success">
-                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName"> {{loanName}} </nb-option>
+                <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
+                <nb-select formControlName="complimentaryLoanSelected" fullWidth
+                           id="complimentaryLoanSelected"
+                           placeholder="Select Complimentary Loan" status="success">
+                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                        {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' + loanName?.loanAmount}}
+                    </nb-option>
                 </nb-select>
             </div>
         </div>
