@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LetterOfAgreementIcfcPrintComponent } from './letter-of-agreement-icfc-print.component';
 
@@ -6,7 +6,7 @@ describe('LetterOfAgreementIcfcPrintComponent', () => {
   let component: LetterOfAgreementIcfcPrintComponent;
   let fixture: ComponentFixture<LetterOfAgreementIcfcPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LetterOfAgreementIcfcPrintComponent ]
     })

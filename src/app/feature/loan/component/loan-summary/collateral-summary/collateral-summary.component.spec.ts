@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CollateralSummaryComponent } from './collateral-summary.component';
 
@@ -6,7 +6,7 @@ describe('CollateralSummaryComponent', () => {
   let component: CollateralSummaryComponent;
   let fixture: ComponentFixture<CollateralSummaryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CollateralSummaryComponent ]
     })

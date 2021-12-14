@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { GroupTaggingComponent } from './group-tagging.component';
 
@@ -6,7 +6,7 @@ describe('GroupTaggingComponent', () => {
   let component: GroupTaggingComponent;
   let fixture: ComponentFixture<GroupTaggingComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GroupTaggingComponent ]
     })

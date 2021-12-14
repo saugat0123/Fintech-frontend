@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {LetterOfContinuityComponent} from './letter-of-continuity.component';
 
@@ -6,7 +6,7 @@ describe('LetterOfContinuityComponent', () => {
   let component: LetterOfContinuityComponent;
   let fixture: ComponentFixture<LetterOfContinuityComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [LetterOfContinuityComponent]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MicroIndividualComponent } from './micro-individual.component';
 
@@ -6,7 +6,7 @@ describe('MicroIndividualComponent', () => {
   let component: MicroIndividualComponent;
   let fixture: ComponentFixture<MicroIndividualComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MicroIndividualComponent ]
     })

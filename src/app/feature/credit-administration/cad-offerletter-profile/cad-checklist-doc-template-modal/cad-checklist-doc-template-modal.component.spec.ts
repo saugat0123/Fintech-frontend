@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CadChecklistDocTemplateModalComponent } from './cad-checklist-doc-template-modal.component';
 
@@ -6,7 +6,7 @@ describe('CadChecklistDocTemplateModalComponent', () => {
   let component: CadChecklistDocTemplateModalComponent;
   let fixture: ComponentFixture<CadChecklistDocTemplateModalComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CadChecklistDocTemplateModalComponent ]
     })

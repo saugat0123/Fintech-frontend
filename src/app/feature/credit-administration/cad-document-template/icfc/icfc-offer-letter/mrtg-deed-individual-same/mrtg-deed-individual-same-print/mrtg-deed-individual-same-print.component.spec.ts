@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MrtgDeedIndividualSamePrintComponent } from './mrtg-deed-individual-same-print.component';
 
@@ -6,7 +6,7 @@ describe('MrtgDeedIndividualSamePrintComponent', () => {
   let component: MrtgDeedIndividualSamePrintComponent;
   let fixture: ComponentFixture<MrtgDeedIndividualSamePrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MrtgDeedIndividualSamePrintComponent ]
     })

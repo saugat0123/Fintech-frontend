@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CustomOfferLetterDocumentComponent } from './custom-offer-letter-document.component';
 
@@ -6,7 +6,7 @@ describe('CustomOfferLetterDocumentComponent', () => {
   let component: CustomOfferLetterDocumentComponent;
   let fixture: ComponentFixture<CustomOfferLetterDocumentComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CustomOfferLetterDocumentComponent ]
     })

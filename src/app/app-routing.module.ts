@@ -45,7 +45,8 @@ const routes: Routes = [
 
 const config: ExtraOptions = {
     useHash: true,
-    onSameUrlNavigation: 'reload'
+    onSameUrlNavigation: 'reload',
+    relativeLinkResolution: 'legacy'
 };
 
 @NgModule({

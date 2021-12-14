@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PromissoryNoteSingleBorrowerComponent } from './promissory-note-single-borrower.component';
 
@@ -6,7 +6,7 @@ describe('PromissoryNoteSingleBorrowerComponent', () => {
   let component: PromissoryNoteSingleBorrowerComponent;
   let fixture: ComponentFixture<PromissoryNoteSingleBorrowerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PromissoryNoteSingleBorrowerComponent ]
     })

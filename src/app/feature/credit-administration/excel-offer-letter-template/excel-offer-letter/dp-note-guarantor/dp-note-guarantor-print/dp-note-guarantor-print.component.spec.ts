@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DpNoteGuarantorPrintComponent } from './dp-note-guarantor-print.component';
 
@@ -6,7 +6,7 @@ describe('DpNoteGuarantorPrintComponent', () => {
   let component: DpNoteGuarantorPrintComponent;
   let fixture: ComponentFixture<DpNoteGuarantorPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DpNoteGuarantorPrintComponent ]
     })

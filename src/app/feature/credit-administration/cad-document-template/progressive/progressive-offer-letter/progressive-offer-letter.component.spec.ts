@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProgressiveOfferLetterComponent } from './progressive-offer-letter.component';
 
@@ -6,7 +6,7 @@ describe('ProgressiveOfferLetterComponent', () => {
   let component: ProgressiveOfferLetterComponent;
   let fixture: ComponentFixture<ProgressiveOfferLetterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ProgressiveOfferLetterComponent ]
     })

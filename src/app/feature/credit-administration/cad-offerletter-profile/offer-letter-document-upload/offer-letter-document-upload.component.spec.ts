@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OfferLetterDocumentUploadComponent } from './offer-letter-document-upload.component';
 
@@ -6,7 +6,7 @@ describe('OfferLetterDocumentUploadComponent', () => {
   let component: OfferLetterDocumentUploadComponent;
   let fixture: ComponentFixture<OfferLetterDocumentUploadComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ OfferLetterDocumentUploadComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LoanDeedMultipleIcfcPrintComponent } from './loan-deed-multiple-icfc-print.component';
 
@@ -6,7 +6,7 @@ describe('LoanDeedMultipleIcfcPrintComponent', () => {
   let component: LoanDeedMultipleIcfcPrintComponent;
   let fixture: ComponentFixture<LoanDeedMultipleIcfcPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LoanDeedMultipleIcfcPrintComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PromissoryNoteIcfcPrintComponent } from './promissory-note-icfc-print.component';
 
@@ -6,7 +6,7 @@ describe('PromissoryNoteIcfcPrintComponent', () => {
   let component: PromissoryNoteIcfcPrintComponent;
   let fixture: ComponentFixture<PromissoryNoteIcfcPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PromissoryNoteIcfcPrintComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ApprovalSheetDocumentListComponent } from './approval-sheet-document-list.component';
 
@@ -6,7 +6,7 @@ describe('ApprovalSheetDocumentListComponent', () => {
   let component: ApprovalSheetDocumentListComponent;
   let fixture: ComponentFixture<ApprovalSheetDocumentListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ApprovalSheetDocumentListComponent ]
     })

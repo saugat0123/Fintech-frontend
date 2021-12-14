@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ConsentLetterIndividualPrintComponent } from './consent-letter-individual-print.component';
 
@@ -6,7 +6,7 @@ describe('ConsentLetterIndividualPrintComponent', () => {
   let component: ConsentLetterIndividualPrintComponent;
   let fixture: ComponentFixture<ConsentLetterIndividualPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ConsentLetterIndividualPrintComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BlacklistConsentCorporateComponent } from './blacklist-consent-corporate.component';
 
@@ -6,7 +6,7 @@ describe('BlacklistConsentCorporateComponent', () => {
   let component: BlacklistConsentCorporateComponent;
   let fixture: ComponentFixture<BlacklistConsentCorporateComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BlacklistConsentCorporateComponent ]
     })

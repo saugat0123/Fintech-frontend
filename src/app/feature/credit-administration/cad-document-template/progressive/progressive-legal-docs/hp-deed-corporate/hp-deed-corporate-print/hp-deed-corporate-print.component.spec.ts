@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HpDeedCorporatePrintComponent } from './hp-deed-corporate-print.component';
 
@@ -6,7 +6,7 @@ describe('HpDeedCorporatePrintComponent', () => {
   let component: HpDeedCorporatePrintComponent;
   let fixture: ComponentFixture<HpDeedCorporatePrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HpDeedCorporatePrintComponent ]
     })

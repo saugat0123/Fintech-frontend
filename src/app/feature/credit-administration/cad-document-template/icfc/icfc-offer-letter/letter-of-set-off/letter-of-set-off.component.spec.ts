@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LetterOfSetOffComponent } from './letter-of-set-off.component';
 
@@ -6,7 +6,7 @@ describe('LetterOfSetOffComponent', () => {
   let component: LetterOfSetOffComponent;
   let fixture: ComponentFixture<LetterOfSetOffComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LetterOfSetOffComponent ]
     })

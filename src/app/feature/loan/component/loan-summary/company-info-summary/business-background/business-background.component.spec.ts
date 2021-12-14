@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BusinessBackgroundComponent } from './business-background.component';
 
@@ -6,7 +6,7 @@ describe('BusinessBackgroundComponent', () => {
   let component: BusinessBackgroundComponent;
   let fixture: ComponentFixture<BusinessBackgroundComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BusinessBackgroundComponent ]
     })

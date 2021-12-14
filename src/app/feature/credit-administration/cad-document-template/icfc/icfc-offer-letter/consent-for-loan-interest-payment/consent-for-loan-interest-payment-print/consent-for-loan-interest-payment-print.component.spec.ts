@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ConsentForLoanInterestPaymentPrintComponent } from './consent-for-loan-interest-payment-print.component';
 
@@ -6,7 +6,7 @@ describe('ConsentForLoanInterestPaymentPrintComponent', () => {
   let component: ConsentForLoanInterestPaymentPrintComponent;
   let fixture: ComponentFixture<ConsentForLoanInterestPaymentPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ConsentForLoanInterestPaymentPrintComponent ]
     })

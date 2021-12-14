@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TrustReceiptNepaliLimitComponent } from './trust-receipt-nepali-limit.component';
 
@@ -6,7 +6,7 @@ describe('TrustReceiptNepaliLimitComponent', () => {
   let component: TrustReceiptNepaliLimitComponent;
   let fixture: ComponentFixture<TrustReceiptNepaliLimitComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TrustReceiptNepaliLimitComponent ]
     })

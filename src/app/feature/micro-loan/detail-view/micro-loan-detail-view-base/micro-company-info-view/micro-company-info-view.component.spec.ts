@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MicroCompanyInfoViewComponent } from './micro-company-info-view.component';
 
@@ -6,7 +6,7 @@ describe('MicroCompanyInfoViewComponent', () => {
   let component: MicroCompanyInfoViewComponent;
   let fixture: ComponentFixture<MicroCompanyInfoViewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MicroCompanyInfoViewComponent ]
     })

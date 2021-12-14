@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PledgeDeedFirstPrintComponent } from './pledge-deed-first-print.component';
 
@@ -6,7 +6,7 @@ describe('PledgeDeedFirstPrintComponent', () => {
   let component: PledgeDeedFirstPrintComponent;
   let fixture: ComponentFixture<PledgeDeedFirstPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PledgeDeedFirstPrintComponent ]
     })

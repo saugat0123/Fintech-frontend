@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {MicroCrgParamsComponent} from './micro-crg-params.component';
 
@@ -6,7 +6,7 @@ describe('MicroCrgParamsComponent', () => {
   let component: MicroCrgParamsComponent;
   let fixture: ComponentFixture<MicroCrgParamsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MicroCrgParamsComponent ]
     })

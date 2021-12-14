@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DhitoLikhatPrintComponent } from './dhito-likhat-print.component';
 
@@ -6,7 +6,7 @@ describe('DhitoLikhatPrintComponent', () => {
   let component: DhitoLikhatPrintComponent;
   let fixture: ComponentFixture<DhitoLikhatPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DhitoLikhatPrintComponent ]
     })

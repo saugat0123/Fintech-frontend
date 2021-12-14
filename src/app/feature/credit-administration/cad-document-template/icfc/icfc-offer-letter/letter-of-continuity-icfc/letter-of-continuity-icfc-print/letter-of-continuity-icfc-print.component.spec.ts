@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LetterOfContinuityIcfcPrintComponent } from './letter-of-continuity-icfc-print.component';
 
@@ -6,7 +6,7 @@ describe('LetterOfContinuityIcfcPrintComponent', () => {
   let component: LetterOfContinuityIcfcPrintComponent;
   let fixture: ComponentFixture<LetterOfContinuityIcfcPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LetterOfContinuityIcfcPrintComponent ]
     })

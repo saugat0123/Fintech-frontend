@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { JointFormComponent } from './joint-form.component';
 
@@ -6,7 +6,7 @@ describe('JointFormComponent', () => {
   let component: JointFormComponent;
   let fixture: ComponentFixture<JointFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ JointFormComponent ]
     })

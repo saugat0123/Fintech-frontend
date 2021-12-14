@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BlacklistFormComponent } from './blacklist-form.component';
 
@@ -6,7 +6,7 @@ describe('BlacklistFormComponent', () => {
   let component: BlacklistFormComponent;
   let fixture: ComponentFixture<BlacklistFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BlacklistFormComponent ]
     })

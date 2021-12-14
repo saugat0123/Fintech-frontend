@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DisbursementApprovedComponent } from './disbursement-approved.component';
 
@@ -6,7 +6,7 @@ describe('DisbursementApprovedComponent', () => {
   let component: DisbursementApprovedComponent;
   let fixture: ComponentFixture<DisbursementApprovedComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DisbursementApprovedComponent ]
     })

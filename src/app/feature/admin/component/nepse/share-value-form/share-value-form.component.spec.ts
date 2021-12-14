@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ShareValueFormComponent } from './share-value-form.component';
 
@@ -6,7 +6,7 @@ describe('ShareValueFormComponent', () => {
   let component: ShareValueFormComponent;
   let fixture: ComponentFixture<ShareValueFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ShareValueFormComponent ]
     })

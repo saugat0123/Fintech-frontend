@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {LetterOfLeinComponent} from './letter-of-lein.component';
 
@@ -6,7 +6,7 @@ describe('LetterOfLeinComponent', () => {
   let component: LetterOfLeinComponent;
   let fixture: ComponentFixture<LetterOfLeinComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [LetterOfLeinComponent]
     })

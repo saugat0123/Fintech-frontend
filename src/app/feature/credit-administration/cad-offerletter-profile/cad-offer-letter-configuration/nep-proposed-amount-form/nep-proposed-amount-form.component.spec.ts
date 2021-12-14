@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NepProposedAmountFormComponent } from './nep-proposed-amount-form.component';
 
@@ -6,7 +6,7 @@ describe('NepProposedAmountFormComponent', () => {
   let component: NepProposedAmountFormComponent;
   let fixture: ComponentFixture<NepProposedAmountFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ NepProposedAmountFormComponent ]
     })

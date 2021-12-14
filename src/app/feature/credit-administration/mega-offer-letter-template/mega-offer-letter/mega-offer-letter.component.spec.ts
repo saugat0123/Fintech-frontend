@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MegaOfferLetterComponent } from './mega-offer-letter.component';
 
@@ -6,7 +6,7 @@ describe('MegaOfferLetterComponent', () => {
   let component: MegaOfferLetterComponent;
   let fixture: ComponentFixture<MegaOfferLetterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MegaOfferLetterComponent ]
     })

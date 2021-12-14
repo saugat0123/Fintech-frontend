@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DocumentChecklistComponent } from './document-checklist.component';
 
@@ -6,7 +6,7 @@ describe('DocumentChecklistComponent', () => {
   let component: DocumentChecklistComponent;
   let fixture: ComponentFixture<DocumentChecklistComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DocumentChecklistComponent ]
     })

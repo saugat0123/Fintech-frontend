@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PgFirmComponent } from './pg-firm.component';
 
@@ -6,7 +6,7 @@ describe('PgFirmComponent', () => {
   let component: PgFirmComponent;
   let fixture: ComponentFixture<PgFirmComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PgFirmComponent ]
     })

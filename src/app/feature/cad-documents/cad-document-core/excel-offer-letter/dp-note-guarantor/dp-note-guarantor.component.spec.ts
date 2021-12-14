@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DpNoteGuarantorComponent } from './dp-note-guarantor.component';
 
@@ -6,7 +6,7 @@ describe('DpNoteGuarantorComponent', () => {
   let component: DpNoteGuarantorComponent;
   let fixture: ComponentFixture<DpNoteGuarantorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DpNoteGuarantorComponent ]
     })

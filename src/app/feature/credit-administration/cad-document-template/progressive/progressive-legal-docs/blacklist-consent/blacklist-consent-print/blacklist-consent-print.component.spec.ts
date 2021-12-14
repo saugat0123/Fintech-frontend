@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BlacklistConsentPrintComponent } from './blacklist-consent-print.component';
 
@@ -6,7 +6,7 @@ describe('BlacklistConsentPrintComponent', () => {
   let component: BlacklistConsentPrintComponent;
   let fixture: ComponentFixture<BlacklistConsentPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BlacklistConsentPrintComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MarginCallDeedShareCompanyPrintComponent } from './margin-call-deed-share-company-print.component';
 
@@ -6,7 +6,7 @@ describe('MarginCallDeedShareCompanyPrintComponent', () => {
   let component: MarginCallDeedShareCompanyPrintComponent;
   let fixture: ComponentFixture<MarginCallDeedShareCompanyPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MarginCallDeedShareCompanyPrintComponent ]
     })

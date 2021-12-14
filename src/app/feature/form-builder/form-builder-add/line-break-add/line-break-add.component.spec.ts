@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LineBreakAddComponent } from './line-break-add.component';
 
@@ -6,7 +6,7 @@ describe('LineBreakAddComponent', () => {
   let component: LineBreakAddComponent;
   let fixture: ComponentFixture<LineBreakAddComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LineBreakAddComponent ]
     })

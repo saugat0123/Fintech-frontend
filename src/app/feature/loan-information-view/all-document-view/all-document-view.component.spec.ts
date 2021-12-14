@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AllDocumentViewComponent } from './all-document-view.component';
 
@@ -6,7 +6,7 @@ describe('AllDocumentViewComponent', () => {
   let component: AllDocumentViewComponent;
   let fixture: ComponentFixture<AllDocumentViewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AllDocumentViewComponent ]
     })

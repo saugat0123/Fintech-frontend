@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ExcelOfferLetterComponent } from './excel-offer-letter.component';
 
@@ -6,7 +6,7 @@ describe('ExcelOfferLetterComponent', () => {
   let component: ExcelOfferLetterComponent;
   let fixture: ComponentFixture<ExcelOfferLetterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ExcelOfferLetterComponent ]
     })

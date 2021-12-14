@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MarginCallDeedShareLoanComponent } from './margin-call-deed-share-loan.component';
 
@@ -6,7 +6,7 @@ describe('MarginCallDeedShareLoanComponent', () => {
   let component: MarginCallDeedShareLoanComponent;
   let fixture: ComponentFixture<MarginCallDeedShareLoanComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MarginCallDeedShareLoanComponent ]
     })

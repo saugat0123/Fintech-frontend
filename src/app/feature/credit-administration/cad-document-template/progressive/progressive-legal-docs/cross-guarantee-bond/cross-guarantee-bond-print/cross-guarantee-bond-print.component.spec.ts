@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {CrossGuaranteeBondPrintComponent} from './cross-guarantee-bond-print.component';
 
@@ -6,7 +6,7 @@ describe('CrossGuaranteeBondPrintComponent', () => {
   let component: CrossGuaranteeBondPrintComponent;
   let fixture: ComponentFixture<CrossGuaranteeBondPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CrossGuaranteeBondPrintComponent]
     })

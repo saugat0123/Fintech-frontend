@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HypoOfStockComponent } from './hypo-of-stock.component';
 
@@ -6,7 +6,7 @@ describe('HypoOfStockComponent', () => {
   let component: HypoOfStockComponent;
   let fixture: ComponentFixture<HypoOfStockComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HypoOfStockComponent ]
     })

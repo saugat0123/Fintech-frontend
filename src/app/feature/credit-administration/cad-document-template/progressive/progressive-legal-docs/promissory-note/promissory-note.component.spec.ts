@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {PromissoryNoteComponent} from './promissory-note.component';
 
@@ -6,7 +6,7 @@ describe('PromissoryNoteComponent', () => {
   let component: PromissoryNoteComponent;
   let fixture: ComponentFixture<PromissoryNoteComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [PromissoryNoteComponent]
     })

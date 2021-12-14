@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { InputRadioFormComponent } from './input-radio-form.component';
 
@@ -6,7 +6,7 @@ describe('InputRadioFormComponent', () => {
   let component: InputRadioFormComponent;
   let fixture: ComponentFixture<InputRadioFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ InputRadioFormComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LoanDeedPersonalLoanHomeLoanIcfcPrintComponent } from './loan-deed-personal-loan-home-loan-icfc-print.component';
 
@@ -6,7 +6,7 @@ describe('LoanDeedPersonalLoanHomeLoanIcfcPrintComponent', () => {
   let component: LoanDeedPersonalLoanHomeLoanIcfcPrintComponent;
   let fixture: ComponentFixture<LoanDeedPersonalLoanHomeLoanIcfcPrintComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LoanDeedPersonalLoanHomeLoanIcfcPrintComponent ]
     })
