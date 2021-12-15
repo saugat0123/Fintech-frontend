@@ -80,7 +80,7 @@
                         <tr>
                             <td><strong>कर्जाको उद्देश्य: </strong></td>
                             <td>
-                                <span class="freeText" [ngClass]="{'nepaliFont outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}"><strong>
+                                <span style="font-size: 25px" [ngClass]="{'nepaliFont' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}"><strong>
                                 {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct }}</strong></span>
                             </td>
                         </tr>
@@ -426,7 +426,7 @@
                                         समेत लाग्नेछ ।
                                         <div *ngIf="!this.tempData.interestSubsidy.en === true"
                                              style="margin-top: 8rem"></div>
-                                        <table class="table table-sm table-bordered text-center table-sm sb-small"
+                                        <table class="table table-sm table-bordered table-sm sb-small"
                                                style="padding: 5px;">
                                             <tr>
                                                 <td style="width: 50%">
@@ -923,7 +923,7 @@
                         <div class="right-content">
                             <p>
                                 ........................................<br>
-                                <span class="font-weight-bold freeText"
+                                <span class="font-weight-bold" style="font-size: 22px"
                                       [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct!== null && letter?.nameOfStaff.ct!== ''}">
                                 {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
                                 <br>
@@ -939,7 +939,7 @@
                         <div class="left-content text-right">
                             <p>
                                 ........................................<br>
-                                <span class="font-weight-bold freeText"
+                                <span class="font-weight-bold" style="font-size: 22px"
                                       [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct!== null && letter?.nameOfBranchManager.ct!== ''}">
                                 {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                                 <br>

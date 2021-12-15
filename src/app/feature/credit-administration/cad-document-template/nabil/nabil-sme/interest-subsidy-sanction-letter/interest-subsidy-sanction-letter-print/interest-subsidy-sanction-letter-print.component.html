@@ -100,7 +100,7 @@
                     <tr>
                         <td><strong> कर्जाको उद्देश्य </strong></td>
                         <td colspan="2">
-                            <span [ngClass]="{'nepaliFont outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}"><strong>
+                            <span class="freeText" [ngClass]="{'nepaliFont outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}"><strong>
                                 {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct }}</strong></span>
                         </td>
                     </tr>
@@ -1087,7 +1087,7 @@
                     <p>
                         ........................................<br>
                         <span class="font-weight-bold"
-                              [ngClass]="{'nepaliFont' : letter?.nameOfStaff.ct!== null && letter?.nameOfStaff.ct!== ''}">
+                              [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct!== null && letter?.nameOfStaff.ct!== ''}">
             {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
                         <br>
                         <span
