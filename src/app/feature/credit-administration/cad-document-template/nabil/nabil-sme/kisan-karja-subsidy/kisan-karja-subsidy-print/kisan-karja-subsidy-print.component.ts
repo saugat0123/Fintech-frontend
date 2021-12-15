@@ -34,7 +34,6 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
   finalName;
   guarantorNames: Array<String> = [];
   allguarantorNames;
-  guarantorAmount: number = 0;
   guarantorData;
   finalDateOfApproval;
   finalDateOfApplication;

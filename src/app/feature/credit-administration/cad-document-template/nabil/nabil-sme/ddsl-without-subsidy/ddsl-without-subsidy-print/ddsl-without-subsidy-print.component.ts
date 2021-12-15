@@ -68,9 +68,6 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.customerAddress =  this.loanHolderInfo.registeredMunicipality.ct + '-' +
                 this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
                 this.loanHolderInfo.registeredProvince.ct;
-            if (!ObjectUtil.isEmpty(this.guarantorData)) {
-                this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
-            }
             this.branchName = this.loanHolderInfo.branch.ct;
             this.loanOptions = this.tempData.loanOption.ct;
             this.selectedSecurity = this.tempData.securityType.ct;

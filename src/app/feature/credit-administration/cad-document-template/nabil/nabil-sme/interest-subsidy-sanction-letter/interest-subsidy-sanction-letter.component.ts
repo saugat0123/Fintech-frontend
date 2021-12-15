@@ -60,6 +60,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   allguarantorNames;
   finalName;
   freeInformation: any;
+  autoPopulate1 = 'सम्पर्क अधिकृत';
+  autoPopulate2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -117,12 +119,15 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       branchName: [undefined],
       amountInFigure: [undefined],
       guarantorName: [undefined],
-      relationshipofficerName: [undefined],
+      relationshipOfficerName: [undefined],
       nameOfBranchManager: [undefined],
       firstAdditionalDetails: [undefined],
       secondAdditionalDetails: [undefined],
       thirdAdditionalDetails: [undefined],
       fourthAdditionalDetails: [undefined],
+      autoPopulate1: [undefined],
+      autoPopulate2: [undefined],
+      purposeOfLoan: [undefined],
     });
   }
   setLoanConfigData(data: any) {
@@ -231,15 +236,18 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       totalLimitWords: this.tempData.totalLimitWords ? this.tempData.totalLimitWords.ct : '',
       totalTenureOfLoan: this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',
       ratePerNrb: this.tempData.circularRate ? this.tempData.circularRate.ct : '',
-       // relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
+      relationshipOfficerName: this.tempData.nameOfStaff ? this.tempData.nameOfStaff.ct : '',
       nameOfBranchManager: this.tempData.nameOfBranchManager ? this.tempData.nameOfBranchManager.ct : '',
       branchName : this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
+      purposeOfLoan : this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
       // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
       dateOfApplication : finalDateOfApplication ? finalDateOfApplication : '',
       firstAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.firstText : '',
       secondAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
       thirdAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
       fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
+      autoPopulate1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate1 : '',
+      autoPopulate2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate2 : '',
 
     });
   }
@@ -284,6 +292,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       secondText: this.form.get('secondAdditionalDetails').value,
       thirdText: this.form.get('thirdAdditionalDetails').value,
       fourthText: this.form.get('fourthAdditionalDetails').value,
+      autoPopulate1: this.form.get('autoPopulate1').value,
+      autoPopulate2: this.form.get('autoPopulate2').value,
     };
   }
   calcYearlyRate() {
