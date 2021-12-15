@@ -75,10 +75,10 @@ export class Section2SmeSecurityComponent implements OnInit {
             securityOwnersDistrict: [undefined],
             securityOwnersMunicipalityOrVdc: [undefined],
             securityOwnersMunicipality: [undefined],
-            securityOwnersWardNo: [undefined],
+/*            securityOwnersWardNo: [undefined],
             securityOwnersKittaNo: [undefined],
             securityOwnersLandArea: [undefined],
-            securityOwnersSheetNo: [undefined],
+            securityOwnersSheetNo: [undefined],*/
             /* FOR TRANSLATED FIELDS */
             collateralShareTrans: [undefined],
             insuranceRequiredTrans: [false],
@@ -87,10 +87,10 @@ export class Section2SmeSecurityComponent implements OnInit {
             securityOwnersDistrictTrans: [undefined],
             securityOwnersMunicipalityOrVdcTrans: [undefined],
             securityOwnersMunicipalityTrans: [undefined],
-            securityOwnersWardNoTrans: [undefined],
+/*            securityOwnersWardNoTrans: [undefined],
             securityOwnersKittaNoTrans: [undefined],
             securityOwnersLandAreaTrans: [undefined],
-            securityOwnersSheetNoTrans: [undefined],
+            securityOwnersSheetNoTrans: [undefined],*/
             /* FOR CT VALUES */
             nameOfBorrowingClientCT: [undefined],
             collateralShareCT: [undefined],
@@ -99,10 +99,10 @@ export class Section2SmeSecurityComponent implements OnInit {
             securityOwnersDistrictCT: [undefined],
             securityOwnersMunicipalityOrVdcCT: [undefined],
             securityOwnersMunicipalityCT: [undefined],
-            securityOwnersWardNoCT: [undefined],
+/*            securityOwnersWardNoCT: [undefined],
             securityOwnersKittaNoCT: [undefined],
             securityOwnersLandAreaCT: [undefined],
-            securityOwnersSheetNoCT: [undefined],
+            securityOwnersSheetNoCT: [undefined],*/
 
             /* FOR PERSONAL GUARANTEE CONDITIONAL */
             personalGuaranteeToBeUsed: [undefined],
@@ -143,6 +143,7 @@ export class Section2SmeSecurityComponent implements OnInit {
             mortgageType: [undefined],
             mortgageTypeTrans: [undefined],
             mortgageTypeCT: [undefined],
+            propertyDetails: this.formBuilder.array([this.buildPropertyDetailsArr()]),
         });
     }
 
@@ -231,6 +232,55 @@ export class Section2SmeSecurityComponent implements OnInit {
             this.section2SecurityForm.get([String(formArrayName), index, String(formControlName + 'Trans')]).patchValue(sourceValue);
             this.section2SecurityForm.get([String(formArrayName), index, String(formControlName + 'CT')]).patchValue(sourceValue);
         }
+    }
+
+    buildPropertyDetailsArr() {
+        return this.formBuilder.group({
+            securityOwnersWardNo: [undefined],
+            securityOwnersKittaNo: [undefined],
+            securityOwnersLandArea: [undefined],
+            securityOwnersSheetNo: [undefined],
+            /* For Translated Value */
+            securityOwnersWardNoTrans: [undefined],
+            securityOwnersKittaNoTrans: [undefined],
+            securityOwnersLandAreaTrans: [undefined],
+            securityOwnersSheetNoTrans: [undefined],
+            /* For CT values */
+            securityOwnersWardNoCT: [undefined],
+            securityOwnersKittaNoCT: [undefined],
+            securityOwnersLandAreaCT: [undefined],
+            securityOwnersSheetNoCT: [undefined],
+        });
+    }
+
+    addPropertyDetails(i) {
+        (this.section2SecurityForm.get(['securityDetails', i, 'propertyDetails']) as FormArray).push(
+            this.buildPropertyDetailsArr()
+        );
+    }
+
+    removePropertyDetailsArr(i, index) {
+        (this.section2SecurityForm.get(['securityDetails', i, 'propertyDetails']) as FormArray).removeAt(index);
+    }
+
+    async onChangeArrayTranslate(arrName, source, index, target, index1, secondArr) {
+        this.securityFormTranslate = this.formBuilder.group({
+            securityTranslated: this.section2SecurityForm.get([String(arrName), index, String(secondArr), index1, String(source)]).value
+        });
+        const sourceResponse = await this.translateService.translateForm(this.securityFormTranslate);
+        this.section2SecurityForm.get([String(arrName), index, String(secondArr), index1 , String(target)]).patchValue(
+            sourceResponse.securityTranslated);
+        this.section2SecurityForm.get([String(arrName), index, String(secondArr), index1, String(source + 'CT')]).patchValue(
+            sourceResponse.securityTranslated);
+    }
+
+    translateSecurityArrayNumber(arrName, source, index, target, index1, secondArr) {
+        const nepaliNumTrans = this.engNepNumberPipe.transform(
+            String(this.section2SecurityForm.get([String(arrName), index, String(secondArr), index1, String(source)]).value));
+        this.section2SecurityForm.get([String(arrName), index, String(secondArr), index1 , String(target)]).patchValue(nepaliNumTrans);
+        this.section2SecurityForm.get(
+            [String(arrName), index, String(secondArr), index1, String(source + 'CT')]
+        ).patchValue(nepaliNumTrans);
     }
 
 }

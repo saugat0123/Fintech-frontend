@@ -13,6 +13,7 @@ export class CombinedOfferLetterPrintComponent implements OnInit {
   offerLetterConst = NabilOfferLetterConst;
   letterData: any;
   freeText: any;
+  @Input() preview;
 
   constructor() { }
 
