@@ -147,8 +147,8 @@
 
                     <div class="row from-group">
                         <table class="table table-bordered">
-                            <tr>
-                                <td *ngIf="this.tempData.FixedDeposit.en">
+                            <tr *ngIf="this.tempData.FixedDeposit.en">
+                                <td>
                                     क)
                                 </td>
                                 <td>
@@ -159,9 +159,8 @@
                                                              type="text"/> ।–(अक्षरेपी रु
                                         <input class="form-field form-control-sm"
                                                formControlName="loanAmountFigureWords"
-                                               type="text"/> मात्र)<br>
-                                        सुरक्षणः
-                                    </strong> नबिल
+                                               type="text"/> मात्र)<br> </strong>
+                                  <strong>     सुरक्षणः </strong> नबिल
                                     बैंकद्धारा जारी गरिएको <input class="form-field form-control-sm"
                                                                   formControlName="TdHolder"
                                                                   type="text"/>
@@ -201,7 +200,10 @@
                                         type="text"/>|
                                 </td>
                             </tr>
+                        </table>
+
                             <tr *ngIf="this.tempData.loanType.en === 'BankGuarantee'">
+                                <table class="table table-bordered">
                                 <td>
                                     ख.
                                 </td>
@@ -212,8 +214,8 @@
                                                         type="text"/> ।
                                         (अक्षरेपी रु <input class="form-field form-control-sm"
                                                             formControlName="loanAmountFigureWords"
-                                                            type="text"/> मात्र)<br>
-                                        सुरक्षणः </strong> बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter
+                                                            type="text"/> मात्र)<br></strong>
+                                       <strong> सुरक्षणः </strong> बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter
                                     Guarantee)<br>
                                     <strong> धरौटी: </strong><span *ngIf="this.tempData.HundredCashMargin.en"> नगद १००% धरौती स्वरुप रहनेछ </span>
                                     <span *ngIf="this.tempData.TenCashMargin.en">नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती </span> स्वरुप नबिल बैंकमा रहेको श्री <input
@@ -237,6 +239,7 @@
                                                                                    type="text"/>
                                     </strong>
                                 </td>
+                                </table>
                             </tr>
                             <tr *ngIf="this.tempData.loanType.en === 'IrrevocableLetterofCreditFacility'">
                                 <td>
@@ -296,7 +299,6 @@
                                     </strong>
                                 </td>
                             </tr>
-                        </table>
                     </div>
                     <br>
 
@@ -502,7 +504,7 @@
                     </div>
 
                     <!-- Condition (Application for OD only) -->
-                    <div class="col-md-12" *ngIf="this.tempData.loanOption.en === 'Overdraft'">
+                    <div class="col-md-12" *ngIf="this.tempData.loanType.en === 'Overdraft'">
                         व्याज सम्बन्धी शर्तहरुः<br>
                         १. हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट
                         (Website) तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार
@@ -526,7 +528,7 @@
 
                     <!-- Condition(Application incase of LC facility is purpose) -->
                     <div class="col-mid-12"
-                         *ngIf="this.tempData.loanOption.en === 'Irrevocable Letter of Credit Facility'">
+                         *ngIf="this.tempData.loanType.en === 'Irrevocable Letter of Credit Facility'">
                         <strong> ऋण तथा सुबिधाहरु सम्बन्धित शर्तहरु </strong>
                         प्रतित पत्र सुविधाः<br>
                         १. सम्पूर्ण प्रतित पत्र र अन्य आवेदनहरुमा तपाईंको आधिकारिक हस्ताक्षरवाला(हरु)ले हस्ताक्षर
@@ -580,7 +582,7 @@
                     <br>
 
                     <!-- Condition(Applicable incase of bank guarantee facility only) -->
-                    <div class="cold-md-12" *ngIf="this.tempData.loanOption.en === 'BankGuarantee'">
+                    <div class="cold-md-12" *ngIf="this.tempData.loanType.en === 'BankGuarantee'">
                         <strong> बैंक जमानत सुविधा Applicable (incase of bank guarantee facility only)</strong><br>
                         १. सम्पूर्ण बैंक जमानत सुविधा आवेदन र अन्य कागजातहरुमा तपाईंको आधिकारिक हस्ताक्षरवाला(हरु)ले
                         हस्ताक्षर गर्नुपर्नेछ ।
@@ -589,15 +591,15 @@
                     <!-- Condition(Applicable incase security is purpose as fixed deposit) -->
                     <div class="cold-md-12" *ngIf="this.tempData.FixedDeposit.en">
                         <strong> मुद्दती रसिद/राष्ट्रिय बचत पत्र/ऋणपत्र सुरक्षण</strong><br>
-                        १. धितोे सुरक्षणमा रहेका मुद्दती रसिद लागायत अन्य कागजात FOR OD लागायत अन्य औजार FOR LC ऋकोहकमा
+                        १. धितोे सुरक्षणमा रहेका मुद्दती रसिद <span *ngIf="this.tempData.loanType.en === 'Overdraft'">लागायत अन्य कागजात</span><span *ngIf="this.tempData.loanType.en === 'IrrevocableLetterofCreditFacility'">लागायत अन्य औजार </span> ऋकोहकमा
                         सो रसिद समयमै नविकरण
                         गरी सक्कल रसिद बैंकलाई हस्तान्तरण गर्नुपर्नेछ ।<br>
                         २. यदि ऋणकर्जा अवधि समाप्ति भएमा र/वा ऋणकर्जा सुरक्षण वापत राखिएको मुद्दती
-                        रसिद FOR TD /राष्ट्रिय बचत पत्र/ऋणपत्रका लागायत अन्य कागजातको FOR OD लागायत अन्य औजारको FOR LC
+                        रसिद FOR TD /<span *ngIf="this.tempData.loanType.en === 'Overdraft'">राष्ट्रिय बचत पत्र/ऋणपत्रका लागायत अन्य कागजातको </span><span *ngIf="this.tempData.loanType.en === 'IrrevocableLetterofCreditFacility'">लागायत अन्य औजारको</span>
                         को म्याद समेत
                         समाप्त भई तपाई यस बैंक संग संम्पर्कमा नरहेमा ऋणकर्जा सुरक्षण वापत राखिएको मुद्दती FOR TD
-                        /राष्ट्रिय बचत
-                        पत्र/ऋणपत्रका OrDrop Down लागायत अन्य कागजात FOR OD बाट रकम संकलन गरी/रकमान्तरण गरी बिक्रि गरी
+                        <span *ngIf="this.tempData.loanType.en === 'Overdraft'">राष्ट्रिय बचत
+                            पत्र/ऋणपत्रका लागायत अन्य कागजात </span> बाट रकम संकलन गरी/रकमान्तरण गरी बिक्रि गरी
                         ऋणकर्जा
                         तथा बैंकिङ सुविधाको साञवा ब्याज असुल उपर गरिनेछ ।
                     </div>

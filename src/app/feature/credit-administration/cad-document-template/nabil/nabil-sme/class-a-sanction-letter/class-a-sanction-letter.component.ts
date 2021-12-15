@@ -193,23 +193,49 @@ export class ClassASanctionLetterComponent implements OnInit {
   }
   guarantorDetails() {
     if (this.guarantorData.length === 1) {
-      const temp = JSON.parse(this.guarantorData[0].nepData);
-      this.finalName =  temp.authorizedPersonName.ct;
+      const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
+      if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+        console.log('guarantor', tempGuarantorNep);
+        // const temp = JSON.parse(this.guarantorData[0].nepData);
+        this.finalName = tempGuarantorNep.guarantorName.ct;
+      } else {
+        // const temp = JSON.parse(this.guarantorData[0].nepData);
+        this.finalName = tempGuarantorNep.authorizedPersonName.ct;
+      }
     } else if (this.guarantorData.length === 2) {
       for (let i = 0; i < this.guarantorData.length; i++) {
-        const temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.authorizedPersonName.ct);
+        const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+        if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+          const temp = JSON.parse(this.guarantorData[i].nepData);
+          this.guarantorNames.push(temp.guarantorName.ct);
+        } else {
+          const temp = JSON.parse(this.guarantorData[i].nepData);
+          this.guarantorNames.push(temp.authorizedPersonName.ct);
+        }
+        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
       }
+      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
       this.allguarantorNames = this.guarantorNames.join(' र ');
       this.finalName = this.allguarantorNames;
     } else {
       for (let i = 0; i < this.guarantorData.length - 1; i++) {
-        const temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.authorizedPersonName.ct);
+        const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+        if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+          const temp = JSON.parse(this.guarantorData[i].nepData);
+          console.log(temp);
+          this.guarantorNames.push(temp.guarantorName.ct);
+          // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+        } else {
+          const temp = JSON.parse(this.guarantorData[i].nepData);
+          console.log(temp);
+          this.guarantorNames.push(temp.authorizedPersonName.ct);
+        }
+
       }
+      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
       this.allguarantorNames = this.guarantorNames.join(' , ');
       const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
-      this.finalName =  this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
+      this.finalName = this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
     }
   }
   fillForm() {
