@@ -10,9 +10,9 @@ import {LoanNameConstant} from '../../../../../../../cad-view/template-data/nabi
   styleUrls: ['./section6-facilities-clause-print.component.scss']
 })
 export class Section6FacilitiesClausePrintComponent implements OnInit {
-  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() customerApprovedDoc;
   @Input() freeText;
+  @Input() letterData;
   form: FormGroup;
   tempData;
   tenureOfLoan;
@@ -31,19 +31,13 @@ export class Section6FacilitiesClausePrintComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
-      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
-      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+    if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
+      this.freeInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
+      this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
     }
-    this.fillForm();
     this.getLoanName();
     this.checkLoanName();
     this.isApplicable();
-  }
-  fillForm() {
-    this.form.patchValue({
-      tenureOfLoan: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.section6 : ''
-    });
   }
   private checkLoanName(): void {
     const tempD = this.tempData;
@@ -70,7 +64,7 @@ export class Section6FacilitiesClausePrintComponent implements OnInit {
     }
   }
   getLoanName() {
-    this.cadOfferLetterApprovedDoc.assignedLoan.forEach(val => {
+    this.customerApprovedDoc.assignedLoan.forEach(val => {
       const loanName = val.loan.name;
       this.loanData.push(loanName);
     });
