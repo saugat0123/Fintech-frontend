@@ -16,7 +16,8 @@ export class AutoLoanComponent implements OnInit {
     loanAmount;
     loanAmountInWord;
     autoLoanFreeText: any = {};
-
+    complementaryOtherAutoLoan = false; vehiclePurchaseAutoLoan = false; vehicleRegistrationAutoLoan = false;
+    loanOptionAutoLoan; autoLoanTypeAutoLoan; emiPaymentTypeAutoLoan; paymentsTermsAutoLoan;
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe
     ) {
@@ -29,6 +30,21 @@ export class AutoLoanComponent implements OnInit {
             this.loanAmount = String(this.customerApprovedDoc.assignedLoan[0].proposal.proposedLimit);
             this.loanAmountInWord = this.engToNepWord.transform(this.loanAmount);
             this.fillForm();
+        }
+        if (!ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm)) {
+            this.loanOptionAutoLoan = this.tempData.smeGlobalForm.loanOption;
+            this.autoLoanTypeAutoLoan = this.tempData.autoLoanMasterForm.autoLoanType;
+            this.emiPaymentTypeAutoLoan = this.tempData.autoLoanMasterForm.emiPaymentType;
+            this.paymentsTermsAutoLoan = this.tempData.autoLoanMasterForm.paymentTerms;
+            if (this.tempData.autoLoanMasterForm.complementaryOther === true) {
+                this.complementaryOtherAutoLoan = true;
+            }
+            if (this.tempData.autoLoanMasterForm.vehiclePurchased === true) {
+                this.vehiclePurchaseAutoLoan = true;
+            }
+            if (this.tempData.autoLoanMasterForm.vehicleRegistered === true) {
+                this.vehicleRegistrationAutoLoan = true;
+            }
         }
     }
 
@@ -65,8 +81,6 @@ export class AutoLoanComponent implements OnInit {
             newInstallmentPaymentAmountAutoLoan: [undefined],
             newInstallmentPaymentAmountInWordAutoLoan: [undefined],
             newInstallmentNoOfPaymentAutoLoan: [undefined],
-            newInstallmentPaymentTypeAutoLoan: [undefined],
-            newInstallmentPaymentDurationAutoLoan: [undefined],
             newInstallmentLoanPurposeAutoLoan: [undefined],
             newInstallmentServiceChargeAutoLoan: [undefined],
             // For Installment Basis Term Loan at the time of Annual Review of other credit limits
@@ -76,7 +90,6 @@ export class AutoLoanComponent implements OnInit {
             annualInstallmentPaymentAmountAutoLoan: [undefined],
             annualInstallmentPaymentAmountInWordAutoLoan: [undefined],
             annualInstallmentNoOfPaymentAutoLoan: [undefined],
-            annualInstallmentPaymentTypeAutoLoan: [undefined],
             annualInstallmentLoanExpiryDateAutoLoan: [undefined],
             annualInstallmentDrawingPowerAutoLoan: [undefined],
             annualInstallmentNameOfDealerAutoLoan: [undefined],
@@ -135,10 +148,6 @@ export class AutoLoanComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 newInstallmentNoOfPaymentAutoLoan: this.tempData.autoLoanMasterForm.numberOfPayments ? this.tempData.autoLoanMasterForm.numberOfPaymentsCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentPaymentTypeAutoLoan: this.tempData.autoLoanMasterForm.paymentTerms ? this.tempData.autoLoanMasterForm.paymentTermsCT : '',
-                // tslint:disable-next-line:max-line-length
-                // newInstallmentPaymentDurationAutoLoan: this.tempData.autoLoanMasterForm.drawingPowerCT ? this.tempData.autoLoanMasterForm.drawingPowerCT : '',
-                // tslint:disable-next-line:max-line-length
                 newInstallmentLoanPurposeAutoLoan: this.tempData.autoLoanMasterForm.purposeOfLoan ? this.tempData.autoLoanMasterForm.purposeOfLoanCT : '',
                 // tslint:disable-next-line:max-line-length
                 newInstallmentServiceChargeAutoLoan: this.tempData.autoLoanMasterForm.serviceCharge ? this.tempData.autoLoanMasterForm.serviceChargeCT : '',
@@ -154,8 +163,6 @@ export class AutoLoanComponent implements OnInit {
                 annualInstallmentPaymentAmountInWordAutoLoan: this.tempData.autoLoanMasterForm.paymentAmountWords ? this.tempData.autoLoanMasterForm.paymentAmountWordsCT : '',
                 // tslint:disable-next-line:max-line-length
                 annualInstallmentNoOfPaymentAutoLoan: this.tempData.autoLoanMasterForm.numberOfPayments ? this.tempData.autoLoanMasterForm.numberOfPaymentsCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentPaymentTypeAutoLoan: this.tempData.autoLoanMasterForm.paymentTerms ? this.tempData.autoLoanMasterForm.paymentTermsCT : '',
                 // tslint:disable-next-line:max-line-length
                 annualInstallmentLoanExpiryDateAutoLoan: this.tempData.autoLoanMasterForm.dateOfExpiry ? this.tempData.autoLoanMasterForm.dateOfExpiryCT : '',
                 // tslint:disable-next-line:max-line-length
