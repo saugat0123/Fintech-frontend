@@ -50,6 +50,16 @@
                                        [value]="collateral.value"> {{collateral.value}}</nb-option>
                         </nb-select>
                     </div>
+
+                    <div class="col-md-4">
+                        <label class="ml-1 font-weight-bold">Mortgage Type</label>
+                        <nb-select fullWidth placeholder="Mortgage Type"
+                                   (selectedChange)="setDefaultCTAndTransVal('mortgageType', false, 'securityDetails', i)"
+                                   formControlName="mortgageType" shape="semi-round">
+                            <nb-option *ngFor="let type of mortgageType"
+                                       [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
                 </div>
 
                 <div *ngIf="this.section2SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[0]?.key ||

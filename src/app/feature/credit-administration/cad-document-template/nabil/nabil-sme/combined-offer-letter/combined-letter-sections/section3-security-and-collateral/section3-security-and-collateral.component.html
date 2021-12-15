@@ -28,23 +28,23 @@
                                 <!-- Applicable only if Land/building as primary collateral-->
                                 <strong>घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges):</strong>
                                 <p class="m-0"
-                                   *ngIf="this.tempData.smeGlobalForm.mortgageType === 'New' || this.tempData.smeGlobalForm.mortgageType === 'Existing'">
+                                   *ngIf="!collateralShareCondition && (this.primaryNewMortgage || this.primaryExistingMortgage)">
                                     <!--For new mortgage / remortgage-->
-                                    <span *ngIf="this.tempData.smeGlobalForm.mortgageType === 'New'">
+                                    <span *ngIf="this.tempLandBuilding[0].mortgageType === 'New'">
                                 स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
                             </span>
                                     ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
                                     <!--For new mortgage / remortgage-->
-                                    <span *ngIf="this.tempData.smeGlobalForm.mortgageType === 'New'">
+                                    <span *ngIf="this.tempLandBuilding[0].mortgageType === 'New'">
                                 गरी दिनु पर्नेछ ।
                             </span>
-                                    <span *ngIf="this.tempData.smeGlobalForm.mortgageType === 'Existing'"><!--For existing mortgage to be continued-->
+                                    <span *ngIf="this.tempLandBuilding[0].mortgageType === 'Existing'"><!--For existing mortgage to be continued-->
                             गरिदिनुभएको यथावत कायम रहने छ ।
                             </span>
                                 </p>
 
                                 <p class="m-0"
-                                   *ngIf="!collateralShareCondition && this.tempData.smeGlobalForm.mortgageType === 'Enhancement'">
+                                   *ngIf="!collateralShareCondition && this.tempLandBuilding[0].mortgageType === 'Enhancement'">
                                     <!-- For existing mortgage with enhancement-->
                                     यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएका देहाय
                                     बमोजिमको
@@ -54,46 +54,50 @@
                                     धितोेबन्धक यथावत कायम रहने छ ।
                                 </p>
 
-                                <p class="m-0"
-                                   *ngIf="collateralShareCondition && (this.tempData.smeGlobalForm.mortgageType === 'New' || this.tempData.smeGlobalForm.mortgageType === 'Existing')">
-                                    <!--this clause if the collateral is shared-->
-                                    <span *ngIf="this.tempData.smeGlobalForm.mortgageType === 'New'"> <!--For new mortgage-->
-                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
-                            </span>
-                                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा
-                                    देहाय बमोजिमको घर जग्गा यस बैकले
-                                    <input formControlName="otherBorrowingClientName"
-                                           name="otherBorrowingClientName"
-                                           type="text"
-                                           class="form-field form-control-sm"
-                                           placeholder="Borrowing Client Name"/>
-                                    को नाममा स्वीकृत ऋण कर्जा सुविधा समेत
-                                    उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
-                                    <span *ngIf="this.tempData.smeGlobalForm.mortgageType === 'New'"> <!--For new mortgage / remortgage-->
-                                गरिदिनु पर्नेछ ।
-                            </span>
-                                    <!--For existing mortgage to be continued-->
-                                    <span *ngIf="this.tempData.smeGlobalForm.mortgageType === 'Existing'">
-                                गरिदिनुभएको यथावत कायम रहने छ ।
-                            </span>
-                                </p>
+                                <div *ngIf="collateralShareCondition && (tempCollateral[0].mortgageType === 'New' || tempCollateral[0].mortgageType === 'Existing')">
+                                    <p class="m-0" *ngFor="let data of tempCollateral">
+                                        <!--this clause if the collateral is shared-->
+                                        <span *ngIf="data.mortgageType === 'New'"> <!--For new mortgage-->
+                                            स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                                        </span>
+                                        ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा
+                                        देहाय बमोजिमको घर जग्गा यस बैकले
+                                        <input formControlName="otherBorrowingClientName"
+                                               name="otherBorrowingClientName"
+                                               type="text"
+                                               class="form-field form-control-sm"
+                                               [value]="data.nameOfBorrowingClientCT"
+                                               placeholder="Borrowing Client Name"/>
+                                        को नाममा स्वीकृत ऋण कर्जा सुविधा समेत
+                                        उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                        <span *ngIf="data.mortgageType === 'New'"> <!--For new mortgage / remortgage-->
+                                            गरिदिनु पर्नेछ ।
+                                        </span>
+                                        <!--For existing mortgage to be continued-->
+                                        <span *ngIf="data.mortgageType === 'Existing'">
+                                            गरिदिनुभएको यथावत कायम रहने छ ।
+                                        </span>
+                                    </p>
+                                </div>
 
-                                <p class="m-0"
-                                   *ngIf="collateralShareCondition && this.tempData.smeGlobalForm.mortgageType === 'Enhancement'">
-                                    <!--this clause if the collateral is shared and For existing mortgage with enhancement-->
-                                    यस अघि ऋणकर्जाको सुरक्षण स्वरुप यस बैंकले तपाई ऋणी तथा
-                                    <input formControlName="otherBorrowingClientName"
-                                           name="otherBorrowingClientName"
-                                           type="text"
-                                           class="form-field form-control-sm"
-                                           placeholder="Borrowing Client Name"/>
-                                    को नाममा स्वीकृत ऋण कर्जा सुविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
-                                    गरिदिनुभएको
-                                    देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण
-                                    ऋणकर्जा
-                                    सुविधाका
-                                    लागि धितोेबन्धक यथावत कायम रहने छ ।
-                                </p>
+                                <div *ngIf="collateralShareCondition && tempCollateral[0].mortgageType === 'Enhancement'">
+                                    <p class="m-0" *ngFor="let data of tempCollateral">
+                                        <!--this clause if the collateral is shared and For existing mortgage with enhancement-->
+                                        यस अघि ऋणकर्जाको सुरक्षण स्वरुप यस बैंकले तपाई ऋणी तथा
+                                        <input formControlName="otherBorrowingClientName"
+                                               name="otherBorrowingClientName"
+                                               type="text"
+                                               class="form-field form-control-sm"
+                                               [value]="data.nameOfBorrowingClientCT"
+                                               placeholder="Borrowing Client Name"/>
+                                        को नाममा स्वीकृत ऋण कर्जा सुविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                        गरिदिनुभएको
+                                        देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण
+                                        ऋणकर्जा
+                                        सुविधाका
+                                        लागि धितोेबन्धक यथावत कायम रहने छ ।
+                                    </p>
+                                </div>
                             </li>
 
                             <div class="pb-4" *ngIf="securityTypeCondition">
@@ -102,13 +106,13 @@
                             </div>
 
                             <div class="optional" *ngIf="securityTypeCondition">
-                <textarea
-                        class="form-control nepaliFont"
-                        rows="5"
-                        style="width:95%;margin-left:2%"
-                        name="freeText1"
-                        formControlName="freeText1">
-                 </textarea>
+                                <textarea
+                                        class="form-control nepaliFont"
+                                        rows="5"
+                                        style="width:95%;margin-left:2%"
+                                        name="freeText1"
+                                        formControlName="freeText1">
+                                 </textarea>
                                 <div class="firstTable mt-3">
                                     <table class="table table-bordered">
                                         <tr>
@@ -212,25 +216,26 @@
 
                             <li *ngIf="paripassu"> <!-- Applicable if only Paripassu of letter is required-->
                                 <strong> पारिपासु (Paripassu): </strong>
-                                <p class="m-0">
+                                <p class="m-0" *ngFor="let data of tempParipassu; let i = index">
                                     प्राथमिक सुरक्षण अन्तर्गत उल्लिखित चल सम्पत्ति (Current Assets) हरु उपर यस बैंक तथा
                                     सहभागी
                                     <input formControlName="nameOfMemberBank"
                                            name="nameOfMemberBank"
                                            type="text"
                                            class="form-control-sm form-field"
+                                           [value]="data.nameOfMemberBankCT"
                                            placeholder="Member Bank"/>
-                                    <input formControlName="freeBankName"
+                                   <!-- <input formControlName="freeBankName"
                                            name="freeBankName"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           placeholder="Other Bank Name"/>
+                                           placeholder="Other Bank Name"/>-->
                                     बैंक/हरुको पक्षमा पारिपासु सम्झौता अन्तर्गत बैंकहरुका माझ प्रथम
                                     पारिपासु हकाअधिकार कायम
-                                    <span *ngIf="paripassuNew"> <!--If paripassu is to be executed-->
+                                    <span *ngIf="data.paripassuContentsCT === 'NEW'"> <!--If paripassu is to be executed-->
                                 गरिदिनु पर्नेछ ।
                             </span>
-                                    <span *ngIf="paripassu && !paripassuNew"> <!--If existing paripassu is continued-->
+                                    <span *ngIf="data.paripassuContentsCT === 'EXISTING'"> <!--If existing paripassu is continued-->
                                 गरिदिनु भएको यथावत कायम रहने छ ।
                            </span>
                                     <textarea
@@ -243,102 +248,117 @@
                                 </p>
                             </li>
 
-                            <li>
+                            <li *ngIf="securityTypeLienCondition">
                                 <!--Applicable only if TD or deposit or National Bond Debenture is required as primary security-->
                                 <strong>ग्रहणाधिकार (Lien): </strong>
-                                <p class="m-0"> <!--For TD -->
-                                    <span> <!--If TD is of Nabil Bank-->
+                                <p class="m-0" *ngFor="let fd of fdLoop; let i = index"> <!--For TD -->
+                                    <span *ngIf="fd.holdingBankCT === 'NABIL'"> <!--If TD is of Nabil Bank-->
                                नबिल
                            </span>
-                                    /
+                                    <span *ngIf="fd.holdingBankCT === 'OTHER'">
                                     <!--Other bank name If TD is of other bank-->
-                                    <input formControlName="otherBankName"
+                                        <input formControlName="otherBankName"
                                            name="otherBankName"
                                            type="text"
                                            class="form-control-sm form-field"
+                                           [value]="fd.nameOfHoldingBankCT"
                                            placeholder="Other Bank Name"/>
+                                    </span>
                                     बैंकद्धारा जारी
-                                    गरिएको .............को नाममा रहेको कम्तिमा रु
-                                    <input formControlName="loanAmountInFigure"
-                                           name="loanAmountInFigure"
+                                    गरिएको
+                                    <input formControlName="fdHolderName"
+                                           name="fdHolderName"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           placeholder="Loan Amount"/>
+                                           [value]="fd.nameOfFDHolderCT"
+                                           placeholder="FD Holder Name"/>
+                                    को नाममा रहेको कम्तिमा रु
+                                    <input formControlName="fdAmountInFigure"
+                                           name="fdAmountInFigure"
+                                           type="text"
+                                           class="form-control-sm form-field"
+                                           [value]="fd.FdAmountInFigureCT"
+                                           placeholder="FD Amount"/>
                                     बराबरको मुद्धती रसिद/हरु उपर बैंकले
                                     उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न सक्ने अधिकार सहितको मोजरापत्र (Letter
                                     of
                                     Set-Off) बैंकको
                                     पक्षमा जारी गरी दिनु पर्नेछ र सो मुद्धती रसिद/हरुको सक्कल प्रति बैंकलाई हस्तान्तरण
-                                    <span> <!--If lien is to be created-->
+                                    <span *ngIf="fd.lienFDContentsCT === 'NEW'"> <!--If lien is to be created-->
                                 गर्नु पर्नेछ ।
                             </span>
-                                    <span> <!--If existing lien is continued-->
+                                    <span *ngIf="fd.lienFDContentsCT === 'EXISTING'"> <!--If existing lien is continued-->
                                 गरिदिइएको यथावत कायम रहने छ ।
                             </span>
                                 </p>
 
-                                <p class="m-0"> <!--For Deposit-Saving/Current/Call a/c-->
+                                <p class="m-0" *ngFor="let fd of depositLoop; let i = index"> <!--For Deposit-Saving/Current/Call a/c-->
                                     नबिल बैंकमा खोलिएको
                                     <input formControlName="nameOfAccoutHolder"
                                            name="nameOfAccoutHolder"
                                            type="text"
                                            class="form-control-sm form-field"
+                                           [value]="fd.nameOfDepositorsCT"
                                            placeholder="Account Holder Name"/>
-                                    <input formControlName="freeAccountHolderName"
+                                    <!--<input formControlName="freeAccountHolderName"
                                            name="freeAccountHolderName"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           placeholder="Other Account Holder Name"/>
+                                           placeholder="Other Account Holder Name"/>-->
                                     को नाममा रहेको
-                                    <span> <!--Current-->
+                                    <span *ngIf="fd.accountTypeCT === 'CURRENT_ACCOUNT'"> <!--Current-->
                                 चल्ति
                             </span>
-                                    <span>
+                                    <span *ngIf="fd.accountTypeCT === 'SAVING_ACCOUNT'">
                                 बचत
                             </span>
-                                    <span>
+                                    <span *ngIf="fd.accountTypeCT === 'CALL_ACCOUNT'">
                                 कल
                             </span>
                                     खाता नं.
-                                    <input formControlName="accountNumber"
-                                           name="accountNumber"
+                                    <input formControlName="depositAccountNumber"
+                                           name="depositAccountNumber"
                                            type="text"
                                            class="form-control-sm form-field"
+                                           [value]="fd.accountNumberCT"
                                            placeholder="Account Number"/>
                                     मा रहेको मौज्दात
                                     रु
-                                    <input formControlName="loanAmountInFigure"
-                                           name="loanAmountInFigure"
+                                    <input formControlName="depositAmountInFigure"
+                                           name="depositAmountInFigure"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           placeholder="Loan Amount"/>
+                                           [value]="fd.amountInFigureCT"
+                                           placeholder="Deposit Amount"/>
                                     बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने
                                     अधिकार सहितको मोजरापत्र (Letter of Set-off) बैंकको पक्षमा जारी
-                                    <span *ngIf="this.tempData?.overdraftFixedForm?.letterOfSetOffCT === 'NEW'"> <!--If letter of set-off to be obtained-->
+                                    <span *ngIf="fd.letterOfSetOffDepositCT === 'NEW'"> <!--If letter of set-off to be obtained-->
                                 गरिदिनु पर्नेछ ।
                             </span>
-                                    <span *ngIf="this.tempData?.overdraftFixedForm?.letterOfSetOffCT === 'EXISTING'"> <!--If letter of set off is continued-->
+                                    <span *ngIf="fd.letterOfSetOffDepositCT === 'EXISTING'"> <!--If letter of set off is continued-->
                                     गरिदिइएको यथावत कायम रहने छ ।
                             </span>
                                 </p>
 
-                                <p class="m-0"> <!--For National Bond/Debenture-->
+                                <p class="m-0" *ngFor="let fd of debentureLoop; let i = index"> <!--For National Bond/Debenture-->
                                     <input formControlName="customerName"
                                            name="customerName"
                                            type="text"
                                            class="form-control-sm form-field"
+                                           [value]="fd.nameOfDebentureHolderCT"
                                            placeholder="Customer Name"/>
-                                    <input formControlName="freeCustomerName"
+                                    <!--<input formControlName="freeCustomerName"
                                            name="freeCustomerName"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           placeholder="Other Customer Name"/>
+                                           placeholder="Other Customer Name"/>-->
                                     हरुको नाममा रहेको कम्तिमा रु
-                                    <input formControlName="loanAmountInFigure"
-                                           name="loanAmountInFigure"
+                                    <input formControlName="debentureAmountInFigure"
+                                           name="debentureAmountInFigure"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           placeholder="Loan Amount"/>
+                                           [value]="fd.debentureAmountInFigureCT"
+                                           placeholder="Debenture Amount"/>
                                     ।( बराबरको नागरिक
                                     बचत पत्र/ राष्ट्रिय बचत पत्र/ ऋणपत्र (DropDown) उपर यस बैंकले उल्लिखित नागरिक बचत
                                     पत्र/
@@ -349,15 +369,17 @@
                                     जारी गरी दिनु पर्नेछ
                                     र सो नागरिक बचत पत्र/ राष्ट्रिय बचत पत्र/ ऋणपत्र (DropDown) को
                                     ब्याज भुक्तानी पुर्जा सहित बैंकलाई हस्तान्तरण
-                                    <span> <!--If lien is to be created-->
+                                    <span *ngIf="fd.lienDebentureContentsCT === 'NEW'"> <!--If lien is to be created-->
                                 गर्नु पर्नेछ ।
                             </span>
-                                    <span> <!--If lien is already created-->
+                                    <span *ngIf="fd.lienDebentureContentsCT === 'EXISTING'"> <!--If lien is already created-->
                                 गरिदिइएको यथावत कायम रहने छ ।
                             </span>
                                 </p>
                             </li>
-
+                            <br>
+                            <h2>FREE TABLE (CK EDITOR)</h2>
+<!--
                             <div class="optional">
                                 <textarea
                                         class="form-control nepaliFont"
@@ -415,7 +437,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
 
