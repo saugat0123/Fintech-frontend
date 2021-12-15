@@ -6,14 +6,12 @@ import {PendingsLoanComponent} from '../component/dashboard/pending/pendings/pen
 import {ApprovalRoleHierarchyComponent} from './loan/approval/approval-role-hierarchy.component';
 import {RouteGuard} from '../@core/service/authentication/route-guard';
 import {ErrorPageComponent} from './error-page/error-page.component';
-import {HsovPendingComponent} from '../component/dashboard/hsov-pending/hsov-pending.component';
 
 const routes: Routes = [
   {
     path: '', component: FeatureComponent,
     children: [
       {path: 'status/:name', component: PendingsLoanComponent},
-      {path: 'loanStatus/hsov', component: HsovPendingComponent},
       {path: 'dashboard', component: DashboardComponent},
       {
         path: 'approval-role-hierarchy/:type/:refId',

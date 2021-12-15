@@ -16,13 +16,8 @@ import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CadOfferLetterConfigurationComponent} from './cad-offer-letter-configuration/cad-offer-letter-configuration.component';
-import {ExcelOfferLetterComponent} from '../excel-offer-letter-template/excel-offer-letter/excel-offer-letter.component';
 import {ExcelOfferLetterConst} from '../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
-import {ProgressiveOfferLetterConst} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter-const';
-import {ProgressiveOfferLetterComponent} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component';
 
-import {IcfcOfferLetterComponent} from '../cad-document-template/icfc/icfc-offer-letter/icfc-offer-letter.component';
-import {IcfcOfferLetterConst} from '../cad-document-template/icfc/icfc-offer-letter-const';
 import {LaxmiOfferLetterConst} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
 import {LaxmiOfferLetterComponent} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter.component';
 import {DocStatus} from '../../loan/model/docStatus';
