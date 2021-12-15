@@ -249,120 +249,138 @@
                         </div>
                     </div>
 
+                    <div *ngFor="let details of section1SecurityForm.get(['securityDetails', i, 'extraDetails'])['controls']; let index = index;">
+                        <ng-container [formGroupName]="index">
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="securityOwnersWardNo">Ward No</label>
+                                    <input (input)="translateSecurityNumber('securityDetails', 'securityOwnersWardNo', i, 'securityOwnersWardNoTrans')"
+                                           class="form-control" formControlName="securityOwnersWardNo"
+                                           fullWidth
+                                           id="securityOwnersWardNo"
+                                           nbInput
+                                           shape="semi-round" status="success" type="number">
+                                </div>
 
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="securityOwnersWardNo">Ward No</label>
-                            <input (input)="translateSecurityNumber('securityDetails', 'securityOwnersWardNo', i, 'securityOwnersWardNoTrans')"
-                                   class="form-control" formControlName="securityOwnersWardNo"
-                                   fullWidth
-                                   id="securityOwnersWardNo"
-                                   nbInput
-                                   shape="semi-round" status="success" type="number">
-                        </div>
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersWardNoTrans" fullWidth
+                                           id="securityOwnersWardNoTrans"
+                                           nbInput
+                                           readonly
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
 
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="securityOwnersWardNoTrans" fullWidth
-                                   id="securityOwnersWardNoTrans"
-                                   nbInput
-                                   readonly
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersWardNoCT" fullWidth
+                                           id="securityOwnersWardNoCT"
+                                           nbInput
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+                            </div>
 
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="securityOwnersWardNoCT" fullWidth
-                                   id="securityOwnersWardNoCT"
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="securityOwnersKittaNo">Kitta Number</label>
+                                    <input (input)="onChangeTranslate('securityDetails', 'securityOwnersKittaNo', i, 'securityOwnersKittaNoTrans')"
+                                           class="form-control" formControlName="securityOwnersKittaNo"
+                                           fullWidth
+                                           id="securityOwnersKittaNo"
+                                           nbInput
+                                           shape="semi-round" status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersKittaNoTrans" fullWidth
+                                           id="securityOwnersKittaNoTrans"
+                                           nbInput
+                                           readonly
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersKittaNoCT" fullWidth
+                                           id="securityOwnersKittaNoCT"
+                                           nbInput
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="securityOwnersLandArea">Area with unit</label>
+                                    <input (input)="onChangeTranslate('securityDetails', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTrans')"
+                                           class="form-control" formControlName="securityOwnersLandArea"
+                                           fullWidth
+                                           id="securityOwnersLandArea"
+                                           nbInput
+                                           shape="semi-round" status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersLandAreaTrans" fullWidth
+                                           id="securityOwnersLandAreaTrans"
+                                           nbInput
+                                           readonly
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersLandAreaCT" fullWidth
+                                           id="securityOwnersLandAreaCT"
+                                           nbInput
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="securityOwnersSheetNo">Sheet Number</label>
+                                    <input (input)="translateSecurityNumber('securityDetails', 'securityOwnersSheetNo', i, 'securityOwnersSheetNoTrans')"
+                                           class="form-control" formControlName="securityOwnersSheetNo"
+                                           fullWidth
+                                           id="securityOwnersSheetNo"
+                                           nbInput
+                                           shape="semi-round" status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersSheetNoTrans" fullWidth
+                                           id="securityOwnersSheetNoTrans"
+                                           nbInput
+                                           readonly
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+
+                                <div class="col-md-4 form-group fieldMargin">
+                                    <input class="form-control" formControlName="securityOwnersSheetNoCT" fullWidth
+                                           id="securityOwnersSheetNoCT"
+                                           nbInput
+                                           shape="semi-round"
+                                           status="success" type="text">
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="section1SecurityForm.get(['securityDetails', i, 'extraDetails'])['length'] > 1" class="col-md-12 text-left mb-3">
+                            <button (click)="removeExtraDetailsArr(i, index)" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash mr-2" style="color: white;"></em>
+                                Delete Extra Details
+                            </button>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="securityOwnersKittaNo">Kitta Number</label>
-                            <input (input)="onChangeTranslate('securityDetails', 'securityOwnersKittaNo', i, 'securityOwnersKittaNoTrans')"
-                                   class="form-control" formControlName="securityOwnersKittaNo"
-                                   fullWidth
-                                   id="securityOwnersKittaNo"
-                                   nbInput
-                                   shape="semi-round" status="success" type="text">
-                        </div>
-
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="securityOwnersKittaNoTrans" fullWidth
-                                   id="securityOwnersKittaNoTrans"
-                                   nbInput
-                                   readonly
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="securityOwnersKittaNoCT" fullWidth
-                                   id="securityOwnersKittaNoCT"
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="securityOwnersLandArea">Area in Sq m.</label>
-                            <input (input)="onChangeTranslate('securityDetails', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTrans')"
-                                   class="form-control" formControlName="securityOwnersLandArea"
-                                   fullWidth
-                                   id="securityOwnersLandArea"
-                                   nbInput
-                                   shape="semi-round" status="success" type="text">
-                        </div>
-
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="securityOwnersLandAreaTrans" fullWidth
-                                   id="securityOwnersLandAreaTrans"
-                                   nbInput
-                                   readonly
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="securityOwnersLandAreaCT" fullWidth
-                                   id="securityOwnersLandAreaCT"
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="securityOwnersSheetNo">Sheet Number</label>
-                            <input (input)="translateSecurityNumber('securityDetails', 'securityOwnersSheetNo', i, 'securityOwnersSheetNoTrans')"
-                                   class="form-control" formControlName="securityOwnersSheetNo"
-                                   fullWidth
-                                   id="securityOwnersSheetNo"
-                                   nbInput
-                                   shape="semi-round" status="success" type="text">
-                        </div>
-
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="securityOwnersSheetNoTrans" fullWidth
-                                   id="securityOwnersSheetNoTrans"
-                                   nbInput
-                                   readonly
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="securityOwnersSheetNoCT" fullWidth
-                                   id="securityOwnersSheetNoCT"
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
+                        <div class="col-md-12 text-right mb-4">
+                            <button (click)="addExtraDetails(i)" *ngIf="selectedValue" nbButton outline size="small"
+                                    status="info">
+                                Add More Extra Details
+                            </button>
                         </div>
                     </div>
                 </div>

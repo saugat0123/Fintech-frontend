@@ -74,10 +74,10 @@ export class Section1SmeSecurityComponent implements OnInit {
             securityOwnersDistrict: [undefined],
             securityOwnersMunicipalityOrVdc: [undefined],
             securityOwnersMunicipality: [undefined],
-            securityOwnersWardNo: [undefined],
+            /*securityOwnersWardNo: [undefined],
             securityOwnersKittaNo: [undefined],
             securityOwnersLandArea: [undefined],
-            securityOwnersSheetNo: [undefined],
+            securityOwnersSheetNo: [undefined],*/
             /* FOR TRANSLATED FIELDS */
             collateralShareTrans: [undefined],
             insuranceRequiredTrans: [false],
@@ -86,10 +86,10 @@ export class Section1SmeSecurityComponent implements OnInit {
             securityOwnersDistrictTrans: [undefined],
             securityOwnersMunicipalityOrVdcTrans: [undefined],
             securityOwnersMunicipalityTrans: [undefined],
-            securityOwnersWardNoTrans: [undefined],
+            /*securityOwnersWardNoTrans: [undefined],
             securityOwnersKittaNoTrans: [undefined],
             securityOwnersLandAreaTrans: [undefined],
-            securityOwnersSheetNoTrans: [undefined],
+            securityOwnersSheetNoTrans: [undefined],*/
             /* FOR CT VALUES */
             nameOfBorrowingClientCT: [undefined],
             collateralShareCT: [undefined],
@@ -98,10 +98,10 @@ export class Section1SmeSecurityComponent implements OnInit {
             securityOwnersDistrictCT: [undefined],
             securityOwnersMunicipalityOrVdcCT: [undefined],
             securityOwnersMunicipalityCT: [undefined],
-            securityOwnersWardNoCT: [undefined],
+            /*securityOwnersWardNoCT: [undefined],
             securityOwnersKittaNoCT: [undefined],
             securityOwnersLandAreaCT: [undefined],
-            securityOwnersSheetNoCT: [undefined],
+            securityOwnersSheetNoCT: [undefined],*/
 
             /* FOR HYPOTHECATION CONDITION*/
             hypothecationPurpose: [undefined],
@@ -133,7 +133,7 @@ export class Section1SmeSecurityComponent implements OnInit {
             generalCounterGuarantee: [undefined],
             generalCounterGuaranteeTrans: [undefined],
             generalCounterGuaranteeCT: [undefined],
-
+            extraDetails: this.formBuilder.array([this.buildExtraDetailsArr()]),
         });
     }
 
@@ -222,5 +222,31 @@ export class Section1SmeSecurityComponent implements OnInit {
             this.section1SecurityForm.get([String(formArrayName), index, String(formControlName + 'Trans')]).patchValue(sourceValue);
             this.section1SecurityForm.get([String(formArrayName), index, String(formControlName + 'CT')]).patchValue(sourceValue);
         }
+    }
+
+    addExtraDetails(i) {
+        (this.section1SecurityForm.get(['securityDetails', i, 'extraDetails']) as FormArray).push(this.buildExtraDetailsArr());
+    }
+
+    removeExtraDetailsArr(i, secondIndex) {
+        (this.section1SecurityForm.get(['securityDetails', i, 'extraDetails']) as FormArray).removeAt(secondIndex);
+    }
+
+    buildExtraDetailsArr() {
+        return this.formBuilder.group({
+            securityOwnersWardNo: [undefined],
+            securityOwnersKittaNo: [undefined],
+            securityOwnersLandArea: [undefined],
+            securityOwnersSheetNo: [undefined],
+
+            securityOwnersWardNoTrans: [undefined],
+            securityOwnersKittaNoTrans: [undefined],
+            securityOwnersLandAreaTrans: [undefined],
+            securityOwnersSheetNoTrans: [undefined],
+            securityOwnersWardNoCT: [undefined],
+            securityOwnersKittaNoCT: [undefined],
+            securityOwnersLandAreaCT: [undefined],
+            securityOwnersSheetNoCT: [undefined],
+        });
     }
 }
