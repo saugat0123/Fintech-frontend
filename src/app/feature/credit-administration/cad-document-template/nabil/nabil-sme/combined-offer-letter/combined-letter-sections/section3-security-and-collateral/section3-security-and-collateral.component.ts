@@ -108,8 +108,8 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
     console.log('Temp Land and Building', this.tempLandBuilding);
     this.tempCollateral = this.securityDetails.primarySecurity.filter(val =>
         val.collateralShareCT === 'YES');
-    this.tempParipassu = this.securityDetails.primarySecuirity.filter(val =>
-        val.paripassuContentsCT !== null)
+    this.tempParipassu = this.securityDetails.primarySecurity.filter(val =>
+        val.paripassuContentsCT !== null);
     if(this.securityDetails.primarySecurity.length > 0) {
       this.securityDetails.primarySecurity.forEach(i => {
         if(i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
