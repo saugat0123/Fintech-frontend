@@ -14,6 +14,8 @@ import {Section9OtherClauseComponent} from "./combined-letter-sections/section9-
 import {Section1IntroductionComponent} from "./combined-letter-sections/section1-introduction/section1-introduction.component";
 import {RouterUtilsService} from "../../../../utils/router-utils.service";
 import {Section6FacilitiesClauseComponent} from './combined-letter-sections/section6-facilities-clause/section6-facilities-clause.component';
+import {CommonSectionBottomComponent} from './combined-letter-sections/common-section-bottom/common-section-bottom.component';
+import {Section8InsuranceClauseComponent} from './combined-letter-sections/section8-insurance-clause/section8-insurance-clause.component';
 
 @Component({
   selector: 'app-combined-offer-letter',
@@ -35,6 +37,7 @@ export class CombinedOfferLetterComponent implements OnInit {
   @ViewChild('section6', {static: false}) section6: Section6FacilitiesClauseComponent;
   @ViewChild('section9', {static: false}) section9: Section9OtherClauseComponent;
   @ViewChild('section10', {static: false}) section10: Section10SecurityDocumentsComponent;
+  @ViewChild('sectionBottom', {static: false}) sectionBottom: CommonSectionBottomComponent;
 
   constructor(private dialogRef: NbDialogRef<CombinedOfferLetterComponent>,
               private administrationService: CreditAdministrationService,
@@ -130,8 +133,13 @@ export class CombinedOfferLetterComponent implements OnInit {
     const section6FreeText = this.section6.form.get('tenureOfLoan').value ? this.section6.form.get('tenureOfLoan').value : '';
     const section9FreeText = {
       freeText1: this.section9.form.get('freeText1').value ? this.section9.form.get('freeText1').value : '',
+      freeText2: this.section9.form.get('freeText2').value ? this.section9.form.get('freeText2').value : '',
     }
     const section10FreeText = this.section10.form.get('additionalGuarantorDetails').value ? this.section10.form.get('additionalGuarantorDetails').value : '';
+    const sectionBottom = {
+      position: this.sectionBottom.form.get('position').value ? this.sectionBottom.form.get('position').value : '',
+      position1: this.sectionBottom.form.get('position1').value ? this.sectionBottom.form.get('position1').value : '',
+    };
     const freeTextVal = {
       section1: section1FreeText,
       section2: section2FreeText,
@@ -139,6 +147,7 @@ export class CombinedOfferLetterComponent implements OnInit {
       section6: section6FreeText,
       section9: section9FreeText,
       section10: section10FreeText,
+      sectionBottom: sectionBottom,
     };
     return JSON.stringify(freeTextVal);
   }

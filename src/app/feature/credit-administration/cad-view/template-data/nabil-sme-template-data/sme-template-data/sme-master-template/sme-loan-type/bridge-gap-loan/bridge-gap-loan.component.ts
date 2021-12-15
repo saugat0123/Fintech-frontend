@@ -16,6 +16,10 @@ export class BridgeGapLoanComponent implements OnInit {
   isComplimentryOtherLoan = false;
   isInterestSubsidy = false;
   loanDetails: any = [];
+  yesNoOptions = [
+    {value: 'Yes'},
+    {value: 'No'}
+  ];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -35,7 +39,8 @@ export class BridgeGapLoanComponent implements OnInit {
       // for form data
       complementryOther: [undefined],
       interestSubsidy: [undefined],
-      multiLoan: [undefined],
+      subsidyOrAgricultureLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
       baseRate: [undefined],
@@ -45,7 +50,7 @@ export class BridgeGapLoanComponent implements OnInit {
       // for translated data
       complementryOtherTrans: [undefined],
       interestSubsidyTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
       baseRateTrans: [undefined],
@@ -55,7 +60,7 @@ export class BridgeGapLoanComponent implements OnInit {
       // for corrected data
       complementryOtherCT: [undefined],
       interestSubsidyCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
       baseRateCT: [undefined],
@@ -84,6 +89,10 @@ export class BridgeGapLoanComponent implements OnInit {
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
       this.bridgeGapLoan.get('complementryOtherTrans').patchValue(tempComplemetry);
     }
+    const tempComplimentaryLoanSelected = this.bridgeGapLoan.get('complimentaryLoanSelected').value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
+      this.bridgeGapLoan.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
+    }
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
     const tempLoanAmount = this.bridgeGapLoan.get('loanAmount').value;
     const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
@@ -106,6 +115,9 @@ export class BridgeGapLoanComponent implements OnInit {
   setCTValue() {
     this.bridgeGapLoan.get('complementryOtherCT').patchValue(
         this.bridgeGapLoan.get('complementryOtherTrans').value
+    );
+    this.bridgeGapLoan.get('complimentaryLoanSelectedCT').patchValue(
+        this.bridgeGapLoan.get('complimentaryLoanSelectedTrans').value
     );
     this.bridgeGapLoan.get('interestSubsidyCT').patchValue(
         this.bridgeGapLoan.get('interestSubsidy').value

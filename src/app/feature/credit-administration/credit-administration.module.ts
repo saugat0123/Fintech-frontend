@@ -130,6 +130,7 @@ import {BillPurchaseComponent} from './cad-view/template-data/nabil-sme-template
 import {CombinedOfferLetterComponent} from './cad-document-template/nabil/nabil-sme/combined-offer-letter/combined-offer-letter.component';
 import {Section1SmeSecurityComponent} from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security-sections/section1-sme-security/section1-sme-security.component';
 import {Section2SmeSecurityComponent} from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security-sections/section2-sme-security/section2-sme-security.component';
+import { RequiredLegalDocumentSectionComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -246,7 +247,8 @@ import {Section2SmeSecurityComponent} from './cad-view/template-data/nabil-sme-t
         BankGuaranteeComponent,
         BillPurchaseComponent,
         Section1SmeSecurityComponent,
-        Section2SmeSecurityComponent],
+        Section2SmeSecurityComponent,
+        RequiredLegalDocumentSectionComponent],
   imports: [
     ThemeModule,
     CommonModule,

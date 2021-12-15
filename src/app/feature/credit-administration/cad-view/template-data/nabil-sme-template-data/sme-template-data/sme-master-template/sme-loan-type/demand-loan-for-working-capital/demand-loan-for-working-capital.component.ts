@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {NepaliCurrencyWordPipe} from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {EngToNepaliNumberPipe} from "../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {CurrencyFormatterPipe} from "../../../../../../../../../@core/pipe/currency-formatter.pipe";
-import {DatePipe} from "@angular/common";
-import {EngNepDatePipe} from "nepali-patro";
+import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-demand-loan-for-working-capital',
@@ -21,6 +21,10 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
   ADExpiry = false;
   BSExpiry = false;
   loanDetails: any = [];
+  yesNoOptions = [
+    {value: 'Yes'},
+    {value: 'No'}
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -38,10 +42,11 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
 
   buildForm() {
     this.demandLoanForm = this.formBuilder.group({
-      //for form data
+      // for form data
       complementryOther: [undefined],
-      multiLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
       arFinancing: [undefined],
+      subsidyOrAgricultureLoan: [undefined],
       arDays: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
@@ -53,9 +58,9 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       dateOfExpiryNepali: [undefined],
       dateOfExpiry: [undefined],
 
-      //for translated data
+      // for translated data
       complementryOtherTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       arFinancingTrans: [undefined],
       arDaysTrans: [undefined],
       loanAmountTrans: [undefined],
@@ -68,9 +73,9 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       dateOfExpiryNepaliTrans: [undefined],
       dateOfExpiryTrans: [undefined],
 
-      //for corrected data
+      // for corrected data
       complementryOtherCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       arFinancingCT: [undefined],
       arDaysCT: [undefined],
       loanAmountCT: [undefined],
@@ -83,7 +88,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
 
-    })
+    });
   }
 
   checkComplimetryOtherLoan(data) {
@@ -114,9 +119,9 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
       this.demandLoanForm.get('complementryOtherTrans').patchValue(tempComplemetry);
     }
-    const tempMultiLoan = this.demandLoanForm.get('multiLoan').value;
-    if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-      this.demandLoanForm.get('multiLoanTrans').patchValue(tempMultiLoan);
+    const tempComplimentaryLoanSelected = this.demandLoanForm.get('complimentaryLoanSelected').value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
+      this.demandLoanForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
     }
     const tempArFinancing = this.demandLoanForm.get('arFinancing').value;
     if (!ObjectUtil.isEmpty(tempArFinancing)) {
@@ -167,8 +172,8 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     this.demandLoanForm.get('complementryOtherCT').patchValue(
         this.demandLoanForm.get('complementryOtherTrans').value
     );
-    this.demandLoanForm.get('multiLoanCT').patchValue(
-        this.demandLoanForm.get('multiLoanTrans').value
+    this.demandLoanForm.get('complimentaryLoanSelectedCT').patchValue(
+        this.demandLoanForm.get('complimentaryLoanSelectedTrans').value
     );
     this.demandLoanForm.get('arFinancingCT').patchValue(
         this.demandLoanForm.get('arFinancingTrans').value

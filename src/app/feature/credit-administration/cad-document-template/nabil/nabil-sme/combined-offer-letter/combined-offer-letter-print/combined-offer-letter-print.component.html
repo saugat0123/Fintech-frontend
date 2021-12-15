@@ -28,7 +28,8 @@
                 [freeText]="freeText"></app-section6-facilities-clause-print>
         <app-section7-security-clause-print
                 [customerApprovedDoc]="customerApprovedDoc"></app-section7-security-clause-print>
-        <app-section8-insurance-clause-print></app-section8-insurance-clause-print>
+        <app-section8-insurance-clause-print
+                [cadOfferLetterApprovedDoc]="customerApprovedDoc"></app-section8-insurance-clause-print>
         <app-section9-other-clause-print
                 [customerApprovedDoc]="customerApprovedDoc"
                 [letterData]="letterData"
@@ -40,7 +41,8 @@
         ></app-section10-security-documents-print>
         <app-common-section-bottom-print
                 [cadOfferLetterApprovedDoc]="customerApprovedDoc"
-                [letter]="letterData">
+                [letter]="letterData"
+                [freeText]="freeText">
         </app-common-section-bottom-print>
     </div>
 </div>

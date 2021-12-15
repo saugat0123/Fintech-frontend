@@ -5,6 +5,24 @@
                 <h5> MORTGAGE / EQUITY MORTGAGE TERM LOAN </h5>
             </div>
             <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                    <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                               formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                        <nb-option *ngFor="let option of yesNoOptions" [value]="option?.value">{{option?.value}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ml-1 font-weight-bold">Mortgage Type</label>
+                    <nb-select [multiple]="false" fullWidth placeholder="mortgage type"
+                               formControlName="mortgageType" shape="semi-round">
+                        <nb-option *ngFor="let type of mortgageType" [value]="type?.value">{{type?.value}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-md-4">
                 <label><strong>Term Loan For </strong></label>
                 <nb-select
                         formControlName="termLoanFor"
@@ -14,7 +32,6 @@
                     <nb-option value="EQUITY_MORTGAGE_TERM_LOAN"> Equity Mortgage Term Loan</nb-option>
                 </nb-select>
             </div>
-
             <div class="col-md-4">
                 <label><strong>Term Loan Type </strong></label>
                 <nb-select
@@ -35,11 +52,13 @@
                     <i> Is complimentary of other loan ? </i></nb-checkbox>
             </div>
             <div *ngIf="isComplementaryOther" class="col-md-4 mt-3">
-                <label class="font-weight-bold" for="multiLoan"><strong>Multi Loan Selection</strong></label><br>
-                <nb-select formControlName="multiLoan" fullWidth
-                           id="multiLoan"
-                           multiple placeholder="Multiple Select" status="success">
-                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName"> {{loanName}} </nb-option>
+                <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
+                <nb-select formControlName="complimentaryLoanSelected" fullWidth
+                           id="complimentaryLoanSelected"
+                           placeholder="Select Complimentary Loan" status="success">
+                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                        {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' + loanName?.loanAmount}}
+                    </nb-option>
                 </nb-select>
             </div>
         </div>

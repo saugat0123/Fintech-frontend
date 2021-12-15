@@ -359,10 +359,8 @@
                                         ऋणीले उपभोग गदैं आउनु भएको सम्पूर्ण ऋणकर्जा रकममा देहाय बमोजिम
                                         <strong>थप जोखिम दर (Additional Risk Premium)</strong>
                                         समेत लाग्नेछ ।
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <table class="table table-sm table-bordered text-center table-sm sb-small" style="padding: 5px">
+                                        <div *ngIf="!this.tempData.interestSubsidy.en === true" style="margin-top: 8rem"></div>
+                                        <table class="table table-sm table-bordered text-center table-sm sb-small" style="padding: 5px;">
                                             <tr>
                                                 <td style="width: 50%">
                                                     <strong>विवरण </strong>
@@ -739,8 +737,9 @@
                     </div>
                     <p>
                         म/हामी कबुल गर्दछु/गर्दछौ कि माथिका जानकारीहरु सहि/सत्य/ठिक छन् र उल्लेख गरिएका धितो/धितोहरुमा कुनै तेश्रो पक्षको हकदावी छैन । बैकलाई मासिक/त्रैमासिक रुपमा व्याज बुझाउने प्रतिबद्धता लगायत बैंकले राख्ने अन्य शर्तहरु पालना गर्न मन्जुर गर्दछु/गर्दछौं । यस पत्रमा उल्लेखित सम्पूर्ण शर्तबन्देजहरु पढी सो को अर्थ/परिणाम समेत बुझी आफ्नो स्वतन्त्र मञ्जुरीले दिएको मानिनेछ ।
-                    </p><br>
-                    <table class="table table-sm table-condensed table-bordered text-center table-sm sb-small">
+                    </p>
+                    <div *ngIf="!this.tempData.interestSubsidy.en === true" style="margin-top: 8rem"></div>
+                    <table class="table table-sm table-condensed table-bordered text-center table-sm sb-small m-0">
                         <tr>
                             <td style="width: 25%">
                                 आवेदकको नाम:

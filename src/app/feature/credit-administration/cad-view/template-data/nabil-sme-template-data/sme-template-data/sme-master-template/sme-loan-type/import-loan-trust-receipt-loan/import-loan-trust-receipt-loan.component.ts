@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {NepaliCurrencyWordPipe} from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {EngToNepaliNumberPipe} from "../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {CurrencyFormatterPipe} from "../../../../../../../../../@core/pipe/currency-formatter.pipe";
-import {DatePipe} from "@angular/common";
-import {EngNepDatePipe} from "nepali-patro";
-import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
+import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-import-loan-trust-receipt-loan',
@@ -22,6 +22,10 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
   loanDetails: any = [];
   isOnOffSelected = false;
   isRegularSelected = false;
+  yesNoOptions = [
+    {value: 'Yes'},
+    {value: 'No'}
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -39,9 +43,10 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
 
   buildForm() {
     this.importLoanTrust = this.formBuilder.group({
-      //for form data
+      // for form data
       loanOption: [undefined],
-      multiLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
+      subsidyOrAgricultureLoan: [undefined],
       complementryOther: [undefined],
       loanPeriod: [undefined],
       loanAmount: [undefined],
@@ -54,9 +59,9 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
       dateOfExpiryNepali: [undefined],
       dateOfExpiry: [undefined],
 
-      //for translated data
+      // for translated data
       loanOptionTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       complementryOtherTrans: [undefined],
       loanPeriodTrans: [undefined],
       loanAmountTrans: [undefined],
@@ -69,9 +74,9 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
       dateOfExpiryNepaliTrans: [undefined],
       dateOfExpiryTrans: [undefined],
 
-      //for corrected data
+      // for corrected data
       loanOptionCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       complementryOtherCT: [undefined],
       loanPeriodCT: [undefined],
       loanAmountCT: [undefined],
@@ -83,7 +88,7 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
       dateOfExpiryTypeCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
-    })
+    });
   }
 
   checkComplimetryOtherLoan(data) {
@@ -115,9 +120,9 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
       this.importLoanTrust.get('loanOptionTrans').patchValue('');
     }
 
-    const tempMultiLoan = this.importLoanTrust.get('multiLoan').value;
-    if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-      this.importLoanTrust.get('multiLoanTrans').patchValue('');
+    const tempComplimentaryLoan = this.importLoanTrust.get('complimentaryLoanSelected').value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoan)) {
+      this.importLoanTrust.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoan);
     }
 
     const tempComplemetry = this.importLoanTrust.get('complementryOther').value;
@@ -169,8 +174,8 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     this.importLoanTrust.get('loanOptionCT').patchValue(
         this.importLoanTrust.get('loanOptionTrans').value
     );
-    this.importLoanTrust.get('multiLoanCT').patchValue(
-        this.importLoanTrust.get('multiLoanTrans').value
+    this.importLoanTrust.get('complimentaryLoanSelectedCT').patchValue(
+        this.importLoanTrust.get('complimentaryLoanSelectedTrans').value
     );
     this.importLoanTrust.get('complementryOtherCT').patchValue(
         this.importLoanTrust.get('complementryOtherTrans').value

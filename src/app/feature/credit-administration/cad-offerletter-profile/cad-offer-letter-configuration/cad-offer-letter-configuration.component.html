@@ -3424,27 +3424,6 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
               </tr>
 
-              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value && configForm?.clientType?.value == clientType.INSTITUTION">
-                <td>
-                  <label class="title">{{i + 1}}. Name Of Authorized Person</label>
-                </td>
-                <td>
-                  <input class="form-control "
-                         formControlName="authorizedPersonName"
-
-                         autocomplete="off"
-                         name="name" placeholder=" Authorized Person Name"
-                         type="text"/>
-                </td>
-                <td>
-                  <input class="form-control" type="text"
-                         formControlName="authorizedPersonNameTrans" readonly/>
-                </td>
-                <td>
-                  <input class="form-control" type="text" formControlName="authorizedPersonNameCT"
-                  />
-                </td>
-              </tr>
 
               <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
               userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
@@ -3466,6 +3445,560 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
                 <td>
                   <input class="form-control" type="text" formControlName="guaranteeProviderNameCT"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Act Name</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorActName"
+
+                         autocomplete="off"
+                         name="name" placeholder="Act Name"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guarantorActNameTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="guarantorActNameCT"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Act Year</label>
+                </td>
+                <td>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <!--                     <nb-radio-group name="citizenshipIssuedDate"-->
+                      <!--                                     formControlName="radioCitizenIssuedDate"-->
+                      <!--                                     #citizenshipIssueDateVal class="d-inline-flex">-->
+                      <!--                       <nb-radio *ngFor="let option of dateOption"-->
+                      <!--                                 [value]="option.value">{{option.label}}</nb-radio>-->
+                      <!--                     </nb-radio-group>-->
+                      <select required="true" class="form-control"
+                              #guarantorActYearOption
+                              formControlName="guarantorActYearOption">
+                        <option  value="null" hidden>AD/BS</option>
+                        <option  value="AD">AD</option>
+                        <option value="BS">BS</option>
+                      </select>
+                    </div>
+                    <div class="col-md-8">
+                      <nepali-patro *ngIf="guarantorActYearOption.value ==='BS'"
+                                    formControlName="guarantorActYear" [responseType]="2"
+                                    [displayNepali]="true">
+                      </nepali-patro>
+                      <input [nbDatepicker]="guarantorActYearAD"
+                             *ngIf="guarantorActYearOption.value ==='AD'"
+                             class="form-control form-control-sm-error rounded"
+                             formControlName="guarantorActYear"
+
+                             name="citizenIssuedDate"
+                             placeholder="Act Year"
+                             type="text">
+                      <nb-datepicker #guarantorActYearAD></nb-datepicker>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Authorized Body Name</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorAuthorizedBodyName"
+
+                         autocomplete="off"
+                         name="name" placeholder="Authorized Body Name"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guarantorAuthorizedBodyNameTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="guarantorAuthorizedBodyNameCT"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Registered With</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorRegisteredWith"
+
+                         autocomplete="off"
+                         name="name" placeholder="Registered With"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guarantorRegisteredWithTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="guarantorRegisteredWithCT"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Registration No</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorRegistrationNo"
+
+                         autocomplete="off"
+                         name="name" placeholder="Registration No"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guarantorRegistrationNoTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="guarantorRegistrationNoCT"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Registration Date</label>
+                </td>
+                <td>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <!--                     <nb-radio-group name="citizenshipIssuedDate"-->
+                      <!--                                     formControlName="radioCitizenIssuedDate"-->
+                      <!--                                     #citizenshipIssueDateVal class="d-inline-flex">-->
+                      <!--                       <nb-radio *ngFor="let option of dateOption"-->
+                      <!--                                 [value]="option.value">{{option.label}}</nb-radio>-->
+                      <!--                     </nb-radio-group>-->
+                      <select required="true" class="form-control"
+                              #guarantorRegistrationDateOption
+                              formControlName="guarantorRegistrationDateOption">
+                        <option  value="null" hidden>AD/BS</option>
+                        <option  value="AD">AD</option>
+                        <option value="BS">BS</option>
+                      </select>
+                    </div>
+                    <div class="col-md-8">
+                      <nepali-patro *ngIf="guarantorRegistrationDateOption.value ==='BS'"
+                                    formControlName="guarantorRegistrationDate" [responseType]="2"
+                                    [displayNepali]="true">
+                      </nepali-patro>
+                      <input [nbDatepicker]="guarantorRegistrationYearAD"
+                             *ngIf="guarantorRegistrationDateOption.value ==='AD'"
+                             class="form-control form-control-sm-error rounded"
+                             formControlName="guarantorRegistrationDate"
+
+                             name="citizenIssuedDate"
+                             placeholder="Registration Date"
+                             type="text">
+                      <nb-datepicker #guarantorRegistrationYearAD></nb-datepicker>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Issuing District</label>
+                </td>
+                <td>
+                  <select
+                          [compareWith]="compareFn"
+                          class="custom-select"
+                          formControlName="guarantorIssuedDistrict"
+                  >
+                    <option [ngValue]="null" hidden>District</option>
+                    <option *ngFor="let district of allDistrictList"
+                            [ngValue]="district">
+                      {{district.name}} || {{district.nepaliName}}
+                    </option>
+                  </select>
+                </td>
+                <td><input class="form-control" type="text"
+                           formControlName="guarantorIssuedDistrictTrans" readonly/></td>
+                <td>
+                  <input class="form-control" formControlName="guarantorIssuedDistrictCT"
+                         type="text"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Pan No</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorPanNo"
+
+                         autocomplete="off"
+                         name="name" placeholder="Pan No"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guarantorPanNoTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="guarantorPanNoCT"
+                  />
+                </td>
+              </tr>
+
+              <tbody *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+              <tr>
+                <td>
+                  <strong>Registered Address</strong>
+                </td>
+                <td>
+                  <select class="form-control" formControlName="guarantorRegisteredType">
+                    <option value="0">Municipality</option>
+                    <option value="1">VDC</option>
+                    <option value="2">Rural</option>
+                  </select>
+
+                </td>
+                <td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title">Province</label>
+                </td>
+                <td>
+                  <select #element
+                          (change)="getDistrictsByIdForRegisteredGuarantorAddress(userConfigForm.get(['guarantorDetails', i, 'guarantorRegisteredProvince']).value?.id , $event,i)"
+                          [compareWith]="compareFn"
+                          class="custom-select"
+                          formControlName="guarantorRegisteredProvince"
+
+                  >
+                    <option [ngValue]="null" hidden>Province</option>
+                    <option *ngFor="let provinceVal of guarantorRegisteredProvienceList"
+                            [ngValue]="provinceVal">
+                      {{provinceVal.name}} || {{provinceVal.nepaliName}}
+                    </option>
+                  </select>
+                </td>
+                <td><input disabled readonly class="form-control"
+                           formControlName="guarantorRegisteredProvinceTrans" type="text"></td>
+                <td>
+                  <input class="form-control"
+                         formControlName="guarantorRegisteredProvinceCT" type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title">District</label>
+                </td>
+                <td>
+                  <select
+                          (change)="getMunicipalitiesByIdForRegisteredGuarantorAddress(userConfigForm.get(['guarantorDetails', i, 'guarantorRegisteredDistrict']).value?.id , $event,i)"
+                          [compareWith]="compareFn"
+                          class="custom-select"
+                          formControlName="guarantorRegisteredDistrict"
+                  >
+                    <option [ngValue]="null" hidden>District</option>
+                    <option *ngFor="let districtVal of guarantorRegisteredDistricts[i]"
+                            [ngValue]="districtVal">
+                      {{districtVal.name}} || {{districtVal.nepaliName}}
+                    </option>
+                  </select>
+                </td>
+                <td><input disabled readonly class="form-control"
+                           formControlName="guarantorRegisteredDistrictTrans" type="text"></td>
+                <td>
+                  <input class="form-control"
+                         formControlName="guarantorRegisteredDistrictCT" type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title"
+                  >{{userConfigForm.get(['guarantorDetails', i, 'guarantorRegisteredType']).value == 0
+                          ? 'Municipality' : 'VDC'}}</label>
+                </td>
+                <td>
+                  <select [compareWith]="compareFn"
+                          class="custom-select"
+                          formControlName="guarantorRegisteredMunicipality"
+                  >
+                    <option [ngValue]="null" hidden>Municipality or VDC</option>
+                    <option *ngFor="let municipalityVal of guarantorRegisteredMunicipality[i]"
+                            [ngValue]="municipalityVal">
+                      {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                    </option>
+                  </select>
+                </td>
+                <td><input disabled readonly class="form-control"
+                           formControlName="guarantorRegisteredMunicipalityTrans" type="text"></td>
+                <td>
+                  <input class="form-control"
+                         formControlName="guarantorRegisteredMunicipalityCT"
+                         type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title">Ward No</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorRegisteredWardNo"
+                         name="registeredMunicipality" placeholder="Ward No"
+                         type="number"/>
+                </td>
+                <td><input disabled readonly class="form-control"
+                           formControlName="guarantorRegisteredWardNoTrans" type="text"></td>
+                <td>
+                  <input class="form-control"
+                         formControlName="guarantorRegisteredWardNoCT" type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+
+                <td>
+                  <label class="title">Street Tole</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorRegisteredStreetTole"
+
+                         name="actName" placeholder="Street Tole"
+                         type="text"/>
+                </td>
+                <td><input disabled readonly class="form-control"
+                           formControlName="guarantorRegisteredStreetToleTrans" type="text"></td>
+                <td>
+                  <input class="form-control"
+                         formControlName="guarantorRegisteredStreetToleCT" type="text"
+                  />
+                </td>
+              </tr>
+              <td></td>
+              <td>
+                <nb-checkbox formControlName="isSameGuarantorRegisteredAndCurrentAddress"
+                             name="isSameGuarantorRegisteredAndCurrentAddress"
+                             (change)="setGuarantorRegisteredAndCurrentAddressSame($event, i)"><i>Check if
+                  Temporary Current is same as Registered Address</i></nb-checkbox>
+              </td>
+              </tbody>
+              <tbody *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION && !userConfigForm.get(['guarantorDetails', i, 'isSameGuarantorRegisteredAndCurrentAddress']).value">
+              <tr>
+                <td>
+                  <strong>Current Address</strong>
+                </td>
+                <td>
+                  <select class="form-control" formControlName="guarantorCurrentType">
+                    <option value="0">Municipality</option>
+                    <option value="1">VDC</option>
+                    <option value="2">Rural</option>
+                  </select>
+
+                </td>
+                <td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title">Province</label>
+                </td>
+                <td>
+                  <select #element
+                          (change)="getDistrictsByIdForCurrentGuarantorAddress(userConfigForm.get(['guarantorDetails', i, 'guarantorCurrentProvince']).value?.id , $event,i)"
+                          [compareWith]="compareFn"
+                          class="custom-select"
+                          formControlName="guarantorCurrentProvince"
+
+                  >
+                    <option [ngValue]="null" hidden>Province</option>
+                    <option *ngFor="let provinceVal of guarantorCurrentProvienceList"
+                            [ngValue]="provinceVal">
+                      {{provinceVal.name}} || {{provinceVal.nepaliName}}
+                    </option>
+                  </select>
+                </td>
+                <td><input disabled readonly class="form-control"
+                           formControlName="guarantorCurrentProvinceTrans" type="text"></td>
+                <td>
+                  <input class="form-control"
+                         formControlName="guarantorCurrentProvinceCT" type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title">District</label>
+                </td>
+                <td>
+                  <select
+                          (change)="getMunicipalitiesByIdForCurrentGuarantorAddress(userConfigForm.get(['guarantorDetails', i, 'guarantorCurrentDistrict']).value?.id , $event,i)"
+                          [compareWith]="compareFn"
+                          class="custom-select"
+                          formControlName="guarantorCurrentDistrict"
+                  >
+                    <option [ngValue]="null" hidden>District</option>
+                    <option *ngFor="let districtVal of guarantorCurrentDistricts[i]"
+                            [ngValue]="districtVal">
+                      {{districtVal.name}} || {{districtVal.nepaliName}}
+                    </option>
+                  </select>
+                </td>
+                <td><input disabled readonly class="form-control"
+                           formControlName="guarantorCurrentDistrictTrans" type="text"></td>
+                <td>
+                  <input class="form-control"
+                         formControlName="guarantorCurrentDistrictCT" type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title"
+                  >{{userConfigForm.get(['guarantorDetails', i, 'guarantorCurrentType']).value == 0
+                          ? 'Municipality' : 'VDC'}}</label>
+                </td>
+                <td>
+                  <select [compareWith]="compareFn"
+                          class="custom-select"
+                          formControlName="guarantorCurrentMunicipality"
+                  >
+                    <option [ngValue]="null" hidden>Municipality or VDC</option>
+                    <option *ngFor="let municipalityVal of guarantorCurrentMunicipality[i]"
+                            [ngValue]="municipalityVal">
+                      {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                    </option>
+                  </select>
+                </td>
+                <td><input disabled readonly class="form-control"
+                           formControlName="guarantorCurrentMunicipalityTrans" type="text"></td>
+                <td>
+                  <input class="form-control"
+                         formControlName="guarantorCurrentMunicipalityCT"
+                         type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title">Ward No</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorCurrentWardNo"
+                         name="registeredMunicipality" placeholder="Ward No"
+                         type="number"/>
+                </td>
+                <td><input disabled readonly class="form-control"
+                           formControlName="guarantorCurrentWardNoTrans" type="text"></td>
+                <td>
+                  <input class="form-control"
+                         formControlName="guarantorCurrentWardNoCT" type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+
+                <td>
+                  <label class="title">Street Tole</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorCurrentStreetTole"
+
+                         name="actName" placeholder="Street Tole"
+                         type="text"/>
+                </td>
+                <td><input disabled readonly class="form-control"
+                           formControlName="guarantorCurrentStreetToleTrans" type="text"></td>
+                <td>
+                  <input class="form-control"
+                         formControlName="guarantorCurrentStreetToleCT" type="text"
+                  />
+                </td>
+              </tr>
+              </tbody>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor' && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Guarantor Name</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorName"
+
+                         autocomplete="off"
+                         name="name" placeholder="Guarantor Name"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guarantorNameTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="guarantorNameCT"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <label class="title">Authorized Person  Name</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="authorizedPersonName"
+
+                         autocomplete="off"
+                         name="name" placeholder="Authorized Person Name"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="authorizedPersonNameTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="authorizedPersonNameCT"
                   />
                 </td>
               </tr>
@@ -3621,7 +4154,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
               </tr>
 
 
-              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value || configForm?.clientType?.value == clientType.INDIVIDUAL">
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor' || configForm?.clientType?.value == clientType.INDIVIDUAL">
                 <td>
                   <label class="relationMedium">Guarantor
                     Relation</label>
@@ -3640,7 +4173,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 /></td>
               </tr>
 
-              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
+              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL || userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor'">
 
                 <td><label class="title">Gender</label></td>
                 <td><select class="form-control" formControlName="gender">
@@ -3678,7 +4211,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
                 <td></td>
               </tr>
-              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+              <tr *ngIf="(userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td><label class="title">Husband Name</label></td>
                 <td><input class="form-control "
                            formControlName="husbandName"
@@ -3695,7 +4228,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
               </tr>
 
-              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+              <tr *ngIf="(userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td><label class="title">Father In Law Name</label></td>
                 <td><input class="form-control "
                            formControlName="fatherInLawName"
@@ -3712,7 +4245,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
               </tr>
 
-              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
+              <tr *ngIf="
                (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td>
                   <label class="title">Grand Father Name</label>
@@ -3733,8 +4266,10 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
               </tr>
 
-              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
-              (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+              <tr *ngIf="
+              (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' ||
+               userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') &&
+               !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td>
                   <label class="title">Father Name</label>
                 </td>
@@ -4485,7 +5020,7 @@ userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value !== nu
                            (cadApprovedData)="getCadApprovedData($event)"
                            [customerType]="customerType"></app-loan-create>
         </nb-tab>
-        <nb-tab *ngIf="!hideLoan" tabId="3" tabTitle="Template Data" [active]="activeTemplateDataTab" [disabled]="activeTemplateDataTab">
+        <nb-tab *ngIf="!hideLoan" tabId="3" tabTitle="Template Data" [active]="activeTemplateDataTab" [disabled]="!activeTemplateDataTab">
           <app-template-data [cadData]="cadData" [isTabActive]="activeTemplateDataTab"></app-template-data>
         </nb-tab>
       </nb-tabset>

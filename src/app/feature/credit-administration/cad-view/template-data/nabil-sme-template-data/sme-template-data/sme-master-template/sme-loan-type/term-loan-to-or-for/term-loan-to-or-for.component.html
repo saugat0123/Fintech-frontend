@@ -4,21 +4,31 @@
             <div class="col-md-12 pb-2">
                 <h5>TERM LOAN TO/FOR </h5>
             </div>
-
             <div class="col-md-12 mt-2">
                 <nb-checkbox #complementaryOther (checkedChange)="checkComplimetryOtherLoan(complementaryOther.checked)"
                              [checked]="isComplementaryOtherLoan">
                     <i> Is complimentary of other loan ? </i></nb-checkbox>
             </div>
             <div class="col-md-4 mt-3" *ngIf="isComplementaryOtherLoan">
-                <label class="font-weight-bold" for="multiLoan"><strong>Multi Loan Selection</strong></label><br>
-                <nb-select multiple placeholder="Multiple Select"
+                <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
+                <nb-select placeholder="Select Complimentary Loan"
                            fullWidth
-                           formControlName="multiLoan" id="multiLoan" status="success">
-                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName"> {{loanName}} </nb-option>
+                           formControlName="complimentaryLoanSelected" id="complimentaryLoanSelected" status="success">
+                    <nb-option *ngFor="let loanName of loanDetails" [value]="loanName?.name">
+                        {{loanName?.name === 'TOTAL LIMIT' ? loanName?.name : loanName?.name + ' - ' + loanName?.loanAmount}}
+                    </nb-option>
                 </nb-select>
             </div>
-
+            <div class="col-md-4" style="margin-top: 1em">
+                <div class="form-group">
+                    <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
+                    <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                               formControlName="subsidyOrAgricultureLoan" shape="semi-round">
+                        <nb-option *ngFor="let option of yesNoOptions"
+                                   [value]="option?.value">{{option?.value}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
             <div class="col-md-4" style="margin-top: 1em">
                 <label><strong>Term Loan is for?</strong></label>
                 <nb-select (selectedChange)="setTermLoan($event)"
@@ -497,12 +507,12 @@
         </div>
         <!--        End of Expiry date-->
         <!-- For Translation -->
-                <div class="row pt-5 pb-2 pr-4">
-                    <div class="col-md-12 text-right">
-                        <button (click)="translateAndSetVal()" nbButton outline size="small" status="info">
-                            Translate Pre Export Loan Details
-                        </button>
-                    </div>
-                </div>
+        <div class="row pt-5 pb-2 pr-4">
+            <div class="col-md-12 text-right">
+                <button (click)="translateAndSetVal()" nbButton outline size="small" status="info">
+                    Translate Pre Export Loan Details
+                </button>
+            </div>
+        </div>
     </form>
 </div>
