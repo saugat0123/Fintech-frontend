@@ -22,20 +22,17 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS],
-  imports: [
-    CommonModule,
-    ReportingRoutingModule,
-    ThemeModule
-  ],
-  exports: [
-    ReportSummaryComponent,
-    ReportingInfoTaggingComponent,
-    ReportingInfoTaggingFormComponent
-  ],
-  entryComponents: [
-    ReportInfoFormComponent
-  ]
+    declarations: [...COMPONENTS],
+    imports: [
+        CommonModule,
+        ReportingRoutingModule,
+        ThemeModule
+    ],
+    exports: [
+        ReportSummaryComponent,
+        ReportingInfoTaggingComponent,
+        ReportingInfoTaggingFormComponent
+    ]
 })
 export class ReportingModule {
 }

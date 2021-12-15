@@ -213,7 +213,7 @@ const modules = {
         LoanInformationTemplateModule,
         LoanInformationViewModule,
         LoanSummaryModule,
-        QuillModule.forRoot({modules: modules}),
+        QuillModule.forRoot({ modules: modules }),
         AngularDraggableModule,
         LoanInformationDetailViewModule,
         NbTooltipModule,
@@ -222,14 +222,11 @@ const modules = {
         CbsGroupModule,
         TransferLoanModule
     ],
-
     providers: [
         DatePipe,
         LoanFormService,
         NgbActiveModal
     ],
-
-    entryComponents: [...ENTRY_COMPONENTS],
     exports: [
         KycInfoComponent,
         MicroProposalSummaryComponent,

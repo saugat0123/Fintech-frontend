@@ -9,7 +9,6 @@ import {CollateralSiteVisit} from '../../loan-information-template/security/secu
 import {CollateralSiteVisitService} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
-import {flatten} from '@angular/compiler';
 import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
@@ -190,9 +189,14 @@ export class SecurityViewComponent implements OnInit {
         }
       });
       // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-      const docArray = flatten(doc);
+      const flattenArray = [];
+      for (let i = 0; i < doc.length; ++i) {
+        for (let j = 0; j < doc[i].length; ++j) {
+          flattenArray.push(doc[i][j]);
+        }
+      }
       // filter for only printable document
-      this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+      this.siteVisitDocuments = flattenArray.filter(f => f.isPrintable === this.isPrintable);
 
       this.collateralSiteVisits.filter(item => {
         this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
@@ -212,9 +216,14 @@ export class SecurityViewComponent implements OnInit {
                 }
               });
               // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-              const docArray = flatten(arr);
+              const flattenArray = [];
+              for (let i = 0; i < arr.length; ++i) {
+                for (let j = 0; j < arr[i].length; ++j) {
+                  flattenArray.push(arr[i][j]);
+                }
+              }
               // filter for only printable document
-              this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+              this.siteVisitDocuments = flattenArray.filter(f => f.isPrintable === this.isPrintable);
 
               this.collateralSiteVisits.filter(item => {
                 this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));

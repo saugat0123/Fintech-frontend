@@ -21,45 +21,42 @@ import {NgxPrintModule} from 'ngx-print';
 
 
 @NgModule({
-  declarations: [LoanDeedCompanyComponent,
-    PersonalGuaranteeJointBorrowerComponent,
-    PersonalGuaranteeCompanyComponent,
-    PersonalGuaranteePersonToPersonComponent,
-    ManjurinamaForCompanyComponent,
-    TrustReceiptNepaliLimitComponent,
-    PromissoryNoteSingleBorrowerComponent,
-    AssignmentOfReceivableComponent,
-    DeedHypoOfMachineryComponent,
-    HypoOfStockComponent,
-    LoanDeedMultipleComponent,
-    LoanDeedSingleComponent,
-    PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NbCardModule,
-    NbButtonModule,
-    NgxPrintModule
-  ],
-  exports: [
-    AssignmentOfReceivableComponent,
-    DeedHypoOfMachineryComponent,
-    HypoOfStockComponent,
-    LoanDeedCompanyComponent,
-    ManjurinamaForCompanyComponent,
-    PersonalGuaranteeCompanyComponent,
-    PersonalGuaranteeJointBorrowerComponent,
-    PersonalGuaranteePersonToPersonComponent,
-    PromissoryNoteSingleBorrowerComponent,
-    TrustReceiptNepaliLimitComponent,
-    LoanDeedMultipleComponent,
-    LoanDeedSingleComponent,
-    PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent
-  ],
-  entryComponents: [DeedHypoOfMachineryComponent
-  ]
-
+    declarations: [LoanDeedCompanyComponent,
+        PersonalGuaranteeJointBorrowerComponent,
+        PersonalGuaranteeCompanyComponent,
+        PersonalGuaranteePersonToPersonComponent,
+        ManjurinamaForCompanyComponent,
+        TrustReceiptNepaliLimitComponent,
+        PromissoryNoteSingleBorrowerComponent,
+        AssignmentOfReceivableComponent,
+        DeedHypoOfMachineryComponent,
+        HypoOfStockComponent,
+        LoanDeedMultipleComponent,
+        LoanDeedSingleComponent,
+        PromissoryNoteCompanyComponent,
+        PromissoryNoteJointComponent],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        NbCardModule,
+        NbButtonModule,
+        NgxPrintModule
+    ],
+    exports: [
+        AssignmentOfReceivableComponent,
+        DeedHypoOfMachineryComponent,
+        HypoOfStockComponent,
+        LoanDeedCompanyComponent,
+        ManjurinamaForCompanyComponent,
+        PersonalGuaranteeCompanyComponent,
+        PersonalGuaranteeJointBorrowerComponent,
+        PersonalGuaranteePersonToPersonComponent,
+        PromissoryNoteSingleBorrowerComponent,
+        TrustReceiptNepaliLimitComponent,
+        LoanDeedMultipleComponent,
+        LoanDeedSingleComponent,
+        PromissoryNoteCompanyComponent,
+        PromissoryNoteJointComponent
+    ]
 })
 export class MegaModule { }

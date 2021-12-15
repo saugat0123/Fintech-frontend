@@ -39,7 +39,7 @@ const COMPONENTS = [
         CoreModule,
         NbAccordionModule,
         RouterModule.forChild(cadDocumentRoute),
-    ], entryComponents: [PostApprovalDocApproveComponent, CadLoginComponent]
+    ]
 })
 export class CadDocumentsModule {
 }

@@ -83,9 +83,6 @@ import { ConsentForCollateralPrintComponent } from './icfc-offer-letter/consent-
         LetterOfAgreementIcfcComponent,
         LetterOfContinuityIcfcComponent,
         PromissoryNoteIcfcComponent
-    ],
-    entryComponents: [
-        IcfcOfferLetterComponent
     ]
 })
 export class IcfcModule {

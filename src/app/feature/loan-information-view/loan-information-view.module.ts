@@ -26,23 +26,23 @@ import {NepaliPatroModule} from 'nepali-patro';
 
 
 @NgModule({
-  declarations: [
-    InsuranceViewComponent,
-    FinancialViewComponent,
-    GuarantorViewComponent,
-    SiteVisitViewComponent,
-    IndividualViewComponent,
-    CustomerInfoSearchFormComponent,
-    SecurityViewComponent,
-    CompanyInfoViewComponent,
-    CiclViewComponent,
-    AllDocumentViewComponent,
-    ProposalViewComponent,
-    IncomeFromAccountViewComponent,
-    CrgGammaDetailViewComponent,
-    CrgAlphaDetailedViewComponent,
-    CrgLambdaDetailViewComponent
-  ],
+    declarations: [
+        InsuranceViewComponent,
+        FinancialViewComponent,
+        GuarantorViewComponent,
+        SiteVisitViewComponent,
+        IndividualViewComponent,
+        CustomerInfoSearchFormComponent,
+        SecurityViewComponent,
+        CompanyInfoViewComponent,
+        CiclViewComponent,
+        AllDocumentViewComponent,
+        ProposalViewComponent,
+        IncomeFromAccountViewComponent,
+        CrgGammaDetailViewComponent,
+        CrgAlphaDetailedViewComponent,
+        CrgLambdaDetailViewComponent
+    ],
     exports: [
         InsuranceViewComponent,
         FinancialViewComponent,
@@ -68,10 +68,6 @@ import {NepaliPatroModule} from 'nepali-patro';
         NgSelectModule,
         NepaliCalendarModule,
         NepaliPatroModule,
-
-    ],
-    entryComponents: [
-        AllDocumentViewComponent
     ]
 })
 export class LoanInformationViewModule {

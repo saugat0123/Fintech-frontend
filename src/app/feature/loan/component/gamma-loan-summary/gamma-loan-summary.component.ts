@@ -42,7 +42,6 @@ import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hiera
 import {DOCUMENT} from '@angular/common';
 // tslint:disable-next-line:max-line-length
 import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
-import {flatten} from '@angular/compiler';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';

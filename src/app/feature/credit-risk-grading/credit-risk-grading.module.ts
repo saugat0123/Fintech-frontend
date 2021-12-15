@@ -20,10 +20,6 @@ const COMPONENTS = [
         CommonModule,
         CreditRiskGradingRoutingModule,
         ThemeModule
-    ],
-    entryComponents: [
-        RiskGroupFormComponent,
-        RiskGroupDeleteComponent
     ]
 })
 export class CreditRiskGradingModule {

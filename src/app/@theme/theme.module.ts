@@ -173,8 +173,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
     imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule],
     exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, NgxSpinnerModule],
-    declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent, RolesSwitchComponent],
-    entryComponents: [...ENTRY_COMPONENTS],
+    declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent, RolesSwitchComponent]
 })
 export class ThemeModule {
     static forRoot(): ModuleWithProviders<ThemeModule> {

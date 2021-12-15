@@ -53,9 +53,6 @@ const COMPONENTS = [
         NgxPrintModule,
         CoreModule,
         NbAccordionModule,
-    ],
-    entryComponents: [
-        ExcelOfferLetterComponent
     ]
 })
 export class ExcelOfferLetterTemplateModule {

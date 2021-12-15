@@ -191,41 +191,7 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
             apiKey: environment.GOOGLE_MAP_API_KEY
         }),
         NepaliCalendarModule
-    ],
-
-    entryComponents: [
-        ApprovalLimitFormComponent,
-        BranchFormComponent,
-        NepseFormComponent,
-        SegmentFormComponent,
-        SubSegmentFormComponent,
-        ValuatorFormComponent,
-        SectorFormComponent,
-        SubSectorFormComponent,
-        DocumentFormComponent,
-        AddLoanComponent,
-        UpdateModalComponent,
-        UserFormComponent,
-        CompanyFormComponent,
-        TemplateAddModelComponent,
-        RoleFormComponent,
-        EligibilityDocumentViewComponent,
-        RoleEditComponent,
-        AccountTypeFormComponent,
-        AccountCategoryFormComponent,
-        InactiveValuatorCommentComponent,
-        UserHistoryComponent,
-        ShareValueFormComponent,
-        BaseInterestFormComponent,
-        BlacklistFormComponent,
-        BlacklistFormsComponent,
-        AccountDocumentFormComponent,
-        RemarkModalComponent,
-        AccountNumberModalComponent,
-        FinancialConfigModalComponent,
-        RoleAddComponent
     ]
-
 })
 export class AdminModule {
 }

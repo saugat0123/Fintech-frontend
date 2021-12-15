@@ -16,21 +16,21 @@ import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.mod
 
 
 @NgModule({
-  declarations: [CustomerActivityComponent, UpdateViewComponent, LoanViewComponent],
-  imports: [
-    CommonModule,
-    ThemeModule,
-    CustomerActivityRoutingModule,
-    FormsModule,
-    NgbPaginationModule,
-    ReactiveFormsModule,
-    NgSelectModule,
-    CoreModule,
-    LoanInformationViewModule,
-    LoanInformationTemplateModule,
-    NgxPrintModule,
-    LoanSummaryModule
-  ], entryComponents: [UpdateViewComponent]
+    declarations: [CustomerActivityComponent, UpdateViewComponent, LoanViewComponent],
+    imports: [
+        CommonModule,
+        ThemeModule,
+        CustomerActivityRoutingModule,
+        FormsModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        NgSelectModule,
+        CoreModule,
+        LoanInformationViewModule,
+        LoanInformationTemplateModule,
+        NgxPrintModule,
+        LoanSummaryModule
+    ]
 })
 export class CustomerActivityModule {
 }

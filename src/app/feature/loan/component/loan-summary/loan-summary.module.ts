@@ -102,8 +102,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         CompanyInfoSummaryComponent,
         ApprovalSheetDocumentListComponent,
         SignatureSectionComponent
-    ],
-    entryComponents: [...ENTRY_COMPONENTS]
+    ]
 })
 export class LoanSummaryModule {
 }

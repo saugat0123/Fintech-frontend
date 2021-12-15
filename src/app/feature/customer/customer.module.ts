@@ -101,17 +101,7 @@ const COMPONENTS = [
         MicroLoanModule,
         LoanInformationDetailViewModule,
         NepaliPatroModule
-    ],
-  entryComponents: [
-    CustomerFormComponent,
-    CompanyFormComponent,
-    EditManagementTeamComponent,
-    EditPartnerInfoComponent,
-    EditSwotComponent,
-    CustomerLoanApplyComponent,
-    JointFormComponent,
-    ChangeLoanComponent
-  ]
+    ]
 })
 export class CustomerModule {
 }

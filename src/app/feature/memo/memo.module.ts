@@ -40,7 +40,6 @@ import {ApprovedComponent} from './component/approved/approved.component';
         RejectActionComponent,
         ApproveActionComponent
     ],
-
     imports: [
         FormsModule,
         RouterModule.forChild(MemoRoutes),
@@ -51,13 +50,7 @@ import {ApprovedComponent} from './component/approved/approved.component';
         ThemeModule,
         CoreModule
     ],
-    providers: [MemoService, MemoTypeService],
-    entryComponents: [
-        MemoTypeFormComponent,
-        ApproveActionComponent,
-        ForwardActionComponent,
-        RejectActionComponent
-    ]
+    providers: [MemoService, MemoTypeService]
 })
 export class MemoModule {
 }

@@ -58,8 +58,7 @@ import { CommonDataViewComponent } from './common-data-view/common-data-view.com
         FormBuilderRoutingModule,
         NgSelectModule,
         NepaliCalendarModule
-    ],
-    entryComponents: [DynamicFormsComponent, AddressFormAddComponent, AddressFormComponent]
+    ]
 })
 export class FormBuilderModule {
 }

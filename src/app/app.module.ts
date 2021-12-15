@@ -40,7 +40,6 @@ import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.com
         LoginBaseComponent,
         NewPasswordComponent,
         TimeOutPopUpComponent,
-
     ],
     imports: [
         BrowserModule,
@@ -63,20 +62,15 @@ import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.com
                 deps: [HttpClient]
             }
         })
-
     ],
     providers: [AddressService, {
-        provide: LocationStrategy,
-        useClass: HashLocationStrategy,
-    }, {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
-        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,
+            provide: LocationStrategy,
+            useClass: HashLocationStrategy,
+        }, { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe, NepaliToEngNumberPipe, NepaliWordPipe,
         NepaliPercentWordPipe],
     bootstrap: [AppComponent],
-    exports: [
-
-    ],
-    entryComponents: [TimeOutPopUpComponent]
-
+    exports: []
 })
 export class AppModule {
 }

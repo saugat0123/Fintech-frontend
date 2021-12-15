@@ -21,7 +21,6 @@ import {LoanType} from '../../model/loanType';
 import {BusinessType} from '../../../admin/modal/businessType';
 import {Financial} from '../../model/financial';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {DocAction} from '../../model/docAction';
 import {DocumentService} from '../../../admin/component/document/document.service';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
@@ -43,7 +42,6 @@ import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hiera
 import {DOCUMENT} from '@angular/common';
 // tslint:disable-next-line:max-line-length
 import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
-import {flatten} from '@angular/compiler';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
@@ -260,7 +258,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                        }
                    });
                    // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-                   this.siteVisitDocuments = flatten(arr);
+                   const flattenArray = [];
+                   for (let i = 0; i < arr.length; ++i) {
+                       for (let j = 0; j < arr[i].length; ++j) {
+                           flattenArray.push(arr[i][j]);
+                       }
+                   }
+                   this.siteVisitDocuments = flattenArray;
                    if (response.detail.length > 0) {
                        this.isCollateralSiteVisit = true;
                    }

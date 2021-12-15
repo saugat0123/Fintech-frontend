@@ -117,19 +117,6 @@ import {IcfcModule} from './cad-document-template/icfc/icfc.module';
         ProgressiveModule,
         IcfcModule,
     ],
-    entryComponents: [
-        AssignPopUpComponent,
-        VerifyPopUpComponent,
-        CadOfferLetterModalComponent,
-        ExposureComponent,
-        CadChecklistDocTemplateModalComponent,
-        CustomOfferLetterDocumentComponent,
-        UpdateCustomerCadInfoComponent,
-        AddAdditionalDocumentComponent,
-        SecurityComplianceCertificateComponent,
-        AdditionalExposureComponent,
-        CadOfferLetterConfigurationComponent,
-        CadFileSetupComponent],
     exports: [CadFileSetupComponent]
 })
 export class CreditAdministrationModule {

@@ -12,11 +12,11 @@ import { VerificationActionModelComponent } from './components/verification-acti
 
 
 @NgModule({
-  declarations: [
-      SingleLoanTransferModelComponent,
-      CombinedLoanTransferModelComponent,
-      VerificationActionModelComponent,
-  ],
+    declarations: [
+        SingleLoanTransferModelComponent,
+        CombinedLoanTransferModelComponent,
+        VerificationActionModelComponent,
+    ],
     imports: [
         ThemeModule,
         CommonModule,
@@ -25,9 +25,6 @@ import { VerificationActionModelComponent } from './components/verification-acti
         NgSelectModule,
         AngularDraggableModule,
         NbTooltipModule
-    ],
-    entryComponents: [SingleLoanTransferModelComponent,
-        CombinedLoanTransferModelComponent,
-    VerificationActionModelComponent]
+    ]
 })
 export class TransferLoanModule { }

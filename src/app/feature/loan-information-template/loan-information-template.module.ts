@@ -89,11 +89,10 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
-      CrgMicroComponent,
-      ObtainedDocumentComponent],
+    declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
+        CrgMicroComponent,
+        ObtainedDocumentComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, ObtainedDocumentComponent],
-    entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,
         ThemeModule,
