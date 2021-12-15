@@ -14,7 +14,7 @@
                     This loan contains deferred documents that are not uploaded.
                 </p>
 
-                <div *ngIf="popUpTitle === 'Send Forward'" class="row">
+                <div *ngIf="popUpTitle === 'Send Forward' || docAction === 'DUAL_APPROVAL_PENDING'" class="row">
 
                     <div class="col-md-12 form-group">
                         <label class="toRole">TO</label>
@@ -77,7 +77,16 @@
                 <div *ngIf="isMaker">
                     <div class="col-md-12">
                         <nb-checkbox class="cursor" (checkedChange)="isHSOVChecked($event)"
+                                     [disabled]="dual"
                                      [checked]="customerLoanHolder.isHsov">Is HSOV Needed
+                        </nb-checkbox>
+                    </div>
+                </div>
+                <div *ngIf="isMaker">
+                    <div class="col-md-12">
+                        <nb-checkbox class="cursor" (checkedChange)="dualApproval($event)"
+                                     [disabled]="hsov"
+                                     [checked]="customerLoanHolder.dualApproval">Dual Aproval Needed
                         </nb-checkbox>
                     </div>
                 </div>

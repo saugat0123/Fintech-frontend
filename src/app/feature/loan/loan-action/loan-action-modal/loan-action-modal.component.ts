@@ -55,6 +55,8 @@ export class LoanActionModalComponent implements OnInit {
     ckeConfig = Editor.CK_CONFIG;
     spinner = false;
     hsovRole: any;
+    dual: any;
+    hsov: any;
 
     // selectedRoleForSol:Role = undefined;
 
@@ -80,8 +82,10 @@ export class LoanActionModalComponent implements OnInit {
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
+        console.log(this.sendForwardBackwardList);
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
             this.isHSOVChecked(this.customerLoanHolder.isHsov);
+            this.dualApproval(this.customerLoanHolder.dualApproval);
         }
         this.getHsovUserList();
         this.getHsovRole();
@@ -247,12 +251,14 @@ export class LoanActionModalComponent implements OnInit {
             comment: [undefined, Validators.required],
             documentStatus: [this.documentStatus],
             isHsov: [undefined],
+            dualApproval: [undefined],
         });
     }
 
     private conditionalDataLoad(): void {
         switch (this.popUpTitle) {
             case 'Send Forward':
+            case 'Approve':
                 const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
                 const refId = approvalType === 'DEFAULT' ? 0 : approvalType === 'LOAN_TYPE' ? this.loanConfigId : this.customerLoanId;
 
@@ -341,6 +347,19 @@ export class LoanActionModalComponent implements OnInit {
             this.formAction.patchValue({
                 isHsov: true
             });
+            this.hsov = true;
+        } else {
+            this.hsov = false;
+        }
+    }
+    dualApproval(event) {
+        if (event) {
+            this.formAction.patchValue({
+                dualApproval: true
+            });
+            this.dual = true;
+        } else {
+            this.dual = false;
         }
     }
 

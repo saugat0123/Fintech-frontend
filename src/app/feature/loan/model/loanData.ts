@@ -95,6 +95,7 @@ export class LoanDataHolder extends BaseEntity {
     cadDocument: Array<CadDocument>;
     cbsLoanFileNumber: string;
     isHsov: boolean;
+    dualApproval: boolean;
     isSol: boolean;
     solUser: User;
     postApprovalDocIdList: string;

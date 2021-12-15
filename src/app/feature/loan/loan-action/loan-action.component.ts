@@ -155,13 +155,27 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 if (this.customerLoanHolder.isHsov && LocalStorageUtil.getStorage().roleName.toLowerCase() !== 'hsov') {
                     context = {
                         popUpTitle: 'Approve',
-                        isForward: false,
+                        isForward: true,
                         customerLoanHolder: this.customerLoanHolder,
                         loanConfigId: this.loanConfigId,
                         customerLoanId: this.id,
                         docAction: 'HSOV_PENINDG',
                         docActionMsg: 'Hsov Pending',
                         documentStatus: DocStatus.HSOV_PENDING,
+                        isRemitLoan: this.isRemitLoan,
+                        beneficiaryId: this.beneficiaryId
+                    };
+                } else if (this.customerLoanHolder.dualApproval) {
+                    context = {
+                        popUpTitle: 'Approve',
+                        isForward: false,
+                        customerLoanHolder: this.customerLoanHolder,
+                        loanConfigId: this.loanConfigId,
+                        branchId: this.branchId,
+                        customerLoanId: this.id,
+                        docAction: 'DUAL_APPROVAL_PENDING',
+                        docActionMsg: 'Dual Approval Pending',
+                        documentStatus: DocStatus.DUAL_APPROVAL_PENDING,
                         isRemitLoan: this.isRemitLoan,
                         beneficiaryId: this.beneficiaryId
                     };
