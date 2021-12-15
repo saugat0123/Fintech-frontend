@@ -14,6 +14,8 @@ import {ObjectUtil} from '../../../../../../../../../../@core/utils/ObjectUtil';
 export class Section1SmeSecurityComponent implements OnInit {
     section1SecurityForm: FormGroup;
     securityFormTranslate: FormGroup;
+    holderDepositorTranslate: FormGroup;
+    tempForm: FormGroup;
     allDistrictList = [];
     provinceList = [];
     municipalityListForSecurities = [];
@@ -22,15 +24,25 @@ export class Section1SmeSecurityComponent implements OnInit {
         {key: 'HYPOTHECATION', value: 'Hypothecation'},
         {key: 'ASSIGNMENT', value: 'Assignment'},
         {key: 'PARIPASSU', value: 'Paripassu'},
-        {key: 'LIEN', value: 'Lien'},
+        {key: 'LIEN AGAINST FD', value: 'Lien Against FD'},
+        {key: 'LIEN AGAINST DEPOSIT ACCOUNT', value: 'Lien Against Deposit Account'},
+        {key: 'LIEN AGAINST DEBENTURE', value: 'Lien Against Debenture'},
         {key: 'VEHICLE_REGISTRATION', value: 'Vehicle Registration'},
         {key: 'GENERAL_COUNTER_GUARANTEE', value: 'General Counter Guarantee'}
+    ];
+    mortgageType = [
+        {value: 'New'},
+        {value: 'Existing'},
+        {value: 'Enhancement'}
     ];
     collateralShare = [{value: 'YES'}, {value: 'NO'}];
     hypoContents = [{value: 'For Trading Unit'}, {value: 'For Manufacturing Case'}];
     multiContents = [{value: 'NEW'}, {value: 'EXISTING'}];
     isInsuranceRequired = false;
     selectedValue;
+    isNabil = false;
+    isOther = false;
+    tempValue;
 
     constructor(private formBuilder: FormBuilder,
                 private engNepNumberPipe: EngToNepaliNumberPipe,
@@ -121,8 +133,59 @@ export class Section1SmeSecurityComponent implements OnInit {
             paripassuContentsCT: [undefined],
             nameOfMemberBankCT: [undefined],
 
-            /* FOR LIEN CONDITIONS */
+            /* FOR LIEN AGAINST FD CONDITIONS */
+            lienFDContents: [undefined],
+            lienFDContentsTrans: [undefined],
+            lienFDContentsCT: [undefined],
+            letterOfSetOffFD: [undefined],
+            letterOfSetOffFDTrans: [undefined],
+            letterOfSetOffFDCT: [undefined],
+            holdingBank: [undefined],
+            nameOfHoldingBank: [undefined],
+            FdAmountInFigure: [undefined],
+            holdingBankTrans: [undefined],
+            nameOfHoldingBankTrans: [undefined],
+            FdAmountInFigureTrans: [undefined],
+            holdingBankCT: [undefined],
+            nameOfHoldingBankCT: [undefined],
+            FdAmountInFigureCT: [undefined],
+            nameOfFDHolder: [undefined],
+            nameOfFDHolderTrans: [undefined],
+            nameOfFDHolderCT: [undefined],
 
+            /* FOR LIEN AGAINST DEPOSIT ACCOUNT CONDITIONS */
+            lienDepositAccountContents: [undefined],
+            lienDepositAccountContentsTrans: [undefined],
+            lienDepositAccountContentsCT: [undefined],
+            letterOfSetOffDeposit: [undefined],
+            letterOfSetOffDepositTrans: [undefined],
+            letterOfSetOffDepositCT: [undefined],
+            accountType: [undefined],
+            accountNumber: [undefined],
+            amountInFigure: [undefined],
+            accountTypeTrans: [undefined],
+            accountNumberTrans: [undefined],
+            amountInFigureTrans: [undefined],
+            accountTypeCT: [undefined],
+            accountNumberCT: [undefined],
+            amountInFigureCT: [undefined],
+            nameOfDepositors: [undefined],
+            nameOfDepositorsTrans: [undefined],
+            nameOfDepositorsCT: [undefined],
+
+            /* FOR LIEN AGAINST DEBENTURE CONDITIONS */
+            lienDebentureContents: [undefined],
+            lienDebentureContentsTrans: [undefined],
+            lienDebentureContentsCT: [undefined],
+            bondType: [undefined],
+            bondTypeTrans: [undefined],
+            bondTypeCT: [undefined],
+            debentureAmountInFigure: [undefined],
+            debentureAmountInFigureTrans: [undefined],
+            debentureAmountInFigureCT: [undefined],
+            nameOfDebentureHolder: [undefined],
+            nameOfDebentureHolderTrans: [undefined],
+            nameOfDebentureHolderCT: [undefined],
 
             /* FOR VEHICLE REGISTRATION */
             vehicleRegistration: [undefined],
@@ -133,6 +196,14 @@ export class Section1SmeSecurityComponent implements OnInit {
             generalCounterGuarantee: [undefined],
             generalCounterGuaranteeTrans: [undefined],
             generalCounterGuaranteeCT: [undefined],
+
+            mortgageType: [undefined],
+            mortgageTypeTrans: [undefined],
+            mortgageTypeCT: [undefined],
+
+            /*fdHolderDetails: this.formBuilder.array([this.buildFDHolderDetailsArr()]),
+            depositorDetails: this.formBuilder.array([this.buildDepositorDetailsArr()]),
+            debentureDetails: this.formBuilder.array([this.buildDebentureDetailsArr()]),*/
             extraDetails: this.formBuilder.array([this.buildExtraDetailsArr()]),
         });
     }
@@ -223,6 +294,13 @@ export class Section1SmeSecurityComponent implements OnInit {
             this.section1SecurityForm.get([String(formArrayName), index, String(formControlName + 'CT')]).patchValue(sourceValue);
         }
     }
+
+    changeHoldingBank(data) {
+        const tempData = !ObjectUtil.isEmpty(data) ? data : '';
+        this.isNabil = tempData === 'NABIL';
+        this.isOther = tempData === 'OTHER';
+    }
+
 
     addExtraDetails(i) {
         (this.section1SecurityForm.get(['securityDetails', i, 'extraDetails']) as FormArray).push(this.buildExtraDetailsArr());

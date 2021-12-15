@@ -21,7 +21,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let data of securityDetails.secondarySecurity; let index = index">
+            <tr *ngFor="let data of this.tempDetails; let index = index">
                 <td>{{this.engToNepaliNumberPipe.transform((index + 1).toString())}}.</td>
                 <td>{{data?.nameOfCompanyCT}}</td>
                 <td>{{data?.numberOfShareCT}}</td>
