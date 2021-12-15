@@ -116,7 +116,6 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
         this.finalName = tempGuarantorNep.guarantorName.ct;
       } else {
         // const temp = JSON.parse(this.guarantorData[0].nepData);
-        console.log('authorizedPersonName', tempGuarantorNep);
         this.finalName = tempGuarantorNep.authorizedPersonName.ct;
       }
     } else if (this.guarantorData.length === 2) {
@@ -127,7 +126,6 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
           this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
         } else {
           // const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(tempGuarantorNep);
           this.guarantorNames.push(tempGuarantorNep.authorizedPersonName.ct);
         }
         // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
@@ -140,7 +138,6 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
         const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
         if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
           // const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(tempGuarantorNep);
           this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
           // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
         } else {
