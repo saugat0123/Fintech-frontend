@@ -131,7 +131,7 @@
                 </div>
               </td>
             </tr>
-            <tr  *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
+            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
               <td>DOB</td>
               <td>
                 <div class="row">
@@ -144,8 +144,8 @@
                   <select required="true" class="form-control"
                           #DobDateVal
                           formControlName="dobDateType">
-                    <option  value="null" hidden>AD/BS</option>
-                    <option  value="AD">AD</option>
+                    <option value="null" hidden>AD/BS</option>
+                    <option value="AD">AD</option>
                     <option value="BS">BS</option>
                   </select>
 
@@ -159,9 +159,8 @@
                            *ngIf="DobDateVal.value ==='AD'"
                            class="form-control form-control-sm-error rounded"
                            formControlName="dob"
-
-                           name="citizenIssuedDate"
-                           placeholder="Citizenship Issue Date"
+                           name="dob"
+                           placeholder="Date of Birth"
                            type="text">
                     <nb-datepicker #DobDate></nb-datepicker>
                   </div>
@@ -1632,7 +1631,6 @@
                              *ngIf="dobDateType.value ==='AD'"
                              class="form-control form-control-sm-error rounded"
                              formControlName="dob"
-
                              name="dateOfBirth"
                              placeholder="Date of Birth"
                              type="text">
@@ -2240,8 +2238,8 @@
                       <select required="true" class="form-control"
                               #DobDateVal
                               formControlName="ownerDobDateType">
-                        <option  value="null" hidden>AD/BS</option>
-                        <option  value="AD">AD</option>
+                        <option value="null" hidden>AD/BS</option>
+                        <option value="AD">AD</option>
                         <option value="BS">BS</option>
                       </select>
 
@@ -2255,9 +2253,8 @@
                              *ngIf="DobDateVal.value ==='AD'"
                              class="form-control form-control-sm-error rounded"
                              formControlName="ownerDob"
-
                              name="ownerDob"
-                             placeholder="Owner dob"
+                             placeholder="Date of Birth"
                              type="text">
                       <nb-datepicker #DobDate></nb-datepicker>
                     </div>
