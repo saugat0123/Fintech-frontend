@@ -41,7 +41,7 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
     this.documentaryBillPurchase = this.formBuilder.group({
       // for form data
       complementryOther: [undefined],
-      multiLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
       marginInPercentage: [undefined],
@@ -51,7 +51,7 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
       dateOfExpiry: [undefined],
       // for translated data
       complementryOtherTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
       marginInPercentageTrans: [undefined],
@@ -61,7 +61,7 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
       dateOfExpiryTrans: [undefined],
       // for corrected data
       complementryOtherCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
       marginInPercentageCT: [undefined],
@@ -90,6 +90,12 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
     const tempComplemetry = this.documentaryBillPurchase.get('complementryOther').value;
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
       this.documentaryBillPurchase.get('complementryOtherTrans').patchValue(tempComplemetry);
+    }
+    const tempComplimentaryLoanSelected = this.documentaryBillPurchase.get('complimentaryLoanSelected').value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
+      this.documentaryBillPurchase.get('complimentaryLoanSelectedTrans').patchValue(
+          tempComplimentaryLoanSelected
+      );
     }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
@@ -129,6 +135,9 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
   setCTValue() {
     this.documentaryBillPurchase.get('complementryOtherCT').patchValue(
         this.documentaryBillPurchase.get('complementryOtherTrans').value
+    );
+    this.documentaryBillPurchase.get('complimentaryLoanSelectedCT').patchValue(
+        this.documentaryBillPurchase.get('complimentaryLoanSelectedTrans').value
     );
     this.documentaryBillPurchase.get('loanAmountCT').patchValue(
         this.documentaryBillPurchase.get('loanAmountTrans').value

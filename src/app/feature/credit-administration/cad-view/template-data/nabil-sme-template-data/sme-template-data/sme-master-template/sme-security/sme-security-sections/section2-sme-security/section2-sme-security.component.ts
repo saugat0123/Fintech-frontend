@@ -24,6 +24,11 @@ export class Section2SmeSecurityComponent implements OnInit {
         {key: 'CROSS_GUARANTEE', value: 'Cross Guarantee'},
         {key: 'SHARE_PLEDGE', value: 'Share Pledge'}
     ];
+    mortgageType = [
+        {value: 'New'},
+        {value: 'Existing'},
+        {value: 'Enhancement'}
+    ];
     collateralShare = [{value: 'YES'}, {value: 'NO'}];
     multiContents = [{value: 'NEW'}, {value: 'EXISTING'}];
     isInsuranceRequired = false;
@@ -134,6 +139,10 @@ export class Section2SmeSecurityComponent implements OnInit {
             numberOfShareCT: [undefined],
             nameOfShareHolderCT: [undefined],
             shareHolderNameCT: [undefined],
+
+            mortgageType: [undefined],
+            mortgageTypeTrans: [undefined],
+            mortgageTypeCT: [undefined],
         });
     }
 

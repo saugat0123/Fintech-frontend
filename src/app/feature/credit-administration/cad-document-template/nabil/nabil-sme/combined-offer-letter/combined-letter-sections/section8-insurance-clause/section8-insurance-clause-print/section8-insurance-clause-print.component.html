@@ -1,12 +1,12 @@
 <div class="text-justify nep">
     <form>
-        <div class="service-contions mt-5">
+        <div class="service-contions mt-5" *ngIf="insuranceVisible">
             <!--Applicable incase of insurance required-->
             <p><strong>बिमा सम्बन्धी शर्तहरु : </strong></p>
             <div class="row">
                 <div class="col-sm-12">
                     <ol class="conditions-list orderd-list font-weight-bold">
-                        <li>
+                        <li *ngIf="trustReceiptVisible|| acceptance">
                             <!--Applicable incase of TR/Acceptance facility-->
                             <p>
                                 ऋणीले आगलागी, भुकम्प, दंगा/हड्ताल जस्ता जोखिमबाट हुने क्षति, दुर्भावनापूर्ण क्षति र
@@ -17,7 +17,7 @@
                             </p>
                         </li>
 
-                        <li>
+                        <li *ngIf="autoLoanVisible">
                             <!--Applicable incase of auto loan/term loan to purchase of Vehicle-->
                             <p>
                                 तपाईले सवारी साधन कर्जाबाट खरिद गरिएको/गरिने सवारी साधनको आगलागी, भुकम्प, दंगा हड्ताल
@@ -30,7 +30,7 @@
 
                         <!-- Applicable incase of building insurance required-->
 
-                        <li>
+                        <li *ngIf="buildingInsurance">
                             <p>
                                 ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद आदी
                                 जस्ता जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण स्वरुप
@@ -41,7 +41,7 @@
                             </p>
                         </li>
 
-                        <li>
+                        <li *ngIf="stockInsurance">
                             <!--Applicable incase of stock insurance required-->
                             <p>
                                 ऋणीले आफ्नोे खर्चमा आगलागी, सेधमारी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद

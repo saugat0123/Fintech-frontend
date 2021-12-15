@@ -44,7 +44,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     this.demandLoanForm = this.formBuilder.group({
       // for form data
       complementryOther: [undefined],
-      multiLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
       arFinancing: [undefined],
       subsidyOrAgricultureLoan: [undefined],
       arDays: [undefined],
@@ -60,7 +60,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
 
       // for translated data
       complementryOtherTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       arFinancingTrans: [undefined],
       arDaysTrans: [undefined],
       loanAmountTrans: [undefined],
@@ -75,7 +75,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
 
       // for corrected data
       complementryOtherCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       arFinancingCT: [undefined],
       arDaysCT: [undefined],
       loanAmountCT: [undefined],
@@ -119,9 +119,9 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
       this.demandLoanForm.get('complementryOtherTrans').patchValue(tempComplemetry);
     }
-    const tempMultiLoan = this.demandLoanForm.get('multiLoan').value;
-    if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-      this.demandLoanForm.get('multiLoanTrans').patchValue(tempMultiLoan);
+    const tempComplimentaryLoanSelected = this.demandLoanForm.get('complimentaryLoanSelected').value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
+      this.demandLoanForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
     }
     const tempArFinancing = this.demandLoanForm.get('arFinancing').value;
     if (!ObjectUtil.isEmpty(tempArFinancing)) {
@@ -172,8 +172,8 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     this.demandLoanForm.get('complementryOtherCT').patchValue(
         this.demandLoanForm.get('complementryOtherTrans').value
     );
-    this.demandLoanForm.get('multiLoanCT').patchValue(
-        this.demandLoanForm.get('multiLoanTrans').value
+    this.demandLoanForm.get('complimentaryLoanSelectedCT').patchValue(
+        this.demandLoanForm.get('complimentaryLoanSelectedTrans').value
     );
     this.demandLoanForm.get('arFinancingCT').patchValue(
         this.demandLoanForm.get('arFinancingTrans').value

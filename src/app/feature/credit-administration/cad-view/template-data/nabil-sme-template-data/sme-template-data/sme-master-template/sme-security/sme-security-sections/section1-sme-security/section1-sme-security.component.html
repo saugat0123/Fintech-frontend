@@ -23,8 +23,7 @@
                 </div>
 
 
-                <div
-                        class="row mt-2 mb-2">
+                <div class="row mt-2 mb-2">
                     <div class="col-md-12">
                         <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[0]?.key || this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[1]?.key">
                             {{this.section1SecurityForm.get(['securityDetails', i, 'securityType']).value === securityType[0]?.key ? 'LAND DETAILS' : 'LAND AND BUILDING DETAILS'}} </h6>
@@ -35,10 +34,14 @@
                         <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[4].key">
                             PARIPASSU </h6>
                         <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[5].key">
-                            LIEN </h6>
+                            LIEN AGAINST FD</h6>
                         <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[6].key">
-                            VEHICLE REGISTRATION </h6>
+                            LIEN AGAINST DEPOSIT ACCOUNT</h6>
                         <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[7].key">
+                            LIEN AGAINST DEBENTURE</h6>
+                        <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[8].key">
+                            VEHICLE REGISTRATION </h6>
+                        <h6 *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[9].key">
                             GENERAL COUNTER_GUARANTEE </h6>
                     </div>
                 </div>
@@ -55,9 +58,18 @@
                                        [value]="collateral.value"> {{collateral.value}}</nb-option>
                         </nb-select>
                     </div>
+                    <div class="col-md-4">
+                        <label class="ml-1 font-weight-bold">Mortgage Type</label>
+                        <nb-select fullWidth placeholder="Mortgage Type"
+                                   (selectedChange)="setDefaultCTAndTransVal('mortgageType', false, 'securityDetails', i)"
+                                   formControlName="mortgageType" shape="semi-round">
+                            <nb-option *ngFor="let type of mortgageType"
+                                       [value]="type?.value">{{type?.value}}</nb-option>
+                        </nb-select>
+                    </div>
                 </div>
 
-                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value !== securityType[7]?.key && this.section1SecurityForm.get(['securityDetails', i,'securityType']).value"
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value !== securityType[9]?.key && this.section1SecurityForm.get(['securityDetails', i,'securityType']).value"
                      class="row mb-4">
                     <div class="col-md-12 m-2">
                         <nb-checkbox #insuranceRequired
@@ -97,7 +109,6 @@
                     <!--                                <i> Insurance Required </i></nb-checkbox>-->
                     <!--                        </div>-->
                     <!--                    </div>-->
-
                     <div *ngIf="section1SecurityForm.get(['securityDetails', i, 'insuranceRequired'])?.value"
                          class="row">
                         <div class="form-group col-md-4">
@@ -455,9 +466,389 @@
                 <!--<div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[5]?.key" class="row">
 
                 </div>-->
+                <!-- FOR LIEN AGAINST FD SECTION -->
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[5]?.key">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <label><strong> Lien To Be Used </strong></label>
+                            <nb-select
+                                    (selectedChange)="setDefaultCTAndTransVal('lienFDContents', false, 'securityDetails', i)"
+                                    formControlName="lienFDContents"
+                                    fullWidth
+                                    placeholder="Lien to be used">
+                                <nb-option *ngFor="let multi of multiContents"
+                                           [value]="multi.value"> {{multi.value}}</nb-option>
+                            </nb-select>
+                        </div>
+
+                        <div class="col-md-4 mb-2">
+                            <label><strong>Letter of Set-Off to be used</strong></label>
+                            <nb-select
+                                    formControlName="letterOfSetOffFD"
+                                    fullWidth
+                                    (selectedChange)="setDefaultCTAndTransVal('letterOfSetOffFD', false, 'securityDetails', i)"
+                                    placeholder="Letter Of Set-Off">
+                                <nb-option *ngFor="let multi of multiContents"
+                                           [value]="multi.value"> {{multi.value}}</nb-option>
+                            </nb-select>
+                        </div>
+
+                        <div class="col-md-4 mb-2">
+                            <label><strong>FD Holding Bank</strong></label>
+                            <nb-select
+                                    formControlName="holdingBank"
+                                    fullWidth
+                                    (selectedChange)="setDefaultCTAndTransVal('holdingBank', false, 'securityDetails', i); changeHoldingBank($event)"
+                                    placeholder="FD Holding Bank">
+                                <nb-option value="NABIL">Nabil Bank</nb-option>
+                                <nb-option value="OTHER">Other Bank</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div *ngIf="isOther" class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
+                            <input class="form-control" formControlName="nameOfHoldingBank" fullWidth id="nameOfHoldingBank"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   (input)="onChangeTranslate('securityDetails', 'nameOfHoldingBank', i, 'nameOfHoldingBankTrans')"
+                                   type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankTrans" fullWidth id="nameOfHoldingBankTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfHoldingBankCT" fullWidth id="nameOfHoldingBankCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                  <!--  <ng-container *ngFor="let data of section1SecurityForm.get(['securityDetails',i,'fdHolderDetails'])['controls']; let index = index;"
+                                  formArrayName="fdHolderDetails">
+                        <div [formGroupName]="index" class="row" *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[5]?.key">
+                           -->
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="nameOfFDHolder"> Name of FD Holder/s </label>
+                            <input class="form-control" formControlName="nameOfFDHolder" fullWidth id="nameOfFDHolder"
+                                   (input)="onChangeTranslate('securityDetails', 'nameOfFDHolder', i, 'nameOfFDHolderTrans')"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfFDHolderTrans" fullWidth
+                                   id="nameOfFDHolderTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfFDHolderCT" fullWidth
+                                   id="nameOfFDHolderCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                       <!-- <div *ngIf="section1SecurityForm.get(['securityDetails',i,'fdHolderDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeFDHolderDetails('securityDetails', i, index)" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[5]?.key">
+                        <div class="col-md-12">
+                            <button (click)="addFDHolderDetails(i)" class="float-right" nbButton size="tiny" status="primary">Add
+                                FDHolder
+                            </button>
+                        </div>
+                    </div>-->
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="FdAmountInFigure">FD Amount in Figure</label>
+                            <input class="form-control"
+                                   formControlName="FdAmountInFigure" fullWidth
+                                   id="FdAmountInFigure"
+                                   nbInput
+                                   shape="semi-round"
+                                   (input)="translateSecurityNumber('securityDetails', 'FdAmountInFigure', i, 'FdAmountInFigureTrans')"
+                                   status="success" type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureTrans" fullWidth id="FdAmountInFigureTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="FdAmountInFigureCT" fullWidth id="FdAmountInFigureCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOR LIEN AGAINST DEPOSIT ACCOUNT SECTION -->
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[6]?.key">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <label><strong> Lien To Be Used </strong></label>
+                            <nb-select
+                                    (selectedChange)="setDefaultCTAndTransVal('lienDepositAccountContents', false, 'securityDetails', i)"
+                                    formControlName="lienDepositAccountContents"
+                                    fullWidth
+                                    placeholder="Lien to be used">
+                                <nb-option *ngFor="let multi of multiContents"
+                                           [value]="multi.value"> {{multi.value}}</nb-option>
+                            </nb-select>
+                        </div>
+
+                        <div class="col-md-4 mb-2">
+                            <label><strong>Letter of Set-Off to be used</strong></label>
+                            <nb-select
+                                    formControlName="letterOfSetOffDeposit"
+                                    fullWidth
+                                    (selectedChange)="setDefaultCTAndTransVal('letterOfSetOffDeposit', false, 'securityDetails', i)"
+                                    placeholder="Letter Of Set-Off">
+                                <nb-option *ngFor="let multi of multiContents"
+                                           [value]="multi.value"> {{multi.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <!--<ng-container *ngFor="let data of section1SecurityForm.get(['securityDetails',i,'depositorDetails'])['controls']; let index1 = index;"
+                                  formArrayName="depositorDetails">-->
+<!--                        <div [formGroupName]="index1" class="row" *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[6]?.key">-->
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="nameOfDepositors"> Name of Depositor/s </label>
+                            <input class="form-control" formControlName="nameOfDepositors" fullWidth
+                                   id="nameOfDepositors"
+                                   (input)="onChangeTranslate('securityDetails', 'nameOfDepositors', i, 'nameOfDepositorsTrans')"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfDepositorsTrans" fullWidth
+                                   id="nameOfDepositorsTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfDepositorsCT" fullWidth
+                                   id="nameOfDepositorsCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                       <!-- <div *ngIf="section1SecurityForm.get(['securityDetails',i,'depositorDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeDepositorDetails('securityDetails', i, index1)" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[6]?.key">
+                        <div class="col-md-12">
+                            <button (click)="addDepositorDetails(i)" class="float-right" nbButton size="tiny" status="primary">Add
+                                Depositor
+                            </button>
+                        </div>
+                    </div>-->
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label><strong>Account Type</strong></label>
+                            <nb-select
+                                    formControlName="accountType"
+                                    fullWidth
+                                    (selectedChange)="setDefaultCTAndTransVal('accountType', false, 'securityDetails', i)"
+                                    placeholder="Change Account Type">
+                                <nb-option value="CURRENT_ACCOUNT">Current Account</nb-option>
+                                <nb-option value="SAVING_ACCOUNT">Saving Account</nb-option>
+                                <nb-option value="CALL_ACCOUNT">Call Account</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="accountNumber">Account Number</label>
+                            <input class="form-control" formControlName="accountNumber" fullWidth id="accountNumber"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   (input)="translateSecurityNumber('securityDetails', 'accountNumber', i, 'accountNumberTrans')"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberTrans" fullWidth
+                                   id="accountNumberTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="accountNumberCT" fullWidth id="accountNumberCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="amountInFigure">Amount in Figure</label>
+                            <input class="form-control" formControlName="amountInFigure" fullWidth id="amountInFigure"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   (input)="translateSecurityNumber('securityDetails', 'amountInFigure', i, 'amountInFigureTrans')"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureTrans" fullWidth
+                                   id="amountInFigureTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="amountInFigureCT" fullWidth id="amountInFigureCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOR LIEN AGAINST BOND/DEBENTURE SECTION -->
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[7]?.key">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <label><strong> Lien To Be Used </strong></label>
+                            <nb-select
+                                    (selectedChange)="setDefaultCTAndTransVal('lienDebentureContents', false, 'securityDetails', i)"
+                                    formControlName="lienDebentureContents"
+                                    fullWidth
+                                    placeholder="Lien to be used">
+                                <nb-option *ngFor="let multi of multiContents"
+                                           [value]="multi.value"> {{multi.value}}</nb-option>
+                            </nb-select>
+                        </div>
+
+                        <div class="col-md-4 mb-2">
+                            <label><strong>Bond Type</strong></label>
+                            <nb-select
+                                    formControlName="bondType"
+                                    fullWidth
+                                    (selectedChange)="setDefaultCTAndTransVal('bondType', false, 'securityDetails', i)"
+                                    placeholder="Bond Type">
+                                    <nb-option value="नागरिक बचत पत्र"> नागरिक बचत पत्र</nb-option>
+                                    <nb-option value="राष्ट्रिय बचत पत्र"> राष्ट्रिय बचत पत्र</nb-option>
+                                    <nb-option value="ऋण पत्र"> ऋण पत्र</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                   <!-- <ng-container *ngFor="let data of section1SecurityForm.get(['securityDetails',i,'debentureDetails'])['controls']; let index2 = index;"
+                                  formArrayName="debentureDetails">
+                        <div [formGroupName]="index2" class="row" *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[7]?.key">
+                         -->
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="nameOfDebentureHolder"> Name of Bond/Debenture
+                                Holder/s </label>
+                            <input class="form-control" formControlName="nameOfDebentureHolder" fullWidth
+                                   id="nameOfDebentureHolder"
+                                   (input)="onChangeTranslate('securityDetails', 'nameOfDebentureHolder', i, 'nameOfDebentureHolderTrans')"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfDebentureHolderTrans" fullWidth
+                                   id="nameOfDebentureHolderTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="nameOfDebentureHolderCT" fullWidth
+                                   id="nameOfDebentureHolderCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                        <!--<div *ngIf="section1SecurityForm.get(['securityDetails',i,'debentureDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeDebentureDetails('securityDetails', i, index2)" nbButton size="tiny" status="danger"
+                                    style="position: static">
+                                <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <div class="row" *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[7]?.key">
+                        <div class="col-md-12">
+                            <button (click)="addDebentureDetails(i)" class="float-right" nbButton size="tiny" status="primary">Add
+                                Depositor
+                            </button>
+                        </div>
+                    </div>-->
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="font-weight-bold" for="debentureAmountInFigure">Amount in Figure</label>
+                            <input class="form-control" formControlName="debentureAmountInFigure" fullWidth id="debentureAmountInFigure"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success"
+                                   (input)="translateSecurityNumber('securityDetails', 'debentureAmountInFigure', i, 'debentureAmountInFigureTrans')"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="debentureAmountInFigureTrans" fullWidth
+                                   id="debentureAmountInFigureTrans"
+                                   nbInput
+                                   readonly
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                        <div class="col-md-4 form-group fieldMargin">
+                            <input class="form-control" formControlName="debentureAmountInFigureCT" fullWidth id="debentureAmountInFigureCT"
+                                   nbInput
+                                   shape="semi-round"
+                                   status="success" type="text">
+                        </div>
+                    </div>
+                </div>
 
                 <!-- vehicle registration contents -->
-                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[6]?.key"
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[8]?.key"
                      class="row">
                     <div class="col-md-4 mb-2">
                         <label><strong> Vehicle Registration </strong></label>
@@ -474,7 +865,7 @@
 
                 <!-- END OF VEHICLE REGISTRATION -->
 
-                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[7]?.key"
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value === securityType[9]?.key"
                      class="row">
                     <div class="col-md-4 mb-2">
                         <label><strong> General Counter Guarantee To Be Used </strong></label>

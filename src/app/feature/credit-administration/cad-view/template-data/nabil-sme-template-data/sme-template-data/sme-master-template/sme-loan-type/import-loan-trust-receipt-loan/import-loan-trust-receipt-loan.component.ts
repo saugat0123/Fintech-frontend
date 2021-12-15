@@ -45,7 +45,7 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     this.importLoanTrust = this.formBuilder.group({
       // for form data
       loanOption: [undefined],
-      multiLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
       subsidyOrAgricultureLoan: [undefined],
       complementryOther: [undefined],
       loanPeriod: [undefined],
@@ -61,7 +61,7 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
 
       // for translated data
       loanOptionTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       complementryOtherTrans: [undefined],
       loanPeriodTrans: [undefined],
       loanAmountTrans: [undefined],
@@ -76,7 +76,7 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
 
       // for corrected data
       loanOptionCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       complementryOtherCT: [undefined],
       loanPeriodCT: [undefined],
       loanAmountCT: [undefined],
@@ -120,9 +120,9 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
       this.importLoanTrust.get('loanOptionTrans').patchValue('');
     }
 
-    const tempMultiLoan = this.importLoanTrust.get('multiLoan').value;
-    if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-      this.importLoanTrust.get('multiLoanTrans').patchValue('');
+    const tempComplimentaryLoan = this.importLoanTrust.get('complimentaryLoanSelected').value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoan)) {
+      this.importLoanTrust.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoan);
     }
 
     const tempComplemetry = this.importLoanTrust.get('complementryOther').value;
@@ -174,8 +174,8 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     this.importLoanTrust.get('loanOptionCT').patchValue(
         this.importLoanTrust.get('loanOptionTrans').value
     );
-    this.importLoanTrust.get('multiLoanCT').patchValue(
-        this.importLoanTrust.get('multiLoanTrans').value
+    this.importLoanTrust.get('complimentaryLoanSelectedCT').patchValue(
+        this.importLoanTrust.get('complimentaryLoanSelectedTrans').value
     );
     this.importLoanTrust.get('complementryOtherCT').patchValue(
         this.importLoanTrust.get('complementryOtherTrans').value

@@ -22,7 +22,6 @@ export class Section7SecurityClauseComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.cadOfferLetterApprovedDoc, 'this.cadOfferLetterApprovedDoc');
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -30,7 +29,7 @@ export class Section7SecurityClauseComponent implements OnInit {
       this.fillForm();
     }
     const securities = this.tempData.securities;
-    // this.fixedDeposit = this.tempData.overdraftFixedForm.subLoanOption;
+    this.fixedDeposit = this.tempData.overdraftFixedForm;
     this.mortgageType1 = this.tempData.smeGlobalForm.mortgageType;
     if (
         securities.primarySecurity.filter(s => s.securityType === 'LAND' || s.securityType === 'LAND_AND_BUILDING').length > 0
