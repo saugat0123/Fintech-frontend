@@ -35,7 +35,7 @@
         <div [class]="layoutFlag ? 'col-md-11 float-right':'col-md-12'">
 
 
-            <nb-tabset fullWidth *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'OFFER_PENDING' && !isRoleLegal">
+            <nb-tabset fullWidth>
                 <nb-tab tabTitle="Basic Info" [active]="activeTab === 0">
                     <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
                                                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
