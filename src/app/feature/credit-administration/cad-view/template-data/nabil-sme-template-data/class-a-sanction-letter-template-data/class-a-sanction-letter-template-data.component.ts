@@ -196,6 +196,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       counterGuarantee: [undefined],
       comissionType: [undefined],
       commissionTypes: [undefined],
+      accountType: [undefined],
 
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
       loanAmountFigureTrans: [undefined],
@@ -269,6 +270,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       counterGuaranteeTrans: [undefined],
       comissionTypeTrans: [undefined],
       commissionTypesTrans: [undefined],
+      accountTypeTrans: [undefined],
       // FIELDS FOR CT VALUES:
       sanctionLetterDateNepaliCT: [undefined],
       sanctionLetterDateCT: [undefined],
@@ -341,6 +343,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       counterGuaranteeCT: [undefined],
       comissionTypeCT: [undefined],
       commissionTypesCT: [undefined],
+      accountTypeCT:[undefined],
     });
     this.addDefaultSecurity();
   }
