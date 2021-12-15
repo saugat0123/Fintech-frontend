@@ -16,6 +16,9 @@ export class MortgageEquityTermLoanComponent implements OnInit {
     loanAmount;
     loanAmountInWord;
     mortgageEquity: any = {};
+    termLoanForMortgageEquityTerm; mortgageTypeMortgageEquityTerm; complementaryOtherMortgageEquityTerm = false;
+    emiPaymentTypeMortgageEquityTerm; interestSubAgMortgageEquityTerm; paymentTermMortgageEquityTerm;
+    loanOptionMortgageEquityTerm; drawingPowerMortgageEquityTerm; termLoanTypeMortgageEquityTerm;
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe
@@ -29,6 +32,19 @@ export class MortgageEquityTermLoanComponent implements OnInit {
             this.loanAmount = String(this.customerApprovedDoc.assignedLoan[0].proposal.proposedLimit);
             this.loanAmountInWord = this.engToNepWord.transform(this.loanAmount);
             this.fillForm();
+        }
+        if (!ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm)) {
+            this.termLoanForMortgageEquityTerm = this.tempData.mortgageEquityTermForm.termLoanFor;
+            this.mortgageTypeMortgageEquityTerm = this.tempData.mortgageEquityTermForm.mortgageType;
+            this.termLoanTypeMortgageEquityTerm = this.tempData.mortgageEquityTermForm.termLoanType;
+            this.emiPaymentTypeMortgageEquityTerm = this.tempData.mortgageEquityTermForm.emiPaymentType;
+            this.interestSubAgMortgageEquityTerm = this.tempData.mortgageEquityTermForm.subsidyOrAgricultureLoan;
+            this.paymentTermMortgageEquityTerm = this.tempData.mortgageEquityTermForm.paymentTerms;
+            this.drawingPowerMortgageEquityTerm = this.tempData.mortgageEquityTermForm.drawingPowerBasis;
+            this.loanOptionMortgageEquityTerm = this.tempData.smeGlobalForm.loanOption;
+            if (this.tempData.mortgageEquityTermForm.complementaryOther === true) {
+                this.complementaryOtherMortgageEquityTerm = true;
+            }
         }
     }
 
@@ -66,8 +82,6 @@ export class MortgageEquityTermLoanComponent implements OnInit {
             newInstallmentPaymentAmountMortgageTerm: [undefined],
             newInstallmentPaymentAmountInWordMortgageTerm: [undefined],
             newInstallmentNoOfPaymentMortgageTerm: [undefined],
-            newInstallmentPaymentTypeMortgageTerm: [undefined],
-            newInstallmentPaymentDurationMortgageTerm: [undefined],
             newInstallmentLoanPurposeMortgageTerm: [undefined],
             newInstallmentServiceChargeMortgageTerm: [undefined],
             // For Installment Basis Term Loan at the time of Annual Review of other credit limits
@@ -78,7 +92,6 @@ export class MortgageEquityTermLoanComponent implements OnInit {
             annualInstallmentPaymentAmountMortgageTerm: [undefined],
             annualInstallmentPaymentAmountInWordMortgageTerm: [undefined],
             annualInstallmentNoOfPaymentMortgageTerm: [undefined],
-            annualInstallmentPaymentTypeMortgageTerm: [undefined],
             annualInstallmentLoanExpiryDateMortgageTerm: [undefined],
             annualInstallmentDrawingPowerMortgageTerm: [undefined],
             annualInstallmentDrawingPowerMortgageTerm1: [undefined],
@@ -146,10 +159,6 @@ export class MortgageEquityTermLoanComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 newInstallmentNoOfPaymentMortgageTerm: this.tempData.mortgageEquityTermForm.totalNumberOfPayments ? this.tempData.mortgageEquityTermForm.totalNumberOfPaymentsCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentPaymentTypeMortgageTerm: this.tempData.mortgageEquityTermForm.paymentTermsCT ? this.tempData.mortgageEquityTermForm.paymentTermsCT : '',
-                // tslint:disable-next-line:max-line-length
-                // newInstallmentPaymentDurationMortgageTerm: this.tempData.mortgageEquityTermForm.dateOfExpiryCT ? this.tempData.mortgageEquityTermForm.dateOfExpiryCT : '',
-                // tslint:disable-next-line:max-line-length
                 newInstallmentLoanPurposeMortgageTerm: this.tempData.mortgageEquityTermForm.purposeOfLoanCT ? this.tempData.mortgageEquityTermForm.purposeOfLoanCT : '',
                 // tslint:disable-next-line:max-line-length
                 newInstallmentServiceChargeMortgageTerm: this.tempData.mortgageEquityTermForm.serviceChargeCT ? this.tempData.mortgageEquityTermForm.serviceChargeCT : '',
@@ -168,8 +177,6 @@ export class MortgageEquityTermLoanComponent implements OnInit {
                 annualInstallmentPaymentAmountInWordMortgageTerm: this.tempData.mortgageEquityTermForm.paymentAmountInWords ? this.tempData.mortgageEquityTermForm.paymentAmountInWordsCT : '',
                 // tslint:disable-next-line:max-line-length
                 annualInstallmentNoOfPaymentMortgageTerm: this.tempData.mortgageEquityTermForm.totalNumberOfPayments ? this.tempData.mortgageEquityTermForm.totalNumberOfPaymentsCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentPaymentTypeMortgageTerm: this.tempData.mortgageEquityTermForm.paymentTermsCT ? this.tempData.mortgageEquityTermForm.paymentTermsCT : '',
                 // tslint:disable-next-line:max-line-length
                 annualInstallmentLoanExpiryDateMortgageTerm: this.tempData.mortgageEquityTermForm.dateOfExpiryCT ? this.tempData.mortgageEquityTermForm.dateOfExpiryCT : '',
                 // tslint:disable-next-line:max-line-length

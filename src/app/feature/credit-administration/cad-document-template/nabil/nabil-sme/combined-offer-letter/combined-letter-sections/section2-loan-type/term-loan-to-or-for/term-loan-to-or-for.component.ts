@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/customerApprovedLoanCadDocumentation';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 
 @Component({
     selector: 'app-term-loan-to-or-for',
@@ -16,9 +18,13 @@ export class TermLoanToOrForComponent implements OnInit {
     loanAmount;
     loanAmountInWord;
     termLoanFreeText: any = {};
+    termLoanForTermLoanToOrFor; termLoanTypeTermLoanToOrFor; complementaryOtherTermLoanToOrFor = false;
+    emiPaymentTypeTermLoanToOrFor; interestSubAgTermLoanToOrFor; paymentTermLoanToOrFor;
 
     constructor(private formBuilder: FormBuilder,
-                private engToNepWord: NepaliCurrencyWordPipe
+                private engToNepWord: NepaliCurrencyWordPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
     ) {
     }
 
@@ -26,9 +32,20 @@ export class TermLoanToOrForComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-            this.loanAmount = String(this.customerApprovedDoc.assignedLoan[0].proposal.proposedLimit);
-            this.loanAmountInWord = this.engToNepWord.transform(this.loanAmount);
+            const totalLoanAmount = this.customerApprovedDoc.assignedLoan[0].proposal.proposedLimit;
+            this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
+            this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
             this.fillForm();
+        }
+        if (!ObjectUtil.isEmpty(this.tempData.termLoanForm)) {
+            this.termLoanForTermLoanToOrFor = this.tempData.termLoanForm.termLoanFor;
+            this.termLoanTypeTermLoanToOrFor = this.tempData.termLoanForm.termLoanType;
+            this.emiPaymentTypeTermLoanToOrFor = this.tempData.termLoanForm.emiPaymentType;
+            this.interestSubAgTermLoanToOrFor = this.tempData.termLoanForm.subsidyOrAgricultureLoan;
+            this.paymentTermLoanToOrFor = this.tempData.termLoanForm.paymentTerms;
+            if (this.tempData.termLoanForm.complementaryOther === true) {
+                this.complementaryOtherTermLoanToOrFor = true;
+            }
         }
     }
 
@@ -67,8 +84,6 @@ export class TermLoanToOrForComponent implements OnInit {
             newInstallmentPaymentAmountVehicleLoan: [undefined],
             newInstallmentPaymentAmountInWordVehicleLoan: [undefined],
             newInstallmentNoOfPaymentVehicleLoan: [undefined],
-            newInstallmentPaymentTypeVehicleLoan: [undefined],
-            newInstallmentPaymentDurationVehicleLoan: [undefined],
             newInstallmentLoanPurposeVehicleLoan: [undefined],
             newInstallmentServiceChargeVehicleLoan: [undefined],
             // For Installment Basis Term Loan at the time of Annual Review of other credit limits
@@ -79,7 +94,6 @@ export class TermLoanToOrForComponent implements OnInit {
             annualInstallmentPaymentAmountVehicleLoan: [undefined],
             annualInstallmentPaymentAmountInWordVehicleLoan: [undefined],
             annualInstallmentNoOfPaymentVehicleLoan: [undefined],
-            annualInstallmentPaymentTypeVehicleLoan: [undefined],
             annualInstallmentLoanExpiryDateVehicleLoan: [undefined],
             // Free Text
             freeTextTen: [undefined],
@@ -132,10 +146,6 @@ export class TermLoanToOrForComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 newInstallmentNoOfPaymentVehicleLoan: this.tempData.termLoanForm.numberOfPayments ? this.tempData.termLoanForm.numberOfPaymentsCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentPaymentTypeVehicleLoan: this.tempData.termLoanForm.paymentTerms ? this.tempData.termLoanForm.paymentTermsCT : '',
-                // tslint:disable-next-line:max-line-length
-                // newInstallmentPaymentDurationVehicleLoan: this.tempData.termLoanForm.purposeOfLoanCT ? this.tempData.termLoanForm.purposeOfLoanCT : '',
-                // tslint:disable-next-line:max-line-length
                 newInstallmentLoanPurposeVehicleLoan: this.tempData.termLoanForm.purposeOfLoanCT ? this.tempData.termLoanForm.purposeOfLoanCT : '',
                 // tslint:disable-next-line:max-line-length
                 newInstallmentServiceChargeVehicleLoan: this.tempData.termLoanForm.serviceChargeCT ? this.tempData.termLoanForm.serviceChargeCT : '',
@@ -153,8 +163,6 @@ export class TermLoanToOrForComponent implements OnInit {
                 annualInstallmentPaymentAmountInWordVehicleLoan: this.tempData.termLoanForm.paymentAmountWordsCT ? this.tempData.termLoanForm.paymentAmountWordsCT : '',
                 // tslint:disable-next-line:max-line-length
                 annualInstallmentNoOfPaymentVehicleLoan: this.tempData.termLoanForm.numberOfPayments ? this.tempData.termLoanForm.numberOfPaymentsCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentPaymentTypeVehicleLoan: this.tempData.termLoanForm.paymentTerms ? this.tempData.termLoanForm.paymentTermsCT : '',
                 // tslint:disable-next-line:max-line-length
                 annualInstallmentLoanExpiryDateVehicleLoan: this.tempData.termLoanForm.dateOfExpiryCT ? this.tempData.termLoanForm.dateOfExpiryCT : '',
             });

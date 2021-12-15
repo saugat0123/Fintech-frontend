@@ -67,6 +67,17 @@ export class Section2LoanTypeComponent implements OnInit {
     arFinancingOverdraftLoanWorking = false; interestSubsidyAgOverdraftLoanWorking;
     // Mortgage Overdraft/ Other Overdraft/ Equity Mortgaged Overdraft
     loanSubTypeEquityMortgage; drawingBasisEquityMortgage; mortgageTypeEquityMortgage; interestSubsidyAgEquityMortgage;
+    // Overdraft Facility against Fixed Deposit/ Lien on Deposit Account
+    subLoanOptionOverdraftFixedForm; holdingBankOverdraftFixedForm; letterOfSetOffOverdraftFixedForm; interestRateTypeOverdraftFixedForm;
+    interestSubsidyAgOverdraftFixedForm; checkAdditionalPremiumRateOverdraftFixedForm = false; accountTypeOverdraftFixedForm;
+    // Overdraft Facility against Bond
+    letterOfSetOffFacilityAgainstBond; interestSubsidyAgFacilityAgainstBond; interestRateTypeFacilityAgainstBond;
+    // Bridge Gap Loan
+    complementaryOtherBridgeGapLoan = false; interestSubsidyAgBridgeGapLoan;
+    // Bank Guarantee
+    complementaryOtherBankGuarantee = false; securityTypeBankGuarantee; guaranteeTypeBankGuarantee; commissionTypeBankGuarantee;
+    // Bills Purchase
+    complementaryOtherBillPurchase = false;
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
                 private currencyFormatPipe: CurrencyFormatterPipe,
@@ -372,15 +383,31 @@ export class Section2LoanTypeComponent implements OnInit {
                     v === LoanNameConstant.DL_AGAINST_FIXED_DEPOSIT || v === LoanNameConstant.DL_LIEN_ON_DEPOSIT_ACCOUNT &&
                     !ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
                     this.isOverDraftFacilityFixedDeposit = true;
+                    this.subLoanOptionOverdraftFixedForm = this.tempData.overdraftFixedForm.subLoanOption;
+                    this.holdingBankOverdraftFixedForm = this.tempData.overdraftFixedForm.holdingBank;
+                    this.letterOfSetOffOverdraftFixedForm = this.tempData.overdraftFixedForm.letterOfSetOff;
+                    this.interestRateTypeOverdraftFixedForm = this.tempData.overdraftFixedForm.interestRateType;
+                    this.interestSubsidyAgOverdraftFixedForm = this.tempData.overdraftFixedForm.subsidyOrAgricultureLoan;
+                    this.accountTypeOverdraftFixedForm = this.tempData.overdraftFixedForm.accountType;
+                    if (this.tempData.overdraftFixedForm.checkAdditionalPremiumRate === true) {
+                        this.checkAdditionalPremiumRateOverdraftFixedForm = true;
+                    }
                     this.overdraftFixedFormPatchValue();
                 }
                 if (v === LoanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND || v === LoanNameConstant.STL_FACILITY_AGAINST_BOND ||
                     v === LoanNameConstant.DL_FACILITY_AGAINST_BOND && !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm)) {
                     this.isOverdraftFacilityAgainstBond = true;
+                    this.letterOfSetOffFacilityAgainstBond = this.tempData.overDraftFacilityForm.letterOfSetOffUsed;
+                    this.interestSubsidyAgFacilityAgainstBond = this.tempData.overDraftFacilityForm.subsidyOrAgricultureLoan;
+                    this.interestRateTypeFacilityAgainstBond = this.tempData.overDraftFacilityForm.interestRateType;
                     this.overDraftFacilityFormPatchValue();
                 }
                 if (v === LoanNameConstant.BRIDGE_GAP_LOAN && !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan)) {
                     this.isBridgeGapLoan = true;
+                    this.interestSubsidyAgBridgeGapLoan = this.tempData.bridgeGapLoan.subsidyOrAgricultureLoan;
+                    if (this.tempData.bridgeGapLoan.complementryOther === true) {
+                        this.complementaryOtherBridgeGapLoan = true;
+                    }
                     this.bridgeGapLoanFormPatchValue();
                 }
                 if (v === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
@@ -394,10 +421,19 @@ export class Section2LoanTypeComponent implements OnInit {
                 }
                 if (v === LoanNameConstant.BANK_GUARANTEE && !ObjectUtil.isEmpty(this.tempData.bankGuarantee)) {
                     this.isBankGuarantee = true;
+                    this.securityTypeBankGuarantee = this.tempData.bankGuarantee.securityType;
+                    this.guaranteeTypeBankGuarantee = this.tempData.bankGuarantee.guaranteeType;
+                    this.commissionTypeBankGuarantee = this.tempData.bankGuarantee.commissionType;
+                    if (this.tempData.bankGuarantee.complementryOther === true) {
+                        this.complementaryOtherBankGuarantee = true;
+                    }
                     this.bankGuaranteeFormPatchValue();
                 }
                 if (v === LoanNameConstant.BILLS_PURCHASE && !ObjectUtil.isEmpty(this.tempData.billPurchaseForm)) {
                     this.isBillPurchase = true;
+                    if (this.tempData.billPurchaseForm.complementryOther === true) {
+                        this.complementaryOtherBillPurchase = true;
+                    }
                     this.billPurchaseFormPatchValue();
                 }
             });
@@ -610,7 +646,6 @@ export class Section2LoanTypeComponent implements OnInit {
             nameOfBankOverdraftFacility: this.tempData.overdraftFixedForm.holdingBankCT ? this.tempData.overdraftFixedForm.holdingBankCT : '',
             // tslint:disable-next-line:max-line-length
             // nameOfDepositorOverdraftFacility: this.tempData.overdraftFixedForm.depositorDetails ? this.tempData.overdraftFixedForm.depositorDetails[0].nameOfDepositorsCT : '',
-            accountTypeOverdraftFacility: this.tempData.overdraftFixedForm.accountTypeCT ? this.tempData.overdraftFixedForm.accountTypeCT : '',
             // tslint:disable-next-line:max-line-length
             accountNoOverdraftFacility: this.tempData.overdraftFixedForm.accountNumberCT ? this.tempData.overdraftFixedForm.accountNumberCT : '',
             amountOverdraftFacility: this.tempData.overdraftFixedForm.amountInFigureCT ? this.tempData.overdraftFixedForm.amountInFigureCT : '',
