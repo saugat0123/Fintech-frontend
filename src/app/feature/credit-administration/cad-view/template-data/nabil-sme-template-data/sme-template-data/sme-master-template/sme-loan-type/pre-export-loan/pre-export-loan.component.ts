@@ -43,7 +43,7 @@ export class PreExportLoanComponent implements OnInit {
       //for form data
       complementryOther: [undefined],
       drawingBasis: [undefined],
-      multiLoan: [undefined],
+      complimentaryLoanSelected: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
       drawingPower: [undefined],
@@ -54,7 +54,7 @@ export class PreExportLoanComponent implements OnInit {
       //for translated data
       complementryOtherTrans: [undefined],
       drawingBasisTrans: [undefined],
-      multiLoanTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
       drawingPowerTrans: [undefined],
@@ -65,7 +65,7 @@ export class PreExportLoanComponent implements OnInit {
       //for corrected data
       complementryOtherCT: [undefined],
       drawingBasisCT: [undefined],
-      multiLoanCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
       drawingPowerCT: [undefined],
@@ -94,9 +94,9 @@ export class PreExportLoanComponent implements OnInit {
   translateAndSetVal() {
 
     /* SET TRANS VALUE FOR CONDITIONS */
-    const tempMultiLoan = this.preExportForm.get('multiLoan').value;
-    if (!ObjectUtil.isEmpty(tempMultiLoan)) {
-      this.preExportForm.get('multiLoanTrans').patchValue(tempMultiLoan);
+    const tempComplimentaryLoanSelected = this.preExportForm.get('complimentaryLoanSelected').value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
+      this.preExportForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
     }
 
     const tempComplemetry = this.preExportForm.get('complementryOther').value;
@@ -142,8 +142,8 @@ export class PreExportLoanComponent implements OnInit {
   }
 
   setCTValue() {
-    this.preExportForm.get('multiLoanCT').patchValue(
-        this.preExportForm.get('multiLoanTrans').value
+    this.preExportForm.get('complimentaryLoanSelectedCT').patchValue(
+        this.preExportForm.get('complimentaryLoanSelectedTrans').value
     );
     this.preExportForm.get('drawingBasisCT').patchValue(
         this.preExportForm.get('drawingBasisTrans').value

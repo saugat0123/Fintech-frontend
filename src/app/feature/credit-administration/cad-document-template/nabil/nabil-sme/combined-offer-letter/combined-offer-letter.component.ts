@@ -15,6 +15,7 @@ import {Section1IntroductionComponent} from "./combined-letter-sections/section1
 import {RouterUtilsService} from "../../../../utils/router-utils.service";
 import {Section6FacilitiesClauseComponent} from './combined-letter-sections/section6-facilities-clause/section6-facilities-clause.component';
 import {CommonSectionBottomComponent} from './combined-letter-sections/common-section-bottom/common-section-bottom.component';
+import {Section8InsuranceClauseComponent} from './combined-letter-sections/section8-insurance-clause/section8-insurance-clause.component';
 
 @Component({
   selector: 'app-combined-offer-letter',

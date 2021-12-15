@@ -64,9 +64,6 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       this.customerAddress =  this.loanHolderInfo.registeredMunicipality.ct + '-' +
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
           this.loanHolderInfo.registeredProvince.ct;
-      if (!ObjectUtil.isEmpty(this.guarantorData)) {
-        this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
-      }
       this.branchName = this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '';
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
@@ -104,6 +101,7 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
     }
     this.guarantorDetails();
   }
+
   guarantorParse(nepData, key, trans?) {
     const data = JSON.parse(nepData);
     if (ObjectUtil.isEmpty(trans)) {
@@ -113,14 +111,27 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
     }
   }
   guarantorDetails() {
-    if (this.guarantorData.length == 1) {
-      let temp = JSON.parse(this.guarantorData[0].nepData);
-      this.finalName =  temp.guarantorName.ct;
-    }
-    else if(this.guarantorData.length == 2) {
+    if (this.guarantorData.length === 1) {
+      const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
+      if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+        // const temp = JSON.parse(this.guarantorData[0].nepData);
+        this.finalName = tempGuarantorNep.guarantorName.ct;
+      } else {
+        // const temp = JSON.parse(this.guarantorData[0].nepData);
+        console.log('authorizedPersonName', tempGuarantorNep);
+        this.finalName = tempGuarantorNep.authorizedPersonName.ct;
+      }
+    } else if (this.guarantorData.length === 2) {
       for (let i = 0; i < this.guarantorData.length; i++) {
-        let temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
+        const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+        if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+          // const temp = JSON.parse(this.guarantorData[i].nepData);
+          this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
+        } else {
+          // const temp = JSON.parse(this.guarantorData[i].nepData);
+          console.log(tempGuarantorNep);
+          this.guarantorNames.push(tempGuarantorNep.authorizedPersonName.ct);
+        }
         // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
       }
       // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
@@ -128,15 +139,23 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       this.finalName = this.allguarantorNames;
     } else {
       for (let i = 0; i < this.guarantorData.length - 1; i++) {
-        let temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
-        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+        const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+        if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+          // const temp = JSON.parse(this.guarantorData[i].nepData);
+          console.log(tempGuarantorNep);
+          this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
+          // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+        } else {
+          // const temp = JSON.parse(this.guarantorData[i].nepData);
+          // console.log(temp);
+          this.guarantorNames.push(tempGuarantorNep.authorizedPersonName.ct);
+        }
+
       }
       // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
       this.allguarantorNames = this.guarantorNames.join(' , ');
-      let temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
-      this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
+      const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
+      this.finalName = this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
     }
   }
-
 }
