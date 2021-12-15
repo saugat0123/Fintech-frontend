@@ -108,7 +108,7 @@ export class CombinedOfferLetterComponent implements OnInit {
 
   setFreeText() {
     const section1FreeText = this.section1.section1.get('firstAdditionalDetails').value ? this.section1.section1.get('firstAdditionalDetails').value : '';
-    // const section2FreeText = this.section2.setTextAreaValue();
+    const section2FreeText = this.section2.setTextAreaValue();
       /*freeText1: this.section2.form.get('freeTextOne').value ? this.section2.form.get('freeTextOne').value : '',
       freeText2: this.section2.form.get('freeTextTwo').value ? this.section2.form.get('freeTextTwo').value : '',
       freeText3: this.section2.form.get('freeTextThree').value ? this.section2.form.get('freeTextThree').value : '',
@@ -142,7 +142,7 @@ export class CombinedOfferLetterComponent implements OnInit {
     };
     const freeTextVal = {
       section1: section1FreeText,
-      // section2: section2FreeText,
+      section2: section2FreeText,
       section3: section3FreeText,
       section6: section6FreeText,
       section9: section9FreeText,
