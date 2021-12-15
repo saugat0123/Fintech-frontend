@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SecurityDetails} from "../securities-view/model/securities-details.model";
 import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
 
 @Component({
@@ -9,10 +8,17 @@ import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-num
 })
 export class SharePledgeSecuritiesComponent implements OnInit {
   @Input() securityDetails;
+  tempDetails;
 
   constructor(public engToNepaliNumberPipe: EngToNepaliNumberPipe) { }
 
   ngOnInit() {
+    this.filterSecurity();
+  }
+
+  filterSecurity() {
+    this.tempDetails = this.securityDetails.secondarySecurity.filter(value => value.securityType
+        === 'SHARE_PLEDGE');
   }
 
 }
