@@ -16,6 +16,7 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
   securityTypeCondition = false;
   collateralShareCondition = false;
   securityTypeHypothecationCondition = false;
+  securityTypeLienCondition = false;
   hypoPurposeTrading = false;
   hypoPurposeManufacturing = false;
   assignment = false;
@@ -36,8 +37,16 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
   crossGuaranteeSecondary = false;
   securityTypeSecondarySharePledgeCondition = false;
   sharePledgeSecondary = false;
-
-
+  fdLoop;
+  depositLoop;
+  debentureLoop;
+  primaryNewMortgage = false;
+  primaryExistingMortgage = false;
+  primaryEnhancementMortgage = false;
+  tempLandBuilding;
+  tempCollateral;
+  tempParipassu;
+  guarantorData;
 
 
   constructor(private formBuilder: FormBuilder) { }
@@ -47,10 +56,13 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.securityDetails = this.tempData.securities;
+      this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
       this.fillForm();
     }
+    console.log('Guarantor Data:', this.guarantorData);
     this.checkPrimaryConditions();
     this.checkSecondaryConditions();
+    this.checkLienLoop();
   }
 
   buildForm() {
@@ -58,6 +70,7 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       otherBorrowingClientName: [undefined],
       nameOfMemberBank: [undefined],
       freeBankName: [undefined],
+      fdAmountInFigure: [undefined],
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
       crossGuarantorName: [undefined],
@@ -66,9 +79,12 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       otherBankName: [undefined],
       nameOfAccoutHolder: [undefined],
       freeAccountHolderName: [undefined],
-      accountNumber: [undefined],
+      depositAccountNumber: [undefined],
+      depositAmountInFigure: [undefined],
       customerName: [undefined],
       freeCustomerName: [undefined],
+      fdHolderName: [undefined],
+      debentureAmountInFigure: [undefined],
       freeText1: [undefined],
       freeText2: [undefined],
       freeText3: [undefined],
@@ -81,25 +97,24 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
   fillForm() {
     console.log('tempData: ', this.tempData);
     this.form.patchValue({
-      otherBorrowingClientName: this.securityDetails.primarySecurity.nameOfBorrowingClientCT,
-      nameOfMemberBank: this.securityDetails.primarySecurity.nameOfMemberBankCT,
-      /*loanAmountInFigure: this.securityDetails,
-      loanAmountInWords: this.securityDetails,*/
       crossGuarantorName: this.securityDetails.secondarySecurity.crossGuaranteeCT,
       corporateGuarantorName: this.securityDetails.secondarySecurity.corporateGuaranteeCT,
-     /* guarantorName: this.securityDetails,
-      nameOfAccoutHolder: this.securityDetails,
-      accountNumber: this.securityDetails,
-      customerName: this.securityDetails,*/
-      otherBorrowingClientNameSecondary: this.securityDetails.secondarySecurity.nameOfBorrowingClientCT,
     });
   }
 
   checkPrimaryConditions() {
+    this.tempLandBuilding = this.securityDetails.primarySecurity.filter(val =>
+        val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');
+    console.log('Temp Land and Building', this.tempLandBuilding);
+    this.tempCollateral = this.securityDetails.primarySecurity.filter(val =>
+        val.collateralShareCT === 'YES');
+    this.tempParipassu = this.securityDetails.primarySecuirity.filter(val =>
+        val.paripassuContentsCT !== null)
     if(this.securityDetails.primarySecurity.length > 0) {
       this.securityDetails.primarySecurity.forEach(i => {
         if(i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
           this.securityTypeCondition = true;
+          this.checkMortgage(i);
         }
         if(i.collateralShareCT === 'YES') {
           this.collateralShareCondition = true;
@@ -124,6 +139,9 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
           if(i.paripassuContentsCT === 'NEW') {
             this.paripassuNew = true;
           }
+        }
+        if(i.securityTypeCT === 'LIEN AGAINST FD' || i.securityTypeCT === 'LIEN AGAINST DEPOSIT ACCOUNT' || i.securityTypeCT === 'LIEN AGAINST DEBENTURE') {
+          this.securityTypeLienCondition = true;
         }
         if(i.vehicleRegistrationCT !== null) {
           this.vehicleRegister = true;
@@ -183,6 +201,44 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
           }
         }
       });
+    }
+  }
+
+  checkLienLoop() {
+    this.fdLoop = this.securityDetails.primarySecurity.filter(i =>
+        i.securityTypeCT === 'LIEN AGAINST FD'
+    );
+    this.depositLoop = this.securityDetails.primarySecurity.filter(i =>
+        i.securityTypeCT === 'LIEN AGAINST DEPOSIT ACCOUNT'
+    );
+    this.debentureLoop = this.securityDetails.primarySecurity.filter(i =>
+        i.securityTypeCT === 'LIEN AGAINST DEBENTURE'
+    );
+  }
+
+  checkMortgage(any) {
+    console.log('Check Mortgage:', any);
+    if(any.mortgageType === 'New') {
+      this.primaryNewMortgage = true;
+    }
+    if(any.mortgageType === 'Existing') {
+      this.primaryExistingMortgage = true;
+    }
+    if(any.mortgageType === 'Enhancement'){
+      this.primaryEnhancementMortgage = true;
+    }
+  }
+
+  guarantorParse(nepData, key, trans?) {
+    const data = JSON.parse(nepData);
+    try {
+      if (ObjectUtil.isEmpty(trans)) {
+        return data[key].ct;
+      } else {
+        return data[key].en;
+      }
+    } catch (exp) {
+      console.log(exp);
     }
   }
 
