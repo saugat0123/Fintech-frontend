@@ -86,10 +86,10 @@ export class Section1SmeSecurityComponent implements OnInit {
             securityOwnersDistrict: [undefined],
             securityOwnersMunicipalityOrVdc: [undefined],
             securityOwnersMunicipality: [undefined],
-            securityOwnersWardNo: [undefined],
+            /*securityOwnersWardNo: [undefined],
             securityOwnersKittaNo: [undefined],
             securityOwnersLandArea: [undefined],
-            securityOwnersSheetNo: [undefined],
+            securityOwnersSheetNo: [undefined],*/
             /* FOR TRANSLATED FIELDS */
             collateralShareTrans: [undefined],
             insuranceRequiredTrans: [false],
@@ -98,10 +98,10 @@ export class Section1SmeSecurityComponent implements OnInit {
             securityOwnersDistrictTrans: [undefined],
             securityOwnersMunicipalityOrVdcTrans: [undefined],
             securityOwnersMunicipalityTrans: [undefined],
-            securityOwnersWardNoTrans: [undefined],
+            /*securityOwnersWardNoTrans: [undefined],
             securityOwnersKittaNoTrans: [undefined],
             securityOwnersLandAreaTrans: [undefined],
-            securityOwnersSheetNoTrans: [undefined],
+            securityOwnersSheetNoTrans: [undefined],*/
             /* FOR CT VALUES */
             nameOfBorrowingClientCT: [undefined],
             collateralShareCT: [undefined],
@@ -110,10 +110,10 @@ export class Section1SmeSecurityComponent implements OnInit {
             securityOwnersDistrictCT: [undefined],
             securityOwnersMunicipalityOrVdcCT: [undefined],
             securityOwnersMunicipalityCT: [undefined],
-            securityOwnersWardNoCT: [undefined],
+            /*securityOwnersWardNoCT: [undefined],
             securityOwnersKittaNoCT: [undefined],
             securityOwnersLandAreaCT: [undefined],
-            securityOwnersSheetNoCT: [undefined],
+            securityOwnersSheetNoCT: [undefined],*/
 
             /* FOR HYPOTHECATION CONDITION*/
             hypothecationPurpose: [undefined],
@@ -204,6 +204,7 @@ export class Section1SmeSecurityComponent implements OnInit {
             /*fdHolderDetails: this.formBuilder.array([this.buildFDHolderDetailsArr()]),
             depositorDetails: this.formBuilder.array([this.buildDepositorDetailsArr()]),
             debentureDetails: this.formBuilder.array([this.buildDebentureDetailsArr()]),*/
+            propertyDetails: this.formBuilder.array([this.buildPropertyDetailsArr()]),
         });
     }
 
@@ -300,4 +301,51 @@ export class Section1SmeSecurityComponent implements OnInit {
         this.isOther = tempData === 'OTHER';
     }
 
+
+    addPropertyDetails(i) {
+        (this.section1SecurityForm.get(['securityDetails', i, 'propertyDetails']) as FormArray).push(this.buildPropertyDetailsArr());
+    }
+
+    removePropertyDetailsArr(i, secondIndex) {
+        (this.section1SecurityForm.get(['securityDetails', i, 'propertyDetails']) as FormArray).removeAt(secondIndex);
+    }
+
+    buildPropertyDetailsArr() {
+        return this.formBuilder.group({
+            securityOwnersWardNo: [undefined],
+            securityOwnersKittaNo: [undefined],
+            securityOwnersLandArea: [undefined],
+            securityOwnersSheetNo: [undefined],
+            /* Translated fields for multi security Fields */
+            securityOwnersWardNoTrans: [undefined],
+            securityOwnersKittaNoTrans: [undefined],
+            securityOwnersLandAreaTrans: [undefined],
+            securityOwnersSheetNoTrans: [undefined],
+            /* Final CT fields for multi security Fields */
+            securityOwnersWardNoCT: [undefined],
+            securityOwnersKittaNoCT: [undefined],
+            securityOwnersLandAreaCT: [undefined],
+            securityOwnersSheetNoCT: [undefined],
+        });
+    }
+
+    async onChangeFormArrayTranslate(arrName, source, index, target, index1, secondArr) {
+        this.securityFormTranslate = this.formBuilder.group({
+            securityTranslated: this.section1SecurityForm.get([String(arrName), index, String(secondArr), index1, String(source)]).value
+        });
+        const sourceResponse = await this.translateService.translateForm(this.securityFormTranslate);
+        this.section1SecurityForm.get([String(arrName), index, String(secondArr), index1 , String(target)]).patchValue(
+            sourceResponse.securityTranslated);
+        this.section1SecurityForm.get([String(arrName), index, String(secondArr), index1, String(source + 'CT')]).patchValue(
+            sourceResponse.securityTranslated);
+    }
+
+    translateSecurityFormArrayNumber(arrName, source, index, target, index1, secondArr) {
+        const nepaliNumTrans = this.engNepNumberPipe.transform(
+            String(this.section1SecurityForm.get([String(arrName), index, String(secondArr), index1, String(source)]).value));
+        this.section1SecurityForm.get([String(arrName), index, String(secondArr), index1 , String(target)]).patchValue(nepaliNumTrans);
+        this.section1SecurityForm.get(
+            [String(arrName), index, String(secondArr), index1, String(source + 'CT')]
+        ).patchValue(nepaliNumTrans);
+    }
 }
