@@ -922,7 +922,7 @@
                     <!--Overdraft Facility against Fixed Deposit/ Lien on Deposit Account-->
                     <td width="10%"><strong>ट)</strong></td>
                     <td>
-                    <span><strong>निक्षेप मौज्दातमा आधारीत
+                    <span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'"><strong>निक्षेप मौज्दातमा आधारीत
                         <input class="form-field form-control-sm "
                                formControlName="nameOfFacilityOverdraftFacility"
                                placeholder=""
@@ -933,7 +933,7 @@
                                       type="text"/> Facility against
                         Fixed Deposit)</strong></span><br>
 
-                        <span><strong>निक्षेप मौज्दातमा आधारीत
+                        <span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'"><strong>निक्षेप मौज्दातमा आधारीत
                        <input class="form-field form-control-sm "
                               formControlName="nameOfFacilityOverdraftFacility"
                               placeholder=""
@@ -953,32 +953,30 @@
                                                 placeholder=""
                                                 type="text"/> मात्र)</strong><br>
 
-                        <p>
+                        <p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT' && holdingBankOverdraftFixedForm === 'NABIL'">
                             <strong>सुरक्षणः</strong> नबिल
-                            बैंकद्घारा जारी गरिएको <input class="form-field form-control-sm "
+                            बैंकद्वारा जारी गरिएको <input class="form-field form-control-sm "
                                                           formControlName="nameOfFDHolderOverdraftFacility"
                                                           placeholder=""
                                                           type="text"/>हरुको
-                            नाममा
-                            रहेको कम्तिमा
+                            नाममा रहेको कम्तिमा
                             रु.<input class="form-field form-control-sm "
                                       formControlName="FDAmountOverdraftFacility"
                                       placeholder=""
-                                      type="text"/>।–बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                                      type="text"/>।– बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
                             समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र (Letter of
                             Set-off) ।
                         </p>
-                        <p>
+                        <p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT' && holdingBankOverdraftFixedForm === 'OTHER'">
                             <strong>सुरक्षणः</strong> <input class="form-field form-control-sm "
                                                              formControlName="nameOfBankOverdraftFacility"
                                                              placeholder=""
                                                              type="text"/>
-                            बैंकद्घारा जारी गरिएको <input class="form-field form-control-sm "
+                            बैंकद्वारा जारी गरिएको <input class="form-field form-control-sm "
                                                           formControlName="nameOfFDHolderOverdraftFacility"
                                                           placeholder=""
                                                           type="text"/>हरुको
-                            नाममा
-                            रहेको कम्तिमा
+                            नाममा रहेको कम्तिमा
                             रु.<input class="form-field form-control-sm "
                                       formControlName="FDAmountOverdraftFacility"
                                       placeholder=""
@@ -987,15 +985,16 @@
                             Set-off) ।
                         </p>
                         <!--OR-->
-                        <p>
-                        <span><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको <input class="form-field form-control-sm "
-                                                                                   formControlName="nameOfDepositorOverdraftFacility"
-                                                                                   placeholder=""
-                                                                                   type="text"/>को
-                            नाममा रहेको <input class="form-field form-control-sm "
-                                               formControlName="accountTypeOverdraftFacility"
-                                               placeholder=""
-                                               type="text"/>
+                        <p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">
+                        <span *ngIf="letterOfSetOffOverdraftFixedForm === 'EXISTING'">
+                            <strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको <input class="form-field form-control-sm "
+                                                                                 formControlName="nameOfDepositorOverdraftFacility"
+                                                                                 placeholder=""
+                                                                                 type="text"/>को
+                            नाममा रहेको <ng-container
+                                *ngIf="accountTypeOverdraftFixedForm === 'CURRENT_ACCOUNT'">चल्ति </ng-container>
+                            <ng-container *ngIf="accountTypeOverdraftFixedForm === 'SAVING_ACCOUNT'">बचत </ng-container>
+                            <ng-container *ngIf="accountTypeOverdraftFixedForm === 'CALL_ACCOUNT'">कल </ng-container>
                             खाता नं. ‘‘<input class="form-field form-control-sm "
                                               formControlName="accountNoOverdraftFacility"
                                               placeholder=""
@@ -1007,15 +1006,15 @@
                                     उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको
                                     मोजरापत्र (Letter of Set-off) ।</span><br>
 
-                            <span><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको <input
+                            <span *ngIf="letterOfSetOffOverdraftFixedForm === 'NEW'"><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको <input
                                     class="form-field form-control-sm "
                                     formControlName="nameOfDepositorOverdraftFacility"
                                     placeholder=""
                                     type="text"/>को
-                            नाममा रहेको <input class="form-field form-control-sm "
-                                               formControlName="accountTypeOverdraftFacility"
-                                               placeholder=""
-                                               type="text"/>
+                            नाममा रहेको <ng-container
+                                        *ngIf="accountTypeOverdraftFixedForm === 'CURRENT_ACCOUNT'">चल्ति </ng-container>
+                            <ng-container *ngIf="accountTypeOverdraftFixedForm === 'SAVING_ACCOUNT'">बचत </ng-container>
+                            <ng-container *ngIf="accountTypeOverdraftFixedForm === 'CALL_ACCOUNT'">कल </ng-container>
                             खाता नं. ‘‘<input class="form-field form-control-sm "
                                               formControlName="accountNoOverdraftFacility"
                                               placeholder=""
@@ -1029,58 +1028,65 @@
                         मोजरापत्र (Letter of Set-off) ।</span>
                         </p>
                         <p>
-                        <span><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> मुद्धती रसिदको मौज्दातको
+                        <span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">
+                            <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> मुद्धती रसिदको मौज्दातको
                         <input class="form-field form-control-sm "
                                formControlName="drawingPowerOverdraftFacility"
                                placeholder=""
                                type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
                         गर्न सकिनेछ ।</span><br>
 
-                            <span><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> खातामा रोक्का राखिएका मौज्दातको
+                            <span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">
+                                <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> खातामा रोक्का राखिएका मौज्दातको
                         <input class="form-field form-control-sm "
                                formControlName="drawingPowerOverdraftFacility"
                                placeholder=""
                                type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
                         गर्न सकिनेछ ।</span><br>
                         </p>
-                        <p>
-                            <strong>ब्याज दरः</strong> मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
-                            <input class="form-field form-control-sm "
-                                   formControlName="additionalPremiumOverdraftFacility"
-                                   placeholder=""
-                                   type="text"/>प्रतिशत
-                            वा
-                            कम्तिमा/बार्षिक <input class="form-field form-control-sm "
-                                                   formControlName="couponInterestRateOverdraftFacility"
-                                                   placeholder=""
-                                                   type="text"/>का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात
-                            आषाढ,
-                            आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
-                        </p>
-                        <p>
-                            <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
-                            <input class="form-field form-control-sm "
-                                   formControlName="baseRateOverdraftFacility"
-                                   placeholder=""
-                                   type="text"/>
-                            +
-                            <input class="form-field form-control-sm "
-                                   formControlName="premiumRateOverdraftFacility"
-                                   placeholder=""
-                                   type="text"/>प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
-                        </p>
-                        <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
-                            बार्षिक <input class="form-field form-control-sm "
-                                           formControlName="interestRateOverdraftFacility"
+                        <p *ngIf="interestRateTypeOverdraftFixedForm === 'COUPEN_RATE_FINANCING'">
+                            <span>
+                                <strong>ब्याज दरः</strong>
+                                <ng-container *ngIf="checkAdditionalPremiumRateOverdraftFixedForm"> मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                    <input class="form-field form-control-sm "
+                                           formControlName="additionalPremiumOverdraftFacility"
                                            placeholder=""
-                                           type="text"/>% का दर
-                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
-                        चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                                           type="text"/>प्रतिशत
+                                वा कम्तिमा </ng-container>
+                                बार्षिक <input class="form-field form-control-sm "
+                                               formControlName="couponInterestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात
+                                आषाढ, आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                            </span>
+                        </p>
+                        <p *ngIf="interestRateTypeOverdraftFixedForm === 'BASE_RATE_FINANCING'">
+                            <span>
+                                <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                                <input class="form-field form-control-sm "
+                                       formControlName="baseRateOverdraftFacility"
+                                       placeholder=""
+                                       type="text"/>
+                                +
+                                <input class="form-field form-control-sm "
+                                       formControlName="premiumRateOverdraftFacility"
+                                       placeholder=""
+                                       type="text"/>प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                            </span><br>
+                            <span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक <input class="form-field form-control-sm "
+                                               formControlName="interestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>% का दर
+                            निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                        </p>
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong><input
                                 class="form-field form-control-sm "
                                 formControlName="loanExpiryDateOverdraftFacility"
                                 placeholder=""
-                                type="text"/></span><br>
+                                type="text"/>
+                        </span><br>
                     </td>
                 </tr>
                 <tr *ngIf="isOverdraftFacilityAgainstBond">
@@ -1106,7 +1112,7 @@
                                                 formControlName="loanAmountInWordAgainstBond"
                                                 placeholder=""
                                                 type="text"/> मात्र)</strong><br>
-                        <p>
+                        <p *ngIf="letterOfSetOffFacilityAgainstBond === 'EXISTING'">
                         <span><strong>सुरक्षणः</strong><input class="form-field form-control-sm "
                                                               formControlName="ownerNameAgainstBond"
                                                               placeholder=""
@@ -1125,7 +1131,7 @@
                    वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
                     बैंकको पक्षमा जारी गरिदिइएको मोजरापत्र (Letter of Set-off) ।</span>
                         </p>
-                        <p>
+                        <p *ngIf="letterOfSetOffFacilityAgainstBond === 'NEW'">
                         <span><strong>सुरक्षणः</strong><input class="form-field form-control-sm "
                                                               formControlName="ownerNameAgainstBond"
                                                               placeholder=""
@@ -1153,7 +1159,7 @@
                             त्रैमास अर्थात आषाढ,
                             आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
                         </p>
-                        <p>
+                        <p *ngIf="interestRateTypeFacilityAgainstBond === 'BASE_RATE_FINANCING'">
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                             <input class="form-field form-control-sm "
                                    formControlName="baseRateAgainstBond"
@@ -1163,16 +1169,15 @@
                             <input class="form-field form-control-sm "
                                    formControlName="premiumRateAgainstBond"
                                    placeholder=""
-                                   type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
-                        </p>
-                        <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                   type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)<br>
+                            <span *ngIf="interestSubsidyAgFacilityAgainstBond === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                             बार्षिक <input class="form-field form-control-sm "
                                            formControlName="interestRateAgainstBond"
                                            placeholder=""
                                            type="text"/>% का दर
                         निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
                         चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
-
+                        </p>
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong><input
                                 class="form-field form-control-sm "
                                 formControlName="loanExpiryDateAgainstBond"
@@ -1185,12 +1190,15 @@
                     <td width="10%"><strong>ड)</strong></td>
                     <td>
                         <p>
-                            <strong>ब्रिज ग्याप कर्जा (Bridge Gap Loan) बुँदा नं.<input
-                                    class="form-field form-control-sm "
-                                    formControlName="SNOfParentLimitBridgeGap"
-                                    placeholder=""
-                                    type="text"/>को पूरक सुविधा/कुल
-                                सुविधाको पूरक सुविधा</strong>
+                            <strong>ब्रिज ग्याप कर्जा (Bridge Gap Loan)
+                                <ng-container *ngIf="complementaryOtherBridgeGapLoan"> बुँदा नं.<input
+                                        class="form-field form-control-sm "
+                                        formControlName="SNOfParentLimitBridgeGap"
+                                        placeholder=""
+                                        type="text"/>को पूरक सुविधा/कुल
+                                    सुविधाको पूरक सुविधा
+                                </ng-container>
+                            </strong>
                         </p>
                         <p>
                             <strong>सीमाः रु.<input class="form-field form-control-sm "
@@ -1235,7 +1243,7 @@
                                    type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
                         </p>
                         <p>
-                          <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                          <span *ngIf="interestSubsidyAgBridgeGapLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                               बार्षिक <input class="form-field form-control-sm "
                                              formControlName="interestRateBridgeGap"
                                              placeholder=""
@@ -1243,7 +1251,7 @@
                     निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
                     चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
-                            <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            <span *ngIf="interestSubsidyAgBridgeGapLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
                                                formControlName="totalInterestRateBridgeGap"
                                                placeholder=""
@@ -1301,10 +1309,13 @@
                     <td>
                         <p>
                             <strong>बैंक जमानत सुविधा (Bank Guarantee)
-                                बुँदा नं.<input class="form-field form-control-sm "
-                                                formControlName="SNOfParentLimitBankGuarantee"
-                                                placeholder=""
-                                                type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</strong><br>
+                                <ng-container *ngIf="complementaryOtherBankGuarantee"> बुँदा नं.<input
+                                        class="form-field form-control-sm "
+                                        formControlName="SNOfParentLimitBankGuarantee"
+                                        placeholder=""
+                                        type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा
+                                </ng-container>
+                            </strong><br>
 
                             <strong> सीमाः रु.<input class="form-field form-control-sm "
                                                      formControlName="loanAmountBankGuarantee"
@@ -1316,76 +1327,78 @@
                                                     type="text"/>
                                 मात्र)</strong><br>
                         </p>
-                        <p>
+                        <p *ngIf="securityTypeBankGuarantee === 'General Counter Guarantee'">
                             <strong> सुरक्षण:</strong>बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter
                             Guarantee)
                         </p>
                         <!--OR-->
-                        <p>
-                        <span><strong> सुरक्षण:</strong>
+                        <p *ngIf="securityTypeBankGuarantee === 'General Counter Guarantee and Hypothecation'">
+                        <span *ngIf="hypothecationGlobal === 'New'">
+                            <strong> सुरक्षण:</strong>
                             बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
                             सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
                             गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु पर्नेछ।
                         </span><br>
-                            <span><strong> सुरक्षण:</strong>
+                            <span *ngIf="hypothecationGlobal === 'Existing'">
+                                <strong> सुरक्षण:</strong>
                             बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
                             सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
                             गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण
                             गरिदिनुभएको यथावत कायम रहनेछ।
                         </span>
                         </p>
-                        <p>
+                        <p *ngIf="securityTypeBankGuarantee === 'Counter Guarantee of other bank'">
                             <strong>सुरक्षणः</strong> <input class="form-field form-control-sm "
                                                              formControlName="nameOfBankBankGuarantee"
                                                              placeholder=""
                                                              type="text"/> बैंकले यस बैंकलाई जारी गरिएको काउण्टर जमानत
                             पत्र ।
                         </p>
-                        <p>
+                        <p *ngIf="guaranteeTypeBankGuarantee === 'Cash Margin'">
                             <strong>धरौटी:</strong> नगद <input class="form-field form-control-sm "
                                                                formControlName="marginInPercentageBankGuarantee"
                                                                placeholder=""
                                                                type="text"/>% धरौटी स्वरुप रहनेछ ।
                         </p>
                         <!--OR-->
-                        <p>
+                        <p *ngIf="guaranteeTypeBankGuarantee === 'APG/PFG/Bid Bond'">
                             अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को
                             हकमा <input class="form-field form-control-sm "
                                         formControlName="commissionAPGBankGuarantee"
                                         placeholder=""
-                                        type="text"/>% नगद र
-                            कार्य
+                                        type="text"/>% नगद र कार्य
                             सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक जमानत (Bid Bond)को हकमा
                             <input class="form-field form-control-sm "
                                    formControlName="commissionBidBondBankGuarantee"
                                    placeholder=""
                                    type="text"/>% नगद धरौटी स्वरुप रहनेछ ।<br>
-                            <strong>कमिसन:</strong> प्रति त्रैमास <input class="form-field form-control-sm "
-                                                                         formControlName="serviceChargeBankGuarantee"
-                                                                         placeholder=""
-                                                                         type="text"/>% का दरले वा कम्तिमा रु.
-                            <input class="form-field form-control-sm "
-                                   formControlName="minimumServiceChargeBankGuarantee"
-                                   placeholder=""
-                                   type="text"/>।–लाग्नेछ ।
-                        </p>
-                        <p>
-                            अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति
-                            त्रैमास
-                            <input class="form-field form-control-sm "
-                                   formControlName="commissionAPG1BankGuarantee"
-                                   placeholder=""
-                                   type="text"/>% का दरलेर कार्य सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक
-                            जमानत
-                            (Bid Bond) को हकमा प्रति बैकं जमानत प्रति त्रैमास <input class="form-field form-control-sm "
-                                                                                     formControlName="commissionBidBond1BankGuarantee"
-                                                                                     placeholder=""
-                                                                                     type="text"/>%का दरले वा कम्तिमा
-                            रु.
-                            <input class="form-field form-control-sm "
-                                   formControlName="minimumServiceChargeBankGuarantee"
-                                   placeholder=""
-                                   type="text"/>।–लाग्नेछ ।
+                            <span *ngIf="commissionTypeBankGuarantee === 'COMMISSION_TYPE_1'"> <strong>कमिसन:</strong> प्रति त्रैमास <input class="form-field form-control-sm "
+                                                                                formControlName="serviceChargeBankGuarantee"
+                                                                                placeholder=""
+                                                                                type="text"/>% का दरले वा कम्तिमा रु.
+                                <input class="form-field form-control-sm "
+                                       formControlName="minimumServiceChargeBankGuarantee"
+                                       placeholder=""
+                                       type="text"/>।– लाग्नेछ ।
+                            </span> <br>
+                            <span *ngIf="commissionTypeBankGuarantee === 'COMMISSION_TYPE_2'">
+                                    अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति त्रैमास
+                                <input class="form-field form-control-sm "
+                                       formControlName="commissionAPG1BankGuarantee"
+                                       placeholder=""
+                                       type="text"/>% का दरलेर कार्य सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक
+                                जमानत
+                                (Bid Bond) को हकमा प्रति बैकं जमानत प्रति त्रैमास <input
+                                    class="form-field form-control-sm "
+                                    formControlName="commissionBidBond1BankGuarantee"
+                                    placeholder=""
+                                    type="text"/>%का दरले वा कम्तिमा
+                                रु.
+                                <input class="form-field form-control-sm "
+                                       formControlName="minimumServiceChargeBankGuarantee"
+                                       placeholder=""
+                                       type="text"/>।–लाग्नेछ ।
+                            </span>
                         </p>
                         <p>
                             <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong> <input class="form-field form-control-sm "
@@ -1401,10 +1414,11 @@
                     <td>
                         <p>
                             <strong>बिल्स खरिद कर्जा (Bills Purchase)
-                                बुँदा नं.<input class="form-field form-control-sm "
+                               <ng-container *ngIf="complementaryOtherBillPurchase">
+                                   बुँदा नं.<input class="form-field form-control-sm "
                                                 formControlName="SNOfParentLimitBillsPurchase"
                                                 placeholder=""
-                                                type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</strong><br>
+                                                type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा </ng-container></strong><br>
 
                             <strong> सीमाः रु.<input class="form-field form-control-sm "
                                                      formControlName="loanAmountBillsPurchase"

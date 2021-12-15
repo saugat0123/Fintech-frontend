@@ -293,7 +293,7 @@ export class ClassASanctionLetterComponent implements OnInit {
       dateOfExpiry: finalDateOfExpiry ? finalDateOfExpiry : '',
       previousSanctionDate: finalDateOfSanction ? finalDateOfSanction : '',
       comissionRate: this.tempData.comissionRate.ct ? this.tempData.comissionRate.ct : '',
-      accountNumber: this.tempData.accountNumber.ct ? this.tempData.accountNumber.ct : '',
+      accountNumber: this.tempData.accountNumber.en ? this.tempData.accountNumber.en : '',
       serviceChargeInFigure: this.tempData.serviceChargeFigure.ct ? this.tempData.serviceChargeFigure.ct : '',
       serviceChargeInWords: this.tempData.serviceChargeWords.ct ? this.tempData.serviceChargeWords.ct : '',
       tenureFacility: this.tempData.tenureFacility.ct ? this.tempData.tenureFacility.ct : '',

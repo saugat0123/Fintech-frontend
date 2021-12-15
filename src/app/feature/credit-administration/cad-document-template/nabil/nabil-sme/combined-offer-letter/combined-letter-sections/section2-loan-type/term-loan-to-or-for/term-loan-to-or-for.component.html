@@ -1,27 +1,32 @@
 <form [formGroup]="form">
-    <p><strong>सवारी साधन खरिद गर्न आवधिक कर्जा (Term Loan to Purchase Vehicle)
-        बुँदा नं.<input class="form-field form-control-sm "
-                        formControlName="SNOfParentLimitVehicleLoan"
-                        placeholder=""
-                        type="text"/>को पूरक सुविधा/कुल सुविधाको
-        पूरक
-        सुविधा</strong>
+    <p *ngIf="termLoanForTermLoanToOrFor === 'VEHICLE'"><strong>सवारी साधन खरिद गर्न आवधिक कर्जा (Term Loan to Purchase
+        Vehicle)
+        <ng-container *ngIf="complementaryOtherTermLoanToOrFor">
+            बुँदा नं.<input class="form-field form-control-sm "
+                            formControlName="SNOfParentLimitVehicleLoan"
+                            placeholder=""
+                            type="text"/>को पूरक सुविधा/कुल
+            सुविधाको पूरक सुविधा
+        </ng-container>
+    </strong>
     </p>
-    <p><strong> <input class="form-field form-control-sm nepaliFont"
-                       formControlName="purposeLoanVehicleLoan"
-                       placeholder=""
-                       type="text"/>
+    <p *ngIf="termLoanForTermLoanToOrFor === 'OTHER'"><strong> <input class="form-field form-control-sm nepaliFont"
+                                                                      formControlName="purposeLoanVehicleLoan"
+                                                                      placeholder=""
+                                                                      type="text"/>
         आवधिक कर्जा (Term Loan
         to<input class="form-field form-control-sm"
                  formControlName="purposeLoanVehicleLoanInEng"
                  placeholder=""
                  type="text"/>)
-        बुँदा नं.<input class="form-field form-control-sm "
-                        formControlName="SNOfParentLimitVehicleLoan"
-                        placeholder=""
-                        type="text"/>को पूरक सुविधा/कुल सुविधाको
-        पूरक
-        सुविधा</strong>
+        <ng-container *ngIf="complementaryOtherTermLoanToOrFor">
+            बुँदा नं.<input class="form-field form-control-sm "
+                            formControlName="SNOfParentLimitVehicleLoan"
+                            placeholder=""
+                            type="text"/>को पूरक सुविधा/कुल
+            सुविधाको पूरक सुविधा
+        </ng-container>
+    </strong>
     </p>
     <p>
         <strong>सीमाः रु.<input class="form-field form-control-sm "
@@ -53,7 +58,7 @@
             formControlName="freeTextEleven">
                         </textarea>
     </p>
-    <p>
+    <p *ngIf="termLoanTypeTermLoanToOrFor === 'NEW_EMI'">
         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
         <input class="form-field form-control-sm "
                formControlName="newEMIBaseRateVehicleLoan"
@@ -86,27 +91,30 @@
                                            placeholder=""
                                            type="text"/> सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                         </span><br>
-        <span><strong>कर्जा भुक्तानी शुरुः</strong> कर्जा <input class="form-field form-control-sm "
-                                                                 formControlName="newEMISubsequentVehicleLoan"
-                                                                 value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
-                                                                 type="text"/> ।
+        <span *ngIf="emiPaymentTypeTermLoanToOrFor === 'SUBSEQUENT_MONTH'">
+            <strong>कर्जा भुक्तानी शुरुः</strong> कर्जा <input class="form-field form-control-sm "
+                                                               formControlName="newEMISubsequentVehicleLoan"
+                                                               value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
+                                                               type="text"/> ।
             <!--( निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--></span><br>
 
-        <span>कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।<br>
-                        <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
-                                                            formControlName="newEMILoanPurposeVehicleLoan"
-                                                            placeholder=""
-                                                            type="text"/>
-                                कर्जाको <input class="form-field form-control-sm "
-                                               formControlName="newEMIServiceChargeVehicleLoan"
-                                               placeholder=""
-                                               type="text"/>% सेवा शुल्क लाग्नेछ ।<br>
-                        <strong>कर्जा अवधि:</strong> <input class="form-field form-control-sm "
-                                                            formControlName="newEMILoanTenureVehicleLoan"
-                                                            placeholder=""
-                                                            type="text"/> बर्ष सम्मको लागि मात्र ।</span>
+        <span *ngIf="emiPaymentTypeTermLoanToOrFor === 'EVERY_20TH'">
+            कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।
+        </span><br>
+        <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
+                                            formControlName="newEMILoanPurposeVehicleLoan"
+                                            placeholder=""
+                                            type="text"/>
+        कर्जाको <input class="form-field form-control-sm "
+                       formControlName="newEMIServiceChargeVehicleLoan"
+                       placeholder=""
+                       type="text"/>% सेवा शुल्क लाग्नेछ ।<br>
+        <strong>कर्जा अवधि:</strong> <input class="form-field form-control-sm "
+                                            formControlName="newEMILoanTenureVehicleLoan"
+                                            placeholder=""
+                                            type="text"/> बर्ष सम्मको लागि मात्र ।
     </p>
-    <p>
+    <p *ngIf="termLoanTypeTermLoanToOrFor === 'NEW_ANNUAL_REVIEW'">
         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
         <input class="form-field form-control-sm "
                formControlName="annualEMIBaseRateVehicleLoan"
@@ -142,7 +150,7 @@
                                                          placeholder=""
                                                          type="text"/> ।
     </p>
-    <p>
+    <p *ngIf="termLoanTypeTermLoanToOrFor === 'NEW_INSTALLMENT_BASIS'">
         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
         <input class="form-field form-control-sm "
                formControlName="newInstallmentBaseRateVehicleLoan"
@@ -155,7 +163,7 @@
                type="text"/> प्रतिशत
         ब्याज दर प्रिमियम (interest rate premium)<br>
 
-        <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+        <span *ngIf="interestSubAgTermLoanToOrFor === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
                                                formControlName="newInstallmentInterestRateVehicleLoan"
                                                placeholder=""
@@ -163,7 +171,7 @@
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
                             चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
-        <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+        <span *ngIf="interestSubAgTermLoanToOrFor === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
                                                formControlName="newInstallmentTotalInterestRateVehicleLoan"
                                                placeholder=""
@@ -189,16 +197,17 @@
                                                                         formControlName="newInstallmentNoOfPaymentVehicleLoan"
                                                                         placeholder=""
                                                                         type="text"/>
-                                <input class="form-field form-control-sm "
-                                       formControlName="newInstallmentPaymentTypeVehicleLoan"
-                                       placeholder=""
-                                       type="text"/>
+                                <ng-container *ngIf="paymentTermLoanToOrFor === 'YEARLY'"> बार्षिक </ng-container>
+                                <ng-container
+                                        *ngIf="paymentTermLoanToOrFor === 'SEMI_YEARLY'"> अर्धबार्षिक </ng-container>
+                                <ng-container *ngIf="paymentTermLoanToOrFor === 'QUARTERLY'"> त्रैमासिक </ng-container>
+                                <ng-container *ngIf="paymentTermLoanToOrFor === 'MONTHLY'"> मासिक </ng-container>
             <!-- बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch value from Form)-->
-                            किस्ताहरुमा चुक्ता भुक्तानी गर्नुपर्नेछ । कर्जा निकाशा भएको मितिले <input
-                    class="form-field form-control-sm "
-                    formControlName="newInstallmentPaymentDurationVehicleLoan"
-                    placeholder=""
-                    type="text"/>
+                            किस्ताहरुमा चुक्ता भुक्तानी गर्नुपर्नेछ । कर्जा निकाशा भएको मितिले
+                                <ng-container *ngIf="paymentTermLoanToOrFor === 'YEARLY'"> एक बर्ष </ng-container>
+                                <ng-container *ngIf="paymentTermLoanToOrFor === 'SEMI_YEARLY'"> छ महिना </ng-container>
+                                <ng-container *ngIf="paymentTermLoanToOrFor === 'QUARTERLY'"> तिन महिना </ng-container>
+                                <ng-container *ngIf="paymentTermLoanToOrFor === 'MONTHLY'"> एक महिना </ng-container>
             <!--/एक बर्ष/छ महिना/तिन महिना/एक महिना (Auto select according to an above selection)-->
                             पश्चात प्रथम किस्ता भुक्तानी हुनेछ ।</span><br>
         <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
@@ -208,14 +217,13 @@
         कर्जाको <input class="form-field form-control-sm "
                        formControlName="newInstallmentServiceChargeVehicleLoan"
                        placeholder=""
-                       type="text"/>% सेवा शुल्क
-        लाग्नेछ ।<br>
+                       type="text"/>% सेवा शुल्क लाग्नेछ ।<br>
         <strong>कर्जा अवधि: </strong><input class="form-field form-control-sm "
                                             formControlName="newInstallmentLoanTenureVehicleLoan"
                                             placeholder=""
                                             type="text"/> बर्ष सम्मको लागि मात्र ।
     </p>
-    <p>
+    <p *ngIf="termLoanTypeTermLoanToOrFor === 'INSTALLMENT_ANNUAL_REVIEW'">
         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
         <input class="form-field form-control-sm "
                formControlName="annualInstallmentBaseRateVehicleLoan"
@@ -228,7 +236,7 @@
                type="text"/> प्रतिशत
         ब्याज दर प्रिमियम (interest rate premium)<br>
 
-        <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+        <span *ngIf="interestSubAgTermLoanToOrFor === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
                                                formControlName="annualInstallmentInterestRateVehicleLoan"
                                                placeholder=""
@@ -236,7 +244,7 @@
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
                             चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
-        <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+        <span *ngIf="interestSubAgTermLoanToOrFor === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
                                                formControlName="annualInstallmentTotalInterestRateVehicleLoan"
                                                placeholder=""
@@ -258,10 +266,11 @@
                                formControlName="annualInstallmentNoOfPaymentVehicleLoan"
                                placeholder=""
                                type="text"/>
-                                <input class="form-field form-control-sm "
-                                       formControlName="annualInstallmentPaymentTypeVehicleLoan"
-                                       placeholder=""
-                                       type="text"/>
+            <ng-container *ngIf="paymentTermLoanToOrFor === 'YEARLY'"> बार्षिक </ng-container>
+                                <ng-container
+                                        *ngIf="paymentTermLoanToOrFor === 'SEMI_YEARLY'"> अर्धबार्षिक </ng-container>
+                                <ng-container *ngIf="paymentTermLoanToOrFor === 'QUARTERLY'"> त्रैमासिक </ng-container>
+                                <ng-container *ngIf="paymentTermLoanToOrFor === 'MONTHLY'"> मासिक </ng-container>
             <!--बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch data from Form)-->
                             किस्ताहरुमा तल उल्लिखित कर्जा अवधि
                             समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
@@ -269,13 +278,14 @@
                                                          formControlName="annualInstallmentLoanExpiryDateVehicleLoan"
                                                          placeholder=""
                                                          type="text"/> ।<br>
-        <strong>कर्जा प्रवाह तरिकाः</strong> <textarea
-            class="form-control customFont nepaliFont"
-            rows="2"
-            style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
-            name=""
-            placeholder=""
-            formControlName="freeTextTwelve">
-                        </textarea>
+        <strong>कर्जा प्रवाह तरिकाः</strong>
+        <textarea
+                class="form-control customFont nepaliFont"
+                rows="2"
+                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                name=""
+                placeholder=""
+                formControlName="freeTextTwelve">
+        </textarea>
     </p>
 </form>
