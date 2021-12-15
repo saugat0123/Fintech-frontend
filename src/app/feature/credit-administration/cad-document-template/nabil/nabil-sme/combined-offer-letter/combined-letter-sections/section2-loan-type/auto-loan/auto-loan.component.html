@@ -1,10 +1,10 @@
 <form [formGroup]="form">
     <p>
         <strong>सवारी साधन कर्जा (Auto Loan)
-            बुँदा नं.<input class="form-field form-control-sm "
+           <ng-container *ngIf="complementaryOtherAutoLoan"> बुँदा नं.<input class="form-field form-control-sm "
                             formControlName="SNOfParentLimitAutoLoan"
                             placeholder=""
-                            type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</strong>
+                            type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong>
 
         <strong><br> सीमाः रु.<input class="form-field form-control-sm "
                                      formControlName="loanAmountAutoLoan"
@@ -17,18 +17,15 @@
             मात्र)</strong><br>
     </p>
     <p>
-        <span><strong>सुरक्षणः</strong>सवारी साधन कर्जाबाट खरिद गरिएको सवारी साधन बैंकको नाममा दर्ता गरिदिनुपर्नेछ।</span><br>
-
-        <span><strong>सुरक्षणः</strong>सवारी साधन कर्जाबाट खरिद गरिएको सवारी साधन बैंकको नाममा दर्ता
-                        गरिदिइएको यथावत कायम रहनेछ।</span><br>
-
-        <span><strong>सुरक्षणः</strong>सवारी साधन कर्जाबाट खरिद गरिने सवारी साधन बैंकको नाममा दर्ता गरिदिनुपर्नेछ ।</span><br>
-
-        <span><strong>सुरक्षणः</strong>सवारी साधन कर्जाबाट खरिद गरिने सवारी साधन बैंकको नाममा दर्ता
-                        गरिदिइएको यथावत कायम रहनेछ।</span><br>
-
+        <strong>सुरक्षणः </strong>सवारी साधन कर्जाबाट खरिद
+            <ng-container *ngIf="vehiclePurchaseAutoLoan"> गरिएको </ng-container>
+            <ng-container *ngIf="!vehiclePurchaseAutoLoan"> गरिने </ng-container>
+            सवारी साधन बैंकको नाममा दर्ता
+            <ng-container *ngIf="vehicleRegistrationAutoLoan"> गरिदिनुपर्नेछ </ng-container>
+            <ng-container *ngIf="!vehicleRegistrationAutoLoan"> गरिदिइएको यथावत कायम रहनेछ </ng-container>
+            ।
     </p>
-    <p>
+    <p *ngIf="loanOptionAutoLoan === 'New'">
         <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
         सवारी साधनको मूल्यको <input class="form-field form-control-sm "
                                     formControlName="newEMIDrawingPowerAutoLoan"
@@ -36,7 +33,7 @@
                                     type="text"/>प्रतिशत
         बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बराबर कर्जा उपयोग गर्न सकिनेछ ।
     </p>
-    <p>
+    <p *ngIf="autoLoanTypeAutoLoan === 'NEW_EMI_TERM_LOAN'">
         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
         <input class="form-field form-control-sm "
                formControlName="newEMIBaseRateAutoLoan"
@@ -72,13 +69,13 @@
                                            type="text"/>
                                 सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                         </span><br>
-        <span><strong>कर्जा भुक्तानी शुरुः</strong>कर्जा <input class="form-field form-control-sm "
+        <span *ngIf="emiPaymentTypeAutoLoan === 'SUBSEQUENT_MONTH'"><strong>कर्जा भुक्तानी शुरुः</strong>कर्जा <input class="form-field form-control-sm "
                                                                 formControlName="newEMIAutoPopulateAutoLoan"
                                                                 value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
                                                                 type="text"/>।
             <!--(निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--></span><br>
 
-        <span>कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।<br>
+        <span *ngIf="emiPaymentTypeAutoLoan === 'EVERY_20TH'">कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।<br>
                         <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
                                                             formControlName="newEMILoanPurposeAutoLoan"
                                                             placeholder=""
@@ -92,7 +89,7 @@
                                                             placeholder=""
                                                             type="text"/> बर्ष सम्मको लागि मात्र ।</span>
     </p>
-    <p>
+    <p *ngIf="autoLoanTypeAutoLoan === 'OTHER_CREDIT_LIMITS'">
         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
         <input class="form-field form-control-sm "
                formControlName="annualEMIBaseRateAutoLoan"
@@ -128,7 +125,7 @@
                                                          placeholder=""
                                                          type="text"/> ।
     </p>
-    <p>
+    <p *ngIf="autoLoanTypeAutoLoan === 'NEW_INSTALLMENT_BASIS'">
         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
         <input class="form-field form-control-sm "
                formControlName="newInstallmentBaseRateAutoLoan"
@@ -165,16 +162,17 @@
                                                                          formControlName="newInstallmentNoOfPaymentAutoLoan"
                                                                          placeholder=""
                                                                          type="text"/>
-                                <input class="form-field form-control-sm "
-                                       formControlName="newInstallmentPaymentTypeAutoLoan"
-                                       placeholder=""
-                                       type="text"/>
+            <ng-container *ngIf="paymentsTermsAutoLoan === 'YEARLY'"> बार्षिक </ng-container>
+                                <ng-container
+                                        *ngIf="paymentsTermsAutoLoan === 'SEMI_YEARLY'"> अर्धबार्षिक </ng-container>
+                                <ng-container *ngIf="paymentsTermsAutoLoan === 'QUARTERLY'"> त्रैमासिक </ng-container>
+                                <ng-container *ngIf="paymentsTermsAutoLoan === 'MONTHLY'"> मासिक </ng-container>
             <!-- बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch value from Form)-->
-                            किस्ताहरुमा चुक्ता भुक्तानी गर्नुपर्नेछ । कर्जा निकाशा भएको <input
-                    class="form-field form-control-sm "
-                    formControlName="newInstallmentPaymentDurationAutoLoan"
-                    placeholder=""
-                    type="text"/>
+                            किस्ताहरुमा चुक्ता भुक्तानी गर्नुपर्नेछ । कर्जा निकाशा भएको
+            <ng-container *ngIf="paymentsTermsAutoLoan === 'YEARLY'"> एक बर्ष </ng-container>
+                                <ng-container *ngIf="paymentsTermsAutoLoan === 'SEMI_YEARLY'"> छ महिना </ng-container>
+                                <ng-container *ngIf="paymentsTermsAutoLoan === 'QUARTERLY'"> तिन महिना </ng-container>
+                                <ng-container *ngIf="paymentsTermsAutoLoan === 'MONTHLY'"> एक महिना </ng-container>
             <!--मितिले/एक बर्ष/छ महिना/तिन महिना/एक महिना (Auto select according to an above selection)-->
                             पश्चात प्रथम किस्ता भुक्तानी हुनेछ ।</span><br>
         <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
@@ -192,7 +190,7 @@
                                             placeholder=""
                                             type="text"/> बर्ष सम्मको लागि मात्र ।
     </p>
-    <p>
+    <p *ngIf="autoLoanTypeAutoLoan === 'REVIEW_OF_OTHER_CREDIT_LIMIT'">
         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
         <input class="form-field form-control-sm "
                formControlName="annualInstallmentBaseRateAutoLoan"
@@ -226,10 +224,11 @@
                                formControlName="annualInstallmentNoOfPaymentAutoLoan"
                                placeholder=""
                                type="text"/>
-                                <input class="form-field form-control-sm "
-                                       formControlName="annualInstallmentPaymentTypeAutoLoan"
-                                       placeholder=""
-                                       type="text"/>
+                                <ng-container *ngIf="paymentsTermsAutoLoan === 'YEARLY'"> बार्षिक </ng-container>
+                                <ng-container
+                                        *ngIf="paymentsTermsAutoLoan === 'SEMI_YEARLY'"> अर्धबार्षिक </ng-container>
+                                <ng-container *ngIf="paymentsTermsAutoLoan === 'QUARTERLY'"> त्रैमासिक </ng-container>
+                                <ng-container *ngIf="paymentsTermsAutoLoan === 'MONTHLY'"> मासिक </ng-container>
             <!--बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch data from Form)-->
                             किस्ताहरुमा तल उल्लिखित कर्जा अवधि
                             समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
@@ -238,20 +237,20 @@
                                                          placeholder=""
                                                          type="text"/> ।<br>
         <span>
-                            <strong>कर्जा प्रवाह तरिकाः</strong> सवारी साधनको व्यापक (Comprehensive) बिमालेख सहित बैंकको नाममा
-                            दर्ता गरीदिनुका साथै आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु सहीछाप भई बैंकलाई प्राप्त भएपश्चात सवारी
-                            साधनको कर बिजक/भ्याट बिलको <input class="form-field form-control-sm "
-                                                              formControlName="annualInstallmentDrawingPowerAutoLoan"
-                                                              placeholder=""
-                                                              type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन
-                            कम हुन्छ सो रकम तपाईंले यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ र तपाईंको लिखित निर्देशन
-                            बमोजिम सोहि खातामा खर्च जनाई आधिकारिक विक्रेता <input
-                class="form-field form-control-sm nepaliFont"
-                formControlName="annualInstallmentNameOfDealerAutoLoan"
-                placeholder=""
-                type="text"/> वा उसको
-                            प्रतिनिधिलाई सो रकम बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।
-                            </span><br>
+                <strong>कर्जा प्रवाह तरिकाः</strong> सवारी साधनको व्यापक (Comprehensive) बिमालेख सहित बैंकको नाममा
+                दर्ता गरीदिनुका साथै आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु सहीछाप भई बैंकलाई प्राप्त भएपश्चात सवारी
+                साधनको कर बिजक/भ्याट बिलको <input class="form-field form-control-sm "
+                                                  formControlName="annualInstallmentDrawingPowerAutoLoan"
+                                                  placeholder=""
+                                                  type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन
+                कम हुन्छ सो रकम तपाईंले यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ र तपाईंको लिखित निर्देशन
+                बमोजिम सोहि खातामा खर्च जनाई आधिकारिक विक्रेता <input
+                        class="form-field form-control-sm nepaliFont"
+                        formControlName="annualInstallmentNameOfDealerAutoLoan"
+                        placeholder=""
+                        type="text"/> वा उसको
+                प्रतिनिधिलाई सो रकम बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।
+        </span><br>
         <span><strong>कर्जा प्रवाह तरिकाः</strong><textarea
                 class="form-control customFont nepaliFont"
                 rows="2"
@@ -259,6 +258,6 @@
                 name="freeTextFourteen"
                 placeholder=""
                 formControlName="freeTextFourteen">
-                        </textarea></span>
+        </textarea></span>
     </p>
 </form>
