@@ -507,7 +507,7 @@
                         </div>
                     </div><br><br>
                     <div class="service-contions mt-5">
-                        <ol class="conditions-list orderd-list" style="margin-top: 15em">
+                        <ol class="conditions-list orderd-list">
                             <strong>ऋण तथा सुबिधाहरु सम्बन्धित शर्तहरु , दीर्घकालीन
                                 कर्जा </strong>
                             <li>
@@ -1061,18 +1061,18 @@
                 हुन सक्नेछ । अन्यथा,
                 स्वीकृत ऋण सुविधा स्वतः रद्द हुनेछ ।
             </p>
-            <div class="row mt-3" style="width:100%;padding-left: 2em">
+            <div class="row mt-3" style="width:100%;">
                 <div class="col-md-12 d-flex justify-content-between">
                     <div class="right-content">
                         ................................
                         <p>
                             सहायक सम्पर्क अधिकृत
                         </p>
-                        <p style="margin-top: -2em">
+                        <p>
                           <span [ngClass]="{'nepaliFont num' : letter?.nameOfBranchManager.ct!== null && letter?.nameOfBranchManager.ct!== ''}">
             {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                         </p>
-                        <p style="margin-top: -2em">
+                        <p>
                           <span class="form-text under-info">{{branchName === null || branchName === '' ? '___________' : branchName}}</span>
                         </p>
                     </div>
@@ -1081,7 +1081,7 @@
                         <p>
                             सम्पर्क अधिकृत
                         </p>
-                        <p style="margin-top: -2em">
+                        <p>
                             <span [ngClass]="{'nepaliFont num' : letter?.nameOfBranchManager.ct!== null && letter?.nameOfBranchManager.ct!== ''}">
                             {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                         </p>

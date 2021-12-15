@@ -526,6 +526,12 @@
                   [offerData] = offerLetterData
                   [preview]="true">
           </app-interest-subsidy-sanction-letter-print>
+          <!-- For Combined Offer letter view -->
+          <app-combined-offer-letter-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.COMBINED_LETTER)"
+                  [customerApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [preview]="true">
+          </app-combined-offer-letter-print>
         </nb-card-body>
     </nb-card>
 </ng-template>

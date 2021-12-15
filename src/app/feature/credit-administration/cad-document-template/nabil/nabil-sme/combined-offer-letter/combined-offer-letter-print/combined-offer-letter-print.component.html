@@ -25,6 +25,7 @@
                 [freeText]="freeText"></app-section5-interest-penal-charge-print>
         <app-section6-facilities-clause-print
                 [customerApprovedDoc]="customerApprovedDoc"
+                [letterData]="letterData"
                 [freeText]="freeText"></app-section6-facilities-clause-print>
         <app-section7-security-clause-print
                 [customerApprovedDoc]="customerApprovedDoc"></app-section7-security-clause-print>
@@ -44,5 +45,9 @@
                 [letter]="letterData"
                 [freeText]="freeText">
         </app-common-section-bottom-print>
+    </div>
+    <div class="col-md-12 mt-2">
+        <button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+                 ngxPrint printSectionId="{{offerLetterConst.COMBINED_LETTER}}" #printButton>Print</button>
     </div>
 </div>
