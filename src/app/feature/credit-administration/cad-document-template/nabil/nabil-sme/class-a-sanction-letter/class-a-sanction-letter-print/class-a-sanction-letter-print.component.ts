@@ -43,6 +43,15 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
   finalDateOfSanction;
   finalDateOfExpiry;
   previousSanctionDate;
+  autoRefNum;
+  tempData;
+  loanOptions;
+  New;
+  Existing;
+  CoupenRateFinancing;
+  BaseRateFinancing;
+  isNatural;
+  loanType;
   dateofExpiryPrint: any;
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -67,6 +76,7 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
           this.loanHolderInfo.registeredProvince.ct;
       this.branchName = this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '';
+      this.loanType = this.letter.loanType.ct;
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
