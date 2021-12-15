@@ -83,7 +83,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
         }
-        console.log('tempdata', this.tempData);
         this.checkOfferLetterData();
         /* this.guarantorDetails();*/
     }
@@ -182,7 +181,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     }
 
     fillForm() {
-        console.log('fillfomr works');
         const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
         const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
             this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
@@ -349,7 +347,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
                 this.finalName = tempGuarantorNep.guarantorName.ct;
             } else {
                 // const temp = JSON.parse(this.guarantorData[0].nepData);
-                console.log('authorizedPersonName', tempGuarantorNep);
                 this.finalName = tempGuarantorNep.authorizedPersonName.ct;
             }
         } else if (this.guarantorData.length === 2) {
@@ -360,7 +357,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
                     this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
                 } else {
                     // const temp = JSON.parse(this.guarantorData[i].nepData);
-                    console.log(tempGuarantorNep);
                     this.guarantorNames.push(tempGuarantorNep.authorizedPersonName.ct);
                 }
                 // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
@@ -373,7 +369,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
                 const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
                 if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
                     // const temp = JSON.parse(this.guarantorData[i].nepData);
-                    console.log(tempGuarantorNep);
                     this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
                     // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
                 } else {

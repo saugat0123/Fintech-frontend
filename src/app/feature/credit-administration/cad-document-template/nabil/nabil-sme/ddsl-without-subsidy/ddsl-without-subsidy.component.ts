@@ -72,7 +72,6 @@ export class DdslWithoutSubsidyComponent implements OnInit {
         this.selectedSecurity = this.tempData.securityType.ct;
         this.customerType = this.loanHolderInfo.clientType.en;
         this.mortgageOptions = this.tempData.mortgageType.ct;
-        console.log('Temp Data', this.tempData);
         this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         // console.log('Guarantors Details', this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
@@ -316,12 +315,10 @@ export class DdslWithoutSubsidyComponent implements OnInit {
                 const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
                 if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
-                    console.log(temp);
                     this.guarantorNames.push(temp.guarantorName.ct);
                     // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
                 } else {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
-                    console.log(temp);
                     this.guarantorNames.push(temp.authorizedPersonName.ct);
                 }
 

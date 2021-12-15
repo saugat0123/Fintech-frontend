@@ -68,9 +68,6 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.customerAddress =  this.loanHolderInfo.registeredMunicipality.ct + '-' +
                 this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
                 this.loanHolderInfo.registeredProvince.ct;
-            if (!ObjectUtil.isEmpty(this.guarantorData)) {
-                this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
-            }
             this.branchName = this.loanHolderInfo.branch.ct;
             this.loanOptions = this.tempData.loanOption.ct;
             this.selectedSecurity = this.tempData.securityType.ct;
@@ -165,12 +162,10 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
                 const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
                 if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
-                    console.log(temp);
                     this.guarantorNames.push(temp.guarantorName.ct);
                     // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
                 } else {
                     const temp = JSON.parse(this.guarantorData[i].nepData);
-                    console.log(temp);
                     this.guarantorNames.push(temp.authorizedPersonName.ct);
                 }
 
