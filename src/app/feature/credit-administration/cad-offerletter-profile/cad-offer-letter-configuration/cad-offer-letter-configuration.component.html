@@ -500,19 +500,15 @@
                     </select>
                   </div>
                   <div class="col-md-8">
-                    <nepali-patro *ngIf="actYearVal.value ==='BS'"
-                                  formControlName="actYear" [responseType]="2"
-                                  [displayNepali]="true">
-                    </nepali-patro>
-                    <input [nbDatepicker]="actYearDate"
-                           *ngIf="actYearVal.value ==='AD'"
+
+                    <input
                            class="form-control form-control-sm-error rounded"
                            formControlName="actYear"
                           (change)="setActDateValue()"
                            name="citizenIssuedDate"
                            placeholder="Act Year"
-                           type="text">
-                    <nb-datepicker #actYearDate></nb-datepicker>
+                           type="number">
+
                   </div>
                 </div>
               </td>
@@ -1155,16 +1151,7 @@
               <td>
                 <strong>Registered Address</strong>
               </td>
-              <td>
-                <select class="form-control" formControlName="registeredMunType"
 
-                        [ngClass]="{'is-invalid': submitted && configForm.registeredMunType.errors}">
-                  <option value="0">Municipality</option>
-                  <option value="1">VDC</option>
-                  <option value="2">Rural</option>
-                </select>
-
-              </td>
               <td>
               <td>
               </td>
@@ -1235,6 +1222,20 @@
                   </div>
                 </div>
               </td>
+            </tr>
+            <tr>
+            <td>
+              <label>Municipality or VDC</label> </td>
+              <td>
+              <select class="form-control" formControlName="registeredMunType"
+
+                      [ngClass]="{'is-invalid': submitted && configForm.registeredMunType.errors}">
+                <option value="0">Municipality</option>
+                <option value="1">VDC</option>
+                <option value="2">Rural</option>
+              </select>
+
+            </td>
             </tr>
             <tr>
               <td>
@@ -3484,7 +3485,6 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                       <!--                                 [value]="option.value">{{option.label}}</nb-radio>-->
                       <!--                     </nb-radio-group>-->
                       <select required="true" class="form-control"
-                              #guarantorActYearOption
                               formControlName="guarantorActYearOption">
                         <option  value="null" hidden>AD/BS</option>
                         <option  value="AD">AD</option>
@@ -3492,19 +3492,12 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                       </select>
                     </div>
                     <div class="col-md-8">
-                      <nepali-patro *ngIf="guarantorActYearOption.value ==='BS'"
-                                    formControlName="guarantorActYear" [responseType]="2"
-                                    [displayNepali]="true">
-                      </nepali-patro>
-                      <input [nbDatepicker]="guarantorActYearAD"
-                             *ngIf="guarantorActYearOption.value ==='AD'"
+                      <input
                              class="form-control form-control-sm-error rounded"
                              formControlName="guarantorActYear"
-
                              name="citizenIssuedDate"
                              placeholder="Act Year"
-                             type="text">
-                      <nb-datepicker #guarantorActYearAD></nb-datepicker>
+                             type="number">
                     </div>
                   </div>
                 </td>
@@ -3679,14 +3672,6 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                   <strong>Registered Address</strong>
                 </td>
                 <td>
-                  <select class="form-control" formControlName="guarantorRegisteredType">
-                    <option value="0">Municipality</option>
-                    <option value="1">VDC</option>
-                    <option value="2">Rural</option>
-                  </select>
-
-                </td>
-                <td>
                 <td>
                 </td>
               </tr>
@@ -3741,6 +3726,17 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                   <input class="form-control"
                          formControlName="guarantorRegisteredDistrictCT" type="text"
                   />
+                </td>
+              </tr>
+              <tr>
+                <td> Municipality or VDC</td>
+                <td>
+                  <select class="form-control" formControlName="guarantorRegisteredType">
+                    <option value="0">Municipality</option>
+                    <option value="1">VDC</option>
+                    <option value="2">Rural</option>
+                  </select>
+
                 </td>
               </tr>
               <tr>
@@ -3813,7 +3809,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 <nb-checkbox formControlName="isSameGuarantorRegisteredAndCurrentAddress"
                              name="isSameGuarantorRegisteredAndCurrentAddress"
                              (change)="setGuarantorRegisteredAndCurrentAddressSame($event, i)"><i>Check if
-                  Temporary Current is same as Registered Address</i></nb-checkbox>
+                   Current address is same as Registered Address</i></nb-checkbox>
               </td>
               </tbody>
               <tbody *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
