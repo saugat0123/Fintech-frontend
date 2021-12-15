@@ -204,7 +204,7 @@ export class Section1SmeSecurityComponent implements OnInit {
             /*fdHolderDetails: this.formBuilder.array([this.buildFDHolderDetailsArr()]),
             depositorDetails: this.formBuilder.array([this.buildDepositorDetailsArr()]),
             debentureDetails: this.formBuilder.array([this.buildDebentureDetailsArr()]),*/
-            extraDetails: this.formBuilder.array([this.buildExtraDetailsArr()]),
+            propertyDetails: this.formBuilder.array([this.buildPropertyDetailsArr()]),
         });
     }
 
@@ -302,29 +302,50 @@ export class Section1SmeSecurityComponent implements OnInit {
     }
 
 
-    addExtraDetails(i) {
-        (this.section1SecurityForm.get(['securityDetails', i, 'extraDetails']) as FormArray).push(this.buildExtraDetailsArr());
+    addPropertyDetails(i) {
+        (this.section1SecurityForm.get(['securityDetails', i, 'propertyDetails']) as FormArray).push(this.buildPropertyDetailsArr());
     }
 
-    removeExtraDetailsArr(i, secondIndex) {
-        (this.section1SecurityForm.get(['securityDetails', i, 'extraDetails']) as FormArray).removeAt(secondIndex);
+    removePropertyDetailsArr(i, secondIndex) {
+        (this.section1SecurityForm.get(['securityDetails', i, 'propertyDetails']) as FormArray).removeAt(secondIndex);
     }
 
-    buildExtraDetailsArr() {
+    buildPropertyDetailsArr() {
         return this.formBuilder.group({
             securityOwnersWardNo: [undefined],
             securityOwnersKittaNo: [undefined],
             securityOwnersLandArea: [undefined],
             securityOwnersSheetNo: [undefined],
-
+            /* Translated fields for multi security Fields */
             securityOwnersWardNoTrans: [undefined],
             securityOwnersKittaNoTrans: [undefined],
             securityOwnersLandAreaTrans: [undefined],
             securityOwnersSheetNoTrans: [undefined],
+            /* Final CT fields for multi security Fields */
             securityOwnersWardNoCT: [undefined],
             securityOwnersKittaNoCT: [undefined],
             securityOwnersLandAreaCT: [undefined],
             securityOwnersSheetNoCT: [undefined],
         });
+    }
+
+    async onChangeFormArrayTranslate(arrName, source, index, target, index1, secondArr) {
+        this.securityFormTranslate = this.formBuilder.group({
+            securityTranslated: this.section1SecurityForm.get([String(arrName), index, String(secondArr), index1, String(source)]).value
+        });
+        const sourceResponse = await this.translateService.translateForm(this.securityFormTranslate);
+        this.section1SecurityForm.get([String(arrName), index, String(secondArr), index1 , String(target)]).patchValue(
+            sourceResponse.securityTranslated);
+        this.section1SecurityForm.get([String(arrName), index, String(secondArr), index1, String(source + 'CT')]).patchValue(
+            sourceResponse.securityTranslated);
+    }
+
+    translateSecurityFormArrayNumber(arrName, source, index, target, index1, secondArr) {
+        const nepaliNumTrans = this.engNepNumberPipe.transform(
+            String(this.section1SecurityForm.get([String(arrName), index, String(secondArr), index1, String(source)]).value));
+        this.section1SecurityForm.get([String(arrName), index, String(secondArr), index1 , String(target)]).patchValue(nepaliNumTrans);
+        this.section1SecurityForm.get(
+            [String(arrName), index, String(secondArr), index1, String(source + 'CT')]
+        ).patchValue(nepaliNumTrans);
     }
 }
