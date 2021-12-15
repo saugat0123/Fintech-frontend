@@ -68,7 +68,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     // Overdraft Facility against Bond
     letterOfSetOffFacilityAgainstBond; interestSubsidyAgFacilityAgainstBond; interestRateTypeFacilityAgainstBond;
     // Bridge Gap Loan
-    complementaryOtherBridgeGapLoan = false; interestSubsidyAgBridgeGapLoan;
+    complementaryOtherBridgeGapLoan = false; interestSubsidyAgBridgeGapLoan = false;
     // Bank Guarantee
     complementaryOtherBankGuarantee = false; securityTypeBankGuarantee; guaranteeTypeBankGuarantee; commissionTypeBankGuarantee;
     // Bills Purchase
@@ -210,9 +210,11 @@ export class Section2LoanTypePrintComponent implements OnInit {
                 }
                 if (v === LoanNameConstant.BRIDGE_GAP_LOAN && !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan)) {
                     this.isBridgeGapLoan = true;
-                    this.interestSubsidyAgBridgeGapLoan = this.tempData.bridgeGapLoan.subsidyOrAgricultureLoan;
                     if (this.tempData.bridgeGapLoan.complementryOther === true) {
                         this.complementaryOtherBridgeGapLoan = true;
+                    }
+                    if (this.tempData.bridgeGapLoan.interestSubsidy === true) {
+                        this.interestSubsidyAgBridgeGapLoan = true;
                     }
                 }
                 if (v === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
