@@ -23,6 +23,12 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "sockjs-client",
+              "stompjs",
+              "crypto-js",
+              "ngx-quill"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
