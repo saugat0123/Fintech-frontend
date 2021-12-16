@@ -52,7 +52,7 @@
                     </tr>
                     <tr>
                         <td><strong>कर्जाको उद्देश्य</strong></td>
-                        <td colspan="2"><span class="freeText"
+                        <td colspan="2"><span
                                 [ngClass]="{'nepaliFont outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
                             {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct}}</span>
                         </td>
@@ -781,7 +781,7 @@
                 <div class="right-content">
                     .........................................
                     <p>
-                         <span class="freeText" [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
+                         <span [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
                             {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span><br>
                         <span class="nepaliFont">{{freeInformation ? freeInformation.fifthText : 'सम्पर्क अधिकृत'}}</span>
                         <br>
@@ -792,7 +792,7 @@
                 <div class="left-content text-right">
                     .........................................
                     <p>
-                       <span class="freeText" [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
+                       <span [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
                             {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span><br>
                         <span class="nepaliFont" >{{freeInformation ? freeInformation.sixthText : 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक'}}</span><br>
                         नबिल बैंक लि. <br>
