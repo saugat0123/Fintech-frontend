@@ -113,6 +113,9 @@ export class BankGuaranteeComponent implements OnInit {
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
       complementryOtherCT: [undefined],
+      complimentaryLoanSelected: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
     });
   }
   checkComplimetryOtherLoan(data) {
@@ -158,6 +161,9 @@ export class BankGuaranteeComponent implements OnInit {
     this.bankGuarantee.get('loanAmountAmountWordsTrans').patchValue(
         this.bankGuarantee.get('loanAmountAmountWords').value
     );
+
+    const tempComplimentaryLoanSelected = this.bankGuarantee.get('complimentaryLoanSelected').value;
+    this.bankGuarantee.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
     // translated by google api
     const tempNameOfHoldingBank = !ObjectUtil.isEmpty(this.bankGuarantee.get('nameOfHoldingBank').value) ?
         this.bankGuarantee.get('nameOfHoldingBank').value : '';
@@ -213,6 +219,9 @@ export class BankGuaranteeComponent implements OnInit {
     this.setCTValue();
   }
   setCTValue() {
+    this.bankGuarantee.get('complimentaryLoanSelectedCT').patchValue(
+        this.bankGuarantee.get('complimentaryLoanSelectedTrans').value
+    );
     this.bankGuarantee.get('loanAmountCT').patchValue(
         this.bankGuarantee.get('loanAmountTrans').value
     );
