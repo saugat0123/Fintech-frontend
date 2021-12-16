@@ -77,6 +77,7 @@ export class LoanPullComponent implements OnInit {
     static loadData(other: LoanPullComponent) {
         other.catalogueService.search.committee = 'true';
         if (LocalStorageUtil.getStorage().roleType.toLowerCase() === 'committee' && LocalStorageUtil.getStorage().roleName.toLowerCase() !== 'hsov') {
+            other.catalogueService.search.documentStatus = null;
             other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.loanDataHolderList = response.detail.content;
                 other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));

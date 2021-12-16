@@ -349,6 +349,9 @@ export class LoanActionModalComponent implements OnInit {
             });
             this.hsov = true;
         } else {
+            this.formAction.patchValue({
+                isHsov: false
+            });
             this.hsov = false;
         }
     }
@@ -359,6 +362,9 @@ export class LoanActionModalComponent implements OnInit {
             });
             this.dual = true;
         } else {
+            this.formAction.patchValue({
+                dualApproval: false
+            });
             this.dual = false;
         }
     }
