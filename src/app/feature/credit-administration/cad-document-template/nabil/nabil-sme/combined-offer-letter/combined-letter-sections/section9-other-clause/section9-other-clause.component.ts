@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 import {OfferDocument} from '../../../../../../model/OfferDocument';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
   selector: 'app-section9-other-clause',
