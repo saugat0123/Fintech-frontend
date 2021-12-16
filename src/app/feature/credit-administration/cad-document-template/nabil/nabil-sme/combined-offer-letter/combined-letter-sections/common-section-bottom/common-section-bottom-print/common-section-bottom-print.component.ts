@@ -21,6 +21,8 @@ export class CommonSectionBottomPrintComponent implements OnInit {
   branchName;
   tempData;
   freeInformation;
+  isNaturalPerson;
+  isSubsidyOrAgricultureLoan = false;
   constructor() { }
 
   ngOnInit() {
@@ -29,6 +31,27 @@ export class CommonSectionBottomPrintComponent implements OnInit {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.branchName = this.loanHolderInfo.branch.ct;
+    }
+    this.isNaturalPerson = this.tempData.smeGlobalForm.borrowerNaturalPerson;
+    // isSubsidyOrAgriculture
+    const tempD = this.tempData;
+    if (!ObjectUtil.isEmpty(tempD)) {
+      this.isSubsidyOrAgricultureLoan = this.checkSubsidyOrAgriculture(tempD);
+    }
+  }
+  checkSubsidyOrAgriculture(tempD) {
+    if ((!ObjectUtil.isEmpty(tempD.importLoanTrust) && tempD.importLoanTrust.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.revolvingShortTermLoan) && tempD.revolvingShortTermLoan.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.demandLoanForm) && tempD.demandLoanForm.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.overdraftLoanForm) && tempD.overdraftLoanForm.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.equityMortgaged) && tempD.equityMortgaged.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.overdraftFixedForm) && tempD.overdraftFixedForm.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.overDraftFacilityForm) && tempD.overDraftFacilityForm.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.termLoanForm) && tempD.termLoanForm.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.mortgageEquityTermForm) && tempD.mortgageEquityTermForm.subsidyOrAgricultureLoan === 'Yes')) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

@@ -18,9 +18,11 @@ export class CommonSectionBottomComponent implements OnInit {
   position = 'सम्पर्क अधिकृत';
   position1 = 'सम्पर्क प्रबन्धक';
   loanHolderInfo;
+  isNaturalPerson;
   initialInfoPrint;
   tempData;
   freeInformation: any;
+  isSubsidyOrAgricultureLoan = false;
   constructor(
       private formBuilder: FormBuilder,
   ) { }
@@ -36,6 +38,12 @@ export class CommonSectionBottomComponent implements OnInit {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
     this.fillForm();
+    this.isNaturalPerson = this.tempData.smeGlobalForm.borrowerNaturalPerson;
+    // isSubsidyOrAgriculture
+    const tempD = this.tempData;
+    if (!ObjectUtil.isEmpty(tempD)) {
+      this.isSubsidyOrAgricultureLoan = this.checkSubsidyOrAgriculture(tempD);
+    }
   }
   buildForm() {
     return this.form = this.formBuilder.group({
@@ -49,7 +57,8 @@ export class CommonSectionBottomComponent implements OnInit {
   fillForm() {
     this.form.patchValue({
       branchName: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
-      nameOfARO_RO_RM_ARM: this.tempData.smeGlobalForm.nameOfRelationshipManagerCT ? this.tempData.smeGlobalForm.nameOfRelationshipManagerCT : '',
+      nameOfARO_RO_RM_ARM: this.tempData.smeGlobalForm.nameOfRelationshipManagerCT ?
+          this.tempData.smeGlobalForm.nameOfRelationshipManagerCT : '',
       nameOfBranchManager: this.tempData.smeGlobalForm.nameOfBranchManagerCT ? this.tempData.smeGlobalForm.nameOfBranchManagerCT : '',
       position : !ObjectUtil.isEmpty(this.position) ? this.position : '',
       position1 : !ObjectUtil.isEmpty(this.position1) ? this.position1 : '',
@@ -68,6 +77,21 @@ export class CommonSectionBottomComponent implements OnInit {
       if (this.freeInformation.sectionBottom.position1 !== this.position1) {
         this.position1 = this.freeInformation.sectionBottom.position1;
       }
+    }
+  }
+  checkSubsidyOrAgriculture(tempD) {
+    if ((!ObjectUtil.isEmpty(tempD.importLoanTrust) && tempD.importLoanTrust.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.revolvingShortTermLoan) && tempD.revolvingShortTermLoan.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.demandLoanForm) && tempD.demandLoanForm.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.overdraftLoanForm) && tempD.overdraftLoanForm.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.equityMortgaged) && tempD.equityMortgaged.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.overdraftFixedForm) && tempD.overdraftFixedForm.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.overDraftFacilityForm) && tempD.overDraftFacilityForm.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.termLoanForm) && tempD.termLoanForm.subsidyOrAgricultureLoan === 'Yes') ||
+        (!ObjectUtil.isEmpty(tempD.mortgageEquityTermForm) && tempD.mortgageEquityTermForm.subsidyOrAgricultureLoan === 'Yes')) {
+      return true;
+    } else {
+      return false;
     }
   }
 
