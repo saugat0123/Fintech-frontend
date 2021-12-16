@@ -60,6 +60,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   allguarantorNames;
   finalName;
   freeInformation: any;
+  autoPopulate1 = 'सम्पर्क अधिकृत';
+  autoPopulate2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -78,7 +80,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Offer Letter Details for Home Loan', this.cadOfferLetterApprovedDoc);
     this.buildSanction();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -118,12 +119,15 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       branchName: [undefined],
       amountInFigure: [undefined],
       guarantorName: [undefined],
-      relationshipofficerName: [undefined],
+      relationshipOfficerName: [undefined],
       nameOfBranchManager: [undefined],
       firstAdditionalDetails: [undefined],
       secondAdditionalDetails: [undefined],
       thirdAdditionalDetails: [undefined],
       fourthAdditionalDetails: [undefined],
+      autoPopulate1: [undefined],
+      autoPopulate2: [undefined],
+      purposeOfLoan: [undefined],
     });
   }
   setLoanConfigData(data: any) {
@@ -158,7 +162,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        console.log('Selected Security Details:', initialInfo);
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
@@ -170,7 +173,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     }
   }
   fillForm() {
-    console.log('FIll Form works');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
     const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
@@ -234,15 +236,18 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       totalLimitWords: this.tempData.totalLimitWords ? this.tempData.totalLimitWords.ct : '',
       totalTenureOfLoan: this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',
       ratePerNrb: this.tempData.circularRate ? this.tempData.circularRate.ct : '',
-       // relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
+      relationshipOfficerName: this.tempData.nameOfStaff ? this.tempData.nameOfStaff.ct : '',
       nameOfBranchManager: this.tempData.nameOfBranchManager ? this.tempData.nameOfBranchManager.ct : '',
       branchName : this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
+      purposeOfLoan : this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
       // insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
       dateOfApplication : finalDateOfApplication ? finalDateOfApplication : '',
       firstAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.firstText : '',
       secondAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
       thirdAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
       fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
+      autoPopulate1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate1 : '',
+      autoPopulate2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate2 : '',
 
     });
   }
@@ -282,12 +287,13 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     });
   }
   setFreeText() {
-    console.log('Set free text');
     this.freeTextVal = {
       firstText: this.form.get('firstAdditionalDetails').value,
       secondText: this.form.get('secondAdditionalDetails').value,
       thirdText: this.form.get('thirdAdditionalDetails').value,
       fourthText: this.form.get('fourthAdditionalDetails').value,
+      autoPopulate1: this.form.get('autoPopulate1').value,
+      autoPopulate2: this.form.get('autoPopulate2').value,
     };
   }
   calcYearlyRate() {
@@ -314,7 +320,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
         this.finalName = tempGuarantorNep.guarantorName.ct;
       } else {
         // const temp = JSON.parse(this.guarantorData[0].nepData);
-        console.log('authorizedPersonName', tempGuarantorNep);
         this.finalName = tempGuarantorNep.authorizedPersonName.ct;
       }
     } else if (this.guarantorData.length === 2) {
@@ -325,7 +330,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
           this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
         } else {
           // const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(tempGuarantorNep);
           this.guarantorNames.push(tempGuarantorNep.authorizedPersonName.ct);
         }
         // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
@@ -338,7 +342,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
         const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
         if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
           // const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(tempGuarantorNep);
           this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
           // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
         } else {

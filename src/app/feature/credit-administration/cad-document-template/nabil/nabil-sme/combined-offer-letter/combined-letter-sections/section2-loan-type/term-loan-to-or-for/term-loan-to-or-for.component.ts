@@ -137,7 +137,7 @@ export class TermLoanToOrForComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 newInstallmentInterestRateVehicleLoan: this.tempData.termLoanForm.interestRateCT ? this.tempData.termLoanForm.interestRateCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentTotalInterestRateVehicleLoan: this.tempData.termLoanForm.subsidyInterestRate ? this.tempData.termLoanForm.subsidyInterestRate : '',
+                newInstallmentTotalInterestRateVehicleLoan: this.tempData.termLoanForm.subsidyInterestRate ? this.tempData.termLoanForm.subsidyInterestRateCT : '',
                 newInstallmentLoanTenureVehicleLoan: this.tempData.termLoanForm.tenureOfLoanCT ? this.tempData.termLoanForm.tenureOfLoanCT : '',
                 // tslint:disable-next-line:max-line-length
                 newInstallmentPaymentAmountVehicleLoan: this.tempData.termLoanForm.paymentAmountFigureCT ? this.tempData.termLoanForm.paymentAmountFigureCT : '',
