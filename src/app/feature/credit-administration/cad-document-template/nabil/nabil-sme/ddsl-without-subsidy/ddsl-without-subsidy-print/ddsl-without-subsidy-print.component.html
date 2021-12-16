@@ -4,7 +4,7 @@
             <p>
                 स्वीकृती पत्र नं.-{{autoRefNum ? autoRefNum : '_______________________'}}<br>
                 <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong><br><br>
-                मितिः{{sanctionDate ? sanctionDate : ''}}<br>
+                मिति: {{sanctionDate ? sanctionDate : ''}}<br>
 
                 श्री/श्रीमती/सुश्री <span
                     [ngClass]="{'outside' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
@@ -783,7 +783,7 @@
                     <p>
                          <span [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
                             {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span><br>
-                        <span class="nepaliFont" style="font-size: 16px">{{freeInformation ? freeInformation.fifthText : 'सम्पर्क अधिकृत'}}</span>
+                        <span class="nepaliFont">{{freeInformation ? freeInformation.fifthText : 'सम्पर्क अधिकृत'}}</span>
                         <br>
                         नबिल बैंक लि.<br>
                         {{branchName ? branchName : ''}} शाखा
@@ -794,7 +794,7 @@
                     <p>
                        <span [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
                             {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span><br>
-                        <span class="nepaliFont" style="font-size: 16px">{{freeInformation ? freeInformation.sixthText : 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक'}}</span><br>
+                        <span class="nepaliFont" >{{freeInformation ? freeInformation.sixthText : 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक'}}</span><br>
                         नबिल बैंक लि. <br>
                         {{branchName ? branchName : ''}} शाखा
                     </p>
@@ -919,6 +919,12 @@
                     </ol>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+                     ngxPrint printSectionId="{{offerLetterConst.DDSL_WITHOUT_SUBSIDY}}Print" #printButton>Print</button>
         </div>
     </div>
 </div>

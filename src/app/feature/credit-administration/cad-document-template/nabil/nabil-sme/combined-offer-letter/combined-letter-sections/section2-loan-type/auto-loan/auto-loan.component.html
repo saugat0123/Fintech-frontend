@@ -23,7 +23,7 @@
             सवारी साधन बैंकको नाममा दर्ता
             <ng-container *ngIf="vehicleRegistrationAutoLoan"> गरिदिनुपर्नेछ </ng-container>
             <ng-container *ngIf="!vehicleRegistrationAutoLoan"> गरिदिइएको यथावत कायम रहनेछ </ng-container>
-            ।
+        ।
     </p>
     <p *ngIf="loanOptionAutoLoan === 'New'">
         <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
@@ -75,7 +75,8 @@
                                                                 type="text"/>।
             <!--(निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--></span><br>
 
-        <span *ngIf="emiPaymentTypeAutoLoan === 'EVERY_20TH'">कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।<br>
+        <span *ngIf="emiPaymentTypeAutoLoan === 'EVERY_20TH'">
+            कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ । </span><br>
                         <strong>सेवा शुल्कः </strong><input class="form-field form-control-sm "
                                                             formControlName="newEMILoanPurposeAutoLoan"
                                                             placeholder=""
@@ -87,7 +88,7 @@
                         <strong>कर्जा अवधि:</strong> <input class="form-field form-control-sm "
                                                             formControlName="newEMILoanTenureAutoLoan"
                                                             placeholder=""
-                                                            type="text"/> बर्ष सम्मको लागि मात्र ।</span>
+                                                            type="text"/> बर्ष सम्मको लागि मात्र ।
     </p>
     <p *ngIf="autoLoanTypeAutoLoan === 'OTHER_CREDIT_LIMITS'">
         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>

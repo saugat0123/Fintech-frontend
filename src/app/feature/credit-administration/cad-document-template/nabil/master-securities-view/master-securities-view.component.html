@@ -32,15 +32,17 @@
                 </th>
             </tr>
             </thead>
-            <tbody>
-            <tr *ngFor="let data of securityDetails.primarySecurity">
-                <td>{{data?.securityOwnersNameCT}}</td>
-                <td>{{data?.securityOwnersDistrictCT}}</td>
-                <td>{{data?.securityOwnersMunicipalityCT}}</td>
-                <td>{{data?.securityOwnersWardNoCT}}</td>
-                <td>{{data?.securityOwnersSheetNoCT}}</td>
-                <td>{{data?.securityOwnersKittaNoCT}}</td>
-                <td>{{data?.securityOwnersLandAreaCT}}</td>
+            <tbody *ngFor="let data of securityDetails.primarySecurity">
+            <tr>
+                <td [attr.rowspan]="data?.propertyDetails?.length + 1">{{data?.securityOwnersNameCT}}</td>
+                <td [attr.rowspan]="data?.propertyDetails?.length + 1">{{data?.securityOwnersDistrictCT}}</td>
+                <td [attr.rowspan]="data?.propertyDetails?.length + 1">{{data?.securityOwnersMunicipalityCT}}</td>
+            </tr>
+            <tr *ngFor="let details of data?.propertyDetails;">
+                <td>{{details?.securityOwnersWardNoCT}}</td>
+                <td>{{details?.securityOwnersSheetNoCT}}</td>
+                <td>{{details?.securityOwnersKittaNoCT}}</td>
+                <td>{{details?.securityOwnersLandAreaCT}}</td>
             </tr>
             </tbody>
         </table>

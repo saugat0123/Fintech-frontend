@@ -526,6 +526,18 @@
                   [offerData] = offerLetterData
                   [preview]="true">
           </app-interest-subsidy-sanction-letter-print>
+          <app-ddsl-without-subsidy-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.DDSL_WITHOUT_SUBSIDY)"
+                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [letter]="initialInfoPrint"
+                  [preview]="true">
+          </app-ddsl-without-subsidy-print>
+          <!-- For Combined Offer letter view -->
+          <app-combined-offer-letter-print
+                  *ngSwitchCase="offerLetterConst.value(offerLetterConst.COMBINED_LETTER)"
+                  [customerApprovedDoc]="cadOfferLetterApprovedDoc"
+                  [preview]="true">
+          </app-combined-offer-letter-print>
         </nb-card-body>
     </nb-card>
 </ng-template>

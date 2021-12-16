@@ -30,6 +30,7 @@ import {BillPurchaseComponent} from './sme-loan-type/bill-purchase/bill-purchase
 import {LoanNameConstant} from '../../sme-costant/loan-name-constant';
 import {SmeSecurityComponent} from './sme-security/sme-security.component';
 import {RequiredLegalDocumentSectionComponent} from './required-legal-document-section/required-legal-document-section.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-sme-master-template',
@@ -99,7 +100,9 @@ export class SmeMasterTemplateComponent implements OnInit {
 
   constructor(private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private nbDialogueService: NbDialogService) { }
+              private nbDialogueService: NbDialogService,
+              private modalService: NgbModal,
+              private modalDialogRef: NbDialogRef<SmeMasterTemplateComponent>) { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
@@ -325,6 +328,23 @@ export class SmeMasterTemplateComponent implements OnInit {
         customerApprovedDoc: this.customerApprovedDoc
       }
     });
+  }
+
+  dismiss(template) {
+    this.modalService.dismissAll();
+  }
+
+  openCloseTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  decline(template) {
+    this.modalService.dismissAll();
+  }
+
+  accept() {
+    this.modalService.dismissAll();
+    this.modalDialogRef.close();
   }
 
 }

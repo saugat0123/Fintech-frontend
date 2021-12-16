@@ -46,4 +46,8 @@
                 [freeText]="freeText">
         </app-common-section-bottom-print>
     </div>
+    <div class="col-md-12 mt-2">
+        <button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+                 ngxPrint printSectionId="{{offerLetterConst.COMBINED_LETTER}}" #printButton>Print</button>
+    </div>
 </div>

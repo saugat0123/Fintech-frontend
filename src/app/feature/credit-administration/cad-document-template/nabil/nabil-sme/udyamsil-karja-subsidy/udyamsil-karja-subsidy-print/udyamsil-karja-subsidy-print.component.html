@@ -80,7 +80,7 @@
                         <td><strong>कर्जाको उद्देश्य: </strong>
                         </td>
                         <td>
-                                 <span [ngClass]="{'outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
+                                 <span [ngClass]="{'nepaliFont outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
                                 {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct }}</span>
                         </td>
                     </tr>
@@ -482,8 +482,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table table-sm table-condensed table-bordered text-center table-sm sb-small"
-                                       id="custom-table">
+                                <table class="table table-sm table-bordered table-sm sb-small">
                                     <thead>
                                     <tr>
                                         <td>
@@ -977,11 +976,11 @@
 
                     .........................................
                     <p>
-                        <span [ngClass]="{'font-weight-bold': letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
+                        <span style="font-size: 19px" [ngClass]="{'nepaliFont font-weight-bold': letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
                                 {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === "" ? "___________" : letter?.nameOfStaff.ct}}
                         </span>
                         <br>
-                        <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.position : 'सम्पर्क अधिकृत'}}</span>
+                        <span class="nepaliFont">{{freeInformation ? freeInformation.position : 'सम्पर्क अधिकृत'}}</span>
                         <br>
                         नबिल बैंक लि.
                         <br>
@@ -996,11 +995,11 @@
 
                     .........................................
                     <p>
-                        <span [ngClass]="{'font-weight-bold': letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
+                        <span style="font-size: 19px" [ngClass]="{'nepaliFont font-weight-bold': letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
                                 {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === "" ? "___________" : letter?.nameOfBranchManager.ct}}
                         </span>
                         <br>
-                        <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.position1 : 'सम्पर्क अधिकृत'}}</span>
+                        <span class="nepaliFont">{{freeInformation ? freeInformation.position1 : 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक'}}</span>
                         <br>
                         नबिल बैंक लि.
                         <br>
