@@ -27,6 +27,7 @@ export class CompanyOtherDetailComponent implements OnInit {
                 private fiscalYearService: FiscalYearService) {
     }
 
+    // @ts-ignore
     get form() {
         return this.companyOtherDetailGroupForm.controls;
     }

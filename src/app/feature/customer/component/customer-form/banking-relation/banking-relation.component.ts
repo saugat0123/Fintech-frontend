@@ -51,6 +51,7 @@ export class BankingRelationComponent implements OnInit {
     this.bankingRelation.repaymentHistory = this.bankingRelationForm.get('repaymentHistory').value;
   }
 
+  // @ts-ignore
   get formControl() {
     return this.bankingRelationForm.controls;
   }

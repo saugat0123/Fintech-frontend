@@ -47,6 +47,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     ) {
     }
 
+    // @ts-ignore
     get basicInfoControls() {
         return this.basicInfo.controls;
     }

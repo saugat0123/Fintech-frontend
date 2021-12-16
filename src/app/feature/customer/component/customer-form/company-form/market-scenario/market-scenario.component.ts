@@ -19,6 +19,7 @@ export class MarketScenarioComponent implements OnInit {
     constructor(private formBuilder: FormBuilder) {
     }
 
+    // @ts-ignore
     get form() {
         return this.marketScenarioForm.controls;
     }

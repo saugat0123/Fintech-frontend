@@ -167,10 +167,12 @@ export class CompanyFormComponent implements OnInit {
 
     }
 
+    // @ts-ignore
     get form() {
         return this.companyInfoFormGroup.controls;
     }
 
+    // @ts-ignore
     get additionalInfoForm() {
         return this.companyInfoFormGroup.controls.additionalCompanyInfo['controls'];
     }
