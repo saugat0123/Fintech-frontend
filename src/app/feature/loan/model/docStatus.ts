@@ -47,6 +47,8 @@ export namespace DocStatus {
             return 'SEND_BACK_TO_AGENT';
         } else if (docStatus === DocStatus.HSOV_PENDING) {
             return 'HSOV_PENDING';
+        } else if (docStatus === DocStatus.DUAL_APPROVAL_PENDING) {
+            return 'DUAL_APPROVAL_PENDING';
         }
     }
 }

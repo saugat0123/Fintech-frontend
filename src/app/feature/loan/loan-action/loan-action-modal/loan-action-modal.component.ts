@@ -20,7 +20,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {RoleType} from '../../../admin/modal/roleType';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {Editor} from '../../../../@core/utils/constants/editor';
-import {Clients} from "../../../../../environments/Clients";
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-loan-action-modal',
@@ -75,14 +75,9 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('is maker', this.isMaker);
-        console.log('doc action msg', this.docActionMsg);
-        console.log('doc action', this.docAction);
-        console.log('doc status', this.documentStatus);
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
-        console.log(this.sendForwardBackwardList);
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
             this.isHSOVChecked(this.customerLoanHolder.isHsov);
             this.dualApproval(this.customerLoanHolder.dualApproval);
@@ -153,9 +148,13 @@ export class LoanActionModalComponent implements OnInit {
     public onSubmit() {
 
         const comment = this.formAction.value.comment;
-
         const docAction = this.formAction.value.docAction;
         const docActionMSG = this.formAction.value.docActionMsg;
+        if (this.docAction === 'DUAL_APPROVAL_PENDING') {
+            this.formAction.patchValue({
+                dualApproved: true
+            });
+        }
         if (docActionMSG === 'Send Legal Doc') {
             const sendDocToRemit = {
                 beneficiaryId: this.beneficiaryId,
@@ -252,6 +251,7 @@ export class LoanActionModalComponent implements OnInit {
             documentStatus: [this.documentStatus],
             isHsov: [undefined],
             dualApproval: [undefined],
+            dualApproved: [undefined],
         });
     }
 

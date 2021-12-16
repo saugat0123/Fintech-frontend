@@ -111,6 +111,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     documentStatus: DocStatus.PENDING,
                     customerLoanHolder: this.customerLoanHolder
                 };
+                if (this.customerLoanHolder.dualApproved) {
+                    context.documentStatus = DocStatus.DUAL_APPROVAL_PENDING;
+                }
                 break;
             case 'backwardCommittee':
                 context = {
@@ -145,6 +148,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     isMaker: this.isMaker,
                     customerLoanHolder: this.customerLoanHolder
                 };
+                if (this.customerLoanHolder.dualApproved) {
+                    context.documentStatus = DocStatus.DUAL_APPROVAL_PENDING;
+                }
                 break;
             case 'approve':
                 if (this.loanFlags && this.loanFlags.length > 0) {
@@ -165,7 +171,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         isRemitLoan: this.isRemitLoan,
                         beneficiaryId: this.beneficiaryId
                     };
-                } else if (this.customerLoanHolder.dualApproval) {
+                } else if (this.customerLoanHolder.dualApproval && !this.customerLoanHolder.dualApproved) {
                     context = {
                         popUpTitle: 'Approve',
                         isForward: false,

@@ -23,6 +23,7 @@ export class PendingLoanComponent implements OnInit {
     postApprovalDocStat;
     productUtils: ProductUtils = null;
     hsovPendingCount: number;
+    dual: number;
     roletype = LocalStorageUtil.getStorage().roleName;
 
     constructor(
@@ -47,6 +48,7 @@ export class PendingLoanComponent implements OnInit {
                 this.closedCount = response.detail.Closed;
                 this.initCount = response.detail.initial;
                 this.hsovPendingCount = response.detail.Hsov;
+                this.dual = response.detail.dual;
             }
         );
     }
