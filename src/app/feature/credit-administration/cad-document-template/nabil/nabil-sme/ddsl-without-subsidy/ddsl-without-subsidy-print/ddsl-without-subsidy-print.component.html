@@ -921,4 +921,10 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button  nbButton status="info" class="mb-4 float-right" *ngIf="preview" [useExistingCss]="true"
+                     ngxPrint printSectionId="{{offerLetterConst.DDSL_WITHOUT_SUBSIDY}}Print" #printButton>Print</button>
+        </div>
+    </div>
 </div>

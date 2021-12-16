@@ -18,7 +18,6 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     @Input() letter: any;
     @Input() offerData;
     @Input() security;
-    @Input() loanLimit;
     @Input() preview = false;
     loanHolderInfo;
     guarantorName;
