@@ -335,7 +335,8 @@
                                 </p>
                             </li>
 
-                            <!-- FREE TABLE CK EDITOR-->
+                            <div class="row" [innerHTML]="table | safeHtml">
+                            </div>
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
                             <li *ngIf="this.letterData?.autoLoanMasterForm?.autoLoanTypeCT !== null || this.letterData?.termLoanForm?.termLoanForCT === 'VEHICLE'">

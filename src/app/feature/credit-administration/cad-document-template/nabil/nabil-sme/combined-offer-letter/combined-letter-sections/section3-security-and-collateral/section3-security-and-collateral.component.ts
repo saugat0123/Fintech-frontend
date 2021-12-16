@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {CustomerApprovedLoanCadDocumentation} from "../../../../../../model/customerApprovedLoanCadDocumentation";
 import {ObjectUtil} from "../../../../../../../../@core/utils/ObjectUtil";
 import {NepaliCurrencyWordPipe} from "../../../../../../../../@core/pipe/nepali-currency-word.pipe";
+import {Editor} from "../../../../../../../../@core/utils/constants/editor";
+import {TableMaker} from "../../../../../../../../@core/utils/constants/tableMaker";
 
 @Component({
   selector: 'app-section3-security-and-collateral',
@@ -66,6 +68,7 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
   tempCorporateGuarantors;
   tempCrossguarantors;
   temp2;
+  ckEditorConfig = TableMaker.CK_CONFIG;
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
@@ -116,6 +119,7 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       guarantorAmount: [undefined],
       guarantorAmountInWords: [undefined],
       personalguaranteeName: [undefined],
+      freeTable: [undefined],
 
     })
   }
