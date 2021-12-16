@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/customerApprovedLoanCadDocumentation';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 
 @Component({
     selector: 'app-auto-loan',
@@ -19,7 +21,9 @@ export class AutoLoanComponent implements OnInit {
     complementaryOtherAutoLoan = false; vehiclePurchaseAutoLoan = false; vehicleRegistrationAutoLoan = false;
     loanOptionAutoLoan; autoLoanTypeAutoLoan; emiPaymentTypeAutoLoan; paymentsTermsAutoLoan;
     constructor(private formBuilder: FormBuilder,
-                private engToNepWord: NepaliCurrencyWordPipe
+                private engToNepWord: NepaliCurrencyWordPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
     ) {
     }
 
@@ -27,8 +31,9 @@ export class AutoLoanComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-            this.loanAmount = String(this.customerApprovedDoc.assignedLoan[0].proposal.proposedLimit);
-            this.loanAmountInWord = this.engToNepWord.transform(this.loanAmount);
+            const totalLoanAmount = this.customerApprovedDoc.assignedLoan[0].proposal.proposedLimit;
+            this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
+            this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
             this.fillForm();
         }
         if (!ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm)) {
