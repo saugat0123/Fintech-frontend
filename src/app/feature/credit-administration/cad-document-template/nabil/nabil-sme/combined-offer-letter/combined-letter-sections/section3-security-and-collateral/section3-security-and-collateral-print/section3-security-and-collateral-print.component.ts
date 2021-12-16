@@ -66,12 +66,16 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   guarantorAmount;
   guarantorAmountWords;
   securityTypeLienCondition = false;
+  free;
+  table;
 
   constructor(private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
     this.securityDetails = this.letterData.securities;
     this.guarantorData = this.customerApprovedDoc.assignedLoan[0].taggedGuarantors;
+    this.free = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
+    this.table = this.free.section3.freeTable;
     this.guarantorData.forEach(any => {
       this.guarantorParsed.push(JSON.parse(any.nepData));
     });
