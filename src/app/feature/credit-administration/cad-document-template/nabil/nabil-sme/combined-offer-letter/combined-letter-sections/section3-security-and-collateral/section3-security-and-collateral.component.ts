@@ -195,8 +195,9 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       this.securityDetails.secondarySecurity.forEach(i => {
         if(i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
           this.securityTypeSecondaryCondition = true;
-          this.checkSecondaryMortgage(i);
-        }
+          {
+            this.checkSecondaryMortgage(i);
+          }        }
         if(i.collateralShareCT === 'YES') {
           this.collateralShareSecondaryCondition = true;
         }

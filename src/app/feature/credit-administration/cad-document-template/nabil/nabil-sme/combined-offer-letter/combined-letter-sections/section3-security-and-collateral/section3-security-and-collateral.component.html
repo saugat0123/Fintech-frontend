@@ -113,7 +113,7 @@
                                         name="freeText1"
                                         formControlName="freeText1">
                                  </textarea>
-                                <div class="firstTable mt-3">
+                                <!--<div class="firstTable mt-3">
                                     <table class="table table-bordered">
                                         <tr>
                                             <td rowspan="2">
@@ -161,7 +161,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                                </div>
+                                </div>-->
                             </div>
 
                             <!-- Applicable if only hypothecation letter is required-->
@@ -225,11 +225,6 @@
                                            class="form-control-sm form-field"
                                            [value]="data.nameOfMemberBankCT"
                                            placeholder="Member Bank"/>
-                                   <!-- <input formControlName="freeBankName"
-                                           name="freeBankName"
-                                           type="text"
-                                           class="form-control-sm form-field"
-                                           placeholder="Other Bank Name"/>-->
                                     बैंक/हरुको पक्षमा पारिपासु सम्झौता अन्तर्गत बैंकहरुका माझ प्रथम
                                     पारिपासु हकाअधिकार कायम
                                     <span *ngIf="data.paripassuContentsCT === 'NEW'"> <!--If paripassu is to be executed-->
@@ -300,11 +295,6 @@
                                            class="form-control-sm form-field"
                                            [value]="fd.nameOfDepositorsCT"
                                            placeholder="Account Holder Name"/>
-                                    <!--<input formControlName="freeAccountHolderName"
-                                           name="freeAccountHolderName"
-                                           type="text"
-                                           class="form-control-sm form-field"
-                                           placeholder="Other Account Holder Name"/>-->
                                     को नाममा रहेको
                                     <span *ngIf="fd.accountTypeCT === 'CURRENT_ACCOUNT'"> <!--Current-->
                                 चल्ति
@@ -347,11 +337,6 @@
                                            class="form-control-sm form-field"
                                            [value]="fd.nameOfDebentureHolderCT"
                                            placeholder="Customer Name"/>
-                                    <!--<input formControlName="freeCustomerName"
-                                           name="freeCustomerName"
-                                           type="text"
-                                           class="form-control-sm form-field"
-                                           placeholder="Other Customer Name"/>-->
                                     हरुको नाममा रहेको कम्तिमा रु
                                     <input formControlName="debentureAmountInFigure"
                                            name="debentureAmountInFigure"
@@ -404,65 +389,6 @@
                             </li>
                             <br>
                             <h2>FREE TABLE (CK EDITOR)</h2>
-<!--
-                            <div class="optional">
-                                <textarea
-                                        class="form-control nepaliFont"
-                                        rows="5"
-                                        style="width:95%;margin-left:2%"
-                                        name="freeText3"
-                                        formControlName="freeText3">
-                                 </textarea>
-                                <div class="firstTable mt-3">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td rowspan="2">
-                                                घर/जग्गा
-                                                धनीको नाम थर
-                                            </td>
-                                            <td colspan="3">
-                                                घर/जग्गाको अवस्थिति
-                                            </td>
-                                            <td rowspan="2">
-                                                सिट नं.
-                                            </td>
-                                            <td rowspan="2">
-                                                कित्ता नं.
-                                            </td>
-                                            <td rowspan="2">
-                                                क्षेत्रफल
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                जिल्ला
-                                            </td>
-                                            <td>
-                                                नगर/गा.वि.स.
-                                            </td>
-                                            <td>
-                                                वडा नं.
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>-->
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
 
@@ -592,14 +518,14 @@
                             </div>
 
                             <div class="optional" class="pb-4" *ngIf="securityTypeSecondaryCondition">
-                <textarea
-                        class="form-control nepaliFont"
-                        rows="5"
-                        style="width:95%;margin-left:2%"
-                        name="freeText4"
-                        formControlName="freeText4">
-                 </textarea>
-                                <div class="firstTable mt-3">
+                                <textarea
+                                        class="form-control nepaliFont"
+                                        rows="5"
+                                        style="width:95%;margin-left:2%"
+                                        name="freeText4"
+                                        formControlName="freeText4">
+                                 </textarea>
+                                <!--<div class="firstTable mt-3">
                                     <table class="table table-bordered">
                                         <tr>
                                             <td rowspan="2">
@@ -647,7 +573,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                                </div>
+                                </div>-->
                             </div>
 
                             <li *ngIf="securityTypeSecondaryPersonalCondition">
@@ -770,7 +696,7 @@
                             </span>
                                 </p>
                             </li>
-                            <div class="optional">
+                            <div class="optional" *ngIf="securityTypeSecondarySharePledgeCondition">
                                 <textarea
                                         class="form-control nepaliFont"
                                         rows="5"
