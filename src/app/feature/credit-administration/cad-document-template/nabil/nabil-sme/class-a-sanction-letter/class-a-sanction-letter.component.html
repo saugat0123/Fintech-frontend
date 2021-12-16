@@ -241,11 +241,11 @@
                                 </td>
                                 </table>
                             </tr>
-                            <tr *ngIf="this.tempData.loanType.en === 'IrrevocableLetterofCreditFacility'">
-                                <td>
-                                    ग)
+                            <tr>
+                                <td *ngIf="this.tempData.loanType.en === 'IrrevocableLetterofCreditFacility'">
+                                   <strong> ग) </strong>
                                 </td>
-                                <td *ngIf="this.tempData.OneOff.en">पटके <span *ngIf="this.tempData.Regular.en">नियमित </span><strong> अपरिवर्तनीय प्रतित
+                                <td><span *ngIf="this.tempData.OneOff.en">पटके</span> <span *ngIf="this.tempData.Regular.en">नियमित </span><strong> अपरिवर्तनीय प्रतित
                                     पत्र सुविधा
                                     (Irrevocable letter of credit facility) </strong><br>
                                     <strong> सीमाः रु <input class="form-field form-control-sm"
@@ -258,12 +258,12 @@
                                     <strong> सुरक्षणः </strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित
                                     पत्र मूल्यको ११०% बिमालेख सहित सम्बन्धित
                                     प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
-                                    <strong *ngIf="this.tempData.CashMarginHundred.en"> धरौटीः  नगद १००% धरौती स्वरुप रहनेछ (If loan against 100% cash margin)</strong>
-                                    <span *ngIf="this.tempData.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री को
+                                    <strong>  धरौटीः </strong><span *ngIf="this.tempData.CashMarginHundred.en"> नगद १००% धरौती स्वरुप रहनेछ</span>
+                                    <span *ngIf="this.tempData.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री को </span>
                                     मुद्धती /चल्ति बचत
                                     खाता नं <input class="form-field form-control-sm"
                                                    formControlName="accountNumber"
-                                                   type="text"/> उपर बैंकको ग्रहणाधिकार (ष्भिल) कायम गरी दिनु पर्नेछ ।</span> <br>
+                                                   type="text"/> उपर बैंकको ग्रहणाधिकार (ष्भिल) कायम गरी दिनु पर्नेछ ।<br>
                                     <strong *ngIf="this.tempData.CommissionType1.en"> कमिसनः प्रति त्रैमास
                                         <input class="form-field form-control-sm"
                                                 formControlName="comissionRate"

@@ -83,6 +83,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   is100CashMarginSelected = false;
   is10CashMarginSelected = false;
   isQuarterlySelected = false;
+  is100CashMarginIsSelected = false;
+  is10CashMarginIsSelected = false;
   isYearlySelected = false;
   previewBtn = true;
   isCommissionType1Selected = false;
@@ -443,8 +445,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   }
   checkIrrevocableType() {
     const tempSelectedLoanType = this.form.get('cashMarginType').value;
-    this.is100CashMarginSelected = tempSelectedLoanType === 'CashMarginHundred';
-    this.is10CashMarginSelected = tempSelectedLoanType === 'CashMarginTen';
+    this.is100CashMarginIsSelected = tempSelectedLoanType === 'CashMarginHundred';
+    this.is10CashMarginIsSelected = tempSelectedLoanType === 'CashMarginTen';
   }
   serviceCheck(data) {
     this.isSecurity = data;
@@ -537,8 +539,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('ForSpecificLoanOnlyTrans').patchValue(this.isSpecificSelected);
     this.form.get('NewTrans').patchValue(this.isNewIsSelected);
     this.form.get('ExistingTrans').patchValue(this.isExistingSelected);
-    this.form.get('CashMarginHundredTrans').patchValue(this.is100CashMarginSelected);
-    this.form.get('CashMarginTenTrans').patchValue(this.is10CashMarginSelected);
+    this.form.get('CashMarginHundredTrans').patchValue(this.is100CashMarginIsSelected);
+    this.form.get('CashMarginTenTrans').patchValue(this.is10CashMarginIsSelected);
     this.form.get('CoupenRateFinancingTrans').patchValue(this.isCoupenRateFinancingSelected);
     this.form.get('BaseRateFinancingTrans').patchValue(this.isBaseRateFinancingSelected);
     // this.form.get('expiryDateTrans').patchValue(this.translatedValues.expiryDate);
@@ -988,8 +990,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('ForSpecificLoanOnly').patchValue(this.isSpecificSelected);
     this.form.get('New').patchValue(this.isNewIsSelected);
     this.form.get('Existing').patchValue(this.isExistingIsSelected);
-    this.form.get('CashMarginHundred').patchValue(this.is100CashMarginSelected);
-    this.form.get('CashMarginTen').patchValue(this.is10CashMarginSelected);
+    this.form.get('CashMarginHundred').patchValue(this.is100CashMarginIsSelected);
+    this.form.get('CashMarginTen').patchValue(this.is10CashMarginIsSelected);
     this.spinner = true;
     this.btnDisable = true;
     console.log('customerApprovedDoc: ', this.customerApprovedDoc);
