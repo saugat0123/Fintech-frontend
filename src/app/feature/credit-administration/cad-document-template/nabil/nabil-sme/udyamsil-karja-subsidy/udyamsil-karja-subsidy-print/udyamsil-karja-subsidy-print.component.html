@@ -80,7 +80,7 @@
                         <td><strong>कर्जाको उद्देश्य: </strong>
                         </td>
                         <td>
-                                 <span class="freeText" [ngClass]="{'nepaliFont outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
+                                 <span [ngClass]="{'nepaliFont outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
                                 {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct }}</span>
                         </td>
                     </tr>
