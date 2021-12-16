@@ -310,6 +310,7 @@ export class ClassASanctionLetterComponent implements OnInit {
       TDAmount: this.tempData.TDAmount.ct ? this.tempData.TDAmount.ct : '',
       TdHolder: this.tempData.TdHolder.ct ? this.tempData.TdHolder.ct : '',
       totalLimitInFigure: this.tempData.totalLimitInFigure.ct ? this.tempData.totalLimitInFigure.ct : '',
+      holderName: this.tempData.holderName.ct ? this.tempData.holderName.ct : '',
       // sanctionLetterDate: this.tempData.sanctionLetterDate.ct ? this.tempData.sanctionLetterDate.ct : '',
       totalLimitInWords: this.tempData.totalLimitInWords.ct ? this.tempData.totalLimitInWords.ct : '',
       TdHolding: this.tempData.TdHolding.ct ? this.tempData.TdHolding.ct : '',

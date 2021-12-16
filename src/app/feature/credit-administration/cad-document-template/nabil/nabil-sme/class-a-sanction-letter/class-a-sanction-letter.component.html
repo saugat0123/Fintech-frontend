@@ -49,7 +49,7 @@
                     <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
                     <br>
 
-                    <div class="mb-1" *ngIf="this.tempData.loanOption.en === 'NEW'">
+                    <div class="mb-1" *ngIf="this.tempData.costumerType.en === 'newCustomer'">
                         <p>
                             महोदय, <br>
                             तपाईंले
@@ -63,7 +63,7 @@
                             ।
                         </p>
                     </div>
-                    <div class="mb-1" *ngIf="this.tempData.loanOption.en === 'EXISTING'">
+                    <div class="mb-1" *ngIf="this.tempData.costumerType.en === 'existingPlainRenewal'">
                         <strong> षयः ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</strong>
                         <p>
                             महोदय, <br>
@@ -86,7 +86,7 @@
                         </p>
                     </div>
                     <br>
-                    <div class="mb-1" *ngIf="this.tempData.loanOption.en === 'EXISTING'">
+                    <div class="mb-1" *ngIf="this.tempData.costumerType.en === 'existingRenewalWithEnhancement'">
                         <strong> बिषयः थप/अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे । </strong>
                         <p>
                             महोदय,<br>
@@ -110,7 +110,7 @@
                         </p>
                     </div>
                     <br>
-                    <div class="mb-1" *ngIf="this.tempData.loanOption.en === 'EXISTING'">
+                    <div class="mb-1" *ngIf="this.tempData.costumerType.en === 'existingAdditionalLoan'">
                         <strong> बिबिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
                         <p>
                             महोदय,<br>
@@ -200,10 +200,7 @@
                                         type="text"/>|
                                 </td>
                             </tr>
-                        </table>
-
                             <tr *ngIf="this.tempData.loanType.en === 'BankGuarantee'">
-                                <table class="table table-bordered">
                                 <td>
                                     ख.
                                 </td>
@@ -220,9 +217,10 @@
                                     <strong> धरौटी: </strong><span *ngIf="this.tempData.HundredCashMargin.en"> नगद १००% धरौती स्वरुप रहनेछ </span>
                                     <span *ngIf="this.tempData.TenCashMargin.en">नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती </span> स्वरुप नबिल बैंकमा रहेको श्री <input
                                         class="form-field form-control-sm"
-                                        formControlName="TdHolder"
+                                        formControlName="holderName"
                                         type="text"/>
-                                    को खाता नं <input class="form-field form-control-sm"
+                                    को <span *ngIf="this.tempData.tdAccount.en"> मुद्धती </span> <span *ngIf="this.tempData.current.en"> चल्ति </span> <span *ngIf="this.tempData.saving.en">बचत </span>
+                                    खाता नं <input class="form-field form-control-sm"
                                                    formControlName="accountNumber"
                                                    type="text"/> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ
                                     ।<br>
@@ -239,13 +237,12 @@
                                                                                    type="text"/>
                                     </strong>
                                 </td>
-                                </table>
                             </tr>
-                            <tr>
-                                <td *ngIf="this.tempData.loanType.en === 'IrrevocableLetterofCreditFacility'">
+                            <tr *ngIf="this.tempData.loanType.en === 'IrrevocableLetterofCreditFacility'">
+                                <td>
                                    <strong> ग) </strong>
                                 </td>
-                                <td><span *ngIf="this.tempData.OneOff.en">पटके</span> <span *ngIf="this.tempData.Regular.en">नियमित </span><strong> अपरिवर्तनीय प्रतित
+                                <td><strong><span *ngIf="this.tempData.OneOff.en">पटके</span> <span *ngIf="this.tempData.Regular.en">नियमित </span> अपरिवर्तनीय प्रतित
                                     पत्र सुविधा
                                     (Irrevocable letter of credit facility) </strong><br>
                                     <strong> सीमाः रु <input class="form-field form-control-sm"
@@ -259,8 +256,12 @@
                                     पत्र मूल्यको ११०% बिमालेख सहित सम्बन्धित
                                     प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
                                     <strong>  धरौटीः </strong><span *ngIf="this.tempData.CashMarginHundred.en"> नगद १००% धरौती स्वरुप रहनेछ</span>
-                                    <span *ngIf="this.tempData.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री को </span>
-                                    मुद्धती /चल्ति बचत
+                                    <span *ngIf="this.tempData.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री </span>
+                                    <input
+                                            class="form-field form-control-sm"
+                                            formControlName="holderName"
+                                            type="text"/>को
+                                    <span *ngIf="this.tempData.tdAccounts.en"> मुद्धती </span> <span *ngIf="this.tempData.currents.en"> चल्ति </span> <span *ngIf="this.tempData.savings.en">बचत </span>
                                     खाता नं <input class="form-field form-control-sm"
                                                    formControlName="accountNumber"
                                                    type="text"/> उपर बैंकको ग्रहणाधिकार (ष्भिल) कायम गरी दिनु पर्नेछ ।<br>
@@ -299,6 +300,7 @@
                                     </strong>
                                 </td>
                             </tr>
+                        </table>
                     </div>
                     <br>
 
@@ -314,7 +316,7 @@
                             </li>
                             <li>
                                 <strong> ग्रहणाधिकार (Lien): </strong>
-                                नबिलक्ष  बैंकद्धारा
+                               <span *ngIf="this.tempData.Nabil.en"> नबिल </span> बैंकद्धारा
                                 जारी गरिएको ............. को नाममा रहेको कम्तिमा रु <input class="form-field form-control-sm"
                                                                                            formControlName="loanAmountFigure"
                                                                                            type="text"/>
@@ -349,8 +351,8 @@
                                                                                                                             type="text"/>
                                 बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार
                                 सहितको मोजरापत्र.
-                                बैंकको पक्षमा जारी गरिदिनु पर्नेछ / गरिदिइएको
-                                यथावत कायम रहने छ.
+                                बैंकको पक्षमा जारी <span *ngIf="this.tempData.letterNew.en">गरिदिनु पर्नेछ </span> <span *ngIf="this.tempData.letterExisting.en"> गरिदिइएको
+                                यथावत कायम रहने छ.</span>
                             </li>
                         </ol>
                     </div>
@@ -750,7 +752,7 @@
                             </li>
                         </ol>
                     </div>
-                    <div class="row col-md-12" style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
+                    <div class="row col-md-12" style="margin-left: 83.8px;width: 93%;margin-top: 1em;">
                         <textarea
                                 class="form-control customFont nepaliFont"
                                 rows="3"

@@ -91,8 +91,14 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   isCommissionType2Selected = false;
   isRegularSelected = false;
   isOneoffSelected = false;
+  isTdAccountSelected = false;
+  isCurrentSelected = false;
+  isSavingSelected = false;
   ExpiryDateTypeBS2;
   ExpiryDateTypeAD2;
+  isTdAccountIsSelected = false;
+  isCurrentIsSelected = false;
+  isSavingIsSelected = false;
   loanLimit = false;
   tdValues: any = {};
   closed = false;
@@ -102,6 +108,10 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   isNatural = false;
   isNewIsSelected = false;
   isExistingIsSelected = false;
+  isnewCustomer = false;
+  isexistingPlainRenewal = false;
+  isexistingRenewalWithEnhancement = false;
+  existingAdditionalLoan = false;
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
@@ -119,7 +129,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.getLoanOptionsType();
     this.getAllDistrict();
     // getting key from cad doc status:
     this.cadDocStatus = CadDocStatus.key();
@@ -199,7 +208,17 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       comissionType: [undefined],
       commissionTypes: [undefined],
       accountType: [undefined],
-
+      accountTypes: [undefined],
+      costumerType: [undefined],
+      tdAccount: [undefined],
+      current: [undefined],
+      saving: [undefined],
+      tdAccounts: [undefined],
+      currents: [undefined],
+      savings: [undefined],
+      Nabil: [undefined],
+      letterNew: [undefined],
+      letterExisting: [undefined],
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
       loanAmountFigureTrans: [undefined],
       loanAmountFigureWordsTrans: [undefined],
@@ -273,6 +292,17 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       comissionTypeTrans: [undefined],
       commissionTypesTrans: [undefined],
       accountTypeTrans: [undefined],
+      accountTypesTrans: [undefined],
+      costumerTypeTrans: [undefined],
+      tdAccountTrans: [undefined],
+      currentTrans: [undefined],
+      savingTrans: [undefined],
+      tdAccountsTrans: [undefined],
+      currentsTrans: [undefined],
+      savingsTrans: [undefined],
+      NabilTrans: [undefined],
+      letterNewTrans: [undefined],
+      letterExistingTrans: [undefined],
       // FIELDS FOR CT VALUES:
       sanctionLetterDateNepaliCT: [undefined],
       sanctionLetterDateCT: [undefined],
@@ -345,7 +375,18 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       counterGuaranteeCT: [undefined],
       comissionTypeCT: [undefined],
       commissionTypesCT: [undefined],
-      accountTypeCT:[undefined],
+      accountTypeCT: [undefined],
+      accountTypesCT: [undefined],
+      costumerTypeCT: [undefined],
+      tdAccountCT: [undefined],
+      currentCT: [undefined],
+      savingCT: [undefined],
+      tdAccountsCT: [undefined],
+      currentsCT: [undefined],
+      savingsCT: [undefined],
+      NabilCT: [undefined],
+      letterNewCT: [undefined],
+      letterExistingCT: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -375,17 +416,19 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.ADloanExpiry = value === 'AD';
     this.BSloanExpiry = value === 'BS';
   }
-  getLoanOptionsType() {
-    CustomerLoanOptions.enumObject().forEach(val => {
-      this.customerLoanOptions.push(val);
-    });
-  }
-
-  transferValue(val) {
+  // transferValue(val) {
+  //   this.isLoanOptionSelected = !ObjectUtil.isEmpty(val);
+  //   this.isnewCustomer = val === 'NEW';
+  // }
+  checkCostumerType(val) {
+    console.log('value:', val);
     this.isLoanOptionSelected = !ObjectUtil.isEmpty(val);
-    this.isCustomerNew = val === 'NEW';
+    const tempSelectedLoanType = this.form.get('costumerType').value;
+    this.isnewCustomer = tempSelectedLoanType === 'newCustomer';
+    this.isexistingPlainRenewal = tempSelectedLoanType === 'existingPlainRenewal';
+    this.isexistingRenewalWithEnhancement = tempSelectedLoanType === 'existingRenewalWithEnhancement';
+    this.existingAdditionalLoan = tempSelectedLoanType === 'existingAdditionalLoan';
   }
-
   checkLoanType() {
     console.log('Im here');
     const tempSelectedLoanType = this.form.get('loanType').value;
@@ -410,8 +453,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   }
   checkLetterSet() {
     const tempSelectedLoanType = this.form.get('letterOfSetOff').value;
-    this.isNewSelected = tempSelectedLoanType === 'New';
-    this.isExistingSelected = tempSelectedLoanType === 'Existing';
+    this.isNewSelected = tempSelectedLoanType === 'letterNew';
+    this.isExistingSelected = tempSelectedLoanType === 'letterExisting';
   }
   checkBaseType() {
     const tempSelectedLoanType = this.form.get('baseRateType').value;
@@ -433,10 +476,22 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.isQuarterlySelected = tempSelectedLoanType === 'Quarterly';
     this.isYearlySelected = tempSelectedLoanType === 'Yearly';
   }
+  checkAccountTypes() {
+    const tempSelectedLoanType = this.form.get('accountTypes').value;
+    this.isTdAccountSelected = tempSelectedLoanType === 'tdAccount';
+    this.isCurrentSelected = tempSelectedLoanType === 'current';
+    this.isSavingSelected = tempSelectedLoanType === 'saving';
+  }
   checkcommisType() {
     const tempSelectedLoanType = this.form.get('commissionTypes').value;
     this.isCommissionType1Selected = tempSelectedLoanType === 'CommissionType1';
     this.isCommissionType2Selected = tempSelectedLoanType === 'CommissionType2';
+  }
+  checkAccountType() {
+    const tempSelectedLoanType = this.form.get('accountType').value;
+    this.isTdAccountIsSelected = tempSelectedLoanType === 'tdAccounts';
+    this.isCurrentIsSelected = tempSelectedLoanType === 'currents';
+    this.isSavingIsSelected = tempSelectedLoanType === 'savings';
   }
   checkLoanOptionType() {
     const tempSelectedLoanType = this.form.get('loanOption').value;
@@ -534,15 +589,24 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('ForAllLoanTrans').patchValue(this.isAllLoanSelected);
     this.form.get('HundredCashMarginTrans').patchValue(this.is100CashMarginSelected);
     this.form.get('TenCashMarginTrans').patchValue(this.is10CashMarginSelected);
+    this.form.get('tdAccountTrans').patchValue(this.isTdAccountSelected);
+    this.form.get('currentTrans').patchValue(this.isCurrentSelected);
+    this.form.get('savingTrans').patchValue(this.isSavingSelected);
+    this.form.get('NabilTrans').patchValue(this.isNabilSelected);
     this.form.get('CommissionType1Trans').patchValue(this.isCommissionType1Selected);
     this.form.get('CommissionType2Trans').patchValue(this.isCommissionType2Selected);
+    this.form.get('tdAccountsTrans').patchValue(this.isTdAccountIsSelected);
+    this.form.get('currentsTrans').patchValue(this.isCurrentIsSelected);
+    this.form.get('savingsTrans').patchValue(this.isSavingIsSelected);
     this.form.get('ForSpecificLoanOnlyTrans').patchValue(this.isSpecificSelected);
     this.form.get('NewTrans').patchValue(this.isNewIsSelected);
-    this.form.get('ExistingTrans').patchValue(this.isExistingSelected);
+    this.form.get('ExistingTrans').patchValue(this.isExistingIsSelected);
     this.form.get('CashMarginHundredTrans').patchValue(this.is100CashMarginIsSelected);
     this.form.get('CashMarginTenTrans').patchValue(this.is10CashMarginIsSelected);
     this.form.get('CoupenRateFinancingTrans').patchValue(this.isCoupenRateFinancingSelected);
     this.form.get('BaseRateFinancingTrans').patchValue(this.isBaseRateFinancingSelected);
+    this.form.get('letterNewTrans').patchValue(this.isNewSelected);
+    this.form.get('letterExistingTrans').patchValue(this.isExistingSelected);
     // this.form.get('expiryDateTrans').patchValue(this.translatedValues.expiryDate);
     //  this.form.get('sanctionLetterDateTypeTrans').patchValue(this.translatedValues.sanctionLetterDateType);
     // this.form.get('dateOfApplicationTypeTrans').patchValue(this.translatedValues.dateOfApplicationType);
@@ -907,7 +971,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       hasScroll: true,
       dialogClass: 'modal-full',
       context: { cadOfferLetterApprovedDoc: this.customerApprovedDoc,
-        preview: true,}
+        preview: true, }
     });
   }
   // deleteCTAndTransContorls from form controls
@@ -954,9 +1018,9 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     }
 
 
-    const tempSelectedOption = this.form.get('loanOption').value;
+    const tempSelectedOption = this.form.get('costumerType').value;
     // Clear Validation for previous Sanction Date:
-    if (tempSelectedOption === this.loanOptions.EXISTING) {
+    if (tempSelectedOption === 'existingPlainRenewal' || tempSelectedOption === 'existingRenewalWithEnhancement' || tempSelectedOption === 'existingAdditionalLoan') {
       if (this.BSPrevious) {
         this.form.get('previousSanctionDateCT').clearValidators();
         this.form.get('previousSanctionDateCT').updateValueAndValidity();
@@ -980,11 +1044,15 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       return;
     }
     this.form.get('naturalPersonCheck').patchValue(this.isNatural);
-    this.form.get('FixedDeposit').patchValue(this.isFixedDepositSelected );
-    this.form.get('OneOff').patchValue(this.isOneoffSelected );
-    this.form.get('ForAllLoan').patchValue(this.isAllLoanSelected );
-    this.form.get('HundredCashMargin').patchValue(this.is100CashMarginSelected );
-    this.form.get('TenCashMargin').patchValue(this.is10CashMarginSelected );
+    this.form.get('FixedDeposit').patchValue(this.isFixedDepositSelected);
+    this.form.get('OneOff').patchValue(this.isOneoffSelected);
+     this.form.get('Regular').patchValue(this.isRegularSelected);
+    this.form.get('ForAllLoan').patchValue(this.isAllLoanSelected);
+    this.form.get('HundredCashMargin').patchValue(this.is100CashMarginSelected);
+    this.form.get('TenCashMargin').patchValue(this.is10CashMarginSelected);
+    this.form.get('tdAccount').patchValue(this.isTdAccountSelected);
+    this.form.get('current').patchValue(this.isCurrentSelected);
+    this.form.get('saving').patchValue(this.isSavingSelected);
     this.form.get('CommissionType1').patchValue(this.isCommissionType1Selected );
     this.form.get('CommissionType2').patchValue(this.isCommissionType2Selected );
     this.form.get('ForSpecificLoanOnly').patchValue(this.isSpecificSelected);
@@ -992,6 +1060,12 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('Existing').patchValue(this.isExistingIsSelected);
     this.form.get('CashMarginHundred').patchValue(this.is100CashMarginIsSelected);
     this.form.get('CashMarginTen').patchValue(this.is10CashMarginIsSelected);
+    this.form.get('tdAccounts').patchValue(this.isTdAccountIsSelected);
+    this.form.get('currents').patchValue(this.isCurrentIsSelected);
+    this.form.get('savings').patchValue(this.isSavingIsSelected);
+    this.form.get('Nabil').patchValue(this.isNabilSelected);
+    this.form.get('letterNew').patchValue(this.isNewSelected);
+    this.form.get('letterExisting').patchValue(this.isExistingSelected);
     this.spinner = true;
     this.btnDisable = true;
     console.log('customerApprovedDoc: ', this.customerApprovedDoc);

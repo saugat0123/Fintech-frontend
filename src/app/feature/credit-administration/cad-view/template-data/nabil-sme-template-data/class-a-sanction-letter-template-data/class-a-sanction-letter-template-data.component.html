@@ -3,13 +3,17 @@
         <nb-card-header class="container-fluid">
             <div class="row p-4">
                 <div class="col-md-4">
-                    <label><strong>Loan Options</strong></label>
-                    <ng-select (ngModelChange)="transferValue($event)"
-                               [multiple]="false"
-                               formControlName="loanOption"
-                               placeholder="Select Case Type">
-                        <ng-option *ngFor="let customerLoanOption of customerLoanOptions"
-                                   [value]="customerLoanOption.value">{{customerLoanOption.value}}</ng-option>
+                    <label><strong>Costumer Type</strong></label>
+                    <ng-select
+                            formControlName="costumerType"
+                            fullWidth
+                            placeholder="CostumerType"
+                            (ngModelChange)="checkCostumerType($event)"
+                            status="info">
+                        <ng-option value="newCustomer">New Customer</ng-option>
+                        <ng-option value="existingPlainRenewal">Plain Renewal</ng-option>
+                        <ng-option value="existingRenewalWithEnhancement">Renewal with enhancement</ng-option>
+                        <ng-option value="existingAdditionalLoan">Additional loan  </ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4">
@@ -91,8 +95,8 @@
                             placeholder="Letter of Set off"
                             (change)="checkLetterSet()"
                             status="info">
-                        <ng-option value="New">New</ng-option>
-                        <ng-option value="Existing">Existing</ng-option>
+                        <ng-option value="letterNew">New</ng-option>
+                        <ng-option value="letterExisting">Existing</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isOverdraftSelected">
@@ -115,7 +119,7 @@
                             (change)="checkCashMarginType()"
                             status="info">
                         <ng-option value="HundredCashMargin">Hundred Percent Cash Margin</ng-option>
-                        <ng-option value="TenCashMargin"> Ten Percent CashMargin</ng-option>
+                        <ng-option value="TenCashMargin"> Ten Percent Cash Margin</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isBankGuaranteeSelected">
@@ -132,14 +136,14 @@
                 <div class="col-md-4" *ngIf="isBankGuaranteeSelected">
                     <label><strong> Account Type </strong></label>
                     <ng-select
-                            formControlName="accountType"
+                            formControlName="accountTypes"
                             fullWidth
                             placeholder="Account Type"
-                            (change)="checkComissionType()"
+                            (change)="checkAccountTypes()"
                             status="info">
-                        <ng-option value="TD Account">TD Account</ng-option>
-                        <ng-option value="Current"> Current</ng-option>
-                        <ng-option value="Saving"> Saving</ng-option>
+                        <ng-option value="tdAccount">TD Account</ng-option>
+                        <ng-option value="current"> Current</ng-option>
+                        <ng-option value="saving"> Saving</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isBankGuaranteeSelected">
@@ -172,11 +176,11 @@
                             formControlName="accountType"
                             fullWidth
                             placeholder="Account Type"
-                            (change)="checkcommisType()"
+                            (change)="checkAccountType()"
                             status="info">
-                        <ng-option value="TD Account">TD Account</ng-option>
-                        <ng-option value=" Current"> Current</ng-option>
-                        <ng-option value=" Saving"> Saving</ng-option>
+                        <ng-option value="tdAccounts">TD Account</ng-option>
+                        <ng-option value="currents"> Current</ng-option>
+                        <ng-option value="savings"> Saving</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isIrrevocableSelected">
@@ -252,7 +256,7 @@
                                placeholder="Select Application Date" status="success">
                         <nb-datepicker #applicationDate></nb-datepicker>
                     </div>
-                    <div class="form-group" *ngIf="!isCustomerNew">
+                    <div class="form-group" *ngIf="!isnewCustomer">
                         <label for="previousSanctionType">Previous Sanction Letter Date</label><br>
                         <nb-radio-group (valueChange)="previousSanctionDate($event)" class="d-inline-flex"
                                         formControlName="previousSanctionType" id="previousSanctionType"
@@ -517,7 +521,7 @@
                                        nbInput status="success" type="text" readonly>
                             </ng-template>
                         </div>
-                        <div class="form-group" *ngIf="!isCustomerNew">
+                        <div class="form-group" *ngIf="!isnewCustomer">
                             <label for="previousSanctionDateTrans">Previous Sanction Letter Date Translation </label>
                             <ng-container *ngIf="BSPrevious; else previousLetterEnglish">
                                 <input class="form-control dateTranslationCustom"
@@ -790,7 +794,7 @@
                             </span>
                                 </ng-template>
                             </div>
-                            <div class="form-group" *ngIf="!isCustomerNew">
+                            <div class="form-group" *ngIf="!isnewCustomer">
                                 <label for="previousSanctionDateCT">Previous Sanction Letter Date CT</label>
                                 <ng-container *ngIf="BSPrevious; else previousDateCT">
                                     <input class="form-control dateTranslationCustom"
