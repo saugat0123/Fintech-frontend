@@ -87,6 +87,15 @@
                                                 class="sb-small">{{loanType[status]}}</span>
                                     </option>
                                 </select>
+                                <div class="col-md-3 mb-3">
+                                    <select class="form-control form-control-tiny" formControlName="docStatus">
+                                        <option [value]="null" selected hidden>Select Document Status</option>
+                                        <option [value]="null">All Document Status</option>
+                                        <option *ngFor="let status of docStatus.values()"
+                                                [value]="status">{{status}}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="col-md-3 py-2">

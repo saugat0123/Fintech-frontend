@@ -24,7 +24,7 @@ export class PendingLoanComponent implements OnInit {
     productUtils: ProductUtils = null;
     hsovPendingCount: number;
     dual: number;
-    roletype = LocalStorageUtil.getStorage().roleName;
+    roletype = LocalStorageUtil.getStorage().roleType;
 
     constructor(
         private router: Router,

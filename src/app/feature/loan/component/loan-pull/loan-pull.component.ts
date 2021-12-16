@@ -57,7 +57,7 @@ export class LoanPullComponent implements OnInit {
     isFilterCollapsed = true;
     toggleArray: { toggled: boolean }[] = [];
     productUtils:ProductUtils = LocalStorageUtil.getStorage().productUtil;
-
+    docStatus = DocStatus;
 
     constructor(
         private branchService: BranchService,
@@ -159,7 +159,8 @@ export class LoanPullComponent implements OnInit {
             startDate: [undefined],
             endDate: [undefined],
             role: [undefined],
-            customerName: [undefined]
+            customerName: [undefined],
+            docStatus: [undefined],
         });
     }
 
@@ -209,6 +210,8 @@ export class LoanPullComponent implements OnInit {
             this.filterForm.get('loanType').value;
         this.catalogueService.search.loanNewRenew = ObjectUtil.isEmpty(this.filterForm.get('loanNewRenew').value) ? undefined :
             this.filterForm.get('loanNewRenew').value;
+        this.catalogueService.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('docStatus').value) ? undefined :
+            this.filterForm.get('docStatus').value;
         if (!ObjectUtil.isEmpty(this.filterForm.get('startDate').value) && this.filterForm.get('endDate').value) {
             this.catalogueService.search.currentStageDate = JSON.stringify({
                 // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()

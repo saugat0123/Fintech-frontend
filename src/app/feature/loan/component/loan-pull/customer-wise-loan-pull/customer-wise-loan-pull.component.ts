@@ -72,6 +72,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
     provinces = [];
     currentUserId = LocalStorageUtil.getStorage().userId;
     loanTag = LoanTag.values();
+    docStatus = DocStatus;
 
     constructor(
         private branchService: BranchService,
@@ -97,7 +98,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
         other.loanHolderLoanList = [];
         other.catalogueService.search.committee = 'true';
         if (LocalStorageUtil.getStorage().roleType.toLowerCase() === 'committee' && LocalStorageUtil.getStorage().roleName.toLowerCase() !== 'hsov') {
-            other.catalogueService.search.documentStatus = null;
+            other.catalogueService.search.documentStatus = other.formAction.get('docStatus').value;
             other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.loanHolderLoanList = response.detail.content;
                 other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
@@ -191,6 +192,8 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             clientType: [undefined],
             customerCode: [undefined],
             loanTag: [undefined],
+            docStatus: [undefined],
+
         });
     }
 
@@ -251,7 +254,8 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
-
+        this.catalogueService.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('docStatus').value) ? undefined :
+            this.filterForm.get('docStatus').value;
         this.catalogueService.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
             this.filterForm.get('provinceId').value;
         this.catalogueService.search.customerType = ObjectUtil.isEmpty(this.filterForm.get('customerType').value) ? undefined :
