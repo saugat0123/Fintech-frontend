@@ -6,17 +6,7 @@
                 <strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong><br><br>
                 मिति: {{sanctionDate ? sanctionDate : ''}}<br>
 
-                <ng-container *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</ng-container>
-                <ng-template #nameDetails>
-                    <ng-container
-                            *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
-                        श्रीमती
-                    </ng-container>
-                    <ng-container
-                            *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
-                        सुश्री
-                    </ng-container>
-                </ng-template>
+                श्री
                 <span
                         [ngClass]="{'outside' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
                             {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}</span><br>

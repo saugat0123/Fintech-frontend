@@ -15,17 +15,7 @@
 
         <div class="mb-2">
             <div class="mb-1">
-                <ng-container *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</ng-container>
-                <ng-template #nameDetails>
-                    <ng-container
-                            *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
-                        श्रीमती
-                    </ng-container>
-                    <ng-container
-                            *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
-                        सुश्री
-                    </ng-container>
-                </ng-template>
+                श्री
                 <span>
                     {{loanHolderInfo?.name ? loanHolderInfo?.name.ct : "___________"}}
                 </span>
