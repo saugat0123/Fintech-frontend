@@ -165,6 +165,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         customerLoanHolder: this.customerLoanHolder,
                         loanConfigId: this.loanConfigId,
                         customerLoanId: this.id,
+                        branchId: this.branchId,
                         docAction: 'HSOV_PENINDG',
                         docActionMsg: 'Hsov Pending',
                         documentStatus: DocStatus.HSOV_PENDING,

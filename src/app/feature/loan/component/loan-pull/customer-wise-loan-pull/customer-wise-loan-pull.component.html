@@ -207,57 +207,55 @@
                                     nbTooltip="Click to View Detail"
                                     nbTooltipStatus="control"
                                     nbTooltipIcon="question-mark-circle-outline">
-                                    <ng-container *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId">
-                                        <td (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
-                                        <td (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs
-                                            .{{l?.proposal?.proposedLimit | currencyFormatter}}</td>
-                                        <td (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
-                                        <td (click)="onClick(l.loan.id,l.id)">{{l?.loanType |  replace:'_':' '}}</td>
-                                        <td (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
-                                        <td (click)="onClick(l.loan.id,l.id)">
-                                            <div *ngIf='l?.documentStatus.toString()==="PENDING"'>
-                                                {{l?.currentStage?.toUser?.username}}
-                                                / {{getDifferenceInDays(l?.currentStage?.lastModifiedAt)}}
-                                            </div>
-                                            <div *ngIf='(l?.documentStatus.toString()==="CLOSED" ||
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs
+                                        .{{l?.proposal?.proposedLimit | currencyFormatter}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.loanType |  replace:'_':' '}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">
+                                        <div *ngIf='l?.documentStatus.toString()==="PENDING"'>
+                                            {{l?.currentStage?.toUser?.username}}
+                                            / {{getDifferenceInDays(l?.currentStage?.lastModifiedAt)}}
+                                        </div>
+                                        <div *ngIf='(l?.documentStatus.toString()==="CLOSED" ||
                         l?.documentStatus.toString()==="REJECTED" ||
                         l?.documentStatus.toString()==="APPROVED")'>
-                                                {{l?.currentStage?.toUser?.name}}
-                                                /{{getDaysDifference(l?.currentStage.lastModifiedAt, l?.previousList[l?.previousList.length - 1].lastModifiedAt)}}
-                                            </div>
-                                        </td>
-                                        <td (click)="onClick(l.loan.id,l.id)"><span *ngIf="l?.previousList.length > 0">
+                                            {{l?.currentStage?.toUser?.name}}
+                                            /{{getDaysDifference(l?.currentStage.lastModifiedAt, l?.previousList[l?.previousList.length - 1].lastModifiedAt)}}
+                                        </div>
+                                    </td>
+                                    <td (click)="onClick(l.loan.id,l.id)"><span *ngIf="l?.previousList.length > 0">
                                    {{l?.currentStage?.lastModifiedAt | date}}
                                     </span></td>
-                                        <td (click)="onClick(l.loan.id,l.id)">
-                                            <div *ngIf='l?.documentStatus.toString()==="PENDING"'>{{getDifferenceInDays(l?.currentStage?.createdAt)}}</div>
-                                            <div *ngIf='(l?.documentStatus.toString()==="CLOSED" ||
+                                    <td (click)="onClick(l.loan.id,l.id)">
+                                        <div *ngIf='l?.documentStatus.toString()==="PENDING"'>{{getDifferenceInDays(l?.currentStage?.createdAt)}}</div>
+                                        <div *ngIf='(l?.documentStatus.toString()==="CLOSED" ||
                         l?.documentStatus.toString()==="REJECTED" ||
                         l?.documentStatus.toString()==="APPROVED")'>
-                                                {{getDaysDifference(l?.currentStage?.lastModifiedAt, l?.currentStage?.createdAt)}}</div>
+                                            {{getDaysDifference(l?.currentStage?.lastModifiedAt, l?.currentStage?.createdAt)}}</div>
 
-                                        </td>
-                                        <td class="cursor">
-                                            <a nbTooltip="click to pull Document"
-                                               *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId"
-                                               (click)="onPullClick(pullDocument,l?.id,l)"><i
-                                                    class="fas fa-angle-double-down"></i> pull</a>
-                                            <span
-                                                    *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
-                                        </td>
+                                    </td>
+                                    <td class="cursor">
+                                        <a nbTooltip="click to pull Document"
+                                           *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId"
+                                           (click)="onPullClick(pullDocument,l?.id,l)"><i
+                                                class="fas fa-angle-double-down"></i> pull</a>
+                                        <span
+                                                *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
+                                    </td>
 
-                                        <td>
+                                    <td>
                                                   <span *ngIf="l?.pulled"
                                                         style="color:limegreen"><i
                                                           class="fas fa-check-circle"></i></span>
-                                            <span *ngIf="!l?.pulled || l?.pulled === null"
-                                                  style="color:red"><i class="fas fa-times-circle"></i></span>/
-                                            <i class="fas fa-eye" (click)="openCommentModal(commentModal,l)"
-                                               nbTooltip="Click to see Loan History"></i>
+                                        <span *ngIf="!l?.pulled || l?.pulled === null"
+                                              style="color:red"><i class="fas fa-times-circle"></i></span>/
+                                        <i class="fas fa-eye" (click)="openCommentModal(commentModal,l)"
+                                           nbTooltip="Click to see Loan History"></i>
 
 
-                                        </td>
-                                    </ng-container>
+                                    </td>
                                 </tr>
                                 <tr *ngFor="let l of loanForCombine[i].loan;let x = index"
                                     class="cursor"

@@ -264,11 +264,15 @@ export class LoanActionModalComponent implements OnInit {
 
                 this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
                     .subscribe((response: any) => {
+                        console.log(response);
                         this.sendForwardBackwardList = [];
                         // this.sendForwardBackwardList = response.detail;
                         this.sendForwardBackwardList = response.detail.sort(function (a, b) {
                             return parseFloat(b.roleOrder) - parseFloat(a.roleOrder);
                         });
+                        if (this.customerLoanHolder.isHsov) {
+                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(l => l.role.roleType === RoleType.APPROVAL);
+                        }
                         if (this.sendForwardBackwardList.length > 0) {
                             this.formAction.patchValue({
                                 toRole: this.sendForwardBackwardList[0].role
