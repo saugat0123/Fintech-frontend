@@ -42,6 +42,7 @@ export class GammaDetailViewComponent implements OnInit {
   companyInfo = CompanyInfo;
   companyJsonData;
   individualJsonData;
+  requestedLoanType;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -87,16 +88,17 @@ export class GammaDetailViewComponent implements OnInit {
         .subscribe((res: any) => {
           this.customerAllLoanList = res.detail;
           // push current loan if not fetched from staged spec response
-          if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
-            this.customerAllLoanList.push(this.loanDataHolder);
-          }
-          if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
-          } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.documentStatus === 'REJECTED');
+          if (ObjectUtil.isEmpty(this.requestedLoanType)) {
+            if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
+              this.customerAllLoanList.push(this.loanDataHolder);
+            }
+            if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED')|| (this.loanDataHolder.documentStatus.toString() === 'CLOSED')) {
+              this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+            } else {
+              this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'APPROVED') && (c.currentStage.docAction !== 'CLOSED')));
+            }
           } else {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED'
-                && c.documentStatus !== 'REJECTED');
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));
           }
           // push loans from combined loan if not in the existing array
           const combinedLoans = this.customerAllLoanList
