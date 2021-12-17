@@ -39,6 +39,9 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class SmeMasterTemplateComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() offerDocumentList: any;
+  @Input() initialInformation: any;
+  @Input() isEdit = false;
   loanData = [];
   @ViewChild('smeGlobalContent', {static: false}) smeGlobalContent: SmeGlobalContentComponent;
   @ViewChild('irrevocableLetterOfCreditFacility', {static: false})
@@ -102,7 +105,8 @@ export class SmeMasterTemplateComponent implements OnInit {
               private toastService: ToastService,
               private nbDialogueService: NbDialogService,
               private modalService: NgbModal,
-              private modalDialogRef: NbDialogRef<SmeMasterTemplateComponent>) { }
+              private modalDialogRef: NbDialogRef<SmeMasterTemplateComponent>,
+              public nbDialogRef: NbDialogRef<SmeMasterTemplateComponent>) { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SbTranslateService} from '../../../../../../../../../@core/service/sbtranslate.service';
 import {DatePipe} from '@angular/common';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-sme-global-content',
@@ -15,6 +16,8 @@ export class SmeGlobalContentComponent implements OnInit {
   globalForm: FormGroup;
   translatedFormGroup: FormGroup;
   translatedValue: any;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  initialInformation: any;
   loanOptions = [
       {value: 'New'},
       {value: 'Plain Renewal'},
@@ -60,6 +63,14 @@ export class SmeGlobalContentComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (this.offerDocumentList.length > 0) {
+      this.offerDocumentList.forEach(offerLetter => {
+        this.initialInformation = JSON.parse(offerLetter.initialInformation);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.globalForm.patchValue(this.initialInformation.smeGlobalForm);
+    }
   }
 
   private buildForm(): FormGroup {
