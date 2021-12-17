@@ -285,13 +285,6 @@
                     </div>
 
                 </div>
-                <div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
-                    <div class="col-md-12">
-                        <label><b>Note: </b></label>
-                        <textarea class="form-control" formControlName="note" rows="4" placeholder="Note"></textarea>
-                    </div>
-                </div>
-
             </nb-card-body>
         </nb-card>
 
@@ -344,6 +337,13 @@
                         <div *ngIf="(submitted) && form.obligationGrossIncomeRatio.invalid"
                              class="invalid-feedback">Invalid Obligation Ratio
                         </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="client === clientName?.EXCEL">
+                    <div class="col-md-12 pt-2">
+                        <label><b>Remark(if any): </b></label>
+                        <textarea class="form-control" formControlName="remark" rows="4" placeholder="Remarks"></textarea>
                     </div>
                 </div>
             </nb-card-body>

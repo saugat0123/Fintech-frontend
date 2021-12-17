@@ -1,9 +1,12 @@
 @import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component";
-
+*{
+  line-height: 1.9em;
+}
 .Sincerely {
   margin-left: 100px;
   width: 70%;
 }
+
 
 #fingerXap {
   width: 500px;
@@ -32,3 +35,4 @@
   width: 50%;
   margin-left: 100px;
 }
+

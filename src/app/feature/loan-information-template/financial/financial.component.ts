@@ -269,7 +269,7 @@ export class FinancialComponent implements OnInit {
             emiWithProposal: [undefined, !this.disableCrgAlphaParams && !this.isBusinessLoan ? Validators.required : undefined],
             emiGrossMonthly: [undefined],
             emiNetMonthly: [undefined],
-            note: [undefined],
+            remark: [undefined],
 
             existingObligationOtherBank: [undefined],
             totalObligationCurrentBank: [undefined],

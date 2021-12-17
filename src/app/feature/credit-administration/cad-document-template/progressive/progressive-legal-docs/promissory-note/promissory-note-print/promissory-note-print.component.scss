@@ -4,14 +4,13 @@
   text-align: justify;
 }
 
-@media print {
-  .page-break { page-break-before: always; }
-}
-
 .fingerXap {
   width: 500px;
   margin: auto;
   text-align: center;
+}
+.uniFont{
+  font-size: 16px;
 }
 
 

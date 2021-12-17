@@ -372,18 +372,18 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
     }
 
-    checkKycLoan(customerRelative: CustomerRelative) {
-
-        this.customerService.getCustomerIdOfRelative(customerRelative).subscribe((response: any) => {
-            this.customer = response.detail;
-            if (this.customer !== null) {
-                this.router.navigate(['/home/customer/profile/' + this.customer.id]);
-                this.associateId = this.customer.id;
-            }
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-        });
-    }
+    // checkKycLoan(customerRelative: CustomerRelative) {
+    //
+    //     this.customerService.getCustomerIdOfRelative(customerRelative).subscribe((response: any) => {
+    //         this.customer = response.detail;
+    //         if (this.customer !== null) {
+    //             this.router.navigate(['/home/customer/profile/' + this.customer.id]);
+    //             this.associateId = this.customer.id;
+    //         }
+    //     }, error => {
+    //         this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+    //     });
+    // }
 
     getTotalLoanAmount(value: LoanAmountType) {
         if (value.type === this.fetchLoan.CUSTOMER_LOAN) {

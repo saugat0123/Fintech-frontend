@@ -10,12 +10,16 @@ import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 
 @Component({
     selector: 'app-letter-of-continuity',
@@ -35,19 +39,29 @@ export class LetterOfContinuityComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
+    loanAmountTemplate = new NepaliNumberAndWords();
 
     constructor(private dialogRef: NbDialogRef<LetterOfContinuityComponent>,
                 private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
-                private routerUtilsService: RouterUtilsService,
-                private customerOfferLetterService: CustomerOfferLetterService) {
+                private routerUtilsService: RouterUtilsService) {
     }
 
     ngOnInit() {
         this.buildForm();
+        if (ObjectUtil.isEmpty(this.cadData.nepData)) {
+            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
+            this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+            this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+            this.loanAmountTemplate.engNumber = number;
+        } else {
+            this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
+        }
         this.fillForm();
     }
 
@@ -63,13 +77,26 @@ export class LetterOfContinuityComponent implements OnInit {
             });
         }
 
+        this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-            this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
             this.form.patchValue({
-                customerName: this.nepaliData.name ? this.nepaliData.name : '',
+                borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
+                borrowerPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+                borrowerPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+                borrowerPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+                borrowerCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+                borrowerCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+                borrowerCdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+                borrowerParentsName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+                borrowerGrandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+                borrowerHusbandWifeName : this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+                borrowerTempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+                borrowerTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+                borrowerTempDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
             });
         }
+        this.form.get('amount').patchValue(this.loanAmountTemplate.numberNepali);
+        this.form.get('amountInWord').patchValue(this.loanAmountTemplate.nepaliWords);
     }
 
 
@@ -116,16 +143,23 @@ export class LetterOfContinuityComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
-            nepalSarkar: [undefined],
             amount: [undefined],
-            sincerlyName: [undefined],
-            sincerlyPermanentAddress: [undefined],
-            sincerlyTempAdress: [undefined],
-            ParentsName: [undefined],
-            grandParentsName: [undefined],
-            husbandwifeName: [undefined],
-            citizenshipNumber: [undefined],
-            district: [undefined],
+            amountInWord: [undefined],
+            borrowerName: [undefined],
+            borrowerPermanentMunicipality: [undefined],
+            borrowerPermanentWardNo: [undefined],
+            borrowerParentsName: [undefined],
+            borrowerGrandParentsName: [undefined],
+            borrowerHusbandWifeName: [undefined],
+            borrowerCitizenshipNo: [undefined],
+            borrowerTempMunicipality: [undefined],
+            borrowerTempWardNo: [undefined],
+            borrowerCitizenshipIssueDate: [undefined],
+            borrowerCdoOffice: [undefined],
+            borrowerPermanentDistrict: [undefined],
+            borrowerSabikVDC: [undefined],
+            borrowerSabikWardNo: [undefined],
+            borrowerTempDistrict: [undefined],
 
             IdentifiedGuarantorName: [undefined],
             IdentifiedHintNo: [undefined],
@@ -135,50 +169,21 @@ export class LetterOfContinuityComponent implements OnInit {
             ItisambatTime: [undefined],
             ItisambatRojSubham: [undefined],
             branchName: [undefined],
-            udhyogBibhag: [undefined],
-            praliNo: [undefined],
-            underDate: [undefined],
-            sewaKendra: [undefined],
-            certificateNo: [undefined],
-            regDate: [undefined],
-            registeredName: [undefined],
-            debtorName: [undefined],
-            pratiNidhi: [undefined],
-            belowAmount: [undefined],
-            belowAmountInWord: [undefined],
-            signaturePersonName: [undefined],
-            signaturePersonCitizenshipNo: [undefined],
-            signaturePersonCitizenshipIssueDate: [undefined],
-            signaturePersonCDOoffice: [undefined],
-            signaturePersonPermanentDistrict: [undefined],
-            signaturePersonPermanentMuniciplity: [undefined],
-            signaturePersonPermanentWadNo: [undefined],
-            sabikVDC: [undefined],
-            sabikWadNo: [undefined],
-            signaturePersonTempDistrict: [undefined],
-            signaturePersonTempMunicipality: [undefined],
-            signaturePersonTempWadNo: [undefined],
-            sanakhatPersonName: [undefined],
-            sanakhatPersonSymNo: [undefined],
-            itisambatYear: [undefined],
-            itisambatMonth: [undefined],
-            itisambatDate: [undefined],
-            itisambatTime: [undefined],
-            itisambatSubham: [undefined],
-            buttonParentName: [undefined],
-            buttonGrandParentName: [undefined],
-            buttonHusbandWifeName: [undefined],
             guarantorDetails: this.formBuilder.array([]),
-            secguarantorDetails: this.formBuilder.array([]),
-            shakhaName: [undefined],
-            naPraNaName: [undefined],
-            mitiName: [undefined],
-            jiPrakaName: [undefined],
-            jillaName: [undefined],
-            jagaName: [undefined],
-            jillaName1: [undefined],
-            jagaName1: [undefined],
-            amountInWord: [undefined]
+            witnessName: [undefined],
+            witnessCitizenshipNo: [undefined],
+            witnessCitizenshipIssueDate: [undefined],
+            witnessCDOoffice: [undefined],
+            witnessIssuedPlace: [undefined],
+            witnessMunicipality: [undefined],
+            witnessWardNo: [undefined],
+            witnessName1: [undefined],
+            witnessCitizenshipNo1: [undefined],
+            witnessCitizenshipIssueDate1: [undefined],
+            witnessCDOoffice1: [undefined],
+            witnessIssuedPlace1: [undefined],
+            witnessMunicipality1: [undefined],
+            witnessWardNo1: [undefined]
         });
     }
 
@@ -186,8 +191,11 @@ export class LetterOfContinuityComponent implements OnInit {
     guarantorFormGroup(): FormGroup {
         return this.formBuilder.group({
             guarantorName: [undefined],
-            citizenshipNumber: [undefined],
-            district: [undefined],
+            guarantorCitizenshipNo: [undefined],
+            guarantorCitizenshipIssueDate: [undefined],
+            guarantorCDOoffice: [undefined],
+            guarantorPermanentMunicipality: [undefined],
+            guarantorPermanentWardNo: [undefined],
             issuedPlace: [undefined]
 
         });
@@ -213,10 +221,13 @@ export class LetterOfContinuityComponent implements OnInit {
 
         data.forEach((value) => {
             formArray.push(this.formBuilder.group({
-                guarantorName: [value.name],
-                issuedPlace: [value.issuedPlace],
-                citizenshipNumber : [value.citizenshipNumber],
-                district : [value.district]
+                guarantorName: [undefined],
+                guarantorCitizenshipNo: [undefined],
+                guarantorCitizenshipIssueDate: [undefined],
+                guarantorCDOoffice: [undefined],
+                guarantorPermanentMunicipality: [undefined],
+                guarantorPermanentWardNo: [undefined],
+                issuedPlace: [undefined]
             }));
         });
 

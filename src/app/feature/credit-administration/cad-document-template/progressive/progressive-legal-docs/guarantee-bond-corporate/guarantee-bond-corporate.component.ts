@@ -43,8 +43,7 @@ export class GuaranteeBondCorporateComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
 
@@ -123,6 +122,8 @@ export class GuaranteeBondCorporateComponent implements OnInit {
       municipalityName: [undefined],
       wadNo: [undefined],
       branchName: [undefined],
+      sonDaughterName: [undefined],
+      husbandWifeName: [undefined],
       registerCompanyName: [undefined],
       date: [undefined],
       ltdNo: [undefined],
@@ -180,7 +181,21 @@ export class GuaranteeBondCorporateComponent implements OnInit {
       sicerlyGrandFatherName: [undefined],
       sicerlyHusbandName: [undefined],
       itiSambatRojSubham: [undefined],
-      guarantorDetails: this.formBuilder.array([])
+      guarantorDetails: this.formBuilder.array([]),
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
 
 
     });

@@ -9,7 +9,6 @@ import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {NepseMaster} from '../../../admin/modal/NepseMaster';
 import {HttpClient} from '@angular/common/http';
-import {ApiUtils} from '../../../../@core/utils/api/ApiUtils';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 
 @Component({

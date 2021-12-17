@@ -230,6 +230,8 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
       koshOtherAmount1: [undefined],
       koshOther2: [undefined],
       koshOtherAmount2: [undefined],
+      koshOther3: [undefined],
+      koshOtherAmount3: [undefined],
       totalLimitAmount: [undefined],
       totalLimitAmountInWords: [undefined],
       docYear: [undefined],

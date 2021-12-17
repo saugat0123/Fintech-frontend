@@ -24,6 +24,7 @@ import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 import {Comments} from '../../admin/modal/comments';
 import {PreviousSecurity} from '../../admin/modal/previousSecurity';
 import {MicroCrgParams} from './MicroCrgParams';
+import {CollateralDetail} from './collateralDetail';
 
 export class CustomerInfoData {
     id: number;
@@ -47,6 +48,7 @@ export class CustomerInfoData {
     security: Security;
     shareSecurity;
     guarantors: GuarantorDetail;
+    collaterals: CollateralDetail;
     insurance: Array<Insurance>;
     customerGeneralDocuments: Array<CustomerGeneralDocument>;
     customerGroup: CustomerGroup;

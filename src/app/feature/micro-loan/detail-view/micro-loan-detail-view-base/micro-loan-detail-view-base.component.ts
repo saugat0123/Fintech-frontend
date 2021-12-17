@@ -1,9 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+// tslint:disable-next-line:max-line-length
+import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 @Component({
   selector: 'app-micro-loan-detail-view-base',
@@ -24,6 +26,8 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
   dataFromComments;
   previousSecuritySummary = false;
   dataFromPreviousSecurity;
+  @Output() documents = new EventEmitter();
+  siteVisitDocuments: Array<SiteVisitDocument>;
 
   constructor() { }
 
@@ -43,6 +47,11 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
       this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
       this.previousSecuritySummary = true;
     }
+  }
+
+  checkSiteVisitDocument(event: any) {
+    this.siteVisitDocuments = event;
+    this.documents.emit(this.siteVisitDocuments);
   }
 
 }

@@ -273,7 +273,21 @@ export class MortgageDeedComponent implements OnInit {
       jillaName: [undefined],
       cityName: [undefined],
       wodaNum: [undefined],
-      jillaName2: [undefined]
+      jillaName2: [undefined],
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
 
     });
   }

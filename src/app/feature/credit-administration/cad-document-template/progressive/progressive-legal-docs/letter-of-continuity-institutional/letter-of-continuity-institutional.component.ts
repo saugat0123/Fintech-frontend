@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
@@ -10,13 +9,17 @@ import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
+import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
 class CustomerOfferLetterInstitutional {
 }
@@ -37,22 +40,33 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
   offerLetterConst = ProgressiveLegalDocConst;
   customerOfferLetter: CustomerOfferLetterInstitutional;
   initialInfoPrint;
+  nepDataPersonal: NepDataPersonal;
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  loanAmountTemplate = new NepaliNumberAndWords();
 
   constructor(private dialogRef: NbDialogRef<LetterOfContinuityInstitutionalComponent>,
               private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
+              private engToNepNumberPipe: EngToNepaliNumberPipe,
+              private currencyFormatPipe: CurrencyFormatterPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
   ngOnInit() {
     this.buildForm();
+    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
+      const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
+      this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+      this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+      this.loanAmountTemplate.engNumber = number;
+    } else {
+      this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
+    }
     this.fillForm();
   }
 
@@ -71,11 +85,44 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
+      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        nepalSarkar: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        udhyogBibhag: this.nepaliData.department ? this.nepaliData.department : '',
+        praliNo: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
+        underDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        sewaKendra: this.nepaliData.taxPayerServiceOffice ? this.nepaliData.taxPayerServiceOffice : '',
+        certificateNo: this.nepaliData.panNo ? this.nepaliData.panNo : '',
+        regDate: this.nepaliData.panRegistrationDate ? this.nepaliData.panRegistrationDate : '',
+        // registeredName: this.nepaliData. ? this.nepaliData. : '',
+        debtorName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        pratiNidhi: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        // belowAmount: this.nepaliData.name ? this.nepaliData.name : '',
+        signaturePersonName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        signaturePersonCitizenshipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+        // tslint:disable-next-line:max-line-length
+        signaturePersonCitizenshipIssueDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+        // tslint:disable-next-line:max-line-length
+        signaturePersonCDOoffice: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+        // tslint:disable-next-line:max-line-length
+        signaturePersonPermanentDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+        // tslint:disable-next-line:max-line-length
+        signaturePersonPermanentMuniciplity: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
+        signaturePersonPermanentWadNo: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+        // sabikVDC: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        // sabikWadNo: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        signaturePersonTempDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        // tslint:disable-next-line:max-line-length
+        signaturePersonTempMunicipality: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+        signaturePersonTempWadNo: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+        buttonParentName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+        buttonGrandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+        buttonHusbandWifeName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
+        branchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
       });
     }
+    this.form.get('belowAmount').patchValue(this.loanAmountTemplate.numberNepali);
+    this.form.get('belowAmountInWord').patchValue(this.loanAmountTemplate.nepaliWords);
   }
 
 
@@ -129,7 +176,7 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
       sincerlyTempAdress: [undefined],
       ParentsName: [undefined],
       grandParentsName: [undefined],
-
+      address: [undefined],
       IdentifiedGuarantorName: [undefined],
       IdentifiedHintNo: [undefined],
       ItisambatYear: [undefined],
@@ -180,7 +227,21 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
       jillaName: [undefined],
       jagaName: [undefined],
       jillaName1: [undefined],
-      jagaName1: [undefined]
+      jagaName1: [undefined],
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
     });
   }
 

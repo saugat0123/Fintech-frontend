@@ -5,4 +5,5 @@ export class NepaliNumberAndWords {
     engWords: string;
     flag: boolean;
     initDate: string;
+    loanApprovalNo: string;
 }

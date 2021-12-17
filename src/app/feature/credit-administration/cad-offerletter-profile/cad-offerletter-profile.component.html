@@ -110,22 +110,22 @@
                                     <td>{{cusOfferLetter?.docName}}</td>
                                     <td>
                                                 <span [ngStyle]="{'color': (cusOfferLetter?.draftPath == null) ? 'red': 'limegreen'}">
-                                                    <i [ngClass]="cusOfferLetter?.draftPath == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i></span>
+                                                    <em [ngClass]="cusOfferLetter?.draftPath == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></em></span>
                                         <span class="ml-1">
                                                     <a (click)="previewClick(cusOfferLetter?.draftPath)"
-                                                       *ngIf="cusOfferLetter?.draftPath !== null"><i
-                                                            class="fas fa-eye cursor" style="color:cornflowerblue"></i>
+                                                       *ngIf="cusOfferLetter?.draftPath !== null"><em
+                                                            class="fas fa-eye cursor" style="color:cornflowerblue"></em>
                                                    </a>
                                                 </span>
                                     </td>
                                     <td>
                                                 <span [ngStyle]="{'color': (cusOfferLetter?.pathSigned == null) ? 'red': 'limegreen'}">
-                                                    <i [ngClass]="cusOfferLetter?.pathSigned == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i>
+                                                    <em [ngClass]="cusOfferLetter?.pathSigned == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></em>
                                                 </span>
                                         <span class="ml-1">
                                                     <a (click)="previewClick(cusOfferLetter?.pathSigned)"
-                                                       *ngIf="cusOfferLetter?.pathSigned !== null"><i
-                                                            class="fas fa-eye cursor" style="color:cornflowerblue"></i>
+                                                       *ngIf="cusOfferLetter?.pathSigned !== null"><em
+                                                            class="fas fa-eye cursor" style="color:cornflowerblue"></em>
                                                    </a>
                                                 </span>
                                     </td>
@@ -135,7 +135,7 @@
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')"
                                            title="upload {{cusOfferLetter?.docName}}">
-                                            <i class="fa fa-upload cursor"></i>
+                                            <em class="fa fa-upload cursor"></em>
                                         </a>
                                         <span *ngIf="roleType !== 'MAKER'">
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
@@ -277,7 +277,7 @@
                                             </tr>
                                             <ng-container *ngIf="toggleArray[i].toggled">
                                                 <tr>
-                                                    <td colspan="10"><b>Loan History</b></td>
+                                                    <td colspan="10"><strong>Loan History</strong></td>
                                                 </tr>
                                                 <tr class="text-white sb-bg-dark">
                                                     <td>Date</td>

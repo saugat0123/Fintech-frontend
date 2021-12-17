@@ -1,6 +1,7 @@
 export enum ProgressiveOfferLetterConst {
     OFFER_LETTER_PERSONAL,
-    OFFER_LETTER_CORPORATE
+    OFFER_LETTER_CORPORATE,
+    OFFER_LETTER_HIRE_PURCHASE_AND_AUTO_LOAN
 }
 
 export namespace ProgressiveOfferLetterConst {
@@ -10,6 +11,8 @@ export namespace ProgressiveOfferLetterConst {
                 return 'Offer Letter Personal';
             case ProgressiveOfferLetterConst.OFFER_LETTER_CORPORATE:
                 return 'Offer Letter Corporate';
+            case ProgressiveOfferLetterConst.OFFER_LETTER_HIRE_PURCHASE_AND_AUTO_LOAN:
+                return  'Offer Letter Hire Purchase And Auto Loan';
         }
     }
 

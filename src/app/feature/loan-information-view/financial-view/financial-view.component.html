@@ -84,13 +84,6 @@
                     <strong>{{financialData?.initialForm?.emiNetMonthly}}</strong>
                 </td>
             </tr>
-            <tr *ngIf="client === clientName?.SHINE_RESUNGA" class="text-white sb-bg-dark">
-                <th colspan="4">Note</th>
-            </tr>
-            <tr *ngIf="client === clientName?.SHINE_RESUNGA">
-                <td class="text-left pl-1" colspan="4">{{financialData?.initialForm?.note}}</td>
-            </tr>
-
             </thead>
         </table>
         <table *ngIf="!isBusinessLoan && !disableCrgAlphaParams" class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
@@ -134,6 +127,12 @@
                 <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>
                 <td class="text-right pr-1">{{financialData?.initialForm?.obligationGrossIncomeRatio}}</td>
+            </tr>
+            <tr *ngIf="client === clientName?.EXCEL" class="text-white sb-bg-dark">
+                <th colspan="5">Note</th>
+            </tr>
+            <tr *ngIf="client === clientName?.EXCEL">
+                <td class="text-left pl-1" colspan="4">{{financialData?.initialForm?.remark}}</td>
             </tr>
             </tbody>
 

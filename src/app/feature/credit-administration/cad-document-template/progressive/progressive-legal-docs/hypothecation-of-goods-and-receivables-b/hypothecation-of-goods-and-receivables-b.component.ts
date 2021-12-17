@@ -40,13 +40,11 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
   ngOnInit() {
     this.buildForm();
-
     this.fillForm();
   }
 
@@ -183,7 +181,21 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
       itisambatDate: [undefined],
       itisambatTime: [undefined],
       itisambatSubham: [undefined],
-      guarantorDetail: this.formBuilder.array([])
+      guarantorDetail: this.formBuilder.array([]),
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined]
     });
   }
 

@@ -1,20 +1,19 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CustomerApprovedLoanCadDocumentation} from "../../../../model/customerApprovedLoanCadDocumentation";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {ProgressiveLegalDocConst} from "../progressive-legal-doc-const";
-import {CustomerOfferLetter} from "../../../../../loan/model/customer-offer-letter";
-import {OfferDocument} from "../../../../model/OfferDocument";
-import {NbDialogRef} from "@nebular/theme";
-import {NepaliToEngNumberPipe} from "../../../../../../@core/pipe/nepali-to-eng-number.pipe";
-import {NepaliCurrencyWordPipe} from "../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {CreditAdministrationService} from "../../../../service/credit-administration.service";
-import {ToastService} from "../../../../../../@core/utils";
-import {RouterUtilsService} from "../../../../utils/router-utils.service";
-import {CustomerOfferLetterService} from "../../../../../loan/service/customer-offer-letter.service";
-import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
-import {CadFile} from "../../../../model/CadFile";
-import {Document} from "../../../../../admin/modal/document";
-import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
+import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
+import {OfferDocument} from '../../../../model/OfferDocument';
+import {NbDialogRef} from '@nebular/theme';
+import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {CreditAdministrationService} from '../../../../service/credit-administration.service';
+import {ToastService} from '../../../../../../@core/utils';
+import {RouterUtilsService} from '../../../../utils/router-utils.service';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {CadFile} from '../../../../model/CadFile';
+import {Document} from '../../../../../admin/modal/document';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-consent-letter-individual',
@@ -42,16 +41,15 @@ export class ConsentLetterIndividualComponent implements OnInit {
         private administrationService: CreditAdministrationService,
         private toastService: ToastService,
         private routerUtilsService: RouterUtilsService,
-        private customerOfferLetterService: CustomerOfferLetterService
     ) {
     }
 
     ngOnInit() {
-        this.bindForm()
-        this.fillForm()
+        this.bindForm();
+        this.fillForm();
     }
 
-    fillForm():void{
+    fillForm(): void {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
                 if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -138,18 +136,32 @@ export class ConsentLetterIndividualComponent implements OnInit {
             itisambatTime: [undefined],
             itisambatRojSubham: [undefined],
             sahamati: this.formBuilder.array([this.Sahamati()]),
-            guarantorDetails:this.formBuilder.array([])
-        })
+            guarantorDetails: this.formBuilder.array([]),
+            witnessName: [undefined],
+            witnessCitizenshipNo: [undefined],
+            witnessCitizenshipIssueDate: [undefined],
+            witnessCDOoffice: [undefined],
+            witnessIssuedPlace: [undefined],
+            witnessMunicipality: [undefined],
+            witnessWardNo: [undefined],
+            witnessName1: [undefined],
+            witnessCitizenshipNo1: [undefined],
+            witnessCitizenshipIssueDate1: [undefined],
+            witnessCDOoffice1: [undefined],
+            witnessIssuedPlace1: [undefined],
+            witnessMunicipality1: [undefined],
+            witnessWardNo1: [undefined]
+        });
     }
 
     addSahamati() {
-        const formArray = this.form.get("sahamati") as FormArray
-        formArray.push(this.Sahamati())
+        const formArray = this.form.get('sahamati') as FormArray;
+        formArray.push(this.Sahamati());
     }
 
     removeSahamati(i) {
-        const formGroup = this.form.get("sahamati") as FormArray
-        formGroup.removeAt(i)
+        const formGroup = this.form.get('sahamati') as FormArray;
+        formGroup.removeAt(i);
     }
 
     Sahamati(): FormGroup {
@@ -157,7 +169,7 @@ export class ConsentLetterIndividualComponent implements OnInit {
             sahamatiName: [undefined],
             relationship: [undefined],
             signature: [undefined]
-        })
+        });
 
 
     }
@@ -206,10 +218,10 @@ export class ConsentLetterIndividualComponent implements OnInit {
     }
 
     setSahamati(data) {
-        const formArray = this.form.get("sahamati") as FormArray;
+        const formArray = this.form.get('sahamati') as FormArray;
         (this.form.get('sahamati') as FormArray).clear();
         if (data.length === 0) {
-            this.addSahamati()
+            this.addSahamati();
             return;
         }
         data.forEach((e) => {
@@ -217,9 +229,9 @@ export class ConsentLetterIndividualComponent implements OnInit {
                 sahamatiName: [undefined],
                 relationship: [undefined],
                 signature: [undefined]
-            }))
+            }));
 
-        })
+        });
     }
 
 }

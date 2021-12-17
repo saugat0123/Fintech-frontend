@@ -23,7 +23,11 @@ export enum ProgressiveLegalDocConst {
   AUTHORITY_TO_DEBT_ACCOUNT = '2021',
   CONSENT_LETTER_INDIVIDUAL = '2022',
   // CONSENT_LETTER_INSTITUTIONAL = '2023',
-  BLACKLIST_CONSENT_CORPORATE = '2024'
+  BLACKLIST_CONSENT_CORPORATE = '2024',
+  LETTER_OF_CONFESSION = '2025',
+  HP_DEED_CORPORATE = '2027',
+  MORTGAGE_DEED_CORPORATE = '2026',
+  LOAN_DEED_CORPORATE = '2028'
 }
 
 export namespace ProgressiveLegalDocConst {
@@ -73,6 +77,16 @@ export namespace ProgressiveLegalDocConst {
         return 'Blacklist Consent';
       case ProgressiveLegalDocConst.BLACKLIST_CONSENT_CORPORATE:
         return 'Blacklist Consent Corporate';
+      case ProgressiveLegalDocConst.LETTER_OF_CONFESSION:
+        return 'Letter of Confession';
+      case ProgressiveLegalDocConst.HP_DEED_CORPORATE:
+        return 'Hp Deed Corporate';
+      case ProgressiveLegalDocConst.MORTGAGE_DEED_CORPORATE:
+        return 'Mortgage Deed Corporate';
+      case ProgressiveLegalDocConst.LOAN_DEED_CORPORATE:
+        return 'Loan Deed Corporate';
+      case ProgressiveLegalDocConst.LETTER_OF_CONTINUITY_INSTITUTIONAL:
+        return 'Letter of Continuity Institution';
     }
   }
 

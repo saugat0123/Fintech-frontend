@@ -56,7 +56,7 @@ export class GuaranteeBondPersonalComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          this.setGuarantors(initialInfo.guarantorDetails);
+          /*this.setGuarantors(initialInfo.guarantorDetails);*/
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -141,6 +141,7 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       buttonTempMuniciplity: [undefined],
       buttonTempWadNo: [undefined],
       buttonDate: [undefined],
+      buttonWifeName: [undefined],
       buttonCdoOffice: [undefined],
       buttonCitizenshipNo: [undefined],
       buttonAge: [undefined],
@@ -168,7 +169,6 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       guarantorDetails: this.formBuilder.array([]),
       locationName: [undefined],
       sahiName: [undefined],
-      sthiName: [undefined],
       namName: [undefined],
       newName: [undefined],
       sriName: [undefined],
@@ -180,15 +180,38 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       municipalityName: [undefined],
       wadNoName: [undefined],
       tempDistrictName: [undefined],
+      tempMunicipalityName: [undefined],
+      tempWardNo: [undefined],
       buttonDateName: [undefined],
       buttonCdoOfficeName: [undefined],
       buttonCitizenshipNoName: [undefined],
       buttonAgeName: [undefined],
-      sirName: [undefined]
+      sirName: [undefined],
+      karjaYojana: [undefined],
+      personalLoan: [undefined],
+      name: [undefined],
+      citizenNumber: [undefined],
+      issuedYear: [undefined],
+      guarantorCDOoffice: [undefined],
+      guarantorDistrict: [undefined],
+      guarantorMunicipality: [undefined],
+      guarantorWadNo: [undefined],
+      name1: [undefined],
+      citizenNumber1: [undefined],
+      issuedYear1: [undefined],
+      guarantorCDOoffice1: [undefined],
+      guarantorDistrict1: [undefined],
+      guarantorMunicipality1: [undefined],
+      guarantorWadNo1: [undefined],
     });
   }
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.form.get(wordLabel).patchValue(returnVal);
+  }
 
-  guarantorFormGroup(): FormGroup {
+ /* guarantorFormGroup(): FormGroup {
     return this.formBuilder.group({
       name: [undefined],
       citizenNumber: [undefined],
@@ -199,9 +222,9 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       guarantorWadNo: [undefined]
     });
 
-  }
+  }*/
 
-  setGuarantors(data) {
+ /* setGuarantors(data) {
     const formArray = this.form.get('guarantorDetails') as FormArray;
     if (data.length === 0) {
       this.addMoreGuarantor();
@@ -218,16 +241,16 @@ export class GuaranteeBondPersonalComponent implements OnInit {
         guarantorWadNo: [value.guarantorWadNo]
       }));
     });
-  }
+  }*/
 
-  addMoreGuarantor(): void {
+  /*addMoreGuarantor(): void {
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray.push(this.guarantorFormGroup());
-  }
+  }*/
 
-  removeGuarantor(index: number): void {
+ /* removeGuarantor(index: number): void {
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray.removeAt(index);
-  }
+  }*/
 
 }

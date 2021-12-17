@@ -43,10 +43,10 @@
           <table class="table table-bordered table-sm sb-small text-center">
             <thead>
             <tr>
-              <th class="text-center" colspan="5">{{client === clientName?.EXCEL ? 'Monthly Obligation of Borrower' : 'Expenses of Borrower'}}</th>
+              <th class="text-center" colspan="4">{{client === clientName?.EXCEL ? 'Monthly Obligation of Borrower' : 'Expenses of Borrower'}}</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-              <th>S.N</th>
+              <th class="sn">S.N</th>
               <th>Particulars</th>
               <th>Amount</th>
               <th>Remarks</th>
@@ -60,26 +60,25 @@
               <td class="text-left pl-1">{{expensesOfBorrower.remarks}}</td>
             </tr>
             <tr>
-              <td class="text-left pl-1" colspan="3"><strong>{{client === clientName?.EXCEL ? 'Total Obligations' : 'Total Expense'}}</strong></td>
+              <td class="text-left pl-1" colspan="2"><strong>{{client === clientName?.EXCEL ? 'Total Obligations' : 'Total Expense'}}</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong>
               </td>
             </tr>
             <tr>
-              <td class="text-left pl-1" colspan="3"><strong>Net Saving</strong></td>
+              <td class="text-left pl-1" colspan="2"><strong>Net Saving</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
               </td>
             </tr>
             <tr>
-              <td class="text-left pl-1" colspan="3"><strong>Total EMI of client including present proposal</strong></td>
+              <td class="text-left pl-1" colspan="2"><strong>Total EMI of client including present proposal</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>
               </td>
             </tr>
             <tr>
-              <td class="text-left pl-1" colspan="3"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
-                      : 'EMI / Gross Monthly Income'}}</strong></td>
+              <td class="text-left pl-1" colspan="2"><strong>EMI / Gross Monthly Income</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong *ngIf="client === clientName.ICFC; else other">{{financialData?.initialForm?.totalEMIInterest}} %</strong>
                 <ng-template #other>
@@ -89,19 +88,11 @@
               </td>
             </tr>
             <tr>
-              <td class="text-left pl-1" colspan="3"><strong>EMI / Net Monthly Income</strong></td>
+              <td class="text-left pl-1" colspan="2"><strong>EMI / Net Monthly Income</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong>{{financialData?.initialForm?.emiNetMonthly | currencyFormatter}}</strong>
               </td>
             </tr>
-
-            <tr *ngIf="client === clientName?.SHINE_RESUNGA" class="text-white sb-bg-dark">
-              <th colspan="4">Note</th>
-            </tr>
-            <tr *ngIf="client === clientName?.SHINE_RESUNGA">
-              <td class="text-left pl-1" colspan="4">{{financialData?.initialForm?.note}}</td>
-            </tr>
-
             </tbody>
           </table>
         </div>
@@ -130,6 +121,12 @@
     <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>
     <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>
     <td class="text-right pr-1">{{financialData?.initialForm?.obligationGrossIncomeRatio}}</td>
+  </tr>
+  <tr *ngIf="client === clientName?.EXCEL" class="text-white sb-bg-dark">
+    <th colspan="5">Remark(if any)</th>
+  </tr>
+  <tr *ngIf="client === clientName?.EXCEL">
+    <td class="text-left pl-1" colspan="4">{{financialData?.initialForm?.remark}}</td>
   </tr>
   </tbody>
 </table>

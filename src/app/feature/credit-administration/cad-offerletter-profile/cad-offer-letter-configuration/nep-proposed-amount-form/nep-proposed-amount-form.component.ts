@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {ProposalCalculationUtils} from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
@@ -12,20 +12,35 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NbDialogRef} from '@nebular/theme';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
+import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
+import {NepDataPersonal} from '../../../model/nepDataPersonal';
+import {CustomerType} from '../../../../customer/model/customerType';
+import {Branch} from '../../../../admin/modal/branch';
 
 @Component({
     selector: 'app-nep-proposed-amount-form',
     templateUrl: './nep-proposed-amount-form.component.html',
     styleUrls: ['./nep-proposed-amount-form.component.scss']
 })
+
 export class NepProposedAmountFormComponent implements OnInit {
+    @Output() NepProposedAmountFormEmitter = new EventEmitter();
+    @Input() customerInfo: CustomerInfoData;
     @Input()
     cadData: CustomerApprovedLoanCadDocumentation;
+    @Output()
+    customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
     nepaliNumber = new NepaliNumberAndWords();
+    nepDataPersonal = new NepDataPersonal();
     nepForm: FormGroup;
     spinner = false;
     submitted = false;
+    client = environment.client;
+    clientList = Clients;
+    branch: Branch;
 
     constructor(private formBuilder: FormBuilder,
                 private toastService: ToastService,
@@ -33,7 +48,8 @@ export class NepProposedAmountFormComponent implements OnInit {
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private service: CreditAdministrationService,
-                private router: RouterUtilsService) {
+                private router: RouterUtilsService,
+                private dialogRef: NbDialogRef<NepProposedAmountFormComponent>) {
     }
 
     ngOnInit() {
@@ -45,6 +61,10 @@ export class NepProposedAmountFormComponent implements OnInit {
         } else {
             this.nepaliNumber = JSON.parse(this.cadData.nepData);
         }
+        if (!ObjectUtil.isEmpty(this.cadData.nepDataPersonal)) {
+            this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+        }
+        this.branch = this.customerInfo.branch;
         this.buildForm();
     }
 
@@ -53,7 +73,31 @@ export class NepProposedAmountFormComponent implements OnInit {
             nepaliNumber: [this.nepaliNumber.numberNepali],
             engNumber: [this.nepaliNumber.engNumber, Validators.required],
             initDate: [this.nepaliNumber.initDate, Validators.required],
+            loanType: [this.nepDataPersonal.loanType, Validators.required],
+            interestRate: [this.nepDataPersonal.interestRate, Validators.required],
+            serviceFeePercent: [this.nepDataPersonal.serviceFeePercent, Validators.required],
+            serviceFeeAmount: [this.nepDataPersonal.serviceFeeAmount, Validators.required],
+            tenureOfLoanInMonths: [this.nepDataPersonal.tenureOfLoanInMonths, Validators.required],
+            tenureOfLoanInYears: [this.nepDataPersonal.tenureOfLoanInYears, Validators.required],
+            installmentAmount: [this.nepDataPersonal.installmentAmount, Validators.required],
+            typeOfLoanInEnglish: [this.nepDataPersonal.typeOfLoanInEnglish, Validators.required],
+            purposeOfLoan: [this.nepDataPersonal.purposeOfLoan, Validators.required],
+            loanApprovalNo: [this.nepaliNumber.loanApprovalNo, Validators.required],
+            baseRate: [this.nepDataPersonal.baseRate, Validators.required],
+            premium: [this.nepDataPersonal.premium, Validators.required],
+            discount: [this.nepDataPersonal.discount, Validators.required],
+            cibCharges: [this.nepDataPersonal.cibCharges, Validators.required],
+            interestInstallmentPaymentFrequency: [this.nepDataPersonal.interestInstallmentPaymentFrequency, Validators.required],
+            loanMaturityDateBS: [this.nepDataPersonal.loanMaturityDateBS, Validators.required],
+            loanMaturityDateAD: [this.nepDataPersonal.loanMaturityDateAD, Validators.required],
         });
+    }
+
+    checkIsIndividual() {
+        if (CustomerType.INDIVIDUAL === CustomerType[this.customerInfo.customerType]) {
+            return true;
+        }
+        return false;
     }
 
     onChangeValue(event) {
@@ -64,8 +108,6 @@ export class NepProposedAmountFormComponent implements OnInit {
         this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
         this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
         this.nepaliNumber.engNumber = number;
-
-
     }
 
     get nepFormControls() {
@@ -78,18 +120,64 @@ export class NepProposedAmountFormComponent implements OnInit {
             return;
         }
         this.spinner = true;
+        this.nepaliNumber.initDate = this.nepForm.get('initDate').value;
+        this.nepaliNumber.loanApprovalNo = this.nepForm.get('loanApprovalNo').value;
+        this.nepDataPersonal.loanType = this.nepForm.get('loanType').value;
+        this.nepDataPersonal.interestRate = this.nepForm.get('interestRate').value;
+        this.nepDataPersonal.serviceFeePercent = this.nepForm.get('serviceFeePercent').value;
+        this.nepDataPersonal.serviceFeeAmount = this.nepForm.get('serviceFeeAmount').value;
+        this.nepDataPersonal.tenureOfLoanInMonths = this.nepForm.get('tenureOfLoanInMonths').value;
+        this.nepDataPersonal.tenureOfLoanInYears = this.nepForm.get('tenureOfLoanInYears').value;
+        this.nepDataPersonal.installmentAmount = this.nepForm.get('installmentAmount').value;
+        this.nepDataPersonal.typeOfLoanInEnglish = this.nepForm.get('typeOfLoanInEnglish').value;
+        this.nepDataPersonal.purposeOfLoan = this.nepForm.get('purposeOfLoan').value;
+        this.nepDataPersonal.baseRate = this.nepForm.get('baseRate').value;
+        this.nepDataPersonal.premium = this.nepForm.get('premium').value;
+        this.nepDataPersonal.discount = this.nepForm.get('discount').value;
+        this.nepDataPersonal.cibCharges = this.nepForm.get('cibCharges').value;
+        this.nepDataPersonal.interestInstallmentPaymentFrequency = this.nepForm.get('interestInstallmentPaymentFrequency').value;
+        this.nepDataPersonal.loanMaturityDateBS = this.nepForm.get('loanMaturityDateBS').value;
+        this.nepDataPersonal.loanMaturityDateAD = this.nepForm.get('loanMaturityDateAD').value;
         this.cadData.nepData = JSON.stringify(this.nepaliNumber);
-        console.log('sdfghjhihvjhghgjkhj', this.cadData.nepData);
+        this.cadData.nepDataPersonal = JSON.stringify(this.nepDataPersonal);
+        this.NepProposedAmountFormEmitter.emit(this.cadData);
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.spinner = false;
+            this.dialogRef.close();
             this.router.reloadCadProfileRoute(this.cadData.id);
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Updated SUCCESSFULLY!!!'));
         }, error => {
             this.spinner = false;
+            this.dialogRef.close();
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
-
         });
     }
 
-
+    getCadValue() {
+        this.nepaliNumber.initDate = this.nepForm.get('initDate').value;
+        this.nepaliNumber.loanApprovalNo = this.nepForm.get('loanApprovalNo').value;
+        this.nepDataPersonal.loanType = this.nepForm.get('loanType').value;
+        this.nepDataPersonal.interestRate = this.nepForm.get('interestRate').value;
+        this.nepDataPersonal.serviceFeePercent = this.nepForm.get('serviceFeePercent').value;
+        this.nepDataPersonal.serviceFeeAmount = this.nepForm.get('serviceFeeAmount').value;
+        this.nepDataPersonal.tenureOfLoanInMonths = this.nepForm.get('tenureOfLoanInMonths').value;
+        this.nepDataPersonal.tenureOfLoanInYears = this.nepForm.get('tenureOfLoanInYears').value;
+        this.nepDataPersonal.installmentAmount = this.nepForm.get('installmentAmount').value;
+        this.nepDataPersonal.typeOfLoanInEnglish = this.nepForm.get('typeOfLoanInEnglish').value;
+        this.nepDataPersonal.purposeOfLoan = this.nepForm.get('purposeOfLoan').value;
+        this.nepDataPersonal.baseRate = this.nepForm.get('baseRate').value;
+        this.nepDataPersonal.premium = this.nepForm.get('premium').value;
+        this.nepDataPersonal.discount = this.nepForm.get('discount').value;
+        this.nepDataPersonal.cibCharges = this.nepForm.get('cibCharges').value;
+        this.nepDataPersonal.interestInstallmentPaymentFrequency = this.nepForm.get('interestInstallmentPaymentFrequency').value;
+        this.nepDataPersonal.loanMaturityDateBS = this.nepForm.get('loanMaturityDateBS').value;
+        this.nepDataPersonal.loanMaturityDateAD = this.nepForm.get('loanMaturityDateAD').value;
+        this.cadData.nepData = JSON.stringify(this.nepaliNumber);
+        this.cadData.nepDataPersonal = JSON.stringify(this.nepDataPersonal);
+        this.NepProposedAmountFormEmitter.emit(this.cadData);
+        return this.cadData;
+    }
+    closeModal() {
+        this.dialogRef.close();
+    }
 }

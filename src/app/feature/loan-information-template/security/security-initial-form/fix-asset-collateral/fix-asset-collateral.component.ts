@@ -258,6 +258,7 @@ export class FixAssetCollateralComponent implements OnInit {
             this.collateralSiteVisit = new CollateralSiteVisit();
         }
         if (ObjectUtil.isEmpty(this.securityId)) {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'No security found please add one'));
             return;
         }
@@ -292,6 +293,7 @@ export class FixAssetCollateralComponent implements OnInit {
         formData.append('securityName', this.security);
         formData.append('siteVisitJsonData', JSON.stringify(this.fixedAssetsForm.value));
         if (this.fixedAssetsForm.invalid) {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
             return;
         }

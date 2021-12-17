@@ -76,6 +76,7 @@ export class CatalogueComponent implements OnInit {
     public insuranceToggle = false;
     selectedUserForTransfer;
     provinces: Province[];
+    usersId;
     public typesDropdown: {
         name: string,
         value: string,
@@ -152,8 +153,8 @@ export class CatalogueComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
+                this.usersId = paramsValue.userId;
             });
-
         this.buildFilterForm();
         this.buildActionForm();
 
@@ -211,6 +212,9 @@ export class CatalogueComponent implements OnInit {
             const resetSearch: CatalogueSearch = new CatalogueSearch();
             // resetSearch.documentStatus = DocStatus.value(DocStatus.PENDING);
             this.catalogueService.search = resetSearch;
+        }
+        if (!ObjectUtil.isEmpty(this.usersId)) {
+          this.onSearch();
         }
         this.location.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
@@ -314,6 +318,7 @@ export class CatalogueComponent implements OnInit {
         }
         this.catalogueService.search.currentUserRole = ObjectUtil.isEmpty(this.filterForm.get('role').value) ? undefined :
             this.filterForm.get('role').value;
+        this.catalogueService.search.toUser = ObjectUtil.isEmpty(this.usersId) ? undefined : this.usersId.toString();
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
         this.catalogueService.search.companyName = ObjectUtil.isEmpty(this.filterForm.get('companyName').value) ? undefined :
@@ -445,9 +450,10 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
-    onChange(data, onActionChange) {
+    onChange(data, onActionChange, event) {
         this.loanConfigId = data.loan.id;
         this.customerId = data.id;
+        this.tempLoanType = event;
         if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
             this.router.navigate(['/home/update-loan/dashboard'], {
                 queryParams: {
