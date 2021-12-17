@@ -133,6 +133,8 @@ export class ClassASanctionLetterComponent implements OnInit {
       accountNumberFreeText: [undefined],
       accountHolderFreeText: [undefined],
       tableFreeText: [undefined],
+      applicableFreeTextBox: [undefined],
+      additionalFreeTextBox: [undefined],
 
       nameOfTD: [undefined],
       accountNumber: [undefined],
@@ -337,6 +339,15 @@ export class ClassASanctionLetterComponent implements OnInit {
       comissionRateOthersQuarter: this.tempData.comissionRateOthersQuarter.ct ? this.tempData.comissionRateOthersQuarter.ct : '',
       miniumComissionAmount:  this.tempData.miniumComissionAmount.ct ? this.tempData.miniumComissionAmount.ct : '',
 
+      additionalGuarantorDetails: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText1 : '',
+      additionalCostumerDetails: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText2 : '',
+      basicFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText3 : '',
+      accountNumberFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText4 : '',
+      accountHolderFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText5 : '',
+      tableFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText6 : '',
+      applicableFreeTextBox: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText7 : '',
+      additionalFreeTextBox: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText8 : '',
+
 
 
 
@@ -391,6 +402,8 @@ export class ClassASanctionLetterComponent implements OnInit {
       freeText4: this.form.get('tableFreeText').value,
       freeText5: this.form.get('basicFreeText').value,
       freeText6: this.form.get('additionalGuarantorDetails').value,
+      freeText7: this.form.get('applicableFreeTextBox').value,
+      freeText8: this.form.get('additionalFreeTextBox').value,
     };
     this.freeTextVal.push(free);
     return this.freeTextVal;
