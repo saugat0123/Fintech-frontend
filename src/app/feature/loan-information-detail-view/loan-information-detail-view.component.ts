@@ -178,6 +178,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
             }
         }
         if (!ObjectUtil.isEmpty(label)) {
+            if (this.signatureList[index].docAction.toString() === 'DUAL_APPROVAL_PENDING') {
+                return 'Approved By';
+            }
             return label;
         } else {
             if (index === 0) {
