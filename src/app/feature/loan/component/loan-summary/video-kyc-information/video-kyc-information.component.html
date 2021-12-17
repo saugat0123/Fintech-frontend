@@ -21,7 +21,10 @@
               <td><a [href]="data.meetingLink"  target="_blank">{{data.meetingLink}}</a></td>
               <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
               <td><a [href]="data.recordedLink"  target="_blank" >{{data.recordedLink}}</a></td>
-              <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button></td>
+              <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button>
+                  <a nbTooltip="Delete loan" class="text-danger" (click)="deleteVideoKyc(i)" *ngIf="data.status.toLowerCase() === 'active'" ><em
+                          class="fa fa-trash"></em></a>&nbsp;
+              </td>
           </tr>
       </ng-container>
       <ng-template #onlySender>
@@ -34,7 +37,12 @@
                         <td><a [href]="data.meetingLink"  target="_blank">{{data.meetingLink}}</a></td>
                         <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
                         <td><a [href]="data.recordedLink"  target="_blank">{{data.recordedLink}}</a></td>
-                        <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button></td>
+                        <td>
+                            <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button>
+                            <a nbTooltip="Delete loan" class="text-danger" (click)="deleteVideoKyc(i)" *ngIf="data.status.toLowerCase() === 'active'" ><em
+                                    class="fa fa-trash"></em></a>&nbsp;
+
+                        </td>
                     </ng-container>
                 </tr>
         </ng-container>
@@ -49,7 +57,10 @@
                     <td><a [href]="data.meetingLink"  target="_blank">{{data.meetingLink}}</a></td>
                     <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
                     <td><a [href]="data.recordedLink"  target="_blank">{{data.recordedLink}}</a></td>
-                    <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button></td>
+                    <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button>
+                        <a nbTooltip="Delete loan" class="text-danger" (click)="deleteVideoKyc(i)" *ngIf="data.status.toLowerCase() === 'active'" ><em
+                                class="fa fa-trash"></em></a>&nbsp;
+                    </td>
                 </ng-container>
                      </tr>
         </ng-template>
