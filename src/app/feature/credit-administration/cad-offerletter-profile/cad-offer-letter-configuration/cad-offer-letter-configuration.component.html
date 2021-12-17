@@ -503,7 +503,7 @@
                     <input  *ngIf="actYearVal.value ==='AD'" type="text" placeholder="Act Year"
                             formControlName="actYear" class="form-control">
                     <input  *ngIf="actYearVal.value ==='BS'" type="text"
-                            formControlName="actYear" class="form-control nepaliFont">
+                            formControlName="actYear" class="form-control" (change)="translateActYear('actYear')">
 <!--                    <nepali-patro *ngIf="actYearVal.value ==='BS'"-->
 <!--                                  formControlName="actYear" [responseType]="2"-->
 <!--                                  [displayNepali]="true">-->
@@ -3499,7 +3499,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                       <input type="text" placeholder="Act Year" class="form-control" *ngIf="guarantorActYearOption.value ==='AD'"
                       formControlName="guarantorActYear">
                       <input type="text" placeholder="Act Year" *ngIf="guarantorActYearOption.value ==='BS'"
-                             formControlName="guarantorActYear" class="nepaliFont form-control">
+                             formControlName="guarantorActYear" class="form-control" (change)="translateGuaActYear('guarantorActYear', i)">
 <!--                      <nepali-patro *ngIf="guarantorActYearOption.value ==='BS'"-->
 <!--                                    formControlName="guarantorActYear" [responseType]="2"-->
 <!--                                    [displayNepali]="true">-->
