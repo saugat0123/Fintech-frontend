@@ -110,7 +110,8 @@ export class SmeMasterTemplateComponent implements OnInit {
               private toastService: ToastService,
               private nbDialogueService: NbDialogService,
               private modalService: NgbModal,
-              private modalDialogRef: NbDialogRef<SmeMasterTemplateComponent>) { }
+              private modalDialogRef: NbDialogRef<SmeMasterTemplateComponent>,
+              public nbDialogRef: NbDialogRef<SmeMasterTemplateComponent>) { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {

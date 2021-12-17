@@ -35,7 +35,7 @@ import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {InterestSubsidySanctionLetterTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-edit/interest-subsidy-sanction-letter-template-edit.component';
 import {DdslWithoutSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/ddsl-without-subsidy/ddsl-without-subsidy-template-edit/ddsl-without-subsidy-template-edit.component';
 import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from '../../../cad-view/template-data/personal-loan-and-personal-overdraft-template-edit/personal-loan-and-personal-overdraft-template-edit.component';
-import {SmeMasterTemplateComponent} from '../../../cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-master-template.component';
+import {SmeMasterTemplateComponent} from "../../../cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-master-template.component";
 
 @Component({
   selector: 'app-offer-letter-list',
