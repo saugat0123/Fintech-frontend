@@ -53,7 +53,7 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
   isNatural;
   loanType;
   dateofExpiryPrint: any;
-
+  freeTextVal;
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
               public currencyFormatPipe: CurrencyFormatterPipe,
@@ -85,6 +85,7 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNum = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
+    this.freeTextVal = this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation;
     // for date of approval
     const sanctionLetterDate = this.letter.sanctionLetterDateType ? this.letter.sanctionLetterDateType.en : '';
     if (sanctionLetterDate === 'AD') {

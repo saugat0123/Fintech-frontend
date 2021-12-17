@@ -101,8 +101,6 @@
                 </p>
             </div>
             <br>
-
-
             <div class="mb-1" *ngIf="this.letter.costumerType.en === 'existingAdditionalLoan'">
                 <strong> बिबिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
                 <p>
@@ -119,22 +117,13 @@
                     को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी
                     देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
                 </p>
+                <li *ngIf="freeTextVal?.freeText1"><span class="nepaliFont">{{freeTextVal ? freeTextVal.freeText1 : ''}}</span></li>
+
             </div>
             <br>
-
-            <!-- <li><span class="nepaliFont"
-              style=" font-size: 24px;
-                    margin-top: -0.35em;
-                      margin-left: 0.3em;">
-                 {{ offerData?.supportedInformation }}
-                </span></li> -->
-            <br>
-
             <span class="text-left">
                     <strong> स्वीकृत ऋणकर्जा सुविधाहरुको विवरण  </strong>
-                    </span>
-            <br>
-
+                    </span><br>
             <div class="row from-group">
                 <table class="table table-bordered">
                     <tr>
@@ -359,12 +348,7 @@
                 </table>
             </div>
             <br>
-            <li><span class="nepaliFont"
-                      style=" font-size: 24px;
-                            margin-top: -0.35em;
-                              margin-left: 0.3em;">
-                         {{ offerData?.supportedInformation }}
-                        </span></li>
+            <li *ngIf="freeTextVal?.freeText2"><span class="nepaliFont">{{freeTextVal ? freeTextVal.freeText2 : ''}}</span></li>
 
             <div class="col-md-12">
                 <p><strong> कर्जा उपयोग सीमाः </strong></p>

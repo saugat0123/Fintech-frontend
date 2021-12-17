@@ -29,6 +29,9 @@ import {ClassASanctionLetterComponent} from '../../../../cad-document-template/n
 })
 export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() offerDocumentList: any;
+  @Input() initialInformation: any;
+  @Input() isEdit = false;
   form: FormGroup;
   spinner = false;
   customerLoanOptions: Array<String> = new Array<String>();
@@ -112,6 +115,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   isexistingPlainRenewal = false;
   isexistingRenewalWithEnhancement = false;
   existingAdditionalLoan = false;
+  initialInfo;
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
@@ -121,7 +125,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
               private engNepDatePipe: EngNepDatePipe,
               private addressService: AddressService,
               private modalService: NgbModal,
-              private dialogRef: NbDialogRef<ClassASanctionLetterTemplateDataComponent>,
+              public dialogRef: NbDialogRef<ClassASanctionLetterTemplateDataComponent>,
               private dialogService: NbDialogService,
               private toastService: ToastService,
               private titleCasePipe: TitleCasePipe,
@@ -132,6 +136,15 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.getAllDistrict();
     // getting key from cad doc status:
     this.cadDocStatus = CadDocStatus.key();
+    if (this.customerApprovedDoc.offerDocumentList.length > 0) {
+      this.customerApprovedDoc.offerDocumentList.forEach(offerLetter => {
+        this.initialInfo = JSON.parse(offerLetter.initialInformation);
+      });
+    }
+    console.log('Form:', this.initialInfo);
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.form.patchValue(this.initialInfo);
+    }
   }
   buildForm() {
     this.form = this.formBuilder.group({

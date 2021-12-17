@@ -72,7 +72,7 @@ export class ClassASanctionLetterComponent implements OnInit {
   CashMarginTen;
   CoupenRateFinancing;
   BaseRateFinancing;
-  freeTextVal;
+  freeTextVal: any = {};
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -359,9 +359,9 @@ export class ClassASanctionLetterComponent implements OnInit {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
-    this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
+    // this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
     this.form.get('naturalPersonCheck').patchValue(this.isNatural);
-    this.form.get('renewalChecked').patchValue(this.renewal);
+    // this.form.get('renewalChecked').patchValue(this.renewal);
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
@@ -405,7 +405,6 @@ export class ClassASanctionLetterComponent implements OnInit {
       freeText7: this.form.get('applicableFreeTextBox').value,
       freeText8: this.form.get('additionalFreeTextBox').value,
     };
-    this.freeTextVal.push(free);
-    return this.freeTextVal;
+    return JSON.stringify(free);
   }
 }
