@@ -12,7 +12,15 @@
                     मितिः
                     <span><strong>{{finalDateOfApproval ? finalDateOfApproval : '__________________'}}</strong></span>
                     <br>
-                    श्री/श्रीमती/सुश्री
+                    <ng-container *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री </ng-container>
+                    <ng-template #nameDetails>
+                        <ng-container *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
+                            श्रीमती
+                        </ng-container>
+                        <ng-container *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
+                            सुश्री
+                        </ng-container>
+                    </ng-template>
                     <span [ngClass]="{'font-weight-bold' : loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}"><strong>
                     {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}</strong></span>
                     ज्यु,
