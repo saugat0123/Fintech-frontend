@@ -14,7 +14,7 @@
                     <p class="m-0">
                         मिति :
                         <span>
-                            {{ finalDateOfApproval }}
+                            {{ finalDateOfSanctionDate }}
                         </span>
                     </p>
 
@@ -138,11 +138,11 @@
             <div class="row from-group">
                 <table class="table table-bordered">
                     <tr>
-                        <td *ngIf="this.letter.FixedDeposit.en">
+                        <td *ngIf="this.letter.loanType.en === 'Overdraft'">
                             क)
                         </td>
                         <td>
-                            <strong> निक्षेप मौज्दातमा आधारीत अधिविकर्ष कर्जा </strong><br>
+                            <strong> निक्षेप मौज्दातमा आधारीत अधिविकर्ष कर्जा <span *ngIf="this.letter.FixedDeposit.en">(Overdraft Facility against Fixed Deposit)</span> <span *ngIf="this.letter.DepositAccount.en">(Lien onDeposit Account)</span></strong><br>
                             <strong> सीमाः रु <span class="font-weight-bold">
                                             {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                         </span>
@@ -294,22 +294,22 @@
                         <strong> ग्रहणाधिकार (Lien): </strong>
                         <span *ngIf="this.letter.Nabil.en"> नबिल </span> बैंकद्धारा
                         जारी गरिएको ............. को नाममा रहेको कम्तिमा रु
-                        <!--                                <span [ngClass]="{'font-weight-bold': letter?.amount.ct !== null && letter?.amount.ct !== ''}">-->
-                        <!--                                            {{letter?.amount.ct === null || letter?.amount.ct === "" ? "___________" : letter?.amount.ct}}-->
-                        <!--                                        </span>-->
+                        <span class="font-weight-bold">
+                                            {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                                        </span>
                         बराबरको मुद्धती रसिद/हरु उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न सक्ने अधिकार
                         सहितको मोजरापत्र
                         (Letter of Set-off) बैंकको पक्षमा जारी गरी दिनु पर्नेछ र सो मुद्धती रसिद/हरुको सक्कल प्रति
                         बैंकलाई हस्तान्तरण गर्नु
                         पर्नेछ  गरिदिइएको यथावत कायम रहने छ  ।<br>
                         नबिल बैंकमा खोलिएको
-<!--                        <span [ngClass]="{'font-weight-bold': letter?.dateOfExpiry.ct !== null && letter?.dateOfExpiry.ct !== ''}">-->
-<!--                                            {{letter?.dateOfExpiry.ct === null || letter?.dateOfExpiry.ct === "" ? "___________" : letter?.dateOfExpiry.ct}}-->
-<!--                                        </span> -->
+                        <span [ngClass]="{'font-weight-bold': letter?.dateOfExpiry.ct !== null && letter?.dateOfExpiry.ct !== ''}">
+                                            {{letter?.dateOfExpiry.ct === null || letter?.dateOfExpiry.ct === "" ? "___________" : letter?.dateOfExpiry.ct}}
+                                        </span>
                         को नाममा रहेको चल्ति / बचत (Call) खाता नं.
-                        मा रहेको मौज्दात रु <!--                                <span [ngClass]="{'font-weight-bold': letter?.amount.ct !== null && letter?.amount.ct !== ''}">-->
-                        <!--                                            {{letter?.amount.ct === null || letter?.amount.ct === "" ? "___________" : letter?.amount.ct}}-->
-                        <!--                                        </span>-->
+                        मा रहेको मौज्दात रु <span class="font-weight-bold">
+                                            {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                                        </span>
                         बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको
                         मोजरापत्र.
                         बैंकको पक्षमा जारी <span *ngIf="this.letter.letterNew.en">गरिदिनु पर्नेछ </span> <span *ngIf="this.letter.letterExisting.en"> गरिदिइएको

@@ -131,15 +131,15 @@
                             देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
                         </p>
                     </div>
-<!--                     <div class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -2em;">-->
-<!--                        <textarea-->
-<!--                                class="form-control customFont nepaliFont"-->
-<!--                                rows="3"-->
-<!--                                style="width: inherit;margin-left:-5em;margin-top: -2em"-->
-<!--                                name="additionalGuarantorDetails"-->
-<!--                                formControlName="additionalGuarantorDetail">-->
-<!--                                        </textarea>-->
-<!--                    </div>-->
+                     <div class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
+                        <textarea
+                                class="form-control customFont nepaliFont"
+                                rows="3"
+                                style="width: inherit;margin-left:-5em;margin-top: -2em"
+                                name="additionalCostumerDetails"
+                                formControlName="additionalCostumerDetails">
+                                        </textarea>
+                    </div>
                     <span class="text-left">
                     <strong> स्वीकृत ऋणकर्जा सुविधाहरुको विवरण  </strong>
                     </span>
@@ -147,12 +147,12 @@
 
                     <div class="row from-group">
                         <table class="table table-bordered">
-                            <tr *ngIf="this.tempData.FixedDeposit.en">
+                            <tr *ngIf="this.tempData.loanType.en === 'Overdraft'">
                                 <td>
                                     क)
                                 </td>
                                 <td>
-                                    <strong> निक्षेप मौज्दातमा आधारीत अधिविकर्ष कर्जा </strong>
+                                    <strong> निक्षेप मौज्दातमा आधारीत अधिविकर्ष कर्जा <span *ngIf="this.tempData.FixedDeposit.en">(Overdraft Facility against Fixed Deposit)</span> <span *ngIf="this.tempData.DepositAccount.en">(Lien onDeposit Account)</span></strong>
                                     <br>
                                     <strong> सीमाः रु <input class="form-field form-control-sm"
                                                              formControlName="loanAmountFigure"
@@ -292,9 +292,9 @@
                                                 class="form-control customFont nepaliFont"
                                                 rows="2"
                                                 style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
-                                                name="additionalGuarantorDetails"
+                                                name="basicFreeText"
                                                 placeholder="अतिरिक्त अन्य खण्ड"
-                                                formControlName="additionalGuarantorDetails">
+                                                formControlName="basicFreeText">
                                         </textarea>
                                     </strong>
                                     </strong>
@@ -329,13 +329,13 @@
                                                            formControlName="customerName"
                                                            name="customerName"
                                                            placeholder="{{loanHolderInfo?.name}}"
-                                                           type="text"/> <textarea
-                                    class="form-control customFont nepaliFont"
+                                                           type="text"/>
+                                <textarea class="form-control customFont nepaliFont"
                                     rows="2"
                                     style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
-                                    name="additionalGuarantorDetails"
+                                    name="accountHolderFreeText"
                                     placeholder="अतिरिक्त अन्य खण्ड"
-                                    formControlName="additionalGuarantorDetails"></textarea> को नाममा रहेको चल्ति
+                                    formControlName="accountHolderFreeText"></textarea> को नाममा रहेको चल्ति
                                 बचत / कल (Call) खाता नं.<input
                                     class="form-field form-control-sm"
                                     formControlName="accountNumber"
@@ -344,9 +344,9 @@
                                         class="form-control customFont nepaliFont"
                                         rows="2"
                                         style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
-                                        name="additionalGuarantorDetails"
+                                        name="accountNumberFreeText"
                                         placeholder="अतिरिक्त अन्य खण्ड"
-                                        formControlName="additionalGuarantorDetails"></textarea> मा रहेको मौज्दात रु <input class="form-field form-control-sm"
+                                        formControlName="accountNumberFreeText"></textarea> मा रहेको मौज्दात रु <input class="form-field form-control-sm"
                                                                                                                             formControlName="loanAmountFigure"
                                                                                                                             type="text"/>
                                 बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार
@@ -403,8 +403,8 @@
                                 class="form-control customFont nepaliFont"
                                 rows="3"
                                 style="width: inherit;margin-left:-7em;margin-top: -1em"
-                                name="additionalGuarantorDetails"
-                                formControlName="additionalDetail">
+                                name="tableFreeText"
+                                formControlName="tableFreeText">
                                         </textarea>
                     </div>
                     <br>
@@ -757,8 +757,8 @@
                                 class="form-control customFont nepaliFont"
                                 rows="3"
                                 style="width: inherit;margin-left:-5em;margin-top: -2em"
-                                name="additionalGuarantorDetails"
-                                formControlName="additionalGuarantorDetail">
+                                name="additionalFreeTextBox"
+                                formControlName="additionalFreeTextBox">
                                         </textarea>
                     </div>
                     <div class="col-md-12">
@@ -849,8 +849,8 @@
                                         class="form-control customFont nepaliFont"
                                         rows="3"
                                         style="width: inherit;margin-left:-6em;margin-top: 2em"
-                                        name="additionalGuarantorDetails"
-                                        formControlName="additionalGuarantorDetails">
+                                        name="applicableFreeTextBox"
+                                        formControlName="applicableFreeTextBox">
                                         </textarea>
 
                             </li>

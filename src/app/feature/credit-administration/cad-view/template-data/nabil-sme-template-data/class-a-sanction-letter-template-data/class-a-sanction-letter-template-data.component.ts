@@ -183,6 +183,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       dateOfExpiry: [undefined],
       naturalPersonCheck: [undefined],
       FixedDeposit: [undefined],
+      DepositAccount: [undefined],
       OneOff: [undefined],
       Regular: [undefined],
       ForAllLoan: [undefined],
@@ -267,6 +268,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       dateOfExpiryTrans: [undefined],
       naturalPersonCheckTrans: [undefined],
       FixedDepositTrans: [undefined],
+      DepositAccountTrans: [undefined],
       OneOffTrans: [undefined],
       RegularTrans: [undefined],
       ForAllLoanTrans: [undefined],
@@ -351,6 +353,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       dateOfExpiryCT: [undefined],
       naturalPersonCheckCT: [undefined],
       FixedDepositCT: [undefined],
+      DepositAccountCT: [undefined],
       OneOffCT: [undefined],
       RegularCT: [undefined],
       ForAllLoanCT: [undefined],
@@ -444,7 +447,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   checkOD() {
     const tempSelectedLoanType = this.form.get('securityType').value;
     this.isFixedDepositSelected = tempSelectedLoanType === 'FixedDeposit';
-    this.isDepositAccountSelected = tempSelectedLoanType === 'Deposit_Account';
+    this.isDepositAccountSelected = tempSelectedLoanType === 'DepositAccount';
   }
   checkTD() {
     const tempSelectedLoanType = this.form.get('tdHoldingBank').value;
@@ -584,6 +587,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('tenureFacilityTrans').patchValue(this.translatedValues.tenureFacility);
     this.form.get('naturalPersonCheckTrans').patchValue(this.isNatural);
     this.form.get('FixedDepositTrans').patchValue(this.isFixedDepositSelected);
+    this.form.get('DepositAccountTrans').patchValue(this.isDepositAccountSelected);
     this.form.get('OneOffTrans').patchValue(this.isOneoffSelected);
     this.form.get('RegularTrans').patchValue(this.isRegularSelected);
     this.form.get('ForAllLoanTrans').patchValue(this.isAllLoanSelected);
@@ -1045,6 +1049,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     }
     this.form.get('naturalPersonCheck').patchValue(this.isNatural);
     this.form.get('FixedDeposit').patchValue(this.isFixedDepositSelected);
+    this.form.get('DepositAccount').patchValue(this.isDepositAccountSelected);
     this.form.get('OneOff').patchValue(this.isOneoffSelected);
      this.form.get('Regular').patchValue(this.isRegularSelected);
     this.form.get('ForAllLoan').patchValue(this.isAllLoanSelected);

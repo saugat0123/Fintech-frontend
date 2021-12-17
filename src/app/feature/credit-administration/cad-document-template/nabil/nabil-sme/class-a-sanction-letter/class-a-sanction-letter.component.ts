@@ -56,10 +56,10 @@ export class ClassASanctionLetterComponent implements OnInit {
   offerDocumentDetails;
   guarantorNames: Array<String> = [];
   allguarantorNames;
-  guarantorAmount: number = 0;
   finalName;
   isNatural;
   isFixedDepositSelected;
+  isDepositAccountSelected;
   isOneoffSelected;
   isRegularSelected;
   isAllLoanSelected;
@@ -72,6 +72,7 @@ export class ClassASanctionLetterComponent implements OnInit {
   CashMarginTen;
   CoupenRateFinancing;
   BaseRateFinancing;
+  freeTextVal;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -125,8 +126,14 @@ export class ClassASanctionLetterComponent implements OnInit {
       baseRate: [undefined],
       interestRate: [undefined],
       dateOfExpiry: [undefined],
+      // freeText
       additionalGuarantorDetails: [undefined],
-      additionalGuarantorDetail: [undefined],
+      additionalCostumerDetails: [undefined],
+      basicFreeText: [undefined],
+      accountNumberFreeText: [undefined],
+      accountHolderFreeText: [undefined],
+      tableFreeText: [undefined],
+
       nameOfTD: [undefined],
       accountNumber: [undefined],
       minimumCommissionAmount: [undefined],
@@ -349,14 +356,14 @@ export class ClassASanctionLetterComponent implements OnInit {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.CLASS_A)
             .toString()) {
-          offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+          offerLetterPath.supportedInformation = this.setFreeText();
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
-      offerDocument.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+      offerDocument.supportedInformation = this.setFreeText();
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
@@ -375,5 +382,17 @@ export class ClassASanctionLetterComponent implements OnInit {
   }
   close() {
     this.ref.close();
+  }
+  setFreeText() {
+    const free = {
+      freeText1: this.form.get('additionalCostumerDetails').value,
+      freeText2: this.form.get('accountNumberFreeText').value,
+      freeText3: this.form.get('accountHolderFreeText').value,
+      freeText4: this.form.get('tableFreeText').value,
+      freeText5: this.form.get('basicFreeText').value,
+      freeText6: this.form.get('additionalGuarantorDetails').value,
+    };
+    this.freeTextVal.push(free);
+    return this.freeTextVal;
   }
 }

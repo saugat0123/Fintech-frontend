@@ -83,7 +83,7 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
-      this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
+      this.autoRefNum = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
     // for date of approval
     const sanctionLetterDate = this.letter.sanctionLetterDateType ? this.letter.sanctionLetterDateType.en : '';
