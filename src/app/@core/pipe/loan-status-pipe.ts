@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
     name: 'loanStatusPipe'
@@ -23,6 +23,9 @@ export class LoanStatusPipe implements PipeTransform {
         }
         if ('TRANSFER' === value) {
             return 'TRANSFERRED';
+        }
+        if ('DUAL_APPROVAL_PENDING' === value) {
+            return 'Appproved';
         }
         return value;
     }

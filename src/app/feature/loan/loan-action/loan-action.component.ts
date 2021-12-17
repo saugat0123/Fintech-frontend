@@ -97,6 +97,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
     public loanAction(action: 'forward' | 'backward' | 'backwardCommittee' | 'approve' | 'reject' | 'close' | 'send back to sender' | 'send back to agent'): void {
         this.close();
+        console.log(this.customerLoanHolder.documentStatus);
         let context;
         switch (action) {
             case 'backward':
@@ -158,7 +159,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
                     return;
                 }
-                if (this.customerLoanHolder.isHsov && LocalStorageUtil.getStorage().roleName.toLowerCase() !== 'hsov') {
+                if (this.customerLoanHolder.isHsov && this.customerLoanHolder.documentStatus.toString() !== DocStatus.value(DocStatus.HSOV_PENDING)) {
                     context = {
                         popUpTitle: 'Approve',
                         isForward: true,
