@@ -21,26 +21,26 @@
         </div>
         <div class="row mt-3">
             <ul class="disc-list">
-                <li>
+                <li *ngIf="promissoryVisible">
                     रु.
                     <span><strong>{{proposedAmount ? proposedAmount : ''}}</strong></span>
                     /-
                     को प्रतिज्ञा पत्र । (Promissory Note)
                 </li>
-                <li>
+                <li *ngIf="loanDeedVisible">
                     रु.
                     <span><strong>{{proposedAmount ? proposedAmount : ''}}</strong></span>
                     /-
                     को ऋणतमसुक (Loan Deed)
                 </li>
-                <li>
+                <li *ngIf="mortgagedVisible">
                     कित्ता नं
                     <span><strong>{{plotNumber ? plotNumber : ''}}</strong></span>> को घर÷ जग्गाको धितोबन्धक तमसुक (Mortgaged Deed)
                 </li>
-                <li>
+                <li *ngIf="continuityVisible">
                     निरन्तरताको लिखत (Letter of Continuity)
                 </li>
-                <li>रु.
+                <li *ngIf="supplementaryVisible">रु.
                     <span><strong>{{proposedAmount ? proposedAmount : ''}}</strong></span>
                     /-
                     को श्री-सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation) सहित पूरक
@@ -53,7 +53,7 @@
                     को भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) सहित
                     वारेसनामा (Power of Attorney)
                 </li>
-                <li>
+                <li *ngIf="multiVisible">
                     बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
                 </li>
                 <li>

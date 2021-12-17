@@ -15,6 +15,11 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
   guarantorData: any;
   guarantorNames: Array<String> = [];
   allguarantorNames;
+  finalPersonalName;
+  personalGuarantorsName: Array<any> = new Array<any>();
+  guarantorParsed: Array<any> = new Array<any>();
+  tempPersonalGuarantors;
+  temp2;
   finalName;
   tempData;
   proposedAmount;
@@ -33,12 +38,11 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
       this.branchName = this.loanHolderInfo.branch.ct;
       console.log('Branch Name:', this.loanHolderInfo.branch.ct);
+      this.guarantorData.forEach(any => {
+        this.guarantorParsed.push(JSON.parse(any.nepData));
+      });
       this.guarantorDetails();
     }
-    const securities = this.tempData.securities;
-    this.plotNumber = securities.primarySecurity.securityOwnersKittaNo ? securities.primarySecurity.securityOwnersKittaNo : ''
-    || securities.secondarySecurity.securityOwnersKittaNo ? securities.secondarySecurity.securityOwnersKittaNo : '',
-    this.nameOfPropertyOwner = securities.primarySecurity.securityOwnersName || securities.secondarySecurity.securityOwnersName;
     const proposalData = this.customerApprovedDoc.assignedLoan[0].proposal;
     const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
     let totalLoanAmount = 0;
@@ -48,27 +52,43 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
     });
     this.proposedAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
   }
-
   guarantorDetails() {
-    if (this.guarantorData.length === 1) {
-      const temp = JSON.parse(this.guarantorData[0].nepData);
-      this.finalName =  temp.guarantorName.ct;
-    } else if (this.guarantorData.length === 2) {
-      for (let i = 0; i < this.guarantorData.length; i++) {
-        const temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
+    this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
+        val.guarantorType.en === 'Personal Guarantor');
+    this.personalGuarantorDetails();
+  }
+
+  personalGuarantorDetails() {
+    let rel: String = '';
+    this.tempPersonalGuarantors.forEach(i => {
+      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '0') {
+        rel = 'श्रीमती';
       }
-      this.allguarantorNames = this.guarantorNames.join(' र ');
-      this.finalName = this.allguarantorNames;
-    } else {
-      for (let i = 0; i < this.guarantorData.length - 1; i++) {
-        const temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.guarantorName.ct);
+      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '1') {
+        rel = 'सुश्री';
       }
-      this.allguarantorNames = this.guarantorNames.join(' , ');
-      const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
-      this.finalName =  this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
+      if (i.gender.en === 'MALE') {
+        rel = 'श्रीमान्';
+      }
+      this.personalGuarantorsName.push(rel + ' ' + i.guarantorName.ct);
+    });
+  }
+
+  commonGuarantorDetails(guarantorName, finalName) {
+    if (guarantorName.length === 1) {
+      finalName = guarantorName[0];
     }
+    if (guarantorName.length === 2) {
+      finalName = guarantorName.join(' र ');
+    }
+    if (guarantorName.length > 2) {
+      for (let i = 0; i < guarantorName.length - 1; i++) {
+        this.temp2 = guarantorName.join(' , ');
+      }
+      const temp1 = guarantorName[guarantorName.length - 1];
+      finalName = this.temp2 + ' र ' + temp1;
+    }
+    return finalName ? finalName : '';
   }
 
 }

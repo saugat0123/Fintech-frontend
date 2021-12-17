@@ -44,7 +44,8 @@
                     <input formControlName="plotNumber"
                            name="plotNumber"
                            type="text"
-                           class="form-field form-control-sm"/> को घर/ जग्गाको धितोबन्धक तमसुक (Mortgaged Deed)
+                           class="form-field form-control-sm" readonly
+                           [value]="getKittaNumbers(kittaNumbers, plotNumber)"/> को घर/ जग्गाको धितोबन्धक तमसुक (Mortgaged Deed)
                 </li>
                 <li *ngIf="continuityVisible">
                     निरन्तरताको लिखत (Letter of Continuity)
@@ -78,7 +79,8 @@
                     बराबरको
                     <input class="form-field form-control-sm col-3"
                            formControlName="guarantorName"
-                           type="text"/>
+                           type="text"
+                           [value]="commonGuarantorDetails(personalGuarantorsName, finalPersonalName)"/>
                     ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
                 </li>
                 <li>
@@ -116,7 +118,8 @@
                     धितोबन्धक रहेको घर/जग्गा धनी श्री
                     <input class="form-field form-control-sm"
                            formControlName="nameOfPropertyOwner"
-                           type="text"/> को धितो निरन्तरताको
+                           type="text" readonly
+                           [value]="getSecurityOwner(securityOwnersName, nameOfPropertyOwner)"/> को धितो निरन्तरताको
                     मन्जुरीनामा (Letter of Consent from Mortgage property owner for continuation of existing
                     mortgage)
                 </li>
