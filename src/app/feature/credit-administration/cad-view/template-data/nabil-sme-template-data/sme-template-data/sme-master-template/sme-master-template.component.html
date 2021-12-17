@@ -11,7 +11,8 @@
     <app-import-bills-discounting #importBillsDiscounting [loanName]="loanExtraDetails"></app-import-bills-discounting>
     </ng-container>
     <ng-container *ngIf="isLoanTrustReceiptLoan">
-    <app-import-loan-trust-receipt-loan #importLoanTrustReceiptLoan [loanName]="loanExtraDetails"></app-import-loan-trust-receipt-loan>
+    <app-import-loan-trust-receipt-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                                        #importLoanTrustReceiptLoan [loanName]="loanExtraDetails"></app-import-loan-trust-receipt-loan>
     </ng-container>
     <ng-container *ngIf="isRevolvingShortTermLoan">
     <app-revolving-short-term-loan #revolvingShortTermLoan [loanName]="loanExtraDetails"></app-revolving-short-term-loan>
