@@ -64,6 +64,28 @@ export class VideoKycInformationComponent implements OnInit , OnChanges{
       }
     });
   }
+  deleteVideoKyc(i) {
+    this.videoKyc.splice(i, 1);
+    this.remitCustomer.videoKyc = JSON.stringify(this.videoKyc);
+    this.remitService.saveRemitCustomer(this.remitCustomer).subscribe((response) => {
+      this.remitCustomer = response.detail;
+      response.detail.version = response.detail.version + 1;
+      this.remitEvent.emit(response.detail);
+      if (this.isModal === true) {
+        this.model.dismissAll();
+        this.router.navigateByUrl('/RemitCustomerListComponent', {skipLocationChange: true}).then(() => {
+          this.router.navigate(['/home/admin/remitLoan/incoming']);
+        });
+      } else {
+        // this.router.navigate(['/home/admin/catalogue']);
+      }
+      this.toast.success('Deleted');
+      this.spinner = false;
+    }, (err) => {
+      this.spinner = false;
+    });
+
+  }
 
   ngOnChanges(): void {
     if (!ObjectUtil.isEmpty(this.remitCustomer.videoKyc)) {

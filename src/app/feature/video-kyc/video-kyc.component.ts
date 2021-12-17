@@ -71,11 +71,13 @@ export class VideoKycComponent implements OnInit {
   ngOnInit() {
     this.buildSenderForm();
     this.buildBenfFrom();
-    this.checkActiveLink();
+    // this.checkActiveLink();
     this.userService.getLoggedInUser().subscribe((response: any) => {
       this.currentUser = response.detail;
-      console.log('this is response', response);
     });
+    if (this.remitCustomer.videoKyc !== null && !ObjectUtil.isEmpty(this.remitCustomer.videoKyc)) {
+      this.seperate();
+    }
     this.agentDetails = JSON.parse(this.remitCustomer.agentData);
   }
   buildBenfFrom() {
@@ -210,22 +212,23 @@ close() {
       id: str
     });
     if (this.videoKyc !== null && !ObjectUtil.isEmpty(this.videoKyc)) {
-      try {
-        this.videoKyc.forEach((data, i) => {
-          if (data.status.toLowerCase() === 'active' && data.isBenf === form.get('isBenf').value) {
-            this.videoKyc[i] = form.value;
-            throw this.breakException;
-          } else {
-            if (i === this.videoKyc.length - 1) {
-              this.videoKyc.push(form.value);
-            }
-          }
-        });
-      } catch (ex) {
-        if (ex !== this.breakException) {
-          throw ex;
-        }
-      }
+      this.videoKyc.push(form.value);
+      // try {
+      //   this.videoKyc.forEach((data, i) => {
+      //     if (data.status.toLowerCase() === 'active' && data.isBenf === form.get('isBenf').value) {
+      //       // this.videoKyc[i] = form.value;
+      //       // throw this.breakException;
+      //     } else {
+      //       if (i === this.videoKyc.length - 1) {
+      //         this.videoKyc.push(form.value);
+      //       }
+      //     }
+      //   });
+      // } catch (ex) {
+      //   if (ex !== this.breakException) {
+      //     throw ex;
+      //   }
+      // }
     } else {
       this.videoKyc = [form.value];
     }
@@ -247,16 +250,16 @@ close() {
   }
   saveVideo(form, remitCustomer) {
     this.remitService.saveRemitCustomer(remitCustomer).subscribe((data) => {
-      if (form.get('isBenf').value === true) {
-        this.benfLink = false;
-      } else if (form.get('isBenf').value === false) {
-        this.senderLink = false;
-      }
+      // if (form.get('isBenf').value === true) {
+      //   // this.benfLink = false;
+      // } else if (form.get('isBenf').value === false) {
+      //   // this.senderLink = false;
+      // }
       this.videoSpinner = false;
       data.detail.version = data.detail.version + 1;
       this.remitCustomer = data.detail;
       this.seperate();
-      this.videoKyc = this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
+      this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
       this.toast.success('Saved Video Kyc Details');
     }, err => {
       this.videoSpinner = false;
@@ -266,6 +269,7 @@ close() {
   }
   seperate() {
     this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
+    console.log('this is videokyc', this.videoKyc);
     this.benfDetailsArr = [];
     this.senderDetailsArr = [];
     this.videoKyc.map(data => {
