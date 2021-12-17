@@ -15,9 +15,16 @@
         </a>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-13" *ngIf="roletype.toLowerCase() === 'hsov'">
+    <div class="col-md-3 col-sm-6 col-xs-13" *ngIf="roletype.toLowerCase() === 'approval'">
         <a routerLink="/home/status/HSOV_PENDING">
             <app-icon-card detail="{{hsovPendingCount}}" title="HSOV" type="warning">
+                <i class="far fa-hourglass"></i>
+            </app-icon-card>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-13">
+        <a routerLink="/home/status/DUAL_APPROVAL_PENDING">
+            <app-icon-card detail="{{dual}}" title="Dual Approval Pending" type="warning">
                 <i class="far fa-hourglass"></i>
             </app-icon-card>
         </a>

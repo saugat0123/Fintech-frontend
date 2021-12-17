@@ -173,8 +173,14 @@ export class RemitCustomerListComponent implements OnInit {
         this.onBoardSpinner = true;
         if (this.shipped === 'MICRO_FINANCE') {
             this.remitCustomerService.saveRemitCustomerToMicroFinance(this.onBoardData).subscribe((res) => {
-                this.onBoardData.alreadyTransferred = true;
                 this.onBoardSpinner = false;
+                this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
+                    this.onBoardData.alreadyTransferred = true;
+                    this.onBoardSpinner = false;
+                }, error => {
+                    this.onBoardSpinner = false;
+                    this.toastService.success('Failed to Update In Bank');
+                });
                 this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
             }, error => {
                 this.onBoardSpinner = false;

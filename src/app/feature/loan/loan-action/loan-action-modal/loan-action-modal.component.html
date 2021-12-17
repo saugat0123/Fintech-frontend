@@ -14,7 +14,7 @@
                     This loan contains deferred documents that are not uploaded.
                 </p>
 
-                <div *ngIf="popUpTitle === 'Send Forward'" class="row">
+                <div *ngIf="popUpTitle === 'Send Forward' || docAction === 'DUAL_APPROVAL_PENDING' || docAction== 'HSOV_PENINDG'" class="row">
 
                     <div class="col-md-12 form-group">
                         <label class="toRole">TO</label>
@@ -47,17 +47,17 @@
                         </select>
                     </div>
                 </div>
-                <div *ngIf="docAction== 'HSOV_PENINDG' && showUserList && !isMaker" class="row">
-                    <div class="col-md-12 form-group">
-                        <label class="toUser" for="toUser">Send HSOV To</label>
-                        <select class="form-control form-control-sm" formControlName="toUser" id="toHSOV"
-                                name="toUser">
-                            <option *ngFor="let user of hsovUserList"
-                                    [ngValue]="user">
-                                {{user.username}}
-                        </select>
-                    </div>
-                </div>
+<!--                <div *ngIf="docAction== 'HSOV_PENINDG' && showUserList && !isMaker" class="row">-->
+<!--                    <div class="col-md-12 form-group">-->
+<!--                        <label class="toUser" for="toUser">Send HSOV To</label>-->
+<!--                        <select class="form-control form-control-sm" formControlName="toUser" id="toHSOV"-->
+<!--                                name="toUser">-->
+<!--                            <option *ngFor="let user of hsovUserList"-->
+<!--                                    [ngValue]="user">-->
+<!--                                {{user.username}}-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div class="row">
                     <div class="col-md-12">
@@ -74,14 +74,24 @@
                     </div>
                 </div>
 
-                <div *ngIf="isMaker">
-                    <div class="col-md-12">
-                        <nb-checkbox class="cursor" (checkedChange)="isHSOVChecked($event)"
-                                     [checked]="customerLoanHolder.isHsov">Is HSOV Needed
-                        </nb-checkbox>
+                <div *ngIf="!customerLoanHolder?.isHsov && !customerLoanHolder?.dualApproval">
+                    <div *ngIf="isMaker">
+                        <div class="col-md-12">
+                            <nb-checkbox class="cursor" (checkedChange)="isHSOVChecked($event)"
+                                         [disabled]="dual"
+                                         [checked]="customerLoanHolder.isHsov">Is HSOV Needed
+                            </nb-checkbox>
+                        </div>
+                    </div>
+                    <div *ngIf="isMaker">
+                        <div class="col-md-12">
+                            <nb-checkbox class="cursor" (checkedChange)="dualApproval($event)"
+                                         [disabled]="hsov"
+                                         [checked]="customerLoanHolder.dualApproval">Dual Aproval Needed
+                            </nb-checkbox>
+                        </div>
                     </div>
                 </div>
-
             </form>
         </nb-card-body>
         <nb-card-footer>

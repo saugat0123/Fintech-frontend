@@ -10,7 +10,9 @@ export enum DocStatus {
     INITIAL,
     SEND_BACK_TO_SENDER,
     SEND_BACK_TO_AGENT,
-    HSOV_PENDING}
+    HSOV_PENDING,
+    DUAL_APPROVAL_PENDING
+}
 
 export namespace DocStatus {
 
@@ -45,6 +47,8 @@ export namespace DocStatus {
             return 'SEND_BACK_TO_AGENT';
         } else if (docStatus === DocStatus.HSOV_PENDING) {
             return 'HSOV_PENDING';
+        } else if (docStatus === DocStatus.DUAL_APPROVAL_PENDING) {
+            return 'DUAL_APPROVAL_PENDING';
         }
     }
 }
