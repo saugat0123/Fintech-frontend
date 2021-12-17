@@ -105,7 +105,7 @@
                                         [securityDetails]="tempData?.securities"></app-master-securities-view>
                             </div>
 
-                            <div class="optional" *ngIf="securityTypeCondition">
+                            <!--<div class="optional" *ngIf="securityTypeCondition">
                                 <textarea
                                         class="form-control nepaliFont"
                                         rows="5"
@@ -113,7 +113,7 @@
                                         name="freeText1"
                                         formControlName="freeText1">
                                  </textarea>
-                                <!--<div class="firstTable mt-3">
+                                <div class="firstTable mt-3">
                                     <table class="table table-bordered">
                                         <tr>
                                             <td rowspan="2">
@@ -161,8 +161,8 @@
                                             </td>
                                         </tr>
                                     </table>
-                                </div>-->
-                            </div>
+                                </div>
+                            </div>-->
 
                             <!-- Applicable if only hypothecation letter is required-->
                             <li *ngIf="securityTypeHypothecationCondition">
@@ -387,7 +387,7 @@
                             </span>
                                 </p>
                             </li>
-                            <ckeditor class="nepaliFont" formControlName="freeTable"
+                            <ckeditor class="nepaliFont" formControlName="freeTable" [(ngModel)]="table"
                                       [config]="ckEditorConfig"></ckeditor>
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
@@ -517,7 +517,7 @@
                                         [securityDetails]="tempData?.securities"></app-master-secondary-securities-view>
                             </div>
 
-                            <div class="optional" class="pb-4" *ngIf="securityTypeSecondaryCondition">
+                            <!--<div class="optional" class="pb-4" *ngIf="securityTypeSecondaryCondition">
                                 <textarea
                                         class="form-control nepaliFont"
                                         rows="5"
@@ -525,7 +525,7 @@
                                         name="freeText4"
                                         formControlName="freeText4">
                                  </textarea>
-                                <!--<div class="firstTable mt-3">
+                                <div class="firstTable mt-3">
                                     <table class="table table-bordered">
                                         <tr>
                                             <td rowspan="2">
@@ -573,8 +573,8 @@
                                             </td>
                                         </tr>
                                     </table>
-                                </div>-->
-                            </div>
+                                </div>
+                            </div>-->
 
                             <li *ngIf="securityTypeSecondaryPersonalCondition">
                                 <!--Applicable only if Guarantee is required-->

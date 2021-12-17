@@ -69,6 +69,8 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
   tempCrossguarantors;
   temp2;
   ckEditorConfig = TableMaker.CK_CONFIG;
+  freeTextVal;
+  table;
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
@@ -79,6 +81,12 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.securityDetails = this.tempData.securities;
       this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+      if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation)) {
+        this.freeTextVal = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+        this.form.get('freeText2').patchValue(this.freeTextVal.section3.freeText2);
+        this.form.get('freeText5').patchValue(this.freeTextVal.section3.freeText5);
+        this.table = this.freeTextVal.section3.freeTable;
+      }
       this.fillForm();
     }
     this.guarantorData.forEach(any => {
