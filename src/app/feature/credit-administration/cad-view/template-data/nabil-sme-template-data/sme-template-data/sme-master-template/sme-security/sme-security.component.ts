@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Section1SmeSecurityComponent} from './sme-security-sections/section1-sme-security/section1-sme-security.component';
 import {Section2SmeSecurityComponent} from './sme-security-sections/section2-sme-security/section2-sme-security.component';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
+import {OfferDocument} from '../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-sme-security',
@@ -16,11 +17,18 @@ export class SmeSecurityComponent implements OnInit {
   section1SmeSecurityComponent: Section1SmeSecurityComponent;
   @ViewChild('secondarySecurity', {static: false})
   section2SmeSecurityComponent: Section2SmeSecurityComponent;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  initialInformation: any;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.buildForm();
+    if (this.offerDocumentList.length > 0) {
+      this.offerDocumentList.forEach(offerLetter => {
+        this.initialInformation = JSON.parse(offerLetter.initialInformation);
+      });
+    }
   }
 
   buildForm() {

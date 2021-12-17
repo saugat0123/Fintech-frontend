@@ -108,7 +108,7 @@
                             <tr>
                                 <td style="width: 15%"><strong>कर्जाको उद्देश्य: </strong></td>
                                 <td>
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm "
                                            readonly
                                            formControlName="purposeOfLoan"
                                            name="purposeOfLoan"
@@ -185,19 +185,19 @@
                                     पर्नेछ ।
                                     साथै अल्पकालिन कर्जाको हकमा देहाय बामोजिम हुनेछ ।<br>
                                     क. अल्पकालिन कर्जा १: <textarea
-                                        class="form-control customFont nepaliFont"
+                                        class="form-control customFont "
                                         style="width: 60%;padding: 5px;margin-top: 10px"
                                         name="freeText"
                                         formControlName="firstAdditionalDetails">
                                             </textarea><br>
                                     ख. अल्पकालिन कर्जा २: <textarea
-                                        class="form-control customFont nepaliFont"
+                                        class="form-control customFont "
                                         style="width: 60%;padding: 5px;margin-top: 10px"
                                         name="freeText"
                                         formControlName="secondAdditionalDetails">
                                             </textarea><br>
                                     ग. अल्पकालिन कर्जा ३: <textarea
-                                        class="form-control customFont nepaliFont"
+                                        class="form-control customFont "
                                         style="width: 60%;padding: 5px;margin-top: 10px"
                                         name="freeText"
                                         formControlName="thirdAdditionalDetails">
@@ -210,7 +210,7 @@
                                     <span *ngFor="let security of kisanKarjaSubsidy.get('securities')['controls']; let i = index" formArrayName="securities">
                                         <br>
                                         {{i + 1 | nepaliWord}} अल्पकालिन कर्जा {{i + 1 | nepaliNumber}} <textarea
-                                            class="form-control customFont nepaliFont"
+                                            class="form-control customFont "
                                             rows="5"
                                             style="width: 20%;padding: 5px;margin-top: 10px"
                                             name="freeText"
@@ -351,7 +351,7 @@
                         </table>
                         <p>
                    <textarea
-                           class="form-control customFont nepaliFont"
+                           class="form-control customFont "
                            rows="5"
                            style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
                            name="freeText"
@@ -588,7 +588,7 @@
                         </div>
                         <textarea
                                 id="freeText"
-                                class="form-control customFont nepaliFont"
+                                class="form-control customFont "
                                 rows="5"
                                 style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
                                 name="freeText"
@@ -910,7 +910,7 @@
 
                                             </li>
                                             <li>
-                                                <textarea class="form-control nepaliFont customFont" rows="3"
+                                                <textarea class="form-control  customFont" rows="3"
                                                           formControlName="sixthAdditionalDetails"
                                                           name="extraFinancialClause"
                                                           placeholder="अतिरिक्त वित्तीय खण्ड"
@@ -992,7 +992,7 @@
                                             भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                                         </li>
                                         <li>
-                                            <textarea class="form-control nepaliFont customFont" rows="5"
+                                            <textarea class="form-control  customFont" rows="5"
                                                       formControlName="seventhAdditionalDetails"
                                                       name="additionalOthersClause" placeholder="अतिरिक्त अन्य खण्ड"
                                                       style="width: 95%;padding: 5px;margin-top: 10px;"
@@ -1043,7 +1043,7 @@
                                             पक्षमा बिमालेख ।
                                         </li>
                                         <li>
-                                            <textarea class="form-control nepaliFont customFont" rows="5"
+                                            <textarea class="form-control  customFont" rows="5"
                                                       formControlName="eighthAdditionalDetails"
                                                       name="extraSecurityDocumentParts"
                                                       placeholder="अतिरिक्त सुरक्षा कागजात भागहरू"
@@ -1069,13 +1069,13 @@
                         <div class="col-md-12 d-flex justify-content-between">
                             <div class="right-content">
 
-                                <input class="form-field form-control-sm nepaliFont"
+                                <input class="form-field form-control-sm "
                                        readonly
                                        formControlName="relationshipOfficerName"
                                        name="relationshipOfficerName"
                                        type="text"/>
                                 <p>
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm "
                                            formControlName="autoPopulate1"
                                            [value]="autoPopulate1"
                                            type="text"/>
@@ -1092,13 +1092,13 @@
                             </div>
                             <div class="left-content text-right">
 
-                                <input class="form-field form-control-sm nepaliFont"
+                                <input class="form-field form-control-sm "
                                        readonly
                                        formControlName="branchManager"
                                        name="branchManager"
                                        type="text"/>
                                 <p>
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm "
                                            formControlName="autoPopulate2"
                                            [value]="autoPopulate2"
                                            type="text"/>
