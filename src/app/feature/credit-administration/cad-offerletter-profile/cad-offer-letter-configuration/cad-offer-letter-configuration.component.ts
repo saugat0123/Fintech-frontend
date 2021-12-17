@@ -471,7 +471,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         const controls = this.userConfigForm.controls;
         for (const name in controls) {
             if (name !== 'ownerDetails' && name !== 'guarantorDetails') {
-                console.log(name, 'name');
                 if (controls[name].invalid) {
                     invalidControls.push(this.titleCasePipe.transform(name).replace('ct', '').replace('trans', ''));
                 }
@@ -504,8 +503,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }
         }
         if (this.loanHolder.customerType === CustomerType.INSTITUTION && this.actionType === 'Edit') {
-            // console.log(this.userConfigForm.get('registrationDate').value);
-            // return;
             if (this.userConfigForm.get('registrationDateOption').value === 'AD') {
                 if (JSON.parse(this.loanHolder.nepData).registrationDateOption.en === 'BS') {
                     this.oneFormCustomer.establishmentDate = new Date(this.userConfigForm.get('registrationDate').value.eDate);
@@ -563,11 +560,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.oneFormCustomer.jointInfo = JSON.stringify(jointInfoArr);
         }
         this.oneFormCustomer.customerSubType = this.customerType === CustomerType.INDIVIDUAL ? this.customerSubType : this.institutionSubType;
-        // if (this.customerType === CustomerType.INSTITUTION && this.actionType === 'Edit'){
-        //     // console.log(this.loanHolder,'log');
-        //     // return;
-        //     this.oneFormCustomer.customerSubType = this.instSubType(this.loanHolder.customerSubType);
-        // }
         if (this.actionType === 'Edit' && this.customerType === CustomerType.INDIVIDUAL) {
             this.userConfigForm.patchValue({
                 permanentProvinceCT: this.userConfigForm.get('permanentProvince').value.nepaliName,
@@ -756,8 +748,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         formArray.value.forEach((value, index) => {
             let nepData: any;
             nepData = JSON.parse(value.nepData);
-            console.log(nepData);
-
             nepData.guarantorName ? nepData.guarantorName.ct = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).value : '';
             nepData.issuedPlace ? nepData.issuedPlace.ct = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '';
 
@@ -1041,7 +1031,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }
 
             if (this.customerType === CustomerType.INSTITUTION && this.actionType === 'Edit') {
-                console.log('ok');
                 nepData['guarantorIssuedDistrict'] = {
                     en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorIssuedDistrict']).value,
                     np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorIssuedDistrictTrans']).value,
@@ -1902,7 +1891,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                         nepaData.guarantorCurrentProvince.en.id, null, i);
                     this.getMunicipalitiesByIdForCurrentGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict) ? null :
                         nepaData.guarantorCurrentDistrict.en.id, null, i);
-                    console.log(value.guarantorRegisteredProvince);
                     this.getDistrictsByIdForRegisteredGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince) ? null :
                         nepaData.guarantorRegisteredProvince.en.id, null, i);
                     this.getMunicipalitiesByIdForRegisteredGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict) ? null :
@@ -2557,7 +2545,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (alluarantors.length > 0) {
             let guarantorsDetails: any = [];
             guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
-            console.log(guarantorsDetails);
             this.spinner = false;
             this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
             this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
@@ -2885,7 +2872,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             // for (let i = 0; i < a.length; i++) {
             const individualData = a[index] as FormGroup;
             Object.keys(individualData.controls).forEach(key => {
-                console.log(key);
                 if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
                     || key.indexOf('id') > -1 || key.indexOf('nepData') > -1) {
                     return;
@@ -2905,11 +2891,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.attributes.ct = individualData.get(key + 'CT').value;
                 newArr[key] = this.attributes;
             });
-            console.log(newArr, 'checkGua');
             this.translatedGuarantorDetails[index] = newArr;
             // this.deleteCTAndTransContorls(index);
             this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
-            console.log(this.userConfigForm.get(['guarantorDetails', index, 'nepData']).value , 'testValue');
             // end guarantorDetails
         }
     }
@@ -3616,7 +3600,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (allOwnerData.length > 0) {
             let ownerTranslatedData: any = [];
             ownerTranslatedData = await this.translateService.translateForm(this.userConfigForm, 'ownerDetails', index);
-            console.log(ownerTranslatedData[fieldName]);
             this.userConfigForm.get(['ownerDetails', index, fieldName + 'Trans']).patchValue(ownerTranslatedData[fieldName] ? ownerTranslatedData[fieldName] : '');
             this.userConfigForm.get(['ownerDetails', index, fieldName + 'CT']).patchValue(ownerTranslatedData[fieldName] ? ownerTranslatedData[fieldName] : '');
         }
@@ -4349,7 +4332,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         province.id = provinceId;
         this.addressService.getDistrictByProvince(province).subscribe(
             (response: any) => {
-                console.log(response.detail);
                 this.guarantorRegisteredDistricts[i] = response.detail;
                 this.guarantorRegisteredDistricts[i].sort((a, b) => a.name.localeCompare(b.name));
             }
@@ -4721,10 +4703,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
     }
 
-    setActDateValue() {
-        console.log(this.userConfigForm.get('actYear').value);
-        console.log('ok');
-    }
+
 
     openCloseTemplate(template) {
         this.modalService.open(template);
