@@ -177,6 +177,7 @@ export class LoanActionModalComponent implements OnInit {
             if (this.formAction.invalid) {
                 return;
             }
+            console.log('this is the role id',this.formAction.get('toRole').value);
             const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
                 context: {
                     toUser: this.formAction.get('toUser').value,
@@ -292,11 +293,11 @@ export class LoanActionModalComponent implements OnInit {
 
     private postAction() {
 
-        if (this.docAction == 'HSOV_PENINDG') {
-            this.formAction.patchValue({
-                toRole: this.hsovRole
-            });
-        }
+        // if (this.docAction == 'HSOV_PENINDG') {
+        //     this.formAction.patchValue({
+        //         toRole: this.hsovRole
+        //     });
+        // }
 
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             const msg = `Successfully ${this.formAction.get('docActionMsg').value}`;
