@@ -14,14 +14,15 @@
         </p>
 
         <div class="mb-2">
-            <div class="mb-1">श्री/श्रीमती/सुश्री
+            <div class="mb-1">
+                श्री
                 <span>
                     {{loanHolderInfo?.name ? loanHolderInfo?.name.ct : "___________"}}
                 </span>
             </div>
             <div class="mb-1"> ठेगाना:
                 <span>
-                    {{customerAddress ? customerAddress  : '___________' }}
+                    {{customerAddress ? customerAddress : '___________' }}
                 </span>
             </div>
 
@@ -64,7 +65,8 @@
                 <strong> स्वीकृत ऋणकर्जा सुविधाहरुको विवरण </strong>
             </div>
             <div class="row form-group">
-                <table class="table table-sm table-condensed table-bordered table-sm sb-small" style="width: 95%; margin-left: 20px">
+                <table class="table table-sm table-condensed table-bordered table-sm sb-small"
+                       style="width: 95%; margin-left: 20px">
                     <tr>
                         <td><strong>कर्जा प्रकार: </strong>
                         </td>
@@ -188,7 +190,7 @@
                         </td>
                         <td>
                             <span>
-                                {{finalName ? finalName: '________________'}}
+                                {{finalName ? finalName : '________________'}}
                             </span>
                         </td>
                     </tr>
@@ -219,7 +221,8 @@
 
             <!-- free text box -->
             <div class="text-left">
-                <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.firstText : ''}}</span><br>
+                <span class="nepaliFont"
+                      style="font-size: 26px">{{freeInformation ? freeInformation.firstText : ''}}</span><br>
             </div>
 
             <div class="" *ngIf="interestSubsidy == true">
@@ -526,7 +529,8 @@
 
             <!-- free text box -->
             <div>
-                <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.secondText : ''}}</span><br>
+                <span class="nepaliFont"
+                      style="font-size: 26px">{{freeInformation ? freeInformation.secondText : ''}}</span><br>
             </div>
 
             <div class="col-sm-12">
@@ -814,7 +818,8 @@
                     </li>
                     <!-- free text box -->
                     <li *ngIf="freeInformation?.thirdText">
-                        <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.thirdText : ''}}</span>
+                        <span class="nepaliFont"
+                              style="font-size: 26px">{{freeInformation ? freeInformation.thirdText : ''}}</span>
                     </li>
                 </ol>
             </div>
@@ -907,7 +912,8 @@
                     </li>
                     <!-- free text box -->
                     <li *ngIf="freeInformation?.fourthText">
-                        <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.fourthText : ''}}</span>
+                        <span class="nepaliFont"
+                              style="font-size: 26px">{{freeInformation ? freeInformation.fourthText : ''}}</span>
                     </li>
                 </ol>
             </div>
@@ -949,7 +955,8 @@
 
                     <!-- free text box -->
                     <li *ngIf="freeInformation?.fifthText">
-                        <span class="nepaliFont" style="font-size: 26px">{{freeInformation ? freeInformation.fifthText : ''}}</span>
+                        <span class="nepaliFont"
+                              style="font-size: 26px">{{freeInformation ? freeInformation.fifthText : ''}}</span>
                     </li>
                 </ul>
             </div>
@@ -976,7 +983,8 @@
 
                     .........................................
                     <p>
-                        <span style="font-size: 19px" [ngClass]="{'nepaliFont font-weight-bold': letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
+                        <span style="font-size: 19px"
+                              [ngClass]="{'nepaliFont font-weight-bold': letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
                                 {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === "" ? "___________" : letter?.nameOfStaff.ct}}
                         </span>
                         <br>
@@ -995,7 +1003,8 @@
 
                     .........................................
                     <p>
-                        <span style="font-size: 19px" [ngClass]="{'nepaliFont font-weight-bold': letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
+                        <span style="font-size: 19px"
+                              [ngClass]="{'nepaliFont font-weight-bold': letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
                                 {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === "" ? "___________" : letter?.nameOfBranchManager.ct}}
                         </span>
                         <br>

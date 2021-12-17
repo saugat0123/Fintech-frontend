@@ -171,12 +171,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="circularRate">Rate As Per NRB Circular</label>
-                        <input class="form-control" formControlName="circularRate" fullWidth id="circularRate"
-                               nbInput status="success" type="number">
-                    </div>
-
-                    <div class="form-group">
                         <label for="nameOfStaff">Name of ARO/RO/RM/ARM</label>
                         <input class="form-control" formControlName="nameOfStaff" fullWidth id="nameOfStaff"
                                nbInput status="success" type="text">
@@ -284,12 +278,6 @@
                         <label for="totalLimitWordsTrans">Total Limit Words Translation</label>
                         <input class="form-control" formControlName="totalLimitWordsTrans" fullWidth
                                id="totalLimitWordsTrans"
-                               nbInput status="success" type="text">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="circularRateTrans">Rate As Per NRB Circular Translation</label>
-                        <input class="form-control" formControlName="circularRateTrans" fullWidth id="circularRateTrans"
                                nbInput status="success" type="text">
                     </div>
 
@@ -470,17 +458,6 @@
                                type="text">
                         <span *ngIf="submitted && formControls.totalLimitWordsCT.invalid" class="text-danger">
                             Total Limit Words is required
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="circularRateCT">Rate As Per NRB Circular CT </label>
-                        <input class="form-control" formControlName="circularRateCT" fullWidth id="circularRateCT"
-                               nbInput status="success"
-                               [ngClass]=" { 'is-invalid':submitted && formControls.circularRateCT.errors }"
-                               type="text">
-                        <span *ngIf="submitted && formControls.circularRateCT.invalid" class="text-danger">
-                            Circular Rate is required
                         </span>
                     </div>
 
