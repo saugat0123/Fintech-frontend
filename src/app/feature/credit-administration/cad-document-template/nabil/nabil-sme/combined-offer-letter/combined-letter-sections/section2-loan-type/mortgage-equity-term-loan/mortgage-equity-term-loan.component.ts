@@ -5,6 +5,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepa
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {LoanNameConstant} from '../../../../../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
 
 @Component({
     selector: 'app-mortgage-equity-term-loan',
@@ -33,9 +34,13 @@ export class MortgageEquityTermLoanComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-            const totalLoanAmount = this.customerApprovedDoc.assignedLoan[0].proposal.proposedLimit;
-            this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
-            this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
+            this.customerApprovedDoc.assignedLoan.forEach(val => {
+                if (val.loan.name === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
+                    const totalLoanAmount = val.proposal.proposedLimit;
+                    this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
+                    this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
+                }
+            });
             this.fillForm();
         }
         if (!ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm)) {

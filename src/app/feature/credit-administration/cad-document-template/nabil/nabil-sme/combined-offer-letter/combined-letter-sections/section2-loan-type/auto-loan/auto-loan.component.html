@@ -6,10 +6,10 @@
                             placeholder=""
                             type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong>
 
-        <strong><br> सीमाः रु.<input class="form-field form-control-sm "
+        <strong><br> सीमाः <ng-container *ngIf="complementaryOtherAutoLoan">(</ng-container>रु.<input class="form-field form-control-sm "
                                      formControlName="loanAmountAutoLoan"
                                      placeholder=""
-                                     type="text"/>।-
+                                     type="text"/>।-<ng-container *ngIf="complementaryOtherAutoLoan">)</ng-container>
             (अक्षरेपी रु.<input class="form-field form-control-sm "
                                 formControlName="loanAmountInWordAutoLoan"
                                 placeholder=""
