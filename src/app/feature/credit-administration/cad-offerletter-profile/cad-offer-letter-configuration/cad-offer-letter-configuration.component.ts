@@ -1040,7 +1040,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 //     guarantorPanNoCT: [undefined],
             }
 
-            if(this.customerType === CustomerType.INSTITUTION && this.actionType === 'Edit'){
+            if (this.customerType === CustomerType.INSTITUTION && this.actionType === 'Edit') {
                 console.log('ok');
                 nepData['guarantorIssuedDistrict'] = {
                     en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorIssuedDistrict']).value,
@@ -2241,7 +2241,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                     undefined : nepaData.guarantorRegisteredMunicipality.ct,
                 guarantorRegisteredWardNo: ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo) ?
                     undefined : nepaData.guarantorRegisteredWardNo.en,
-                guarantorRegisteredWardNoTrans:ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo) ?
+                guarantorRegisteredWardNoTrans: ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo) ?
                     undefined : nepaData.guarantorRegisteredWardNo.np,
                 guarantorRegisteredWardNoCT: ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo) ?
                     undefined : nepaData.guarantorRegisteredWardNo.ct,
@@ -2283,7 +2283,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                     undefined : nepaData.guarantorCurrentMunicipality.ct,
                 guarantorCurrentWardNo: ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo) ?
                     undefined : nepaData.guarantorCurrentWardNo.en,
-                guarantorCurrentWardNoTrans:ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo) ?
+                guarantorCurrentWardNoTrans: ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo) ?
                     undefined : nepaData.guarantorCurrentWardNo.np,
                 guarantorCurrentWardNoCT: ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo) ?
                     undefined : nepaData.guarantorCurrentWardNo.ct,
@@ -3620,6 +3620,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get(['ownerDetails', index, fieldName + 'Trans']).patchValue(ownerTranslatedData[fieldName] ? ownerTranslatedData[fieldName] : '');
             this.userConfigForm.get(['ownerDetails', index, fieldName + 'CT']).patchValue(ownerTranslatedData[fieldName] ? ownerTranslatedData[fieldName] : '');
         }
+    }
+
+    async translateActYear(fieldName: any) {
+        const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(fieldName).value.toString());
+        this.userConfigForm.get(fieldName).patchValue(wordLabelVar);
+    }
+
+    async translateGuaActYear(fieldName: any, i: number) {
+        const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(['guarantorDetails', i, fieldName]).value.toString());
+        this.userConfigForm.get(['guarantorDetails', i , fieldName]).patchValue(wordLabelVar);
     }
 
     translateJointCustomerSectionNumberField(arrName, source, index, target) {
