@@ -1,5 +1,10 @@
-<div [nbSpinner]="spinner">
-    <app-sme-global-content #smeGlobalContent></app-sme-global-content>
+<nb-card>
+    <nb-card-header *ngIf="isEdit">
+        <h3>Edit Combined Loan Data</h3>
+        <span class="font-weight-bold cursor float-right" (click)="nbDialogRef.close()">x</span>
+    </nb-card-header>
+    <nb-card-body [nbSpinner]="spinner">
+    <app-sme-global-content #smeGlobalContent [offerDocumentList]="customerApprovedDoc.offerDocumentList"></app-sme-global-content>
     <!-- Type of sme loan start here-->
     <ng-container *ngIf="isIrrevocableLetter">
     <app-irrevocable-letter-of-credit-facility #irrevocableLetterOfCreditFacility [loanName]="loanExtraDetails"></app-irrevocable-letter-of-credit-facility>
@@ -56,18 +61,21 @@
     <app-bill-purchase #billPurchaseComponent [loanName]="loanExtraDetails"></app-bill-purchase>
     </ng-container>
     <!-- Type of sme loan end here-->
-    <app-sme-security #masterSecurity></app-sme-security>
+    <app-sme-security #masterSecurity [offerDocumentList]="customerApprovedDoc.offerDocumentList"></app-sme-security>
+    </nb-card-body>
+    <nb-card-footer>
     <!-- Required Document Section -->
     <app-required-legal-document-section #requiredLegalDocumentSectionComponent></app-required-legal-document-section>
     <div class="row">
         <div class="col-md-12">
-            <button class="float-right" nbButton size="small" (click)="openCloseTemplate(confirm)" status="info" style="margin-right: 0.5em" [disabled]="!disableBtn">Close</button>
+            <button class="float-right" *ngIf="!isEdit" nbButton size="small" (click)="openCloseTemplate(confirm)" status="info" style="margin-right: 0.5em" [disabled]="!disableBtn">Close</button>
             <button class="d-flex float-right" nbButton status="success" size="small" (click)="openCombinedOfferLetter()" [disabled]="!disableBtn">Preview</button>
             <button class="d-flex float-right ml-1" nbButton status="primary" size="small" (click)="onSubmit()" [disabled]="disableBtn">Save</button>
         </div>
     </div>
+    </nb-card-footer>
+</nb-card>
 
-</div>
 
 <ng-template #confirm>
     <div class="modal-header" style="padding-left: 90%">

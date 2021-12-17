@@ -287,7 +287,7 @@ import { RequiredLegalDocumentSectionComponent } from './cad-view/template-data/
     InterestSubsidySanctionLetterTemplateEditComponent,
       DdslWithoutSubsidyTemplateEditComponent, PersonalLoanAndPersonalOverdraftTemplateEditComponent,
       KisanKarjaSubsidyTemplateEditComponent, ClassASanctionLetterComponent, ClassASanctionLetterPrintComponent, ClassASanctionLetterTemplateDataComponent,
-      CombinedOfferLetterComponent],
+      CombinedOfferLetterComponent, SmeMasterTemplateComponent],
   exports: [CadFileSetupComponent, FilterComponent, InterestSubsidySanctionLetterComponent, ClassASanctionLetterComponent],
   providers: [RouterUtilsService, NgbActiveModal]
 })
