@@ -218,6 +218,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       currents: [undefined],
       savings: [undefined],
       Nabil: [undefined],
+      Other: [undefined],
       letterNew: [undefined],
       letterExisting: [undefined],
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
@@ -303,6 +304,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       currentsTrans: [undefined],
       savingsTrans: [undefined],
       NabilTrans: [undefined],
+      OtherTrans: [undefined],
       letterNewTrans: [undefined],
       letterExistingTrans: [undefined],
       // FIELDS FOR CT VALUES:
@@ -388,6 +390,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       currentsCT: [undefined],
       savingsCT: [undefined],
       NabilCT: [undefined],
+      OtherCT: [undefined],
       letterNewCT: [undefined],
       letterExistingCT: [undefined],
     });
@@ -597,6 +600,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('currentTrans').patchValue(this.isCurrentSelected);
     this.form.get('savingTrans').patchValue(this.isSavingSelected);
     this.form.get('NabilTrans').patchValue(this.isNabilSelected);
+    this.form.get('OtherTrans').patchValue(this.isOtherSelected);
     this.form.get('CommissionType1Trans').patchValue(this.isCommissionType1Selected);
     this.form.get('CommissionType2Trans').patchValue(this.isCommissionType2Selected);
     this.form.get('tdAccountsTrans').patchValue(this.isTdAccountIsSelected);
@@ -1069,6 +1073,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('currents').patchValue(this.isCurrentIsSelected);
     this.form.get('savings').patchValue(this.isSavingIsSelected);
     this.form.get('Nabil').patchValue(this.isNabilSelected);
+    this.form.get('Other').patchValue(this.isOtherSelected);
     this.form.get('letterNew').patchValue(this.isNewSelected);
     this.form.get('letterExisting').patchValue(this.isExistingSelected);
     this.spinner = true;
