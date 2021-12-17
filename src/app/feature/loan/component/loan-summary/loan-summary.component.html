@@ -141,6 +141,10 @@
             <div class="row ">
                 <div class="col-md-12 sb-small">
                     <div class="clearfix">
+                        <div *ngIf="isRemitLoan" class="float-left"><span><strong>Beneficiary No.: </strong>{{beneficiary?.beneficiaryIdentity?.benef_mob_no}}</span></div>
+                        <br>
+<!--                        <div *ngIf="isRemitLoan" class="float-left"><span><strong>Remitter Citizenship Number: </strong>{{loanDataHolder?.refNo}}</span></div>-->
+<!--                        <br>-->
                         <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
                         <br>
                         <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch.branchCode}}</span></div>
