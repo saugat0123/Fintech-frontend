@@ -16,8 +16,7 @@
                             formControlName="SNOfParentLimitIrrevocable"
                             placeholder=""
                             type="text"/>
-                    को पूरक सुविधा/कुल सुविधाको
-                    पूरक सुविधा</ng-container></strong></span><br>
+                    को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong></span><br>
                             <!--For regular-->
                             <span *ngIf="this.loanOptionIrrevocable === 'REGULAR'"><strong>नियमित अपरिवर्तनीय प्रतित पत्र सुविधा
                         (Irrevocable letter of credit facility)
@@ -25,15 +24,18 @@
                                    class="form-field form-control-sm"
                                    formControlName="SNOfParentLimitIrrevocable"
                                    placeholder=""
-                                   type="text"/> को पूरक सुविधा/कुल सुविधाको
-                        पूरक सुविधा</ng-container></strong></span>
+                                   type="text"/> को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong></span>
                         </p>
                         <p>
-                            <strong>सीमाः रु.<input class="form-field form-control-sm"
+                            <strong>सीमाः <ng-container *ngIf="complementaryOtherIrrevocable">(रु.<input class="form-field form-control-sm"
                                                     formControlName="loanAmountIrrevocable"
                                                     placeholder=""
-                                                    type="text"/>
-                                ।–(अक्षरेपी रु.<input class="form-field form-control-sm"
+                                                    type="text"/>।–)</ng-container>
+                                <ng-container *ngIf="!complementaryOtherIrrevocable">रु.<input class="form-field form-control-sm"
+                                                                                                    formControlName="loanAmountIrrevocable"
+                                                                                                    placeholder=""
+                                                                                                    type="text"/>
+                                    ।–</ng-container>(अक्षरेपी रु.<input class="form-field form-control-sm"
                                                       formControlName="loanAmountInWordIrrevocable"
                                                       placeholder=""
                                                       type="text"/> मात्र)</strong><br>
@@ -113,11 +115,15 @@
                                         type="text"/> को पूरक सुविधा </ng-container></strong></span><br>
                         </p>
                         <p>
-                            <strong>सीमाः रु.<input class="form-field form-control-sm "
-                                                    formControlName="loanAmountTimeLetter"
-                                                    placeholder=""
-                                                    type="text"/>
-                                ।-(अक्षरेपी रु.<input class="form-field form-control-sm "
+                            <strong>सीमाः <ng-container *ngIf="complementaryOtherTimeLetter">(रु.<input class="form-field form-control-sm"
+                                                                                                         formControlName="loanAmountTimeLetter"
+                                                                                                         placeholder=""
+                                                                                                         type="text"/>।–)</ng-container>
+                                <ng-container *ngIf="!complementaryOtherTimeLetter">रु.<input class="form-field form-control-sm"
+                                                                                               formControlName="loanAmountTimeLetter"
+                                                                                               placeholder=""
+                                                                                               type="text"/>
+                                    ।–</ng-container>(अक्षरेपी रु.<input class="form-field form-control-sm "
                                                       formControlName="loanAmountInWordTimeLetter"
                                                       placeholder=""
                                                       type="text"/> मात्र)</strong><br>
@@ -185,10 +191,15 @@
                                 type="text"/>को पूरक सुविधा
                         </ng-container>
                     </strong><br>
-                        <strong>सीमाः रु.<input class="form-field form-control-sm "
-                                                formControlName="loanAmountBillsDiscounting"
-                                                placeholder=""
-                                                type="text"/>।-
+                        <strong>सीमाः <ng-container *ngIf="complementaryOtherBillDiscounting">(रु.<input class="form-field form-control-sm"
+                                                                                                    formControlName="loanAmountBillsDiscounting"
+                                                                                                    placeholder=""
+                                                                                                    type="text"/>।–)</ng-container>
+                            <ng-container *ngIf="!complementaryOtherBillDiscounting">रु.<input class="form-field form-control-sm"
+                                                                                          formControlName="loanAmountBillsDiscounting"
+                                                                                          placeholder=""
+                                                                                          type="text"/>
+                                ।–</ng-container>
                             (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                 formControlName="loanAmountInWordBillsDiscounting"
                                                 placeholder=""
@@ -266,10 +277,15 @@
                             placeholder=""
                             type="text"/> को पूरक सुविधा </ng-container></strong></span><br>
 
-                        <strong>सीमाः रु.<input class="form-field form-control-sm "
-                                                formControlName="loanAmountLoanTrust"
-                                                placeholder=""
-                                                type="text"/>।-
+                        <strong>सीमाः <ng-container *ngIf="complementaryOtherImportLoanTrust">(रु.<input class="form-field form-control-sm"
+                                                                                                         formControlName="loanAmountLoanTrust"
+                                                                                                         placeholder=""
+                                                                                                         type="text"/>।–)</ng-container>
+                            <ng-container *ngIf="!complementaryOtherImportLoanTrust">रु.<input class="form-field form-control-sm"
+                                                                                               formControlName="loanAmountLoanTrust"
+                                                                                               placeholder=""
+                                                                                               type="text"/>
+                                ।–</ng-container>
                             (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                 formControlName="loanAmountInWordLoanTrust"
                                                 placeholder=""
@@ -410,10 +426,15 @@
                                     type="text"/> को पूरक सुविधा/कुल
                     सुविधाको पूरक सुविधा</ng-container></strong></span><br>
 
-                        <strong> सीमाः रु.<input class="form-field form-control-sm "
-                                                 formControlName="loanAmountShortTermLoan"
-                                                 placeholder=""
-                                                 type="text"/>।-
+                        <strong> सीमाः <ng-container *ngIf="complementaryOtherShortTermLoan">(रु.<input class="form-field form-control-sm"
+                                                                                                          formControlName="loanAmountShortTermLoan"
+                                                                                                          placeholder=""
+                                                                                                          type="text"/>।–)</ng-container>
+                            <ng-container *ngIf="!complementaryOtherShortTermLoan">रु.<input class="form-field form-control-sm"
+                                                                                               formControlName="loanAmountShortTermLoan"
+                                                                                               placeholder=""
+                                                                                               type="text"/>
+                                ।–</ng-container>
                             (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                 formControlName="loanAmountInWordShortTermLoan"
                                                 placeholder=""
@@ -519,10 +540,15 @@
                                type="text"/> को पूरक सुविधा/कुल
                     सुविधाको पूरक सुविधा </ng-container></strong></span><br>
 
-                        <strong> सीमाः रु.<input class="form-field form-control-sm "
-                                                 formControlName="loanAmountDemandLoan"
-                                                 placeholder=""
-                                                 type="text"/>।(अक्षरेपी रु.<input class="form-field form-control-sm "
+                        <strong> सीमाः <ng-container *ngIf="complementaryOtherDemandLoan">(रु.<input class="form-field form-control-sm"
+                                                                                                        formControlName="loanAmountDemandLoan"
+                                                                                                        placeholder=""
+                                                                                                        type="text"/>।–)</ng-container>
+                            <ng-container *ngIf="!complementaryOtherDemandLoan">रु.<input class="form-field form-control-sm"
+                                                                                             formControlName="loanAmountDemandLoan"
+                                                                                             placeholder=""
+                                                                                             type="text"/>
+                                ।–</ng-container>(अक्षरेपी रु.<input class="form-field form-control-sm "
                                                                                    formControlName="LoanAmountInWordDemandLoan"
                                                                                    placeholder=""
                                                                                    type="text"/> मात्र)</strong><br>
@@ -607,10 +633,15 @@
                                 type="text"/> को पूरक सुविधा/कुल
                             सुविधाको पूरक सुविधा </ng-container></strong></span><br>
 
-                        <strong> सीमाः रु.<input class="form-field form-control-sm "
-                                                 formControlName="loanAmountPreExport"
-                                                 placeholder=""
-                                                 type="text"/>।-
+                        <strong> सीमाः <ng-container *ngIf="complementaryOtherPreExportLoan">(रु.<input class="form-field form-control-sm"
+                                                                                                     formControlName="loanAmountPreExport"
+                                                                                                     placeholder=""
+                                                                                                     type="text"/>।–)</ng-container>
+                            <ng-container *ngIf="!complementaryOtherPreExportLoan">रु.<input class="form-field form-control-sm"
+                                                                                          formControlName="loanAmountPreExport"
+                                                                                          placeholder=""
+                                                                                          type="text"/>
+                                ।–</ng-container>
                             (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                 formControlName="loanAmountInWordPreExport"
                                                 placeholder=""
@@ -681,10 +712,15 @@
                             placeholder=""
                             type="text"/> को पूरक सुविधा/कुलसुविधाको पूरक सुविधा </ng-container></strong></span><br>
 
-                        <strong> सीमाः रु.<input class="form-field form-control-sm "
-                                                 formControlName="loanAmountDocumentaryBill"
-                                                 placeholder=""
-                                                 type="text"/>।-
+                        <strong> सीमाः <ng-container *ngIf="complementaryOtherDocumentaryBill">(रु.<input class="form-field form-control-sm"
+                                                                                                        formControlName="loanAmountDocumentaryBill"
+                                                                                                        placeholder=""
+                                                                                                        type="text"/>।–)</ng-container>
+                            <ng-container *ngIf="!complementaryOtherDocumentaryBill">रु.<input class="form-field form-control-sm"
+                                                                                             formControlName="loanAmountDocumentaryBill"
+                                                                                             placeholder=""
+                                                                                             type="text"/>
+                                ।–</ng-container>
                             (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                 formControlName="loanAmountInWordDocumentaryBill"
                                                 placeholder=""
@@ -1195,16 +1231,20 @@
                                         class="form-field form-control-sm "
                                         formControlName="SNOfParentLimitBridgeGap"
                                         placeholder=""
-                                        type="text"/>को पूरक सुविधा/कुल
-                                    सुविधाको पूरक सुविधा
+                                        type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा
                                 </ng-container>
                             </strong>
                         </p>
                         <p>
-                            <strong>सीमाः रु.<input class="form-field form-control-sm "
-                                                    formControlName="loanAmountBridgeGap"
-                                                    placeholder=""
-                                                    type="text"/>।-
+                            <strong>सीमाः <ng-container *ngIf="complementaryOtherPreExportLoan">(रु.<input class="form-field form-control-sm"
+                                                                                                           formControlName="loanAmountBridgeGap"
+                                                                                                           placeholder=""
+                                                                                                           type="text"/>।–)</ng-container>
+                                <ng-container *ngIf="!complementaryOtherPreExportLoan">रु.<input class="form-field form-control-sm"
+                                                                                                 formControlName="loanAmountBridgeGap"
+                                                                                                 placeholder=""
+                                                                                                 type="text"/>
+                                    ।–</ng-container>
                                 (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                     formControlName="loanAmountInWordBridgeGap"
                                                     placeholder=""
@@ -1317,10 +1357,15 @@
                                 </ng-container>
                             </strong><br>
 
-                            <strong> सीमाः रु.<input class="form-field form-control-sm "
-                                                     formControlName="loanAmountBankGuarantee"
-                                                     placeholder=""
-                                                     type="text"/>।-
+                            <strong> सीमाः <ng-container *ngIf="complementaryOtherBankGuarantee">(रु.<input class="form-field form-control-sm"
+                                                                                                            formControlName="loanAmountBankGuarantee"
+                                                                                                            placeholder=""
+                                                                                                            type="text"/>।–)</ng-container>
+                                <ng-container *ngIf="!complementaryOtherBankGuarantee">रु.<input class="form-field form-control-sm"
+                                                                                                 formControlName="loanAmountBankGuarantee"
+                                                                                                 placeholder=""
+                                                                                                 type="text"/>
+                                    ।–</ng-container>
                                 (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                     formControlName="loanAmountInWordBankGuarantee"
                                                     placeholder=""
@@ -1420,10 +1465,15 @@
                                                 placeholder=""
                                                 type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा </ng-container></strong><br>
 
-                            <strong> सीमाः रु.<input class="form-field form-control-sm "
-                                                     formControlName="loanAmountBillsPurchase"
-                                                     placeholder=""
-                                                     type="text"/>|-
+                            <strong> सीमाः <ng-container *ngIf="complementaryOtherBillPurchase">(रु.<input class="form-field form-control-sm"
+                                                                                                            formControlName="loanAmountBillsPurchase"
+                                                                                                            placeholder=""
+                                                                                                            type="text"/>।–)</ng-container>
+                                <ng-container *ngIf="!complementaryOtherBillPurchase">रु.<input class="form-field form-control-sm"
+                                                                                                 formControlName="loanAmountBillsPurchase"
+                                                                                                 placeholder=""
+                                                                                                 type="text"/>
+                                    ।–</ng-container>
                                 (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                     formControlName="loanAmountInWordBillsPurchase"
                                                     placeholder=""
