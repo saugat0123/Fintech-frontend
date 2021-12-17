@@ -10,7 +10,9 @@ export enum DocAction {
     BACKWARD_TO_COMMITTEE,
     RE_INITIATE,
     SEND_BACK_TO_SENDER,
-    SEND_BACK_TO_AGENT
+    SEND_BACK_TO_AGENT,
+    HSOV_PENDING,
+    DUAL_APPROVAL_PENDING
 }
 
 export namespace DocAction {
@@ -39,6 +41,8 @@ export namespace DocAction {
             return 'SEND_BACK_TO_AGENT';
         } else if (docAction === DocAction.SEND_BACK_TO_SENDER) {
             return 'SEND_BACK_TO_SENDER';
+        } else if (docAction === DocAction.DUAL_APPROVAL_PENDING) {
+            return 'DUAL_APPROVAL_PENDING';
         }
     }
 }

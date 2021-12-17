@@ -20,7 +20,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {RoleType} from '../../../admin/modal/roleType';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {Editor} from '../../../../@core/utils/constants/editor';
-import {Clients} from "../../../../../environments/Clients";
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-loan-action-modal',
@@ -55,6 +55,8 @@ export class LoanActionModalComponent implements OnInit {
     ckeConfig = Editor.CK_CONFIG;
     spinner = false;
     hsovRole: any;
+    dual: any;
+    hsov: any;
 
     // selectedRoleForSol:Role = undefined;
 
@@ -73,15 +75,12 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('is maker', this.isMaker);
-        console.log('doc action msg', this.docActionMsg);
-        console.log('doc action', this.docAction);
-        console.log('doc status', this.documentStatus);
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
             this.isHSOVChecked(this.customerLoanHolder.isHsov);
+            this.dualApproval(this.customerLoanHolder.dualApproval);
         }
         this.getHsovUserList();
         this.getHsovRole();
@@ -149,9 +148,13 @@ export class LoanActionModalComponent implements OnInit {
     public onSubmit() {
 
         const comment = this.formAction.value.comment;
-
         const docAction = this.formAction.value.docAction;
         const docActionMSG = this.formAction.value.docActionMsg;
+        if (this.docAction === 'DUAL_APPROVAL_PENDING') {
+            this.formAction.patchValue({
+                dualApproved: true
+            });
+        }
         if (docActionMSG === 'Send Legal Doc') {
             const sendDocToRemit = {
                 beneficiaryId: this.beneficiaryId,
@@ -247,22 +250,29 @@ export class LoanActionModalComponent implements OnInit {
             comment: [undefined, Validators.required],
             documentStatus: [this.documentStatus],
             isHsov: [undefined],
+            dualApproval: [undefined],
+            dualApproved: [undefined],
         });
     }
 
     private conditionalDataLoad(): void {
         switch (this.popUpTitle) {
             case 'Send Forward':
+            case 'Approve':
                 const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
                 const refId = approvalType === 'DEFAULT' ? 0 : approvalType === 'LOAN_TYPE' ? this.loanConfigId : this.customerLoanId;
 
                 this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
                     .subscribe((response: any) => {
+                        console.log(response);
                         this.sendForwardBackwardList = [];
                         // this.sendForwardBackwardList = response.detail;
                         this.sendForwardBackwardList = response.detail.sort(function (a, b) {
                             return parseFloat(b.roleOrder) - parseFloat(a.roleOrder);
                         });
+                        if (this.customerLoanHolder.isHsov) {
+                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(l => l.role.roleType === RoleType.APPROVAL);
+                        }
                         if (this.sendForwardBackwardList.length > 0) {
                             this.formAction.patchValue({
                                 toRole: this.sendForwardBackwardList[0].role
@@ -341,6 +351,25 @@ export class LoanActionModalComponent implements OnInit {
             this.formAction.patchValue({
                 isHsov: true
             });
+            this.hsov = true;
+        } else {
+            this.formAction.patchValue({
+                isHsov: false
+            });
+            this.hsov = false;
+        }
+    }
+    dualApproval(event) {
+        if (event) {
+            this.formAction.patchValue({
+                dualApproval: true
+            });
+            this.dual = true;
+        } else {
+            this.formAction.patchValue({
+                dualApproval: false
+            });
+            this.dual = false;
         }
     }
 

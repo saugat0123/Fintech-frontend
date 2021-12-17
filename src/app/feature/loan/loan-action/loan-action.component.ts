@@ -111,6 +111,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     documentStatus: DocStatus.PENDING,
                     customerLoanHolder: this.customerLoanHolder
                 };
+                if (this.customerLoanHolder.dualApproved) {
+                    context.documentStatus = DocStatus.DUAL_APPROVAL_PENDING;
+                }
                 break;
             case 'backwardCommittee':
                 context = {
@@ -145,6 +148,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     isMaker: this.isMaker,
                     customerLoanHolder: this.customerLoanHolder
                 };
+                if (this.customerLoanHolder.dualApproved) {
+                    context.documentStatus = DocStatus.DUAL_APPROVAL_PENDING;
+                }
                 break;
             case 'approve':
                 if (this.loanFlags && this.loanFlags.length > 0) {
@@ -155,13 +161,28 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 if (this.customerLoanHolder.isHsov && LocalStorageUtil.getStorage().roleName.toLowerCase() !== 'hsov') {
                     context = {
                         popUpTitle: 'Approve',
-                        isForward: false,
+                        isForward: true,
                         customerLoanHolder: this.customerLoanHolder,
                         loanConfigId: this.loanConfigId,
                         customerLoanId: this.id,
+                        branchId: this.branchId,
                         docAction: 'HSOV_PENINDG',
                         docActionMsg: 'Hsov Pending',
                         documentStatus: DocStatus.HSOV_PENDING,
+                        isRemitLoan: this.isRemitLoan,
+                        beneficiaryId: this.beneficiaryId
+                    };
+                } else if (this.customerLoanHolder.dualApproval && !this.customerLoanHolder.dualApproved) {
+                    context = {
+                        popUpTitle: 'Approve',
+                        isForward: false,
+                        customerLoanHolder: this.customerLoanHolder,
+                        loanConfigId: this.loanConfigId,
+                        branchId: this.branchId,
+                        customerLoanId: this.id,
+                        docAction: 'DUAL_APPROVAL_PENDING',
+                        docActionMsg: 'Dual Approval Pending',
+                        documentStatus: DocStatus.DUAL_APPROVAL_PENDING,
                         isRemitLoan: this.isRemitLoan,
                         beneficiaryId: this.beneficiaryId
                     };
