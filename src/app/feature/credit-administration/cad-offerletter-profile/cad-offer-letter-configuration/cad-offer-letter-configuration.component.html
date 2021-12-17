@@ -500,19 +500,23 @@
                     </select>
                   </div>
                   <div class="col-md-8">
-                    <nepali-patro *ngIf="actYearVal.value ==='BS'"
-                                  formControlName="actYear" [responseType]="2"
-                                  [displayNepali]="true">
-                    </nepali-patro>
-                    <input [nbDatepicker]="actYearDate"
-                           *ngIf="actYearVal.value ==='AD'"
-                           class="form-control form-control-sm-error rounded"
-                           formControlName="actYear"
-                          (change)="setActDateValue()"
-                           name="citizenIssuedDate"
-                           placeholder="Act Year"
-                           type="text">
-                    <nb-datepicker #actYearDate></nb-datepicker>
+                    <input  *ngIf="actYearVal.value ==='AD'" type="text" placeholder="Act Year"
+                            formControlName="actYear" class="form-control">
+                    <input  *ngIf="actYearVal.value ==='BS'" type="text"
+                            formControlName="actYear" class="form-control nepaliFont">
+<!--                    <nepali-patro *ngIf="actYearVal.value ==='BS'"-->
+<!--                                  formControlName="actYear" [responseType]="2"-->
+<!--                                  [displayNepali]="true">-->
+<!--                    </nepali-patro>-->
+<!--                    <input [nbDatepicker]="actYearDate"-->
+<!--                           *ngIf="actYearVal.value ==='AD'"-->
+<!--                           class="form-control form-control-sm-error rounded"-->
+<!--                           formControlName="actYear"-->
+<!--                          (change)="setActDateValue()"-->
+<!--                           name="citizenIssuedDate"-->
+<!--                           placeholder="Act Year"-->
+<!--                           type="text">-->
+<!--                    <nb-datepicker #actYearDate></nb-datepicker>-->
                   </div>
                 </div>
               </td>
@@ -1329,7 +1333,7 @@
               <nb-checkbox formControlName="isSameRegisteredAndCurrentAddress"
                            name="isSameRegisteredAndCurrentAddress"
                            (change)="setRegisteredAddressSameAsCurrent($event, i)"><i>Check if
-                Temporary Current is same as Registered Address</i></nb-checkbox>
+                 Current Address is same as Registered Address</i></nb-checkbox>
             </td>
             </tbody>
             <tbody *ngIf="configForm?.clientType?.value == 'INSTITUTION' && !userConfigForm.get('isSameRegisteredAndCurrentAddress').value">
@@ -3492,19 +3496,23 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                       </select>
                     </div>
                     <div class="col-md-8">
-                      <nepali-patro *ngIf="guarantorActYearOption.value ==='BS'"
-                                    formControlName="guarantorActYear" [responseType]="2"
-                                    [displayNepali]="true">
-                      </nepali-patro>
-                      <input [nbDatepicker]="guarantorActYearAD"
-                             *ngIf="guarantorActYearOption.value ==='AD'"
-                             class="form-control form-control-sm-error rounded"
-                             formControlName="guarantorActYear"
+                      <input type="text" placeholder="Act Year" class="form-control" *ngIf="guarantorActYearOption.value ==='AD'"
+                      formControlName="guarantorActYear">
+                      <input type="text" placeholder="Act Year" *ngIf="guarantorActYearOption.value ==='BS'"
+                             formControlName="guarantorActYear" class="nepaliFont form-control">
+<!--                      <nepali-patro *ngIf="guarantorActYearOption.value ==='BS'"-->
+<!--                                    formControlName="guarantorActYear" [responseType]="2"-->
+<!--                                    [displayNepali]="true">-->
+<!--                      </nepali-patro>-->
+<!--                      <input [nbDatepicker]="guarantorActYearAD"-->
+<!--                             *ngIf="guarantorActYearOption.value ==='AD'"-->
+<!--                             class="form-control form-control-sm-error rounded"-->
+<!--                             formControlName="guarantorActYear"-->
 
-                             name="citizenIssuedDate"
-                             placeholder="Act Year"
-                             type="text">
-                      <nb-datepicker #guarantorActYearAD></nb-datepicker>
+<!--                             name="citizenIssuedDate"-->
+<!--                             placeholder="Act Year"-->
+<!--                             type="text">-->
+<!--                      <nb-datepicker #guarantorActYearAD></nb-datepicker>-->
                     </div>
                   </div>
                 </td>
@@ -3813,7 +3821,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 <nb-checkbox formControlName="isSameGuarantorRegisteredAndCurrentAddress"
                              name="isSameGuarantorRegisteredAndCurrentAddress"
                              (change)="setGuarantorRegisteredAndCurrentAddressSame($event, i)"><i>Check if
-                  Temporary Current is same as Registered Address</i></nb-checkbox>
+                  Current Address is same as Registered Address</i></nb-checkbox>
               </td>
               </tbody>
               <tbody *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
