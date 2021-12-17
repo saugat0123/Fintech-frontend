@@ -3471,7 +3471,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 currentStreetTole: ObjectUtil.isEmpty(nepData.currentStreetTole) ? undefined : nepData.currentStreetTole.en,
                 currentStreetToleTrans: ObjectUtil.isEmpty(nepData.currentStreetTole) ? undefined : nepData.currentStreetTole.np,
                 currentStreetToleCT: ObjectUtil.isEmpty(nepData.currentStreetTole) ? undefined : nepData.currentStreetTole.ct,
-                radioActYearDate: 'AD',
+                radioActYearDate: ObjectUtil.isEmpty(nepData.radioActYearDate) ? undefined : nepData.radioActYearDate.en,
                 actYear: ObjectUtil.isEmpty(nepData.actYear) ? undefined : nepData.actYear.en.eDate ? nepData.actYear.en.eDate : nepData.actYear.en,
                 citizenshipNoCT: ObjectUtil.isEmpty(nepData.citizenshipNumber) ? undefined : nepData.citizenshipNumber.np,
                 genderCT: ObjectUtil.isEmpty(nepData.gender) ? undefined : nepData.gender.np,
