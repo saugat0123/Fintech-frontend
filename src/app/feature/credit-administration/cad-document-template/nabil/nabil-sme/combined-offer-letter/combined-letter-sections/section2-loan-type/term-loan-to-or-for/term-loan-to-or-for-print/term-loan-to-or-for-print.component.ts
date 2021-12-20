@@ -4,6 +4,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../../../../../../@core/pipe/n
 import {CurrencyFormatterPipe} from '../../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {ObjectUtil} from '../../../../../../../../../../@core/utils/ObjectUtil';
+import {LoanNameConstant} from '../../../../../../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
 
 @Component({
     selector: 'app-term-loan-to-or-for-print',
@@ -36,9 +37,13 @@ export class TermLoanToOrForPrintComponent implements OnInit {
     ngOnInit() {
       if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
         this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-        const totalLoanAmount = this.customerApprovedDoc.assignedLoan[0].proposal.proposedLimit;
-        this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
-        this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
+          this.customerApprovedDoc.assignedLoan.forEach(val => {
+              if (val.loan.name === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
+                  const totalLoanAmount = val.proposal.proposedLimit;
+                  this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
+                  this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
+              }
+          });
       }
       if (!ObjectUtil.isEmpty(this.tempData.termLoanForm)) {
         this.termLoanForTermLoanToOrFor = this.tempData.termLoanForm.termLoanFor;
