@@ -4063,6 +4063,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             otherOwnerPassportIssuedFrom: [undefined],
             otherOwnerPassportIssuedFromTrans: [undefined],
             otherOwnerPassportIssuedFromCT: [undefined],
+            isAuthorizedPersion: [undefined],
+            isAuthorizedPersionTrans: [undefined],
+            isAuthorizedPersionCT: [undefined],
         });
     }
 
@@ -4273,6 +4276,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                        otherOwnerPassportIssuedFrom : data.otherOwnerPassportIssuedFrom ? data.otherOwnerPassportIssuedFrom : '' ,
                        otherOwnerPassportIssuedFromTrans : data.otherOwnerPassportIssuedFromTrans ? data.otherOwnerPassportIssuedFromTrans : '' ,
                        otherOwnerPassportIssuedFromCT : data.otherOwnerPassportIssuedFromCT ? data.otherOwnerPassportIssuedFromCT : '' ,
+                       isAuthorizedPersion: data.isAuthorizedPersion ? data.isAuthorizedPersion: false
                    })
                );
            });
