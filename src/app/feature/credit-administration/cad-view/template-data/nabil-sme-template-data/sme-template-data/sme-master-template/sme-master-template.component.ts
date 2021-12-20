@@ -31,6 +31,7 @@ import {LoanNameConstant} from '../../sme-costant/loan-name-constant';
 import {SmeSecurityComponent} from './sme-security/sme-security.component';
 import {RequiredLegalDocumentSectionComponent} from './required-legal-document-section/required-legal-document-section.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Attributes} from '../../../../../../../@core/model/attributes';
 
 @Component({
   selector: 'app-sme-master-template',
@@ -100,6 +101,10 @@ export class SmeMasterTemplateComponent implements OnInit {
   isBankGuarantee = false;
   isBillPurchase = false;
   loanExtraDetails = [];
+  offerLetterDocument: OfferDocument;
+  existingOfferLetter = false;
+  attributes;
+  tdValues: any = {};
 
   constructor(private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -196,12 +201,31 @@ export class SmeMasterTemplateComponent implements OnInit {
   onSubmit() {
     this.spinner = true;
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
-    const offerDocument = new OfferDocument();
-    offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER);
-    // loan template form value
-    offerDocument.initialInformation = this.getLoanTemplateFormValue();
-    this.customerApprovedDoc.offerDocumentList.push(offerDocument);
 
+    if (this.isEdit) {
+      if (this.customerApprovedDoc.offerDocumentList.length > 0) {
+        this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+            === this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER).toString())[0];
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          this.existingOfferLetter = true;
+        }
+      }
+      if (this.existingOfferLetter) {
+        console.log('Existing is true:');
+        this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+          if (offerLetterPath.docName.toString() ===
+              this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER).toString()) {
+            offerLetterPath.initialInformation = this.getLoanTemplateFormValue();
+          }
+        });
+      }
+    } else {
+      const offerDocument = new OfferDocument();
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER);
+      // loan template form value
+      offerDocument.initialInformation = this.getLoanTemplateFormValue();
+      this.customerApprovedDoc.offerDocumentList.push(offerDocument);
+    }
 
     this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
@@ -214,7 +238,6 @@ export class SmeMasterTemplateComponent implements OnInit {
       this.spinner = false;
     });
   }
-
   private getLoanTemplateFormValue(): string {
     const smeGlobalForm = this.smeGlobalContent.globalForm.value;
     let letterOfCreditForm;

@@ -62,7 +62,7 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.customerAddress =  this.loanHolderInfo.registeredMunicipality.ct + '-' +
-          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
           this.loanHolderInfo.registeredProvince.ct;
       this.branchName = this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '';
     }
@@ -82,12 +82,12 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       this.finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
     }
     // For Date of Application:
-    const dateOfApplication = this.letter.dateofApplicationType ? this.letter.dateofApplicationType.en : '';
+    const dateOfApplication = this.letter.dateOfApplicationType ? this.letter.dateOfApplicationType.en : '';
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.letter.dateofApplication ? this.letter.dateofApplication.en : '';
+      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.en : '';
       this.finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
     } else {
-      const templateDateApplication = this.letter.dateofApplicationNepali ? this.letter.dateofApplicationNepali.en : '';
+      const templateDateApplication = this.letter.dateOfApplicationNepali ? this.letter.dateOfApplicationNepali.en : '';
       this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
     }
     // For Sanction Letter Date:

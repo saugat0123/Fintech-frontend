@@ -29,12 +29,13 @@
     </strong>
     </p>
     <p>
-        <strong>सीमाः रु.<input class="form-field form-control-sm "
-                                formControlName="loanAmountVehicleLoan"
-                                placeholder=""
-                                type="text"/>।-
+        <strong>सीमाः <ng-container *ngIf="complementaryOtherTermLoanToOrFor">(</ng-container> रु.
+            <input class="form-field form-control-sm "
+                value="{{loanData[index]?.loanAmountNp}}"
+                placeholder=""
+                type="text"/>।-<ng-container *ngIf="complementaryOtherTermLoanToOrFor">)</ng-container>
             (अक्षरेपी रु.<input class="form-field form-control-sm "
-                                formControlName="loanAmountInWordVehicleLoan"
+                                value="{{loanData[index]?.loanAmountWords}}"
                                 placeholder=""
                                 type="text"/> मात्र)</strong>
     </p>

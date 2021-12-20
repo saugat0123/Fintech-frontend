@@ -4,6 +4,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../../../../../../@core/pipe/n
 import {ObjectUtil} from '../../../../../../../../../../@core/utils/ObjectUtil';
 import {CurrencyFormatterPipe} from '../../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {LoanNameConstant} from '../../../../../../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
 
 @Component({
   selector: 'app-auto-loan-print',
@@ -14,24 +15,17 @@ export class AutoLoanPrintComponent implements OnInit {
   @Input() letterData;
   @Input() customerApprovedDoc;
   @Input() freeText;
+  @Input() loanData;
+  @Input() index;
   tempData;
-  loanAmount;
-  loanAmountInWord;
   autoLoanFreeText: any = {};
   complementaryOtherAutoLoan = false; vehiclePurchaseAutoLoan = false; vehicleRegistrationAutoLoan = false;
   loanOptionAutoLoan; autoLoanTypeAutoLoan; emiPaymentTypeAutoLoan; paymentsTermsAutoLoan;
-  constructor(private formBuilder: FormBuilder,
-              private engToNepWord: NepaliCurrencyWordPipe,
-              private currencyFormatPipe: CurrencyFormatterPipe,
-              private engToNepNumberPipe: EngToNepaliNumberPipe,
-  ) { }
+  constructor() { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-      const totalLoanAmount = this.customerApprovedDoc.assignedLoan[0].proposal.proposedLimit;
-      this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
-      this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
     }
     if (!ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm)) {
       this.loanOptionAutoLoan = this.tempData.smeGlobalForm.loanOption;

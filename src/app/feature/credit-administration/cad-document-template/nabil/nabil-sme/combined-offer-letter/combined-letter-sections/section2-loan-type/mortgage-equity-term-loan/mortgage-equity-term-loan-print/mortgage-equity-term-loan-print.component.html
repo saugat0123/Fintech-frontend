@@ -23,10 +23,10 @@
                   को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong></span>
 </p>
 <p>
-    <strong> सीमाः रु.
-        <span>{{this.loanAmount ? this.loanAmount : ''}}</span>।-
+    <strong> सीमाः <ng-container *ngIf="complementaryOtherMortgageEquityTerm">(</ng-container>रु.
+        <span>{{loanData[index]?.loanAmountNp ? loanData[index]?.loanAmountNp : ''}}</span>।-<ng-container *ngIf="complementaryOtherMortgageEquityTerm">)</ng-container>
         (अक्षरेपी रु.
-        <span>{{this.loanAmountInWord ? this.loanAmountInWord : ''}}</span>
+        <span>{{loanData[index]?.loanAmountWords ? loanData[index]?.loanAmountWords : ''}}</span>
         मात्र)</strong><br>
 
     <span *ngIf="mortgageTypeMortgageEquityTerm === 'New' || mortgageTypeMortgageEquityTerm === 'Enhancement'">

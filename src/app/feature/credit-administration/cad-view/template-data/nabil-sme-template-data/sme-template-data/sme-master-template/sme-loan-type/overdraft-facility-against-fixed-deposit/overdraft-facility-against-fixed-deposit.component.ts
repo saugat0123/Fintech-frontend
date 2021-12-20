@@ -7,6 +7,7 @@ import {DatePipe} from '@angular/common';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {SbTranslateService} from '../../../../../../../../../@core/service/sbtranslate.service';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-overdraft-facility-against-fixed-deposit',
@@ -15,6 +16,8 @@ import {SbTranslateService} from '../../../../../../../../../@core/service/sbtra
 })
 export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
   @Input() loanName;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  initialInformation: any;
   overdraftFixedForm: FormGroup;
   loanDetails: any = [];
   isFixedDeposit = false;
@@ -53,6 +56,14 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
    if (!ObjectUtil.isEmpty(this.loanName)) {
      this.loanDetails = this.loanName;
    }
+    if (this.offerDocumentList.length > 0) {
+      this.offerDocumentList.forEach(offerLetter => {
+        this.initialInformation = JSON.parse(offerLetter.initialInformation);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.overdraftFixedForm.patchValue(this.initialInformation.overdraftFixedForm);
+    }
   }
 
   buildForm() {

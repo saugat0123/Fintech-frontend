@@ -7,6 +7,7 @@ import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/curre
 import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
 import {SbTranslateService} from '../../../../../../../../../@core/service/sbtranslate.service';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
     selector: 'app-mortgage-or-equity-mortgage-term-loan',
@@ -15,6 +16,8 @@ import {SbTranslateService} from '../../../../../../../../../@core/service/sbtra
 })
 export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
     @Input() loanName;
+    @Input() offerDocumentList: Array<OfferDocument>;
+    initialInformation: any;
     mortgageEquityTermForm: FormGroup;
     isComplementaryOther = false;
     loanDetails: any = [];
@@ -51,6 +54,14 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
             this.loanDetails = this.loanName;
         }
         this.ADExpiry = true;
+        if (this.offerDocumentList.length > 0) {
+            this.offerDocumentList.forEach(offerLetter => {
+                this.initialInformation = JSON.parse(offerLetter.initialInformation);
+            });
+        }
+        if (!ObjectUtil.isEmpty(this.initialInformation)) {
+            this.mortgageEquityTermForm.patchValue(this.initialInformation.mortgageEquityTermForm);
+        }
     }
 
     buildForm() {

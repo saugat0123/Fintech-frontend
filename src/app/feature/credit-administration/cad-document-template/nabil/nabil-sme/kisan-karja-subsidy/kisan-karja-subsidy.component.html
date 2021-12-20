@@ -12,7 +12,6 @@
                     <span aria-hidden="true">×</span></a>
             </div>
         </nb-card-header>
-
         <nb-card-body>
             <form [formGroup]="kisanKarjaSubsidy" id="print-section">
                 <p class="text-left">स्वीकृती पत्र नं. :<input class="form-field form-control-sm col-3"
@@ -30,11 +29,11 @@
                                  type="text"/>
                 </p>
                 <div class="mb-2">
-                    श्री/श्रीमती/सुश्री <input class="form-field form-control-sm"
-                                               readonly
-                                               formControlName="customerName"
-                                               name="customerName"
-                                               type="text"/>
+                    श्री <input class="form-field form-control-sm"
+                                readonly
+                                formControlName="customerName"
+                                name="customerName"
+                                type="text"/>
                     <div class="mb-1"> ठेगाना:
                         <input class="form-field form-control-sm"
                                readonly
@@ -108,7 +107,7 @@
                             <tr>
                                 <td style="width: 15%"><strong>कर्जाको उद्देश्य: </strong></td>
                                 <td>
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm "
                                            readonly
                                            formControlName="purposeOfLoan"
                                            name="purposeOfLoan"
@@ -185,19 +184,19 @@
                                     पर्नेछ ।
                                     साथै अल्पकालिन कर्जाको हकमा देहाय बामोजिम हुनेछ ।<br>
                                     क. अल्पकालिन कर्जा १: <textarea
-                                        class="form-control customFont nepaliFont"
+                                        class="form-control customFont "
                                         style="width: 60%;padding: 5px;margin-top: 10px"
                                         name="freeText"
                                         formControlName="firstAdditionalDetails">
                                             </textarea><br>
                                     ख. अल्पकालिन कर्जा २: <textarea
-                                        class="form-control customFont nepaliFont"
+                                        class="form-control customFont "
                                         style="width: 60%;padding: 5px;margin-top: 10px"
                                         name="freeText"
                                         formControlName="secondAdditionalDetails">
                                             </textarea><br>
                                     ग. अल्पकालिन कर्जा ३: <textarea
-                                        class="form-control customFont nepaliFont"
+                                        class="form-control customFont "
                                         style="width: 60%;padding: 5px;margin-top: 10px"
                                         name="freeText"
                                         formControlName="thirdAdditionalDetails">
@@ -210,7 +209,7 @@
                                     <span *ngFor="let security of kisanKarjaSubsidy.get('securities')['controls']; let i = index" formArrayName="securities">
                                         <br>
                                         {{i + 1 | nepaliWord}} अल्पकालिन कर्जा {{i + 1 | nepaliNumber}} <textarea
-                                            class="form-control customFont nepaliFont"
+                                            class="form-control customFont "
                                             rows="5"
                                             style="width: 20%;padding: 5px;margin-top: 10px"
                                             name="freeText"
@@ -267,7 +266,7 @@
                                            type="text"/>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="!this.tempData.collateral.en === false">
                                 <td><strong>
                                     सुरक्षण (घर/जग्गा धितोेबन्धक विवरण):
                                 </strong>
@@ -309,8 +308,6 @@
     </div>
     </span>
                                 </td>
-
-
                             </tr>
                             <tr>
                                 <td>
@@ -351,7 +348,7 @@
                         </table>
                         <p>
                    <textarea
-                           class="form-control customFont nepaliFont"
+                           class="form-control customFont "
                            rows="5"
                            style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
                            name="freeText"
@@ -588,7 +585,7 @@
                         </div>
                         <textarea
                                 id="freeText"
-                                class="form-control customFont nepaliFont"
+                                class="form-control customFont "
                                 rows="5"
                                 style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
                                 name="freeText"
@@ -649,49 +646,64 @@
 
                         <div class="service-contions mt-5">
                             <strong>सुरक्षणहरु सम्बन्धित शर्तहरु</strong><br>
-                            <strong><u>घर तथा जग्गा धितोे सुरक्षण </u></strong><br>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <ol class="conditions-list orderd-list font-weight-bold">
-                                        <li>
-                                            माथि उल्लिखित घर/जग्गा बैंकको पक्षमा धितोेबन्धक पारित गर्दा लाग्ने सरकारी
-                                            राजश्व, दै दस्तुर ऋणीले नै व्यहोर्नु पर्नेछ । साथै सो घर/जग्गाको सम्पत्ति
-                                            कर, जग्गाको तिरो, बिजुली, पानी आदी आवश्यक सम्पूर्ण कर, दस्तुर, शुल्क
-                                            सम्बन्धित सम्पत्ति धनी वा तपाईं ऋणी आफैंले तिर्नु व्यहोर्नु पर्नेछ र सोको
-                                            प्रतिलिपी रसिद बैंकमा पेश गर्नु पर्नेछ ।
-                                        </li>
-                                        <li>
-                                            धितोे दिने सम्पत्तिको मुल्याङकन बैंकको आधिकारिक मुल्याङकनकर्ताबाट गराई उक्त
-                                            मुल्याङकन प्रतिबेदन बैंकमा पेश गर्न लगाउनु पर्ने छ । धितोे मुल्यांकनको खर्च
-                                            ऋणीले नै व्यहोर्नुपर्नेछ ।
-                                        </li>
-                                        <li>
-                                            ऋणकर्जा सुविधाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक लेखिदिने/लेखीदिएको
-                                            जग्गामा रहेको वा निर्माण हुने घर/भवन सम्बन्धित निकायबाट जारी मापदण्डहरु पुरा
-                                            गरिएको नक्सापास, घर/भवन निर्माण इजाजत पत्र, भवन निर्माण सम्पन्न प्रमाणपत्र र
-                                            आवश्यकता अनुसार अन्य निकायहरुको स्वीकृति ऋणकर्जा प्रवाह गर्नु अगावै बैंकमा
-                                            पेश पर्नेछ । निर्माणाधिन अवस्थामा रहेको घर/भवनको हकमा निर्माण सम्पन्न हुना
-                                            साथ तत्काल सम्बन्धित निकायबाट भवन निर्माण सम्पन्न प्रमाणपत्र प्राप्त गरी
-                                            अनिवार्य रुपमा बैंकमा पेश गर्नुपर्नेछ ।
-                                        </li>
-                                        <li>
-                                            बैंकले आवधिक रुपमा सम्पत्ति बजारको पुनरावलोकन गर्न सक्नेछ र घर जग्गाको
-                                            मूल्यमा कुनै प्रतिकूल परिवर्तन र धितोेबन्धक रहेको सम्पत्तिको मूल्यमा ह्रास
-                                            आएको बैंकलाई लागेमा तपाईंको खर्चमा धितोेमा रहेको घर/जग्गाको कुनै पनि समयमा
-                                            बैंकले पुनः मुल्याङकन गर्न सक्नेछ र पुनः मुल्याङकन गर्दा धितोेमा रहेको
-                                            घर/जग्गाको मूल्य घटेमा ऋणीले थप धितोेको व्यवस्था गर्नु पर्नेछ वा नपुग
-                                            सुरक्षणको रकम वरावर कर्जा चुक्ता भुक्तान गर्नु पर्नेछ ।
-                                        </li>
-                                        <li>
-                                            ऋणकर्जा सुविधाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक लेखीदिएको
-                                            घर/जग्गाहरु फुकुवा गर्दाको बखत फुकुवा शुल्क वापत प्रति धितोबन्धक तमसुक
-                                            रु.१,०००।–का दरले धितो फुकुवा शुल्क लाग्नेछ । साथै बैंकको पक्षमा धितोेबन्धक
-                                            लेखीदिएको घर/जग्गाहरुको जग्गाधनी प्रमाणपत्र निश्चित समयको लागि माग गरी
-                                            फिर्ता लैजांदा प्रति पटक रु.५००।– दरले शुल्क लाग्नेछ ।
-                                        </li>
-                                    </ol>
+                            <ng-container *ngIf="!this.tempData.collateral.en === false">
+                                <strong><u>घर तथा जग्गा धितोे सुरक्षण </u></strong><br>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ol class="conditions-list orderd-list font-weight-bold">
+                                            <li>
+                                                माथि उल्लिखित घर/जग्गा बैंकको पक्षमा धितोेबन्धक पारित गर्दा लाग्ने
+                                                सरकारी
+                                                राजश्व, दै दस्तुर ऋणीले नै व्यहोर्नु पर्नेछ । साथै सो घर/जग्गाको
+                                                सम्पत्ति
+                                                कर, जग्गाको तिरो, बिजुली, पानी आदी आवश्यक सम्पूर्ण कर, दस्तुर, शुल्क
+                                                सम्बन्धित सम्पत्ति धनी वा तपाईं ऋणी आफैंले तिर्नु व्यहोर्नु पर्नेछ र
+                                                सोको
+                                                प्रतिलिपी रसिद बैंकमा पेश गर्नु पर्नेछ ।
+                                            </li>
+                                            <li>
+                                                धितोे दिने सम्पत्तिको मुल्याङकन बैंकको आधिकारिक मुल्याङकनकर्ताबाट गराई
+                                                उक्त
+                                                मुल्याङकन प्रतिबेदन बैंकमा पेश गर्न लगाउनु पर्ने छ । धितोे मुल्यांकनको
+                                                खर्च
+                                                ऋणीले नै व्यहोर्नुपर्नेछ ।
+                                            </li>
+                                            <li>
+                                                ऋणकर्जा सुविधाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक
+                                                लेखिदिने/लेखीदिएको
+                                                जग्गामा रहेको वा निर्माण हुने घर/भवन सम्बन्धित निकायबाट जारी मापदण्डहरु
+                                                पुरा
+                                                गरिएको नक्सापास, घर/भवन निर्माण इजाजत पत्र, भवन निर्माण सम्पन्न
+                                                प्रमाणपत्र र
+                                                आवश्यकता अनुसार अन्य निकायहरुको स्वीकृति ऋणकर्जा प्रवाह गर्नु अगावै
+                                                बैंकमा
+                                                पेश पर्नेछ । निर्माणाधिन अवस्थामा रहेको घर/भवनको हकमा निर्माण सम्पन्न
+                                                हुना
+                                                साथ तत्काल सम्बन्धित निकायबाट भवन निर्माण सम्पन्न प्रमाणपत्र प्राप्त गरी
+                                                अनिवार्य रुपमा बैंकमा पेश गर्नुपर्नेछ ।
+                                            </li>
+                                            <li>
+                                                बैंकले आवधिक रुपमा सम्पत्ति बजारको पुनरावलोकन गर्न सक्नेछ र घर जग्गाको
+                                                मूल्यमा कुनै प्रतिकूल परिवर्तन र धितोेबन्धक रहेको सम्पत्तिको मूल्यमा
+                                                ह्रास
+                                                आएको बैंकलाई लागेमा तपाईंको खर्चमा धितोेमा रहेको घर/जग्गाको कुनै पनि
+                                                समयमा
+                                                बैंकले पुनः मुल्याङकन गर्न सक्नेछ र पुनः मुल्याङकन गर्दा धितोेमा रहेको
+                                                घर/जग्गाको मूल्य घटेमा ऋणीले थप धितोेको व्यवस्था गर्नु पर्नेछ वा नपुग
+                                                सुरक्षणको रकम वरावर कर्जा चुक्ता भुक्तान गर्नु पर्नेछ ।
+                                            </li>
+                                            <li>
+                                                ऋणकर्जा सुविधाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक लेखीदिएको
+                                                घर/जग्गाहरु फुकुवा गर्दाको बखत फुकुवा शुल्क वापत प्रति धितोबन्धक तमसुक
+                                                रु.१,०००।–का दरले धितो फुकुवा शुल्क लाग्नेछ । साथै बैंकको पक्षमा
+                                                धितोेबन्धक
+                                                लेखीदिएको घर/जग्गाहरुको जग्गाधनी प्रमाणपत्र निश्चित समयको लागि माग गरी
+                                                फिर्ता लैजांदा प्रति पटक रु.५००।– दरले शुल्क लाग्नेछ ।
+                                            </li>
+                                        </ol>
+                                    </div>
                                 </div>
-                            </div>
+                            </ng-container>
                         </div>
 
                         <div class="service-contions mt-5">
@@ -818,7 +830,7 @@
                                         </li>
                                         <li>
                                             कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट
-                                            प्राप्त गरिने साख सूचना, घर/जग्गाको मुल्याड्ढन, रजिष्ट्रेशन, ब्लु प्रिन्ट
+                                            प्राप्त गरिने साख सूचना, घर/जग्गाको मूल्याङ्कन, रजिष्ट्रेशन, ब्लु प्रिन्ट
                                             तथा ट्रेस नक्सा लिँदा लाग्ने शुल्क, सुरक्षित कारोबार रजिष्ट्रेशन तथा अन्य
                                             आवश्यक सूचना प्राप्त गर्न र आधिकारिक निकायमा रजिष्ट्रेशन गर्न लाग्ने शुल्क
                                             तथा कुनै पनि खर्च, आदि बास्तबिक रकम ऋणी स्वयंले नै तिर्न बुझाउनु पर्नेछ ।
@@ -884,7 +896,7 @@
                                             सिर्जना गर्ने, अल्पकालीन कर्जाबाट दीर्घकालीन उपयोग गर्ने तथा सहायक कम्पनी वा
                                             अन्य फर्ममा ऋण तथा पूजी साधन प्रवाह गर्न जस्ता कार्य गर्न पाइनेछैन ।
                                         </li>
-                                        <div *ngIf="cadOfferLetterApprovedDoc?.loanHolder['customerSubType'] === (customerSubType.PRIVATE_PUBLIC | uppercase)">
+                                        <div *ngIf="cadOfferLetterApprovedDoc?.loanHolder['customerSubType'] === 'PRIVATE_PUBLIC'">
                                             <!-- - Following clause shall be applicable if borrower is firm/company-->
                                             <strong>ऋणी फर्म/कम्पनी भएमा देहाय बमोजिमका थप शर्तहरु लागूहुनेछ:</strong>
                                             <li>
@@ -910,7 +922,7 @@
 
                                             </li>
                                             <li>
-                                                <textarea class="form-control nepaliFont customFont" rows="3"
+                                                <textarea class="form-control  customFont" rows="3"
                                                           formControlName="sixthAdditionalDetails"
                                                           name="extraFinancialClause"
                                                           placeholder="अतिरिक्त वित्तीय खण्ड"
@@ -976,7 +988,7 @@
                                         </li>
 
                                         <!--Applicable in case of proprietor ship firm/partnership firm only-->
-                                        <li *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === (customerSubType.PARTNERSHIP | uppercase)">
+                                        <li *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PROPRIETORSHIP' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PARTNERSHIP'">
                                             प्रचलित ऐन, नियम, नेपाल राष्ट्र बैंकको निर्देशन तथा यस बैंकको निति, नियम तथा
                                             तिनमा समय समयमा हुने सँशोधन सहितको शर्तहरु पालना गर्न ऋणी/ऋणी फर्म/ऋणी
                                             कम्पनी/ऋणी संस्था मञ्जुर गर्नुका साथै माथि उल्लिखित सम्पुर्ण समेतबाट स्वीकृत
@@ -992,7 +1004,7 @@
                                             भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                                         </li>
                                         <li>
-                                            <textarea class="form-control nepaliFont customFont" rows="5"
+                                            <textarea class="form-control  customFont" rows="5"
                                                       formControlName="seventhAdditionalDetails"
                                                       name="additionalOthersClause" placeholder="अतिरिक्त अन्य खण्ड"
                                                       style="width: 95%;padding: 5px;margin-top: 10px;"
@@ -1043,7 +1055,7 @@
                                             पक्षमा बिमालेख ।
                                         </li>
                                         <li>
-                                            <textarea class="form-control nepaliFont customFont" rows="5"
+                                            <textarea class="form-control  customFont" rows="5"
                                                       formControlName="eighthAdditionalDetails"
                                                       name="extraSecurityDocumentParts"
                                                       placeholder="अतिरिक्त सुरक्षा कागजात भागहरू"
@@ -1069,13 +1081,13 @@
                         <div class="col-md-12 d-flex justify-content-between">
                             <div class="right-content">
 
-                                <input class="form-field form-control-sm nepaliFont"
+                                <input class="form-field form-control-sm "
                                        readonly
                                        formControlName="relationshipOfficerName"
                                        name="relationshipOfficerName"
                                        type="text"/>
                                 <p>
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm "
                                            formControlName="autoPopulate1"
                                            [value]="autoPopulate1"
                                            type="text"/>
@@ -1092,13 +1104,13 @@
                             </div>
                             <div class="left-content text-right">
 
-                                <input class="form-field form-control-sm nepaliFont"
+                                <input class="form-field form-control-sm "
                                        readonly
                                        formControlName="branchManager"
                                        name="branchManager"
                                        type="text"/>
                                 <p>
-                                    <input class="form-field form-control-sm nepaliFont"
+                                    <input class="form-field form-control-sm "
                                            formControlName="autoPopulate2"
                                            [value]="autoPopulate2"
                                            type="text"/>
