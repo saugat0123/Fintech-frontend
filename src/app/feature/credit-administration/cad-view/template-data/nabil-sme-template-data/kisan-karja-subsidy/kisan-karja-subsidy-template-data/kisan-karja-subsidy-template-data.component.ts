@@ -49,6 +49,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
   allDistrictList = [];
   selectedAD = true;
   isInterestSubsidy = false;
+  isCollateral = false;
   isCustomerNew = false;
   attributes;
   translatedValues: any = {};
@@ -181,8 +182,8 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
       /////////
       previousSanctionTypeCT: [undefined],
       purposeOfLoanCT: [undefined, Validators.required],
-      loanAmountFigureCT: [undefined, Validators.required],
-      loanAmountFigureWordsCT: [undefined, Validators.required],
+      loanAmountFigureCT: [undefined/*, Validators.required*/],
+      loanAmountFigureWordsCT: [undefined/*, Validators.required*/],
       marginInPercentageCT: [undefined, Validators.required],
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
@@ -347,6 +348,10 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.isInterestSubsidy = data;
     this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
   }
+  collateralCheck(data) {
+    this.isCollateral = data;
+    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isCollateral);
+  }
 
   mappedData() {
     Object.keys(this.kisanKarjaSubsidy.controls).forEach(key => {
@@ -365,6 +370,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.spinner = true;
     // Set Translate Data:
     this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
+    this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isCollateral);
     this.kisanKarjaSubsidy.get('loanOptionTrans').patchValue(this.kisanKarjaSubsidy.get('loanOption').value);
     this.kisanKarjaSubsidy.get('repaymentTypeTrans').patchValue(this.kisanKarjaSubsidy.get('repaymentType').value);
     // Set Translated Date of Approval
