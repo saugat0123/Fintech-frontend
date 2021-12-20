@@ -12,7 +12,7 @@
         <div class="row mt-2">
             <p class="m-0">
                 ऋणीले बैंकको
-                <span><strong>{{this.branchName ? this.branchName : ''}}</strong></span>
+                <span><strong>{{branchName ? branchName : ''}}</strong></span>
                 शाखामा सम्पर्क राखी देहाय बमोजिमका कर्जा सम्बन्धी कागजपत्रहरु सहीछाप
                 गर्नु पर्नेछ । साथै माथि उल्लिखित कर्जा सुविधाहरु प्रवाह गर्नको लागि आवश्यक निवेदन तथा अन्य कागजातहरु
                 बैंकमा
@@ -38,7 +38,7 @@
                 </li>
                 <li *ngIf="mortgagedVisible">
                     कित्ता नं
-                    <span><strong>{{getKittaNumbers(kittaNumbers, plotNumber)}}</strong></span>> को घर/ जग्गाको धितोबन्धक तमसुक (Mortgaged Deed)
+                    <span><strong>{{getKittaNumbers(kittaNumbers, plotNumber)}}</strong></span> को घर/ जग्गाको धितोबन्धक तमसुक (Mortgaged Deed)
                 </li>
                 <li *ngIf="continuityVisible">
                     निरन्तरताको लिखत (Letter of Continuity)
@@ -99,7 +99,7 @@
                     पट्टा सम्झौता पत्र  ( Lease Agreement)
                 </li>
                 <li *ngIf="consentLetterVisible">
-                    धितोबन्धक रहेको घर÷जग्गा धनी श्री
+                    धितोबन्धक रहेको घर/जग्गा धनी श्री
                     <span><strong>{{getSecurityOwner(securityOwnersName, nameOfPropertyOwner)}}</strong></span>  को धितो निरन्तरताको
                     मन्जुरीनामा (Letter of Consent from Mortgage property owner for continuation of existing
                     mortgage)

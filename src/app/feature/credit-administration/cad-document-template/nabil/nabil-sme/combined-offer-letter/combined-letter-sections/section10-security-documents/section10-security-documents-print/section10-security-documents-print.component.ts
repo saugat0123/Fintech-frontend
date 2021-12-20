@@ -25,6 +25,7 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
   proposedAmount;
   loanHolderInfo;
   branchName;
+  guarantorName;
   limitAmount;
   kittaNumbers: Array<any> = new Array<any>();
   securityOwnersName: Array<any> = new Array<any>();
@@ -66,6 +67,9 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
       this.limitAmount = this.tempData.smeGlobalForm.totalLimitInFigure;
       this.branchName = this.loanHolderInfo.branch.ct;
+      this.guarantorName = this.finalName;
+      this.plotNumber = this.kittaNumbers;
+      this.nameOfPropertyOwner = this.securityOwnersName;
       this.requiredDocument();
       this.guarantorData.forEach(any => {
         this.guarantorParsed.push(JSON.parse(any.nepData));
@@ -80,6 +84,32 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
       totalLoanAmount = totalLoanAmount + val;
     });
     this.proposedAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
+
+    const securities = this.tempData.securities;
+    securities.primarySecurity.forEach(pd => {
+      pd.propertyDetails.forEach(p => {
+        if (!ObjectUtil.isEmpty(p.securityOwnersKittaNoCT)) {
+          this.kittaNumbers.push(p.securityOwnersKittaNoCT);
+        }
+      });
+    });
+    securities.secondarySecurity.forEach(pd => {
+      pd.propertyDetails.forEach(p => {
+        if (!ObjectUtil.isEmpty(p.securityOwnersKittaNoCT)) {
+          this.kittaNumbers.push(p.securityOwnersKittaNoCT);
+        }
+      });
+    });
+    securities.primarySecurity.forEach(sw => {
+      if (!ObjectUtil.isEmpty(sw.securityOwnersNameCT)) {
+        this.securityOwnersName.push(sw.securityOwnersNameCT);
+      }
+    });
+    securities.secondarySecurity.forEach(sw => {
+      if (!ObjectUtil.isEmpty(sw.securityOwnersNameCT)) {
+        this.securityOwnersName.push(sw.securityOwnersNameCT);
+      }
+    });
   }
   getKittaNumbers(plotNumber, kittaNumbers) {
     if (plotNumber.length === 1) {
