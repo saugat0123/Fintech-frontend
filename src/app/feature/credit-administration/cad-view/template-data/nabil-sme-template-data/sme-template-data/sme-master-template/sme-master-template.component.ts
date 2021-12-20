@@ -31,6 +31,7 @@ import {LoanNameConstant} from '../../sme-costant/loan-name-constant';
 import {SmeSecurityComponent} from './sme-security/sme-security.component';
 import {RequiredLegalDocumentSectionComponent} from './required-legal-document-section/required-legal-document-section.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Attributes} from '../../../../../../../@core/model/attributes';
 
 @Component({
   selector: 'app-sme-master-template',
@@ -102,6 +103,8 @@ export class SmeMasterTemplateComponent implements OnInit {
   loanExtraDetails = [];
   offerLetterDocument: OfferDocument;
   existingOfferLetter = false;
+  attributes;
+  tdValues: any = {};
 
   constructor(private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -235,7 +238,6 @@ export class SmeMasterTemplateComponent implements OnInit {
       this.spinner = false;
     });
   }
-
   private getLoanTemplateFormValue(): string {
     const smeGlobalForm = this.smeGlobalContent.globalForm.value;
     let letterOfCreditForm;

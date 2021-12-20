@@ -7,6 +7,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-t
 import {SbTranslateService} from '../../../../../../../../../@core/service/sbtranslate.service';
 import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-term-loan-to-or-for',
@@ -15,6 +16,8 @@ import {EngNepDatePipe} from 'nepali-patro';
 })
 export class TermLoanToOrForComponent implements OnInit {
   @Input() loanName;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  initialInformation: any;
   termLoanForm: FormGroup;
   loanDetails: any = [];
   isComplementaryOtherLoan = false;
@@ -52,6 +55,14 @@ export class TermLoanToOrForComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+    }
+    if (this.offerDocumentList.length > 0) {
+      this.offerDocumentList.forEach(offerLetter => {
+        this.initialInformation = JSON.parse(offerLetter.initialInformation);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.termLoanForm.patchValue(this.initialInformation.termLoanForm);
     }
   }
 
