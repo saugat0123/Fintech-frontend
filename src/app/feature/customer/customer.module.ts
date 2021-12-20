@@ -43,6 +43,7 @@ import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {CustomerGroupComponent} from './component/customer-profile/individual-profile/customer-group/customer-group.component';
 import {JointFormComponent} from './component/customer-form/joint-form/joint-form.component';
 import {ChangeLoanComponent} from './component/change-loan/change-loan.component';
+import {NepaliPatroModule} from 'nepali-patro';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -96,7 +97,8 @@ const COMPONENTS = [
         TranslateModule,
         FeatureModule,
         CbsGroupModule,
-        MicroLoanModule
+        MicroLoanModule,
+        NepaliPatroModule
 
 
     ],
