@@ -2230,14 +2230,14 @@
             <table [formGroupName]="i" class="table table-borderless table-4">
               <tr>
                 <td>
-                  <label class="title">{{i + 1}}. Owner Name</label>
+                  <label class="title">{{i + 1}}. Share Holder Name</label>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="ownerName"
                           (keyup)="autoTrans('ownerName',i)"
                          autocomplete="off"
-                         name="name" placeholder="Owner Name"
+                         name="name" placeholder="Share Holder Name"
                          type="text"/>
                 </td>
                 <td>
@@ -2390,7 +2390,7 @@
                   />
                 </td>
               </tr>
-              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
+              <tr *ngIf="configForm?.clientType?.value == clientType.INSTITUTION &&
              (userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'FEMALE'
               || userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'MALE' ||
               userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'OTHERS') &&
