@@ -6,6 +6,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-t
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-demand-loan-for-working-capital',
@@ -14,6 +15,8 @@ import {EngNepDatePipe} from 'nepali-patro';
 })
 export class DemandLoanForWorkingCapitalComponent implements OnInit {
   @Input() loanName;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  initialInformation: any;
   demandLoanForm: FormGroup;
   isComplimentryOtherLoan = false;
   isARFinancing = false;
@@ -37,6 +40,14 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+    }
+    if (this.offerDocumentList.length > 0) {
+      this.offerDocumentList.forEach(offerLetter => {
+        this.initialInformation = JSON.parse(offerLetter.initialInformation);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.demandLoanForm.patchValue(this.initialInformation.demandLoanForm);
     }
   }
 

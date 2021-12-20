@@ -6,6 +6,7 @@ import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/curre
 import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-import-loan-trust-receipt-loan',
@@ -14,6 +15,8 @@ import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 })
 export class ImportLoanTrustReceiptLoanComponent implements OnInit {
   @Input() loanName;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  initialInformation: any;
   importLoanTrust: FormGroup;
   isComplimentryOtherLoan = false;
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
@@ -38,6 +41,14 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+    }
+    if (this.offerDocumentList.length > 0) {
+      this.offerDocumentList.forEach(offerLetter => {
+        this.initialInformation = JSON.parse(offerLetter.initialInformation);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.importLoanTrust.patchValue(this.initialInformation.importLoanTrust);
     }
   }
 
