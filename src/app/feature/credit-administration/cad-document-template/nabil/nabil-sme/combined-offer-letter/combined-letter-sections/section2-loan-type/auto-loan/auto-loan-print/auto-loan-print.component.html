@@ -9,9 +9,9 @@
         सुविधा</ng-container></strong><br>
 
     <strong> सीमाः <ng-container *ngIf="complementaryOtherAutoLoan">(</ng-container>रु.
-        <span>{{this.loanAmount ? this.loanAmount : ''}}</span>
+        <span>{{loanData[index]?.loanAmountNp ? loanData[index]?.loanAmountNp : ''}}</span>
         ।-<ng-container *ngIf="complementaryOtherAutoLoan">)</ng-container> (अक्षरेपी रु.
-        <span>{{this.loanAmountInWord ? this.loanAmountInWord : ''}}</span>
+        <span>{{loanData[index]?.loanAmountWords ? loanData[index]?.loanAmountWords : ''}}</span>
         मात्र)</strong><br>
 </p>
 <p>

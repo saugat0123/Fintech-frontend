@@ -1,10 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {NepaliCurrencyWordPipe} from '../../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
-import {CurrencyFormatterPipe} from '../../../../../../../../../../@core/pipe/currency-formatter.pipe';
-import {EngToNepaliNumberPipe} from '../../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {ObjectUtil} from '../../../../../../../../../../@core/utils/ObjectUtil';
-import {LoanNameConstant} from '../../../../../../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
 
 @Component({
     selector: 'app-term-loan-to-or-for-print',
@@ -15,9 +11,9 @@ export class TermLoanToOrForPrintComponent implements OnInit {
     @Input() letterData;
     @Input() customerApprovedDoc;
     @Input() freeText;
+    @Input() loanData;
+    @Input() index;
     tempData;
-    loanAmount;
-    loanAmountInWord;
     termLoanFreeText: any = {};
     termLoanForTermLoanToOrFor;
     termLoanTypeTermLoanToOrFor;
@@ -27,23 +23,12 @@ export class TermLoanToOrForPrintComponent implements OnInit {
     paymentTermLoanToOrFor;
 
 
-    constructor(private formBuilder: FormBuilder,
-                private engToNepWord: NepaliCurrencyWordPipe,
-                private currencyFormatPipe: CurrencyFormatterPipe,
-                private engToNepNumberPipe: EngToNepaliNumberPipe,
-    ) {
+    constructor() {
     }
 
     ngOnInit() {
       if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
         this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-          this.customerApprovedDoc.assignedLoan.forEach(val => {
-              if (val.loan.name === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
-                  const totalLoanAmount = val.proposal.proposedLimit;
-                  this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
-                  this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
-              }
-          });
       }
       if (!ObjectUtil.isEmpty(this.tempData.termLoanForm)) {
         this.termLoanForTermLoanToOrFor = this.tempData.termLoanForm.termLoanFor;
