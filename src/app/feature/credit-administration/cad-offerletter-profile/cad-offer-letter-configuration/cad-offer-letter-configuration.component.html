@@ -3381,9 +3381,16 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                   </div>
                 </td>
               </tr>
+
               </tbody>
 
-
+              <tr>
+                <td>
+                  <nb-checkbox>
+                    <i>make share holder as guarantor</i>
+                  </nb-checkbox>
+                </td>
+              </tr>
               <tr>
                 <td *ngIf="userConfigForm.get('ownerDetails')['length'] > 1" colspan="2"
                     class="text-left">
@@ -3399,6 +3406,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                   </a>
                 </td>
               </tr>
+
             </table>
           </div>
 
@@ -3454,6 +3462,13 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
               </tr>
 
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <b>Guarantee Provider Detail</b>
+                </td>
+              </tr>
 
               <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
               userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
@@ -4011,6 +4026,13 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 <td>
                   <input class="form-control" type="text" formControlName="guarantorNameCT"
                   />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+              && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <b>Authorized Person Detail</b>
                 </td>
               </tr>
               <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
