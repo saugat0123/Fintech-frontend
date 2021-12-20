@@ -73,7 +73,7 @@ import { CommonSectionTopPrintComponent } from './nabil-sme/combined-offer-lette
 import { MasterSecuritiesViewComponent } from './master-securities-view/master-securities-view.component';
 import { MasterSecondarySecuritiesViewComponent } from './master-secondary-securities-view/master-secondary-securities-view.component';
 import { SharePledgeSecuritiesComponent } from './share-pledge-securities/share-pledge-securities.component';
-import {CoreModule} from "../../../../@core/core.module";
+import {CoreModule} from '../../../../@core/core.module';
 
 @NgModule({
     declarations: [
