@@ -4058,116 +4058,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                   />
                 </td>
               </tr>
-              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value || configForm?.clientType?.value == clientType.INDIVIDUAL">
-                <td>
-                  <label class="title">Citizenship No</label>
-                </td>
-                <td>
-                  <input class="form-control "
-                         formControlName="citizenNumber"
 
-                         autocomplete="off"
-                         name="name" placeholder="Citizenship No"
-                         type="text"/>
-                </td>
-                <td>
-                  <input class="form-control" type="text"
-                         formControlName="citizenNumberTrans" readonly/>
-                </td>
-                <td>
-                  <input class="form-control" type="text" formControlName="citizenNumberCT"
-                  />
-                </td>
-              </tr>
-              <!--              <tr>-->
-              <!--                <td>-->
-              <!--                  <label class="title" >Citizenship Issue Date</label>-->
-              <!--                </td>-->
-              <!--                <td>-->
-              <!--                  <input-->
-              <!--                      *ngIf="calendarType === 'AD'" [nbDatepicker]="issuedYear"-->
-              <!--                      class="form-control "-->
-              <!--                      formControlName="issuedYear"-->
-              <!--                      -->
-              <!--                      autocomplete="off"-->
-              <!--                      name="name" placeholder="Citizenship Issue Date"-->
-              <!--                      type="text"/>-->
-              <!--                  &lt;!&ndash;                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"&ndash;&gt;-->
-              <!--                  &lt;!&ndash;                              *ngIf="calendarType === 'BS'"&ndash;&gt;-->
-              <!--                  &lt;!&ndash;                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>&ndash;&gt;-->
-              <!--                  <nb-datepicker format="yyyy-MM-dd" #issuedYear></nb-datepicker>-->
-              <!--                </td>-->
-              <!--                <td>{{translatedValues?.issuedYear}}</td>
-              <td>
-              <nb-checkbox (change)="checkboxVal($event, 'issuedYear')"></nb-checkbox>-->
-              <!--                <td>
-                  <input class="form-control nepaliFont" type="text" formControlName="issuedYear" />
-                </td>-->
-              <!--              </tr>-->
-              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value || configForm?.clientType?.value == clientType.INDIVIDUAL">
-                <td>
-                  <label class="title">Citizenship Issue
-                    District</label>
-                </td>
-                <td>
-                  <select class="custom-select"
-                          formControlName="issuedPlace">
-                    <option [ngValue]="null" hidden>Select District</option>
-                    <option
-
-                            *ngFor="let district of allDistrictList"
-                            [ngValue]="district.nepaliName">
-                      {{district.name}} || {{district.nepaliName}}
-                    </option>
-                  </select>
-                </td>
-                <td>
-                  <input class="form-control" type="text"
-                         formControlName="issuedPlaceTrans" readonly/>
-                </td>
-                <td>
-                  <input class="form-control" type="text" formControlName="issuedPlaceCT"/>
-                </td>
-              </tr>
-              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value || configForm?.clientType?.value == clientType.INDIVIDUAL">
-                <td>
-                  <label class="title">Citizenship Issue Date</label>
-                </td>
-                <td>
-                  <div class="row">
-                   <div class="col-md-4">
-<!--                     <nb-radio-group name="citizenshipIssuedDate"-->
-<!--                                     formControlName="radioCitizenIssuedDate"-->
-<!--                                     #citizenshipIssueDateVal class="d-inline-flex">-->
-<!--                       <nb-radio *ngFor="let option of dateOption"-->
-<!--                                 [value]="option.value">{{option.label}}</nb-radio>-->
-<!--                     </nb-radio-group>-->
-                     <select required="true" class="form-control"
-                             #citizenshipIssueDateVal
-                             formControlName="radioCitizenIssuedDate">
-                       <option  value="null" hidden>AD/BS</option>
-                       <option  value="AD">AD</option>
-                       <option value="BS">BS</option>
-                     </select>
-                   </div>
-                    <div class="col-md-8">
-                      <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
-                                    formControlName="citizenIssuedDate" [responseType]="2"
-                                    [displayNepali]="true">
-                      </nepali-patro>
-                      <input [nbDatepicker]="citizenshipDate"
-                             *ngIf="citizenshipIssueDateVal.value ==='AD'"
-                             class="form-control form-control-sm-error rounded"
-                             formControlName="citizenIssuedDate"
-
-                             name="citizenIssuedDate"
-                             placeholder="Citizenship Issue Date"
-                             type="text">
-                      <nb-datepicker #citizenshipDate></nb-datepicker>
-                    </div>
-                  </div>
-                </td>
-              </tr>
 <!--              <tr>-->
 <!--                <td></td>-->
 <!--                <td>-->
@@ -4365,6 +4256,90 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 <td>
                   <input class="form-control" type="text" formControlName="guarantorNationalityCT"
                   />
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value &&
+              userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value == 'Nepali'
+                || configForm?.clientType?.value == clientType.INDIVIDUAL">
+                <td>
+                  <label class="title">Citizenship No</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="citizenNumber"
+
+                         autocomplete="off"
+                         name="name" placeholder="Citizenship No"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="citizenNumberTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="citizenNumberCT"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value &&
+              userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value == 'Nepali' || configForm?.clientType?.value == clientType.INDIVIDUAL">
+                <td>
+                  <label class="title">Citizenship Issue
+                    District</label>
+                </td>
+                <td>
+                  <select class="custom-select"
+                          formControlName="issuedPlace">
+                    <option [ngValue]="null" hidden>Select District</option>
+                    <option
+
+                            *ngFor="let district of allDistrictList"
+                            [ngValue]="district.nepaliName">
+                      {{district.name}} || {{district.nepaliName}}
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="issuedPlaceTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="issuedPlaceCT"/>
+                </td>
+              </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value &&
+              userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value == 'Nepali' || configForm?.clientType?.value == clientType.INDIVIDUAL">
+                <td>
+                  <label class="title">Citizenship Issue Date</label>
+                </td>
+                <td>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <select required="true" class="form-control"
+                              #citizenshipIssueDateVal
+                              formControlName="radioCitizenIssuedDate">
+                        <option  value="null" hidden>AD/BS</option>
+                        <option  value="AD">AD</option>
+                        <option value="BS">BS</option>
+                      </select>
+                    </div>
+                    <div class="col-md-8">
+                      <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
+                                    formControlName="citizenIssuedDate" [responseType]="2"
+                                    [displayNepali]="true">
+                      </nepali-patro>
+                      <input [nbDatepicker]="citizenshipDate"
+                             *ngIf="citizenshipIssueDateVal.value ==='AD'"
+                             class="form-control form-control-sm-error rounded"
+                             formControlName="citizenIssuedDate"
+
+                             name="citizenIssuedDate"
+                             placeholder="Citizenship Issue Date"
+                             type="text">
+                      <nb-datepicker #citizenshipDate></nb-datepicker>
+                    </div>
+                  </div>
                 </td>
               </tr>
 
