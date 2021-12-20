@@ -5,6 +5,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepa
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngNepDatePipe} from 'nepali-patro';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
     selector: 'app-revolving-short-term-loan',
@@ -13,6 +14,8 @@ import {EngNepDatePipe} from 'nepali-patro';
 })
 export class RevolvingShortTermLoanComponent implements OnInit {
     @Input() loanName;
+    @Input() offerDocumentList: Array<OfferDocument>;
+    initialInformation: any;
     revolvingShortTermLoan: FormGroup;
     isARFinancing = false;
     isComplementaryOtherLoan = false;
@@ -36,6 +39,14 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         this.ADExpiry = true;
         if (!ObjectUtil.isEmpty(this.loanName)) {
             this.loanDetails = this.loanName;
+        }
+        if (this.offerDocumentList.length > 0) {
+            this.offerDocumentList.forEach(offerLetter => {
+                this.initialInformation = JSON.parse(offerLetter.initialInformation);
+            });
+        }
+        if (!ObjectUtil.isEmpty(this.initialInformation)) {
+            this.revolvingShortTermLoan.patchValue(this.initialInformation.revolvingShortTermLoan);
         }
     }
 

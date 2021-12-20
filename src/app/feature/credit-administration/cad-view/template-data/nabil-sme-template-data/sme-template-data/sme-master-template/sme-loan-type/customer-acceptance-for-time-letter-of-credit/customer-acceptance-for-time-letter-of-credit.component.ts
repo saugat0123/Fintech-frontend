@@ -6,6 +6,7 @@ import {CurrencyFormatterPipe} from "../../../../../../../../../@core/pipe/curre
 import {DatePipe} from "@angular/common";
 import {EngNepDatePipe} from "nepali-patro";
 import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-customer-acceptance-for-time-letter-of-credit',
@@ -14,6 +15,8 @@ import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
 })
 export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit {
   @Input() loanName;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  initialInformation: any;
   timeLetterCreditForm: FormGroup;
   isComplimentryOtherLoan = false;
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
@@ -35,11 +38,19 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
     }
+    if (this.offerDocumentList.length > 0) {
+      this.offerDocumentList.forEach(offerLetter => {
+        this.initialInformation = JSON.parse(offerLetter.initialInformation);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.timeLetterCreditForm.patchValue(this.initialInformation.timeLetterCreditForm);
+    }
   }
 
-  buildForm(){
+  buildForm() {
     this.timeLetterCreditForm = this.formBuilder.group({
-      //form data
+      // form data
       loanOption: [undefined],
       complimentaryLoanSelected: [undefined],
       complementryOther: [undefined],
