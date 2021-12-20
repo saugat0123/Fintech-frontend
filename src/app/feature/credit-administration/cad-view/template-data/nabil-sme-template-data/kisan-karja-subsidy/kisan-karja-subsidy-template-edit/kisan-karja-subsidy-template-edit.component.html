@@ -125,7 +125,7 @@
                                nbInput status="success" type="text">
                     </div>
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="loanAmountFigure">Loan Amount Figure</label>
                         <input (input)="getNumAmountWord('loanAmountFigure', 'loanAmountFigureWords')" class="form-control" formControlName="loanAmountFigure" fullWidth
                                id="loanAmountFigure"
@@ -136,7 +136,7 @@
                         <label for="loanAmountFigureWords">Loan Amount In Words</label>
                         <input class="form-control" formControlName="loanAmountFigureWords" fullWidth id="loanAmountFigureWords"
                                nbInput status="success" type="text">
-                    </div>
+                    </div>-->
 
                     <div class="form-group">
                         <label for="marginInPercentage">Margin In Percentage</label>
@@ -169,7 +169,7 @@
                         </div>
 
                     <div class="form-group">
-                        <label for="totalTenureOfLoan">Total Tenure Of Loan (%)</label>
+                        <label for="totalTenureOfLoan">Total Tenure Of Loan</label>
                         <input class="form-control" formControlName="totalTenureOfLoan" fullWidth id="totalTenureOfLoan"
                                nbInput status="success" type="number">
                     </div>
@@ -259,7 +259,7 @@
                         <input class="form-control" formControlName="purposeOfLoanTrans" fullWidth id="purposeOfLoanTrans"
                                nbInput status="success" type="text" readonly>
                     </div>
-
+<!--
                     <div class="form-group">
                         <label for="loanAmountFigureTrans">Loan Amount Figure Translation </label>
                         <input (input)="getNumAmountWord('loanAmountFigure', 'loanAmountFigureWords')" class="form-control" formControlName="loanAmountFigureTrans" fullWidth
@@ -271,7 +271,7 @@
                         <label for="loanAmountFigureWordsTrans">Loan Amount In Words Translation </label>
                         <input class="form-control" formControlName="loanAmountFigureWordsTrans" fullWidth id="loanAmountFigureWordsTrans"
                                nbInput status="success" type="text" readonly>
-                    </div>
+                    </div>-->
 
                     <div class="form-group">
                         <label for="marginInPercentageTrans">Margin In Percentage Translation </label>
@@ -305,7 +305,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="totalTenureOfLoanTrans">Total Tenure Of Loan (%) Translation </label>
+                            <label for="totalTenureOfLoanTrans">Total Tenure Of Loan Translation </label>
                             <input class="form-control" formControlName="totalTenureOfLoanTrans" fullWidth
                                    id="totalTenureOfLoanTrans"
                                    nbInput readonly status="success" type="text">
@@ -443,7 +443,7 @@
                         </span>
                     </div>
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="loanAmountFigureCT">Loan Amount Figure CT</label>
                         <input (input)="getNumAmountWord('loanAmountFigure', 'loanAmountFigureWords')" class="form-control" formControlName="loanAmountFigureCT" fullWidth
                                id="loanAmountFigureCT"
@@ -464,7 +464,7 @@
                         <span *ngIf="submitted && FormControls.loanAmountFigureWordsCT.invalid" class="text-danger">
                             Loan Amount In Words is required
                         </span>
-                    </div>
+                    </div>-->
 
                     <div class="form-group">
                         <label for="marginInPercentageCT">Margin In Percentage CT</label>
@@ -523,7 +523,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="totalTenureOfLoanCT">Total Tenure Of Loan (%) CT</label>
+                        <label for="totalTenureOfLoanCT">Total Tenure Of Loan CT</label>
                         <input class="form-control" formControlName="totalTenureOfLoanCT" fullWidth id="totalTenureOfLoanCT"
                                nbInput status="success"
                                [ngClass]="{ 'is-invalid':submitted && FormControls.totalTenureOfLoanCT.errors }"
@@ -680,7 +680,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="securityOwnersLandArea">Area in Sq m.</label>
+                            <label for="securityOwnersLandArea">Area with Units.</label>
                             <input class="form-control" formControlName="securityOwnersLandArea" fullWidth
                                    id="securityOwnersLandArea"
                                    (input)="onChangeTranslateSecurity('securities', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTrans')"
@@ -734,7 +734,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="securityOwnersLandAreaTrans">Area in Sq m.</label>
+                            <label for="securityOwnersLandAreaTrans">Area with Units.</label>
                             <input class="form-control" formControlName="securityOwnersLandAreaTrans" fullWidth
                                    id="securityOwnersLandAreaTrans"
                                    nbInput status="success" type="text" readonly>
@@ -788,7 +788,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="securityOwnersLandAreaCT">Area in Sq m.</label>
+                            <label for="securityOwnersLandAreaCT">Area with Units.</label>
                             <input class="form-control" formControlName="securityOwnersLandAreaCT" fullWidth
                                    id="securityOwnersLandAreaCT"
                                    nbInput status="success" type="text">
