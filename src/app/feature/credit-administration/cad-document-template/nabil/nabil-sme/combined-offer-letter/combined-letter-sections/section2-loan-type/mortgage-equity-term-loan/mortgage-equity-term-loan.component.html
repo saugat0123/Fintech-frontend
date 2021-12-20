@@ -19,10 +19,10 @@
               </ng-container></strong></span>
     </p>
     <p>
-        <strong> सीमाः रु.<input class="form-field form-control-sm "
+        <strong> सीमाः <ng-container *ngIf="complementaryOtherMortgageEquityTerm">(</ng-container>रु.<input class="form-field form-control-sm "
                                  formControlName="loanAmountMortgageTerm"
                                  placeholder=""
-                                 type="text"/>।-
+                                 type="text"/>।-<ng-container *ngIf="complementaryOtherMortgageEquityTerm">)</ng-container>
             (अक्षरेपी रु.<input class="form-field form-control-sm "
                                 formControlName="loanAmountInWordMortgageTerm"
                                 placeholder=""
