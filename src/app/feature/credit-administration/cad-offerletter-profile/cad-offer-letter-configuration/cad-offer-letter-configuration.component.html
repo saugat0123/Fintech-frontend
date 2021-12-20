@@ -3387,7 +3387,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
               <tr>
                 <td>
                   <nb-checkbox formControlName="isAuthorizedPersion">
-                    <i>is authorized person</i>
+                    <i>Is authorized person?</i>
                   </nb-checkbox>
                 </td>
               </tr>
@@ -3459,6 +3459,14 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 <td>
                   <input class="form-control" type="text" formControlName="guarantorNameCT"
                   />
+                </td>
+              </tr>
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>
+                  <b>Guarantee Provider Detail</b>
                 </td>
               </tr>
 
