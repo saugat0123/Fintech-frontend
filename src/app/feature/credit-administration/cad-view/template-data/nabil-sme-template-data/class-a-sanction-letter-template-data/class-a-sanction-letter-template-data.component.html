@@ -11,8 +11,8 @@
                     <ng-select
                             formControlName="costumerType"
                             fullWidth
-                            placeholder="CostumerType"
-                            (ngModelChange)="checkCostumerType($event)"
+                            placeholder=" "
+                            (change)="checkCostumerType($event)"
                             status="info">
                         <ng-option value="newCustomer">New Customer</ng-option>
                         <ng-option value="existingPlainRenewal">Plain Renewal</ng-option>
@@ -25,7 +25,7 @@
                     <ng-select
                             formControlName="loanType"
                             fullWidth
-                            placeholder="Loan Type"
+                            placeholder=" "
                             (change)="checkLoanType()"
                             status="info">
                         <ng-option value="Overdraft">Overdraft</ng-option>
@@ -72,7 +72,7 @@
                     <ng-select
                             formControlName="securityType"
                             fullWidth
-                            placeholder="Security Type"
+                            placeholder=" "
                             (change)="checkOD()"
                             status="info">
                         <ng-option value="FixedDeposit">Fixed Deposit</ng-option>
@@ -84,7 +84,7 @@
                     <ng-select
                             formControlName="tdHoldingBank"
                             fullWidth
-                            placeholder="Td Holding Bank"
+                            placeholder=" "
                             (change)="checkTD()"
                             status="info">
                         <ng-option value="Nabil">Nabil</ng-option>
@@ -108,7 +108,7 @@
                     <ng-select
                             formControlName="baseRateType"
                             fullWidth
-                            placeholder=" Base Rate Type "
+                            placeholder=" "
                             (change)="checkBaseType()"
                             status="info">
                         <ng-option value="CoupenRateFinancing">Coupen Rate Financing</ng-option>
@@ -1226,7 +1226,7 @@
                                             <div class="col-md-4">
                                                 <select class="form-control"
                                                         formControlName="securityOwnersMunicipalityOrVdc"
-                                                        (ngModelChange)="clearSecurityMunType('securityOwnersMunicipality', i, 'securities')"
+                                                        (change)="clearSecurityMunType('securityOwnersMunicipality', i, 'securities')"
                                                         name="securityOwnersMunicipalityOrVdc">
                                                     <option hidden value="null">Municipality or VDC</option>
                                                     <option value="Municipality">Municipality</option>
@@ -1422,7 +1422,7 @@
         <nb-card-footer>
             <div class="row d-flex justify-content-end">
                 <div class="col-md-12 text-right pr-4">
-                    <button *ngIf="!isEdit" (click)="openCloseTemplate(confirm)" [disabled]="!closeEnable" class="float-right" nbButton
+                    <button *ngIf="!isEdit" (click)="openCloseTemplate(confirm)" [disabled]="closeEnable" class="float-right" nbButton
                             size="small"
                             status="info" style="margin-right: 0.5em">
                         Close

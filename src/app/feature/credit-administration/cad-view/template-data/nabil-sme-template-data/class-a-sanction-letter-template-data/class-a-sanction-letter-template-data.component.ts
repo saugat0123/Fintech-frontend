@@ -21,6 +21,7 @@ import {Attributes} from '../../../../../../@core/model/attributes';
 import {District} from '../../../../../admin/modal/district';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ClassASanctionLetterComponent} from '../../../../cad-document-template/nabil/nabil-sme/class-a-sanction-letter/class-a-sanction-letter.component';
+import {HomeLoanType} from '../../../cad-constant/home-loan-type';
 
 @Component({
   selector: 'app-class-a-sanction-letter-template-data',
@@ -34,6 +35,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   @Input() isEdit = false;
   form: FormGroup;
   spinner = false;
+  editedData: any = {};
   customerLoanOptions: Array<String> = new Array<String>();
   isLoanOptionSelected = false;
   isCustomerNew = false;
@@ -136,15 +138,49 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.getAllDistrict();
     // getting key from cad doc status:
     this.cadDocStatus = CadDocStatus.key();
-    if (this.customerApprovedDoc.offerDocumentList.length > 0) {
-      this.customerApprovedDoc.offerDocumentList.forEach(offerLetter => {
-        this.initialInfo = JSON.parse(offerLetter.initialInformation);
-      });
+    if (this.isEdit) {
+      if (this.customerApprovedDoc.offerDocumentList.length > 0) {
+        this.customerApprovedDoc.offerDocumentList.forEach(offerLetter => {
+          this.initialInfo = JSON.parse(offerLetter.initialInformation);
+        });
+      }
+      this.mapObjectData(this.initialInfo);
+      if (!ObjectUtil.isEmpty(this.initialInfo)) {
+        this.form.patchValue(this.editedData);
+      }
+      // for date flag
+      const tempApprovalType = this.initialInfo.sanctionLetterDateType ?
+          this.initialInfo.sanctionLetterDateType.en : '';
+      if (tempApprovalType === 'AD') {
+        this.ADSanctionLetterDate = true;
+      }
+      if (tempApprovalType === 'BS') {
+        this.BSSanctionLetterDate = true;
+      }
+      const tempApplicationType = this.initialInfo.dateOfApplicationType ?
+          this.initialInfo.dateOfApplicationType.en : '';
+      if (tempApplicationType === 'AD') {
+        this.ADApplication = true;
+      }
+      if (tempApplicationType === 'BS') {
+        this.BSApplication = true;
+      }
+      /* For Date of Previous Date*/
+      const tempPrevDate = this.initialInfo.previousSanctionType ?
+          this.initialInfo.previousSanctionType.en : '';
+      if (tempPrevDate === 'AD') {
+        this.ADPrevious = true;
+      }
+      if (tempPrevDate === 'BS') {
+        this.BSPrevious = true;
+      }
     }
     console.log('Form:', this.initialInfo);
-    if (!ObjectUtil.isEmpty(this.initialInfo)) {
-      this.form.patchValue(this.initialInfo);
-    }
+
+    // if (!ObjectUtil.isEmpty(this.initialInformation)) {
+    //   this.setLoanType();
+    // }
+  // this.translateAndSetValue();
   }
   buildForm() {
     this.form = this.formBuilder.group({
@@ -655,6 +691,27 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     console.log('This is Attributes', this.tdVal);
   }
 
+  mapObjectData(data, targetKey?, sourceKey?) {
+    Object.keys(data).forEach(key => {
+      // if (key.indexOf(targetKey.toString()) > -1 || key.indexOf(sourceKey) > -1) {
+      //   return;
+      // }
+      console.log('Keys : ', data);
+      console.log('Keys : ', data[key]);
+      console.log('Keys : ', key);
+      this.editedData[key] = !ObjectUtil.isEmpty(key) ? data[key].en : '';
+      // this.editedData[key + 'Trans'] = !ObjectUtil.isEmpty(key) ? data.key.np : '';
+      this.editedData[key + 'CT'] = !ObjectUtil.isEmpty(key) ? data[key].ct : '';
+    });
+    if (!ObjectUtil.isEmpty(this.editedData.costumerType) && !ObjectUtil.isEmpty(this.editedData.loanType)) {
+      this.isLoanOptionSelected = true;
+    }
+    if (!ObjectUtil.isEmpty(this.editedData.costumerType.Overdraft)) {
+      this.isLoanOptionSelected = true;
+    }
+    console.log('Edited Form', this.editedData);
+  }
+
   async translateAndSetValue() {
     this.spinner = true;
     // Translation Data
@@ -911,6 +968,12 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       securityOwnersSheetNoCT: [undefined],
     });
   }
+  // private setLoanType(): void {
+  //   this.form.get('costumerType').patchValue(this.initialInformation.loanType);
+  //   const loanType = this.initialInformation.loanType;
+  //   this.isnewCustomer = loanType === costumerType.newCustomer.valueOf();
+  //   this.isexistingPlainRenewal = loanType === costumerType.existingPlainRenewal.valueOf();
+  // }
 
   addDefaultSecurity() {
     (this.form.get('securities') as FormArray).push(
