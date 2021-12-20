@@ -226,8 +226,8 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       /////////
       previousSanctionTypeCT: [undefined],
       purposeOfLoanCT: [undefined, Validators.required],
-      loanAmountFigureCT: [undefined, Validators.required],
-      loanAmountFigureWordsCT: [undefined, Validators.required],
+      loanAmountFigureCT: [undefined/*, Validators.required*/],
+      loanAmountFigureWordsCT: [undefined/*, Validators.required*/],
       marginInPercentageCT: [undefined, Validators.required],
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
