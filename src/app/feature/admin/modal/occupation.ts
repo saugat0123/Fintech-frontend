@@ -6,7 +6,8 @@ export enum Occupation {
   PENSIONER = 'Pensioner',
   FARMER = 'Farmer',
   MARKETABLE_SECURITIES_TRADER = 'Marketable Securities Trader',
-  Freelancer = 'Freelancer'
+  Freelancer = 'Freelancer',
+  NA = 'Not Applicable'
 }
 
 export namespace Occupation {
