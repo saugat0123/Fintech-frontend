@@ -56,10 +56,10 @@ export class ClassASanctionLetterComponent implements OnInit {
   offerDocumentDetails;
   guarantorNames: Array<String> = [];
   allguarantorNames;
-  guarantorAmount: number = 0;
   finalName;
   isNatural;
   isFixedDepositSelected;
+  isDepositAccountSelected;
   isOneoffSelected;
   isRegularSelected;
   isAllLoanSelected;
@@ -72,6 +72,7 @@ export class ClassASanctionLetterComponent implements OnInit {
   CashMarginTen;
   CoupenRateFinancing;
   BaseRateFinancing;
+  freeTextVal: any = {};
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -125,8 +126,16 @@ export class ClassASanctionLetterComponent implements OnInit {
       baseRate: [undefined],
       interestRate: [undefined],
       dateOfExpiry: [undefined],
+      // freeText
       additionalGuarantorDetails: [undefined],
-      additionalGuarantorDetail: [undefined],
+      additionalCostumerDetails: [undefined],
+      basicFreeText: [undefined],
+      accountNumberFreeText: [undefined],
+      accountHolderFreeText: [undefined],
+      tableFreeText: [undefined],
+      applicableFreeTextBox: [undefined],
+      additionalFreeTextBox: [undefined],
+
       nameOfTD: [undefined],
       accountNumber: [undefined],
       minimumCommissionAmount: [undefined],
@@ -193,23 +202,49 @@ export class ClassASanctionLetterComponent implements OnInit {
   }
   guarantorDetails() {
     if (this.guarantorData.length === 1) {
-      const temp = JSON.parse(this.guarantorData[0].nepData);
-      this.finalName =  temp.authorizedPersonName.ct;
+      const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
+      if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+        console.log('guarantor', tempGuarantorNep);
+        // const temp = JSON.parse(this.guarantorData[0].nepData);
+        this.finalName = tempGuarantorNep.guarantorName.ct;
+      } else {
+        // const temp = JSON.parse(this.guarantorData[0].nepData);
+        this.finalName = tempGuarantorNep.authorizedPersonName.ct;
+      }
     } else if (this.guarantorData.length === 2) {
       for (let i = 0; i < this.guarantorData.length; i++) {
-        const temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.authorizedPersonName.ct);
+        const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+        if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+          const temp = JSON.parse(this.guarantorData[i].nepData);
+          this.guarantorNames.push(temp.guarantorName.ct);
+        } else {
+          const temp = JSON.parse(this.guarantorData[i].nepData);
+          this.guarantorNames.push(temp.authorizedPersonName.ct);
+        }
+        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
       }
+      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
       this.allguarantorNames = this.guarantorNames.join(' र ');
       this.finalName = this.allguarantorNames;
     } else {
       for (let i = 0; i < this.guarantorData.length - 1; i++) {
-        const temp = JSON.parse(this.guarantorData[i].nepData);
-        this.guarantorNames.push(temp.authorizedPersonName.ct);
+        const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
+        if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
+          const temp = JSON.parse(this.guarantorData[i].nepData);
+          console.log(temp);
+          this.guarantorNames.push(temp.guarantorName.ct);
+          // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+        } else {
+          const temp = JSON.parse(this.guarantorData[i].nepData);
+          console.log(temp);
+          this.guarantorNames.push(temp.authorizedPersonName.ct);
+        }
+
       }
+      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
       this.allguarantorNames = this.guarantorNames.join(' , ');
       const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
-      this.finalName =  this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
+      this.finalName = this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
     }
   }
   fillForm() {
@@ -284,6 +319,7 @@ export class ClassASanctionLetterComponent implements OnInit {
       TDAmount: this.tempData.TDAmount.ct ? this.tempData.TDAmount.ct : '',
       TdHolder: this.tempData.TdHolder.ct ? this.tempData.TdHolder.ct : '',
       totalLimitInFigure: this.tempData.totalLimitInFigure.ct ? this.tempData.totalLimitInFigure.ct : '',
+      holderName: this.tempData.holderName.ct ? this.tempData.holderName.ct : '',
       // sanctionLetterDate: this.tempData.sanctionLetterDate.ct ? this.tempData.sanctionLetterDate.ct : '',
       totalLimitInWords: this.tempData.totalLimitInWords.ct ? this.tempData.totalLimitInWords.ct : '',
       TdHolding: this.tempData.TdHolding.ct ? this.tempData.TdHolding.ct : '',
@@ -303,6 +339,15 @@ export class ClassASanctionLetterComponent implements OnInit {
       comissionRateOthersQuarter: this.tempData.comissionRateOthersQuarter.ct ? this.tempData.comissionRateOthersQuarter.ct : '',
       miniumComissionAmount:  this.tempData.miniumComissionAmount.ct ? this.tempData.miniumComissionAmount.ct : '',
 
+      additionalGuarantorDetails: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText1 : '',
+      additionalCostumerDetails: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText2 : '',
+      basicFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText3 : '',
+      accountNumberFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText4 : '',
+      accountHolderFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText5 : '',
+      tableFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText6 : '',
+      applicableFreeTextBox: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText7 : '',
+      additionalFreeTextBox: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText8 : '',
+
 
 
 
@@ -314,22 +359,22 @@ export class ClassASanctionLetterComponent implements OnInit {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
-    this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
+    // this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
     this.form.get('naturalPersonCheck').patchValue(this.isNatural);
-    this.form.get('renewalChecked').patchValue(this.renewal);
+    // this.form.get('renewalChecked').patchValue(this.renewal);
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.CLASS_A)
             .toString()) {
-          offerLetterPath.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+          offerLetterPath.supportedInformation = this.setFreeText();
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
-      offerDocument.supportedInformation = this.form.get('additionalGuarantorDetails').value;
+      offerDocument.supportedInformation = this.setFreeText();
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
@@ -348,5 +393,18 @@ export class ClassASanctionLetterComponent implements OnInit {
   }
   close() {
     this.ref.close();
+  }
+  setFreeText() {
+    const free = {
+      freeText1: this.form.get('additionalCostumerDetails').value,
+      freeText2: this.form.get('accountNumberFreeText').value,
+      freeText3: this.form.get('accountHolderFreeText').value,
+      freeText4: this.form.get('tableFreeText').value,
+      freeText5: this.form.get('basicFreeText').value,
+      freeText6: this.form.get('additionalGuarantorDetails').value,
+      freeText7: this.form.get('applicableFreeTextBox').value,
+      freeText8: this.form.get('additionalFreeTextBox').value,
+    };
+    return JSON.stringify(free);
   }
 }
