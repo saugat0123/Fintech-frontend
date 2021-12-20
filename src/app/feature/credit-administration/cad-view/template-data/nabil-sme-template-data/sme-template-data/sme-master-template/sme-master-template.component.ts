@@ -218,37 +218,6 @@ export class SmeMasterTemplateComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
     });
-    // for update
-    if (this.customerApprovedDoc.offerDocumentList.length > 0) {
-      this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER).toString())[0];
-      if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        this.existingOfferLetter = true;
-      }
-    }
-
-    if (this.existingOfferLetter) {
-      console.log('If Condition');
-      this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
-        }
-      });
-    } else {
-    console.log('Else Condition');
-    offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.COMBINED_LETTER);
-    /*  Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('TransVal') > -1) {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.attributes.ct = this.form.get(key + 'TransVal').value;
-        this.tdValues[key] = this.attributes;
-      });*/
-  }
   }
   private getLoanTemplateFormValue(): string {
     const smeGlobalForm = this.smeGlobalContent.globalForm.value;

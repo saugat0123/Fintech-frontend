@@ -8,6 +8,7 @@ import {DatePipe} from '@angular/common';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SbTranslateService} from '../../../../../../../../../@core/service/sbtranslate.service';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
     selector: 'app-overdraft-facility-against-bond',
@@ -16,6 +17,8 @@ import {SbTranslateService} from '../../../../../../../../../@core/service/sbtra
 })
 export class OverdraftFacilityAgainstBondComponent implements OnInit {
     @Input() loanName;
+    @Input() offerDocumentList: Array<OfferDocument>;
+    initialInformation: any;
     overDraftFacilityForm: FormGroup;
     ADExpiry = false;
     BSExpiry = false;
@@ -41,6 +44,14 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.ADExpiry = true;
+        if (this.offerDocumentList.length > 0) {
+            this.offerDocumentList.forEach(offerLetter => {
+                this.initialInformation = JSON.parse(offerLetter.initialInformation);
+            });
+        }
+        if (!ObjectUtil.isEmpty(this.initialInformation)) {
+            this.overDraftFacilityForm.patchValue(this.initialInformation.overDraftFacilityForm);
+        }
     }
 
     buildForm() {
