@@ -23,18 +23,37 @@ export class Section10SecurityDocumentsComponent implements OnInit {
   guarantorParsed: Array<any> = new Array<any>();
   tempPersonalGuarantors;
   temp2;
+  limitAmount;
   kittaNumbers: Array<any> = new Array<any>();
   securityOwnersName: Array<any> = new Array<any>();
   plotNumber;
   nameOfPropertyOwner;
   promissoryVisible: boolean;
+  boardVisible: boolean;
   loanDeedVisible: boolean;
   mortgagedVisible: boolean;
   continuityVisible: boolean;
   supplementaryVisible: boolean;
   attorneyVisible: boolean;
   multiVisible: boolean;
-
+  guaranteeVisible: boolean;
+  wealthVisible: boolean;
+  bankersClause1: boolean;
+  bankersClause2: boolean;
+  insuranceDeclarationVisible: boolean;
+  undertakingLetterVisible: boolean;
+  declarationVisible: boolean;
+  leaseVisible: boolean;
+  consentLetterVisible: boolean;
+  buildingVisible: boolean;
+  hirePurchaseVisible: boolean;
+  comprehensiveVisible: boolean;
+  thirdPartyVisible: boolean;
+  blueBook: boolean;
+  loanSubordinationAgreement: boolean;
+  pariPasu: boolean;
+  partnershipDeed: boolean;
+  letterSetOff: boolean;
   constructor(private formBuilder: FormBuilder,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe) {
@@ -46,6 +65,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+      this.limitAmount = this.tempData.smeGlobalForm.totalLimitInFigure;
       this.requiredDocument();
       this.fillForm();
       this.guarantorData.forEach(any => {
@@ -114,6 +134,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
   }
   buildForm() {
     this.form = this.formBuilder.group({
+      totalLoanAmountInFigure: [undefined],
       loanAmountInFigure: [undefined],
       nameOfBranch: [undefined],
       additionalGuarantorDetails: [undefined],
@@ -171,6 +192,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
       totalLoanAmount = totalLoanAmount + val;
     });
     this.form.patchValue({
+      totalLoanAmountInFigure: this.limitAmount ? this.limitAmount : '',
       loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       nameOfBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
       guarantorName: this.finalName ? this.finalName : '',
@@ -183,6 +205,9 @@ export class Section10SecurityDocumentsComponent implements OnInit {
     const temp = this.tempData;
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument) && temp.requiredLegalDocument.requiredDocument.includes('Promissory Note')) {
       this.promissoryVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument) && temp.requiredLegalDocument.requiredDocument.includes('Board Minute')) {
+      this.boardVisible = true;
     }
     if (
         !ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
@@ -209,6 +234,77 @@ export class Section10SecurityDocumentsComponent implements OnInit {
     if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
         && temp.requiredLegalDocument.requiredDocument.includes('Multiple Banking Declaration')) {
       this.multiVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Personal Guarantee')) {
+      this.guaranteeVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Wealth Statement Of Guarantor')) {
+      this.wealthVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Insurance Of Stock')) {
+      this.bankersClause1 = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Insurance Of Building')) {
+      this.bankersClause2 = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Insurance Declaration Statement')) {
+      this.insuranceDeclarationVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Undertaking Letter')) {
+      this.undertakingLetterVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Declaration Letter')) {
+      this.declarationVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Lease Agreement')) {
+      this.leaseVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Letter Of Consent from Mortgage Property Owner for Continuation Of Existing Mortgage')) {
+      this.consentLetterVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Letter Of Consent from Mortgage Property Owner for Continuation Of Existing Mortgage')) {
+      this.continuityVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Building Construction Complete Certificate')) {
+      this.buildingVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Hire Purchase Agreement')) {
+      this.hirePurchaseVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Comprehensive Insurance')) {
+      this.comprehensiveVisible = true;
+    }
+    if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Consent for Third Party Transfer in Case Of Default')) {
+      this.thirdPartyVisible = true;
+    }if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Blue Book')) {
+      this.blueBook = true;
+    }if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Loan Subordination Agreement')) {
+      this.loanSubordinationAgreement = true;
+    }if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Pari-Pasu Deed')) {
+      this.pariPasu = true;
+    }if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Partnership Deed')) {
+      this.partnershipDeed = true;
+    }if (!ObjectUtil.isEmpty(temp.requiredLegalDocument.requiredDocument)
+        && temp.requiredLegalDocument.requiredDocument.includes('Letter Of Set Off')) {
+      this.letterSetOff = true;
     }
   }
 
