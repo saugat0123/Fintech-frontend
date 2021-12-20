@@ -27,8 +27,10 @@
         को पूरक सुविधा/कुल सुविधाको पूरक सुविधा </ng-container></strong>
 </p>
 <p>
-    <strong>सीमाः <ng-container *ngIf="complementaryOtherTermLoanToOrFor">(</ng-container>रु.{{this.loanAmount ? this.loanAmount : ''}}।-<ng-container *ngIf="complementaryOtherTermLoanToOrFor">)</ng-container>
-        (अक्षरेपी रु.{{this.loanAmountInWord ? this.loanAmountInWord : ''}} मात्र)</strong>
+    <strong>सीमाः <ng-container *ngIf="complementaryOtherTermLoanToOrFor">(</ng-container>
+        रु.<span>{{loanData[index]?.loanAmountNp ? loanData[index]?.loanAmountNp : ''}}</span>।-
+        <ng-container *ngIf="complementaryOtherTermLoanToOrFor">)</ng-container>
+        (अक्षरेपी रु.<span>{{loanData[index]?.loanAmountWords ? loanData[index]?.loanAmountWords : ''}}</span> मात्र)</strong>
 </p>
 <p>
     <strong>सुरक्षणः</strong>
