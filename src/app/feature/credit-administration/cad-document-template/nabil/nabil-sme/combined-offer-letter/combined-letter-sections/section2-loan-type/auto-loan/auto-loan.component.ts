@@ -1,10 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/customerApprovedLoanCadDocumentation';
-import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
-import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
-import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 
 @Component({
     selector: 'app-auto-loan',
@@ -13,17 +10,14 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-t
 })
 export class AutoLoanComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @Input() loanData;
+    @Input() index;
     form: FormGroup;
     tempData;
-    loanAmount;
-    loanAmountInWord;
     autoLoanFreeText: any = {};
     complementaryOtherAutoLoan = false; vehiclePurchaseAutoLoan = false; vehicleRegistrationAutoLoan = false;
     loanOptionAutoLoan; autoLoanTypeAutoLoan; emiPaymentTypeAutoLoan; paymentsTermsAutoLoan;
     constructor(private formBuilder: FormBuilder,
-                private engToNepWord: NepaliCurrencyWordPipe,
-                private currencyFormatPipe: CurrencyFormatterPipe,
-                private engToNepNumberPipe: EngToNepaliNumberPipe,
     ) {
     }
 
@@ -31,9 +25,6 @@ export class AutoLoanComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-            const totalLoanAmount = this.customerApprovedDoc.assignedLoan[0].proposal.proposedLimit;
-            this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
-            this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
             this.fillForm();
         }
         if (!ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm)) {
@@ -57,8 +48,6 @@ export class AutoLoanComponent implements OnInit {
         this.form = this.formBuilder.group({
             // Auto Loan
             SNOfParentLimitAutoLoan: [undefined],
-            loanAmountAutoLoan: [undefined],
-            loanAmountInWordAutoLoan: [undefined],
             // For New EMI Term Loan
             newEMIDrawingPowerAutoLoan: [undefined],
             newEMIBaseRateAutoLoan: [undefined],
@@ -108,8 +97,6 @@ export class AutoLoanComponent implements OnInit {
             this.form.patchValue({
                 // Auto Loan
                 // SNOfParentLimitAutoLoan: [undefined],
-                loanAmountAutoLoan: this.loanAmount ? this.loanAmount : '',
-                loanAmountInWordAutoLoan: this.loanAmountInWord ? this.loanAmountInWord : '',
                 // For New EMI Term Loan
                 // tslint:disable-next-line:max-line-length
                 newEMIDrawingPowerAutoLoan: this.tempData.autoLoanMasterForm.drawingPower ? this.tempData.autoLoanMasterForm.drawingPowerCT : '',
