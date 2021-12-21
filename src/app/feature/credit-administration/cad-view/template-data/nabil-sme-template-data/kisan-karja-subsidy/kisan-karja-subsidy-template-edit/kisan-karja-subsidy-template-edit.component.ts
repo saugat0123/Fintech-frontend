@@ -51,6 +51,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
   allDistrictList = [];
   selectedAD = true;
   isInterestSubsidy = false;
+  isCollateral = false;
   isCustomerNew = false;
   attributes;
   translatedValues: any = {};
@@ -103,6 +104,11 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
           this.initialInformation.isInterestSubsidy.en : false;
       if (!ObjectUtil.isEmpty(tempInterestSubsidy)) {
         this.isInterestSubsidy = tempInterestSubsidy;
+      }
+      const tempCollateral = this.initialInformation.isCollateral ?
+          this.initialInformation.isCollateral.en : false;
+      if (!ObjectUtil.isEmpty(tempCollateral)) {
+        this.isCollateral = tempCollateral;
       }
       // For Date Flag:
       const tempApprovalType = this.initialInformation.dateOfApprovalType ?
@@ -174,6 +180,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       nameOfStaff: [undefined],
       nameOfBranchManager: [undefined],
       interestSubsidy: [undefined],
+      collateral: [undefined],
       securities: this.formBuilder.array([]),
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
       loanOptionTrans: [undefined],
@@ -206,6 +213,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       nameOfStaffTrans: [undefined],
       nameOfBranchManagerTrans: [undefined],
       interestSubsidyTrans: [undefined],
+      collateralTrans: [undefined],
       // FIELDS FOR CT VALUE
       loanOptionCT: [undefined],
       repaymentTypeCT: [undefined],
@@ -226,8 +234,8 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       /////////
       previousSanctionTypeCT: [undefined],
       purposeOfLoanCT: [undefined, Validators.required],
-      loanAmountFigureCT: [undefined, Validators.required],
-      loanAmountFigureWordsCT: [undefined, Validators.required],
+      loanAmountFigureCT: [undefined/*, Validators.required*/],
+      loanAmountFigureWordsCT: [undefined/*, Validators.required*/],
       marginInPercentageCT: [undefined, Validators.required],
       baseRateCT: [undefined, Validators.required],
       premiumRateCT: [undefined, Validators.required],
@@ -239,6 +247,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       nameOfStaffCT: [undefined, Validators.required],
       nameOfBranchManagerCT: [undefined, Validators.required],
       interestSubsidyCT: [undefined],
+      collateralCT: [undefined],
     });
     /*this.addDefaultSecurity();*/
   }
@@ -394,6 +403,10 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.isInterestSubsidy = data;
     this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
   }
+  collateralCheck(data) {
+    this.isCollateral = data;
+    this.kisanKarjaSubsidy.get('collateral').patchValue(this.isCollateral);
+  }
 
   mappedData() {
     Object.keys(this.kisanKarjaSubsidy.controls).forEach(key => {
@@ -412,6 +425,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.spinner = true;
     // Set Translate Data:
     this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.isInterestSubsidy);
+    this.kisanKarjaSubsidy.get('collateral').patchValue(this.isCollateral);
     this.kisanKarjaSubsidy.get('loanOptionTrans').patchValue(this.kisanKarjaSubsidy.get('loanOption').value);
     this.kisanKarjaSubsidy.get('repaymentTypeTrans').patchValue(this.kisanKarjaSubsidy.get('repaymentType').value);
     // Set Translated Date of Approval
@@ -521,6 +535,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       nameOfStaff: this.kisanKarjaSubsidy.get('nameOfStaff').value,
       nameOfBranchManager: this.kisanKarjaSubsidy.get('nameOfBranchManager').value,
       interestSubsidy: this.kisanKarjaSubsidy.get('interestSubsidy').value,
+      collateral: this.kisanKarjaSubsidy.get('collateral').value,
       dateOfApprovalType: this.kisanKarjaSubsidy.get('dateOfApprovalType').value,
       dateOfApplicationType: this.kisanKarjaSubsidy.get('dateOfApplicationType').value,
       nextReviewDateType: this.kisanKarjaSubsidy.get('nextReviewDateType').value,
@@ -588,6 +603,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.kisanKarjaSubsidy.get('nameOfStaffTrans').patchValue(this.translatedValues.nameOfStaff);
     this.kisanKarjaSubsidy.get('nameOfBranchManagerTrans').patchValue(this.translatedValues.nameOfBranchManager);
     this.kisanKarjaSubsidy.get('interestSubsidyTrans').patchValue(this.translatedValues.interestSubsidy);
+    this.kisanKarjaSubsidy.get('collateralTrans').patchValue(this.translatedValues.collateral);
     this.kisanKarjaSubsidy.get('dateOfApprovalTypeTrans').patchValue(this.translatedValues.dateOfApprovalType);
     this.kisanKarjaSubsidy.get('dateOfApplicationTypeTrans').patchValue(this.translatedValues.dateOfApplicationType);
     this.kisanKarjaSubsidy.get('nextReviewDateTypeTrans').patchValue(this.translatedValues.nextReviewDateTypeTrans);
@@ -656,6 +672,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.kisanKarjaSubsidy.get('nameOfStaffCT').patchValue(this.kisanKarjaSubsidy.get('nameOfStaffTrans').value);
     this.kisanKarjaSubsidy.get('nameOfBranchManagerCT').patchValue(this.kisanKarjaSubsidy.get('nameOfBranchManagerTrans').value);
     this.kisanKarjaSubsidy.get('interestSubsidyCT').patchValue(this.kisanKarjaSubsidy.get('interestSubsidy').value);
+    this.kisanKarjaSubsidy.get('collateralCT').patchValue(this.kisanKarjaSubsidy.get('collateral').value);
   }
 
   clearConditionalValidation() {
@@ -805,7 +822,13 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     if (!ObjectUtil.isEmpty(tempInterestSub)) {
       this.isInterestSubsidy = tempInterestSub;
     }
+    const tempCollateral = this.initialInformation.collateral ?
+        this.initialInformation.collateral.en : false;
+    if (!ObjectUtil.isEmpty(tempCollateral)) {
+      this.isCollateral = tempCollateral;
+    }
     this.kisanKarjaSubsidy.get('interestSubsidy').patchValue(this.initialInformation.interestSubsidy.en);
+    this.kisanKarjaSubsidy.get('collateral').patchValue(this.initialInformation.collateral.en);
     this.kisanKarjaSubsidy.get('dateOfApprovalType').patchValue(this.initialInformation.dateOfApprovalType.en);
     // SET FIELD FOR DATE OF APPROVAL
     if (this.initialInformation.dateOfApprovalType.en === 'AD') {
