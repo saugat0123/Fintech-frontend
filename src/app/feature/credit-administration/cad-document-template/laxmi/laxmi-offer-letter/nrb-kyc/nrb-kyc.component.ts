@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {OfferDocument} from '../../../../model/OfferDocument';
@@ -46,16 +46,19 @@ spinner = false;
   }
   buildForm() {
     this.form = this.formBuilder.group({
-      institutionChaluOne: [undefined],
-      amount: [undefined],
-      yesNo: [undefined],
-      institutionChaluTwo: [undefined],
-      amountTwo: [undefined],
-      yesNoTwo: [undefined],
-      total: [undefined],
-      finalTotal: [undefined],
-      yesNoTotal: [undefined],
-      yesNoFinalTotal: [undefined],
+      // institutionChaluOne: [undefined],
+      // amount: [undefined],
+      // yesNo: [undefined],
+      // institutionChaluTwo: [undefined],
+      // amountTwo: [undefined],
+      // yesNoTwo: [undefined],
+      // total: [undefined],
+      // finalTotal: [undefined],
+      // yesNoTotal: [undefined],
+      // yesNoFinalTotal: [undefined],
+      bankDetail: this.formBuilder.array([]),
+      totalWithoutCollateral: [undefined],
+      totalWithCollateral: [undefined],
     });
   }
 submit() {
@@ -100,4 +103,41 @@ submit() {
   });
   console.log(this.form.value);
 }
+
+  addBankDetails() {
+    return this.formBuilder.group({
+      date: [undefined],
+      memberName1: [undefined],
+      branchName: [undefined],
+      loanAmount: [undefined],
+      bankName: [undefined],
+      expiredOrNot: [undefined],
+      withoutCollateral: [undefined],
+      withCollateral: [undefined],
+      detailsName: [undefined],
+      memberName: [undefined],
+      centerNo: [undefined],
+      address: [undefined],
+    });
+  }
+
+  setBankDetails(data) {
+    const detail = this.form.get('bankDetail') as FormArray;
+    data.forEach(s => {
+      detail.push(this.formBuilder.group({
+        date: [s.date],
+        memberName1: [s.memberName1],
+        branchName: [s.branchName],
+        loanAmount: [s.loanAmount],
+        bankName: [s.bankName],
+        expiredOrNot: [s.expiredOrNot],
+        withoutCollateral: [s.withoutCollateral],
+        withCollateral: [s.withCollateral],
+        detailsName: [s.detailsName],
+        memberName: [s.memberName],
+        centerNo: [s.centerNo],
+        address: [s.address],
+      }));
+    });
+  }
 }

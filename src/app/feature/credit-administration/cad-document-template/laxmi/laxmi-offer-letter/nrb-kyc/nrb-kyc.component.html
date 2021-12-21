@@ -2,98 +2,159 @@
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
 
-            <p class="text-center"><b>अनुसूची २.६</b></p>
-            बैंक तथा वित्तीय संस्थामा ऋणको लागि निवेदन दिंदा खुलाउनुपर्ने बिबरणको ढाँचा
-            <br>
-            मितिः ....................
-            <div>
-                <table class="table-responsive-md table table-bordered text-center">
-                    <thead>
-                    <tr>
-                        <th>ऋण लिएको अन्य बैंक/वित्तीय संस्थाको नाम
-                        </th>
-                        <th>
-                            बक्यौता रकम (मिति)
-                        </th>
-                        <th>म्याद नाघेको छ/छैन</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            १. बैंक/वित्तीय संस्था चालु
-                            <br>
-                            <div>
-                                <nb-radio-group name="first" formControlName="institutionChaluOne">
-                                    <nb-radio type="radio" id="ch"value="rfn' k'FhL shf{" name="rfn' k'FhL shf{">चालु पुँजी कर्जा</nb-radio>
-                                    <br>
-                                    <nb-radio type ="radio" id="rb"  value="cfjlws shf{"name="आवधिक कर्जा">आवधिक कर्जा</nb-radio>
-                                    <br>
-                                    <nb-radio type="radio" id="rb1" value="cGo shf"name="अन्य कर्जा">अन्य कर्जा</nb-radio>
-                                    <br>
-                                    <nb-radio type="radio" id="rb2"  value="u}/sf]ifdf cfwfl/t ;'ljwf" name="गैरकोषमा आधारित सुविधा">गैरकोषमा आधारित सुविधा</nb-radio>
-                                </nb-radio-group>
-                            </div>
-                              </td>
-                        <td><input class="form-field nepaliFont form-control-sm" formControlName="amount"
-                                   type="text"></td>
-                        <td><input class="form-field nepaliFont form-control-sm" formControlName="yesNo"
-                                   type="text"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            २. बैंक/वित्तीय संस्था चालु
-                            <br>
-                            <nb-radio-group name="second" formControlName="institutionChaluTwo">
-                                <nb-radio type="radio" value="rfn' k'FhL shf{" name="rfn' k'FhL shf{">चालु पुँजी कर्जा</nb-radio>
-                                <br>
-                                <nb-radio type ="radio"   value="cfjlws shf{"name="आवधिक कर्जा">आवधिक कर्जा</nb-radio>
-                                <br>
-                                <nb-radio type="radio"  value="cGo shf"name="अन्य कर्जा">अन्य कर्जा</nb-radio>
-                                <br>
-                                <nb-radio type="radio"   value="u}/sf]ifdf cfwfl/t ;'ljwf" name="गैरकोषमा आधारित सुविधा">गैरकोषमा आधारित सुविधा</nb-radio>
-                            </nb-radio-group>
-                        </td>
-                        <td><input class="form-field nepaliFont form-control-sm" formControlName="amountTwo"
-                                   type="text"></td>
-                        <td><input class="form-field nepaliFont form-control-sm" formControlName="yesNoTwo"
-                                   type="text"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            जम्मा
-                        </td>
-                        <td>
-                            <input class="form-field nepaliFont form-control-sm" formControlName="total"
-                                   type="text">
-                        </td>
-                        <td>
-                            <input class="form-field nepaliFont form-control-sm" formControlName="yesNoTotal"
-                                   type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            कुल जम्मा
-                        </td>
-                        <td>
-                            <input class="form-field nepaliFont form-control-sm" formControlName="finalTotal"
-                                   type="text">
-                        </td>
-                        <td>
-                            <input class="form-field nepaliFont form-control-sm" formControlName="yesNoFinalTotal"
-                                   type="text">
-                        </td>
-                    </tr>
+<!--            <p class="text-center"><b>अनुसूची २.६</b></p>-->
+<!--            बैंक तथा वित्तीय संस्थामा ऋणको लागि निवेदन दिंदा खुलाउनुपर्ने बिबरणको ढाँचा-->
+<!--            <br>-->
+<!--            मितिः ....................-->
+<!--            <div>-->
+<!--                <table class="table-responsive-md table table-bordered text-center">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th>ऋण लिएको अन्य बैंक/वित्तीय संस्थाको नाम-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            बक्यौता रकम (मिति)-->
+<!--                        </th>-->
+<!--                        <th>म्याद नाघेको छ/छैन</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            १. बैंक/वित्तीय संस्था चालु-->
+<!--                            <br>-->
+<!--                            <div>-->
+<!--                                <nb-radio-group name="first" formControlName="institutionChaluOne">-->
+<!--                                    <nb-radio type="radio" id="ch"value="rfn' k'FhL shf{" name="rfn' k'FhL shf{">चालु पुँजी कर्जा</nb-radio>-->
+<!--                                    <br>-->
+<!--                                    <nb-radio type ="radio" id="rb"  value="cfjlws shf{"name="आवधिक कर्जा">आवधिक कर्जा</nb-radio>-->
+<!--                                    <br>-->
+<!--                                    <nb-radio type="radio" id="rb1" value="cGo shf"name="अन्य कर्जा">अन्य कर्जा</nb-radio>-->
+<!--                                    <br>-->
+<!--                                    <nb-radio type="radio" id="rb2"  value="u}/sf]ifdf cfwfl/t ;'ljwf" name="गैरकोषमा आधारित सुविधा">गैरकोषमा आधारित सुविधा</nb-radio>-->
+<!--                                </nb-radio-group>-->
+<!--                            </div>-->
+<!--                              </td>-->
+<!--                        <td><input class="form-field nepaliFont form-control-sm" formControlName="amount"-->
+<!--                                   type="text"></td>-->
+<!--                        <td><input class="form-field nepaliFont form-control-sm" formControlName="yesNo"-->
+<!--                                   type="text"></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            २. बैंक/वित्तीय संस्था चालु-->
+<!--                            <br>-->
+<!--                            <nb-radio-group name="second" formControlName="institutionChaluTwo">-->
+<!--                                <nb-radio type="radio" value="rfn' k'FhL shf{" name="rfn' k'FhL shf{">चालु पुँजी कर्जा</nb-radio>-->
+<!--                                <br>-->
+<!--                                <nb-radio type ="radio"   value="cfjlws shf{"name="आवधिक कर्जा">आवधिक कर्जा</nb-radio>-->
+<!--                                <br>-->
+<!--                                <nb-radio type="radio"  value="cGo shf"name="अन्य कर्जा">अन्य कर्जा</nb-radio>-->
+<!--                                <br>-->
+<!--                                <nb-radio type="radio"   value="u}/sf]ifdf cfwfl/t ;'ljwf" name="गैरकोषमा आधारित सुविधा">गैरकोषमा आधारित सुविधा</nb-radio>-->
+<!--                            </nb-radio-group>-->
+<!--                        </td>-->
+<!--                        <td><input class="form-field nepaliFont form-control-sm" formControlName="amountTwo"-->
+<!--                                   type="text"></td>-->
+<!--                        <td><input class="form-field nepaliFont form-control-sm" formControlName="yesNoTwo"-->
+<!--                                   type="text"></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            जम्मा-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <input class="form-field nepaliFont form-control-sm" formControlName="total"-->
+<!--                                   type="text">-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <input class="form-field nepaliFont form-control-sm" formControlName="yesNoTotal"-->
+<!--                                   type="text">-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            कुल जम्मा-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <input class="form-field nepaliFont form-control-sm" formControlName="finalTotal"-->
+<!--                                   type="text">-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <input class="form-field nepaliFont form-control-sm" formControlName="yesNoFinalTotal"-->
+<!--                                   type="text">-->
+<!--                        </td>-->
+<!--                    </tr>-->
 
-                    </tbody>
-                </table>
-                उपरोक्त बमोजिम म/हामीले घोषणा गरेको विवरण ठीक छ झुट्ठा ठहरे कानुन बमोजिम कारवाही भएमा मञ्जुरी छ भनी सही गर्नेः
-<br>
-                अधिकार प्राप्त अधिकारीको दस्तखतः ____________________________
-                <br>
-                व्यक्तिको नाम/फर्म, कम्पनी र संस्थाको नाम र छापः ________________________________
-            </div>
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--                उपरोक्त बमोजिम म/हामीले घोषणा गरेको विवरण ठीक छ झुट्ठा ठहरे कानुन बमोजिम कारवाही भएमा मञ्जुरी छ भनी सही गर्नेः-->
+<!--<br>-->
+<!--                अधिकार प्राप्त अधिकारीको दस्तखतः ____________________________-->
+<!--                <br>-->
+<!--                व्यक्तिको नाम/फर्म, कम्पनी र संस्थाको नाम र छापः ________________________________-->
+<!--            </div>-->
+
+            <strong>कर्जा कारोवार सम्बन्धी स्व–घोषणा पत्र</strong>
+
+            मितिः <input type="text" class="form-control-sm form-field nepaliFont"
+                         formControlName="date"> <br>
+            श्रीमान शाखा प्रमुख ज्यू, <br>
+
+            लक्ष्मी लघुवित्त वित्तीय संस्था लि. <br>
+            <input type="text" class="form-control-sm form-field nepaliFont"
+                   formControlName="memberName1"> शाखा
+            <input type="text" class="form-control-sm form-field nepaliFont"
+                   formControlName="branchName">।
+
+            म/हामीले वैक तथा वित्तीय संस्था संग कर्जा कारोवार गरेको सम्बन्धी विवरण तपसिल वमोजिम स्वघोषणा गर्दछु/छौं ।
+            <table class="table table-bordered table-hover table-sm sb-small text-center ">
+                <thead>
+                <tr class="sb-bg-dark">
+                    <td rowspan="2">बैंक/वित्तीय संस्थाको नाम</td>
+                    <td rowspan="2">कर्जा रकम</td>
+                    <td>विना धितो</td>
+                    <td>धितो</td>
+                    <td rowspan="2">म्याद नाघेको छ/छैन</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="bankName"></td>
+                    <td><input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="loanAmount"></td>
+                    <td><input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="expiredOrNot"></td>
+                    <td><input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="withoutCollateral"></td>
+                    <td><input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="withCollateral"></td>
+                </tr>
+                </tbody>
+                <tr>
+                    <td>जम्मा</td>
+                    <td><input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="totalWithOutCollateral"></td>
+                    <td><input type="text" class="form-control-sm form-field nepaliFont"
+                               formControlName="totalWithCollateral"></td>
+                    <td>-</td>
+                </tr>
+            </table>
+
+            उपरोक्त बमोजिम म/हामीले घोषणा गरेको विवरण ठीक छ झुट्ठा ठहरे कानुन बमोजिम कारवाही भएमा मञ्जुरी छ । <br>
+
+            विवरण दिनेः <br>
+
+            <input type="text" class="form-control-sm form-field nepaliFont"
+                   formControlName="detailsName">
+            सदस्यको नाम : <input type="text" class="form-control-sm form-field nepaliFont"
+                                 formControlName="memberName">
+            केन्द्र नं : <input type="text" class="form-control-sm form-field nepaliFont"
+                                formControlName="centerNo">
+            ठेगाना :<input type="text" class="form-control-sm form-field nepaliFont"
+                           formControlName="address">
+
             <div>
                 <button type="submit" class="btn btn-primary float-right" nbButton status="success">
                     Save
