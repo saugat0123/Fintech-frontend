@@ -4,13 +4,15 @@
     <thead>
     <tr>
         <td></td>
-        <td *ngFor="let header of financialJson.column"> -- {{header}} -- </td>
+        <td *ngFor="let header of financialJson.column"> -- {{header}} --</td>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let schema of financialJson.schema; let i = index">
-        <td>{{schema}} || </td>
-<!--        <td *ngFor="let head of uniqueHeaders">{{getColumnData(head, i)}}</td>-->
+        <td>{{schema}} ||</td>
+        <ng-container *ngFor="let data of financialJson.data[i]">
+            <td>{{data}}</td>
+        </ng-container>
     </tr>
     </tbody>
 </table>
