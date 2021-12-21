@@ -62,11 +62,11 @@
                         </p>
                         <p *ngIf="this.loanOptionIrrevocable === 'REGULAR'">
                             <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
-                            <span>{{this.loanExpiryDateIrrevocable ? this.loanExpiryDateIrrevocable : ''}}</span>
+                            <span class="nepaliFont">{{this.loanExpiryDateIrrevocable ? this.loanExpiryDateIrrevocable : ''}}</span>
                         </p>
                         <p *ngIf="this.loanOptionIrrevocable === 'ONE_OFF_BASIS'">
                             <strong>सुविधा समाप्ति मितिः</strong>
-                            <span>{{this.freeInformation.section2.loanExpiryIrrevocable ? this.freeInformation.section2.loanExpiryIrrevocable : ''}}</span>
+                            <span class="nepaliFont">{{this.freeInformation.section2.loanExpiryIrrevocable ? this.freeInformation.section2.loanExpiryIrrevocable : ''}}</span>
                             <br>
                         </p>
                     </td>
@@ -120,7 +120,7 @@
                             {{letterData?.timeLetterCreditForm.dateOfExpiryCT === null || letterData?.timeLetterCreditForm.dateOfExpiryCT === '' ? '___________' : letterData?.timeLetterCreditForm.dateOfExpiryCT}}</span><br></span>
 
                         <span *ngIf="this.loanOptionTimeLetter === 'ONE_OFF_BASIS'"><strong>सुविधा समाप्ति मितिः</strong>
-                                <span>{{this.freeInformation.section2.loanExpiryTimeLetter ? this.freeInformation.section2.loanExpiryTimeLetter : ''}}</span> <br></span>
+                                <span class="nepaliFont">{{this.freeInformation.section2.loanExpiryTimeLetter ? this.freeInformation.section2.loanExpiryTimeLetter : ''}}</span> <br></span>
                     </td>
                 </tr>
                 <tr *ngIf="isBillDiscounting && ld.loanName === loanNameConstant.IMPORT_BILLS_DISCOUNTING">
@@ -166,7 +166,7 @@
                         <strong>कर्जा अवधि समाप्ति मितिः</strong> बिल्स डिस्काउन्टिङ्ग कागजातको म्याद समाप्ति मिति सम्म
                         ।<br>
                         <strong>कर्जा भुक्तानी तरिकाः </strong>
-                        <span>{{this.freeInformation.section2.freeText1 ? this.freeInformation.section2.freeText1 : ''}}</span><br>
+                        <span class="nepaliFont">{{this.freeInformation.section2.freeText1 ? this.freeInformation.section2.freeText1 : ''}}</span><br>
                         <span *ngIf="this.loanOptionBillDiscounting === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः
                                                  <span [ngClass]="{'outside' : letterData?.importBillsDiscountForm.dateOfExpiryCT !== null && letterData?.importBillsDiscountForm.dateOfExpiryCT !== ''}">
                             {{letterData?.importBillsDiscountForm.dateOfExpiryCT === null || letterData?.importBillsDiscountForm.dateOfExpiryCT === '' ? '___________' : letterData?.importBillsDiscountForm.dateOfExpiryCT}}</span>
@@ -252,7 +252,7 @@
                             {{letterData?.remainDaysLoanTrust === null || letterData?.remainDaysLoanTrust === '' ? '___________' : letterData?.remainDaysLoanTrust}}</span>-->
                            दिन सम्म ।</span><br>
                         <strong>कर्जा भुक्तानी तरिकाः</strong>
-                        <span>{{this.freeInformation.section2.freeText2 ? this.freeInformation.section2.freeText3 : ''}}</span><br>
+                        <span class="nepaliFont">{{this.freeInformation.section2.freeText2 ? this.freeInformation.section2.freeText3 : ''}}</span><br>
                         <span *ngIf="loanOptionImportLoanTrust === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
                                             <span [ngClass]="{'outside' : letterData?.importLoanTrust.dateOfExpiryCT !== null && letterData?.importLoanTrust.dateOfExpiryCT !== ''}">
                             {{letterData?.importLoanTrust.dateOfExpiryCT === null || letterData?.importLoanTrust.dateOfExpiryCT === '' ? '___________' : letterData?.importLoanTrust.dateOfExpiryCT}}</span>
@@ -390,14 +390,14 @@
                         दिन सम्म ।</span><br>
                         <span *ngIf="loanOptionShortTermLoan === 'ONE_OFF_BASIS'"><strong>कर्जा अवधि समाप्ति मितिः</strong> पटके अल्पकालिन कर्जा प्रवाह
                                 (बुकिङ्ग) भएको मितिले
-                            <span>{{this.freeInformation.section2.remainingDaysShortTerms ? this.freeInformation.section2.remainingDaysShortTerms : ''}}</span>
+                            <span class="nepaliFont">{{this.freeInformation.section2.remainingDaysShortTerms ? this.freeInformation.section2.remainingDaysShortTerms : ''}}</span>
                         दिन सम्म ।</span><br>
 
                         <span *ngIf="loanOptionShortTermLoan === 'REGULAR'"><strong>कर्जा अवधि पुनरावलोकन मितिः</strong>
                                             <span [ngClass]="{'outside' : letterData?.revolvingShortTermLoan.dateOfExpiryCT !== null && letterData?.revolvingShortTermLoan.dateOfExpiryCT !== ''}">
                             {{letterData?.revolvingShortTermLoan.dateOfExpiryCT === null || letterData?.revolvingShortTermLoan.dateOfExpiryCT === '' ? '___________' : letterData?.revolvingShortTermLoan.dateOfExpiryCT}}</span>
                             </span><br>
-                        <span>{{this.freeInformation.section2.freeText1 ? this.freeInformation.section2.freeText1 : ''}}</span>
+                        <span class="nepaliFont">{{this.freeInformation.section2.freeText1 ? this.freeInformation.section2.freeText1 : ''}}</span>
                     </td>
                 </tr>
                 <tr *ngIf="isDemandLoanWorkingCapital && ld.loanName === loanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL">
@@ -509,7 +509,7 @@
                         गरिदिइएको यथावत कायम रहने छ।</span>
 
                         <br>
-                        <span>{{this.freeInformation.section2.freeText4 ? this.freeInformation.section2.freeText4 : ''}}</span>
+                        <span class="nepaliFont">{{this.freeInformation.section2.freeText4 ? this.freeInformation.section2.freeText4 : ''}}</span>
                         <br>
 
                         <span><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
@@ -523,12 +523,12 @@
                         कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
 
                         <br>
-                        <span>{{this.freeInformation.section2.freeText5 ? this.freeInformation.section2.freeText5 : ''}}</span><br>
+                        <span class="nepaliFont">{{this.freeInformation.section2.freeText5 ? this.freeInformation.section2.freeText5 : ''}}</span><br>
 
                         <strong>शुल्कः </strong>
-                        <span>{{this.freeInformation.section2.SulkaPreExport ? this.freeInformation.section2.SulkaPreExport : ''}}</span><br>
+                        <span class="nepaliFont">{{this.freeInformation.section2.SulkaPreExport ? this.freeInformation.section2.SulkaPreExport : ''}}</span><br>
                         <strong>ब्याज दरः </strong>
-                        <span>{{this.freeInformation.section2.interestRatePre ? this.freeInformation.section2.interestRatePre : ''}}</span><br>
+                        <span class="nepaliFont">{{this.freeInformation.section2.interestRatePre ? this.freeInformation.section2.interestRatePre : ''}}</span><br>
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
                             <span [ngClass]="{'outside' : letterData?.preExportForm.dateOfExpiryCT !== null && letterData?.preExportForm.dateOfExpiryCT !== ''}">
                             {{letterData?.preExportForm.dateOfExpiryCT === null || letterData?.dateOfExpiryCT === '' ? '___________' : letterData?.preExportForm.dateOfExpiryCT}}</span>
@@ -574,10 +574,10 @@
                         % बराबर रकम वा स्वीकृत कर्जा
                         मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।<br>
                         <strong>ब्याजः</strong>
-                        <span>{{this.freeInformation.section2.interestRateDocumentary ? this.freeInformation.section2.interestRateDocumentary : ''}}</span>
+                        <span class="nepaliFont">{{this.freeInformation.section2.interestRateDocumentary ? this.freeInformation.section2.interestRateDocumentary : ''}}</span>
                         <br>
                         <strong>कर्जा भुक्तानी तरिकाः </strong>
-                        <span>{{this.freeInformation.section2.loanPaymentDocumentary ? this.freeInformation.section2.loanPaymentDocumentary : ''}}</span><br>
+                        <span class="nepaliFont">{{this.freeInformation.section2.loanPaymentDocumentary ? this.freeInformation.section2.loanPaymentDocumentary : ''}}</span><br>
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
                             <span [ngClass]="{'outside' : letterData?.documentaryBillPurchase.dateOfExpiryCT !== null && letterData?.documentaryBillPurchase.dateOfExpiryCT !== ''}">
                             {{letterData?.documentaryBillPurchase.dateOfExpiryCT === null || letterData?.documentaryBillPurchase.dateOfExpiryCT === '' ? '___________' : letterData?.documentaryBillPurchase.dateOfExpiryCT}}</span>
@@ -1011,11 +1011,11 @@
                         </p>
                         <p>
                             <strong>सुरक्षणः</strong>
-                            <span>{{this.freeInformation.section2.freeText6 ? this.freeInformation.section2.freeText6 : ''}}</span>
+                            <span class="nepaliFont">{{this.freeInformation.section2.freeText6 ? this.freeInformation.section2.freeText6 : ''}}</span>
                         </p>
                         <p>
                             <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
-                            <span>{{this.freeInformation.section2.freeText7 ? this.freeInformation.section2.freeText7 : ''}}</span>
+                            <span class="nepaliFont">{{this.freeInformation.section2.freeText7 ? this.freeInformation.section2.freeText7 : ''}}</span>
                         </p>
                         <p>
                             <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
@@ -1047,9 +1047,9 @@
 
                         </p>
                         <strong>कर्जा प्रवाह तरिकाः</strong>
-                        <span>{{this.freeInformation.section2.freeText8 ? this.freeInformation.section2.freeText8 : ''}}</span><br>
+                        <span class="nepaliFont">{{this.freeInformation.section2.freeText8 ? this.freeInformation.section2.freeText8 : ''}}</span><br>
                         <strong>कर्जा अवधि समाप्तिः</strong>
-                        <span>{{this.freeInformation.section2.freeText9 ? this.freeInformation.section2.freeText9 : ''}}</span>
+                        <span class="nepaliFont">{{this.freeInformation.section2.freeText9 ? this.freeInformation.section2.freeText9 : ''}}</span>
                     </td>
                 </tr>
                 <tr *ngIf="isTermLoanToOrFor && ld.loanName === loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE">
@@ -1196,8 +1196,8 @@
                                 मात्र)</strong>
                         </p>
                         <p>
-                            <strong>सुरक्षणः</strong> खरिद गरिने बिल्स् , चेक,
-                            <span>{{this.freeInformation.section2.freeText15 ? this.freeInformation.section2.freeText15 : ''}}</span>
+                            <strong>सुरक्षणः</strong> खरिद गरिने बिल्स् , चेक, ड्राफ्ट '
+                            <span class="nepaliFont">{{this.freeInformation.section2.freeText15 ? this.freeInformation.section2.freeText15 : ''}}</span>'
                         </p>
                         <p>
                             <strong>धरौटीः </strong>
@@ -1227,7 +1227,7 @@
                 <!--Free Text-->
                 <td width="10%"><strong>{{loanData.length + 1 | nepaliWord}})</strong></td>
                 <td>
-                    <span>{{this.freeInformation.section2.freeText16 ? this.freeInformation.section2.freeText16 : ''}}</span>
+                    <span class="nepaliFont">{{this.freeInformation.section2.freeText16 ? this.freeInformation.section2.freeText16 : ''}}</span>
                 </td>
             </tr>
         </table>
@@ -1238,7 +1238,7 @@
         </div>
         <div class="col-md-11">
             <p> माथि बुँदा नं.
-                <span>{{this.freeInformation.section2.snOfFacility ? this.freeInformation.section2.snOfFacility : ''}}</span>
+                <span class="nepaliFont">{{this.freeInformation.section2.snOfFacility ? this.freeInformation.section2.snOfFacility : ''}}</span>
                 मा उल्लेखित ऋणकर्जा सुविधाहरु
                 सहुलियतपुर्ण कर्जा हुन्
                 । सहुलियतपुर्ण कर्जाका लागि ब्याज अनुदान सम्बन्धि एकिकृत कार्यविधि, २०७५, दोस्रो संशोधन, २०७६
