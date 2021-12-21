@@ -4,6 +4,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepa
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-bridge-gap-loan',
@@ -12,6 +13,8 @@ import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 })
 export class BridgeGapLoanComponent implements OnInit {
   @Input() loanName;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  initialInformation: any;
   bridgeGapLoan: FormGroup;
   isComplimentryOtherLoan = false;
   isInterestSubsidy = false;
@@ -28,6 +31,14 @@ export class BridgeGapLoanComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+    }
+    if (this.offerDocumentList.length > 0) {
+      this.offerDocumentList.forEach(offerLetter => {
+        this.initialInformation = JSON.parse(offerLetter.initialInformation);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.bridgeGapLoan.patchValue(this.initialInformation.bridgeGapLoan);
     }
   }
   buildForm() {

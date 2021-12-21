@@ -6,6 +6,7 @@ import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/curre
 import {EngNepDatePipe} from 'nepali-patro';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {DatePipe} from '@angular/common';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
     selector: 'app-equity-mortgaged-overdraft',
@@ -14,6 +15,8 @@ import {DatePipe} from '@angular/common';
 })
 export class EquityMortgagedOverdraftComponent implements OnInit {
     @Input() loanName;
+    @Input() offerDocumentList: Array<OfferDocument>;
+    initialInformation: any;
     equityMortgaged: FormGroup;
     ADExpiry = false;
     BSExpiry = false;
@@ -39,6 +42,14 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.ADExpiry = true;
+        if (this.offerDocumentList.length > 0) {
+            this.offerDocumentList.forEach(offerLetter => {
+                this.initialInformation = JSON.parse(offerLetter.initialInformation);
+            });
+        }
+        if (!ObjectUtil.isEmpty(this.initialInformation)) {
+            this.equityMortgaged.patchValue(this.initialInformation.equityMortgaged);
+        }
     }
 
     buildForm() {

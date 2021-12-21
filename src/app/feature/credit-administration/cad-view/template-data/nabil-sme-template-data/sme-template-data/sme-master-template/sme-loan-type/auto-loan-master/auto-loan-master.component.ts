@@ -8,6 +8,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-t
 import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
 import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-auto-loan-master',
@@ -16,6 +17,8 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 })
 export class AutoLoanMasterComponent implements OnInit {
   @Input() loanName;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  initialInformation: any;
   loanDetails: any = [];
   autoLoanMasterForm: FormGroup;
   isComplementaryOtherLoan = false;
@@ -52,6 +55,14 @@ export class AutoLoanMasterComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
       this.filterLoanDetails(this.loanDetails);
+    }
+    if (this.offerDocumentList.length > 0) {
+      this.offerDocumentList.forEach(offerLetter => {
+        this.initialInformation = JSON.parse(offerLetter.initialInformation);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.autoLoanMasterForm.patchValue(this.initialInformation.autoLoanMasterForm);
     }
   }
 
