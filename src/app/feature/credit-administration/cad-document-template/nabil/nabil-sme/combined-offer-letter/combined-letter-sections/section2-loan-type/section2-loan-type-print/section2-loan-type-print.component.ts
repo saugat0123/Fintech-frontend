@@ -18,6 +18,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     @Input() freeText;
     loanNameConstant = LoanNameConstant;
     tempData;
+    freeInformation;
     loanExpiryDateIrrevocable;
     loanData = [];
     isCustomerAcceptance = false;
@@ -110,6 +111,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
+            this.freeInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
             this.hypothecationGlobal = this.tempData.smeGlobalForm.hypothecation;
             this.getLoanName();
             this.checkLoanName();
