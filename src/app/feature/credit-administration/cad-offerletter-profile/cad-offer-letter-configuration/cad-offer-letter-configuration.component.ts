@@ -183,9 +183,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.headingSubType = '';
             }
         } else if (this.customerType === CustomerType.INDIVIDUAL) {
-            this.headingSubType = CustomerSubType[this.customerSubType];
+            this.headingSubType = this.customerSubType;
         } else {
-            this.headingSubType = CustomerSubType[this.institutionSubType];
+            this.headingSubType = this.institutionSubType;
         }
         if (this.activeLoanTab) {
             this.responseData = this.loanHolder;
