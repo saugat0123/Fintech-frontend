@@ -2675,8 +2675,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 guarantorForeignAddressOptionCT : guarantorsDetails.guarantorForeignAddressOption ?
                     guarantorsDetails.guarantorForeignAddressOption : '',
 
-                guarantorOtherAddress: guarantorsDetails.guarantorOtherAddress ?
-                    guarantorsDetails.guarantorOtherAddress : '',
                 guarantorOtherAddressTrans:  guarantorsDetails.guarantorOtherAddress ?
                     guarantorsDetails.guarantorOtherAddress : '',
                 guarantorOtherAddressCT:  guarantorsDetails.guarantorOtherAddress ?
