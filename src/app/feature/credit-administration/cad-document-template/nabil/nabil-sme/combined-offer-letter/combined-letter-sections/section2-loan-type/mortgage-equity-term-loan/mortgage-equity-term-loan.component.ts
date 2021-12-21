@@ -179,9 +179,9 @@ export class MortgageEquityTermLoanComponent implements OnInit {
         }
     }
 
-    setFreeTextAutoLoan() {
+    setFreeTextMortgage() {
         this.mortgageEquity = {
-            freeText13: this.form.get('freeTextThirteen').value,
+            freeText13: this.form.get('freeTextThirteen').value ? this.form.get('freeTextThirteen').value : '',
         };
         return this.mortgageEquity;
     }

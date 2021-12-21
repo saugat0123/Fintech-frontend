@@ -88,7 +88,7 @@
                                     type="text"/>
                             </p>
                             <p *ngIf="this.loanOptionIrrevocable === 'ONE_OFF_BASIS'">
-                                <strong>सुविधा समाप्ति मितिः</strong><input class="form-field form-control-sm "
+                                <strong>सुविधा समाप्ति मितिः</strong><input class="form-field form-control-sm nepaliFont"
                                                                             formControlName="loanExpiryDateIrrevocable2"
                                                                             placeholder=""
                                                                             type="text"/>
@@ -168,7 +168,7 @@
                                     type="text"/><br></span>
 
                                 <span *ngIf="this.loanOptionTimeLetter === 'ONE_OFF_BASIS'"><strong>सुविधा समाप्ति मितिः</strong><input
-                                        class="form-field form-control-sm "
+                                        class="form-field form-control-sm nepaliFont"
                                         formControlName="loanExpiryDateTimeLetter2"
                                         placeholder=""
                                         type="text"/><br></span>
@@ -505,13 +505,13 @@
                     पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
                             <span *ngIf="loanOptionShortTermLoan === 'REGULAR'"><strong>कर्जा अवधि समाप्ति मितिः</strong> प्रत्येक अल्पकालिन कर्जा प्रवाह
-                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm "
+                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm nepaliFont"
                                                          formControlName="remainDaysShortTermLoan"
                                                          placeholder=""
                                                          type="text"/>
                     दिन सम्म ।</span><br>
                             <span *ngIf="loanOptionShortTermLoan === 'ONE_OFF_BASIS'"><strong>कर्जा अवधि समाप्ति मितिः</strong> पटके अल्पकालिन कर्जा प्रवाह
-                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm "
+                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm nepaliFont"
                                                          formControlName="remainDaysShortTermLoan"
                                                          placeholder=""
                                                          type="text"/>
@@ -703,11 +703,11 @@
                                 formControlName="freeTextFive">
                         </textarea><br>
 
-                            <strong>शुल्कः </strong><input class="form-field form-control-sm "
+                            <strong>शुल्कः </strong><input class="form-field form-control-sm nepaliFont"
                                                            formControlName="sulkaPreExport"
                                                            placeholder=""
                                                            type="text"/> <br>
-                            <strong>ब्याज दरः </strong><input class="form-field form-control-sm "
+                            <strong>ब्याज दरः </strong><input class="form-field form-control-sm nepaliFont"
                                                               formControlName="interestRatePreExport"
                                                               placeholder=""
                                                               type="text"/> <br>
@@ -776,11 +776,11 @@
                             वा स्वीकृत कर्जा
                             मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।<br>
 
-                            <strong>ब्याजः</strong><input class="form-field form-control-sm "
+                            <strong>ब्याजः</strong><input class="form-field form-control-sm nepaliFont"
                                                           formControlName="InterestRateDocumentaryBill"
                                                           placeholder=""
                                                           type="text"/> <br>
-                            <strong>कर्जा भुक्तानी तरिकाः </strong><input class="form-field form-control-sm "
+                            <strong>कर्जा भुक्तानी तरिकाः </strong><input class="form-field form-control-sm nepaliFont"
                                                                           formControlName="loanPaymentDocumentaryBill"
                                                                           placeholder=""
                                                                           type="text"/><br>
@@ -1272,13 +1272,13 @@
                             </p>
                             <p>
                                 <strong>सीमाः
-                                    <ng-container *ngIf="complementaryOtherPreExportLoan">(रु.<input
+                                    <ng-container *ngIf="complementaryOtherBridgeGapLoan">(रु.<input
                                             class="form-field form-control-sm"
                                             value="{{ld?.loanAmountNp}}"
                                             placeholder=""
                                             type="text"/>।–)
                                     </ng-container>
-                                    <ng-container *ngIf="!complementaryOtherPreExportLoan">रु.<input
+                                    <ng-container *ngIf="!complementaryOtherBridgeGapLoan">रु.<input
                                             class="form-field form-control-sm"
                                             value="{{ld?.loanAmountNp}}"
                                             placeholder=""
@@ -1536,14 +1536,14 @@
                                     मात्र)</strong>
                             </p>
                             <p>
-                                <strong>सुरक्षणः</strong> खरिद गरिने बिल्स् , चेक, <textarea
+                                <strong>सुरक्षणः</strong> खरिद गरिने बिल्स् , चेक, ड्राफ्ट ' <textarea
                                     class="form-control customFont nepaliFont"
                                     rows="2"
                                     style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                     name=""
                                     placeholder=""
                                     formControlName="freeTextFifteen">
-                        </textarea>
+                        </textarea>'
                             </p>
                             <p>
                                 <strong>धरौटीः </strong><input class="form-field form-control-sm "
@@ -1593,7 +1593,7 @@
             </div>
             <div class="col-md-11">
                 <p> माथि बुँदा नं.
-                    <input class="form-field form-control-sm "
+                    <input class="form-field form-control-sm nepaliFont"
                            formControlName="SNOfFacility"
                            placeholder=""
                            type="text"/>मा उल्लेखित ऋणकर्जा सुविधाहरु

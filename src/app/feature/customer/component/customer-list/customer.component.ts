@@ -140,7 +140,8 @@ export class CustomerComponent implements OnInit {
             idRegPlace: [undefined],
             branchIds: [undefined],
             groupId: [undefined],
-            provinceId: [undefined]
+            provinceId: [undefined],
+            customerCode: [undefined],
         });
     }
 

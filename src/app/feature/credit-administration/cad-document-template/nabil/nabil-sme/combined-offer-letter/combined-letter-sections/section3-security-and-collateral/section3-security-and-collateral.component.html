@@ -387,7 +387,7 @@
                             </span>
                                 </p>
                             </li>
-                            <ckeditor class="nepaliFont" formControlName="freeTable" [(ngModel)]="table"
+                            <ckeditor *ngIf="securityTypeLienCondition" class="nepaliFont" formControlName="freeTable" [(ngModel)]="table"
                                       [config]="ckEditorConfig"></ckeditor>
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
