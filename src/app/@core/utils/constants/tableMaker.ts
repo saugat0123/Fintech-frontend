@@ -19,6 +19,6 @@ export class TableMaker {
             { name: 'others', groups: [ 'others' ] },
             { name: 'about', groups: [ 'about' ] }
         ],
-        removeButtons: 'Source,NewPage,ExportPdf,Preview,Print,Templates,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Blockquote,Outdent,BulletedList,Indent,CreateDiv,NumberedList,BidiLtr,BidiRtl,Language,Anchor,HorizontalRule,Smiley,Iframe,ShowBlocks,About,CopyFormatting,RemoveFormat',
+        removeButtons: 'Source,NewPage,ExportPdf,Preview,Print,Templates,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Blockquote,Outdent,BulletedList,Indent,CreateDiv,NumberedList,BidiLtr,BidiRtl,Language,Anchor,HorizontalRule,Smiley,Iframe,ShowBlocks,About,CopyFormatting,RemoveFormat,Save',
     };
 }

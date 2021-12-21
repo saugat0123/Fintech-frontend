@@ -114,7 +114,7 @@
                     </div>
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Date of Approval CRF/MEMO</label>
-                        <nepali-patro *ngIf="globalForm.get('dateOfApprovalType').value === 'BS'" formControlName="dateOfApproval" [responseType]="2"
+                        <nepali-patro *ngIf="globalForm.get('dateOfApprovalType').value === 'BS'" formControlName="dateOfApprovalNepali" [responseType]="2"
                                       [displayNepali]="true">
                         </nepali-patro>
                         <input *ngIf="globalForm.get('dateOfApprovalType').value === 'AD'" nbInput fullWidth status="success" [nbDatepicker]="dateOfApproval"
@@ -145,7 +145,7 @@
                     </div>
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Loan Application Date</label>
-                        <nepali-patro *ngIf="globalForm.get('loanApplicationDataType').value === 'BS'" formControlName="loanApplicationDate" [responseType]="2"
+                        <nepali-patro *ngIf="globalForm.get('loanApplicationDataType').value === 'BS'" formControlName="loanApplicationDateNepali" [responseType]="2"
                                       [displayNepali]="true">
                         </nepali-patro>
                         <input *ngIf="globalForm.get('loanApplicationDataType').value === 'AD'" nbInput fullWidth status="success" [nbDatepicker]="loanApplicationDate"
@@ -174,7 +174,7 @@
                     </div>
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Previous Sanction Letter Date</label>
-                        <nepali-patro *ngIf="globalForm.get('previousSanctionType').value === 'BS'" formControlName="sanctionLetterDate" [responseType]="2"
+                        <nepali-patro *ngIf="globalForm.get('previousSanctionType').value === 'BS'" formControlName="sanctionLetterDateNepali" [responseType]="2"
                                       [displayNepali]="true">
                         </nepali-patro>
                         <input *ngIf="globalForm.get('previousSanctionType').value === 'AD'" nbInput fullWidth status="success" [nbDatepicker]="sanctionLetterDate"
