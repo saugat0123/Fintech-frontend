@@ -192,11 +192,15 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       if (tempFacility === 'IrrevocableLetterofCreditFacility') {
         this.isIrrevocableSelected = true;
       }
-      // const tempService = this.initialInfo.isSecurity ?
-      //     this.initialInfo.isSecurity.en : '';
-      // if (tempService === 'serviceCharges') {
-      //   this.isBankGuaranteeSelected = true;
-      // }
+      /* For service check */
+      this.form.get('serviceCheck').patchValue(this.initialInfo.serviceCheck);
+      if (this.initialInfo.serviceCheck) {
+        this.isSecurity = true;
+      }
+      this.form.get('naturalCheck').patchValue(this.initialInfo.naturalCheck);
+      if (this.initialInfo.naturalCheck) {
+        this.isNatural = true;
+      }
     }
     console.log('Form:', this.initialInfo);
   }
@@ -288,6 +292,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       Other: [undefined],
       letterNew: [undefined],
       letterExisting: [undefined],
+      serviceCheck: [undefined],
+      naturalCheck: [undefined],
       // FIELDS FOR TRANSLATED FIELDS (TRANS):
       loanAmountFigureTrans: [undefined],
       loanAmountFigureWordsTrans: [undefined],
@@ -374,6 +380,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       OtherTrans: [undefined],
       letterNewTrans: [undefined],
       letterExistingTrans: [undefined],
+      serviceCheckTrans: [undefined],
+      naturalCheckTrans: [undefined],
       // FIELDS FOR CT VALUES:
       sanctionLetterDateNepaliCT: [undefined],
       sanctionLetterDateCT: [undefined],
@@ -460,6 +468,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       OtherCT: [undefined],
       letterNewCT: [undefined],
       letterExistingCT: [undefined],
+      serviceCheckCT: [undefined],
+      naturalCheckCT: [undefined],
     });
     this.addDefaultSecurity();
   }
@@ -579,10 +589,12 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   serviceCheck(data) {
     this.isSecurity = data;
     console.log('selected?', this.isSecurity);
+    this.form.get('serviceCheck').patchValue(this.isSecurity);
   }
   naturalPersonCheck(data) {
     this.isNatural = data;
     console.log('selected?', this.isNatural);
+    this.form.get('naturalCheck').patchValue(this.isNatural);
   }
 
   securityValue() {
