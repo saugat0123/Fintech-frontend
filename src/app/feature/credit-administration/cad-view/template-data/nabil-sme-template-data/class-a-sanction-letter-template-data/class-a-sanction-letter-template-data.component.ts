@@ -174,13 +174,31 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       if (tempPrevDate === 'BS') {
         this.BSPrevious = true;
       }
+      /* For overdraft*/
+      const tempOverdraft = this.initialInfo.loanType ?
+          this.initialInfo.loanType.en : '';
+      if (tempOverdraft === 'Overdraft') {
+        this.isOverdraftSelected = true;
+      }
+      /* For BankGuarantee */
+      const tempGuarantee = this.initialInfo.loanType ?
+          this.initialInfo.loanType.en : '';
+      if (tempGuarantee === 'BankGuarantee') {
+        this.isBankGuaranteeSelected = true;
+      }
+      /* For IrrevocableLetterofCreditFacility */
+      const tempFacility = this.initialInfo.loanType ?
+          this.initialInfo.loanType.en : '';
+      if (tempFacility === 'IrrevocableLetterofCreditFacility') {
+        this.isIrrevocableSelected = true;
+      }
+      // const tempService = this.initialInfo.isSecurity ?
+      //     this.initialInfo.isSecurity.en : '';
+      // if (tempService === 'serviceCharges') {
+      //   this.isBankGuaranteeSelected = true;
+      // }
     }
     console.log('Form:', this.initialInfo);
-
-    // if (!ObjectUtil.isEmpty(this.initialInformation)) {
-    //   this.setLoanType();
-    // }
-  // this.translateAndSetValue();
   }
   buildForm() {
     this.form = this.formBuilder.group({
@@ -693,20 +711,11 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
 
   mapObjectData(data, targetKey?, sourceKey?) {
     Object.keys(data).forEach(key => {
-      // if (key.indexOf(targetKey.toString()) > -1 || key.indexOf(sourceKey) > -1) {
-      //   return;
-      // }
-      console.log('Keys : ', data);
-      console.log('Keys : ', data[key]);
-      console.log('Keys : ', key);
       this.editedData[key] = !ObjectUtil.isEmpty(key) ? data[key].en : '';
       // this.editedData[key + 'Trans'] = !ObjectUtil.isEmpty(key) ? data.key.np : '';
       this.editedData[key + 'CT'] = !ObjectUtil.isEmpty(key) ? data[key].ct : '';
     });
     if (!ObjectUtil.isEmpty(this.editedData.costumerType) && !ObjectUtil.isEmpty(this.editedData.loanType)) {
-      this.isLoanOptionSelected = true;
-    }
-    if (!ObjectUtil.isEmpty(this.editedData.costumerType.Overdraft)) {
       this.isLoanOptionSelected = true;
     }
     console.log('Edited Form', this.editedData);
@@ -1169,7 +1178,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.CLASS_A).toString()) {
           this.mappedData();
-          offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+          offerLetterPath.initialInformation = JSON.stringify(this.tdVal);
           this.translatedData = {};
         }
       });
