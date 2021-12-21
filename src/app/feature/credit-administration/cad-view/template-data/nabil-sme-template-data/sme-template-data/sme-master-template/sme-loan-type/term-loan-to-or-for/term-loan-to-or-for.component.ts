@@ -7,6 +7,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-t
 import {SbTranslateService} from '../../../../../../../../../@core/service/sbtranslate.service';
 import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-term-loan-to-or-for',

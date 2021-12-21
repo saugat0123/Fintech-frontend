@@ -183,9 +183,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.headingSubType = '';
             }
         } else if (this.customerType === CustomerType.INDIVIDUAL) {
-            this.headingSubType = CustomerSubType[this.customerSubType];
+            this.headingSubType = this.customerSubType;
         } else {
-            this.headingSubType = CustomerSubType[this.institutionSubType];
+            this.headingSubType = this.institutionSubType;
         }
         if (this.activeLoanTab) {
             this.responseData = this.loanHolder;
@@ -2675,8 +2675,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 guarantorForeignAddressOptionCT : guarantorsDetails.guarantorForeignAddressOption ?
                     guarantorsDetails.guarantorForeignAddressOption : '',
 
-                guarantorOtherAddress: guarantorsDetails.guarantorOtherAddress ?
-                    guarantorsDetails.guarantorOtherAddress : '',
                 guarantorOtherAddressTrans:  guarantorsDetails.guarantorOtherAddress ?
                     guarantorsDetails.guarantorOtherAddress : '',
                 guarantorOtherAddressCT:  guarantorsDetails.guarantorOtherAddress ?
@@ -4063,6 +4061,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             otherOwnerPassportIssuedFrom: [undefined],
             otherOwnerPassportIssuedFromTrans: [undefined],
             otherOwnerPassportIssuedFromCT: [undefined],
+            isAuthorizedPersion: [undefined],
+            isAuthorizedPersionTrans: [undefined],
+            isAuthorizedPersionCT: [undefined],
         });
     }
 
@@ -4273,6 +4274,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                        otherOwnerPassportIssuedFrom : data.otherOwnerPassportIssuedFrom ? data.otherOwnerPassportIssuedFrom : '' ,
                        otherOwnerPassportIssuedFromTrans : data.otherOwnerPassportIssuedFromTrans ? data.otherOwnerPassportIssuedFromTrans : '' ,
                        otherOwnerPassportIssuedFromCT : data.otherOwnerPassportIssuedFromCT ? data.otherOwnerPassportIssuedFromCT : '' ,
+                       isAuthorizedPersion: data.isAuthorizedPersion ? data.isAuthorizedPersion: false
                    })
                );
            });

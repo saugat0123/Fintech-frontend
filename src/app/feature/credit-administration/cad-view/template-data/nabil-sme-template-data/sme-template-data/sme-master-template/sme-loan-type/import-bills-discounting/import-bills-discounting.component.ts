@@ -6,6 +6,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-t
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
     selector: 'app-import-bills-discounting',
@@ -14,6 +15,8 @@ import {EngNepDatePipe} from 'nepali-patro';
 })
 export class ImportBillsDiscountingComponent implements OnInit {
     @Input() loanName;
+    @Input() offerDocumentList: Array<OfferDocument>;
+    initialInformation: any;
     importBillsDiscountForm: FormGroup;
     isComplimentryOtherLoan = false;
     loanDetails: any = [];
@@ -35,6 +38,14 @@ export class ImportBillsDiscountingComponent implements OnInit {
         this.ADExpiry = true;
         if (!ObjectUtil.isEmpty(this.loanName)) {
             this.loanDetails = this.loanName;
+        }
+        if (this.offerDocumentList.length > 0) {
+            this.offerDocumentList.forEach(offerLetter => {
+                this.initialInformation = JSON.parse(offerLetter.initialInformation);
+            });
+        }
+        if (!ObjectUtil.isEmpty(this.initialInformation)) {
+            this.importBillsDiscountForm.patchValue(this.initialInformation.importBillsDiscountForm);
         }
     }
 

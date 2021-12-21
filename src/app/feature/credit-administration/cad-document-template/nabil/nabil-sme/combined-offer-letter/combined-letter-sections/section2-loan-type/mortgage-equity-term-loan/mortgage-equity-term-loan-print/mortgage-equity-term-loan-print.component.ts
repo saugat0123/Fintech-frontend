@@ -15,30 +15,19 @@ export class MortgageEquityTermLoanPrintComponent implements OnInit {
   @Input() letterData;
   @Input() customerApprovedDoc;
   @Input() freeText;
+  @Input() loanData;
+  @Input() index;
   tempData;
-  loanAmount;
-  loanAmountInWord;
   mortgageEquity: any = {};
   termLoanForMortgageEquityTerm; mortgageTypeMortgageEquityTerm; complementaryOtherMortgageEquityTerm = false;
   emiPaymentTypeMortgageEquityTerm; interestSubAgMortgageEquityTerm; paymentTermMortgageEquityTerm;
   loanOptionMortgageEquityTerm; drawingPowerMortgageEquityTerm; termLoanTypeMortgageEquityTerm;
 
-  constructor(private formBuilder: FormBuilder,
-              private engToNepWord: NepaliCurrencyWordPipe,
-              private currencyFormatPipe: CurrencyFormatterPipe,
-              private engToNepNumberPipe: EngToNepaliNumberPipe,
-  ) { }
+  constructor() { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-      this.customerApprovedDoc.assignedLoan.forEach(val => {
-        if (val.loan.name === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
-          const totalLoanAmount = val.proposal.proposedLimit;
-          this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
-          this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
-        }
-      });
     }
     if (!ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm)) {
       this.termLoanForMortgageEquityTerm = this.tempData.mortgageEquityTermForm.termLoanFor;

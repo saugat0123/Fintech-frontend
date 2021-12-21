@@ -35,7 +35,8 @@ import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {InterestSubsidySanctionLetterTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter-template-edit/interest-subsidy-sanction-letter-template-edit.component';
 import {DdslWithoutSubsidyTemplateEditComponent} from '../../../cad-view/template-data/nabil-sme-template-data/ddsl-without-subsidy/ddsl-without-subsidy-template-edit/ddsl-without-subsidy-template-edit.component';
 import {PersonalLoanAndPersonalOverdraftTemplateEditComponent} from '../../../cad-view/template-data/personal-loan-and-personal-overdraft-template-edit/personal-loan-and-personal-overdraft-template-edit.component';
-import {SmeMasterTemplateComponent} from "../../../cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-master-template.component";
+import {SmeMasterTemplateComponent} from '../../../cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-master-template.component';
+import {ClassASanctionLetterTemplateDataComponent} from '../../../cad-view/template-data/nabil-sme-template-data/class-a-sanction-letter-template-data/class-a-sanction-letter-template-data.component';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -339,6 +340,17 @@ export class OfferLetterListComponent implements OnInit {
                   });
                 } else if (this.docName === this.offerLetterType.value(this.offerLetterType.COMBINED_LETTER)) {
                   this.dialogService.open(SmeMasterTemplateComponent, {
+                    hasBackdrop: false,
+                    dialogClass: 'model-full',
+                    context: {
+                      isEdit: true,
+                      customerApprovedDoc: this.cadOfferLetterApprovedDoc,
+                      offerDocumentList: this.offerDocumentList,
+                      initialInformation: JSON.parse(offerLetter.initialInformation)
+                    },
+                  });
+                } else if (this.docName === this.offerLetterType.value(this.offerLetterType.CLASS_A)) {
+                  this.dialogService.open(ClassASanctionLetterTemplateDataComponent, {
                     hasBackdrop: false,
                     dialogClass: 'model-full',
                     context: {

@@ -1,12 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
-import {NepaliCurrencyWordPipe} from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {SbTranslateService} from "../../../../../../../../../@core/service/sbtranslate.service";
-import {CurrencyFormatterPipe} from "../../../../../../../../../@core/pipe/currency-formatter.pipe";
-import {EngToNepaliNumberPipe} from "../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {EngNepDatePipe} from "nepali-patro";
-import {DatePipe} from "@angular/common";
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {SbTranslateService} from '../../../../../../../../../@core/service/sbtranslate.service';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {EngNepDatePipe} from 'nepali-patro';
+import {DatePipe} from '@angular/common';
+import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
+import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
   selector: 'app-auto-loan-master',
@@ -15,6 +17,8 @@ import {DatePipe} from "@angular/common";
 })
 export class AutoLoanMasterComponent implements OnInit {
   @Input() loanName;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  initialInformation: any;
   loanDetails: any = [];
   autoLoanMasterForm: FormGroup;
   isComplementaryOtherLoan = false;
@@ -34,7 +38,9 @@ export class AutoLoanMasterComponent implements OnInit {
   isQuarterly = false;
   translatedFormGroup: FormGroup;
   translatedValue: any;
+  loanNameConstant = LoanNameConstant;
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
+  filteredList: any = [];
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -46,18 +52,316 @@ export class AutoLoanMasterComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if(!ObjectUtil.isEmpty(this.loanName)) {
+    if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+      this.filterLoanDetails(this.loanDetails);
+    }
+    if (this.offerDocumentList.length > 0) {
+      this.offerDocumentList.forEach(offerLetter => {
+        this.initialInformation = JSON.parse(offerLetter.initialInformation);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.autoLoanMasterForm.patchValue(this.initialInformation.autoLoanMasterForm);
     }
   }
 
   buildForm() {
     this.autoLoanMasterForm = this.formBuilder.group({
-      //For form Data
-      complementaryOther: [undefined],
+      autoLoanFormArray: this.formBuilder.array([]),
+    });
+  }
+
+  checkComplimetryOtherLoan(data, index) {
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'complementaryOther']).patchValue(data);
+  }
+
+  checkVehiclePurchased(data, index) {
+    // this.isVehiclePurchased = data;
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehiclePurchased']).patchValue(data);
+  }
+
+  checkVehicleRegistered(data, index) {
+    // this.isVehicleRegistered = data;
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehicleRegistered']).patchValue(data);
+  }
+
+  setAutoLoanType(data, index) {
+    const tempData = !ObjectUtil.isEmpty(data) ? data : '';
+    this.isNewTermLoan = tempData === 'NEW_EMI_TERM_LOAN';
+    this.isOtherCreditLimit = tempData === 'OTHER_CREDIT_LIMITS';
+    this.isNewInstallmentBasis = tempData === 'NEW_INSTALLMENT_BASIS';
+    this.isReviewCreditLimit = tempData === 'REVIEW_OF_OTHER_CREDIT_LIMIT';
+  }
+
+  public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
+    const transformValue = this.nepaliCurrencyWordPipe.transform(this.autoLoanMasterForm.get([arrayName, index, numLabel]).value);
+    this.autoLoanMasterForm.get([arrayName, index, wordLabel]).patchValue(transformValue);
+  }
+
+  setEMIPaymentType(data) {
+    const tempData = !ObjectUtil.isEmpty(data) ? data : '';
+    this.isSubsequent = tempData === 'SUBSEQUENT_MONTH';
+    this.isEvery = tempData === 'EVERY_20TH';
+  }
+
+  filterLoanDetails(loanDetails) {
+    this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.AUTO_LOAN);
+    this.filteredList.forEach(value => {
+      this.addLoanFormArr();
+    });
+  }
+
+  calInterestRate(index, arrName) {
+    const baseRate = this.autoLoanMasterForm.get([arrName, index, 'baseRate']).value;
+    const premiumRate = this.autoLoanMasterForm.get([arrName, index, 'premiumRate']).value;
+    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+    this.autoLoanMasterForm.get([arrName, index, 'interestRate']).patchValue(sum);
+  }
+
+  public checkDateOfExpiry(value): void {
+    this.ADExpiry = value === 'AD';
+    this.BSExpiry = value === 'BS';
+  }
+
+  setPaymentTerms(data) {
+    const tempData = !ObjectUtil.isEmpty(data) ? data : '';
+    this.isYearly = tempData === 'YEARLY';
+    this.isSemiYearly = tempData === 'SEMI_YEARLY';
+    this.isQuarterly = tempData === 'QUARTERLY';
+    this.isMonthly = tempData === 'MONTHLY';
+  }
+
+  async translateAndSetVal(index) {
+    // this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'complementaryOther']).patchValue(this.isComplementaryOtherLoan);
+    const tempComplementary = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'complementaryOther']).value;
+    if (!ObjectUtil.isEmpty(tempComplementary)) {
+      this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'complementaryOtherTrans']).patchValue(tempComplementary);
+    }
+
+    // this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehiclePurchased']).patchValue(this.isVehiclePurchased);
+    const tempVehiclePurchased = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehiclePurchased']).value;
+    if (!ObjectUtil.isEmpty(tempVehiclePurchased)) {
+      this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehiclePurchasedTrans']).patchValue(tempVehiclePurchased);
+    }
+
+    // this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehicleRegistered']).patchValue(this.isVehicleRegistered);
+    const tempVehicleRegistered = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehicleRegistered']).value;
+    if (!ObjectUtil.isEmpty(tempVehicleRegistered)) {
+      this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehicleRegisteredTrans']).patchValue(tempVehicleRegistered);
+    }
+
+    const tempComplimentaryLoanSelected = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'complimentaryLoanSelected']).value;
+    if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
+      this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'complimentaryLoanSelectedTrans']).patchValue(tempComplimentaryLoanSelected);
+    }
+
+    const tempAutoLoanType = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'autoLoanType']).value;
+    if (!ObjectUtil.isEmpty(tempAutoLoanType)) {
+      this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'autoLoanTypeTrans']).patchValue(tempAutoLoanType);
+    }
+
+    const tempEMIPaymentType = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiPaymentType']).value;
+    if (!ObjectUtil.isEmpty(tempEMIPaymentType)) {
+      this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiPaymentTypeTrans']).patchValue(tempEMIPaymentType);
+    }
+
+    const tempPaymentTerms = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentTerms']).value;
+    if (!ObjectUtil.isEmpty(tempPaymentTerms)) {
+      this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentTermsTrans']).patchValue(tempPaymentTerms);
+    }
+
+    // Translation for Numbers
+    const tempLoanAmount = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'loanAmount']).value;
+    const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
+        this.convertNumbersToNepali(tempLoanAmount, true) : '';
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'loanAmountTrans']).patchValue(convertNumber);
+
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'loanAmountWordsTrans']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'loanAmountWords']).value
+    );
+
+    const tempEMIAmount = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiInfigure']).value;
+    const convertNumber1 = !ObjectUtil.isEmpty(tempEMIAmount) ?
+        this.convertNumbersToNepali(tempEMIAmount, true) : '';
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiInfigureTrans']).patchValue(convertNumber1);
+
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiInWordsTrans']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiInWords']).value
+    );
+
+    const tempPaymentAmount = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentAmountFigure']).value;
+    const convertNumber2 = !ObjectUtil.isEmpty(tempPaymentAmount) ?
+        this.convertNumbersToNepali(tempPaymentAmount, true) : '';
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentAmountFigureTrans']).patchValue(convertNumber2);
+
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentAmountWordsTrans']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentAmountWords']).value
+    );
+
+    const tempBaseRate = this.convertNumbersToNepali(this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'baseRate']).value, false);
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'baseRateTrans']).patchValue(tempBaseRate);
+    const tempPremiumRate = this.convertNumbersToNepali(this.autoLoanMasterForm.get(
+        ['autoLoanFormArray', index, 'premiumRate']).value, false);
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'premiumRateTrans']).patchValue(tempPremiumRate);
+    const tempInterestRate = this.convertNumbersToNepali(this.autoLoanMasterForm.get(
+        ['autoLoanFormArray', index, 'interestRate']).value, false);
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'interestRateTrans']).patchValue(tempInterestRate);
+    const tempNumberOfInstallment = this.convertNumbersToNepali(this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'numberOfInstallment']).value, false);
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'numberOfInstallmentTrans']).patchValue(tempNumberOfInstallment);
+    const tempServiceCharge = this.convertNumbersToNepali(this.autoLoanMasterForm.get(
+        ['autoLoanFormArray', index, 'serviceCharge']).value, false);
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'serviceChargeTrans']).patchValue(tempServiceCharge);
+    const tempTenureOfLoan = this.convertNumbersToNepali(this.autoLoanMasterForm.get(
+        ['autoLoanFormArray', index, 'tenureOfLoan']).value, false);
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'tenureOfLoanTrans']).patchValue(tempTenureOfLoan);
+   const tempNumberOfPayments = this.convertNumbersToNepali(this.autoLoanMasterForm.get(
+       ['autoLoanFormArray', index, 'numberOfPayments']).value, false);
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'numberOfPaymentsTrans']).patchValue(tempNumberOfPayments);
+    const tempDrawingPower = this.convertNumbersToNepali(this.autoLoanMasterForm.get(
+        ['autoLoanFormArray', index, 'drawingPower']).value, false);
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'drawingPowerTrans']).patchValue(tempDrawingPower);
+
+    /* Converting value for date */
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryTypeTrans']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryType']).value
+    );
+    const tempDateOfExpType = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryType']).value;
+    let tempExpDate;
+    if (tempDateOfExpType === 'AD') {
+      const tempEngExpDate = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiry']).value;
+      tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ?
+          this.engToNepDatePipe.transform(this.datePipe.transform(tempEngExpDate), true) : '';
+      this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryTrans']).patchValue(tempExpDate);
+    } else {
+      const tempDateOfExpNep = this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryNepali']).value;
+      tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
+          tempDateOfExpNep.nDate : '';
+      this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryTrans']).patchValue(tempExpDate);
+    }
+
+    // translated by google api
+    this.translatedFormGroup = this.formBuilder.group({
+      purposeOfLoan: !ObjectUtil.isEmpty(this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'purposeOfLoan']).value) ?
+          this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'purposeOfLoan']).value : '',
+      nameOfDealer: !ObjectUtil.isEmpty(this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'nameOfDealer']).value) ?
+          this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'nameOfDealer']).value : '',
+    });
+
+    this.translatedValue =  await this.translateService.translateForm(this.translatedFormGroup);
+
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'purposeOfLoanTrans']).patchValue(this.translatedValue.purposeOfLoan);
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'nameOfDealerTrans']).patchValue(this.translatedValue.nameOfDealer);
+
+    this.setCTValue(index);
+  }
+
+  setCTValue(index) {
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'complementaryOtherCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'complementaryOtherTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehiclePurchasedCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehiclePurchasedTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehicleRegisteredCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'vehicleRegisteredTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'complimentaryLoanSelectedCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'complimentaryLoanSelectedTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'autoLoanTypeCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'autoLoanTypeTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'loanAmountCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'loanAmountTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'loanAmountWordsCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'loanAmountWordsTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'loanAmountWordsCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'loanAmountWordsTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'purposeOfLoanCT']).patchValue(
+        this.translatedValue.purposeOfLoan
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'baseRateCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'baseRateTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'premiumRateCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'premiumRateTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'interestRateCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'interestRateTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiPaymentTypeCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiPaymentTypeTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiInfigureCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiInfigureTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiInWordsCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'emiInWordsTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'numberOfInstallmentCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'numberOfInstallmentTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'serviceChargeCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'serviceChargeTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'tenureOfLoanCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'tenureOfLoanTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'drawingPowerCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'drawingPowerTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryTypeCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryTypeTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryNepaliCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryNepaliTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'dateOfExpiryTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentTermsCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentTermsTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentAmountFigureCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentAmountFigureTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentAmountWordsCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentAmountWordsTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'numberOfPaymentsCT']).patchValue(
+        this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'numberOfPaymentsTrans']).value
+    );
+    this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'nameOfDealerCT']).patchValue(
+        this.translatedValue.nameOfDealer
+    );
+  }
+
+  /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/
+  convertNumbersToNepali(val, type: boolean) {
+    let finalConvertedVal;
+    if (!ObjectUtil.isEmpty(val)) {
+      if (type) {
+        finalConvertedVal = this.engToNepNumberPipe.transform(
+            this.currencyFormatterPipe.transform(val.toString())
+        );
+      } else {
+        finalConvertedVal = this.engToNepNumberPipe.transform(val.toString());
+      }
+    }
+    return finalConvertedVal;
+  }
+
+  buildLoanForm() {
+    return this.formBuilder.group({
+      // For form Data
+      complementaryOther: [false],
       complimentaryLoanSelected: [undefined],
-      vehiclePurchased: [undefined],
-      vehicleRegistered: [undefined],
+      vehiclePurchased: [false],
+      vehicleRegistered: [false],
       autoLoanType: [undefined],
       purposeOfLoan: [undefined],
       loanAmount: [undefined],
@@ -81,11 +385,11 @@ export class AutoLoanMasterComponent implements OnInit {
       numberOfPayments: [undefined],
       paymentTerms: [undefined],
 
-      //For Translated Data
-      complementaryOtherTrans: [undefined],
+      // For Translated Data
+      complementaryOtherTrans: [false],
       complimentaryLoanSelectedTrans: [undefined],
-      vehiclePurchasedTrans: [undefined],
-      vehicleRegisteredTrans: [undefined],
+      vehiclePurchasedTrans: [false],
+      vehicleRegisteredTrans: [false],
       autoLoanTypeTrans: [undefined],
       purposeOfLoanTrans: [undefined],
       loanAmountTrans: [undefined],
@@ -109,11 +413,11 @@ export class AutoLoanMasterComponent implements OnInit {
       numberOfPaymentsTrans: [undefined],
       paymentTermsTrans: [undefined],
 
-      //For Corrected Data
-      complementaryOtherCT: [undefined],
+      // For Corrected Data
+      complementaryOtherCT: [false],
       complimentaryLoanSelectedCT: [undefined],
-      vehiclePurchasedCT: [undefined],
-      vehicleRegisteredCT: [undefined],
+      vehiclePurchasedCT: [false],
+      vehicleRegisteredCT: [false],
       autoLoanTypeCT: [undefined],
       purposeOfLoanCT: [undefined],
       loanAmountCT: [undefined],
@@ -136,278 +440,15 @@ export class AutoLoanMasterComponent implements OnInit {
       paymentAmountWordsCT: [undefined],
       numberOfPaymentsCT: [undefined],
       paymentTermsCT: [undefined],
-
-    })
-  }
-
-  checkComplimetryOtherLoan(data) {
-    this.isComplementaryOtherLoan = data;
-    this.autoLoanMasterForm.get('complementaryOther').patchValue(this.isComplementaryOtherLoan);
-  }
-
-  checkVehiclePurchased(data) {
-    this.isVehiclePurchased = data;
-    this.autoLoanMasterForm.get('vehiclePurchased').patchValue(this.isVehiclePurchased);
-  }
-
-  checkVehicleRegistered(data) {
-    this.isVehicleRegistered = data;
-    this.autoLoanMasterForm.get('vehicleRegistered').patchValue(this.isVehicleRegistered);
-  }
-
-  setAutoLoanType(data) {
-    const tempData = !ObjectUtil.isEmpty(data) ? data : '';
-    this.isNewTermLoan = tempData === 'NEW_EMI_TERM_LOAN';
-    this.isOtherCreditLimit = tempData === 'OTHER_CREDIT_LIMITS';
-    this.isNewInstallmentBasis = tempData === 'NEW_INSTALLMENT_BASIS';
-    this.isReviewCreditLimit = tempData === 'REVIEW_OF_OTHER_CREDIT_LIMIT';
-  }
-
-  public getNumAmountWord(numLabel, wordLabel): void {
-    const transformValue = this.nepaliCurrencyWordPipe.transform(this.autoLoanMasterForm.get(numLabel).value);
-    this.autoLoanMasterForm.get(wordLabel).patchValue(transformValue);
-  }
-
-  setEMIPaymentType(data) {
-    const tempData = !ObjectUtil.isEmpty(data) ? data : '';
-    this.isSubsequent = tempData === 'SUBSEQUENT_MONTH';
-    this.isEvery = tempData === 'EVERY_20TH';
-  }
-
-  calInterestRate() {
-    const baseRate = this.autoLoanMasterForm.get('baseRate').value;
-    const premiumRate = this.autoLoanMasterForm.get('premiumRate').value;
-    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.autoLoanMasterForm.get('interestRate').patchValue(sum);
-  }
-
-  public checkDateOfExpiry(value): void {
-    this.ADExpiry = value === 'AD';
-    this.BSExpiry = value === 'BS';
-  }
-
-  setPaymentTerms(data) {
-    const tempData = !ObjectUtil.isEmpty(data) ? data : '';
-    this.isYearly = tempData === 'YEARLY';
-    this.isSemiYearly = tempData === 'SEMI_YEARLY';
-    this.isQuarterly = tempData === 'QUARTERLY';
-    this.isMonthly = tempData === 'MONTHLY';
-  }
-
-  async translateAndSetVal() {
-    this.autoLoanMasterForm.get('complementaryOther').patchValue(this.isComplementaryOtherLoan);
-    const tempComplementary = this.autoLoanMasterForm.get('complementaryOther').value;
-    if (!ObjectUtil.isEmpty(tempComplementary)) {
-      this.autoLoanMasterForm.get('complementaryOtherTrans').patchValue(tempComplementary);
-    }
-
-    this.autoLoanMasterForm.get('vehiclePurchased').patchValue(this.isVehiclePurchased);
-    const tempVehiclePurchased = this.autoLoanMasterForm.get('vehiclePurchased').value;
-    if (!ObjectUtil.isEmpty(tempVehiclePurchased)) {
-      this.autoLoanMasterForm.get('vehiclePurchasedTrans').patchValue(tempVehiclePurchased);
-    }
-
-    this.autoLoanMasterForm.get('vehicleRegistered').patchValue(this.isVehicleRegistered);
-    const tempVehicleRegistered = this.autoLoanMasterForm.get('vehicleRegistered').value;
-    if (!ObjectUtil.isEmpty(tempVehicleRegistered)) {
-      this.autoLoanMasterForm.get('vehicleRegisteredTrans').patchValue(tempVehicleRegistered);
-    }
-
-    const tempComplimentaryLoanSelected = this.autoLoanMasterForm.get('complimentaryLoanSelected').value;
-    if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
-      this.autoLoanMasterForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
-    }
-
-    const tempAutoLoanType = this.autoLoanMasterForm.get('autoLoanType').value;
-    if (!ObjectUtil.isEmpty(tempAutoLoanType)) {
-      this.autoLoanMasterForm.get('autoLoanTypeTrans').patchValue(tempAutoLoanType);
-    }
-
-    const tempEMIPaymentType = this.autoLoanMasterForm.get('emiPaymentType').value;
-    if (!ObjectUtil.isEmpty(tempEMIPaymentType)) {
-      this.autoLoanMasterForm.get('emiPaymentTypeTrans').patchValue(tempEMIPaymentType);
-    }
-
-    const tempPaymentTerms = this.autoLoanMasterForm.get('paymentTerms').value;
-    if (!ObjectUtil.isEmpty(tempPaymentTerms)) {
-      this.autoLoanMasterForm.get('paymentTermsTrans').patchValue(tempPaymentTerms);
-    }
-
-    //Translation for Numbers
-    const tempLoanAmount = this.autoLoanMasterForm.get('loanAmount').value;
-    const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
-        this.convertNumbersToNepali(tempLoanAmount, true) : '';
-    this.autoLoanMasterForm.get('loanAmountTrans').patchValue(convertNumber);
-
-    this.autoLoanMasterForm.get('loanAmountWordsTrans').patchValue(
-        this.autoLoanMasterForm.get('loanAmountWords').value
-    );
-
-    const tempEMIAmount = this.autoLoanMasterForm.get('emiInfigure').value;
-    const convertNumber1 = !ObjectUtil.isEmpty(tempEMIAmount) ?
-        this.convertNumbersToNepali(tempEMIAmount, true) : '';
-    this.autoLoanMasterForm.get('emiInfigureTrans').patchValue(convertNumber1);
-
-    this.autoLoanMasterForm.get('emiInWordsTrans').patchValue(
-        this.autoLoanMasterForm.get('emiInWords').value
-    );
-
-    const tempPaymentAmount = this.autoLoanMasterForm.get('paymentAmountFigure').value;
-    const convertNumber2 = !ObjectUtil.isEmpty(tempPaymentAmount) ?
-        this.convertNumbersToNepali(tempPaymentAmount, true) : '';
-    this.autoLoanMasterForm.get('paymentAmountFigureTrans').patchValue(convertNumber2);
-
-    this.autoLoanMasterForm.get('paymentAmountWordsTrans').patchValue(
-        this.autoLoanMasterForm.get('paymentAmountWords').value
-    );
-
-    const tempBaseRate = this.convertNumbersToNepali(this.autoLoanMasterForm.get('baseRate').value, false);
-    this.autoLoanMasterForm.get('baseRateTrans').patchValue(tempBaseRate);
-    const tempPremiumRate = this.convertNumbersToNepali(this.autoLoanMasterForm.get('premiumRate').value, false);
-    this.autoLoanMasterForm.get('premiumRateTrans').patchValue(tempPremiumRate);
-    const tempInterestRate = this.convertNumbersToNepali(this.autoLoanMasterForm.get('interestRate').value, false);
-    this.autoLoanMasterForm.get('interestRateTrans').patchValue(tempInterestRate);
-    const tempNumberOfInstallment = this.convertNumbersToNepali(this.autoLoanMasterForm.get('numberOfInstallment').value, false);
-    this.autoLoanMasterForm.get('numberOfInstallmentTrans').patchValue(tempNumberOfInstallment);
-    const tempServiceCharge = this.convertNumbersToNepali(this.autoLoanMasterForm.get('serviceCharge').value, false);
-    this.autoLoanMasterForm.get('serviceChargeTrans').patchValue(tempServiceCharge);
-    const tempTenureOfLoan = this.convertNumbersToNepali(this.autoLoanMasterForm.get('tenureOfLoan').value, false);
-    this.autoLoanMasterForm.get('tenureOfLoanTrans').patchValue(tempTenureOfLoan);
-   const tempNumberOfPayments = this.convertNumbersToNepali(this.autoLoanMasterForm.get('numberOfPayments').value, false);
-    this.autoLoanMasterForm.get('numberOfPaymentsTrans').patchValue(tempNumberOfPayments);
-    const tempDrawingPower = this.convertNumbersToNepali(this.autoLoanMasterForm.get('drawingPower').value, false);
-    this.autoLoanMasterForm.get('drawingPowerTrans').patchValue(tempDrawingPower);
-
-    /* Converting value for date */
-    this.autoLoanMasterForm.get('dateOfExpiryTypeTrans').patchValue(
-        this.autoLoanMasterForm.get('dateOfExpiryType').value
-    );
-    const tempDateOfExpType = this.autoLoanMasterForm.get('dateOfExpiryType').value;
-    let tempExpDate;
-    if (tempDateOfExpType === 'AD') {
-      const tempEngExpDate = this.autoLoanMasterForm.get('dateOfExpiry').value;
-      tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ?
-          this.engToNepDatePipe.transform(this.datePipe.transform(tempEngExpDate), true) : '';
-      this.autoLoanMasterForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
-    } else {
-      const tempDateOfExpNep = this.autoLoanMasterForm.get('dateOfExpiryNepali').value;
-      tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
-          tempDateOfExpNep.nDate : '';
-      this.autoLoanMasterForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
-    }
-
-    // translated by google api
-    this.translatedFormGroup = this.formBuilder.group({
-      purposeOfLoan: !ObjectUtil.isEmpty(this.autoLoanMasterForm.get('purposeOfLoan').value) ? this.autoLoanMasterForm.get('purposeOfLoan').value : '',
-      nameOfDealer: !ObjectUtil.isEmpty(this.autoLoanMasterForm.get('nameOfDealer').value) ? this.autoLoanMasterForm.get('nameOfDealer').value : '',
     });
-
-    this.translatedValue =  await this.translateService.translateForm(this.translatedFormGroup);
-
-    this.autoLoanMasterForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
-    this.autoLoanMasterForm.get('nameOfDealerTrans').patchValue(this.translatedValue.nameOfDealer);
-
-    this.setCTValue();
   }
 
-  setCTValue() {
-    this.autoLoanMasterForm.get('complementaryOtherCT').patchValue(
-        this.autoLoanMasterForm.get('complementaryOtherTrans').value
-    );
-    this.autoLoanMasterForm.get('vehiclePurchasedCT').patchValue(
-        this.autoLoanMasterForm.get('vehiclePurchasedTrans').value
-    );
-    this.autoLoanMasterForm.get('vehicleRegisteredCT').patchValue(
-        this.autoLoanMasterForm.get('vehicleRegisteredTrans').value
-    );
-    this.autoLoanMasterForm.get('complimentaryLoanSelectedCT').patchValue(
-        this.autoLoanMasterForm.get('complimentaryLoanSelectedTrans').value
-    );
-    this.autoLoanMasterForm.get('autoLoanTypeCT').patchValue(
-        this.autoLoanMasterForm.get('autoLoanTypeTrans').value
-    );
-    this.autoLoanMasterForm.get('loanAmountCT').patchValue(
-        this.autoLoanMasterForm.get('loanAmountTrans').value
-    );
-    this.autoLoanMasterForm.get('loanAmountWordsCT').patchValue(
-        this.autoLoanMasterForm.get('loanAmountWordsTrans').value
-    );
-    this.autoLoanMasterForm.get('loanAmountWordsCT').patchValue(
-        this.autoLoanMasterForm.get('loanAmountWordsTrans').value
-    );
-    this.autoLoanMasterForm.get('purposeOfLoanCT').patchValue(
-        this.translatedValue.purposeOfLoan
-    );
-    this.autoLoanMasterForm.get('baseRateCT').patchValue(
-        this.autoLoanMasterForm.get('baseRateTrans').value
-    );
-    this.autoLoanMasterForm.get('premiumRateCT').patchValue(
-        this.autoLoanMasterForm.get('premiumRateTrans').value
-    );
-    this.autoLoanMasterForm.get('interestRateCT').patchValue(
-        this.autoLoanMasterForm.get('interestRateTrans').value
-    );
-    this.autoLoanMasterForm.get('emiPaymentTypeCT').patchValue(
-        this.autoLoanMasterForm.get('emiPaymentTypeTrans').value
-    );
-    this.autoLoanMasterForm.get('emiInfigureCT').patchValue(
-        this.autoLoanMasterForm.get('emiInfigureTrans').value
-    );
-    this.autoLoanMasterForm.get('emiInWordsCT').patchValue(
-        this.autoLoanMasterForm.get('emiInWordsTrans').value
-    );
-    this.autoLoanMasterForm.get('numberOfInstallmentCT').patchValue(
-        this.autoLoanMasterForm.get('numberOfInstallmentTrans').value
-    );
-    this.autoLoanMasterForm.get('serviceChargeCT').patchValue(
-        this.autoLoanMasterForm.get('serviceChargeTrans').value
-    );
-    this.autoLoanMasterForm.get('tenureOfLoanCT').patchValue(
-        this.autoLoanMasterForm.get('tenureOfLoanTrans').value
-    );
-    this.autoLoanMasterForm.get('drawingPowerCT').patchValue(
-        this.autoLoanMasterForm.get('drawingPowerTrans').value
-    );
-    this.autoLoanMasterForm.get('dateOfExpiryTypeCT').patchValue(
-        this.autoLoanMasterForm.get('dateOfExpiryTypeTrans').value
-    );
-    this.autoLoanMasterForm.get('dateOfExpiryNepaliCT').patchValue(
-        this.autoLoanMasterForm.get('dateOfExpiryNepaliTrans').value
-    );
-    this.autoLoanMasterForm.get('dateOfExpiryCT').patchValue(
-        this.autoLoanMasterForm.get('dateOfExpiryTrans').value
-    );
-    this.autoLoanMasterForm.get('paymentTermsCT').patchValue(
-        this.autoLoanMasterForm.get('paymentTermsTrans').value
-    );
-    this.autoLoanMasterForm.get('paymentAmountFigureCT').patchValue(
-        this.autoLoanMasterForm.get('paymentAmountFigureTrans').value
-    );
-    this.autoLoanMasterForm.get('paymentAmountWordsCT').patchValue(
-        this.autoLoanMasterForm.get('paymentAmountWordsTrans').value
-    );
-    this.autoLoanMasterForm.get('numberOfPaymentsCT').patchValue(
-        this.autoLoanMasterForm.get('numberOfPaymentsTrans').value
-    );
-    this.autoLoanMasterForm.get('nameOfDealerCT').patchValue(
-        this.translatedValue.nameOfDealer
-    );
-    console.log(this.autoLoanMasterForm.value);
+  addLoanFormArr() {
+    (this.autoLoanMasterForm.get('autoLoanFormArray') as FormArray).push(this.buildLoanForm());
   }
 
-  /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/
-  convertNumbersToNepali(val, type: boolean) {
-    let finalConvertedVal;
-    if (!ObjectUtil.isEmpty(val)) {
-      if (type) {
-        finalConvertedVal = this.engToNepNumberPipe.transform(
-            this.currencyFormatterPipe.transform(val.toString())
-        );
-      } else {
-        finalConvertedVal = this.engToNepNumberPipe.transform(val.toString());
-      }
-    }
-    return finalConvertedVal;
+  removeLoanFormArr(i) {
+    (this.autoLoanMasterForm.get('autoLoanFormArray') as FormArray).removeAt(i);
   }
 
 }
