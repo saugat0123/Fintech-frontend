@@ -158,9 +158,9 @@ export class TermLoanToOrForComponent implements OnInit {
 
     setFreeTextTermLoan() {
         this.termLoanFreeText = {
-            freeText10: this.form.get('freeTextTen').value,
-            freeText11: this.form.get('freeTextEleven').value,
-            freeText12: this.form.get('freeTextTwelve').value,
+            freeText10: this.form.get('freeTextTen').value ? this.form.get('freeTextTen').value : '',
+            freeText11: this.form.get('freeTextEleven').value ? this.form.get('freeTextEleven').value : '',
+            freeText12: this.form.get('freeTextTwelve').value ? this.form.get('freeTextTwelve').value : '',
         };
         return this.termLoanFreeText;
     }
