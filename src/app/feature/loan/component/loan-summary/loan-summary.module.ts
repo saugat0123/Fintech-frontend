@@ -17,34 +17,34 @@ import {CompanyInfoSummaryComponent} from './company-info-summary/company-info-s
 import {IncomeFromAccountSummeryComponent} from './income-from-account-summery/income-from-account-summery.component';
 import {LoanInformationTemplateModule} from '../../../loan-information-template/loan-information-template.module';
 import {ProposalJustificationSummaryComponent} from './proposal-justification-summary/proposal-justification-summary.component';
-import { BusinessBackgroundComponent } from './company-info-summary/business-background/business-background.component';
-import { FinancialRiskSummaryComponent } from './financial-risk-summary/financial-risk-summary.component';
-import { CollateralSummaryComponent } from './collateral-summary/collateral-summary.component';
-import { NtaSummaryComponent } from './nta-summary/nta-summary.component';
-import { ProposalTermsAndConditionSummeryComponent } from './proposal-terms-and-condition-summery/proposal-terms-and-condition-summery.component';
-import { ApprovalSheetComponent } from './approval-sheet/approval-sheet.component';
+import {BusinessBackgroundComponent} from './company-info-summary/business-background/business-background.component';
+import {FinancialRiskSummaryComponent} from './financial-risk-summary/financial-risk-summary.component';
+import {CollateralSummaryComponent} from './collateral-summary/collateral-summary.component';
+import {NtaSummaryComponent} from './nta-summary/nta-summary.component';
+import {ProposalTermsAndConditionSummeryComponent} from './proposal-terms-and-condition-summery/proposal-terms-and-condition-summery.component';
+import {ApprovalSheetComponent} from './approval-sheet/approval-sheet.component';
 import {CbsGroupModule} from '../../../cbs-group/cbs-group.module';
-import { ApprovalSheetConfigComponent } from './approval-sheet-config/approval-sheet-config.component';
-import { ApprovalSheetInfoComponent } from './approval-sheet-info/approval-sheet-info.component';
+import {ApprovalSheetConfigComponent} from './approval-sheet-config/approval-sheet-config.component';
+import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
+import {ApprovalSheetDocumentListComponent} from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
 import {LoanInformationViewModule} from '../../../loan-information-view/loan-information-view.module';
 import {RoleHierarchyChainComponent} from './role-heirarchy-chain/role-hierarchy-chain.component';
-import { NtaMegaSummaryComponent } from './nta-mega-summary/nta-mega-summary.component';
-import { MGroupSummaryComponent } from './m-group-summary/m-group-summary.component';
-import { CommentsSummaryComponent } from './comments-summary/comments-summary.component';
+import {NtaMegaSummaryComponent} from './nta-mega-summary/nta-mega-summary.component';
+import {MGroupSummaryComponent} from './m-group-summary/m-group-summary.component';
+import {CommentsSummaryComponent} from './comments-summary/comments-summary.component';
 import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
 import {NepaliPatroModule} from 'nepali-patro';
-import { RemitDetailsComponent } from './remit-details/remit-details.component';
-import { VideoKycInformationComponent } from './video-kyc-information/video-kyc-information.component';
+import {RemitDetailsComponent} from './remit-details/remit-details.component';
 import {VideoKycModule} from '../../../video-kyc/video-kyc.module';
-import { RemitProfileComponent } from './remit-profile/remit-profile.component';
-import { MultiBankingSummaryComponent } from './multi-banking-summary/multi-banking-summary.component';
+import {MultiBankingSummaryComponent} from './multi-banking-summary/multi-banking-summary.component';
+import {FinancialJsonParserComponent} from './financial-json-parser/financial-json-parser.component';
 
 
 const COMPONENTS = [
     SitevistSummaryComponentComponent,
     FinancialSummaryComponent,
+    FinancialJsonParserComponent,
     SecuritySummaryComponent,
     ProposalSummaryComponent,
     LoanSummaryComponent,
@@ -100,6 +100,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         SitevistSummaryComponentComponent,
         InsuranceSummaryComponent,
         FinancialSummaryComponent,
+        FinancialJsonParserComponent,
         ProposalSummaryComponent,
         MGroupSummaryComponent,
         CommentsSummaryComponent,
