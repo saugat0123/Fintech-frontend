@@ -1,15 +1,17 @@
 <div>
     <form [formGroup]="termLoanForm">
+        <div *ngFor="let val of termLoanNumber; let i = index" formArrayName="termLoanDetails">
+            <ng-container [formGroupName]="i">
         <div class="row">
             <div class="col-md-12 pb-2">
-                <h5>TERM LOAN TO/FOR </h5>
+                <h5 *ngIf="termLoanNumber.length === 1">TERM LOAN TO/FOR </h5>
+                <h5 *ngIf="termLoanNumber.length > 1">TERM LOAN TO/FOR - {{i+1}}</h5>
             </div>
             <div class="col-md-12 mt-2">
-                <nb-checkbox #complementaryOther (checkedChange)="checkComplimetryOtherLoan(complementaryOther.checked)"
-                             [checked]="isComplementaryOtherLoan">
+                <nb-checkbox #complimentaryCheck (change)="checkComplimetryOtherLoan($event.target.checked, i)" formControlName="complementaryOther">
                     <i> Is complimentary of other loan ? </i></nb-checkbox>
             </div>
-            <div class="col-md-4 mt-3" *ngIf="isComplementaryOtherLoan">
+            <div class="col-md-4 mt-3" *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'complementaryOther']).value">
                 <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
                 <nb-select placeholder="Select Complimentary Loan"
                            fullWidth
@@ -23,6 +25,7 @@
                 <div class="form-group">
                     <label class="ml-1 font-weight-bold">Is interest subsidy loan/agriculture loan?</label>
                     <nb-select [multiple]="false" fullWidth placeholder="select from option"
+                               (selectedChange)="setSubsidyAgriculture($event, i)"
                                formControlName="subsidyOrAgricultureLoan" shape="semi-round">
                         <nb-option *ngFor="let option of yesNoOptions"
                                    [value]="option?.value">{{option?.value}}</nb-option>
@@ -31,7 +34,7 @@
             </div>
             <div class="col-md-4" style="margin-top: 1em">
                 <label><strong>Term Loan is for?</strong></label>
-                <nb-select (selectedChange)="setTermLoan($event)"
+                <nb-select (selectedChange)="setTermLoan($event, i)"
                            formControlName="termLoanFor"
                            fullWidth
                            placeholder="Term Loan For">
@@ -42,7 +45,7 @@
 
             <div class="col-md-4" style="margin-top: 1em">
                 <label><strong>Term Loan Type</strong></label>
-                <nb-select (selectedChange)="setTermLoanType($event)"
+                <nb-select (selectedChange)="setTermLoanType($event, i)"
                            formControlName="termLoanType"
                            fullWidth
                            placeholder="Set Term Loan Type">
@@ -57,8 +60,7 @@
                 </nb-select>
             </div>
         </div>
-
-        <div class="row pt-4" *ngIf="isOtherSelected">
+                <div class="row pt-4" *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'termLoanFor']).value === 'OTHER'">
             <div class="col-md-4">
                 <label class="font-weight-bold" for="purposeOfLoan">Purpose of Loan</label>
                 <input class="form-control" formControlName="purposeOfLoan" fullWidth id="purposeOfLoan"
@@ -80,12 +82,11 @@
                        status="success" type="text">
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
                 <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount"
-                       (input)="getNumAmountWord('loanAmount', 'loanAmountWords')"
+                       (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i)"
                        nbInput
                        shape="semi-round"
                        status="success" type="number">
@@ -128,14 +129,17 @@
             </div>
         </div>
 
-        <div *ngIf="isNewEMI || isEMIAnnual || isNewInstallment || isInstallmentAnnual">
+        <div *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_EMI' ||
+                    this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_ANNUAL_REVIEW' ||
+                    this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS' ||
+                    this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'INSTALLMENT_ANNUAL_REVIEW'">
             <div class="row">
                 <div class="col-md-4 form-group">
                     <label class="font-weight-bold" for="baseRate">Base Rate</label>
                     <input class="form-control" formControlName="baseRate" fullWidth id="baseRate"
                            nbInput
                            shape="semi-round"
-                           (change)="calInterestRate()"
+                           (change)="calInterestRate(i)"
                            status="success" type="number">
                 </div>
                 <div class="col-md-4 form-group fieldMargin">
@@ -159,7 +163,7 @@
                     <input class="form-control" formControlName="premiumRate" fullWidth id="premiumRate"
                            nbInput
                            shape="semi-round"
-                           (change)="calInterestRate()"
+                           (change)="calInterestRate(i)"
                            status="success" type="number">
                 </div>
                 <div class="col-md-4 form-group fieldMargin">
@@ -200,11 +204,11 @@
                 </div>
             </div>
 
-            <div *ngIf="isNewEMI">
+            <div *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_EMI'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label><strong>EMI Payment Type</strong></label>
-                        <nb-select (selectedChange)="setEMIPaymentType($event)"
+                        <nb-select (selectedChange)="setEMIPaymentType($event, i)"
                                    formControlName="emiPaymentType"
                                    fullWidth
                                    placeholder="Set EMI Payment Type">
@@ -241,12 +245,13 @@
                 </div>
             </div>
 
-            <div *ngIf="isNewEMI || isEMIAnnual">
+            <div *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_EMI' ||
+                        this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_ANNUAL_REVIEW'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="emiInfigure">EMI in Figure</label>
                         <input class="form-control" formControlName="emiInfigure" fullWidth id="emiInfigure"
-                               (input)="getNumAmountWord('emiInfigure', 'emiInWords')"
+                               (input)="getNumAmountWord('emiInfigure', 'emiInWords', i)"
                                nbInput
                                shape="semi-round"
                                status="success" type="number">
@@ -290,8 +295,8 @@
                 </div>
             </div>
 
-            <div *ngIf="isNewInstallment || isInstallmentAnnual">
-                <!--            TODO condition for interest subsidy-->
+            <div *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS' ||
+                        this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'INSTALLMENT_ANNUAL_REVIEW'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="subsidyInterestRate">Interest Rate (if Subsidy)</label>
@@ -320,7 +325,8 @@
             </div>
 
             <!--        Payment Amount for Installment-->
-            <div *ngIf="isNewInstallment || isInstallmentAnnual">
+            <div *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS' ||
+                        this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'INSTALLMENT_ANNUAL_REVIEW'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label><strong>Payment Terms</strong></label>
@@ -341,7 +347,7 @@
                         <label class="font-weight-bold" for="paymentAmountFigure">Payment Amount in Figure</label>
                         <input class="form-control" formControlName="paymentAmountFigure" fullWidth
                                id="paymentAmountFigure"
-                               (input)="getNumAmountWord('paymentAmountFigure', 'paymentAmountWords')"
+                               (input)="getNumAmountWord('paymentAmountFigure', 'paymentAmountWords', i)"
                                nbInput
                                shape="semi-round"
                                status="success" type="number">
@@ -416,7 +422,8 @@
             </div>
 
             <!--        Tenure of Loan for New EMI/Installment cases-->
-            <div *ngIf="isNewEMI || isNewInstallment">
+            <div *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_EMI' ||
+                        this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="serviceCharge">Service Charge (in %)</label>
@@ -464,24 +471,25 @@
                     </div>
                 </div>
             </div>
-            <!--        End of Tenure Cases-->
+           <!--         End of Tenure Cases
 
-            <!--        Expiry Date for Annual Cases-->
-            <div *ngIf="isEMIAnnual || isInstallmentAnnual">
+                    Expiry Date for Annual Cases-->
+            <div *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_ANNUAL_REVIEW' ||
+                        this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'INSTALLMENT_ANNUAL_REVIEW'">
                 <div class="row">
                     <div class="col-md-4 form-group">
-                        <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry/Next Review Date</label><br>
-                        <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
-                                        formControlName="dateOfExpiryType" id="dateOfExpiryType"
-                                        name="dateOfExpiryType" status="success">
+                        <label class="font-weight-bold" for="{{'dateOfExpiryType'+i}}"> Loan Expiry/Next Review Date</label><br>
+                        <nb-radio-group (valueChange)="checkDateOfExpiry($event, i)" class="d-inline-flex"
+                                        formControlName="dateOfExpiryType" id="{{'dateOfExpiryType'+i}}"
+                                        name="{{'dateOfExpiryType'+i}}" status="success">
                             <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
                         </nb-radio-group>
-                        <div *ngIf="BSExpiry" style="margin-bottom: -50px;">
+                        <div *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryType']).value === 'BS'" style="margin-bottom: -50px;">
                             <nepali-patro [displayNepali]="true" [responseType]="2"
                                           formControlName="dateOfExpiryNepali">
                             </nepali-patro>
                         </div>
-                        <input *ngIf="ADExpiry" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                        <input *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryType']).value === 'AD'" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
                                fullWidth
                                id="dateOfExpiry"
                                nbInput
@@ -509,10 +517,12 @@
         <!-- For Translation -->
         <div class="row pt-5 pb-2 pr-4">
             <div class="col-md-12 text-right">
-                <button (click)="translateAndSetVal()" nbButton outline size="small" status="info">
+                <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
                     Translate Pre Export Loan Details
                 </button>
             </div>
+        </div>
+            </ng-container>
         </div>
     </form>
 </div>
