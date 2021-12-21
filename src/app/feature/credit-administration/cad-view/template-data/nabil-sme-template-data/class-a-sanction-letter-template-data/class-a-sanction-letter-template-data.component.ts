@@ -196,7 +196,25 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       this.form.get('serviceCheck').patchValue(this.initialInfo.serviceCheck);
       if (this.initialInfo.serviceCheck) {
         this.isSecurity = true;
+        const tempService = this.initialInfo.serviceCharges ?
+            this.initialInfo.serviceCharges.en : '';
+        if (tempService === 'ForAllLoan') {
+          this.isAllLoanSelected = true;
+        }
+        if (tempService === 'ForSpecificLoanOnly') {
+          this.isSpecificSelected = true;
+        }
       }
+      // for security type
+      const tempSecurity = this.initialInfo.securityType ?
+          this.initialInfo.securityType.en : '';
+      if (tempSecurity === 'FixedDeposit') {
+        this.isFixedDepositSelected = true;
+      }
+      if (tempSecurity === 'DepositAccount') {
+        this.isDepositAccountSelected = true;
+      }
+      /* For natural check */
       this.form.get('naturalCheck').patchValue(this.initialInfo.naturalCheck);
       if (this.initialInfo.naturalCheck) {
         this.isNatural = true;
