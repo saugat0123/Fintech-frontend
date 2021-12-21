@@ -166,7 +166,7 @@ export class AutoLoanComponent implements OnInit {
     }
     setFreeTextAutoLoan() {
         this.autoLoanFreeText = {
-            freeText14: this.form.get('freeTextFourteen').value,
+            freeText14: this.form.get('freeTextFourteen').value ? this.form.get('freeTextFourteen').value : '',
         };
         return this.autoLoanFreeText;
     }
