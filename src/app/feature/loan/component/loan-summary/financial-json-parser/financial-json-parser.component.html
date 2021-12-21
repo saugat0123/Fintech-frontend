@@ -1,17 +1,17 @@
 <h1>Financial Parser Component</h1>
 
-<table border="1">
+<table border="1" class="table-sm table-responsive">
     <thead>
     <tr>
-        <td></td>
-        <td *ngFor="let header of financialJson.column"> {{header}} </td>
+        <td><strong>Particular</strong></td>
+        <td *ngFor="let header of financialJson.column"><strong>{{header}}</strong></td>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let schema of financialJson.schema; let i = index">
-        <td>{{schema}}</td>
+        <td><strong>{{schema}}</strong></td>
         <ng-container *ngFor="let data of financialJson.data[i]">
-            <td>{{data}}</td>
+            <td>{{data === 0.00 ? '' : data.toFixed(2)}}</td>
         </ng-container>
     </tr>
     </tbody>
