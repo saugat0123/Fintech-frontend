@@ -155,6 +155,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     jointInfo = [];
     proposalAllData;
     companyInfo: any;
+    requestedLoanType;
     constructor(
         private userService: UserService,
         private loanFormService: LoanFormService,
@@ -387,13 +388,17 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
             .subscribe((res: any) => {
                 this.customerAllLoanList = res.detail;
                 // push current loan if not fetched from staged spec response
-                if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
-                    this.customerAllLoanList.push(this.loanDataHolder);
-                }
-                if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+                if (ObjectUtil.isEmpty(this.requestedLoanType)) {
+                    if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
+                        this.customerAllLoanList.push(this.loanDataHolder);
+                    }
+                    if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED') || (this.loanDataHolder.documentStatus.toString() === 'CLOSED') || (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
+                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+                    } else {
+                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'APPROVED') && (c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
+                    }
                 } else {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));
                 }
                 // push loans from combined loan if not in the existing array
                 const combinedLoans = this.customerAllLoanList
