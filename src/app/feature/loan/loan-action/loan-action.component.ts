@@ -114,6 +114,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 };
                 if (this.customerLoanHolder.dualApproved) {
                     context.documentStatus = DocStatus.DUAL_APPROVAL_PENDING;
+                } else if (this.customerLoanHolder.documentStatus.toString() === DocStatus.value(DocStatus.HSOV_PENDING)) {
+                    context.documentStatus = DocStatus.HSOV_PENDING;
                 }
                 break;
             case 'backwardCommittee':
@@ -129,6 +131,11 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanHolder: this.customerLoanHolder,
                     toRole: {id: Number(LocalStorageUtil.getStorage().roleId)}
                 };
+                if (this.customerLoanHolder.dualApproved) {
+                    context.documentStatus = DocStatus.DUAL_APPROVAL_PENDING;
+                } else if (this.customerLoanHolder.documentStatus.toString() === DocStatus.value(DocStatus.HSOV_PENDING)) {
+                    context.documentStatus = DocStatus.HSOV_PENDING;
+                }
                 break;
             case 'forward':
                 if (this.loanFlags && this.loanFlags.length > 0) {
@@ -151,6 +158,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 };
                 if (this.customerLoanHolder.dualApproved) {
                     context.documentStatus = DocStatus.DUAL_APPROVAL_PENDING;
+                } else if (this.customerLoanHolder.documentStatus.toString() === DocStatus.value(DocStatus.HSOV_PENDING)) {
+                    context.documentStatus = DocStatus.HSOV_PENDING;
                 }
                 break;
             case 'approve':
