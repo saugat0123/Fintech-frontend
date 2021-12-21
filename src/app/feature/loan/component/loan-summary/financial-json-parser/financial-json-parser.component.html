@@ -1,1 +1,16 @@
 <h1>Financial Parser Component</h1>
+
+<table>
+    <thead>
+    <tr>
+        <td></td>
+        <td *ngFor="let header of financialJson.column"> -- {{header}} -- </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let schema of financialJson.schema; let i = index">
+        <td>{{schema}} || </td>
+<!--        <td *ngFor="let head of uniqueHeaders">{{getColumnData(head, i)}}</td>-->
+    </tr>
+    </tbody>
+</table>
