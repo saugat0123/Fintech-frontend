@@ -3,7 +3,7 @@ export enum DocAction {
     FORWARD,
     BACKWARD,
     APPROVED,
-    REJECTED,
+    REJECT,
     CLOSED,
     TRANSFER,
     PULLED,
@@ -21,7 +21,7 @@ export namespace DocAction {
             return 'BACKWARD';
         } else if (docAction === DocAction.APPROVED) {
             return 'APPROVED';
-        } else if (docAction === DocAction.REJECTED) {
+        } else if (docAction === DocAction.REJECT) {
             return 'REJECT';
         } else if (docAction === DocAction.CLOSED) {
             return 'CLOSED';
