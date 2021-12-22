@@ -12,6 +12,7 @@ export class AutoLoanComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Input() loanData;
     @Input() index;
+    @Input() data;
     form: FormGroup;
     tempData;
     autoLoanFreeText: any = {};
@@ -27,18 +28,22 @@ export class AutoLoanComponent implements OnInit {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
             this.fillForm();
         }
-        if (!ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm)) {
+        this.getConditions();
+    }
+
+    getConditions() {
+        if (!ObjectUtil.isEmpty(this.data)) {
             this.loanOptionAutoLoan = this.tempData.smeGlobalForm.loanOption;
-            this.autoLoanTypeAutoLoan = this.tempData.autoLoanMasterForm.autoLoanType;
-            this.emiPaymentTypeAutoLoan = this.tempData.autoLoanMasterForm.emiPaymentType;
-            this.paymentsTermsAutoLoan = this.tempData.autoLoanMasterForm.paymentTerms;
-            if (this.tempData.autoLoanMasterForm.complementaryOther === true) {
+            this.autoLoanTypeAutoLoan = this.data.autoLoanType;
+            this.emiPaymentTypeAutoLoan = this.data.emiPaymentType;
+            this.paymentsTermsAutoLoan = this.data.paymentTerms;
+            if (this.data.complementaryOther === true) {
                 this.complementaryOtherAutoLoan = true;
             }
-            if (this.tempData.autoLoanMasterForm.vehiclePurchased === true) {
+            if (this.data.vehiclePurchased === true) {
                 this.vehiclePurchaseAutoLoan = true;
             }
-            if (this.tempData.autoLoanMasterForm.vehicleRegistered === true) {
+            if (this.data.vehicleRegistered === true) {
                 this.vehicleRegistrationAutoLoan = true;
             }
         }
@@ -94,74 +99,84 @@ export class AutoLoanComponent implements OnInit {
 
     fillForm() {
         if (!ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm)) {
-            this.form.patchValue({
-                // Auto Loan
-                // SNOfParentLimitAutoLoan: [undefined],
-                // For New EMI Term Loan
-                // tslint:disable-next-line:max-line-length
-                newEMIDrawingPowerAutoLoan: this.tempData.autoLoanMasterForm.drawingPower ? this.tempData.autoLoanMasterForm.drawingPowerCT : '',
-                newEMIBaseRateAutoLoan: this.tempData.autoLoanMasterForm.baseRate ? this.tempData.autoLoanMasterForm.baseRateCT : '',
-                newEMIPremiumRateAutoLoan: this.tempData.autoLoanMasterForm.premiumRate ? this.tempData.autoLoanMasterForm.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMIInterestRateAutoLoan: this.tempData.autoLoanMasterForm.interestRate ? this.tempData.autoLoanMasterForm.interestRateCT : '',
-                newEMIAmountAutoLoan: this.tempData.autoLoanMasterForm.emiInfigure ? this.tempData.autoLoanMasterForm.emiInfigureCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMIAmountInWordAutoLoan: this.tempData.autoLoanMasterForm.emiInWords ? this.tempData.autoLoanMasterForm.emiInWordsCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMINoOfInstallmentAutoLoan: this.tempData.autoLoanMasterForm.numberOfInstallment ? this.tempData.autoLoanMasterForm.numberOfInstallmentCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMILoanPurposeAutoLoan: this.tempData.autoLoanMasterForm.purposeOfLoan ? this.tempData.autoLoanMasterForm.purposeOfLoanCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMIServiceChargeAutoLoan: this.tempData.autoLoanMasterForm.serviceCharge ? this.tempData.autoLoanMasterForm.serviceChargeCT : '',
-                newEMILoanTenureAutoLoan: this.tempData.autoLoanMasterForm.tenureOfLoan ? this.tempData.autoLoanMasterForm.tenureOfLoanCT : '',
-                // For EMI Term Loan at the time of Annual Review of other credit limits
-                annualEMIBaseRateAutoLoan: this.tempData.autoLoanMasterForm.baseRate ? this.tempData.autoLoanMasterForm.baseRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualEMIPremiumRateAutoLoan: this.tempData.autoLoanMasterForm.premiumRate ? this.tempData.autoLoanMasterForm.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualEMIInterestRateAutoLoan: this.tempData.autoLoanMasterForm.interestRate ? this.tempData.autoLoanMasterForm.interestRateCT : '',
-                annualEMIAmountAutoLoan: this.tempData.autoLoanMasterForm.emiInfigure ? this.tempData.autoLoanMasterForm.emiInfigureCT : '',
-                annualEMIAmountInWordAutoLoan: this.tempData.autoLoanMasterForm.emiInWords ? this.tempData.autoLoanMasterForm.emiInWordsCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualEMILoanExpiryDateAutoLoan: this.tempData.autoLoanMasterForm.dateOfExpiry ? this.tempData.autoLoanMasterForm.dateOfExpiryCT : '',
-                // For New Installment Basis Term Loan
-                // tslint:disable-next-line:max-line-length
-                newInstallmentBaseRateAutoLoan: this.tempData.autoLoanMasterForm.baseRate ? this.tempData.autoLoanMasterForm.baseRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentPremiumRateAutoLoan: this.tempData.autoLoanMasterForm.premiumRate ? this.tempData.autoLoanMasterForm.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentInterestRateAutoLoan: this.tempData.autoLoanMasterForm.interestRate ? this.tempData.autoLoanMasterForm.interestRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentLoanTenureAutoLoan: this.tempData.autoLoanMasterForm.tenureOfLoan ? this.tempData.autoLoanMasterForm.tenureOfLoanCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentPaymentAmountAutoLoan: this.tempData.autoLoanMasterForm.paymentAmountFigure ? this.tempData.autoLoanMasterForm.paymentAmountFigureCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentPaymentAmountInWordAutoLoan: this.tempData.autoLoanMasterForm.paymentAmountWords ? this.tempData.autoLoanMasterForm.paymentAmountWordsCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentNoOfPaymentAutoLoan: this.tempData.autoLoanMasterForm.numberOfPayments ? this.tempData.autoLoanMasterForm.numberOfPaymentsCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentLoanPurposeAutoLoan: this.tempData.autoLoanMasterForm.purposeOfLoan ? this.tempData.autoLoanMasterForm.purposeOfLoanCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentServiceChargeAutoLoan: this.tempData.autoLoanMasterForm.serviceCharge ? this.tempData.autoLoanMasterForm.serviceChargeCT : '',
-                // For Installment Basis Term Loan at the time of Annual Review of other credit limits
-                annualInstallmentBaseRateAutoLoan: this.tempData.autoLoanMasterForm.baseRate ? this.tempData.autoLoanMasterForm.baseRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentPremiumRateAutoLoan: this.tempData.autoLoanMasterForm.premiumRate ? this.tempData.autoLoanMasterForm.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentInterestRateAutoLoan: this.tempData.autoLoanMasterForm.interestRate ? this.tempData.autoLoanMasterForm.interestRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentPaymentAmountAutoLoan: this.tempData.autoLoanMasterForm.paymentAmountFigure ? this.tempData.autoLoanMasterForm.paymentAmountFigureCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentPaymentAmountInWordAutoLoan: this.tempData.autoLoanMasterForm.paymentAmountWords ? this.tempData.autoLoanMasterForm.paymentAmountWordsCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentNoOfPaymentAutoLoan: this.tempData.autoLoanMasterForm.numberOfPayments ? this.tempData.autoLoanMasterForm.numberOfPaymentsCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentLoanExpiryDateAutoLoan: this.tempData.autoLoanMasterForm.dateOfExpiry ? this.tempData.autoLoanMasterForm.dateOfExpiryCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentDrawingPowerAutoLoan: this.tempData.autoLoanMasterForm.drawingPowerCT ? this.tempData.autoLoanMasterForm.drawingPowerCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentNameOfDealerAutoLoan: this.tempData.autoLoanMasterForm.nameOfDealer ? this.tempData.autoLoanMasterForm.nameOfDealerCT : '',
-            });
+            for (let i = 0; i < this.tempData.autoLoanMasterForm['autoLoanFormArray'].length; i++ ) {
+                this.form.patchValue({
+                    // Auto Loan
+                    // SNOfParentLimitAutoLoan: [undefined],
+                    // For New EMI Term Loan
+                    // tslint:disable-next-line:max-line-length
+                    newEMIDrawingPowerAutoLoan: this.data.drawingPower ? this.data.drawingPowerCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newEMIBaseRateAutoLoan: this.data.baseRate ? this.data.baseRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newEMIPremiumRateAutoLoan: this.data.premiumRate ? this.data.premiumRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newEMIInterestRateAutoLoan: this.data.interestRate ? this.data.interestRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newEMIAmountAutoLoan: this.data.emiInfigure ? this.data.emiInfigureCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newEMIAmountInWordAutoLoan: this.data.emiInWords ? this.data.emiInWordsCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newEMINoOfInstallmentAutoLoan: this.data.numberOfInstallment ? this.data.numberOfInstallmentCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newEMILoanPurposeAutoLoan: this.data.purposeOfLoan ? this.data.purposeOfLoanCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newEMIServiceChargeAutoLoan: this.data.serviceCharge ? this.data.serviceChargeCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newEMILoanTenureAutoLoan: this.data.tenureOfLoan ? this.data.tenureOfLoanCT : '',
+                    // For EMI Term Loan at the time of Annual Review of other credit limits
+                    // tslint:disable-next-line:max-line-length
+                    annualEMIBaseRateAutoLoan: this.data.baseRate ? this.data.baseRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualEMIPremiumRateAutoLoan: this.data.premiumRate ? this.data.premiumRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualEMIInterestRateAutoLoan: this.data.interestRate ? this.data.interestRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualEMIAmountAutoLoan: this.data.emiInfigure ? this.data.emiInfigureCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualEMIAmountInWordAutoLoan: this.data.emiInWords ? this.data.emiInWordsCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualEMILoanExpiryDateAutoLoan: this.data.dateOfExpiry ? this.data.dateOfExpiryCT : '',
+                    // For New Installment Basis Term Loan
+                    // tslint:disable-next-line:max-line-length
+                    newInstallmentBaseRateAutoLoan: this.data.baseRate ? this.data.baseRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newInstallmentPremiumRateAutoLoan: this.data.premiumRate ? this.data.premiumRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newInstallmentInterestRateAutoLoan: this.data.interestRate ? this.data.interestRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newInstallmentLoanTenureAutoLoan: this.data.tenureOfLoan ? this.data.tenureOfLoanCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newInstallmentPaymentAmountAutoLoan: this.data.paymentAmountFigure ? this.data.paymentAmountFigureCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newInstallmentPaymentAmountInWordAutoLoan: this.data.paymentAmountWords ? this.data.paymentAmountWordsCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newInstallmentNoOfPaymentAutoLoan: this.data.numberOfPayments ? this.data.numberOfPaymentsCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newInstallmentLoanPurposeAutoLoan: this.data.purposeOfLoan ? this.data.purposeOfLoanCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    newInstallmentServiceChargeAutoLoan: this.data.serviceCharge ? this.data.serviceChargeCT : '',
+                    // For Installment Basis Term Loan at the time of Annual Review of other credit limits
+                    // tslint:disable-next-line:max-line-length
+                    annualInstallmentBaseRateAutoLoan: this.data.baseRate ? this.data.baseRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualInstallmentPremiumRateAutoLoan: this.data.premiumRate ? this.data.premiumRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualInstallmentInterestRateAutoLoan: this.data.interestRate ? this.data.interestRateCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualInstallmentPaymentAmountAutoLoan: this.data.paymentAmountFigure ? this.data.paymentAmountFigureCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualInstallmentPaymentAmountInWordAutoLoan: this.data.paymentAmountWords ? this.data.paymentAmountWordsCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualInstallmentNoOfPaymentAutoLoan: this.data.numberOfPayments ? this.data.numberOfPaymentsCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualInstallmentLoanExpiryDateAutoLoan: this.data.dateOfExpiry ? this.data.dateOfExpiryCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualInstallmentDrawingPowerAutoLoan: this.data.drawingPowerCT ? this.data.drawingPowerCT : '',
+                    // tslint:disable-next-line:max-line-length
+                    annualInstallmentNameOfDealerAutoLoan: this.data.nameOfDealer ? this.data.nameOfDealerCT : '',
+                });
+            }
         }
     }
     setFreeTextAutoLoan() {
