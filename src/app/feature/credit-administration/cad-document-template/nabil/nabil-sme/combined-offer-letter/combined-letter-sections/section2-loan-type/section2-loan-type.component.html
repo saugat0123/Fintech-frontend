@@ -3,7 +3,7 @@
         <p class="text-center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण</strong></p>
         <div>
             <table class="table table-bordered">
-                <ng-container *ngFor="let ld of loanData; let i = index">
+                <ng-container *ngFor="let ld of finalLoanDetails; let i = index">
                     <tr *ngIf="isIrrevocableLetter && ld.loanName === loanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY">
                         <!--Irrevocable letter of credit facility-->
                         <td width="10%"><strong>{{i + 1 | nepaliWord}})</strong></td>
@@ -1359,14 +1359,14 @@
                         </textarea>
                         </td>
                     </tr>
-                    <tr *ngIf="isTermLoanToOrFor && ld.loanName === loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE">
-                        <!--Term Loan to/for-->
-                        <td width="10%"><strong>{{i + 1 | nepaliWord}})</strong></td>
-                        <td>
-                            <app-term-loan-to-or-for #termLoanToOrForComponent
-                                                     [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="loanData" [index]="i"></app-term-loan-to-or-for>
-                        </td>
-                    </tr>
+<!--                    <tr *ngIf="isTermLoanToOrFor && ld.loanName === loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE">-->
+<!--                        &lt;!&ndash;Term Loan to/for&ndash;&gt;-->
+<!--                        <td width="10%"><strong>{{i + 1 | nepaliWord}})</strong></td>-->
+<!--                        <td>-->
+<!--                            <app-term-loan-to-or-for #termLoanToOrForComponent-->
+<!--                                                     [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="loanData" [index]="i"></app-term-loan-to-or-for>-->
+<!--                        </td>-->
+<!--                    </tr>-->
                     <tr *ngIf="isEquityMortgageTermLoan && ld.loanName === loanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN">
                         <!--Mortgage Term Loan / Equity Mortgage Term Loan-->
                         <td width="10%"><strong>{{i + 1 | nepaliWord}})</strong></td>
@@ -1375,14 +1375,16 @@
                                                            [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="loanData" [index]="i"></app-mortgage-equity-term-loan>
                         </td>
                     </tr>
-                    <tr *ngIf="isAutoLoanMaster && ld.loanName === loanNameConstant.AUTO_LOAN">
-                        <!--Auto Loan-->
-                        <td width="10%"><strong>{{i + 1 | nepaliWord}})</strong></td>
-                        <td>
-                            <app-auto-loan #autoLoanComponent
-                                           [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="loanData" [index]="i"></app-auto-loan>
-                        </td>
-                    </tr>
+<!--                    <ng-container *ngIf="isAutoLoanMaster && ld.loanName === loanNameConstant.AUTO_LOAN && (i + 1) === loanData.length">-->
+<!--                    <tr *ngFor="let autoData of autoLoanDetails; let index1 = index">-->
+<!--                        &lt;!&ndash;Auto Loan&ndash;&gt;-->
+<!--                        <td width="10%"><strong>{{i + index1 | nepaliWord}})</strong></td>-->
+<!--                        <td>-->
+<!--                            <app-auto-loan #autoLoanComponent-->
+<!--                                           [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="autoLoanDetails" [index]="index1"></app-auto-loan>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    </ng-container>-->
                     <tr *ngIf="isBankGuarantee && ld.loanName === loanNameConstant.BANK_GUARANTEE">
                         <!--Bank Guarantee-->
                         <td width="10%"><strong>{{i + 1 | nepaliWord}})</strong></td>
@@ -1571,9 +1573,27 @@
                         </td>
                     </tr>
                 </ng-container>
+                <tr *ngFor="let autoData of autoLoanDetails; let index1 = index">
+                    <!--Auto Loan-->
+                    <td width="10%"><strong>{{finalLoanDetails.length + (index1 + 1) | nepaliWord}})</strong></td>
+                    <td>
+                        <app-auto-loan #autoLoanComponent
+                                       [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="autoLoanDetails" [index]="index1" [data]="autoLoanData[index1]"></app-auto-loan>
+                    </td>
+                </tr>
+
+                <tr *ngFor="let termLoan of termLoanDetails; let index2 = index;">
+                    <!--Term Loan to/for-->
+                    <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length +(index2 + 1) | nepaliWord}})</strong></td>
+                    <td>
+                        <app-term-loan-to-or-for #termLoanToOrForComponent
+                                                 [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="termLoanDetails" [index]="index2" [data]="termLoanData[index2]"></app-term-loan-to-or-for>
+                    </td>
+                </tr>
+
                 <tr>
                     <!--Free Text-->
-                    <td width="10%"><strong>{{loanData.length + 1 | nepaliWord}})</strong></td>
+                    <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length + termLoanDetails.length + 1 | nepaliWord}})</strong></td>
                     <td>
                         <textarea
                                 class="form-control customFont nepaliFont"

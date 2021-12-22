@@ -43,9 +43,21 @@ export class PreExportLoanComponent implements OnInit {
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
-    }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.preExportForm.patchValue(this.initialInformation.preExportForm);
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.preExportForm.patchValue(this.initialInformation.preExportForm);
+      }
+      const dateOfExpiryType = this.initialInformation.preExportForm.dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.preExportForm.dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.preExportForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.preExportForm.dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.preExportForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+        }
+      }
     }
   }
 
