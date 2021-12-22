@@ -58,9 +58,21 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
             this.offerDocumentList.forEach(offerLetter => {
                 this.initialInformation = JSON.parse(offerLetter.initialInformation);
             });
-        }
-        if (!ObjectUtil.isEmpty(this.initialInformation)) {
-            this.mortgageEquityTermForm.patchValue(this.initialInformation.mortgageEquityTermForm);
+            if (!ObjectUtil.isEmpty(this.initialInformation)) {
+                this.mortgageEquityTermForm.patchValue(this.initialInformation.mortgageEquityTermForm);
+            }
+            const dateOfExpiryType = this.initialInformation.mortgageEquityTermForm.dateOfExpiryType;
+            if (dateOfExpiryType === 'AD') {
+                const dateOfExpiry = this.initialInformation.mortgageEquityTermForm.dateOfExpiry;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.mortgageEquityTermForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+                }
+            } else if (dateOfExpiryType === 'BS') {
+                const dateOfExpiry = this.initialInformation.mortgageEquityTermForm.dateOfExpiryNepali;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.mortgageEquityTermForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+                }
+            }
         }
     }
 

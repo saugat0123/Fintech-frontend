@@ -42,9 +42,21 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
-    }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.timeLetterCreditForm.patchValue(this.initialInformation.timeLetterCreditForm);
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.timeLetterCreditForm.patchValue(this.initialInformation.timeLetterCreditForm);
+      }
+      const dateOfExpiryType = this.initialInformation.timeLetterCreditForm.dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.timeLetterCreditForm.dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.timeLetterCreditForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.timeLetterCreditForm.dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.timeLetterCreditForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+        }
+      }
     }
   }
 
