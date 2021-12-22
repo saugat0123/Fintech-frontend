@@ -44,9 +44,21 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
-    }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.overdraftLoanForm.patchValue(this.initialInformation.overdraftLoanForm);
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.overdraftLoanForm.patchValue(this.initialInformation.overdraftLoanForm);
+      }
+      const dateOfExpiryType = this.initialInformation.overdraftLoanForm.dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.overdraftLoanForm.dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.overdraftLoanForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.overdraftLoanForm.dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.overdraftLoanForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+        }
+      }
     }
   }
 

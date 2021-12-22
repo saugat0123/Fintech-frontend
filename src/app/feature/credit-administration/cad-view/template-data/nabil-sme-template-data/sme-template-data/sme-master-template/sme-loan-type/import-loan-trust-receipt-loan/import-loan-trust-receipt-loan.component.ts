@@ -46,9 +46,21 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
-    }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.importLoanTrust.patchValue(this.initialInformation.importLoanTrust);
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.importLoanTrust.patchValue(this.initialInformation.importLoanTrust);
+      }
+      const dateOfExpiryType = this.initialInformation.importLoanTrust.dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.importLoanTrust.dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.importLoanTrust.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.importLoanTrust.dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.importLoanTrust.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+        }
+      }
     }
   }
 
