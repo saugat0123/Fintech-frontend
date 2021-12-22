@@ -13,6 +13,7 @@ export class TermLoanToOrForPrintComponent implements OnInit {
     @Input() freeText;
     @Input() loanData;
     @Input() index;
+    @Input() data;
     tempData;
     termLoanFreeText: any = {};
     termLoanForTermLoanToOrFor;
@@ -30,13 +31,13 @@ export class TermLoanToOrForPrintComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
         this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
       }
-      if (!ObjectUtil.isEmpty(this.tempData.termLoanForm)) {
-        this.termLoanForTermLoanToOrFor = this.tempData.termLoanForm.termLoanFor;
-        this.termLoanTypeTermLoanToOrFor = this.tempData.termLoanForm.termLoanType;
-        this.emiPaymentTypeTermLoanToOrFor = this.tempData.termLoanForm.emiPaymentType;
-        this.interestSubAgTermLoanToOrFor = this.tempData.termLoanForm.subsidyOrAgricultureLoan;
-        this.paymentTermLoanToOrFor = this.tempData.termLoanForm.paymentTerms;
-        if (this.tempData.termLoanForm.complementaryOther === true) {
+      if (!ObjectUtil.isEmpty(this.data)) {
+        this.termLoanForTermLoanToOrFor = this.data.termLoanFor;
+        this.termLoanTypeTermLoanToOrFor = this.data.termLoanType;
+        this.emiPaymentTypeTermLoanToOrFor = this.data.emiPaymentType;
+        this.interestSubAgTermLoanToOrFor = this.data.subsidyOrAgricultureLoan;
+        this.paymentTermLoanToOrFor = this.data.paymentTerms;
+        if (this.data.complementaryOther === true) {
           this.complementaryOtherTermLoanToOrFor = true;
         }
       }
