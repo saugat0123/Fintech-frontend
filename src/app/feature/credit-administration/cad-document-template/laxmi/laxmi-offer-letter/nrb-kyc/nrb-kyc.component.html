@@ -1,4 +1,4 @@
-<div [nbSpinner]="spinner" class="row">
+<div [nbSpinner]="spinner" class="row" id="print-section-{{cadCheckListEnum.NRB_KYC}}">
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
 
@@ -95,70 +95,105 @@
 <!--                व्यक्तिको नाम/फर्म, कम्पनी र संस्थाको नाम र छापः ________________________________-->
 <!--            </div>-->
 
-            <strong>कर्जा कारोवार सम्बन्धी स्व–घोषणा पत्र</strong>
-
-            मितिः <input type="text" class="form-control-sm form-field nepaliFont"
-                         formControlName="date"> <br>
+            <strong class="text-center">कर्जा कारोवार सम्बन्धी स्व–घोषणा पत्र</strong>
+            <br>
+            <p class="float-right">मितिः <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+                            formControlName="date">
+                <span class="nepaliFont print-only"><b>{{form.get('date').value ? form.get('date').value : '========='}}</b></span></p>
+            <br>
             श्रीमान शाखा प्रमुख ज्यू, <br>
 
-            लक्ष्मी लघुवित्त वित्तीय संस्था लि. <br>
-            <input type="text" class="form-control-sm form-field nepaliFont"
-                   formControlName="memberName1"> शाखा
-            <input type="text" class="form-control-sm form-field nepaliFont"
-                   formControlName="branchName">।
-
+            लक्ष्मी लघुवित्त वित्तीय संस्था लिमिटेड. <br>
+            <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+                   formControlName="memberName1">
+            <span class=" nepaliFont print-only"><b>{{form.get('memberName1').value ? form.get('memberName1').value : '========='}}</b></span>
+            शाखा
+            <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+                   formControlName="branchName">
+            <span class=" nepaliFont print-only"><b>{{form.get('branchName').value ? form.get('branchName').value : '========='}}</b></span>।
+            <br>
             म/हामीले वैक तथा वित्तीय संस्था संग कर्जा कारोवार गरेको सम्बन्धी विवरण तपसिल वमोजिम स्वघोषणा गर्दछु/छौं ।
+            <br>
             <table class="table table-bordered table-hover table-sm sb-small text-center ">
-                <thead>
-                <tr class="sb-bg-dark">
+                <thead class="sb-bg-dark">
+                <tr>
                     <td rowspan="2">बैंक/वित्तीय संस्थाको नाम</td>
-                    <td rowspan="2">कर्जा रकम</td>
+                    <td colspan="2">कर्जा रकम</td>
+                    <td rowspan="2">म्याद नाघेको छ/छैन</td>
+                    <td rowspan="2" *ngIf="form.get('bankDetails')['length'] > 1">Action</td>
+                </tr>
+                <tr>
                     <td>विना धितो</td>
                     <td>धितो</td>
-                    <td rowspan="2">म्याद नाघेको छ/छैन</td>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td><input type="text" class="form-control-sm form-field nepaliFont"
-                               formControlName="bankName"></td>
-                    <td><input type="text" class="form-control-sm form-field nepaliFont"
-                               formControlName="loanAmount"></td>
-                    <td><input type="text" class="form-control-sm form-field nepaliFont"
-                               formControlName="expiredOrNot"></td>
-                    <td><input type="text" class="form-control-sm form-field nepaliFont"
-                               formControlName="withoutCollateral"></td>
-                    <td><input type="text" class="form-control-sm form-field nepaliFont"
-                               formControlName="withCollateral"></td>
+                <tbody *ngFor="let data of form.get('bankDetails')['controls']; let i = index" formArrayName="bankDetails">
+                <tr [formGroupName]="i">
+                    <td><input type="text" class="form-control-sm form-field nepaliFont disable-print"
+                               formControlName="bankName">
+                        <span class=" nepaliFont print-only"><b>{{form.get(['bankDetails', i, 'bankName']).value ? form.get(['bankDetails', i, 'bankName']).value : '========='}}</b></span>
+                    </td>
+                    <td><input (change)="addWithoutCollateralValue()"
+                               type="text" class="form-control-sm form-field nepaliFont disable-print"
+                               formControlName="withoutCollateral">
+                        <span class=" nepaliFont print-only"><b>{{form.get(['bankDetails', i, 'withoutCollateral']).value ? form.get(['bankDetails', i, 'withoutCollateral']).value : '========='}}</b></span>
+                    </td>
+                    <td><input (change)="addWithCollateralValue()"
+                               type="text" class="form-control-sm form-field nepaliFont disable-print"
+                               formControlName="withCollateral">
+                        <span class=" nepaliFont print-only"><b>{{form.get(['bankDetails', i, 'withCollateral']).value ? form.get(['bankDetails', i, 'withCollateral']).value : '========='}}</b></span>
+                    </td>
+                    <td><input type="text" class="form-control-sm form-field nepaliFont disable-print"
+                               formControlName="expiredOrNot">
+                        <span class=" nepaliFont print-only"><b>{{form.get(['bankDetails', i, 'expiredOrNot']).value ? form.get(['bankDetails', i, 'expiredOrNot']).value : '========='}}</b></span>
+                    </td>
+                    <td *ngIf="form.get('bankDetails')['length'] > 1">
+                        <input (click)="removeBankDetails(i)"
+                               class="align-self-end btn btn-sm btn-danger btn-primary"
+                               type="button" value="Delete"/>
+                    </td>
                 </tr>
                 </tbody>
                 <tr>
                     <td>जम्मा</td>
-                    <td><input type="text" class="form-control-sm form-field nepaliFont"
-                               formControlName="totalWithOutCollateral"></td>
-                    <td><input type="text" class="form-control-sm form-field nepaliFont"
-                               formControlName="totalWithCollateral"></td>
-                    <td>-</td>
+                    <td><input type="text" class="form-control-sm form-field nepaliFont disable-print"
+                               formControlName="totalWithOutCollateral">
+                        <span class=" nepaliFont print-only"><b>{{form.get('totalWithOutCollateral').value ? form.get('totalWithOutCollateral').value : '========='}}</b></span>
+                    </td>
+                    <td><input type="text" class="form-control-sm form-field nepaliFont disable-print"
+                               formControlName="totalWithCollateral">
+                        <span class=" nepaliFont print-only"><b>{{form.get('totalWithCollateral').value ? form.get('totalWithCollateral').value : '========='}}</b></span>
+                    </td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
+            <div class="float-right">
+                <input (click)="addBankDetails()" class="btn btn-sm btn-flat btn-primary"
+                       type="button" value="Add More"/>
+            </div>
 
             उपरोक्त बमोजिम म/हामीले घोषणा गरेको विवरण ठीक छ झुट्ठा ठहरे कानुन बमोजिम कारवाही भएमा मञ्जुरी छ । <br>
 
             विवरण दिनेः <br>
-
-            <input type="text" class="form-control-sm form-field nepaliFont"
+            <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                    formControlName="detailsName">
-            सदस्यको नाम : <input type="text" class="form-control-sm form-field nepaliFont"
+            <span class=" nepaliFont print-only"><b>{{form.get('detailsName').value ? form.get('detailsName').value : '========='}}</b></span>
+            <br>
+            सदस्यको नाम : <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                                  formControlName="memberName">
-            केन्द्र नं : <input type="text" class="form-control-sm form-field nepaliFont"
+            <span class=" nepaliFont print-only"><b>{{form.get('memberName').value ? form.get('memberName').value : '========='}}</b></span>
+            <br>
+            केन्द्र नं : <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                                 formControlName="centerNo">
-            ठेगाना :<input type="text" class="form-control-sm form-field nepaliFont"
+            <span class=" nepaliFont print-only"><b>{{form.get('centerNo').value ? form.get('centerNo').value : '========='}}</b></span>
+            <br>
+            ठेगाना :<input type="text" class="form-control-sm form-field nepaliFont disable-print"
                            formControlName="address">
-
+            <span class=" nepaliFont print-only"><b>{{form.get('address').value ? form.get('address').value : '========='}}</b></span>
+            <br>
             <div>
-                <button type="submit" class="btn btn-primary float-right" nbButton status="success">
-                    Save
-                </button>
+                <button type="submit" class="btn btn-primary float-right disable-print" nbButton status="success">Save</button>
             </div>
         </form>
         <button class="btn btn-primary d-print-none"
@@ -169,5 +204,5 @@
         </button>
     </div>
 </div>
-<app-nrb-kyc-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
-                                hidden></app-nrb-kyc-print>
+<!--<app-nrb-kyc-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"-->
+<!--                                hidden></app-nrb-kyc-print>-->
