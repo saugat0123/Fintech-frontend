@@ -44,9 +44,21 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             this.offerDocumentList.forEach(offerLetter => {
                 this.initialInformation = JSON.parse(offerLetter.initialInformation);
             });
-        }
-        if (!ObjectUtil.isEmpty(this.initialInformation)) {
-            this.revolvingShortTermLoan.patchValue(this.initialInformation.revolvingShortTermLoan);
+            if (!ObjectUtil.isEmpty(this.initialInformation)) {
+                this.revolvingShortTermLoan.patchValue(this.initialInformation.revolvingShortTermLoan);
+            }
+            const dateOfExpiryType = this.initialInformation.revolvingShortTermLoan.dateOfExpiryType;
+            if (dateOfExpiryType === 'AD') {
+                const dateOfExpiry = this.initialInformation.revolvingShortTermLoan.dateOfExpiry;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.revolvingShortTermLoan.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+                }
+            } else if (dateOfExpiryType === 'BS') {
+                const dateOfExpiry = this.initialInformation.revolvingShortTermLoan.dateOfExpiryNepali;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.revolvingShortTermLoan.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+                }
+            }
         }
     }
 

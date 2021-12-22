@@ -45,9 +45,21 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
-    }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.demandLoanForm.patchValue(this.initialInformation.demandLoanForm);
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.demandLoanForm.patchValue(this.initialInformation.demandLoanForm);
+      }
+      const dateOfExpiryType = this.initialInformation.demandLoanForm.dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.demandLoanForm.dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.demandLoanForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.demandLoanForm.dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.demandLoanForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+        }
+      }
     }
   }
 
