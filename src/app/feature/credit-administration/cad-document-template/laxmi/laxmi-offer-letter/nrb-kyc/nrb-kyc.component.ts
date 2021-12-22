@@ -12,6 +12,9 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
+import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 
 @Component({
   selector: 'app-nrb-kyc',
@@ -24,24 +27,33 @@ export class NrbKycComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
       private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-      private routerUtilsService: RouterUtilsService
+      private routerUtilsService: RouterUtilsService,
+      private nepaliNumberPipe: NepaliNumberPipe,
+      private engToNepNumberPipe: EngToNepaliNumberPipe,
+      private nepaliToEnglish: NepaliToEngNumberPipe
   ) { }
   @Input() cadData;
   @Input() customerLoanId;
   @Input() documentId;
   initialInfoPrint;
-spinner = false;
+  spinner = false;
   form: FormGroup;
   cadCheckListEnum = CadCheckListTemplateEnum;
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.initialInfoPrint = singleCadFile.initialInformation;
-          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
-        }
-      });
+      if (this.cadData.cadFileList.length > 0) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+            this.initialInfoPrint = singleCadFile.initialInformation;
+            const data = JSON.parse(singleCadFile.initialInformation);
+            this.form.patchValue(data);
+            this.setBankDetails(data);
+          }
+        });
+      } else {
+        this.addBankDetails();
+      }
     }
   }
   buildForm() {
@@ -56,8 +68,15 @@ spinner = false;
       // finalTotal: [undefined],
       // yesNoTotal: [undefined],
       // yesNoFinalTotal: [undefined],
-      bankDetail: this.formBuilder.array([]),
-      totalWithoutCollateral: [undefined],
+      date: [undefined],
+      memberName1: [undefined],
+      branchName: [undefined],
+      bankDetails: this.formBuilder.array([]),
+      detailsName: [undefined],
+      memberName: [undefined],
+      centerNo: [undefined],
+      address: [undefined],
+      totalWithOutCollateral: [undefined],
       totalWithCollateral: [undefined],
     });
   }
@@ -101,43 +120,55 @@ submit() {
     this.dialogRef.close();
     this.spinner = false;
   });
-  console.log(this.form.value);
 }
 
   addBankDetails() {
-    return this.formBuilder.group({
-      date: [undefined],
-      memberName1: [undefined],
-      branchName: [undefined],
-      loanAmount: [undefined],
-      bankName: [undefined],
-      expiredOrNot: [undefined],
-      withoutCollateral: [undefined],
-      withCollateral: [undefined],
-      detailsName: [undefined],
-      memberName: [undefined],
-      centerNo: [undefined],
-      address: [undefined],
-    });
+    (this.form.get('bankDetails') as FormArray).push(
+        this.formBuilder.group({
+          bankName: [undefined],
+          expiredOrNot: [undefined],
+          withoutCollateral: [undefined],
+          withCollateral: [undefined],
+        })
+    );
   }
 
   setBankDetails(data) {
-    const detail = this.form.get('bankDetail') as FormArray;
-    data.forEach(s => {
+    const detail = this.form.get('bankDetails') as FormArray;
+    console.log('detail', detail);
+    data.bankDetails.forEach(s => {
       detail.push(this.formBuilder.group({
-        date: [s.date],
-        memberName1: [s.memberName1],
-        branchName: [s.branchName],
-        loanAmount: [s.loanAmount],
         bankName: [s.bankName],
         expiredOrNot: [s.expiredOrNot],
         withoutCollateral: [s.withoutCollateral],
         withCollateral: [s.withCollateral],
-        detailsName: [s.detailsName],
-        memberName: [s.memberName],
-        centerNo: [s.centerNo],
-        address: [s.address],
       }));
     });
+  }
+
+  removeBankDetails(i) {
+    (<FormArray>this.form.get('bankDetails')).removeAt(i);
+    this.addWithCollateralValue();
+    this.addWithoutCollateralValue();
+  }
+
+  addWithCollateralValue() {
+    let totalCollateral = 0;
+    const data = this.form.get('bankDetails') as FormArray;
+    data.value.forEach(s => {
+      totalCollateral += Number(this.nepaliToEnglish.transform(s.withCollateral));
+    });
+    const value = this.nepaliNumberPipe.transform(totalCollateral, 'preeti');
+    this.form.get('totalWithCollateral').patchValue(value);
+  }
+
+  addWithoutCollateralValue() {
+    let totalWithoutCollateral = 0;
+    const data = this.form.get('bankDetails') as FormArray;
+    data.value.forEach(s => {
+      totalWithoutCollateral += Number(this.nepaliToEnglish.transform(s.withoutCollateral));
+    });
+    const value = this.nepaliNumberPipe.transform(totalWithoutCollateral, 'preeti');
+    this.form.get('totalWithOutCollateral').patchValue(value);
   }
 }
