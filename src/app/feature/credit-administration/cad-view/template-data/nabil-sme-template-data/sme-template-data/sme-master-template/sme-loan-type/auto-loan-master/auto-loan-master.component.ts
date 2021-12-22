@@ -60,9 +60,27 @@ export class AutoLoanMasterComponent implements OnInit {
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.autoLoanMasterForm.patchValue(this.initialInformation.autoLoanMasterForm);
+      }
+      this.patchDate();
     }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.autoLoanMasterForm.patchValue(this.initialInformation.autoLoanMasterForm);
+  }
+
+  patchDate() {
+    for (let val = 0; val < this.initialInformation.autoLoanMasterForm.autoLoanFormArray.length; val++) {
+      const dateOfExpiryType = this.initialInformation.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.autoLoanMasterForm.get(['autoLoanFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.autoLoanMasterForm.get(['autoLoanFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
+        }
+      }
     }
   }
 

@@ -61,9 +61,21 @@ export class BankGuaranteeComponent implements OnInit {
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
-    }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.bankGuarantee.patchValue(this.initialInformation.bankGuarantee);
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.bankGuarantee.patchValue(this.initialInformation.bankGuarantee);
+      }
+      const dateOfExpiryType = this.initialInformation.bankGuarantee.dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.bankGuarantee.dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.bankGuarantee.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.bankGuarantee.dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.bankGuarantee.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+        }
+      }
     }
   }
   buildForm() {
