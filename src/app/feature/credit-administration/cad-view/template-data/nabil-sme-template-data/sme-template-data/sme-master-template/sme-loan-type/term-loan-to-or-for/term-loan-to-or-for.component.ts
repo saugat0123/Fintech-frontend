@@ -17,6 +17,8 @@ import {OfferDocument} from '../../../../../../../model/OfferDocument';
 export class TermLoanToOrForComponent implements OnInit {
   @Input() loanName;
   @Input() customerApprovedDoc;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() isEdit = false;
   termLoanForm: FormGroup;
   loanDetails: any = [];
   isComplementaryOtherLoan = false;
@@ -43,6 +45,7 @@ export class TermLoanToOrForComponent implements OnInit {
   ];
   termLoanNumber: Array<any> = new Array<any>();
   isSubsidySelected = false;
+  initialInformation: any;
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -58,6 +61,35 @@ export class TermLoanToOrForComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+    }
+    if (this.isEdit) {
+      if (this.offerDocumentList.length > 0) {
+        this.offerDocumentList.forEach(offerLetter => {
+          this.initialInformation = JSON.parse(offerLetter.initialInformation);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.termLoanForm.get('termLoanDetails').patchValue(this.initialInformation.termLoanForm.termLoanDetails);
+      }
+      //Loan Application Date
+      this.patchDate();
+    }
+  }
+
+  patchDate() {
+    for (let val = 0; val < this.initialInformation.termLoanForm.termLoanDetails.length; val++){
+      const dateOfExpiryType = this.initialInformation.termLoanForm.termLoanDetails[val].dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.termLoanForm.termLoanDetails[val].dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.termLoanForm.get(['termLoanDetails', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.termLoanForm.termLoanDetails[val].dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.termLoanForm.get(['termLoanDetails', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
+        }
+      }
     }
   }
 
@@ -216,9 +248,7 @@ export class TermLoanToOrForComponent implements OnInit {
   }
 
   async translateAndSetVal(i) {
-    // this.termLoanForm.get(['termLoanDetails', i, 'complementaryOther']).patchValue(this.isComplementaryOtherLoan);
     const tempComplementary = this.termLoanForm.get(['termLoanDetails', i, 'complementaryOther']).value;
-    console.log('tempComplementary', tempComplementary)
     if (!ObjectUtil.isEmpty(tempComplementary)) {
       this.termLoanForm.get(['termLoanDetails', i, 'complementaryOtherTrans']).patchValue(tempComplementary);
     }
