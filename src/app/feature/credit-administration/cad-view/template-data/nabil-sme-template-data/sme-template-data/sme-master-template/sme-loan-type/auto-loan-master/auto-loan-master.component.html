@@ -1,16 +1,17 @@
 <div>
     <form [formGroup]="autoLoanMasterForm">
+        <div *ngFor="let formDetails of autoLoanMasterForm.get('autoLoanFormArray')['controls']; let i = index" formArrayName="autoLoanFormArray">
+        <ng-container [formGroupName]="i">
         <div class="row">
             <div class="col-md-12 pb-2">
-                <h5>AUTO LOAN </h5>
+                <h5>AUTO LOAN {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
             </div>
 
             <div class="col-md-12 mt-2">
-                <nb-checkbox #complementaryOther (checkedChange)="checkComplimetryOtherLoan(complementaryOther.checked)"
-                             [checked]="isComplementaryOtherLoan">
+                <nb-checkbox #complementaryOther formControlName="complementaryOther">
                     <i> Is complimentary of other loan ? </i></nb-checkbox>
             </div>
-            <div class="col-md-4 mt-3" *ngIf="isComplementaryOtherLoan">
+            <div class="col-md-4 mt-3" *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'complementaryOther']).value">
                 <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
                 <nb-select placeholder="Select Complimentary Loan"
                            fullWidth
@@ -24,15 +25,13 @@
 
         <div class="row">
             <div class="col-md-12 mt-2">
-                <nb-checkbox #vehiclePurchased (checkedChange)="checkVehiclePurchased(vehiclePurchased.checked)"
-                             [checked]="isVehiclePurchased">
+                <nb-checkbox #vehiclePurchased formControlName="vehiclePurchased">
                     <i> Is vehicle already purchased ? </i></nb-checkbox>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 mt-2">
-                <nb-checkbox #vehicleRegistered (checkedChange)="checkVehicleRegistered(vehicleRegistered.checked)"
-                             [checked]="isVehicleRegistered">
+                <nb-checkbox #vehicleRegistered formControlName="vehicleRegistered" id="{{'vehicleRegistered' + i}}">
                     <i> Is vehicle already registered in Bank's name ? </i></nb-checkbox>
             </div>
         </div>
@@ -40,7 +39,7 @@
         <div class="row">
             <div class="col-md-4" style="margin-top: 1em">
                 <label><strong>Auto Loan Type</strong></label>
-                <nb-select (selectedChange)="setAutoLoanType($event)"
+                <nb-select (selectedChange)="setAutoLoanType($event, i)"
                            formControlName="autoLoanType"
                            fullWidth
                            placeholder="Auto Loan Type">
@@ -85,7 +84,7 @@
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
                 <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount"
-                       (input)="getNumAmountWord('loanAmount', 'loanAmountWords')"
+                       (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i, 'autoLoanFormArray')"
                        nbInput
                        shape="semi-round"
                        status="success" type="number">
@@ -151,8 +150,10 @@
             </div>
         </div>
 
-        <div *ngIf="isNewTermLoan || isNewInstallmentBasis || isReviewCreditLimit || isOtherCreditLimit">
-            <div *ngIf="isNewTermLoan">
+        <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_EMI_TERM_LOAN'
+            || autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_INSTALLMENT_BASIS' ||
+            autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMIT' || autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'OTHER_CREDIT_LIMITS'">
+            <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_EMI_TERM_LOAN'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label><strong>EMI Payment Type</strong></label>
@@ -173,7 +174,7 @@
                     <input class="form-control" formControlName="baseRate" fullWidth id="baseRate"
                            nbInput
                            shape="semi-round"
-                           (change)="calInterestRate()"
+                           (change)="calInterestRate(i, 'autoLoanFormArray')"
                            status="success" type="number">
                 </div>
                 <div class="col-md-4 form-group fieldMargin">
@@ -197,7 +198,7 @@
                     <input class="form-control" formControlName="premiumRate" fullWidth id="premiumRate"
                            nbInput
                            shape="semi-round"
-                           (change)="calInterestRate()"
+                           (change)="calInterestRate(i, 'autoLoanFormArray')"
                            status="success" type="number">
                 </div>
                 <div class="col-md-4 form-group fieldMargin">
@@ -238,12 +239,13 @@
                 </div>
             </div>
 
-            <div *ngIf="isNewTermLoan || isOtherCreditLimit">
+            <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_EMI_TERM_LOAN' ||
+                autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'OTHER_CREDIT_LIMITS'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="emiInfigure">EMI in Figure</label>
                         <input class="form-control" formControlName="emiInfigure" fullWidth id="emiInfigure"
-                               (input)="getNumAmountWord('emiInfigure', 'emiInWords')"
+                               (input)="getNumAmountWord('emiInfigure', 'emiInWords', i, 'autoLoanFormArray')"
                                nbInput
                                shape="semi-round"
                                status="success" type="number">
@@ -287,7 +289,7 @@
                 </div>
             </div>
 
-            <div *ngIf="isNewTermLoan">
+            <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_EMI_TERM_LOAN'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="numberOfInstallment">Total Number of Installment</label>
@@ -316,7 +318,8 @@
             </div>
 
             <!--        Payment Amount for Installment-->
-            <div *ngIf="isNewInstallmentBasis || isReviewCreditLimit">
+            <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_INSTALLMENT_BASIS' ||
+                autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMIT'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label><strong>Payment Terms</strong></label>
@@ -337,7 +340,7 @@
                         <label class="font-weight-bold" for="paymentAmountFigure">Payment Amount in Figure</label>
                         <input class="form-control" formControlName="paymentAmountFigure" fullWidth
                                id="paymentAmountFigure"
-                               (input)="getNumAmountWord('paymentAmountFigure', 'paymentAmountWords')"
+                               (input)="getNumAmountWord('paymentAmountFigure', 'paymentAmountWords', i, 'autoLoanFormArray')"
                                nbInput
                                shape="semi-round"
                                status="success" type="number">
@@ -412,7 +415,8 @@
             </div>
 
             <!--        Tenure of Loan for New EMI/Installment cases-->
-            <div *ngIf="isNewTermLoan || isNewInstallmentBasis">
+            <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_EMI_TERM_LOAN'
+            || autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'NEW_INSTALLMENT_BASIS'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="serviceCharge">Service Charge (in %)</label>
@@ -463,21 +467,21 @@
             <!--        End of Tenure Cases-->
 
             <!--        Expiry Date for Annual Cases-->
-            <div *ngIf="isOtherCreditLimit || isReviewCreditLimit">
+            <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMIT' || autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'OTHER_CREDIT_LIMITS'">
                 <div class="row">
                     <div class="col-md-4 form-group">
-                        <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry/Next Review Date</label><br>
+                        <label class="font-weight-bold" for="{{'dateOfExpiryType' + i}}"> Loan Expiry/Next Review Date</label><br>
                         <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
-                                        formControlName="dateOfExpiryType" id="dateOfExpiryType"
-                                        name="dateOfExpiryType" status="success">
+                                        formControlName="dateOfExpiryType" id="{{'dateOfExpiryType' + i}}"
+                                        name="{{'dateOfExpiryType' + i}}" status="success">
                             <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
                         </nb-radio-group>
-                        <div *ngIf="BSExpiry" style="margin-bottom: -50px;">
+                        <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
                             <nepali-patro [displayNepali]="true" [responseType]="2"
                                           formControlName="dateOfExpiryNepali">
                             </nepali-patro>
                         </div>
-                        <input *ngIf="ADExpiry" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                        <input *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
                                fullWidth
                                id="dateOfExpiry"
                                nbInput
@@ -502,7 +506,7 @@
             </div>
 
             <!--       Name of dealer for review credit limit-->
-            <div *ngIf="isReviewCreditLimit">
+            <div *ngIf="autoLoanMasterForm.get(['autoLoanFormArray', i, 'autoLoanType']).value === 'REVIEW_OF_OTHER_CREDIT_LIMIT'">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="nameOfDealer">Name of Dealer</label>
@@ -532,10 +536,12 @@
         <!-- For Translation -->
                 <div class="row pt-5 pb-2 pr-4">
                     <div class="col-md-12 text-right">
-                        <button (click)="translateAndSetVal()" nbButton outline size="small" status="info">
+                        <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
                             Translate Auto Loan Details
                         </button>
                     </div>
                 </div>
+        </ng-container>
+        </div>
     </form>
 </div>

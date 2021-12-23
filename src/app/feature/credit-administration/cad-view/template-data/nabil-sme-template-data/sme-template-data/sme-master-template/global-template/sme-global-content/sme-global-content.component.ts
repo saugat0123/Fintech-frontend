@@ -13,6 +13,7 @@ import {OfferDocument} from '../../../../../../../model/OfferDocument';
   styleUrls: ['./sme-global-content.component.scss']
 })
 export class SmeGlobalContentComponent implements OnInit {
+  @Input() isEdit = false;
   globalForm: FormGroup;
   translatedFormGroup: FormGroup;
   translatedValue: any;
@@ -63,13 +64,55 @@ export class SmeGlobalContentComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (this.offerDocumentList.length > 0) {
-      this.offerDocumentList.forEach(offerLetter => {
-        this.initialInformation = JSON.parse(offerLetter.initialInformation);
-      });
-    }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.globalForm.patchValue(this.initialInformation.smeGlobalForm);
+    if (this.isEdit) {
+      if (this.offerDocumentList.length > 0) {
+        this.offerDocumentList.forEach(offerLetter => {
+          this.initialInformation = JSON.parse(offerLetter.initialInformation);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.globalForm.patchValue(this.initialInformation.smeGlobalForm);
+        //Date Of Approval
+        const dateOfApprovalType = this.initialInformation.smeGlobalForm.dateOfApprovalType;
+        if (dateOfApprovalType === 'AD') {
+          const dateOfApproval = this.initialInformation.smeGlobalForm.dateOfApproval;
+          if (!ObjectUtil.isEmpty(dateOfApproval)) {
+            this.globalForm.get('dateOfApproval').patchValue(new Date(dateOfApproval));
+          }
+        } else if (dateOfApprovalType === 'BS') {
+          const dateOfApproval = this.initialInformation.smeGlobalForm.dateOfApprovalNepali;
+          if (!ObjectUtil.isEmpty(dateOfApproval)) {
+            this.globalForm.get('dateOfApprovalNepali').patchValue(dateOfApproval);
+          }
+        }
+        //Loan Application Date
+        const loanApplicationDataType = this.initialInformation.smeGlobalForm.loanApplicationDataType;
+        if (loanApplicationDataType === 'AD') {
+          const loanApplicationDate =this.initialInformation.smeGlobalForm.loanApplicationDate;
+          if (!ObjectUtil.isEmpty(loanApplicationDate)) {
+            this.globalForm.get('loanApplicationDate').patchValue(new Date(loanApplicationDate));
+          }
+        } else if (loanApplicationDataType === 'BS') {
+          const loanApplicationDate = this.initialInformation.smeGlobalForm.loanApplicationDateNepali;
+          if (!ObjectUtil.isEmpty(loanApplicationDate)) {
+            this.globalForm.get('loanApplicationDateNepali').patchValue(loanApplicationDate);
+          }
+        }
+        //Sanction Letter Date
+        //Loan Application Date
+        const previousSanctionType = this.initialInformation.smeGlobalForm.previousSanctionType;
+        if (previousSanctionType === 'AD') {
+          const sanctionLetterDate = this.initialInformation.smeGlobalForm.sanctionLetterDate;
+          if (!ObjectUtil.isEmpty(sanctionLetterDate)) {
+            this.globalForm.get('sanctionLetterDate').patchValue(new Date(sanctionLetterDate));
+          }
+        } else if (previousSanctionType === 'BS') {
+          const sanctionLetterDate = this.initialInformation.smeGlobalForm.sanctionLetterDateNepali;
+          if (!ObjectUtil.isEmpty(sanctionLetterDate)) {
+            this.globalForm.get('sanctionLetterDateNepali').patchValue(sanctionLetterDate);
+          }
+        }
+      }
     }
   }
 
@@ -91,12 +134,21 @@ export class SmeGlobalContentComponent implements OnInit {
       dateOfApproval: [undefined],
       dateOfApprovalTrans: [undefined],
       dateOfApprovalCT: [undefined],
+      dateOfApprovalNepali: [undefined],
+      dateOfApprovalNepaliTrans: [undefined],
+      dateOfApprovalNepaliCT: [undefined],
       loanApplicationDate: [undefined],
       loanApplicationDateTrans: [undefined],
       loanApplicationDateCT: [undefined],
+      loanApplicationDateNepali: [undefined],
+      loanApplicationDateNepaliTrans: [undefined],
+      loanApplicationDateNepaliCT: [undefined],
       sanctionLetterDate: [undefined],
       sanctionLetterDateTrans: [undefined],
       sanctionLetterDateCT: [undefined],
+      sanctionLetterDateNepali: [undefined],
+      sanctionLetterDateNepaliTrans: [undefined],
+      sanctionLetterDateNepaliCT: [undefined],
       schemeInterestRate: [undefined],
       schemeInterestRateTrans: [undefined],
       schemeInterestRateCT: [undefined],
@@ -198,7 +250,7 @@ export class SmeGlobalContentComponent implements OnInit {
         this.globalForm.get('dateOfApprovalCT').patchValue(dateOfApproval);
       }
     } else if (dateOfApprovalType === 'BS') {
-      const dateOfApproval = this.globalForm.get('dateOfApproval').value.nDate;
+      const dateOfApproval = this.globalForm.get('dateOfApprovalNepali').value.nDate;
       if (!ObjectUtil.isEmpty(dateOfApproval)) {
         this.globalForm.get('dateOfApprovalTrans').patchValue(dateOfApproval);
         this.globalForm.get('dateOfApprovalCT').patchValue(dateOfApproval);
@@ -236,7 +288,7 @@ export class SmeGlobalContentComponent implements OnInit {
         this.globalForm.get('loanApplicationDateCT').patchValue(loanApplicationDate);
       }
     } else if (loanApplicationDataType === 'BS') {
-      const loanApplicationDate = this.globalForm.get('loanApplicationDate').value.nDate;
+      const loanApplicationDate = this.globalForm.get('loanApplicationDateNepali').value.nDate;
       if (!ObjectUtil.isEmpty(loanApplicationDate)) {
         this.globalForm.get('loanApplicationDateTrans').patchValue(loanApplicationDate);
         this.globalForm.get('loanApplicationDateCT').patchValue(loanApplicationDate);
@@ -251,7 +303,7 @@ export class SmeGlobalContentComponent implements OnInit {
         this.globalForm.get('sanctionLetterDateCT').patchValue(previousSanctionDate);
       }
     } else if (previousSanctionType === 'BS') {
-      const previousSanctionDate = this.globalForm.get('sanctionLetterDate').value.nDate;
+      const previousSanctionDate = this.globalForm.get('sanctionLetterDateNepali').value.nDate;
       if (!ObjectUtil.isEmpty(previousSanctionType)) {
         this.globalForm.get('sanctionLetterDateTrans').patchValue(previousSanctionDate);
         this.globalForm.get('sanctionLetterDateCT').patchValue(previousSanctionDate);

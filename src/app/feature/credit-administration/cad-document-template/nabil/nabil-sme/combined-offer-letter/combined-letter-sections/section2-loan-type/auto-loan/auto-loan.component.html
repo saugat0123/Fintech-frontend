@@ -7,11 +7,11 @@
                             type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong>
 
         <strong><br> सीमाः <ng-container *ngIf="complementaryOtherAutoLoan">(</ng-container>रु.<input class="form-field form-control-sm "
-                                     formControlName="loanAmountAutoLoan"
+                                     value="{{loanData[index]?.loanAmountNp}}"
                                      placeholder=""
                                      type="text"/>।-<ng-container *ngIf="complementaryOtherAutoLoan">)</ng-container>
             (अक्षरेपी रु.<input class="form-field form-control-sm "
-                                formControlName="loanAmountInWordAutoLoan"
+                                value="{{loanData[index]?.loanAmountWords}}"
                                 placeholder=""
                                 type="text"/>
             मात्र)</strong><br>

@@ -223,7 +223,7 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
             totalTenureOfLoanCT: [undefined, Validators.required],
             totalLimitFigureCT: [undefined, Validators.required],
             totalLimitWordsCT: [undefined, Validators.required],
-            // circularRateCT: [undefined, Validators.required],
+            // circularRateCT: [undefined/*, Validators.required*/],
             nameOfStaffCT: [undefined, Validators.required],
             nameOfBranchManagerCT: [undefined, Validators.required],
             loanSubTypeCT: [undefined],

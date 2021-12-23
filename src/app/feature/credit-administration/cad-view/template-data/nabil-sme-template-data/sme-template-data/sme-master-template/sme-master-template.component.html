@@ -1,10 +1,10 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner">
     <nb-card-header *ngIf="isEdit">
         <h3>Edit Combined Loan Data</h3>
         <span class="font-weight-bold cursor float-right" style="margin-top: -2em" (click)="nbDialogRef.close()">x</span>
     </nb-card-header>
-    <nb-card-body [nbSpinner]="spinner">
-    <app-sme-global-content #smeGlobalContent [offerDocumentList]="customerApprovedDoc.offerDocumentList"></app-sme-global-content>
+    <nb-card-body>
+    <app-sme-global-content #smeGlobalContent [offerDocumentList]="customerApprovedDoc.offerDocumentList" [isEdit]="isEdit"></app-sme-global-content>
     <!-- Type of sme loan start here-->
     <ng-container *ngIf="isIrrevocableLetter">
     <app-irrevocable-letter-of-credit-facility [offerDocumentList]="customerApprovedDoc.offerDocumentList"
@@ -59,8 +59,8 @@
                          #bridgeGapLoan [loanName]="loanExtraDetails"></app-bridge-gap-loan>
     </ng-container>
     <ng-container *ngIf="isTermLoanToOrFor">
-    <app-term-loan-to-or-for [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                             #termLoanToOrFor [loanName]="loanExtraDetails"></app-term-loan-to-or-for>
+    <app-term-loan-to-or-for #termLoanToOrFor [loanName]="loanExtraDetails" [customerApprovedDoc]="customerApprovedDoc"
+                             [offerDocumentList]="customerApprovedDoc.offerDocumentList" [isEdit]="isEdit"></app-term-loan-to-or-for>
     </ng-container>
     <ng-container *ngIf="isEquityMortgageTermLoan">
     <app-mortgage-or-equity-mortgage-term-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"

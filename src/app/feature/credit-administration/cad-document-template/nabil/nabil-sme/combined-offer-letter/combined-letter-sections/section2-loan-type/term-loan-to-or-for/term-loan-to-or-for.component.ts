@@ -1,11 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/customerApprovedLoanCadDocumentation';
-import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
-import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
-import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {LoanNameConstant} from '../../../../../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
 
 @Component({
     selector: 'app-term-loan-to-or-for',
@@ -14,18 +10,16 @@ import {LoanNameConstant} from '../../../../../../../cad-view/template-data/nabi
 })
 export class TermLoanToOrForComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @Input() loanData;
+    @Input() index;
+    @Input() data;
     form: FormGroup;
     tempData;
-    loanAmount;
-    loanAmountInWord;
     termLoanFreeText: any = {};
     termLoanForTermLoanToOrFor; termLoanTypeTermLoanToOrFor; complementaryOtherTermLoanToOrFor = false;
     emiPaymentTypeTermLoanToOrFor; interestSubAgTermLoanToOrFor; paymentTermLoanToOrFor;
 
-    constructor(private formBuilder: FormBuilder,
-                private engToNepWord: NepaliCurrencyWordPipe,
-                private currencyFormatPipe: CurrencyFormatterPipe,
-                private engToNepNumberPipe: EngToNepaliNumberPipe,
+    constructor(private formBuilder: FormBuilder
     ) {
     }
 
@@ -33,22 +27,15 @@ export class TermLoanToOrForComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-            this.customerApprovedDoc.assignedLoan.forEach(val => {
-                if (val.loan.name === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
-                    const totalLoanAmount = val.proposal.proposedLimit;
-                    this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
-                    this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
-                }
-            });
             this.fillForm();
         }
-        if (!ObjectUtil.isEmpty(this.tempData.termLoanForm)) {
-            this.termLoanForTermLoanToOrFor = this.tempData.termLoanForm.termLoanFor;
-            this.termLoanTypeTermLoanToOrFor = this.tempData.termLoanForm.termLoanType;
-            this.emiPaymentTypeTermLoanToOrFor = this.tempData.termLoanForm.emiPaymentType;
-            this.interestSubAgTermLoanToOrFor = this.tempData.termLoanForm.subsidyOrAgricultureLoan;
-            this.paymentTermLoanToOrFor = this.tempData.termLoanForm.paymentTerms;
-            if (this.tempData.termLoanForm.complementaryOther === true) {
+        if (!ObjectUtil.isEmpty(this.data)) {
+            this.termLoanForTermLoanToOrFor = this.data.termLoanFor;
+            this.termLoanTypeTermLoanToOrFor = this.data.termLoanType;
+            this.emiPaymentTypeTermLoanToOrFor = this.data.emiPaymentType;
+            this.interestSubAgTermLoanToOrFor = this.data.subsidyOrAgricultureLoan;
+            this.paymentTermLoanToOrFor = this.data.paymentTerms;
+            if (this.data.complementaryOther === true) {
                 this.complementaryOtherTermLoanToOrFor = true;
             }
         }
@@ -60,8 +47,6 @@ export class TermLoanToOrForComponent implements OnInit {
             SNOfParentLimitVehicleLoan: [undefined],
             purposeLoanVehicleLoan: [undefined],
             purposeLoanVehicleLoanInEng: [undefined],
-            loanAmountVehicleLoan: [undefined],
-            loanAmountInWordVehicleLoan: [undefined],
             // For New EMI Term Loan
             newEMIBaseRateVehicleLoan: [undefined],
             newEMIPremiumRateVehicleLoan: [undefined],
@@ -108,77 +93,75 @@ export class TermLoanToOrForComponent implements OnInit {
     }
 
     fillForm() {
-        if (!ObjectUtil.isEmpty(this.tempData.termLoanForm)) {
+        if (!ObjectUtil.isEmpty(this.data)) {
             this.form.patchValue({
                 // Term Loan to/for
                 SNOfParentLimitVehicleLoan: [undefined],
-                purposeLoanVehicleLoan: this.tempData.termLoanForm.purposeOfLoanCT ? this.tempData.termLoanForm.purposeOfLoanCT : '',
-                purposeLoanVehicleLoanInEng: this.tempData.termLoanForm.purposeOfLoan ? this.tempData.termLoanForm.purposeOfLoan : '',
-                loanAmountVehicleLoan: this.loanAmount ? this.loanAmount : '',
-                loanAmountInWordVehicleLoan: this.loanAmountInWord ? this.loanAmountInWord : '',
+                purposeLoanVehicleLoan: this.data.purposeOfLoanCT ? this.data.purposeOfLoanCT : '',
+                purposeLoanVehicleLoanInEng: this.data.purposeOfLoan ? this.data.purposeOfLoan : '',
                 // For New EMI Term Loan
-                newEMIBaseRateVehicleLoan: this.tempData.termLoanForm.baseRateCT ? this.tempData.termLoanForm.baseRateCT : '',
-                newEMIPremiumRateVehicleLoan: this.tempData.termLoanForm.premiumRateCT ? this.tempData.termLoanForm.premiumRateCT : '',
-                newEMIInterestRateVehicleLoan: this.tempData.termLoanForm.interestRateCT ? this.tempData.termLoanForm.interestRateCT : '',
-                newEMIAmountVehicleLoan: this.tempData.termLoanForm.emiInfigureCT ? this.tempData.termLoanForm.emiInfigureCT : '',
-                newEMIAmountInWordVehicleLoan: this.tempData.termLoanForm.emiInWordsCT ? this.tempData.termLoanForm.emiInWordsCT : '',
+                newEMIBaseRateVehicleLoan: this.data.baseRateCT ? this.data.baseRateCT : '',
+                newEMIPremiumRateVehicleLoan: this.data.premiumRateCT ? this.data.premiumRateCT : '',
+                newEMIInterestRateVehicleLoan: this.data.interestRateCT ? this.data.interestRateCT : '',
+                newEMIAmountVehicleLoan: this.data.emiInfigureCT ? this.data.emiInfigureCT : '',
+                newEMIAmountInWordVehicleLoan: this.data.emiInWordsCT ? this.data.emiInWordsCT : '',
                 // tslint:disable-next-line:max-line-length
-                newEMINoOfInstallmentVehicleLoan: this.tempData.termLoanForm.numberOfInstallmentCT ? this.tempData.termLoanForm.numberOfInstallmentCT : '',
-                newEMILoanPurposeVehicleLoan: this.tempData.termLoanForm.purposeOfLoanCT ? this.tempData.termLoanForm.purposeOfLoanCT : '',
+                newEMINoOfInstallmentVehicleLoan: this.data.numberOfInstallmentCT ? this.data.numberOfInstallmentCT : '',
+                newEMILoanPurposeVehicleLoan: this.data.purposeOfLoanCT ? this.data.purposeOfLoanCT : '',
                 // tslint:disable-next-line:max-line-length
-                newEMIServiceChargeVehicleLoan: this.tempData.termLoanForm.serviceChargeCT ? this.tempData.termLoanForm.serviceChargeCT : '',
-                newEMILoanTenureVehicleLoan: this.tempData.termLoanForm.tenureOfLoanCT ? this.tempData.termLoanForm.tenureOfLoanCT : '',
+                newEMIServiceChargeVehicleLoan: this.data.serviceChargeCT ? this.data.serviceChargeCT : '',
+                newEMILoanTenureVehicleLoan: this.data.tenureOfLoanCT ? this.data.tenureOfLoanCT : '',
                 // For EMI Term Loan at the time of Annual Review of other credit limits
-                annualEMIBaseRateVehicleLoan: this.tempData.termLoanForm.baseRateCT ? this.tempData.termLoanForm.baseRateCT : '',
-                annualEMIPremiumRateVehicleLoan: this.tempData.termLoanForm.premiumRateCT ? this.tempData.termLoanForm.premiumRateCT : '',
+                annualEMIBaseRateVehicleLoan: this.data.baseRateCT ? this.data.baseRateCT : '',
+                annualEMIPremiumRateVehicleLoan: this.data.premiumRateCT ? this.data.premiumRateCT : '',
                 // tslint:disable-next-line:max-line-length
-                annualEMIInterestRateVehicleLoan: this.tempData.termLoanForm.interestRateCT ? this.tempData.termLoanForm.interestRateCT : '',
-                annualEMIAmountVehicleLoan: this.tempData.termLoanForm.emiInfigureCT ? this.tempData.termLoanForm.emiInfigureCT : '',
-                annualEMIAmountInWordVehicleLoan: this.tempData.termLoanForm.emiInWordsCT ? this.tempData.termLoanForm.emiInWordsCT : '',
-                annualEMILoanExpiryDateVehicleLoan: this.tempData.termLoanForm.dateOfExpiryCT ? this.tempData.termLoanForm.dateOfExpiryCT : '',
+                annualEMIInterestRateVehicleLoan: this.data.interestRateCT ? this.data.interestRateCT : '',
+                annualEMIAmountVehicleLoan: this.data.emiInfigureCT ? this.data.emiInfigureCT : '',
+                annualEMIAmountInWordVehicleLoan: this.data.emiInWordsCT ? this.data.emiInWordsCT : '',
+                annualEMILoanExpiryDateVehicleLoan: this.data.dateOfExpiryCT ? this.data.dateOfExpiryCT : '',
                 // For New Installment Basis Term Loan
-                newInstallmentBaseRateVehicleLoan: this.tempData.termLoanForm.baseRateCT ? this.tempData.termLoanForm.baseRateCT : '',
-                newInstallmentPremiumRateVehicleLoan: this.tempData.termLoanForm.premiumRateCT ? this.tempData.termLoanForm.premiumRateCT : '',
+                newInstallmentBaseRateVehicleLoan: this.data.baseRateCT ? this.data.baseRateCT : '',
+                newInstallmentPremiumRateVehicleLoan: this.data.premiumRateCT ? this.data.premiumRateCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentInterestRateVehicleLoan: this.tempData.termLoanForm.interestRateCT ? this.tempData.termLoanForm.interestRateCT : '',
+                newInstallmentInterestRateVehicleLoan: this.data.interestRateCT ? this.data.interestRateCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentTotalInterestRateVehicleLoan: this.tempData.termLoanForm.subsidyInterestRate ? this.tempData.termLoanForm.subsidyInterestRateCT : '',
-                newInstallmentLoanTenureVehicleLoan: this.tempData.termLoanForm.tenureOfLoanCT ? this.tempData.termLoanForm.tenureOfLoanCT : '',
+                newInstallmentTotalInterestRateVehicleLoan: this.data.subsidyInterestRate ? this.data.subsidyInterestRateCT : '',
+                newInstallmentLoanTenureVehicleLoan: this.data.tenureOfLoanCT ? this.data.tenureOfLoanCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentPaymentAmountVehicleLoan: this.tempData.termLoanForm.paymentAmountFigureCT ? this.tempData.termLoanForm.paymentAmountFigureCT : '',
+                newInstallmentPaymentAmountVehicleLoan: this.data.paymentAmountFigureCT ? this.data.paymentAmountFigureCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentPaymentAmountInWordVehicleLoan: this.tempData.termLoanForm.paymentAmountWordsCT ? this.tempData.termLoanForm.paymentAmountWordsCT : '',
+                newInstallmentPaymentAmountInWordVehicleLoan: this.data.paymentAmountWordsCT ? this.data.paymentAmountWordsCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentNoOfPaymentVehicleLoan: this.tempData.termLoanForm.numberOfPayments ? this.tempData.termLoanForm.numberOfPaymentsCT : '',
+                newInstallmentNoOfPaymentVehicleLoan: this.data.numberOfPayments ? this.data.numberOfPaymentsCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentLoanPurposeVehicleLoan: this.tempData.termLoanForm.purposeOfLoanCT ? this.tempData.termLoanForm.purposeOfLoanCT : '',
+                newInstallmentLoanPurposeVehicleLoan: this.data.purposeOfLoanCT ? this.data.purposeOfLoanCT : '',
                 // tslint:disable-next-line:max-line-length
-                newInstallmentServiceChargeVehicleLoan: this.tempData.termLoanForm.serviceChargeCT ? this.tempData.termLoanForm.serviceChargeCT : '',
+                newInstallmentServiceChargeVehicleLoan: this.data.serviceChargeCT ? this.data.serviceChargeCT : '',
                 // For Installment Basis Term Loan at the time of Annual Review of other credit limits
-                annualInstallmentBaseRateVehicleLoan: this.tempData.termLoanForm.baseRateCT ? this.tempData.termLoanForm.baseRateCT : '',
+                annualInstallmentBaseRateVehicleLoan: this.data.baseRateCT ? this.data.baseRateCT : '',
                 // tslint:disable-next-line:max-line-length
-                annualInstallmentPremiumRateVehicleLoan: this.tempData.termLoanForm.premiumRateCT ? this.tempData.termLoanForm.premiumRateCT : '',
+                annualInstallmentPremiumRateVehicleLoan: this.data.premiumRateCT ? this.data.premiumRateCT : '',
                 // tslint:disable-next-line:max-line-length
-                annualInstallmentInterestRateVehicleLoan: this.tempData.termLoanForm.interestRateCT ? this.tempData.termLoanForm.interestRateCT : '',
+                annualInstallmentInterestRateVehicleLoan: this.data.interestRateCT ? this.data.interestRateCT : '',
                 // tslint:disable-next-line:max-line-length
-                annualInstallmentTotalInterestRateVehicleLoan: this.tempData.termLoanForm.subsidyInterestRate ? this.tempData.termLoanForm.subsidyInterestRateCT : '',
+                annualInstallmentTotalInterestRateVehicleLoan: this.data.subsidyInterestRate ? this.data.subsidyInterestRateCT : '',
                 // tslint:disable-next-line:max-line-length
-                annualInstallmentPaymentAmountVehicleLoan: this.tempData.termLoanForm.paymentAmountFigureCT ? this.tempData.termLoanForm.paymentAmountFigureCT : '',
+                annualInstallmentPaymentAmountVehicleLoan: this.data.paymentAmountFigureCT ? this.data.paymentAmountFigureCT : '',
                 // tslint:disable-next-line:max-line-length
-                annualInstallmentPaymentAmountInWordVehicleLoan: this.tempData.termLoanForm.paymentAmountWordsCT ? this.tempData.termLoanForm.paymentAmountWordsCT : '',
+                annualInstallmentPaymentAmountInWordVehicleLoan: this.data.paymentAmountWordsCT ? this.data.paymentAmountWordsCT : '',
                 // tslint:disable-next-line:max-line-length
-                annualInstallmentNoOfPaymentVehicleLoan: this.tempData.termLoanForm.numberOfPayments ? this.tempData.termLoanForm.numberOfPaymentsCT : '',
+                annualInstallmentNoOfPaymentVehicleLoan: this.data.numberOfPayments ? this.data.numberOfPaymentsCT : '',
                 // tslint:disable-next-line:max-line-length
-                annualInstallmentLoanExpiryDateVehicleLoan: this.tempData.termLoanForm.dateOfExpiryCT ? this.tempData.termLoanForm.dateOfExpiryCT : '',
+                annualInstallmentLoanExpiryDateVehicleLoan: this.data.dateOfExpiryCT ? this.data.dateOfExpiryCT : '',
             });
         }
     }
 
     setFreeTextTermLoan() {
         this.termLoanFreeText = {
-            freeText10: this.form.get('freeTextTen').value,
-            freeText11: this.form.get('freeTextEleven').value,
-            freeText12: this.form.get('freeTextTwelve').value,
+            freeText10: this.form.get('freeTextTen').value ? this.form.get('freeTextTen').value : '',
+            freeText11: this.form.get('freeTextEleven').value ? this.form.get('freeTextEleven').value : '',
+            freeText12: this.form.get('freeTextTwelve').value ? this.form.get('freeTextTwelve').value : '',
         };
         return this.termLoanFreeText;
     }

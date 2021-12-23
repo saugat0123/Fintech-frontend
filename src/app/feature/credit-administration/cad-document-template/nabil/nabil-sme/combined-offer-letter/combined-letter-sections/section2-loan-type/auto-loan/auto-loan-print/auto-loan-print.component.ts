@@ -15,41 +15,31 @@ export class AutoLoanPrintComponent implements OnInit {
   @Input() letterData;
   @Input() customerApprovedDoc;
   @Input() freeText;
+  @Input() loanData;
+  @Input() index;
+  @Input() data;
   tempData;
-  loanAmount;
-  loanAmountInWord;
   autoLoanFreeText: any = {};
   complementaryOtherAutoLoan = false; vehiclePurchaseAutoLoan = false; vehicleRegistrationAutoLoan = false;
   loanOptionAutoLoan; autoLoanTypeAutoLoan; emiPaymentTypeAutoLoan; paymentsTermsAutoLoan;
-  constructor(private formBuilder: FormBuilder,
-              private engToNepWord: NepaliCurrencyWordPipe,
-              private currencyFormatPipe: CurrencyFormatterPipe,
-              private engToNepNumberPipe: EngToNepaliNumberPipe,
-  ) { }
+  constructor() { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-      this.customerApprovedDoc.assignedLoan.forEach(val => {
-        if (val.loan.name === LoanNameConstant.AUTO_LOAN) {
-          const totalLoanAmount = val.proposal.proposedLimit;
-          this.loanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
-          this.loanAmountInWord = this.engToNepWord.transform(totalLoanAmount);
-        }
-      });
     }
-    if (!ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm)) {
+    if (!ObjectUtil.isEmpty(this.data)) {
       this.loanOptionAutoLoan = this.tempData.smeGlobalForm.loanOption;
-      this.autoLoanTypeAutoLoan = this.tempData.autoLoanMasterForm.autoLoanType;
-      this.emiPaymentTypeAutoLoan = this.tempData.autoLoanMasterForm.emiPaymentType;
-      this.paymentsTermsAutoLoan = this.tempData.autoLoanMasterForm.paymentTerms;
-      if (this.tempData.autoLoanMasterForm.complementaryOther === true) {
+      this.autoLoanTypeAutoLoan = this.data.autoLoanType;
+      this.emiPaymentTypeAutoLoan = this.data.emiPaymentType;
+      this.paymentsTermsAutoLoan = this.data.paymentTerms;
+      if (this.data.complementaryOther === true) {
         this.complementaryOtherAutoLoan = true;
       }
-      if (this.tempData.autoLoanMasterForm.vehiclePurchased === true) {
+      if (this.data.vehiclePurchased === true) {
         this.vehiclePurchaseAutoLoan = true;
       }
-      if (this.tempData.autoLoanMasterForm.vehicleRegistered === true) {
+      if (this.data.vehicleRegistered === true) {
         this.vehicleRegistrationAutoLoan = true;
       }
     }
