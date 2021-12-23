@@ -371,7 +371,7 @@
                             <input class="form-field form-control-sm "
                                    readonly
                                    formControlName="nameOfPersonalGuarantor"
-                                   [value]="this.finalName"
+                                   [value]="commonGuarantorDetails(personalGuarantorsName, finalPersonalName)"
                                    type="text"/> ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ
                             ।
                         </p>
@@ -882,7 +882,7 @@
                                 </li>
                                 <li>
                                     <textarea
-                                            class="form-control customFont "
+                                            class="form-control customFont nepaliFont"
                                             rows="2"
                                             style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                             name="extraFinancialClause"
@@ -979,7 +979,7 @@
                                 </li>
                                 <li>
                                     <textarea
-                                            class="form-control customFont "
+                                            class="form-control customFont nepaliFont"
                                             rows="2"
                                             style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                             name="additionalOtherClause"
@@ -1058,7 +1058,7 @@
                                 <li>विमालेख घोषणा पत्र (Insurance Declaration Statement)</li>
                                 <li>
                                     <textarea
-                                            class="form-control customFont "
+                                            class="form-control customFont nepaliFont"
                                             rows="2"
                                             style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                             name="extraSecurityDocument"
@@ -1213,7 +1213,7 @@
                                 </li>
                                 <li>
                                     <textarea
-                                            class="form-control customFont "
+                                            class="form-control customFont nepaliFont"
                                             rows="2"
                                             style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                             name="extraTermsAndConditionsNRB"
@@ -1255,10 +1255,12 @@
     </nb-card-body>
     <nb-card-footer>
         <div class="col-md-12 text-right disable-print">
-            <button nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
+            <button size="small" nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
+                    style="padding-top: 0px; padding-bottom: 0px;"
                     ngxPrint printSectionId="{{offerLetterConst.DDSL_WITHOUT_SUBSIDY}}Print">Print
             </button>
-            <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
+            <button size="small" style="padding-top: 0px; padding-bottom: 0px;"
+                    nbButton status="success" class="disable-print" (click)="submit()">Save</button>
         </div>
     </nb-card-footer>
 </nb-card>
