@@ -193,8 +193,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
         this.isIrrevocableSelected = true;
       }
       /* For service check */
-      this.form.get('serviceCheck').patchValue(this.initialInfo.serviceCheck);
-      if (this.initialInfo.serviceCheck) {
+      this.form.get('serviceCheck').patchValue(this.initialInfo.serviceCheck.en);
+      if (this.initialInfo.serviceCheck.en) {
         this.isSecurity = true;
         const tempService = this.initialInfo.serviceCharges ?
             this.initialInfo.serviceCharges.en : '';
@@ -269,8 +269,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
         this.isOneoffSelected = true;
       }
       /* For natural check */
-      this.form.get('naturalCheck').patchValue(this.initialInfo.naturalCheck);
-      if (this.initialInfo.naturalCheck) {
+      this.form.get('naturalCheck').patchValue(this.initialInfo.naturalCheck.en);
+      if (this.initialInfo.naturalCheck.en) {
         this.isNatural = true;
       }
     }
