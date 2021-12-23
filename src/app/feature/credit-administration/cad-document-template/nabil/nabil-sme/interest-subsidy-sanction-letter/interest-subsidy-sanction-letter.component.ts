@@ -106,6 +106,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
       marginInPercentage: [undefined],
+      marginInPercentageMotor: [undefined],
+      marginInPercentageFoot: [undefined],
       totalLimitFigure: [undefined],
       totalLimitWords: [undefined],
       baseRate: [undefined],
@@ -128,6 +130,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       autoPopulate1: [undefined],
       autoPopulate2: [undefined],
       purposeOfLoan: [undefined],
+      loanSubType: [undefined],
+      loanSubTypeEn: [undefined]
     });
   }
   setLoanConfigData(data: any) {
@@ -229,9 +233,13 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       dateOfApproval: finalDateOfApproval ? finalDateOfApproval : '',
       baseRate: this.tempData.baseRate ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate ? this.tempData.premiumRate.ct : '',
+      loanSubType: this.tempData.loanSubType ? this.tempData.loanSubType.ct : '',
+      loanSubTypeEn: this.tempData.loanSubType ? this.tempData.loanSubType.en.eData : '',
       previousSanctionLetter: finalSanctionDate ? finalSanctionDate : '',
       totalInterestRate: this.tempData.interestRate ? this.tempData.interestRate.ct : '',
       marginInPercentage: this.tempData.marginInPercentage ? this.tempData.marginInPercentage.ct : '',
+      marginInPercentageMotor: this.tempData.marginInPercentageMotor ? this.tempData.marginInPercentageMotor.ct : '',
+      marginInPercentageFoot: this.tempData.marginInPercentageFoot ? this.tempData.marginInPercentageFoot.ct : '',
       totalLimitFigure: this.tempData.totalLimitFigure ? this.tempData.totalLimitFigure.ct : '',
       totalLimitWords: this.tempData.totalLimitWords ? this.tempData.totalLimitWords.ct : '',
       totalTenureOfLoan: this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',

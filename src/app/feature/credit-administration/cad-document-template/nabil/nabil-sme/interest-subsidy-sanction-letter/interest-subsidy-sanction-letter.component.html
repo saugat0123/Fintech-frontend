@@ -117,8 +117,22 @@
                            id="custom-table">
                         <tr>
                             <td width="20%"><strong>कर्जाको प्रकार:</strong></td>
-                            <td width="40%">ब्यापारिक कृषि तथा पशुपंछी कर्जा</td>
-                            <td width="40%">Commercial Agro and Livestock Loan</td>
+                            <td width="40%">
+                                <input class="form-field form-control-sm "
+                                       readonly
+                                       formControlName="loanSubType"
+                                       name="loanSubType"
+                                       style="width: 200px"
+                                       type="text"/>
+                            </td>
+                            <td width="40%">
+                                <input class="form-field form-control-sm "
+                                       readonly
+                                       formControlName="loanSubTypeEn"
+                                       name="loanSubTypeEn"
+                                       style="width: 200px"
+                                       type="text"/>
+                            </td>
                         </tr>
                         <tr>
                             <td><strong> कर्जाको उद्देश्य </strong></td>
@@ -165,14 +179,14 @@
                                 घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको(Motorable Road
                                 access)
                                 को हकमा बजार मुल्य(Market Value) को<input class="form-field form-control-sm"
-                                                                          formControlName="marginInPercentage"
-                                                                          name="marginInPercentage"
+                                                                          formControlName="marginInPercentageMotor"
+                                                                          name="marginInPercentageMotor"
                                                                           placeholder=" "
                                                                           type="text"/>
                                 प्रतिशत वा गोरेटो बाटो भएको (Foot trail access)
                                 को हकमा बजार मुल्य (Market value) को <input class="form-field form-control-sm"
-                                                                            formControlName="marginInPercentage"
-                                                                            name="marginInPercentage"
+                                                                            formControlName="marginInPercentageFoot"
+                                                                            name="marginInPercentageFoot"
                                                                             placeholder=" "
                                                                             type="text"/>
                                 प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ
@@ -200,7 +214,7 @@
                                        type="text"/>
                                 + <input class="form-field form-control-sm"
                                          formControlName="premiumRate"
-                                         name="marginInPercentage"
+                                         name="premiumRate"
                                          placeholder=" "
                                          type="text"/>प्रतिशत
                                 व्याज दर प्रिमियम (Interest Rate Premium)
@@ -243,14 +257,14 @@
                                 सो घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको(Motorable
                                 Road access)
                                 को हकमा बजार मुल्य (Market Value) को <input class="form-field form-control-sm"
-                                                                            formControlName="marginInPercentage"
-                                                                            name="marginInPercentage"
+                                                                            formControlName="marginInPercentageMotor"
+                                                                            name="marginInPercentageMotor"
                                                                             placeholder=" "
                                                                             type="text"/> । प्रतिशत वा
                                 गोरेटो बाटो भएको (Foot trail access) को हकमा बजार मुल्य (Market Value) को
                                 <input class="form-field form-control-sm"
-                                       formControlName="marginInPercentage"
-                                       name="marginInPercentage"
+                                       formControlName="marginInPercentageFoot"
+                                       name="marginInPercentageFoot"
                                        placeholder=" "
                                        type="text"/>। प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
                                 बरावर रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
