@@ -33,7 +33,7 @@
                             <strong>धरौटीः</strong> नगद
                             <span [ngClass]="{'outside' : letterData?.letterOfCreditForm.marginInPercentageCT !== null && letterData?.letterOfCreditForm.marginInPercentageCT !== ''}">
                             {{letterData?.letterOfCreditForm.marginInPercentageCT === null || letterData?.letterOfCreditForm.marginInPercentageCT === '' ? '___________' : letterData?.letterOfCreditForm.marginInPercentageCT}}</span>
-                            % धरौटीस्वरुप रहनेछ ।<br>
+                            % धरौटी स्वरुप रहनेछ ।<br>
                         </p>
                         <!--Commission Type 1-->
                         <p *ngIf="commissionTypeIrrevocable === 'COMMISSION_TYPE_1'">
@@ -257,7 +257,7 @@
                         दिने चक्रिय अल्पकालिन कर्जा (Resolving Short Term
                         Loan for
                                             <span [ngClass]="{'outside' : letterData?.revolvingShortTermLoan.loanRevolvingPeriod !== null && letterData?.revolvingShortTermLoan.loanRevolvingPeriod !== ''}">
-                            {{letterData?.revolvingShortTermLoan.loanRevolvingPeriod === null || letterData?.revolvingShortTermLoan.loanRevolvingPeriod === '' ? '___________' : letterData?.revolvingShortTermLoan.loanRevolvingPeriod}}</span>days)
+                            {{letterData?.revolvingShortTermLoan.loanRevolvingPeriod === null || letterData?.revolvingShortTermLoan.loanRevolvingPeriod === '' ? '___________' : letterData?.revolvingShortTermLoan.loanRevolvingPeriod}}</span> days)
                             <ng-container *ngIf="complementaryOtherShortTermLoan"> बुँदा नं.
                         <span>{{this.freeInformation ? this.freeInformation.section2.SNShortTermLoan : ''}}</span>
                         को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong></span><br>
@@ -270,9 +270,7 @@
                                             <span [ngClass]="{'outside' : letterData?.revolvingShortTermLoan.loanRevolvingPeriod !== null && letterData?.revolvingShortTermLoan.loanRevolvingPeriod !== ''}">
                             {{letterData?.revolvingShortTermLoan.loanRevolvingPeriod === null || letterData?.revolvingShortTermLoan.loanRevolvingPeriod === '' ? '___________' : letterData?.revolvingShortTermLoan.loanRevolvingPeriod}}</span>days)
                                 <ng-container *ngIf="complementaryOtherShortTermLoan"> बुँदा नं.
-                                             <span>_________________________</span>
-                            <!--<span [ngClass]="{'outside' : letterData?.SNOfParentLimitShortTermLoan !== null && letterData?.SNOfParentLimitShortTermLoan !== ''}">
-            {{letterData?.SNOfParentLimitShortTermLoan === null || letterData?.SNOfParentLimitShortTermLoan === '' ? '___________' : letterData?.SNOfParentLimitShortTermLoan}}</span>-->
+                                             <span>{{this.freeInformation ? this.freeInformation.section2.SNShortTermLoan : ''}}</span>
                             को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong></span><br>
 
                         <span *ngIf="(loanOptionShortTermLoan === 'REGULAR') && (loanRevolvingBasisShortTermLoan === 'MONTHLY')"><strong>
@@ -284,23 +282,18 @@
                             {{letterData?.revolvingShortTermLoan.loanRevolvingPeriod === null || letterData?.revolvingShortTermLoan.loanRevolvingPeriod === '' ? '___________' : letterData?.revolvingShortTermLoan.loanRevolvingPeriod}}</span>
                              months)
                             <ng-container *ngIf="complementaryOtherShortTermLoan"> बुँदा नं.
-                                            <span>_________________________</span>
-                            <!--<span [ngClass]="{'outside' : letterData?.SNOfParentLimitShortTermLoan !== null && letterData?.SNOfParentLimitShortTermLoan !== ''}">
-            {{letterData?.SNOfParentLimitShortTermLoan === null || letterData?.SNOfParentLimitShortTermLoan === '' ? '___________' : letterData?.SNOfParentLimitShortTermLoan}}</span>--> को पूरक सुविधा/कुल
+                                <span>{{this.freeInformation ? this.freeInformation.section2.SNShortTermLoan : ''}}</span> को पूरक सुविधा/कुल
                         सुविधाको पूरक सुविधा</ng-container></strong></span><br>
 
                         <span *ngIf="(loanOptionShortTermLoan === 'ONE_OFF_BASIS') && (loanRevolvingBasisShortTermLoan === 'MONTHLY')"><strong>
                                             <span [ngClass]="{'outside' : letterData?.revolvingShortTermLoan.loanRevolvingPeriodCT !== null && letterData?.revolvingShortTermLoan.loanRevolvingPeriodCT !== ''}">
                             {{letterData?.revolvingShortTermLoan.loanRevolvingPeriodCT === null || letterData?.revolvingShortTermLoan.loanRevolvingPeriodCT === '' ? '___________' : letterData?.revolvingShortTermLoan.loanRevolvingPeriodCT}}</span>
-                            महिने पटके अल्पकालिन कर्जा (One off Basis Short Term
-                        Loan for
+                            महिने पटके अल्पकालिन कर्जा (One off Basis Short Term Loan for
                                             <span [ngClass]="{'outside' : letterData?.revolvingShortTermLoan.loanRevolvingPeriod !== null && letterData?.revolvingShortTermLoan.loanRevolvingPeriod !== ''}">
                             {{letterData?.revolvingShortTermLoan.loanRevolvingPeriod === null || letterData?.revolvingShortTermLoan.loanRevolvingPeriod === '' ? '___________' : letterData?.revolvingShortTermLoan.loanRevolvingPeriod}}</span>
                             months)
                             <ng-container *ngIf="complementaryOtherShortTermLoan"> बुँदा नं.
-                                            <span>_________________________</span>
-                            <!--<span [ngClass]="{'outside' : letterData?.SNOfParentLimitShortTermLoan !== null && letterData?.SNOfParentLimitShortTermLoan !== ''}">
-            {{letterData?.SNOfParentLimitShortTermLoan === null || letterData?.SNOfParentLimitShortTermLoan === '' ? '___________' : letterData?.SNOfParentLimitShortTermLoan}}</span>-->
+                                <span>{{this.freeInformation ? this.freeInformation.section2.SNShortTermLoan : ''}}</span>
                             को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong></span><br>
 
                         <strong> सीमाः <ng-container *ngIf="complementaryOtherShortTermLoan">(रु.
@@ -320,7 +313,6 @@
                         गरिदिइएको यथावत कायम रहने छ।</span><br>
 
                         <span *ngIf="arFinancingShortTermLoan"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य
-
                                             <span [ngClass]="{'outside' : letterData?.revolvingShortTermLoan.arDaysCT !== null && letterData?.revolvingShortTermLoan.arDaysCT !== ''}">
                             {{letterData?.revolvingShortTermLoan.arDaysCT === null || letterData?.revolvingShortTermLoan.arDaysCT === '' ? '___________' : letterData?.revolvingShortTermLoan.arDaysCT}}</span>
                             दिन सम्मको भुक्तानी प्राप्त गर्न बाँकी रकमहरुबाट तिर्न
@@ -336,7 +328,6 @@
                             {{letterData?.revolvingShortTermLoan.arDaysCT === null || letterData?.revolvingShortTermLoan.arDaysCT === '' ? '___________' : letterData?.revolvingShortTermLoan.arDaysCT}}</span>
                             दिन सम्मको भुक्तानी प्राप्त गर्न बाँकी रकमहरुबाट तिर्न
                         बाँकी रकम (Account Receivable) घटाई हुन आउने खुद चालु सम्पत्तिको
-
                                             <span [ngClass]="{'outside' : letterData?.revolvingShortTermLoan.drawingPowerCT !== null && letterData?.revolvingShortTermLoan.drawingPowerCT !== ''}">
                             {{letterData?.revolvingShortTermLoan.drawingPowerCT === null || letterData?.revolvingShortTermLoan.drawingPowerCT === '' ? '___________' : letterData?.revolvingShortTermLoan.drawingPowerCT}}</span>
                             % बराबर रकम वा स्वीकृत
@@ -380,7 +371,7 @@
                         <span *ngIf="loanOptionShortTermLoan === 'REGULAR'"><strong>कर्जा अवधि पुनरावलोकन मितिः</strong>
                                             <span [ngClass]="{'outside' : letterData?.revolvingShortTermLoan.dateOfExpiryCT !== null && letterData?.revolvingShortTermLoan.dateOfExpiryCT !== ''}">
                             {{letterData?.revolvingShortTermLoan.dateOfExpiryCT === null || letterData?.revolvingShortTermLoan.dateOfExpiryCT === '' ? '___________' : letterData?.revolvingShortTermLoan.dateOfExpiryCT}}</span>
-                            </span><br>
+                        </span><br>
                         <span>{{this.freeInformation ? this.freeInformation.section2.freeText1 : ''}}</span>
                     </td>
                 </tr>
@@ -1179,7 +1170,7 @@
 
             <tr *ngIf="this.freeInformation?.section2.freeText16">
                 <!--Free Text-->
-                <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length + termLoanDetails.length + 1}})</strong></td>
+                <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length + termLoanDetails.length + 1 | nepaliWord}})</strong></td>
                 <td>
                     <span>{{this.freeInformation ? this.freeInformation.section2.freeText16 : ''}}</span>
                 </td>
