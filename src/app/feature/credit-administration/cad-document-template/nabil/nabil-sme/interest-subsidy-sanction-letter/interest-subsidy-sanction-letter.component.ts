@@ -62,6 +62,11 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   freeInformation: any;
   autoPopulate1 = 'सम्पर्क अधिकृत';
   autoPopulate2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
+  personalGuarantorsName: Array<any> = new Array<any>();
+  guarantorParsed: Array<any> = new Array<any>();
+  tempPersonalGuarantors;
+  temp2;
+  finalPersonalName;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -91,6 +96,9 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
     this.checkOfferLetterData();
+    this.guarantorData.forEach(any => {
+      this.guarantorParsed.push(JSON.parse(any.nepData));
+    });
     this.guarantorDetails();
   }
 
@@ -312,51 +320,32 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   close() {
     this.ref.close();
   }
-  guarantorDetails() {
-    if (this.guarantorData.length === 1) {
-      const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
-      if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
-        // const temp = JSON.parse(this.guarantorData[0].nepData);
-        this.finalName = tempGuarantorNep.guarantorName.ct;
-      } else {
-        // const temp = JSON.parse(this.guarantorData[0].nepData);
-        this.finalName = tempGuarantorNep.authorizedPersonName.ct;
-      }
-    } else if (this.guarantorData.length === 2) {
-      for (let i = 0; i < this.guarantorData.length; i++) {
-        const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
-        if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
-          // const temp = JSON.parse(this.guarantorData[i].nepData);
-          this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
-        } else {
-          // const temp = JSON.parse(this.guarantorData[i].nepData);
-          this.guarantorNames.push(tempGuarantorNep.authorizedPersonName.ct);
-        }
-        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
-      }
-      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-      this.allguarantorNames = this.guarantorNames.join(' र ');
-      this.finalName = this.allguarantorNames;
-    } else {
-      for (let i = 0; i < this.guarantorData.length - 1; i++) {
-        const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
-        if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
-          // const temp = JSON.parse(this.guarantorData[i].nepData);
-          this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
-          // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
-        } else {
-          // const temp = JSON.parse(this.guarantorData[i].nepData);
-          // console.log(temp);
-          this.guarantorNames.push(tempGuarantorNep.authorizedPersonName.ct);
-        }
 
-      }
-      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-      this.allguarantorNames = this.guarantorNames.join(' , ');
-      const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
-      this.finalName = this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
-    }
+  guarantorDetails() {
+    this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
+        val.guarantorType.en === 'Personal Guarantor');
+    this.tempPersonalGuarantors.forEach(i => {
+      this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
+    })
   }
+
+  commonGuarantorDetails(guarantorName, finalName) {
+    if(guarantorName.length === 1) {
+      finalName = guarantorName[0];
+    }
+    if(guarantorName.length === 2) {
+      finalName = guarantorName.join(' र ');
+    }
+    if(guarantorName.length > 2){
+      for (let i = 0; i < guarantorName.length - 1; i++) {
+        this.temp2 = guarantorName.join(' , ');
+      }
+      const temp1 = guarantorName[guarantorName.length - 1];
+      finalName = this.temp2 + ' र ' + temp1;
+    }
+    return finalName ? finalName : '';
+  }
+
   guarantorParse(nepData, key, trans?) {
     const data = JSON.parse(nepData);
     if (ObjectUtil.isEmpty(trans)) {

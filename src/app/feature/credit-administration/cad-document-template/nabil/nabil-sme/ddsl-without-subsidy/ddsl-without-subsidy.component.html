@@ -1255,12 +1255,10 @@
     </nb-card-body>
     <nb-card-footer>
         <div class="col-md-12 text-right disable-print">
-            <button size="small" nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
-                    style="padding-top: 0px; padding-bottom: 0px;"
+            <button nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
                     ngxPrint printSectionId="{{offerLetterConst.DDSL_WITHOUT_SUBSIDY}}Print">Print
             </button>
-            <button size="small" style="padding-top: 0px; padding-bottom: 0px;"
-                    nbButton status="success" class="disable-print" (click)="submit()">Save</button>
+            <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
         </div>
     </nb-card-footer>
 </nb-card>
