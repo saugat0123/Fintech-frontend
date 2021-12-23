@@ -135,6 +135,20 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="marginInPercentageMotor">Margin In Percentage Motorable Road Access (%)</label>
+                        <input class="form-control" formControlName="marginInPercentageMotor" fullWidth
+                               id="marginInPercentageMotor"
+                               nbInput status="success" type="number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marginInPercentageFoot">Margin In Percentage Foot trail access (%)</label>
+                        <input class="form-control" formControlName="marginInPercentageFoot" fullWidth
+                               id="marginInPercentageFoot"
+                               nbInput status="success" type="number">
+                    </div>
+
+                    <div class="form-group">
                         <label for="baseRate">Base Rate</label>
                         <input (input)="calInterestRate()" class="form-control" formControlName="baseRate" fullWidth
                                id="baseRate" nbInput status="success" type="number">
@@ -238,9 +252,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="marginInPercentageTrans">Margin In Percentage (%) Translation</label>
+                        <label for="marginInPercentageTrans">Margin In Percentage (%)</label>
                         <input class="form-control" formControlName="marginInPercentageTrans" fullWidth
                                id="marginInPercentageTrans"
+                               nbInput status="success" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marginInPercentageMotorTrans">Margin In Percentage (%) Translation</label>
+                        <input class="form-control" formControlName="marginInPercentageMotorTrans" fullWidth
+                               id="marginInPercentageMotorTrans"
+                               nbInput status="success" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marginInPercentageFootTrans">Margin In Percentage (%) Translation</label>
+                        <input class="form-control" formControlName="marginInPercentageFootTrans" fullWidth
+                               id="marginInPercentageFootTrans"
                                nbInput status="success" type="text">
                     </div>
 
@@ -393,13 +421,38 @@
 
                     <div class="form-group">
                         <label for="marginInPercentageCT">Margin In Percentage (%) CT </label>
-                        <input [ngClass]=" { 'is-invalid':submitted && formControls.marginInPercentageCT.errors }"
-                               class="form-control" formControlName="marginInPercentageCT"
-                               fullWidth
-                               id="marginInPercentageCT" nbInput
-                               status="success"
+                        <input class="form-control" formControlName="marginInPercentageCT" fullWidth
+                               id="marginInPercentageCT"
+                               nbInput status="success"
+                               [ngClass]=" { 'is-invalid':submitted && formControls.marginInPercentageCT.errors }"
                                type="text">
                         <span *ngIf="submitted && formControls.marginInPercentageCT.invalid" class="text-danger">
+                            Margin in percentage is required
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marginInPercentageMotorCT">Margin In Percentage (%) CT </label>
+                        <input [ngClass]=" { 'is-invalid':submitted && formControls.marginInPercentageMotorCT.errors }"
+                               class="form-control" formControlName="marginInPercentageMotorCT"
+                               fullWidth
+                               id="marginInPercentageMotorCT" nbInput
+                               status="success"
+                               type="text">
+                        <span *ngIf="submitted && formControls.marginInPercentageMotorCT.invalid" class="text-danger">
+                            Margin in percentage is required
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marginInPercentageFootCT">Margin In Percentage (%) CT </label>
+                        <input [ngClass]=" { 'is-invalid':submitted && formControls.marginInPercentageFootCT.errors }"
+                               class="form-control" formControlName="marginInPercentageFootCT"
+                               fullWidth
+                               id="marginInPercentageFootCT" nbInput
+                               status="success"
+                               type="text">
+                        <span *ngIf="submitted && formControls.marginInPercentageFootCT.invalid" class="text-danger">
                             Margin in percentage is required
                         </span>
                     </div>

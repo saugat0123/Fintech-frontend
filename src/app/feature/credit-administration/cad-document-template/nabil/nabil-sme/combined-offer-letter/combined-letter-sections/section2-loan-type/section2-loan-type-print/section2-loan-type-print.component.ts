@@ -17,6 +17,15 @@ export class Section2LoanTypePrintComponent implements OnInit {
     @Input() customerApprovedDoc;
     @Input() freeText;
     @Input() index;
+    FDName;
+    DepName;
+    BondName;
+    FDNames: Array<String> = [];
+    allFDNames;
+    DepNames: Array<String> = [];
+    allDepNames;
+    BondNames: Array<String> = [];
+    allBondNames;
     loanNameConstant = LoanNameConstant;
     tempData;
     freeInformation;
@@ -127,6 +136,9 @@ export class Section2LoanTypePrintComponent implements OnInit {
                 this.termLoanData = !ObjectUtil.isEmpty(this.tempData.termLoanForm) ?
                     this.tempData.termLoanForm.termLoanDetails : [];
             }
+            this.getFDName();
+            this.getDepName();
+            this.getBondName();
             this.getLoanName();
             this.checkLoanName();
         }
@@ -294,6 +306,81 @@ export class Section2LoanTypePrintComponent implements OnInit {
                     }
                 }
             });
+        }
+    }
+
+    getFDName() {
+        if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
+            if (this.tempData.overdraftFixedForm['fdHolderDetails'].length === 1) {
+                const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][0].nameOfFDHolderCT;
+                this.FDName = temp;
+            } else if (this.tempData.overdraftFixedForm['fdHolderDetails'].length === 2) {
+                for (let i = 0; i < this.tempData.overdraftFixedForm['fdHolderDetails'].length; i++ ) {
+                    const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][i].nameOfFDHolderCT;
+                    this.FDNames.push(temp);
+                }
+                this.allFDNames = this.FDNames.join(' र ');
+                this.FDName = this.allFDNames;
+            } else {
+                for (let i = 0; i < this.tempData.overdraftFixedForm['fdHolderDetails'].length - 1; i++ ) {
+                    const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][i].nameOfFDHolderCT;
+                    this.FDNames.push(temp);
+                }
+                this.allFDNames = this.FDNames.join(' , ');
+                // tslint:disable-next-line:max-line-length
+                const temp1 = this.tempData.overdraftFixedForm['fdHolderDetails'][this.tempData.overdraftFixedForm['fdHolderDetails'].length - 1].nameOfFDHolderCT;
+                this.FDName = this.allFDNames + ' र ' + temp1;
+            }
+        }
+    }
+
+    getDepName() {
+        if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
+            if (this.tempData.overdraftFixedForm['depositorDetails'].length === 1) {
+                const temp = this.tempData.overdraftFixedForm['depositorDetails'][0].nameOfDepositorsCT;
+                this.DepName = temp;
+            } else if (this.tempData.overdraftFixedForm['depositorDetails'].length === 2) {
+                for (let i = 0; i < this.tempData.overdraftFixedForm['depositorDetails'].length; i++ ) {
+                    const temp = this.tempData.overdraftFixedForm['depositorDetails'][i].nameOfDepositorsCT;
+                    this.DepNames.push(temp);
+                }
+                this.allDepNames = this.DepNames.join(' र ');
+                this.DepName = this.allDepNames;
+            } else {
+                for (let i = 0; i < this.tempData.overdraftFixedForm['depositorDetails'].length - 1; i++ ) {
+                    const temp = this.tempData.overdraftFixedForm['depositorDetails'][i].nameOfDepositorsCT;
+                    this.DepNames.push(temp);
+                }
+                this.allDepNames = this.DepNames.join(' , ');
+                // tslint:disable-next-line:max-line-length
+                const temp1 = this.tempData.overdraftFixedForm['depositorDetails'][this.tempData.overdraftFixedForm['depositorDetails'].length - 1].nameOfDepositorsCT;
+                this.DepName = this.allDepNames + ' र ' + temp1;
+            }
+        }
+    }
+
+    getBondName() {
+        if (!ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm)) {
+            if (this.tempData.overDraftFacilityForm['bondDetails'].length === 1) {
+                const temp = this.tempData.overDraftFacilityForm['bondDetails'][0].bondOwnerNameCT;
+                this.BondName = temp;
+            } else if (this.tempData.overDraftFacilityForm['bondDetails'].length === 2) {
+                for (let i = 0; i < this.tempData.overDraftFacilityForm['bondDetails'].length; i++ ) {
+                    const temp = this.tempData.overDraftFacilityForm['bondDetails'][i].bondOwnerNameCT;
+                    this.BondNames.push(temp);
+                }
+                this.allBondNames = this.BondNames.join(' र ');
+                this.BondName = this.allBondNames;
+            } else {
+                for (let i = 0; i < this.tempData.overDraftFacilityForm['bondDetails'].length - 1; i++ ) {
+                    const temp = this.tempData.overDraftFacilityForm['bondDetails'][i].bondOwnerNameCT;
+                    this.BondNames.push(temp);
+                }
+                this.allBondNames = this.BondNames.join(' , ');
+                // tslint:disable-next-line:max-line-length
+                const temp1 = this.tempData.overDraftFacilityForm['bondDetails'][this.tempData.overDraftFacilityForm['bondDetails'].length - 1].bondOwnerNameCT;
+                this.BondName = this.allBondNames + ' र ' + temp1;
+            }
         }
     }
 
