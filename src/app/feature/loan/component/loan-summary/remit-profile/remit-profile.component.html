@@ -156,9 +156,9 @@
         </div>
     </ng-template>
 
-    <ng-container *ngIf="isRemit">
+    <ng-container>
         <p><strong>Individual Details</strong></p>
-        <div class="row" *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo && isRemit">
+        <div class="row" *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo">
             <div class="col-md-12">
                 <div>
                     <table

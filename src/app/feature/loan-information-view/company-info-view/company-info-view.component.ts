@@ -53,7 +53,9 @@ export class CompanyInfoViewComponent implements OnInit {
       this.businessGiven = JSON.parse(this.formValue.businessGiven);
       this.companyLocationData = JSON.parse(this.formValue.companyLocations.address);
     }
-    this.bankingRelation = JSON.parse(this.customerInfo.loanHolder.bankingRelationship);
+    if (!ObjectUtil.isEmpty(this.customerInfo)) {
+      this.bankingRelation = JSON.parse(this.customerInfo.bankingRelationship);
+    }
   }
 
 }

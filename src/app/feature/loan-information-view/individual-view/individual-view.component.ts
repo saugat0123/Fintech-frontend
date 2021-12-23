@@ -45,6 +45,7 @@ dbr;
   }
 
   ngOnInit() {
+    console.log('this is customer', this.individual);
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
