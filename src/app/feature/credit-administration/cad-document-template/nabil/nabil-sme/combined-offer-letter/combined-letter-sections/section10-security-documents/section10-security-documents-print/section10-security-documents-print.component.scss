@@ -1,8 +1,12 @@
+* {
+  font-size: 19px;
+  line-height: 1.6;
+}
 .disc-list {
   list-style-type: disc;
 }
 .disc-list li{
-  line-height: 1.9em !important;
+  line-height: 1.6 !important;
   padding-left: 1em !important;
   text-align: justify;
 }
