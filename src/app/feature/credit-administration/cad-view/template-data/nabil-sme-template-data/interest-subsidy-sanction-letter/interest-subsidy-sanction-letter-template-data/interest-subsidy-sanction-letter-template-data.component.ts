@@ -356,7 +356,6 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             this.attributes.ct = this.interestSubsidy.get(key + 'CT').value;
             this.tdVal[key] = this.attributes;
         });
-        console.log('This is Attributes', this.tdVal);
     }
 
     async translateAndSetVal() {
@@ -660,7 +659,6 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             offerDocument.initialInformation = JSON.stringify(this.tdVal);
             this.customerApprovedDoc.offerDocumentList.push(offerDocument);
         }
-        console.log('This is the temp data', this.customerApprovedDoc);
         this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
             this.customerApprovedDoc = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
@@ -677,7 +675,6 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
     }
 
     openPreviewModal() {
-        console.log('Template data', this.commonSecuritySectionPrimaryComponent.commonPrimarySecurity.value);
         this.dialogService.open(InterestSubsidySanctionLetterComponent, {
             closeOnBackdropClick: false,
             hasBackdrop: false,
