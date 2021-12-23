@@ -88,7 +88,7 @@
                                     type="text"/>
                             </p>
                             <p *ngIf="this.loanOptionIrrevocable === 'ONE_OFF_BASIS'">
-                                <strong>सुविधा समाप्ति मितिः</strong><input class="form-field form-control-sm nepaliFont"
+                                <strong>सुविधा समाप्ति मितिः</strong><input class="form-field form-control-sm "
                                                                             formControlName="loanExpiryDateIrrevocable2"
                                                                             placeholder=""
                                                                             type="text"/>
@@ -100,7 +100,6 @@
                         <!--Customer Acceptance for Time Letter of Credit-->
                         <td width="10%"><strong>{{i + 1 | nepaliWord}})</strong></td>
                         <td>
-                            <p>
                                 <span><strong>
                                     <ng-container
                                             *ngIf="this.loanOptionTimeLetter === 'ONE_OFF_BASIS'"> पटके </ng-container>
@@ -113,8 +112,6 @@
                                                      placeholder=""
                                                      type="text"/> को पूरक सुविधा
                                 </ng-container></strong></span><br>
-                            </p>
-                            <p>
                                 <strong>सीमाः
                                     <ng-container *ngIf="complementaryOtherTimeLetter">(रु.<input
                                             class="form-field form-control-sm"
@@ -133,7 +130,6 @@
                                                         value="{{ld?.loanAmountWords}}"
                                                         placeholder=""
                                                         type="text"/> मात्र)</strong><br>
-                            </p>
                             <strong>सुरक्षणः</strong><br>
                             <span *ngIf="this.hypothecationGlobal === 'New'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
                                 प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु
@@ -168,7 +164,7 @@
                                     type="text"/><br></span>
 
                                 <span *ngIf="this.loanOptionTimeLetter === 'ONE_OFF_BASIS'"><strong>सुविधा समाप्ति मितिः</strong><input
-                                        class="form-field form-control-sm nepaliFont"
+                                        class="form-field form-control-sm "
                                         formControlName="loanExpiryDateTimeLetter2"
                                         placeholder=""
                                         type="text"/><br></span>
@@ -234,7 +230,7 @@
                             ।<br>
                             <strong>कर्जा भुक्तानी तरिकाः </strong>
                             <textarea
-                                    class="form-control customFont nepaliFont"
+                                    class="form-control customFont "
                                     rows="2"
                                     style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                     name=""
@@ -343,7 +339,7 @@
                                                          placeholder=""
                                                          type="text"/>दिन सम्म ।</span><br>
                             <strong>कर्जा भुक्तानी तरिकाः</strong><textarea
-                                    class="form-control customFont nepaliFont"
+                                    class="form-control customFont "
                                     rows="2"
                                     style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                     name=""
@@ -505,13 +501,13 @@
                     पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
                             <span *ngIf="loanOptionShortTermLoan === 'REGULAR'"><strong>कर्जा अवधि समाप्ति मितिः</strong> प्रत्येक अल्पकालिन कर्जा प्रवाह
-                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm nepaliFont"
+                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm "
                                                          formControlName="remainDaysShortTermLoan"
                                                          placeholder=""
                                                          type="text"/>
                     दिन सम्म ।</span><br>
                             <span *ngIf="loanOptionShortTermLoan === 'ONE_OFF_BASIS'"><strong>कर्जा अवधि समाप्ति मितिः</strong> पटके अल्पकालिन कर्जा प्रवाह
-                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm nepaliFont"
+                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm "
                                                          formControlName="remainDaysShortTermLoan"
                                                          placeholder=""
                                                          type="text"/>
@@ -523,7 +519,7 @@
                                     placeholder=""
                                     type="text"/></span><br>
                             <textarea
-                                    class="form-control customFont nepaliFont"
+                                    class="form-control customFont "
                                     rows="2"
                                     style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                     name=""
@@ -675,7 +671,7 @@
                     गरिदिइएको यथावत कायम रहने छ।</span>
 
                             <br><textarea
-                                class="form-control customFont nepaliFont"
+                                class="form-control customFont "
                                 rows="2"
                                 style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                 name=""
@@ -695,7 +691,7 @@
                     कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
 
                             <br><textarea
-                                class="form-control customFont nepaliFont"
+                                class="form-control customFont "
                                 rows="2"
                                 style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                 name=""
@@ -703,11 +699,11 @@
                                 formControlName="freeTextFive">
                         </textarea><br>
 
-                            <strong>शुल्कः </strong><input class="form-field form-control-sm nepaliFont"
+                            <strong>शुल्कः </strong><input class="form-field form-control-sm "
                                                            formControlName="sulkaPreExport"
                                                            placeholder=""
                                                            type="text"/> <br>
-                            <strong>ब्याज दरः </strong><input class="form-field form-control-sm nepaliFont"
+                            <strong>ब्याज दरः </strong><input class="form-field form-control-sm "
                                                               formControlName="interestRatePreExport"
                                                               placeholder=""
                                                               type="text"/> <br>
@@ -776,11 +772,11 @@
                             वा स्वीकृत कर्जा
                             मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।<br>
 
-                            <strong>ब्याजः</strong><input class="form-field form-control-sm nepaliFont"
+                            <strong>ब्याजः</strong><input class="form-field form-control-sm "
                                                           formControlName="InterestRateDocumentaryBill"
                                                           placeholder=""
                                                           type="text"/> <br>
-                            <strong>कर्जा भुक्तानी तरिकाः </strong><input class="form-field form-control-sm nepaliFont"
+                            <strong>कर्जा भुक्तानी तरिकाः </strong><input class="form-field form-control-sm "
                                                                           formControlName="loanPaymentDocumentaryBill"
                                                                           placeholder=""
                                                                           type="text"/><br>
@@ -1292,7 +1288,7 @@
                             </p>
                             <p>
                                 <strong>सुरक्षणः</strong> <textarea
-                                    class="form-control customFont nepaliFont"
+                                    class="form-control customFont "
                                     rows="2"
                                     style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                     name=""
@@ -1302,7 +1298,7 @@
                             </p>
                             <p>
                                 <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong><textarea
-                                    class="form-control customFont nepaliFont"
+                                    class="form-control customFont "
                                     rows="2"
                                     style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                     name=""
@@ -1342,7 +1338,7 @@
 
                             </p>
                             <strong>कर्जा प्रवाह तरिकाः</strong> <textarea
-                                class="form-control customFont nepaliFont"
+                                class="form-control customFont "
                                 rows="2"
                                 style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                 name=""
@@ -1350,7 +1346,7 @@
                                 formControlName="freeTextEight">
                         </textarea><br>
                             <strong>कर्जा अवधि समाप्तिः</strong> <textarea
-                                class="form-control customFont nepaliFont"
+                                class="form-control customFont "
                                 rows="2"
                                 style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                 name=""
@@ -1539,7 +1535,7 @@
                             </p>
                             <p>
                                 <strong>सुरक्षणः</strong> खरिद गरिने बिल्स् , चेक, ड्राफ्ट ' <textarea
-                                    class="form-control customFont nepaliFont"
+                                    class="form-control customFont "
                                     rows="2"
                                     style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                     name=""
@@ -1581,7 +1577,6 @@
                                        [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="autoLoanDetails" [index]="index1" [data]="autoLoanData[index1]"></app-auto-loan>
                     </td>
                 </tr>
-
                 <tr *ngFor="let termLoan of termLoanDetails; let index2 = index;">
                     <!--Term Loan to/for-->
                     <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length +(index2 + 1) | nepaliWord}})</strong></td>
@@ -1590,13 +1585,12 @@
                                                  [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="termLoanDetails" [index]="index2" [data]="termLoanData[index2]"></app-term-loan-to-or-for>
                     </td>
                 </tr>
-
                 <tr>
                     <!--Free Text-->
                     <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length + termLoanDetails.length + 1 | nepaliWord}})</strong></td>
                     <td>
                         <textarea
-                                class="form-control customFont nepaliFont"
+                                class="form-control customFont "
                                 rows="2"
                                 style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                 name=""
@@ -1613,7 +1607,7 @@
             </div>
             <div class="col-md-11">
                 <p> माथि बुँदा नं.
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm "
                            formControlName="SNOfFacility"
                            placeholder=""
                            type="text"/>मा उल्लेखित ऋणकर्जा सुविधाहरु
