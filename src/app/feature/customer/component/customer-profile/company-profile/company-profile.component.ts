@@ -126,6 +126,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.spinner = true;
         this.companyInfoService.detail(companyInfoId).subscribe((res: any) => {
             this.companyInfo = res.detail;
+            console.log('this is company details', res.detail);
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
                 this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
@@ -242,6 +243,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.companyInfo.contactNum = this.companyForm.get('contactNum').value;
         this.companyInfo.businessType = this.companyForm.get('businessType').value;
         this.companyInfo.withinLimitRemarks = this.companyForm.get('withinLimitRemarks').value;
+        this.companyInfo.bankingRelationship = this.customerInfo.bankingRelationship;
         this.companyInfo.accountStrategy = this.companyForm.get('accountStrategy').value;
         this.companyInfoService.save(this.companyInfo).subscribe(response => {
             this.companyInfo = response.detail;
