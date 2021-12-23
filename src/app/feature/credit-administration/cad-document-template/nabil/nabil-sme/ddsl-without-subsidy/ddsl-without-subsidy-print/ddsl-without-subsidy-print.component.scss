@@ -3,6 +3,7 @@
 }
 .nepaliFont{
   font-size: 19px;
+  font-family: Preeti;
 }
 .unicodeResize {
   font-size: 19px;
@@ -34,7 +35,6 @@ ol.conditions-list{
 }
 @page {
   size: A4;
-  margin: 17mm 17mm 17mm 17mm;
 }
 .hello{
   width: 95%;
@@ -47,10 +47,16 @@ ol.conditions-list{
   border: 1px solid black !important;
 }
 @media print {
-  footer{
+  footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+  }
+  @page :first {
+    margin: 288px 48px 76.8px 144px !important;
+  }
+  @page {
+    margin: 95px 48px 76.8px 144px !important;
   }
 }
 .disclist > li{
