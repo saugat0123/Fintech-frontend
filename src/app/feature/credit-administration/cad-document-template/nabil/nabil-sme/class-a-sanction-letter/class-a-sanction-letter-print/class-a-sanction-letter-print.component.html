@@ -44,10 +44,7 @@
                     </p>
                 </div>
             </div>
-
             <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
-            <br>
-
             <div class="mb-1" *ngIf="this.letter.costumerType.en === 'newCustomer'">
                 <p>
                     महोदय, <br>
@@ -60,8 +57,6 @@
                                 ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।</span>
                 </p>
             </div>
-            <br>
-
             <div class="mb-1" *ngIf="this.letter.costumerType.en === 'existingPlainRenewal'">
                 <strong> षयः ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</strong>
                 <p>
@@ -79,8 +74,6 @@
                     ऋणकर्जा सुविधाहरु नबिकरण/पुनरावलोकन गरेको ब्यहोरा अनुरोध गर्दछौं ।
                 </p>
             </div>
-            <br>
-
             <div class="mb-1" *ngIf="this.letter.costumerType.en === 'existingRenewalWithEnhancement'">
                 <strong> बिषयः थप/अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे । </strong>
                 <p>
@@ -100,7 +93,6 @@
                     स्वीकृत/नविकरण/पुनरावलोकन गरेको ब्यहोरा अनुरोध गर्दछौं ।
                 </p>
             </div>
-            <br>
             <div class="mb-1" *ngIf="this.letter.costumerType.en === 'existingAdditionalLoan'">
                 <strong> बिबिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे । </strong>
                 <p>
@@ -118,9 +110,7 @@
                     देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
                 </p>
                 <li *ngIf="freeTextVal?.freeText1"><span class="nepaliFont">{{freeTextVal ? freeTextVal.freeText1 : ''}}</span></li>
-
             </div>
-            <br>
             <span class="text-left">
                     <strong> स्वीकृत ऋणकर्जा सुविधाहरुको विवरण  </strong>
                     </span><br>
@@ -269,7 +259,6 @@
                 </table>
             </div>
             <br>
-
             <div class="mb-1">
                 <strong> सुरक्षण विवरणः </strong><br>
                 <strong> क. प्राथमिक सुरक्षण (Primary Security) </strong>
@@ -808,7 +797,7 @@
                     <p>
                                 <span [ngClass]="{'nepaliFont num' : letter?.nameOfRelationalManager!== null && letter?.nameOfRelationalManager!== ''}">
             {{letter?.nameOfRelationalManager === null || letter?.nameOfRelationalManager === '' ? '___________' : letter?.nameOfRelationalManager}}</span>
-                        <br>
+                        <br><br>
                         <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
             {{letter?.branchName === null || letter?.branchName === '' ? '___________' : letter?.branchName}}</span>
 
@@ -821,7 +810,7 @@
                     <p>
                                  <span [ngClass]="{'nepaliFont num' : letter?.nameOfBranchManager!== null && letter?.nameOfBranchManager!== ''}">
                             {{letter?.nameOfBranchManager === null || letter?.nameOfBranchManager === '' ? '___________' : letter?.nameOfBranchManager}}</span>
-                        <br>
+                        <br><br>
                         <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
             {{letter?.branchName === null || letter?.branchName === '' ? '___________' : letter?.branchName}}</span>
 

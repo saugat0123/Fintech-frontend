@@ -38,12 +38,12 @@
                     <label><strong> Service charge type </strong></label>
                     <div>
                         <nb-checkbox #classA (checkedChange)="serviceCheck(classA.checked)"
-                                     [checked]="isSecurity">
+                                     [checked]="isSecurity"  formControlName="serviceCheck">
                             <i>Is service charge applicable? </i></nb-checkbox>
                     </div>
                         <div>
                             <nb-checkbox #naturalPerson (checkedChange)="naturalPersonCheck(naturalPerson.checked)"
-                                         [checked]="isNatural">
+                                         [checked]="isNatural" formControlName="naturalCheck">
                                 <i>Is Applicable only for natural person? </i></nb-checkbox>
                         </div>
                     <!--                    <ng-select-->
@@ -55,7 +55,7 @@
                     <!--                    </ng-select>-->
                     </div>
                 <div class="col-md-4" *ngIf="isSecurity">
-                    <label><strong> Security Type </strong></label>
+                    <label><strong> Service Type </strong></label>
                     <ng-select
                             formControlName="serviceCharges"
                             fullWidth

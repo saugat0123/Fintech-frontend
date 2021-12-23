@@ -43,9 +43,21 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
-    }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.documentaryBillPurchase.patchValue(this.initialInformation.documentaryBillPurchase);
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.documentaryBillPurchase.patchValue(this.initialInformation.documentaryBillPurchase);
+      }
+      const dateOfExpiryType = this.initialInformation.documentaryBillPurchase.dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.documentaryBillPurchase.dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.documentaryBillPurchase.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.documentaryBillPurchase.dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.documentaryBillPurchase.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+        }
+      }
     }
   }
   buildForm() {

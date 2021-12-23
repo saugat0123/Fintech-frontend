@@ -19,11 +19,21 @@ export class Section2LoanTypeComponent implements OnInit {
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     form: FormGroup;
     tempData;
+    tempInformation;
     loanData = [];
     freeTextVal: any = {};
     @ViewChild('termLoanToOrForComponent', {static: false}) termLoanToOrForComponent: TermLoanToOrForComponent;
     @ViewChild('mortgageEquityTermLoanComponent', {static: false}) mortgageEquityTermLoanComponent: MortgageEquityTermLoanComponent;
     @ViewChild('autoLoanComponent', {static: false}) autoLoanComponent: AutoLoanComponent;
+    FDName;
+    DepName;
+    BondName;
+    FDNames: Array<String> = [];
+    allFDNames;
+    DepNames: Array<String> = [];
+    allDepNames;
+    BondNames: Array<String> = [];
+    allBondNames;
     loanNameConstant = LoanNameConstant;
     isCustomerAcceptance = false;
     isIrrevocableLetter = false;
@@ -103,6 +113,11 @@ export class Section2LoanTypeComponent implements OnInit {
     commissionTypeBankGuarantee;
     // Bills Purchase
     complementaryOtherBillPurchase = false;
+    autoLoanDetails = [];
+    termLoanDetails = [];
+    finalLoanDetails = [];
+    autoLoanData;
+    termLoanData;
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -115,9 +130,20 @@ export class Section2LoanTypeComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+            this.tempInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
             this.hypothecationGlobal = this.tempData.smeGlobalForm.hypothecation;
+            if (!ObjectUtil.isEmpty(this.tempData)) {
+                this.autoLoanData = !ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm) ?
+                    this.tempData.autoLoanMasterForm.autoLoanFormArray : [];
+                this.termLoanData = !ObjectUtil.isEmpty(this.tempData.termLoanForm) ?
+                    this.tempData.termLoanForm.termLoanDetails : [];
+            }
+            this.getFDName();
+            this.getDepName();
+            this.getBondName();
             this.getLoanName();
             this.checkLoanName();
+            this.setFreeText();
         }
     }
 
@@ -287,6 +313,84 @@ export class Section2LoanTypeComponent implements OnInit {
             };
             this.loanData.push(tempLoan);
         });
+        if (this.loanData.length > 1) {
+            this.filterLoanData();
+        }
+    }
+
+    getFDName() {
+        if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
+            if (this.tempData.overdraftFixedForm['fdHolderDetails'].length === 1) {
+                const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][0].nameOfFDHolderCT;
+                this.FDName = temp;
+            } else if (this.tempData.overdraftFixedForm['fdHolderDetails'].length === 2) {
+                for (let i = 0; i < this.tempData.overdraftFixedForm['fdHolderDetails'].length; i++ ) {
+                    const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][i].nameOfFDHolderCT;
+                    this.FDNames.push(temp);
+                }
+                this.allFDNames = this.FDNames.join(' र ');
+                this.FDName = this.allFDNames;
+            } else {
+                for (let i = 0; i < this.tempData.overdraftFixedForm['fdHolderDetails'].length - 1; i++ ) {
+                    const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][i].nameOfFDHolderCT;
+                    this.FDNames.push(temp);
+                }
+                this.allFDNames = this.FDNames.join(' , ');
+                // tslint:disable-next-line:max-line-length
+                const temp1 = this.tempData.overdraftFixedForm['fdHolderDetails'][this.tempData.overdraftFixedForm['fdHolderDetails'].length - 1].nameOfFDHolderCT;
+                this.FDName = this.allFDNames + ' र ' + temp1;
+            }
+        }
+    }
+
+    getDepName() {
+        if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
+            if (this.tempData.overdraftFixedForm['depositorDetails'].length === 1) {
+                const temp = this.tempData.overdraftFixedForm['depositorDetails'][0].nameOfDepositorsCT;
+                this.DepName = temp;
+            } else if (this.tempData.overdraftFixedForm['depositorDetails'].length === 2) {
+                for (let i = 0; i < this.tempData.overdraftFixedForm['depositorDetails'].length; i++ ) {
+                    const temp = this.tempData.overdraftFixedForm['depositorDetails'][i].nameOfDepositorsCT;
+                    this.DepNames.push(temp);
+                }
+                this.allDepNames = this.DepNames.join(' र ');
+                this.DepName = this.allDepNames;
+            } else {
+                for (let i = 0; i < this.tempData.overdraftFixedForm['depositorDetails'].length - 1; i++ ) {
+                    const temp = this.tempData.overdraftFixedForm['depositorDetails'][i].nameOfDepositorsCT;
+                    this.DepNames.push(temp);
+                }
+                this.allDepNames = this.DepNames.join(' , ');
+                // tslint:disable-next-line:max-line-length
+                const temp1 = this.tempData.overdraftFixedForm['depositorDetails'][this.tempData.overdraftFixedForm['depositorDetails'].length - 1].nameOfDepositorsCT;
+                this.DepName = this.allDepNames + ' र ' + temp1;
+            }
+        }
+    }
+
+    getBondName() {
+        if (!ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm)) {
+            if (this.tempData.overDraftFacilityForm['bondDetails'].length === 1) {
+                const temp = this.tempData.overDraftFacilityForm['bondDetails'][0].bondOwnerNameCT;
+                this.BondName = temp;
+            } else if (this.tempData.overDraftFacilityForm['bondDetails'].length === 2) {
+                for (let i = 0; i < this.tempData.overDraftFacilityForm['bondDetails'].length; i++ ) {
+                    const temp = this.tempData.overDraftFacilityForm['bondDetails'][i].bondOwnerNameCT;
+                    this.BondNames.push(temp);
+                }
+                this.allBondNames = this.BondNames.join(' र ');
+                this.BondName = this.allBondNames;
+            } else {
+                for (let i = 0; i < this.tempData.overDraftFacilityForm['bondDetails'].length - 1; i++ ) {
+                    const temp = this.tempData.overDraftFacilityForm['bondDetails'][i].bondOwnerNameCT;
+                    this.BondNames.push(temp);
+                }
+                this.allBondNames = this.BondNames.join(' , ');
+                // tslint:disable-next-line:max-line-length
+                const temp1 = this.tempData.overDraftFacilityForm['bondDetails'][this.tempData.overDraftFacilityForm['bondDetails'].length - 1].bondOwnerNameCT;
+                this.BondName = this.allBondNames + ' र ' + temp1;
+            }
+        }
     }
 
     private checkLoanName(): void {
@@ -470,8 +574,6 @@ export class Section2LoanTypeComponent implements OnInit {
             commissionRateForOtherQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT ? this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT : '',
             // tslint:disable-next-line:max-line-length
             loanExpiryDateIrrevocable: this.tempData.letterOfCreditForm.dateOfExpiryCT ? this.tempData.letterOfCreditForm.dateOfExpiryCT : '',
-            // tslint:disable-next-line:max-line-length
-            // loanExpiryDateIrrevocable2:  this.tempData.letterOfCreditForm.loanAmountCT ? this.tempData.letterOfCreditForm.loanAmountCT : '' ,
         });
     }
 
@@ -488,8 +590,6 @@ export class Section2LoanTypeComponent implements OnInit {
             commissionAmountTimeLetter: this.tempData.timeLetterCreditForm.minimumCommissionAmountCT ? this.tempData.timeLetterCreditForm.minimumCommissionAmountCT : '',
             // tslint:disable-next-line:max-line-length
             loanExpiryDateTimeLetter: this.tempData.timeLetterCreditForm.dateOfExpiryCT ? this.tempData.timeLetterCreditForm.dateOfExpiryCT : '',
-            // tslint:disable-next-line:max-line-length
-            // loanExpiryDateTimeLetter2: this.tempData.timeLetterCreditForm.loanAmount ? this.tempData.timeLetterCreditForm.loanAmountCT : '',
         });
     }
 
@@ -520,7 +620,6 @@ export class Section2LoanTypeComponent implements OnInit {
             premiumRateLoanTrust: this.tempData.importLoanTrust.premiumRateCT ? this.tempData.importLoanTrust.premiumRateCT : '',
             interestRateLoanTrust: this.tempData.importLoanTrust.interestRateCT ? this.tempData.importLoanTrust.interestRateCT : '',
             totalInterestRateLoanTrust: this.tempData.importLoanTrust.interestRateCT ? this.tempData.importLoanTrust.interestRateCT : '',
-            // remainDaysLoanTrust: [undefined],
             loanExpiryDateLoanTrust: this.tempData.importLoanTrust.dateOfExpiryCT ? this.tempData.importLoanTrust.dateOfExpiryCT : '',
         });
     }
@@ -547,7 +646,6 @@ export class Section2LoanTypeComponent implements OnInit {
             interestRateShortTermLoan: this.tempData.revolvingShortTermLoan.interestRateCT ? this.tempData.revolvingShortTermLoan.interestRateCT : '',
             // tslint:disable-next-line:max-line-length
             totalInterestRateShortTermLoan: this.tempData.revolvingShortTermLoan.interestRateCT ? this.tempData.revolvingShortTermLoan.interestRateCT : '',
-            // remainDaysShortTermLoan: [undefined],
             // tslint:disable-next-line:max-line-length
             loanExpiryDateShortTermLoan: this.tempData.revolvingShortTermLoan.dateOfExpiryCT ? this.tempData.revolvingShortTermLoan.dateOfExpiryCT : '',
         });
@@ -573,8 +671,6 @@ export class Section2LoanTypeComponent implements OnInit {
             // SNOfParentLimitPreExport: [undefined],
             drawingPower1PreExport: this.tempData.preExportForm.drawingPowerCT ? this.tempData.preExportForm.drawingPowerCT : '',
             drawingPower2PreExport: this.tempData.preExportForm.drawingPowerCT ? this.tempData.preExportForm.drawingPowerCT : '',
-            // sulkaPreExport: [undefined],
-            // interestRatePreExport: [undefined],
             loanExpiryDatePreExport: this.tempData.preExportForm.dateOfExpiryCT ? this.tempData.preExportForm.dateOfExpiryCT : '',
         });
     }
@@ -587,8 +683,6 @@ export class Section2LoanTypeComponent implements OnInit {
             marginInPercentageDocumentaryBill: this.tempData.documentaryBillPurchase.marginInPercentageCT ? this.tempData.documentaryBillPurchase.marginInPercentageCT : '',
             // tslint:disable-next-line:max-line-length
             drawingPowerDocumentaryBill: this.tempData.documentaryBillPurchase.drawingPowerCT ? this.tempData.documentaryBillPurchase.drawingPowerCT : '',
-            // InterestRateDocumentaryBill: [undefined],
-            // loanPaymentDocumentaryBill: [undefined],
             // tslint:disable-next-line:max-line-length
             loanExpiryDateDocumentaryBill: this.tempData.documentaryBillPurchase.dateOfExpiryCT ? this.tempData.documentaryBillPurchase.dateOfExpiryCT : '',
         });
@@ -632,13 +726,13 @@ export class Section2LoanTypeComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             nameOfFacilityOverdraftFacilityInEng: this.tempData.overdraftFixedForm.nameOfFacility ? this.tempData.overdraftFixedForm.nameOfFacility : '',
             // tslint:disable-next-line:max-line-length
-            // nameOfFDHolderOverdraftFacility: this.tempData.overdraftFixedForm.fdHolderDetails ? this.tempData.overdraftFixedForm.fdHolderDetails[0].nameOfFDHolderCT : '',
+            nameOfFDHolderOverdraftFacility: this.FDName ? this.FDName : '',
             // tslint:disable-next-line:max-line-length
             FDAmountOverdraftFacility: this.tempData.overdraftFixedForm.FdAmountInFigureCT ? this.tempData.overdraftFixedForm.FdAmountInFigureCT : '',
             // tslint:disable-next-line:max-line-length
             nameOfBankOverdraftFacility: this.tempData.overdraftFixedForm.nameOfHoldingBankCT ? this.tempData.overdraftFixedForm.nameOfHoldingBankCT : '',
             // tslint:disable-next-line:max-line-length
-            // nameOfDepositorOverdraftFacility: this.tempData.overdraftFixedForm.depositorDetails ? this.tempData.overdraftFixedForm.depositorDetails[0].nameOfDepositorsCT : '',
+            nameOfDepositorOverdraftFacility: this.DepName ? this.DepName : '',
             // tslint:disable-next-line:max-line-length
             accountNoOverdraftFacility: this.tempData.overdraftFixedForm.accountNumberCT ? this.tempData.overdraftFixedForm.accountNumberCT : '',
             amountOverdraftFacility: this.tempData.overdraftFixedForm.amountInFigureCT ? this.tempData.overdraftFixedForm.amountInFigureCT : '',
@@ -665,7 +759,7 @@ export class Section2LoanTypeComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             nameOfFacilityAgainstBondInEng: this.tempData.overDraftFacilityForm.nameOfFacility ? this.tempData.overDraftFacilityForm.nameOfFacility : '',
             // tslint:disable-next-line:max-line-length
-            // ownerNameAgainstBond: this.tempData.overDraftFacilityForm.bondDetails ? this.tempData.overDraftFacilityForm.bondDetails[0].bondOwnerNameCT : '',
+            ownerNameAgainstBond: this.BondName ? this.BondName : '',
             bondAmountAgainstBond: this.tempData.overDraftFacilityForm.bondAmountCT ? this.tempData.overDraftFacilityForm.bondAmountCT : '',
             bondTypeAgainstBond: this.tempData.overDraftFacilityForm.bondTypeCT ? this.tempData.overDraftFacilityForm.bondTypeCT : '',
             // tslint:disable-next-line:max-line-length
@@ -729,27 +823,74 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     setTextAreaValue() {
-        const tempTermLoanFreeVal = this.termLoanToOrForComponent.setFreeTextTermLoan();
-        const tempAutoLoanFreeVal = this.autoLoanComponent.setFreeTextAutoLoan();
-        const tempMortgageEquity = this.mortgageEquityTermLoanComponent.setFreeTextAutoLoan();
+        // const tempTermLoanFreeVal = this.termLoanToOrForComponent.setFreeTextTermLoan();
+        // const tempAutoLoanFreeVal = this.autoLoanComponent.setFreeTextAutoLoan();
+        // const tempMortgageEquity = this.mortgageEquityTermLoanComponent.setFreeTextMortgage();
         this.freeTextVal = {
-            freeText1: this.form.get('freeTextOne').value,
-            freeText2: this.form.get('freeTextTwo').value,
-            freeText3: this.form.get('freeTextThree').value,
-            freeText4: this.form.get('freeTextFour').value,
-            freeText5: this.form.get('freeTextFive').value,
-            freeText6: this.form.get('freeTextSix').value,
-            freeText7: this.form.get('freeTextSeven').value,
-            freeText8: this.form.get('freeTextEight').value,
-            freeText9: this.form.get('freeTextNine').value,
-            freeText10: tempTermLoanFreeVal.freeText10,
-            freeText11: tempTermLoanFreeVal.freeText11,
-            freeText12: tempTermLoanFreeVal.freeText12,
-            freeText13: tempMortgageEquity.freeText13,
-            freeText14: tempAutoLoanFreeVal.freeText14,
-            freeText15: this.form.get('freeTextFifteen').value,
-            freeText16: this.form.get('freeTextSixteen').value,
+            loanExpiryIrrevocable: this.form.get('loanExpiryDateIrrevocable2').value ? this.form.get('loanExpiryDateIrrevocable2').value : '',
+            loanExpiryTimeLetter: this.form.get('loanExpiryDateTimeLetter2').value ? this.form.get('loanExpiryDateTimeLetter2').value : '',
+            freeText1: this.form.get('freeTextOne').value ? this.form.get('freeTextOne').value : '',
+            freeText2: this.form.get('freeTextTwo').value ? this.form.get('freeTextTwo').value : '',
+            remainingDaysShortTerms: this.form.get('remainDaysShortTermLoan').value ? this.form.get('remainDaysShortTermLoan').value : '',
+            freeText3: this.form.get('freeTextThree').value ? this.form.get('freeTextThree').value : '',
+            freeText4: this.form.get('freeTextFour').value ? this.form.get('freeTextFour').value : '',
+            freeText5: this.form.get('freeTextFive').value ? this.form.get('freeTextFive').value : '',
+            SulkaPreExport: this.form.get('sulkaPreExport').value ? this.form.get('sulkaPreExport').value : '',
+            interestRatePre: this.form.get('interestRatePreExport').value ? this.form.get('interestRatePreExport').value : '',
+            // tslint:disable-next-line:max-line-length
+            interestRateDocumentary: this.form.get('InterestRateDocumentaryBill').value ? this.form.get('InterestRateDocumentaryBill').value : '',
+            // tslint:disable-next-line:max-line-length
+            loanPaymentDocumentary: this.form.get('loanPaymentDocumentaryBill').value ? this.form.get('loanPaymentDocumentaryBill').value : '',
+            freeText6: this.form.get('freeTextSix').value ? this.form.get('freeTextSix').value : '',
+            freeText7: this.form.get('freeTextSeven').value ? this.form.get('freeTextSeven').value : '',
+            freeText8: this.form.get('freeTextEight').value ? this.form.get('freeTextEight').value : '',
+            freeText9: this.form.get('freeTextNine').value ? this.form.get('freeTextNine').value : '',
+            // freeText10: tempTermLoanFreeVal.freeText10,
+            // freeText11: tempTermLoanFreeVal.freeText11,
+            // freeText12: tempTermLoanFreeVal.freeText12,
+            // freeText13: tempMortgageEquity.freeText13,
+            // freeText14: tempAutoLoanFreeVal.freeText14,
+            freeText15: this.form.get('freeTextFifteen').value ? this.form.get('freeTextFifteen').value : '',
+            freeText16: this.form.get('freeTextSixteen').value ? this.form.get('freeTextSixteen').value : '',
+            snOfFacility: this.form.get('SNOfFacility').value ? this.form.get('SNOfFacility').value : '',
+            remainDaysLoan: this.form.get('remainDaysLoanTrust').value ? this.form.get('remainDaysLoanTrust').value : '',
         };
         return this.freeTextVal;
+    }
+
+    setFreeText() {
+        this.form.patchValue({
+            freeTextOne: this.tempInformation ? this.tempInformation.section2.freeText1 : '',
+            freeTextTwo: this.tempInformation ? this.tempInformation.section2.freeText2 : '',
+            freeTextThree: this.tempInformation ? this.tempInformation.section2.freeText3 : '',
+            freeTextFour: this.tempInformation ? this.tempInformation.section2.freeText4 : '',
+            freeTextFive: this.tempInformation ? this.tempInformation.section2.freeText5 : '',
+            freeTextSix: this.tempInformation ? this.tempInformation.section2.freeText6 : '',
+            freeTextSeven: this.tempInformation ? this.tempInformation.section2.freeText7 : '',
+            freeTextEight: this.tempInformation ? this.tempInformation.section2.freeText8 : '',
+            freeTextNine: this.tempInformation ? this.tempInformation.section2.freeText9 : '',
+            freeTextFifteen: this.tempInformation ? this.tempInformation.section2.freeText15 : '',
+            freeTextSixteen: this.tempInformation ? this.tempInformation.section2.freeText16 : '',
+            // tslint:disable-next-line:max-line-length
+            loanExpiryDateIrrevocable2: this.tempInformation ? this.tempInformation.section2.loanExpiryIrrevocable : '',
+            // tslint:disable-next-line:max-line-length
+            loanExpiryDateTimeLetter2: this.tempInformation ? this.tempInformation.section2.loanExpiryTimeLetter : '',
+            // tslint:disable-next-line:max-line-length
+            remainDaysShortTermLoan: this.tempInformation ? this.tempInformation.section2.remainingDaysShortTerms : '',
+            interestRatePreExport: this.tempInformation ? this.tempInformation.section2.interestRatePre : '',
+            sulkaPreExport: this.tempInformation ? this.tempInformation.section2.SulkaPreExport : '',
+            // tslint:disable-next-line:max-line-length
+            InterestRateDocumentaryBill: this.tempInformation ? this.tempInformation.section2.interestRateDocumentary : '',
+            // tslint:disable-next-line:max-line-length
+            loanPaymentDocumentaryBill: this.tempInformation ? this.tempInformation.section2.loanPaymentDocumentary : '',
+            SNOfFacility: this.tempInformation ? this.tempInformation.section2.snOfFacility : '',
+        });
+    }
+    filterLoanData() {
+        const tempArray = this.loanData.filter(data => data.loanName !== this.loanNameConstant.AUTO_LOAN &&
+            data.loanName !== this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
+        this.finalLoanDetails = tempArray;
+        this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
+        this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
     }
 }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
@@ -16,8 +16,9 @@ import {OfferDocument} from '../../../../../../../model/OfferDocument';
 })
 export class TermLoanToOrForComponent implements OnInit {
   @Input() loanName;
+  @Input() customerApprovedDoc;
   @Input() offerDocumentList: Array<OfferDocument>;
-  initialInformation: any;
+  @Input() isEdit = false;
   termLoanForm: FormGroup;
   loanDetails: any = [];
   isComplementaryOtherLoan = false;
@@ -42,6 +43,9 @@ export class TermLoanToOrForComponent implements OnInit {
     {value: 'Yes'},
     {value: 'No'}
   ];
+  termLoanNumber: Array<any> = new Array<any>();
+  isSubsidySelected = false;
+  initialInformation: any;
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -52,24 +56,60 @@ export class TermLoanToOrForComponent implements OnInit {
               private datePipe: DatePipe) { }
 
   ngOnInit() {
+    this.termLoanNumber = this.customerApprovedDoc.assignedLoan.filter(val =>
+        val.loan.name === 'TERM LOAN TO/FOR PURCHASE OF VEHICLE');
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
     }
-    if (this.offerDocumentList.length > 0) {
-      this.offerDocumentList.forEach(offerLetter => {
-        this.initialInformation = JSON.parse(offerLetter.initialInformation);
-      });
+    if (this.isEdit) {
+      if (this.offerDocumentList.length > 0) {
+        this.offerDocumentList.forEach(offerLetter => {
+          this.initialInformation = JSON.parse(offerLetter.initialInformation);
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.termLoanForm.get('termLoanDetails').patchValue(this.initialInformation.termLoanForm.termLoanDetails);
+      }
+      //Loan Application Date
+      this.patchDate();
     }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.termLoanForm.patchValue(this.initialInformation.termLoanForm);
+  }
+
+  patchDate() {
+    for (let val = 0; val < this.initialInformation.termLoanForm.termLoanDetails.length; val++){
+      const dateOfExpiryType = this.initialInformation.termLoanForm.termLoanDetails[val].dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.termLoanForm.termLoanDetails[val].dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.termLoanForm.get(['termLoanDetails', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.termLoanForm.termLoanDetails[val].dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.termLoanForm.get(['termLoanDetails', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
+        }
+      }
     }
   }
 
   buildForm() {
     this.termLoanForm = this.formBuilder.group({
+      termLoanDetails: this.formBuilder.array([]),
+    });
+    this.setTermLoanForm();
+  }
+
+  setTermLoanForm() {
+    for (let a = 0; a < this.termLoanNumber.length; a++) {
+      (this.termLoanForm.get('termLoanDetails') as FormArray).push(this.setFormArray());
+    }
+  }
+
+  setFormArray() {
+    return this.formBuilder.group({
       // For Form Data
-      complementaryOther: [undefined],
+      complementaryOther: [false],
       subsidyOrAgricultureLoan: [undefined],
       complimentaryLoanSelected: [undefined],
       termLoanFor: [undefined],
@@ -96,7 +136,7 @@ export class TermLoanToOrForComponent implements OnInit {
       numberOfPayments: [undefined],
 
       // For Translated Data
-      complementaryOtherTrans: [undefined],
+      complementaryOtherTrans: [false],
       complimentaryLoanSelectedTrans: [undefined],
       termLoanForTrans: [undefined],
       termLoanTypeTrans: [undefined],
@@ -122,7 +162,7 @@ export class TermLoanToOrForComponent implements OnInit {
       numberOfPaymentsTrans: [undefined],
 
       // For Corrected Data
-      complementaryOtherCT: [undefined],
+      complementaryOtherCT: [false],
       complimentaryLoanSelectedCT: [undefined],
       termLoanForCT: [undefined],
       termLoanTypeCT: [undefined],
@@ -150,18 +190,25 @@ export class TermLoanToOrForComponent implements OnInit {
     });
   }
 
-  checkComplimetryOtherLoan(data) {
-    this.isComplementaryOtherLoan = data;
-    this.termLoanForm.get('complementaryOther').patchValue(this.isComplementaryOtherLoan);
+  checkComplimetryOtherLoan(event, i) {
+    if (!event) {
+      this.termLoanForm.get(['termLoanDetails', i, 'complimentaryLoanSelected']).patchValue(null);
+    }
   }
 
-  setTermLoan(data) {
+  setSubsidyAgriculture(data, i) {
+    const tempData = !ObjectUtil.isEmpty(data) ? data : '';
+    this.isSubsidySelected = tempData === 'YES';
+    this.isOtherSelected = tempData === 'NO';
+  }
+
+  setTermLoan(data, i) {
     const tempData = !ObjectUtil.isEmpty(data) ? data : '';
     this.isVehicleSelected = tempData === 'VEHICLE';
     this.isOtherSelected = tempData === 'OTHER';
   }
 
-  setTermLoanType(data) {
+  setTermLoanType(data, i) {
     const tempData = !ObjectUtil.isEmpty(data) ? data : '';
     this.isNewEMI = tempData === 'NEW_EMI';
     this.isEMIAnnual = tempData === 'NEW_ANNUAL_REVIEW';
@@ -169,25 +216,25 @@ export class TermLoanToOrForComponent implements OnInit {
     this.isInstallmentAnnual = tempData === 'INSTALLMENT_ANNUAL_REVIEW';
   }
 
-  public getNumAmountWord(numLabel, wordLabel): void {
-    const transformValue = this.nepaliCurrencyWordPipe.transform(this.termLoanForm.get(numLabel).value);
-    this.termLoanForm.get(wordLabel).patchValue(transformValue);
+  public getNumAmountWord(numLabel, wordLabel, i): void {
+    const transformValue = this.nepaliCurrencyWordPipe.transform(this.termLoanForm.get(['termLoanDetails', i,  numLabel]).value);
+    this.termLoanForm.get(['termLoanDetails', i, wordLabel]).patchValue(transformValue);
   }
 
-  calInterestRate() {
-    const baseRate = this.termLoanForm.get('baseRate').value;
-    const premiumRate = this.termLoanForm.get('premiumRate').value;
+  calInterestRate(i) {
+    const baseRate = this.termLoanForm.get(['termLoanDetails', i, 'baseRate']).value;
+    const premiumRate = this.termLoanForm.get(['termLoanDetails', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.termLoanForm.get('interestRate').patchValue(sum);
+    this.termLoanForm.get(['termLoanDetails', i, 'interestRate']).patchValue(sum);
   }
 
-  setEMIPaymentType(data) {
+  setEMIPaymentType(data, i) {
     const tempData = !ObjectUtil.isEmpty(data) ? data : '';
     this.isSubsequent = tempData === 'SUBSEQUENT_MONTH';
     this.isEvery = tempData === 'EVERY_20TH';
   }
 
-  public checkDateOfExpiry(value): void {
+  public checkDateOfExpiry(value, i): void {
     this.ADExpiry = value === 'AD';
     this.BSExpiry = value === 'BS';
   }
@@ -200,190 +247,189 @@ export class TermLoanToOrForComponent implements OnInit {
     this.isMonthly = tempData === 'MONTHLY';
   }
 
-  async translateAndSetVal() {
-    this.termLoanForm.get('complementaryOther').patchValue(this.isComplementaryOtherLoan);
-    const tempComplementary = this.termLoanForm.get('complementaryOther').value;
+  async translateAndSetVal(i) {
+    const tempComplementary = this.termLoanForm.get(['termLoanDetails', i, 'complementaryOther']).value;
     if (!ObjectUtil.isEmpty(tempComplementary)) {
-      this.termLoanForm.get('complementaryOtherTrans').patchValue(tempComplementary);
+      this.termLoanForm.get(['termLoanDetails', i, 'complementaryOtherTrans']).patchValue(tempComplementary);
     }
 
-    const tempComplimentaryLoanSelected = this.termLoanForm.get('complimentaryLoanSelected').value;
+    const tempComplimentaryLoanSelected = this.termLoanForm.get(['termLoanDetails', i, 'complimentaryLoanSelected']).value;
     if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
-      this.termLoanForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
+      this.termLoanForm.get(['termLoanDetails', i, 'complimentaryLoanSelectedTrans']).patchValue(tempComplimentaryLoanSelected);
     }
 
-    const tempTermLoanFor = this.termLoanForm.get('termLoanFor').value;
+    const tempTermLoanFor = this.termLoanForm.get(['termLoanDetails', i, 'termLoanFor']).value;
     if (!ObjectUtil.isEmpty(tempTermLoanFor)) {
-      this.termLoanForm.get('termLoanForTrans').patchValue(tempTermLoanFor);
+      this.termLoanForm.get(['termLoanDetails', i, 'termLoanForTrans']).patchValue(tempTermLoanFor);
     }
 
-    const tempTermLoanType = this.termLoanForm.get('termLoanType').value;
+    const tempTermLoanType = this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value;
     if (!ObjectUtil.isEmpty(tempTermLoanType)) {
-      this.termLoanForm.get('termLoanTypeTrans').patchValue(tempTermLoanType);
+      this.termLoanForm.get(['termLoanDetails', i, 'termLoanTypeTrans']).patchValue(tempTermLoanType);
     }
 
-    const tempEMIPaymentType = this.termLoanForm.get('emiPaymentType').value;
+    const tempEMIPaymentType = this.termLoanForm.get(['termLoanDetails', i, 'emiPaymentType']).value;
     if (!ObjectUtil.isEmpty(tempEMIPaymentType)) {
-      this.termLoanForm.get('emiPaymentTypeTrans').patchValue(tempEMIPaymentType);
+      this.termLoanForm.get(['termLoanDetails', i, 'emiPaymentTypeTrans']).patchValue(tempEMIPaymentType);
     }
 
-    const tempPaymentTerms = this.termLoanForm.get('paymentTerms').value;
+    const tempPaymentTerms = this.termLoanForm.get(['termLoanDetails', i, 'paymentTerms']).value;
     if (!ObjectUtil.isEmpty(tempPaymentTerms)) {
-      this.termLoanForm.get('paymentTermsTrans').patchValue(tempPaymentTerms);
+      this.termLoanForm.get(['termLoanDetails', i, 'paymentTermsTrans']).patchValue(tempPaymentTerms);
     }
 
     // Translation for Numbers
-    const tempLoanAmount = this.termLoanForm.get('loanAmount').value;
+    const tempLoanAmount = this.termLoanForm.get(['termLoanDetails', i, 'loanAmount']).value;
     const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
         this.convertNumbersToNepali(tempLoanAmount, true) : '';
-    this.termLoanForm.get('loanAmountTrans').patchValue(convertNumber);
+    this.termLoanForm.get(['termLoanDetails', i, 'loanAmountTrans']).patchValue(convertNumber);
 
-    this.termLoanForm.get('loanAmountWordsTrans').patchValue(
-        this.termLoanForm.get('loanAmountWords').value
+    this.termLoanForm.get(['termLoanDetails', i, 'loanAmountWordsTrans']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'loanAmountWords']).value
     );
 
-    const tempEMIAmount = this.termLoanForm.get('emiInfigure').value;
+    const tempEMIAmount = this.termLoanForm.get(['termLoanDetails', i, 'emiInfigure']).value;
     const convertNumber1 = !ObjectUtil.isEmpty(tempEMIAmount) ?
         this.convertNumbersToNepali(tempEMIAmount, true) : '';
-    this.termLoanForm.get('emiInfigureTrans').patchValue(convertNumber1);
+    this.termLoanForm.get(['termLoanDetails', i, 'emiInfigureTrans']).patchValue(convertNumber1);
 
-    this.termLoanForm.get('emiInWordsTrans').patchValue(
-        this.termLoanForm.get('emiInWords').value
+    this.termLoanForm.get(['termLoanDetails', i, 'emiInWordsTrans']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'emiInWords']).value
     );
 
-    const tempPaymentAmount = this.termLoanForm.get('paymentAmountFigure').value;
+    const tempPaymentAmount = this.termLoanForm.get(['termLoanDetails', i, 'paymentAmountFigure']).value;
     const convertNumber2 = !ObjectUtil.isEmpty(tempPaymentAmount) ?
         this.convertNumbersToNepali(tempPaymentAmount, true) : '';
-    this.termLoanForm.get('paymentAmountFigureTrans').patchValue(convertNumber2);
+    this.termLoanForm.get(['termLoanDetails', i, 'paymentAmountFigureTrans']).patchValue(convertNumber2);
 
-    this.termLoanForm.get('paymentAmountWordsTrans').patchValue(
-        this.termLoanForm.get('paymentAmountWords').value
+    this.termLoanForm.get(['termLoanDetails', i, 'paymentAmountWordsTrans']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'paymentAmountWords']).value
     );
 
-    const tempPurposeOfLoan = this.convertNumbersToNepali(this.termLoanForm.get('purposeOfLoan').value, false);
-    this.termLoanForm.get('purposeOfLoanTrans').patchValue(tempPurposeOfLoan);
-    const tempBaseRate = this.convertNumbersToNepali(this.termLoanForm.get('baseRate').value, false);
-    this.termLoanForm.get('baseRateTrans').patchValue(tempBaseRate);
-    const tempPremiumRate = this.convertNumbersToNepali(this.termLoanForm.get('premiumRate').value, false);
-    this.termLoanForm.get('premiumRateTrans').patchValue(tempPremiumRate);
-    const tempInterestRate = this.convertNumbersToNepali(this.termLoanForm.get('interestRate').value, false);
-    this.termLoanForm.get('interestRateTrans').patchValue(tempInterestRate);
-    const tempNumberOfInstallment = this.convertNumbersToNepali(this.termLoanForm.get('numberOfInstallment').value, false);
-    this.termLoanForm.get('numberOfInstallmentTrans').patchValue(tempNumberOfInstallment);
-    const tempServiceCharge = this.convertNumbersToNepali(this.termLoanForm.get('serviceCharge').value, false);
-    this.termLoanForm.get('serviceChargeTrans').patchValue(tempServiceCharge);
-    const tempTenureOfLoan = this.convertNumbersToNepali(this.termLoanForm.get('tenureOfLoan').value, false);
-    this.termLoanForm.get('tenureOfLoanTrans').patchValue(tempTenureOfLoan);
-    const tempSubsidyInterestRate = this.convertNumbersToNepali(this.termLoanForm.get('subsidyInterestRate').value, false);
-    this.termLoanForm.get('subsidyInterestRateTrans').patchValue(tempSubsidyInterestRate);
-    const tempNumberOfPayments = this.convertNumbersToNepali(this.termLoanForm.get('numberOfPayments').value, false);
-    this.termLoanForm.get('numberOfPaymentsTrans').patchValue(tempNumberOfPayments);
+    const tempPurposeOfLoan = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'purposeOfLoan']).value, false);
+    this.termLoanForm.get(['termLoanDetails', i, 'purposeOfLoanTrans']).patchValue(tempPurposeOfLoan);
+    const tempBaseRate = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'baseRate']).value, false);
+    this.termLoanForm.get(['termLoanDetails', i, 'baseRateTrans']).patchValue(tempBaseRate);
+    const tempPremiumRate = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'premiumRate']).value, false);
+    this.termLoanForm.get(['termLoanDetails', i, 'premiumRateTrans']).patchValue(tempPremiumRate);
+    const tempInterestRate = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'interestRate']).value, false);
+    this.termLoanForm.get(['termLoanDetails', i, 'interestRateTrans']).patchValue(tempInterestRate);
+    const tempNumberOfInstallment = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'numberOfInstallment']).value, false);
+    this.termLoanForm.get(['termLoanDetails', i, 'numberOfInstallmentTrans']).patchValue(tempNumberOfInstallment);
+    const tempServiceCharge = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'serviceCharge']).value, false);
+    this.termLoanForm.get(['termLoanDetails', i, 'serviceChargeTrans']).patchValue(tempServiceCharge);
+    const tempTenureOfLoan = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'tenureOfLoan']).value, false);
+    this.termLoanForm.get(['termLoanDetails', i, 'tenureOfLoanTrans']).patchValue(tempTenureOfLoan);
+    const tempSubsidyInterestRate = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'subsidyInterestRate']).value, false);
+    this.termLoanForm.get(['termLoanDetails', i, 'subsidyInterestRateTrans']).patchValue(tempSubsidyInterestRate);
+    const tempNumberOfPayments = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'numberOfPayments']).value, false);
+    this.termLoanForm.get(['termLoanDetails', i, 'numberOfPaymentsTrans']).patchValue(tempNumberOfPayments);
 
     /* Converting value for date */
-    this.termLoanForm.get('dateOfExpiryTypeTrans').patchValue(
-        this.termLoanForm.get('dateOfExpiryType').value
+    this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryTypeTrans']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryType']).value
     );
-    const tempDateOfExpType = this.termLoanForm.get('dateOfExpiryType').value;
+    const tempDateOfExpType = this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryType']).value;
     let tempExpDate;
     if (tempDateOfExpType === 'AD') {
-      const tempEngExpDate = this.termLoanForm.get('dateOfExpiry').value;
+      const tempEngExpDate = this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiry']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ?
           this.engToNepDatePipe.transform(this.datePipe.transform(tempEngExpDate), true) : '';
-      this.termLoanForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
+      this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryTrans']).patchValue(tempExpDate);
     } else {
-      const tempDateOfExpNep = this.termLoanForm.get('dateOfExpiryNepali').value;
+      const tempDateOfExpNep = this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryNepali']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
           tempDateOfExpNep.nDate : '';
-      this.termLoanForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
+      this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryTrans']).patchValue(tempExpDate);
     }
 
     // translated by google api
     this.translatedFormGroup = this.formBuilder.group({
-      purposeOfLoan: !ObjectUtil.isEmpty(this.termLoanForm.get('purposeOfLoan').value) ? this.termLoanForm.get('purposeOfLoan').value : '',
+      purposeOfLoan: !ObjectUtil.isEmpty(this.termLoanForm.get(['termLoanDetails', i, 'purposeOfLoan']).value) ? this.termLoanForm.get(['termLoanDetails', i, 'purposeOfLoan']).value : '',
     });
 
     this.translatedValue =  await this.translateService.translateForm(this.translatedFormGroup);
 
-    this.termLoanForm.get('purposeOfLoanTrans').patchValue(this.translatedValue.purposeOfLoan);
+    this.termLoanForm.get(['termLoanDetails', i, 'purposeOfLoanTrans']).patchValue(this.translatedValue.purposeOfLoan);
 
-    this.setCTValue();
+    this.setCTValue(i);
   }
 
-  setCTValue() {
-    this.termLoanForm.get('complementaryOtherCT').patchValue(
-        this.termLoanForm.get('complementaryOtherTrans').value
+  setCTValue(i) {
+    this.termLoanForm.get(['termLoanDetails', i, 'complementaryOtherCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'complementaryOtherTrans']).value
     );
-    this.termLoanForm.get('complimentaryLoanSelectedCT').patchValue(
-        this.termLoanForm.get('complimentaryLoanSelectedTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'complimentaryLoanSelectedCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'complimentaryLoanSelectedTrans']).value
     );
-    this.termLoanForm.get('termLoanForCT').patchValue(
-        this.termLoanForm.get('termLoanForTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'termLoanForCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'termLoanForTrans']).value
     );
-    this.termLoanForm.get('termLoanTypeCT').patchValue(
-        this.termLoanForm.get('termLoanTypeTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'termLoanTypeCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'termLoanTypeTrans']).value
     );
-    this.termLoanForm.get('loanAmountCT').patchValue(
-        this.termLoanForm.get('loanAmountTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'loanAmountCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'loanAmountTrans']).value
     );
-    this.termLoanForm.get('loanAmountWordsCT').patchValue(
-        this.termLoanForm.get('loanAmountWordsTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'loanAmountWordsCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'loanAmountWordsTrans']).value
     );
-    this.termLoanForm.get('loanAmountWordsCT').patchValue(
-        this.termLoanForm.get('loanAmountWordsTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'loanAmountWordsCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'loanAmountWordsTrans']).value
     );
-    this.termLoanForm.get('purposeOfLoanCT').patchValue(
+    this.termLoanForm.get(['termLoanDetails', i, 'purposeOfLoanCT']).patchValue(
         this.translatedValue.purposeOfLoan
     );
-    this.termLoanForm.get('baseRateCT').patchValue(
-        this.termLoanForm.get('baseRateTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'baseRateCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'baseRateTrans']).value
     );
-    this.termLoanForm.get('premiumRateCT').patchValue(
-        this.termLoanForm.get('premiumRateTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'premiumRateCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'premiumRateTrans']).value
     );
-    this.termLoanForm.get('interestRateCT').patchValue(
-        this.termLoanForm.get('interestRateTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'interestRateCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'interestRateTrans']).value
     );
-    this.termLoanForm.get('emiPaymentTypeCT').patchValue(
-        this.termLoanForm.get('emiPaymentTypeTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'emiPaymentTypeCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'emiPaymentTypeTrans']).value
     );
-    this.termLoanForm.get('emiInfigureCT').patchValue(
-        this.termLoanForm.get('emiInfigureTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'emiInfigureCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'emiInfigureTrans']).value
     );
-    this.termLoanForm.get('emiInWordsCT').patchValue(
-        this.termLoanForm.get('emiInWordsTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'emiInWordsCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'emiInWordsTrans']).value
     );
-    this.termLoanForm.get('numberOfInstallmentCT').patchValue(
-        this.termLoanForm.get('numberOfInstallmentTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'numberOfInstallmentCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'numberOfInstallmentTrans']).value
     );
-    this.termLoanForm.get('serviceChargeCT').patchValue(
-        this.termLoanForm.get('serviceChargeTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'serviceChargeCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'serviceChargeTrans']).value
     );
-    this.termLoanForm.get('tenureOfLoanCT').patchValue(
-        this.termLoanForm.get('tenureOfLoanTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'tenureOfLoanCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'tenureOfLoanTrans']).value
     );
-    this.termLoanForm.get('dateOfExpiryTypeCT').patchValue(
-        this.termLoanForm.get('dateOfExpiryTypeTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryTypeCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryTypeTrans']).value
     );
-    this.termLoanForm.get('dateOfExpiryNepaliCT').patchValue(
-        this.termLoanForm.get('dateOfExpiryNepaliTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryNepaliCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryNepaliTrans']).value
     );
-    this.termLoanForm.get('dateOfExpiryCT').patchValue(
-        this.termLoanForm.get('dateOfExpiryTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryTrans']).value
     );
-    this.termLoanForm.get('subsidyInterestRateCT').patchValue(
-        this.termLoanForm.get('subsidyInterestRateTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'subsidyInterestRateCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'subsidyInterestRateTrans']).value
     );
-    this.termLoanForm.get('paymentTermsCT').patchValue(
-        this.termLoanForm.get('paymentTermsTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'paymentTermsCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'paymentTermsTrans']).value
     );
-    this.termLoanForm.get('paymentAmountFigureCT').patchValue(
-        this.termLoanForm.get('paymentAmountFigureTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'paymentAmountFigureCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'paymentAmountFigureTrans']).value
     );
-    this.termLoanForm.get('paymentAmountWordsCT').patchValue(
-        this.termLoanForm.get('paymentAmountWordsTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'paymentAmountWordsCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'paymentAmountWordsTrans']).value
     );
-    this.termLoanForm.get('numberOfPaymentsCT').patchValue(
-        this.termLoanForm.get('numberOfPaymentsTrans').value
+    this.termLoanForm.get(['termLoanDetails', i, 'numberOfPaymentsCT']).patchValue(
+        this.termLoanForm.get(['termLoanDetails', i, 'numberOfPaymentsTrans']).value
     );
   }
 

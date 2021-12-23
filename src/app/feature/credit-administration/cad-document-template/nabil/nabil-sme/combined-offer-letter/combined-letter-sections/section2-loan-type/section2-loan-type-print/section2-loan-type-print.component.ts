@@ -16,8 +16,10 @@ export class Section2LoanTypePrintComponent implements OnInit {
     @Input() letterData;
     @Input() customerApprovedDoc;
     @Input() freeText;
+    @Input() index;
     loanNameConstant = LoanNameConstant;
     tempData;
+    freeInformation;
     loanExpiryDateIrrevocable;
     loanData = [];
     isCustomerAcceptance = false;
@@ -98,6 +100,11 @@ export class Section2LoanTypePrintComponent implements OnInit {
     commissionTypeBankGuarantee;
     // Bills Purchase
     complementaryOtherBillPurchase = false;
+    autoLoanDetails = [];
+    termLoanDetails = [];
+    finalLoanDetails = [];
+    autoLoanData;
+    termLoanData;
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -110,7 +117,16 @@ export class Section2LoanTypePrintComponent implements OnInit {
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
+            if (!ObjectUtil.isEmpty(this.customerApprovedDoc.offerDocumentList[0].supportedInformation)) {
+                this.freeInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
+            }
             this.hypothecationGlobal = this.tempData.smeGlobalForm.hypothecation;
+            if (!ObjectUtil.isEmpty(this.tempData)) {
+                this.autoLoanData = !ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm) ?
+                    this.tempData.autoLoanMasterForm.autoLoanFormArray : [];
+                this.termLoanData = !ObjectUtil.isEmpty(this.tempData.termLoanForm) ?
+                    this.tempData.termLoanForm.termLoanDetails : [];
+            }
             this.getLoanName();
             this.checkLoanName();
         }
@@ -128,11 +144,12 @@ export class Section2LoanTypePrintComponent implements OnInit {
             };
             this.loanData.push(tempLoan);
         });
+        this.filterLoanData();
     }
 
     private checkLoanName(): void {
-        if (this.loanData.length > 0) {
-            this.loanData.forEach(v => {
+        if (this.finalLoanDetails.length > 0) {
+            this.finalLoanDetails.forEach(v => {
                 // tslint:disable-next-line:max-line-length
                 if (v.loanName === LoanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT && !ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
                     this.isCustomerAcceptance = true;
@@ -278,5 +295,13 @@ export class Section2LoanTypePrintComponent implements OnInit {
                 }
             });
         }
+    }
+
+    filterLoanData() {
+        const tempArray = this.loanData.filter(data => data.loanName !== this.loanNameConstant.AUTO_LOAN &&
+            data.loanName !== this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
+        this.finalLoanDetails = tempArray;
+        this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
+        this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
     }
 }

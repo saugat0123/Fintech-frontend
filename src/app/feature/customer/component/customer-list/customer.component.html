@@ -39,6 +39,11 @@
           </div>
 
           <div class="col-md-3 mb-3">
+            <input class="form-control rounded" formControlName="customerCode" id="customerCode"
+                   placeholder="Enter customer code">
+          </div>
+
+          <div class="col-md-3 mb-3">
             <ng-select placeholder="Province" formControlName="provinceId">
               <ng-option *ngFor="let province of provinces"
                          [value]="province.id">{{province.name}}</ng-option>

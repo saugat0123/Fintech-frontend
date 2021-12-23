@@ -45,9 +45,21 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
             this.offerDocumentList.forEach(offerLetter => {
                 this.initialInformation = JSON.parse(offerLetter.initialInformation);
             });
-        }
-        if (!ObjectUtil.isEmpty(this.initialInformation)) {
-            this.letterOfCreditForm.patchValue(this.initialInformation.letterOfCreditForm);
+            if (!ObjectUtil.isEmpty(this.initialInformation)) {
+                this.letterOfCreditForm.patchValue(this.initialInformation.letterOfCreditForm);
+            }
+            const dateOfExpiryType = this.initialInformation.letterOfCreditForm.dateOfExpiryType;
+            if (dateOfExpiryType === 'AD') {
+                const dateOfExpiry = this.initialInformation.letterOfCreditForm.dateOfExpiry;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.letterOfCreditForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+                }
+            } else if (dateOfExpiryType === 'BS') {
+                const dateOfExpiry = this.initialInformation.letterOfCreditForm.dateOfExpiryNepali;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.letterOfCreditForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+                }
+            }
         }
     }
 
