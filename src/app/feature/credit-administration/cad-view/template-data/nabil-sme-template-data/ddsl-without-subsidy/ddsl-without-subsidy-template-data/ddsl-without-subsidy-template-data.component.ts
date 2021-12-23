@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerLoanOptions} from '../../../../cad-constant/customer-loan-options';
@@ -21,6 +21,8 @@ import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 import {CreditAdministrationService} from '../../../../../service/credit-administration.service';
 import {CadDocStatus} from '../../../../../model/CadDocStatus';
 import {DdslWithoutSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
+import {CommonSecuritySectionPrimaryComponent} from '../../common-security-section/common-security-section-primary/common-security-section-primary.component';
+import {CommonSecuritySectionSecondaryComponent} from '../../common-security-section/common-security-section-secondary/common-security-section-secondary.component';
 
 @Component({
     selector: 'app-ddsl-without-subsidy-template-data',
@@ -29,6 +31,10 @@ import {DdslWithoutSubsidyComponent} from '../../../../../cad-document-template/
 })
 export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @ViewChild('primarySecurity', {static: false})
+    commonSecuritySectionPrimaryComponent: CommonSecuritySectionPrimaryComponent;
+    @ViewChild('secondarySecurity', {static: false})
+    commonSecuritySectionSecondaryComponent: CommonSecuritySectionSecondaryComponent;
     ddslFormGroup: FormGroup;
     spinner = false;
     customerLoanOptions: Array<String> = new Array<String>();
@@ -670,7 +676,8 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
 
     save() {
         this.submitted = true;
-        this.tdVal['securities'] = this.ddslFormGroup.get('securities').value;
+        const tempSecurityDetails = this.setSecurityData();
+        this.tdVal['securities'] = tempSecurityDetails;
         this.clearConditionalValidation();
         const invalidControls = [];
         const controls = this.ddslFormGroup.controls;
@@ -717,5 +724,14 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             this.saveEnable = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
         });
+    }
+    setSecurityData() {
+        const primarySecurity = this.commonSecuritySectionPrimaryComponent.commonPrimarySecurity.value.securityDetails;
+        const secondarySecurity = this.commonSecuritySectionSecondaryComponent.commonSecondarySecurity.value.securityDetails;
+        const allData = {
+            primarySecurity: primarySecurity,
+            secondarySecurity: secondarySecurity
+        };
+        return (allData);
     }
 }
