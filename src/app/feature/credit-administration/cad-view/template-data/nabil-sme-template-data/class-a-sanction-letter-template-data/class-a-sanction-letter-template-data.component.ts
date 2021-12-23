@@ -214,6 +214,60 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       if (tempSecurity === 'DepositAccount') {
         this.isDepositAccountSelected = true;
       }
+      // td holding
+      const tempHolding = this.initialInfo.tdHoldingBank ?
+          this.initialInfo.tdHoldingBank.en : '';
+      if (tempHolding === 'Nabil') {
+        this.isNabilSelected = true;
+      }
+      if (tempHolding === 'Other') {
+        this.isOtherSelected = true;
+      }
+      // letter of setOff
+      const tempSetOff = this.initialInfo.letterOfSetOff ?
+          this.initialInfo.letterOfSetOff.en : '';
+      if (tempSetOff === 'letterNew') {
+        this.isNewSelected = true;
+      }
+      if (tempSetOff === 'letterExisting') {
+        this.isExistingSelected = true;
+      }
+      // Base Rate Type
+      const tempRate = this.initialInfo.baseRateType ?
+          this.initialInfo.baseRateType.en : '';
+      if (tempRate === 'CoupenRateFinancing') {
+        this.isCoupenRateFinancingSelected = true;
+      }
+      if (tempRate === 'BaseRateFinancing') {
+        this.isBaseRateFinancingSelected = true;
+      }
+      // comission Type
+      const tempComissionType = this.initialInfo.comissionType ?
+          this.initialInfo.comissionType.en : '';
+      if (tempComissionType === 'Quarterly') {
+        this.isQuarterlySelected = true;
+      }
+      if (tempComissionType === 'Yearly') {
+        this.isYearlySelected = true;
+      }
+      // Irrevocable comission Type
+      const tempComission = this.initialInfo.commissionTypes ?
+          this.initialInfo.commissionTypes.en : '';
+      if (tempComission === 'CommissionType1') {
+        this.isCommissionType1Selected = true;
+      }
+      if (tempComission === 'CommissionType2') {
+        this.isCommissionType2Selected = true;
+      }
+      // loan option(irrevocable)
+      const tempOption = this.initialInfo.loanOption ?
+          this.initialInfo.loanOption.en : '';
+      if (tempOption === 'Regular') {
+        this.isRegularSelected = true;
+      }
+      if (tempOption === 'OneOff') {
+        this.isOneoffSelected = true;
+      }
       /* For natural check */
       this.form.get('naturalCheck').patchValue(this.initialInfo.naturalCheck);
       if (this.initialInfo.naturalCheck) {
