@@ -1,5 +1,5 @@
 <div class="container text-justify" id="{{offerLetterConst.DDSL_WITHOUT_SUBSIDY}}Print" style="overflow-y: auto;">
-    <div class="row margin-first-page">
+    <div class="row">
         <div class="col-md-12 viewFull" style="line-height: 1.9">
             <p>
                 स्वीकृती पत्र नं.-{{autoRefNum ? autoRefNum : '_______________________'}}<br>
@@ -15,7 +15,7 @@
                             {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}</span><br>
             </p>
             <p *ngIf="loanOptions === 'NEW'; else existingUser">
-                <strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong><br><br>
+                <strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong><br><br>f
                 महोदय,<br>
                 तपाईंले मिति <span>{{applicationDate ? applicationDate : '_________________________'}}</span>
                 मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको

@@ -180,13 +180,9 @@ button {
   }
 }
 
-.margin-first-page {
-  margin-top: 80px;
-}
-
 @media print {
   @page {
-    margin: 120px 50px 100px 140px !important;
+    margin: 200px 100px 100px !important;
     padding-top: 20px !important;
     padding-bottom: 20px !important;
   }
