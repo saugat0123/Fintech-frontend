@@ -26,6 +26,8 @@ import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApproved
 import {OneFormCustomerDto} from '../../model/one-form-customer-dto';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {CustomerType} from '../../../customer/model/customerType';
+import {Province} from '../../../admin/modal/province';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
 
 @Component({
   selector: 'app-filter',
@@ -59,6 +61,9 @@ export class FilterComponent implements OnInit {
   createSubClientType: any;
   createSubInstituteType: any;
   currentRoleType;
+  isAdminRole = false;
+  provinceList: Array<Province> = new Array<Province>();
+
   constructor(private branchService: BranchService,
               private toastService: ToastService,
               private nbDialogService: NbDialogService,
@@ -67,7 +72,8 @@ export class FilterComponent implements OnInit {
               private routerUtils: RouterUtilsService,
               private service: ApprovalRoleHierarchyService,
               private customerService: CustomerService,
-              private modalService: NgbModal
+              private modalService: NgbModal,
+              private addressService: AddressService
   ) {
   }
 
@@ -75,7 +81,8 @@ export class FilterComponent implements OnInit {
     this.currentRoleType = LocalStorageUtil.getStorage().roleType;
     this.buildFilterForm();
     this.userService.getLoggedInUser().subscribe(res => {
-      if (res.detail.role.roleType === RoleType.CAD_ADMIN || res.detail.role.roleType === RoleType.CAD_SUPERVISOR) {
+      if (res.detail.role.roleType === RoleType.CAD_ADMIN || res.detail.role.roleType === RoleType.CAD_SUPERVISOR
+      || res.detail.role.roleType === RoleType.ADMIN) {
         this.showPossessionUnder = true;
         this.getCadRoleList();
       }
@@ -102,17 +109,29 @@ export class FilterComponent implements OnInit {
       }
     });
     this.getClientType();
+    if (this.currentRoleType === RoleType.ADMIN) {
+      this.isAdminRole = true;
+      this.getProvince();
+    }
+  }
 
+  getProvince() {
+    this.addressService.getProvince().subscribe((res: any) => {
+      this.provinceList = res.detail;
+    });
   }
 
   buildFilterForm() {
     this.filterForm = this.formBuilder.group({
+      fromDate: [undefined],
+      toDate: [undefined],
+      provinceIds: [undefined],
+      branchIds: [undefined],
       name: [undefined],
       customerType: [undefined],
-      branchIds: [undefined],
-      toUser: undefined,
-      docStatus: undefined,
       toRole: undefined,
+      docStatus: undefined,
+      toUser: undefined,
       clientType: undefined
     });
   }
