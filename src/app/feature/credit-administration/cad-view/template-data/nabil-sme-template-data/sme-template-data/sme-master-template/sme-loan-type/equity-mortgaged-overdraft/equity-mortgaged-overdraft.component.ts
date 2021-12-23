@@ -46,9 +46,21 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
             this.offerDocumentList.forEach(offerLetter => {
                 this.initialInformation = JSON.parse(offerLetter.initialInformation);
             });
-        }
-        if (!ObjectUtil.isEmpty(this.initialInformation)) {
-            this.equityMortgaged.patchValue(this.initialInformation.equityMortgaged);
+            if (!ObjectUtil.isEmpty(this.initialInformation)) {
+                this.equityMortgaged.patchValue(this.initialInformation.equityMortgaged);
+            }
+            const dateOfExpiryType = this.initialInformation.equityMortgaged.dateOfExpiryType;
+            if (dateOfExpiryType === 'AD') {
+                const dateOfExpiry = this.initialInformation.equityMortgaged.dateOfExpiry;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.equityMortgaged.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+                }
+            } else if (dateOfExpiryType === 'BS') {
+                const dateOfExpiry = this.initialInformation.equityMortgaged.dateOfExpiryNepali;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.equityMortgaged.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+                }
+            }
         }
     }
 

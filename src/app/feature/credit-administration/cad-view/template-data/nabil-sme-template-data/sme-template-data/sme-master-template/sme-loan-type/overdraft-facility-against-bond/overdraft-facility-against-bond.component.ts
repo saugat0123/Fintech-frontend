@@ -48,9 +48,21 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
             this.offerDocumentList.forEach(offerLetter => {
                 this.initialInformation = JSON.parse(offerLetter.initialInformation);
             });
-        }
-        if (!ObjectUtil.isEmpty(this.initialInformation)) {
-            this.overDraftFacilityForm.patchValue(this.initialInformation.overDraftFacilityForm);
+            if (!ObjectUtil.isEmpty(this.initialInformation)) {
+                this.overDraftFacilityForm.patchValue(this.initialInformation.overDraftFacilityForm);
+            }
+            const dateOfExpiryType = this.initialInformation.overDraftFacilityForm.dateOfExpiryType;
+            if (dateOfExpiryType === 'AD') {
+                const dateOfExpiry = this.initialInformation.overDraftFacilityForm.dateOfExpiry;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.overDraftFacilityForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+                }
+            } else if (dateOfExpiryType === 'BS') {
+                const dateOfExpiry = this.initialInformation.overDraftFacilityForm.dateOfExpiryNepali;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.overDraftFacilityForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+                }
+            }
         }
     }
 

@@ -59,7 +59,8 @@
                          #bridgeGapLoan [loanName]="loanExtraDetails"></app-bridge-gap-loan>
     </ng-container>
     <ng-container *ngIf="isTermLoanToOrFor">
-    <app-term-loan-to-or-for #termLoanToOrFor [loanName]="loanExtraDetails" [customerApprovedDoc]="customerApprovedDoc"></app-term-loan-to-or-for>
+    <app-term-loan-to-or-for #termLoanToOrFor [loanName]="loanExtraDetails" [customerApprovedDoc]="customerApprovedDoc"
+                             [offerDocumentList]="customerApprovedDoc.offerDocumentList" [isEdit]="isEdit"></app-term-loan-to-or-for>
     </ng-container>
     <ng-container *ngIf="isEquityMortgageTermLoan">
     <app-mortgage-or-equity-mortgage-term-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"

@@ -43,9 +43,21 @@ export class ImportBillsDiscountingComponent implements OnInit {
             this.offerDocumentList.forEach(offerLetter => {
                 this.initialInformation = JSON.parse(offerLetter.initialInformation);
             });
-        }
-        if (!ObjectUtil.isEmpty(this.initialInformation)) {
-            this.importBillsDiscountForm.patchValue(this.initialInformation.importBillsDiscountForm);
+            if (!ObjectUtil.isEmpty(this.initialInformation)) {
+                this.importBillsDiscountForm.patchValue(this.initialInformation.importBillsDiscountForm);
+            }
+            const dateOfExpiryType = this.initialInformation.importBillsDiscountForm.dateOfExpiryType;
+            if (dateOfExpiryType === 'AD') {
+                const dateOfExpiry = this.initialInformation.importBillsDiscountForm.dateOfExpiry;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.importBillsDiscountForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+                }
+            } else if (dateOfExpiryType === 'BS') {
+                const dateOfExpiry = this.initialInformation.importBillsDiscountForm.dateOfExpiryNepali;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.importBillsDiscountForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+                }
+            }
         }
     }
 

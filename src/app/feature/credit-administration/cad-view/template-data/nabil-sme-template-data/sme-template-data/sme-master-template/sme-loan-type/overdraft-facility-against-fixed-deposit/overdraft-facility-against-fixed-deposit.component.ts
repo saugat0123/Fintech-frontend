@@ -60,9 +60,21 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
-    }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.overdraftFixedForm.patchValue(this.initialInformation.overdraftFixedForm);
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.overdraftFixedForm.patchValue(this.initialInformation.overdraftFixedForm);
+      }
+      const dateOfExpiryType = this.initialInformation.overdraftFixedForm.dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.overdraftFixedForm.dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.overdraftFixedForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.overdraftFixedForm.dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.overdraftFixedForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+        }
+      }
     }
   }
 

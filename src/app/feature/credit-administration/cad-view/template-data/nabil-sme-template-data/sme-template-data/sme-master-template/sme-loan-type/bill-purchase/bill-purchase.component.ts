@@ -42,9 +42,21 @@ export class BillPurchaseComponent implements OnInit {
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
-    }
-    if (!ObjectUtil.isEmpty(this.initialInformation)) {
-      this.billPurchaseForm.patchValue(this.initialInformation.billPurchaseForm);
+      if (!ObjectUtil.isEmpty(this.initialInformation)) {
+        this.billPurchaseForm.patchValue(this.initialInformation.billPurchaseForm);
+      }
+      const dateOfExpiryType = this.initialInformation.billPurchaseForm.dateOfExpiryType;
+      if (dateOfExpiryType === 'AD') {
+        const dateOfExpiry = this.initialInformation.billPurchaseForm.dateOfExpiry;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.billPurchaseForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+        }
+      } else if (dateOfExpiryType === 'BS') {
+        const dateOfExpiry = this.initialInformation.billPurchaseForm.dateOfExpiryNepali;
+        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+          this.billPurchaseForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+        }
+      }
     }
   }
   buildForm() {
