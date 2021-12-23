@@ -131,6 +131,8 @@ import {CombinedOfferLetterComponent} from './cad-document-template/nabil/nabil-
 import {Section1SmeSecurityComponent} from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security-sections/section1-sme-security/section1-sme-security.component';
 import {Section2SmeSecurityComponent} from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/sme-security/sme-security-sections/section2-sme-security/section2-sme-security.component';
 import { RequiredLegalDocumentSectionComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
+import { CommonSecuritySectionPrimaryComponent } from './cad-view/template-data/nabil-sme-template-data/common-security-section/common-security-section-primary/common-security-section-primary.component';
+import { CommonSecuritySectionSecondaryComponent } from './cad-view/template-data/nabil-sme-template-data/common-security-section/common-security-section-secondary/common-security-section-secondary.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -248,7 +250,9 @@ import { RequiredLegalDocumentSectionComponent } from './cad-view/template-data/
         BillPurchaseComponent,
         Section1SmeSecurityComponent,
         Section2SmeSecurityComponent,
-        RequiredLegalDocumentSectionComponent],
+        RequiredLegalDocumentSectionComponent,
+        CommonSecuritySectionPrimaryComponent,
+        CommonSecuritySectionSecondaryComponent],
   imports: [
     ThemeModule,
     CommonModule,
