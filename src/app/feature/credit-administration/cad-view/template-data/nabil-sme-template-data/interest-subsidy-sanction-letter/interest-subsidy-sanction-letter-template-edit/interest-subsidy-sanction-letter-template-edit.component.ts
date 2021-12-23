@@ -159,13 +159,15 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
             previousSanctionDateNepali: [undefined],
             purposeOfLoan: [undefined],
             marginInPercentage: [undefined],
+            marginInPercentageMotor: [undefined],
+            marginInPercentageFoot: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
             interestRate: [undefined],
             totalTenureOfLoan: [undefined],
             totalLimitFigure: [undefined],
             totalLimitWords: [undefined],
-            circularRate: [undefined],
+            // circularRate: [undefined],
             nameOfStaff: [undefined],
             nameOfBranchManager: [undefined],
             loanSubType: [undefined],
@@ -185,13 +187,15 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
             previousSanctionDateNepaliTrans: [undefined],
             purposeOfLoanTrans: [undefined],
             marginInPercentageTrans: [undefined],
+            marginInPercentageMotorTrans: [undefined],
+            marginInPercentageFootTrans: [undefined],
             baseRateTrans: [undefined],
             premiumRateTrans: [undefined],
             interestRateTrans: [undefined],
             totalTenureOfLoanTrans: [undefined],
             totalLimitFigureTrans: [undefined],
             totalLimitWordsTrans: [undefined],
-            circularRateTrans: [undefined],
+            // circularRateTrans: [undefined],
             nameOfStaffTrans: [undefined],
             nameOfBranchManagerTrans: [undefined],
             loanSubTypeTrans: [undefined],
@@ -211,13 +215,15 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
             previousSanctionDateNepaliCT: [undefined, Validators.required],
             purposeOfLoanCT: [undefined, Validators.required],
             marginInPercentageCT: [undefined, Validators.required],
+            marginInPercentageMotorCT: [undefined, Validators.required],
+            marginInPercentageFootCT: [undefined, Validators.required],
             baseRateCT: [undefined, Validators.required],
             premiumRateCT: [undefined, Validators.required],
             interestRateCT: [undefined, Validators.required],
             totalTenureOfLoanCT: [undefined, Validators.required],
             totalLimitFigureCT: [undefined, Validators.required],
             totalLimitWordsCT: [undefined, Validators.required],
-            circularRateCT: [undefined/*, Validators.required*/],
+            // circularRateCT: [undefined/*, Validators.required*/],
             nameOfStaffCT: [undefined, Validators.required],
             nameOfBranchManagerCT: [undefined, Validators.required],
             loanSubTypeCT: [undefined],
@@ -439,7 +445,8 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         }
         // TRANSLATE VALUES OF NUMBERS:
         this.translateNumber('marginInPercentage', 'marginInPercentageTrans');
-        this.translateNumber('baseRate', 'baseRateTrans');
+        this.translateNumber('marginInPercentageMotor', 'marginInPercentageMotorTrans');
+        this.translateNumber('marginInPercentageFoot', 'marginInPercentageFootTrans');
         this.translateNumber('premiumRate', 'premiumRateTrans');
         this.translateNumber('interestRate', 'interestRateTrans');
         this.translateNumber('totalTenureOfLoan', 'totalTenureOfLoanTrans');
@@ -448,7 +455,7 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         if (!ObjectUtil.isEmpty(tempTotalLimitWords)) {
             this.interestSubsidy.get('totalLimitWordsTrans').patchValue(tempTotalLimitWords);
         }
-        this.translateNumber('circularRate', 'circularRateTrans');
+        // this.translateNumber('circularRate', 'circularRateTrans');
 
         // Set Translated Data of Loan sub type:
         const tempSubTypeVal = this.interestSubsidy.get('loanSubType').value;
@@ -599,13 +606,15 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         }
         this.interestSubsidy.get('purposeOfLoanCT').patchValue(this.interestSubsidy.get('purposeOfLoanTrans').value);
         this.interestSubsidy.get('marginInPercentageCT').patchValue(this.interestSubsidy.get('marginInPercentageTrans').value);
+        this.interestSubsidy.get('marginInPercentageMotorCT').patchValue(this.interestSubsidy.get('marginInPercentageMotorTrans').value);
+        this.interestSubsidy.get('marginInPercentageFootCT').patchValue(this.interestSubsidy.get('marginInPercentageFootTrans').value);
         this.interestSubsidy.get('baseRateCT').patchValue(this.interestSubsidy.get('baseRateTrans').value);
         this.interestSubsidy.get('premiumRateCT').patchValue(this.interestSubsidy.get('premiumRateTrans').value);
         this.interestSubsidy.get('interestRateCT').patchValue(this.interestSubsidy.get('interestRateTrans').value);
         this.interestSubsidy.get('totalTenureOfLoanCT').patchValue(this.interestSubsidy.get('totalTenureOfLoanTrans').value);
         this.interestSubsidy.get('totalLimitFigureCT').patchValue(this.interestSubsidy.get('totalLimitFigureTrans').value);
         this.interestSubsidy.get('totalLimitWordsCT').patchValue(this.interestSubsidy.get('totalLimitWordsTrans').value);
-        this.interestSubsidy.get('circularRateCT').patchValue(this.interestSubsidy.get('circularRateTrans').value);
+        // this.interestSubsidy.get('circularRateCT').patchValue(this.interestSubsidy.get('circularRateTrans').value);
         this.interestSubsidy.get('nameOfStaffCT').patchValue(this.interestSubsidy.get('nameOfStaffTrans').value);
         this.interestSubsidy.get('nameOfBranchManagerCT').patchValue(this.interestSubsidy.get('nameOfBranchManagerTrans').value);
         this.interestSubsidy.get('loanSubTypeCT').patchValue(this.interestSubsidy.get('loanSubTypeTrans').value);
@@ -806,13 +815,15 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         // this.interestSubsidy.get('previousSanctionDateNepali').patchValue(this.initialInformation.previousSanctionDateNepali.en);
         this.interestSubsidy.get('purposeOfLoan').patchValue(this.initialInformation.purposeOfLoan.en);
         this.interestSubsidy.get('marginInPercentage').patchValue(this.initialInformation.marginInPercentage.en);
+        this.interestSubsidy.get('marginInPercentageMotor').patchValue(this.initialInformation.marginInPercentageMotor.en);
+        this.interestSubsidy.get('marginInPercentageFoot').patchValue(this.initialInformation.marginInPercentageFoot.en);
         this.interestSubsidy.get('baseRate').patchValue(this.initialInformation.baseRate.en);
         this.interestSubsidy.get('premiumRate').patchValue(this.initialInformation.premiumRate.en);
         this.interestSubsidy.get('interestRate').patchValue(this.initialInformation.interestRate.en);
         this.interestSubsidy.get('totalTenureOfLoan').patchValue(this.initialInformation.totalTenureOfLoan.en);
         this.interestSubsidy.get('totalLimitFigure').patchValue(this.initialInformation.totalLimitFigure.en);
         this.interestSubsidy.get('totalLimitWords').patchValue(this.initialInformation.totalLimitWords.en);
-        this.interestSubsidy.get('circularRate').patchValue(this.initialInformation.circularRate.en);
+        // this.interestSubsidy.get('circularRate').patchValue(this.initialInformation.circularRate.en);
         this.interestSubsidy.get('nameOfStaff').patchValue(this.initialInformation.nameOfStaff.en);
         this.interestSubsidy.get('nameOfBranchManager').patchValue(this.initialInformation.nameOfBranchManager.en);
         this.tempLoanSubType = this.initialInformation.loanSubType ?
@@ -838,13 +849,15 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         this.interestSubsidy.get('previousSanctionDateNepaliTrans').patchValue(this.initialInformation.previousSanctionDateNepali.np);
         this.interestSubsidy.get('purposeOfLoanTrans').patchValue(this.initialInformation.purposeOfLoan.np);
         this.interestSubsidy.get('marginInPercentageTrans').patchValue(this.initialInformation.marginInPercentage.np);
+        this.interestSubsidy.get('marginInPercentageMotorTrans').patchValue(this.initialInformation.marginInPercentageMotor.np);
+        this.interestSubsidy.get('marginInPercentageFootTrans').patchValue(this.initialInformation.marginInPercentageFoot.np);
         this.interestSubsidy.get('baseRateTrans').patchValue(this.initialInformation.baseRate.np);
         this.interestSubsidy.get('premiumRateTrans').patchValue(this.initialInformation.premiumRate.np);
         this.interestSubsidy.get('interestRateTrans').patchValue(this.initialInformation.interestRate.np);
         this.interestSubsidy.get('totalTenureOfLoanTrans').patchValue(this.initialInformation.totalTenureOfLoan.np);
         this.interestSubsidy.get('totalLimitFigureTrans').patchValue(this.initialInformation.totalLimitFigure.np);
         this.interestSubsidy.get('totalLimitWordsTrans').patchValue(this.initialInformation.totalLimitWords.np);
-        this.interestSubsidy.get('circularRateTrans').patchValue(this.initialInformation.circularRate.np);
+        // this.interestSubsidy.get('circularRateTrans').patchValue(this.initialInformation.circularRate.np);
         this.interestSubsidy.get('nameOfStaffTrans').patchValue(this.initialInformation.nameOfStaff.np);
         this.interestSubsidy.get('nameOfBranchManagerTrans').patchValue(this.initialInformation.nameOfBranchManager.np);
         this.interestSubsidy.get('loanSubTypeTrans').patchValue(this.initialInformation.loanSubType.np);
@@ -865,13 +878,15 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         this.interestSubsidy.get('previousSanctionDateNepaliCT').patchValue(this.initialInformation.previousSanctionDateNepali.ct);
         this.interestSubsidy.get('purposeOfLoanCT').patchValue(this.initialInformation.purposeOfLoan.ct);
         this.interestSubsidy.get('marginInPercentageCT').patchValue(this.initialInformation.marginInPercentage.ct);
+        this.interestSubsidy.get('marginInPercentageMotorCT').patchValue(this.initialInformation.marginInPercentageMotor.ct);
+        this.interestSubsidy.get('marginInPercentageFootCT').patchValue(this.initialInformation.marginInPercentageFoot.ct);
         this.interestSubsidy.get('baseRateCT').patchValue(this.initialInformation.baseRate.ct);
         this.interestSubsidy.get('premiumRateCT').patchValue(this.initialInformation.premiumRate.ct);
         this.interestSubsidy.get('interestRateCT').patchValue(this.initialInformation.interestRate.ct);
         this.interestSubsidy.get('totalTenureOfLoanCT').patchValue(this.initialInformation.totalTenureOfLoan.ct);
         this.interestSubsidy.get('totalLimitFigureCT').patchValue(this.initialInformation.totalLimitFigure.ct);
         this.interestSubsidy.get('totalLimitWordsCT').patchValue(this.initialInformation.totalLimitWords.ct);
-        this.interestSubsidy.get('circularRateCT').patchValue(this.initialInformation.circularRate.ct);
+        // this.interestSubsidy.get('circularRateCT').patchValue(this.initialInformation.circularRate.ct);
         this.interestSubsidy.get('nameOfStaffCT').patchValue(this.initialInformation.nameOfStaff.ct);
         this.interestSubsidy.get('nameOfBranchManagerCT').patchValue(this.initialInformation.nameOfBranchManager.ct);
         this.interestSubsidy.get('loanSubTypeCT').patchValue(this.initialInformation.loanSubType.ct);
