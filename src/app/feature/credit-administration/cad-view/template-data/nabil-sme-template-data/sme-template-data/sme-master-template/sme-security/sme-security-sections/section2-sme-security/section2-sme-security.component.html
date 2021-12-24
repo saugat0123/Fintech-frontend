@@ -140,6 +140,7 @@
                             <label for="securityOwnersDistrict{{i}}">District (जिल्ला)</label>
                             <select (change)="getMunicipalityByDistrict(section2SecurityForm.get(['securityDetails', i, 'securityOwnersDistrict'])?.value?.id, $event, i); setDefaultResponse('securityDetails', 'securityOwnersDistrict', i, 'securityOwnersDistrictTrans')"
                                     class="custom-select"
+                                    [compareWith]="compareFn"
                                     formControlName="securityOwnersDistrict" id="securityOwnersDistrict{{i}}"
                                     name="securityOwnersDistrict{{i}}">
                                 <option [ngValue]="null" hidden>District</option>
@@ -197,6 +198,7 @@
                                      class="col-md-8">
                                     <select (change)="setDefaultResponse('securityDetails', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
                                             class="custom-select"
+                                            [compareWith]="compareFn"
                                             formControlName="securityOwnersMunicipality"
                                             id="securityOwnersMunicipality{{i}}"
                                             name="securityOwnersMunicipality{{i}}">
