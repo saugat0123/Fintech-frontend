@@ -121,7 +121,10 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
     public loanAction(action: 'send legal doc to sender' | 'send legal doc to agent'): void {
-        this.formdata.append('obj', JSON.stringify(this.objArr));
+        this.formdata.append('details', JSON.stringify(this.objArr));
+        this.service.upload(this.formdata).subscribe((res) => {
+            console.log('this is response', res);
+        });
         return;
         const beneficiaryId: any = this.cadOfferLetterApprovedDoc.assignedLoan[0].remitCustomer.beneficiaryId;
         this.close();
@@ -194,8 +197,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         let index = 0;
         if (cadDocuments.length > 0) {
             cadDocuments.forEach((data) => {
-                if ((data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE))
-                    || (data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT))) {
+                if ((data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) && data.draftPath !== null)
+                    || (data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT && data.draftPath !== null))) {
                     index += 1;
                 }
             });
