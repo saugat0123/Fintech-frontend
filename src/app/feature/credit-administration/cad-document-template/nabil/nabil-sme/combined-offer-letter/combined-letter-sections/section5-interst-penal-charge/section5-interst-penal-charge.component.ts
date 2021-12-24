@@ -25,6 +25,7 @@ export class Section5InterstPenalChargeComponent implements OnInit {
   isAutoLoanEmiSelected = false;
   isMortgageTermLoanSelected = false;
   subsidyAgricultureSelected;
+  typeOfServiceCharge;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -33,6 +34,7 @@ export class Section5InterstPenalChargeComponent implements OnInit {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       if (!ObjectUtil.isEmpty(this.tempData)) {
         this.globalData = this.tempData.smeGlobalForm;
+        this.typeOfServiceCharge = this.globalData.serviceChargeType;
         this.fillForm();
 
           /* For Loan Name */
@@ -80,7 +82,6 @@ export class Section5InterstPenalChargeComponent implements OnInit {
 
     setLoanFlags(selectedLoanLists) {
         selectedLoanLists.forEach((data) => {
-            console.log('Offer data', data);
             if (data === this.loanNameConst.AUTO_LOAN) {
                 this.isAutoLoanSelected = true;
                 const autoLoanKey = this.tempData.autoLoanMasterForm;
