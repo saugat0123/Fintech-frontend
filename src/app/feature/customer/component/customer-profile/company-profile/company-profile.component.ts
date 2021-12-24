@@ -244,6 +244,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.companyInfo.businessType = this.companyForm.get('businessType').value;
         this.companyInfo.withinLimitRemarks = this.companyForm.get('withinLimitRemarks').value;
         this.companyInfo.bankingRelationship = this.customerInfo.bankingRelationship;
+        this.companyInfo.clientType = this.customerInfo.clientType;
         this.companyInfo.accountStrategy = this.companyForm.get('accountStrategy').value;
         this.companyInfoService.save(this.companyInfo).subscribe(response => {
             this.companyInfo = response.detail;
