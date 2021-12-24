@@ -313,7 +313,7 @@ export class Section2LoanTypeComponent implements OnInit {
             };
             this.loanData.push(tempLoan);
         });
-        if (this.loanData.length > 1) {
+        if (this.loanData.length > 0) {
             this.filterLoanData();
         }
     }
@@ -394,8 +394,8 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     private checkLoanName(): void {
-        if (this.loanData.length > 0) {
-            this.loanData.forEach(v => {
+        if (this.finalLoanDetails.length > 0) {
+            this.finalLoanDetails.forEach(v => {
                 // tslint:disable-next-line:max-line-length
                 if (v.loanName === LoanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT && !ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
                     this.isCustomerAcceptance = true;
