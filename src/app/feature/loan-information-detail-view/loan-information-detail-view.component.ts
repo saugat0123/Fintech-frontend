@@ -229,16 +229,12 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     activeRibbon() {
-        console.log('docAction', this.loanDataHolder.currentStage.docAction);
         if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.APPROVED) ||
             this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.CLOSED) ||
             this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.REJECT)) {
-            console.log('if');
             this.showRibbon = false;
         } else {
-            console.log('else');
             this.showRibbon = true;
         }
-        console.log('showRibbon', this.showRibbon);
     }
 }
