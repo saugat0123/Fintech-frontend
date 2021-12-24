@@ -17,7 +17,7 @@ export class MortgageEquityTermLoanComponent implements OnInit {
     mortgageEquity: any = {};
     termLoanForMortgageEquityTerm; mortgageTypeMortgageEquityTerm; complementaryOtherMortgageEquityTerm = false;
     emiPaymentTypeMortgageEquityTerm; interestSubAgMortgageEquityTerm; paymentTermMortgageEquityTerm;
-    loanOptionMortgageEquityTerm; drawingPowerMortgageEquityTerm; termLoanTypeMortgageEquityTerm;
+    loanOptionMortgageEquityTerm; drawingPowerMortgageEquityTerm; termLoanTypeMortgageEquityTerm; complementaryOtherMortgageEquityTermName;
 
     constructor(private formBuilder: FormBuilder,
     ) {
@@ -36,6 +36,7 @@ export class MortgageEquityTermLoanComponent implements OnInit {
             this.emiPaymentTypeMortgageEquityTerm = this.tempData.mortgageEquityTermForm.emiPaymentType;
             this.interestSubAgMortgageEquityTerm = this.tempData.mortgageEquityTermForm.subsidyOrAgricultureLoan;
             this.paymentTermMortgageEquityTerm = this.tempData.mortgageEquityTermForm.paymentTerms;
+            this.complementaryOtherMortgageEquityTermName = this.tempData.mortgageEquityTermForm.complimentaryLoanSelected;
             this.drawingPowerMortgageEquityTerm = this.tempData.mortgageEquityTermForm.drawingPowerBasis;
             this.loanOptionMortgageEquityTerm = this.tempData.smeGlobalForm.loanOption;
             if (this.tempData.mortgageEquityTermForm.complementaryOther === true) {
