@@ -241,6 +241,14 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       if (tempRate === 'BaseRateFinancing') {
         this.isBaseRateFinancingSelected = true;
       }
+      if (this.isCoupenRateFinancingSelected || this.isBaseRateFinancingSelected) {
+        this.form.get('baseRateTrans').patchValue(this.initialInfo.baseRate.ct);
+        this.form.get('baseRateCT').patchValue(this.initialInfo.baseRate.ct);
+        this.form.get('premiumRateTrans').patchValue(this.initialInfo.premiumRate.ct);
+        this.form.get('premiumRateCT').patchValue(this.initialInfo.premiumRate.ct);
+        this.form.get('interestRateTrans').patchValue(this.initialInfo.interestRate.ct);
+        this.form.get('interestRateCT').patchValue(this.initialInfo.interestRate.ct);
+      }
       // comission Type
       const tempComissionType = this.initialInfo.comissionType ?
           this.initialInfo.comissionType.en : '';
