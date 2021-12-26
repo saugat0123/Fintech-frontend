@@ -34,6 +34,7 @@ export class Section2SmeSecurityComponent implements OnInit {
     multiContents = [{value: 'NEW'}, {value: 'EXISTING'}];
     isInsuranceRequired = false;
     selectedValue;
+    securityDetailsSelected = false;
 
     constructor(private formBuilder: FormBuilder,
                 private engNepNumberPipe: EngToNepaliNumberPipe,
@@ -47,9 +48,14 @@ export class Section2SmeSecurityComponent implements OnInit {
         this.getAllDistrict();
         if (!ObjectUtil.isEmpty(this.initialData)) {
             if (!ObjectUtil.isEmpty(this.initialData.secondarySecurity[0].securityType)) {
+                this.securityDetailsSelected = true;
                 this.setFormArray(this.initialData.secondarySecurity);
                 this.selectedValue = true;
             }
+            /* FOR DEFAULT FORM*/
+        }
+        if (!this.securityDetailsSelected) {
+            this.addMoreSecurityDetails();
         }
     }
 
@@ -57,10 +63,6 @@ export class Section2SmeSecurityComponent implements OnInit {
         this.section2SecurityForm = this.formBuilder.group({
             securityDetails: this.formBuilder.array([]),
         });
-        /* FOR DEFAULT FORM*/
-        if (ObjectUtil.isEmpty(this.initialData)) {
-            this.addMoreSecurityDetails();
-        }
     }
 
     get formControls() {
