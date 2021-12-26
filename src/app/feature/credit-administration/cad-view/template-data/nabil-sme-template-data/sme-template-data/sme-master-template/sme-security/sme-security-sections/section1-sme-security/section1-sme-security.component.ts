@@ -43,6 +43,7 @@ export class Section1SmeSecurityComponent implements OnInit {
     selectedValue;
     isNabil = false;
     isOther = false;
+    securitySelected = false;
     tempValue;
 
     constructor(private formBuilder: FormBuilder,
@@ -56,11 +57,15 @@ export class Section1SmeSecurityComponent implements OnInit {
         this.getAllProvince();
         this.getAllDistrict();
         if (!ObjectUtil.isEmpty(this.initialData)) {
-            console.log('Primary SECURITY', this.initialData);
             if (!ObjectUtil.isEmpty(this.initialData.primarySecurity[0].securityType)) {
+                this.securitySelected = true;
                 this.setFormArray(this.initialData.primarySecurity);
                 this.selectedValue = true;
             }
+        }
+        /* FOR DEFAULT FORM*/
+        if (!this.securitySelected) {
+            this.addMoreSecurityDetails();
         }
     }
 
@@ -69,10 +74,6 @@ export class Section1SmeSecurityComponent implements OnInit {
             // securityType: [undefined],
             securityDetails: this.formBuilder.array([]),
         });
-        /* FOR DEFAULT FORM*/
-        if (ObjectUtil.isEmpty(this.initialData)) {
-            this.addMoreSecurityDetails();
-        }
     }
 
     get formControls() {
@@ -378,7 +379,6 @@ export class Section1SmeSecurityComponent implements OnInit {
     setFormArray(formData) {
         const formArray = this.section1SecurityForm.get('securityDetails') as FormArray;
         formData.forEach((val, index) => {
-            console.log('This is the index', index);
             if (!ObjectUtil.isEmpty(val.securityOwnersName)) {
                 this.municipalityByDistrictIdForEdit(val.securityOwnersDistrict.id, index);
             }
