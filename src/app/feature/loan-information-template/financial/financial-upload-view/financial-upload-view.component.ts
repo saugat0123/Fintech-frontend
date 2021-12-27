@@ -36,7 +36,7 @@ export class FinancialUploadViewComponent implements OnInit {
         this.executiveSummary = JSON.parse(this.financialData.executiveSummaryData);
         this.plAccount = JSON.parse(this.financialData.plAccountData);
         this.commonSizePl = JSON.parse(this.financialData.commonSizePlData);
-        this.detailCf = JSON.parse(this.financialData.detailCf);
+        this.detailCf = JSON.parse(this.financialData.cashFlowData);
     }
 
     buildForm() {
