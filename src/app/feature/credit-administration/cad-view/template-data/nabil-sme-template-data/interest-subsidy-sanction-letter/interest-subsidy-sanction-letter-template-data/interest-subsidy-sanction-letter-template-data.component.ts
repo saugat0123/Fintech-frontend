@@ -30,6 +30,7 @@ import {CommonSecuritySectionPrimaryComponent} from '../../common-security-secti
     styleUrls: ['./interest-subsidy-sanction-letter-template-data.component.scss']
 })
 export class InterestSubsidySanctionLetterTemplateDataComponent implements OnInit {
+    @Input() isEdit = false;
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @ViewChild('primarySecurity', {static: false})
     commonSecuritySectionPrimaryComponent: CommonSecuritySectionPrimaryComponent;
@@ -687,7 +688,7 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
     }
     setSecurityData() {
         const primarySecurity = this.commonSecuritySectionPrimaryComponent.commonPrimarySecurity.value.securityDetails;
-        const secondarySecurity = this.commonSecuritySectionPrimaryComponent.commonPrimarySecurity.value.securityDetails;
+        const secondarySecurity = this.commonSecuritySectionSecondaryComponent.commonSecondarySecurity.value.securityDetails;
         const allData = {
             primarySecurity: primarySecurity,
             secondarySecurity: secondarySecurity

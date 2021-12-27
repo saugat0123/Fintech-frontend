@@ -550,9 +550,9 @@
             <hr>
             <!-- SECTION FOR SECURITY DETAILS-->
             <div style="margin: 20px;">
-                <app-common-security-section-primary #primarySecurity></app-common-security-section-primary>
+                <app-common-security-section-primary [customerApprove]="customerApprovedDoc" #primarySecurity></app-common-security-section-primary>
                 <hr>
-                <app-common-security-section-secondary #secondarySecurity></app-common-security-section-secondary>
+                <app-common-security-section-secondary [customerApprove]="customerApprovedDoc" #secondarySecurity></app-common-security-section-secondary>
             </div>
 
 <!--            <div class="row">
