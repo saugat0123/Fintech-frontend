@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {SbTranslateService} from '../../../../../../../../../../@core/service/sbtranslate.service';
@@ -12,6 +12,7 @@ import {ObjectUtil} from '../../../../../../../../../../@core/utils/ObjectUtil';
     styleUrls: ['./section2-sme-security.component.scss']
 })
 export class Section2SmeSecurityComponent implements OnInit {
+    @Input() initialData;
     section2SecurityForm: FormGroup;
     securityFormTranslate: FormGroup;
     allDistrictList = [];
@@ -33,6 +34,7 @@ export class Section2SmeSecurityComponent implements OnInit {
     multiContents = [{value: 'NEW'}, {value: 'EXISTING'}];
     isInsuranceRequired = false;
     selectedValue;
+    securityDetailsSelected = false;
 
     constructor(private formBuilder: FormBuilder,
                 private engNepNumberPipe: EngToNepaliNumberPipe,
@@ -44,14 +46,23 @@ export class Section2SmeSecurityComponent implements OnInit {
         this.buildForm();
         this.getAllProvince();
         this.getAllDistrict();
+        if (!ObjectUtil.isEmpty(this.initialData)) {
+            if (!ObjectUtil.isEmpty(this.initialData.secondarySecurity[0].securityType)) {
+                this.securityDetailsSelected = true;
+                this.setFormArray(this.initialData.secondarySecurity);
+                this.selectedValue = true;
+            }
+            /* FOR DEFAULT FORM*/
+        }
+        if (!this.securityDetailsSelected) {
+            this.addMoreSecurityDetails();
+        }
     }
 
     buildForm() {
         this.section2SecurityForm = this.formBuilder.group({
             securityDetails: this.formBuilder.array([]),
         });
-        /* FOR DEFAULT FORM*/
-        this.addMoreSecurityDetails();
     }
 
     get formControls() {
@@ -281,6 +292,116 @@ export class Section2SmeSecurityComponent implements OnInit {
         this.section2SecurityForm.get(
             [String(arrName), index, String(secondArr), index1, String(source + 'CT')]
         ).patchValue(nepaliNumTrans);
+    }
+
+    setFormArray(formData) {
+        const formArray = this.section2SecurityForm.get('securityDetails') as FormArray;
+        formData.forEach((val, index) => {
+            if (!ObjectUtil.isEmpty(val.securityOwnersDistrict)) {
+                this.getMunicipalityByDistrict(val.securityOwnersDistrict.id, null , index);
+            }
+            formArray.push(
+                this.formBuilder.group({
+                    securityType: [val.securityType],
+                    securityTypeTrans: [val.securityTypeTrans],
+                    securityTypeCT: [val.securityTypeCT],
+                    /* FOR LAND AND BUILDING */
+                    collateralShare: [val.collateralShare],
+                    insuranceRequired: [val.insuranceRequired],
+                    nameOfBorrowingClient: [val.nameOfBorrowingClient],
+                    securityOwnersName: [val.securityOwnersName],
+                    securityOwnersDistrict: [val.securityOwnersDistrict],
+                    securityOwnersMunicipalityOrVdc: [val.securityOwnersMunicipalityOrVdc],
+                    securityOwnersMunicipality: [val.securityOwnersMunicipality],
+                    /* FOR TRANSLATED FIELDS */
+                    collateralShareTrans: [val.collateralShareTrans],
+                    insuranceRequiredTrans: [val.insuranceRequiredTrans],
+                    nameOfBorrowingClientTrans: [val.nameOfBorrowingClientTrans],
+                    securityOwnersNameTrans: [val.securityOwnersNameTrans],
+                    securityOwnersDistrictTrans: [val.securityOwnersDistrictTrans],
+                    securityOwnersMunicipalityOrVdcTrans: [val.securityOwnersMunicipalityOrVdcTrans],
+                    securityOwnersMunicipalityTrans: [val.securityOwnersMunicipalityTrans],
+                    /* FOR CT VALUES */
+                    nameOfBorrowingClientCT: [val.nameOfBorrowingClientCT],
+                    collateralShareCT: [val.collateralShareCT],
+                    insuranceRequiredCT: [val.insuranceRequiredCT],
+                    securityOwnersNameCT: [val.securityOwnersNameCT],
+                    securityOwnersDistrictCT: [val.securityOwnersDistrictCT],
+                    securityOwnersMunicipalityOrVdcCT: [val.securityOwnersMunicipalityOrVdcCT],
+                    securityOwnersMunicipalityCT: [val.securityOwnersMunicipalityCT],
+
+                    /* FOR PERSONAL GUARANTEE CONDITIONAL */
+                    personalGuaranteeToBeUsed: [val.personalGuaranteeToBeUsed],
+                    personalGuaranteeToBeUsedTrans: [val.personalGuaranteeToBeUsedTrans],
+                    personalGuaranteeToBeUsedCT: [val.personalGuaranteeToBeUsedCT],
+
+                    /* FOR CORPORATE GUARANTEE */
+                    corporateGuarantee: [val.corporateGuarantee],
+                    corporateGuaranteeTrans: [val.corporateGuaranteeTrans],
+                    corporateGuaranteeCT: [val.corporateGuaranteeCT],
+
+                    /* FOR CROSS GUARANTEE CONTENTS */
+                    crossGuarantee: [val.crossGuarantee],
+                    crossGuaranteeTrans: [val.crossGuaranteeTrans],
+                    crossGuaranteeCT: [val.crossGuaranteeCT],
+
+                    /* FOR SHARE PLEDGE FIELDS */
+                    sharePledgeToBeUsed: [val.sharePledgeToBeUsed],
+                    nameOfCompany: [val.nameOfCompany],
+                    numberOfShare: [val.numberOfShare],
+                    nameOfShareHolder: [val.nameOfShareHolder],
+                    shareHolderName: [val.shareHolderName],
+
+                    /*Translation fields */
+                    sharePledgeToBeUsedTrans: [val.sharePledgeToBeUsedTrans],
+                    nameOfCompanyTrans: [val.nameOfCompanyTrans],
+                    numberOfShareTrans: [val.numberOfShareTrans],
+                    nameOfShareHolderTrans: [val.nameOfShareHolderTrans],
+                    shareHolderNameTrans: [val.shareHolderNameTrans],
+
+                    /* for CT value */
+                    sharePledgeToBeUsedCT: [val.sharePledgeToBeUsedCT],
+                    nameOfCompanyCT: [val.nameOfCompanyCT],
+                    numberOfShareCT: [val.numberOfShareCT],
+                    nameOfShareHolderCT: [val.nameOfShareHolderCT],
+                    shareHolderNameCT: [val.shareHolderNameCT],
+
+                    mortgageType: [val.mortgageType],
+                    mortgageTypeTrans: [val.mortgageTypeTrans],
+                    mortgageTypeCT: [val.mortgageTypeCT],
+                    propertyDetails: this.formBuilder.array([]),
+                })
+            );
+            this.setPropertyDetails(val.propertyDetails, index);
+        });
+    }
+
+    setPropertyDetails(data, i) {
+        const propertyFormArray = this.section2SecurityForm.get(['securityDetails', i, 'propertyDetails']) as FormArray;
+        data.forEach(propertyData => {
+            propertyFormArray.push(
+                this.formBuilder.group({
+                    securityOwnersWardNo: [propertyData.securityOwnersWardNo],
+                    securityOwnersKittaNo: [propertyData.securityOwnersKittaNo],
+                    securityOwnersLandArea: [propertyData.securityOwnersLandArea],
+                    securityOwnersSheetNo: [propertyData.securityOwnersSheetNo],
+                    /* For Translated Value */
+                    securityOwnersWardNoTrans: [propertyData.securityOwnersWardNoTrans],
+                    securityOwnersKittaNoTrans: [propertyData.securityOwnersKittaNoTrans],
+                    securityOwnersLandAreaTrans: [propertyData.securityOwnersLandAreaTrans],
+                    securityOwnersSheetNoTrans: [propertyData.securityOwnersSheetNoTrans],
+                    /* For CT values */
+                    securityOwnersWardNoCT: [propertyData.securityOwnersWardNoCT],
+                    securityOwnersKittaNoCT: [propertyData.securityOwnersKittaNoCT],
+                    securityOwnersLandAreaCT: [propertyData.securityOwnersLandAreaCT],
+                    securityOwnersSheetNoCT: [propertyData.securityOwnersSheetNoCT],
+                })
+            );
+        });
+    }
+
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 
 }

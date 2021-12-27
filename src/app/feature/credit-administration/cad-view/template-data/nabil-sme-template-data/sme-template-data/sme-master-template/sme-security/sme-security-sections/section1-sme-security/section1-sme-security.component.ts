@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {SbTranslateService} from '../../../../../../../../../../@core/service/sbtranslate.service';
@@ -12,6 +12,7 @@ import {ObjectUtil} from '../../../../../../../../../../@core/utils/ObjectUtil';
     styleUrls: ['./section1-sme-security.component.scss']
 })
 export class Section1SmeSecurityComponent implements OnInit {
+    @Input() initialData;
     section1SecurityForm: FormGroup;
     securityFormTranslate: FormGroup;
     holderDepositorTranslate: FormGroup;
@@ -42,6 +43,7 @@ export class Section1SmeSecurityComponent implements OnInit {
     selectedValue;
     isNabil = false;
     isOther = false;
+    securitySelected = false;
     tempValue;
 
     constructor(private formBuilder: FormBuilder,
@@ -54,6 +56,17 @@ export class Section1SmeSecurityComponent implements OnInit {
         this.buildForm();
         this.getAllProvince();
         this.getAllDistrict();
+        if (!ObjectUtil.isEmpty(this.initialData)) {
+            if (!ObjectUtil.isEmpty(this.initialData.primarySecurity[0].securityType)) {
+                this.securitySelected = true;
+                this.setFormArray(this.initialData.primarySecurity);
+                this.selectedValue = true;
+            }
+        }
+        /* FOR DEFAULT FORM*/
+        if (!this.securitySelected) {
+            this.addMoreSecurityDetails();
+        }
     }
 
     buildForm() {
@@ -61,8 +74,6 @@ export class Section1SmeSecurityComponent implements OnInit {
             // securityType: [undefined],
             securityDetails: this.formBuilder.array([]),
         });
-        /* FOR DEFAULT FORM*/
-        this.addMoreSecurityDetails();
     }
 
     get formControls() {
@@ -238,16 +249,32 @@ export class Section1SmeSecurityComponent implements OnInit {
 
     public getMunicipalityByDistrict(data, event, index): void {
         const district = new District();
-        district.id = data;
-        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-            (response: any) => {
-                this.municipalityListForSecurities[index] = response.detail;
-                this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
-                if (event !== null) {
-                    this.section1SecurityForm.get(['securityDetails', index, 'securityOwnersMunicipalityOrVdc']).patchValue(null);
+        if (!ObjectUtil.isEmpty(data)) {
+            district.id = data;
+            this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+                (response: any) => {
+                    this.municipalityListForSecurities[index] = response.detail;
+                    this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+                    if (event !== null) {
+                        this.section1SecurityForm.get(['securityDetails', index, 'securityOwnersMunicipalityOrVdc']).patchValue(null);
+                    }
                 }
-            }
-        );
+            );
+        }
+    }
+
+    public municipalityByDistrictIdForEdit(data, index?): void {
+        const district = new District();
+        if (!ObjectUtil.isEmpty(data)) {
+            district.id = data;
+            this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+                (response: any) => {
+                    this.municipalityListForSecurities[index] = response.detail;
+                    this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+
+                }
+            );
+        }
     }
 
     setDefaultResponse(arrName, source, index, target) {
@@ -347,5 +374,177 @@ export class Section1SmeSecurityComponent implements OnInit {
         this.section1SecurityForm.get(
             [String(arrName), index, String(secondArr), index1, String(source + 'CT')]
         ).patchValue(nepaliNumTrans);
+    }
+
+    setFormArray(formData) {
+        const formArray = this.section1SecurityForm.get('securityDetails') as FormArray;
+        formData.forEach((val, index) => {
+            if (!ObjectUtil.isEmpty(val.securityOwnersName)) {
+                this.municipalityByDistrictIdForEdit(val.securityOwnersDistrict.id, index);
+            }
+            formArray.push(
+                this.formBuilder.group({
+                    securityType: [val.securityType],
+                    securityTypeTrans: [val.securityTypeTrans],
+                    securityTypeCT: [val.securityTypeCT],
+                    /* FOR LAND AND BUILDING */
+                    collateralShare: [val.collateralShare],
+                    insuranceRequired: [val.insuranceRequired],
+                    nameOfBorrowingClient: [val.nameOfBorrowingClient],
+                    securityOwnersName: [val.securityOwnersName],
+                    securityOwnersDistrict: [val.securityOwnersDistrict],
+                    securityOwnersMunicipalityOrVdc: [val.securityOwnersMunicipalityOrVdc],
+                    securityOwnersMunicipality: [val.securityOwnersMunicipality],
+                    /*securityOwnersWardNo: [val.securityOwnersWardNo],
+                    securityOwnersKittaNo: [val.securityOwnersKittaNo],
+                    securityOwnersLandArea: [val.securityOwnersLandArea],
+                    securityOwnersSheetNo: [val.securityOwnersSheetNo],*/
+                    /* FOR TRANSLATED FIELDS */
+                    collateralShareTrans: [val.collateralShareTrans],
+                    insuranceRequiredTrans: [val.insuranceRequiredTrans],
+                    nameOfBorrowingClientTrans: [val.nameOfBorrowingClientTrans],
+                    securityOwnersNameTrans: [val.securityOwnersNameTrans],
+                    securityOwnersDistrictTrans: [val.securityOwnersDistrictTrans],
+                    securityOwnersMunicipalityOrVdcTrans: [val.securityOwnersMunicipalityOrVdcTrans],
+                    securityOwnersMunicipalityTrans: [val.securityOwnersMunicipalityTrans],
+                    /*securityOwnersWardNoTrans: [val.securityOwnersWardNoTrans],
+                    securityOwnersKittaNoTrans: [val.securityOwnersKittaNoTrans],
+                    securityOwnersLandAreaTrans: [val.securityOwnersLandAreaTrans],
+                    securityOwnersSheetNoTrans: [val.securityOwnersSheetNoTrans],*/
+                    /* FOR CT VALUES */
+                    nameOfBorrowingClientCT: [val.nameOfBorrowingClientCT],
+                    collateralShareCT: [val.collateralShareCT],
+                    insuranceRequiredCT: [val.insuranceRequiredCT],
+                    securityOwnersNameCT: [val.securityOwnersNameCT],
+                    securityOwnersDistrictCT: [val.securityOwnersDistrictCT],
+                    securityOwnersMunicipalityOrVdcCT: [val.securityOwnersMunicipalityOrVdcCT],
+                    securityOwnersMunicipalityCT: [val.securityOwnersMunicipalityCT],
+                    /*securityOwnersWardNoCT: [val.securityOwnersWardNoCT],
+                    securityOwnersKittaNoCT: [val.securityOwnersKittaNoCT],
+                    securityOwnersLandAreaCT: [val.securityOwnersLandAreaCT],
+                    securityOwnersSheetNoCT: [val.securityOwnersSheetNoCT],*/
+
+                    /* FOR HYPOTHECATION CONDITION*/
+                    hypothecationPurpose: [val.hypothecationPurpose],
+                    hypothecationPurposeTrans: [val.hypothecationPurposeTrans],
+                    hypothecationPurposeCT: [val.hypothecationPurposeCT],
+
+                    /* FOR ASSIGNMENT TO BE USED CONDITION */
+                    assignmentToBeUsed: [val.assignmentToBeUsed],
+                    assignmentToBeUsedTrans: [val.assignmentToBeUsedTrans],
+                    assignmentToBeUsedCT: [val.assignmentToBeUsedCT],
+
+                    /* FOR PARIPASSU CONDITION */
+                    paripassuContents: [val.paripassuContents],
+                    nameOfMemberBank: [val.nameOfMemberBank],
+                    paripassuContentsTrans: [val.paripassuContentsTrans],
+                    nameOfMemberBankTrans: [val.nameOfMemberBankTrans],
+                    paripassuContentsCT: [val.paripassuContentsCT],
+                    nameOfMemberBankCT: [val.nameOfMemberBankCT],
+
+                    /* FOR LIEN AGAINST FD CONDITIONS */
+                    lienFDContents: [val.lienFDContents],
+                    lienFDContentsTrans: [val.lienFDContentsTrans],
+                    lienFDContentsCT: [val.lienFDContentsCT],
+                    letterOfSetOffFD: [val.letterOfSetOffFD],
+                    letterOfSetOffFDTrans: [val.letterOfSetOffFDTrans],
+                    letterOfSetOffFDCT: [val.letterOfSetOffFDCT],
+                    holdingBank: [val.holdingBank],
+                    nameOfHoldingBank: [val.nameOfHoldingBank],
+                    FdAmountInFigure: [val.FdAmountInFigure],
+                    holdingBankTrans: [val.holdingBankTrans],
+                    nameOfHoldingBankTrans: [val.nameOfHoldingBankTrans],
+                    FdAmountInFigureTrans: [val.FdAmountInFigureTrans],
+                    holdingBankCT: [val.holdingBankCT],
+                    nameOfHoldingBankCT: [val.nameOfHoldingBankCT],
+                    FdAmountInFigureCT: [val.FdAmountInFigureCT],
+                    nameOfFDHolder: [val.nameOfFDHolder],
+                    nameOfFDHolderTrans: [val.nameOfFDHolderTrans],
+                    nameOfFDHolderCT: [val.nameOfFDHolderCT],
+
+                    /* FOR LIEN AGAINST DEPOSIT ACCOUNT CONDITIONS */
+                    lienDepositAccountContents: [val.lienDepositAccountContents],
+                    lienDepositAccountContentsTrans: [val.lienDepositAccountContentsTrans],
+                    lienDepositAccountContentsCT: [val.lienDepositAccountContentsCT],
+                    letterOfSetOffDeposit: [val.letterOfSetOffDeposit],
+                    letterOfSetOffDepositTrans: [val.letterOfSetOffDepositTrans],
+                    letterOfSetOffDepositCT: [val.letterOfSetOffDepositCT],
+                    accountType: [val.accountType],
+                    accountNumber: [val.accountNumber],
+                    amountInFigure: [val.amountInFigure],
+                    accountTypeTrans: [val.accountTypeTrans],
+                    accountNumberTrans: [val.accountNumberTrans],
+                    amountInFigureTrans: [val.amountInFigureTrans],
+                    accountTypeCT: [val.accountTypeCT],
+                    accountNumberCT: [val.accountNumberCT],
+                    amountInFigureCT: [val.amountInFigureCT],
+                    nameOfDepositors: [val.nameOfDepositors],
+                    nameOfDepositorsTrans: [val.nameOfDepositorsTrans],
+                    nameOfDepositorsCT: [val.nameOfDepositorsCT],
+
+                    /* FOR LIEN AGAINST DEBENTURE CONDITIONS */
+                    lienDebentureContents: [val.lienDebentureContents],
+                    lienDebentureContentsTrans: [val.lienDebentureContentsTrans],
+                    lienDebentureContentsCT: [val.lienDebentureContentsCT],
+                    bondType: [val.bondType],
+                    bondTypeTrans: [val.bondTypeTrans],
+                    bondTypeCT: [val.bondTypeCT],
+                    debentureAmountInFigure: [val.debentureAmountInFigure],
+                    debentureAmountInFigureTrans: [val.debentureAmountInFigureTrans],
+                    debentureAmountInFigureCT: [val.debentureAmountInFigureCT],
+                    nameOfDebentureHolder: [val.nameOfDebentureHolder],
+                    nameOfDebentureHolderTrans: [val.nameOfDebentureHolderTrans],
+                    nameOfDebentureHolderCT: [val.nameOfDebentureHolderCT],
+
+                    /* FOR VEHICLE REGISTRATION */
+                    vehicleRegistration: [val.vehicleRegistration],
+                    vehicleRegistrationTrans: [val.vehicleRegistrationTrans],
+                    vehicleRegistrationCT: [val.vehicleRegistrationCT],
+
+                    /* FOR GENERAL COUNTER GUARANTEE */
+                    generalCounterGuarantee: [val.generalCounterGuarantee],
+                    generalCounterGuaranteeTrans: [val.generalCounterGuaranteeTrans],
+                    generalCounterGuaranteeCT: [val.generalCounterGuaranteeCT],
+
+                    mortgageType: [val.mortgageType],
+                    mortgageTypeTrans: [val.mortgageTypeTrans],
+                    mortgageTypeCT: [val.mortgageTypeCT],
+
+                    /*fdHolderDetails: this.formBuilder.array([this.buildFDHolderDetailsArr()]),
+                    depositorDetails: this.formBuilder.array([this.buildDepositorDetailsArr()]),
+                    debentureDetails: this.formBuilder.array([this.buildDebentureDetailsArr()]),*/
+                    propertyDetails: this.formBuilder.array([]),
+                })
+            );
+            this.setPropertyDetails(val.propertyDetails, index);
+        });
+    }
+
+    setPropertyDetails(data, i) {
+        const propertyFormArray = this.section1SecurityForm.get(['securityDetails', i, 'propertyDetails']) as FormArray;
+        data.forEach((propertyData, index) => {
+            propertyFormArray.push(
+                this.formBuilder.group({
+                    securityOwnersWardNo: [propertyData.securityOwnersWardNo],
+                    securityOwnersKittaNo: [propertyData.securityOwnersKittaNo],
+                    securityOwnersLandArea: [propertyData.securityOwnersLandArea],
+                    securityOwnersSheetNo: [propertyData.securityOwnersSheetNo],
+                    /* Translated fields for multi security Fields */
+                    securityOwnersWardNoTrans: [propertyData.securityOwnersWardNoTrans],
+                    securityOwnersKittaNoTrans: [propertyData.securityOwnersKittaNoTrans],
+                    securityOwnersLandAreaTrans: [propertyData.securityOwnersLandAreaTrans],
+                    securityOwnersSheetNoTrans: [propertyData.securityOwnersSheetNoTrans],
+                    /* Final CT fields for multi security Fields */
+                    securityOwnersWardNoCT: [propertyData.securityOwnersWardNoCT],
+                    securityOwnersKittaNoCT: [propertyData.securityOwnersKittaNoCT],
+                    securityOwnersLandAreaCT: [propertyData.securityOwnersLandAreaCT],
+                    securityOwnersSheetNoCT: [propertyData.securityOwnersSheetNoCT],
+                })
+            );
+        });
+    }
+
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 }
