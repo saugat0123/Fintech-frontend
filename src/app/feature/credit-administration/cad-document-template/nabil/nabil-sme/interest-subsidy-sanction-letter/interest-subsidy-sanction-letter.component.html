@@ -242,7 +242,7 @@
                         </tr>
                         <tr>
                             <td><strong>कर्जा अवधिः</strong></td>
-                            <td colspan="2"><input class="form-field form-control-sm"
+                            <td colspan="2">कर्जा निकाशा भएको मितिले<input class="form-field form-control-sm"
                                                    formControlName="totalTenureOfLoan"
                                                    name="totalTenureOfLoan"
                                                    placeholder=" "
@@ -678,7 +678,7 @@
                                 </div>
                                 <div class="service-contions mt-5">
                                     <ol class="conditions-list orderd-list">
-                                            <strong>बिमा सम्बन्धी शर्तहरु </strong>(Insurance related clause)
+                                            <strong>बिमा सम्बन्धी शर्तहरु </strong>
                                             <li *ngIf="this.tempData.securityType.en === 'STOCK'">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                                                 आतंकवाद आदी जस्ता
                                                 जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
@@ -780,7 +780,7 @@
                                 </div>
                                 <div class="service-contions">
                                         <ol class="conditions-list orderd-list">
-                                            <strong>बबित्तीय शर्तहरु </strong>(Financial Terms & Conditions)
+                                            <strong>बबित्तीय शर्तहरु </strong>
                                             <li> सम्पूर्ण ऋणकर्जाहरुको ब्याज, किस्ता, शुल्क, कमिसन, मार्जिन, हर्जाना
                                                 ब्याज र अन्य
                                                 बाँकी बक्यौता भुक्तानी तपाईंको खातामा सिधै खर्च जनाई असुल गरिनेछ ।
@@ -1043,7 +1043,7 @@
                                 </div>
 
                                 <div class="service-contions mt-5">
-                                        <ol class="conditions-list orderd-list">
+                                        <ul class="conditions-list orderd-list">
                                             <strong>कागजपत्रहरु </strong>
 
                                             <li> ऋणीले बैंकको <input class="form-field form-control-sm"
@@ -1069,9 +1069,8 @@
                                                           formControlName="amountInFigure"
                                                           name="amountInFigure"
                                                           placeholder=" "
-                                                          type="text"/>।(बराबरकोे पूरक सम्झौता (Supplementary Agreement)
-                                                सहित श्री(सम्पत्ति
-                                                धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
+                                                          type="text"/>।( को श्री(सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
+                                                सहित पूरक सम्झौता (Supplementary Agreement)
                                             </li>
                                             <li> रु.<input class="form-field form-control-sm"
                                                            formControlName="amountInFigure"
@@ -1119,7 +1118,7 @@
                                                     name="thirdAdditionalDetails"
                                                     formControlName="thirdAdditionalDetails">
                                             </textarea></li>
-                                        </ol>
+                                        </ul>
                                 </div>
                                 <p style="padding-left: 2em">
                                     यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ

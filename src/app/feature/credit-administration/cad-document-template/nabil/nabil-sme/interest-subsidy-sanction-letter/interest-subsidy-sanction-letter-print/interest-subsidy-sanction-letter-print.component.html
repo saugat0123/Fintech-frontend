@@ -191,7 +191,7 @@
                     </tr>
                     <tr>
                         <td><strong>कर्जा अवधिः</strong></td>
-                        <td colspan="2"><span class="font-weight-bold"
+                        <td colspan="2">कर्जा निकाशा भएको मितिले<span class="font-weight-bold"
                                               [ngClass]="{'nepaliFont outside' : letter?.totalTenureOfLoan.ct=== null && letter?.totalTenureOfLoan.ct!== ''}">
                                 {{letter?.totalTenureOfLoan.ct === null || letter?.totalTenureOfLoan.ct === '' ? '___________' : letter?.totalTenureOfLoan.ct}}</span>
                             बर्ष सम्मको लागि मात्र ।
@@ -979,7 +979,7 @@
             </div>
 
             <div mt-5>
-                <ol class="conditions-list orderd-list" style="padding-left: 2em">
+                <ul class="conditions-list orderd-list" style="padding-left: 2em">
                     <strong><u>कागजपत्रहरु </u></strong>
 
                     <li> ऋणीले बैंकको <span class="font-weight-bold">{{ branchName }}</span> शाखामा सम्पर्क राखी देहाय
@@ -1002,9 +1002,8 @@
                             currencyFormatPipe.transform(proposedAmount)
                         )
                         }}
-                                            </span>।(बराबरकोे पूरक सम्झौता (Supplementary Agreement)
-                        सहित श्री(सम्पत्ति
-                        धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
+                                            </span>।( को श्री(सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
+                        सहित पूरक सम्झौता (Supplementary Agreement)
                     </li>
                     <li> रु.<span class="font-weight-bold">
                                             {{
@@ -1059,7 +1058,7 @@
                     <li *ngIf="freeInformation?.thirdText">
                         <span style="font-size: 29px" class="nepaliFont">{{freeInformation ? freeInformation.thirdText : ''}}</span>
                     </li>
-                </ol>
+                </ul>
             </div>
             <p style="padding-left: 2em">
                 यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ
