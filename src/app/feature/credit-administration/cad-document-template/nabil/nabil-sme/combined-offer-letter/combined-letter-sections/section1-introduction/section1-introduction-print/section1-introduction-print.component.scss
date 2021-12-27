@@ -2,10 +2,11 @@
   line-height: 1.9em;
 }
 .nep {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 19px !important;
+  line-height: 1.9 !important;
   text-align: justify;
   text-justify: inter-word;
+  margin-left: 15px !important;
 }
 .form-field {
   background: yellow;
@@ -30,6 +31,7 @@
 }
 p {
   line-height: 1.9;
+  font-size: 19px !important;
 }
 @media screen {
   .print-only {

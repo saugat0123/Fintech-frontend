@@ -2,8 +2,8 @@
   line-height: 1.9em;
 }
 .nep {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 19px;
+  line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
 }
@@ -27,8 +27,12 @@
     height: auto;
   }
 }
-p {
+p, ol li, th, td{
   line-height: 1.9;
+  font-size: 19px;
+}
+ol li {
+  padding-left: 1em;
 }
 @media screen {
   .print-only {
@@ -51,7 +55,7 @@ p {
     display: inline;
   }
   div.align {
-    font-size: 16px;
+    font-size: 19px;
     line-height: 1.9;
     text-align: justify;
     text-justify: inter-word;
