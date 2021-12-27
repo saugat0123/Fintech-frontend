@@ -21,7 +21,6 @@ import {LoanType} from '../../model/loanType';
 import {BusinessType} from '../../../admin/modal/businessType';
 import {Financial} from '../../model/financial';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {DocAction} from '../../model/docAction';
 import {DocumentService} from '../../../admin/component/document/document.service';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
@@ -42,12 +41,12 @@ import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hiera
 import {DOCUMENT} from '@angular/common';
 // tslint:disable-next-line:max-line-length
 import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
-import {flatten} from '@angular/compiler';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {ApprovalSheetInfoComponent} from '../loan-summary/approval-sheet-info/approval-sheet-info.component';
 import {SummaryType} from '../SummaryType';
+import {DocStatus} from '../../model/docStatus';
 
 @Component({
   selector: 'app-gamma-loan-summary',
@@ -190,6 +189,8 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   loanSummary = 'loanSummary';
   siteVisitDoc = [];
   requestedLoanType;
+  hidePreviewButton = false;
+
   constructor(
       @Inject(DOCUMENT) private _document: Document,
       private userService: UserService,
@@ -234,6 +235,7 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
+    this.checkDocumentStatus();
   }
 
   ngOnDestroy(): void {
@@ -748,5 +750,15 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
 
   checkSiteVisitDocument(event: any) {
     this.siteVisitDocuments = event;
+  }
+
+  checkDocumentStatus() {
+    if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED) ||
+        this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED) ||
+        this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+      this.hidePreviewButton = true;
+    } else {
+      this.hidePreviewButton = false;
+    }
   }
 }

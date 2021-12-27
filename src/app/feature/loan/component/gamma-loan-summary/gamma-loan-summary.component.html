@@ -753,10 +753,10 @@
                     <span>
                         <b>{{(loanCategory === 'INDIVIDUAL')  ? '19. ' : '20. '}}All Documents</b>
                         <button class="float-right sb-small sb-bg-dark text-white disable-print"
-                                *ngIf="loanDataHolder?.customerDocument?.length > 0 && (loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath)"
+                                *ngIf="loanDataHolder?.customerDocument?.length > 0 && (!hidePreviewButton || !loanDataHolder?.zipPath)"
                                 (click)=getDocPath()> Download All Document</button>
                         <button class="float-right sb-small sb-bg-dark text-white disable-print"
-                                *ngIf="loanDataHolder?.customerDocument?.length > 0 && loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath"
+                                *ngIf="loanDataHolder?.customerDocument?.length > 0 && hidePreviewButton && loanDataHolder?.zipPath"
                                 (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"> Download All Document</button>
                     </span>
                 </div>
@@ -803,7 +803,7 @@
                             <th class="sn">S.No</th>
                             <th>Document Under</th>
                             <th>Document Name</th>
-                            <th *ngIf="loanDataHolder?.documentStatus?.toString() !== 'APPROVED'">Preview</th>
+                            <th *ngIf="!hidePreviewButton">Preview</th>
                             <th>Download</th>
                         </tr>
                         </thead>
@@ -812,17 +812,17 @@
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">{{doc?.documentOf}}</td>
                             <td class="text-left pl-1">{{doc?.name}}</td>
-                            <td *ngIf="loanDataHolder?.documentStatus?.toString() !== 'APPROVED'">
+                            <td *ngIf="!hidePreviewButton">
                                 <i (click)="previewOfferLetterDocument(doc?.path, doc?.name)"
                                    class="fas fa-eye"></i>
                             </td>
                             <td>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString() !== 'APPROVED' || !loanDataHolder?.zipPath">
+                                <ng-container *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath">
                                     <i (click)="downloadCustomerDocument(doc?.path, doc?.name)"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
                                 </ng-container>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString() === 'APPROVED' && loanDataHolder?.zipPath">
+                                <ng-container *ngIf="hidePreviewButton && loanDataHolder?.zipPath">
                                     <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
@@ -841,22 +841,22 @@
                         <tr class="text-white sb-bg-dark">
                             <th>SN</th>
                             <th>Document</th>
-                            <th *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">Preview</th>
+                            <th *ngIf="!hidePreviewButton">Preview</th>
                             <th>Download</th>
                         </tr>
                         <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>
-                            <td *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">
+                            <td *ngIf="!hidePreviewButton">
                                 <i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
                                    class="fas fa-eye"></i></td>
                             <td>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath">
+                                <ng-container *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath">
                                     <i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
                                        class="fas fa-download"
                                        style="cursor: pointer"></i>
                                 </ng-container>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath">
+                                <ng-container *ngIf="hidePreviewButton && loanDataHolder?.zipPath">
                                     <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
@@ -875,7 +875,7 @@
                             <th>S.N</th>
                             <th>Guarantor</th>
                             <th>Document</th>
-                            <th *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">Preview</th>
+                            <th *ngIf="!hidePreviewButton">Preview</th>
                             <th>Download</th>
                         </tr>
                         </thead>
@@ -884,17 +884,17 @@
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">{{singleDoc?.name}}</td>
                             <td>Net Worth Document</td>
-                            <td *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">
+                            <td *ngIf="!hidePreviewButton">
                                 <i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')"
                                    class="fas fa-eye"></i></td>
 
                             <td>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath">
+                                <ng-container *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath">
                                     <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc?.name+' Net Worth Doc')"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
                                 </ng-container>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath">
+                                <ng-container *ngIf="hidePreviewButton && loanDataHolder?.zipPath">
                                     <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
@@ -915,7 +915,7 @@
                             <th>Policy Number</th>
                             <th>Company</th>
                             <th>Document</th>
-                            <th *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">Preview</th>
+                            <th *ngIf="!hidePreviewButton">Preview</th>
                             <th>Download</th>
                         </tr>
                         </thead>
@@ -925,17 +925,17 @@
                             <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>
                             <td class="text-left pl-1">{{singleDoc?.company}}</td>
                             <td class="text-left pl-1">Insurance Policy</td>
-                            <td *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">
+                            <td *ngIf="!hidePreviewButton">
                                 <i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')"
-                                   class="fas fa-eye"></i></td>
-
+                                   class="fas fa-eye"></i>
+                            </td>
                             <td>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath">
+                                <ng-container *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath">
                                     <i (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
                                 </ng-container>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath">
+                                <ng-container *ngIf="hidePreviewButton && loanDataHolder?.zipPath">
                                     <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
