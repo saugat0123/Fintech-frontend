@@ -5,7 +5,7 @@
             <!--FOR NORMAL SCHEME-->
             <div class="row" *ngIf="loanSchemeSelected === 'No'">
                 <div class="col-sm-12">
-                    <ol class="dev-list orderd-list font-weight-bold">
+                    <ol class="dev-list orderd-list">
                         <li>
                             <p>
                                 हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव
@@ -87,11 +87,11 @@
             <!--(For The case of Nabil Sajilo Karja/Nari Karja/Nabil Fast Track Scheme)-->
             <!--<div class="row">
                 <div class="col-sm-12">
-                    <ol class="dev-list orderd-list font-weight-bold">
+                    <ol class="dev-list orderd-list">
                         <li>
                             <p>
                                 ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर
-                                &lt;!&ndash;<input class="form-field form-control-sm font-weight-bold"
+                                &lt;!&ndash;<input class="form-field form-control-sm"
                                                                                                         formControlName="interestRate"
                                                                                                         name="interestRate"
                                                                                                         type="text"/>&ndash;&gt;
@@ -110,11 +110,11 @@
             <!--(For The case of  Nabil Aniverssary Scheme)-->
             <div class="row">
                 <div class="col-sm-12">
-                    <ol class="dev-list orderd-list font-weight-bold">
+                    <ol class="dev-list orderd-list">
                         <li *ngIf="loanScheme === 'Nabil Sajilo Karja' || loanScheme == 'Nabil Fast Track Scheme' || loanScheme === 'Nari Karja'">
                             <p>
                                 ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर
-                                <!--<input class="form-field form-control-sm font-weight-bold"
+                                <!--<input class="form-field form-control-sm"
                                                                                                         formControlName="interestRate"
                                                                                                         name="interestRate"
                                                                                                         type="text"/>-->
@@ -131,7 +131,7 @@
 
                         <li *ngIf="loanScheme === 'Nabil Anniversary Scheme'">
                             <p>
-                                ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर <!--<input class="form-field form-control-sm font-weight-bold"
+                                ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर <!--<input class="form-field form-control-sm"
                                                                                                         formControlName="interestRate"
                                                                                                         name="interestRate"
                                                                                                         type="text"/>-->
@@ -170,7 +170,7 @@
                 <!--For Floating interest rate-->
                 <!--            <div class="row">-->
                 <!--                <div class="col-sm-12">-->
-                <!--                    <ol class="dev-list orderd-list font-weight-bold">-->
+                <!--                    <ol class="dev-list orderd-list">-->
 
                 <!--                        <li>-->
                 <!--                            <p>-->
@@ -239,7 +239,7 @@
                 <!--For Fixed  rate-->
                 <div class="row">
                     <div class="col-sm-12">
-                        <ol class="dev-list orderd-list font-weight-bold">
+                        <ol class="dev-list orderd-list">
                             <li *ngIf="selectedInterestRate === 'Floating Interest Rate'">
                                 <p>
                                     <strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्क :-</strong>

@@ -7,11 +7,17 @@
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
-  font-size: 20px;
+  font-size: 19px;
   &:focus {
     outline: none;
   }
 }
 .customFont {
   font-size: 22px;
+}
+.all {
+  p{
+    font-size: 19px !important;
+    line-height: 1.9em !important;
+  }
 }

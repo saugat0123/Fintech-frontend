@@ -327,7 +327,7 @@
                                     </span>
                                 </p>
                             </li>
-                            <div class="row" [innerHTML]="table | safeHtml" style="margin-left:1em; width:90%;">
+                            <div *ngIf="this.table !== null" class="row" [innerHTML]="table | safeHtml" style="margin-left:1em; width:90%;">
                             </div>
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->

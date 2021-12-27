@@ -65,6 +65,7 @@
                         <div class="form-group col-md-4">
                             <label for="securityOwnersDistrict{{i}}">District (जिल्ला)</label>
                             <select (change)="getMunicipalityByDistrict(commonPrimarySecurity.get(['securityDetails', i, 'securityOwnersDistrict'])?.value?.id, $event, i); setDefaultResponse('securityDetails', 'securityOwnersDistrict', i, 'securityOwnersDistrictTrans')"
+                                    [compareWith]="compareFn"
                                     class="custom-select"
                                     formControlName="securityOwnersDistrict" id="securityOwnersDistrict{{i}}"
                                     name="securityOwnersDistrict{{i}}">
@@ -122,10 +123,11 @@
                                     && commonPrimarySecurity.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value !== 'VDC'"
                                      class="col-md-8">
                                     <select (change)="setDefaultResponse('securityDetails', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
+                                            [compareWith]="compareFn"
                                             class="custom-select"
                                             formControlName="securityOwnersMunicipality"
                                             id="securityOwnersMunicipality{{i}}"
-                                            name="securityOwnersMunicipality{{i}}">
+                                            name="securityOwnersMunicipality{{i}}">f
                                         <option [ngValue]="null" hidden>Municipality</option>
                                         <option *ngFor="let municipalityVal of municipalityListForSecurities[i]"
                                                 [ngValue]="municipalityVal">

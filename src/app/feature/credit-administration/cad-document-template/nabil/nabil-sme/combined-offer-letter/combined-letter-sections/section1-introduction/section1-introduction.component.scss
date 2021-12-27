@@ -2,19 +2,18 @@
   line-height: 1.9em !important;
 }
 .nep {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 19px !important;
+  line-height: 1.9em !important;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 30px;
-}
+  margin-left: 15px;}
 .form-field {
   background: yellow;
   margin: 0px 5px;
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
-  font-size: 16px;
+  font-size: 19px;
   &:focus {
     outline: none;
   }
@@ -31,6 +30,7 @@
 }
 p {
   line-height: 1.9;
+  font-size: 19px !important;
 }
 @media screen {
   .print-only {
@@ -53,7 +53,7 @@ p {
     display: inline;
   }
   div.align {
-    font-size: 16px;
+    font-size: 19px;
     line-height: 1.9;
     text-align: justify;
     text-justify: inter-word;

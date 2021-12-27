@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {OfferDocument} from '../../../../../model/OfferDocument';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -21,6 +21,8 @@ import {District} from '../../../../../../admin/modal/district';
 import {Attributes} from '../../../../../../../@core/model/attributes';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {InterestSubsidySanctionLetterComponent} from '../../../../../cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
+import {CommonSecuritySectionPrimaryComponent} from '../../common-security-section/common-security-section-primary/common-security-section-primary.component';
+import {CommonSecuritySectionSecondaryComponent} from '../../common-security-section/common-security-section-secondary/common-security-section-secondary.component';
 
 @Component({
     selector: 'app-interest-subsidy-sanction-letter-template-edit',
@@ -31,6 +33,10 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Input() offerDocumentList: Array<OfferDocument>;
     @Input() initialInformation: any;
+    @ViewChild('primarySecurity', {static: false})
+    commonSecuritySectionPrimaryComponent: CommonSecuritySectionPrimaryComponent;
+    @ViewChild('secondarySecurity', {static: false})
+    commonSecuritySectionSecondaryComponent: CommonSecuritySectionSecondaryComponent;
     loanOptions: Array<String> = new Array<String>();
     spinner = false;
     dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
@@ -666,8 +672,10 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
 
     submit() {
         this.submitted = true;
+        const tempSecurityDetails = this.getSecurityData();
+        this.tdVal['securities'] = tempSecurityDetails;
         // Setting securityDetails in securities key:
-        this.tdVal['securities'] = this.interestSubsidy.get('securities').value;
+        // this.tdVal['securities'] = this.interestSubsidy.get('securities').value;
         this.spinner = true;
         // Clearing validation from optional fields:
         this.clearConditionalValidation();
@@ -891,14 +899,14 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         this.interestSubsidy.get('nameOfBranchManagerCT').patchValue(this.initialInformation.nameOfBranchManager.ct);
         this.interestSubsidy.get('loanSubTypeCT').patchValue(this.initialInformation.loanSubType.ct);
 
-        // SETTING SECURITY DETAILS:
+       /* // SETTING SECURITY DETAILS:
         if (!ObjectUtil.isEmpty(this.initialInformation.securities)) {
             this.securities = this.initialInformation.securities;
             this.setSecurityData();
-        }
+        }*/
     }
 
-    setSecurityData(): void {
+    /*setSecurityData(): void {
         const securityFormArr = this.interestSubsidy.get('securities') as FormArray;
         this.securities.forEach((val, index) => {
             if (!ObjectUtil.isEmpty(val.securityOwnersDistrict)) {
@@ -933,11 +941,19 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
                 })
             );
         });
+    }*/
+
+    getSecurityData() {
+        const primarySecurity = this.commonSecuritySectionPrimaryComponent.commonPrimarySecurity.value.securityDetails;
+        const secondarySecurity = this.commonSecuritySectionSecondaryComponent.commonSecondarySecurity.value.securityDetails;
+        const allData = {
+            primarySecurity: primarySecurity,
+            secondarySecurity: secondarySecurity
+        };
+        return (allData);
     }
 
     compareFn(c1: any, c2: any): boolean {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
-
-
 }

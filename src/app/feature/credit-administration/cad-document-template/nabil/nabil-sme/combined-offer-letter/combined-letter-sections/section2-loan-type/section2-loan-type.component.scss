@@ -1,6 +1,6 @@
 *{
   color: black;
-  font-size: 16px;
+  font-size: 19px;
 }
 .form-field {
   background: yellow;
@@ -8,7 +8,7 @@
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
-  font-size: 20px;
+  font-size: 19px;
   &:focus {
     outline: none;
   }
@@ -18,4 +18,12 @@ table, th, td{
 }
 .customFont {
   font-size: 22px;
+}
+.all {
+  font-size: 19px !important;
+  line-height: 1.9em !important;
+  p {
+    font-size: 19px !important;
+    line-height: 1.9em !important;
+  }
 }

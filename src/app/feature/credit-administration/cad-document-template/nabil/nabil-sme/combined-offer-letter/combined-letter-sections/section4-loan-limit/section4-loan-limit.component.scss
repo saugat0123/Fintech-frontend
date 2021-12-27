@@ -2,8 +2,8 @@
   line-height: 1.9em;
 }
 .nep {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 19px;
+  line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
 }
@@ -13,7 +13,7 @@
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
-  font-size: 16px;
+  font-size: 19px;
   &:focus {
     outline: none;
   }
@@ -29,7 +29,12 @@
   }
 }
 p {
+  font-size: 19px;
+}
+ol li {
   line-height: 1.9;
+  font-size: 19px !important;
+  padding-left: 1em;
 }
 @media screen {
   .print-only {
@@ -52,7 +57,7 @@ p {
     display: inline;
   }
   div.align {
-    font-size: 16px;
+    font-size: 19px;
     line-height: 1.9;
     text-align: justify;
     text-justify: inter-word;
