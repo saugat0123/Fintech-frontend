@@ -135,11 +135,5 @@ small#subContactPerson {
   tfoot {
     display: table-footer-group;
   }
-  @page :first {
-    margin: 288px 48px 76.8px 144px !important;
-  }
-  @page {
-    margin: 95px 48px 76.8px 144px !important;
-  }
 
 }

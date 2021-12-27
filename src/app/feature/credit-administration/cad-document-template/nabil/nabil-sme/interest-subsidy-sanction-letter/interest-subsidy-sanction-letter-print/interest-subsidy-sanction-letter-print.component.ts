@@ -12,7 +12,6 @@ import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
   selector: 'app-interest-subsidy-sanction-letter-print',
   templateUrl: './interest-subsidy-sanction-letter-print.component.html',
   styleUrls: ['./interest-subsidy-sanction-letter-print.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
