@@ -53,6 +53,9 @@ import {CustomerModule} from '../customer/customer.module';
 import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
 import { ReviewDateComponent } from './review-date/review-date.component';
 import { MultiBankingComponent } from './multi-banking/multi-banking.component';
+import { FinancialUploadViewComponent } from './financial/financial-upload-view/financial-upload-view.component';
+import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
+import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -95,8 +98,9 @@ const COMPONENTS = [
 
 @NgModule({
   declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
-      CrgMicroComponent],
-    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent],
+      CrgMicroComponent,
+      FinancialUploadViewComponent],
+    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,
@@ -116,6 +120,7 @@ const COMPONENTS = [
         AngularDraggableModule,
         CreditAdministrationModule,
         CoreModule,
+        LoanInformationViewModule,
     ],
     providers: [
         NgbActiveModal

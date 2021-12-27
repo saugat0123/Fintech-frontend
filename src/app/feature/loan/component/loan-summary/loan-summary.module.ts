@@ -38,13 +38,11 @@ import {NepaliPatroModule} from 'nepali-patro';
 import {RemitDetailsComponent} from './remit-details/remit-details.component';
 import {VideoKycModule} from '../../../video-kyc/video-kyc.module';
 import {MultiBankingSummaryComponent} from './multi-banking-summary/multi-banking-summary.component';
-import {FinancialJsonParserComponent} from './financial-json-parser/financial-json-parser.component';
 
 
 const COMPONENTS = [
     SitevistSummaryComponentComponent,
     FinancialSummaryComponent,
-    FinancialJsonParserComponent,
     SecuritySummaryComponent,
     ProposalSummaryComponent,
     LoanSummaryComponent,
@@ -100,7 +98,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         SitevistSummaryComponentComponent,
         InsuranceSummaryComponent,
         FinancialSummaryComponent,
-        FinancialJsonParserComponent,
         ProposalSummaryComponent,
         MGroupSummaryComponent,
         CommentsSummaryComponent,
