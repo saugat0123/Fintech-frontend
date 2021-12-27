@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerLoanOptions} from '../../../cad-constant/customer-loan-options';
 import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
 import {OfferDocument} from '../../../../model/OfferDocument';
@@ -21,7 +21,6 @@ import {Attributes} from '../../../../../../@core/model/attributes';
 import {District} from '../../../../../admin/modal/district';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ClassASanctionLetterComponent} from '../../../../cad-document-template/nabil/nabil-sme/class-a-sanction-letter/class-a-sanction-letter.component';
-import {HomeLoanType} from '../../../cad-constant/home-loan-type';
 
 @Component({
   selector: 'app-class-a-sanction-letter-template-data',
@@ -144,6 +143,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
           this.initialInfo = JSON.parse(offerLetter.initialInformation);
         });
       }
+      console.log('Initial Infor:', this.initialInfo);
       this.mapObjectData(this.initialInfo);
       if (!ObjectUtil.isEmpty(this.initialInfo)) {
         this.form.patchValue(this.editedData);
@@ -166,6 +166,9 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
         this.BSApplication = true;
       }
       /* For Date of Previous Date*/
+      if (this.initialInfo.costumerType.en === 'newCustomer') {
+        this.isnewCustomer = true;
+      }
       const tempPrevDate = this.initialInfo.previousSanctionType ?
           this.initialInfo.previousSanctionType.en : '';
       if (tempPrevDate === 'AD') {
@@ -240,6 +243,14 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       }
       if (tempRate === 'BaseRateFinancing') {
         this.isBaseRateFinancingSelected = true;
+      }
+      if (this.isCoupenRateFinancingSelected || this.isBaseRateFinancingSelected) {
+        this.form.get('baseRateTrans').patchValue(this.initialInfo.baseRate.ct);
+        this.form.get('baseRateCT').patchValue(this.initialInfo.baseRate.ct);
+        this.form.get('premiumRateTrans').patchValue(this.initialInfo.premiumRate.ct);
+        this.form.get('premiumRateCT').patchValue(this.initialInfo.premiumRate.ct);
+        this.form.get('interestRateTrans').patchValue(this.initialInfo.interestRate.ct);
+        this.form.get('interestRateCT').patchValue(this.initialInfo.interestRate.ct);
       }
       // comission Type
       const tempComissionType = this.initialInfo.comissionType ?

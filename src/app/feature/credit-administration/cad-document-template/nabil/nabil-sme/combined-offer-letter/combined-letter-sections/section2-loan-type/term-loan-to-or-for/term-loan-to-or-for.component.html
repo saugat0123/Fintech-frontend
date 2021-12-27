@@ -5,8 +5,9 @@
             बुँदा नं.<input class="form-field form-control-sm "
                             formControlName="SNOfParentLimitVehicleLoan"
                             placeholder=""
-                            type="text"/>को पूरक सुविधा/कुल
-            सुविधाको पूरक सुविधा
+                            type="text"/>
+            <ng-container *ngIf="complementaryOtherTermLoanToOrForName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+            <ng-container *ngIf="complementaryOtherTermLoanToOrForName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
         </ng-container>
     </strong>
     </p>
@@ -23,8 +24,9 @@
             बुँदा नं.<input class="form-field form-control-sm "
                             formControlName="SNOfParentLimitVehicleLoan"
                             placeholder=""
-                            type="text"/>को पूरक सुविधा/कुल
-            सुविधाको पूरक सुविधा
+                            type="text"/>
+            <ng-container *ngIf="complementaryOtherTermLoanToOrForName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+            <ng-container *ngIf="complementaryOtherTermLoanToOrForName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
         </ng-container>
     </strong>
     </p>

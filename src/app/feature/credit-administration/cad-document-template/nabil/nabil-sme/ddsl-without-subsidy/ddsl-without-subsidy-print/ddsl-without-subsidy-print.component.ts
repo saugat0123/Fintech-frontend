@@ -32,8 +32,8 @@ import {
 @Component({
     selector: 'app-ddsl-without-subsidy-print',
     templateUrl: './ddsl-without-subsidy-print.component.html',
-    styleUrls: ['./ddsl-without-subsidy-print.component.scss', ],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./ddsl-without-subsidy-print.component.scss' ],
+
 })
 export class DdslWithoutSubsidyPrintComponent implements OnInit {
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
@@ -208,7 +208,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
         return kittaNumbers ? kittaNumbers : '';
     }
 
-    guarantorParse(nepData, key, trans ? ) {
+    guarantorParse(nepData, key, trans?) {
         const data = JSON.parse(nepData);
         if (ObjectUtil.isEmpty(trans)) {
             return data[key].ct;
@@ -292,5 +292,4 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.securityTypeSecondaryConditionDocuments = true;
         }
     }
-
 }

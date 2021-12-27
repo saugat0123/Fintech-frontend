@@ -170,7 +170,7 @@
                                     (बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन
                                     गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <span *ngIf="New"> गरिदिइएको  </span>
                                     <span *ngIf="Existing"> गरिने </span>
-                                    मोजरापत्र <br>
+                                    मोजरापत्र (Letter of Set-off)<br>
                                     <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power): </strong>  मौज्दातको <input
                                         class="form-field form-control-sm"
                                         formControlName="drawingPower"
@@ -507,7 +507,7 @@
 
                     <!-- Condition (Application for OD only) -->
                     <div class="col-md-12" *ngIf="this.tempData.loanType.en === 'Overdraft'">
-                        व्याज सम्बन्धी शर्तहरुः<br>
+                        <strong>व्याज सम्बन्धी शर्तहरुः<br></strong>
                         १. हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट
                         (Website) तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार
                         दर (Quarterly Average Base Rate ) प्रकाशित गरिनेछ । यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित हुने
