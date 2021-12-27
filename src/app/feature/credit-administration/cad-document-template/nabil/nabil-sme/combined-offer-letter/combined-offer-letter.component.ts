@@ -2,17 +2,17 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
 import {NbDialogRef} from '@nebular/theme';
-import {Section10SecurityDocumentsComponent} from "./combined-letter-sections/section10-security-documents/section10-security-documents.component";
-import {OfferDocument} from "../../../../model/OfferDocument";
-import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
-import {CreditAdministrationService} from "../../../../service/credit-administration.service";
-import {ToastService} from "../../../../../../@core/utils";
-import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
-import {Section2LoanTypeComponent} from "./combined-letter-sections/section2-loan-type/section2-loan-type.component";
-import {Section3SecurityAndCollateralComponent} from "./combined-letter-sections/section3-security-and-collateral/section3-security-and-collateral.component";
-import {Section9OtherClauseComponent} from "./combined-letter-sections/section9-other-clause/section9-other-clause.component";
-import {Section1IntroductionComponent} from "./combined-letter-sections/section1-introduction/section1-introduction.component";
-import {RouterUtilsService} from "../../../../utils/router-utils.service";
+import {Section10SecurityDocumentsComponent} from './combined-letter-sections/section10-security-documents/section10-security-documents.component';
+import {OfferDocument} from '../../../../model/OfferDocument';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {CreditAdministrationService} from '../../../../service/credit-administration.service';
+import {ToastService} from '../../../../../../@core/utils';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {Section2LoanTypeComponent} from './combined-letter-sections/section2-loan-type/section2-loan-type.component';
+import {Section3SecurityAndCollateralComponent} from './combined-letter-sections/section3-security-and-collateral/section3-security-and-collateral.component';
+import {Section9OtherClauseComponent} from './combined-letter-sections/section9-other-clause/section9-other-clause.component';
+import {Section1IntroductionComponent} from './combined-letter-sections/section1-introduction/section1-introduction.component';
+import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {Section6FacilitiesClauseComponent} from './combined-letter-sections/section6-facilities-clause/section6-facilities-clause.component';
 import {CommonSectionBottomComponent} from './combined-letter-sections/common-section-bottom/common-section-bottom.component';
 import {Section8InsuranceClauseComponent} from './combined-letter-sections/section8-insurance-clause/section8-insurance-clause.component';
@@ -130,13 +130,13 @@ export class CombinedOfferLetterComponent implements OnInit {
       // freeText4: this.section3.form.get('freeText4').value ? this.section3.form.get('freeText4').value : '',
       freeText5: this.section3.form.get('freeText5').value ? this.section3.form.get('freeText5').value : '',
       freeTable: this.section3.form.get('freeTable').value,
-    }
+    };
     const section6FreeText = this.section6.form.get('tenureOfLoan').value ? this.section6.form.get('tenureOfLoan').value : '';
     const section9FreeText = {
       freeText1: this.section9.form.get('freeText1').value ? this.section9.form.get('freeText1').value : '',
       freeText2: this.section9.form.get('freeText2').value ? this.section9.form.get('freeText2').value : '',
-    }
-    const section10FreeText = this.section10.form.get('additionalGuarantorDetails').value ? this.section10.form.get('additionalGuarantorDetails').value : '';
+    };
+    const section10FreeText = this.section10.form.get('textAreas').value ? this.section10.form.get('textAreas').value : '';
     const sectionBottom = {
       position: this.sectionBottom.form.get('position').value ? this.sectionBottom.form.get('position').value : '',
       position1: this.sectionBottom.form.get('position1').value ? this.sectionBottom.form.get('position1').value : '',
