@@ -155,37 +155,42 @@ export class Section10SecurityDocumentsComponent implements OnInit {
   }
 
   personalGuarantorDetails() {
-    let rel: String = '';
-    this.tempPersonalGuarantors.forEach(i => {
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '0') {
-        rel = 'श्रीमती';
+    // let rel: String = '';
+    // this.tempPersonalGuarantors.forEach(i => {
+    //   if (i.gender.en === 'FEMALE' && i.relationMedium.en === '0') {
+    //     rel = 'श्रीमती';
+    //   }
+    //   if (i.gender.en === 'FEMALE' && i.relationMedium.en === '1') {
+    //     rel = 'सुश्री';
+    //   }
+    //   if (i.gender.en === 'MALE') {
+    //     rel = 'श्रीमान्';
+    //   }
+    //   this.personalGuarantorsName.push(rel + ' ' + i.guarantorName.ct);
+    // });
+    this.tempPersonalGuarantors.forEach(val => {
+      if (!ObjectUtil.isEmpty(val.tempPersonalGuarantors)) {
+        this.personalGuarantorsName.push(val.guarantorName.ct);
       }
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '1') {
-        rel = 'सुश्री';
-      }
-      if (i.gender.en === 'MALE') {
-        rel = 'श्रीमान्';
-      }
-      this.personalGuarantorsName.push(rel + ' ' + i.guarantorName.ct);
     });
   }
-
-  commonGuarantorDetails(guarantorName, finalName) {
-    if (guarantorName.length === 1) {
-      finalName = guarantorName[0];
-    }
-    if (guarantorName.length === 2) {
-      finalName = guarantorName.join(' र ');
-    }
-    if (guarantorName.length > 2) {
-      for (let i = 0; i < guarantorName.length - 1; i++) {
-        this.temp2 = guarantorName.join(' , ');
-      }
-      const temp1 = guarantorName[guarantorName.length - 1];
-      finalName = this.temp2 + ' र ' + temp1;
-    }
-    return finalName ? finalName : '';
-  }
+  //
+  // commonGuarantorDetails(guarantorName, finalName) {
+  //   if (guarantorName.length === 1) {
+  //     finalName = guarantorName[0];
+  //   }
+  //   if (guarantorName.length === 2) {
+  //     finalName = guarantorName.join(' र ');
+  //   }
+  //   if (guarantorName.length > 2) {
+  //     for (let i = 0; i < guarantorName.length - 1; i++) {
+  //       this.temp2 = guarantorName.join(' , ');
+  //     }
+  //     const temp1 = guarantorName[guarantorName.length - 1];
+  //     finalName = this.temp2 + ' र ' + temp1;
+  //   }
+  //   return finalName ? finalName : '';
+  // }
 
   fillForm() {
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
@@ -197,9 +202,9 @@ export class Section10SecurityDocumentsComponent implements OnInit {
     });
     this.form.patchValue({
       totalLoanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.limitAmount)),
-      loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorData.gurantedAmount.ct)),
       nameOfBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
-      guarantorName: this.finalName ? this.finalName : '',
+      guarantorName: this.personalGuarantorsName ? this.personalGuarantorsName : '',
       plotNumber: this.kittaNumbers ? this.kittaNumbers : '',
       nameOfPropertyOwner: this.securityOwnersName ? this.securityOwnersName : '',
     });
@@ -322,4 +327,13 @@ export class Section10SecurityDocumentsComponent implements OnInit {
   removeAtIndex(i: number) {
     (this.form.get('textAreas') as FormArray).removeAt(i);
   }
+
+  // guarantorParse(nepData, key, trans?) {
+  //   const data = JSON.parse(nepData);
+  //   if (ObjectUtil.isEmpty(trans)) {
+  //     return data[key].ct;
+  //   } else {
+  //     return data[key].en;
+  //   }
+  // }
 }
