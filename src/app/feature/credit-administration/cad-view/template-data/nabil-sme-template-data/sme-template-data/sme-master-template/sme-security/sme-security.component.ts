@@ -11,6 +11,7 @@ import {OfferDocument} from '../../../../../../model/OfferDocument';
   styleUrls: ['./sme-security.component.scss']
 })
 export class SmeSecurityComponent implements OnInit {
+  @Input() isEdit = false;
   masterSecurityForm: FormGroup;
   securityData: any = {};
   @ViewChild('primarySecurity', {static: false})
@@ -19,14 +20,16 @@ export class SmeSecurityComponent implements OnInit {
   section2SmeSecurityComponent: Section2SmeSecurityComponent;
   @Input() offerDocumentList: Array<OfferDocument>;
   initialInformation: any;
+  parseSecurityData: any;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.buildForm();
-    if (this.offerDocumentList.length > 0) {
+    if (this.offerDocumentList.length > 0 && this.isEdit) {
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
+        this.parseSecurityData = this.initialInformation.securities;
       });
     }
   }

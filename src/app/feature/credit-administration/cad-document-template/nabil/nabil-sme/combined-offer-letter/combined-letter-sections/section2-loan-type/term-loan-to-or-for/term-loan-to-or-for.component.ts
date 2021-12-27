@@ -17,7 +17,7 @@ export class TermLoanToOrForComponent implements OnInit {
     tempData;
     termLoanFreeText: any = {};
     termLoanForTermLoanToOrFor; termLoanTypeTermLoanToOrFor; complementaryOtherTermLoanToOrFor = false;
-    emiPaymentTypeTermLoanToOrFor; interestSubAgTermLoanToOrFor; paymentTermLoanToOrFor;
+    emiPaymentTypeTermLoanToOrFor; interestSubAgTermLoanToOrFor; paymentTermLoanToOrFor; complementaryOtherTermLoanToOrForName;
 
     constructor(private formBuilder: FormBuilder
     ) {
@@ -34,6 +34,7 @@ export class TermLoanToOrForComponent implements OnInit {
             this.termLoanTypeTermLoanToOrFor = this.data.termLoanType;
             this.emiPaymentTypeTermLoanToOrFor = this.data.emiPaymentType;
             this.interestSubAgTermLoanToOrFor = this.data.subsidyOrAgricultureLoan;
+            this.complementaryOtherTermLoanToOrForName = this.data.complimentaryLoanSelected;
             this.paymentTermLoanToOrFor = this.data.paymentTerms;
             if (this.data.complementaryOther === true) {
                 this.complementaryOtherTermLoanToOrFor = true;
