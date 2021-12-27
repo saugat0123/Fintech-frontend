@@ -682,9 +682,9 @@
             <hr>
             <!--SECURITY DETAILS-->
             <div style="margin: 1.2rem;">
-                <app-common-security-section-primary #primarySecurity></app-common-security-section-primary>
+                <app-common-security-section-primary [customerApprove]="customerApprovedDoc" #primarySecurity></app-common-security-section-primary>
                 <hr>
-                <app-common-security-section-secondary #secondarySecurity></app-common-security-section-secondary>
+                <app-common-security-section-secondary [customerApprove]="customerApprovedDoc" #secondarySecurity></app-common-security-section-secondary>
             </div>
             <!--<div *ngIf="ddslFormGroup.get('securityType').value === 'LAND' || ddslFormGroup.get('securityType').value === 'LAND_AND_BUILDING'">
                 <div class="row">

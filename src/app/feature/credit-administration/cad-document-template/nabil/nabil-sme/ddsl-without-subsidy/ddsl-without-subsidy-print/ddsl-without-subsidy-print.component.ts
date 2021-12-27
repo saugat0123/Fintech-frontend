@@ -221,7 +221,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             val.guarantorType.en === 'Personal Guarantor');
         this.tempPersonalGuarantors.forEach(i => {
             this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
-        })
+        });
     }
 
     commonGuarantorDetails(guarantorName, finalName) {

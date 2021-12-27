@@ -2,20 +2,20 @@
     <div class="row">
         <div class="col-md-12 viewFull" style="line-height: 1.9">
             <p>
-                स्वीकृती पत्र नं.-{{autoRefNum ? autoRefNum : '_______________________'}}<br></p>
+                स्वीकृती पत्र नं.- <strong>{{autoRefNum ? autoRefNum : '_______________________'}}</strong><br></p>
             <p><strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong><br></p>
-            <p> मिति: {{sanctionDate ? sanctionDate : ''}}<br></p>
+            <p> मिति: <strong>{{sanctionDate ? sanctionDate : ''}}</strong><br></p>
             <p>
                 श्री
-                <span [ngClass]="{'outside' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}">
-                    {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}</span><br>
-                ठेगानाः <span [ngClass]="{'outside' : customerAddress !== null && customerAddress !== ''}">
-                    {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}</span><br>
+                <span [ngClass]="{'outside' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}"><strong>
+                    {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}</strong></span><br>
+                ठेगानाः <span [ngClass]="{'outside' : customerAddress !== null && customerAddress !== ''}"><strong>
+                    {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}</strong></span><br>
             </p>
             <p *ngIf="loanOptions === 'NEW'; else existingUser">
                 <strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong><br><br>
                 महोदय,<br>
-                तपाईंले मिति <span>{{applicationDate ? applicationDate : '_________________________'}}</span>
+                तपाईंले मिति बि.सं.<span><strong>{{applicationDate ? applicationDate : '_________________________'}}</strong></span>
                 मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको
                 सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी
                 स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -24,11 +24,11 @@
                 <p>
                     <strong>बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</strong><br><br>
                     महोदय,<br>
-                    तपाईंले यस बैंकको मिति वि.सं. <span>
-                        {{previousSanctionDate1 ? previousSanctionDate1 : '_______________________'}}</span>
+                    तपाईंले यस बैंकको मिति वि.सं. <span><strong>
+                        {{previousSanctionDate1 ? previousSanctionDate1 : '_______________________'}}</strong></span>
                     को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा
                     सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति
-                    वि.सं.<span>{{applicationDate ? applicationDate : '_________________________'}}</span>
+                    वि.सं.<span><strong>{{applicationDate ? applicationDate : '_________________________'}}</strong></span>
                     को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा
                     रहने गरी
                     देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
@@ -41,20 +41,20 @@
                         <tr>
                             <td width="20%"><strong>कर्जाको प्रकार</strong></td>
                             <td width="40%"><span
-                                    [ngClass]="{'outside' : letter?.loanSubType.ct !== null && letter?.loanSubType.ct !== ''}">
-                                    {{letter?.loanSubType.ct === null || letter?.loanSubType.ct === '' ? '___________' : letter?.loanSubType.ct}}</span>
+                                    [ngClass]="{'outside' : letter?.loanSubType.ct !== null && letter?.loanSubType.ct !== ''}"> <strong>
+                                    {{letter?.loanSubType.ct === null || letter?.loanSubType.ct === '' ? '___________' : letter?.loanSubType.ct}}</strong></span>
                             </td>
                             <td>
                                 <span
-                                    [ngClass]="{'outside' : letter?.loanSubType.en.eData !== null && letter?.loanSubType.en.eData !== ''}">
-                                    {{letter?.loanSubType.en.eData === null || letter?.loanSubType.en.eData === '' ? '___________' : letter?.loanSubType.en.eData}}</span>
+                                    [ngClass]="{'outside' : letter?.loanSubType.en.eData !== null && letter?.loanSubType.en.eData !== ''}"> <strong>
+                                    {{letter?.loanSubType.en.eData === null || letter?.loanSubType.en.eData === '' ? '___________' : letter?.loanSubType.en.eData}}</strong></span>
                             </td>
                         </tr>
                         <tr>
                             <td><strong>कर्जाको उद्देश्य</strong></td>
                             <td colspan="2"><span
-                                    [ngClass]="{' outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
-                                    {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct}}</span>
+                                    [ngClass]="{' outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}"><strong>
+                                    {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct}}</strong></span>
                             </td>
                         </tr>
                         <tr>
@@ -70,9 +70,10 @@
                         </tr>
                         <tr>
                             <td><strong>सुरक्षणः</strong></td>
-                            <td colspan="2">ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा सुरक्षण
+                            <td colspan="2">
+                                <ng-container *ngIf="securityTypeSecondaryCondition || securityTypeCondition">ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा सुरक्षण
                                 महलमा उल्लिखित
-                                घर/जग्गा तथा प्रशोधित वा अर्ध प्रशोधित कच्चा पदार्थ,
+                                घर/जग्गा तथा </ng-container>प्रशोधित वा अर्ध प्रशोधित कच्चा पदार्थ,
                                 तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि, कृषि उपज आदी लगायतका सम्पूर्ण
                                 सामानहरुको मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तीहरु
                                 बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धक/रोक्का गरिदिनु पर्नेछ ।
@@ -178,23 +179,21 @@
             <div>
                 <p>
                     <strong><u style="margin-left: 1%;">सुरक्षण विवरणः</u><br>
-                        क. <u>प्राथमिक/थप सुरक्षण (Primary/Secondary Security)</u>
+                        क. <u>प्राथमिक/थप सुरक्षण (Primary Security)</u>
                     </strong>
                 </p>
                 <ol class="conditions-list">
-                    <li *ngIf="securityTypeConditionLandAndBuilding || securityTypeConditionLandAndBuildingSecondary">
+                    <li *ngIf="securityTypeCondition">
                         <p>
                             <strong>
-                                १. घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges):<br>
+                                घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges):<br>
                             </strong>
                         </p>
                         <p *ngIf="mortgageOptions === 'NEW_MORTGAGE'; else existingMortgage" style="margin-left: 2%;">
                             स्वीकृत
-                            ऋणकर्जा प्रवाह गर्नु अगावै
-                            स्वीकृत ऋणकर्जा प्रवाह गर्नु अगाव ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको
+                            ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको
                             घर/जग्गा
-                            धितोेबन्धक पारित
-                            /गरी दिनु पर्नेछ ।</p>
+                            धितोेबन्धक पारित गरी दिनु पर्नेछ ।</p>
                         <ng-template #existingMortgage>
                             <p style="margin-left: 2%;">
                                 ऋणकर्जाको सुरक्षण स्वरुप बैंकको
@@ -202,14 +201,14 @@
                                 गरिदिनुभएको यथावत कायम रहने ।
                             </p>
                         </ng-template>
-                        <div class="pb-4" *ngIf="securityTypeCondition">
+                        <div>
                             <app-master-securities-view [securityDetails]="letter?.securities">
                             </app-master-securities-view>
                         </div>
                     </li>
                     <li *ngIf="securityTypeConditionFixedAssests || securityTypeSecondaryConditionFixedAssests">
                         <p>
-                            <strong>१. सामान मौज्दात धितोेबन्धक हकाधिकार (Hypothecation Changes):</strong>
+                            <strong> सामान मौज्दात धितोेबन्धक हकाधिकार (Hypothecation Changes):</strong>
                         </p>
                         <p style="margin-left: 2%">बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट
                             खरिद गरेको
@@ -224,7 +223,7 @@
                     </li>
                     <li *ngIf="securityTypeConditionDocuments || securityTypeSecondaryConditionDocuments">
                         <p>
-                            <strong>१. हस्तान्तरण (Assignment):</strong><br>
+                            <strong> हस्तान्तरण (Assignment):</strong><br>
                         </p>
                         <p style="margin-left: 2%"> ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account
                             Receivables) बैंकले संकलन गर्न
@@ -237,7 +236,7 @@
                     <app-master-secondary-securities-view [securityDetails]="letter?.securities">
                     </app-master-secondary-securities-view>
                 </div>
-                <p style="margin-left: 2%;"><strong> व्यक्तिगत जमानत (Personal Guarantee):</strong><br>
+                <p style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong><br>
                     <strong>रु.{{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}।-
                         (अक्षरेपी
                         रु.
@@ -384,8 +383,8 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="50%">विवरण</th>
-                                        <th width="50%">थप जोखिम दर (Additional Risk Premium)</th>
+                                        <th style="width: 50;">विवरण</th>
+                                        <th style = "width: 50%;">थप जोखिम दर (Additional Risk Premium)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -777,7 +776,7 @@
                         <li>रु.<span
                                 [ngClass]="{' outside' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                 {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
-                            ।-बराबरको ऋणतमसुक (Loan Deed)
+                            र ।-बराबरको ऋणतमसुक (Loan Deed)
                         </li>
                         <li>कित्ता नं. <span><strong>
                             {{getKittaNumbers(kittaNumbers, plotNumber)}}</strong></span>

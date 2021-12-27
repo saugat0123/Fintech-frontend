@@ -299,8 +299,8 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     }
 
     checkPrimaryConditions() {
-        this.tempLandBuilding = this.securityDetails.primarySecurity.filter(val =>
-            val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');
+       /* this.tempLandBuilding = this.securityDetails.primarySecurity.filter(val =>
+            val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');*/
         if (this.securityDetails.primarySecurity.length > 0) {
             this.securityDetails.primarySecurity.forEach(i => {
                 if (i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
