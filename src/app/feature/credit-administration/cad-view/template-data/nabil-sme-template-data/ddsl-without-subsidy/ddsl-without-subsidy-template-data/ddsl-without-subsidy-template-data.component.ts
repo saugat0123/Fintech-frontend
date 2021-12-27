@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerLoanOptions} from '../../../../cad-constant/customer-loan-options';
@@ -21,6 +21,8 @@ import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 import {CreditAdministrationService} from '../../../../../service/credit-administration.service';
 import {CadDocStatus} from '../../../../../model/CadDocStatus';
 import {DdslWithoutSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
+import {CommonSecuritySectionPrimaryComponent} from '../../common-security-section/common-security-section-primary/common-security-section-primary.component';
+import {CommonSecuritySectionSecondaryComponent} from '../../common-security-section/common-security-section-secondary/common-security-section-secondary.component';
 
 @Component({
     selector: 'app-ddsl-without-subsidy-template-data',
@@ -29,6 +31,10 @@ import {DdslWithoutSubsidyComponent} from '../../../../../cad-document-template/
 })
 export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @ViewChild('primarySecurity', {static: false})
+    commonSecuritySectionPrimaryComponent: CommonSecuritySectionPrimaryComponent;
+    @ViewChild('secondarySecurity', {static: false})
+    commonSecuritySectionSecondaryComponent: CommonSecuritySectionSecondaryComponent;
     ddslFormGroup: FormGroup;
     spinner = false;
     customerLoanOptions: Array<String> = new Array<String>();
@@ -63,12 +69,8 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     securities;
     loanSubTypeList = [
         {nData: 'ब्यापारिक कृषि तथा पशुपंछी कर्जा', eData: 'Commercial Agro and Livestock Loan'},
-        {nData: 'शिक्षित युवा स्वरोजगार कर्जा', eData: 'Educated Youth and Self Employeed Loan '},
-        {nData: 'उच्च र/वा प्राविधिक तथा व्यवसायिक शिक्षा कर्जा', eData: 'Higher and Techno-Vocational Education Loan'},
-        {nData: 'विपन्न, दलित तथा पिछडिएको वर्ग / समुदाय व्यवसाय विकाश कर्र्जा', eData: 'Loan to under-priviledged Caste/Community/Marginalized Communities'},
-        {nData: 'भुकम्प पीडितहरुको निजी आवास निर्माण कर्जा', eData: 'Personal Home Construction loan for Earthquake Affected People'},
-        {nData: 'महिलाफरा प्रबर्तित लघु उद्यमशीलता कर्जा', eData: 'Women Run Micro enterprise Loan'},
-        {nData: 'बैदेशिक रोजगारीबाट फर्केका युवा परियोजना कर्जा ', eData: 'Project loan for Youths returning from Foreign Employment'},
+        {nData: 'साना तथा लघु उद्यम आवधिक कर्जा', eData: 'Small & Micro EnterpriseTerm Loan'},
+        {nData: 'महिलाद्धारा सञ्चालित लघु उद्यम आवधिक कर्जा ', eData: 'Loan to Women Run Micro Enterprises Term Loan'}
     ];
 
     constructor(
@@ -670,7 +672,8 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
 
     save() {
         this.submitted = true;
-        this.tdVal['securities'] = this.ddslFormGroup.get('securities').value;
+        const tempSecurityDetails = this.setSecurityData();
+        this.tdVal['securities'] = tempSecurityDetails;
         this.clearConditionalValidation();
         const invalidControls = [];
         const controls = this.ddslFormGroup.controls;
@@ -717,5 +720,14 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             this.saveEnable = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
         });
+    }
+    setSecurityData() {
+        const primarySecurity = this.commonSecuritySectionPrimaryComponent.commonPrimarySecurity.value.securityDetails;
+        const secondarySecurity = this.commonSecuritySectionSecondaryComponent.commonSecondarySecurity.value.securityDetails;
+        const allData = {
+            primarySecurity: primarySecurity,
+            secondarySecurity: secondarySecurity
+        };
+        return (allData);
     }
 }
