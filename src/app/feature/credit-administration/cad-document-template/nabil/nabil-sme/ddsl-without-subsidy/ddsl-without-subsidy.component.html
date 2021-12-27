@@ -21,7 +21,7 @@
                                      placeholder=""
                                      type="text"/><br></p>
 
-                        <p> श्री/श्रीमती/सुश्री <input class="form-field form-control-sm "
+                        <p> श्री <input class="form-field form-control-sm "
                                                    readonly
                                                    formControlName="borrowersName"
                                                    placeholder=""
@@ -269,7 +269,8 @@
                                 गरिदिनुभएको यथावत कायम रहने ।
                             </p>
                         </ng-template>
-                    <div class="pb-4" *ngIf="securityTypeCondition">
+                        {{securityTypeCondition}}
+                    <div class="pb-4" *ngIf="securityTypeCondition || securityTypeConditionLandAndBuilding">
                         <app-master-securities-view
                                 [securityDetails]="tempData?.securities"></app-master-securities-view>
                     </div>
