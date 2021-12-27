@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {EngToNepaliNumberPipe} from '../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {SbTranslateService} from '../../../../../../../@core/service/sbtranslate.service';
 import {AddressService} from '../../../../../../../@core/service/baseservice/address.service';
 import {District} from '../../../../../../admin/modal/district';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
   selector: 'app-common-security-section-secondary',
@@ -12,6 +13,8 @@ import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
   styleUrls: ['./common-security-section-secondary.component.scss']
 })
 export class CommonSecuritySectionSecondaryComponent implements OnInit {
+  @Input() customerApprove: CustomerApprovedLoanCadDocumentation;
+  @Input() isEdit = false;
   commonSecondarySecurity: FormGroup;
   securityFormTranslate: FormGroup;
   holderDepositorTranslate: FormGroup;
@@ -23,7 +26,8 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
     {key: 'FIXED_ASSETS', value: 'Fixed Assets'},
     {key: 'STOCK', value: 'Stock'},
     {key: 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS', value: 'Assets Plants Machinery & other equipments'},
-    {key: 'LIVE_STOCKS_ANIMALS', value: 'Live Stocks Animals'}
+    {key: 'LIVE_STOCKS_ANIMALS', value: 'Live Stocks Animals'},
+    {key: 'DOCUMENTS', value: 'Documents'}
   ];
   multiContents = [{value: 'NEW'}, {value: 'EXISTING'}];
   isInsuranceRequired = false;
@@ -31,6 +35,9 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
   isNabil = false;
   isOther = false;
   tempValue;
+  securities;
+  initialInformation;
+
   constructor(
       private formBuilder: FormBuilder,
       private engNepNumberPipe: EngToNepaliNumberPipe,
@@ -40,8 +47,16 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (this.customerApprove.offerDocumentList.length > 0) {
+      this.initialInformation = JSON.parse(this.customerApprove.offerDocumentList[0].initialInformation);
+    }
     this.getAllProvince();
     this.getAllDistrict();
+    // SETTING SECURITY DETAILS:
+    if (!ObjectUtil.isEmpty(this.initialInformation)) {
+      this.securities = this.initialInformation.securities;
+      this.setSecurityData();
+    }
   }
   buildForm() {
     this.commonSecondarySecurity = this.formBuilder.group({
@@ -49,7 +64,11 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
       securityDetails: this.formBuilder.array([]),
     });
     /* FOR DEFAULT FORM*/
-    this.addMoreSecurityDetails();
+    if (!this.isEdit) {
+      this.addMoreSecurityDetails();
+    } else {
+      this.selectedValue = true;
+    }
   }
 
   get formControls() {
@@ -243,5 +262,70 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
     this.commonSecondarySecurity.get(
         [String(arrName), index, String(secondArr), index1, String(source + 'CT')]
     ).patchValue(nepaliNumTrans);
+  }
+
+  public municipalityByDistrictIdForEdit(data, index?): void {
+    const district = new District();
+    district.id = data;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalityListForSecurities[index] = response.detail;
+          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
+        }
+    );
+  }
+
+  setSecurityData(): void {
+    const securityFormArr = this.commonSecondarySecurity.get('securityDetails') as FormArray;
+    this.securities.secondarySecurity.forEach((val, index) => {
+      if (!ObjectUtil.isEmpty(val.securityOwnersDistrict)) {
+        this.municipalityByDistrictIdForEdit(val.securityOwnersDistrict.id, index);
+      }
+      securityFormArr.push(
+          this.formBuilder.group({
+            securityType: [val.securityType],
+            securityOwnersName: [val.securityOwnersName],
+            securityOwnersMunicipalityOrVdc: [val.securityOwnersMunicipalityOrVdc],
+            securityOwnersMunicipality: [val.securityOwnersMunicipality],
+            securityOwnersDistrict: [val.securityOwnersDistrict],
+            // TRANSLATION FIELD OF SECURITY:
+            securityOwnersNameTrans: [val.securityOwnersNameTrans],
+            securityOwnersDistrictTrans: [val.securityOwnersDistrictTrans],
+            securityOwnersMunicipalityTrans: [val.securityOwnersMunicipalityTrans],
+            // CT FIELDS OF SECURITY
+            securityOwnersNameCT: [val.securityOwnersNameCT],
+            securityOwnersDistrictCT: [val.securityOwnersDistrictCT],
+            securityOwnersMunicipalityCT: [val.securityOwnersMunicipalityCT],
+            propertyDetails: this.formBuilder.array([])
+          })
+      );
+      this.setProperties(val.propertyDetails, index);
+    });
+  }
+  setProperties(data, i) {
+    const property = this.commonSecondarySecurity.get(['securityDetails', i, 'propertyDetails']) as FormArray;
+    data.forEach(propertyData => {
+      property.push(
+          this.formBuilder.group({
+            securityOwnersWardNo: [propertyData.securityOwnersWardNo],
+            securityOwnersKittaNo: [propertyData.securityOwnersKittaNo],
+            securityOwnersLandArea: [propertyData.securityOwnersLandArea],
+            securityOwnersSheetNo: [propertyData.securityOwnersSheetNo],
+            // trans
+            securityOwnersWardNoTrans: [propertyData.securityOwnersWardNoTrans],
+            securityOwnersKittaNoTrans: [propertyData.securityOwnersKittaNoTrans],
+            securityOwnersLandAreaTrans: [propertyData.securityOwnersLandAreaTrans],
+            securityOwnersSheetNoTrans: [propertyData.securityOwnersSheetNoTrans],
+            // CT
+            securityOwnersWardNoCT: [propertyData.securityOwnersWardNoCT],
+            securityOwnersKittaNoCT: [propertyData.securityOwnersKittaNoCT],
+            securityOwnersLandAreaCT: [propertyData.securityOwnersLandAreaCT],
+            securityOwnersSheetNoCT: [propertyData.securityOwnersSheetNoCT],
+          })
+      );
+    });
+  }
+  compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 }
