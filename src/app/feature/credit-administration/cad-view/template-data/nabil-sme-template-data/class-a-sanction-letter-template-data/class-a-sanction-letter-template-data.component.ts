@@ -165,6 +165,15 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       if (tempApplicationType === 'BS') {
         this.BSApplication = true;
       }
+      // date of expiry
+      const tempexpiry = this.initialInfo.dateOfExpiryType ?
+          this.initialInfo.dateOfExpiryType.en : '';
+      if (tempexpiry === 'AD') {
+        this.ADDateOfExpiry = true;
+      }
+      if (tempexpiry === 'BS') {
+        this.BSDateOfExpiry = true;
+      }
       /* For Date of Previous Date*/
       if (this.initialInfo.costumerType.en === 'newCustomer') {
         this.isnewCustomer = true;
