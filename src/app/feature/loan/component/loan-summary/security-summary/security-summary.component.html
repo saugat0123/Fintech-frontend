@@ -327,6 +327,7 @@
                         <th *ngIf="landBuilding?.valuationMode">Valuation Mode</th>
                         <th>Staff Representative Name 1</th>
                         <th>Collateral Owner Relationship</th>
+                        <th>Ownership Type</th>
                         <th colspan="2">Staff Representative Name 2</th>
                     </tr>
                     <tr>
@@ -338,6 +339,7 @@
                         <td class="text-left pl-1" *ngIf="landBuilding?.valuationMode">{{landBuilding?.valuationMode}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.ownershipTypeForLandAndBuilding}}</td>
                         <td colspan="2" class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeName2}}</td>
                     </tr>
 
