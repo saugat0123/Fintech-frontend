@@ -1,17 +1,49 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
-import {NbDialogRef} from '@nebular/theme';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
-import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CreditAdministrationService} from '../../../../service/credit-administration.service';
-import {OfferDocument} from '../../../../model/OfferDocument';
-import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {ToastService} from '../../../../../../@core/utils';
-import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
-import {CustomerSubType} from '../../../../../customer/model/customerSubType';
+import {
+    Component,
+    Input,
+    OnInit
+} from '@angular/core';
+import {
+    FormBuilder,
+    FormGroup
+} from '@angular/forms';
+import {
+    NabilOfferLetterConst
+} from '../../../../nabil-offer-letter-const';
+import {
+    NbDialogRef
+} from '@nebular/theme';
+import {
+    CustomerApprovedLoanCadDocumentation
+} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {
+    NepaliNumberAndWords
+} from '../../../../model/nepaliNumberAndWords';
+import {
+    ObjectUtil
+} from '../../../../../../@core/utils/ObjectUtil';
+import {
+    CreditAdministrationService
+} from '../../../../service/credit-administration.service';
+import {
+    OfferDocument
+} from '../../../../model/OfferDocument';
+import {
+    Alert,
+    AlertType
+} from '../../../../../../@theme/model/Alert';
+import {
+    ToastService
+} from '../../../../../../@core/utils';
+import {
+    RouterUtilsService
+} from '../../../../utils/router-utils.service';
+import {
+    NepaliCurrencyWordPipe
+} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {
+    CustomerSubType
+} from '../../../../../customer/model/customerSubType';
 
 @Component({
     selector: 'app-ddsl-without-subsidy',
@@ -33,7 +65,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     existingOfferLetter = false;
     selectedSecurity;
     position1 = 'सम्पर्क अधिकृत';
-    position2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
+    position2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
     offerLetterData;
     nepaliNumber = new NepaliNumberAndWords();
     nepaliAmount = [];
@@ -41,37 +73,54 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     loanOptions;
     mortgageOptions;
     tempData;
+    securityDetails: any;
     customerType;
     guarantorData;
-    guarantorNames: Array<any> = new Array<any>();
+    guarantorNames: Array < any > = new Array < any > ();
     allguarantorNames;
     finalName;
     offerDocumentDetails;
     freeTextVal: any = {};
     freeInformation: any;
     customerSubType = CustomerSubType;
-    personalGuarantorsName: Array<any> = new Array<any>();
-    guarantorParsed: Array<any> = new Array<any>();
+    personalGuarantorsName: Array < any > = new Array < any > ();
+    guarantorParsed: Array < any > = new Array < any > ();
     tempPersonalGuarantors;
     temp2;
     finalPersonalName;
+    tempLandBuilding;
+    securityTypeCondition = false;
+    securityTypeConditionFixedAssests = false;
+    securityTypeConditionStock = false;
+    securityTypeConditionAssestsPlants = false;
+    securityTypeConditionDocuments = false;
+    tempSecondaryLandBuilding;
+    securityTypeSecondaryCondition = false;
+    securityTypeSecondaryConditionFixedAssests = false;
+    securityTypeSecondaryConditionStock = false;
+    securityTypeSecondaryConditionAssestsPlants = false;
+    securityTypeSecondaryConditionDocuments = false;
+    securityTypeConditionLandAndBuilding = false;
+    securityTypeConditionLandAndBuildingSecondary = false;
+    kittaNumbers: Array < any > = new Array < any > ();
+    plotNumber;
 
     constructor(
         private formBuilder: FormBuilder,
-        private dialogRef: NbDialogRef<DdslWithoutSubsidyComponent>,
+        private dialogRef: NbDialogRef < DdslWithoutSubsidyComponent > ,
         private administrationService: CreditAdministrationService,
         private toastService: ToastService,
         private routerUtilsService: RouterUtilsService,
         public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.buildForm();
         // console.log('Initial Info Data', this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+            this.securityDetails = this.tempData.securities;
         }
         this.loanOptions = this.tempData.loanOption.ct;
         this.selectedSecurity = this.tempData.securityType.ct;
@@ -84,6 +133,40 @@ export class DdslWithoutSubsidyComponent implements OnInit {
                 this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
         }
         this.checkOfferLetterData();
+        this.checkPrimaryConditions();
+        this.checkSecondaryConditions();
+
+        const securities = this.tempData.securities;
+        securities.primarySecurity.forEach(pd => {
+            pd.propertyDetails.forEach(p => {
+                if (!ObjectUtil.isEmpty(p.securityOwnersKittaNoCT)) {
+                    this.kittaNumbers.push(p.securityOwnersKittaNoCT);
+                }
+            });
+        });
+        securities.secondarySecurity.forEach(pd => {
+            pd.propertyDetails.forEach(p => {
+                if (!ObjectUtil.isEmpty(p.securityOwnersKittaNoCT)) {
+                    this.kittaNumbers.push(p.securityOwnersKittaNoCT);
+                }
+            });
+        });
+    }
+    getKittaNumbers(plotNumber, kittaNumbers) {
+        if (plotNumber.length === 1) {
+            kittaNumbers = plotNumber[0];
+        }
+        if (plotNumber.length === 2) {
+            kittaNumbers = plotNumber.join(' र ');
+        }
+        if (plotNumber.length > 2) {
+            for (let i = 0; i < plotNumber.length - 1; i++) {
+                this.temp2 = plotNumber.join(' , ');
+            }
+            const temp1 = plotNumber[plotNumber.length - 1];
+            kittaNumbers = this.temp2 + ' र ' + temp1;
+        }
+        return kittaNumbers ? kittaNumbers : '';
     }
 
     buildForm() {
@@ -121,7 +204,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             nameOfBranch: [undefined],
             extraFinancialClause: [undefined],
             additionalOtherClause: [undefined],
-            mortgageDeedPlotNo: [undefined],
+            plotNumber: [undefined],
             personalGuaranteeAmount: [undefined],
             nameOfPersonalGuarantor: [undefined],
             extraSecurityDocument: [undefined],
@@ -211,7 +294,61 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             extraTermsAndConditionsNRB: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
             position1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : '',
             position2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sixthText : '',
+            plotNumber: this.kittaNumbers ? this.kittaNumbers : '',
         });
+    }
+
+    checkPrimaryConditions() {
+        this.tempLandBuilding = this.securityDetails.primarySecurity.filter(val =>
+            val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');
+        if (this.securityDetails.primarySecurity.length > 0) {
+            this.securityDetails.primarySecurity.forEach(i => {
+                if (i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
+                    this.securityTypeCondition = true;
+                }
+                if (i.securityTypeCT === 'LAND_AND_BUILDING') {
+                    this.securityTypeConditionLandAndBuilding = true;
+                }
+            });
+        }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'FIXED_ASSETS')) {
+            this.securityTypeConditionFixedAssests = true;
+        }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'STOCK')) {
+            this.securityTypeConditionStock = true;
+        }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS')) {
+            this.securityTypeConditionAssestsPlants = true;
+        }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'DOCUMENTS')) {
+            this.securityTypeConditionDocuments = true;
+        }
+    }
+    checkSecondaryConditions() {
+        this.tempSecondaryLandBuilding = this.securityDetails.secondarySecurity.filter(val =>
+            val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');
+        if (this.securityDetails.secondarySecurity.length > 0) {
+            this.securityDetails.secondarySecurity.forEach(i => {
+                if (i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
+                    this.securityTypeSecondaryCondition = true;
+                }
+                if (i.securityTypeCT === 'LAND_AND_BUILDING') {
+                    this.securityTypeConditionLandAndBuildingSecondary = true;
+                }
+            });
+        }
+        if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'FIXED_ASSETS')) {
+            this.securityTypeSecondaryConditionFixedAssests = true;
+        }
+        if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'STOCK')) {
+            this.securityTypeSecondaryConditionStock = true;
+        }
+        if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS')) {
+            this.securityTypeSecondaryConditionAssestsPlants = true;
+        }
+        if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'DOCUMENTS')) {
+            this.securityTypeSecondaryConditionDocuments = true;
+        }
     }
 
     close() {
@@ -220,8 +357,8 @@ export class DdslWithoutSubsidyComponent implements OnInit {
 
     checkOfferLetterData() {
         if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
-            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-                === this.offerLetterConst.value(this.offerLetterConst.DDSL_WITHOUT_SUBSIDY).toString())[0];
+            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString() ===
+                this.offerLetterConst.value(this.offerLetterConst.DDSL_WITHOUT_SUBSIDY).toString())[0];
             if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
                 this.offerLetterDocument = new OfferDocument();
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.DDSL_WITHOUT_SUBSIDY);
@@ -298,17 +435,17 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             val.guarantorType.en === 'Personal Guarantor');
         this.tempPersonalGuarantors.forEach(i => {
             this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
-        })
+        });
     }
 
     commonGuarantorDetails(guarantorName, finalName) {
-        if(guarantorName.length === 1) {
+        if (guarantorName.length === 1) {
             finalName = guarantorName[0];
         }
-        if(guarantorName.length === 2) {
+        if (guarantorName.length === 2) {
             finalName = guarantorName.join(' र ');
         }
-        if(guarantorName.length > 2){
+        if (guarantorName.length > 2) {
             for (let i = 0; i < guarantorName.length - 1; i++) {
                 this.temp2 = guarantorName.join(' , ');
             }
@@ -318,7 +455,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
         return finalName ? finalName : '';
     }
 
-    guarantorParse(nepData, key, trans?) {
+    guarantorParse(nepData, key, trans ? ) {
         const data = JSON.parse(nepData);
         if (ObjectUtil.isEmpty(trans)) {
             return data[key].ct;

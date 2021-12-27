@@ -47,6 +47,21 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     tempPersonalGuarantors;
     temp2;
     finalPersonalName;
+    securityDetails: any;    
+    tempLandBuilding;
+    securityTypeCondition = false;
+    securityTypeConditionFixedAssests = false;
+    securityTypeConditionStock = false;
+    securityTypeConditionAssestsPlants = false;
+    securityTypeConditionDocuments = false;
+    tempSecondaryLandBuilding;
+    securityTypeSecondaryCondition = false;
+    securityTypeSecondaryConditionFixedAssests = false;
+    securityTypeSecondaryConditionStock = false;
+    securityTypeSecondaryConditionAssestsPlants = false;
+    securityTypeSecondaryConditionDocuments = false;
+    securityTypeConditionLandAndBuilding = false;
+    securityTypeConditionLandAndBuildingSecondary = false;
 
     constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -58,6 +73,11 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     ngOnInit() {
         // this.selectedSecurity = this.security;
         // this.loanLimitVal = this.loanLimit;
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+            this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+            this.securityDetails = this.tempData.securities;
+        }
         this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.nepaliBranchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
@@ -130,6 +150,8 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.guarantorParsed.push(JSON.parse(any.nepData));
         });
         this.guarantorDetails();
+        this.checkPrimaryConditions();
+        this.checkSecondaryConditions();
     }
 
     guarantorParse(nepData, key, trans?) {
@@ -164,5 +186,57 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
         }
         return finalName ? finalName : '';
     }
+    checkPrimaryConditions() {
+        this.tempLandBuilding = this.securityDetails.primarySecurity.filter(val =>
+            val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');
+        if(this.securityDetails.primarySecurity.length > 0) {
+          this.securityDetails.primarySecurity.forEach(i => {
+            if(i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
+              this.securityTypeCondition = true;
+            }
+            if(i.securityTypeCT === 'LAND_AND_BUILDING') {
+                this.securityTypeConditionLandAndBuilding = true;
+              }
+          });
+        }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'FIXED_ASSETS')) {
+            this.securityTypeConditionFixedAssests = true;
+          }
+          if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'STOCK')) {
+            this.securityTypeConditionStock = true;
+          }
+          if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS')) {
+            this.securityTypeConditionAssestsPlants = true;
+          }
+          if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'DOCUMENTS')) {
+            this.securityTypeConditionDocuments = true;
+          }
+      }
+      checkSecondaryConditions() {
+        this.tempSecondaryLandBuilding = this.securityDetails.secondarySecurity.filter(val =>
+            val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');
+        if (this.securityDetails.secondarySecurity.length > 0) {
+          this.securityDetails.secondarySecurity.forEach(i => {
+            if(i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
+              this.securityTypeSecondaryCondition = true;
+              }
+              if(i.securityTypeCT === 'LAND_AND_BUILDING') {
+                this.securityTypeConditionLandAndBuildingSecondary = true;
+              }
+          });
+        }
+        if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'FIXED_ASSETS')) {
+            this.securityTypeSecondaryConditionFixedAssests = true;
+          }
+          if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'STOCK')) {
+            this.securityTypeSecondaryConditionStock = true;
+          }
+          if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS')) {
+            this.securityTypeSecondaryConditionAssestsPlants = true;
+          }
+          if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'DOCUMENTS')) {
+            this.securityTypeSecondaryConditionDocuments = true;
+          }
+      }
 
 }
