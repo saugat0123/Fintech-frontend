@@ -57,6 +57,7 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
   pariPasu: boolean;
   partnershipDeed: boolean;
   letterSetOff: boolean;
+  textAreas: any;
   constructor( private engToNepNumberPipe: EngToNepaliNumberPipe,
                private currencyFormatPipe: CurrencyFormatterPipe) { }
 
@@ -65,7 +66,8 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
       this.guarantorData = this.customerApprovedDoc.assignedLoan[0].taggedGuarantors;
       this.loanHolderInfo = JSON.parse(this.customerApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
-      this.limitAmount = this.tempData.smeGlobalForm.totalLimitInFigure;
+      this.textAreas = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
+      this.limitAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.tempData.smeGlobalForm.totalLimitInFigure));
       this.branchName = this.loanHolderInfo.branch.ct;
       this.guarantorName = this.finalName;
       this.plotNumber = this.kittaNumbers;
