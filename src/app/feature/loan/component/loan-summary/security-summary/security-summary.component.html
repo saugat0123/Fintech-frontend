@@ -114,8 +114,10 @@
                         <th *ngIf="landDetails?.landOtherBranchChecked === true">Valuator Branch</th>
                         <th colspan="2">Valautor Name</th>
                         <th>Valuator Representative Name</th>
+                        <th *ngIf="landDetails?.valuationMode">Valuation Mode</th>
                         <th>Staff Representative Name 1</th>
                         <th>Staff Representative Name 2</th>
+                        <th>Revaluation Done ?</th>
                     </tr>
 
                     <tr>
@@ -124,8 +126,10 @@
                         <td *ngIf="landDetails?.landOtherBranchChecked === true" class="text-left pl-1">{{landDetails?.landBranch?.name || 'N/A'}}</td>
                         <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
+                        <td class="text-left pl-1" *ngIf="landDetails?.valuationMode">{{landDetails?.valuationMode}}</td>
                         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName2}}</td>
+                        <td class="text-left pl-1">{{landDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
                     </tr>
 
                     <ng-container>
@@ -178,6 +182,92 @@
                         </ng-container>
                     </ng-container>
 
+                    <ng-container *ngIf="landDetails?.revaluationData?.revaluationDetails == undefined && landDetails?.revaluationData?.isReValuated">
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>ReValuation Date(AD/BS)</th>
+                            <th colspan="1">Valuator name</th>
+                            <th colspan="1">ReValuation Considered Value</th>
+                            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">ReValuation Fmv</th>
+                            <th colspan="1">Change in Considered Value</th>
+                            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">Change in Fmv</th>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1">{{landDetails?.revaluationData?.reValuationDate | date}} ({{landDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
+                            <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>ReValuator Representative Name</th>
+                            <th>ReValuator Staff Representative Designation 1</th>
+                            <th>ReValuator Staff Representative Name 1</th>
+                            <th>ReValuator Staff Representative Designation 2</th>
+                            <th>ReValuator Staff Representative Name 2</th>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.reValuatorName}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.staffRepresentativeDesignation1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.staffRepresentativeName1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.staffRepresentativeDesignation2}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.staffRepresentativeName2}}</td>
+                        </tr>
+                    </ng-container>
+
+                  <ng-container *ngIf="landDetails?.revaluationData?.revaluationDetails != null && landDetails?.revaluationData?.isReValuated">
+                      <tr>
+                          <td></td>
+                      </tr>
+                      <tr class="sb-bg-secondary text-white">
+                          <th colspan="1">ReValuation Date(AD/BS)</th>
+                          <th colspan="1">Valuator name</th>
+                          <th colspan="1">ReValuation Considered Value</th>
+                          <th colspan="1">ReValuation DV</th>
+                          <th colspan="1">ReValuation Fmv</th>
+                          <th colspan="1">ReValuator Representative Name</th>
+                          <th colspan="1">ReValuator Staff Representative Designation 1</th>
+                          <th colspan="1">ReValuator Staff Representative Name 1</th>
+                          <th colspan="1">ReValuator Staff Representative Designation 2</th>
+                          <th colspan="1">ReValuator Staff Representative Name 2</th>
+                      </tr>
+                      <tr *ngFor="let rev of landDetails['revaluationData']['revaluationDetails']">
+                          <td colspan="1" class="text-left pl-1">{{rev?.reValuationDate | date}} ({{rev?.reValuationDate |engNepDate: false}})</td>
+                          <td colspan="1" class="text-left pl-1">{{rev?.newValuator?.name}}</td>
+                          <td colspan="1" class="text-right pr-1">Rs. {{rev?.reValuatedConsideredValue | currencyFormatter}}</td>
+                          <td colspan="1" class="text-right pr-1">Rs. {{rev?.reValuatedDv | currencyFormatter}}</td>
+                          <td colspan="1" class="text-right pr-1">Rs. {{rev?.reValuatedFmv | currencyFormatter}}</td>
+                          <td colspan="1" class="text-left pl-1">{{rev?.reValuatorName}}</td>
+                          <td colspan="1" class="text-left pl-1">{{rev?.staffRepresentativeDesignation1}}</td>
+                          <td colspan="1" class="text-left pl-1">{{rev?.staffRepresentativeName1}}</td>
+                          <td colspan="1" class="text-left pl-1">{{rev?.staffRepresentativeDesignation2}}</td>
+                          <td colspan="1" class="text-left pl-1">{{rev?.staffRepresentativeName2}}</td>
+                      </tr>
+
+                      <ng-container>
+                          <tr class="sb-bg-dark text-white">
+                              <th colspan="10">Calculation of change in Revaluation value on
+                                  {{landDetails['revaluationData']['revaluationDetails'][landDetails['revaluationData']['revaluationDetails'].length - 1].reValuationDate | date}} date</th>
+                          </tr>
+                          <tr class="sb-bg-secondary text-white">
+                              <th colspan="3">Change in Considered Value </th>
+                              <th colspan="3">Change in DV</th>
+                              <th colspan="4">Change in Fmv</th>
+                          </tr>
+                          <tr>
+                              <td colspan="3" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                              <td colspan="3" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                              <td colspan="4" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                          </tr>
+                      </ng-container>
+                  </ng-container>
 
                 </table>
 
@@ -234,6 +324,7 @@
                         <th>Valautor Name</th>
                         <th>Considered Value</th>
                         <th>Valuator Representative Name</th>
+                        <th *ngIf="landBuilding?.valuationMode">Valuation Mode</th>
                         <th>Staff Representative Name 1</th>
                         <th>Collateral Owner Relationship</th>
                         <th>Ownership Type</th>
@@ -245,6 +336,7 @@
                         <td class="text-left pl-1">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td>
                         <td class="text-right pr-1">Rs. {{landBuilding?.landConsideredValue | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingValuatorRepresentative}}</td>
+                        <td class="text-left pl-1" *ngIf="landBuilding?.valuationMode">{{landBuilding?.valuationMode}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
                         <td class="text-left pl-1">{{landBuilding?.ownershipTypeForLandAndBuilding}}</td>
@@ -293,6 +385,7 @@
                             <th *ngIf="landBuilding?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
                             <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">Other</th>
                         </ng-container>
+                        <th>Revaluation Done ?</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1">
@@ -309,7 +402,101 @@
                             <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.giftRegistrationAmount}}</td>
                             <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{landBuilding?.otherOwnershipTransferValue}}</th>
                         </ng-container>
+                        <td class="text-left pl-1">{{landBuilding?.revaluationData?.isReValuated | booleanConvert}}</td>
                     </tr>
+                    <ng-container *ngIf="landBuilding?.revaluationData?.revaluationDetails == undefined && landBuilding?.revaluationData?.isReValuated">
+                        <tr>
+                            <td colspan="9"></td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>ReValuation Date(AD/BS)</th>
+                            <th colspan="1">Valuator name</th>
+                            <th colspan="1">ReValuation Considered Value</th>
+                            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">ReValuation Fmv</th>
+                            <th colspan="2">Change in Considered Value</th>
+                            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">Change in Fmv</th>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1">{{landBuilding?.revaluationData?.reValuationDate | date}} ({{landBuilding?.revaluationData?.reValuationDate |engNepDate: false}})</td>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                            <td colspan="2" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>ReValuator Representative Name</th>
+                            <th>ReValuator Staff Representative Designation 1</th>
+                            <th>ReValuator Staff Representative Name 1</th>
+                            <th>ReValuator Staff Representative Designation 2</th>
+                            <th>ReValuator Staff Representative Name 2</th>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.reValuatorName}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.staffRepresentativeDesignation1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.staffRepresentativeName1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.staffRepresentativeDesignation2}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.staffRepresentativeName2}}</td>
+                        </tr>
+                    </ng-container>
+
+                    <ng-container *ngIf="landBuilding?.revaluationData?.revaluationDetails != null && landBuilding?.revaluationData?.isReValuated">
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>SN</th>
+                            <th colspan="1">ReValuation Date(AD/BS)</th>
+                            <th colspan="2">Valuator name</th>
+                            <th colspan="1">ReValuation Considered Value</th>
+                            <th colspan="1">ReValuation DV</th>
+                            <th colspan="1">ReValuation Fmv</th>
+                            <th colspan="2">ReValuator Representative Name</th>
+                        </tr>
+                        <tr *ngFor="let rev of landBuilding['revaluationData']['revaluationDetails']; let i = index">
+                            <td>{{i+1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{rev?.reValuationDate | date}} ({{rev?.reValuationDate |engNepDate: false}})</td>
+                            <td colspan="2" class="text-left pl-1">{{rev?.newValuator?.name}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{rev?.reValuatedConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{rev?.reValuatedDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{rev?.reValuatedFmv | currencyFormatter}}</td>
+                            <td colspan="2" class="text-left pl-1">{{rev?.reValuatorName}}</td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th colspan="1"></th>
+                            <th colspan="2">ReValuator Staff Representative Designation 1</th>
+                            <th colspan="2">ReValuator Staff Representative Name 1</th>
+                            <th colspan="2">ReValuator Staff Representative Designation 2</th>
+                            <th colspan="2">ReValuator Staff Representative Name 2</th>
+                        </tr>
+                        <tr *ngFor="let rev of landBuilding['revaluationData']['revaluationDetails']; let i = index">
+                            <td colspan="1">{{i+1}}</td>
+                            <td colspan="2" class="text-left pl-1">{{rev?.staffRepresentativeDesignation1 || 'N/A'}}</td>
+                            <td colspan="2" class="text-left pl-1">{{rev?.staffRepresentativeName1 || 'N/A'}}</td>
+                            <td colspan="2" class="text-left pl-1">{{rev?.staffRepresentativeDesignation2 || 'N/A'}}</td>
+                            <td colspan="2" class="text-left pl-1">{{rev?.staffRepresentativeName2 || 'N/A'}}</td>
+                        </tr>
+                        <ng-container>
+                            <tr class="sb-bg-dark text-white">
+                                <th colspan="9">Calculation of change in Revaluation value on
+                                    {{landBuilding['revaluationData']['revaluationDetails'][landBuilding['revaluationData']['revaluationDetails'].length - 1].reValuationDate | date}} date</th>
+                            </tr>
+                            <tr class="sb-bg-secondary text-white">
+                                <th colspan="3">Change in Considered Value</th>
+                                <th colspan="3">Change in DV</th>
+                                <th colspan="3">Change in Fmv</th>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                                <td colspan="3" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                                <td colspan="3" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
 
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
                         <th colspan="9">land And Building Under Construction</th>
@@ -388,17 +575,113 @@
                         <th *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
                         <th>Valuator Representative Name</th>
+                        <th *ngIf="buildingDetails?.valuationMode">Valuation Mode</th>
                         <th>Staff Representative Name 1</th>
                         <th>Staff Representative Name 2</th>
+                        <th>Revaluation Done ?</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorDate | date}} ({{buildingDetails?.ApartmentValuatorDate |engNepDate: false}})</td>
                         <td *ngIf="buildingDetails?.apartmentOtherBranchChecked === true" class="text-left pl-1">{{buildingDetails?.apartmentBranch?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuator?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
+                        <td class="text-left pl-1" *ngIf="buildingDetails?.valuationMode">{{buildingDetails?.valuationMode}}</td>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{buildingDetails?.apartmentStaffRepresentativeName2}}</td>
+                        <td class="text-left pl-1">{{buildingDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
                     </tr>
+                    <ng-container *ngIf="buildingDetails?.revaluationData?.revaluationDetails == undefined && buildingDetails?.revaluationData?.isReValuated">
+                        <tr>
+                            <td colspan="8"></td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>ReValuation Date(AD/BS)</th>
+                            <th colspan="1">Valuator name</th>
+                            <th colspan="1">ReValuation Considered Value</th>
+                            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">ReValuation Fmv</th>
+                            <th colspan="1">Change in Considered Value</th>
+                            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">Change in Fmv</th>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1">{{buildingDetails?.revaluationData?.reValuationDate | date}} ({{buildingDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>ReValuator Representative Name</th>
+                            <th>ReValuator Staff Representative Designation 1</th>
+                            <th>ReValuator Staff Representative Name 1</th>
+                            <th>ReValuator Staff Representative Designation 2</th>
+                            <th>ReValuator Staff Representative Name 2</th>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.reValuatorName}}</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.staffRepresentativeDesignation1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.staffRepresentativeName1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.staffRepresentativeDesignation2}}</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.staffRepresentativeName2}}</td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="buildingDetails?.revaluationData?.revaluationDetails != null && buildingDetails?.revaluationData?.isReValuated">
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>SN</th>
+                            <th colspan="1">ReValuation Date(AD/BS)</th>
+                            <th colspan="1">Valuator name</th>
+                            <th colspan="1">ReValuation Considered Value</th>
+                            <th colspan="1">ReValuation DV</th>
+                            <th colspan="1">ReValuation Fmv</th>
+                            <th colspan="2">ReValuator Representative Name</th>
+                        </tr>
+                        <tr *ngFor="let rev of buildingDetails['revaluationData']['revaluationDetails']; let i = index">
+                            <td>{{i+1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{rev?.reValuationDate | date}} ({{rev?.reValuationDate |engNepDate: false}})</td>
+                            <td colspan="1" class="text-left pl-1">{{rev?.newValuator?.name}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{rev?.reValuatedConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{rev?.reValuatedDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{rev?.reValuatedFmv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-left pl-1">{{rev?.reValuatorName}}</td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th colspan="1">SN</th>
+                            <th colspan="1">ReValuator Staff Representative Designation 1</th>
+                            <th colspan="2">ReValuator Staff Representative Name 1</th>
+                            <th colspan="2">ReValuator Staff Representative Designation 2</th>
+                            <th colspan="2">ReValuator Staff Representative Name 2</th>
+                        </tr>
+                        <tr *ngFor="let rev of buildingDetails['revaluationData']['revaluationDetails']; let i = index">
+                            <td colspan="1">{{i+1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{rev?.staffRepresentativeDesignation1 || 'N/A'}}</td>
+                            <td colspan="2" class="text-left pl-1">{{rev?.staffRepresentativeName1 || 'N/A'}}</td>
+                            <td colspan="2" class="text-left pl-1">{{rev?.staffRepresentativeDesignation2 || 'N/A'}}</td>
+                            <td colspan="2" class="text-left pl-1">{{rev?.staffRepresentativeName2 || 'N/A'}}</td>
+                        </tr>
+                        <ng-container>
+                            <tr class="sb-bg-dark text-white">
+                                <th colspan="8">Calculation of change in Revaluation value on
+                                    {{buildingDetails['revaluationData']['revaluationDetails'][buildingDetails['revaluationData']['revaluationDetails'].length - 1].reValuationDate | date}} date</th>
+                            </tr>
+                            <tr class="sb-bg-secondary text-white">
+                                <th colspan="3">Change in Considered Value</th>
+                                <th colspan="3">Change in DV</th>
+                                <th colspan="2">Change in Fmv</th>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                                <td colspan="3" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                                <td colspan="2" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
                 </table>
             </div>
         </div>
@@ -491,6 +774,7 @@
                         <td *ngIf="plantDetails?.plantOtherBranchChecked === true">{{plantDetails?.plantBranch?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorDate | date}} ({{plantDetails?.plantMachineryValuatorDate |engNepDate: false}})</td>
+                        <td class="text-right-pr-1" *ngIf="plantDetails?.valuationMode">{{plantDetails?.valuationMode}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName2}}</td>
