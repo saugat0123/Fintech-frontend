@@ -993,7 +993,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-right">
-                            <button nbButton status="success" (click)="submit()">Save</button>
+                            <button nbButton style="padding-top: 0px; padding-bottom: 0px" status="success" (click)="submit()">Save</button>
                         </div>
                     </div>
                 </div>
@@ -1001,8 +1001,10 @@
         </nb-card-body>
         <nb-card-footer class="mb-3">
             <button nbButton
+                    size="small"
                     status="info"
-                    class="mb-4 float-right"
+                    class="float-right"
+                    style="padding-top: 0px; padding-bottom: 0px"
                     [useExistingCss]="true"
                     ngxPrint printSectionId="{{offerLetterConst.CLASS_A}}">Print
             </button>

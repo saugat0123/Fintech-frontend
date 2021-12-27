@@ -59,30 +59,38 @@ export class Section2LoanTypeComponent implements OnInit {
     loanOptionIrrevocable;
     commissionTypeIrrevocable;
     complementaryOtherIrrevocable = false;
+    complementaryOtherIrrevocableTeName;
     // Customer Acceptance for Time Letter of Credit
     loanOptionTimeLetter;
     complementaryOtherTimeLetter = false;
+    complementaryOtherTimeLetterName;
     // Import Bills Discounting
     loanOptionBillDiscounting;
     complementaryOtherBillDiscounting = false;
+    complementaryOtherBillDiscountingName;
     // Import Loan/ Trust Receipt Loan
     loanOptionImportLoanTrust;
     complementaryOtherImportLoanTrust = false;
+    complementaryOtherImportLoanTrustName;
     interestSubsidyAgImportLoanTrust;
     // Revolving/One off basis Short Term Loan
     loanRevolvingBasisShortTermLoan;
     loanOptionShortTermLoan;
     complementaryOtherShortTermLoan = false;
+    complementaryOtherShortTermLoanName;
     arFinancingShortTermLoan = false;
     interestSubsidyAgShortTermLoan;
     // Demand Loan for working capital
     complementaryOtherDemandLoan = false;
+    complementaryOtherDemandLoanName;
     arFinancingDemandLoan = false;
     interestSubsidyAgDemandLoan;
     // Pre- Export Loan
     complementaryOtherPreExportLoan = false;
+    complementaryOtherPreExportLoanName;
     // Documentary Bill Purchase/Negotiation
     complementaryOtherDocumentaryBill = false;
+    complementaryOtherDocumentaryBillName;
     // Overdraft Loan for Working Capital requirement
     arFinancingOverdraftLoanWorking = false;
     interestSubsidyAgOverdraftLoanWorking;
@@ -105,14 +113,17 @@ export class Section2LoanTypeComponent implements OnInit {
     interestRateTypeFacilityAgainstBond;
     // Bridge Gap Loan
     complementaryOtherBridgeGapLoan = false;
+    complementaryOtherBridgeGapLoanName;
     interestSubsidyAgBridgeGapLoan = false;
     // Bank Guarantee
     complementaryOtherBankGuarantee = false;
+    complementaryOtherBankGuaranteeName;
     securityTypeBankGuarantee;
     guaranteeTypeBankGuarantee;
     commissionTypeBankGuarantee;
     // Bills Purchase
     complementaryOtherBillPurchase = false;
+    complementaryOtherBillPurchaseName;
     autoLoanDetails = [];
     termLoanDetails = [];
     finalLoanDetails = [];
@@ -313,7 +324,7 @@ export class Section2LoanTypeComponent implements OnInit {
             };
             this.loanData.push(tempLoan);
         });
-        if (this.loanData.length > 1) {
+        if (this.loanData.length > 0) {
             this.filterLoanData();
         }
     }
@@ -394,12 +405,13 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     private checkLoanName(): void {
-        if (this.loanData.length > 0) {
-            this.loanData.forEach(v => {
+        if (this.finalLoanDetails.length > 0) {
+            this.finalLoanDetails.forEach(v => {
                 // tslint:disable-next-line:max-line-length
                 if (v.loanName === LoanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT && !ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
                     this.isCustomerAcceptance = true;
                     this.loanOptionTimeLetter = this.tempData.timeLetterCreditForm.loanOption;
+                    this.complementaryOtherTimeLetterName = this.tempData.timeLetterCreditForm.complimentaryLoanSelected;
                     if (this.tempData.timeLetterCreditForm.complementryOther === true) {
                         this.complementaryOtherTimeLetter = true;
                     }
@@ -410,6 +422,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.isIrrevocableLetter = true;
                     this.loanOptionIrrevocable = this.tempData.letterOfCreditForm.loanOption;
                     this.commissionTypeIrrevocable = this.tempData.letterOfCreditForm.commissionType;
+                    this.complementaryOtherIrrevocableTeName = this.tempData.letterOfCreditForm.complimentaryLoanSelected;
                     if (this.tempData.letterOfCreditForm.complementryOther === true) {
                         this.complementaryOtherIrrevocable = true;
                     }
@@ -419,6 +432,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 if (v.loanName === LoanNameConstant.IMPORT_BILLS_DISCOUNTING && !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
                     this.isBillDiscounting = true;
                     this.loanOptionBillDiscounting = this.tempData.importBillsDiscountForm.loanOption;
+                    this.complementaryOtherBillDiscountingName = this.tempData.importBillsDiscountForm.complimentaryLoanSelected;
                     if (this.tempData.importBillsDiscountForm.complementryOther === true) {
                         this.complementaryOtherBillDiscounting = true;
                     }
@@ -427,6 +441,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 if (v.loanName === LoanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN && !ObjectUtil.isEmpty(this.tempData.importLoanTrust)) {
                     this.isLoanTrustReceiptLoan = true;
                     this.loanOptionImportLoanTrust = this.tempData.importLoanTrust.loanOption;
+                    this.complementaryOtherImportLoanTrustName = this.tempData.importLoanTrust.complimentaryLoanSelected;
                     this.interestSubsidyAgImportLoanTrust = this.tempData.importLoanTrust.subsidyOrAgricultureLoan;
                     if (this.tempData.importLoanTrust.complementryOther === true) {
                         this.complementaryOtherImportLoanTrust = true;
@@ -436,6 +451,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 if (v.loanName === LoanNameConstant.SHORT_TERM_LOAN && !ObjectUtil.isEmpty(this.tempData.revolvingShortTermLoan)) {
                     this.isRevolvingShortTermLoan = true;
                     this.loanOptionShortTermLoan = this.tempData.revolvingShortTermLoan.loanOption;
+                    this.complementaryOtherShortTermLoanName = this.tempData.revolvingShortTermLoan.complimentaryLoanSelected;
                     this.loanRevolvingBasisShortTermLoan = this.tempData.revolvingShortTermLoan.loanRevolvingBasis;
                     this.interestSubsidyAgShortTermLoan = this.tempData.revolvingShortTermLoan.subsidyOrAgricultureLoan;
                     if (this.tempData.revolvingShortTermLoan.complementaryOther === true) {
@@ -449,6 +465,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 if (v.loanName === LoanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL && !ObjectUtil.isEmpty(this.tempData.demandLoanForm)) {
                     this.isDemandLoanWorkingCapital = true;
                     this.interestSubsidyAgDemandLoan = this.tempData.demandLoanForm.subsidyOrAgricultureLoan;
+                    this.complementaryOtherDemandLoanName = this.tempData.demandLoanForm.complimentaryLoanSelected;
                     if (this.tempData.demandLoanForm.complementryOther === true) {
                         this.complementaryOtherDemandLoan = true;
                     }
@@ -459,6 +476,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 }
                 if (v.loanName === LoanNameConstant.PRE_EXPORT_LOAN && !ObjectUtil.isEmpty(this.tempData.preExportForm)) {
                     this.isPreExportLoan = true;
+                    this.complementaryOtherPreExportLoanName = this.tempData.preExportForm.complimentaryLoanSelected;
                     if (this.tempData.preExportForm.complementryOther === true) {
                         this.complementaryOtherPreExportLoan = true;
                     }
@@ -467,6 +485,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 if (v.loanName === LoanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION &&
                     !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase)) {
                     this.isDocumentaryBillPurchase = true;
+                    this.complementaryOtherDocumentaryBillName = this.tempData.documentaryBillPurchase.complimentaryLoanSelected;
                     if (this.tempData.documentaryBillPurchase.complementryOther === true) {
                         this.complementaryOtherDocumentaryBill = true;
                     }
@@ -520,6 +539,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 }
                 if (v.loanName === LoanNameConstant.BRIDGE_GAP_LOAN && !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan)) {
                     this.isBridgeGapLoan = true;
+                    this.complementaryOtherBridgeGapLoanName = this.tempData.bridgeGapLoan.complimentaryLoanSelected;
                     if (this.tempData.bridgeGapLoan.interestSubsidy === true) {
                         this.interestSubsidyAgBridgeGapLoan = true;
                     }
@@ -542,6 +562,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.securityTypeBankGuarantee = this.tempData.bankGuarantee.securityType;
                     this.guaranteeTypeBankGuarantee = this.tempData.bankGuarantee.guaranteeType;
                     this.commissionTypeBankGuarantee = this.tempData.bankGuarantee.commissionType;
+                    this.complementaryOtherBankGuaranteeName = this.tempData.bankGuarantee.complimentaryLoanSelected;
                     if (this.tempData.bankGuarantee.complementryOther === true) {
                         this.complementaryOtherBankGuarantee = true;
                     }
@@ -549,6 +570,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 }
                 if (v.loanName === LoanNameConstant.BILLS_PURCHASE && !ObjectUtil.isEmpty(this.tempData.billPurchaseForm)) {
                     this.isBillPurchase = true;
+                    this.complementaryOtherBillPurchaseName = this.tempData.billPurchaseForm.complimentaryLoanSelected;
                     if (this.tempData.billPurchaseForm.complementryOther === true) {
                         this.complementaryOtherBillPurchase = true;
                     }
@@ -854,6 +876,19 @@ export class Section2LoanTypeComponent implements OnInit {
             freeText16: this.form.get('freeTextSixteen').value ? this.form.get('freeTextSixteen').value : '',
             snOfFacility: this.form.get('SNOfFacility').value ? this.form.get('SNOfFacility').value : '',
             remainDaysLoan: this.form.get('remainDaysLoanTrust').value ? this.form.get('remainDaysLoanTrust').value : '',
+            SNIrrevocable: this.form.get('SNOfParentLimitIrrevocable').value ? this.form.get('SNOfParentLimitIrrevocable').value : '',
+            SNTimeLetter: this.form.get('SNOfParentLimitTimeLetter').value ? this.form.get('SNOfParentLimitTimeLetter').value : '',
+            // tslint:disable-next-line:max-line-length
+            SNBillsDiscounting: this.form.get('SNOfParentLimitBillsDiscounting').value ? this.form.get('SNOfParentLimitBillsDiscounting').value : '',
+            SNLoanTrust: this.form.get('SNOfParentLimitLoanTrust').value ? this.form.get('SNOfParentLimitLoanTrust').value : '',
+            SNShortTermLoan: this.form.get('SNOfParentLimitShortTermLoan').value ? this.form.get('SNOfParentLimitShortTermLoan').value : '',
+            SNDemandLoan: this.form.get('SNOfParentLimitDemandLoan').value ? this.form.get('SNOfParentLimitDemandLoan').value : '',
+            SNPreExport: this.form.get('SNOfParentLimitPreExport').value ? this.form.get('SNOfParentLimitPreExport').value : '',
+            // tslint:disable-next-line:max-line-length
+            SNDocumentaryBill: this.form.get('SNOfParentLimitDocumentaryBill').value ? this.form.get('SNOfParentLimitDocumentaryBill').value : '',
+            SNBridgeGap: this.form.get('SNOfParentLimitBridgeGap').value ? this.form.get('SNOfParentLimitBridgeGap').value : '',
+            SNBankGuarantee: this.form.get('SNOfParentLimitBankGuarantee').value ? this.form.get('SNOfParentLimitBankGuarantee').value : '',
+            SNBillsPurchase: this.form.get('SNOfParentLimitBillsPurchase').value ? this.form.get('SNOfParentLimitBillsPurchase').value : '',
         };
         return this.freeTextVal;
     }
@@ -871,19 +906,26 @@ export class Section2LoanTypeComponent implements OnInit {
             freeTextNine: this.tempInformation ? this.tempInformation.section2.freeText9 : '',
             freeTextFifteen: this.tempInformation ? this.tempInformation.section2.freeText15 : '',
             freeTextSixteen: this.tempInformation ? this.tempInformation.section2.freeText16 : '',
-            // tslint:disable-next-line:max-line-length
             loanExpiryDateIrrevocable2: this.tempInformation ? this.tempInformation.section2.loanExpiryIrrevocable : '',
-            // tslint:disable-next-line:max-line-length
             loanExpiryDateTimeLetter2: this.tempInformation ? this.tempInformation.section2.loanExpiryTimeLetter : '',
-            // tslint:disable-next-line:max-line-length
             remainDaysShortTermLoan: this.tempInformation ? this.tempInformation.section2.remainingDaysShortTerms : '',
             interestRatePreExport: this.tempInformation ? this.tempInformation.section2.interestRatePre : '',
             sulkaPreExport: this.tempInformation ? this.tempInformation.section2.SulkaPreExport : '',
-            // tslint:disable-next-line:max-line-length
             InterestRateDocumentaryBill: this.tempInformation ? this.tempInformation.section2.interestRateDocumentary : '',
-            // tslint:disable-next-line:max-line-length
             loanPaymentDocumentaryBill: this.tempInformation ? this.tempInformation.section2.loanPaymentDocumentary : '',
             SNOfFacility: this.tempInformation ? this.tempInformation.section2.snOfFacility : '',
+            remainDaysLoanTrust: this.tempInformation ? this.tempInformation.section2.remainDaysLoan : '',
+            SNOfParentLimitIrrevocable: this.tempInformation ? this.tempInformation.section2.SNIrrevocable : '',
+            SNOfParentLimitTimeLetter: this.tempInformation ? this.tempInformation.section2.SNTimeLetter : '',
+            SNOfParentLimitBillsDiscounting: this.tempInformation ? this.tempInformation.section2.SNBillsDiscounting : '',
+            SNOfParentLimitLoanTrust: this.tempInformation ? this.tempInformation.section2.SNLoanTrust : '',
+            SNOfParentLimitShortTermLoan: this.tempInformation ? this.tempInformation.section2.SNShortTermLoan : '',
+            SNOfParentLimitDemandLoan: this.tempInformation ? this.tempInformation.section2.SNDemandLoan : '',
+            SNOfParentLimitPreExport: this.tempInformation ? this.tempInformation.section2.SNPreExport : '',
+            SNOfParentLimitDocumentaryBill: this.tempInformation ? this.tempInformation.section2.SNDocumentaryBill : '',
+            SNOfParentLimitBridgeGap: this.tempInformation ? this.tempInformation.section2.SNBridgeGap : '',
+            SNOfParentLimitBankGuarantee: this.tempInformation ? this.tempInformation.section2.SNBankGuarantee : '',
+            SNOfParentLimitBillsPurchase: this.tempInformation ? this.tempInformation.section2.SNBillsPurchase : '',
         });
     }
     filterLoanData() {

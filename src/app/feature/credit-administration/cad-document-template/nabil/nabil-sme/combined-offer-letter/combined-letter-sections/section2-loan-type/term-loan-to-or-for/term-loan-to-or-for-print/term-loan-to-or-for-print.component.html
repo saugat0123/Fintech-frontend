@@ -7,7 +7,8 @@
                                             formControlName="SNOfParentLimitVehicleLoan"
                                             placeholder=""
                                             type="text"/>-->
-        को पूरक सुविधा/कुल सुविधाको पूरक सुविधा </ng-container></strong>
+        <ng-container *ngIf="complementaryOtherTermLoanToOrForName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+        <ng-container *ngIf="complementaryOtherTermLoanToOrForName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container> </ng-container></strong>
 </p>
 <p *ngIf="termLoanForTermLoanToOrFor === 'OTHER'"><strong>
     <span [ngClass]="{'outside' : data?.purposeOfLoanCT !== null && data?.purposeOfLoanCT !== ''}">
@@ -24,7 +25,9 @@
                                             formControlName="SNOfParentLimitVehicleLoan"
                                             placeholder=""
                                             type="text"/>-->
-        को पूरक सुविधा/कुल सुविधाको पूरक सुविधा </ng-container></strong>
+        <ng-container *ngIf="complementaryOtherTermLoanToOrForName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+        <ng-container *ngIf="complementaryOtherTermLoanToOrForName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+    </ng-container></strong>
 </p>
 <p>
     <strong>सीमाः <ng-container *ngIf="complementaryOtherTermLoanToOrFor">(</ng-container>

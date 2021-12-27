@@ -370,7 +370,8 @@
                                 <p>
                                     <strong>ऋण प्रशासनिक शुल्क: </strong>
                                     <br>
-                                    ऋण प्रशासनिक शुल्क बापत <strong>रु. </strong> <input
+                                   <ng-container *ngIf="typeOfServiceCharge === 'Service Charge In Flat Amount'">
+                                       ऋण प्रशासनिक शुल्क बापत <strong>रु. </strong> <input
                                         class="form-field form-control-sm font-weight-bold"
                                         formControlName="serviceChargeInFigure"
                                         name="serviceChargeInFigure"
@@ -380,8 +381,9 @@
                                         formControlName="serviceChargeInWords"
                                         name="serviceChargeInWords"
                                         type="text"/>
-                                    <strong>मात्र) वा </strong>
-                                    स्वीकृत <input class="form-field form-control-sm font-weight-bold"
+                                    <strong>मात्र) </strong></ng-container>
+                                    <ng-container *ngIf="typeOfServiceCharge === 'Service Charge In Percentage'">
+                                        स्वीकृत <input class="form-field form-control-sm font-weight-bold"
                                                    formControlName="detailsOfFacility"
                                                    name="detailsOfFacility"
                                                    type="text"/>
@@ -389,7 +391,7 @@
                                                     formControlName="serviceChargeInPercentage"
                                                     name="serviceChargeInPercentage"
                                                     type="text"/>
-                                    प्रतिशतका दरले हुन आउने रकम अग्रिम रुपमा तपाईंको खाताबाट कट्टा गरी लिइनेछ वा तपाईंले
+                                    प्रतिशतका दरले हुन आउने </ng-container> रकम अग्रिम रुपमा तपाईंको खाताबाट कट्टा गरी लिइनेछ वा तपाईंले
                                     तिर्नु बुझाउनु पर्नेछ ।
                                 </p>
                             </li>

@@ -88,8 +88,15 @@
                        id="custom-table">
                     <tr>
                         <td width="20%"><strong>कर्जाको प्रकार:</strong></td>
-                        <td width="40%">ब्यापारिक कृषि तथा पशुपंछी कर्जा</td>
-                        <td width="40%">Commercial Agro and Livestock Loan</td>
+                        <td width="40%"><span
+                                [ngClass]="{'outside' : letter?.loanSubType.ct !== null && letter?.loanSubType.ct !== ''}">
+                            {{letter?.loanSubType.ct === null || letter?.loanSubType.ct === '' ? '___________' : letter?.loanSubType.ct}}</span>
+                        </td>
+                        <td>
+                            <span
+                                    [ngClass]="{'outside' : letter?.loanSubType.en.eData !== null && letter?.loanSubType.en.eData !== ''}">
+                            {{letter?.loanSubType.en.eData === null || letter?.loanSubType.en.eData === '' ? '___________' : letter?.loanSubType.en.eData}}</span>
+                        </td>
                     </tr>
                     <tr>
                         <td><strong> कर्जाको उद्देश्य </strong></td>
@@ -130,13 +137,13 @@
                             घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको (Motorable Road
                             access)
                             को हकमा बजार मुल्य (Market Value) को <span
-                                    [ngClass]="{'font-weight-bold': letter?.marginInPercentage.ct !== null && letter?.marginInPercentage.ct !== ''}">
-                                        {{letter?.marginInPercentage.ct === null || letter?.marginInPercentage.ct === "" ? "___________" : letter?.marginInPercentage.ct}}
+                                    [ngClass]="{'font-weight-bold': letter?.marginInPercentageMotor.ct !== null && letter?.marginInPercentageMotor.ct !== ''}">
+                                        {{letter?.marginInPercentageMotor.ct === null || letter?.marginInPercentageMotor.ct === "" ? "___________" : letter?.marginInPercentageMotor.ct}}
                                         </span>
                             प्रतिशत वा गोरेटो बाटो भएको (Foot trail access)
                             को हकमा बजार मुल्य (Market value) को <span
-                                    [ngClass]="{'font-weight-bold': letter?.marginInPercentage.ct !== null && letter?.marginInPercentage.ct !== ''}">
-                                        {{letter?.marginInPercentage.ct === null || letter?.marginInPercentage.ct === "" ? "___________" : letter?.marginInPercentage.ct}}
+                                    [ngClass]="{'font-weight-bold': letter?.marginInPercentageFoot.ct !== null && letter?.marginInPercentageFoot.ct !== ''}">
+                                        {{letter?.marginInPercentageFoot.ct === null || letter?.marginInPercentageFoot.ct === "" ? "___________" : letter?.marginInPercentageFoot.ct}}
                                         </span>
                             प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
                         </td>
@@ -200,12 +207,12 @@
                             सो घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको (Motorable
                             Road access)
                             को हकमा बजार मुल्य (Market Value) को <span
-                                [ngClass]="{'font-weight-bold': letter?.marginInPercentage.ct !== null && letter?.marginInPercentage.ct !== ''}">
-                                        {{letter?.marginInPercentage.ct === null || letter?.marginInPercentage.ct === "" ? "___________" : letter?.marginInPercentage.ct}}
+                                [ngClass]="{'font-weight-bold': letter?.marginInPercentageMotor.ct !== null && letter?.marginInPercentageMotor.ct !== ''}">
+                                        {{letter?.marginInPercentageMotor.ct === null || letter?.marginInPercentageMotor.ct === "" ? "___________" : letter?.marginInPercentageMotor.ct}}
                                         </span> । प्रतिशत वा
                             गोरेटो बाटो भएको (Foot trail access) को हकमा बजार मुल्य (Market Value) को
-                            <span [ngClass]="{'font-weight-bold': letter?.marginInPercentage.ct !== null && letter?.marginInPercentage.ct !== ''}">
-                                        {{letter?.marginInPercentage.ct === null || letter?.marginInPercentage.ct === "" ? "___________" : letter?.marginInPercentage.ct}}
+                            <span [ngClass]="{'font-weight-bold': letter?.marginInPercentageFoot.ct !== null && letter?.marginInPercentageFoot.ct !== ''}">
+                                        {{letter?.marginInPercentageFoot.ct === null || letter?.marginInPercentageFoot.ct === "" ? "___________" : letter?.marginInPercentageFoot.ct}}
                                         </span>। प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
                             बरावर रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
                         </td>

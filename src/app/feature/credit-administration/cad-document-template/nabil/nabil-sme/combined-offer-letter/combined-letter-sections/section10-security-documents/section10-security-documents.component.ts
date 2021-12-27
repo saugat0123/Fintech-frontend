@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 import {EngToNepaliNumberPipe} from '../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../@core/pipe/currency-formatter.pipe';
@@ -54,6 +54,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
   pariPasu: boolean;
   partnershipDeed: boolean;
   letterSetOff: boolean;
+  freeInformation: any;
   constructor(private formBuilder: FormBuilder,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe) {
@@ -65,6 +66,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+      const freeText = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       this.limitAmount = this.tempData.smeGlobalForm.totalLimitInFigure;
       this.requiredDocument();
       this.fillForm();
@@ -72,6 +74,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
         this.guarantorParsed.push(JSON.parse(any.nepData));
       });
       this.guarantorDetails();
+      // this.setTextArea(freeText.textAreas);
     }
     const securities = this.tempData.securities;
     securities.primarySecurity.forEach(pd => {
@@ -137,11 +140,12 @@ export class Section10SecurityDocumentsComponent implements OnInit {
       totalLoanAmountInFigure: [undefined],
       loanAmountInFigure: [undefined],
       nameOfBranch: [undefined],
-      additionalGuarantorDetails: [undefined],
+      textAreas: this.formBuilder.array([]),
       guarantorName: [undefined],
       plotNumber: [undefined],
       nameOfPropertyOwner: [undefined],
     });
+    this.addTextArea();
   }
 
   guarantorDetails() {
@@ -192,7 +196,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
       totalLoanAmount = totalLoanAmount + val;
     });
     this.form.patchValue({
-      totalLoanAmountInFigure: this.limitAmount ? this.limitAmount : '',
+      totalLoanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.limitAmount)),
       loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       nameOfBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
       guarantorName: this.finalName ? this.finalName : '',
@@ -308,4 +312,14 @@ export class Section10SecurityDocumentsComponent implements OnInit {
     }
   }
 
+  addTextArea() {
+    (this.form.get('textAreas') as FormArray).push(
+        this.formBuilder.group({
+          additionalGuarantorDetails: [undefined]
+    }));
+  }
+
+  removeAtIndex(i: number) {
+    (this.form.get('textAreas') as FormArray).removeAt(i);
+  }
 }

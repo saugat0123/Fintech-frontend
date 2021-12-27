@@ -33,7 +33,7 @@
                         <ng-option value="OTHERS">OTHERS</ng-option>
                     </ng-select>
                 </div>
-                <div class="col-md-4 pt-4">
+                <!--<div class="col-md-4 pt-4">
                     <label><strong>Security Type</strong></label>
                     <ng-select
                             (change)="checkSelectedValue()"
@@ -43,7 +43,7 @@
                         <ng-option *ngFor="let securityData of securityType"
                                    [value]="securityData.value">{{securityData.value}}</ng-option>
                     </ng-select>
-                </div>
+                </div>-->
                 <div *ngIf="isLoanOptionSelected" class="col-md-12 mt-3">
                     <nb-checkbox #interestSubsidy (checkedChange)="interestSubsidyCheck(interestSubsidy.checked)"
                                  [checked]="isInterestSubsidy">
@@ -129,6 +129,20 @@
                         <label for="marginInPercentage">Margin In Percentage (%)</label>
                         <input class="form-control" formControlName="marginInPercentage" fullWidth
                                id="marginInPercentage"
+                               nbInput status="success" type="number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marginInPercentageMotor">Margin In Percentage Motorable Road Access (%)</label>
+                        <input class="form-control" formControlName="marginInPercentageMotor" fullWidth
+                               id="marginInPercentageMotor"
+                               nbInput status="success" type="number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marginInPercentageFoot">Margin In Percentage Foot trail access (%)</label>
+                        <input class="form-control" formControlName="marginInPercentageFoot" fullWidth
+                               id="marginInPercentageFoot"
                                nbInput status="success" type="number">
                     </div>
 
@@ -236,9 +250,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="marginInPercentageTrans">Margin In Percentage (%) Translation</label>
+                        <label for="marginInPercentageTrans">Margin In Percentage (%)</label>
                         <input class="form-control" formControlName="marginInPercentageTrans" fullWidth
                                id="marginInPercentageTrans"
+                               nbInput status="success" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marginInPercentageMotorTrans">Margin In Percentage Motorable Road Access (%)</label>
+                        <input class="form-control" formControlName="marginInPercentageMotorTrans" fullWidth
+                               id="marginInPercentageMotorTrans"
+                               nbInput status="success" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marginInPercentageFootTrans">Margin In Percentage Foot trail access (%)</label>
+                        <input class="form-control" formControlName="marginInPercentageFootTrans" fullWidth
+                               id="marginInPercentageFootTrans"
                                nbInput status="success" type="text">
                     </div>
 
@@ -394,6 +422,32 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="marginInPercentageMotorCT">Margin In Percentage Motor(%) CT </label>
+                        <input class="form-control" formControlName="marginInPercentageMotorCT" fullWidth
+                               id="marginInPercentageMotorCT"
+                               nbInput status="success"
+                               [ngClass]=" { 'is-invalid':submitted && formControls.marginInPercentageMotorCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && formControls.marginInPercentageMotorCT.invalid" class="text-danger">
+                            Margin in percentage is required
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marginInPercentageFootCT">Margin In Percentage Foot (%) CT </label>
+                        <input class="form-control" formControlName="marginInPercentageFootCT" fullWidth
+                               id="marginInPercentageFootCT"
+                               nbInput status="success"
+                               [ngClass]=" { 'is-invalid':submitted && formControls.marginInPercentageFootCT.errors }"
+                               type="text">
+                        <span *ngIf="submitted && formControls.marginInPercentageFootCT.invalid" class="text-danger">
+                            Margin in percentage is required
+                        </span>
+                    </div>
+
+
+
+                    <div class="form-group">
                         <label for="baseRateCT">Base Rate CT </label>
                         <input class="form-control" formControlName="baseRateCT" fullWidth
                                id="baseRateCT" nbInput status="success"
@@ -494,20 +548,41 @@
                 </div>
             </div>
             <hr>
-            <!-- FIRST SECTION FOR SECURITY DETAILS -->
-            <div class="row" *ngIf="showSecurity">
+            <!-- SECTION FOR SECURITY DETAILS-->
+            <div style="margin: 20px;">
+                <app-common-security-section-primary #primarySecurity></app-common-security-section-primary>
+                <hr>
+                <app-common-security-section-secondary #secondarySecurity></app-common-security-section-secondary>
+            </div>
+
+<!--            <div class="row">
                 <div class="col-md-12 pr-4">
                     <button (click)="addDefaultSecurity()" class="float-right" nbButton size="tiny" status="primary">Add
                         Securities
                     </button>
                 </div>
             </div>
+
+            <div class="col-md-4 pt-4">
+                <label><strong>Security Type</strong></label>
+                <ng-select
+                        (change)="checkSelectedValue()"
+                        formControlName="securityType"
+                        fullWidth
+                        placeholder="Security Type">
+                    <ng-option *ngFor="let securityData of securityType"
+                               [value]="securityData.value">{{securityData.value}}</ng-option>
+                </ng-select>
+            </div>
+
+
             <div *ngFor="let securityData of interestSubsidy.get('securities')['controls']; let i = index; "
                  class="row p-4" formArrayName="securities">
-                <ng-container [formGroupName]="i" *ngIf="showSecurity">
+                <ng-container [formGroupName]="i">
                     <div class="col-md-12">
                         <h5>{{i + 1}}. Security Details</h5>
                     </div>
+
                     <div class="col-md-4 mt-3">
                         <div class="form-group mt-4">
                             <label for="securityOwnersName">Property Owner Name</label>
@@ -610,7 +685,7 @@
                                    nbInput status="success" type="text">
                         </div>
                     </div>
-                    <!-- TRANSLATION FIELD FOR SECURITY -->
+&lt;!&ndash;                     TRANSLATION FIELD FOR SECURITY&ndash;&gt;
                     <div class="col-md-4 mt-3">
                         <div class="form-group mt-4">
                             <label for="securityOwnersNameTrans">Property Owner Name</label>
@@ -662,9 +737,9 @@
                                    nbInput readonly status="success" type="text">
                         </div>
                     </div>
-                    <!-- END OF TRANSLATION FIELD FOR SECURITY -->
+&lt;!&ndash;                     END OF TRANSLATION FIELD FOR SECURITY&ndash;&gt;
 
-                    <!-- START OF CT FIELDS SECTION -->
+&lt;!&ndash;                     START OF CT FIELDS SECTION&ndash;&gt;
                     <div class="col-md-4 mt-3">
                         <div class="form-group mt-4">
                             <label for="securityOwnersNameCT">Property Owner Name</label>
@@ -716,7 +791,7 @@
                                    nbInput status="success" type="text">
                         </div>
                     </div>
-                    <!-- END OF CT FIELDS SECTION-->
+&lt;!&ndash;                     END OF CT FIELDS SECTION&ndash;&gt;
                     <div *ngIf="interestSubsidy.get('securities')['length'] > 1" class="col-md-12 text-right">
                         <button (click)="removeSecurityDetails(i)" nbButton size="small" status="danger"
                                 style="position: static">
@@ -725,8 +800,8 @@
                     </div>
                 </ng-container>
                 <hr *ngIf="interestSubsidy.get('securities')['length'] > 1">
-            </div>
-            <!--END OF SECURITY SECTION -->
+            </div>-->
+<!--            END OF SECURITY SECTION-->
         </nb-card-body>
     </form>
 </nb-card>

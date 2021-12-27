@@ -9,7 +9,9 @@
                                            formControlName="SNOfParentLimitMortgageTerm"
                                            placeholder=""
                                            type="text"/>-->
-                   को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong></span><br>
+                    <ng-container *ngIf="complementaryOtherMortgageEquityTermName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+               <ng-container *ngIf="complementaryOtherMortgageEquityTermName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+               </ng-container></strong></span><br>
     <span *ngIf="termLoanForMortgageEquityTerm === 'EQUITY_MORTGAGE_TERM_LOAN'">
             <strong>सुरक्षणमा आधारीत स्वपुञजी आवधिक कर्जा (Equity Mortgage Term Loan)
               <ng-container *ngIf="complementaryOtherMortgageEquityTerm">
@@ -20,7 +22,9 @@
                                                   formControlName="SNOfParentLimitMortgageTerm"
                                                   placeholder=""
                                                   type="text"/>-->
-                  को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong></span>
+                   <ng-container *ngIf="complementaryOtherMortgageEquityTermName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+               <ng-container *ngIf="complementaryOtherMortgageEquityTermName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+              </ng-container></strong></span>
 </p>
 <p>
     <strong> सीमाः <ng-container *ngIf="complementaryOtherMortgageEquityTerm">(</ng-container>रु.
