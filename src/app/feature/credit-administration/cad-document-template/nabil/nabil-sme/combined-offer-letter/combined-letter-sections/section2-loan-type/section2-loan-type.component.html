@@ -19,7 +19,9 @@
                                             class="form-field form-control-sm"
                                             formControlName="SNOfParentLimitIrrevocable"
                                             type="text"/>
-                                    को पूरक सुविधा/कुल सुविधाको पूरक सुविधा</ng-container></strong>
+                                        <ng-container *ngIf="complementaryOtherIrrevocableTeName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherIrrevocableTeName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                                    </ng-container></strong>
                                 </span><br>
                             </p>
                             <p>
@@ -110,7 +112,9 @@
                                     बुँदा नं. <input class="form-field form-control-sm "
                                                      formControlName="SNOfParentLimitTimeLetter"
                                                      placeholder=""
-                                                     type="text"/> को पूरक सुविधा
+                                                     type="text"/>
+                                    <ng-container *ngIf="complementaryOtherTimeLetterName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherTimeLetterName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
                                 </ng-container></strong></span><br>
                                 <strong>सीमाः
                                     <ng-container *ngIf="complementaryOtherTimeLetter">(रु.<input
@@ -186,7 +190,9 @@
                                     class="form-field form-control-sm "
                                     formControlName="SNOfParentLimitBillsDiscounting"
                                     placeholder=""
-                                    type="text"/>को पूरक सुविधा
+                                    type="text"/>
+                                <ng-container *ngIf="complementaryOtherBillDiscountingName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                <ng-container *ngIf="complementaryOtherBillDiscountingName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
                             </ng-container>
                         </strong><br>
                             <strong>सीमाः
@@ -265,7 +271,10 @@
                                 class="form-field form-control-sm "
                                 formControlName="SNOfParentLimitLoanTrust"
                                 placeholder=""
-                                type="text"/> को पूरक सुविधा</ng-container></strong></span><br>
+                                type="text"/>
+                        <ng-container *ngIf="complementaryOtherImportLoanTrustName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherImportLoanTrustName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                        </ng-container></strong></span><br>
 
                             <strong>सीमाः
                                 <ng-container *ngIf="complementaryOtherImportLoanTrust">(रु.<input
@@ -370,8 +379,10 @@
                                 class="form-field form-control-sm "
                                 formControlName="SNOfParentLimitShortTermLoan"
                                 placeholder=""
-                                type="text"/> को पूरक सुविधा/कुल
-                    सुविधाको पूरक सुविधा</ng-container></strong></span><br>
+                                type="text"/>
+                        <ng-container *ngIf="complementaryOtherShortTermLoanName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherShortTermLoanName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                        </ng-container></strong></span><br>
 
                             <span *ngIf="(loanOptionShortTermLoan === 'ONE_OFF_BASIS') && (loanRevolvingBasisShortTermLoan === 'DAILY')"><strong><input
                                     class="form-field form-control-sm "
@@ -386,8 +397,10 @@
                                    class="form-field form-control-sm "
                                    formControlName="SNOfParentLimitShortTermLoan"
                                    placeholder=""
-                                   type="text"/> को पूरक सुविधा/कुल
-                    सुविधाको पूरक सुविधा</ng-container></strong></span><br>
+                                   type="text"/>
+                           <ng-container *ngIf="complementaryOtherShortTermLoanName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherShortTermLoanName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                           </ng-container></strong></span><br>
 
                             <span *ngIf="(loanOptionShortTermLoan === 'REGULAR') && (loanRevolvingBasisShortTermLoan === 'MONTHLY')">
                             <strong><input class="form-field form-control-sm "
@@ -402,8 +415,10 @@
                                         class="form-field form-control-sm "
                                         formControlName="SNOfParentLimitShortTermLoan"
                                         placeholder=""
-                                        type="text"/> को पूरक सुविधा/कुल
-                    सुविधाको पूरक सुविधा</ng-container></strong></span><br>
+                                        type="text"/>
+                                <ng-container *ngIf="complementaryOtherShortTermLoanName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherShortTermLoanName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                                </ng-container></strong></span><br>
 
                             <span *ngIf="(loanOptionShortTermLoan === 'ONE_OFF_BASIS') && (loanRevolvingBasisShortTermLoan === 'MONTHLY')"><strong><input
                                     class="form-field form-control-sm "
@@ -418,8 +433,10 @@
                                     class="form-field form-control-sm "
                                     formControlName="SNOfParentLimitShortTermLoan"
                                     placeholder=""
-                                    type="text"/> को पूरक सुविधा/कुल
-                    सुविधाको पूरक सुविधा</ng-container></strong></span><br>
+                                    type="text"/>
+                            <ng-container *ngIf="complementaryOtherShortTermLoanName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherShortTermLoanName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                            </ng-container></strong></span><br>
 
                             <strong> सीमाः
                                 <ng-container *ngIf="complementaryOtherShortTermLoan">(रु.<input
@@ -537,8 +554,10 @@
                                class="form-field form-control-sm "
                                formControlName="SNOfParentLimitDemandLoan"
                                placeholder=""
-                               type="text"/> को पूरक सुविधा/कुल
-                                सुविधाको पूरक सुविधा </ng-container></strong></span><br>
+                               type="text"/>
+                       <ng-container *ngIf="complementaryOtherDemandLoanName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherDemandLoanName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                       </ng-container></strong></span><br>
 
                             <strong> सीमाः
                                 <ng-container *ngIf="complementaryOtherDemandLoan">(रु.<input
@@ -638,8 +657,10 @@
                                 class="form-field form-control-sm "
                                 formControlName="SNOfParentLimitPreExport"
                                 placeholder=""
-                                type="text"/> को पूरक सुविधा/कुल
-                            सुविधाको पूरक सुविधा </ng-container></strong></span><br>
+                                type="text"/>
+                        <ng-container *ngIf="complementaryOtherPreExportLoanName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherPreExportLoanName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                        </ng-container></strong></span><br>
 
                             <strong> सीमाः
                                 <ng-container *ngIf="complementaryOtherPreExportLoan">(रु.<input
@@ -723,7 +744,10 @@
                             class="form-field form-control-sm"
                             formControlName="SNOfParentLimitDocumentaryBill"
                             placeholder=""
-                            type="text"/> को पूरक सुविधा/कुलसुविधाको पूरक सुविधा </ng-container></strong></span><br>
+                            type="text"/>
+                    <ng-container *ngIf="complementaryOtherDocumentaryBillName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherDocumentaryBillName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                    </ng-container></strong></span><br>
 
                             <strong> सीमाः
                                 <ng-container *ngIf="complementaryOtherDocumentaryBill">(रु.<input
@@ -1262,7 +1286,9 @@
                                             class="form-field form-control-sm "
                                             formControlName="SNOfParentLimitBridgeGap"
                                             placeholder=""
-                                            type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा
+                                            type="text"/>
+                                        <ng-container *ngIf="complementaryOtherBridgeGapLoanName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherBridgeGapLoanName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
                                     </ng-container>
                                 </strong>
                             </p>
@@ -1391,7 +1417,9 @@
                                             class="form-field form-control-sm "
                                             formControlName="SNOfParentLimitBankGuarantee"
                                             placeholder=""
-                                            type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा
+                                            type="text"/>
+                                        <ng-container *ngIf="complementaryOtherBankGuaranteeName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherBankGuaranteeName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
                                     </ng-container>
                                 </strong><br>
 
@@ -1509,7 +1537,9 @@
                                         बुँदा नं.<input class="form-field form-control-sm "
                                                         formControlName="SNOfParentLimitBillsPurchase"
                                                         placeholder=""
-                                                        type="text"/>को पूरक सुविधा/कुल सुविधाको पूरक सुविधा
+                                                        type="text"/>
+                                        <ng-container *ngIf="complementaryOtherBillPurchaseName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="complementaryOtherBillPurchaseName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
                                     </ng-container>
                                 </strong><br>
 

@@ -22,6 +22,7 @@ export class AutoLoanPrintComponent implements OnInit {
   autoLoanFreeText: any = {};
   complementaryOtherAutoLoan = false; vehiclePurchaseAutoLoan = false; vehicleRegistrationAutoLoan = false;
   loanOptionAutoLoan; autoLoanTypeAutoLoan; emiPaymentTypeAutoLoan; paymentsTermsAutoLoan;
+  complementaryOtherAutoLoanName;
   constructor() { }
 
   ngOnInit() {
@@ -32,6 +33,7 @@ export class AutoLoanPrintComponent implements OnInit {
       this.loanOptionAutoLoan = this.tempData.smeGlobalForm.loanOption;
       this.autoLoanTypeAutoLoan = this.data.autoLoanType;
       this.emiPaymentTypeAutoLoan = this.data.emiPaymentType;
+      this.complementaryOtherAutoLoanName = this.data.complimentaryLoanSelected;
       this.paymentsTermsAutoLoan = this.data.paymentTerms;
       if (this.data.complementaryOther === true) {
         this.complementaryOtherAutoLoan = true;

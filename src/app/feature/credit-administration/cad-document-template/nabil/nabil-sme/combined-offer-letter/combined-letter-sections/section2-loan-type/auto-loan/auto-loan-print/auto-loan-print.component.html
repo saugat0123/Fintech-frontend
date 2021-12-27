@@ -5,8 +5,10 @@
         <!--<input class="form-field form-control-sm "
                                                     formControlName="SNOfParentLimitAutoLoan"
                                                     placeholder=""
-                                                    type="text"/>-->को पूरक सुविधा/कुल सुविधाको पूरक
-        सुविधा</ng-container></strong><br>
+                                                    type="text"/>-->
+            <ng-container *ngIf="complementaryOtherAutoLoanName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+            <ng-container *ngIf="complementaryOtherAutoLoanName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+        </ng-container></strong><br>
 
     <strong> सीमाः <ng-container *ngIf="complementaryOtherAutoLoan">(</ng-container>रु.
         <span>{{loanData[index]?.loanAmountNp ? loanData[index]?.loanAmountNp : ''}}</span>

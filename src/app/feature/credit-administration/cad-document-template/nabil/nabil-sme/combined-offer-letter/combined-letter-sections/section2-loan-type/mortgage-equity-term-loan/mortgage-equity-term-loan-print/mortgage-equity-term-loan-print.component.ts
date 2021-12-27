@@ -21,7 +21,7 @@ export class MortgageEquityTermLoanPrintComponent implements OnInit {
   mortgageEquity: any = {};
   termLoanForMortgageEquityTerm; mortgageTypeMortgageEquityTerm; complementaryOtherMortgageEquityTerm = false;
   emiPaymentTypeMortgageEquityTerm; interestSubAgMortgageEquityTerm; paymentTermMortgageEquityTerm;
-  loanOptionMortgageEquityTerm; drawingPowerMortgageEquityTerm; termLoanTypeMortgageEquityTerm;
+  loanOptionMortgageEquityTerm; drawingPowerMortgageEquityTerm; termLoanTypeMortgageEquityTerm; complementaryOtherMortgageEquityTermName
 
   constructor() { }
 
@@ -35,6 +35,7 @@ export class MortgageEquityTermLoanPrintComponent implements OnInit {
       this.termLoanTypeMortgageEquityTerm = this.tempData.mortgageEquityTermForm.termLoanType;
       this.emiPaymentTypeMortgageEquityTerm = this.tempData.mortgageEquityTermForm.emiPaymentType;
       this.interestSubAgMortgageEquityTerm = this.tempData.mortgageEquityTermForm.subsidyOrAgricultureLoan;
+      this.complementaryOtherMortgageEquityTermName = this.tempData.mortgageEquityTermForm.complimentaryLoanSelected;
       this.paymentTermMortgageEquityTerm = this.tempData.mortgageEquityTermForm.paymentTerms;
       this.drawingPowerMortgageEquityTerm = this.tempData.mortgageEquityTermForm.drawingPowerBasis;
       this.loanOptionMortgageEquityTerm = this.tempData.smeGlobalForm.loanOption;
