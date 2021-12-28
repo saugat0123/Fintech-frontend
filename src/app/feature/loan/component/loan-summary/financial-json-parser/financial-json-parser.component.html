@@ -1,38 +1,45 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="disable-print">
     <div class="col-md-12">
-        <div class ="row">
+        <div class="row">
             <div class="form-group col-md-4">
                 <label for="particulars">Select Fiscial Year</label>
-                <ng-select formControlName="fiscalYear"  id ="particulars"(change)="getColumnIndex($event)">
-                    <ng-option *ngFor="let data of financialJson.column; let i = index;"   [value]="i">{{data}}</ng-option>
+                <ng-select formControlName="fiscalYear" id="particulars" (change)="getColumnIndex($event)">
+                    <ng-option *ngFor="let data of financialJson.column; let i = index;"
+                               [value]="i">{{data}}</ng-option>
                 </ng-select>
             </div>
 
             <div class="form-group col-md-4">
                 <label for="values">Select Particulars</label>
-                <ng-select  formControlName="schema"  id="values" (change)="getSchemaIndex($event)" >
-                    <ng-option *ngFor="let data of financialJson.schema; let i = index;"   [value]="i">{{data}}</ng-option>
+                <ng-select formControlName="schema" id="values" (change)="getSchemaIndex($event)">
+                    <ng-option *ngFor="let data of financialJson.schema; let i = index;"
+                               [value]="i">{{data}}</ng-option>
                 </ng-select>
             </div>
             <div class="col-md-4">
                 <label for="value">Selected Value</label>
-                <input type="text" disabled  formControlName="value" class="form-control" id="value">
+                <input type="text" disabled formControlName="value" class="form-control" id="value">
             </div>
         </div>
     </div>
 </form>
-<table border="1" class="table-sm table-responsive">
+<table border="1" class="table-sm table-responsive table-hover border-white">
     <thead>
-    <tr>
+    <tr class="text-white sb-bg-dark">
         <td><strong>Particular</strong></td>
-        <td *ngFor="let header of financialJson.column"><strong>{{header}}</strong></td>
+        <td *ngFor="let header of newAudited"><strong>{{header.audited}}</strong></td>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let schema of financialJson.schema; let i = index">
-        <td><strong>{{schema}}</strong></td>
-        <ng-container *ngFor="let data of financialJson.data[i]">
-            <td>{{data === 0.00 ? '' : data.toFixed(2)}}</td>
+        <td class="text-white sb-bg-dark"><strong>{{schema}}</strong></td>
+        <ng-container>
+            <td style="background: #706e6e;"
+                class="text-white">{{financialJson?.data[i][newAudited[0].index] === 0.00 || financialJson?.data[i][newAudited[0].index] === undefined ? '' : (financialJson?.data[i][newAudited[0].index]) | roundvalue}}</td>
+            <td style="background: #706e6e;"
+                class="text-white">{{financialJson?.data[i][newAudited[1].index] === 0.00 || financialJson?.data[i][newAudited[1].index] === undefined ? '' : (financialJson?.data[i][newAudited[1].index]) | roundvalue}}</td>
+            <td style="background: #706e6e;"
+                class="text-white">{{financialJson?.data[i][newAudited[2].index] === 0.00 || financialJson?.data[i][newAudited[2].index] === undefined ? '' : (financialJson?.data[i][newAudited[2].index]) | roundvalue}}</td>
         </ng-container>
     </tr>
     </tbody>

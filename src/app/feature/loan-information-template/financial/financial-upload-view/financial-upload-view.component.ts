@@ -55,6 +55,8 @@ export class FinancialUploadViewComponent implements OnInit {
         this.spinner = true;
         this.customerInfoService.uploadFinancialExcel(this.fg).subscribe((res: any) => {
             this.customerInfo = res.detail;
+            this.financialData = JSON.parse(this.customerInfo.financial.data);
+            this.financialKeys = Object.keys(this.financialData);
             this.toast.show(new Alert(AlertType.SUCCESS, 'Saved Financial Data'));
             this.spinner = false;
             this.customer.emit(res.detail);

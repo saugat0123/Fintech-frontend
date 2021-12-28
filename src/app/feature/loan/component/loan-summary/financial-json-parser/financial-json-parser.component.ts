@@ -8,20 +8,39 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 })
 export class FinancialJsonParserComponent implements OnInit {
 
-    @Input()   financialJson;
+    @Input() financialJson;
 
     form: FormGroup;
     schemaIndex = 0;
     columnIndex = 0;
+    audited = [];
+    newAudited = [];
+
+
     constructor(
         private formBuilder: FormBuilder
     ) {
     }
 
-
-
     ngOnInit() {
         this.buildForm();
+        this.getLastThreeFYAuditedValue();
+    }
+
+    getLastThreeFYAuditedValue() {
+        this.financialJson.column.forEach((data, i) => {
+            if (data.includes('Audited')) {
+                this.audited.push({
+                    audited: data,
+                    index: i
+                });
+            }
+        });
+        this.audited = this.audited.reverse();
+        for (let i = 0; i < 3; i++) {
+            this.newAudited.push(this.audited[i]);
+        }
+        this.newAudited = this.newAudited.reverse();
     }
 
     buildForm() {

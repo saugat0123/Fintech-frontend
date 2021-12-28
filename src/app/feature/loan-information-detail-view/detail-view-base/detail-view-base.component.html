@@ -48,9 +48,18 @@
                    [collateralData]="loanDataHolder?.collateralSiteVisits"
                    [docStatus]="loanDataHolder?.documentStatus"
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
-<app-financial-view *ngIf="loanHolder?.financial"
-                    [customerType]="loanHolder?.customerType"
-                    [formData]="loanHolder?.financial"></app-financial-view>
+<!--<app-financial-view *ngIf="loanHolder?.financial"-->
+<!--                    [customerType]="loanHolder?.customerType"-->
+<!--                    [formData]="loanHolder?.financial"></app-financial-view>-->
+<div *ngIf="financialKeys?.length > 0">
+    <ng-container  *ngFor="let title of financialKeys">
+        <h6>{{title | financialPipe}}</h6>
+        <hr>
+        <div class="row">
+            <app-financial-json-parser [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>
+        </div>
+    </ng-container>
+</div>
 <app-crg-gamma-detail-view
         *ngIf="loanDataHolder?.crgGamma"
         [formData]="loanDataHolder?.crgGamma">
