@@ -20,8 +20,7 @@ export class FinancialUploadViewComponent implements OnInit {
     form: FormGroup;
     uploadFile;
     fg = new FormData();
-    keysbyindex;
-    financialArray = [];
+    financialKeys;
     spinner = false;
     financialData;
 
@@ -37,10 +36,7 @@ export class FinancialUploadViewComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.financialData = JSON.parse(this.customerInfo.financial.data);
-        this.keysbyindex = Object.keys(this.financialData);
-        this.keysbyindex.forEach((title) => {
-            this.financialArray.push(JSON.parse(this.financialData[title]));
-        });
+        this.financialKeys = Object.keys(this.financialData);
     }
 
     buildForm() {

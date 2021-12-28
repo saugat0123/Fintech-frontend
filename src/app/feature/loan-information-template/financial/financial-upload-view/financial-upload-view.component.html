@@ -1,25 +1,15 @@
 <div [nbSpinner]="spinner">
 
-<form [formGroup]="form">
+<form [formGroup]="form" class="align-content-center">
+    <label><strong>Upload Financial Sheet - </strong></label>
     <input type ="file" formControlName="upload" (change)="upload($event)">
-    <button ngbButton (click)="submitData()">Submit</button>
+    <button nbButton (click)="submitData()" [disabled]="!uploadFile">Submit</button>
 </form>
+    <br>
+    <hr>
 <nb-tabset  *ngIf="customerInfo?.financial">
-    <nb-tab tabId="0" *ngFor="let title of keysbyindex; let i = index;" [tabTitle]="title.toUpperCase()">
-        <app-financial-json-parser [financialJson]="financialArray[i]" ></app-financial-json-parser>
+    <nb-tab tabId="0" *ngFor="let title of financialKeys; let i = index;" [tabTitle]="title | financialPipe">
+        <app-financial-json-parser [financialJson]="financialData[title] | jsonParse" ></app-financial-json-parser>
     </nb-tab>
 </nb-tabset>
 </div>
-
-<!--<nb-tab tabId="1" tabTitle="Executive Summary">-->
-<!--    <app-financial-json-parser [financialJson]="executiveSummary" ></app-financial-json-parser>-->
-<!--</nb-tab>-->
-<!--<nb-tab tabId="2" tabTitle="PL Account">-->
-<!--    <app-financial-json-parser [financialJson]="plAccount" ></app-financial-json-parser>-->
-<!--</nb-tab>-->
-<!--<nb-tab tabId="3" tabTitle="Common Size PL">-->
-<!--    <app-financial-json-parser [financialJson]="commonSizePl" ></app-financial-json-parser>-->
-<!--</nb-tab>-->
-<!--<nb-tab tabId="4" tabTitle="Detailed CF">-->
-<!--    <app-financial-json-parser [financialJson]="detailCf" ></app-financial-json-parser>-->
-<!--</nb-tab>-->
