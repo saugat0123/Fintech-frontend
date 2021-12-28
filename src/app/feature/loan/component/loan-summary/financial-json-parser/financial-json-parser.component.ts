@@ -14,7 +14,6 @@ export class FinancialJsonParserComponent implements OnInit {
     schemaIndex = 0;
     columnIndex = 0;
     audited = [];
-    newAudited = [];
 
 
     constructor(
@@ -36,11 +35,7 @@ export class FinancialJsonParserComponent implements OnInit {
                 });
             }
         });
-        this.audited = this.audited.reverse();
-        for (let i = 0; i < 3; i++) {
-            this.newAudited.push(this.audited[i]);
-        }
-        this.newAudited = this.newAudited.reverse();
+        this.audited = this.audited.splice(this.audited.length - 3, this.audited.length);
     }
 
     buildForm() {

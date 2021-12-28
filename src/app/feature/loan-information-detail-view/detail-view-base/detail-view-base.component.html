@@ -48,9 +48,9 @@
                    [collateralData]="loanDataHolder?.collateralSiteVisits"
                    [docStatus]="loanDataHolder?.documentStatus"
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
-<!--<app-financial-view *ngIf="loanHolder?.financial"-->
-<!--                    [customerType]="loanHolder?.customerType"-->
-<!--                    [formData]="loanHolder?.financial"></app-financial-view>-->
+<app-financial-view *ngIf="loanHolder?.financial && isIndividual"
+                    [customerType]="loanHolder?.customerType"
+                    [formData]="loanHolder?.financial"></app-financial-view>
 <div *ngIf="financialKeys?.length > 0">
     <ng-container  *ngFor="let title of financialKeys">
         <h6>{{title | financialPipe}}</h6>

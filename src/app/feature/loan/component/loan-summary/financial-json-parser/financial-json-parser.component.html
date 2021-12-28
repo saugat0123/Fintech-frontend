@@ -27,7 +27,7 @@
     <thead>
     <tr class="text-white sb-bg-dark">
         <td><strong>Particular</strong></td>
-        <td *ngFor="let header of newAudited"><strong>{{header.audited}}</strong></td>
+        <td *ngFor="let header of audited"><strong>{{header.audited}}</strong></td>
     </tr>
     </thead>
     <tbody>
@@ -35,12 +35,9 @@
         <td class="text-white sb-bg-dark"><strong>{{schema}}</strong></td>
         <ng-container>
             <td style="background: #706e6e;"
-                class="text-white">{{financialJson?.data[i][newAudited[0].index] === 0.00 || financialJson?.data[i][newAudited[0].index] === undefined ? '' : (financialJson?.data[i][newAudited[0].index]) | roundvalue}}</td>
-            <td style="background: #706e6e;"
-                class="text-white">{{financialJson?.data[i][newAudited[1].index] === 0.00 || financialJson?.data[i][newAudited[1].index] === undefined ? '' : (financialJson?.data[i][newAudited[1].index]) | roundvalue}}</td>
-            <td style="background: #706e6e;"
-                class="text-white">{{financialJson?.data[i][newAudited[2].index] === 0.00 || financialJson?.data[i][newAudited[2].index] === undefined ? '' : (financialJson?.data[i][newAudited[2].index]) | roundvalue}}</td>
-        </ng-container>
+                class="text-white" *ngFor="let data of audited">
+                {{financialJson?.data[i][data.index] === 0.00 || financialJson?.data[i][data.index] === undefined ? '' : (financialJson?.data[i][data.index]) | roundvalue}}</td>
+               </ng-container>
     </tr>
     </tbody>
 </table>

@@ -1170,8 +1170,8 @@
                                   [docStatus]="loanDataHolder?.documentStatus"
                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-summary>
 
-<!--            <app-financial-summary *ngIf="financialSummary" [formData]="financialData"-->
-<!--                                   [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>-->
+            <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"
+                                   [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
 <!--            <app-financial-json-parser></app-financial-json-parser>-->
 
