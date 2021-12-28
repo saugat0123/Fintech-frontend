@@ -81,4 +81,6 @@ export class CustomerInfoData {
     loanHolder: any;
     reviewDate: ReviewDate;
     multiBanking: MultiBanking;
+    maritalStatus: any;
+
 }

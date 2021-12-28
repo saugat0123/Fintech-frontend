@@ -45,9 +45,13 @@ dbr;
   }
 
   ngOnInit() {
+    console.log('this is customer', this.individual);
+    console.log('this is customer', this.customerInfo);
+    console.log('this is customer', this.loanDataHolder);
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
+        console.log('this is customer', this.individualJsonData);
       }
     }
     if (!ObjectUtil.isEmpty(this.individual)) {
@@ -64,7 +68,7 @@ dbr;
       this.isRemit = true;
       if (this.isRemit) {
         this.beneficiary = JSON.parse(this.loanDataHolder.remitCustomer.beneficiaryData);
-        this.senderDetails = JSON.parse(this.loanDataHolder.remitCustomer.senderData)
+        this.senderDetails = JSON.parse(this.loanDataHolder.remitCustomer.senderData);
       }
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {

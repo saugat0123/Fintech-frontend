@@ -45,6 +45,9 @@ export class CompanyInfoViewComponent implements OnInit {
     if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
       this.srdbAffiliatedId = true;
     }
+    console.log('this is customer info', this.formValue);
+    console.log('this is customer info', this.loanDataHolder);
+    console.log('this is customer info', this.customerInfo);
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.companyJsonData = JSON.parse(this.formValue.companyJsonData);
       this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);
@@ -53,7 +56,9 @@ export class CompanyInfoViewComponent implements OnInit {
       this.businessGiven = JSON.parse(this.formValue.businessGiven);
       this.companyLocationData = JSON.parse(this.formValue.companyLocations.address);
     }
-    this.bankingRelation = JSON.parse(this.customerInfo.loanHolder.bankingRelationship);
+    if (!ObjectUtil.isEmpty(this.customerInfo)) {
+      this.bankingRelation = JSON.parse(this.customerInfo.bankingRelationship);
+    }
   }
 
 }
