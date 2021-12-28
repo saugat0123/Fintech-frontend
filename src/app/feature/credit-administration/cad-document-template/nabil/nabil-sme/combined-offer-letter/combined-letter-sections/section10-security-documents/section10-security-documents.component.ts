@@ -66,7 +66,6 @@ export class Section10SecurityDocumentsComponent implements OnInit {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
-      const freeText = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       this.limitAmount = this.tempData.smeGlobalForm.totalLimitInFigure;
       this.requiredDocument();
       this.fillForm();
@@ -74,7 +73,6 @@ export class Section10SecurityDocumentsComponent implements OnInit {
         this.guarantorParsed.push(JSON.parse(any.nepData));
       });
       this.guarantorDetails();
-      // this.setTextArea(freeText.textAreas);
     }
     const securities = this.tempData.securities;
     securities.primarySecurity.forEach(pd => {
@@ -151,55 +149,12 @@ export class Section10SecurityDocumentsComponent implements OnInit {
   guarantorDetails() {
     this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
         val.guarantorType.en === 'Personal Guarantor');
-    this.personalGuarantorDetails();
-  }
-
-  personalGuarantorDetails() {
-    let rel: String = '';
-    this.tempPersonalGuarantors.forEach(i => {
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '0') {
-        rel = 'श्रीमती';
-      }
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '1') {
-        rel = 'सुश्री';
-      }
-      if (i.gender.en === 'MALE') {
-        rel = 'श्रीमान्';
-      }
-      this.personalGuarantorsName.push(rel + ' ' + i.guarantorName.ct);
-    });
-  }
-
-  commonGuarantorDetails(guarantorName, finalName) {
-    if (guarantorName.length === 1) {
-      finalName = guarantorName[0];
-    }
-    if (guarantorName.length === 2) {
-      finalName = guarantorName.join(' र ');
-    }
-    if (guarantorName.length > 2) {
-      for (let i = 0; i < guarantorName.length - 1; i++) {
-        this.temp2 = guarantorName.join(' , ');
-      }
-      const temp1 = guarantorName[guarantorName.length - 1];
-      finalName = this.temp2 + ' र ' + temp1;
-    }
-    return finalName ? finalName : '';
   }
 
   fillForm() {
-    const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
-    let totalLoanAmount = 0;
-    this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
-      const val = value.proposal.proposedLimit;
-      totalLoanAmount = totalLoanAmount + val;
-    });
     this.form.patchValue({
       totalLoanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.limitAmount)),
-      loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       nameOfBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
-      guarantorName: this.finalName ? this.finalName : '',
       plotNumber: this.kittaNumbers ? this.kittaNumbers : '',
       nameOfPropertyOwner: this.securityOwnersName ? this.securityOwnersName : '',
     });
@@ -322,4 +277,5 @@ export class Section10SecurityDocumentsComponent implements OnInit {
   removeAtIndex(i: number) {
     (this.form.get('textAreas') as FormArray).removeAt(i);
   }
+
 }
