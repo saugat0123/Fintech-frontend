@@ -49,7 +49,7 @@
                 <td class="text-left pl-1">{{companyJsonData?.majorProductService}}</td>
                 <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince | engNepDate: false}})</td>
                 <td class="text-left pl-1">{{companyJsonData?.relationshipSinceWithCustomer | date}} ({{companyJsonData?.relationshipSinceWithCustomer | engNepDate: false}})</td>
-                <td class="text-left pl-1">{{(loanDataHolder.loanHolder.clientType) | clientType}}</td>
+                <td class="text-left pl-1">{{(loanDataHolder?.loanHolder?.clientType) | clientType}}</td>
                 <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
                 <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
 
@@ -90,8 +90,8 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="4">{{additionalInfoJsonData.licenseNo}}</td>
-                            <td colspan="4">{{additionalInfoJsonData.issuerOfLiscence}}</td>
+                            <td colspan="4">{{additionalInfoJsonData?.licenseNo}}</td>
+                            <td colspan="4">{{additionalInfoJsonData?.issuerOfLiscence}}</td>
                             <td colspan="4" [innerHTML]="additionalInfoJsonData?.additionalInfoRemark | safeHtml"></td>
                         </tr>
 
@@ -140,7 +140,7 @@
                     <tbody>
                     <tr>
                         <td>{{formValue?.legalStatus?.vatRegistrationDate | date}} ({{formValue?.legalStatus?.vatRegistrationDate |engNepDate: false}})</td>
-                        <td>{{formValue.legalStatus.vatRegistrationOffice}}</td>
+                        <td>{{formValue?.legalStatus?.vatRegistrationOffice}}</td>
                     </tr>
                     </tbody>
                 </table>

@@ -134,6 +134,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         }
         this.customerService.detail(this.associateId).subscribe((res: any) => {
             this.customer = res.detail;
+            console.log('this is customer', this.customer);
             if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
                 const jointCustomerInfo = JSON.parse(this.customer.jointInfo);
                 this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
@@ -279,6 +280,11 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, Validators.required],
             email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
+            clientType: [this.customerInfo.clientType === undefined ? undefined : this.customerInfo.clientType, Validators.required],
+            maritalStatus: [this.customerInfo.maritalStatus === undefined ? undefined : this.customerInfo.maritalStatus, Validators.required],
+            gender: [this.customerInfo.gender === undefined ? undefined : this.customerInfo.gender, Validators.required],
+            netWorth: [this.customer.netWorth === undefined ? undefined : this.customer.netWorth, Validators.required],
+            bankingRelationship: [this.customerInfo.bankingRelationship === undefined ? undefined : this.customerInfo.bankingRelationship, Validators.required],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],
