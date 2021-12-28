@@ -251,7 +251,7 @@
                             </strong>
                         </p>
                         <ol class="conditions-list">
-                        <li *ngIf = "securityTypeConditionLandAndBuilding || securityTypeConditionLandAndBuildingSecondary">
+                        <li *ngIf = "securityTypeCondition">
                         <p>
                             <strong>
                                 घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges):<br>
@@ -269,7 +269,6 @@
                                 गरिदिनुभएको यथावत कायम रहने ।
                             </p>
                         </ng-template>
-                        {{securityTypeCondition}}
                     <div class="pb-4" *ngIf="securityTypeCondition || securityTypeConditionLandAndBuilding">
                         <app-master-securities-view
                                 [securityDetails]="tempData?.securities"></app-master-securities-view>
