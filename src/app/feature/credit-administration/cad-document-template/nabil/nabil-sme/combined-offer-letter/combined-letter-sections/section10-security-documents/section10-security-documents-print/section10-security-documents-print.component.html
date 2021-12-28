@@ -59,13 +59,16 @@
                 <li *ngIf="multiVisible">
                     बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
                 </li>
-                <li *ngIf="guaranteeVisible">
-                    रु.
-                    <span><strong>{{proposedAmount ? proposedAmount : ''}}</strong></span>
-                    /-
-                    बराबरको
-                    <span><strong>{{commonGuarantorDetails(personalGuarantorsName, finalPersonalName)}}</strong></span>
-                    ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
+                <li *ngFor="let val of tempPersonalGuarantors">
+                    <p *ngIf="guaranteeVisible">
+                        रु.
+                        <span><strong>{{val.gurantedAmount.ct ? val.gurantedAmount.ct : ''}}</strong></span>
+                        /-
+                        बराबरको
+                            {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                            <span><strong>{{val.guarantorName.ct ? val.guarantorName.ct : ''}}</strong></span>
+                            ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
+                    </p>
                 </li>
                 <li *ngIf="wealthVisible">
                     जमानीकर्ताको सम्पत्ति विवरण (Wealth Statement of Guarantor)
