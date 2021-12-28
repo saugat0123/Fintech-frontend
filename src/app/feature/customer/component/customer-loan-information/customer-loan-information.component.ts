@@ -700,4 +700,7 @@ export class CustomerLoanInformationComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Multi Banking!'));
             });
     }
+    update(data) {
+        this.customerInfo = data;
+    }
 }
