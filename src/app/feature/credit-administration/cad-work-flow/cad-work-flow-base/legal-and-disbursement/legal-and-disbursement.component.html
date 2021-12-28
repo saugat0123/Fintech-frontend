@@ -19,10 +19,7 @@
     </nb-card-header>
     <nb-card-body>
         <div class="col-md-12"
-             *ngIf="isMaker
-             && isInCurrentUser
-             && productUtils.CONFIGURE_LEGAL_DOCUMENT"
-        >
+             *ngIf="isInCurrentUser && productUtils.CONFIGURE_LEGAL_DOCUMENT">
             <div class="clearfix">
                 <div class="float-lg-right py-2">
                     <button nbButton size="tiny" nbTooltip="set up Legal Document"
