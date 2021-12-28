@@ -179,6 +179,7 @@
             <!--                           [formData]="customerInfo?.financial"-->
             <!--                           [fromProfile]="true"></app-financial>-->
             <app-financial-upload-view
+                    (customer)="update($event)"
                     [customerInfo]="customerInfo"
                     [customerInfoId] ="customerInfoId">
             </app-financial-upload-view>

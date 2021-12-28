@@ -1,12 +1,15 @@
+<div [nbSpinner]="spinner">
+
 <form [formGroup]="form">
     <input type ="file" formControlName="upload" (change)="upload($event)">
     <button ngbButton (click)="submitData()">Submit</button>
 </form>
-<nb-tabset (changeTab)="onChangeTab($event)" *ngIf="customerInfo?.financial">
+<nb-tabset  *ngIf="customerInfo?.financial">
     <nb-tab tabId="0" *ngFor="let title of keysbyindex; let i = index;" [tabTitle]="title.toUpperCase()">
         <app-financial-json-parser [financialJson]="financialArray[i]" ></app-financial-json-parser>
     </nb-tab>
 </nb-tabset>
+</div>
 
 <!--<nb-tab tabId="1" tabTitle="Executive Summary">-->
 <!--    <app-financial-json-parser [financialJson]="executiveSummary" ></app-financial-json-parser>-->
