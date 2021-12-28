@@ -17,7 +17,7 @@ import {flatten} from '@angular/compiler';
     styleUrls: ['./security-summary.component.scss']
 })
 export class SecuritySummaryComponent implements OnInit {
-    @Input() formData: Object;
+    @Input() formData;
     @Input() count;
     @Input() shareSecurity;
     @Input() collateralData;
