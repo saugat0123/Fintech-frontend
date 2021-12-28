@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerLoanOptions} from '../../../../cad-constant/customer-loan-options';
@@ -22,6 +22,8 @@ import {District} from '../../../../../../admin/modal/district';
 import {UdyamsilKarjaSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {DdslWithoutSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
+import {CommonSecuritySectionPrimaryComponent} from '../../common-security-section/common-security-section-primary/common-security-section-primary.component';
+import {CommonSecuritySectionSecondaryComponent} from '../../common-security-section/common-security-section-secondary/common-security-section-secondary.component';
 
 @Component({
     selector: 'app-ddsl-without-subsidy-template-edit',
@@ -32,6 +34,10 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Input() offerDocumentList: Array<OfferDocument>;
     @Input() initialInformation: any;
+    @ViewChild('primarySecurity', {static: false})
+    commonSecuritySectionPrimaryComponent: CommonSecuritySectionPrimaryComponent;
+    @ViewChild('secondarySecurity', {static: false})
+    commonSecuritySectionSecondaryComponent: CommonSecuritySectionSecondaryComponent;
     ddslFormGroup: FormGroup;
     spinner = false;
     customerLoanOptions: Array<String> = new Array<String>();
@@ -91,7 +97,7 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.getLoanOptionsType();
-        this.getAllDistrict();
+        // this.getAllDistrict();
         // getting key from cad doc status:
         this.cadDocStatus = CadDocStatus.key();
         if (!ObjectUtil.isEmpty(this.initialInformation)) {
@@ -584,11 +590,11 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         });
     }
 
-    addDefaultSecurity() {
+  /*  addDefaultSecurity() {
         (this.ddslFormGroup.get('securities') as FormArray).push(
             this.buildSecurityForm()
         );
-    }
+    }*/
 
     async onChangeTranslateSecurity(arrName, source, index, target) {
         this.oneForm = this.formBuilder.group({
@@ -599,7 +605,7 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         this.ddslFormGroup.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
     }
 
-    public getAllDistrict(): void {
+/*    public getAllDistrict(): void {
         this.addressService.getAllDistrict().subscribe((response: any) => {
             this.allDistrictList = response.detail;
         });
@@ -629,14 +635,14 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
 
             }
         );
-    }
-
+    }*/
+/*
     clearSecurityMunType(controlName, index, formArrayName) {
         const tempVal = this.ddslFormGroup.get([formArrayName, index, 'securityOwnersMunicipalityOrVdc']).value;
         if (tempVal === 'VDC') {
             this.ddslFormGroup.get([formArrayName, index, controlName]).setValue(null);
         }
-    }
+    }*/
     /* Clear Form */
     clearForm(controlName) {
         this.ddslFormGroup.get(controlName).setValue(null);
@@ -650,17 +656,19 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         this.ddslFormGroup.get([String(arrName), index, String(source + 'CT')]).patchValue(
             this.ddslFormGroup.get([String(arrName), index, String(source)]).value.nepaliName);
     }
-
+/*
     translateSecurityDetailsNumberFields(arrName, source, index, target) {
         const translatedNepaliNum = this.engToNepaliNumberPipe.transform(
             String(this.ddslFormGroup.get([String(arrName), index, String(source)]).value));
         this.ddslFormGroup.get([String(arrName), index, String(target)]).patchValue(translatedNepaliNum);
         this.ddslFormGroup.get([String(arrName), index, String(source + 'CT')]).patchValue(translatedNepaliNum);
-    }
+    }*/
+/*
 
     removeSecurityDetails(index) {
         (this.ddslFormGroup.get('securities') as FormArray).removeAt(index);
     }
+*/
 
     openCloseTemplate(template) {
         this.modalService.open(template);
@@ -729,7 +737,8 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
 
     save() {
         this.submitted = true;
-        this.tdVal['securities'] = this.ddslFormGroup.get('securities').value;
+        const tempSecurityDetails = this.getSecurityData();
+        this.tdVal['securities'] = tempSecurityDetails;
         this.clearConditionalValidation();
         const invalidControls = [];
         const controls = this.ddslFormGroup.controls;
@@ -879,12 +888,12 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         this.ddslFormGroup.get('EMIAmountWordCT').patchValue(this.initialInformation.EMIAmountWord.ct);
         this.ddslFormGroup.get('loanSubTypeCT').patchValue(this.initialInformation.loanSubType.ct);
         // Retrieving Security Details:
-        if (!ObjectUtil.isEmpty(this.initialInformation.securities)) {
+        /*if (!ObjectUtil.isEmpty(this.initialInformation.securities)) {
             this.securities = this.initialInformation.securities;
             this.setSecurityData();
         } else {
             this.addDefaultSecurity();
-        }
+        }*/
     }
 
     setTransData() {
@@ -916,7 +925,7 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         this.ddslFormGroup.get('loanSubTypeTrans').patchValue(this.initialInformation.loanSubType.np);
     }
 
-    setSecurityData(): void {
+/*    setSecurityData(): void {
         const securityForm = this.ddslFormGroup.get('securities') as FormArray;
         this.securities.forEach((data, index) => {
             this.municipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
@@ -947,6 +956,16 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
                 })
             );
         });
+    }*/
+
+    getSecurityData() {
+        const primarySecurity = this.commonSecuritySectionPrimaryComponent.commonPrimarySecurity.value.securityDetails;
+        const secondarySecurity = this.commonSecuritySectionSecondaryComponent.commonSecondarySecurity.value.securityDetails;
+        const allData = {
+            primarySecurity: primarySecurity,
+            secondarySecurity: secondarySecurity
+        };
+        return (allData);
     }
     compareFn(c1: any, c2: any): boolean {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;
