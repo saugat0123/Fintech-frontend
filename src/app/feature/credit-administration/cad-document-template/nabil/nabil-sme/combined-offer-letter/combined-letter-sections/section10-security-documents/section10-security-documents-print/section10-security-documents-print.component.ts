@@ -69,7 +69,6 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
       this.textAreas = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
       this.limitAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.tempData.smeGlobalForm.totalLimitInFigure));
       this.branchName = this.loanHolderInfo.branch.ct;
-      this.guarantorName = this.finalName;
       this.plotNumber = this.kittaNumbers;
       this.nameOfPropertyOwner = this.securityOwnersName;
       this.requiredDocument();
@@ -78,14 +77,6 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
       });
       this.guarantorDetails();
     }
-    const proposalData = this.customerApprovedDoc.assignedLoan[0].proposal;
-    const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
-    let totalLoanAmount = 0;
-    this.customerApprovedDoc.assignedLoan.forEach(value => {
-      const val = value.proposal.proposedLimit;
-      totalLoanAmount = totalLoanAmount + val;
-    });
-    this.proposedAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount));
 
     const securities = this.tempData.securities;
     securities.primarySecurity.forEach(pd => {
@@ -149,40 +140,6 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
   guarantorDetails() {
     this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
         val.guarantorType.en === 'Personal Guarantor');
-    this.personalGuarantorDetails();
-  }
-
-  personalGuarantorDetails() {
-    let rel: String = '';
-    this.tempPersonalGuarantors.forEach(i => {
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '0') {
-        rel = 'श्रीमती';
-      }
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '1') {
-        rel = 'सुश्री';
-      }
-      if (i.gender.en === 'MALE') {
-        rel = 'श्रीमान्';
-      }
-      this.personalGuarantorsName.push(rel + ' ' + i.guarantorName.ct);
-    });
-  }
-
-  commonGuarantorDetails(guarantorName, finalName) {
-    if (guarantorName.length === 1) {
-      finalName = guarantorName[0];
-    }
-    if (guarantorName.length === 2) {
-      finalName = guarantorName.join(' र ');
-    }
-    if (guarantorName.length > 2) {
-      for (let i = 0; i < guarantorName.length - 1; i++) {
-        this.temp2 = guarantorName.join(' , ');
-      }
-      const temp1 = guarantorName[guarantorName.length - 1];
-      finalName = this.temp2 + ' र ' + temp1;
-    }
-    return finalName ? finalName : '';
   }
 
   requiredDocument() {
