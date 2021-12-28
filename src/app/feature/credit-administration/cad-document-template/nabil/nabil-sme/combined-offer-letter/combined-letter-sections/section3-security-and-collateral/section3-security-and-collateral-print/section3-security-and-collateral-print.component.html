@@ -222,7 +222,7 @@
                                     <span *ngIf="data.paripassuContentsCT === 'EXISTING'"> <!--If existing paripassu is continued-->
                                 गरिदिनु भएको यथावत कायम रहने छ ।
                            </span>
-                                    <span class="nepaliFont">{{this.free?.section3?.freeText2}}</span>
+                                    <span>{{this.free?.section3?.freeText2}}</span>
                                 </p>
                             </li>
 
@@ -327,7 +327,7 @@
                                     </span>
                                 </p>
                             </li>
-                            <div *ngIf="this.table !== null" class="row" [innerHTML]="table | safeHtml" style="margin-left:1em; width:90%;">
+                            <div *ngIf="this.free !== null" class="row" [innerHTML]="table | safeHtml" style="margin-left:1em; width:90%;">
                             </div>
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
@@ -530,7 +530,7 @@
                             </li>
 
                             <div class="optional" *ngIf="securityTypeSecondarySharePledgeCondition">
-                                <span class="nepaliFont">{{this.free?.section3?.freeText5}}</span>
+                                <span>{{this.free?.section3?.freeText5}}</span>
                                 <app-share-pledge-securities
                                         [securityDetails]="letterData?.securities">
                                 </app-share-pledge-securities>
