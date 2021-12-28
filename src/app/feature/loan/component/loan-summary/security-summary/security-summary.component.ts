@@ -69,114 +69,119 @@ export class SecuritySummaryComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.formData['selectedArray'] !== undefined) {
-            // land security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('LandSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.landSelected = true;
-                }
-            });
+        if (!ObjectUtil.isEmpty(this.formData)) {
+            if (this.formData['selectedArray'] !== undefined) {
+                // land security
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('LandSecurity') !== -1) {
+                        this.showTitle = true;
+                        this.landSelected = true;
+                    }
+                });
 
-            // apartment security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('ApartmentSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.apartmentSelected = true;
-                }
-            });
-            // land and building security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('Land and Building Security') !== -1) {
-                    this.showTitle = true;
-                    this.landBuilding = true;
-                }
-            });
-            // plant and machinery security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('PlantSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.plantSelected = true;
-                }
-            });
-            // // vehicle security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('VehicleSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.vehicleSelected = true;
-                }
-            });
-            // fixed deposit receipt security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('FixedDeposit') !== -1) {
-                    this.showTitle = true;
-                    this.depositSelected = true;
-                }
-            });
-            //
-            // // shared security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('ShareSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.shareSelected = true;
-                }
-            });
-            // hypothecation of stock security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('HypothecationOfStock') !== -1) {
-                    this.showTitle = true;
-                    this.hypothecation = true;
-                }
-            });
-            // assignment of receivables
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('AssignmentOfReceivables') !== -1) {
-                    this.showTitle = true;
-                    this.assignment = true;
-                }
-            });
-            // lease assignment
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('LeaseAssignment') !== -1) {
-                    this.showTitle = true;
-                    this.assignments = true;
-                }
-            });
-            // other security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('OtherSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.securityOther = true;
-                }
-            });
-            // corporate guarantee
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('CorporateGuarantee') !== -1) {
-                    this.showTitle = true;
-                    this.corporate = true;
-                }
-            });
-            // personal guarantee
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('PersonalGuarantee') !== -1) {
-                    this.showTitle = true;
-                    this.personal = true;
-                }
-            });
-            // insurance policy
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('InsurancePolicySecurity') !== -1) {
-                    this.showTitle = true;
-                    this.insurancePolicySelected = true;
-                }
-            });
-            // bond security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('BondSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.bondSecurity = true;
-                }
-            });
+                // apartment security
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('ApartmentSecurity') !== -1) {
+                        this.showTitle = true;
+                        this.apartmentSelected = true;
+                    }
+                });
+                // land and building security
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('Land and Building Security') !== -1) {
+                        this.showTitle = true;
+                        this.landBuilding = true;
+                    }
+                });
+                // plant and machinery security
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('PlantSecurity') !== -1) {
+                        this.showTitle = true;
+                        this.plantSelected = true;
+                    }
+                });
+                // // vehicle security
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('VehicleSecurity') !== -1) {
+                        this.showTitle = true;
+                        this.vehicleSelected = true;
+                    }
+                });
+                // fixed deposit receipt security
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('FixedDeposit') !== -1) {
+                        this.showTitle = true;
+                        this.depositSelected = true;
+                    }
+                });
+                //
+                // // shared security
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('ShareSecurity') !== -1) {
+                        this.showTitle = true;
+                        this.shareSelected = true;
+                    }
+                });
+                // hypothecation of stock security
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('HypothecationOfStock') !== -1) {
+                        this.showTitle = true;
+                        this.hypothecation = true;
+                    }
+                });
+                // assignment of receivables
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('AssignmentOfReceivables') !== -1) {
+                        this.showTitle = true;
+                        this.assignment = true;
+                    }
+                });
+                // lease assignment
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('LeaseAssignment') !== -1) {
+                        this.showTitle = true;
+                        this.assignments = true;
+                    }
+                });
+                // other security
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('OtherSecurity') !== -1) {
+                        this.showTitle = true;
+                        this.securityOther = true;
+                    }
+                });
+                // corporate guarantee
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('CorporateGuarantee') !== -1) {
+                        this.showTitle = true;
+                        this.corporate = true;
+                    }
+                });
+                // personal guarantee
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('PersonalGuarantee') !== -1) {
+                        this.showTitle = true;
+                        this.personal = true;
+                    }
+                });
+                // insurance policy
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('InsurancePolicySecurity') !== -1) {
+                        this.showTitle = true;
+                        this.insurancePolicySelected = true;
+                    }
+                });
+                // bond security
+                this.formData['selectedArray'].filter(f => {
+                    if (f.indexOf('BondSecurity') !== -1) {
+                        this.showTitle = true;
+                        this.bondSecurity = true;
+                    }
+                });
+            }
+            if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
+                this.isPresentGuarantor = true;
+            }
         }
 
         if (this.depositSelected) {
@@ -185,9 +190,6 @@ export class SecuritySummaryComponent implements OnInit {
         if (this.shareSelected) {
             this.calculateShareTotals();
             this.loanSharePercent = this.shareSecurity['loanShareRate'];
-        }
-        if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
-            this.isPresentGuarantor = true;
         }
         if (!ObjectUtil.isEmpty(this.collateralData) && this.docStatus.toString() === 'APPROVED') {
             this.collateralSiteVisits = this.collateralData;
@@ -239,10 +241,12 @@ export class SecuritySummaryComponent implements OnInit {
     }
 
     calculateTotal() {
-        const depositList = this.formData['initialForm']['fixedDepositDetails'];
-        depositList.forEach(deposit => {
-            this.totalAmount += deposit.amount;
-        });
+        if (!ObjectUtil.isEmpty(this.formData)) {
+            const depositList = this.formData['initialForm']['fixedDepositDetails'];
+            depositList.forEach(deposit => {
+                this.totalAmount += deposit.amount;
+            });
+        }
     }
 
     private calculateShareTotals() {
@@ -254,9 +258,11 @@ export class SecuritySummaryComponent implements OnInit {
     }
 
     private calculateTotalBondSecurityAmount(): void {
-        const bondSecurity = this.formData['initialForm']['bondSecurity'];
-        bondSecurity.forEach(value => {
-            this.totalBondSecurityValue += Number(value.bondValue);
-        });
+        if (!ObjectUtil.isEmpty(this.formData)) {
+            const bondSecurity = this.formData['initialForm']['bondSecurity'];
+            bondSecurity.forEach(value => {
+                this.totalBondSecurityValue += Number(value.bondValue);
+            });
+        }
     }
 }

@@ -117,7 +117,7 @@
         <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">Rs. {{landDetails?.otherOwnershipTransferValue}}</th>
         <td class="text-left pl-1">{{landDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
       </tr>
-      <ng-container *ngIf="landDetails?.revaluationData.revaluationDetails == undefined && landDetails?.revaluationData?.isReValuated">
+      <ng-container *ngIf="landDetails?.revaluationData?.revaluationDetails == undefined && landDetails?.revaluationData?.isReValuated">
         <tr>
           <td colspan="8"></td>
         </tr>
@@ -157,7 +157,7 @@
         </tr>
       </ng-container>
 
-      <ng-container *ngIf="landDetails?.revaluationData.revaluationDetails != null && landDetails?.revaluationData?.isReValuated">
+      <ng-container *ngIf="landDetails?.revaluationData?.revaluationDetails != null && landDetails?.revaluationData?.isReValuated">
         <tr>
           <td></td>
         </tr>
@@ -363,7 +363,7 @@
           <td class="text-left pl-1">{{landBuilding?.revaluationData?.isReValuated | booleanConvert}}</td>
         </tr>
 
-        <ng-container *ngIf="landBuilding?.revaluationData.revaluationDetails == undefined && landBuilding?.revaluationData?.isReValuated">
+        <ng-container *ngIf="landBuilding?.revaluationData?.revaluationDetails == undefined && landBuilding?.revaluationData?.isReValuated">
           <tr>
             <td colspan="9"></td>
           </tr>
@@ -403,7 +403,7 @@
           </tr>
         </ng-container>
 
-        <ng-container *ngIf="landBuilding?.revaluationData.revaluationDetails != null && landBuilding?.revaluationData?.isReValuated">
+        <ng-container *ngIf="landBuilding?.revaluationData?.revaluationDetails != null && landBuilding?.revaluationData?.isReValuated">
           <tr>
             <td></td>
           </tr>
@@ -819,7 +819,7 @@
         <td class="text-left pl-1">{{buildingDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
       </tr>
 
-      <ng-container *ngIf="buildingDetails?.revaluationData.revaluationDetails == undefined && buildingDetails?.revaluationData?.isReValuated">
+      <ng-container *ngIf="buildingDetails?.revaluationData?.revaluationDetails == undefined && buildingDetails?.revaluationData?.isReValuated">
         <tr>
           <td colspan="8"></td>
         </tr>
@@ -859,7 +859,7 @@
         </tr>
       </ng-container>
 
-      <ng-container *ngIf="buildingDetails?.revaluationData.revaluationDetails != null && buildingDetails?.revaluationData?.isReValuated">
+      <ng-container *ngIf="buildingDetails?.revaluationData?.revaluationDetails != null && buildingDetails?.revaluationData?.isReValuated">
         <tr>
           <td></td>
         </tr>
@@ -931,7 +931,7 @@
   </div>
 
   <!--        apartmentUndercostructions-->
-  <div *ngIf="securityData['underConstructionChecked']" class="row">
+  <div *ngIf="securityData?.underConstructionChecked" class="row">
     <div class="col-md-12">
       <p class="text-center"><strong>Apartment Under Construction</strong></p>
 
@@ -1757,7 +1757,7 @@
       </table>
     </div>
   </div>
-  <div *ngIf="securityData['initialForm']['remark']" class="row">
+  <div *ngIf="securityData?.initialForm?.remark" class="row">
     <div class="col-md-12">
       <p class="text-center"><b>Security Remark</b></p>
       <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
