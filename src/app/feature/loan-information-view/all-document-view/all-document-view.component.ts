@@ -37,6 +37,7 @@ export class AllDocumentViewComponent implements OnInit {
   summaryTypeName = SummaryType;
   siteVisitDoc = [];
   hidePreviewButton = false;
+  documentName;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -192,6 +193,13 @@ export class AllDocumentViewComponent implements OnInit {
         this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED) ||
         this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
       this.hidePreviewButton = true;
+      if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+        this.documentName = '-documents';
+      } else if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+        this.documentName = '-closed-documents';
+      } else {
+        this.documentName = '-rejected-documents';
+      }
     } else {
       this.hidePreviewButton = false;
     }
