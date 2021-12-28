@@ -22,7 +22,7 @@ export class SecurityViewComponent implements OnInit {
   @Input() shareSecurityData;
   @Input() collateralData;
   @Input() docStatus;
-  securityData: Security;
+  securityData;
   shareSecurity;
   vehicleSelected = false;
   landSelected = false;
@@ -70,100 +70,104 @@ export class SecurityViewComponent implements OnInit {
   ngOnInit() {
     this.random = Math.floor(Math.random() * 100) + 1;
     this.url = ApiConfig.URL;
-    this.securityData = JSON.parse(this.security.data);
-    if (this.securityData['selectedArray'] !== undefined) {
-      // land security
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('LandSecurity') !== -1) {
-          this.landSelected = true;
-        }
-      });
+    if (!ObjectUtil.isEmpty(this.security)) {
+      if (!ObjectUtil.isEmpty(this.security.data)) {
+        this.securityData = JSON.parse(this.security.data);
+        if (this.securityData['selectedArray'] !== undefined) {
+          // land security
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('LandSecurity') !== -1) {
+              this.landSelected = true;
+            }
+          });
 
-      // apartment security
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('ApartmentSecurity') !== -1) {
-          this.apartmentSelected = true;
+          // apartment security
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('ApartmentSecurity') !== -1) {
+              this.apartmentSelected = true;
+            }
+          });
+          // land and building security
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('Land and Building Security') !== -1) {
+              this.landBuilding = true;
+            }
+          });
+          // plant and machinery security
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('PlantSecurity') !== -1) {
+              this.plantSelected = true;
+            }
+          });
+          // // vehicle security
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('VehicleSecurity') !== -1) {
+              this.vehicleSelected = true;
+            }
+          });
+          // fixed deposit receipt security
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('FixedDeposit') !== -1) {
+              this.depositSelected = true;
+            }
+          });
+          //
+          // // shared security
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('ShareSecurity') !== -1) {
+              this.shareSelected = true;
+            }
+          });
+          // hypothecation of stock security
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('HypothecationOfStock') !== -1) {
+              this.hypothecation = true;
+            }
+          });
+          // assignment of receivables
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('AssignmentOfReceivables') !== -1) {
+              this.assignment = true;
+            }
+          });
+          // lease assignment
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('LeaseAssignment') !== -1) {
+              this.assignments = true;
+            }
+          });
+          // other security
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('OtherSecurity') !== -1) {
+              this.securityOther = true;
+            }
+          });
+          // corporate guarantee
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('CorporateGuarantee') !== -1) {
+              this.corporate = true;
+            }
+          });
+          // personal guarantee
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('PersonalGuarantee') !== -1) {
+              this.personal = true;
+            }
+          });
+          // insurance policy
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('InsurancePolicySecurity') !== -1) {
+              this.insurancePolicySelected = true;
+            }
+          });
+          // bond security
+          this.securityData['selectedArray'].filter(f => {
+            if (f.indexOf('BondSecurity') !== -1) {
+              this.bondSecurity = true;
+            }
+          });
         }
-      });
-      // land and building security
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('Land and Building Security') !== -1) {
-          this.landBuilding = true;
-        }
-      });
-      // plant and machinery security
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('PlantSecurity') !== -1) {
-          this.plantSelected = true;
-        }
-      });
-      // // vehicle security
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('VehicleSecurity') !== -1) {
-          this.vehicleSelected = true;
-        }
-      });
-      // fixed deposit receipt security
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('FixedDeposit') !== -1) {
-          this.depositSelected = true;
-        }
-      });
-      //
-      // // shared security
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('ShareSecurity') !== -1) {
-          this.shareSelected = true;
-        }
-      });
-      // hypothecation of stock security
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('HypothecationOfStock') !== -1) {
-          this.hypothecation = true;
-        }
-      });
-      // assignment of receivables
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('AssignmentOfReceivables') !== -1) {
-          this.assignment = true;
-        }
-      });
-      // lease assignment
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('LeaseAssignment') !== -1) {
-          this.assignments = true;
-        }
-      });
-      // other security
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('OtherSecurity') !== -1) {
-          this.securityOther = true;
-        }
-      });
-      // corporate guarantee
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('CorporateGuarantee') !== -1) {
-          this.corporate = true;
-        }
-      });
-      // personal guarantee
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('PersonalGuarantee') !== -1) {
-          this.personal = true;
-        }
-      });
-      // insurance policy
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('InsurancePolicySecurity') !== -1) {
-          this.insurancePolicySelected = true;
-        }
-      });
-      // bond security
-      this.securityData['selectedArray'].filter(f => {
-        if (f.indexOf('BondSecurity') !== -1) {
-          this.bondSecurity = true;
-        }
-      });
+      }
     }
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
       this.shareSecurity = JSON.parse(this.shareSecurityData.data);

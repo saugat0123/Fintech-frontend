@@ -120,17 +120,21 @@ export class CollateralSummaryComponent implements OnInit {
   }
 
   displaySecurityExposure() {
-    const securityData = JSON.parse(this.security.data);
-    const initialData = securityData.initialForm;
-    if (!ObjectUtil.isEmpty(this.security) && securityData.selectedArray.length > 0) {
-      this.securityExposure = true;
-      if (securityData.selectedArray.length === 1 &&
-          securityData.selectedArray.includes('OtherSecurity')) {
-        this.securityExposure = false;
-      }
-    } else {
-      this.securityExposure = false;
-    }
+        if (!ObjectUtil.isEmpty(this.security)) {
+            if (!ObjectUtil.isEmpty(this.security.data)) {
+                const securityData = JSON.parse(this.security.data);
+                // const initialData = securityData.initialForm;
+                if (!ObjectUtil.isEmpty(this.security) && securityData.selectedArray.length > 0) {
+                    this.securityExposure = true;
+                    if (securityData.selectedArray.length === 1 &&
+                        securityData.selectedArray.includes('OtherSecurity')) {
+                        this.securityExposure = false;
+                    }
+                } else {
+                    this.securityExposure = false;
+                }
+            }
+        }
   }
   getApprovedLoans(id) {
       this.spinner=true;

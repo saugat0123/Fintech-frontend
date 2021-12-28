@@ -931,7 +931,7 @@
   </div>
 
   <!--        apartmentUndercostructions-->
-  <div *ngIf="securityData['underConstructionChecked']" class="row">
+  <div *ngIf="securityData?.underConstructionChecked" class="row">
     <div class="col-md-12">
       <p class="text-center"><strong>Apartment Under Construction</strong></p>
 
@@ -1757,7 +1757,7 @@
       </table>
     </div>
   </div>
-  <div *ngIf="securityData['initialForm']['remark']" class="row">
+  <div *ngIf="securityData?.initialForm?.remark" class="row">
     <div class="col-md-12">
       <p class="text-center"><b>Security Remark</b></p>
       <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
