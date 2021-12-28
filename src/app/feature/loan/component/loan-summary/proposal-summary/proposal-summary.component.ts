@@ -65,6 +65,7 @@ export class ProposalSummaryComponent implements OnInit {
             if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
                 if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
                     this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
+                    this.customerLoanDtoList = this.customerLoanDtoList.filter(l => l.proposal.data !== null);
                 }
             }
             this.calculateInterestRate();
@@ -109,7 +110,8 @@ export class ProposalSummaryComponent implements OnInit {
                     const tempCustomerLoanDtoList: CustomerLoanDto[] = this.customerLoanDtoList
                         .filter(l => l.isFundable && l.proposal.data !== null);
                     tempCustomerLoanDtoList.forEach(cdl => {
-                        numb = numb + JSON.parse(cdl.proposal.data)[key];
+                        console.log(cdl.proposal);
+                        // numb = numb + JSON.parse(cdl.proposal.data)[key];
                     });
                 }
         } else {
