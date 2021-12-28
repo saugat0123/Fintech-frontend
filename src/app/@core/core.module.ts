@@ -25,6 +25,7 @@ import {EnumConverterPipe} from "./pipe/enum-converter.pipe";
 import {DisbursementConvertPipe} from './pipe/disbursement-convert.pipe';
 import {RemitCountryConvertPipe} from './pipe/remit-country-convert.pipe';
 import {ClientTypePipe} from './pipe/client-type.pipe';
+import {FinancialKeysPipe} from './pipe/financial-keys.pipe';
 
 
 const DATA_SERVICES = [];
@@ -73,7 +74,8 @@ const UTILITY_MODULES = [
         NepaliNumberPipe,
         DisbursementConvertPipe,
         RemitCountryConvertPipe,
-        ClientTypePipe
+        ClientTypePipe,
+        FinancialKeysPipe
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -90,6 +92,7 @@ const UTILITY_MODULES = [
         EnumConverterPipe,
         NepaliPercentWordPipe,
         NepaliCurrencyWordPipe,
+        FinancialKeysPipe,
         LoginPopUp,
         NepaliNumberPipe,
 DisbursementConvertPipe,

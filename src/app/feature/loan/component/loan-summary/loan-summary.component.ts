@@ -178,24 +178,24 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     collateralSiteVisitDetail = [];
     isCollateralSiteVisit = false;
     age: number;
-   isOpen: false;
-   private dialogRef: NbDialogRef<any>;
-   refId: number;
-   securityId: number;
-   siteVisitDocuments: Array<SiteVisitDocument>;
-   isRemitLoan = false;
-   beneficiary;
-   dbr;
-   individual;
-   individualJsonData;
-   riskInfo;
-   senderDetails;
-   bankingRelation;
-   isIndividual = false;
-   naChecked: boolean;
-   reviewDateData;
-   multiBankingSummary = false;
-   multiBankingData;
+    isOpen: false;
+    private dialogRef: NbDialogRef<any>;
+    refId: number;
+    securityId: number;
+    siteVisitDocuments: Array<SiteVisitDocument>;
+    isRemitLoan = false;
+    beneficiary;
+    dbr;
+    individual;
+    individualJsonData;
+    riskInfo;
+    senderDetails;
+    bankingRelation;
+    isIndividual = false;
+    naChecked: boolean;
+    reviewDateData;
+    multiBankingSummary = false;
+    multiBankingData;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -233,7 +233,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
             this.isIndividual = true;
         }
-        this.individual  = this.loanDataHolder.customerInfo;
+        this.individual = this.loanDataHolder.customerInfo;
         if (!ObjectUtil.isEmpty(this.individual)) {
             if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
                 this.individualJsonData = JSON.parse(this.individual.individualJsonData);
@@ -701,7 +701,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             refId: loanId,
             isRoleModal: true,
         };
-       // @ts-ignore
+        // @ts-ignore
         this.dialogRef = this.nbDialogService.open(ApprovalRoleHierarchyComponent, {
             context,
         }).onClose.subscribe((res: any) => {
@@ -722,6 +722,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             });
         });
     }
+
     public close() {
         if (this.isOpen) {
             this.dialogRef.close();
@@ -819,14 +820,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
         }
     }
+
     calculateEmiEqiAmount() {
         const proposedAmount = this.loanDataHolder.proposal.proposedLimit;
         const rate = Number(this.loanDataHolder.loan.interestRate) / (12 * 100);
         const n = this.loanDataHolder.proposal.tenureDurationInMonths;
-            const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
-            if(this.isRemitLoan) {
-                this.dbr = emi / JSON.parse(this.loanDataHolder.remitCustomer.senderData).senderEmployment.monthly_salary;
-            }
+        const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
+        if (this.isRemitLoan) {
+            this.dbr = emi / JSON.parse(this.loanDataHolder.remitCustomer.senderData).senderEmployment.monthly_salary;
+        }
     }
 
     checkSiteVisitDocument(event: any) {
