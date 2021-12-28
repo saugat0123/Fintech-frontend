@@ -28,7 +28,7 @@
                                    [value]="loansubType">{{loansubType.eData + ' || ' + loansubType.nData}}</ng-option>
                     </ng-select>
                 </div>
-                <div class="col-md-4 pt-4">
+                <!--<div class="col-md-4 pt-4">
                     <label><strong>Security Type</strong></label>
                     <ng-select
                             formControlName="securityType"
@@ -41,7 +41,7 @@
                         <ng-option value="FIXED_ASSETS">FIXED ASSETS</ng-option>
                         <ng-option value="DOCUMENTS">DOCUMENTS</ng-option>
                     </ng-select>
-                </div>
+                </div>-->
                 <div class="col-md-4 pt-4">
                     <label><strong>Mortgage Type</strong></label>
                     <ng-select
@@ -685,15 +685,21 @@
                 </div>
             </div>
             <hr>
-            <div *ngIf="ddslFormGroup.get('securityType').value === 'LAND' || ddslFormGroup.get('securityType').value === 'LAND_AND_BUILDING'">
+            <!-- SECTION FOR SECURITY DETAILS-->
+            <div style="margin: 20px;">
+                <app-common-security-section-primary #primarySecurity [customerApprove]="customerApprovedDoc" [isEdit]="true"></app-common-security-section-primary>
+                <hr>
+                <app-common-security-section-secondary #secondarySecurity [customerApprove]="customerApprovedDoc" [isEdit]="true"></app-common-security-section-secondary>
+            </div>
+            <!--<div *ngIf="ddslFormGroup.get('securityType').value === 'LAND' || ddslFormGroup.get('securityType').value === 'LAND_AND_BUILDING'">
                 <div class="row">
                     <div class="col-md-12 pr-4">
                         <button (click)="addDefaultSecurity()" class="float-right" nbButton size="tiny"
                                 status="primary">Add Securities
                         </button>
                     </div>
-                </div>
-                <div *ngFor="let securityData of ddslFormGroup.get('securities')['controls']; let i = index; "
+                </div>-->
+                <!--<div *ngFor="let securityData of ddslFormGroup.get('securities')['controls']; let i = index; "
                      class="row p-4" formArrayName="securities">
                     <ng-container [formGroupName]="i">
                         <div class="col-md-12">
@@ -795,7 +801,7 @@
                                        nbInput status="success" type="text">
                             </div>
                         </div>
-                        <!-- TRANSLATION FIELD FOR SECURITY -->
+                        &lt;!&ndash; TRANSLATION FIELD FOR SECURITY &ndash;&gt;
                         <div class="col-md-4 mt-3">
                             <div class="form-group mt-4">
                                 <label for="securityOwnersNameTrans">Property Owner Name</label>
@@ -847,9 +853,9 @@
                                        nbInput status="success" type="text" readonly>
                             </div>
                         </div>
-                        <!-- END OF TRANSLATION FIELD FOR SECURITY -->
+                        &lt;!&ndash; END OF TRANSLATION FIELD FOR SECURITY &ndash;&gt;
 
-                        <!-- START OF CT FIELDS SECTION -->
+                        &lt;!&ndash; START OF CT FIELDS SECTION &ndash;&gt;
                         <div class="col-md-4 mt-3">
                             <div class="form-group mt-4">
                                 <label for="securityOwnersNameCT">Property Owner Name</label>
@@ -901,7 +907,7 @@
                                        nbInput status="success" type="text">
                             </div>
                         </div>
-                        <!-- END OF CT FIELDS SECTION-->
+                        &lt;!&ndash; END OF CT FIELDS SECTION&ndash;&gt;
                         <div *ngIf="ddslFormGroup.get('securities')['length'] > 1" class="col-md-12 text-right">
                             <button (click)="removeSecurityDetails(i)" nbButton size="small" status="danger"
                                     style="position: static">
@@ -911,7 +917,7 @@
                     </ng-container>
                     <hr *ngIf="ddslFormGroup.get('securities')['length'] > 1">
                 </div>
-            </div>
+            </div>-->
         </form>
     </nb-card-body>
     <nb-card-footer>
