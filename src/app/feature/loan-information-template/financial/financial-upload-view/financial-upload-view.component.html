@@ -3,20 +3,20 @@
     <button ngbButton (click)="submitData()">Submit</button>
 </form>
 <nb-tabset (changeTab)="onChangeTab($event)" *ngIf="customerInfo?.financial">
-    <nb-tab tabId="0" tabTitle="Balance Sheet">
-<app-financial-json-parser [financialJson]="balanceSheet" ></app-financial-json-parser>
+    <nb-tab tabId="0" *ngFor="let title of keysbyindex; let i = index;" [tabTitle]="title.toUpperCase()">
+        <app-financial-json-parser [financialJson]="financialArray[i]" ></app-financial-json-parser>
     </nb-tab>
-    <nb-tab tabId="1" tabTitle="Executive Summary">
-        <app-financial-json-parser [financialJson]="executiveSummary" ></app-financial-json-parser>
-    </nb-tab>
-    <nb-tab tabId="2" tabTitle="PL Account">
-        <app-financial-json-parser [financialJson]="plAccount" ></app-financial-json-parser>
-    </nb-tab>
-    <nb-tab tabId="3" tabTitle="Common Size PL">
-        <app-financial-json-parser [financialJson]="commonSizePl" ></app-financial-json-parser>
-    </nb-tab>
-    <nb-tab tabId="4" tabTitle="Detailed CF">
-        <app-financial-json-parser [financialJson]="detailCf" ></app-financial-json-parser>
-    </nb-tab>
-
 </nb-tabset>
+
+<!--<nb-tab tabId="1" tabTitle="Executive Summary">-->
+<!--    <app-financial-json-parser [financialJson]="executiveSummary" ></app-financial-json-parser>-->
+<!--</nb-tab>-->
+<!--<nb-tab tabId="2" tabTitle="PL Account">-->
+<!--    <app-financial-json-parser [financialJson]="plAccount" ></app-financial-json-parser>-->
+<!--</nb-tab>-->
+<!--<nb-tab tabId="3" tabTitle="Common Size PL">-->
+<!--    <app-financial-json-parser [financialJson]="commonSizePl" ></app-financial-json-parser>-->
+<!--</nb-tab>-->
+<!--<nb-tab tabId="4" tabTitle="Detailed CF">-->
+<!--    <app-financial-json-parser [financialJson]="detailCf" ></app-financial-json-parser>-->
+<!--</nb-tab>-->

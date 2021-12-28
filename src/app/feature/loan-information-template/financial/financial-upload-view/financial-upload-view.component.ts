@@ -16,6 +16,8 @@ export class FinancialUploadViewComponent implements OnInit {
     form: FormGroup;
     uploadFile;
     fg = new FormData();
+    keysbyindex;
+    financialArray = [];
 
     constructor(
         private activeRoutes: ActivatedRoute,
@@ -23,20 +25,26 @@ export class FinancialUploadViewComponent implements OnInit {
         private formBuilder: FormBuilder
     ) {
     }
+
     financialData;
     balanceSheet;
     executiveSummary;
     plAccount;
     commonSizePl;
     detailCf;
+
     ngOnInit() {
         this.buildForm();
         this.financialData = JSON.parse(this.customerInfo.financial.data);
-        this.balanceSheet = JSON.parse(this.financialData.balanceSheetData);
-        this.executiveSummary = JSON.parse(this.financialData.executiveSummaryData);
-        this.plAccount = JSON.parse(this.financialData.plAccountData);
-        this.commonSizePl = JSON.parse(this.financialData.commonSizePlData);
-        this.detailCf = JSON.parse(this.financialData.cashFlowData);
+        this.keysbyindex = Object.keys(this.financialData);
+        this.keysbyindex.forEach((title) => {
+            this.financialArray.push(JSON.parse(this.financialData[title]));
+        });
+        // this.balanceSheet = JSON.parse(this.financialData.balanceSheetData);
+        // this.executiveSummary = JSON.parse(this.financialData.executiveSummaryData);
+        // this.plAccount = JSON.parse(this.financialData.plAccountData);
+        // this.commonSizePl = JSON.parse(this.financialData.commonSizePlData);
+        // this.detailCf = JSON.parse(this.financialData.cashFlowData);
     }
 
     buildForm() {
@@ -57,6 +65,7 @@ export class FinancialUploadViewComponent implements OnInit {
             console.log('this is response', res);
         });
     }
+
     onChangeTab(event) {
         console.log('this is event', event);
     }
