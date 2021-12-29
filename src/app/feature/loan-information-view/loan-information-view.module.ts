@@ -25,6 +25,7 @@ import { CrgLambdaDetailViewComponent } from './crg-lambda-detail-view/crg-lambd
 import {NepaliPatroModule} from 'nepali-patro';
 import {RemitProfileComponent} from '../loan/component/loan-summary/remit-profile/remit-profile.component';
 import {SecurityScheduleComponent} from '../loan/component/security-schedule/security-schedule.component';
+import {FinancialJsonParserComponent} from '../loan/component/loan-summary/financial-json-parser/financial-json-parser.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import {SecurityScheduleComponent} from '../loan/component/security-schedule/sec
         CrgLambdaDetailViewComponent,
         RemitProfileComponent,
         SecurityScheduleComponent,
+        FinancialJsonParserComponent
     ],
     exports: [
         InsuranceViewComponent,
@@ -64,6 +66,7 @@ import {SecurityScheduleComponent} from '../loan/component/security-schedule/sec
         CrgLambdaDetailViewComponent,
         RemitProfileComponent,
         SecurityScheduleComponent,
+        FinancialJsonParserComponent
     ],
     imports: [
         CommonModule,

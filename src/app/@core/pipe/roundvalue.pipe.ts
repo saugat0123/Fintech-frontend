@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RoundvaluePipe implements PipeTransform {
 
-  transform(value: any, ...args: any[]): any {
-    return parseFloat(value).toFixed(3);
+    transform(value: any, ...args: any[]): any {
+    return parseFloat(value).toFixed(2);
   }
 
 }
