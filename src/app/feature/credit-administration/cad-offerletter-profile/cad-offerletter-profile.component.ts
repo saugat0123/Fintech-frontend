@@ -39,7 +39,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     offerLetterConst;
     excelOfferLetterConst = ExcelOfferLetterConst;
     isRemit = false;
+    flag = false;
     path;
+
     constructor(
         private activatedRoute: ActivatedRoute,
         private service: CreditAdministrationService,
@@ -85,7 +87,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
         this.offerLetterConst = LaxmiOfferLetterConst;
         this.component = LaxmiOfferLetterComponent;
-        if (this.hasRequierdDocument) {
+        if (this.hasRequierdDocument && this.isRemit) {
             this.getDoc();
         }
     }
@@ -121,12 +123,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
     public loanAction(action: 'send legal doc to sender' | 'send legal doc to agent'): void {
-        this.formdata.append('details', JSON.stringify(this.objArr));
-        this.service.upload(this.formdata).subscribe((res) => {
-            console.log('this is response', res);
-        });
-        return;
         const beneficiaryId: any = this.cadOfferLetterApprovedDoc.assignedLoan[0].remitCustomer.beneficiaryId;
+        this.formdata.append('details', JSON.stringify(this.objArr));
         this.close();
         let context;
         switch (action) {
@@ -137,6 +135,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                     docAction: 'SEND_BACK_TO_SENDER',
                     docActionMsg: 'Send Legal Doc',
                     legalDoc: this.legalDoc,
+                    formData: this.formdata,
                     documentStatus: DocStatus.SEND_BACK_TO_SENDER
                 };
                 break;
@@ -148,6 +147,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                     docAction: 'SEND_BACK_TO_AGENT',
                     legalDoc: this.legalDoc,
                     docActionMsg: 'Send Legal Doc',
+                    formData: this.formdata,
                     documentStatus: DocStatus.SEND_BACK_TO_AGENT
                 };
                 break;
@@ -186,8 +186,13 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                     draftPath: this.cadOfferLetterApprovedDoc.offerDocumentList[index].draftPath,
                     pathSigned: ''
                 };
-                this.formdata.append('file', file);
+                if (!this.flag) {
+                    this.formdata.append('file', file);
+                } else if (this.flag) {
+                    this.formdata.append('file2', file);
+                }
                 this.objArr.push(obj);
+                this.flag = true;
             }
         });
     }
