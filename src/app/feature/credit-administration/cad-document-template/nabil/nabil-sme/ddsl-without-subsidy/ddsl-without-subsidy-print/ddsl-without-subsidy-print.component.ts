@@ -85,6 +85,8 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     securityTypeConditionLandAndBuildingSecondary = false;
     kittaNumbers: Array < any > = new Array < any > ();
     plotNumber;
+    guarantorAmount;
+    guarantorAmountWords
 
     constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
         public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -95,6 +97,8 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     ngOnInit() {
         // this.selectedSecurity = this.security;
         // this.loanLimitVal = this.loanLimit;
+        
+        this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -108,7 +112,6 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
                 const val = value.proposal.proposedLimit;
                 totalLoanAmount = totalLoanAmount + val;
             });
-            this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
             this.proposedAmount = totalLoanAmount;
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -172,6 +175,8 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
         this.guarantorData.forEach(any => {
             this.guarantorParsed.push(JSON.parse(any.nepData));
         });
+        this.guarantorAmount = this.guarantorParse(this.guarantorData[0].nepData, 'gurantedAmount');
+        this.guarantorAmountWords = this.nepaliCurrencyWordPipe.transform(this.guarantorParse(this.guarantorData[0].nepData, 'gurantedAmount', 'en'));
         this.guarantorDetails();
         this.checkPrimaryConditions();
         this.checkSecondaryConditions();
@@ -219,9 +224,6 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     guarantorDetails() {
         this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
             val.guarantorType.en === 'Personal Guarantor');
-        this.tempPersonalGuarantors.forEach(i => {
-            this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
-        });
     }
 
     commonGuarantorDetails(guarantorName, finalName) {
