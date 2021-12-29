@@ -164,14 +164,23 @@ export class RemitCustomerListComponent implements OnInit {
         this.onBoardData.shipped = this.shipped;
         this.modalService.dismissAll();
         this.onBoardSpinner = true;
-        this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
-            this.onBoardData.alreadyTransferred = true;
-            this.onBoardSpinner = false;
-            this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
-        }, error => {
-            this.onBoardSpinner = false;
-            this.toastService.success('Failed to transfer to');
-        });
+        if (this.shipped === 'BANK') {
+            this.remitCustomerService.saveRemitCustomerToBank(this.onBoardData).subscribe((res) => {
+                this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
+                    this.onBoardData.alreadyTransferred = true;
+                    this.onBoardSpinner = false;
+                }, error => {
+                    this.onBoardSpinner = false;
+                    this.toastService.danger('Failed to Update In Micro Finance');
+                });
+                this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
+            }, error => {
+                this.onBoardSpinner = false;
+                this.toastService.danger('Failed to transfer to');
+            });
+        } else {
+                this.toastService.danger('This Loan Is Already on Micro Finance');
+        }
     }
     customerTransferToBranch() {
         this.onBoardSpinner = true;
@@ -181,7 +190,7 @@ export class RemitCustomerListComponent implements OnInit {
             this.onBoardSpinner = false;
             this.toastService.success('Successfully Send to branch');
         }, error => {
-            this.toastService.success('Failed to send to branch');
+            this.toastService.danger('Failed to send to branch');
             this.onBoardSpinner = false;
         });
     }

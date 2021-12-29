@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {BaseService} from "../../../../../@core/BaseService";
+import {BaseService} from '../../../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ApiUtils} from "../../../../../@core/utils/api/ApiUtils";
+import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 
 @Injectable({
     providedIn: 'root'
@@ -32,6 +33,12 @@ export class RemitCustomerService extends BaseService<Object> {
         const api = `${this.getApi()}/save`;
         const req = ApiUtils.getRequest(api);
         return this.http.post(req.url, remitCustomer, {headers: req.header});
+    }
+
+    public saveRemitCustomerToBank(remitCustomer): Observable<any> {
+        const api = `${ApiConfig.BANK_URL}/v2/public/remit/save`;
+        const req = ApiUtils.getBankRequest(api);
+        return this.http.post(api, remitCustomer, {headers: req.header});
     }
 
     protected getApi(): string {
