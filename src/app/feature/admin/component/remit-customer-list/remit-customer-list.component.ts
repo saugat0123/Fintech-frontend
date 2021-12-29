@@ -179,12 +179,12 @@ export class RemitCustomerListComponent implements OnInit {
                     this.onBoardSpinner = false;
                 }, error => {
                     this.onBoardSpinner = false;
-                    this.toastService.success('Failed to Update In Bank');
+                    this.toastService.danger('Failed to Update In Bank');
                 });
                 this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
             }, error => {
                 this.onBoardSpinner = false;
-                this.toastService.success('Failed to transfer to');
+                this.toastService.danger('Failed to transfer to');
             });
         } else {
             this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
@@ -193,7 +193,7 @@ export class RemitCustomerListComponent implements OnInit {
                 this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
             }, error => {
                 this.onBoardSpinner = false;
-                this.toastService.success('Failed to transfer to');
+                this.toastService.danger('Failed to transfer to');
             });
         }
     }
