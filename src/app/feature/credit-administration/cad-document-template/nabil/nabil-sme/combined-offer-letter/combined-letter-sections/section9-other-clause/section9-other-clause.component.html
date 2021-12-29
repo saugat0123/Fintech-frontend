@@ -1,9 +1,8 @@
-<div class="section9" [formGroup]="form">
+<div class="section9 row" [formGroup]="form" style="width: 100%;margin:0; padding-left: 5px">
     <strong>बित्तीय शर्तहरु </strong><br>
     <div class="row">
         <div class="col-sm-12">
-
-            <div class="">
+            <div class="row">
                 <ol class="conditions-list">
                     <li>
                         सम्पूर्ण ऋणकर्जाहरुको ब्याज, किस्ता, शुल्क, कमिसन, मार्जिन, हर्जाना ब्याज र अन्य बाँकी बक्यौता
@@ -126,14 +125,19 @@
                         ऋण सुविधा स्वीकृति पत्रको उल्लंघन भएको मानिनेछ ।
                     </li>
                 </ol>
-                     <textarea
-                        class="form-control nepaliFont"
+                <textarea
+                        class="form-control"
                         rows="5"
                         style="width:95%;margin-left:2%"
                         name="freeText1"
                         formControlName="freeText1">
                     </textarea>
-
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
                 <ol class="conditions-list">
                     <strong>अन्य शर्तहरु</strong><br>
                     <li>
@@ -186,28 +190,31 @@
                         प्रशासित तथा सँचालित हुने कुरामा समेत ऋणी/ऋणी फर्म/ऋणी कम्पनी/ऋणी संस्था मँजुर गर्दछ ।
                     </li>
                     <li *ngIf="isloanAmountAbove50Crore === 'Yes'">
-<!--                        (Applicable Incase of loan is above Rs.50 core)-->
+                        <!--                        (Applicable Incase of loan is above Rs.50 core)-->
                         नेपाल राष्ट्र बैंकबाट जारी निर्देशन बमोजिम यस बैंकबाट तहाँको फर्म/कम्पनी/संस्थाको नाममा स्वीकृत
-                        कर्जा प्रवाह/नविकरण गर्न अगावै क्रेडिट रेटिङ्ग एजेन्सीबाट आफ्नो फर्म/कम्पनी/संस्थाको क्रेडिट रेटिङ्ग
+                        कर्जा प्रवाह/नविकरण गर्न अगावै क्रेडिट रेटिङ्ग एजेन्सीबाट आफ्नो फर्म/कम्पनी/संस्थाको क्रेडिट
+                        रेटिङ्ग
                         गराई सो को प्रतिवेदन यस बैंकमा पेश गर्नुपर्नेछ ।
                     </li>
                     <li *ngIf="isworkingCapitalAbove25Crore === 'Yes'">
-<!--                        (Applicable Incase of Working Capital is above Rs.25 core)-->
-                        नेपाल राष्ट्र बैंकबाट जारी निर्देशन बमोजिम यस बैंकबाट तहाँको फर्म/कम्पनी/संस्थाको नाममा चालुपुँजी
+                        <!--                        (Applicable Incase of Working Capital is above Rs.25 core)-->
+                        नेपाल राष्ट्र बैंकबाट जारी निर्देशन बमोजिम यस बैंकबाट तहाँको फर्म/कम्पनी/संस्थाको नाममा
+                        चालुपुँजी
                         प्रकृतिका कर्जाहरु स्वीकृत तथा नवीकरण/पुनरावलोकन गर्दाका वखत चालु सम्पत्ति तथा दायित्वको विस्तृत
                         विवरण लेखापरीक्षकवाट प्रमाणित गराई बैंकमा बुझाउनु पर्नेछ ।
                     </li>
                     <li *ngIf=" loanHolderData !== 'PRIVATE_PUBLIC'">
-<!--                        (Not applicable of Pvt ltd company)-->
-                        तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण गर्ने दायित्व ऋणी फर्मका
-                        प्रोप्राईटर/साझेदारहरुको हुनेछ र नविकरण  पश्चात सोको प्रतिलिपि यस बैंकमा पेश गर्नु पर्नेछ ।
+                        <!--                        (Not applicable of Pvt ltd company)-->
+                        तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण गर्ने दायित्व
+                        ऋणी फर्मका
+                        प्रोप्राईटर/साझेदारहरुको हुनेछ र नविकरण पश्चात सोको प्रतिलिपि यस बैंकमा पेश गर्नु पर्नेछ ।
                         दर्ता प्रमाणपत्रको अवधि समाप्त भएका फर्मको ऋणकर्जा सुविधा स्वीकृ/नविकरण हुनेछैन र साथै
                         तहांले उपभोग गर्दै आउनुभएका सम्पूर्ण ऋण कर्जा सुविधाहरु दर्ता नविकरण नभएका कारण फिर्ता
                         भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                     </li>
                 </ol>
-                    <textarea
-                        class="form-control nepaliFont"
+                <textarea
+                        class="form-control"
                         rows="5"
                         style="width:95%;margin-left:2%"
                         formControlName="freeText2">

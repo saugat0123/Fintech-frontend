@@ -18,6 +18,8 @@ export class MortgageEquityTermLoanComponent implements OnInit {
     termLoanForMortgageEquityTerm; mortgageTypeMortgageEquityTerm; complementaryOtherMortgageEquityTerm = false;
     emiPaymentTypeMortgageEquityTerm; interestSubAgMortgageEquityTerm; paymentTermMortgageEquityTerm;
     loanOptionMortgageEquityTerm; drawingPowerMortgageEquityTerm; termLoanTypeMortgageEquityTerm; complementaryOtherMortgageEquityTermName;
+    tempInformation;
+    newEMIAutoPopulateMortgageTerm = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
 
     constructor(private formBuilder: FormBuilder,
     ) {
@@ -27,6 +29,7 @@ export class MortgageEquityTermLoanComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
+            this.tempInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
             this.fillForm();
         }
         if (!ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm)) {
@@ -43,6 +46,7 @@ export class MortgageEquityTermLoanComponent implements OnInit {
                 this.complementaryOtherMortgageEquityTerm = true;
             }
         }
+        this.setFreeTextMortgage();
     }
 
     buildForm() {
@@ -177,14 +181,32 @@ export class MortgageEquityTermLoanComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 annualInstallmentDrawingPowerMortgageTerm1: this.tempData.mortgageEquityTermForm.drawingPowerInPercentageCT ? this.tempData.mortgageEquityTermForm.drawingPowerInPercentageCT : '',
             });
+            this.patchFreeText();
         }
     }
 
     setFreeTextMortgage() {
         this.mortgageEquity = {
             freeText13: this.form.get('freeTextThirteen').value ? this.form.get('freeTextThirteen').value : '',
+            // tslint:disable-next-line:max-line-length
+            newEMIAutoPopulateMortgageTerm1: this.form.get('newEMIAutoPopulateMortgageTerm').value ? this.form.get('newEMIAutoPopulateMortgageTerm').value : '',
         };
         return this.mortgageEquity;
+    }
+    patchFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempInformation)) {
+            if (this.newEMIAutoPopulateMortgageTerm === this.tempInformation.section2.newEMIAutoPopulateMortgageTerm1) {
+                this.newEMIAutoPopulateMortgageTerm = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
+            }
+            if (this.tempInformation.section2.newEMIAutoPopulateMortgageTerm1 !== this.newEMIAutoPopulateMortgageTerm) {
+                this.newEMIAutoPopulateMortgageTerm = this.tempInformation.section2.newEMIAutoPopulateMortgageTerm1;
+            }
+        }
+        this.form.patchValue({
+            freeTextThirteen: this.tempInformation ? this.tempInformation.section2.freeText13 : '',
+            // tslint:disable-next-line:max-line-length
+            newEMIAutoPopulateMortgageTerm: !ObjectUtil.isEmpty(this.newEMIAutoPopulateMortgageTerm) ? this.newEMIAutoPopulateMortgageTerm : '',
+        });
     }
 
 }

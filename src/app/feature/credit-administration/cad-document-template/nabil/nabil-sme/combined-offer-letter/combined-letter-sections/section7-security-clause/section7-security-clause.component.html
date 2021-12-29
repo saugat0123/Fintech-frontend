@@ -1,6 +1,6 @@
 <!--Clauses related to security-->
 <form [formGroup]="form">
-    <div class="col-md-12"  *ngIf="isGharJaggaVisible">
+    <div class="col-md-12 row" *ngIf="isGharJaggaVisible">
         <div class="row mt-2">
             <p class="m-0">
                 <strong>
@@ -9,7 +9,7 @@
             </p>
         </div>
         <!--        Applicable incase of land/building as security-->
-        <div class="col-md-12">
+        <div class="col-md-12 row">
             <div class="row mt-4">
                 <p class="m-0">
                     <strong>
@@ -68,7 +68,7 @@
             </div>
         </div>
         <!--        Applicable incase of Hypothecation/AR as security-->
-        <div class="col-md-12" *ngIf="isSamanMojdatVisible || isReceivableVisible">
+        <div class="col-md-12 row" *ngIf="isSamanMojdatVisible || isReceivableVisible">
             <div class="row mt-4">
                 <p class="m-0">
                     <strong>
@@ -157,7 +157,7 @@
             </div>
         </div>
         <!--       Applicable incase of receivables only as security -->
-        <div class="col-md-12" *ngIf="isReceivableVisible">
+        <div class="col-md-12 row" *ngIf="isReceivableVisible">
             <div class="row mt-4">
                 <p class="m-0">
                     <strong>
@@ -201,7 +201,7 @@
             </div>
         </div>
         <!--      Applicable incase of bond/fixed deposit/debenture as security -->
-        <div class="col-md-12" *ngIf="fixedDeposit">
+        <div class="col-md-12 row" *ngIf="fixedDeposit">
             <div class="row mt-4">
                 <p class="m-0">
                     <strong>
