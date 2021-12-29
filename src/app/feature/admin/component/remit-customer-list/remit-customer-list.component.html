@@ -133,7 +133,7 @@
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </ng-container>
-                    <ng-container *ngIf="transferDoc && !(model?.alreadyTransferred)">
+                    <ng-container *ngIf="transferDoc && !(model?.alreadyOnBoarded)">
                         <button nbTooltip="Transfer to instuition"
                                 (click)="transferCustomer($event, model,customerTransfer)"
                                 class="m-1"
@@ -273,7 +273,6 @@
                 <option value="MICRO_FINANCE">Laxmi Laghubitta</option>
             </select>
             <div class="d-flex justify-content-end pb-md-3">
-
                 <button style="margin-top: 20px" (click)="customerTransferToInstituition()" class="btn float-right"
                         nbButton size="small"
                         status="info"
