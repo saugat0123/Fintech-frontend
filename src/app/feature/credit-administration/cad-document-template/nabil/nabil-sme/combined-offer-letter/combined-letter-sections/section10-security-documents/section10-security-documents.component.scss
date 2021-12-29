@@ -4,6 +4,7 @@
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
+  font-size: 19px;
   &:focus {
     outline: none;
   }
@@ -16,5 +17,8 @@
   padding-left: 1em !important;
   text-align: justify;
 }
-
+.all, p, ol li, ul li {
+  font-size: 19px;
+  line-height: 1.9em;
+}
 

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 
@@ -13,20 +13,26 @@ export class TermLoanToOrForComponent implements OnInit {
     @Input() loanData;
     @Input() index;
     @Input() data;
+    @Input() data2;
     form: FormGroup;
     tempData;
-    termLoanFreeText: any = {};
+    termLoanFreeText: any = [];
+    // termLoanFreeText: any = {};
     termLoanForTermLoanToOrFor; termLoanTypeTermLoanToOrFor; complementaryOtherTermLoanToOrFor = false;
     emiPaymentTypeTermLoanToOrFor; interestSubAgTermLoanToOrFor; paymentTermLoanToOrFor; complementaryOtherTermLoanToOrForName;
-
+    tempInformation;
+    newEMISubsequentVehicleLoan = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
     constructor(private formBuilder: FormBuilder
     ) {
     }
 
     ngOnInit() {
         this.buildForm();
+        this.buildFreeText();
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
+            this.tempInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
+            // this.setFreeTextTermLoan();
             this.fillForm();
         }
         if (!ObjectUtil.isEmpty(this.data)) {
@@ -45,7 +51,6 @@ export class TermLoanToOrForComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             // Term Loan to/for
-            SNOfParentLimitVehicleLoan: [undefined],
             purposeLoanVehicleLoan: [undefined],
             purposeLoanVehicleLoanInEng: [undefined],
             // For New EMI Term Loan
@@ -55,7 +60,6 @@ export class TermLoanToOrForComponent implements OnInit {
             newEMIAmountVehicleLoan: [undefined],
             newEMIAmountInWordVehicleLoan: [undefined],
             newEMINoOfInstallmentVehicleLoan: [undefined],
-            newEMISubsequentVehicleLoan: [undefined],
             newEMILoanPurposeVehicleLoan: [undefined],
             newEMIServiceChargeVehicleLoan: [undefined],
             newEMILoanTenureVehicleLoan: [undefined],
@@ -86,18 +90,28 @@ export class TermLoanToOrForComponent implements OnInit {
             annualInstallmentPaymentAmountInWordVehicleLoan: [undefined],
             annualInstallmentNoOfPaymentVehicleLoan: [undefined],
             annualInstallmentLoanExpiryDateVehicleLoan: [undefined],
-            // Free Text
-            freeTextTen: [undefined],
-            freeTextEleven: [undefined],
-            freeTextTwelve: [undefined],
+            termLoanFreeText: this.formBuilder.array([]),
         });
+        this.termLoanFreeText = this.form.get('termLoanFreeText') as FormArray;
+    }
+
+    buildFreeText() {
+        (this.form.get('termLoanFreeText') as FormArray).push(
+            this.formBuilder.group({
+                // Free Text
+                SNOfParentLimitVehicleLoan: [undefined],
+                newEMISubsequentVehicleLoan: [undefined],
+                freeTextTen: [undefined],
+                freeTextEleven: [undefined],
+                freeTextTwelve: [undefined],
+            })
+        );
     }
 
     fillForm() {
         if (!ObjectUtil.isEmpty(this.data)) {
             this.form.patchValue({
                 // Term Loan to/for
-                SNOfParentLimitVehicleLoan: [undefined],
                 purposeLoanVehicleLoan: this.data.purposeOfLoanCT ? this.data.purposeOfLoanCT : '',
                 purposeLoanVehicleLoanInEng: this.data.purposeOfLoan ? this.data.purposeOfLoan : '',
                 // For New EMI Term Loan
@@ -106,16 +120,13 @@ export class TermLoanToOrForComponent implements OnInit {
                 newEMIInterestRateVehicleLoan: this.data.interestRateCT ? this.data.interestRateCT : '',
                 newEMIAmountVehicleLoan: this.data.emiInfigureCT ? this.data.emiInfigureCT : '',
                 newEMIAmountInWordVehicleLoan: this.data.emiInWordsCT ? this.data.emiInWordsCT : '',
-                // tslint:disable-next-line:max-line-length
                 newEMINoOfInstallmentVehicleLoan: this.data.numberOfInstallmentCT ? this.data.numberOfInstallmentCT : '',
                 newEMILoanPurposeVehicleLoan: this.data.purposeOfLoanCT ? this.data.purposeOfLoanCT : '',
-                // tslint:disable-next-line:max-line-length
                 newEMIServiceChargeVehicleLoan: this.data.serviceChargeCT ? this.data.serviceChargeCT : '',
                 newEMILoanTenureVehicleLoan: this.data.tenureOfLoanCT ? this.data.tenureOfLoanCT : '',
                 // For EMI Term Loan at the time of Annual Review of other credit limits
                 annualEMIBaseRateVehicleLoan: this.data.baseRateCT ? this.data.baseRateCT : '',
                 annualEMIPremiumRateVehicleLoan: this.data.premiumRateCT ? this.data.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
                 annualEMIInterestRateVehicleLoan: this.data.interestRateCT ? this.data.interestRateCT : '',
                 annualEMIAmountVehicleLoan: this.data.emiInfigureCT ? this.data.emiInfigureCT : '',
                 annualEMIAmountInWordVehicleLoan: this.data.emiInWordsCT ? this.data.emiInWordsCT : '',
@@ -123,48 +134,61 @@ export class TermLoanToOrForComponent implements OnInit {
                 // For New Installment Basis Term Loan
                 newInstallmentBaseRateVehicleLoan: this.data.baseRateCT ? this.data.baseRateCT : '',
                 newInstallmentPremiumRateVehicleLoan: this.data.premiumRateCT ? this.data.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
                 newInstallmentInterestRateVehicleLoan: this.data.interestRateCT ? this.data.interestRateCT : '',
-                // tslint:disable-next-line:max-line-length
                 newInstallmentTotalInterestRateVehicleLoan: this.data.subsidyInterestRate ? this.data.subsidyInterestRateCT : '',
                 newInstallmentLoanTenureVehicleLoan: this.data.tenureOfLoanCT ? this.data.tenureOfLoanCT : '',
-                // tslint:disable-next-line:max-line-length
                 newInstallmentPaymentAmountVehicleLoan: this.data.paymentAmountFigureCT ? this.data.paymentAmountFigureCT : '',
-                // tslint:disable-next-line:max-line-length
                 newInstallmentPaymentAmountInWordVehicleLoan: this.data.paymentAmountWordsCT ? this.data.paymentAmountWordsCT : '',
-                // tslint:disable-next-line:max-line-length
                 newInstallmentNoOfPaymentVehicleLoan: this.data.numberOfPayments ? this.data.numberOfPaymentsCT : '',
-                // tslint:disable-next-line:max-line-length
                 newInstallmentLoanPurposeVehicleLoan: this.data.purposeOfLoanCT ? this.data.purposeOfLoanCT : '',
-                // tslint:disable-next-line:max-line-length
                 newInstallmentServiceChargeVehicleLoan: this.data.serviceChargeCT ? this.data.serviceChargeCT : '',
                 // For Installment Basis Term Loan at the time of Annual Review of other credit limits
                 annualInstallmentBaseRateVehicleLoan: this.data.baseRateCT ? this.data.baseRateCT : '',
-                // tslint:disable-next-line:max-line-length
                 annualInstallmentPremiumRateVehicleLoan: this.data.premiumRateCT ? this.data.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
                 annualInstallmentInterestRateVehicleLoan: this.data.interestRateCT ? this.data.interestRateCT : '',
-                // tslint:disable-next-line:max-line-length
                 annualInstallmentTotalInterestRateVehicleLoan: this.data.subsidyInterestRate ? this.data.subsidyInterestRateCT : '',
-                // tslint:disable-next-line:max-line-length
                 annualInstallmentPaymentAmountVehicleLoan: this.data.paymentAmountFigureCT ? this.data.paymentAmountFigureCT : '',
-                // tslint:disable-next-line:max-line-length
                 annualInstallmentPaymentAmountInWordVehicleLoan: this.data.paymentAmountWordsCT ? this.data.paymentAmountWordsCT : '',
-                // tslint:disable-next-line:max-line-length
                 annualInstallmentNoOfPaymentVehicleLoan: this.data.numberOfPayments ? this.data.numberOfPaymentsCT : '',
-                // tslint:disable-next-line:max-line-length
                 annualInstallmentLoanExpiryDateVehicleLoan: this.data.dateOfExpiryCT ? this.data.dateOfExpiryCT : '',
             });
+            // this.patchFreeText();
         }
     }
 
-    setFreeTextTermLoan() {
-        this.termLoanFreeText = {
-            freeText10: this.form.get('freeTextTen').value ? this.form.get('freeTextTen').value : '',
-            freeText11: this.form.get('freeTextEleven').value ? this.form.get('freeTextEleven').value : '',
-            freeText12: this.form.get('freeTextTwelve').value ? this.form.get('freeTextTwelve').value : '',
-        };
-        return this.termLoanFreeText;
+    // setFreeTextTermLoan() {
+    //     this.termLoanFreeText = {
+    //        /* freeText10: this.form.get(['termLoanFreeText', index, 'freeTextTen']).value ? this.form.get(['termLoanFreeText', index, 'freeTextTen']).value : '',
+    //         freeText11: this.form.get(['termLoanFreeText', index, 'freeTextEleven']).value ? this.form.get(['termLoanFreeText', index, 'freeTextEleven']).value : '',
+    //         freeText12: this.form.get(['termLoanFreeText', index, 'freeTextTwelve']).value ? this.form.get(['termLoanFreeText', index, 'freeTextTwelve']).value : '',
+    //         // tslint:disable-next-line:max-line-length
+    //         newEMISubsequentVehicleLoan1: this.form.get(['termLoanFreeText', index, 'newEMISubsequentVehicleLoan']).value ? this.form.get(['termLoanFreeText', index, 'newEMISubsequentVehicleLoan']).value : '',
+    //         SNLimitVehicleLoan: this.form.get(['termLoanFreeText', index, 'SNOfParentLimitVehicleLoan']).value ? this.form.get(['termLoanFreeText', index, 'SNOfParentLimitVehicleLoan']).value : '',*/
+    //         freeText10: this.form.get('freeTextTen').value ? this.form.get('freeTextTen').value : '',
+    //         freeText11: this.form.get('freeTextEleven').value ? this.form.get('freeTextEleven').value : '',
+    //         freeText12: this.form.get('freeTextTwelve').value ? this.form.get('freeTextTwelve').value : '',
+    //         // tslint:disable-next-line:max-line-length
+    //         newEMISubsequentVehicleLoan1: this.form.get('newEMISubsequentVehicleLoan').value ? this.form.get('newEMISubsequentVehicleLoan').value : '',
+    //         SNLimitVehicleLoan: this.form.get('SNOfParentLimitVehicleLoan').value ? this.form.get('SNOfParentLimitVehicleLoan').value : '',
+    //     };
+    //     return this.termLoanFreeText;
+    // }
+    patchFreeText() {
+        this.form.patchValue({
+            freeTextTen: this.tempInformation ? this.tempInformation.section2.freeText10 : '',
+            freeTextEleven: this.tempInformation ? this.tempInformation.section2.freeText11 : '',
+            freeTextTwelve: this.tempInformation ? this.tempInformation.section2.freeText12 : '',
+            SNOfParentLimitVehicleLoan: this.tempInformation ? this.tempInformation.section2.SNLimitVehicleLoan : '',
+            newEMISubsequentVehicleLoan: !ObjectUtil.isEmpty( this.newEMISubsequentVehicleLoan) ? this.newEMISubsequentVehicleLoan : '',
+        });
+        if (!ObjectUtil.isEmpty(this.tempInformation)) {
+            if (this.newEMISubsequentVehicleLoan === this.tempInformation.section2.newEMISubsequentVehicleLoan1) {
+                this.newEMISubsequentVehicleLoan = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
+            }
+            if (this.tempInformation.section2.newEMISubsequentVehicleLoan1 !== this.newEMISubsequentVehicleLoan) {
+                this.newEMISubsequentVehicleLoan = this.tempInformation.section2.newEMISubsequentVehicleLoan1;
+            }
+        }
     }
 }
 

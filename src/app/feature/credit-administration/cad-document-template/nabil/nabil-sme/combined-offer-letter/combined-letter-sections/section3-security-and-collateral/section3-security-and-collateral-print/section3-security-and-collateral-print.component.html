@@ -222,7 +222,7 @@
                                     <span *ngIf="data.paripassuContentsCT === 'EXISTING'"> <!--If existing paripassu is continued-->
                                 गरिदिनु भएको यथावत कायम रहने छ ।
                            </span>
-                                    <span class="nepaliFont">{{this.free?.section3?.freeText2}}</span>
+                                    <span>{{this.free?.section3?.freeText2}}</span>
                                 </p>
                             </li>
 
@@ -327,7 +327,7 @@
                                     </span>
                                 </p>
                             </li>
-                            <div *ngIf="this.table !== null" class="row" [innerHTML]="table | safeHtml" style="margin-left:1em; width:90%;">
+                            <div *ngIf="this.free !== null" class="row" [innerHTML]="table | safeHtml" style="margin-left:1em; width:90%;">
                             </div>
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
@@ -450,13 +450,13 @@
                             <li *ngIf="securityTypeSecondaryPersonalCondition">
                                 <!--Applicable only if Guarantee is required-->
                                 <strong>व्यक्तिगत जमानत (Personal Guarantee): </strong>
-                                <p class="m-0">
+                                <p class="m-0" *ngFor="let personalGuarantor of tempPersonalGuarantors">
                                     रु
-                                    <span class="font-weight-bold">{{this.guarantorAmount}}</span>
+                                    <span class="font-weight-bold">{{personalGuarantor.gurantedAmount.ct}}</span>
                                     /- (अक्षरेपी रु
-                                    <span class="font-weight-bold">{{this.guarantorAmountWords}}</span>
+                                    <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
                                     मात्र) बराबरको
-                                    <span class="font-weight-bold">{{commonGuarantorDetails(personalGuarantorsName, finalPersonalName)}}</span>
+                                    <span class="font-weight-bold">{{personalGuarantor.guarantorName.ct}}</span>
                                     ले बैंकको पक्षमा व्यक्तिगत जमानत
                                     <span *ngIf="personalGuaranteeToBeUsedSecondary"> <!--If existing personal guarantee is continued-->
                                         लेखिदिईएको यथावत कायम रहने छ ।
@@ -530,7 +530,7 @@
                             </li>
 
                             <div class="optional" *ngIf="securityTypeSecondarySharePledgeCondition">
-                                <span class="nepaliFont">{{this.free?.section3?.freeText5}}</span>
+                                <span>{{this.free?.section3?.freeText5}}</span>
                                 <app-share-pledge-securities
                                         [securityDetails]="letterData?.securities">
                                 </app-share-pledge-securities>
