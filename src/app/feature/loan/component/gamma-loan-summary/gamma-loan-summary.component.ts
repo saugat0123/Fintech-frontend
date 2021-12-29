@@ -190,6 +190,7 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   siteVisitDoc = [];
   requestedLoanType;
   hidePreviewButton = false;
+  zipDocumentName;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -757,6 +758,13 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
         this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED) ||
         this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
       this.hidePreviewButton = true;
+      if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+        this.zipDocumentName = '-documents';
+      } else if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+        this.zipDocumentName = '-closed-documents';
+      } else {
+        this.zipDocumentName = '-rejected-documents';
+      }
     } else {
       this.hidePreviewButton = false;
     }

@@ -757,7 +757,7 @@
                                 (click)=getDocPath()> Download All Document</button>
                         <button class="float-right sb-small sb-bg-dark text-white disable-print"
                                 *ngIf="loanDataHolder?.customerDocument?.length > 0 && hidePreviewButton && loanDataHolder?.zipPath"
-                                (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"> Download All Document</button>
+                                (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + zipDocumentName)"> Download All Document</button>
                     </span>
                 </div>
             </div>
@@ -823,7 +823,7 @@
                                        style="cursor: pointer"></i>
                                 </ng-container>
                                 <ng-container *ngIf="hidePreviewButton && loanDataHolder?.zipPath">
-                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
+                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + zipDocumentName)"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
                                 </ng-container>
@@ -857,7 +857,7 @@
                                        style="cursor: pointer"></i>
                                 </ng-container>
                                 <ng-container *ngIf="hidePreviewButton && loanDataHolder?.zipPath">
-                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
+                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + zipDocumentName)"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
                                 </ng-container>
@@ -895,7 +895,7 @@
                                        style="cursor: pointer"></i>
                                 </ng-container>
                                 <ng-container *ngIf="hidePreviewButton && loanDataHolder?.zipPath">
-                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
+                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + zipDocumentName)"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
                                 </ng-container>
@@ -936,7 +936,7 @@
                                        style="cursor: pointer"></i>
                                 </ng-container>
                                 <ng-container *ngIf="hidePreviewButton && loanDataHolder?.zipPath">
-                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
+                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + zipDocumentName)"
                                        aria-hidden="true" class="fa fa-download"
                                        style="cursor: pointer"></i>
                                 </ng-container>
@@ -1113,9 +1113,7 @@
                             <th>S.N</th>
                             <th>Date</th>
                             <th>From User</th>
-
                             <th>To User</th>
-
                             <th>Status</th>
                             <th class="cmt-width">Remarks</th>
                         </tr>
