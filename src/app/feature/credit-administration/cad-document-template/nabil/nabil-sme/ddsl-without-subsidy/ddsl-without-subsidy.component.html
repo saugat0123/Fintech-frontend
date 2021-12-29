@@ -247,7 +247,7 @@
                     </div>
                         <p>
                             <strong><u style="margin-left: 1%;">सुरक्षण विवरणः</u><br>
-                                क. <u>प्राथमिक/थप सुरक्षण (Primary/Secondary Security)</u>
+                                क. <u>प्राथमिक/थप सुरक्षण (Primary Security)</u>
                             </strong>
                         </p>
                         <ol class="conditions-list">
@@ -258,8 +258,7 @@
                             </strong>
                         </p>
                         <p *ngIf="mortgageOptions === 'NEW_MORTGAGE'; else existingMortgage"
-                           style="margin-left: 2%;">स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
-                            स्वीकृत ऋणकर्जा प्रवाह गर्नु अगाव ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको
+                           style="margin-left: 2%;">स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको
                             घर/जग्गा धितोेबन्धक पारित
                             /गरी दिनु पर्नेछ ।</p>
                         <ng-template #existingMortgage>
@@ -274,7 +273,7 @@
                                 [securityDetails]="tempData?.securities"></app-master-securities-view>
                     </div>
                 </li>
-                    <li *ngIf="securityTypeConditionFixedAssests || securityTypeSecondaryConditionFixedAssests">
+                    <li *ngIf="securityTypeConditionFixedAssests">
                         <p>
                             <strong> सामान मौज्दात धितोेबन्धक हकाधिकार (Hypothecation Changes):</strong></p>
                         <p style="margin-left: 2%">बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट
@@ -288,7 +287,7 @@
                             ।
                         </p>
                     </li>
-                    <li *ngIf="securityTypeConditionDocuments || securityTypeSecondaryConditionDocuments">
+                    <li *ngIf="securityTypeConditionDocuments">
                         <p>
                             <strong> हस्तान्तरण (Assignment):</strong><br></p>
                         <p style="margin-left: 2%"> ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account
@@ -299,7 +298,7 @@
                 </ol>
 
                     <p><strong>ख. थप/सहायक सुरक्षण (Additional/Secondary Security)</strong></p>
-                    <div class="pb-4" class="pb-4" *ngIf="securityTypeSecondaryCondition">
+                    <div class="pb-4" *ngIf="securityTypeSecondaryCondition">
                         <app-master-secondary-securities-view
                                 [securityDetails]="tempData?.securities"></app-master-secondary-securities-view>
                     </div>
@@ -645,7 +644,7 @@
                         </ol>
                         <p style="margin-left: 3%;"><strong><u>बिमा सम्बन्धी शर्तहरु</u></strong></p>
                         <ol class="conditions-list">
-                            <li *ngIf = "securityTypeConditionStock">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद आदी
+                            <li *ngIf =" securityTypeConditionStock || securityTypeSecondaryConditionFixedAssests">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र आतंकवाद आदी
                                 जस्ता जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको सुरक्षण
                                 स्वरुप
                                 धितोेबन्धक (Hypothecation) मा रहेका सम्पूर्ण सामान मौज्दातहरु/सम्पत्तिहरुका लागि
@@ -931,7 +930,7 @@
                                 सँचालित
                                 हुने कुरामा समेत ऋणी/ऋणी फर्म/ऋणी कम्पनी/ऋणी संस्था मँजुर गर्दछ ।
                             </li>
-                            <li *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === (customerSubType.PARTNERSHIP | uppercase)">
+                            <li *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === (customerSubType.PARTNERSHIP | uppercase) || (customerSubType.PROPRIETORSHIP | uppercase)">
                                 तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण
                                 गर्ने
                                 दायित्व ऋणी फर्मका प्रोप्राईटर/साझेदारहरुको हुनेछ र नविकरण पश्चात सोको प्रतिलिपि यस
@@ -1010,6 +1009,7 @@
                                           type="text"/>।-(बराबरको श्री <input
                                     class="form-field form-control-sm "
                                     formControlName="nameOfPersonalGuarantor"
+                                    [value]="commonGuarantorDetails(personalGuarantorsName, finalPersonalName)"
                                     type="text"/> ले बैंकको पक्षमा लेखिदिनुपर्ने
                                 व्यक्तिगत
                                 जमानत (Personal Guarantee)

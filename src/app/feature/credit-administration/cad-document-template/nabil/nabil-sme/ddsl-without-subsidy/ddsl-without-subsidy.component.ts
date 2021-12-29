@@ -285,7 +285,6 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             /*approvedCFRLoanAmount: this.tempData.loanAmountFigure ? this.tempData.loanAmountFigure.ct : '',
             approvedCFRLoanAmountInWord: this.tempData.loanAmountFigure ? this.tempData.loanAmountFigure.ct : '',*/
             nameOfBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
-            nameOfPersonalGuarantor: this.finalName ? this.finalName : '',
             nameOfARO: this.tempData.nameOfStaff ? this.tempData.nameOfStaff.ct : '',
             nameOfBranchManager: this.tempData.nameOfBranchManager ? this.tempData.nameOfBranchManager.ct : '',
             extraFinancialClause: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.firstText : '',
