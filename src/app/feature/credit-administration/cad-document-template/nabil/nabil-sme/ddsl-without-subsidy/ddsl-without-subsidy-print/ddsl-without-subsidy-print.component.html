@@ -236,13 +236,14 @@
                     <app-master-secondary-securities-view [securityDetails]="letter?.securities">
                     </app-master-secondary-securities-view>
                 </div>
-                <p style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong><br>
-                    <strong>रु.{{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}।-
+                <p style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong></p>
+                <p style="margin-left: 2%;" *ngFor="let personalGuarantor of tempPersonalGuarantors">
+                    <strong>रु. <span class="font-weight-bold">{{personalGuarantor.gurantedAmount.ct}}</span>।-
                         (अक्षरेपी
                         रु.
-                        {{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))}}
+                        <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
                         मात्र)</strong> बराबरको
-                    {{commonGuarantorDetails(personalGuarantorsName, finalPersonalName)}}
+                        <span class="font-weight-bold">{{personalGuarantor.guarantorName.ct}}</span>
                     ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
                 </p>
                 <p style="margin-left: 2%;"><strong>व्याज सम्बन्धी शर्तहरुः</strong></p>
@@ -782,8 +783,11 @@
                             {{getKittaNumbers(kittaNumbers, plotNumber)}}</strong></span>
                             को धितोबन्धक तमसुक(Mortgage Deed)
                         </li>
-                        <li>रु.{{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}
-                            ।-(बराबरको श्री {{this.finalName ? this.finalName : ''}}
+                        <li *ngFor="let val of tempPersonalGuarantors">
+                            रु.
+                            <span><strong>{{val.gurantedAmount.ct ? val.gurantedAmount.ct : ''}}</strong></span>
+                            ।-(बराबरको {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                            <span><strong>{{val.guarantorName.ct ? val.guarantorName.ct : ''}}</strong></span>
                             ले बैंकको पक्षमा लेखिदिनुपर्ने
                             व्यक्तिगत
                             जमानत (Personal Guarantee)

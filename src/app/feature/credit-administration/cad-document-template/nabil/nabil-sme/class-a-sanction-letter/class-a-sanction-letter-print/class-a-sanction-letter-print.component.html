@@ -759,14 +759,8 @@
                 <li>
                     मोजरा पत्र (Letter of set off)
                 </li>
-                <li class="row col-md-12" style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
-                    <span class="nepaliFont"
-                          style=" font-size: 24px;
-                            margin-top: -0.35em;
-                              margin-left: 0.3em;">
+                <li>
                          {{ offerData?.supportedInformation }}
-                        </span>
-
                 </li>
             </div>
             <br>
@@ -788,9 +782,8 @@
                 सम्बन्धी लिखतहरु बैंकको नियमानुसार गर्नु/बुझाउनु
                 भए पश्चातमात्र कर्जा सुविधा प्रवाह हुन सक्नेछ । अन्यथा, स्वीकृत ऋण सुविधा स्वतः रद्द हुनेछ ।
             </div>
-            <br>
 
-            <div class="col-md-12 d-flex justify-content-between">
+            <div class="row col-md-12 d-flex justify-content-between">
                 <div class="left-content">
 
                     .........................................
@@ -808,10 +801,10 @@
 
                     .........................................
                     <p>
-                                 <span [ngClass]="{'nepaliFont num' : letter?.nameOfBranchManager!== null && letter?.nameOfBranchManager!== ''}">
+                                 <span [ngClass]="{'num' : letter?.nameOfBranchManager!== null && letter?.nameOfBranchManager!== ''}">
                             {{letter?.nameOfBranchManager === null || letter?.nameOfBranchManager === '' ? '___________' : letter?.nameOfBranchManager}}</span>
                         <br><br>
-                        <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
+                        <span [ngClass]="{'num' : letter?.branchName!== null && letter?.branchName!== ''}">
             {{letter?.branchName === null || letter?.branchName === '' ? '___________' : letter?.branchName}}</span>
 
                     </p>
