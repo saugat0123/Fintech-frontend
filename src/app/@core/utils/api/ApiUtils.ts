@@ -18,6 +18,16 @@ export class ApiUtils {
         };
     }
 
+    public static getBankRequest(api: string) {
+        const fullApi = `${ApiConfig.BANK_URL}/${api}`;
+        return {
+            url: fullApi,
+            header: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+    }
+
     public static getRequestWithFileSupport(api: string) {
         const fullApi = `${ApiConfig.URL}/${api}`;
         const at = LocalStorageUtil.getStorage().at;
