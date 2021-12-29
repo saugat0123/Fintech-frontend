@@ -19,6 +19,8 @@ export class AutoLoanComponent implements OnInit {
     complementaryOtherAutoLoan = false; vehiclePurchaseAutoLoan = false; vehicleRegistrationAutoLoan = false;
     loanOptionAutoLoan; autoLoanTypeAutoLoan; emiPaymentTypeAutoLoan; paymentsTermsAutoLoan;
     complementaryOtherAutoLoanName;
+    tempInformation;
+    newEMIAutoPopulateAutoLoan = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
     constructor(private formBuilder: FormBuilder,
     ) {
     }
@@ -27,6 +29,8 @@ export class AutoLoanComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
+            this.tempInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
+            this.setFreeTextAutoLoan();
             this.fillForm();
         }
         this.getConditions();
@@ -178,13 +182,31 @@ export class AutoLoanComponent implements OnInit {
                     // tslint:disable-next-line:max-line-length
                     annualInstallmentNameOfDealerAutoLoan: this.data.nameOfDealer ? this.data.nameOfDealerCT : '',
                 });
+                this.patchFreeText();
             }
         }
     }
     setFreeTextAutoLoan() {
         this.autoLoanFreeText = {
             freeText14: this.form.get('freeTextFourteen').value ? this.form.get('freeTextFourteen').value : '',
+            // tslint:disable-next-line:max-line-length
+            newEMIAutoPopulateAutoLoan1: this.form.get('newEMIAutoPopulateAutoLoan').value ? this.form.get('newEMIAutoPopulateAutoLoan').value : '',
         };
         return this.autoLoanFreeText;
+    }
+    patchFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempInformation)) {
+            if (this.newEMIAutoPopulateAutoLoan === this.tempInformation.section2.newEMIAutoPopulateAutoLoan1) {
+                this.newEMIAutoPopulateAutoLoan = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
+            }
+            if (this.tempInformation.section2.newEMIAutoPopulateAutoLoan1 !== this.newEMIAutoPopulateAutoLoan) {
+                this.newEMIAutoPopulateAutoLoan = this.tempInformation.section2.newEMIAutoPopulateAutoLoan1;
+            }
+        }
+        this.form.patchValue({
+            freeTextFourteen: this.tempInformation ? this.tempInformation.section2.freeText14 : '',
+            // tslint:disable-next-line:max-line-length
+            newEMIAutoPopulateAutoLoan: !ObjectUtil.isEmpty(this.newEMIAutoPopulateAutoLoan) ? this.newEMIAutoPopulateAutoLoan : '',
+        });
     }
 }

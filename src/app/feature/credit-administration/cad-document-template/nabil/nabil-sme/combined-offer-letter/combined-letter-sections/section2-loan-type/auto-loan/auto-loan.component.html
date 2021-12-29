@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="all">
     <p>
         <strong>सवारी साधन कर्जा (Auto Loan)
            <ng-container *ngIf="complementaryOtherAutoLoan"> बुँदा नं.<input class="form-field form-control-sm "
@@ -74,7 +74,7 @@
                         </span><br>
         <span *ngIf="emiPaymentTypeAutoLoan === 'SUBSEQUENT_MONTH'"><strong>कर्जा भुक्तानी शुरुः</strong>कर्जा <input class="form-field form-control-sm "
                                                                 formControlName="newEMIAutoPopulateAutoLoan"
-                                                                value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
+                                                                [value]="newEMIAutoPopulateAutoLoan"
                                                                 type="text"/>।
             <!--(निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--></span><br>
 

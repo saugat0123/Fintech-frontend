@@ -1,7 +1,7 @@
 <nb-card style="overflow-y :scroll">
     <nb-card-body>
         <div class="interest-subsidy" id="{{offerLetterConst.INTEREST_SUBSIDY_SANCTION_LETTER}}">
-            <div class="row" style="margin-top: 3in">
+            <div class="row">
                 <div class="col-sm-12">
                     <p class="m-0">स्वीकृती पत्र नं. :
                         <span class="font-weight-bold">
@@ -306,7 +306,7 @@
                             <span class="font-weight-bold">{{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, "gurantedAmount", "en"))}}</span>
                             मात्र)
                             बराबरको <span class="font-weight-bold">
-                                            {{ this.finalName }}
+                                            {{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}
                                             </span>
                             ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
                         </li>
@@ -878,7 +878,7 @@
                         उल्लंघन भएको मानिनेछ ।
                     </li>
                     <li *ngIf="freeInformation?.firstText">
-                        <span>{{freeInformation ? freeInformation.firstText : ''}}</span>
+                        <span style="font-size: 29px" class="nepaliFont">{{freeInformation ? freeInformation.firstText : ''}}</span>
                     </li>
                 </ol>
             </div>
@@ -972,7 +972,7 @@
                             भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                         </li>
                         <li *ngIf="freeInformation?.secondText">
-                            <span>{{freeInformation ? freeInformation.secondText : ''}}</span>
+                            <span style="font-size: 29px" class="nepaliFont">{{freeInformation ? freeInformation.secondText : ''}}</span>
                         </li>
                     </ol>
                 </div>
@@ -1040,7 +1040,7 @@
                         </ng-container>
                         </ng-template>
                         <span class="font-weight-bold">
-                                            {{ this.finalName }}
+                                            {{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}
                                             </span> ले बैंकको पक्षमा लेखिदिनुपर्ने
                         व्यक्तिगत जमानत (Personal Guarantee)
                     </li>
@@ -1057,7 +1057,7 @@
                     <li> स्थायी लेखा नम्बर प्रमाणपत्र (PAN Certificate)
                     </li>
                     <li *ngIf="freeInformation?.thirdText">
-                        <span>{{freeInformation ? freeInformation.thirdText : ''}}</span>
+                        <span style="font-size: 29px" class="nepaliFont">{{freeInformation ? freeInformation.thirdText : ''}}</span>
                     </li>
                 </ol>
             </div>
@@ -1083,8 +1083,7 @@
                               [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct!== null && letter?.nameOfStaff.ct!== ''}">
             {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
                         <br>
-                        <span
-                        >{{freeInformation ? freeInformation.autoPopulate1 : 'सम्पर्क अधिकृत'}}</span>
+                        <span class="nepaliFont" style="font-size: 29px">{{freeInformation ? freeInformation.autoPopulate1 : 'सम्पर्क अधिकृत'}}</span>
                         <br>
                         नबिल बैंक लि.
                         <br>
@@ -1099,8 +1098,8 @@
                               [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct!== null && letter?.nameOfBranchManager.ct!== ''}">
                                 {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                         <br>
-                        <span
-                        >{{freeInformation ? freeInformation.autoPopulate2 : 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक'}}</span>
+                        <span style="font-size: 29px" class="nepaliFont">
+                            {{freeInformation ? freeInformation.autoPopulate2 : 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक'}}</span>
                         <br>
                         नबिल बैंक लि.
                         <br>
@@ -1224,7 +1223,7 @@
                         नातिनी ज्वाइँ समेतलाई बुझाउनेछ ।)
                     </li>
                     <li *ngIf="freeInformation?.fourthText">
-                        <span>{{freeInformation ? freeInformation.fourthText : ''}}</span>
+                        <span style="font-size: 29px" class="nepaliFont">{{freeInformation ? freeInformation.fourthText : ''}}</span>
                     </li>
                 </ol>
             </div>

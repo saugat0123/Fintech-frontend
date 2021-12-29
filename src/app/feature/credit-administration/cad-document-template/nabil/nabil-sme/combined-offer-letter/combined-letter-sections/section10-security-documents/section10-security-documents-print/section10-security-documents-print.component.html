@@ -1,7 +1,6 @@
 <!--Security Documents-->
 <div style="line-height: 1.9em">
-    SECTION 10
-    <div class="col-md-12">
+    <div class="col-md-12 text-justify">
         <div class="row mt-2">
             <p class="m-0">
                 <strong>
@@ -59,13 +58,16 @@
                 <li *ngIf="multiVisible">
                     बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
                 </li>
-                <li *ngIf="guaranteeVisible">
-                    रु.
-                    <span><strong>{{proposedAmount ? proposedAmount : ''}}</strong></span>
-                    /-
-                    बराबरको
-                    <span><strong>{{commonGuarantorDetails(personalGuarantorsName, finalPersonalName)}}</strong></span>
-                    ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
+                <li *ngFor="let val of tempPersonalGuarantors">
+                    <p *ngIf="guaranteeVisible">
+                        रु.
+                        <span><strong>{{val.gurantedAmount.ct ? val.gurantedAmount.ct : ''}}</strong></span>
+                        /-
+                        बराबरको
+                            {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                            <span><strong>{{val.guarantorName.ct ? val.guarantorName.ct : ''}}</strong></span>
+                            ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
+                    </p>
                 </li>
                 <li *ngIf="wealthVisible">
                     जमानीकर्ताको सम्पत्ति विवरण (Wealth Statement of Guarantor)
@@ -144,7 +146,7 @@
         </div>
         <!--    Only for existing case-->
         <div class="row mt-2">
-            <div class="col-md-12">
+            <div class="col-md-12 all">
                 <strong>
                     यस अघि विभिन्न मितिका ऋणस्वीकृति पत्रमा उल्लिखित ऋणकर्जा सुविधा सम्बन्धमा बैंकको पक्षमा गरिदिएका
                     सम्पूर्ण सुरक्षण कागजपत्रहरु तथा सोमा उल्लिखित शर्त बन्देजहरु मान्य र बैध रहनेछन् ।

@@ -22,6 +22,7 @@ export class Section2LoanTypeComponent implements OnInit {
     tempInformation;
     loanData = [];
     freeTextVal: any = {};
+    termLoanFreeText = [];
     @ViewChild('termLoanToOrForComponent', {static: false}) termLoanToOrForComponent: TermLoanToOrForComponent;
     @ViewChild('mortgageEquityTermLoanComponent', {static: false}) mortgageEquityTermLoanComponent: MortgageEquityTermLoanComponent;
     @ViewChild('autoLoanComponent', {static: false}) autoLoanComponent: AutoLoanComponent;
@@ -845,9 +846,20 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     setTextAreaValue() {
-        // const tempTermLoanFreeVal = this.termLoanToOrForComponent.setFreeTextTermLoan();
-        // const tempAutoLoanFreeVal = this.autoLoanComponent.setFreeTextAutoLoan();
-        // const tempMortgageEquity = this.mortgageEquityTermLoanComponent.setFreeTextMortgage();
+        let tempTermLoanFreeVal: any = [];
+        console.log('Term Loan Component:', this.termLoanToOrForComponent.form);
+        if (this.termLoanDetails.length > 0) {
+            tempTermLoanFreeVal = this.termLoanToOrForComponent.form.value.termLoanFreeText;
+        }
+        console.log('Temp Term Loan', tempTermLoanFreeVal);
+        let tempAutoLoanFreeVal;
+        if (this.autoLoanDetails.length > 0) {
+            tempAutoLoanFreeVal = this.autoLoanComponent.setFreeTextAutoLoan();
+        }
+        let tempMortgageEquity;
+        if (this.isEquityMortgageOverdraft) {
+            tempMortgageEquity = this.mortgageEquityTermLoanComponent.setFreeTextMortgage();
+        }
         this.freeTextVal = {
             loanExpiryIrrevocable: this.form.get('loanExpiryDateIrrevocable2').value ? this.form.get('loanExpiryDateIrrevocable2').value : '',
             loanExpiryTimeLetter: this.form.get('loanExpiryDateTimeLetter2').value ? this.form.get('loanExpiryDateTimeLetter2').value : '',
@@ -867,11 +879,17 @@ export class Section2LoanTypeComponent implements OnInit {
             freeText7: this.form.get('freeTextSeven').value ? this.form.get('freeTextSeven').value : '',
             freeText8: this.form.get('freeTextEight').value ? this.form.get('freeTextEight').value : '',
             freeText9: this.form.get('freeTextNine').value ? this.form.get('freeTextNine').value : '',
-            // freeText10: tempTermLoanFreeVal.freeText10,
-            // freeText11: tempTermLoanFreeVal.freeText11,
-            // freeText12: tempTermLoanFreeVal.freeText12,
-            // freeText13: tempMortgageEquity.freeText13,
-            // freeText14: tempAutoLoanFreeVal.freeText14,
+            // termLoanFreeText: !ObjectUtil.isEmpty(this.termLoanFreeText) ? this.termLoanFreeText : '',
+            termLoanFreeText : !ObjectUtil.isEmpty(JSON.stringify(tempTermLoanFreeVal)),
+            /*freeText10: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.freeText10 : '',
+            freeText11: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.freeText11 : '',
+            freeText12: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.freeText12 : '',
+            SNLimitVehicleLoan: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.SNLimitVehicleLoan : '',
+            newEMISubsequentVehicleLoan1: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.newEMISubsequentVehicleLoan1 : '',*/
+            freeText13: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.freeText13 : '',
+            freeText14: !ObjectUtil.isEmpty(tempAutoLoanFreeVal) ? tempAutoLoanFreeVal.freeText14 : '',
+            newEMIAutoPopulateAutoLoan1: !ObjectUtil.isEmpty(tempAutoLoanFreeVal) ? tempAutoLoanFreeVal.newEMIAutoPopulateAutoLoan1 : '',
+            newEMIAutoPopulateMortgageTerm1: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.newEMIAutoPopulateMortgageTerm1 : '',
             freeText15: this.form.get('freeTextFifteen').value ? this.form.get('freeTextFifteen').value : '',
             freeText16: this.form.get('freeTextSixteen').value ? this.form.get('freeTextSixteen').value : '',
             snOfFacility: this.form.get('SNOfFacility').value ? this.form.get('SNOfFacility').value : '',

@@ -234,7 +234,7 @@
                                 गरिदिनु भएको यथावत कायम रहने छ ।
                            </span>
                                     <textarea
-                                            class="form-control nepaliFont"
+                                            class="form-control"
                                             rows="5"
                                             style="width:95%;margin-left:2%"
                                             name="freeText2"
@@ -579,26 +579,30 @@
                             <li *ngIf="securityTypeSecondaryPersonalCondition">
                                 <!--Applicable only if Guarantee is required-->
                                 <strong>व्यक्तिगत जमानत (Personal Guarantee): </strong>
-                                <p class="m-0">
+                                <p class="m-0" *ngFor="let personalGuarantor of tempPersonalGuarantors">
                                     रु
-                                    <input formControlName="guarantorAmount"
-                                           name="guarantorAmount"
+                                    <input formControlName="personalGuarantorAmount"
+                                           name="personalGuarantorAmount"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           placeholder="Loan Amount"/>
+                                           placeholder="Loan Amount"
+                                           [value]="personalGuarantor.gurantedAmount.ct"/>
                                     /- (अक्षरेपी रु
-                                    <input formControlName="guarantorAmountInWords"
-                                           name="guarantorAmountInWords"
+                                    <input formControlName="personalGuarantorAmountInWords"
+                                           name="personalGuarantorAmountInWords"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           placeholder="Loan Amount"/>
+                                           placeholder="Loan Amount"
+                                           [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
+                                           />
                                     मात्र) बराबरको
-                                    <input formControlName="personalguaranteeName"
+                                    {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                                    <input formControlName="personalGuaranteeName"
                                            name="personalguaranteeName"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           [value]="commonGuarantorDetails(personalGuarantorsName, finalPersonalName)"
-                                           placeholder="Guarantor Names"/>
+                                           placeholder="Guarantor Names"
+                                           [value]="personalGuarantor.guarantorName.ct"/>
                                     ले बैंकको पक्षमा व्यक्तिगत जमानत
                                     <span *ngIf="personalGuaranteeToBeUsedSecondary"> <!--If existing personal guarantee is continued-->
                                 लेखिदिईएको यथावत कायम रहने छ ।
@@ -698,7 +702,7 @@
                             </li>
                             <div class="optional" *ngIf="securityTypeSecondarySharePledgeCondition">
                                 <textarea
-                                        class="form-control nepaliFont"
+                                        class="form-control"
                                         rows="5"
                                         style="width:95%;margin-left:2%"
                                         name="freeText5"

@@ -1,11 +1,18 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="all">
     <p *ngIf="termLoanForTermLoanToOrFor === 'VEHICLE'"><strong>सवारी साधन खरिद गर्न आवधिक कर्जा (Term Loan to Purchase
         Vehicle)
         <ng-container *ngIf="complementaryOtherTermLoanToOrFor">
-            बुँदा नं.<input class="form-field form-control-sm "
-                            formControlName="SNOfParentLimitVehicleLoan"
-                            placeholder=""
-                            type="text"/>
+            बुँदा नं.
+            <ng-container formArrayName="termLoanFreeText">
+                <ng-container *ngFor="let _ of termLoanFreeText.controls; index as index">
+                    <ng-container [formGroupName]="index">
+                    <input class="form-field form-control-sm "
+                                    formControlName="SNOfParentLimitVehicleLoan"
+                                    placeholder=""
+                                    type="text"/>
+                </ng-container>
+                </ng-container>
+            </ng-container>
             <ng-container *ngIf="complementaryOtherTermLoanToOrForName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
             <ng-container *ngIf="complementaryOtherTermLoanToOrForName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
         </ng-container>
@@ -21,10 +28,16 @@
                  placeholder=""
                  type="text"/>)
         <ng-container *ngIf="complementaryOtherTermLoanToOrFor">
-            बुँदा नं.<input class="form-field form-control-sm "
+            बुँदा नं.
+            <ng-container formArrayName="termLoanFreeText">
+                <ng-container *ngFor="let _ of termLoanFreeText.controls; index as index">
+                    <ng-container [formGroupName]="index">
+                    <input class="form-field form-control-sm "
                             formControlName="SNOfParentLimitVehicleLoan"
                             placeholder=""
                             type="text"/>
+                </ng-container></ng-container>
+            </ng-container>
             <ng-container *ngIf="complementaryOtherTermLoanToOrForName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
             <ng-container *ngIf="complementaryOtherTermLoanToOrForName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
         </ng-container>
@@ -42,24 +55,38 @@
                                 type="text"/> मात्र)</strong>
     </p>
     <p>
-        <strong>सुरक्षणः</strong> <textarea
-            class="form-control customFont nepaliFont"
-            rows="2"
-            style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
-            name=""
-            placeholder=""
-            formControlName="freeTextTen">
-                        </textarea>
+        <strong>सुरक्षणः</strong>
+        <ng-container formArrayName="termLoanFreeText">
+            <ng-container *ngFor="let _ of termLoanFreeText.controls; index as index">
+                <ng-container [formGroupName]="index">
+                <textarea
+                    class="form-control customFont nepaliFont"
+                    rows="2"
+                    style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                    name=""
+                    placeholder=""
+                    formControlName="freeTextTen">
+                </textarea>
+            </ng-container>
+            </ng-container>
+        </ng-container>
     </p>
     <p>
-        <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong><textarea
-            class="form-control customFont nepaliFont"
-            rows="2"
-            style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
-            name=""
-            placeholder=""
-            formControlName="freeTextEleven">
-                        </textarea>
+        <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+        <ng-container formArrayName="termLoanFreeText">
+            <ng-container *ngFor="let _ of termLoanFreeText.controls; index as index">
+                <ng-container [formGroupName]="index">
+                <textarea
+                    class="form-control customFont nepaliFont"
+                    rows="2"
+                    style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                    name=""
+                    placeholder=""
+                    formControlName="freeTextEleven">
+                </textarea>
+            </ng-container>
+            </ng-container>
+        </ng-container>
     </p>
     <p *ngIf="termLoanTypeTermLoanToOrFor === 'NEW_EMI'">
         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
@@ -95,10 +122,17 @@
                                            type="text"/> सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                         </span><br>
         <span *ngIf="emiPaymentTypeTermLoanToOrFor === 'SUBSEQUENT_MONTH'">
-            <strong>कर्जा भुक्तानी शुरुः</strong> कर्जा <input class="form-field form-control-sm "
-                                                               formControlName="newEMISubsequentVehicleLoan"
-                                                               value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
-                                                               type="text"/> ।
+            <strong>कर्जा भुक्तानी शुरुः</strong> कर्जा
+            <ng-container formArrayName="termLoanFreeText">
+                <ng-container *ngFor="let _ of termLoanFreeText.controls; index as index">
+                    <ng-container [formGroupName]="index">
+                    <input class="form-field form-control-sm nepaliFont"
+                           formControlName="newEMISubsequentVehicleLoan"
+                           [value]="newEMISubsequentVehicleLoan"
+                           type="text"/>
+                </ng-container>
+                </ng-container>
+            </ng-container> ।
             <!--( निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--></span><br>
 
         <span *ngIf="emiPaymentTypeTermLoanToOrFor === 'EVERY_20TH'">
@@ -282,13 +316,19 @@
                                                          placeholder=""
                                                          type="text"/> ।<br>
         <strong>कर्जा प्रवाह तरिकाः</strong>
-        <textarea
-                class="form-control customFont nepaliFont"
-                rows="2"
-                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
-                name=""
-                placeholder=""
-                formControlName="freeTextTwelve">
-        </textarea>
+        <ng-container formArrayName="termLoanFreeText">
+            <ng-container *ngFor="let _ of termLoanFreeText.controls; index as index">
+                <ng-container [formGroupName]="index">
+                    <textarea
+                            class="form-control customFont nepaliFont"
+                            rows="2"
+                            style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                            name=""
+                            placeholder=""
+                            formControlName="freeTextTwelve">
+                    </textarea>
+                </ng-container>
+            </ng-container>
+        </ng-container>
     </p>
 </form>

@@ -1,4 +1,4 @@
-<div class="container text-justify">
+<div class="container text-justify nep">
     <form [formGroup]="form">
         <p class="text-center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण</strong></p>
         <div>
@@ -1612,7 +1612,7 @@
                     <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length +(index2 + 1) | nepaliWord}})</strong></td>
                     <td>
                         <app-term-loan-to-or-for #termLoanToOrForComponent
-                                                 [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="termLoanDetails" [index]="index2" [data]="termLoanData[index2]"></app-term-loan-to-or-for>
+                                                 [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="termLoanDetails" [index]="index2" [data]="termLoanData[index2]" [data2]="termLoanData"></app-term-loan-to-or-for>
                     </td>
                 </tr>
                 <tr>
@@ -1631,11 +1631,11 @@
                 </tr>
             </table>
         </div>
-        <div class="row">
-            <div class="col-md-1">
+        <div class="row all">
+            <div class="col-md-1 all">
                 <strong><u>द्रष्टब्यः</u></strong>
             </div>
-            <div class="col-md-11">
+            <div class="col-md-11 all">
                 <p> माथि बुँदा नं.
                     <input class="form-field form-control-sm "
                            formControlName="SNOfFacility"

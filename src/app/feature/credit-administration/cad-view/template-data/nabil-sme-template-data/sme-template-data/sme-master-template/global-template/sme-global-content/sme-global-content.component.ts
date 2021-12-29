@@ -100,6 +100,9 @@ export class SmeGlobalContentComponent implements OnInit {
         }
         //Sanction Letter Date
         //Loan Application Date
+        if (this.initialInformation.smeGlobalForm.loanOption === 'New') {
+          this.loanOptionsSelected = true;
+        }
         const previousSanctionType = this.initialInformation.smeGlobalForm.previousSanctionType;
         if (previousSanctionType === 'AD') {
           const sanctionLetterDate = this.initialInformation.smeGlobalForm.sanctionLetterDate;
