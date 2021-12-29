@@ -124,6 +124,11 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       key: CustomerGroupLoanComponent.LOAN_CHANGE,
       value: 'Change Loan'
     }];
+    this.customerLoanService.getLoansByLoanHolderId(this.customerInfo.id).subscribe((data: any) => {
+      this.loan = data.detail;
+      this.isLoaded = true;
+      this.loan = this.loan.filter((l) => l.documentStatus !== DocStatus.value(DocStatus.APPROVED));
+    });
     if (LocalStorageUtil.getStorage().username === 'SPADMIN'
         || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN
         || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
