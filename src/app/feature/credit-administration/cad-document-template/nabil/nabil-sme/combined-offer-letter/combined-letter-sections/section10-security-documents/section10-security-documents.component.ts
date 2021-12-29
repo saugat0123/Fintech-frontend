@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 import {EngToNepaliNumberPipe} from '../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../@core/pipe/currency-formatter.pipe';
@@ -54,6 +54,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
   pariPasu: boolean;
   partnershipDeed: boolean;
   letterSetOff: boolean;
+  freeInformation: any;
   constructor(private formBuilder: FormBuilder,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe) {
@@ -137,65 +138,23 @@ export class Section10SecurityDocumentsComponent implements OnInit {
       totalLoanAmountInFigure: [undefined],
       loanAmountInFigure: [undefined],
       nameOfBranch: [undefined],
-      additionalGuarantorDetails: [undefined],
+      textAreas: this.formBuilder.array([]),
       guarantorName: [undefined],
       plotNumber: [undefined],
       nameOfPropertyOwner: [undefined],
     });
+    this.addTextArea();
   }
 
   guarantorDetails() {
     this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
         val.guarantorType.en === 'Personal Guarantor');
-    this.personalGuarantorDetails();
-  }
-
-  personalGuarantorDetails() {
-    let rel: String = '';
-    this.tempPersonalGuarantors.forEach(i => {
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '0') {
-        rel = 'श्रीमती';
-      }
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '1') {
-        rel = 'सुश्री';
-      }
-      if (i.gender.en === 'MALE') {
-        rel = 'श्रीमान्';
-      }
-      this.personalGuarantorsName.push(rel + ' ' + i.guarantorName.ct);
-    });
-  }
-
-  commonGuarantorDetails(guarantorName, finalName) {
-    if (guarantorName.length === 1) {
-      finalName = guarantorName[0];
-    }
-    if (guarantorName.length === 2) {
-      finalName = guarantorName.join(' र ');
-    }
-    if (guarantorName.length > 2) {
-      for (let i = 0; i < guarantorName.length - 1; i++) {
-        this.temp2 = guarantorName.join(' , ');
-      }
-      const temp1 = guarantorName[guarantorName.length - 1];
-      finalName = this.temp2 + ' र ' + temp1;
-    }
-    return finalName ? finalName : '';
   }
 
   fillForm() {
-    const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
-    let totalLoanAmount = 0;
-    this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
-      const val = value.proposal.proposedLimit;
-      totalLoanAmount = totalLoanAmount + val;
-    });
     this.form.patchValue({
-      totalLoanAmountInFigure: this.limitAmount ? this.limitAmount : '',
-      loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      totalLoanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.limitAmount)),
       nameOfBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
-      guarantorName: this.finalName ? this.finalName : '',
       plotNumber: this.kittaNumbers ? this.kittaNumbers : '',
       nameOfPropertyOwner: this.securityOwnersName ? this.securityOwnersName : '',
     });
@@ -306,6 +265,17 @@ export class Section10SecurityDocumentsComponent implements OnInit {
         && temp.requiredLegalDocument.requiredDocument.includes('Letter Of Set Off')) {
       this.letterSetOff = true;
     }
+  }
+
+  addTextArea() {
+    (this.form.get('textAreas') as FormArray).push(
+        this.formBuilder.group({
+          additionalGuarantorDetails: [undefined]
+    }));
+  }
+
+  removeAtIndex(i: number) {
+    (this.form.get('textAreas') as FormArray).removeAt(i);
   }
 
 }

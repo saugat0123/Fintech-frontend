@@ -1,6 +1,6 @@
 <!--Security Documents-->
 <form [formGroup]="form">
-    <div class="col-md-12">
+    <div class="col-md-12 text-justify">
         <div class="row mt-2">
             <p class="m-0">
                 <strong>
@@ -73,18 +73,22 @@
                 <li *ngIf="multiVisible">
                     बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
                 </li>
-                <li *ngIf="guaranteeVisible">
+                <li *ngFor="let val of tempPersonalGuarantors">
+                    <p *ngIf="guaranteeVisible">
                     रु.
                     <input formControlName="loanAmountInFigure"
                            name="loanAmountInfigure"
                            type="text"
-                           class="form-field form-control-sm"/> /-
+                           class="form-field form-control-sm"
+                    [value]="val.gurantedAmount.ct"/> /-
                     बराबरको
-                    <input class="form-field form-control-sm col-3"
+                        {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                        <input class="form-field form-control-sm col-3"
                            formControlName="guarantorName"
                            type="text"
-                           [value]="commonGuarantorDetails(personalGuarantorsName, finalPersonalName)"/>
+                           [value]="val.guarantorName.ct"/>
                     ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
+                    </p>
                 </li>
                 <li *ngIf="wealthVisible">
                     जमानीकर्ताको सम्पत्ति विवरण (Wealth Statement of Guarantor)
@@ -155,20 +159,29 @@
                 <li *ngIf="letterSetOff">
                     मोजरा पत्र (Letter of set off)
                 </li>
-                <li>
-                 <textarea
+                    <a nbButton status="primary" size="tiny" (click)="addTextArea()" style="margin-bottom: 10px">Add
+                        Text Area
+                    </a>
+                    <li *ngFor="let textArea of form.get('textAreas')['controls']; let i = index;" formArrayName="textAreas">
+                        <ng-container [formGroupName]="i">
+                        <textarea
                          class="form-control nepaliFont"
                          rows="5"
-                         style="width:95%;margin-left:2%"
+                         style="width:1100px;margin-left:2%"
                          name="additionalGuarantorDetails"
                          formControlName="additionalGuarantorDetails">
                  </textarea>
+                        </ng-container>
+                    <a nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
+                       style="position: static">
+                        <em class="fa fa-trash" style="color: white;"></em>
+                    </a>
                 </li>
             </ul>
         </div>
         <!--    Only for existing case-->
         <div class="row mt-2">
-            <div class="col-md-12">
+            <div class="col-md-12 all">
                 <strong>
                     यस अघि विभिन्न मितिका ऋणस्वीकृति पत्रमा उल्लिखित ऋणकर्जा सुविधा सम्बन्धमा बैंकको पक्षमा गरिदिएका
                     सम्पूर्ण सुरक्षण कागजपत्रहरु तथा सोमा उल्लिखित शर्त बन्देजहरु मान्य र बैध रहनेछन् ।

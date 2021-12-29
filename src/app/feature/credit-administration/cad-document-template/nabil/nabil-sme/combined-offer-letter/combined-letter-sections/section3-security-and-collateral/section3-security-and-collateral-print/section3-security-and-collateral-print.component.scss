@@ -8,9 +8,11 @@
 }
 p {
   line-height: 1.9em !important;
+  font-size: 19px !important;
 }
-ol li {
-  font-weight:bold;
+.optional, ol li {
+  //font-weight:bold;
+  font-size: 19px !important;
 }
 li > p {
   font-weight:normal;
