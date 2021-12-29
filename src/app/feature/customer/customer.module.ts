@@ -46,6 +46,7 @@ import {ChangeLoanComponent} from './component/change-loan/change-loan.component
 import {VideoKycComponent} from '../video-kyc/video-kyc.component';
 import {VideoKycModule} from '../video-kyc/video-kyc.module';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
+import {NepaliPatroModule} from 'nepali-patro';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -101,7 +102,8 @@ const COMPONENTS = [
         CbsGroupModule,
         MicroLoanModule,
         VideoKycModule,
-      LoanInformationDetailViewModule
+        LoanInformationDetailViewModule,
+        NepaliPatroModule
 
     ],
   entryComponents: [
