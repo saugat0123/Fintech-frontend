@@ -132,9 +132,14 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(
                 this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
         }
+        this.guarantorData.forEach(any => {
+            this.guarantorParsed.push(JSON.parse(any.nepData));
+        });
+        this.guarantorDetails();
         this.checkOfferLetterData();
         this.checkPrimaryConditions();
         this.checkSecondaryConditions();
+        
 
         const securities = this.tempData.securities;
         securities.primarySecurity.forEach(pd => {
@@ -217,6 +222,8 @@ export class DdslWithoutSubsidyComponent implements OnInit {
             securities: this.formBuilder.array([]),
             loanType: [undefined],
             loanTypeEn: [undefined],
+            loanAmountInFigure: [undefined],
+            guarantorName: [undefined],
         });
     }
 
@@ -252,10 +259,6 @@ export class DdslWithoutSubsidyComponent implements OnInit {
         } else {
             finalPreviousSanction = this.tempData.previousSanctionDateNepali ? this.tempData.previousSanctionDateNepali.ct : '';
         }
-        this.guarantorData.forEach(any => {
-            this.guarantorParsed.push(JSON.parse(any.nepData));
-        });
-        this.guarantorDetails();
         this.form.patchValue({
             referenceNo: autoRefNumber ? autoRefNumber : '',
             borrowersName: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
@@ -432,10 +435,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     guarantorDetails() {
         this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
             val.guarantorType.en === 'Personal Guarantor');
-        this.tempPersonalGuarantors.forEach(i => {
-            this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
-        });
-    }
+      }
 
     commonGuarantorDetails(guarantorName, finalName) {
         if (guarantorName.length === 1) {

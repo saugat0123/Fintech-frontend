@@ -302,20 +302,21 @@
                         <app-master-secondary-securities-view
                                 [securityDetails]="tempData?.securities"></app-master-secondary-securities-view>
                     </div>
-                    <p style="margin-left: 2%;"><strong> व्यक्तिगत जमानत (Personal Guarantee):</strong><br>
+                    <p style="margin-left: 2%;"><strong> व्यक्तिगत जमानत (Personal Guarantee):</strong></p>
+                    <p class="m-0" *ngFor="let personalGuarantor of tempPersonalGuarantors">
                         <strong>रु. <input class="form-field form-control-sm "
                                            readonly
                                            formControlName="approvedCFRLoanAmount"
-                                           [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                           [value]="personalGuarantor.gurantedAmount.ct"
                                            type="text"/>।-(अक्षरेपी रु. <input
                                 class="form-field form-control-sm "
                                 formControlName="approvedCFRLoanAmountInWord"
-                                [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'words'))"
+                                [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
                                 type="text"/>मात्र)</strong> बराबरको
                         <input class="form-field form-control-sm "
                                readonly
                                formControlName="nameOfPersonalGuarantor"
-                               [value]="commonGuarantorDetails(personalGuarantorsName, finalPersonalName)"
+                               [value]="personalGuarantor.guarantorName.ct"
                                type="text"/> ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ
                         ।
                     </p>
@@ -1002,17 +1003,20 @@
                                                   [value]="getKittaNumbers(kittaNumbers, plotNumber)"
                                                   type="text"/>को धितोबन्धक तमसुक(Mortgage Deed)
                             </li>
-                            <li>रु.<input class="form-field form-control-sm "
-                                          readonly
-                                          formControlName="personalGuaranteeAmount"
-                                          [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
-                                          type="text"/>।-(बराबरको श्री <input
-                                    class="form-field form-control-sm "
-                                    formControlName="nameOfPersonalGuarantor"
-                                    [value]="commonGuarantorDetails(personalGuarantorsName, finalPersonalName)"
-                                    type="text"/> ले बैंकको पक्षमा लेखिदिनुपर्ने
-                                व्यक्तिगत
-                                जमानत (Personal Guarantee)
+                            <li *ngFor = "let x of tempPersonalGuarantors">
+                                रु.
+                                <input formControlName="loanAmountInFigure"
+                                       name="loanAmountInfigure"
+                                       type="text"
+                                       class="form-field form-control-sm"
+                                [value]="x.gurantedAmount.ct"/> /-
+                                बराबरको
+                                    {{x.gender.en === 'FEMALE' && x.relationMedium.en === '0' ? 'श्रीमती' : (x.gender.en === 'FEMALE' && x.relationMedium.en === '1' ? 'सुश्री' : x.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                                    <input class="form-field form-control-sm col-3"
+                                       formControlName="guarantorName"
+                                       type="text"
+                                       [value]="x.guarantorName.ct"/>
+                                ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
                             </li>
                             <li>जमानीकर्ताको सम्पत्ति विवरण (Wealth statement of Guarantor)</li>
                             <li>बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)</li>
