@@ -450,13 +450,13 @@
                             <li *ngIf="securityTypeSecondaryPersonalCondition">
                                 <!--Applicable only if Guarantee is required-->
                                 <strong>व्यक्तिगत जमानत (Personal Guarantee): </strong>
-                                <p class="m-0">
+                                <p class="m-0" *ngFor="let personalGuarantor of tempPersonalGuarantors">
                                     रु
-                                    <span class="font-weight-bold">{{this.guarantorAmount}}</span>
+                                    <span class="font-weight-bold">{{personalGuarantor.gurantedAmount.ct}}</span>
                                     /- (अक्षरेपी रु
-                                    <span class="font-weight-bold">{{this.guarantorAmountWords}}</span>
+                                    <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
                                     मात्र) बराबरको
-                                    <span class="font-weight-bold">{{commonGuarantorDetails(personalGuarantorsName, finalPersonalName)}}</span>
+                                    <span class="font-weight-bold">{{personalGuarantor.guarantorName.ct}}</span>
                                     ले बैंकको पक्षमा व्यक्तिगत जमानत
                                     <span *ngIf="personalGuaranteeToBeUsedSecondary"> <!--If existing personal guarantee is continued-->
                                         लेखिदिईएको यथावत कायम रहने छ ।
