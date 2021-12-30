@@ -133,7 +133,7 @@
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </ng-container>
-                    <ng-container *ngIf="transferDoc && !(model?.alreadyOnBoarded)">
+                    <ng-container *ngIf="transferDoc && !(model?.alreadyOnBoarded) && model.shipped !== 'BANK' ">
                         <button nbTooltip="Transfer to instuition"
                                 (click)="transferCustomer($event, model,customerTransfer)"
                                 class="m-1"
