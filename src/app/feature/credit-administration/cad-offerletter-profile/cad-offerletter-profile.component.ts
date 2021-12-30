@@ -209,6 +209,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             });
             if (index === 2 || index > 2) {
                 this.hasRequierdDocument = true;
+                this.getDoc();
             }
         }
     }
@@ -265,7 +266,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 this.responseCadData.emit(res.detail);
                 this.cadOfferLetterApprovedDoc = res.detail;
                 if (res.detail) {
-                    this.getDoc();
+                    this.checkCadDocument();
                 }
             });
         }, error => {
@@ -281,6 +282,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     uploadOfferLetter(event) {
         this.uploadFile = event.target.files[0];
         if (this.uploadFile.name.split('.')[1] !== 'docx' && this.uploadFile.name.split('.')[1] !== 'png' && this.uploadFile.name.split('.')[1] !== 'jpg' && this.uploadFile.name.split('.')[1] !== 'pdf' && this.uploadFile.name.split('.')[1] !== 'txt') {
+            this.modelService.dismissAll();
             this.toastrService.show(new Alert(AlertType.ERROR, 'Not Supported Type'));
             this.uploadFile = null;
             return;
