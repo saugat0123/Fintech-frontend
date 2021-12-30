@@ -79,19 +79,24 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     objArr = [];
 
     ngOnInit() {
-        this.initial();
-        this.checkCadDocument();
-        if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
-            this.isRemit = true;
-        }
         this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
         this.offerLetterConst = LaxmiOfferLetterConst;
         this.component = LaxmiOfferLetterComponent;
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.initial();
+            this.checkCadDocument();
+            this.checkRemit();
+        }
+    }
+
+    checkRemit() {
+        if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+            this.isRemit = true;
+        }
         if (this.hasRequierdDocument && this.isRemit) {
             this.getDoc();
         }
     }
-
 
     getDoc() {
         this.formdata = new FormData();
@@ -215,8 +220,10 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
     initial() {
-        this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-        this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
+            this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
+        }
     }
 
     openOfferLetterDocumentModal(offerLetterType) {
@@ -348,8 +355,10 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.initial();
-        this.checkCadDocument();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.initial();
+            this.checkCadDocument();
+        }
     }
 
     openModal(template) {
